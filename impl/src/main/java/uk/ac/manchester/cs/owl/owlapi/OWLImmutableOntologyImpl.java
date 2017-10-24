@@ -82,8 +82,7 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
 public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     implements OWLOntology, Serializable {
     // @formatter:off
-    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLEntity>>              ontsignatures =                      
-        build(OWLImmutableOntologyImpl::build);
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLEntity>>              ontsignatures =                     build(OWLImmutableOntologyImpl::build);
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnonymousIndividual>> ontanonCaches =                    build(key -> asList(key.ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLClass>>              ontclassesSignatures =              build(key -> asList(key.ints.get(OWLClass.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> asList(key.ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));

@@ -31,6 +31,8 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -39,10 +41,12 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 
 import com.github.benmanes.caffeine.cache.CacheLoader;
@@ -219,6 +223,36 @@ public abstract class OWLObjectImpl
 
     @Override
     public String toString() {
-        return ToStringRenderer.getRendering(this);
+        return ToStringRenderer.getInstance().render(this);
+    }
+
+    @Override
+    public String toFunctionalSyntax(PrefixManager pm) {
+        return toSyntax(new FunctionalSyntaxDocumentFormat(), pm);
+    }
+
+    @Override
+    public String toManchesterSyntax(PrefixManager pm) {
+        return toSyntax(new ManchesterSyntaxDocumentFormat(), pm);
+    }
+
+    @Override
+    public String toFunctionalSyntax() {
+        return toSyntax(new FunctionalSyntaxDocumentFormat());
+    }
+
+    @Override
+    public String toManchesterSyntax() {
+        return toSyntax(new ManchesterSyntaxDocumentFormat());
+    }
+
+    @Override
+    public String toSyntax(OWLDocumentFormat format) {
+        return ToStringRenderer.getInstance(format).render(this);
+    }
+
+    @Override
+    public String toSyntax(OWLDocumentFormat format, PrefixManager pm) {
+        return ToStringRenderer.getInstance(format, pm).render(this);
     }
 }

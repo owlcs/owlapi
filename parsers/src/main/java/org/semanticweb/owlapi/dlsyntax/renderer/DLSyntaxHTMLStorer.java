@@ -31,8 +31,6 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  */
 public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
-    protected final SimpleShortFormProvider sfp = new SimpleShortFormProvider();
-
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
         return ontologyFormat instanceof DLSyntaxHTMLDocumentFormat;
@@ -44,7 +42,8 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
             @Override
             protected void writeEntity(OWLEntity entity) {
-                String shortForm = sfp.getShortForm(checkNotNull(entity, "entity cannot be null"));
+                String shortForm =
+                    shortFormProvider.getShortForm(checkNotNull(entity, "entity cannot be null"));
                 if (entity.equals(subject)) {
                     write(shortForm);
                 } else {
@@ -58,7 +57,6 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
             }
         };
         ren.setFocusedObject(subject);
-        ren.setShortFormProvider(sfp);
         return ren.render(axiom);
     }
 
@@ -101,7 +99,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
         checkNotNull(subject, "subject cannot be null");
         checkNotNull(writer, "writer cannot be null");
         writer.print("<h2><a name=\"");
-        writer.print(sfp.getShortForm(subject));
+        writer.print(new SimpleShortFormProvider().getShortForm(subject));
         writer.print("\">");
         writer.print(subject.getIRI());
         writer.println("</a></h2>");

@@ -11,6 +11,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.ByName;
 import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.model.MissingOntologyHeaderStrategy;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,7 +104,9 @@ public enum ConfigurationOptions {
     REPAIR_ILLEGAL_PUNNINGS             (Boolean.TRUE),
     /** Pretty print functional 
      * syntax. */
-    PRETTY_PRINT_FUNCTIONAL_SYNTAX      (Boolean.FALSE);
+    PRETTY_PRINT_FUNCTIONAL_SYNTAX      (Boolean.FALSE),
+    /** Class to use for {@link OWLObject#toString()}*/
+    TO_STRING_RENDERER                  ("org.semanticweb.owlapi.util.SimpleRenderer");
     //@formatter:on
     private static final String PREFIX =
         "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
@@ -177,8 +180,8 @@ public enum ConfigurationOptions {
      *         name is set; if not, check the config file; if no value is set in the config file,
      *         use the default defined in this enumeration.
      */
-    public <T> T getValue(Class<T> type, Map<ConfigurationOptions, Object> overrides) {
-        Object override = overrides.get(this);
+    public <T> T getValue(Class<T> type, @Nullable Map<ConfigurationOptions, Object> overrides) {
+        Object override = overrides == null ? null : overrides.get(this);
         if (override != null) {
             return parse(override, type);
         }

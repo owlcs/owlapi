@@ -14,39 +14,53 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.concurrent.atomic.AtomicReference;
-
-import javax.inject.Provider;
-
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.SimpleRenderer;
+import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
+
+import com.github.benmanes.caffeine.cache.CacheLoader;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
  * A utility class which can be used by implementations to provide a toString rendering of OWL API
- * objects. The idea is that this is pluggable. TODO this does not allow for independent rendering;
- * in a multithreaded situation, the rendere may change mid execution because of the static
- * singleton instance
+ * objects. The renderer can be set through the ConfigurtionOptions class, with property file or
+ * system property. No local override is possible, because ToStringRenderer has no access to
+ * ontology or ontology manager objects. Be careful of changing the value of the options in a
+ * multithreaded application, as this will cause the renderer to change behaviour.
+ *
+ * For a more precise rendering use the syntax specific methods in OWLObject, where the desired
+ * forma is specified as input.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public final class ToStringRenderer {
+    static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
+        return Caffeine.newBuilder().weakKeys().softValues().build(c);
+    }
 
-    private static final AtomicReference<Provider<OWLObjectRenderer>> rendererProvider =
-        new AtomicReference<>(SimpleRenderer::new);
+    static OWLObjectRenderer renderer(String className) {
+        try {
+            return (OWLObjectRenderer) Class.forName(className).newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            throw new RuntimeException("Custom renderer unavailable: " + className);
+        }
+    }
+
+    static String value() {
+        return ConfigurationOptions.TO_STRING_RENDERER.getValue(String.class, null);
+    }
+
+    private static final LoadingCache<String, OWLObjectRenderer> renderers =
+        build(ToStringRenderer::renderer);
 
     /**
      * @return the singleton instance
      */
     public static OWLObjectRenderer getInstance() {
-        return rendererProvider.get().get();
-    }
-
-    /**
-     * @param renderer the new renderer to use
-     */
-    public static void setRenderer(Provider<OWLObjectRenderer> renderer) {
-        rendererProvider.set(checkNotNull(renderer, "renderer cannot be null"));
+        return renderers.get(value());
     }
 
     /**
@@ -55,5 +69,14 @@ public final class ToStringRenderer {
      */
     public static String getRendering(OWLObject object) {
         return getInstance().render(checkNotNull(object, "object cannot be null"));
+    }
+
+    public static OWLObjectRenderer getInstance(OWLDocumentFormat format, PrefixManager pm) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public static OWLObjectRenderer getInstance(OWLDocumentFormat format) {
+        return getInstance(format, null);
     }
 }

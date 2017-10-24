@@ -613,6 +613,26 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    public String toSyntax(OWLDocumentFormat f, PrefixManager pm) {
+        readLock.lock();
+        try {
+            return delegate.toSyntax(f, pm);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public String toSyntax(OWLDocumentFormat f) {
+        readLock.lock();
+        try {
+            return delegate.toSyntax(f);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
     public int compareTo(@Nullable OWLObject o) {
         readLock.lock();
         try {

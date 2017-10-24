@@ -25,11 +25,16 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -175,5 +180,35 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     @Override
     public int hashCode() {
         return hashCode;
+    }
+
+    @Override
+    public String toFunctionalSyntax(PrefixManager pm) {
+        return owl2Datatype.getIRI().toFunctionalSyntax(pm);
+    }
+
+    @Override
+    public String toManchesterSyntax(PrefixManager pm) {
+        return owl2Datatype.getIRI().toSyntax(new ManchesterSyntaxDocumentFormat(), pm);
+    }
+
+    @Override
+    public String toFunctionalSyntax() {
+        return owl2Datatype.getIRI().toSyntax(new FunctionalSyntaxDocumentFormat());
+    }
+
+    @Override
+    public String toManchesterSyntax() {
+        return owl2Datatype.getIRI().toSyntax(new ManchesterSyntaxDocumentFormat());
+    }
+
+    @Override
+    public String toSyntax(OWLDocumentFormat format) {
+        return ToStringRenderer.getInstance(format).render(owl2Datatype.getIRI());
+    }
+
+    @Override
+    public String toSyntax(OWLDocumentFormat format, PrefixManager pm) {
+        return ToStringRenderer.getInstance(format, pm).render(owl2Datatype.getIRI());
     }
 }

@@ -73,6 +73,16 @@ public class PrefixManagerImpl implements PrefixManager {
         setupDefaultPrefixes();
     }
 
+    /**
+     * Copy constructor.
+     * 
+     * @param copy prefix manager to copy
+     */
+    public PrefixManagerImpl(PrefixManager copy) {
+        this();
+        copyPrefixesFrom(copy);
+    }
+
     @Override
     public String toString() {
         return prefix2NamespaceMap.toString().replace(",", ",\n");
