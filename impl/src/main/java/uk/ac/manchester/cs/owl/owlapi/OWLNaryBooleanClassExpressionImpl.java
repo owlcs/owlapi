@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -26,9 +27,8 @@ import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryBooleanClassExpressionImpl extends
-    OWLAnonymousClassExpressionImpl implements
-    OWLNaryBooleanClassExpression {
+public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl
+    implements OWLNaryBooleanClassExpression {
 
     private final List<OWLClassExpression> operands;
 
@@ -43,5 +43,10 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
     @Override
     public Stream<OWLClassExpression> operands() {
         return streamFromSorted(operands);
+    }
+
+    @Override
+    public List<OWLClassExpression> getOperandsAsList() {
+        return Collections.unmodifiableList(operands);
     }
 }

@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -54,6 +55,16 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     @Override
     public Stream<OWLClassExpression> classExpressions() {
         return streamFromSorted(classExpressions);
+    }
+
+    @Override
+    public Stream<OWLClassExpression> operands() {
+        return classExpressions();
+    }
+
+    @Override
+    public List<OWLClassExpression> getOperandsAsList() {
+        return Collections.unmodifiableList(classExpressions);
     }
 
     @Override

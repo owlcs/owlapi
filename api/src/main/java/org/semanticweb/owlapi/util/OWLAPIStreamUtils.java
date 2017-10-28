@@ -89,9 +89,7 @@ public class OWLAPIStreamUtils {
      * @return set including all elements in the stream
      */
     public static <T> Set<T> asSet(Stream<T> s) {
-        Set<T> set = new LinkedHashSet<>();
-        add(set, s);
-        return set;
+        return s.collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     /**
@@ -100,10 +98,9 @@ public class OWLAPIStreamUtils {
      * @param <T> type of return collection
      * @return set including all elements in the stream
      */
-    @SuppressWarnings("unchecked")
-    public static <T> Set<T> asSet(Stream<?> s, @SuppressWarnings("unused") Class<T> type) {
+    public static <T> Set<T> asSet(Stream<?> s, Class<T> type) {
         Set<T> set = new LinkedHashSet<>();
-        add(set, s.map(x -> (T) x));
+        add(set, s.map(type::cast));
         return set;
     }
 
@@ -121,10 +118,8 @@ public class OWLAPIStreamUtils {
      * @param <T> type of return collection
      * @return set including all elements in the stream
      */
-    @SuppressWarnings("unchecked")
-    public static <T> Set<T> asUnorderedSet(Stream<?> s,
-        @SuppressWarnings("unused") Class<T> type) {
-        return s.map(x -> (T) x).collect(toSet());
+    public static <T> Set<T> asUnorderedSet(Stream<?> s, Class<T> type) {
+        return s.map(type::cast).collect(toSet());
     }
 
     /**
@@ -132,9 +127,7 @@ public class OWLAPIStreamUtils {
      * @return list including all elements in the stream
      */
     public static <T> List<T> asList(Stream<T> s) {
-        List<T> set = new ArrayList<>();
-        add(set, s);
-        return set;
+        return s.collect(Collectors.toList());
     }
 
     /**
@@ -151,9 +144,8 @@ public class OWLAPIStreamUtils {
      * @param <T> type of return collection
      * @return list including all elements in the stream
      */
-    @SuppressWarnings("unchecked")
-    public static <T> List<T> asList(Stream<?> s, @SuppressWarnings("unused") Class<T> type) {
-        return asList(s.map(x -> (T) x));
+    public static <T> List<T> asList(Stream<?> s, Class<T> type) {
+        return asList(s.map(type::cast));
     }
 
     /**
@@ -177,7 +169,7 @@ public class OWLAPIStreamUtils {
      * @return map including all elements in the stream, keyed by key and valued by val
      */
     public static <K, V, Q> Map<K, V> asMap(Stream<Q> s, Function<Q, K> key, Function<Q, V> val) {
-        return s.collect(Collectors.toConcurrentMap(v -> key.apply(v), v -> val.apply(v)));
+        return s.collect(Collectors.toConcurrentMap(key::apply, val::apply));
     }
 
     /**
@@ -334,16 +326,19 @@ public class OWLAPIStreamUtils {
     public static Stream<?> allComponents(HasComponents root) {
         List<Stream<?>> streams = new ArrayList<>();
         streams.add(Stream.of(root));
-        root.components().forEach(o -> {
-            if (o != root) {
-                if (o instanceof HasComponents) {
-                    streams.add(allComponents((HasComponents) o));
-                } else {
-                    streams.add(Stream.of(o));
-                }
-            }
-        });
-        return streams.stream().flatMap(x -> x);
+        root.components().forEach(o -> flat(root, streams, o));
+        return streams.stream().flatMap(Function.identity());
+    }
+
+    protected static void flat(HasComponents root, List<Stream<?>> streams, Object o) {
+        if (o == root) {
+            return;
+        }
+        if (o instanceof HasComponents) {
+            streams.add(allComponents((HasComponents) o));
+        } else {
+            streams.add(Stream.of(o));
+        }
     }
 
     /**

@@ -12,10 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -23,8 +21,8 @@ import java.util.stream.Stream;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression,
-    HasOperands<OWLClassExpression> {
+public interface OWLNaryBooleanClassExpression
+    extends OWLBooleanClassExpression, HasOperands<OWLClassExpression> {
 
     @Override
     default Stream<?> components() {
@@ -45,14 +43,4 @@ public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression
      */
     @Override
     Stream<OWLClassExpression> operands();
-
-    /**
-     * Gets the class expressions returned by {@link #getOperands()} as a list
-     * of class expressions.
-     *
-     * @return The class expressions as a list.
-     */
-    default List<OWLClassExpression> getOperandsAsList() {
-        return asList(operands());
-    }
 }

@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
+public interface OWLDisjointUnionAxiom extends OWLClassAxiom, HasOperands<OWLClassExpression> {
 
     @Override
     OWLDisjointUnionAxiom getAxiomWithoutAnnotations();

@@ -16,9 +16,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -30,8 +29,8 @@ import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements
-    OWLNaryIndividualAxiom {
+public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
+    implements OWLNaryIndividualAxiom {
 
     protected final List<OWLIndividual> individuals;
 
@@ -53,6 +52,11 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
 
     @Override
     public List<OWLIndividual> getIndividualsAsList() {
-        return new ArrayList<>(individuals);
+        return getOperandsAsList();
+    }
+
+    @Override
+    public List<OWLIndividual> getOperandsAsList() {
+        return Collections.unmodifiableList(individuals);
     }
 }

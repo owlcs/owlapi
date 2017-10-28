@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,6 +49,11 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     @Override
     public Stream<OWLClassExpression> classExpressions() {
         return streamFromSorted(classExpressions);
+    }
+
+    @Override
+    public List<OWLClassExpression> getOperandsAsList() {
+        return Collections.unmodifiableList(classExpressions);
     }
 
     @Override
