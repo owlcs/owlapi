@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -24,13 +25,20 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl implements
-    OWLObjectUnionOf {
+public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
+    implements OWLObjectUnionOf {
 
     /**
      * @param operands operands
      */
     public OWLObjectUnionOfImpl(Stream<OWLClassExpression> operands) {
+        super(operands);
+    }
+
+    /**
+     * @param operands operands
+     */
+    public OWLObjectUnionOfImpl(Collection<? extends OWLClassExpression> operands) {
         super(operands);
     }
 

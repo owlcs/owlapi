@@ -8,7 +8,9 @@ import static java.util.Spliterator.SORTED;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -37,7 +39,7 @@ public class OWLAPIStreamUtils {
 
     /**
      * @param type type of the returned array
-     * @param s stream to turn to array
+     * @param s stream to turn to sorted, duplicate free, no null, list
      * @return sorted array containing all elements in the stream, minus nulls and duplicates
      */
     public static <T> List<T> sorted(Class<T> type, Stream<? extends T> s) {
@@ -47,11 +49,63 @@ public class OWLAPIStreamUtils {
 
     /**
      * @param type type of the returned array
-     * @param c collection to turn to array
+     * @param c collection to turn to sorted, duplicate free, no null, list
      * @return sorted array containing all elements in the collection, minus nulls and duplicates
      */
     public static <T> List<T> sorted(Class<T> type, Collection<? extends T> c) {
+        if (c.isEmpty()) {
+            return Collections.emptyList();
+        }
+        if (c instanceof List) {
+            return sorted(type, (List<? extends T>) c);
+        }
+        if (c instanceof Set) {
+            return sorted(type, (Set<? extends T>) c);
+        }
         return sorted(type, c.stream());
+    }
+
+    /**
+     * @param type type of the returned array
+     * @param c collection to turn to sorted, duplicate free, no null, list
+     * @return sorted array containing all elements in the collection, minus nulls and duplicates
+     */
+    public static <T> List<T> sorted(Class<T> type, List<? extends T> c) {
+        List<T> list = new ArrayList<>(c);
+        for (int i = 0; i < list.size();) {
+            if (list.get(i) == null) {
+                list.remove(i);
+            } else {
+                i++;
+            }
+        }
+        list.sort(null);
+        for (int i = 1; i < list.size();) {
+            if (list.get(i).equals(list.get(i - 1))) {
+                list.remove(i);
+            } else {
+                i++;
+            }
+        }
+        return list;
+    }
+
+    /**
+     * @param type type of the returned array
+     * @param c collection to turn to sorted, duplicate free, no null, list
+     * @return sorted array containing all elements in the collection, minus nulls and duplicates
+     */
+    public static <T> List<T> sorted(Class<T> type, Set<? extends T> c) {
+        List<T> list = new ArrayList<>(c);
+        for (int i = 0; i < list.size();) {
+            if (list.get(i) == null) {
+                list.remove(i);
+            } else {
+                i++;
+            }
+        }
+        list.sort(null);
+        return list;
     }
 
     /**
@@ -61,7 +115,7 @@ public class OWLAPIStreamUtils {
      */
     @SafeVarargs
     public static <T> List<T> sorted(Class<T> type, T... c) {
-        return sorted(type, Stream.of(c));
+        return sorted(type, Arrays.asList(c));
     }
 
     /**
