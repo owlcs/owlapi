@@ -222,7 +222,7 @@ addAxiom(ax);
     jj_consume_token(CLOSEPAR);
 }
 
-  final public void Prefix() throws ParseException {String prefixName;
+  final public void Prefix() throws ParseException {String prefixName="";
     IRI iri;
     jj_consume_token(PREFIX);
     jj_consume_token(OPENPAR);
@@ -1863,7 +1863,7 @@ return subj;
 return value;
 }
 
-  final public Set<OWLAnnotation> AxiomAnnotationSet() throws ParseException {Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+  final public Set<OWLAnnotation> AxiomAnnotationSet() throws ParseException {Set<OWLAnnotation> annos = null;
     OWLAnnotation anno;
     label_15:
     while (true) {
@@ -1877,9 +1877,10 @@ return value;
         break label_15;
       }
       anno = Annotation();
-annos.add(anno);
+if(annos == null) { annos = new HashSet<OWLAnnotation>(); }
+        annos.add(anno);
     }
-return annos;
+return annos  == null ? Collections.emptySet() : annos;
 }
 
   final public OWLImportsDeclaration ImportsDeclaration() throws ParseException {IRI iri;
