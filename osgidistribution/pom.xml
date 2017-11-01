@@ -60,7 +60,7 @@
 		<dependency><groupId>com.google.inject</groupId><artifactId>guice</artifactId><version>4.1.0</version></dependency>
 		<dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-assistedinject</artifactId><version>4.1.0</version></dependency>
 		<dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-multibindings</artifactId><version>4.1.0</version></dependency>
-		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.3.5</version></dependency>
+		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.5.6</version></dependency>
 		<!--  Disable until updated to use RDF4J
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-sesame</artifactId><version>0.7</version></dependency>
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-core</artifactId><version>0.7</version></dependency>
