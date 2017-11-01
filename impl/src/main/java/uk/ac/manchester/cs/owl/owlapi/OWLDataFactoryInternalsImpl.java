@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -39,7 +37,6 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  */
 public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCache {
 
-    private static Logger logger = LoggerFactory.getLogger(OWLDataFactoryInternalsImpl.class);
     /**
      * Annotations Cache uses a loading cache as a size limited Interner; the value of the loader is
      * simply the key. As with an interner, each access constructs a new object that is discarded if

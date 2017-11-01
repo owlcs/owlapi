@@ -13,7 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
@@ -28,6 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -35,6 +35,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -322,38 +323,34 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLEntity> entitiesInSignature(IRI iri) {
-        return signature().filter((Predicate<? super OWLEntity>) c -> c.getIRI().equals(iri));
+        return unsortedSignature()
+            .filter((Predicate<? super OWLEntity>) c -> c.getIRI().equals(iri)).sorted();
+    }
+
+    @Override
+    public Stream<OWLEntity> unsortedSignature() {
+        return Stream
+            .of(ints.get(OWLClass.class, OWLAxiom.class).get().keySet().stream(),
+                ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet().stream(),
+                ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet().stream(),
+                ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet().stream(),
+                ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet().stream(),
+                ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION)
+                    .get().keySet().stream(),
+                ints.getOntologyAnnotations().map(OWLAnnotation::getProperty))
+            .flatMap(Function.identity());
     }
 
     @Override
     public Set<IRI> getPunnedIRIs(Imports includeImportsClosure) {
         Set<IRI> punned = new HashSet<>();
         Set<IRI> test = new HashSet<>();
-        if (includeImportsClosure == INCLUDED) {
-            importsClosure().forEach(o -> {
-                o.classesInSignature(EXCLUDED).forEach(e -> add(punned, test, e));
-                o.dataPropertiesInSignature(EXCLUDED).forEach(e -> add(punned, test, e));
-                o.objectPropertiesInSignature(EXCLUDED).forEach(e -> add(punned, test, e));
-                o.annotationPropertiesInSignature(EXCLUDED).forEach(e -> add(punned, test, e));
-                o.datatypesInSignature(EXCLUDED).forEach(e -> add(punned, test, e));
-                o.individualsInSignature(EXCLUDED).forEach(e -> add(punned, test, e));
-            });
-            if (punned.isEmpty()) {
-                return Collections.emptySet();
-            }
-            return punned;
-        } else {
-            classesInSignature(EXCLUDED).forEach(e -> test.add(e.getIRI()));
-            dataPropertiesInSignature(EXCLUDED).forEach(e -> add(punned, test, e));
-            objectPropertiesInSignature(EXCLUDED).forEach(e -> add(punned, test, e));
-            annotationPropertiesInSignature(EXCLUDED).forEach(e -> add(punned, test, e));
-            datatypesInSignature(EXCLUDED).forEach(e -> add(punned, test, e));
-            individualsInSignature(EXCLUDED).forEach(e -> add(punned, test, e));
-            if (punned.isEmpty()) {
-                return Collections.emptySet();
-            }
-            return punned;
+        includeImportsClosure.stream(this).flatMap(HasSignature::unsortedSignature)
+            .forEach(e -> add(punned, test, e));
+        if (punned.isEmpty()) {
+            return Collections.emptySet();
         }
+        return punned;
     }
 
     @Override

@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 
 import java.util.Collection;
+
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -25,10 +26,9 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * A utility class that visits axioms, class expressions etc. and accumulates
- * the named objects that are referred to in those axioms, class expressions
- * etc. For example, if the collector visited the axiom (propP some C)
- * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
+ * A utility class that visits axioms, class expressions etc. and accumulates the named objects that
+ * are referred to in those axioms, class expressions etc. For example, if the collector visited the
+ * axiom (propP some C) subClassOf (propQ some D), it would contain the objects propP, C, propQ and
  * D.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -77,7 +77,7 @@ public class OWLEntityCollector extends AbstractCollectorEx<OWLEntity> {
 
     @Override
     public Collection<OWLEntity> visit(OWLOntology ontology) {
-        add(objects, ontology.signature());
+        add(objects, ontology.unsortedSignature());
         return objects;
     }
 
