@@ -257,13 +257,6 @@ interface OWLFunctionalSyntaxParserConstants {
   /** RegularExpression Id. */
   int ERROR = 129;
 
-  /** Lexical state. */
-  int DEFAULT = 0;
-  /** Lexical state. */
-  int IN_COMMENT = 1;
-  /** Lexical state. */
-  int IN_STRING_LITERAL = 2;
-
   /** Literal token values. */
   String[] tokenImage = {
     "<EOF>",

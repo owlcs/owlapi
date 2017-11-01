@@ -5,6 +5,7 @@ options {
     JAVA_TEMPLATE_TYPE = "modern";
     EXCEPTIONS_SUPER_CLASS = "org.semanticweb.owlapi.io.OWLParserException";
     SUPPORT_CLASS_VISIBILITY_PUBLIC=false;
+    USER_TOKEN_MANAGER=true;
 }
 
 PARSER_BEGIN(OWLFunctionalSyntaxParser)
