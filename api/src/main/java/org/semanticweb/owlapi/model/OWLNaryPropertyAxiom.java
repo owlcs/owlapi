@@ -27,17 +27,17 @@ public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression>
 
     @Override
     default Stream<?> components() {
-        return Stream.of(properties(), annotations());
+        return Stream.of(getOperandsAsList(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(properties());
+        return Stream.of(getOperandsAsList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), properties());
+        return Stream.of(annotationsAsList(), getOperandsAsList());
     }
 
     /**

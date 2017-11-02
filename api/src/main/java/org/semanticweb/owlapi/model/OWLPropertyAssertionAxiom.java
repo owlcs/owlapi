@@ -15,9 +15,8 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents an
- * <a href="http://www.w3.org/TR/owl2-syntax/#Assertions">Assertion</a> in the
- * OWL 2 specification.
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Assertions">Assertion</a> in the OWL 2
+ * specification.
  *
  * @param <P> property expression
  * @param <O> object
@@ -30,7 +29,7 @@ public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O ex
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getSubject(), getProperty(), getObject(), annotations());
+        return Stream.of(getSubject(), getProperty(), getObject(), annotationsAsList());
     }
 
     @Override
@@ -40,7 +39,7 @@ public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O ex
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getSubject(), getProperty(), getObject());
+        return Stream.of(annotationsAsList(), getSubject(), getProperty(), getObject());
     }
 
     /**

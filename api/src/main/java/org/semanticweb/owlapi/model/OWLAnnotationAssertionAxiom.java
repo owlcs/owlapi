@@ -31,12 +31,12 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getSubject(), getProperty(), getValue(), annotations());
+        return Stream.of(getSubject(), getProperty(), getValue(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getSubject(), getProperty(), getValue());
+        return Stream.of(annotationsAsList(), getSubject(), getProperty(), getValue());
     }
 
     @Override

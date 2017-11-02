@@ -15,11 +15,10 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents a
- * <a href="http://www.w3.org/TR/owl2-syntax/#Entity_Declarations_and_Typing" >
+ * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Entity_Declarations_and_Typing" >
  * Declaration</a> in the OWL 2 Specification. <br>
- * A declaration axiom declares an entity in an ontology. It doesn't affect the
- * logical meaning of the ontology.
+ * A declaration axiom declares an entity in an ontology. It doesn't affect the logical meaning of
+ * the ontology.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -36,7 +35,7 @@ public interface OWLDeclarationAxiom extends OWLAxiom {
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getEntity(), annotations());
+        return Stream.of(getEntity(), annotationsAsList());
     }
 
     @Override
@@ -46,7 +45,7 @@ public interface OWLDeclarationAxiom extends OWLAxiom {
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getEntity());
+        return Stream.of(annotationsAsList(), getEntity());
     }
 
     /**

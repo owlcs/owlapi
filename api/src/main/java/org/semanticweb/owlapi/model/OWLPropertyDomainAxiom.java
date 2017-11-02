@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents
- * <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Domain">
+ * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Domain">
  * ObjectPropertyDomain</a> axioms in the OWL 2 specification.
  *
  * @param <P> property expression
@@ -28,7 +27,7 @@ public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getProperty(), getDomain(), annotations());
+        return Stream.of(getProperty(), getDomain(), annotationsAsList());
     }
 
     @Override
@@ -38,6 +37,6 @@ public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty(), getDomain());
+        return Stream.of(annotationsAsList(), getProperty(), getDomain());
     }
 }

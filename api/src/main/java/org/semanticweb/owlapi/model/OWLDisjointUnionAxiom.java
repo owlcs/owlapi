@@ -31,17 +31,17 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom, HasOperands<OWLCla
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getOWLClass(), classExpressions(), annotations());
+        return Stream.of(getOWLClass(), getOperandsAsList(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getOWLClass(), classExpressions());
+        return Stream.of(getOWLClass(), getOperandsAsList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getOWLClass(), classExpressions());
+        return Stream.of(annotationsAsList(), getOWLClass(), getOperandsAsList());
     }
 
     @Override

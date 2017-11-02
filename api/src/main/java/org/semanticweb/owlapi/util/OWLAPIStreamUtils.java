@@ -40,17 +40,20 @@ public class OWLAPIStreamUtils {
     /**
      * @param type type of the returned array
      * @param s stream to turn to sorted, duplicate free, no null, list
-     * @return sorted array containing all elements in the stream, minus nulls and duplicates
+     * @return sorted array containing all elements in the stream, minus nulls and duplicates. The
+     *         list is immutable.
      */
     public static <T> List<T> sorted(Class<T> type, Stream<? extends T> s) {
         // skip nulls, skip duplicates, ensure sorted
-        return asList(s.filter(Objects::nonNull).distinct().sorted(), type);
+        return Collections
+            .unmodifiableList(asList(s.filter(Objects::nonNull).distinct().sorted(), type));
     }
 
     /**
      * @param type type of the returned array
      * @param c collection to turn to sorted, duplicate free, no null, list
-     * @return sorted array containing all elements in the collection, minus nulls and duplicates
+     * @return sorted array containing all elements in the collection, minus nulls and duplicates.
+     *         The list is immutable.
      */
     public static <T> List<T> sorted(Class<T> type, Collection<? extends T> c) {
         if (c.isEmpty()) {
@@ -68,7 +71,8 @@ public class OWLAPIStreamUtils {
     /**
      * @param type type of the returned array
      * @param c collection to turn to sorted, duplicate free, no null, list
-     * @return sorted array containing all elements in the collection, minus nulls and duplicates
+     * @return sorted array containing all elements in the collection, minus nulls and duplicates.
+     *         The list is immutable.
      */
     public static <T> List<T> sorted(Class<T> type, List<? extends T> c) {
         List<T> list = new ArrayList<>(c);
@@ -87,13 +91,14 @@ public class OWLAPIStreamUtils {
                 i++;
             }
         }
-        return list;
+        return Collections.unmodifiableList(list);
     }
 
     /**
      * @param type type of the returned array
      * @param c collection to turn to sorted, duplicate free, no null, list
-     * @return sorted array containing all elements in the collection, minus nulls and duplicates
+     * @return sorted array containing all elements in the collection, minus nulls and duplicates.
+     *         The list is immutable.
      */
     public static <T> List<T> sorted(Class<T> type, Set<? extends T> c) {
         List<T> list = new ArrayList<>(c);
@@ -105,13 +110,14 @@ public class OWLAPIStreamUtils {
             }
         }
         list.sort(null);
-        return list;
+        return Collections.unmodifiableList(list);
     }
 
     /**
      * @param type type of the returned array
      * @param c array to sort
-     * @return sorted array containing all elements in the collection, minus nulls and duplicates
+     * @return sorted list containing all elements in the collection, minus nulls and duplicates.
+     *         The list is immutable.
      */
     @SafeVarargs
     public static <T> List<T> sorted(Class<T> type, T... c) {

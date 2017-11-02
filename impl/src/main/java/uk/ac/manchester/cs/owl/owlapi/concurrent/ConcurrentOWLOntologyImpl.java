@@ -2646,6 +2646,16 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    public List<OWLAnnotation> annotationsAsList() {
+        readLock.lock();
+        try {
+            return delegate.annotationsAsList();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
     public Stream<OWLAnnotation> annotations(OWLAnnotationProperty p) {
         readLock.lock();
         try {

@@ -19,12 +19,12 @@ import java.util.stream.Stream;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends OWLPropertyAxiom,
-    HasProperty<P> {
+public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression>
+    extends OWLPropertyAxiom, HasProperty<P> {
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getProperty(), annotations());
+        return Stream.of(getProperty(), annotationsAsList());
     }
 
     @Override
@@ -34,6 +34,6 @@ public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends 
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty());
+        return Stream.of(annotationsAsList(), getProperty());
     }
 }

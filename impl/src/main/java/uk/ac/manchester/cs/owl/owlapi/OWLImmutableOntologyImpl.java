@@ -248,6 +248,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     }
 
     @Override
+    public List<OWLAnnotation> annotationsAsList() {
+        return asList(annotations());
+    }
+
+    @Override
     public Stream<OWLClassAxiom> generalClassAxioms() {
         return ints.getGeneralClassAxioms();
     }

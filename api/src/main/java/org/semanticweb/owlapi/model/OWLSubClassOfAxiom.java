@@ -15,9 +15,8 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents an
- * <a href="http://www.w3.org/TR/owl2-syntax/#Subclass_Axioms">SubClassOf</a>
- * axiom in the OWL 2 Specification.
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Subclass_Axioms">SubClassOf</a> axiom in
+ * the OWL 2 Specification.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -34,7 +33,7 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getSubClass(), getSuperClass(), annotations());
+        return Stream.of(getSubClass(), getSuperClass(), annotationsAsList());
     }
 
     @Override
@@ -44,7 +43,7 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getSubClass(), getSuperClass());
+        return Stream.of(annotationsAsList(), getSubClass(), getSuperClass());
     }
 
     /**
@@ -62,9 +61,8 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
     OWLClassExpression getSuperClass();
 
     /**
-     * Determines if this subclass axiom has a subclass that is anonymous. (if
-     * the subclass is anonymous then the subclass axiom is known as a General
-     * Concept Inclusion - GCI).
+     * Determines if this subclass axiom has a subclass that is anonymous. (if the subclass is
+     * anonymous then the subclass axiom is known as a General Concept Inclusion - GCI).
      *
      * @return {@code true} if this axiom is a GCI, other wise {@code false}.
      */

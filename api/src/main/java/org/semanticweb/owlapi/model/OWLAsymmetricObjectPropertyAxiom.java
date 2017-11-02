@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents
- * <a href="http://www.w3.org/TR/owl2-syntax/#Asymmetric_Object_Properties" >
+ * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Asymmetric_Object_Properties" >
  * AsymmetricObjectProperty</a> axioms in the OWL 2 specification.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -26,7 +25,7 @@ public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyChara
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getProperty(), annotations());
+        return Stream.of(getProperty(), annotationsAsList());
     }
 
     @Override
@@ -36,7 +35,7 @@ public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyChara
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty());
+        return Stream.of(annotationsAsList(), getProperty());
     }
 
     @Override

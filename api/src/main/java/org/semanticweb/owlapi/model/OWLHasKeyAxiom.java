@@ -18,30 +18,30 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Keys">HasKey</a>
- * axiom in the OWL 2 Specification.
+ * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Keys">HasKey</a> axiom in the OWL 2
+ * Specification.
  *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
+public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLPropertyExpression> {
 
     @Override
     OWLHasKeyAxiom getAxiomWithoutAnnotations();
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getClassExpression(), propertyExpressions(), annotations());
+        return Stream.of(getClassExpression(), getOperandsAsList(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getClassExpression(), propertyExpressions());
+        return Stream.of(getClassExpression(), getOperandsAsList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getClassExpression(), propertyExpressions());
+        return Stream.of(annotationsAsList(), getClassExpression(), getOperandsAsList());
     }
 
     @Override
@@ -50,8 +50,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     }
 
     /**
-     * Gets the class expression, instances of which, this axiom acts as the key
-     * for.
+     * Gets the class expression, instances of which, this axiom acts as the key for.
      *
      * @return The class expression
      */
@@ -76,10 +75,9 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     Stream<OWLPropertyExpression> propertyExpressions();
 
     /**
-     * Gets the set of object property expressions that make up the key. This is
-     * simply a convenience method that filteres out the object property
-     * expressions in the key. All of the properties returned by this method are
-     * included in the return value of the
+     * Gets the set of object property expressions that make up the key. This is simply a
+     * convenience method that filteres out the object property expressions in the key. All of the
+     * properties returned by this method are included in the return value of the
      * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
      *
      * @return The set of object property expressions in the key described by this axiom
@@ -91,24 +89,22 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     }
 
     /**
-     * Gets the set of object property expressions that make up the key. This is
-     * simply a convenience method that filteres out the object property
-     * expressions in the key. All of the properties returned by this method are
-     * included in the return value of the
+     * Gets the set of object property expressions that make up the key. This is simply a
+     * convenience method that filteres out the object property expressions in the key. All of the
+     * properties returned by this method are included in the return value of the
      * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
      *
      * @return The set of object property expressions in the key described by this axiom
      */
     default Stream<OWLObjectPropertyExpression> objectPropertyExpressions() {
-        return propertyExpressions().filter(OWLPropertyExpression::isObjectPropertyExpression).map(
-            OWLPropertyExpression::asObjectPropertyExpression);
+        return propertyExpressions().filter(OWLPropertyExpression::isObjectPropertyExpression)
+            .map(OWLPropertyExpression::asObjectPropertyExpression);
     }
 
     /**
-     * Gets the set of data property expressions that make up the key. This is
-     * simply a convenience method that filteres out the data property
-     * expressions in the key. All of the properties returned by this method are
-     * included in the return value of the
+     * Gets the set of data property expressions that make up the key. This is simply a convenience
+     * method that filteres out the data property expressions in the key. All of the properties
+     * returned by this method are included in the return value of the
      * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
      *
      * @return The set of object property expressions in the key described by this axiom
@@ -120,17 +116,16 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     }
 
     /**
-     * Gets the set of data property expressions that make up the key. This is
-     * simply a convenience method that filteres out the data property
-     * expressions in the key. All of the properties returned by this method are
-     * included in the return value of the
+     * Gets the set of data property expressions that make up the key. This is simply a convenience
+     * method that filteres out the data property expressions in the key. All of the properties
+     * returned by this method are included in the return value of the
      * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
      *
      * @return The set of object property expressions in the key described by this axiom
      */
     default Stream<OWLDataPropertyExpression> dataPropertyExpressions() {
-        return propertyExpressions().filter(OWLPropertyExpression::isDataPropertyExpression).map(
-            OWLPropertyExpression::asDataPropertyExpression);
+        return propertyExpressions().filter(OWLPropertyExpression::isDataPropertyExpression)
+            .map(OWLPropertyExpression::asDataPropertyExpression);
     }
 
     @Override

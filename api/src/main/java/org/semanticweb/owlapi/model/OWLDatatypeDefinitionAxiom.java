@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents a
- * <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Definitions">
+ * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Definitions">
  * DatatypeDefinition</a> axiom in the OWL 2 Specification.
  *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -26,7 +25,7 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getDatatype(), getDataRange(), annotations());
+        return Stream.of(getDatatype(), getDataRange(), annotationsAsList());
     }
 
     @Override
@@ -36,7 +35,7 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getDatatype(), getDataRange());
+        return Stream.of(annotationsAsList(), getDatatype(), getDataRange());
     }
 
     @Override

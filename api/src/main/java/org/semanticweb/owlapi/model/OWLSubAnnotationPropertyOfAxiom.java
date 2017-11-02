@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents an
- * <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Subproperties" >
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Subproperties" >
  * SubAnnotationPropertyOf</a> axiom in the OWL 2 Specification.
  *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -29,7 +28,7 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getSubProperty(), getSuperProperty(), annotations());
+        return Stream.of(getSubProperty(), getSuperProperty(), annotationsAsList());
     }
 
     @Override
@@ -39,7 +38,7 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getSubProperty(), getSuperProperty());
+        return Stream.of(annotationsAsList(), getSubProperty(), getSuperProperty());
     }
 
     @Override

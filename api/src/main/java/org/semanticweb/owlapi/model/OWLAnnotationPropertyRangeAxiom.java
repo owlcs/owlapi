@@ -13,11 +13,11 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.stream.Stream;
+
 import javax.annotation.Nonnull;
 
 /**
- * Represents an
- * <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Range" >
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Range" >
  * AnnotationPropertyRange</a> axiom in the OWL 2 specification.
  *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -36,12 +36,12 @@ public interface OWLAnnotationPropertyRangeAxiom
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getProperty(), getRange(), annotations());
+        return Stream.of(getProperty(), getRange(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty(), getRange());
+        return Stream.of(annotationsAsList(), getProperty(), getRange());
     }
 
     @Override

@@ -12,14 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * Represent a rule. A rule consists of a head and a body. Both the head and the
- * body consist of a conjunction of atoms.
+ * Represent a rule. A rule consists of a head and a body. Both the head and the body consist of a
+ * conjunction of atoms.
  *
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
@@ -28,17 +30,17 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     @Override
     default Stream<?> components() {
-        return Stream.of(body(), head(), annotations());
+        return Stream.of(bodyList(), headList(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(body(), head());
+        return Stream.of(bodyList(), headList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), body(), head());
+        return Stream.of(annotationsAsList(), bodyList(), headList());
     }
 
     @Override
@@ -55,6 +57,16 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     @Deprecated
     default Set<SWRLAtom> getBody() {
         return asSet(body());
+    }
+
+    /** @return body as list */
+    default List<SWRLAtom> bodyList() {
+        return asList(body());
+    }
+
+    /** @return head as list */
+    default List<SWRLAtom> headList() {
+        return asList(head());
     }
 
     /**
@@ -83,13 +95,12 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     Stream<SWRLAtom> head();
 
     /**
-     * If this rule contains atoms that have predicates that are inverse object
-     * properties, then this method creates and returns a rule where the
-     * arguments of these atoms are fliped over and the predicate is the inverse
-     * (simplified) property.
+     * If this rule contains atoms that have predicates that are inverse object properties, then
+     * this method creates and returns a rule where the arguments of these atoms are fliped over and
+     * the predicate is the inverse (simplified) property.
      *
      * @return The rule such that any atoms of the form inverseOf(p)(x, y) are transformed to p(x,
-     * y).
+     *         y).
      */
     SWRLRule getSimplified();
 
@@ -115,7 +126,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * Determines if this rule uses anonymous class expressions in class atoms.
      *
      * @return {@code true} if this rule contains anonymous class expression in class atoms,
-     * otherwise {@code false}.
+     *         otherwise {@code false}.
      */
     boolean containsAnonymousClassExpressions();
 
@@ -123,7 +134,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * Gets the predicates of class atoms.
      *
      * @return A set of class expressions that represent the class class expressions that are
-     * predicates of class atoms.
+     *         predicates of class atoms.
      * @deprecated use {@link #classAtomPredicates()}
      */
     @Deprecated
@@ -135,7 +146,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * Gets the predicates of class atoms.
      *
      * @return A set of class expressions that represent the class class expressions that are
-     * predicates of class atoms.
+     *         predicates of class atoms.
      */
     Stream<OWLClassExpression> classAtomPredicates();
 

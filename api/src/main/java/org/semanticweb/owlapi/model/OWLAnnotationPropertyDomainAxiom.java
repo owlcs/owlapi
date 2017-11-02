@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents an
- * <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Domain" >
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Domain" >
  * AnnotationPropertyDomain</a> axiom in the OWL 2 specification.
  *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -35,12 +34,12 @@ public interface OWLAnnotationPropertyDomainAxiom
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getProperty(), getDomain(), annotations());
+        return Stream.of(getProperty(), getDomain(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty(), getDomain());
+        return Stream.of(annotationsAsList(), getProperty(), getDomain());
     }
 
     @Override
