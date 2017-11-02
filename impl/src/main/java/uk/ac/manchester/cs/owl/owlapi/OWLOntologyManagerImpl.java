@@ -64,6 +64,7 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.ChangeDetails;
 import org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy;
 import org.semanticweb.owlapi.model.DefaultImpendingChangeBroadcastStrategy;
+import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.ImmutableOWLOntologyChangeException;
 import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeBroadcastStrategy;
@@ -1090,7 +1091,8 @@ public class OWLOntologyManagerImpl
 
     protected void fixIllegalPunnings(OWLOntology o) {
         Collection<IRI> illegals = OWLDocumentFormat.determineIllegalPunnings(true,
-            o.signature(Imports.INCLUDED), o.getPunnedIRIs(Imports.INCLUDED));
+            Imports.INCLUDED.stream(o).flatMap(HasSignature::unsortedSignature),
+            o.getPunnedIRIs(Imports.INCLUDED));
         Multimap<IRI, OWLDeclarationAxiom> illegalDeclarations = HashMultimap.create();
         o.axioms(AxiomType.DECLARATION, Imports.INCLUDED)
             .filter(d -> illegals.contains(d.getEntity().getIRI()))
