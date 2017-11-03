@@ -171,7 +171,7 @@ public abstract class OWLObjectImpl
             return false;
         }
         OWLObject other = (OWLObject) obj;
-        if (typeIndex() != other.typeIndex()) {
+        if (typeIndex() != other.typeIndex() || hashCode() != other.hashCode()) {
             return false;
         }
         return equalStreams(components(), other.components());

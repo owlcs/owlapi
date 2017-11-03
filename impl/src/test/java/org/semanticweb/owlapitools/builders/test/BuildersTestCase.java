@@ -15,13 +15,14 @@ package org.semanticweb.owlapitools.builders.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -207,6 +208,9 @@ import org.semanticweb.owlapitools.builders.BuilderSubObjectProperty;
 import org.semanticweb.owlapitools.builders.BuilderSymmetricObjectProperty;
 import org.semanticweb.owlapitools.builders.BuilderTransitiveObjectProperty;
 import org.semanticweb.owlapitools.builders.BuilderUnionOf;
+
+import com.google.common.collect.Sets;
+
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
@@ -242,9 +246,9 @@ public class BuildersTestCase<Q> {
 //@formatter:on
     private final Builder<Q> b;
     private final Q expected;
-    private final @Nonnull
-    OWLOntologyManager m = getManager();
+    private final @Nonnull OWLOntologyManager m = getManager();
     private Prepare<Q> p;
+
     public BuildersTestCase(Prepare<Q> p, Builder<Q> b, Q o) {
         this.b = b;
         expected = o;
@@ -367,7 +371,9 @@ public class BuildersTestCase<Q> {
             assertTrue(expected.toString() + " but " + o.toString(),
                 o.containsAxiom((OWLAxiom) expected));
         }
-        assertEquals(expected, p.build(expected).buildObject());
+        Q created = p.build(expected).buildObject();
+        assertEquals(expected.hashCode(), created.hashCode());
+        assertEquals(expected, created);
     }
 
     private static interface Prepare<T> {

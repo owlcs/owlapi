@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
-import gnu.trove.map.hash.THashMap;
-import gnu.trove.set.hash.THashSet;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,7 +28,9 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
@@ -40,13 +40,15 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.SmallSet;
+
+import gnu.trove.map.hash.THashMap;
+import gnu.trove.set.hash.THashSet;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
 /**
- * * Objects that identify contained maps - so that getting the keys of a
- * specific map does not require a specific method for each map nor does it
- * require the map to be copied and returned.
+ * * Objects that identify contained maps - so that getting the keys of a specific map does not
+ * require a specific method for each map nor does it require the map to be copied and returned.
  *
  * @param <K> key
  * @param <V> value
@@ -165,12 +167,11 @@ public class MapPointer<K, V extends OWLAxiom> {
         }
         if (visitor instanceof InitVisitor) {
             i.getAxiomsByType().forEach(verifyNotNull(type),
-                ax -> putInternal(ax.accept((InitVisitor<K>) verifyNotNull(
-                    visitor)), (V) ax));
+                ax -> putInternal(ax.accept((InitVisitor<K>) verifyNotNull(visitor)), (V) ax));
         } else if (visitor instanceof InitCollectionVisitor) {
             i.getAxiomsByType().forEach(verifyNotNull(type),
-                ax -> ax.accept((InitCollectionVisitor<K>) verifyNotNull(
-                    visitor)).forEach(key -> putInternal(key, (V) ax)));
+                ax -> ax.accept((InitCollectionVisitor<K>) verifyNotNull(visitor))
+                    .forEach(key -> putInternal(key, (V) ax)));
         }
         return this;
     }
@@ -468,8 +469,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * Trims the capacity of the map entries . An application can use this
-     * operation to minimize the storage of the map pointer instance.
+     * Trims the capacity of the map entries . An application can use this operation to minimize the
+     * storage of the map pointer instance.
      */
     public synchronized void trimToSize() {
         if (initialized) {
@@ -478,8 +479,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
                 Collection<V> set = entry.getValue();
                 if (set instanceof ArrayList) {
-                    THashSet<V> value = new THashSetForSet<>(DEFAULT_INITIAL_CAPACITY,
-                        DEFAULT_LOAD_FACTOR);
+                    THashSet<V> value = new THashSetForSet<>(set.size(), DEFAULT_LOAD_FACTOR);
                     value.addAll(set);
                     entry.setValue(value);
                     size = size - set.size() + value.size();
