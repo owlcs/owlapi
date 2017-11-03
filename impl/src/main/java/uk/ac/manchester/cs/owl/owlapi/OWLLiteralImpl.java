@@ -24,10 +24,11 @@ import java.io.Reader;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.Arrays;
-import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -35,8 +36,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * Implementation of {@link OWLLiteral} that uses compression of strings. See
- * also {@link OWLLiteralImplNoCompression}
+ * Implementation of {@link OWLLiteral} that uses compression of strings. See also
+ * {@link OWLLiteralImplNoCompression}
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -44,10 +45,10 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     private static final int COMPRESSION_LIMIT = 160;
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
-        OWL2Datatype.RDF_PLAIN_LITERAL);
-    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(
-        OWL2Datatype.RDF_LANG_STRING);
+    private static final OWLDatatype RDF_PLAIN_LITERAL =
+        new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_LANG_STRING =
+        new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
     private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
     private final LiteralWrapper literal;
     private final OWLDatatype datatype;
@@ -56,28 +57,27 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     /**
      * @param literal the lexical form
      * @param lang the language; can be null or an empty string, in which case datatype can be any
-     * datatype but not null
+     *        datatype but not null
      * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST
-     * be RDFPlainLiteral
+     *        be RDFPlainLiteral
      */
     public OWLLiteralImpl(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
         this.literal = new LiteralWrapper(checkNotNull(literal, "literal cannot be null"));
         if (lang == null || lang.isEmpty()) {
             language = "";
-            if (datatype == null || datatype.equals(RDF_PLAIN_LITERAL) || datatype
-                .equals(XSD_STRING)) {
+            if (datatype == null || datatype.equals(RDF_PLAIN_LITERAL)
+                || datatype.equals(XSD_STRING)) {
                 this.datatype = XSD_STRING;
             } else {
                 this.datatype = datatype;
             }
         } else {
-            if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype
-                .equals(RDF_PLAIN_LITERAL))) {
+            if (datatype != null
+                && !(datatype.equals(RDF_LANG_STRING) || datatype.equals(RDF_PLAIN_LITERAL))) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal or lang string
-                throw new OWLRuntimeException(
-                    "Error: cannot build a literal with type: " + datatype.getIRI()
-                        + " and language: " + lang);
+                throw new OWLRuntimeException("Error: cannot build a literal with type: "
+                    + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_LANG_STRING;
@@ -162,10 +162,13 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(),
-            Stream.of(getDatatype(), Integer.valueOf(specificHash()), getLang()));
+    public int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
+        hash = OWLObject.hashIteration(hash, specificHash() * 65536);
+        return OWLObject.hashIteration(hash, getLang().hashCode());
     }
+
 
     private int specificHash() {
         if (literal.l != null) {

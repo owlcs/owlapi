@@ -27,21 +27,18 @@ import java.util.stream.Stream;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSignature,
-    HasContainsEntityInSignature,
+public interface OWLObject
+    extends Comparable<OWLObject>, Serializable, HasSignature, HasContainsEntityInSignature,
     HasAnonymousIndividuals, HasClassesInSignature, HasObjectPropertiesInSignature,
-    HasDataPropertiesInSignature,
-    HasIndividualsInSignature, HasDatatypesInSignature, HasAnnotationPropertiesInSignature,
-    HasIndex, HasHashIndex,
-    HasComponents, IsAnonymous {
+    HasDataPropertiesInSignature, HasIndividualsInSignature, HasDatatypesInSignature,
+    HasAnnotationPropertiesInSignature, HasIndex, HasHashIndex, HasComponents, IsAnonymous {
 
     /**
-     * Gets all of the nested (includes top level) class expressions that are
-     * used in this object. The default implementation of this method returns an
-     * empty, modifiable set.
+     * Gets all of the nested (includes top level) class expressions that are used in this object.
+     * The default implementation of this method returns an empty, modifiable set.
      *
      * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s that represent the
-     * nested class expressions used in this object.
+     *         nested class expressions used in this object.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -50,12 +47,11 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
     }
 
     /**
-     * Gets all of the nested (includes top level) class expressions that are
-     * used in this object. The default implementation of this method returns an
-     * empty, modifiable set.
+     * Gets all of the nested (includes top level) class expressions that are used in this object.
+     * The default implementation of this method returns an empty, modifiable set.
      *
      * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s that represent the
-     * nested class expressions used in this object.
+     *         nested class expressions used in this object.
      */
     default Stream<OWLClassExpression> nestedClassExpressions() {
         return empty();
@@ -78,9 +74,9 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
     <O> O accept(OWLObjectVisitorEx<O> visitor);
 
     /**
-     * Determines if this object is either, owl:Thing (the top class),
-     * owl:topObjectProperty (the top object property) , owl:topDataProperty
-     * (the top data property) or rdfs:Literal (the top datatype).
+     * Determines if this object is either, owl:Thing (the top class), owl:topObjectProperty (the
+     * top object property) , owl:topDataProperty (the top data property) or rdfs:Literal (the top
+     * datatype).
      *
      * @return {@code true} if this object corresponds to one of the above entities.
      */
@@ -89,9 +85,8 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
     }
 
     /**
-     * Determines if this object is either, owl:Nothing (the bottom class),
-     * owl:bottomObjectProperty (the bottom object property) ,
-     * owl:bottomDataProperty (the bottom data property).
+     * Determines if this object is either, owl:Nothing (the bottom class), owl:bottomObjectProperty
+     * (the bottom object property) , owl:bottomDataProperty (the bottom data property).
      *
      * @return {@code true} if this object corresponds to one of the above entities.
      */
@@ -129,7 +124,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
 
     /**
      * @return true if this object is not an axiom, not an individual and anonymous; this is true
-     * for class and property expressions, as well as data ranges.
+     *         for class and property expressions, as well as data ranges.
      */
     default boolean isAnonymousExpression() {
         return !isAxiom() && !isIndividual() && !isOntology() && isAnonymous();
@@ -137,27 +132,44 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
 
     /**
      * @return true if this object contains anonymous expressions referred multiple times. This is
-     * called structure sharing. An example can be:<br>
+     *         called structure sharing. An example can be:<br>
      *
-     * <pre>
+     *         <pre>
      * some P C subClassOf some Q (some P C)
      *         </pre>
      *
-     * <br> This can happen in axioms as well as in expressions:<br>
+     *         <br>
+     *         This can happen in axioms as well as in expressions:<br>
      *
-     * <pre>
+     *         <pre>
      * (some P C) and (some Q (some P C))
      *         </pre>
      *
-     * <br>
+     *         <br>
      */
     default boolean hasSharedStructure() {
         Map<OWLObject, AtomicInteger> counters = new HashMap<>();
         Stream<OWLObject> filter = flatComponents(this).filter(x -> x instanceof OWLObject)
-            .map(x -> (OWLObject) x)
-            .filter(OWLObject::isAnonymousExpression);
+            .map(x -> (OWLObject) x).filter(OWLObject::isAnonymousExpression);
         filter
             .forEach(x -> counters.computeIfAbsent(x, q -> new AtomicInteger(0)).incrementAndGet());
         return counters.values().stream().anyMatch(x -> x.get() > 1);
+    }
+
+    /**
+     * @return hash code for the object; clled on first use, cached by OWLObjectImpl in the default
+     *         implementation.
+     */
+    int initHashCode();
+
+    /**
+     * Iteration for hash codes
+     * 
+     * @param a existing hash
+     * @param b hash to add
+     * @return new hash
+     */
+    static int hashIteration(int a, int b) {
+        return a * 37 + b;
     }
 }

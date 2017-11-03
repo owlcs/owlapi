@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents an
- * <a href="http://www.w3.org/TR/owl2-syntax/#Complement_of_Class_Expressions" >
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Complement_of_Class_Expressions" >
  * ObjectComplementOf</a> class expression in the OWL 2 Specification.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -27,6 +26,11 @@ public interface OWLObjectComplementOf extends OWLBooleanClassExpression {
     @Override
     default Stream<?> components() {
         return Stream.of(getOperand());
+    }
+
+    @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getOperand().hashCode());
     }
 
     @Override

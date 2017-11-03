@@ -34,6 +34,13 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
     }
 
     @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
+        return OWLObject.hashIteration(hash, facetRestrictionsAsList().hashCode());
+    }
+
+    @Override
     default int hashIndex() {
         return 271;
     }

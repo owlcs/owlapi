@@ -26,6 +26,13 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestrict
         return Stream.of(getProperty(), getFiller());
     }
 
+    @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getProperty().hashCode());
+        return OWLObject.hashIteration(hash, getFiller().hashCode());
+    }
+
     /**
      * @return the value
      * @deprecated use getFiller instead
@@ -36,11 +43,11 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestrict
     }
 
     /**
-     * A convenience method that obtains this restriction as an existential
-     * restriction with a nominal filler.
+     * A convenience method that obtains this restriction as an existential restriction with a
+     * nominal filler.
      *
      * @return The existential equivalent of this value restriction. simp(HasValue(p a)) = some(p
-     * {a})
+     *         {a})
      */
     OWLClassExpression asSomeValuesFrom();
 }

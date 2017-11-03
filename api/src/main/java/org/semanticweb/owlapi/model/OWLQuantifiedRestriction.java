@@ -19,11 +19,18 @@ import java.util.stream.Stream;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends OWLRestriction,
-    HasFiller<F> {
+public interface OWLQuantifiedRestriction<F extends OWLPropertyRange>
+    extends OWLRestriction, HasFiller<F> {
 
     @Override
     default Stream<?> components() {
         return Stream.of(getProperty(), getFiller());
+    }
+
+    @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getProperty().hashCode());
+        return OWLObject.hashIteration(hash, getFiller().hashCode());
     }
 }

@@ -27,15 +27,22 @@ public interface OWLCardinalityRestriction<F extends OWLPropertyRange>
         return Stream.of(getProperty(), Integer.valueOf(getCardinality()), getFiller());
     }
 
+    @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getProperty().hashCode());
+        hash = OWLObject.hashIteration(hash, getCardinality());
+        return OWLObject.hashIteration(hash, getFiller().hashCode());
+    }
+
     /**
-     * Determines if this restriction is qualified. Qualified cardinality
-     * restrictions are defined to be cardinality restrictions that have fillers
-     * which aren't TOP (owl:Thing or rdfs:Literal). An object restriction is
-     * unqualified if it has a filler that is owl:Thing. A data restriction is
-     * unqualified if it has a filler which is the top data type (rdfs:Literal).
+     * Determines if this restriction is qualified. Qualified cardinality restrictions are defined
+     * to be cardinality restrictions that have fillers which aren't TOP (owl:Thing or
+     * rdfs:Literal). An object restriction is unqualified if it has a filler that is owl:Thing. A
+     * data restriction is unqualified if it has a filler which is the top data type (rdfs:Literal).
      *
      * @return {@code true} if this restriction is qualified, or {@code false} if this restriction
-     * is unqualified.
+     *         is unqualified.
      */
     default boolean isQualified() {
         return !getFiller().isTopEntity();

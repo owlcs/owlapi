@@ -28,6 +28,11 @@ public interface OWLNaryDataRange extends OWLDataRange, HasOperands<OWLDataRange
         return Stream.of(getOperandsAsList());
     }
 
+    @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getOperandsAsList().hashCode());
+    }
+
     /**
      * @return the data ranges
      * @deprecated use the stream method

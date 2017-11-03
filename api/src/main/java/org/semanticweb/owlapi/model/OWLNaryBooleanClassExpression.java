@@ -29,6 +29,11 @@ public interface OWLNaryBooleanClassExpression
         return Stream.of(getOperandsAsList());
     }
 
+    @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getOperandsAsList().hashCode());
+    }
+
     /**
      * @return the class expressions
      * @deprecated use the stream method

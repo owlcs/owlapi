@@ -435,6 +435,11 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     @Override
+    public int initHashCode() {
+        return hashCode();
+    }
+
+    @Override
     public void accept(OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }

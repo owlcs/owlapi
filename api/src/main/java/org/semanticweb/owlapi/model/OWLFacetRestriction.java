@@ -13,12 +13,13 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
- * A facet restriction is used to restrict a particular datatype. For example
- * the set of integers greater than 18 can be obtained by restricting the
- * integer datatype using a minExclusive facet with a value of 18
+ * A facet restriction is used to restrict a particular datatype. For example the set of integers
+ * greater than 18 can be obtained by restricting the integer datatype using a minExclusive facet
+ * with a value of 18
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -28,6 +29,13 @@ public interface OWLFacetRestriction extends OWLObject {
     @Override
     default Stream<?> components() {
         return Stream.of(getFacet(), getFacetValue());
+    }
+
+    @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getFacet().hashCode());
+        return OWLObject.hashIteration(hash, getFacetValue().hashCode());
     }
 
     @Override

@@ -22,7 +22,9 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_INTEGER;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
 
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -42,15 +44,15 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     private final int hashCode;
 
     /**
-     * Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
-     * specified {@link OWL2Datatype}.
+     * Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the specified
+     * {@link OWL2Datatype}.
      *
      * @param owl2Datatype The datatype. Not {@code null}.
      * @throws NullPointerException if {@code owl2Datatype} is {@code null}.
      */
     public OWL2DatatypeImpl(OWL2Datatype owl2Datatype) {
         this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");
-        hashCode = OWLObjectImpl.hash(hashIndex(), components());
+        hashCode = initHashCode();
     }
 
     @Override

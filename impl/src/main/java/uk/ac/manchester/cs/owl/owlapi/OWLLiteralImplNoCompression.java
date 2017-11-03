@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.stream.Stream;
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -26,10 +26,10 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
 
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
-        OWL2Datatype.RDF_PLAIN_LITERAL);
-    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(
-        OWL2Datatype.RDF_LANG_STRING);
+    private static final OWLDatatype RDF_PLAIN_LITERAL =
+        new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_LANG_STRING =
+        new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
     private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
     private final String literal;
     private final OWLDatatype datatype;
@@ -51,13 +51,12 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
                 this.datatype = datatype;
             }
         } else {
-            if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype
-                .equals(RDF_PLAIN_LITERAL))) {
+            if (datatype != null
+                && !(datatype.equals(RDF_LANG_STRING) || datatype.equals(RDF_PLAIN_LITERAL))) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from RDF_LANG_STRING or RDF_PLAIN_LITERAL
-                throw new OWLRuntimeException(
-                    "Error: cannot build a literal with type: " + datatype.getIRI()
-                        + " and language: " + lang);
+                throw new OWLRuntimeException("Error: cannot build a literal with type: "
+                    + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_LANG_STRING;
@@ -144,9 +143,11 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     }
 
     @Override
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(),
-            Stream.of(getDatatype(), Integer.valueOf(specificHash() * 65536), getLang()));
+    public int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
+        hash = OWLObject.hashIteration(hash, specificHash() * 65536);
+        return OWLObject.hashIteration(hash, getLang().hashCode());
     }
 
     private int specificHash() {

@@ -32,6 +32,13 @@ public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom, OWLNaryAxiom
     }
 
     @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getOperandsAsList().hashCode());
+        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
+    }
+
+    @Override
     default Stream<?> componentsWithoutAnnotations() {
         return Stream.of(getOperandsAsList());
     }

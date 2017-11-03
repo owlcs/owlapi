@@ -37,6 +37,14 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
     }
 
     @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getSubClass().hashCode());
+        hash = OWLObject.hashIteration(hash, getSuperClass().hashCode());
+        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
+    }
+
+    @Override
     default Stream<?> componentsWithoutAnnotations() {
         return Stream.of(getSubClass(), getSuperClass());
     }
