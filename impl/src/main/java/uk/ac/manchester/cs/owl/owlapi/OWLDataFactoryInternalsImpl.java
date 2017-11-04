@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -44,19 +43,15 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
      * reused extremely frequently. for ontologies in the OBO family, a few annotations will be
      * reused extremely frequently.
      */
-    private static final LoadingCache<OWLAnnotation, OWLAnnotation> annotations =
-        builder(OWLDataFactoryInternalsImpl::ann);
-    private static final LoadingCache<IRI, OWLClass> classes = builder(OWLClassImpl::new);
-    private static final LoadingCache<IRI, OWLObjectProperty> objectProperties =
-        builder(OWLObjectPropertyImpl::new);
-    private static final LoadingCache<IRI, OWLDataProperty> dataProperties =
-        builder(OWLDataPropertyImpl::new);
-    private static final LoadingCache<IRI, OWLDatatype> datatypes = builder(OWLDatatypeImpl::new);
-    private static final LoadingCache<IRI, OWLNamedIndividual> individuals =
-        builder(OWLNamedIndividualImpl::new);
-    private static final LoadingCache<IRI, OWLAnnotationProperty> annotationProperties =
-        builder(OWLAnnotationPropertyImpl::new);
-
+    //@formatter:off
+    private static final LoadingCache<IRI, OWLAnnotationProperty>   annotationProperties = builder(OWLAnnotationPropertyImpl::new);
+    private static final LoadingCache<OWLAnnotation, OWLAnnotation> annotations =          builder(OWLDataFactoryInternalsImpl::ann);
+    private static final LoadingCache<IRI, OWLClass>                classes =              builder(OWLClassImpl::new);
+    private static final LoadingCache<IRI, OWLObjectProperty>       objectProperties =     builder(OWLObjectPropertyImpl::new);
+    private static final LoadingCache<IRI, OWLDataProperty>         dataProperties =       builder(OWLDataPropertyImpl::new);
+    private static final LoadingCache<IRI, OWLDatatype>             datatypes =            builder(OWLDatatypeImpl::new);
+    private static final LoadingCache<IRI, OWLNamedIndividual>      individuals =          builder(OWLNamedIndividualImpl::new);
+    //@formatter:on
     /**
      * @param useCompression true if literals should be compressed
      */
@@ -69,8 +64,7 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
     }
 
     private static <F, T> LoadingCache<F, T> builder(CacheLoader<F, T> f) {
-        return Caffeine.newBuilder().maximumSize(1024).expireAfterAccess(5, TimeUnit.MINUTES)
-            .build(f);
+        return Caffeine.newBuilder().maximumSize(2048).build(f);
     }
 
     @Override

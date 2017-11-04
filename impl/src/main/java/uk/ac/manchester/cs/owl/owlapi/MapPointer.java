@@ -13,7 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.lang.ref.SoftReference;
@@ -165,13 +164,15 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (visitor == null || type == null) {
             return this;
         }
+        AxiomType<?> t = type;
+        assert t != null;
         if (visitor instanceof InitVisitor) {
-            i.getAxiomsByType().forEach(verifyNotNull(type),
-                ax -> putInternal(ax.accept((InitVisitor<K>) verifyNotNull(visitor)), (V) ax));
+            InitVisitor<K> v = (InitVisitor<K>) visitor;
+            i.getAxiomsByType().forEach(t, ax -> putInternal(ax.accept(v), (V) ax));
         } else if (visitor instanceof InitCollectionVisitor) {
-            i.getAxiomsByType().forEach(verifyNotNull(type),
-                ax -> ax.accept((InitCollectionVisitor<K>) verifyNotNull(visitor))
-                    .forEach(key -> putInternal(key, (V) ax)));
+            InitCollectionVisitor<K> v = (InitCollectionVisitor<K>) visitor;
+            i.getAxiomsByType().forEach(t,
+                ax -> ax.accept(v).forEach(key -> putInternal(key, (V) ax)));
         }
         return this;
     }

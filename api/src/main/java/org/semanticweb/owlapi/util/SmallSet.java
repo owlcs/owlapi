@@ -1,18 +1,18 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.AbstractSet;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
 
 /**
- * This class provides a compact implementation of a very small sets - less than
- * or equal to three elements
+ * This class provides a compact implementation of a very small sets - less than or equal to three
+ * elements
  *
  * @param <T> set element type
  */
@@ -85,8 +85,8 @@ public class SmallSet<T> extends AbstractSet<T> {
             return false;
         }
         int oHash = o.hashCode();
-        return checkMatch(o, oHash, element1) || checkMatch(o, oHash, element2) || checkMatch(o,
-            oHash, element3);
+        return checkMatch(o, oHash, element1) || checkMatch(o, oHash, element2)
+            || checkMatch(o, oHash, element3);
     }
 
     protected boolean checkMatch(Object o, int oHash, @Nullable T element) {
@@ -134,17 +134,18 @@ public class SmallSet<T> extends AbstractSet<T> {
             }
 
             @Override
+            @SuppressWarnings("null")
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException("No Next Element");
                 }
                 switch (cp++) {
                     case 1:
-                        return verifyNotNull(element1);
+                        return element1;
                     case 2:
-                        return verifyNotNull(element2);
+                        return element2;
                     case 3:
-                        return verifyNotNull(element3);
+                        return element3;
                     default:
                         throw new IllegalStateException(
                             "Iterator pointing past end of virtual array");
