@@ -7,8 +7,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
@@ -70,6 +72,7 @@ class SemanticLocalityChecker extends LocalityChecker {
     private OWLDataFactory df;
     private OWLReasonerFactory factory;
     private ExpressionManager expressionManager;
+
     /**
      * init c'tor
      *
@@ -88,11 +91,11 @@ class SemanticLocalityChecker extends LocalityChecker {
     /**
      * @param axiom axiom to convert
      * @return expression necessary to build query for a given type of an axiom; null if none
-     * necessary
+     *         necessary
      */
     Stream<OWLClassExpression> getExpr(OWLAxiom axiom) {
         OWLClassExpression e = axiom.accept(expressionManager);
-        return Stream.of(e).filter(x -> x != null);
+        return Stream.of(e).filter(Objects::nonNull);
     }
 
     /* init kernel with the ontology signature */
@@ -126,8 +129,7 @@ class SemanticLocalityChecker extends LocalityChecker {
     public void visit(OWLEquivalentClassesAxiom axiom) {
         isLocal = false;
         if (pairs(axiom.classExpressions()).map(v -> df.getOWLEquivalentClassesAxiom(v.i, v.j))
-            .anyMatch(ax -> !kernel
-                .isEntailed(ax))) {
+            .anyMatch(ax -> !kernel.isEntailed(ax))) {
             return;
         }
         isLocal = true;
@@ -137,8 +139,7 @@ class SemanticLocalityChecker extends LocalityChecker {
     public void visit(OWLDisjointClassesAxiom axiom) {
         isLocal = false;
         if (pairs(axiom.classExpressions()).map(v -> df.getOWLDisjointClassesAxiom(v.i, v.j))
-            .anyMatch(ax -> !kernel
-                .isEntailed(ax))) {
+            .anyMatch(ax -> !kernel.isEntailed(ax))) {
             return;
         }
         isLocal = true;
@@ -148,15 +149,13 @@ class SemanticLocalityChecker extends LocalityChecker {
     public void visit(OWLDisjointUnionAxiom axiom) {
         isLocal = false;
         // check A = (or C1... Cn)
-        if (!kernel.isEntailed(
-            df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(), df.getOWLObjectIntersectionOf(axiom
-                .classExpressions())))) {
+        if (!kernel.isEntailed(df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(),
+            df.getOWLObjectIntersectionOf(axiom.classExpressions())))) {
             return;
         }
         // check disjoint(C1... Cn)
         if (pairs(axiom.classExpressions())
-            .anyMatch(v -> !kernel.isEntailed(df.getOWLDisjointClassesAxiom(v.i,
-                v.j)))) {
+            .anyMatch(v -> !kernel.isEntailed(df.getOWLDisjointClassesAxiom(v.i, v.j)))) {
             return;
         }
         isLocal = true;
@@ -166,8 +165,7 @@ class SemanticLocalityChecker extends LocalityChecker {
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         isLocal = false;
         if (pairs(axiom.properties()).map(v -> df.getOWLEquivalentObjectPropertiesAxiom(v.i, v.j))
-            .anyMatch(
-                ax -> !kernel.isEntailed(ax))) {
+            .anyMatch(ax -> !kernel.isEntailed(ax))) {
             return;
         }
         isLocal = true;
@@ -178,8 +176,7 @@ class SemanticLocalityChecker extends LocalityChecker {
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         isLocal = false;
         if (pairs(axiom.properties()).map(v -> df.getOWLEquivalentDataPropertiesAxiom(v.i, v.j))
-            .anyMatch(ax -> !kernel
-                .isEntailed(ax))) {
+            .anyMatch(ax -> !kernel.isEntailed(ax))) {
             return;
         }
         isLocal = true;
@@ -210,11 +207,11 @@ class SemanticLocalityChecker extends LocalityChecker {
     // R = inverse(S) is tautology iff R [= S- and S [= R-
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        isLocal =
-            kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(axiom.getFirstProperty(), axiom
-                .getSecondProperty().getInverseProperty())) && kernel
-                .isEntailed(df.getOWLSubObjectPropertyOfAxiom(axiom
-                    .getFirstProperty().getInverseProperty(), axiom.getSecondProperty()));
+        isLocal = kernel
+            .isEntailed(df.getOWLSubObjectPropertyOfAxiom(axiom.getFirstProperty(),
+                axiom.getSecondProperty().getInverseProperty()))
+            && kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(
+                axiom.getFirstProperty().getInverseProperty(), axiom.getSecondProperty()));
     }
 
     @Override

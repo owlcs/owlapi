@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
@@ -482,7 +483,7 @@ public class OWLOntologyManagerImpl
                 throw new UnknownOWLOntologyException(ontology.getOntologyID());
             }
             return ontology.importsDeclarations().map(this::getImportedOntology)
-                .filter(o -> o != null);
+                .filter(Objects::nonNull);
         } finally {
             readLock.unlock();
         }
@@ -1167,7 +1168,7 @@ public class OWLOntologyManagerImpl
 
     protected <Q, S> void removeValue(Map<Q, S> map, S id) {
         List<Q> keys = asList(
-            map.entrySet().stream().filter(e -> e.getValue().equals(id)).map(e -> e.getKey()));
+            map.entrySet().stream().filter(e -> e.getValue().equals(id)).map(Map.Entry::getKey));
         keys.forEach(map::remove);
     }
 

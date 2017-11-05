@@ -361,7 +361,7 @@ public class OWLRDFConsumer
     // Caching IRIs here helps save memory. This cache is local to a particular
     // consumer, so the cache size itself is much smaller than the total memory
     // footprint
-    private final Map<String, IRI> IRIMap = createMap();
+    private final Map<String, IRI> iriMap = createMap();
     RemappingIndividualProvider anonProvider;
     /**
      * The IRI of the first reource that is typed as an ontology
@@ -664,7 +664,7 @@ public class OWLRDFConsumer
         if (iri != null) {
             return iri;
         }
-        return IRIMap.computeIfAbsent(s, IRI::create);
+        return iriMap.computeIfAbsent(s, IRI::create);
     }
 
     /**
@@ -1395,7 +1395,7 @@ public class OWLRDFConsumer
         parsedAllTriples = true;
         // We are now left with triples that could not be consumed during
         // streaming parsing
-        IRIMap.clear();
+        iriMap.clear();
         tripleLogger.logNumberOfTriples();
         translatorAccessor.consumeSWRLRules(swrlRules);
         Set<RDFTriple> remainingTriples = handlerAccessor.mopUp();

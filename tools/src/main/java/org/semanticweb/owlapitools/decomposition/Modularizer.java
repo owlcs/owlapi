@@ -6,8 +6,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
+
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
@@ -144,7 +146,7 @@ public class Modularizer {
         module.clear();
         // clear the module flag in the input
         list.forEach(p -> p.setInModule(false));
-        list.stream().filter(p -> p.isUsed()).forEach(p -> p.setInSearchSpace(true));
+        list.stream().filter(AxiomWrapper::isUsed).forEach(p -> p.setInSearchSpace(true));
         extractModuleQueue();
         list.forEach(p -> p.setInSearchSpace(false));
     }

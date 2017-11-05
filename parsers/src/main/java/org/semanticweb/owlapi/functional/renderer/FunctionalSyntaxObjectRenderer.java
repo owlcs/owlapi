@@ -311,7 +311,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     protected void writePrefixes() {
-        prefixManager.getPrefixName2PrefixMap().forEach((k, v) -> writePrefix(k, v));
+        prefixManager.getPrefixName2PrefixMap().forEach(this::writePrefix);
     }
 
     private void write(OWLXMLVocabulary v) {

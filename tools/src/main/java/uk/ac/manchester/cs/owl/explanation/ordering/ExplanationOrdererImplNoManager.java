@@ -245,7 +245,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
         AxiomMapBuilder builder = new AxiomMapBuilder();
         currentExplanation.forEach(ax -> ax.accept(builder));
         currentExplanation.forEach(
-            ax -> ax.signature().forEach(c -> axioms.computeIfAbsent(c, (x) -> new HashSet<>())));
+            ax -> ax.signature().forEach(c -> axioms.computeIfAbsent(c, x -> new HashSet<>())));
     }
 
     /**

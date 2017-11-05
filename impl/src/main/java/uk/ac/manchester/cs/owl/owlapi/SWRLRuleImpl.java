@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -140,13 +139,19 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         }
         // For same implementation instances, no need to create or sort sets
         if (obj instanceof SWRLRuleImpl) {
-            return body.equals(((SWRLRuleImpl) obj).body) && head.equals(((SWRLRuleImpl) obj).head)
-                && equalStreams(annotations(), ((SWRLRuleImpl) obj).annotations());
+            SWRLRuleImpl other = (SWRLRuleImpl) obj;
+            return body.equals(other.body) && head.equals(other.head)
+                && annotations.equals(other.annotationsAsList());
         }
         // For different implementations, just use sets, do not sort
         SWRLRule other = (SWRLRule) obj;
         return body.equals(asSet(other.body())) && head.equals(asSet(other.head()))
-            && equalStreams(annotations(), other.annotations());
+            && annotations.equals(other.annotationsAsList());
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {

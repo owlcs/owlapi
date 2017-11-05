@@ -149,7 +149,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Internals implements Serializable {
 
-    protected static Logger LOGGER = LoggerFactory.getLogger(Internals.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Internals.class);
     //@formatter:off
     private final AddAxiomVisitor addChangeVisitor = new AddAxiomVisitor();
     private final RemoveAxiomVisitor removeChangeVisitor = new RemoveAxiomVisitor();
@@ -253,38 +253,36 @@ public class Internals implements Serializable {
         disjointClassesAxiomsByClass = buildLazy(DISJOINT_CLASSES, CLASSCOLLECTIONS);
         disjointUnionAxiomsByClass = buildLazy(DISJOINT_UNION, CLASSCOLLECTIONS);
         hasKeyAxiomsByClass = buildLazy(HAS_KEY, CLASSSUPERNAMED);
-        equivalentObjectPropertyAxiomsByProperty = buildLazy(EQUIVALENT_OBJECT_PROPERTIES,
-            OPCOLLECTIONS);
-        disjointObjectPropertyAxiomsByProperty = buildLazy(DISJOINT_OBJECT_PROPERTIES,
-            OPCOLLECTIONS);
+        equivalentObjectPropertyAxiomsByProperty =
+            buildLazy(EQUIVALENT_OBJECT_PROPERTIES, OPCOLLECTIONS);
+        disjointObjectPropertyAxiomsByProperty =
+            buildLazy(DISJOINT_OBJECT_PROPERTIES, OPCOLLECTIONS);
         objectPropertyDomainAxiomsByProperty = buildLazy(OBJECT_PROPERTY_DOMAIN, OPSUBNAMED);
         objectPropertyRangeAxiomsByProperty = buildLazy(OBJECT_PROPERTY_RANGE, OPSUBNAMED);
-        functionalObjectPropertyAxiomsByProperty = buildLazy(FUNCTIONAL_OBJECT_PROPERTY,
-            OPSUBNAMED);
-        inverseFunctionalPropertyAxiomsByProperty = buildLazy(INVERSE_FUNCTIONAL_OBJECT_PROPERTY,
-            OPSUBNAMED);
+        functionalObjectPropertyAxiomsByProperty =
+            buildLazy(FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED);
+        inverseFunctionalPropertyAxiomsByProperty =
+            buildLazy(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED);
         symmetricPropertyAxiomsByProperty = buildLazy(SYMMETRIC_OBJECT_PROPERTY, OPSUBNAMED);
         asymmetricPropertyAxiomsByProperty = buildLazy(ASYMMETRIC_OBJECT_PROPERTY, OPSUBNAMED);
         reflexivePropertyAxiomsByProperty = buildLazy(REFLEXIVE_OBJECT_PROPERTY, OPSUBNAMED);
         irreflexivePropertyAxiomsByProperty = buildLazy(IRREFLEXIVE_OBJECT_PROPERTY, OPSUBNAMED);
         transitivePropertyAxiomsByProperty = buildLazy(TRANSITIVE_OBJECT_PROPERTY, OPSUBNAMED);
         inversePropertyAxiomsByProperty = buildLazy(INVERSE_OBJECT_PROPERTIES, OPCOLLECTIONS);
-        equivalentDataPropertyAxiomsByProperty = buildLazy(EQUIVALENT_DATA_PROPERTIES,
-            DPCOLLECTIONS);
+        equivalentDataPropertyAxiomsByProperty =
+            buildLazy(EQUIVALENT_DATA_PROPERTIES, DPCOLLECTIONS);
         disjointDataPropertyAxiomsByProperty = buildLazy(DISJOINT_DATA_PROPERTIES, DPCOLLECTIONS);
         dataPropertyDomainAxiomsByProperty = buildLazy(DATA_PROPERTY_DOMAIN, DPSUBNAMED);
         dataPropertyRangeAxiomsByProperty = buildLazy(DATA_PROPERTY_RANGE, DPSUBNAMED);
         functionalDataPropertyAxiomsByProperty = buildLazy(FUNCTIONAL_DATA_PROPERTY, DPSUBNAMED);
         classAssertionAxiomsByIndividual = buildLazy(CLASS_ASSERTION, INDIVIDUALSUBNAMED);
-        objectPropertyAssertionsByIndividual = buildLazy(OBJECT_PROPERTY_ASSERTION,
-            INDIVIDUALSUBNAMED);
+        objectPropertyAssertionsByIndividual =
+            buildLazy(OBJECT_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
         dataPropertyAssertionsByIndividual = buildLazy(DATA_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
-        negativeObjectPropertyAssertionAxiomsByIndividual = buildLazy(
-            NEGATIVE_OBJECT_PROPERTY_ASSERTION,
-            INDIVIDUALSUBNAMED);
-        negativeDataPropertyAssertionAxiomsByIndividual = buildLazy(
-            NEGATIVE_DATA_PROPERTY_ASSERTION,
-            INDIVIDUALSUBNAMED);
+        negativeObjectPropertyAssertionAxiomsByIndividual =
+            buildLazy(NEGATIVE_OBJECT_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
+        negativeDataPropertyAssertionAxiomsByIndividual =
+            buildLazy(NEGATIVE_DATA_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
         differentIndividualsAxiomsByIndividual = buildLazy(DIFFERENT_INDIVIDUALS, ICOLLECTIONS);
         sameIndividualsAxiomsByIndividual = buildLazy(SAME_INDIVIDUAL, ICOLLECTIONS);
         axiomsForSerialization.forEach(this::addAxiom);
@@ -487,8 +485,7 @@ public class Internals implements Serializable {
     /**
      * @param type type of map key
      * @param axiom class of axiom indexed
-     * @param position for axioms with a left/right distinction, IN_SUPER_POSITION means right
-     * index
+     * @param position for axioms with a left/right distinction, IN_SUPER_POSITION means right index
      * @param <T> key type
      * @param <A> value type
      * @return map pointer matching the search, or null if there is not one
@@ -496,8 +493,7 @@ public class Internals implements Serializable {
     // not always not null, but supposed to be
     @SuppressWarnings({"unchecked"})
     <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(Class<T> type,
-        Class<A> axiom,
-        Navigation position) {
+        Class<A> axiom, Navigation position) {
         if (OWLEntity.class.isAssignableFrom(type) && axiom.equals(OWLDeclarationAxiom.class)) {
             return optional((MapPointer<T, A>) declarationsByEntity);
         }
@@ -791,8 +787,8 @@ public class Internals implements Serializable {
      */
     public <K> Collection<? extends OWLAxiom> filterAxioms(OWLAxiomSearchFilter filter, K key) {
         if (filter == Filters.annotations) {
-            Optional<MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>> mapPointerOptional = get(
-                OWLAnnotationSubject.class, OWLAnnotationAssertionAxiom.class);
+            Optional<MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>> mapPointerOptional =
+                get(OWLAnnotationSubject.class, OWLAnnotationAssertionAxiom.class);
             if (mapPointerOptional.isPresent()) {
                 return mapPointerOptional.get().getValuesAsCollection((OWLAnnotationSubject) key);
             }
@@ -895,8 +891,7 @@ public class Internals implements Serializable {
      */
     public Stream<OWLLogicalAxiom> getLogicalAxioms() {
         return LOGICAL_AXIOM_TYPES.stream()
-            .map(type -> axiomsByType.values(type, OWLLogicalAxiom.class)).flatMap(
-                x -> x);
+            .map(type -> axiomsByType.values(type, OWLLogicalAxiom.class)).flatMap(x -> x);
     }
 
     /**
@@ -1294,8 +1289,8 @@ public class Internals implements Serializable {
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
             AtomicBoolean allAnon = new AtomicBoolean(true);
-            axiom.classExpressions().filter(c -> !c.isAnonymous()).map(c -> c.asOWLClass())
-                .forEach(c -> {
+            axiom.classExpressions().filter(c -> !c.isAnonymous())
+                .map(OWLClassExpression::asOWLClass).forEach(c -> {
                     disjointClassesAxiomsByClass.remove(c, axiom);
                     classAxiomsByClass.remove(c, axiom);
                     allAnon.set(false);
@@ -1427,8 +1422,8 @@ public class Internals implements Serializable {
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
             AtomicBoolean allAnon = new AtomicBoolean(true);
-            axiom.classExpressions().filter(c -> !c.isAnonymous()).map(c -> c.asOWLClass())
-                .forEach(c -> {
+            axiom.classExpressions().filter(c -> !c.isAnonymous())
+                .map(OWLClassExpression::asOWLClass).forEach(c -> {
                     equivalentClassesAxiomsByClass.remove(c, axiom);
                     classAxiomsByClass.remove(c, axiom);
                     allAnon.set(false);

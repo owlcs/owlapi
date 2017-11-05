@@ -17,14 +17,14 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
-import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
+
+import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -63,6 +63,9 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -72,10 +75,10 @@ public class JustificationMap {
     private final Set<OWLAxiom> axioms;
     private final Set<OWLAxiom> rootAxioms = new HashSet<>();
     private final Set<OWLAxiom> usedAxioms = new HashSet<>();
-    private final Multimap<OWLAxiom, OWLAxiom> map = MultimapBuilder.hashKeys()
-        .linkedHashSetValues().build();
-    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS = MultimapBuilder.hashKeys()
-        .linkedHashSetValues().build();
+    private final Multimap<OWLAxiom, OWLAxiom> map =
+        MultimapBuilder.hashKeys().linkedHashSetValues().build();
+    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS =
+        MultimapBuilder.hashKeys().linkedHashSetValues().build();
     private final OWLClassExpression desc;
 
     /**
@@ -128,9 +131,8 @@ public class JustificationMap {
         usedAxioms.add(parentAxiom);
         OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
         parentAxiom.accept(extractor);
-        return asUnorderedSet(
-            extractor.getRHS().stream().flatMap(o -> o.signature()).flatMap(this::getAxiomsByLHS)
-                .filter(usedAxioms::add));
+        return asUnorderedSet(extractor.getRHS().stream().flatMap(HasSignature::signature)
+            .flatMap(this::getAxiomsByLHS).filter(usedAxioms::add));
     }
 
     /**
@@ -163,8 +165,7 @@ public class JustificationMap {
         /**
          * Instantiates a new oWL axiom part extractor.
          */
-        OWLAxiomPartExtractor() {
-        }
+        OWLAxiomPartExtractor() {}
 
         /**
          * Gets the rhs.
