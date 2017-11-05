@@ -331,9 +331,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return optional value for remainder
      */
     protected Optional<String> asOptional(@Nullable String suffix) {
-        if (suffix == null) {
-            return emptyOptional();
-        } else if (suffix.isEmpty()) {
+        if (suffix == null || suffix.isEmpty()) {
             return emptyOptional();
         }
         return optional(suffix);

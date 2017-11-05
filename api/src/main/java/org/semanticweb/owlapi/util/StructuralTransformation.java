@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -95,8 +96,8 @@ public class StructuralTransformation implements Serializable {
         for (OWLAxiom ax : axioms) {
             for (OWLAxiom transAx : ax.accept(rewriter)) {
                 if (transAx instanceof OWLSubClassOfAxiom) {
-                    AxiomFlattener flattener = new AxiomFlattener(df,
-                        ((OWLSubClassOfAxiom) transAx).getSuperClass());
+                    AxiomFlattener flattener =
+                        new AxiomFlattener(df, ((OWLSubClassOfAxiom) transAx).getSuperClass());
                     Set<OWLAxiom> flattenedAxioms = flattener.getAxioms();
                     if (!flattenedAxioms.isEmpty()) {
                         transformedAxioms.addAll(flattenedAxioms);
@@ -163,8 +164,8 @@ public class StructuralTransformation implements Serializable {
             if (signature.containsAll(asList(ce.getFiller().signature()))) {
                 OWLClass name = createNewName();
                 axioms.add(getSCA(name, ce.getFiller().accept(this)));
-                return ldf
-                    .getOWLObjectExactCardinality(ce.getCardinality(), ce.getProperty(), name);
+                return ldf.getOWLObjectExactCardinality(ce.getCardinality(), ce.getProperty(),
+                    name);
             }
             return ce;
         }
@@ -239,18 +240,16 @@ public class StructuralTransformation implements Serializable {
      */
     private class AxiomRewriter implements OWLAxiomVisitorEx<Collection<? extends OWLAxiom>> {
 
-        AxiomRewriter() {
-        }
+        AxiomRewriter() {}
 
         private Collection<OWLAxiom> subClassOf(OWLClassExpression sub, OWLClassExpression sup) {
-            return doDefault(df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLObjectUnionOf(df
-                .getOWLObjectComplementOf(sub), sup).getNNF()));
+            return doDefault(df.getOWLSubClassOfAxiom(df.getOWLThing(),
+                df.getOWLObjectUnionOf(df.getOWLObjectComplementOf(sub), sup).getNNF()));
         }
 
         private OWLAxiom subClassOfSingle(OWLClassExpression sub, OWLClassExpression sup) {
             return df.getOWLSubClassOfAxiom(df.getOWLThing(),
-                df.getOWLObjectUnionOf(df.getOWLObjectComplementOf(sub),
-                    sup).getNNF());
+                df.getOWLObjectUnionOf(df.getOWLObjectComplementOf(sub), sup).getNNF());
         }
 
         @Override
@@ -273,8 +272,7 @@ public class StructuralTransformation implements Serializable {
         @Override
         public Collection<OWLAxiom> visit(OWLDataPropertyRangeAxiom axiom) {
             return doDefault(df.getOWLSubClassOfAxiom(df.getOWLThing(),
-                df.getOWLDataAllValuesFrom(axiom.getProperty(),
-                    axiom.getRange())));
+                df.getOWLDataAllValuesFrom(axiom.getProperty(), axiom.getRange())));
         }
 
         @Override
@@ -292,9 +290,8 @@ public class StructuralTransformation implements Serializable {
         @Override
         public Collection<OWLAxiom> visit(OWLDisjointUnionAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<>();
-            axioms.addAll(
-                df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(), df.getOWLObjectUnionOf(axiom
-                    .classExpressions())).accept(this));
+            axioms.addAll(df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(),
+                df.getOWLObjectUnionOf(axiom.classExpressions())).accept(this));
             axioms.addAll(df.getOWLDisjointClassesAxiom(axiom.classExpressions()).accept(this));
             return axioms;
         }
@@ -306,54 +303,49 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public Collection<OWLAxiom> visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            return axiom.walkPairwise((a, b) -> df.getOWLEquivalentDataPropertiesAxiom(a, b));
+            return axiom.walkPairwise(df::getOWLEquivalentDataPropertiesAxiom);
         }
 
         @Override
         public Collection<OWLAxiom> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            return axiom.walkPairwise((a, b) -> df.getOWLEquivalentObjectPropertiesAxiom(a, b));
+            return axiom.walkPairwise(df::getOWLEquivalentObjectPropertiesAxiom);
         }
 
         @Override
         public Collection<OWLAxiom> visit(OWLDisjointDataPropertiesAxiom axiom) {
-            return axiom.walkPairwise((a, b) -> df.getOWLDisjointDataPropertiesAxiom(a, b));
+            return axiom.walkPairwise(df::getOWLDisjointDataPropertiesAxiom);
         }
 
         @Override
         public Collection<OWLAxiom> visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            return axiom.walkPairwise((a, b) -> df.getOWLDisjointObjectPropertiesAxiom(a, b));
+            return axiom.walkPairwise(df::getOWLDisjointObjectPropertiesAxiom);
         }
 
         @Override
         public Collection<OWLAxiom> visit(OWLFunctionalDataPropertyAxiom axiom) {
-            return doDefault(
-                df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLDataMaxCardinality(1, axiom
-                    .getProperty())));
+            return doDefault(df.getOWLSubClassOfAxiom(df.getOWLThing(),
+                df.getOWLDataMaxCardinality(1, axiom.getProperty())));
         }
 
         @Override
         public Collection<OWLAxiom> visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            return doDefault(
-                df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLObjectMaxCardinality(1, axiom
-                    .getProperty())));
+            return doDefault(df.getOWLSubClassOfAxiom(df.getOWLThing(),
+                df.getOWLObjectMaxCardinality(1, axiom.getProperty())));
         }
 
         @Override
         public Collection<OWLAxiom> visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-            return doDefault(
-                df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLObjectMaxCardinality(1, axiom
-                    .getProperty().getInverseProperty())));
+            return doDefault(df.getOWLSubClassOfAxiom(df.getOWLThing(),
+                df.getOWLObjectMaxCardinality(1, axiom.getProperty().getInverseProperty())));
         }
 
         @Override
         public Collection<OWLAxiom> visit(OWLInverseObjectPropertiesAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<>();
             axioms.add(df.getOWLSubObjectPropertyOfAxiom(axiom.getFirstProperty(),
-                axiom.getSecondProperty()
-                    .getInverseProperty()));
+                axiom.getSecondProperty().getInverseProperty()));
             axioms.add(df.getOWLSubObjectPropertyOfAxiom(axiom.getSecondProperty(),
-                axiom.getFirstProperty()
-                    .getInverseProperty()));
+                axiom.getFirstProperty().getInverseProperty()));
             return axioms;
         }
 
@@ -367,8 +359,7 @@ public class StructuralTransformation implements Serializable {
         @Override
         public Collection<OWLAxiom> visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             return subClassOf(df.getOWLObjectOneOf(axiom.getSubject()),
-                df.getOWLObjectAllValuesFrom(axiom
-                        .getProperty(),
+                df.getOWLObjectAllValuesFrom(axiom.getProperty(),
                     df.getOWLObjectComplementOf(df.getOWLObjectOneOf(axiom.getObject()))));
         }
 
@@ -380,9 +371,8 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public Collection<OWLAxiom> visit(OWLObjectPropertyRangeAxiom axiom) {
-            return doDefault(
-                df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLObjectAllValuesFrom(axiom
-                    .getProperty(), axiom.getRange())));
+            return doDefault(df.getOWLSubClassOfAxiom(df.getOWLThing(),
+                df.getOWLObjectAllValuesFrom(axiom.getProperty(), axiom.getRange())));
         }
 
         @Override
