@@ -43,6 +43,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.annotations.Renders;
+import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.IsAnonymous;
@@ -144,6 +146,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
+@Renders(DLSyntaxDocumentFormat.class)
 public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisitor {
 
     private final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();

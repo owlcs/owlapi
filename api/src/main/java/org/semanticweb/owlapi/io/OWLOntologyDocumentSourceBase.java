@@ -90,6 +90,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     protected String stringContent = "";
     @Nullable
     protected OWLParserParameters parametersAtLoading;
+    @Nullable
     private String acceptHeaders = null;
 
     /**

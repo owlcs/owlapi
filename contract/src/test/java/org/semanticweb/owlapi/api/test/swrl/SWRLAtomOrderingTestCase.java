@@ -14,7 +14,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -41,13 +41,13 @@ public class SWRLAtomOrderingTestCase extends TestBase {
     public void setUp() {
         OWLClass predicate = df.getOWLClass(iri("a"));
         atomA = df.getSWRLClassAtom(predicate,
-                        df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("i"))));
+            df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("i"))));
         atomB = df.getSWRLClassAtom(predicate,
-                        df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("j"))));
+            df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("j"))));
         atomC = df.getSWRLClassAtom(predicate,
-                        df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("k"))));
+            df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("k"))));
         atomD = df.getSWRLClassAtom(predicate,
-                        df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("l"))));
+            df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("l"))));
         body.add(atomC);
         body.add(atomB);
         body.add(atomA);

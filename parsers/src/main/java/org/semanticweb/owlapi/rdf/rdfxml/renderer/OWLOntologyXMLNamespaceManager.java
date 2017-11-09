@@ -45,7 +45,6 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     private final OWLOntology ontology;
     private final NamespaceUtil namespaceUtil = new NamespaceUtil();
-    private final OWLDocumentFormat ontologyFormat;
 
     /**
      * @param ontology ontology
@@ -54,7 +53,6 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     public OWLOntologyXMLNamespaceManager(OWLOntology ontology, OWLDocumentFormat format) {
         super(getDefaultNamespace(ontology, format));
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
-        ontologyFormat = checkNotNull(format, "format cannot be null");
         addWellKnownNamespace("skos", Namespaces.SKOS.toString());
         addWellKnownNamespace("dc", DublinCoreVocabulary.NAME_SPACE);
         processOntology();

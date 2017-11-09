@@ -80,7 +80,7 @@ public interface OWLOntologyDocumentSource {
      * @param headers accept headers; if not set, the mime type will be used; if that is also
      *        missing, the available parsers will contribute the headers
      */
-    default void setAcceptHeaders(String headers) {}
+    default void setAcceptHeaders(@SuppressWarnings("unused") String headers) {}
 
     /** @return currently set accept headers */
     default Optional<String> getAcceptHeaders() {

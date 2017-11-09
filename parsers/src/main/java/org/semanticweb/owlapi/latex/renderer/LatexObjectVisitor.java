@@ -37,7 +37,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
@@ -117,6 +116,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * NOTE: this class was not designed as a general purpose renderer, i.e., some ontologies might be
@@ -150,21 +151,17 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     /** TOP. */           public static final String TOP      = "\\ensuremath{\\top}";
     //@formatter:on
 
-    private final OWLDataFactory df;
     private boolean prettyPrint = true;
     private ShortFormProvider shortFormProvider;
-    private OWLObject subject;
+    private OWLObject subject = OWLRDFVocabulary.OWL_THING.getIRI();
     private final LatexWriter writer;
 
     /**
      * @param writer writer
-     * @param df data factory
      */
-    public LatexObjectVisitor(LatexWriter writer, OWLDataFactory df) {
+    public LatexObjectVisitor(LatexWriter writer) {
         this.writer = writer;
-        this.df = df;
         shortFormProvider = new SimpleShortFormProvider();
-        subject = df.getOWLThing();
     }
 
     private static String escapeName(String name) {
@@ -438,7 +435,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        df.getOWLDataSomeValuesFrom(axiom.getProperty(), df.getTopDatatype()).accept(this);
+        writeRestriction(SOME, axiom.getProperty(), OWL2Datatype.RDFS_LITERAL.getIRI());
         subClass();
         axiom.getDomain().accept(this);
     }
@@ -447,7 +444,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         top();
         subClass();
-        df.getOWLDataAllValuesFrom(axiom.getProperty(), axiom.getRange()).accept(this);
+        writeRestriction(ALL, axiom.getProperty(), axiom.getRange());
     }
 
     @Override
@@ -625,14 +622,14 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         top();
         subClass();
-        df.getOWLDataMaxCardinality(1, axiom.getProperty()).accept(this);
+        writeCardinality(MAX, 1, axiom.getProperty(), OWL2Datatype.RDFS_LITERAL.getIRI());
     }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         top();
         subClass();
-        df.getOWLObjectMaxCardinality(1, axiom.getProperty()).accept(this);
+        writeCardinality(MAX, 1, axiom.getProperty(), OWLRDFVocabulary.OWL_THING.getIRI());
     }
 
     @Override
@@ -659,10 +656,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         subClass();
         OWLObjectPropertyExpression property = axiom.getProperty();
         if (property.isAnonymous()) {
-            df.getOWLObjectMaxCardinality(1, property).accept(this);
+            writeCardinality(MAX, 1, property, OWLRDFVocabulary.OWL_THING.getIRI());
         } else {
-            df.getOWLObjectMaxCardinality(1,
-                df.getOWLObjectInverseOf(property.asOWLObjectProperty())).accept(this);
+            writeCardinality(MAX, 1, property.asOWLObjectProperty().getInverseProperty(), INVERSE,
+                OWLRDFVocabulary.OWL_THING.getIRI());
         }
     }
 
@@ -777,7 +774,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        df.getOWLObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()).accept(this);
+        writeRestriction(SOME, axiom.getProperty(), OWLRDFVocabulary.OWL_THING.getIRI());
         subClass();
         axiom.getDomain().accept(this);
     }
@@ -786,7 +783,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         top();
         subClass();
-        df.getOWLObjectAllValuesFrom(axiom.getProperty(), axiom.getRange()).accept(this);
+        writeRestriction(ALL, axiom.getProperty(), OWLRDFVocabulary.OWL_THING.getIRI());
     }
 
     @Override
@@ -944,6 +941,16 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write(card);
         writeSpace();
         p.accept(this);
+        dot();
+        writeNested(f);
+    }
+
+    protected void writeCardinality(String s, int card, OWLObject p, String suffix, OWLObject f) {
+        write(s);
+        write(card);
+        writeSpace();
+        p.accept(this);
+        write(suffix);
         dot();
         writeNested(f);
     }

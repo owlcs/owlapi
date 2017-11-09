@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 
 /**
@@ -35,7 +35,7 @@ public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
     @Mock
     private T element;
     private final PriorityCollectionSorting hasOntologyLoaderConfiguration =
-                    PriorityCollectionSorting.NEVER;
+        PriorityCollectionSorting.NEVER;
     private Iterable<T> iterable;
 
     @Before
@@ -43,8 +43,8 @@ public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         iterable = Arrays.asList(element);
-        collection = new ConcurrentPriorityCollection<>(readWriteLock,
-                        hasOntologyLoaderConfiguration);
+        collection =
+            new ConcurrentPriorityCollection<>(readWriteLock, hasOntologyLoaderConfiguration);
     }
 
     @Test

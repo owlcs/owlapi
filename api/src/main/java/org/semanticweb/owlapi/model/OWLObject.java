@@ -182,22 +182,37 @@ public interface OWLObject
 
     /**
      * @param format document format to use
+     * @param pm prefix manager
      * @return string serialization
      */
     String toSyntax(OWLDocumentFormat format, PrefixManager pm);
 
+    /**
+     * @return format the object to functional syntax
+     */
     default String toFunctionalSyntax() {
         return toSyntax(new FunctionalSyntaxDocumentFormat());
     }
 
+    /**
+     * @return format the object to manchester syntax
+     */
     default String toManchesterSyntax() {
         return toSyntax(new ManchesterSyntaxDocumentFormat());
     }
 
+    /**
+     * @param pm prefix manager
+     * @return format the object to functional syntax
+     */
     default String toFunctionalSyntax(PrefixManager pm) {
         return toSyntax(new FunctionalSyntaxDocumentFormat(), pm);
     }
 
+    /**
+     * @param pm prefix manager
+     * @return format the object to manchester syntax
+     */
     default String toManchesterSyntax(PrefixManager pm) {
         return toSyntax(new ManchesterSyntaxDocumentFormat(), pm);
     }

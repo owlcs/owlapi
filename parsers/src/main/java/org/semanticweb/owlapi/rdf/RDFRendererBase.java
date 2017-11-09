@@ -21,7 +21,6 @@ import static org.semanticweb.owlapi.model.AxiomType.HAS_KEY;
 import static org.semanticweb.owlapi.model.AxiomType.SUB_PROPERTY_CHAIN_OF;
 import static org.semanticweb.owlapi.model.AxiomType.SWRL_RULE;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;

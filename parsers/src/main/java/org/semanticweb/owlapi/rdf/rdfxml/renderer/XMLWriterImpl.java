@@ -24,7 +24,6 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -36,13 +35,11 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.util.SAXParsers;
-import org.semanticweb.owlapi.util.StringLengthComparator;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
 
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .

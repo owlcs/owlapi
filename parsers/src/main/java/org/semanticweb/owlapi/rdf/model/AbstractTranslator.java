@@ -844,7 +844,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         addTriple(node, RDF_TYPE.getIRI(), CLASS_ATOM.getIRI());
         node.getPredicate().accept(this);
         addTriple(node, CLASS_PREDICATE.getIRI(), node.getPredicate());
-        node.getArgument().accept((SWRLObjectVisitor) this);
+        node.getArgument().accept(this);
         addTriple(node, ARGUMENT_1.getIRI(), node.getArgument());
     }
 
@@ -854,7 +854,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         addTriple(node, RDF_TYPE.getIRI(), DATA_RANGE_ATOM.getIRI());
         node.getPredicate().accept(this);
         addTriple(node, DATA_RANGE.getIRI(), node.getPredicate());
-        node.getArgument().accept((SWRLObjectVisitor) this);
+        node.getArgument().accept(this);
         addTriple(node, ARGUMENT_1.getIRI(), node.getArgument());
     }
 
@@ -864,9 +864,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         addTriple(node, RDF_TYPE.getIRI(), INDIVIDUAL_PROPERTY_ATOM.getIRI());
         node.getPredicate().accept(this);
         addTriple(node, PROPERTY_PREDICATE.getIRI(), node.getPredicate());
-        node.getFirstArgument().accept((SWRLObjectVisitor) this);
+        node.getFirstArgument().accept(this);
         addTriple(node, ARGUMENT_1.getIRI(), node.getFirstArgument());
-        node.getSecondArgument().accept((SWRLObjectVisitor) this);
+        node.getSecondArgument().accept(this);
         addTriple(node, ARGUMENT_2.getIRI(), node.getSecondArgument());
     }
 
@@ -876,9 +876,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         addTriple(node, RDF_TYPE.getIRI(), DATAVALUED_PROPERTY_ATOM.getIRI());
         node.getPredicate().accept(this);
         addTriple(node, PROPERTY_PREDICATE.getIRI(), node.getPredicate());
-        node.getFirstArgument().accept((SWRLObjectVisitor) this);
+        node.getFirstArgument().accept(this);
         addTriple(node, ARGUMENT_1.getIRI(), node.getFirstArgument());
-        node.getSecondArgument().accept((SWRLObjectVisitor) this);
+        node.getSecondArgument().accept(this);
         addTriple(node, ARGUMENT_2.getIRI(), node.getSecondArgument());
     }
 
@@ -897,9 +897,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     public void visit(SWRLDifferentIndividualsAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), DIFFERENT_INDIVIDUALS_ATOM.getIRI());
-        node.getFirstArgument().accept((SWRLObjectVisitor) this);
+        node.getFirstArgument().accept(this);
         addTriple(node, ARGUMENT_1.getIRI(), node.getFirstArgument());
-        node.getSecondArgument().accept((SWRLObjectVisitor) this);
+        node.getSecondArgument().accept(this);
         addTriple(node, ARGUMENT_2.getIRI(), node.getSecondArgument());
     }
 
@@ -907,9 +907,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     public void visit(SWRLSameIndividualAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), SAME_INDIVIDUAL_ATOM.getIRI());
-        node.getFirstArgument().accept((SWRLObjectVisitor) this);
+        node.getFirstArgument().accept(this);
         addTriple(node, ARGUMENT_1.getIRI(), node.getFirstArgument());
-        node.getSecondArgument().accept((SWRLObjectVisitor) this);
+        node.getSecondArgument().accept(this);
         addTriple(node, ARGUMENT_2.getIRI(), node.getSecondArgument());
     }
 

@@ -1,1 +1,4 @@
 org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer
+org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxObjectRenderer
+org.semanticweb.owlapi.latex.renderer.LatexOWLObjectRenderer
+org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterObjectRenderer

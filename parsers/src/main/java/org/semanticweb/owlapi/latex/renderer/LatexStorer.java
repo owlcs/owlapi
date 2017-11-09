@@ -58,7 +58,7 @@ public class LatexStorer implements OWLStorer {
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
-            render(ontology, writer, storerParameters);
+            render(ontology, writer);
             writer.flush();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
@@ -76,8 +76,7 @@ public class LatexStorer implements OWLStorer {
         w.write("}\n\n");
     }
 
-    private void render(OWLOntology o, PrintWriter _w, OWLStorerParameters storerParameters)
-        throws OWLOntologyStorageException {
+    private void render(OWLOntology o, PrintWriter _w) throws OWLOntologyStorageException {
         try {
             LatexWriter w = new LatexWriter(_w);
             w.write("\\documentclass{article}\n");
@@ -86,8 +85,7 @@ public class LatexStorer implements OWLStorer {
             w.write("\\oddsidemargin 0cm\n");
             w.write("\\textwidth 19cm\n");
             w.write("\\begin{document}\n\n");
-            LatexObjectVisitor renderer =
-                new LatexObjectVisitor(w, o.getOWLOntologyManager().getOWLDataFactory());
+            LatexObjectVisitor renderer = new LatexObjectVisitor(w);
             Collection<OWLClass> clses = sortEntities(o.classesInSignature());
             if (!clses.isEmpty()) {
                 w.write("\\subsection*{Classes}\n\n");

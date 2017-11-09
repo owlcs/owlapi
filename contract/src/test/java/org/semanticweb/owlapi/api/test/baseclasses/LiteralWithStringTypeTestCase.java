@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.3.0
  */
+@SuppressWarnings("javadoc")
 public class LiteralWithStringTypeTestCase extends AbstractRoundTrippingTestCase {
 
     @Override

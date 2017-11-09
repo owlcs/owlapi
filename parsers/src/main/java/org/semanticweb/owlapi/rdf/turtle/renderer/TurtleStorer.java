@@ -32,7 +32,7 @@ public class TurtleStorer implements OWLStorer {
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
-            new TurtleRenderer(ontology, writer, format).render();
+            new TurtleRenderer(ontology, writer).render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
         }

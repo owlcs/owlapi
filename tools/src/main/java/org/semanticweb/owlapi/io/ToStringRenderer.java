@@ -14,10 +14,23 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Map;
+import java.util.ServiceConfigurationError;
+import java.util.ServiceLoader;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+import javax.annotation.Nullable;
+
+import org.semanticweb.owlapi.annotations.Renders;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -37,31 +50,45 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  * @since 2.2.0
  */
 public final class ToStringRenderer {
+    private static Logger logger = LoggerFactory.getLogger(ToStringRenderer.class);
+
     static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
         return Caffeine.newBuilder().weakKeys().softValues().build(c);
     }
 
-    static OWLObjectRenderer renderer(String className) {
+    static Supplier<OWLObjectRenderer> renderer(Class<OWLObjectRenderer> className) {
+        return () -> supply(className);
+    }
+
+    static OWLObjectRenderer supply(Class<OWLObjectRenderer> className) {
         try {
-            return (OWLObjectRenderer) Class.forName(className).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            throw new RuntimeException("Custom renderer unavailable: " + className);
+            return className.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new OWLRuntimeException("Custom renderer unavailable: " + className);
         }
     }
 
-    static String value() {
-        return ConfigurationOptions.TO_STRING_RENDERER.getValue(String.class, null);
+    static Class<OWLObjectRenderer> value() {
+        String value = ConfigurationOptions.TO_STRING_RENDERER.getValue(String.class, null);
+        try {
+            return (Class<OWLObjectRenderer>) Class.forName(value);
+        } catch (ClassNotFoundException e) {
+            throw new OWLRuntimeException("Custom renderer unavailable: " + value);
+        }
     }
 
-    private static final LoadingCache<String, OWLObjectRenderer> renderers =
+    private static final LoadingCache<Class<OWLObjectRenderer>, Supplier<OWLObjectRenderer>> renderers =
         build(ToStringRenderer::renderer);
 
     /**
      * @return the singleton instance
      */
     public static OWLObjectRenderer getInstance() {
-        return renderers.get(value());
+        return renderers.get(value()).get();
     }
+
+    private static final Map<Class<? extends OWLDocumentFormat>, Class<? extends OWLObjectRenderer>> formatToRenderer =
+        initMap();
 
     /**
      * @param object the object to render
@@ -71,11 +98,61 @@ public final class ToStringRenderer {
         return getInstance().render(checkNotNull(object, "object cannot be null"));
     }
 
-    public static OWLObjectRenderer getInstance(OWLDocumentFormat format, PrefixManager pm) {
-        // TODO Auto-generated method stub
-        return null;
+    private static Map<Class<? extends OWLDocumentFormat>, Class<? extends OWLObjectRenderer>> initMap() {
+        Map<Class<? extends OWLDocumentFormat>, Class<? extends OWLObjectRenderer>> map =
+            new ConcurrentHashMap<>();
+        Consumer<OWLObjectRenderer> r = c -> {
+            Renders annotation = c.getClass().getAnnotation(Renders.class);
+            if (annotation != null) {
+                map.put(annotation.value(), c.getClass());
+            }
+        };
+        try {
+            ServiceLoader.load(OWLObjectRenderer.class).forEach(r);
+        } catch (ServiceConfigurationError e) {
+            logger.debug("ServiceLoading: ", e);
+        }
+        // in OSGi, the context class loader is likely null.
+        // This would trigger the use of the system class loader, which would
+        // not see the OWLAPI jar, nor any other jar containing implementations.
+        // In that case, use this class classloader to load, at a minimum, the
+        // services provided by the OWLAPI jar itself.
+        if (map.isEmpty()) {
+            ClassLoader classLoader = ToStringRenderer.class.getClassLoader();
+            ServiceLoader.load(OWLObjectRenderer.class, classLoader).forEach(r);
+        }
+        return map;
     }
 
+    /**
+     * @param format format for output
+     * @param pm prefix manager
+     * @return renderer prepared for output
+     */
+    public static OWLObjectRenderer getInstance(OWLDocumentFormat format,
+        @Nullable PrefixManager pm) {
+        Class<OWLObjectRenderer> class1 =
+            (Class<OWLObjectRenderer>) formatToRenderer.get(format.getClass());
+        if (class1 == null) {
+            throw new OWLRuntimeException("Format " + format
+                + " does not have an OWLObjectRenderer implementation available.");
+        }
+        Supplier<OWLObjectRenderer> supplier = renderers.get(class1);
+        if (supplier == null) {
+            throw new OWLRuntimeException("Format " + format
+                + " does not have an OWLObjectRenderer supplier implementation available.");
+        }
+        OWLObjectRenderer r = supplier.get();
+        if (pm != null) {
+            r.setPrefixManager(pm);
+        }
+        return r;
+    }
+
+    /**
+     * @param format format for output
+     * @return renderer prepared for output
+     */
     public static OWLObjectRenderer getInstance(OWLDocumentFormat format) {
         return getInstance(format, null);
     }

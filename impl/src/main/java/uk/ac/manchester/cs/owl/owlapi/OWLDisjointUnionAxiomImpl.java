@@ -28,8 +28,6 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 
-import com.google.common.collect.Sets;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -45,7 +43,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
      * @param annotations annotations
      */
     public OWLDisjointUnionAxiomImpl(OWLClass owlClass, Stream<OWLClassExpression> classExpressions,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = checkNotNull(owlClass, "owlClass cannot be null");
         checkNotNull(classExpressions, "classExpressions cannot be null");
@@ -61,15 +59,15 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     @SuppressWarnings("unchecked")
     public OWLDisjointUnionAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-                        : new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(),
-                                        NO_ANNOTATIONS);
+            : new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions(),
-                        mergeAnnos(anns));
+            mergeAnnos(anns));
     }
 
     @Override

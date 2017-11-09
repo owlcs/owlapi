@@ -98,6 +98,7 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.TRANSITIVE_OBJECT_PR
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.VARIABLE;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -112,6 +113,8 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.annotations.Renders;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -231,6 +234,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
+@Renders(FunctionalSyntaxDocumentFormat.class)
 public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     protected final Optional<OWLOntology> ont;
@@ -241,6 +245,11 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     private boolean addMissingDeclarations = true;
     private boolean prettyPrint = false;
     private int tabIndex = 0;
+
+    /** Empty constructor, for use from ToStringRenderer */
+    public FunctionalSyntaxObjectRenderer() {
+        this(null, new StringWriter());
+    }
 
     /**
      * @param ontology the ontology
@@ -288,8 +297,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
 
     @Override
     public String render(OWLObject object) {
-        // This method relies on the writer having been set to be a String writer. Not to be used
-        // otherwise.
         object.accept(this);
         return writer.toString();
     }

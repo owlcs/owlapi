@@ -40,7 +40,6 @@ public class OWLAPIStreamUtils {
      * @param s stream to turn to array
      * @return sorted array containing all elements in the stream, minus nulls and duplicates
      */
-    @SuppressWarnings("unchecked")
     public static <T> List<T> sorted(Class<T> type, Stream<? extends T> s) {
         // skip nulls, skip duplicates, ensure sorted
         return asList(s.filter(Objects::nonNull).distinct().sorted(), type);

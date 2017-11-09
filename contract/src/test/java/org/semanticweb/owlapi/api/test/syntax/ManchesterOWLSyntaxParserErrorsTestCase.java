@@ -17,7 +17,6 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -55,9 +54,9 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
         when(entityChecker.getOWLObjectProperty("oP")).thenReturn(oP);
         when(entityChecker.getOWLDataProperty("dP")).thenReturn(mock(OWLDataProperty.class));
         when(entityChecker.getOWLAnnotationProperty("aP"))
-                        .thenReturn(mock(OWLAnnotationProperty.class));
+            .thenReturn(mock(OWLAnnotationProperty.class));
         when(entityChecker.getOWLAnnotationProperty("rdfs:comment"))
-                        .thenReturn(dataFactory.getRDFSComment());
+            .thenReturn(dataFactory.getRDFSComment());
         OWLNamedIndividual ind = mock(OWLNamedIndividual.class);
         when(entityChecker.getOWLIndividual("ind")).thenReturn(ind);
         when(ind.asOWLNamedIndividual()).thenReturn(ind);
@@ -495,7 +494,7 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
         checkForExceptionAt(input, input.length(), ManchesterOWLSyntaxTokenizer.EOFTOKEN);
         String trimmedInput = input.trim();
         checkForExceptionAt(trimmedInput, trimmedInput.length(),
-                        ManchesterOWLSyntaxTokenizer.EOFTOKEN);
+            ManchesterOWLSyntaxTokenizer.EOFTOKEN);
     }
 
     private class ParserWrapper {

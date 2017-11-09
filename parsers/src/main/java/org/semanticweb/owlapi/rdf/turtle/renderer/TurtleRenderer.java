@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.turtle.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.PrintWriter;
@@ -42,7 +41,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -73,11 +71,9 @@ public class TurtleRenderer extends RDFRendererBase {
     /**
      * @param ontology ontology
      * @param writer writer
-     * @param format format
      */
-    public TurtleRenderer(OWLOntology ontology, Writer writer, OWLDocumentFormat format) {
+    public TurtleRenderer(OWLOntology ontology, Writer writer) {
         super(ontology, ontology.getOWLOntologyManager().getOntologyConfigurator());
-        checkNotNull(format, "format cannot be null");
         this.writer = new PrintWriter(writer);
         pm = ontology.getPrefixManager();
         if (!ontology.isAnonymous()) {
