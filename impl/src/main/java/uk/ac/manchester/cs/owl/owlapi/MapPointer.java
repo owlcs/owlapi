@@ -154,8 +154,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         }
         if (visitor instanceof InitVisitor) {
             i.getAxiomsByType().forEach(verifyNotNull(type),
-                            ax -> putInternal(ax.accept((InitVisitor<K>) verifyNotNull(visitor)),
-                                            (V) ax));
+                ax -> putInternal(ax.accept((InitVisitor<K>) verifyNotNull(visitor)), (V) ax));
         } else if (visitor instanceof InitCollectionVisitor) {
             i.getAxiomsByType().forEach(verifyNotNull(type),
                             ax -> ax.accept((InitCollectionVisitor<K>) verifyNotNull(visitor))
@@ -502,8 +501,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
                 Collection<V> set = entry.getValue();
                 if (set instanceof ArrayList) {
-                    THashSet<V> value = new THashSetForSet<>(DEFAULT_INITIAL_CAPACITY,
-                                    DEFAULT_LOAD_FACTOR);
+                    THashSet<V> value = new THashSetForSet<>(set.size(), DEFAULT_LOAD_FACTOR);
                     value.addAll(set);
                     entry.setValue(value);
                     size = size - set.size() + value.size();

@@ -417,7 +417,9 @@ public class BuildersTestCase<Q> {
             assertTrue(expected.toString() + " but " + o.toString(),
                 o.containsAxiom((OWLAxiom) expected));
         }
-        assertEquals(expected, p.build(expected).buildObject());
+        Q created = p.build(expected).buildObject();
+        assertEquals(expected.hashCode(), created.hashCode());
+        assertEquals(expected, created);
     }
 
     private static interface Prepare<T> {
