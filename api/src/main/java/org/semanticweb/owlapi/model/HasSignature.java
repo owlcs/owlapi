@@ -43,7 +43,7 @@ public interface HasSignature {
      */
     @Deprecated
     default Set<OWLEntity> getSignature() {
-        return asSet(signature());
+        return asSet(unsortedSignature());
     }
 
     /**
@@ -51,5 +51,14 @@ public interface HasSignature {
      */
     default Stream<OWLEntity> signature() {
         return empty();
+    }
+
+    /**
+     * @return signature without sorting requirement. For immutable objects, this does not
+     *         necessarily differ from the signature. Mutable objects, such as OWLOntology
+     *         instances, can provide an unsorted signature faster.
+     */
+    default Stream<OWLEntity> unsortedSignature() {
+        return signature();
     }
 }

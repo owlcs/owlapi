@@ -25,6 +25,6 @@ public class ImportsStructureEntitySorter extends ImportsStructureObjectSorter<O
      * @param ontology the ontology
      */
     public ImportsStructureEntitySorter(OWLOntology ontology) {
-        super(ontology, OWLOntology::signature);
+        super(ontology, OWLOntology::unsortedSignature);
     }
 }

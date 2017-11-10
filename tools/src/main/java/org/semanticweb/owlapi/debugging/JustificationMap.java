@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -130,7 +131,7 @@ public class JustificationMap {
         usedAxioms.add(parentAxiom);
         OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
         parentAxiom.accept(extractor);
-        return asUnorderedSet(extractor.getRHS().stream().flatMap(o -> o.signature())
+        return asUnorderedSet(extractor.getRHS().stream().flatMap(HasSignature::signature)
             .flatMap(this::getAxiomsByLHS).filter(usedAxioms::add));
     }
 

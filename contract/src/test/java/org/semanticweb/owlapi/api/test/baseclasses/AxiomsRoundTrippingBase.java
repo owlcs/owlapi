@@ -34,7 +34,7 @@ public abstract class AxiomsRoundTrippingBase extends AbstractRoundTrippingTestC
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology();
         ont.add(createAxioms.build());
-        ont.signature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
+        ont.unsortedSignature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
                         .forEach(e -> ont.add(Declaration(e)));
         return ont;
     }

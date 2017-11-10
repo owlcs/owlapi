@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,7 +43,9 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
      */
     public OWLNaryPropertyAxiomImpl(Collection<? extends P> properties,
         Collection<OWLAnnotation> annotations) {
-        this(checkNotNull(properties, "properties cannot be null").stream(), annotations);
+        super(annotations);
+        checkNotNull(properties, "properties cannot be null");
+        this.properties = (List<P>) sorted(OWLPropertyExpression.class, properties);
     }
 
     /**
@@ -65,6 +68,11 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     @Override
     public Stream<P> properties() {
         return streamFromSorted(properties);
+    }
+
+    @Override
+    public List<P> getOperandsAsList() {
+        return Collections.unmodifiableList(properties);
     }
 
     @Override

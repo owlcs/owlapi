@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -56,6 +57,11 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     @Override
     public Stream<OWLIndividual> individuals() {
         return streamFromSorted(values);
+    }
+
+    @Override
+    public List<OWLIndividual> getOperandsAsList() {
+        return Collections.unmodifiableList(values);
     }
 
     @Override

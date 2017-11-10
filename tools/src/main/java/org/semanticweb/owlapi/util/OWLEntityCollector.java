@@ -77,7 +77,7 @@ public class OWLEntityCollector extends AbstractCollectorEx<OWLEntity> {
 
     @Override
     public Collection<OWLEntity> visit(OWLOntology ontology) {
-        add(objects, ontology.signature());
+        add(objects, ontology.unsortedSignature());
         return objects;
     }
 

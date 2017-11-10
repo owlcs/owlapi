@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -31,6 +32,13 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
      * @param operands operands
      */
     public OWLObjectUnionOfImpl(Stream<OWLClassExpression> operands) {
+        super(operands);
+    }
+
+    /**
+     * @param operands operands
+     */
+    public OWLObjectUnionOfImpl(Collection<? extends OWLClassExpression> operands) {
         super(operands);
     }
 

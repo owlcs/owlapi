@@ -80,7 +80,7 @@ public abstract class OWLObjectImpl
     }
 
     static <T> List<T> cacheSig(OWLObject o, Predicate<OWLEntity> p, Function<OWLEntity, T> f) {
-        return asList(o.signature().filter(p).map(f));
+        return asList(o.unsortedSignature().filter(p).map(f).sorted());
     }
 
     /**

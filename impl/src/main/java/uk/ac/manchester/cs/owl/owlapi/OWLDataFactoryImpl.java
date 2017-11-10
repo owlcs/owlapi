@@ -37,8 +37,6 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDINTEGER;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDSTRING;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.negativeFloatZero;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -169,13 +167,13 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  */
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassProvider {
 //@formatter:off
-    private transient LoadingCache<OWLAnnotation, OWLAnnotation>          annotations          = builder(key -> key);
-    private transient LoadingCache<IRI,           OWLClass>               classes              = builder(OWLClassImpl::new);
-    private transient LoadingCache<IRI,           OWLObjectProperty>      objectProperties     = builder(OWLObjectPropertyImpl::new);
-    private transient LoadingCache<IRI,           OWLDataProperty>        dataProperties       = builder(OWLDataPropertyImpl::new);
-    private transient LoadingCache<IRI,           OWLDatatype>            datatypes            = builder(OWLDatatypeImpl::new);
-    private transient LoadingCache<IRI,           OWLNamedIndividual>     individuals          = builder(OWLNamedIndividualImpl::new);
-    private transient LoadingCache<IRI,           OWLAnnotationProperty>  annotationProperties = builder(OWLAnnotationPropertyImpl::new);
+    private static final LoadingCache<OWLAnnotation, OWLAnnotation>          annotations          = builder(key -> key);
+    private static final LoadingCache<IRI,           OWLClass>               classes              = builder(OWLClassImpl::new);
+    private static final LoadingCache<IRI,           OWLObjectProperty>      objectProperties     = builder(OWLObjectPropertyImpl::new);
+    private static final LoadingCache<IRI,           OWLDataProperty>        dataProperties       = builder(OWLDataPropertyImpl::new);
+    private static final LoadingCache<IRI,           OWLDatatype>            datatypes            = builder(OWLDatatypeImpl::new);
+    private static final LoadingCache<IRI,           OWLNamedIndividual>     individuals          = builder(OWLNamedIndividualImpl::new);
+    private static final LoadingCache<IRI,           OWLAnnotationProperty>  annotationProperties = builder(OWLAnnotationPropertyImpl::new);
 //@formatter:on
 
     private final boolean useCompression;
@@ -193,17 +191,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     @Inject
     public OWLDataFactoryImpl(@CompressionEnabled boolean useCompression) {
         this.useCompression = useCompression;
-    }
-
-    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-        annotations = builder(key -> key);
-        classes = builder(OWLClassImpl::new);
-        objectProperties = builder(OWLObjectPropertyImpl::new);
-        dataProperties = builder(OWLDataPropertyImpl::new);
-        datatypes = builder(OWLDatatypeImpl::new);
-        individuals = builder(OWLNamedIndividualImpl::new);
-        annotationProperties = builder(OWLAnnotationPropertyImpl::new);
     }
 
     @Override
@@ -383,6 +370,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
+    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(
+        Collection<? extends OWLClassExpression> operands) {
+        return new OWLObjectIntersectionOfImpl(operands);
+    }
+
+    @Override
     public OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property,
         OWLDataRange dataRange) {
         return new OWLDataAllValuesFromImpl(property, dataRange);
@@ -538,6 +531,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     @Override
     public OWLObjectUnionOf getOWLObjectUnionOf(Stream<? extends OWLClassExpression> operands) {
         return new OWLObjectUnionOfImpl(operands.map(x -> x));
+    }
+
+    @Override
+    public OWLObjectUnionOf getOWLObjectUnionOf(Collection<? extends OWLClassExpression> operands) {
+        return new OWLObjectUnionOfImpl(operands);
     }
 
     @Override
