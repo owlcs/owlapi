@@ -34,12 +34,12 @@ public interface OWLAnnotation
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getProperty(), getValue(), annotations());
+        return Stream.of(getProperty(), getValue(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty(), getValue());
+        return Stream.of(annotationsAsList(), getProperty(), getValue());
     }
 
     @Override

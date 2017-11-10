@@ -62,4 +62,9 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
         return new OWLAnnotationImpl(getProperty(), getValue(),
             Stream.concat(annotations(), annotations));
     }
+
+    @Override
+    public List<OWLAnnotation> annotationsAsList() {
+        return anns;
+    }
 }

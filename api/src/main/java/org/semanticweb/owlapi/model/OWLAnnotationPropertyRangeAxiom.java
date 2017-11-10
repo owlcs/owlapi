@@ -37,12 +37,12 @@ public interface OWLAnnotationPropertyRangeAxiom
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getProperty(), getRange(), annotations());
+        return Stream.of(getProperty(), getRange(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty(), getRange());
+        return Stream.of(annotationsAsList(), getProperty(), getRange());
     }
 
     @Override

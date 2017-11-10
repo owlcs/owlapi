@@ -72,4 +72,14 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     public Stream<OWLPropertyExpression> propertyExpressions() {
         return streamFromSorted(propertyExpressions);
     }
+
+    @Override
+    public Stream<OWLPropertyExpression> operands() {
+        return propertyExpressions();
+    }
+
+    @Override
+    public List<OWLPropertyExpression> getOperandsAsList() {
+        return propertyExpressions;
+    }
 }

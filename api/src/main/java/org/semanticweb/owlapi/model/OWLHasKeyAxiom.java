@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
+public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLPropertyExpression> {
 
     @Override
     @SuppressWarnings("unchecked")
@@ -32,17 +32,17 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getClassExpression(), propertyExpressions(), annotations());
+        return Stream.of(getClassExpression(), getOperandsAsList(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getClassExpression(), propertyExpressions());
+        return Stream.of(getClassExpression(), getOperandsAsList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getClassExpression(), propertyExpressions());
+        return Stream.of(annotationsAsList(), getClassExpression(), getOperandsAsList());
     }
 
     @Override

@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -49,6 +48,6 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLN
 
     @Override
     public List<OWLDataRange> getOperandsAsList() {
-        return Collections.unmodifiableList(operands);
+        return operands;
     }
 }

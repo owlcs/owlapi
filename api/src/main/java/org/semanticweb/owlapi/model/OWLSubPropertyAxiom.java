@@ -23,7 +23,7 @@ public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression> extends OW
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getSubProperty(), getSuperProperty(), annotations());
+        return Stream.of(getSubProperty(), getSuperProperty(), annotationsAsList());
     }
 
     @Override
@@ -33,7 +33,7 @@ public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression> extends OW
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getSubProperty(), getSuperProperty());
+        return Stream.of(annotationsAsList(), getSubProperty(), getSuperProperty());
     }
 
     /**

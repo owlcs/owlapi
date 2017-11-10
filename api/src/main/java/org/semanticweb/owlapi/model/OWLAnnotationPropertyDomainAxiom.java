@@ -35,12 +35,12 @@ public interface OWLAnnotationPropertyDomainAxiom
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getProperty(), getDomain(), annotations());
+        return Stream.of(getProperty(), getDomain(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty(), getDomain());
+        return Stream.of(annotationsAsList(), getProperty(), getDomain());
     }
 
     @Override

@@ -53,4 +53,9 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     public Stream<OWLFacetRestriction> facetRestrictions() {
         return streamFromSorted(facetRestrictions);
     }
+
+    @Override
+    public List<OWLFacetRestriction> facetRestrictionsAsList() {
+        return facetRestrictions;
+    }
 }

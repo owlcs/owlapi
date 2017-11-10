@@ -46,6 +46,12 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
     }
 
     @Override
+    public List<OWLAnnotation> annotationsAsList() {
+        // List is immutable, no need to make defensive copies
+        return annotations;
+    }
+
+    @Override
     public boolean isAnnotated() {
         return !annotations.isEmpty();
     }

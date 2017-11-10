@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -111,6 +112,16 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     @Override
     public Stream<SWRLAtom> head() {
         return head.stream();
+    }
+
+    @Override
+    public List<SWRLAtom> bodyList() {
+        return new ArrayList<>(body);
+    }
+
+    @Override
+    public List<SWRLAtom> headList() {
+        return new ArrayList<>(head);
     }
 
     @Override

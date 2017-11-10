@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -57,6 +56,6 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
 
     @Override
     public List<OWLIndividual> getOperandsAsList() {
-        return Collections.unmodifiableList(individuals);
+        return individuals;
     }
 }

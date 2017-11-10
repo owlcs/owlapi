@@ -27,17 +27,17 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
 
     @Override
     default Stream<?> components() {
-        return Stream.of(classExpressions(), annotations());
+        return Stream.of(getOperandsAsList(), annotationsAsList());
     }
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(classExpressions());
+        return Stream.of(getOperandsAsList());
     }
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), classExpressions());
+        return Stream.of(annotationsAsList(), getOperandsAsList());
     }
 
     /**

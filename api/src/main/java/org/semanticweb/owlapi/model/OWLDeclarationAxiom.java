@@ -36,7 +36,7 @@ public interface OWLDeclarationAxiom extends OWLAxiom {
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getEntity(), annotations());
+        return Stream.of(getEntity(), annotationsAsList());
     }
 
     @Override
@@ -46,7 +46,7 @@ public interface OWLDeclarationAxiom extends OWLAxiom {
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getEntity());
+        return Stream.of(annotationsAsList(), getEntity());
     }
 
     /**

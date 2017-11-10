@@ -26,7 +26,7 @@ public interface OWLNaryBooleanClassExpression
 
     @Override
     default Stream<?> components() {
-        return Stream.of(operands());
+        return Stream.of(getOperandsAsList());
     }
 
     /**
@@ -37,10 +37,4 @@ public interface OWLNaryBooleanClassExpression
     default Set<OWLClassExpression> getOperands() {
         return asSet(operands());
     }
-
-    /**
-     * @return the class expressions
-     */
-    @Override
-    Stream<OWLClassExpression> operands();
 }

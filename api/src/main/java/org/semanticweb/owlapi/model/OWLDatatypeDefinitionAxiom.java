@@ -25,7 +25,7 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getDatatype(), getDataRange(), annotations());
+        return Stream.of(getDatatype(), getDataRange(), annotationsAsList());
     }
 
     @Override
@@ -35,7 +35,7 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getDatatype(), getDataRange());
+        return Stream.of(annotationsAsList(), getDatatype(), getDataRange());
     }
 
     @Override

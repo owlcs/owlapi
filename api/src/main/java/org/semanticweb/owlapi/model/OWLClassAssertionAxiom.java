@@ -25,7 +25,7 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom, OWLSubClassO
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getIndividual(), getClassExpression(), annotations());
+        return Stream.of(getIndividual(), getClassExpression(), annotationsAsList());
     }
 
     @Override
@@ -35,7 +35,7 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom, OWLSubClassO
 
     @Override
     default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getIndividual(), getClassExpression());
+        return Stream.of(annotationsAsList(), getIndividual(), getClassExpression());
     }
 
     @Override

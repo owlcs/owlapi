@@ -15,6 +15,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -38,6 +40,11 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLA
     public OWLAnnotationImplNotAnnotated(OWLAnnotationProperty property, OWLAnnotationValue value) {
         this.property = checkNotNull(property, "property cannot be null");
         this.value = checkNotNull(value, "value cannot be null");
+    }
+
+    @Override
+    public List<OWLAnnotation> annotationsAsList() {
+        return Collections.emptyList();
     }
 
     @Override

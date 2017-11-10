@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -38,7 +39,8 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
      */
     public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
         super(predicate);
-        this.args = new ArrayList<>(checkNotNull(args, "args cannot be null"));
+        this.args = Collections
+            .unmodifiableList(new ArrayList<>(checkNotNull(args, "args cannot be null")));
         // Do not sort these. They are arguments for builtins and they are order sensitive.
     }
 
@@ -60,5 +62,10 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     @Override
     public Stream<SWRLArgument> allArguments() {
         return args.stream().map(x -> x);
+    }
+
+    @Override
+    public List<SWRLDArgument> getArguments() {
+        return args;
     }
 }
