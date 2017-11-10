@@ -45,7 +45,8 @@ public class OWLFunctionalSyntaxOWLParser implements OWLParser {
 
     protected OWLDocumentFormat parse(OWLOntology o, OntologyConfigurator config,
         Provider provider) {
-        OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(provider);
+        OWLFunctionalSyntaxParser parser =
+            new OWLFunctionalSyntaxParser(new CustomTokenizer(provider));
         parser.setUp(o, config);
         return parser.parse();
     }

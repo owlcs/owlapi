@@ -59,14 +59,14 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
      *
      * @param ontologies The ontologies that contain references to the entities to be mapped.
      * @param shortFormProvider The short form provider that should be used to generate the short
-     * forms of the referenced entities.
+     *        forms of the referenced entities.
      */
     public BidirectionalShortFormProviderAdapter(Collection<OWLOntology> ontologies,
         ShortFormProvider shortFormProvider) {
         this.shortFormProvider =
             checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
-        rebuild(ontologies.stream().flatMap(OWLOntology::signature));
+        rebuild(ontologies.stream().flatMap(OWLOntology::unsortedSignature));
     }
 
     /**
@@ -77,10 +77,10 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
      *
      * @param ontologies The ontologies that contain references to the entities to be mapped.
      * @param shortFormProvider The short form provider that should be used to generate the short
-     * forms of the referenced entities.
+     *        forms of the referenced entities.
      * @param man This short form provider will track changes to ontologies. The provider will
-     * listen for ontology changes and update the cache of entity--shortform mappings based on
-     * whether the specified ontologies contain references to entities or not.
+     *        listen for ontology changes and update the cache of entity--shortform mappings based
+     *        on whether the specified ontologies contain references to entities or not.
      */
     public BidirectionalShortFormProviderAdapter(OWLOntologyManager man,
         Collection<OWLOntology> ontologies, ShortFormProvider shortFormProvider) {
@@ -119,8 +119,8 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
 
                     @Override
                     public void visit(RemoveAxiom change) {
-                        change.signature().filter(processed::add).filter(
-                            BidirectionalShortFormProviderAdapter.this::noLongerReferenced)
+                        change.signature().filter(processed::add)
+                            .filter(BidirectionalShortFormProviderAdapter.this::noLongerReferenced)
                             .forEach(BidirectionalShortFormProviderAdapter.this::remove);
                     }
                 };

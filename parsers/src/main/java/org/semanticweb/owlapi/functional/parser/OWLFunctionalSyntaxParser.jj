@@ -5,6 +5,7 @@ options {
     JAVA_TEMPLATE_TYPE = "modern";
     EXCEPTIONS_SUPER_CLASS = "org.semanticweb.owlapi.io.OWLParserException";
     SUPPORT_CLASS_VISIBILITY_PUBLIC=false;
+    USER_TOKEN_MANAGER=true;
 }
 
 PARSER_BEGIN(OWLFunctionalSyntaxParser)
@@ -237,8 +238,7 @@ TOKEN: { <PN_CHARS_U: <PN_CHARS_BASE> | "_"> }
 TOKEN: { <NODEID: "_:"<PN_LOCAL>> }
 TOKEN: { <ERROR: ~[]> }
 
-public FunctionalSyntaxDocumentFormat parse() throws OWLParserException, UnloadableImportException :
-{ }
+public FunctionalSyntaxDocumentFormat parse() throws OWLParserException, UnloadableImportException : { }
 {
     (Prefix())*Ontology()<EOF> {
         for(String pn : prefixMap.keySet()) {
@@ -257,27 +257,23 @@ void Ontology() throws OWLParserException, UnloadableImportException :
     IRI versionIRI = null;
 }
 {
-    <ONTOLOGY><OPENPAR>(ontologyIRI=IRI()(versionIRI=IRI())?)?
-    {
+    <ONTOLOGY><OPENPAR>(ontologyIRI=IRI()(versionIRI=IRI())?)? {
         OWLOntologyID id = new OWLOntologyID(ontologyIRI, versionIRI);
         applyChange(new SetOntologyID(ontology, id));
     }
     (
-    (decl = ImportsDeclaration()
-    {
+    (decl = ImportsDeclaration() {
         applyChange(new AddImport(ontology, decl));
         man.makeLoadImportRequest(decl, configuration);
     })
     |
-    (anno=Annotation()
-    {
+    (anno=Annotation() {
         applyChange(new AddOntologyAnnotation(ontology, anno));
         currentAnnotations.clear();
     }))*
 
 
-    ((ax=Axiom()
-    {
+    ((ax=Axiom() {
         addAxiom(ax);
         currentAnnotations.clear();
     }))*<CLOSEPAR>
@@ -285,7 +281,7 @@ void Ontology() throws OWLParserException, UnloadableImportException :
 
 public void Prefix() :
 {
-    String prefixName;
+    String prefixName="";
     IRI iri;
 }
 { (<PREFIX><OPENPAR>prefixName=PrefixName()<EQUALS>iri=FullIRI()<CLOSEPAR>) { prefixMap.put(prefixName, iri.toString()); } }
@@ -395,8 +391,7 @@ OWLClassExpression ObjectMinCardinality()  :
     OWLClassExpression filler = null;
 }
 {
-    (<OBJECTMINCARDINALITY><OPENPAR>cardinality=Cardinality()prop=ObjectPropertyExpression()(filler=ClassExpression())?<CLOSEPAR>)
-    {
+    (<OBJECTMINCARDINALITY><OPENPAR>cardinality=Cardinality()prop=ObjectPropertyExpression()(filler=ClassExpression())?<CLOSEPAR>) {
         if(filler == null) {
             return df.getOWLObjectMinCardinality(cardinality, prop);
         }
@@ -708,8 +703,7 @@ OWLPropertyAxiom SubObjectPropertyOf() :
 
 }
 {
-    <SUBOBJECTPROPERTYOF><OPENPAR>axiomAnnos = AxiomAnnotationSet()(subProperty=ObjectPropertyExpression() | chain=SubObjectPropertyChain()) superProperty=ObjectPropertyExpression() <CLOSEPAR>
-    {
+    <SUBOBJECTPROPERTYOF><OPENPAR>axiomAnnos = AxiomAnnotationSet()(subProperty=ObjectPropertyExpression() | chain=SubObjectPropertyChain()) superProperty=ObjectPropertyExpression() <CLOSEPAR> {
         if(subProperty != null) {
             return df.getOWLSubObjectPropertyOfAxiom(subProperty, superProperty, axiomAnnos);
         }
@@ -1005,10 +999,13 @@ OWLAnnotationValue AnnotationValue() :
 
 Set<OWLAnnotation> AxiomAnnotationSet() :
 {
-    Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+    Set<OWLAnnotation> annos = null;
     OWLAnnotation anno;
 }
-{ (anno=Annotation(){ annos.add(anno); })*{ return annos; } }
+{ (anno=Annotation(){
+        if(annos == null) { annos = new HashSet<OWLAnnotation>(); }
+        annos.add(anno); 
+    })*{ return annos  == null ? Collections.emptySet() : annos; } }
 
 OWLImportsDeclaration ImportsDeclaration() :
 { IRI iri; }
@@ -1085,8 +1082,7 @@ OWLLiteral Literal() :
     String lang = "";
 }
 {
-    (literal=QuotedString() ((<DATATYPEIDENTIFIER>{plain=false;}datatype=DatatypeIRI())|((<LANGIDENTIFIER>lang=LangTag())))?)
-        {
+    (literal=QuotedString() ((<DATATYPEIDENTIFIER>{plain=false;}datatype=DatatypeIRI()) | ((<LANGIDENTIFIER>lang=LangTag())))?) {
         if(plain) { return df.getOWLLiteral(literal, lang); }
         // a float value in this syntax has an extra 'f' or 'F' character that must be removed to make a valid OWL literal
         if(datatype.isFloat() && (literal.endsWith("f")||literal.endsWith("F")) && !(literal.endsWith("inf")||literal.endsWith("INF"))){

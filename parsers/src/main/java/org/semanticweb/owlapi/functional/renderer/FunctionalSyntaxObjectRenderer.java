@@ -397,7 +397,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         writeReturn();
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         Collection<IRI> illegals = ontology.determineIllegalPunnings(addMissingDeclarations);
-        ontology.signature().forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
+        ontology.unsortedSignature().forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
         writeSortedEntities(ontology, "Annotation Properties", "Annotation Property",
             ontology.annotationPropertiesInSignature(EXCLUDED), writtenAxioms);
         writeSortedEntities(ontology, "Object Properties", "Object Property",
