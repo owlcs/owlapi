@@ -530,6 +530,11 @@ class CustomTokenizer implements TokenManager {
         int c;
         if (unreadChar < 0) {
             c = in.read(charReading, 0, 1);
+            if (c == 1) {
+                c = charReading[0];
+            } else {
+                c = -1;
+            }
             if (c == '\n') {
                 lineNo++;
                 colNo = 0;

@@ -5,9 +5,22 @@ package org.semanticweb.owlapi.functional.parser;
 
 import java.io.IOException;
 @SuppressWarnings("all")
-public interface Provider {
+interface Provider {
+    /**
+     * Reads characters into an array
+     * @param buffer  Destination buffer
+     * @param offset   Offset at which to start storing characters
+     * @param length   The maximum possible number of characters to read
+     * @return The number of characters read, or -1 if all read
+     * @exception  IOException
+     */
     int read(char buffer[], int offset, int length) throws IOException;
     
-     void close() throws IOException;    
+    /**
+     * Closes the stream and releases any system resources associated with
+     * it.
+     * @exception IOException
+     */
+     void close() throws IOException;
 }
-/* JavaCC - OriginalChecksum=e36f2ccfb223f42975495cfb23c8a932 (do not edit this line) */
+/* JavaCC - OriginalChecksum=70d2a4e8f9f5b18fc2a235ddac8b02db (do not edit this line) */

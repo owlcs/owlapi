@@ -5,8 +5,8 @@ package org.semanticweb.owlapi.functional.parser;
 	
 	import java.io.IOException;
 	@SuppressWarnings("all")
-	public class StringProvider implements Provider {
-
+	class StringProvider implements Provider {
+	
 		String _string;
 		int _position = 0;
 		int _size;
@@ -45,4 +45,4 @@ package org.semanticweb.owlapi.functional.parser;
 		}
 		
 	}
-/* JavaCC - OriginalChecksum=36da5537ffa35615cc115f0d9dfc50e9 (do not edit this line) */
+/* JavaCC - OriginalChecksum=bdba120ecfcba336d4db835f2cb7830a (do not edit this line) */
