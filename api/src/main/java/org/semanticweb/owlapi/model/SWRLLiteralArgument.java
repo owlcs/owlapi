@@ -26,6 +26,11 @@ public interface SWRLLiteralArgument extends SWRLDArgument {
     }
 
     @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getLiteral().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.SWRL_LITERAL;
     }

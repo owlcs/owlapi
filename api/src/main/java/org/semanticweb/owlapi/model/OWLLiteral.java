@@ -45,6 +45,14 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
     }
 
     @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
+        hash = OWLObject.hashIteration(hash, getLiteral().hashCode());
+        return OWLObject.hashIteration(hash, getLang().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.LITERAL;
     }

@@ -29,6 +29,11 @@ public interface OWLObjectComplementOf extends OWLBooleanClassExpression {
     }
 
     @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getOperand().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.NOT_OBJECT;
     }

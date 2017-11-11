@@ -30,6 +30,11 @@ public interface OWLAnonymousIndividual
     }
 
     @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getID().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.ANONYMOUS_INDIVIDUAL;
     }

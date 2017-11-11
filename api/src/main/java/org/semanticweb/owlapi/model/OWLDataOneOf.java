@@ -24,11 +24,16 @@ import java.util.stream.Stream;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataOneOf extends OWLDataRange {
+public interface OWLDataOneOf extends OWLDataRange, HasOperands<OWLLiteral> {
 
     @Override
     default Stream<?> components() {
         return Stream.of(values());
+    }
+
+    @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getOperandsAsList().hashCode());
     }
 
     @Override

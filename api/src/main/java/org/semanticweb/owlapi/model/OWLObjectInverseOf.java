@@ -33,6 +33,11 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
     }
 
     @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getInverse().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.INVERSE_OBJECT;
     }

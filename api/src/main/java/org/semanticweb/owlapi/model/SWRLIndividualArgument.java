@@ -26,6 +26,11 @@ public interface SWRLIndividualArgument extends SWRLIArgument {
     }
 
     @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getIndividual().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.SWRL_INDIVIDUAL;
     }

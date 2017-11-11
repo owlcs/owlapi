@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
-import java.util.function.IntBinaryOperator;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -64,7 +63,6 @@ public abstract class OWLObjectImpl
      * a convenience reference for an empty annotation set, saves on typing.
      */
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
-    protected static final IntBinaryOperator hashIteration = (a, b) -> a * 37 + b;
     // @formatter:off
     protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>>              signatures =                      build(key -> key.addSignatureEntitiesToSet(new TreeSet<>()));
     protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches =                      build(key -> key.addAnonymousIndividualsToSet(new TreeSet<>()));
@@ -83,36 +81,7 @@ public abstract class OWLObjectImpl
         return asList(o.unsortedSignature().filter(p).map(f).sorted());
     }
 
-    /**
-     * Override point to change hashing strategy if needed - only used in OWLLiteral implementations
-     * at the moment.
-     * 
-     * @param object the object to compute the hashcode for
-     * @return the hashcode
-     */
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), object.components());
-    }
-
     protected int hashCode = 0;
-
-    /**
-     * Streams from components need a start point and the order of the components is important.
-     * 
-     * @param start start index
-     * @param s stream to hash
-     * @return hash for the stream
-     */
-    static int hash(int start, Stream<?> s) {
-        return s.sequential().mapToInt(OWLObjectImpl::hash).reduce(start, hashIteration);
-    }
-
-    private static int hash(Object o) {
-        if (o instanceof Stream) {
-            return ((Stream<?>) o).mapToInt(Object::hashCode).sum();
-        }
-        return o.hashCode();
-    }
 
     @Override
     public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
@@ -185,7 +154,7 @@ public abstract class OWLObjectImpl
     @Override
     public int hashCode() {
         if (hashCode == 0) {
-            hashCode = hashCode(this);
+            hashCode = initHashCode();
         }
         return hashCode;
     }

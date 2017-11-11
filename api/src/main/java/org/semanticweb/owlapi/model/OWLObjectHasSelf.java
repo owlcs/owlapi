@@ -29,6 +29,11 @@ public interface OWLObjectHasSelf extends OWLRestriction, OWLObjectRestriction {
     }
 
     @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getProperty().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.HASSELF_OBJECT;
     }

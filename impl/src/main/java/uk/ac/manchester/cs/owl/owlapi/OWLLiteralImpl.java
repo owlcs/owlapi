@@ -23,7 +23,6 @@ import java.io.Serializable;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -158,9 +157,11 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(),
-            Stream.of(getDatatype(), Integer.valueOf(specificHash()), getLang()));
+    public int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
+        hash = OWLObject.hashIteration(hash, specificHash() * 65536);
+        return OWLObject.hashIteration(hash, getLang().hashCode());
     }
 
     private int specificHash() {

@@ -33,6 +33,15 @@ public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O ex
     }
 
     @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getSubject().hashCode());
+        hash = OWLObject.hashIteration(hash, getProperty().hashCode());
+        hash = OWLObject.hashIteration(hash, getObject().hashCode());
+        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
+    }
+
+    @Override
     default Stream<?> componentsWithoutAnnotations() {
         return Stream.of(getSubject(), getProperty(), getObject());
     }

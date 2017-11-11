@@ -34,6 +34,14 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     }
 
     @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, bodyList().hashCode());
+        hash = OWLObject.hashIteration(hash, headList().hashCode());
+        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
+    }
+
+    @Override
     default Stream<?> componentsWithoutAnnotations() {
         return Stream.of(bodyList(), headList());
     }

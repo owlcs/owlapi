@@ -26,6 +26,13 @@ public interface SWRLDataRangeAtom extends SWRLUnaryAtom<SWRLDArgument> {
     }
 
     @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getArgument().hashCode());
+        return OWLObject.hashIteration(hash, getPredicate().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.SWRL_DATA_RANGE;
     }

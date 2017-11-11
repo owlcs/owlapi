@@ -74,6 +74,11 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     }
 
     @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getOntologyID().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.ONTOLOGY;
     }

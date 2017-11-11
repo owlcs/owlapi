@@ -26,4 +26,9 @@ public interface OWLLogicalEntity extends OWLEntity {
     default Stream<?> components() {
         return Stream.of(getIRI());
     }
+
+    @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getIRI().hashCode());
+    }
 }

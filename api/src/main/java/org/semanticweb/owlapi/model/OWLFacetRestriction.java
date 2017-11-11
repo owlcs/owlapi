@@ -32,6 +32,13 @@ public interface OWLFacetRestriction extends OWLObject {
     }
 
     @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getFacet().hashCode());
+        return OWLObject.hashIteration(hash, getFacetValue().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.FACET_RESTRICTION;
     }

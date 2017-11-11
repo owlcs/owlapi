@@ -59,4 +59,14 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     public Stream<OWLLiteral> values() {
         return streamFromSorted(values);
     }
+
+    @Override
+    public Stream<OWLLiteral> operands() {
+        return values();
+    }
+
+    @Override
+    public List<OWLLiteral> getOperandsAsList() {
+        return values;
+    }
 }

@@ -32,6 +32,11 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression, HasOperands
     }
 
     @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getOperandsAsList().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.ONEOF_OBJECT;
     }

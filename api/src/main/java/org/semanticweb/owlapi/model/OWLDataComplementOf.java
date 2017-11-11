@@ -29,6 +29,11 @@ public interface OWLDataComplementOf extends OWLDataRange {
     }
 
     @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getDataRange().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.NOT_DATA;
     }

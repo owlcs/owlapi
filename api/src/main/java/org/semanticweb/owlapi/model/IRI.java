@@ -422,6 +422,16 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     @Override
+    public int hashCode() {
+        return namespace.hashCode() + remainder.hashCode();
+    }
+
+    @Override
+    public int initHashCode() {
+        return hashCode();
+    }
+
+    @Override
     public String toSyntax(OWLDocumentFormat format) {
         // XXX can't use ToStringRenderer in the api package
         return toString();
@@ -431,11 +441,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     public String toSyntax(OWLDocumentFormat format, PrefixManager pm) {
         // XXX can't use ToStringRenderer in the api package
         return toString();
-    }
-
-    @Override
-    public int hashCode() {
-        return namespace.hashCode() + remainder.hashCode();
     }
 
     @Override

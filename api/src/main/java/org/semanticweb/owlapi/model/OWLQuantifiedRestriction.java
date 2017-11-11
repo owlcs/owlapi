@@ -26,4 +26,11 @@ public interface OWLQuantifiedRestriction<F extends OWLPropertyRange>
     default Stream<?> components() {
         return Stream.of(getProperty(), getFiller());
     }
+
+    @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getProperty().hashCode());
+        return OWLObject.hashIteration(hash, getFiller().hashCode());
+    }
 }

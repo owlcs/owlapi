@@ -57,7 +57,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      */
     public OWL2DatatypeImpl(OWL2Datatype owl2Datatype) {
         this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");
-        hashCode = OWLObjectImpl.hash(hashIndex(), components());
+        hashCode = initHashCode();
     }
 
     @Override

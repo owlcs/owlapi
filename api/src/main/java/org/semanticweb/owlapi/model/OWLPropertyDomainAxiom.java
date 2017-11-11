@@ -32,6 +32,14 @@ public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
     }
 
     @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getProperty().hashCode());
+        hash = OWLObject.hashIteration(hash, getDomain().hashCode());
+        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
+    }
+
+    @Override
     default Stream<?> componentsWithoutAnnotations() {
         return Stream.of(getProperty(), getDomain());
     }

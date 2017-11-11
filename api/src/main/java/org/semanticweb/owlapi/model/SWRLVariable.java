@@ -30,6 +30,11 @@ public interface SWRLVariable extends SWRLIArgument, SWRLDArgument, HasIRI, Seri
     }
 
     @Override
+    default int initHashCode() {
+        return OWLObject.hashIteration(hashIndex(), getIRI().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.SWRL_VARIABLE;
     }

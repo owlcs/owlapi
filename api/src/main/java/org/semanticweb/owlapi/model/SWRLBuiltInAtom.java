@@ -29,6 +29,13 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
     }
 
     @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getArguments().hashCode());
+        return OWLObject.hashIteration(hash, getPredicate().hashCode());
+    }
+
+    @Override
     default OWLObjectType type() {
         return OWLObjectType.SWRL_BUILTIN;
     }

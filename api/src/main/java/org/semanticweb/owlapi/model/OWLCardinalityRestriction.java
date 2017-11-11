@@ -27,6 +27,14 @@ public interface OWLCardinalityRestriction<F extends OWLPropertyRange>
         return Stream.of(getProperty(), Integer.valueOf(getCardinality()), getFiller());
     }
 
+    @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getProperty().hashCode());
+        hash = OWLObject.hashIteration(hash, getCardinality());
+        return OWLObject.hashIteration(hash, getFiller().hashCode());
+    }
+
     /**
      * Determines if this restriction is qualified. Qualified cardinality restrictions are defined
      * to be cardinality restrictions that have fillers which aren't TOP (owl:Thing or

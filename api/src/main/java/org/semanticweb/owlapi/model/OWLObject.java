@@ -160,6 +160,23 @@ public interface OWLObject
     }
 
     /**
+     * @return hash code for the object; clled on first use, cached by OWLObjectImpl in the default
+     *         implementation.
+     */
+    int initHashCode();
+
+    /**
+     * Iteration for hash codes
+     * 
+     * @param a existing hash
+     * @param b hash to add
+     * @return new hash
+     */
+    static int hashIteration(int a, int b) {
+        return a * 37 + b;
+    }
+
+    /**
      * @return the OWLObjectType for this OWL object
      */
     OWLObjectType type();

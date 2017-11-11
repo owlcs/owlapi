@@ -29,6 +29,14 @@ public interface SWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> 
         return Stream.of(getFirstArgument(), getSecondArgument(), getPredicate());
     }
 
+    @Override
+    default int initHashCode() {
+        int hash = hashIndex();
+        hash = OWLObject.hashIteration(hash, getFirstArgument().hashCode());
+        hash = OWLObject.hashIteration(hash, getSecondArgument().hashCode());
+        return OWLObject.hashIteration(hash, getPredicate().hashCode());
+    }
+
     /**
      * Gets the first argument.
      *
