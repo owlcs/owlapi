@@ -13,7 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.lang.ref.SoftReference;
@@ -79,7 +78,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @param i internals containing this pointer
      */
     public MapPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
-                    boolean initialized, Internals i) {
+        boolean initialized, Internals i) {
         type = t;
         visitor = v;
         this.initialized = initialized;
@@ -152,13 +151,15 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (visitor == null || type == null) {
             return this;
         }
+        AxiomType<?> t = type;
+        assert t != null;
         if (visitor instanceof InitVisitor) {
-            i.getAxiomsByType().forEach(verifyNotNull(type),
-                ax -> putInternal(ax.accept((InitVisitor<K>) verifyNotNull(visitor)), (V) ax));
+            InitVisitor<K> v = (InitVisitor<K>) visitor;
+            i.getAxiomsByType().forEach(t, ax -> putInternal(ax.accept(v), (V) ax));
         } else if (visitor instanceof InitCollectionVisitor) {
-            i.getAxiomsByType().forEach(verifyNotNull(type),
-                            ax -> ax.accept((InitCollectionVisitor<K>) verifyNotNull(visitor))
-                                            .forEach(key -> putInternal(key, (V) ax)));
+            InitCollectionVisitor<K> v = (InitCollectionVisitor<K>) visitor;
+            i.getAxiomsByType().forEach(t,
+                ax -> ax.accept(v).forEach(key -> putInternal(key, (V) ax)));
         }
         return this;
     }
@@ -254,7 +255,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      */
     @SuppressWarnings("unchecked")
     public synchronized <O extends V> Stream<O> values(K key,
-                    @SuppressWarnings("unused") Class<O> classType) {
+        @SuppressWarnings("unused") Class<O> classType) {
         init();
         Collection<V> t = map.get(key);
         if (t == null) {
@@ -475,7 +476,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             return list;
         }
         return new THashSetForSet<>(collection, extra, DEFAULT_INITIAL_CAPACITY,
-                        DEFAULT_LOAD_FACTOR);
+            DEFAULT_LOAD_FACTOR);
     }
 
     private Stream<V> values() {

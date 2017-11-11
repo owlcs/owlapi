@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.AbstractSet;
 import java.util.Collection;
@@ -135,17 +134,18 @@ public class SmallSet<T> extends AbstractSet<T> {
             }
 
             @Override
+            @SuppressWarnings("null")
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException("No Next Element");
                 }
                 switch (cp++) {
                     case 1:
-                        return verifyNotNull(element1);
+                        return element1;
                     case 2:
-                        return verifyNotNull(element2);
+                        return element2;
                     case 3:
-                        return verifyNotNull(element3);
+                        return element3;
                     default:
                         throw new IllegalStateException(
                             "Iterator pointing past end of virtual array");

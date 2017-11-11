@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -1049,8 +1048,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     private static <F, T> LoadingCache<F, T> builder(CacheLoader<F, T> f) {
-        return Caffeine.newBuilder().maximumSize(1024).expireAfterAccess(5, TimeUnit.MINUTES)
-            .build(f);
+        return Caffeine.newBuilder().maximumSize(2048).build(f);
     }
 
     protected OWLLiteral parseSpecialCases(String lexicalValue, OWLDatatype datatype) {
