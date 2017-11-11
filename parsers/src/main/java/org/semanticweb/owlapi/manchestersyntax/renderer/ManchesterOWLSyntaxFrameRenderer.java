@@ -1026,11 +1026,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
-    protected void handleCollectionElement(Object o) {
-        if (o instanceof OWLObject) {
-            ((OWLObject) o).accept(this);
+    protected void handleCollectionElement(Object obj) {
+        if (obj instanceof OWLObject) {
+            ((OWLObject) obj).accept(this);
         } else {
-            write(o.toString());
+            write(obj.toString());
         }
     }
 

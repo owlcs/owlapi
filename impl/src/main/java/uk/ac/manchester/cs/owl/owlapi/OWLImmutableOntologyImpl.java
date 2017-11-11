@@ -13,7 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;

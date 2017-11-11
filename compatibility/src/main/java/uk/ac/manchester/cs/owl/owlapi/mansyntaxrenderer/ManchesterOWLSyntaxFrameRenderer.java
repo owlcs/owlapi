@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
  * @deprecated use org.semanticweb.owlapi.mansyntax.renderer. ManchesterOWLSyntaxFrameRenderer
@@ -17,10 +16,8 @@ public class ManchesterOWLSyntaxFrameRenderer
     /**
      * @param ontology ontology
      * @param writer writer
-     * @param entityShortFormProvider provider
      */
-    public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer,
-        ShortFormProvider entityShortFormProvider) {
+    public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer) {
         super(ontology, writer);
     }
 
