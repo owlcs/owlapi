@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
@@ -23,6 +21,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -404,7 +403,8 @@ public interface OWLOntologyManager
      *         manager.
      */
     default OWLOntology createOntology(IRI ontologyIRI) throws OWLOntologyCreationException {
-        return createOntology(new OWLOntologyID(optional(ontologyIRI), emptyOptional(IRI.class)));
+        return createOntology(
+            new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.empty()));
     }
 
     /**

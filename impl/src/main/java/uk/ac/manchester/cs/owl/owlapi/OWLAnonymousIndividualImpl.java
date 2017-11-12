@@ -13,7 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.Optional;
 
@@ -25,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
  * @since 3.0.0
  */
 public class OWLAnonymousIndividualImpl extends OWLIndividualImpl
-                implements OWLAnonymousIndividual {
+    implements OWLAnonymousIndividual {
 
     private final NodeID nodeId;
 
@@ -53,6 +52,6 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl
 
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
-        return optional(this);
+        return Optional.ofNullable(this);
     }
 }

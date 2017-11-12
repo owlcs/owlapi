@@ -214,33 +214,4 @@ public final class OWLAPIPreconditions {
         }
         return o;
     }
-
-    /**
-     * Wrapper to allow non null annotations.
-     *
-     * @return empty optional instance
-     */
-    public static <T> Optional<T> emptyOptional() {
-        return Optional.empty();
-    }
-
-    /**
-     * Wrapper to allow non null annotations.
-     *
-     * @param t type for the returned optional
-     * @return empty optional instance
-     */
-    public static <T> Optional<T> emptyOptional(@SuppressWarnings("unused") Class<T> t) {
-        return Optional.empty();
-    }
-
-    /**
-     * Wrapper to allow non null annotations.
-     *
-     * @param t instance to wrap. Can be null (the result will be Optional.empty())
-     * @return optional instance (content can be absent)
-     */
-    public static <T> Optional<T> optional(@Nullable T t) {
-        return Optional.ofNullable(t);
-    }
 }

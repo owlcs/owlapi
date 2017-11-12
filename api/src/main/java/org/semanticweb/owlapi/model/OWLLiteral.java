@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
-
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -76,10 +74,10 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      * included.
      *
      * @return The lexical value of this literal. If the datatype is {@code rdf:PlainLiteral} then
-     * the return values are as follows: If the literal is of the form {@code
+     *         the return values are as follows: If the literal is of the form {@code
      * "abc@"^^rdf:PlainLiteral} then the return value will be "abc" (without the language tag
-     * included). If the literal is of the form {@code "abc@langTag"^^rdf:PlainLiteral} then the
-     * return value will be "abc" (without the language tag included).
+     *         included). If the literal is of the form {@code "abc@langTag"^^rdf:PlainLiteral} then
+     *         the return value will be "abc" (without the language tag included).
      */
     String getLiteral();
 
@@ -92,8 +90,8 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      * Gets the {@code OWLDatatype} which types this literal.
      *
      * @return The {@code OWLDatatype} that types this literal. Note that for strings with language
-     * tag (previously considered to be untyped literals) the datatype will be rdf:PlainLiteral. The
-     * return value is never {@code null}.
+     *         tag (previously considered to be untyped literals) the datatype will be
+     *         rdf:PlainLiteral. The return value is never {@code null}.
      */
     OWLDatatype getDatatype();
 
@@ -110,10 +108,10 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      * Determines if this {@code OWLLiteral} has a particular language tag.
      *
      * @param lang The specific lang to test for. The tag will be normalised - white space will be
-     * trimmed from the end and it will be converted to lower case. Null input will be treted as
-     * empty.
+     *        trimmed from the end and it will be converted to lower case. Null input will be treted
+     *        as empty.
      * @return {@code true} if this literal has a language tag equal to {@code lang}, otherwise
-     * {@code false}.
+     *         {@code false}.
      */
     default boolean hasLang(@SuppressWarnings("unused") @Nullable String lang) {
         return false;
@@ -123,8 +121,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      * Determines if this literal is typed with a datatype that has an IRI that is
      * {@code "http://www.w3.org/2001/XMLSchema#"integer}.
      *
-     * @return {@code true} if this literal is typed with {@code "http://www.w3.org/2001/XMLSchema#"integer},
-     * i.e. this literal represents an integer, otherwise {@code false}.
+     * @return {@code true} if this literal is typed with
+     *         {@code "http://www.w3.org/2001/XMLSchema#"integer}, i.e. this literal represents an
+     *         integer, otherwise {@code false}.
      */
     default boolean isInteger() {
         return false;
@@ -137,19 +136,20 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *
      * @return An integer value that is represented by this literal.
      * @throws NumberFormatException if the lexical form could not be parsed into an integer because
-     * it is not in the lexical space of the integer datatype.
+     *         it is not in the lexical space of the integer datatype.
      */
     default int parseInteger() {
-        throw new NumberFormatException(getClass().getName()
-            + " does not have an int value but has " + getLiteral());
+        throw new NumberFormatException(
+            getClass().getName() + " does not have an int value but has " + getLiteral());
     }
 
     /**
      * Determines if this literal is typed with a datatype that has an IRI that is
      * {@code "http://www.w3.org/2001/XMLSchema#"boolean}.
      *
-     * @return {@code true} if this literal is typed with {@code "http://www.w3.org/2001/XMLSchema#"boolean},
-     * i.e. this literal represents a boolean, otherwise {@code false}.
+     * @return {@code true} if this literal is typed with
+     *         {@code "http://www.w3.org/2001/XMLSchema#"boolean}, i.e. this literal represents a
+     *         boolean, otherwise {@code false}.
      */
     default boolean isBoolean() {
         return false;
@@ -162,19 +162,20 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *
      * @return A boolean value that is represented by this literal.
      * @throws NumberFormatException if the lexical form could not be parsed into a boolean because
-     * it is not in the lexical space of the boolean datatype.
+     *         it is not in the lexical space of the boolean datatype.
      */
     default boolean parseBoolean() {
-        throw new OWLRuntimeException(getClass().getName()
-            + " does not have a boolean value but has " + getLiteral());
+        throw new OWLRuntimeException(
+            getClass().getName() + " does not have a boolean value but has " + getLiteral());
     }
 
     /**
      * Determines if this literal is typed with a datatype that has an IRI that is
      * {@code "http://www.w3.org/2001/XMLSchema#"double}.
      *
-     * @return {@code true} if this literal is typed with {@code "http://www.w3.org/2001/XMLSchema#"double},
-     * i.e. this literal represents a double, otherwise {@code false}.
+     * @return {@code true} if this literal is typed with
+     *         {@code "http://www.w3.org/2001/XMLSchema#"double}, i.e. this literal represents a
+     *         double, otherwise {@code false}.
      */
     default boolean isDouble() {
         return false;
@@ -187,19 +188,20 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *
      * @return A double value that is represented by this literal.
      * @throws NumberFormatException if the lexical form could not be parsed into a double because
-     * it is not in the lexical space of the double datatype.
+     *         it is not in the lexical space of the double datatype.
      */
     default double parseDouble() {
-        throw new NumberFormatException(getClass().getName()
-            + " does not have a double value but has " + getLiteral());
+        throw new NumberFormatException(
+            getClass().getName() + " does not have a double value but has " + getLiteral());
     }
 
     /**
      * Determines if this literal is typed with a datatype that has an IRI that is
      * {@code "http://www.w3.org/2001/XMLSchema#"float}.
      *
-     * @return {@code true} if this literal is typed with {@code "http://www.w3.org/2001/XMLSchema#"float},
-     * i.e. this literal represents a float, otherwise {@code false}.
+     * @return {@code true} if this literal is typed with
+     *         {@code "http://www.w3.org/2001/XMLSchema#"float}, i.e. this literal represents a
+     *         float, otherwise {@code false}.
      */
     default boolean isFloat() {
         return false;
@@ -212,16 +214,16 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *
      * @return A float value that is represented by this literal.
      * @throws NumberFormatException if the lexical form could not be parsed into a float because it
-     * is not in the lexical space of the float datatype.
+     *         is not in the lexical space of the float datatype.
      */
     default float parseFloat() {
-        throw new NumberFormatException(getClass().getName()
-            + " does not have a float value but has " + getLiteral());
+        throw new NumberFormatException(
+            getClass().getName() + " does not have a float value but has " + getLiteral());
     }
 
     @Override
     default Optional<OWLLiteral> asLiteral() {
-        return optional(this);
+        return Optional.ofNullable(this);
     }
 
     /**

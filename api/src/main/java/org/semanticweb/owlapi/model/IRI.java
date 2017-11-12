@@ -13,8 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.File;
@@ -307,9 +305,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      */
     public Optional<String> getRemainder() {
         if (remainder.isEmpty()) {
-            return emptyOptional();
+            return Optional.empty();
         }
-        return optional(remainder);
+        return Optional.of(remainder);
     }
 
     /**
@@ -333,12 +331,10 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return optional value for remainder
      */
     protected Optional<String> asOptional(@Nullable String suffix) {
-        if (suffix == null) {
-            return emptyOptional();
-        } else if (suffix.isEmpty()) {
-            return emptyOptional();
+        if (suffix == null || suffix.isEmpty()) {
+            return Optional.empty();
         }
-        return optional(suffix);
+        return Optional.ofNullable(suffix);
     }
 
     @Override
@@ -445,7 +441,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
 
     @Override
     public Optional<IRI> asIRI() {
-        return optional(this);
+        return Optional.of(this);
     }
 
     @Override

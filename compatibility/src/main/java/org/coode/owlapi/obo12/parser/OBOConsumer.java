@@ -39,13 +39,13 @@
 package org.coode.owlapi.obo12.parser;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.net.URI;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -310,7 +310,8 @@ class OBOConsumer implements OBOParserHandler {
         if (dataVersionTagValue.length() > 0) {
             versionIRI = IRI.create(ontologyIRI + "/", dataVersionTagValue);
         }
-        OWLOntologyID ontologyID = new OWLOntologyID(optional(ontologyIRI), optional(versionIRI));
+        OWLOntologyID ontologyID =
+            new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.ofNullable(versionIRI));
         ontology.getOWLOntologyManager().applyChange(new SetOntologyID(ontology, ontologyID));
     }
 

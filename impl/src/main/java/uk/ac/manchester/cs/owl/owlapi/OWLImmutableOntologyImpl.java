@@ -42,6 +42,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomCollection;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -225,7 +226,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public int getAxiomCount(Imports imports) {
-        return imports.stream(this).mapToInt(o -> o.getAxiomCount()).sum();
+        return imports.stream(this).mapToInt(OWLAxiomCollection::getAxiomCount).sum();
     }
 
     @Override
@@ -245,7 +246,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public int getLogicalAxiomCount(Imports imports) {
-        return imports.stream(this).mapToInt(o -> o.getLogicalAxiomCount()).sum();
+        return imports.stream(this).mapToInt(OWLAxiomCollection::getLogicalAxiomCount).sum();
     }
 
     @Override
@@ -524,7 +525,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
             axioms(AxiomType.ANNOTATION_ASSERTION)
                 .filter(ax -> owlEntity.equals(ax.getValue().asLiteral().orElse(null)))
                 .forEach(axioms::add);
-            AxiomType.AXIOM_TYPES.stream().flatMap(t -> axioms(t))
+            AxiomType.AXIOM_TYPES.stream().flatMap(this::axioms)
                 .filter(ax -> hasLiteralInAnnotations(owlEntity, ax)).forEach(axioms::add);
             return axioms.stream();
         }

@@ -256,8 +256,6 @@ class CustomTokenizer implements TokenManager {
         }
         String s = buf.toString();
         if (colonIndex >= 0) {
-            // System.out.println("colonIndex >=0 - so expect abbreviated IRI from "
-            // + buf);
             if (colonIndex == s.length() - 1) {
                 return makeToken(PNAME_NS, s);
             } else {

@@ -14,8 +14,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
+
+import java.util.Optional;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -41,6 +41,6 @@ public class RenameToExistingOntologyTestCase extends TestBase {
         IRI ontologyBIRI = IRI("http://www.semanticweb.org/ontologies/", "ontologyB");
         OWLOntology ontologyB = getOWLOntology(ontologyBIRI);
         ontologyB.applyChange(new SetOntologyID(ontologyB,
-                        new OWLOntologyID(optional(ontologyAIRI), emptyOptional(IRI.class))));
+            new OWLOntologyID(Optional.ofNullable(ontologyAIRI), Optional.empty())));
     }
 }

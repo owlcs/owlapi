@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-
 import java.util.Optional;
 
 /**
@@ -42,7 +40,7 @@ public interface EntityTypeVisitorEx<T> {
      * @return default value if no values are matched
      */
     default Optional<T> doDefault() {
-        return emptyOptional();
+        return Optional.empty();
     }
 
     /**

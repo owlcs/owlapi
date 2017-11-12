@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.owlxml.parser;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT;
@@ -119,6 +118,7 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.VARIABLE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
@@ -486,7 +486,7 @@ abstract class OWLEH<O, B extends Builder<O>> {
     }
 
     public <T> T getOWLObject(Class<T> witness) {
-        return (T) getOWLObject();
+        return witness.cast(getOWLObject());
     }
 
     IRI getIRIFromAttribute(String localName, String value) {
@@ -2063,12 +2063,12 @@ class OntologyEH extends OWLEH<OWLOntology, Builder<OWLOntology>> {
     void attribute(String localName, String value) {
         OWLOntology o = handler.getOntology();
         if ("ontologyIRI".equals(localName)) {
-            o.applyChange(new SetOntologyID(o,
-                new OWLOntologyID(optional(IRI.create(value)), o.getOntologyID().getVersionIRI())));
+            o.applyChange(new SetOntologyID(o, new OWLOntologyID(
+                Optional.ofNullable(IRI.create(value)), o.getOntologyID().getVersionIRI())));
         }
         if ("versionIRI".equals(localName)) {
             o.applyChange(new SetOntologyID(o, new OWLOntologyID(o.getOntologyID().getOntologyIRI(),
-                optional(IRI.create(value)))));
+                Optional.ofNullable(IRI.create(value)))));
         }
     }
 

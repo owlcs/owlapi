@@ -15,7 +15,8 @@ package org.semanticweb.owlapi.change;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
+
+import java.util.Optional;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -61,9 +62,9 @@ public class NamesTestCase {
         assertEquals("RemoveOntologyAnnotationData",
             new RemoveOntologyAnnotationData(mock(OWLAnnotation.class)).getName());
         assertEquals("SetOntologyIDData",
-            new SetOntologyIDData(new OWLOntologyID(
-                optional(IRI.create("urn:test#", "test1")),
-                optional(IRI.create("urn:test#", "test2")))).getName());
+            new SetOntologyIDData(
+                new OWLOntologyID(Optional.ofNullable(IRI.create("urn:test#", "test1")),
+                    Optional.ofNullable(IRI.create("urn:test#", "test2")))).getName());
         assertEquals("KRSS2OWLParser", new KRSS2OWLParser().getName());
         assertEquals("KRSSOWLParser", new KRSSOWLParser().getName());
         assertEquals("OWLFunctionalSyntaxOWLParser", new OWLFunctionalSyntaxOWLParser().getName());

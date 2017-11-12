@@ -24,8 +24,6 @@ import static org.semanticweb.owlapi.util.CollectionFactory.createList;
 import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.Namespaces.SWRL;
@@ -78,6 +76,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -595,7 +594,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      * parsed ontology does not have an IRI
      */
     private void chooseAndSetOntologyIRI() {
-        Optional<IRI> ontologyIRIToSet = emptyOptional();
+        Optional<IRI> ontologyIRIToSet = Optional.empty();
         if (iris.firstOntologyIRI != null) {
             removeUnnecessaryAxioms();
         }
@@ -607,7 +606,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             // Exactly one ontologyIRI
             IRI ontologyIRI = iris.ontologyIRIs.iterator().next();
             if (!anon.isAnonymousNode(ontologyIRI)) {
-                ontologyIRIToSet = optional(ontologyIRI);
+                ontologyIRIToSet = Optional.ofNullable(ontologyIRI);
             }
         } else {
             // We have multiple to choose from
@@ -620,10 +619,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             }));
             // Choose the first one parsed
             if (candidateIRIs.contains(iris.firstOntologyIRI)) {
-                ontologyIRIToSet = optional(iris.firstOntologyIRI);
+                ontologyIRIToSet = Optional.ofNullable(iris.firstOntologyIRI);
             } else if (!candidateIRIs.isEmpty()) {
                 // Just pick any
-                ontologyIRIToSet = optional(candidateIRIs.iterator().next());
+                ontologyIRIToSet = Optional.ofNullable(candidateIRIs.iterator().next());
             }
         }
         if (ontologyIRIToSet.isPresent() && !NodeID.isAnonymousNodeIRI(ontologyIRIToSet.get())) {
@@ -1223,25 +1222,15 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         } else if (iris.isDataPropertyStrict(s) && iris.isDataRange(o)) {
             add(df.getOWLDataPropertyRangeAxiom(dp(s), translateDataRange(o), pendingAnns()));
             return true;
-        } else if (iris.isAP(s) && !anon.isAnonymousNode(o)) {
+        } else if (iris.isAP(s) && !anon.isAnonymousNode(o)
+            || iris.isAnnotationPropertyOnly(s) && !anon.isAnonymousNode(o)) {
             add(df.getOWLAnnotationPropertyRangeAxiom(ap(s), o, pendingAnns()));
             return true;
-        } else if (iris.isAnnotationPropertyOnly(s) && !anon.isAnonymousNode(o)) {
-            add(df.getOWLAnnotationPropertyRangeAxiom(ap(s), o, pendingAnns()));
-            return true;
-        } else if (isCeLax(o)) {
+        } else if (isCeLax(o) || iris.isOpLax(s)) {
             iris.addObjectProperty(s, false);
             add(df.getOWLObjectPropertyRangeAxiom(translateOPE(s), ce(o), pendingAnns()));
             return true;
-        } else if (iris.isDrLax(o)) {
-            iris.addDataProperty(s, false);
-            add(df.getOWLDataPropertyRangeAxiom(dp(s), translateDataRange(o), pendingAnns()));
-            return true;
-        } else if (iris.isOpLax(s)) {
-            iris.addObjectProperty(s, false);
-            add(df.getOWLObjectPropertyRangeAxiom(translateOPE(s), ce(o), pendingAnns()));
-            return true;
-        } else if (iris.isDPLax(s)) {
+        } else if (iris.isDrLax(o) || iris.isDPLax(s)) {
             iris.addDataProperty(s, false);
             add(df.getOWLDataPropertyRangeAxiom(dp(s), translateDataRange(o), pendingAnns()));
             return true;
@@ -1375,13 +1364,13 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         // only setup the versionIRI if it is null before this point
         if (!ont().getOntologyID().getVersionIRI().isPresent()) {
             Optional<IRI> ontologyIRI = ont().getOntologyID().getOntologyIRI();
-            Optional<IRI> versionIRI = optional(o);
+            Optional<IRI> versionIRI = Optional.ofNullable(o);
             // If there was no ontologyIRI before this point and the s
             // of this statement was not anonymous,
             // then use the s IRI as the ontology IRI, else we keep
             // the previous definition for the ontology IRI
             if (!ontologyIRI.isPresent() && !anon.isAnonymousNode(s)) {
-                ontologyIRI = optional(s);
+                ontologyIRI = Optional.ofNullable(s);
             }
             setOntologyID(new OWLOntologyID(ontologyIRI, versionIRI));
         }
@@ -1831,8 +1820,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             // Set IRI if it is not null before this point, and make sure to
             // preserve the version IRI if it also existed before this point
             if (!ont().getOntologyID().getOntologyIRI().isPresent()) {
-                OWLOntologyID id =
-                    new OWLOntologyID(optional(s), ont().getOntologyID().getVersionIRI());
+                OWLOntologyID id = new OWLOntologyID(Optional.ofNullable(s),
+                    ont().getOntologyID().getVersionIRI());
                 ont().applyChange(new SetOntologyID(ont(), id));
             }
         }
@@ -2094,14 +2083,14 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     @Nullable
     protected IRI object(IRI s, HasIRI... iri) {
-        return Stream.of(iri).map(i -> tripleIndex.resource(s, i, true)).filter(i -> i != null)
+        return Stream.of(iri).map(i -> tripleIndex.resource(s, i, true)).filter(Objects::nonNull)
             .findAny().orElse(null);
     }
 
     @Nullable
     protected OWLLiteral literal(IRI s, HasIRI... hasIRIs) {
         return Stream.of(hasIRIs).map(i -> tripleIndex.literal(s, i.getIRI(), true))
-            .filter(i -> i != null).findAny().orElse(null);
+            .filter(Objects::nonNull).findAny().orElse(null);
     }
 
     protected boolean canHandleDisjointUnion(IRI s) {

@@ -96,8 +96,6 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.values;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.EOFTOKEN;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.eof;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.ArrayList;
@@ -2218,9 +2216,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         String tok;
         consumeToken();
         tok = peekToken();
-        Optional<IRI> importedIRI = emptyOptional();
+        Optional<IRI> importedIRI = Optional.empty();
         if (tok.startsWith("<")) {
-            importedIRI = optional(parseIRI());
+            importedIRI = Optional.ofNullable(parseIRI());
         } else if (isOntologyName(tok)) {
             consumeToken();
             OWLOntology ont = getOntology(tok);

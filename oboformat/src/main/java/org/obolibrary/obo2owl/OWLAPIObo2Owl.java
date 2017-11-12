@@ -2,12 +2,9 @@ package org.obolibrary.obo2owl;
 
 import static org.obolibrary.obo2owl.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -85,6 +82,7 @@ import com.google.common.collect.Sets;
  */
 public class OWLAPIObo2Owl {
 
+    private static final String CANNOT_TRANSLATE = "Cannot translate: {}";
     /**
      * The Constant IRI_PROP_isReversiblePropertyChain.
      */
@@ -203,13 +201,13 @@ public class OWLAPIObo2Owl {
         throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = manager.createOntology();
         OBOFormatOWLAPIParser parser =
-            new OBOFormatOWLAPIParser((obo) -> obo.addDefaultOntologyHeader(defaultOnt));
+            new OBOFormatOWLAPIParser(obo -> obo.addDefaultOntologyHeader(defaultOnt));
         new IRIDocumentSource(IRI.create(iri)).acceptParser(parser, o, new OntologyConfigurator());
         saveAsRDFXML(outFile, manager, o);
     }
 
     protected static void saveAsRDFXML(String outFile, OWLOntologyManager manager, OWLOntology o)
-        throws OWLOntologyStorageException, IOException, FileNotFoundException {
+        throws OWLOntologyStorageException, IOException {
         try (FileOutputStream outputStream = new FileOutputStream(outFile)) {
             OWLDocumentFormat format = new RDFXMLDocumentFormat();
             LOG.info("saving to {} fmt={}", outFile, format);
@@ -491,7 +489,8 @@ public class OWLAPIObo2Owl {
                 String dv = dvclause.getValue().toString();
                 IRI vIRI =
                     IRI.create(DEFAULT_IRI_PREFIX + ontOboId + '/' + dv + '/' + ontOboId + ".owl");
-                OWLOntologyID oid = new OWLOntologyID(optional(ontIRI), optional(vIRI));
+                OWLOntologyID oid =
+                    new OWLOntologyID(Optional.ofNullable(ontIRI), Optional.ofNullable(vIRI));
                 // if the ontology being read has a differet id from the one
                 // that was passed in, update it
                 // when parsing, the original ontology is likely an anonymous,
@@ -506,13 +505,15 @@ public class OWLAPIObo2Owl {
                 // empty one
                 if (!ontIRI.equals(in.getOntologyID().getOntologyIRI().orElse(null))) {
                     manager.applyChange(new SetOntologyID(in,
-                        new OWLOntologyID(optional(ontIRI), emptyOptional())));
+                        new OWLOntologyID(Optional.ofNullable(ontIRI), Optional.empty())));
                 }
             }
         } else {
             defaultIDSpace = "TEMP";
-            manager.applyChange(new SetOntologyID(in, new OWLOntologyID(
-                optional(IRI.create(DEFAULT_IRI_PREFIX, defaultIDSpace)), emptyOptional())));
+            manager.applyChange(new SetOntologyID(in,
+                new OWLOntologyID(
+                    Optional.ofNullable(IRI.create(DEFAULT_IRI_PREFIX, defaultIDSpace)),
+                    Optional.empty())));
             // TODO - warn
         }
         trHeaderFrame(hf);
@@ -655,7 +656,7 @@ public class OWLAPIObo2Owl {
                 // TODO: Throw Exceptions
                 OBOFormatException e =
                     new OBOFormatException("Cannot translate clause «" + clause + '»');
-                LOG.error("Cannot translate: {}", clause, e);
+                LOG.error(CANNOT_TRANSLATE, clause, e);
             }
         }
     }
@@ -697,7 +698,7 @@ public class OWLAPIObo2Owl {
                 AddOntologyAnnotation addAnn = new AddOntologyAnnotation(getOwlOntology(), ontAnn);
                 apply(addAnn);
             } else {
-                LOG.error("Cannot translate: {}", clause);
+                LOG.error(CANNOT_TRANSLATE, clause);
                 // TODO
             }
         }
@@ -1183,7 +1184,7 @@ public class OWLAPIObo2Owl {
                 ax = fac.getOWLAnnotationAssertionAxiom(trAnnotationProp((String) v), sub, value,
                     annotations);
             } else {
-                LOG.error("Cannot translate: {}", clause);
+                LOG.error(CANNOT_TRANSLATE, clause);
                 // TODO
             }
         } else if (tagConstant == OboFormatTag.TAG_SYNONYM) {
@@ -1507,16 +1508,8 @@ public class OWLAPIObo2Owl {
             throw new OWLParserException("spaces not allowed: '" + id + '\'');
         }
         // No conversion is required if this is already an IRI (ID-as-URI rule)
-        if (id.startsWith("http:")) {
-            // TODO - roundtrip from other schemes
-            return IRI.create(id);
-        } else if (id.startsWith("https:")) {
-            // TODO - roundtrip from other schemes
-            return IRI.create(id);
-        } else if (id.startsWith("ftp:")) {
-            // TODO - roundtrip from other schemes
-            return IRI.create(id);
-        } else if (id.startsWith("urn:")) {
+        if (id.startsWith("http:") || id.startsWith("https:") || id.startsWith("ftp:")
+            || id.startsWith("urn:")) {
             // TODO - roundtrip from other schemes
             return IRI.create(id);
         }

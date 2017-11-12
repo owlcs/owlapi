@@ -13,8 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -42,7 +40,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyID.class);
     private static final AtomicInteger COUNTER = new AtomicInteger();
     private static final String ANON_PREFIX = "Anonymous-";
-    private transient Optional<String> internalID = emptyOptional();
+    private transient Optional<String> internalID = Optional.empty();
     private transient Optional<IRI> ontologyIRI;
     private transient Optional<IRI> versionIRI;
     private int hashCode;
@@ -54,7 +52,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      * @param iri The ontology IRI (may be {@code null})
      */
     public OWLOntologyID(@Nullable IRI iri) {
-        this(opt(iri), emptyOptional(IRI.class));
+        this(opt(iri), Optional.empty());
     }
 
     /**
@@ -79,7 +77,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
         if (ontologyIRI.isPresent()) {
             hashCode += 37 * ontologyIRI.hashCode();
         } else {
-            internalID = optional(ANON_PREFIX + COUNTER.getAndIncrement());
+            internalID = Optional.ofNullable(ANON_PREFIX + COUNTER.getAndIncrement());
             hashCode += 37 * internalID.hashCode();
         }
         versionIRI = opt(version);
@@ -97,20 +95,20 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      * IRI) is not present.
      */
     public OWLOntologyID() {
-        this(emptyOptional(IRI.class), emptyOptional(IRI.class));
+        this(Optional.empty(), Optional.empty());
     }
 
     private static Optional<IRI> opt(@Nullable IRI i) {
         if (i == null || NodeID.isAnonymousNodeIRI(i)) {
-            return emptyOptional();
+            return Optional.empty();
         }
         if (!i.isAbsolute()) {
             LOGGER.error(
                 "Ontology IRIs must be absolute; IRI {} is relative and will be made absolute by prefixing urn:absolute: to it",
                 i);
-            return optional(IRI.create("urn:absolute:" + i));
+            return Optional.ofNullable(IRI.create("urn:absolute:" + i));
         }
-        return optional(i);
+        return Optional.ofNullable(i);
     }
 
     /**
@@ -121,16 +119,16 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      */
     private static Optional<IRI> opt(Optional<IRI> i) {
         if (NodeID.isAnonymousNodeIRI(i.orElse(null))) {
-            return emptyOptional();
+            return Optional.empty();
         }
         return i;
     }
 
     private void readObject(ObjectInputStream stream) throws ClassNotFoundException, IOException {
         stream.defaultReadObject();
-        ontologyIRI = optional((IRI) stream.readObject());
-        versionIRI = optional((IRI) stream.readObject());
-        internalID = optional((String) stream.readObject());
+        ontologyIRI = Optional.ofNullable((IRI) stream.readObject());
+        versionIRI = Optional.ofNullable((IRI) stream.readObject());
+        internalID = Optional.ofNullable((String) stream.readObject());
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -227,8 +225,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      * OWL 2 Structural Specification.
      *
      * @return An Optional of the IRI that can be used as a default for an ontology document
-     * containing an ontology as identified by this ontology ID. Returns the default IRI or an
-     * Optional.absent.
+     *         containing an ontology as identified by this ontology ID. Returns the default IRI or
+     *         an Optional.absent.
      */
     public Optional<IRI> getDefaultDocumentIRI() {
         if (ontologyIRI.isPresent()) {
@@ -238,7 +236,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
                 return ontologyIRI;
             }
         } else {
-            return emptyOptional();
+            return Optional.empty();
         }
     }
 
@@ -247,7 +245,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      * IRI. If the result of this method is true, getOntologyIRI() will return an Optional.absent.
      *
      * @return {@code true} if this ID is an ID for an ontology without an IRI, or {@code false} if
-     * this ID is an ID for an ontology with an IRI.
+     *         this ID is an ID for an ontology with an IRI.
      */
     @Override
     public boolean isAnonymous() {

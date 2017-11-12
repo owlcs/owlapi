@@ -2,8 +2,6 @@ package org.obolibrary.obo2owl;
 
 import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
@@ -18,6 +16,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -101,6 +100,10 @@ import com.google.common.collect.Sets;
  */
 public class OWLAPIOwl2Obo {
 
+    private static final String PURL_OBO = "http://purl.obolibrary.org/obo/";
+    private static final String MAX_CARDINALITY = "maxCardinality";
+    private static final String CARDINALITY = "cardinality";
+    private static final String MIN_CARDINALITY = "minCardinality";
     /**
      * The annotation property map.
      */
@@ -116,7 +119,7 @@ public class OWLAPIOwl2Obo {
     private static final String IRI_CLASS_SUBSETDEF =
         Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_subsetdef";
     private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation",
-        "gci_filler", "cardinality", "minCardinality", "maxCardinality", "all_some", "all_only");
+        "gci_filler", CARDINALITY, MIN_CARDINALITY, MAX_CARDINALITY, "all_some", "all_only");
     protected final Pattern absoluteURLPattern = Pattern.compile("<\\s*http.*?>");
     protected final Set<OWLAxiom> untranslatableAxioms = new HashSet<>();
     protected final Map<String, String> idSpaceMap = new HashMap<>();
@@ -217,8 +220,8 @@ public class OWLAPIOwl2Obo {
     public static String getOntologyId(IRI iriObj) {
         String iri = iriObj.toString();
         String id;
-        if (iri.startsWith("http://purl.obolibrary.org/obo/")) {
-            id = iri.replace("http://purl.obolibrary.org/obo/", "");
+        if (iri.startsWith(PURL_OBO)) {
+            id = iri.replace(PURL_OBO, "");
             if (id.endsWith(".owl")) {
                 id = id.replaceFirst(".owl$", "");
             }
@@ -239,7 +242,7 @@ public class OWLAPIOwl2Obo {
         String oid = getOntologyId(ontology);
         Optional<IRI> v = ontology.getOntologyID().getVersionIRI();
         if (v.isPresent()) {
-            String vs = v.get().toString().replace("http://purl.obolibrary.org/obo/", "");
+            String vs = v.get().toString().replace(PURL_OBO, "");
             vs = vs.replaceFirst(oid + '/', "");
             vs = vs.replace('/' + oid + ".owl", "");
             return vs;
@@ -275,9 +278,9 @@ public class OWLAPIOwl2Obo {
         }
         Optional<OboAltIdCheckResult> result;
         if (replacedBy != null && isMerged && isDeprecated) {
-            result = optional(new OboAltIdCheckResult(replacedBy, unrelatedAxioms));
+            result = Optional.ofNullable(new OboAltIdCheckResult(replacedBy, unrelatedAxioms));
         } else {
-            result = emptyOptional();
+            result = Optional.empty();
         }
         return result;
     }
@@ -525,14 +528,10 @@ public class OWLAPIOwl2Obo {
             if (sizeCurrent > 1) {
                 currentValue2 = current.getValue2();
             }
-            if (targetTag.equals(current.getTag()) && targetValue.equals(currentValue)) {
-                if (targetValue2 == null && currentValue2 == null) {
-                    similar.add(current);
-                    iterator.remove();
-                } else if (targetValue2 != null && targetValue2.equals(currentValue2)) {
-                    similar.add(current);
-                    iterator.remove();
-                }
+            if (targetTag.equals(current.getTag()) && targetValue.equals(currentValue)
+                && Objects.equals(targetValue2, currentValue2)) {
+                similar.add(current);
+                iterator.remove();
             }
         }
         return similar;
@@ -554,8 +553,7 @@ public class OWLAPIOwl2Obo {
             for (QualifierValue newQV : newQVs) {
                 String newQualifier = newQV.getQualifier();
                 // if min or max cardinality check for possible merges
-                if ("minCardinality".equals(newQualifier)
-                    || "maxCardinality".equals(newQualifier)) {
+                if (MIN_CARDINALITY.equals(newQualifier) || MAX_CARDINALITY.equals(newQualifier)) {
                     QualifierValue match = findMatchingQualifierValue(newQV, targetQVs);
                     if (match != null) {
                         mergeQualifierValues(match, newQV);
@@ -597,13 +595,13 @@ public class OWLAPIOwl2Obo {
     static void mergeQualifierValues(QualifierValue target, QualifierValue newQV) {
         // do nothing, if they are equal
         if (!target.getValue().equals(newQV.getValue())) {
-            if ("minCardinality".equals(target.getQualifier())) {
+            if (MIN_CARDINALITY.equals(target.getQualifier())) {
                 // try to merge, parse as integers
                 int currentValue = Integer.parseInt(target.getValue());
                 int newValue = Integer.parseInt(newQV.getValue());
                 int mergedValue = Math.min(currentValue, newValue);
                 target.setValue(Integer.toString(mergedValue));
-            } else if ("maxCardinality".equals(target.getQualifier())) {
+            } else if (MAX_CARDINALITY.equals(target.getQualifier())) {
                 // try to merge, parse as integers
                 int currentValue = Integer.parseInt(target.getValue());
                 int newValue = Integer.parseInt(newQV.getValue());
@@ -755,15 +753,14 @@ public class OWLAPIOwl2Obo {
         String viewRel = null;
         OWLAnnotationProperty logicalDef = manager.getOWLDataFactory().getOWLAnnotationProperty(
             Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation.getIRI());
-        List<OWLAnnotation> collect = asList(getOWLOntology().annotations(logicalDef));
-        for (OWLAnnotation ann : collect) {
-            OWLAnnotationValue v = ann.getValue();
+        Optional<OWLAnnotation> ann = getOWLOntology().annotations(logicalDef).findFirst();
+        if (ann.isPresent()) {
+            OWLAnnotationValue v = ann.get().getValue();
             if (v instanceof OWLLiteral) {
                 viewRel = ((OWLLiteral) v).getLiteral();
             } else if (v.isIRI()) {
                 viewRel = getIdentifier((IRI) v);
             }
-            break;
         }
         if (viewRel == null) {
             return;
@@ -1667,15 +1664,15 @@ public class OWLAPIOwl2Obo {
                     equivalenceAxiomClauses.add(c);
                     if (exact != null) {
                         String string = exact.toString();
-                        c.addQualifierValue(new QualifierValue("cardinality", string));
+                        c.addQualifierValue(new QualifierValue(CARDINALITY, string));
                     }
                     if (min != null) {
                         String string = min.toString();
-                        c.addQualifierValue(new QualifierValue("minCardinality", string));
+                        c.addQualifierValue(new QualifierValue(MIN_CARDINALITY, string));
                     }
                     if (max != null) {
                         String string = max.toString();
-                        c.addQualifierValue(new QualifierValue("maxCardinality", string));
+                        c.addQualifierValue(new QualifierValue(MAX_CARDINALITY, string));
                     }
                     if (allSome != null) {
                         String string = allSome.toString();
@@ -1927,7 +1924,7 @@ public class OWLAPIOwl2Obo {
                 scopeValue = a.get().getValue().asLiteral().get().getLiteral();
             }
             c.addValue(nameValue);
-            if (scopeValue != null) {
+            if (!scopeValue.isEmpty()) {
                 c.addValue(scopeValue);
             }
             f.addClause(c);
@@ -2132,11 +2129,11 @@ public class OWLAPIOwl2Obo {
         c.addValue(getIdentifier(restriction.getProperty()));
         c.addValue(fillerId);
         c.setQualifierValues(qvs);
-        String q = "cardinality";
+        String q = CARDINALITY;
         if (restriction instanceof OWLObjectMinCardinality) {
-            q = "minCardinality";
+            q = MIN_CARDINALITY;
         } else if (restriction instanceof OWLObjectMaxCardinality) {
-            q = "maxCardinality";
+            q = MAX_CARDINALITY;
         }
         c.addQualifierValue(new QualifierValue(q, Integer.toString(restriction.getCardinality())));
         addQualifiers(c, ax.annotations());

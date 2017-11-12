@@ -17,7 +17,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
@@ -31,6 +30,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -667,7 +667,7 @@ public class Examples extends TestBase {
         // Note that we MUST specify an ontology IRI if we want to specify a
         // version IRI
         OWLOntologyID newOntologyID =
-            new OWLOntologyID(optional(ontologyIRI), optional(versionIRI));
+            new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.ofNullable(versionIRI));
         // Create the change that will set our version IRI
         SetOntologyID setOntologyID = new SetOntologyID(ontology, newOntologyID);
         // Apply the change
@@ -679,7 +679,7 @@ public class Examples extends TestBase {
         IRI versionIRI2 =
             IRI.create("http://www.semanticweb.org/ontologies/myontology2/", "newversion");
         OWLOntologyID ontologyID2 =
-            new OWLOntologyID(optional(ontologyIRI2), optional(versionIRI2));
+            new OWLOntologyID(Optional.ofNullable(ontologyIRI2), Optional.ofNullable(versionIRI2));
         // Now create the ontology
         OWLOntology ontology2 = manager.createOntology(ontologyID2);
         // Finally, if we don't want to give an ontology an IRI, in OWL 2 we

@@ -13,10 +13,10 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -53,12 +53,12 @@ public class OWLOntologyIRIChanger {
      * @param ontology The ontology whose URI is to be changed.
      * @param newIRI the new IRI
      * @return A list of changes, which when applied will change the URI of the specified ontology,
-     * and also update the imports declarations in any ontologies which import the specified
-     * ontology.
+     *         and also update the imports declarations in any ontologies which import the specified
+     *         ontology.
      */
     public List<OWLOntologyChange> getChanges(OWLOntology ontology, IRI newIRI) {
         List<OWLOntologyChange> changes = new ArrayList<>();
-        changes.add(new SetOntologyID(ontology, new OWLOntologyID(optional(newIRI),
+        changes.add(new SetOntologyID(ontology, new OWLOntologyID(Optional.ofNullable(newIRI),
             ontology.getOntologyID().getVersionIRI())));
         OWLImportsDeclaration owlImport =
             owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(newIRI);

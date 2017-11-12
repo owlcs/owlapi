@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 
 import java.util.Optional;
 
@@ -44,7 +43,7 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<Optional<OWLClas
         if (o instanceof OWLSubClassOfAxiomShortCut) {
             return ((OWLSubClassOfAxiomShortCut) o).asOWLSubClassOfAxiom().accept(this);
         }
-        return emptyOptional();
+        return Optional.empty();
     }
 
     @Override

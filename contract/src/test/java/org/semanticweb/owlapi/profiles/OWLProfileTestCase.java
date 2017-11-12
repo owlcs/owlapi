@@ -81,7 +81,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubOb
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubPropertyChainOf;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -224,7 +223,7 @@ public class OWLProfileTestCase extends TestBase {
 
                 @Override
                 public Optional<String> doDefault(OWLProfileViolation object) {
-                    return optional(object.toString());
+                    return Optional.ofNullable(object.toString());
                 }
             });
         }
@@ -338,8 +337,8 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLOntology ontology)")
     public void shouldCreateViolationForOWLOntologyInOWL2DLProfile()
         throws OWLOntologyCreationException {
-        o = m.createOntology(
-            new OWLOntologyID(optional(IRI(START, "test")), optional(IRI(START, "test1"))));
+        o = m.createOntology(new OWLOntologyID(Optional.ofNullable(IRI(START, "test")),
+            Optional.ofNullable(IRI(START, "test1"))));
         int expected = 2;
         Class[] expectedViolations = {UseOfReservedVocabularyForOntologyIRI.class,
             UseOfReservedVocabularyForVersionIRI.class};
@@ -486,7 +485,7 @@ public class OWLProfileTestCase extends TestBase {
         declare(o, CL);
         o.add(HasKey(CL));
         int expected = 1;
-        Class[] expectedViolations = { InsufficientPropertyExpressions.class };
+        Class[] expectedViolations = {InsufficientPropertyExpressions.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
     }
 
@@ -641,8 +640,8 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLOntology ont)")
     public void shouldCreateViolationForOWLOntologyInOWL2Profile()
         throws OWLOntologyCreationException {
-        o = m.createOntology(
-            new OWLOntologyID(optional(IRI("test", "")), optional(IRI("test1", ""))));
+        o = m.createOntology(new OWLOntologyID(Optional.ofNullable(IRI("test", "")),
+            Optional.ofNullable(IRI("test1", ""))));
         int expected = 2;
         Class[] expectedViolations =
             {OntologyIRINotAbsolute.class, OntologyVersionIRINotAbsolute.class};

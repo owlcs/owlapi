@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.CollectionFactory.createSyncList;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSyncMap;
 import static org.semanticweb.owlapi.util.CollectionFactory.list;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
@@ -339,7 +337,7 @@ public class OWLOntologyManagerImpl
     @Override
     @Nullable
     public OWLOntology getOntology(IRI iri) {
-        OWLOntologyID ontologyID = new OWLOntologyID(optional(iri), emptyOptional());
+        OWLOntologyID ontologyID = new OWLOntologyID(Optional.ofNullable(iri), Optional.empty());
         readLock.lock();
         try {
             OWLOntology result = ontologiesByID.get(ontologyID);
@@ -762,7 +760,7 @@ public class OWLOntologyManagerImpl
         try {
             if (contains(ontologyIRI)) {
                 throw new OWLOntologyAlreadyExistsException(
-                    new OWLOntologyID(optional(ontologyIRI), emptyOptional()));
+                    new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.empty()));
             }
             OWLOntology ont = createOntology(ontologyIRI);
             addAxioms(ont,
@@ -780,7 +778,7 @@ public class OWLOntologyManagerImpl
         try {
             if (contains(ontologyIRI)) {
                 throw new OWLOntologyAlreadyExistsException(
-                    new OWLOntologyID(optional(ontologyIRI), emptyOptional()));
+                    new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.empty()));
             }
             OWLOntology ont = createOntology(ontologyIRI);
             addAxioms(ont, axioms);
@@ -853,7 +851,7 @@ public class OWLOntologyManagerImpl
             if (ontByID != null) {
                 return ontByID;
             }
-            OWLOntologyID id = new OWLOntologyID(optional(iri), emptyOptional());
+            OWLOntologyID id = new OWLOntologyID(Optional.ofNullable(iri), Optional.empty());
             IRI documentIRI = getDocumentIRIFromMappers(id);
             if (documentIRI != null) {
                 if (documentIRIsByID.values().contains(documentIRI) && !allowExists) {
@@ -971,7 +969,8 @@ public class OWLOntologyManagerImpl
                 LOGGER.warn(
                     "Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
             }
-            fireStartedLoadingEvent(new OWLOntologyID(optional(ontologyIRI), emptyOptional()),
+            fireStartedLoadingEvent(
+                new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.empty()),
                 documentSource.getDocumentIRI(), loadCount.get() > 0);
             loadCount.incrementAndGet();
             broadcastChanges.set(false);
@@ -1114,7 +1113,7 @@ public class OWLOntologyManagerImpl
 
     protected <Q, S> void removeValue(Map<Q, S> map, S id) {
         List<Q> keys = asList(
-            map.entrySet().stream().filter(e -> e.getValue().equals(id)).map(e -> e.getKey()));
+            map.entrySet().stream().filter(e -> e.getValue().equals(id)).map(Map.Entry::getKey));
         keys.forEach(map::remove);
     }
 

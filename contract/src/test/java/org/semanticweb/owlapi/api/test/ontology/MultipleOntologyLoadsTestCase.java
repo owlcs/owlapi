@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.Optional;
 
@@ -36,12 +34,12 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 @SuppressWarnings("javadoc")
 public class MultipleOntologyLoadsTestCase extends TestBase {
 
-    private final Optional<IRI> v2 =
-        optional(IRI.getNextDocumentIRI("http://test.example.org/ontology/0139/version:2"));
-    private final Optional<IRI> v1 =
-        optional(IRI.getNextDocumentIRI("http://test.example.org/ontology/0139/version:1"));
+    private final Optional<IRI> v2 = Optional
+        .ofNullable(IRI.getNextDocumentIRI("http://test.example.org/ontology/0139/version:2"));
+    private final Optional<IRI> v1 = Optional
+        .ofNullable(IRI.getNextDocumentIRI("http://test.example.org/ontology/0139/version:1"));
     private final Optional<IRI> i139 =
-        optional(IRI.getNextDocumentIRI("http://test.example.org/ontology/0139"));
+        Optional.ofNullable(IRI.getNextDocumentIRI("http://test.example.org/ontology/0139"));
     private final String INPUT = "<?xml version=\"1.0\"?>\n"
         + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\">\n"
         + "  <rdf:Description rdf:about=\"" + i139.get().toString() + "\">\n"
@@ -112,7 +110,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
 
     @Test
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() throws Exception {
-        Optional<IRI> empty = emptyOptional(IRI.class);
+        Optional<IRI> empty = Optional.empty();
         assertI139V1(initialOntology(new OWLOntologyID(i139, empty)));
         assertI139V2(secondOntology());
     }
