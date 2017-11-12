@@ -68,6 +68,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -206,6 +207,7 @@ protected transient MapPointer<OWLAnonymousIndividual, OWLAxiom>    owlAnonymous
 protected transient MapPointer<OWLDatatype, OWLAxiom>               owlDatatypeReferences               = build();
 protected transient MapPointer<OWLAnnotationProperty, OWLAxiom>     owlAnnotationPropertyReferences     = build();
 protected transient MapPointer<OWLEntity, OWLDeclarationAxiom>      declarationsByEntity                = build();
+protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>> pointers              = map();
 //@formatter:on
 
     @Nullable
@@ -340,6 +342,12 @@ protected transient MapPointer<OWLEntity, OWLDeclarationAxiom>      declarations
         sameIndividualsAxiomsByIndividual = buildLazy(SAME_INDIVIDUAL, ICOLLECTIONS);
         axiomsForSerialization.forEach(this::addAxiom);
         axiomsForSerialization = null;
+        pointers = map();
+    }
+
+    protected Stream<OWLAnnotationProperty> annotationProperties() {
+        return Stream.concat(owlAnnotationPropertyReferences.keySet().stream(),
+            ontologyAnnotations.stream().map(OWLAnnotation::getProperty));
     }
 
     /**
@@ -368,57 +376,91 @@ protected transient MapPointer<OWLEntity, OWLDeclarationAxiom>      declarations
         return false;
     }
 
+    private EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>> map() {
+        EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>> m =
+            new EnumMap<>(InternalsPointers.class);
+        m.put(InternalsPointers.axiomsByType, axiomsByType);
+        m.put(InternalsPointers.owlClassReferences, owlClassReferences);
+        m.put(InternalsPointers.owlObjectPropertyReferences, owlObjectPropertyReferences);
+        m.put(InternalsPointers.owlDataPropertyReferences, owlDataPropertyReferences);
+        m.put(InternalsPointers.owlIndividualReferences, owlIndividualReferences);
+        m.put(InternalsPointers.owlAnonymousIndividualReferences, owlAnonymousIndividualReferences);
+        m.put(InternalsPointers.owlDatatypeReferences, owlDatatypeReferences);
+        m.put(InternalsPointers.owlAnnotationPropertyReferences, owlAnnotationPropertyReferences);
+        m.put(InternalsPointers.declarationsByEntity, declarationsByEntity);
+        m.put(InternalsPointers.classAssertionAxiomsByClass, classAssertionAxiomsByClass);
+        m.put(InternalsPointers.annotationAssertionAxiomsBySubject,
+            annotationAssertionAxiomsBySubject);
+        m.put(InternalsPointers.subClassAxiomsBySubPosition, subClassAxiomsBySubPosition);
+        m.put(InternalsPointers.subClassAxiomsBySuperPosition, subClassAxiomsBySuperPosition);
+        m.put(InternalsPointers.objectSubPropertyAxiomsBySubPosition,
+            objectSubPropertyAxiomsBySubPosition);
+        m.put(InternalsPointers.objectSubPropertyAxiomsBySuperPosition,
+            objectSubPropertyAxiomsBySuperPosition);
+        m.put(InternalsPointers.dataSubPropertyAxiomsBySubPosition,
+            dataSubPropertyAxiomsBySubPosition);
+        m.put(InternalsPointers.dataSubPropertyAxiomsBySuperPosition,
+            dataSubPropertyAxiomsBySuperPosition);
+        m.put(InternalsPointers.classAxiomsByClass, classAxiomsByClass);
+        m.put(InternalsPointers.equivalentClassesAxiomsByClass, equivalentClassesAxiomsByClass);
+        m.put(InternalsPointers.disjointClassesAxiomsByClass, disjointClassesAxiomsByClass);
+        m.put(InternalsPointers.disjointUnionAxiomsByClass, disjointUnionAxiomsByClass);
+        m.put(InternalsPointers.hasKeyAxiomsByClass, hasKeyAxiomsByClass);
+        m.put(InternalsPointers.equivalentObjectPropertyAxiomsByProperty,
+            equivalentObjectPropertyAxiomsByProperty);
+        m.put(InternalsPointers.disjointObjectPropertyAxiomsByProperty,
+            disjointObjectPropertyAxiomsByProperty);
+        m.put(InternalsPointers.objectPropertyDomainAxiomsByProperty,
+            objectPropertyDomainAxiomsByProperty);
+        m.put(InternalsPointers.objectPropertyRangeAxiomsByProperty,
+            objectPropertyRangeAxiomsByProperty);
+        m.put(InternalsPointers.functionalObjectPropertyAxiomsByProperty,
+            functionalObjectPropertyAxiomsByProperty);
+        m.put(InternalsPointers.inverseFunctionalPropertyAxiomsByProperty,
+            inverseFunctionalPropertyAxiomsByProperty);
+        m.put(InternalsPointers.symmetricPropertyAxiomsByProperty,
+            symmetricPropertyAxiomsByProperty);
+        m.put(InternalsPointers.asymmetricPropertyAxiomsByProperty,
+            asymmetricPropertyAxiomsByProperty);
+        m.put(InternalsPointers.reflexivePropertyAxiomsByProperty,
+            reflexivePropertyAxiomsByProperty);
+        m.put(InternalsPointers.irreflexivePropertyAxiomsByProperty,
+            irreflexivePropertyAxiomsByProperty);
+        m.put(InternalsPointers.transitivePropertyAxiomsByProperty,
+            transitivePropertyAxiomsByProperty);
+        m.put(InternalsPointers.inversePropertyAxiomsByProperty, inversePropertyAxiomsByProperty);
+        m.put(InternalsPointers.equivalentDataPropertyAxiomsByProperty,
+            equivalentDataPropertyAxiomsByProperty);
+        m.put(InternalsPointers.disjointDataPropertyAxiomsByProperty,
+            disjointDataPropertyAxiomsByProperty);
+        m.put(InternalsPointers.dataPropertyDomainAxiomsByProperty,
+            dataPropertyDomainAxiomsByProperty);
+        m.put(InternalsPointers.dataPropertyRangeAxiomsByProperty,
+            dataPropertyRangeAxiomsByProperty);
+        m.put(InternalsPointers.functionalDataPropertyAxiomsByProperty,
+            functionalDataPropertyAxiomsByProperty);
+        m.put(InternalsPointers.classAssertionAxiomsByIndividual, classAssertionAxiomsByIndividual);
+        m.put(InternalsPointers.objectPropertyAssertionsByIndividual,
+            objectPropertyAssertionsByIndividual);
+        m.put(InternalsPointers.dataPropertyAssertionsByIndividual,
+            dataPropertyAssertionsByIndividual);
+        m.put(InternalsPointers.negativeObjectPropertyAssertionAxiomsByIndividual,
+            negativeObjectPropertyAssertionAxiomsByIndividual);
+        m.put(InternalsPointers.negativeDataPropertyAssertionAxiomsByIndividual,
+            negativeDataPropertyAssertionAxiomsByIndividual);
+        m.put(InternalsPointers.differentIndividualsAxiomsByIndividual,
+            differentIndividualsAxiomsByIndividual);
+        m.put(InternalsPointers.sameIndividualsAxiomsByIndividual,
+            sameIndividualsAxiomsByIndividual);
+        return m;
+    }
+
     /**
      * Trims the capacity of the axiom indexes . An application can use this operation to minimize
      * the storage of the internals instance.
      */
     public void trimToSize() {
-        axiomsByType.trimToSize();
-        owlClassReferences.trimToSize();
-        owlObjectPropertyReferences.trimToSize();
-        owlDataPropertyReferences.trimToSize();
-        owlIndividualReferences.trimToSize();
-        owlAnonymousIndividualReferences.trimToSize();
-        owlDatatypeReferences.trimToSize();
-        owlAnnotationPropertyReferences.trimToSize();
-        declarationsByEntity.trimToSize();
-        classAssertionAxiomsByClass.trimToSize();
-        annotationAssertionAxiomsBySubject.trimToSize();
-        subClassAxiomsBySubPosition.trimToSize();
-        subClassAxiomsBySuperPosition.trimToSize();
-        objectSubPropertyAxiomsBySubPosition.trimToSize();
-        objectSubPropertyAxiomsBySuperPosition.trimToSize();
-        dataSubPropertyAxiomsBySubPosition.trimToSize();
-        dataSubPropertyAxiomsBySuperPosition.trimToSize();
-        classAxiomsByClass.trimToSize();
-        equivalentClassesAxiomsByClass.trimToSize();
-        disjointClassesAxiomsByClass.trimToSize();
-        disjointUnionAxiomsByClass.trimToSize();
-        hasKeyAxiomsByClass.trimToSize();
-        equivalentObjectPropertyAxiomsByProperty.trimToSize();
-        disjointObjectPropertyAxiomsByProperty.trimToSize();
-        objectPropertyDomainAxiomsByProperty.trimToSize();
-        objectPropertyRangeAxiomsByProperty.trimToSize();
-        functionalObjectPropertyAxiomsByProperty.trimToSize();
-        inverseFunctionalPropertyAxiomsByProperty.trimToSize();
-        symmetricPropertyAxiomsByProperty.trimToSize();
-        asymmetricPropertyAxiomsByProperty.trimToSize();
-        reflexivePropertyAxiomsByProperty.trimToSize();
-        irreflexivePropertyAxiomsByProperty.trimToSize();
-        transitivePropertyAxiomsByProperty.trimToSize();
-        inversePropertyAxiomsByProperty.trimToSize();
-        equivalentDataPropertyAxiomsByProperty.trimToSize();
-        disjointDataPropertyAxiomsByProperty.trimToSize();
-        dataPropertyDomainAxiomsByProperty.trimToSize();
-        dataPropertyRangeAxiomsByProperty.trimToSize();
-        functionalDataPropertyAxiomsByProperty.trimToSize();
-        classAssertionAxiomsByIndividual.trimToSize();
-        objectPropertyAssertionsByIndividual.trimToSize();
-        dataPropertyAssertionsByIndividual.trimToSize();
-        negativeObjectPropertyAssertionAxiomsByIndividual.trimToSize();
-        negativeDataPropertyAssertionAxiomsByIndividual.trimToSize();
-        differentIndividualsAxiomsByIndividual.trimToSize();
-        sameIndividualsAxiomsByIndividual.trimToSize();
+        pointers.values().forEach(MapPointer::trimToSize);
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -520,19 +562,6 @@ protected transient MapPointer<OWLEntity, OWLDeclarationAxiom>      declarations
      */
     public boolean containsDatatypeInSignature(OWLDatatype i) {
         return owlDatatypeReferences.containsReference(i);
-    }
-
-    /**
-     * @param type type of map key
-     * @param axiom class of axiom indexed
-     * @param <T> key type
-     * @param <A> value type
-     * @return map pointer matching the search, or null if there is not one
-     */
-    // not always not null, but supposed to
-    <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(Class<T> type,
-        Class<A> axiom) {
-        return get(type, axiom, Navigation.IN_SUB_POSITION);
     }
 
     /**
@@ -852,11 +881,8 @@ protected transient MapPointer<OWLEntity, OWLDeclarationAxiom>      declarations
      */
     public <K> Collection<? extends OWLAxiom> filterAxioms(OWLAxiomSearchFilter filter, K key) {
         if (filter == Filters.annotations) {
-            Optional<MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>> mapPointerOptional =
-                get(OWLAnnotationSubject.class, OWLAnnotationAssertionAxiom.class);
-            if (mapPointerOptional.isPresent()) {
-                return mapPointerOptional.get().getValuesAsCollection((OWLAnnotationSubject) key);
-            }
+            return annotationAssertionAxiomsBySubject
+                .getValuesAsCollection((OWLAnnotationSubject) key);
         }
         return getAxiomsByType().filterAxioms(filter, key);
     }

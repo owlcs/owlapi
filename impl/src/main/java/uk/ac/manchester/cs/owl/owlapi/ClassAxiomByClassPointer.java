@@ -18,10 +18,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * @author ignazio
@@ -35,7 +31,7 @@ public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom
      * @param i internals
      */
     public ClassAxiomByClassPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
-                    boolean initialized, Internals i) {
+        boolean initialized, Internals i) {
         super(t, v, initialized, i);
     }
 
@@ -46,10 +42,10 @@ public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom
         }
         super.init();
         // special case: this map needs other maps to be initialized first
-        i.get(OWLClass.class, OWLEquivalentClassesAxiom.class).get().forEach(this::put);
-        i.get(OWLClass.class, OWLSubClassOfAxiom.class).get().forEach(this::put);
-        i.get(OWLClass.class, OWLDisjointClassesAxiom.class).get().forEach(this::put);
-        i.get(OWLClass.class, OWLDisjointUnionAxiom.class).get().forEach(this::put);
+        i.equivalentClassesAxiomsByClass.forEach(this::put);
+        i.subClassAxiomsBySubPosition.forEach(this::put);
+        i.disjointClassesAxiomsByClass.forEach(this::put);
+        i.disjointUnionAxiomsByClass.forEach(this::put);
         return this;
     }
 }

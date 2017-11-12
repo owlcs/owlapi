@@ -40,32 +40,67 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomCollection;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPrimitive;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
@@ -85,13 +120,13 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     implements OWLOntology, Serializable {
     // @formatter:off
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLEntity>>              ontsignatures =                     build(OWLImmutableOntologyImpl::build);
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnonymousIndividual>> ontanonCaches =                    build(key -> asList(key.ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLClass>>              ontclassesSignatures =              build(key -> asList(key.ints.get(OWLClass.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> asList(key.ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asList(key.ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asList(key.ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asList(key.ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asList(Stream.concat(key.ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION).get().keySet().stream(),key.ints.getOntologyAnnotations().map(OWLAnnotation::getProperty)).distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnonymousIndividual>> ontanonCaches =                    build(key -> asList(key.ints.owlAnonymousIndividualReferences  .keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLClass>>              ontclassesSignatures =              build(key -> asList(key.ints.owlClassReferences                .keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> asList(key.ints.owlDataPropertyReferences         .keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asList(key.ints.owlObjectPropertyReferences       .keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asList(key.ints.owlDatatypeReferences             .keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asList(key.ints.owlIndividualReferences           .keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asList(key.ints.annotationProperties()                              .distinct().sorted()));
     // @formatter:on
     protected static void invalidateOntologyCaches(OWLImmutableOntologyImpl o) {
         ontsignatures.invalidate(o);
@@ -348,13 +383,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     @Override
     public Stream<OWLEntity> unsortedSignature() {
         return Stream
-            .of(ints.get(OWLClass.class, OWLAxiom.class).get().keySet().stream(),
-                ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet().stream(),
-                ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet().stream(),
-                ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet().stream(),
-                ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet().stream(),
-                ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION)
-                    .get().keySet().stream(),
+            .of(ints.owlClassReferences.keySet().stream(),
+                ints.owlObjectPropertyReferences.keySet().stream(),
+                ints.owlDataPropertyReferences.keySet().stream(),
+                ints.owlIndividualReferences.keySet().stream(),
+                ints.owlDatatypeReferences.keySet().stream(),
+                ints.owlAnnotationPropertyReferences.keySet().stream(),
                 ints.getOntologyAnnotations().map(OWLAnnotation::getProperty))
             .flatMap(Function.identity());
     }
@@ -461,7 +495,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLClassAxiom> axioms(OWLClass cls) {
-        return ints.get(OWLClass.class, OWLClassAxiom.class).get().values(cls, OWLClassAxiom.class);
+        return ints.classAxiomsByClass.values(cls, OWLClassAxiom.class);
     }
 
     @Override
@@ -503,8 +537,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         if (owlEntity instanceof OWLEntity) {
             return ints.getReferencingAxioms((OWLEntity) owlEntity);
         } else if (owlEntity instanceof OWLAnonymousIndividual) {
-            return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
-                .values((OWLAnonymousIndividual) owlEntity, OWLAxiom.class);
+            return ints.owlAnonymousIndividualReferences.values((OWLAnonymousIndividual) owlEntity,
+                OWLAxiom.class);
         } else if (owlEntity.isIRI()) {
             Set<OWLAxiom> axioms = new HashSet<>();
             String iriString = owlEntity.toString();
@@ -551,6 +585,222 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     }
 
     // OWLAxiomIndex
+    @Override
+    public Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(
+        OWLAnnotationSubject entity, Imports imports) {
+        return imports.stream(this).flatMap(o -> o.annotationAssertionAxioms(entity));
+    }
+
+    @Override
+    public Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(
+        OWLAnnotationSubject entity) {
+        return ints.annotationAssertionAxiomsBySubject.getValues(entity);
+    }
+
+    @Override
+    public Stream<OWLAsymmetricObjectPropertyAxiom> asymmetricObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.asymmetricPropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLClassAssertionAxiom> classAssertionAxioms(OWLClassExpression ce) {
+        return ints.classAssertionAxiomsByClass.getValues(ce);
+    }
+
+    @Override
+    public Stream<OWLClassAssertionAxiom> classAssertionAxioms(OWLIndividual individual) {
+        return ints.classAssertionAxiomsByIndividual.getValues(individual);
+    }
+
+    @Override
+    public Stream<OWLDataPropertyAssertionAxiom> dataPropertyAssertionAxioms(
+        OWLIndividual individual) {
+        return ints.dataPropertyAssertionsByIndividual.getValues(individual);
+    }
+
+    @Override
+    public Stream<OWLDataPropertyDomainAxiom> dataPropertyDomainAxioms(OWLDataProperty property) {
+        return ints.dataPropertyDomainAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLDataPropertyRangeAxiom> dataPropertyRangeAxioms(OWLDataProperty property) {
+        return ints.dataPropertyRangeAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsForSubProperty(
+        OWLDataProperty subProperty) {
+        return ints.dataSubPropertyAxiomsBySubPosition.getValues(subProperty);
+    }
+
+    @Override
+    public Stream<OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsForSuperProperty(
+        OWLDataPropertyExpression superProperty) {
+        return ints.dataSubPropertyAxiomsBySuperPosition.getValues(superProperty);
+    }
+
+    @Override
+    public Stream<OWLDifferentIndividualsAxiom> differentIndividualAxioms(
+        OWLIndividual individual) {
+        return ints.differentIndividualsAxiomsByIndividual.getValues(individual);
+    }
+
+    @Override
+    public Stream<OWLDisjointClassesAxiom> disjointClassesAxioms(OWLClass cls) {
+        return ints.disjointClassesAxiomsByClass.getValues(cls);
+    }
+
+    @Override
+    public Stream<OWLDisjointDataPropertiesAxiom> disjointDataPropertiesAxioms(
+        OWLDataProperty property) {
+        return ints.disjointDataPropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLDisjointObjectPropertiesAxiom> disjointObjectPropertiesAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.disjointObjectPropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLDisjointUnionAxiom> disjointUnionAxioms(OWLClass owlClass) {
+        return ints.disjointUnionAxiomsByClass.getValues(owlClass);
+    }
+
+    @Override
+    public Stream<OWLEquivalentClassesAxiom> equivalentClassesAxioms(OWLClass cls) {
+        return ints.equivalentClassesAxiomsByClass.getValues(cls);
+    }
+
+    @Override
+    public Stream<OWLEquivalentDataPropertiesAxiom> equivalentDataPropertiesAxioms(
+        OWLDataProperty property) {
+        return ints.equivalentDataPropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLEquivalentObjectPropertiesAxiom> equivalentObjectPropertiesAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.equivalentObjectPropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLFunctionalDataPropertyAxiom> functionalDataPropertyAxioms(
+        OWLDataPropertyExpression property) {
+        return ints.functionalDataPropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLFunctionalObjectPropertyAxiom> functionalObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.functionalObjectPropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLHasKeyAxiom> hasKeyAxioms(OWLClass cls) {
+        return ints.hasKeyAxiomsByClass.getValues(cls);
+    }
+
+    @Override
+    public Stream<OWLInverseFunctionalObjectPropertyAxiom> inverseFunctionalObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.inverseFunctionalPropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLInverseObjectPropertiesAxiom> inverseObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.inversePropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLIrreflexiveObjectPropertyAxiom> irreflexiveObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.irreflexivePropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLNegativeDataPropertyAssertionAxiom> negativeDataPropertyAssertionAxioms(
+        OWLIndividual individual) {
+        return ints.negativeDataPropertyAssertionAxiomsByIndividual.getValues(individual);
+    }
+
+    @Override
+    public Stream<OWLNegativeObjectPropertyAssertionAxiom> negativeObjectPropertyAssertionAxioms(
+        OWLIndividual individual) {
+        return ints.negativeObjectPropertyAssertionAxiomsByIndividual.getValues(individual);
+    }
+
+    @Override
+    public Stream<OWLObjectPropertyAssertionAxiom> objectPropertyAssertionAxioms(
+        OWLIndividual individual) {
+        return ints.objectPropertyAssertionsByIndividual.getValues(individual);
+    }
+
+    @Override
+    public Stream<OWLObjectPropertyDomainAxiom> objectPropertyDomainAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.objectPropertyDomainAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLObjectPropertyRangeAxiom> objectPropertyRangeAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.objectPropertyRangeAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsForSubProperty(
+        OWLObjectPropertyExpression subProperty) {
+        return ints.objectSubPropertyAxiomsBySubPosition.getValues(subProperty);
+    }
+
+    @Override
+    public Stream<OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsForSuperProperty(
+        OWLObjectPropertyExpression superProperty) {
+        return ints.objectSubPropertyAxiomsBySuperPosition.getValues(superProperty);
+    }
+
+    @Override
+    public Stream<OWLReflexiveObjectPropertyAxiom> reflexiveObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.reflexivePropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLSameIndividualAxiom> sameIndividualAxioms(OWLIndividual individual) {
+        return ints.sameIndividualsAxiomsByIndividual.getValues(individual);
+    }
+
+    @Override
+    public Stream<OWLSubClassOfAxiom> subClassAxiomsForSubClass(OWLClass cls) {
+        return ints.subClassAxiomsBySubPosition.getValues(cls);
+    }
+
+    @Override
+    public Stream<OWLSubClassOfAxiom> subClassAxiomsForSuperClass(OWLClass cls) {
+        return ints.subClassAxiomsBySuperPosition.getValues(cls);
+    }
+
+    @Override
+    public Stream<OWLDeclarationAxiom> declarationAxioms(OWLEntity subject) {
+        return ints.declarationsByEntity.getValues(subject);
+    }
+
+    @Override
+    public Stream<OWLSymmetricObjectPropertyAxiom> symmetricObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.symmetricPropertyAxiomsByProperty.getValues(property);
+    }
+
+    @Override
+    public Stream<OWLTransitiveObjectPropertyAxiom> transitiveObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        return ints.transitivePropertyAxiomsByProperty.getValues(property);
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public <A extends OWLAxiom> Stream<A> axioms(Class<A> type,

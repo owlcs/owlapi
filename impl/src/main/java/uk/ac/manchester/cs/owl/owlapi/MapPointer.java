@@ -174,9 +174,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      */
     public synchronized Collection<K> keySet() {
         init();
-        Set<K> keySet = map.keySet();
-        assert keySet != null;
-        return keySet;
+        return map.keySet();
     }
 
     /**
