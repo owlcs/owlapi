@@ -16,7 +16,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.JarURLConnection;
+import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
@@ -264,6 +267,19 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
                     throw new OWLParserException(e);
                 }
             }
+            if (documentIRI.getNamespace().startsWith("jar:")) {
+                try (InputStream jarSource = streamFromJar().getInputStream();
+                    InputStream in = new BufferedInputStream(jarSource)) {
+                    if (textual) {
+                        return parser.parse(defaultReader.get(in), parameters);
+                    } else {
+                        return parser.parse(in, parameters);
+                    }
+                } catch (IOException e) {
+                    failedOnIRI.set(true);
+                    throw new OWLParserException(e);
+                }
+            }
             try (
                 Response response =
                     getResponse(documentIRI, config, getAcceptHeaders().orElse(DEFAULT_REQUEST));
@@ -281,6 +297,10 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
         }
         throw new OWLParserException(
             "No input could be resolved - exceptions raised against Reader, InputStream and IRI resolution");
+    }
+
+    protected JarURLConnection streamFromJar() throws IOException, MalformedURLException {
+        return (JarURLConnection) new URL(documentIRI.toString()).openConnection();
     }
 
     @Override

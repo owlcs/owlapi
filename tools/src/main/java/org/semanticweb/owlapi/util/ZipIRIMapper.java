@@ -14,11 +14,9 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,11 +25,15 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import javax.annotation.Nullable;
 
@@ -57,33 +59,37 @@ import com.google.common.base.Splitter;
  * @since 2.0.0
  */
 @HasPriority(1)
-public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
+public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
 
     static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
-    private static final Logger LOGGER = LoggerFactory.getLogger(AutoIRIMapper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ZipIRIMapper.class);
     private final Set<String> fileExtensions =
-        new HashSet<>(Arrays.asList(".owl", ".xml", ".rdf", ".omn", ".ofn"));
-    private final boolean recursive;
+        new HashSet<>(Arrays.asList(".owl", ".xml", ".rdf", ".omn", ".ofn", ".obo"));
     private final Map<String, OntologyRootElementHandler> handlerMap = createMap();
     private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = createMap();
     private final Map<String, IRI> oboFileMap = createMap();
-    private final String directoryPath;
-    private boolean mapped;
     @Nullable
-    private transient File currentFile;
+    private IRI currentFile;
 
     /**
-     * Creates an auto-mapper which examines ontologies that reside in the specified root folder
-     * (and possibly sub-folders).
+     * Creates an auto-mapper which examines ontologies that reside in the specified zip file.
      *
-     * @param rootDirectory The root directory which should be searched for ontologies.
-     * @param recursive Sub directories will be searched recursively if {@code true}.
+     * @param zip The zip file to map.
+     * @param baseIRI base iri for physical IRIs
+     * @throws IOException if an exception reading from input is raised
      */
-    public AutoIRIMapper(File rootDirectory, boolean recursive) {
-        directoryPath =
-            checkNotNull(rootDirectory, "rootDirectory cannot be null").getAbsolutePath();
-        this.recursive = recursive;
-        mapped = false;
+    public ZipIRIMapper(File zip, String baseIRI) throws IOException {
+        this(new ZipFile(zip), baseIRI);
+    }
+
+    /**
+     * Creates an auto-mapper which examines ontologies that reside in the specified zip file.
+     *
+     * @param zip The zip file to map.
+     * @param baseIRI base iri for physical IRIs
+     * @throws IOException if an exception reading from input is raised
+     */
+    public ZipIRIMapper(ZipFile zip, String baseIRI) throws IOException {
         /**
          * A handler to handle RDF/XML files. The xml:base (if present) is taken to be the ontology
          * URI of the ontology document being parsed.
@@ -91,6 +97,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         handlerMap.put(Namespaces.RDF + "RDF", this::baseIRI);
         /** A handler that can handle OWL/XML files. */
         handlerMap.put(OWLXMLVocabulary.ONTOLOGY.toString(), this::ontologyIRI);
+        processFile(zip, baseIRI);
+
     }
 
     @Nullable
@@ -124,10 +132,6 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         return IRI.create(substring);
     }
 
-    protected File getDirectory() {
-        return new File(directoryPath);
-    }
-
     /**
      * The mapper only examines files that have specified file extensions. This method returns the
      * file extensions that cause a file to be examined.
@@ -151,30 +155,17 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     }
 
     /**
-     * Gets the set of ontology IRIs that this mapper has found.
+     * Gets the mappings of ontology IRIs that this mapper has found.
      *
-     * @return A {@code Set} of ontology (logical) URIs
+     * @return A {@code Stream} of map entries, from logical to physical IRI
      */
-    public Set<IRI> getOntologyIRIs() {
-        if (!mapped) {
-            mapFiles();
-        }
-        return new HashSet<>(ontologyIRI2PhysicalURIMap.keySet());
-    }
-
-    /**
-     * update the map.
-     */
-    public void update() {
-        mapFiles();
+    public Stream<Map.Entry<IRI, IRI>> mappedEntries() {
+        return ontologyIRI2PhysicalURIMap.entrySet().stream();
     }
 
     @Override
     @Nullable
     public IRI getDocumentIRI(IRI ontologyIRI) {
-        if (!mapped) {
-            mapFiles();
-        }
         if (ontologyIRI.toString().endsWith(".obo")) {
             String path = ontologyIRI.toURI().getPath();
             if (path != null) {
@@ -189,69 +180,63 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         return ontologyIRI2PhysicalURIMap.get(ontologyIRI);
     }
 
-    private void mapFiles() {
-        mapped = true;
-        ontologyIRI2PhysicalURIMap.clear();
-        processFile(getDirectory());
+    public Stream<Map.Entry<String, IRI>> oboMappings() {
+        return oboFileMap.entrySet().stream();
     }
 
-    private void processFile(File f) {
-        if (f.isHidden()) {
-            return;
-        }
-        // if pointed directly at a zip file, map it
-        parseIfExtensionSupported(f);
-        File[] files = f.listFiles();
-        if (files == null) {
-            return;
-        }
-        for (File file : files) {
-            if (file.isDirectory() && recursive) {
-                processFile(file);
-            } else {
-                parseIfExtensionSupported(file);
-            }
+    public Stream<Map.Entry<IRI, IRI>> iriMappings() {
+        return ontologyIRI2PhysicalURIMap.entrySet().stream();
+    }
+
+    private void processFile(ZipFile archive, String baseIRI) throws IOException {
+        Enumeration<? extends ZipEntry> entries = archive.entries();
+        while (entries.hasMoreElements()) {
+            parseIfExtensionSupported(archive, entries.nextElement(), baseIRI);
         }
     }
 
-    protected void parseIfExtensionSupported(File file) {
-        String name = file.getName();
+    protected void parseIfExtensionSupported(ZipFile file, ZipEntry e, String baseIRI)
+        throws IOException {
+        String name = e.getName();
         int lastIndexOf = name.lastIndexOf('.');
         if (lastIndexOf < 0) {
             // no extension for the file, nothing to do
             return;
         }
+        IRI physicalIRI = IRI.create(baseIRI + name);
         String extension = name.substring(lastIndexOf);
-        if (".zip".equalsIgnoreCase(extension) || ".jar".equalsIgnoreCase(extension)) {
-            try {
-                ZipIRIMapper mapper = new ZipIRIMapper(file, "jar:" + file.toURI() + "!/");
-                mapper.oboMappings().forEach(e -> oboFileMap.put(e.getKey(), e.getValue()));
-                mapper.iriMappings()
-                    .forEach(e -> ontologyIRI2PhysicalURIMap.put(e.getKey(), e.getValue()));
-            } catch (IOException e) {
-                // if we can't parse a file, then we can't map it
-                LOGGER.debug("Exception reading file", e);
+        if (".obo".equals(extension)) {
+            oboFileMap.put(name, physicalIRI);
+        } else {
+            try (InputStream in = file.getInputStream(e)) {
+                if (".ofn".equals(extension)) {
+                    IRI logical = parseFSSFile(in);
+                    if (logical != null) {
+                        ontologyIRI2PhysicalURIMap.put(logical, physicalIRI);
+                    }
+                } else if (".omn".equals(extension)) {
+                    IRI logical = parseManchesterSyntaxFile(in);
+                    if (logical != null) {
+                        ontologyIRI2PhysicalURIMap.put(logical, physicalIRI);
+                    }
+                } else if (fileExtensions.contains(extension)) {
+                    IRI logical = parseFile(in);
+                    if (logical != null) {
+                        ontologyIRI2PhysicalURIMap.put(logical, physicalIRI);
+                    }
+                }
             }
-
-        } else if (".obo".equalsIgnoreCase(extension)) {
-            oboFileMap.put(name, IRI.create(file));
-        } else if (".ofn".equalsIgnoreCase(extension)) {
-            parseFSSFile(file);
-        } else if (".omn".equalsIgnoreCase(extension)) {
-            parseManchesterSyntaxFile(file);
-        } else if (fileExtensions.contains(extension.toLowerCase())) {
-            parseFile(file);
         }
     }
 
     /**
      * Search first 100 lines for FSS style Ontology(&lt;IRI&gt; ...
      *
-     * @param file the file to parse
+     * @param input the file to parse
      */
-    private void parseFSSFile(File file) {
-        try (InputStream input = new FileInputStream(file);
-            Reader reader = new InputStreamReader(input, "UTF-8");
+    @Nullable
+    private IRI parseFSSFile(InputStream input) {
+        try (Reader reader = new InputStreamReader(input, "UTF-8");
             BufferedReader br = new BufferedReader(reader)) {
             String line = "";
             Matcher m = pattern.matcher(line);
@@ -261,19 +246,20 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
                 if (m.matches()) {
                     String group = m.group(1);
                     assert group != null;
-                    addMapping(IRI.create(group), file);
-                    break;
+                    return IRI.create(group);
                 }
             }
         } catch (IOException e) {
             // if we can't parse a file, then we can't map it
             LOGGER.debug("Exception reading file", e);
         }
+        return null;
     }
 
-    private void parseFile(File file) {
+    @Nullable
+    private IRI parseFile(InputStream file) {
         try {
-            currentFile = file;
+            currentFile = null;
             // Using the default expansion limit. If the ontology IRI cannot be
             // found before 64000 entities are expanded, the file is too
             // expensive to parse.
@@ -282,17 +268,19 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             // if we can't parse a file, then we can't map it
             LOGGER.debug("Exception reading file", e);
         }
+        return currentFile;
     }
 
-    private void parseManchesterSyntaxFile(File file) {
-        try (FileInputStream input = new FileInputStream(file);
-            InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
+    @Nullable
+    private IRI parseManchesterSyntaxFile(InputStream input) {
+        try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(reader)) {
             // Ontology: <URI>
             String line = br.readLine();
             while (line != null) {
-                if (parseManLine(file, line) != null) {
-                    return;
+                IRI iri = parseManLine(line);
+                if (iri != null) {
+                    return iri;
                 }
                 line = br.readLine();
             }
@@ -300,15 +288,14 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             // if we can't parse a file, then we can't map it
             LOGGER.debug("Exception reading file", e);
         }
+        return null;
     }
 
     @Nullable
-    private IRI parseManLine(File file, String line) {
+    private IRI parseManLine(String line) {
         for (String tok : Splitter.on(" ").split(line)) {
             if (tok.startsWith("<") && tok.endsWith(">")) {
-                IRI iri = unquote(tok);
-                addMapping(iri, file);
-                return iri;
+                return unquote(tok);
             }
         }
         return null;
@@ -320,8 +307,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         OntologyRootElementHandler handler = handlerMap.get(uri + localName);
         if (handler != null) {
             IRI ontologyIRI = handler.handle(checkNotNull(attributes));
-            if (ontologyIRI != null && currentFile != null) {
-                addMapping(ontologyIRI, verifyNotNull(currentFile));
+            if (ontologyIRI != null && currentFile == null) {
+                currentFile = ontologyIRI;
             }
             throw new SAXException();
         }

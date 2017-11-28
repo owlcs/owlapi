@@ -49,7 +49,8 @@ import uk.ac.manchester.cs.AcceptHeaderBuilder;
  */
 public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
-    private final Set<String> parsableSchemes = Sets.newHashSet("http", "https", "file", "ftp");
+    private final Set<String> parsableSchemes =
+        Sets.newHashSet("http", "https", "file", "ftp", "jar");
     private final OWLOntologyBuilder ontologyBuilder;
 
     /**
