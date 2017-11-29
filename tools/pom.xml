@@ -20,6 +20,11 @@
 			<classifier>tests</classifier>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>1.19</version>
+		</dependency>
 	</dependencies>
 	<description>Module containing Atomic Decomposition, modularisation, explanation, builders, profile checkers and fixers, a number of utility classes</description>
 </project>

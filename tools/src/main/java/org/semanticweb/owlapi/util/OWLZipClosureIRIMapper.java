@@ -24,6 +24,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import org.yaml.snakeyaml.Yaml;
 
 /**
  * An IRI mapper that uses a zip file and its owlzip.properties content to map logical IRIs to
@@ -41,30 +42,40 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
     public OWLZipClosureIRIMapper(File f) throws IOException {
         String basePhysicalIRI = "jar:" + f.toURI() + "!/";
         try (ZipFile z = new ZipFile(f)) {
-            ZipEntry index = z.getEntry("owlzip.properties");
-            if (index != null) {
-                try (InputStream inputStream = z.getInputStream(index)) {
-                    loadFromOwlzipProperties(basePhysicalIRI, inputStream);
-                }
+            ZipEntry yaml = z.getEntry("owlzip.yaml");
+            if (yaml != null) {
+                Yaml yamlParser = new Yaml();
+                OWLZipYaml load = new OWLZipYaml(yamlParser.load(z.getInputStream(yaml)));
+                load.roots().forEach(r -> physicalRoots.add(IRI.create(basePhysicalIRI + r)));
+                load.entries().forEach(e -> logicalToPhysicalIRI.put(IRI.create(e.logical),
+                    IRI.create(basePhysicalIRI + e.physical)));
             } else {
-                // if owlzip.properties is not available, look for a catalog.xml file
-                Optional<? extends ZipEntry> catalog = z.stream()
-                    .filter(e -> CATALOG_PATTERN.matcher(e.getName()).matches()).findFirst();
-                if (catalog.isPresent()) {
-                    loadFromCatalog(basePhysicalIRI, z.getInputStream(catalog.get()));
-                } else {
-                    // no owlzip.properties and no catalog.xml; look up root.owl for root
-                    // ontologies, others imported as usual
-                    ZipEntry root = z.getEntry("root.owl");
-                    if (root != null) {
-                        physicalRoots.add(IRI.create(basePhysicalIRI + "root.owl"));
+                ZipEntry index = z.getEntry("owlzip.properties");
+                if (index != null) {
+                    try (InputStream inputStream = z.getInputStream(index)) {
+                        loadFromOwlzipProperties(basePhysicalIRI, inputStream);
                     }
-                    ZipIRIMapper mapper = new ZipIRIMapper(z, basePhysicalIRI);
-                    mapper.iriMappings()
-                        .forEach(e -> logicalToPhysicalIRI.put(e.getKey(), e.getValue()));
-                    // TODO OBO compressed files are not mapped according to the ontology IRI but
-                    // according to the file name in AutoIRIMapper and ZipIRIMapper. This needs
-                    // sorting.
+                } else {
+                    // if owlzip.properties is not available, look for a catalog.xml file
+                    Optional<? extends ZipEntry> catalog = z.stream()
+                        .filter(e -> CATALOG_PATTERN.matcher(e.getName()).matches()).findFirst();
+                    if (catalog.isPresent()) {
+                        loadFromCatalog(basePhysicalIRI, z.getInputStream(catalog.get()));
+                    } else {
+                        // no owlzip.properties and no catalog.xml; look up root.owl for root
+                        // ontologies, others imported as usual
+                        ZipEntry root = z.getEntry("root.owl");
+                        if (root != null) {
+                            physicalRoots.add(IRI.create(basePhysicalIRI + "root.owl"));
+                        }
+                        ZipIRIMapper mapper = new ZipIRIMapper(z, basePhysicalIRI);
+                        mapper.iriMappings()
+                            .forEach(e -> logicalToPhysicalIRI.put(e.getKey(), e.getValue()));
+                        // TODO OBO compressed files are not mapped according to the ontology IRI
+                        // but
+                        // according to the file name in AutoIRIMapper and ZipIRIMapper. This needs
+                        // sorting.
+                    }
                 }
             }
         }

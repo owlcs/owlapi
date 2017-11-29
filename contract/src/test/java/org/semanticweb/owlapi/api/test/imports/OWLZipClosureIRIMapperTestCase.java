@@ -17,6 +17,18 @@ public class OWLZipClosureIRIMapperTestCase extends TestBase {
     protected IRI dIRI = IRI.create("http://test.org/complexImports/D.owl");
 
     @Test
+    public void shouldLoadClosureWithYaml()
+        throws ZipException, IOException, OWLOntologyCreationException {
+        File file2 = new File(RESOURCES, "owlzipwithyaml.zip");
+        m1.getIRIMappers().add(new AutoIRIMapper(imports(), true));
+        OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
+        OWLZipClosureIRIMapper source = new OWLZipClosureIRIMapper(file2);
+        m.getIRIMappers().add(source);
+        OWLOntology loadOntology = m.loadOntology(dIRI);
+        equal(loadOntology, test);
+    }
+
+    @Test
     public void shouldLoadClosureWithProperties()
         throws ZipException, IOException, OWLOntologyCreationException {
         File file2 = new File(RESOURCES, "owlzipwithfolders.zip");
