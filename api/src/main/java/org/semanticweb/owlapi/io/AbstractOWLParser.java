@@ -95,6 +95,9 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         String originalProtocol = originalURL.getProtocol();
         URLConnection conn = originalURL.openConnection();
         conn.addRequestProperty("Accept", actualAcceptHeaders);
+		if (config.isAcceptingAuthorization()) {
+            conn.setRequestProperty("Authorization", config.getAuthorizationValue());
+        }
         if (config.isAcceptingHTTPCompression()) {
             conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
         }
@@ -117,6 +120,9 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                     // automatically
                     conn = newURL.openConnection();
                     conn.addRequestProperty("Accept", actualAcceptHeaders);
+					if (config.isAcceptingAuthorization()) {
+						conn.setRequestProperty("Authorization", config.getAuthorizationValue());
+					}
                     if (config.isAcceptingHTTPCompression()) {
                         conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
                     }

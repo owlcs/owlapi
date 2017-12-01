@@ -193,7 +193,12 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     public boolean isAcceptingHTTPCompression() {
         return ACCEPT_HTTP_COMPRESSION.getValue(Boolean.class, overrides).booleanValue();
     }
-
+    
+    /** @return true if http authorization should be accepted. */
+    public boolean isAcceptingAuthorization() {
+        return ACCEPT_HTTP_AUTHORIZATION.getValue(Boolean.class, overrides).booleanValue();
+    }
+    
     /**
      * When loading an ontology, a parser might connect to a remote URL. If the remote URL is a 302
      * redirect and the protocol is different, e.g., http to https, the parser needs to decide
@@ -263,6 +268,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      */
     public String getBannedParsers() {
         return BANNED_PARSERS.getValue(String.class, overrides);
+    }
+    
+    /** @return authorization header value */
+    public String getAuthorizationValue() {
+        return AUTHORIZATION_VALUE.getValue(String.class, overrides);
     }
 
     /**
@@ -475,6 +485,37 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.overrides.put(REPAIR_ILLEGAL_PUNNINGS, Boolean.valueOf(b));
+        return configuration;
+    }
+	
+	/**
+     * @param b
+     *        true if HTTP authorization should be accepted.
+     * @return a copy of this configuration with accepting HTTP authorization set
+     *         to the new value.
+     */
+    @Nonnull
+    public OWLOntologyLoaderConfiguration setAcceptingAuthorization(boolean b) {
+        // do not make copies if setting the same value
+        if (isAcceptingAuthorization() == b) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
+        copy.overrides.put(ACCEPT_HTTP_AUTHORIZATION, Boolean.valueOf(b));
+        return copy;
+    }
+    
+    /**
+     * @param authorizationValue
+     *        Authorization header value.
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OWLOntologyLoaderConfiguration setAuthorizationValue(String authorizationValue) {
+        if (getAuthorizationValue().equals(authorizationValue)) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(AUTHORIZATION_VALUE, authorizationValue);
         return configuration;
     }
 }
