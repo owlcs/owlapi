@@ -46,7 +46,7 @@ import org.xml.sax.InputSource;
  * A convenience base class for parsers, which provides a mechanism to manage the setting and
  * getting of the {@code OWLOntologyManager} that should be associated with the parser. Note: all
  * current parser implementations are stateless.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -73,7 +73,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     /**
      * A convenience method that obtains an input stream from a URI. This method sets up the correct
      * request type and wraps the input stream within a buffered input stream.
-     * 
+     *
      * @param documentIRI The URI from which the input stream should be returned
      * @param config the load configuration
      * @return The input stream obtained from the URI
@@ -95,6 +95,16 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         String originalProtocol = originalURL.getProtocol();
         URLConnection conn = originalURL.openConnection();
         conn.addRequestProperty("Accept", actualAcceptHeaders);
+        
+        if (config.isAcceptingAuthorization()) {
+            conn.setRequestProperty("Authorization", config.getAuthorizationValue());
+        }
+        
+        
+        if (config.isAcceptingAuthorization()) {
+            conn.setRequestProperty("Authorization", config.getAuthorizationValue());
+        }
+        
         if (config.isAcceptingHTTPCompression()) {
             conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
         }
@@ -108,7 +118,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
             // redirect
             if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
                 || responseCode == HttpURLConnection.HTTP_MOVED_PERM
-                || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+                    || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
                 String location = con.getHeaderField("Location");
                 URL newURL = new URL(location);
                 String newProtocol = newURL.getProtocol();
@@ -117,6 +127,16 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                     // automatically
                     conn = newURL.openConnection();
                     conn.addRequestProperty("Accept", actualAcceptHeaders);
+
+                    if (config.isAcceptingAuthorization()) {
+                        conn.setRequestProperty("Authorization", config.getAuthorizationValue());
+                    }
+
+
+                    if (config.isAcceptingAuthorization()) {
+                        conn.setRequestProperty("Authorization", config.getAuthorizationValue());
+                    }
+
                     if (config.isAcceptingHTTPCompression()) {
                         conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
                     }
@@ -165,7 +185,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     @Nonnull
     private static InputStream getInputStreamFromContentEncoding(@Nonnull URLConnection conn,
-        @Nullable String contentEncoding) throws IOException {
+            @Nullable String contentEncoding) throws IOException {
         InputStream is = null;
         InputStream connInputStream = conn.getInputStream();
         if (contentEncoding != null) {
@@ -230,7 +250,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     @Nonnull
     protected InputSource getInputSource(@Nonnull OWLOntologyDocumentSource documentSource,
-        @Nonnull OWLOntologyLoaderConfiguration config) throws IOException {
+            @Nonnull OWLOntologyLoaderConfiguration config) throws IOException {
         InputSource is;
         if (documentSource.isReaderAvailable()) {
             is = new InputSource(documentSource.getReader());
@@ -244,7 +264,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
             } else {
                 is = new InputSource(
                     getInputStream(documentSource.getDocumentIRI(), config, DEFAULT_REQUEST));
-            }
+        }
         }
         is.setSystemId(documentSource.getDocumentIRI().toString());
         return is;

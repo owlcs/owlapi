@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.AUTHORIZATION_VALUE;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ACCEPT_HTTP_AUTHORIZATION;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ACCEPT_HTTP_COMPRESSION;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNED_PARSERS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.CONNECTION_TIMEOUT;
@@ -41,15 +43,15 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * A configuration object that specifies options and hints to objects that load OWLOntologies. Every
  * {@code OWLOntologyLoaderConfiguration} is immutable. Changing a setting results in the creation
  * of a new {@code OWLOntologyLoaderConfiguration} with that setting. For example,
- * 
+ *
  * <pre>
  * OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
  * config = config.setLoadAnnotationAxioms(false);
  * </pre>
- * 
+ *
  * creates an {@code OWLOntologyLoaderConfiguration} object with the load annotation axioms set to
  * {@code false}.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.0
  */
@@ -81,7 +83,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     /**
      * Adds an ontology document IRI to the list of ontology imports that will be ignored during
      * ontology loading.
-     * 
+     *
      * @param ontologyDocumentIRI The ontology document IRI that will be ignored if it is
      *        encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI set.
@@ -94,7 +96,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
 
     /**
      * Clears all ontology document IRIs from the list of ignored ontology document IRIs.
-     * 
+     *
      * @return An {@code OWLOntologyLoaderConfiguration} with the list of ignored ontology document
      *         IRIs set to be empty.
      */
@@ -107,7 +109,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     /**
      * Removes an ontology document IRI from the list of ontology imports that will be ignored
      * during ontology loading.
-     * 
+     *
      * @param ontologyDocumentIRI The ontology document IRI that would be ignored if it is
      *        encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI
@@ -122,7 +124,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
 
     /**
      * Internally copies this configuaration object.
-     * 
+     *
      * @return The copied configuration
      */
     @Nonnull
@@ -136,7 +138,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
 
     /**
      * Set the priorty collection sorting option.
-     * 
+     *
      * @param sorting the sorting option to be used.
      * @return An {@code OWLOntologyLoaderConfiguration} with the new sorting option set.
      */
@@ -163,10 +165,10 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     public int getConnectionTimeout() {
         return CONNECTION_TIMEOUT.getValue(Integer.class, overrides).intValue();
     }
-
+    
     /**
      * Gets the strategy used for missing imports.
-     * 
+     *
      * @return The strategy. See {@link MissingImportHandlingStrategy} for the strategies and their
      *         descriptions.
      * @since 3.3
@@ -193,7 +195,12 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     public boolean isAcceptingHTTPCompression() {
         return ACCEPT_HTTP_COMPRESSION.getValue(Boolean.class, overrides).booleanValue();
     }
-
+    
+    /** @return true if http authorization should be accepted. */
+    public boolean isAcceptingAuthorization() {
+        return ACCEPT_HTTP_AUTHORIZATION.getValue(Boolean.class, overrides).booleanValue();
+    }
+    
     /**
      * When loading an ontology, a parser might connect to a remote URL. If the remote URL is a 302
      * redirect and the protocol is different, e.g., http to https, the parser needs to decide
@@ -201,7 +208,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * with an UnloadableOntologyError. By default this is true, meaning redirects will be followed
      * across protocols. If set to false, redirects will be followed only within the same protocol
      * (URLConnection limits this to five redirects).
-     * 
+     *
      * @return true if redirects should be followed when importing ontologies from remote URLs
      */
     public boolean isFollowRedirects() {
@@ -219,7 +226,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     /**
      * Determines whether or not annotation axioms (instances of {@code OWLAnnotationAxiom}) should
      * be loaded. By default, the loading of annotation axioms is enabled.
-     * 
+     *
      * @return {@code true} if annotation assertions will be loaded, or {@code false} if annotation
      *         assertions will not be loaded because they will be discarded on loading.
      */
@@ -248,7 +255,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * Determines if the various parsers, for formats such as RDF based formats that do not require
      * strong typing, should treat Dublin Core Vocabulary as built in vocabulary, so that Dublin
      * Core metadata properties are interpreted as annotation properties.
-     * 
+     *
      * @return {@code true} if the Dublin Core Vocabulary should be treated as built in vocabulary
      *         and Dublin Core properties are interpreted as annotation properties, otherwise
      *         {@code false}. The defaut is {@code true}.
@@ -263,6 +270,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      */
     public String getBannedParsers() {
         return BANNED_PARSERS.getValue(String.class, overrides);
+    }
+    
+    /** @return authorization header value */
+    public String getAuthorizationValue() {
+        return AUTHORIZATION_VALUE.getValue(String.class, overrides);
     }
 
     /**
@@ -286,7 +298,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         copy.overrides.put(ACCEPT_HTTP_COMPRESSION, b);
         return copy;
     }
-
+    
     /**
      * @param l new timeout Note: the timeout is an int and represents milliseconds. This is
      *        necessary for use in {@code URLConnection}
@@ -302,7 +314,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         configuration.overrides.put(CONNECTION_TIMEOUT, l);
         return configuration;
     }
-
+    
     /**
      * @param value true if redirects should be followed across protocols, false otherwise.
      * @return a copy of the current object with followRedirects set to the new value.
@@ -323,7 +335,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * Specifies whether or not annotation axioms (instances of {@code OWLAnnotationAxiom}) should
      * be loaded or whether they should be discarded on loading. By default, the loading of
      * annotation axioms is enabled.
-     * 
+     *
      * @param b {@code true} if annotation axioms should be loaded, or {@code false} if annotation
      *        axioms should not be loaded and should be discarded on loading.
      * @return An {@code OWLOntologyLoaderConfiguration} object with the option set.
@@ -342,14 +354,14 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     /**
      * Sets the strategy that is used for missing imports handling. See
      * {@link MissingImportHandlingStrategy} for the strategies and their descriptions.
-     * 
+     *
      * @param missingImportHandlingStrategy The strategy to be used.
      * @return An {@code OWLOntologyLoaderConfiguration} object with the strategy set.
      * @since 3.3
      */
     @Nonnull
     public OWLOntologyLoaderConfiguration setMissingImportHandlingStrategy(
-        @Nonnull MissingImportHandlingStrategy missingImportHandlingStrategy) {
+            @Nonnull MissingImportHandlingStrategy missingImportHandlingStrategy) {
         // do not make copies if setting the same value
         if (getMissingImportHandlingStrategy() == missingImportHandlingStrategy) {
             return this;
@@ -365,7 +377,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      */
     @Nonnull
     public OWLOntologyLoaderConfiguration setMissingOntologyHeaderStrategy(
-        @Nonnull MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
+            @Nonnull MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
         // do not make copies if setting the same value
         if (getMissingOntologyHeaderStrategy() == missingOntologyHeaderStrategy) {
             return this;
@@ -378,7 +390,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     /**
      * Set the value for the report stack traces flag. If true, parsing exceptions will have the
      * full stack trace for the source exceptions. Default is false.
-     * 
+     *
      * @param b the new value for the flag
      * @return A {@code OWLOntologyLoaderConfiguration} with the report flag set to the new value.
      */
@@ -475,6 +487,37 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.overrides.put(REPAIR_ILLEGAL_PUNNINGS, Boolean.valueOf(b));
+        return configuration;
+    }
+
+    /**
+     * @param b
+     *        true if HTTP authorization should be accepted.
+     * @return a copy of this configuration with accepting HTTP authorization set
+     *         to the new value.
+     */
+    @Nonnull
+    public OWLOntologyLoaderConfiguration setAcceptingAuthorization(boolean b) {
+        // do not make copies if setting the same value
+        if (isAcceptingAuthorization() == b) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
+        copy.overrides.put(ACCEPT_HTTP_AUTHORIZATION, b);
+        return copy;
+    }
+    
+    /**
+     * @param authorizationValue
+     *        Authorization header value.
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OWLOntologyLoaderConfiguration setAuthorizationValue(String authorizationValue) {
+        if (getAuthorizationValue().equals(authorizationValue)) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(AUTHORIZATION_VALUE, authorizationValue);
         return configuration;
     }
 }
