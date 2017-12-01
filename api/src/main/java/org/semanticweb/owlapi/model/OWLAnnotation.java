@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
  * @since 2.0.0
  */
 public interface OWLAnnotation extends OWLObject, HasAnnotations,
-        HasProperty<OWLAnnotationProperty> {
+        HasProperty<OWLAnnotationProperty>, HasAnnotationValue {
 
     /**
      * Gets the property that this annotation acts along
@@ -101,4 +101,9 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
      */
     @Nonnull
     <O> O accept(@Nonnull OWLAnnotationObjectVisitorEx<O> visitor);
+
+    @Override
+    default OWLAnnotationValue annotationValue() {
+        return getValue();
+    }
 }

@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -31,8 +32,7 @@ import org.semanticweb.owlapi.model.PrefixManager;
 /**
  * The Class TurtleOntologyParser.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class TurtleOntologyParser extends AbstractOWLParser {
@@ -52,9 +52,8 @@ public class TurtleOntologyParser extends AbstractOWLParser {
 
     @SuppressWarnings("null")
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
+        OWLOntologyLoaderConfiguration configuration) throws IOException {
         Reader reader = null;
         InputStream is = null;
         try {
@@ -62,19 +61,25 @@ public class TurtleOntologyParser extends AbstractOWLParser {
             if (documentSource.isReaderAvailable()) {
                 reader = documentSource.getReader();
                 parser = new TurtleParser(reader, new ConsoleTripleHandler(),
-                        documentSource.getDocumentIRI());
+                    documentSource.getDocumentIRI());
             } else if (documentSource.isInputStreamAvailable()) {
                 is = documentSource.getInputStream();
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
-                        documentSource.getDocumentIRI());
+                    documentSource.getDocumentIRI());
             } else {
-                is = getInputStream(documentSource.getDocumentIRI(),
-                        configuration);
+                Optional<String> headers = documentSource.getAcceptHeaders();
+                if (headers.isPresent()) {
+                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                        headers.get());
+                } else {
+                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                        DEFAULT_REQUEST);
+                }
+
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
-                        documentSource.getDocumentIRI());
+                    documentSource.getDocumentIRI());
             }
-            OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(
-                    ontology, configuration);
+            OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(ontology, configuration);
             TurtleDocumentFormat format = new TurtleDocumentFormat();
             consumer.setOntologyFormat(format);
             consumer.startModel(documentSource.getDocumentIRI());
@@ -82,8 +87,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
             parser.parseDocument();
             PrefixManager prefixManager = parser.getPrefixManager();
             for (String prefixName : prefixManager.getPrefixNames()) {
-                format.setPrefix(prefixName,
-                        prefixManager.getPrefix(prefixName));
+                format.setPrefix(prefixName, prefixManager.getPrefix(prefixName));
             }
             return format;
         } catch (ParseException e) {

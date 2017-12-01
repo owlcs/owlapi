@@ -12,8 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.literals;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.PlainLiteral;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,12 +31,22 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplString;
+
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
@@ -45,6 +63,18 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
         axioms.add(ax);
         axioms.add(Declaration(cls));
         return axioms;
+    }
+
+    @Test
+    public void shouldMatchHashCode() {
+        OWLLiteral l1 = new OWLLiteralImpl("123", "", OWL2Datatype.XSD_STRING.getDatatype(df));
+        OWLLiteral l2 = new OWLLiteralImplString("123");
+        OWLLiteral l3 =
+            new OWLLiteralImplNoCompression("123", "", OWL2Datatype.XSD_STRING.getDatatype(df));
+        assertEquals(l1, l2);
+        assertEquals(l1.hashCode(), l2.hashCode());
+        assertEquals(l1, l3);
+        assertEquals(l1.hashCode(), l3.hashCode());
     }
 
     @Test
@@ -121,11 +151,12 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
     }
 
     @Test
-    public void shouldStoreTagsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldStoreTagsCorrectly()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = getOWLOntology("urn:test");
         String in = "See more at <a href=\"http://abc.com\">abc</a>";
-        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), createIndividual()
-            .getIRI(), df.getOWLLiteral(in));
+        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(),
+            createIndividual().getIRI(), df.getOWLLiteral(in));
         o.getOWLOntologyManager().addAxiom(o, ax);
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         assertTrue(o1.containsAxiom(ax));

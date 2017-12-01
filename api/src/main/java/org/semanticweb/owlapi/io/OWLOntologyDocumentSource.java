@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.io;
 
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -105,4 +106,15 @@ public interface OWLOntologyDocumentSource {
 
     /** @return true if the MIME type for this source is known */
     boolean isMIMETypeKnown();
+
+    /**
+     * @param headers accept headers; if not set, the mime type will be used; if that is also
+     *        missing, the available parsers will contribute the headers
+     */
+    default void setAcceptHeaders(String headers) {}
+
+    /** @return currently set accept headers */
+    default Optional<String> getAcceptHeaders() {
+        return Optional.empty();
+    }
 }

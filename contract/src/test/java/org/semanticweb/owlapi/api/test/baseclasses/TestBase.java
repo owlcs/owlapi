@@ -18,7 +18,12 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -46,10 +51,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.owlapi.concurrent.NoOpReadWriteLock;
+import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -75,14 +77,14 @@ public abstract class TestBase {
     @Nonnull @Rule public Timeout timeout = new Timeout(1000000);
     @Nonnull protected OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
     protected static @Nonnull OWLDataFactory df;
-    protected static @Nonnull OWLOntologyManager masterManager;
+    protected static @Nonnull Object masterInjector;
     @Nonnull protected OWLOntologyManager m;
     @Nonnull protected OWLOntologyManager m1;
 
     @BeforeClass
     public static void setupManagers() {
-        masterManager = OWLManager.createOWLOntologyManager();
-        df = masterManager.getOWLDataFactory();
+        masterInjector = OWLManager.createInjector(Concurrency.NON_CONCURRENT);
+        df = OWLManager.getOWLDataFactory(masterInjector);
     }
 
     @Before
@@ -92,17 +94,7 @@ public abstract class TestBase {
     }
 
     protected static OWLOntologyManager setupManager() {
-        OWLOntologyManager manager = new OWLOntologyManagerImpl(df, new NoOpReadWriteLock());
-        manager.getOntologyFactories().set(new OWLOntologyFactoryImpl(new OWLOntologyBuilder() {
-
-            @Override
-            public OWLOntology createOWLOntology(OWLOntologyManager om, OWLOntologyID id) {
-                return new OWLOntologyImpl(om, id);
-            }
-        }));
-        manager.getOntologyParsers().set(masterManager.getOntologyParsers());
-        manager.getOntologyStorers().set(masterManager.getOntologyStorers());
-        manager.getIRIMappers().set(masterManager.getIRIMappers());
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager(masterInjector);
         return manager;
     }
 
@@ -366,9 +358,9 @@ public abstract class TestBase {
         m.addAxiom(ont, ax);
     }
 
-    public void roundTripOntology(@Nonnull OWLOntology ont) throws OWLOntologyStorageException,
-        OWLOntologyCreationException {
-        roundTripOntology(ont, new RDFXMLDocumentFormat());
+    public OWLOntology roundTripOntology(OWLOntology ont)
+        throws OWLOntologyStorageException, OWLOntologyCreationException {
+        return roundTripOntology(ont, new RDFXMLDocumentFormat());
     }
 
     /**
@@ -455,6 +447,7 @@ public abstract class TestBase {
             throw new OWLRuntimeException(e);
         }
     }
+
     @Nonnull
     protected OWLOntology loadOntologyFromString(@Nonnull String input, @Nonnull OWLDocumentFormat f) {
         StringDocumentSource documentSource = new StringDocumentSource(input, IRI.generateDocumentIRI(), f, null);

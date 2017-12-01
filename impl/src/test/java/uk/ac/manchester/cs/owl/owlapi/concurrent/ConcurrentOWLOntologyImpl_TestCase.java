@@ -34,14 +34,10 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 @RunWith(MockitoJUnitRunner.class)
 public class ConcurrentOWLOntologyImpl_TestCase {
 
-    @Mock
-    private ReentrantReadWriteLock readWriteLock;
-    @Mock
-    private ReentrantReadWriteLock.ReadLock readLock;
-    @Mock
-    private ReentrantReadWriteLock.WriteLock writeLock;
-    @Mock
-    private OWLMutableOntology delegate;
+    @Mock private ReentrantReadWriteLock readWriteLock;
+    @Mock private ReentrantReadWriteLock.ReadLock readLock;
+    @Mock private ReentrantReadWriteLock.WriteLock writeLock;
+    @Mock private OWLMutableOntology delegate;
     private ConcurrentOWLOntologyImpl ontology;
 
     @Before
@@ -2202,6 +2198,18 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         InOrder inOrder = Mockito.inOrder(writeLock, delegate, writeLock);
         inOrder.verify(writeLock, times(1)).lock();
         inOrder.verify(delegate, times(1)).applyChanges(arg);
+        inOrder.verify(writeLock, times(1)).unlock();
+        verify(readLock, never()).lock();
+        verify(readLock, never()).unlock();
+    }
+
+    @Test
+    public void shouldDelegateTo_applyChangesAndGetDetails_withWriteLock() {
+        List<OWLOntologyChange> arg = Mockito.mock(List.class);
+        ontology.applyChangesAndGetDetails(arg);
+        InOrder inOrder = Mockito.inOrder(writeLock, delegate, writeLock);
+        inOrder.verify(writeLock, times(1)).lock();
+        inOrder.verify(delegate, times(1)).applyChangesAndGetDetails(arg);
         inOrder.verify(writeLock, times(1)).unlock();
         verify(readLock, never()).lock();
         verify(readLock, never()).unlock();

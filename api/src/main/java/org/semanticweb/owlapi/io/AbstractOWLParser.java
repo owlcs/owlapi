@@ -21,6 +21,7 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -42,13 +43,11 @@ import org.tukaani.xz.XZInputStream;
 import org.xml.sax.InputSource;
 
 /**
- * A convenience base class for parsers, which provides a mechanism to manage
- * the setting and getting of the {@code OWLOntologyManager} that should be
- * associated with the parser. Note: all current parser implementations are
- * stateless.
+ * A convenience base class for parsers, which provides a mechanism to manage the setting and
+ * getting of the {@code OWLOntologyManager} that should be associated with the parser. Note: all
+ * current parser implementations are stateless.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class AbstractOWLParser implements OWLParser, Serializable {
@@ -57,40 +56,45 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractOWLParser.class);
     private static final String ZIP_FILE_EXTENSION = ".zip";
     private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
-    private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN = Pattern.compile(".*filename=\"([^\\s;]*)\".*");
+    private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN =
+        Pattern.compile(".*filename=\"([^\\s;]*)\".*");
     private static final int CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP = 1;
-    private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN = Pattern.compile(".*owl|rdf|xml|mos");
+    private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN =
+        Pattern.compile(".*owl|rdf|xml|mos");
     private final String acceptableContentEncoding = "xz,gzip,deflate";
+    private static final String TEXTPLAIN_REQUEST_TYPE = ", text/plain; q=0.1";
+    private static final String LAST_REQUEST_TYPE = ", */*; q=0.09";
+    protected static final String DEFAULT_REQUEST =
+        "application/rdf+xml, application/xml; q=0.7, text/xml; q=0.6" + TEXTPLAIN_REQUEST_TYPE
+            + LAST_REQUEST_TYPE;
 
     protected AbstractOWLParser() {}
 
-    @Nonnull
-    protected String getRequestTypes() {
-        return "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
-    }
-
     /**
-     * A convenience method that obtains an input stream from a URI. This method
-     * sets up the correct request type and wraps the input stream within a
-     * buffered input stream.
+     * A convenience method that obtains an input stream from a URI. This method sets up the correct
+     * request type and wraps the input stream within a buffered input stream.
      * 
-     * @param documentIRI
-     *        The URI from which the input stream should be returned
-     * @param config
-     *        the load configuration
+     * @param documentIRI The URI from which the input stream should be returned
+     * @param config the load configuration
      * @return The input stream obtained from the URI
-     * @throws IOException
-     *         if there was an {@code IOException} in obtaining the input stream
-     *         from the URI.
+     * @throws IOException if there was an {@code IOException} in obtaining the input stream from
+     *         the URI.
      */
     @Nonnull
-    protected InputStream getInputStream(@Nonnull IRI documentIRI, @Nonnull OWLOntologyLoaderConfiguration config)
-        throws IOException {
-        String requestType = getRequestTypes();
+    protected InputStream getInputStream(@Nonnull IRI documentIRI,
+        @Nonnull OWLOntologyLoaderConfiguration config, String acceptHeaders) throws IOException {
+        String actualAcceptHeaders = acceptHeaders;
+        if (!acceptHeaders.contains("text/plain")) {
+            actualAcceptHeaders += TEXTPLAIN_REQUEST_TYPE;
+        }
+        if (!acceptHeaders.contains("*/*")) {
+            actualAcceptHeaders += LAST_REQUEST_TYPE;
+        }
+
         URL originalURL = documentIRI.toURI().toURL();
         String originalProtocol = originalURL.getProtocol();
         URLConnection conn = originalURL.openConnection();
-        conn.addRequestProperty("Accept", requestType);
+        conn.addRequestProperty("Accept", actualAcceptHeaders);
         if (config.isAcceptingHTTPCompression()) {
             conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
         }
@@ -102,7 +106,8 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
             con.connect();
             int responseCode = con.getResponseCode();
             // redirect
-            if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP || responseCode == HttpURLConnection.HTTP_MOVED_PERM
+            if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
+                || responseCode == HttpURLConnection.HTTP_MOVED_PERM
                 || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
                 String location = con.getHeaderField("Location");
                 URL newURL = new URL(location);
@@ -111,7 +116,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                     // then different protocols: redirect won't follow
                     // automatically
                     conn = newURL.openConnection();
-                    conn.addRequestProperty("Accept", requestType);
+                    conn.addRequestProperty("Accept", actualAcceptHeaders);
                     if (config.isAcceptingHTTPCompression()) {
                         conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
                     }
@@ -172,7 +177,8 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                 is = new BufferedInputStream(new GZIPInputStream(connInputStream));
             } else if ("deflate".equals(contentEncoding)) {
                 LOGGER.info("URL connection input stream is compressed using deflate");
-                is = OWLOntologyDocumentSourceBase.wrap(new InflaterInputStream(connInputStream, new Inflater(true)));
+                is = OWLOntologyDocumentSourceBase
+                    .wrap(new InflaterInputStream(connInputStream, new Inflater(true)));
             }
         } else {
             String fileName = getFileNameFromContentDisposition(conn);
@@ -206,9 +212,11 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     @Nullable
     private static String getFileNameFromContentDisposition(@Nonnull URLConnection connection) {
-        String contentDispositionHeaderValue = connection.getHeaderField(CONTENT_DISPOSITION_HEADER);
+        String contentDispositionHeaderValue =
+            connection.getHeaderField(CONTENT_DISPOSITION_HEADER);
         if (contentDispositionHeaderValue != null) {
-            Matcher matcher = CONTENT_DISPOSITION_FILE_NAME_PATTERN.matcher(contentDispositionHeaderValue);
+            Matcher matcher =
+                CONTENT_DISPOSITION_FILE_NAME_PATTERN.matcher(contentDispositionHeaderValue);
             if (matcher.matches()) {
                 return matcher.group(CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP);
             }
@@ -229,7 +237,14 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         } else if (documentSource.isInputStreamAvailable()) {
             is = new InputSource(documentSource.getInputStream());
         } else {
-            is = new InputSource(getInputStream(documentSource.getDocumentIRI(), config));
+            Optional<String> headers = documentSource.getAcceptHeaders();
+            if (headers.isPresent()) {
+                is = new InputSource(
+                    getInputStream(documentSource.getDocumentIRI(), config, headers.get()));
+            } else {
+                is = new InputSource(
+                    getInputStream(documentSource.getDocumentIRI(), config, DEFAULT_REQUEST));
+            }
         }
         is.setSystemId(documentSource.getDocumentIRI().toString());
         return is;
@@ -238,8 +253,8 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     @Nonnull
     @Override
     public OWLDocumentFormat parse(IRI documentIRI, OWLOntology ontology) throws IOException {
-        return parse(new IRIDocumentSource(documentIRI, null, null), ontology, ontology.getOWLOntologyManager()
-            .getOntologyLoaderConfiguration());
+        return parse(new IRIDocumentSource(documentIRI, null, null), ontology,
+            ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
     }
 
     @Override

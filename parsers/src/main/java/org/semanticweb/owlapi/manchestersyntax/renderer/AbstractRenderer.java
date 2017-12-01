@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class AbstractRenderer {
@@ -42,29 +41,24 @@ public class AbstractRenderer {
     private boolean useWrapping = true;
 
     /**
-     * @param writer
-     *        writer
-     * @param shortFormProvider
-     *        shortFormProvider
+     * @param writer writer
+     * @param shortFormProvider shortFormProvider
      */
-    protected AbstractRenderer(Writer writer,
-            ShortFormProvider shortFormProvider) {
+    protected AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
         this.writer = writer;
         this.shortFormProvider = shortFormProvider;
         pushTab(0);
     }
 
     /**
-     * @param useTabbing
-     *        useTabbing
+     * @param useTabbing useTabbing
      */
     protected void setUseTabbing(boolean useTabbing) {
         this.useTabbing = useTabbing;
     }
 
     /**
-     * @param useWrapping
-     *        useWrapping
+     * @param useWrapping useWrapping
      */
     protected void setUseWrapping(boolean useWrapping) {
         this.useWrapping = useWrapping;
@@ -83,8 +77,7 @@ public class AbstractRenderer {
     /**
      * Flush.
      * 
-     * @throws OWLRendererException
-     *         renderer error
+     * @throws OWLRendererException renderer error
      */
     protected void flush() throws OWLRendererException {
         try {
@@ -95,15 +88,15 @@ public class AbstractRenderer {
     }
 
     protected void pushTab(int size) {
-        tabs.add(0, size);
+        tabs.add(0, Integer.valueOf(size));
     }
 
     protected void incrementTab(int increment) {
         int base = 0;
         if (!tabs.isEmpty()) {
-            base = tabs.get(0);
+            base = tabs.get(0).intValue();
         }
-        tabs.add(0, base + increment);
+        tabs.add(0, Integer.valueOf(base + increment));
     }
 
     protected void popTab() {
@@ -111,7 +104,7 @@ public class AbstractRenderer {
     }
 
     protected void writeTab() {
-        int tab = tabs.get(0);
+        int tab = tabs.get(0).intValue();
         for (int i = 0; i < tab; i++) {
             write(" ");
         }
@@ -164,8 +157,7 @@ public class AbstractRenderer {
         }
     }
 
-    protected void write(String prefix, @Nonnull ManchesterOWLSyntax keyword,
-            String suffix) {
+    protected void write(String prefix, @Nonnull ManchesterOWLSyntax keyword, String suffix) {
         write(prefix);
         write(keyword.toString());
         write(suffix);

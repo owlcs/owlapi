@@ -19,7 +19,78 @@ import java.util.Iterator;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
+import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 import org.semanticweb.owlapi.util.QNameShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -27,11 +98,10 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 /**
  * A renderer that provides an HTML version of the ontology.
  * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc", })
+@SuppressWarnings({"javadoc",})
 public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Nonnull
@@ -149,11 +219,11 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write("</h1>\n");
         write("<div>");
         write("<div class='box'>\n");
-        for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
+        ontology.getImportsDeclarations().stream().sorted().forEach(decl -> {
             write("Imports: ");
             write(decl.getIRI().toString());
             write("\n");
-        }
+        });
         write("<h2>Classes</h2>\n");
         writeCollection(ontology.getClassesInSignature());
         write("</div>\n");
@@ -187,7 +257,8 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write(")");
     }
 
-    private void write(@Nonnull Collection<? extends OWLObject> objects, @Nonnull String separator) {
+    private void write(@Nonnull Collection<? extends OWLObject> objects,
+        @Nonnull String separator) {
         for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
@@ -259,7 +330,8 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @SuppressWarnings("unused")
-    public void writePropertyCharacteristic(String str, OWLAxiom ax, @Nonnull OWLPropertyExpression prop) {
+    public void writePropertyCharacteristic(String str, OWLAxiom ax,
+        @Nonnull OWLPropertyExpression prop) {
         write(keyword(str));
         writeSpace();
         prop.accept(this);
@@ -498,7 +570,8 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write("<span class='cl'>" + labelFor(ce) + "</span>");
     }
 
-    private void writeRestriction(@Nonnull String str, @Nonnull OWLCardinalityRestriction<?> restriction,
+    private void writeRestriction(@Nonnull String str,
+        @Nonnull OWLCardinalityRestriction<?> restriction,
         @Nonnull OWLPropertyExpression property) {
         write(str);
         writeOpenBracket();
@@ -512,15 +585,18 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         writeCloseBracket();
     }
 
-    private void writeRestriction(@Nonnull String str, @Nonnull OWLQuantifiedDataRestriction restriction) {
+    private void writeRestriction(@Nonnull String str,
+        @Nonnull OWLQuantifiedDataRestriction restriction) {
         writeRestriction(str, restriction.getProperty(), restriction.getFiller());
     }
 
-    private void writeRestriction(@Nonnull String str, @Nonnull OWLQuantifiedObjectRestriction restriction) {
+    private void writeRestriction(@Nonnull String str,
+        @Nonnull OWLQuantifiedObjectRestriction restriction) {
         writeRestriction(str, restriction.getProperty(), restriction.getFiller());
     }
 
-    private void writeRestriction(@Nonnull String str, @Nonnull OWLPropertyExpression prop, @Nonnull OWLObject filler) {
+    private void writeRestriction(@Nonnull String str, @Nonnull OWLPropertyExpression prop,
+        @Nonnull OWLObject filler) {
         write(str);
         writeOpenBracket();
         prop.accept(this);

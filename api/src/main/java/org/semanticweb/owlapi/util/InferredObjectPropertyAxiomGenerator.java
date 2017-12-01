@@ -16,22 +16,43 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
- * @param <A>
- *        the axiom type
+ * @param <A> the axiom type
  */
 public abstract class InferredObjectPropertyAxiomGenerator<A extends OWLObjectPropertyAxiom>
-        extends InferredEntityAxiomGenerator<OWLObjectProperty, A> {
+    extends InferredEntityAxiomGenerator<OWLObjectProperty, A> {
 
     @Override
     protected Set<OWLObjectProperty> getEntities(@Nonnull OWLOntology ont) {
         return ont.getObjectPropertiesInSignature();
     }
+
+    @Override
+    protected final void addAxioms(OWLObjectProperty entity, @Nonnull OWLReasoner reasoner,
+        OWLDataFactory dataFactory, Set<A> result) {
+        OWLOntology current = reasoner.getRootOntology();
+        OWLObjectPropertyManager objectPropertyManager =
+            new OWLObjectPropertyManager(current.getOWLOntologyManager(), current);
+        addAxioms(entity, reasoner, dataFactory, result,
+            objectPropertyManager.getNonSimpleProperties());
+    }
+
+    protected abstract void addAxioms(OWLObjectProperty entity, @Nonnull OWLReasoner reasoner,
+        OWLDataFactory dataFactory, Set<A> result,
+        Set<OWLObjectPropertyExpression> nonSimpleProperties);
+
+    protected boolean simple(Set<OWLObjectPropertyExpression> nonSimpleProperties, OWLObject e) {
+        return nonSimpleProperties.contains(e);
+    }
+
 }

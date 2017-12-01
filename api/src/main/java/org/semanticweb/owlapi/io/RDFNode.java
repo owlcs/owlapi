@@ -34,6 +34,15 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
     public abstract boolean isLiteral();
 
     /**
+     * Determines if this node is an axiom.
+     * 
+     * @return {@code true} if this node is a literal, otherwise {@code false}.
+     */
+    public boolean isAxiom() {
+        return false;
+    }
+
+    /**
      * Determines if this node is a resource and is anonymous.
      * 
      * @return {@code true} if this is a resource node (i.e. {@code isLiteral}
@@ -54,5 +63,13 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
      */
     public boolean shouldOutputId() {
         return false;
+    }
+
+    /**
+     * @return true if an id is required for this node - only if this is an individual or an axiom
+     *         and id is required
+     */
+    public boolean idRequiredForIndividualOrAxiom() {
+        return isAnonymous() && (isIndividual() || isAxiom()) && shouldOutputId();
     }
 }

@@ -14,7 +14,9 @@ package org.semanticweb.owlapi.manchestersyntax.parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -31,8 +33,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
  */
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
@@ -53,9 +54,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
+        OWLOntologyLoaderConfiguration configuration) throws IOException {
         try {
             BufferedReader br = null;
             ManchesterSyntaxDocumentFormat format = new ManchesterSyntaxDocumentFormat();
@@ -63,13 +63,20 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 if (documentSource.isReaderAvailable()) {
                     br = new BufferedReader(documentSource.getReader());
                 } else if (documentSource.isInputStreamAvailable()) {
-                    br = new BufferedReader(new InputStreamReader(
-                            documentSource.getInputStream(),
-                            DEFAULT_FILE_ENCODING));
+                    br = new BufferedReader(new InputStreamReader(documentSource.getInputStream(),
+                        DEFAULT_FILE_ENCODING));
                 } else {
-                    br = new BufferedReader(new InputStreamReader(
-                            getInputStream(documentSource.getDocumentIRI(),
-                                    configuration), DEFAULT_FILE_ENCODING));
+                    Optional<String> headers = documentSource.getAcceptHeaders();
+                    InputStream is = null;
+                    if (headers.isPresent()) {
+                        is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                            headers.get());
+                    } else {
+                        is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                            DEFAULT_REQUEST);
+                    }
+
+                    br = new BufferedReader(new InputStreamReader(is, DEFAULT_FILE_ENCODING));
                 }
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -81,8 +88,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     sb.append('\n');
                     if (!foundMagicNumber) {
                         String trimmedLine = line.trim();
-                        if (!trimmedLine.isEmpty()
-                                && !trimmedLine.startsWith(COMMENT_START_CHAR)) {
+                        if (!trimmedLine.isEmpty() && !trimmedLine.startsWith(COMMENT_START_CHAR)) {
                             // Non-empty line, that is not a comment. The
                             // trimmed line MUST start with our magic
                             // number if we are going to parse the rest of
@@ -95,12 +101,12 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                                 // Non-empty line that is NOT a comment. We
                                 // cannot possibly parse this.
                                 int startCol = line.indexOf(trimmedLine) + 1;
-                                String msg = String
-                                        .format("Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
-                                                trimmedLine, lineCount,
-                                                startCol);
-                                throw new ManchesterOWLSyntaxParserException(
-                                        msg, lineCount, startCol);
+                                String msg = String.format(
+                                    "Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
+                                    trimmedLine, Integer.valueOf(lineCount),
+                                    Integer.valueOf(startCol));
+                                throw new ManchesterOWLSyntaxParserException(msg, lineCount,
+                                    startCol);
                             }
                         }
                     }
@@ -108,9 +114,9 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 }
                 String s = sb.toString();
                 assert s != null;
-                ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
-                        new OWLAPIConfigProvider(), ontology
-                                .getOWLOntologyManager().getOWLDataFactory());
+                ManchesterOWLSyntaxParser parser =
+                    new ManchesterOWLSyntaxParserImpl(new OWLAPIConfigProvider(),
+                        ontology.getOWLOntologyManager().getOWLDataFactory());
                 parser.setOntologyLoaderConfiguration(configuration);
                 parser.setStringToParse(s);
                 format = parser.parseOntology(ontology);
@@ -121,13 +127,13 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
             }
             return format;
         } catch (ParserException e) {
-            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e,
-                    e.getLineNumber(), e.getColumnNumber());
+            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, e.getLineNumber(),
+                e.getColumnNumber());
         }
     }
 
     private static boolean startsWithMagicNumber(String line) {
         return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
-                || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
+            || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
     }
 }

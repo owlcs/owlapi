@@ -65,17 +65,17 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      * @param objectAnon
      *        whether the object is anonymous
      */
-    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, @Nonnull IRI predicate, @Nonnull IRI object,
-        boolean objectAnon) {
-        this(getResource(subject, subjectAnon),
+    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, boolean subjectAxiom, @Nonnull IRI predicate, @Nonnull IRI object,
+        boolean objectAnon, boolean objectAxiom) {
+        this(getResource(subject, subjectAnon, subjectAxiom),
             // Predicate is not allowed to be anonymous
-            new RDFResourceIRI(predicate), getResource(object, objectAnon));
+            new RDFResourceIRI(predicate), getResource(object, objectAnon, objectAxiom));
     }
 
     @Nonnull
-    private static RDFResource getResource(@Nonnull IRI iri, boolean anon) {
+    private static RDFResource getResource(@Nonnull IRI iri, boolean anon, boolean axiom) {
         if (anon) {
-            return new RDFResourceBlankNode(iri, true, true);
+            return new RDFResourceBlankNode(iri, true, true, axiom);
         }
         return new RDFResourceIRI(iri);
     }
@@ -90,8 +90,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      * @param object
      *        the object
      */
-    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, @Nonnull IRI predicate, @Nonnull OWLLiteral object) {
-        this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate), new RDFLiteral(object));
+    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, boolean axiom, @Nonnull IRI predicate, @Nonnull OWLLiteral object) {
+        this(getResource(subject, subjectAnon, axiom), new RDFResourceIRI(predicate), new RDFLiteral(object));
     }
 
     /** @return true if subject and object are the same */

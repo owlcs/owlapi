@@ -12,7 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.*;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNERS_ENABLED;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.INDENTING;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.INDENT_SIZE;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.LABELS_AS_BANNER;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.USE_NAMESPACE_ENTITIES;
 
 import java.util.EnumMap;
 
@@ -23,23 +27,22 @@ import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .
  * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public final class XMLWriterPreferences {
 
     private static final @Nonnull XMLWriterPreferences INSTANCE = new XMLWriterPreferences();
     /** Local override map. */
-    private EnumMap<ConfigurationOptions, Object> overrides = new EnumMap<>(ConfigurationOptions.class);
+    private EnumMap<ConfigurationOptions, Object> overrides =
+        new EnumMap<>(ConfigurationOptions.class);
 
     private XMLWriterPreferences() {}
 
     /**
-     * @return copy of the current XMLWriterPreferences instance. Passing this
-     *         to an XML writer breaks the link between multiple threads
-     *         changing the settings. The class should be rewritten to be
-     *         immutable but this would break the current interface.
+     * @return copy of the current XMLWriterPreferences instance. Passing this to an XML writer
+     *         breaks the link between multiple threads changing the settings. The class should be
+     *         rewritten to be immutable but this would break the current interface.
      */
     @Nonnull
     public synchronized XMLWriterPreferences copy() {
@@ -63,11 +66,10 @@ public final class XMLWriterPreferences {
     }
 
     /**
-     * @param useNamespaceEntities
-     *        useNamespaceEntities
+     * @param useNamespaceEntities useNamespaceEntities
      */
     public void setUseNamespaceEntities(boolean useNamespaceEntities) {
-        overrides.put(USE_NAMESPACE_ENTITIES, useNamespaceEntities);
+        overrides.put(USE_NAMESPACE_ENTITIES, Boolean.valueOf(useNamespaceEntities));
     }
 
     /**
@@ -78,11 +80,10 @@ public final class XMLWriterPreferences {
     }
 
     /**
-     * @param indenting
-     *        indenting
+     * @param indenting indenting
      */
     public void setIndenting(boolean indenting) {
-        overrides.put(INDENTING, indenting);
+        overrides.put(INDENTING, Boolean.valueOf(indenting));
     }
 
     /**
@@ -93,25 +94,36 @@ public final class XMLWriterPreferences {
     }
 
     /**
-     * @param indentSize
-     *        indentSize
+     * @param indentSize indentSize
      */
     public void setIndentSize(int indentSize) {
-        overrides.put(INDENT_SIZE, indentSize);
+        overrides.put(INDENT_SIZE, Integer.valueOf(indentSize));
     }
 
+    /**
+     * @param labelsAsBanner use labels for banners
+     */
     public void setLabelsAsBanner(boolean labelsAsBanner) {
-        overrides.put(LABELS_AS_BANNER, labelsAsBanner);
+        overrides.put(LABELS_AS_BANNER, Boolean.valueOf(labelsAsBanner));
     }
 
+    /**
+     * @return use labels for banners
+     */
     public boolean isLabelsAsBanner() {
         return LABELS_AS_BANNER.getValue(Boolean.class, overrides).booleanValue();
     }
 
+    /**
+     * @param bannersEnabled banners enabled
+     */
     public void setBannersEnabled(boolean bannersEnabled) {
-        overrides.put(BANNERS_ENABLED, bannersEnabled);
+        overrides.put(BANNERS_ENABLED, Boolean.valueOf(bannersEnabled));
     }
 
+    /**
+     * @return banners enabled
+     */
     public boolean isBannersEnabled() {
         return BANNERS_ENABLED.getValue(Boolean.class, overrides).booleanValue();
     }

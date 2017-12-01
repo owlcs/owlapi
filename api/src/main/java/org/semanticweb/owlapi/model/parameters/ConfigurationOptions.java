@@ -97,7 +97,10 @@ public enum ConfigurationOptions {
     ENTITY_EXPANSION_LIMIT              ("100000000"),
 	/** True if http authorization 
      * should be used. */
-    ACCEPT_HTTP_AUTHORIZATION             (Boolean.FALSE);
+    ACCEPT_HTTP_AUTHORIZATION             (Boolean.FALSE),
+    /** Repair illegal punnings 
+     * automatically. */
+    REPAIR_ILLEGAL_PUNNINGS             (Boolean.TRUE);
     //@formatter:on
     private static final String PREFIX = "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
     private Object defaultValue;

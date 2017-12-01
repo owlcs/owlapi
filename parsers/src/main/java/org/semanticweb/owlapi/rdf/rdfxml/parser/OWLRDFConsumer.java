@@ -1816,10 +1816,27 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     @Nonnull
     private RDFResource getRDFResource(@Nonnull IRI iri) {
         if (isAnonymousNode(iri)) {
-            return new RDFResourceBlankNode(iri, false, false);
+            return new RDFResourceBlankNode(iri, false, false, isAxiomIRI(iri));
         } else {
             return new RDFResourceIRI(iri);
         }
+    }
+
+    protected boolean isAxiomIRI(IRI s) {
+        return contains(resTriplesBySubject, s, OWLRDFVocabulary.RDF_TYPE.getIRI(),
+            OWLRDFVocabulary.OWL_AXIOM.getIRI());
+    }
+
+    protected <T> boolean contains(Map<IRI, Map<IRI, Collection<T>>> map, IRI subject,
+        IRI predicate, T value) {
+        Map<IRI, Collection<T>> resPredObjMap = map.get(subject);
+        if (resPredObjMap != null) {
+            Collection<T> collection = resPredObjMap.get(predicate);
+            if (collection != null) {
+                return collection.contains(value);
+            }
+        }
+        return false;
     }
 
     @Nonnull

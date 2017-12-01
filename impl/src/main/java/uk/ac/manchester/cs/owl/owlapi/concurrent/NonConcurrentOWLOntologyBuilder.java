@@ -28,6 +28,6 @@ public class NonConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
     @Nonnull
     @Override
     public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntologyID ontologyID) {
-        return implementationFactory.createOWLOntology(ontologyID);
+        return implementationFactory.createOWLOntology(manager, ontologyID);
     }
 }

@@ -213,4 +213,10 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      */
     @Nonnull
     <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
+
+    @Override
+    default boolean isLiteral() {
+        return true;
+    }
+
 }

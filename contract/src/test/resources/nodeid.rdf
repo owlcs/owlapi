@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="urn:test:nodeid#" xml:base="urn:test:nodeid" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:Orphanet_="urn:ordo/Orphanet_#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:obo="http://purl.obolibrary.org/obo/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:efo="http://www.ebi.ac.uk/efo/">
+    <owl:Ontology rdf:about="urn:test:nodeid"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/ECO_0000205">
+        <rdfs:label>curator_inference</rdfs:label>
+    </owl:AnnotationProperty>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/ECO_0000218">
+        <rdfs:label>manual_assertion</rdfs:label>
+    </owl:AnnotationProperty>
+    <owl:AnnotationProperty rdf:about="http://www.ebi.ac.uk/efo/alternative_term"/>
+    <owl:AnnotationProperty rdf:about="http://www.ebi.ac.uk/efo/definition"/>
+    <owl:AnnotationProperty rdf:about="http://www.ebi.ac.uk/efo/definition_citation"/>
+    <owl:AnnotationProperty rdf:about="http://www.ebi.ac.uk/efo/reason_for_obsolescence"/>
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
+    <owl:AnnotationProperty rdf:about="urn:ordo/Orphanet_#symbol"/>
+    <owl:ObjectProperty rdf:about="urn:ordo/Orphanet_C020"><rdfs:label>has_annual_incidence_range</rdfs:label></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="urn:ordo/Orphanet_C025"><rdfs:label>has_point_prevalence_range</rdfs:label></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="urn:ordo/Orphanet_C026"><rdfs:label>has_birth_prevalence_range</rdfs:label></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="urn:ordo/Orphanet_C027"><rdfs:label>has_lifetime_prevalence_range</rdfs:label></owl:ObjectProperty>
+    <owl:Class rdf:about="urn:ordo/Orphanet_10">
+        <rdfs:subClassOf rdf:resource="urn:ordo/Orphanet_377789"/>
+        <efo:definition>The 48,XXYY syndrome represents a chromosomal.</efo:definition>
+        <efo:definition_citation>orphanet</efo:definition_citation>
+        <oboInOwl:hasDbXref>ICD-10:Q98.8</oboInOwl:hasDbXref>
+        <oboInOwl:hasDbXref>MeSH:D007713</oboInOwl:hasDbXref>
+        <oboInOwl:hasDbXref>MedDRA:10048230</oboInOwl:hasDbXref>
+        <oboInOwl:hasDbXref>UMLS:C2936741</oboInOwl:hasDbXref>
+        <rdfs:label>48,XXYY syndrome</rdfs:label>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="urn:ordo/Orphanet_10"/>
+        <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
+        <owl:annotatedTarget rdf:resource="urn:ordo/Orphanet_377789"/>
+        <obo:ECO_0000218>Malformation syndrome</obo:ECO_0000218>
+    </owl:Axiom>
+    <owl:Annotation>
+        <owl:annotatedSource>
+            <owl:Axiom>
+                <owl:annotatedSource rdf:resource="urn:ordo/Orphanet_10"/>
+                <owl:annotatedProperty rdf:resource="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
+                <owl:annotatedTarget>ICD-10:Q98.8</owl:annotatedTarget>
+                <obo:ECO_0000218>Attributed</obo:ECO_0000218>
+            </owl:Axiom>
+        </owl:annotatedSource>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/ECO_0000218"/>
+        <owl:annotatedTarget>Attributed</owl:annotatedTarget>
+        <obo:ECO_0000218>NTBT (narrower term maps to a broader term)</obo:ECO_0000218>
+    </owl:Annotation>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="urn:ordo/Orphanet_10"/>
+        <owl:annotatedProperty rdf:resource="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
+        <owl:annotatedTarget>ICD-10:Q98.8</owl:annotatedTarget>
+        <obo:ECO_0000218>NTBT (narrower term maps to a broader term)</obo:ECO_0000218>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="urn:ordo/Orphanet_10"/>
+        <owl:annotatedProperty rdf:resource="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
+        <owl:annotatedTarget>MeSH:D007713</owl:annotatedTarget>
+        <obo:ECO_0000218>E (exact mapping (the terms and the concepts are equivalent))</obo:ECO_0000218>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="urn:ordo/Orphanet_10"/>
+        <owl:annotatedProperty rdf:resource="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
+        <owl:annotatedTarget>MedDRA:10048230</owl:annotatedTarget>
+        <obo:ECO_0000218>E (exact mapping (the terms and the concepts are equivalent))</obo:ECO_0000218>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="urn:ordo/Orphanet_10"/>
+        <owl:annotatedProperty rdf:resource="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
+        <owl:annotatedTarget>UMLS:C2936741</owl:annotatedTarget>
+        <obo:ECO_0000218>E (exact mapping (the terms and the concepts are equivalent))</obo:ECO_0000218>
+    </owl:Axiom>
+    <owl:Class rdf:about="urn:ordo/Orphanet_377789">
+        <rdfs:subClassOf rdf:resource="urn:ordo/Orphanet_C001"/>
+        <efo:definition>A set of morphological anomalies resulting from a developmental.</efo:definition>
+        <rdfs:label>malformation syndrome</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="urn:ordo/Orphanet_C001">
+        <efo:definition>A set of phenotypes expressed at the cell, tissue, organ.</efo:definition>
+        <rdfs:label>phenome</rdfs:label>
+    </owl:Class>
+    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050">
+        <rdfs:label>part_of</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_317343">
+        <rdfs:label>Disease-causing germline mutation(s) in</rdfs:label>
+        <efo:definition>A gene mutation in a germ cell.</efo:definition>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_317344">
+        <efo:definition>A gene mutation in a somatic cell.</efo:definition>
+        <rdfs:label>Disease-causing somatic mutation(s) in</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_317345">
+        <rdfs:label>Major susceptibility factor in</rdfs:label>
+        <efo:definition>A gene mutation in a germ cell that.</efo:definition>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_317346">
+        <rdfs:label>Modifying germline mutation in</rdfs:label>
+        <efo:definition>A gene mutation in a germ cell that modifies.</efo:definition>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_317347">
+        <rdfs:label>Biomarker tested in</rdfs:label>
+        <efo:definition>A gene in which a variation is used to.</efo:definition>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_317348">
+        <efo:definition>A coding or regulatory DNA sequence from.</efo:definition>
+        <rdfs:label>Part of a fusion gene in</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_317349">
+        <efo:definition>A gene included in a chromosomal rearrangement</efo:definition>
+        <rdfs:label>Role in the phenotype of</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_327767">
+        <efo:definition>A gene in which a mutation is suspected</efo:definition>
+        <rdfs:label>Candidate gene tested in</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_410295">
+        <efo:definition>A gene mutation in a germ cell that impairs.</efo:definition>
+        <rdfs:label>Disease-causing germline mutation in</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_410296">
+        <efo:definition>A gene mutation in a germ cell.</efo:definition>
+        <rdfs:label>Disease-causing germline mutation in</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_465410">
+        <rdfs:label>Biomarker tested in</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_C016">
+        <rdfs:label>has_inheritance</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_C017">
+        <efo:definition>Relation between a phenome and its range</efo:definition>
+        <rdfs:label>has_AgeOfOnset</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_C021">
+        <rdfs:label>part_of</rdfs:label>
+        <efo:definition>Relation between two phenomes.</efo:definition>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_C022">
+        <rdfs:label>present_in</rdfs:label>
+        <efo:definition>Relation between</efo:definition>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_C024">
+        <rdfs:label>has_cases/families_average_value</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_C028">
+        <rdfs:label>has_point_prevalence_average_value</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_C029">
+        <rdfs:label>has_birth_prevalence_average_value</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_C030">
+        <rdfs:label>has_lifetime_prevalence_average_value</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_C032">
+        <rdfs:label>has_annual_incidence_average_value</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:ordo/Orphanet_C040">
+        <rdfs:label>has_chromosomal location</rdfs:label>
+        <rdfs:label>has_chromosomal_location</rdfs:label>
+        <efo:definition>Relation between.</efo:definition>
+    </rdf:Description>
+</rdf:RDF>

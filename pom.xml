@@ -3,6 +3,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<prerequisites>
+		<maven>3.0.5</maven>
+	</prerequisites>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -13,7 +16,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>4.2.8</version>
+	<version>4.5.0</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlcs.github.io/owlapi/</url>
@@ -24,6 +27,8 @@
 		<sesame.version>2.7.16</sesame.version>
 		<!-- remove this line for releases, if the release process fails because of missing javadoc jars -->
 		<no-javadoc>true</no-javadoc>
+		<!-- 4.0.0 is the earliest release on Maven Central for this series -->
+		<last.japicmp.compare.version>4.0.0</last.japicmp.compare.version>
 	</properties>
 
 
@@ -86,49 +91,49 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
+			<version>2.0.2-beta</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>18.0</version>
+			<version>20.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>4.0</version>
+			<version>4.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-assistedinject</artifactId>
-			<version>4.0</version>
+			<version>4.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-multibindings</artifactId>
-			<version>4.0</version>
+			<version>4.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
-			<version>2.0.1</version>
+			<version>3.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.10</version>
+			<version>1.7.22</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.10</version>
+			<version>1.7.22</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
+			<version>2.5</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -136,17 +141,17 @@
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-core</artifactId>
-				<version>2.5.1</version>
+				<version>2.8.5</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
-				<version>2.5.1</version>
+				<version>2.8.5</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
-				<version>2.5.1</version>
+				<version>2.8.5</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -161,7 +166,7 @@
 	<mailingLists>
 		<mailingList>
 			<name>OWLAPI Development Mailing list</name>
-			<subscribe>https://lists.sourceforge.net/lists/listinfo/owlapi-developert</subscribe>
+			<subscribe>https://lists.sourceforge.net/lists/listinfo/owlapi-developer</subscribe>
 			<unsubscribe>https://lists.sourceforge.net/lists/listinfo/owlapi-developer</unsubscribe>
 			<archive>http://sourceforge.net/mailarchive/forum.php?forum_name=owlapi-developer</archive>
 			<post>owlapi-developer@lists.sourceforge.net</post>
@@ -193,7 +198,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.5</version>
+						<version>1.6</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -207,7 +212,7 @@
 					<plugin>
 						<groupId>org.apache.felix</groupId>
 						<artifactId>maven-bundle-plugin</artifactId>
-						<version>2.3.7</version>
+						<version>3.2.0</version>
 						<extensions>true</extensions>
 						<configuration>
 							<instructions>
@@ -222,7 +227,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<version>2.2.1</version>
+						<version>3.0.1</version>
 						<executions>
 							<execution>
 								<id>attach-sources</id>
@@ -237,7 +242,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.8.1</version>
+						<version>2.10.4</version>
 						<configuration>
 							<show>public</show>
 						</configuration>
@@ -265,10 +270,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.6.0</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
@@ -277,7 +282,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -292,7 +297,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.8.1</version>
+				<version>2.10.4</version>
 				<configuration>
 					<show>public</show>
 				</configuration>
@@ -312,22 +317,20 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.18.1</version>
+				<version>2.19.1</version>
 				<configuration>
 					<excludes>
 						<exclude>**/*IntegrationTestCase.java</exclude>
 					</excludes>
 					<printSummary>false</printSummary>
-					<!-- <parallel>all</parallel>
-					<threadCount>1</threadCount>
-					<perCoreThreadCount>true</perCoreThreadCount> -->
+					<!-- <parallel>all</parallel> <threadCount>1</threadCount> <perCoreThreadCount>true</perCoreThreadCount> -->
 					<argLine>-Xmx2G -Djava.awt.headless=true</argLine>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>animal-sniffer-maven-plugin</artifactId>
-				<version>1.13</version>
+				<version>1.15</version>
 				<executions>
 					<execution>
 						<phase>test</phase>
@@ -340,15 +343,44 @@
 				<ignores><ignore>com.sun.management.*</ignore></ignores>
 					<signature>
 						<groupId>org.codehaus.mojo.signature</groupId>
-						<artifactId>java17</artifactId>
+						<artifactId>java18</artifactId>
 						<version>1.0</version>
 					</signature>
 				</configuration>
 			</plugin>
 			<plugin>
+				<!-- verify all bytecode (including third party libs) is Java 7 max -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.4.1</version>
+				<executions>
+					<execution>
+						<id>enforce-bytecode-version</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<enforceBytecodeVersion>
+									<maxJdkVersion>1.8</maxJdkVersion>
+								</enforceBytecodeVersion>
+							</rules>
+							<fail>true</fail>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>extra-enforcer-rules</artifactId>
+						<version>1.0-beta-6</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.3</version>
+				<version>1.6.7</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>
@@ -359,7 +391,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.3.7</version>
+				<version>3.2.0</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -371,26 +403,59 @@
 					</instructions>
 				</configuration>
 			</plugin>
-
-			<!-- the FindBugs plugin for extra checks -->
-			<!--plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>2.5.3</version>
-				<executions>
-					<execution>
-						<id>findbugs-check</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						<configuration>
-							<failOnError>false</failOnError>
-						</configuration>
-					</execution>
-				</executions>
-				</plugin -->
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>findbugs-maven-plugin</artifactId>
+					<version>3.0.4</version>
+					<executions>
+						<execution>
+							<id>findbugs-check</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+							<configuration>
+								<failOnError>false</failOnError>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>com.github.siom79.japicmp</groupId>
+					<artifactId>japicmp-maven-plugin</artifactId>
+					<version>0.9.3</version>
+					<configuration>
+						<oldVersion>
+							<dependency>
+								<groupId>${project.groupId}</groupId>
+								<artifactId>${project.artifactId}</artifactId>
+								<version>${last.japicmp.compare.version}</version>
+								<type>${project.packaging}</type>
+							</dependency>
+						</oldVersion>
+						<newVersion>
+							<file>
+								<path>${project.build.directory}/${project.artifactId}-${project.version}.jar</path>
+							</file>
+						</newVersion>
+						<parameter>
+							<onlyModified>true</onlyModified>
+						</parameter>
+					</configuration>
+					<executions>
+						<execution>
+							<phase>verify</phase>
+							<goals>
+								<goal>cmp</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 

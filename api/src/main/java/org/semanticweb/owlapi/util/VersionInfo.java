@@ -17,21 +17,22 @@ import javax.annotation.Nonnull;
 /**
  * A place holder for the current release number.
  * 
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 public class VersionInfo {
 
-    @Nonnull private static final VersionInfo INSTANCE = new VersionInfo();
-    @Nonnull private final String version;
+    @Nonnull
+    private static final VersionInfo INSTANCE = new VersionInfo();
+    @Nonnull
+    private final String version;
 
     protected VersionInfo() {
         String v = VersionInfo.class.getPackage().getImplementationVersion();
         if (v != null) {
             version = v;
         } else {
-            version = "4.2.8";
+            version = "4.5.0";
         }
     }
 
@@ -44,8 +45,8 @@ public class VersionInfo {
     }
 
     /**
-     * Gets a string that contains the version of this build. This is generated
-     * from the manifest of the jar that this class is packaged in.
+     * Gets a string that contains the version of this build. This is generated from the manifest of
+     * the jar that this class is packaged in.
      * 
      * @return The version info string (if available).
      */

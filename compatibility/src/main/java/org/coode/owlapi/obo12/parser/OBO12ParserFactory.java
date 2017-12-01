@@ -63,17 +63,7 @@ public class OBO12ParserFactory implements LegacyOWLParserFactory {
 
     @Override
     public String getDefaultMIMEType() {
-        return null;
-    }
-
-    @Override
-    public List<String> getMIMETypes() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public boolean handlesMimeType(String mimeType) {
-        return false;
+        return new OBO12DocumentFormatFactory().getDefaultMIMEType();
     }
 
     @Override
@@ -83,7 +73,6 @@ public class OBO12ParserFactory implements LegacyOWLParserFactory {
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
-        // TODO Auto-generated method stub
         return new OBO12DocumentFormatFactory();
     }
 }
