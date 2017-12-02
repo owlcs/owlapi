@@ -46,7 +46,7 @@ import org.xml.sax.InputSource;
  * the setting and getting of the {@code OWLOntologyManager} that should be
  * associated with the parser. Note: all current parser implementations are
  * stateless.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
@@ -73,7 +73,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
      * A convenience method that obtains an input stream from a URI. This method
      * sets up the correct request type and wraps the input stream within a
      * buffered input stream.
-     * 
+     *
      * @param documentIRI
      *        The URI from which the input stream should be returned
      * @param config
@@ -85,12 +85,17 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
      */
     @Nonnull
     protected InputStream getInputStream(@Nonnull IRI documentIRI, @Nonnull OWLOntologyLoaderConfiguration config)
-        throws IOException {
+            throws IOException {
         String requestType = getRequestTypes();
         URL originalURL = documentIRI.toURI().toURL();
         String originalProtocol = originalURL.getProtocol();
         URLConnection conn = originalURL.openConnection();
         conn.addRequestProperty("Accept", requestType);
+        
+        if (config.isAcceptingAuthorization()) {
+            conn.setRequestProperty("Authorization", config.getAuthorizationValue());
+        }
+        
         if (config.isAcceptingHTTPCompression()) {
             conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
         }
@@ -103,7 +108,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
             int responseCode = con.getResponseCode();
             // redirect
             if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP || responseCode == HttpURLConnection.HTTP_MOVED_PERM
-                || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+                    || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
                 String location = con.getHeaderField("Location");
                 URL newURL = new URL(location);
                 String newProtocol = newURL.getProtocol();
@@ -112,6 +117,11 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                     // automatically
                     conn = newURL.openConnection();
                     conn.addRequestProperty("Accept", requestType);
+
+                    if (config.isAcceptingAuthorization()) {
+                        conn.setRequestProperty("Authorization", config.getAuthorizationValue());
+                    }
+
                     if (config.isAcceptingHTTPCompression()) {
                         conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
                     }
@@ -160,7 +170,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     @Nonnull
     private static InputStream getInputStreamFromContentEncoding(@Nonnull URLConnection conn,
-        @Nullable String contentEncoding) throws IOException {
+            @Nullable String contentEncoding) throws IOException {
         InputStream is = null;
         InputStream connInputStream = conn.getInputStream();
         if (contentEncoding != null) {
@@ -222,7 +232,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     @Nonnull
     protected InputSource getInputSource(@Nonnull OWLOntologyDocumentSource documentSource,
-        @Nonnull OWLOntologyLoaderConfiguration config) throws IOException {
+            @Nonnull OWLOntologyLoaderConfiguration config) throws IOException {
         InputSource is;
         if (documentSource.isReaderAvailable()) {
             is = new InputSource(documentSource.getReader());
@@ -239,7 +249,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     @Override
     public OWLDocumentFormat parse(IRI documentIRI, OWLOntology ontology) throws IOException {
         return parse(new IRIDocumentSource(documentIRI, null, null), ontology, ontology.getOWLOntologyManager()
-            .getOntologyLoaderConfiguration());
+                .getOntologyLoaderConfiguration());
     }
 
     @Override

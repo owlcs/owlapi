@@ -94,7 +94,13 @@ public enum ConfigurationOptions {
     BANNED_PARSERS                      (""),
     /** Entity expansion limit for 
      * XML parsing. */
-    ENTITY_EXPANSION_LIMIT              ("100000000");
+    ENTITY_EXPANSION_LIMIT              ("100000000"),
+    /** True if http authorization 
+     * should be used. */
+    ACCEPT_HTTP_AUTHORIZATION             (Boolean.FALSE),
+    /** Authorization
+     * header Value. */
+    AUTHORIZATION_VALUE                      ("");
     //@formatter:on
     private static final String PREFIX = "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
     private Object defaultValue;
