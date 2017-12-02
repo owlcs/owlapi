@@ -7,5 +7,5 @@ language: java
 script: "mvn verify"
 jdk:
   - openjdk7
-  - oraclejdk7
+# - oraclejdk7
   - oraclejdk8
