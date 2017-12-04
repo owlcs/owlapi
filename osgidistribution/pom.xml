@@ -62,6 +62,7 @@
 		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.5.6</version></dependency>
 		<dependency><groupId>com.squareup.okhttp3</groupId><artifactId>okhttp</artifactId><version>3.5.0</version></dependency>
 		<dependency><groupId>com.squareup.okio</groupId><artifactId>okio</artifactId><version>1.11.0</version></dependency>
+		<dependency><groupId>org.yaml</groupId><artifactId>snakeyaml</artifactId><version>1.19</version></dependency>
 		<!--  Disable until updated to use RDF4J
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-sesame</artifactId><version>0.7</version></dependency>
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-core</artifactId><version>0.7</version></dependency>
@@ -105,7 +106,8 @@
 							jsr305;scope=compile|runtime|provided;inline=false,
 							caffeine;scope=compile|runtime|provided;inline=false,
 							okhttp;scope=compile|runtime|provided;inline=false,
-							okio;scope=compile|runtime|provided;inline=false
+							okio;scope=compile|runtime|provided;inline=false,
+							snakeyaml;scope=compile|runtime|provided;inline=false
 						</Embed-Dependency>
 						<excludeDependencies>
 							groupId=commons-*;scope=compile|runtime|provided,
