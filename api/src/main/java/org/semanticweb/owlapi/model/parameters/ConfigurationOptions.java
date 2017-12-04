@@ -98,9 +98,6 @@ public enum ConfigurationOptions {
     /** Repair illegal punnings 
      * automatically. */
     REPAIR_ILLEGAL_PUNNINGS             (Boolean.TRUE),
-	/** True if http authorization 
-     * should be used. */
-    ACCEPT_HTTP_AUTHORIZATION             (Boolean.FALSE),
     /** Authorization
      * header Value. */
     AUTHORIZATION_VALUE                      ("");

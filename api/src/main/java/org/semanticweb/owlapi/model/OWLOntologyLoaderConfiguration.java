@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.AUTHORIZATION_VALUE;
-import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ACCEPT_HTTP_AUTHORIZATION;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ACCEPT_HTTP_COMPRESSION;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNED_PARSERS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.CONNECTION_TIMEOUT;
@@ -194,11 +193,6 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     /** @return true if http compression should be accepted. */
     public boolean isAcceptingHTTPCompression() {
         return ACCEPT_HTTP_COMPRESSION.getValue(Boolean.class, overrides).booleanValue();
-    }
-    
-    /** @return true if http authorization should be accepted. */
-    public boolean isAcceptingAuthorization() {
-        return ACCEPT_HTTP_AUTHORIZATION.getValue(Boolean.class, overrides).booleanValue();
     }
     
     /**
@@ -488,23 +482,6 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.overrides.put(REPAIR_ILLEGAL_PUNNINGS, Boolean.valueOf(b));
         return configuration;
-    }
-	
-	/**
-     * @param b
-     *        true if HTTP authorization should be accepted.
-     * @return a copy of this configuration with accepting HTTP authorization set
-     *         to the new value.
-     */
-    @Nonnull
-    public OWLOntologyLoaderConfiguration setAcceptingAuthorization(boolean b) {
-        // do not make copies if setting the same value
-        if (isAcceptingAuthorization() == b) {
-            return this;
-        }
-        OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.overrides.put(ACCEPT_HTTP_AUTHORIZATION, Boolean.valueOf(b));
-        return copy;
     }
     
     /**
