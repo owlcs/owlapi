@@ -1,11 +1,15 @@
 package org.semanticweb.owlapi.util;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 
 class OWLZipYaml {
     static class Entry {
@@ -23,24 +27,29 @@ class OWLZipYaml {
         this.roots = roots;
     }
 
-    public List<String> roots() {
-        return (List<String>) roots.get("roots");
+    public Map<OWLOntologyID, String> roots() {
+        Map<OWLOntologyID, String> map = new HashMap<>();
+        ((List<Map<String, String>>) roots.get("roots")).forEach(m -> map(map, m));
+        return map;
     }
 
-    public Stream<Entry> entries() {
-        List<Entry> list = new ArrayList<>();
+    public Stream<Map.Entry<OWLOntologyID, String>> entries() {
+        Map<OWLOntologyID, String> list = new HashMap<>();
         roots.forEach((a, b) -> addEntry(a, b, list));
-        return list.stream();
+        return list.entrySet().stream();
     }
 
-    private static void addEntry(String a, Object b, List<Entry> l) {
+    private static void addEntry(String a, Object b, Map<OWLOntologyID, String> l) {
         if (!"roots".equals(a)) {
-            Map<String, String> m = (Map<String, String>) b;
-            Entry e = new Entry();
-            e.physical = m.get("physical");
-            e.logical = m.get("logical");
-            e.version = m.get("version");
-            l.add(e);
+            map(l, (Map<String, String>) b);
         }
+    }
+
+    protected static void map(Map<OWLOntologyID, String> map, Map<String, String> m) {
+        Optional<IRI> iri = Optional.of(IRI.create(m.get("iri")));
+        String version = m.get("versionIri");
+        Optional<IRI> versionIRI =
+            Optional.ofNullable(version == null ? null : IRI.create(version));
+        map.put(new OWLOntologyID(iri, versionIRI), m.get("path"));
     }
 }
