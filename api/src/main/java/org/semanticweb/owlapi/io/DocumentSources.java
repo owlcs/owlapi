@@ -171,6 +171,9 @@ public class DocumentSources {
                 actualAcceptHeaders += LAST_REQUEST_TYPE;
             }
             conn.addRequestProperty("Accept", actualAcceptHeaders);
+            if (config.getAuthorizationValue() != null && !config.getAuthorizationValue().isEmpty()) {
+                conn.setRequestProperty("Authorization", config.getAuthorizationValue());
+            }
             if (config.isAcceptingHTTPCompression()) {
                 conn.setRequestProperty("Accept-Encoding", ACCEPTABLE_CONTENT_ENCODING);
             }

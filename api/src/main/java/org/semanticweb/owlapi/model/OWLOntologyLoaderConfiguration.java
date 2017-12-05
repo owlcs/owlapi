@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ACCEPT_HTTP_COMPRESSION;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.AUTHORIZATION_VALUE;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNED_PARSERS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.CONNECTION_TIMEOUT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ENTITY_EXPANSION_LIMIT;
@@ -247,6 +248,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         return copy;
     }
 
+    /** @return authorization header value */
+    public String getAuthorizationValue() {
+        return AUTHORIZATION_VALUE.getValue(String.class, overrides);
+    }
+
     /**
      * @return true if http compression should be accepted.
      */
@@ -458,6 +464,19 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.overrides.put(REPAIR_ILLEGAL_PUNNINGS, Boolean.valueOf(b));
+        return configuration;
+    }
+
+    /**
+     * @param authorizationValue Authorization header value.
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OWLOntologyLoaderConfiguration setAuthorizationValue(String authorizationValue) {
+        if (getAuthorizationValue().equals(authorizationValue)) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(AUTHORIZATION_VALUE, authorizationValue);
         return configuration;
     }
 }

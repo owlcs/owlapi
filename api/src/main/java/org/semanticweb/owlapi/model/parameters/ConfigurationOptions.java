@@ -65,7 +65,10 @@ public enum ConfigurationOptions {
     ENTITY_EXPANSION_LIMIT("100000000"),
     /** Repair illegal punnings 
      * automatically. */
-    REPAIR_ILLEGAL_PUNNINGS(Boolean.TRUE);
+    REPAIR_ILLEGAL_PUNNINGS(Boolean.TRUE),
+    /** Authorization
+     * header Value. */
+    AUTHORIZATION_VALUE("");
     //@formatter:on
     private static final String PREFIX = "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationOptions.class);
