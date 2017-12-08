@@ -1,3 +1,8 @@
+4.2.9 08 Dec 2017
+
+Features:
+*    Support Authorization header in remote loading
+
 4.2.8 4 Jan 2017
 Bug fixes:
 Fix Structural sharing in GCIs causes errors #564

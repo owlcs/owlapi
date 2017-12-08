@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>4.2.8</version>
+		<version>4.2.9</version>
 	</parent>
 	<url>https://github.com/owlcollab/oboformat/</url>
 	<description>A java library for converting obo format documents to OWL, and for converting (a subset of) OWL to obo format. This version has been slightly modified to be included directly in the OWL API.

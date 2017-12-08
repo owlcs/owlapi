@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>owlapi-parent</artifactId>
 		<groupId>net.sourceforge.owlapi</groupId>
-		<version>4.2.8</version>
+		<version>4.2.9</version>
 	</parent>
 	<artifactId>owlapi-rio</artifactId>
 	<name>OWLAPI :: Sesame Rio module</name>
