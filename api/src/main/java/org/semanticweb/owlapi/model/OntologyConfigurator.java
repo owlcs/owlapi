@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ADD_MISSING_TYPES;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.AUTHORIZATION_VALUE;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNED_PARSERS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNERS_ENABLED;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.CONNECTION_TIMEOUT;
@@ -88,6 +89,13 @@ public class OntologyConfigurator implements Serializable {
      */
     public String getBannedParsers() {
         return BANNED_PARSERS.getValue(String.class, overrides);
+    }
+
+    /**
+     * @return Authorization header value.
+     */
+    public String getAuthorizationHeader() {
+        return AUTHORIZATION_VALUE.getValue(String.class, overrides);
     }
 
     /** @return the priorty collection sorting option */

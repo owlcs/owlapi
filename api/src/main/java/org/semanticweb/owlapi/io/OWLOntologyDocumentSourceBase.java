@@ -185,8 +185,8 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
             try {
                 count++;
                 int timeout = count * config.getConnectionTimeout();
-
-                return getResponse(documentIRI, timeout, actualAcceptHeaders);
+                return getResponse(documentIRI, timeout, actualAcceptHeaders,
+                    config.getAuthorizationHeader());
             } catch (SocketTimeoutException e) {
                 LOGGER.warn("Connection to " + documentIRI + " failed, attempt " + count + " of "
                     + config.getRetriesToAttempt(), e);
@@ -200,13 +200,17 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
      * @param documentIRI iri to connect to
      * @param timeout connection timeout
      * @param acceptHeaders accept headers for the connection
+     * @param authorizationHeader authorization header, if needed
      * @return Response for connection
      * @throws IOException if the connection fails
      */
-    private static Response getResponse(IRI documentIRI, int timeout, String acceptHeaders)
-        throws IOException {
+    private static Response getResponse(IRI documentIRI, int timeout, String acceptHeaders,
+        @Nullable String authorizationHeader) throws IOException {
         Builder builder = new Request.Builder().url(documentIRI.toString())
             .addHeader("Accept", acceptHeaders).addHeader("Accept-Encoding", "xz,gzip,deflate");
+        if (authorizationHeader != null && !authorizationHeader.isEmpty()) {
+            builder.addHeader("Authorization", authorizationHeader);
+        }
         Request request = builder.build();
         Call newCall = verifyNotNull(CACHE.get(Integer.valueOf(timeout))).newCall(request);
         return newCall.execute();

@@ -106,7 +106,10 @@ public enum ConfigurationOptions {
      * syntax. */
     PRETTY_PRINT_FUNCTIONAL_SYNTAX      (Boolean.FALSE),
     /** Class to use for {@link OWLObject#toString()}*/
-    TO_STRING_RENDERER                  ("org.semanticweb.owlapi.util.SimpleRenderer");
+    TO_STRING_RENDERER                  ("org.semanticweb.owlapi.util.SimpleRenderer"),
+    /** Authorization
+     * header Value. */
+    AUTHORIZATION_VALUE                 ("");
     //@formatter:on
     private static final String PREFIX =
         "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
