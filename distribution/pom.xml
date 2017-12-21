@@ -86,7 +86,7 @@
 						<Import-Package>
 							!sun.misc,
 							org.eclipse.rdf4j.*;version="[2.0,3.0)",
-							com.google.inject.*;version=4.1.0,
+							!javax.annotation,
 							org.apache.commons.io.*;version=2.5,
 							org.apache.commons.logging.*;version=1.2,
 							*
