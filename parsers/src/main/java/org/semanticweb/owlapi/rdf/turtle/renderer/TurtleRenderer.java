@@ -194,7 +194,14 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     private static boolean noSplits(String s, int index) {
-        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
+        char[] reservedChars = new char[] {'~', '.', '-', '!', '$', '&', '(', ')', '*', '+', ',',
+            ';', '=', '/', '?', '#', '@', '%', '_'};
+        for (char c : reservedChars) {
+            if (s.indexOf(c) >= 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void writeNewLine() {

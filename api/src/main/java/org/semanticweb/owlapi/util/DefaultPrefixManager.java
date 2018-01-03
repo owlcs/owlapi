@@ -20,7 +20,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -32,8 +34,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
-    IRIShortFormProvider {
+public class DefaultPrefixManager
+    implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
 
     private final Map<String, String> reverseprefix2NamespaceMap;
     // XXX config
@@ -71,10 +73,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      */
     public DefaultPrefixManager() {
         this(null, null, null);
-    }
-
-    private static boolean noSplits(String s, int index) {
-        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
     }
 
     @Override
@@ -118,7 +116,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
             String iriString = iri.toString();
             String prefixed = null;
             for (String s : reverseprefix2NamespaceMap.keySet()) {
-                if (iriString.startsWith(s) && noSplits(iriString, s.length())) {
+                if (iriString.startsWith(s) && XMLUtils.isQName(iriString, s.length())) {
                     prefix = reverseprefix2NamespaceMap.get(s);
                     prefixed = iriString.replace(s, prefix);
                 }
