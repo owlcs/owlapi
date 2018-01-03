@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -233,7 +234,7 @@ public class OWLObjectPropertyManager {
      *
      * @param expression The object property expression to be tested
      * @return {@code true} if the object property is composite (according to the above definition)
-     * or {@code false} if the object property is not composite.
+     *         or {@code false} if the object property is not composite.
      */
     public boolean isComposite(OWLObjectPropertyExpression expression) {
         checkNotNull(expression, "expression cannot be null");
@@ -451,8 +452,9 @@ public class OWLObjectPropertyManager {
         OWLObjectPropertyExpression propB) {
         checkNotNull(propA, "propA cannot be null");
         checkNotNull(propB, "propB cannot be null");
-        return getPropertyPartialOrdering().get(propA.getSimplified())
-            .contains(propB.getSimplified());
+        Set<OWLObjectPropertyExpression> set =
+            getPropertyPartialOrdering().get(propA.getSimplified());
+        return set != null && set.contains(propB.getSimplified());
     }
 
     private Stream<OWLObjectPropertyExpression> getReferencedProperties() {
