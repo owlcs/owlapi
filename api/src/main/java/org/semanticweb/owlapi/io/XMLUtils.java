@@ -154,12 +154,26 @@ public final class XMLUtils {
      * @return {@code true} if {@code s} is a QName, otherwise {@code false}.
      */
     public static boolean isQName(CharSequence s) {
-        if (isNullOrEmpty(s)) {
+        return isQName(s, 0);
+    }
+
+    /**
+     * Determines if a character sequence is a QName. A QName is either an NCName (LocalName), or an
+     * NCName followed by a colon followed by another NCName (where the first NCName is referred to
+     * as the 'Prefix Name' and the second NCName is referred to as the 'Local Name' - i.e.
+     * PrefixName:LocalName).
+     *
+     * @param s The character sequence to be tested.
+     * @param start start index to check
+     * @return {@code true} if {@code s} is a QName, otherwise {@code false}.
+     */
+    public static boolean isQName(CharSequence s, int start) {
+        if (isNullOrEmpty(s) || start >= s.length()) {
             return false;
         }
         boolean foundColon = false;
         boolean inNCName = false;
-        for (int i = 0; i < s.length(); ) {
+        for (int i = start; i < s.length();) {
             int codePoint = Character.codePointAt(s, i);
             if (codePoint == ':') {
                 if (foundColon) {

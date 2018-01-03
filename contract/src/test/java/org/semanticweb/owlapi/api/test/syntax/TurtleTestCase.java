@@ -43,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -54,15 +55,47 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @SuppressWarnings("javadoc")
 public class TurtleTestCase extends TestBase {
 
+    private final IRI iri = IRI.create("urn:test#", "literals");
+    private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
+    private final IRI s = IRI.create("urn:test#", "s");
+
+    @Test
+    public void shouldSaveIRIsWithCommasInTurtle()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology o = m.createOntology(IRI.create("http://example.com/ontology"));
+        IRI individualIRI = IRI.create("http://example.com/ontology/x,y");
+        OWLNamedIndividual individual = df.getOWLNamedIndividual(individualIRI);
+        OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
+        o.add(axiom);
+        StringDocumentTarget t = new StringDocumentTarget();
+        o.getPrefixManager().withDefaultPrefix("http://example.com/ontology/");
+        o.saveOntology(new TurtleDocumentFormat(), t);
+        String string = t.toString();
+        OWLOntology o1 = loadOntologyFromString(string, new TurtleDocumentFormat());
+        equal(o, o1);
+    }
+
+    @Test
+    public void shouldSaveIRIsWithCommasInRioTurtle()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology o = m.createOntology(IRI.create("http://example.com/ontology"));
+        IRI individualIRI = IRI.create("http://example.com/ontology/x,y");
+        OWLNamedIndividual individual = df.getOWLNamedIndividual(individualIRI);
+        OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
+        o.add(axiom);
+        StringDocumentTarget t = new StringDocumentTarget();
+        o.getPrefixManager().withDefaultPrefix("http://example.com/ontology/");
+        o.saveOntology(new RioTurtleDocumentFormat(), t);
+        String string = t.toString();
+        OWLOntology o1 = loadOntologyFromString(string, new RioTurtleDocumentFormat());
+        equal(o, o1);
+    }
+
     @Test
     public void testLoadingUTF8BOM() throws Exception {
         IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl").toURI());
         m.loadOntologyFromOntologyDocument(uri);
     }
-
-    private final IRI iri = IRI.create("urn:test#", "literals");
-    private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
-    private final IRI s = IRI.create("urn:test#", "s");
 
     @Test
     public void shouldParseFixedQuotesLiterals1() throws OWLOntologyCreationException {

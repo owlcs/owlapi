@@ -87,10 +87,6 @@ public class TurtleRenderer extends RDFRendererBase {
         base = "";
     }
 
-    private static boolean noSplits(String s, int index) {
-        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
-    }
-
     private void writeNamespaces() {
         pm.getPrefixName2PrefixMap().forEach((k, v) -> {
             write("@prefix ");
@@ -183,6 +179,17 @@ public class TurtleRenderer extends RDFRendererBase {
             }
         }
         return null;
+    }
+
+    private static boolean noSplits(String s, int index) {
+        char[] reservedChars = new char[] {'~', '.', '-', '!', '$', '&', '(', ')', '*', '+', ',',
+            ';', '=', '/', '?', '#', '@', '%', '_'};
+        for (char c : reservedChars) {
+            if (s.indexOf(c) >= 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void writeNewLine() {

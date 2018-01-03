@@ -88,10 +88,6 @@ public class PrefixManagerImpl implements PrefixManager {
         return prefix2NamespaceMap.toString().replace(",", ",\n");
     }
 
-    private static boolean noSplits(String s, int index) {
-        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
-    }
-
     @Override
     public StringComparator getPrefixComparator() {
         return comparator;
@@ -135,7 +131,7 @@ public class PrefixManagerImpl implements PrefixManager {
             String iriString = iri.toString();
             String prefixed = null;
             for (String s : reverseprefix2NamespaceMap.keySet()) {
-                if (iriString.startsWith(s) && noSplits(iriString, s.length())) {
+                if (iriString.startsWith(s) && XMLUtils.isQName(iriString, s.length())) {
                     prefix = reverseprefix2NamespaceMap.get(s);
                     prefixed = iriString.replace(s, prefix);
                 }
