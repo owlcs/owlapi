@@ -22,17 +22,17 @@ dependencies {
     compile project(':owlapi-rio')
     compile project(':owlapi-api')
     compile project(':owlapi-compatibility')
-    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.javax-inject', version: '1_2'
-    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.aopalliance', version: '1.0_6'
+    compile 'org.apache.servicemix.bundles:org.apache.servicemix.bundles.javax-inject:1_2'
+    compile 'org.apache.servicemix.bundles:org.apache.servicemix.bundles.aopalliance:1.0_6'
     testCompile 'biz.aQute.bnd:biz.aQute.bndlib:3.3.0'
-    testCompile group: 'org.apache.felix', name: 'org.apache.felix.framework', version: '5.6.1'
-    testCompile group: 'org.osgi', name: 'osgi.core', version: '6.0.0'
-    testCompile group: 'org.apache.felix', name: 'org.apache.felix.bundlerepository', version: 'latest.release'
-    testCompile group: 'org.apache.felix', name: 'org.apache.felix.dependencymanager', version: '4.3.0'
+    testCompile 'org.apache.felix:org.apache.felix.framework:5.6.1'
+    testCompile 'org.osgi:osgi.core:6.0.0'
+    testCompile 'org.apache.felix:org.apache.felix.bundlerepository:latest.release'
+    testCompile 'org.apache.felix:org.apache.felix.dependencymanager:4.3.0'
     testCompile 'org.osgi:osgi.cmpn:6.0.0'
-    testCompile 'org.ops4j.pax.exam:pax-exam-container-native:4.9.2'
-    testCompile 'org.ops4j.pax.exam:pax-exam-junit4:4.9.2'
-    testCompile 'org.ops4j.pax.exam:pax-exam-link-mvn:4.9.2'
+    testCompile 'org.ops4j.pax.exam:pax-exam-container-native:4.11.0'
+    testCompile 'org.ops4j.pax.exam:pax-exam-junit4:4.11.0'
+    testCompile 'org.ops4j.pax.exam:pax-exam-link-mvn:4.11.0'
     testCompile 'org.slf4j:slf4j-simple:1.7.22'
 }
 

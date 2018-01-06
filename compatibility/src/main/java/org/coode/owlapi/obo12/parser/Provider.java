@@ -5,9 +5,22 @@ package org.coode.owlapi.obo12.parser;
 
 import java.io.IOException;
 @SuppressWarnings("all")
-public interface Provider {
+interface Provider {
+    /**
+     * Reads characters into an array
+     * @param buffer  Destination buffer
+     * @param offset   Offset at which to start storing characters
+     * @param length   The maximum possible number of characters to read
+     * @return The number of characters read, or -1 if all read
+     * @exception  IOException
+     */
     int read(char buffer[], int offset, int length) throws IOException;
     
-     void close() throws IOException;    
+    /**
+     * Closes the stream and releases any system resources associated with
+     * it.
+     * @exception IOException
+     */
+     void close() throws IOException;
 }
-/* JavaCC - OriginalChecksum=3d07ef676f02d38a9d7d0eba56fc7bf5 (do not edit this line) */
+/* JavaCC - OriginalChecksum=79549555636a80f34c8f3c69d5c2f8aa (do not edit this line) */

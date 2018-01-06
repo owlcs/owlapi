@@ -1,7 +1,8 @@
 
 description = 'OWLAPI :: Interfaces'
 dependencies {
-    compile group: 'org.tukaani', name: 'xz', version:'1.5'
-    compile group: 'org.apache.commons', name: 'commons-rdf-api', version:'0.3.0-incubating'
-    testCompile group: 'org.apache.commons', name: 'commons-rdf-api', version:'0.3.0-incubating', classifier:'tests'
+    compile 'org.tukaani:xz:1.5'
+    compile 'org.apache.commons:commons-rdf-api:0.3.0-incubating'
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+    testCompile 'org.apache.commons:commons-rdf-api:0.3.0-incubating:tests'
 }

@@ -5,8 +5,8 @@ package org.coode.owlapi.obo12.parser;
 	
 	import java.io.IOException;
 	@SuppressWarnings("all")
-	public class StringProvider implements Provider {
-
+	class StringProvider implements Provider {
+	
 		String _string;
 		int _position = 0;
 		int _size;
@@ -45,4 +45,4 @@ package org.coode.owlapi.obo12.parser;
 		}
 		
 	}
-/* JavaCC - OriginalChecksum=838da35578a91bf479fb442399d871a1 (do not edit this line) */
+/* JavaCC - OriginalChecksum=ffa145984f2540a8f8f15dba547986d4 (do not edit this line) */
