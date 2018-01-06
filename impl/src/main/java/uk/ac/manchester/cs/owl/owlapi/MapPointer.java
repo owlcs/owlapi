@@ -247,6 +247,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
+     * @param <O> output type
      * @param key key to look up
      * @param classType type of the returned values
      * @return value

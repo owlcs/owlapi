@@ -38,6 +38,7 @@ public enum AnnotationWalkingControl {
     /**
      * Visit annotations on the object, if the setting allows for the annotations to be visited.
      *
+     * @param <T> walker type
      * @param walker walker to use to visit annotations
      * @param o object containing annotations
      */

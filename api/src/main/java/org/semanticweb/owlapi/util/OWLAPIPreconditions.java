@@ -186,6 +186,7 @@ public final class OWLAPIPreconditions {
     }
 
     /**
+     * @param <T> type of the returned collection
      * @param o collection to check for nullness and null elements, and optionally for emptiness
      * @param name message for error
      * @param emptyAllowed true if the input can be empty
@@ -202,6 +203,7 @@ public final class OWLAPIPreconditions {
     }
 
     /**
+     * @param <T> type of the returned array
      * @param o array to check for nullness and null elements, and optionally for emptiness
      * @param name message for error
      * @param emptyAllowed true if the input can be empty

@@ -37,7 +37,7 @@ public class TurtleParser {
 
     /** Instantiates a new turtle parser.
      * 
-     * @param reader
+     * @param r
      *            the reader
      * @param handler
      *            the handler

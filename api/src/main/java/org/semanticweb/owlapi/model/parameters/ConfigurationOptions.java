@@ -11,7 +11,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.ByName;
 import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.model.MissingOntologyHeaderStrategy;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,7 +104,7 @@ public enum ConfigurationOptions {
     /** Pretty print functional 
      * syntax. */
     PRETTY_PRINT_FUNCTIONAL_SYNTAX      (Boolean.FALSE),
-    /** Class to use for {@link OWLObject#toString()}*/
+    /** Class to use for {@link org.semanticweb.owlapi.model.OWLObject }{@code toString() }*/
     TO_STRING_RENDERER                  ("org.semanticweb.owlapi.util.SimpleRenderer"),
     /** Authorization
      * header Value. */
@@ -144,7 +143,7 @@ public enum ConfigurationOptions {
     /**
      * @param parameterName parameter name - by default the full name of this enumeration plus the
      *        enum member name
-     * @return , atching ConfigurationOptions member, or null if none found
+     * @return matching ConfigurationOptions member, or null if none found
      */
     @Nullable
     public static ConfigurationOptions find(String parameterName) {
@@ -156,6 +155,7 @@ public enum ConfigurationOptions {
 
     /**
      * @param value value to parse according to the enum default value
+     * @param <T> type for the returned value
      * @param type type of the returned value
      * @return parsed value
      */
@@ -176,6 +176,7 @@ public enum ConfigurationOptions {
     }
 
     /**
+     * @param <T> type for this value
      * @param type type for this value
      * @param overrides local overrides
      * @return value for this configuration option. Values are evaluated as follows: first, check
@@ -201,6 +202,7 @@ public enum ConfigurationOptions {
     }
 
     /**
+     * @param <T> type to cast to
      * @param type type to cast to
      * @return default value
      */

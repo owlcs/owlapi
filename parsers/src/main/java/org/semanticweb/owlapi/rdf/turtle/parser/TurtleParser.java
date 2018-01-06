@@ -27,7 +27,7 @@ public class TurtleParser implements TurtleParserConstants {
 
     /** Instantiates a new turtle parser.
      * 
-     * @param reader
+     * @param r
      *            the reader
      * @param handler
      *            the handler

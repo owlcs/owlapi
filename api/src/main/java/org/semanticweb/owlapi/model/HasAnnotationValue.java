@@ -49,6 +49,7 @@ public interface HasAnnotationValue {
      * predicate evaluates to true; the alternative runnable is executed if the predicate does not
      * match or the type does not match (only once if both conditions do not match).
      * 
+     * @param <T> witness type
      * @param witness class for which predicate and consumer should be executed
      * @param p predicate to test
      * @param c consumer to apply
