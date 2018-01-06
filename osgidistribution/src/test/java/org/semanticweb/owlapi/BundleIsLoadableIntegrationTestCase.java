@@ -4,7 +4,6 @@ package org.semanticweb.owlapi;
  * Created by ses on 3/5/15.
  */
 
-<<<<<<< master
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -20,8 +19,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-=======
->>>>>>> 1cb7635 Stashing
 import org.apache.felix.framework.FrameworkFactory;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -35,25 +32,12 @@ import org.semanticweb.owlapi.test.IntegrationTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.*;
-
 @SuppressWarnings("javadoc")
 @Category(IntegrationTest.class)
 public class BundleIsLoadableIntegrationTestCase {
-    private static Logger logger = LoggerFactory.getLogger(BundleIsLoadableIntegrationTestCase.class);
+    private static Logger logger =
+        LoggerFactory.getLogger(BundleIsLoadableIntegrationTestCase.class);
+
     @Ignore
     @Test
     public void startBundle() throws BundleException, ClassNotFoundException,
@@ -86,9 +70,9 @@ public class BundleIsLoadableIntegrationTestCase {
         BundleContext context = framework.getBundleContext();
         assertNotNull("context is null", context);
         List<String> bundles = Arrays.asList("org.apache.servicemix.bundles.javax-inject",
-            "org.apache.servicemix.bundles.aopalliance", "slf4j-simple", "slf4j-api",
-            "caffeine", "guava", "jsr305", "guice-multibindings", "guice-4",
-            "commons-io", "commons-codec", "jcl-over-slf4j");
+            "org.apache.servicemix.bundles.aopalliance", "slf4j-simple", "slf4j-api", "caffeine",
+            "guava", "jsr305", "guice-multibindings", "guice-4", "commons-io", "commons-codec",
+            "jcl-over-slf4j");
         for (String bundleName : bundles) {
             try {
                 String simple = getJarURL(bundleName);
@@ -98,9 +82,9 @@ public class BundleIsLoadableIntegrationTestCase {
                 // System.out.println("BundleIsLoadableIntegrationTestCase.startBundle()
                 // " + simple);
                 Bundle simpleLoggerBundle = context.installBundle(simple);
-            try {
-                simpleLoggerBundle.start();
-            } catch (BundleException e) {
+                try {
+                    simpleLoggerBundle.start();
+                } catch (BundleException e) {
                     if (!"Fragment bundles can not be started.".equals(e.getMessage())) {
                         System.out.println("ERROR " + simple + " " + e.getMessage());
                     }
@@ -118,8 +102,9 @@ public class BundleIsLoadableIntegrationTestCase {
                 bundle.loadClass("org.semanticweb.owlapi.apibinding.OWLManager");
             assertNotNull("no class owlmanager", owlManagerClass);
             owlManagerClass.newInstance();
-            assertNotEquals("OWLManager class from bundle class loader  equals OWLManager class from system class path",
-            OWLManager.class, owlManagerClass);
+            assertNotEquals(
+                "OWLManager class from bundle class loader  equals OWLManager class from system class path",
+                OWLManager.class, owlManagerClass);
         } catch (Exception e) {
             e.printStackTrace(System.out);
             throw e;
