@@ -14,8 +14,8 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.search.Searcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.sub;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 

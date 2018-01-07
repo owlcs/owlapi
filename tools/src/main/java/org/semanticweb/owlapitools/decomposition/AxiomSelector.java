@@ -1,7 +1,7 @@
 package org.semanticweb.owlapitools.decomposition;
 
 import static org.semanticweb.owlapi.model.AxiomType.LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.List;
 

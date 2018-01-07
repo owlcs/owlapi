@@ -38,8 +38,8 @@
  */
 package org.coode.owlapi.obo12.parser;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.net.URI;
 import java.util.HashMap;

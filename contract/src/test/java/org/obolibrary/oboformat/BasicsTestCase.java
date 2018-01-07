@@ -7,8 +7,8 @@ import static org.junit.Assert.fail;
 import static org.semanticweb.owlapi.model.AxiomType.DISJOINT_CLASSES;
 import static org.semanticweb.owlapi.model.AxiomType.EQUIVALENT_CLASSES;
 import static org.semanticweb.owlapi.model.AxiomType.SUBCLASS_OF;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

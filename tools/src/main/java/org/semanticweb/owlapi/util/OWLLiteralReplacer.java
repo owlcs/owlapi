@@ -13,9 +13,9 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.utilities.OWLObjectDuplicator;
 
 /**
  * Replaces a literal with another.

@@ -10,61 +10,37 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.utilities;
+
+import java.io.Serializable;
+
+import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
- * A simple utility class that describes the version of a piece of software e.g. reasoner version.
- * <br>
- * A version number is assumed to be the following format: <b>major.minor.patch.build</b>.
+ * A short form provider produces renderings of entities. These renderings are strings which in
+ * general can be used for display and serialisation purposes. A given entity only has one short
+ * form for a given short form provider. However, a short form may map to multiple enntities for a
+ * given short form provider. In other words, for a given short form provider the mapping from
+ * entity to short form is functional, but is not inverse functional i.e. an injective mapping.
  *
- * @author Matthew Horridge, The University of Manchester, Information Management Group
- * @since 3.0.0
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @since 2.0.0
  */
-public class Version {
-
-    private final int major;
-    private final int minor;
-    private final int patch;
-    private final int build;
+public interface ShortFormProvider extends Serializable {
 
     /**
-     * @param major major version number
-     * @param minor minor version number
-     * @param patch patch number
-     * @param build build number
+     * Gets the short form for the specified entity.
+     *
+     * @param entity The entity.
+     * @return A string which represents a short rendering of the specified entity. The returned
+     *         value will not be null but might be an empty string.
      */
-    public Version(int major, int minor, int patch, int build) {
-        this.major = major;
-        this.minor = minor;
-        this.patch = patch;
-        this.build = build;
-    }
+    String getShortForm(OWLEntity entity);
 
     /**
-     * @return major version
+     * Disposes of the short form proivider. This frees any resources and clears any caches.
      */
-    public int getMajor() {
-        return major;
-    }
-
-    /**
-     * @return minor version
-     */
-    public int getMinor() {
-        return minor;
-    }
-
-    /**
-     * @return patch version
-     */
-    public int getPatch() {
-        return patch;
-    }
-
-    /**
-     * @return build version
-     */
-    public int getBuild() {
-        return build;
+    default void dispose() {
+        // nothing to dispose
     }
 }

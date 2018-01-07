@@ -13,8 +13,8 @@
 package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DIFFERENT;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DISJOINT_PROPERTIES;

@@ -10,27 +10,23 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.utilities;
 
-import java.io.Serializable;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAxiom;
+import javax.annotation.Nullable;
 
 /**
- * Search filter for axioms of various types, matching a pass condition on a key.
+ * String comparator that takes length into account before natural ordering.
  */
-public interface OWLAxiomSearchFilter extends Serializable {
+public class StringLengthComparator implements StringComparator {
 
-    /**
-     * @return axiom types; expected to be one, but the filter could include multiple axiom types
-     */
-    Iterable<AxiomType<?>> getAxiomTypes();
-
-    /**
-     * @param axiom axiom to check
-     * @param key key
-     * @return true if passed
-     */
-    boolean pass(OWLAxiom axiom, Object key);
+    @Override
+    public int compare(@Nullable String o1, @Nullable String o2) {
+        int diff = verifyNotNull(o1).length() - verifyNotNull(o2).length();
+        if (diff != 0) {
+            return diff;
+        }
+        return verifyNotNull(o1).compareTo(o2);
+    }
 }

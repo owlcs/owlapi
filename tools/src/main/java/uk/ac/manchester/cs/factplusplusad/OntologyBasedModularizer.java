@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.factplusplusad;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.stream.Stream;

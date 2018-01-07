@@ -1,6 +1,6 @@
 package org.obolibrary.owl;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
 import java.util.Map;
@@ -23,10 +23,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.IRIShortFormProvider;
-import org.semanticweb.owlapi.util.PrefixManagerImpl;
-import org.semanticweb.owlapi.util.ShortFormProvider;
-import org.semanticweb.owlapi.util.StringComparator;
+import org.semanticweb.owlapi.utilities.IRIShortFormProvider;
+import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
+import org.semanticweb.owlapi.utilities.ShortFormProvider;
+import org.semanticweb.owlapi.utilities.StringComparator;
 
 /**
  * Implement the writer for {@link LabelFunctionalDocumentFormat}.

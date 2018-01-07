@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.obo12.parser;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner.impl;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_BOTTOM_DATA_PROPERTY;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_BOTTOM_OBJECT_PROPERTY;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_NOTHING;
@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.reasoner.Node;
-import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
+import org.semanticweb.owlapi.utilities.OWLAPIStreamUtils;
 
 /**
  * @param <E> the type of entities in the node

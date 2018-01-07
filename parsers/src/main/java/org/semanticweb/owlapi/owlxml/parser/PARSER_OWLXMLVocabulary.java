@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.owlxml.parser;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION;

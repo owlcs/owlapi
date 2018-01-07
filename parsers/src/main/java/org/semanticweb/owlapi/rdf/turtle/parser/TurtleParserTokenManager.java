@@ -10,7 +10,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.PrefixManagerImpl;
+import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -1838,6 +1838,7 @@ private void jjCheckNAddStates(int start, int end)
    } while (start++ != end);
 }
 
+    /** Constructor. */
     public TurtleParserTokenManager(JavaCharStream stream){
 
       if (JavaCharStream.staticFlag)
@@ -1846,11 +1847,14 @@ private void jjCheckNAddStates(int start, int end)
     input_stream = stream;
   }
 
+  /** Constructor. */
   public TurtleParserTokenManager (JavaCharStream stream, int lexState){
     ReInit(stream);
     SwitchTo(lexState);
   }
 
+  /** Reinitialise parser. */
+  
   public void ReInit(JavaCharStream stream)
   {
 
@@ -1871,6 +1875,7 @@ private void jjCheckNAddStates(int start, int end)
       jjrounds[i] = 0x80000000;
   }
 
+  /** Reinitialise parser. */
   public void ReInit(JavaCharStream stream, int lexState)
   
   {
@@ -1878,6 +1883,7 @@ private void jjCheckNAddStates(int start, int end)
     SwitchTo(lexState);
   }
 
+  /** Switch to specified lex state. */
   public void SwitchTo(int lexState)
   {
     if (lexState >= 5 || lexState < 0)

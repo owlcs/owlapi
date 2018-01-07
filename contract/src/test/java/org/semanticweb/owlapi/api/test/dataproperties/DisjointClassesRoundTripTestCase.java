@@ -17,7 +17,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointClasses;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectUnionOf;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.equalStreams;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;

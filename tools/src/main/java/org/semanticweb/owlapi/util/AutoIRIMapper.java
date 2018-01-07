@@ -13,8 +13,8 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.BufferedReader;
 import java.io.File;

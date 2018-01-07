@@ -15,13 +15,30 @@
 
 package org.semanticweb.owlapi.dlsyntax.parser;
 
+/**
+ * This exception is thrown when parse errors are encountered.
+ * You can explicitly create objects of this exception type by
+ * calling the method generateParseException in the generated
+ * parser.
+ *
+ * You can modify this class to customize your error reporting
+ * mechanisms so long as you retain the public fields.
+ */
 @SuppressWarnings("all")
-public class ParseException extends org.semanticweb.owlapi.io.OWLParserException {
+ class ParseException extends org.semanticweb.owlapi.io.OWLParserException {
 
+  /**
+   * The version identifier for this Serializable class.
+   * Increment only if the <i>serialized</i> form of the
+   * class changes.
+   */
   private static final long serialVersionUID = 1L;
 
   private static final String INDENT = "    ";
   
+  /**
+   * The end of line string (we do not use System.getProperty("") so that we are compatible with Android/GWT);
+   */
   protected static String EOL = "\n";
 
   
@@ -34,6 +51,12 @@ public class ParseException extends org.semanticweb.owlapi.io.OWLParserException
 	}
   
   
+  /**
+   * This constructor is used by the method "generateParseException"
+   * in the generated parser.  Calling this constructor generates
+   * a new object of this type with the fields "currentToken",
+   * "expectedTokenSequences", and "tokenImage" set.
+   */
   public ParseException(Token currentTokenVal,
                         int[][] expectedTokenSequencesVal,
                         String[] tokenImageVal,
@@ -46,21 +69,54 @@ public class ParseException extends org.semanticweb.owlapi.io.OWLParserException
     tokenImage = tokenImageVal;
   }
 
+  /**
+   * The following constructors are for use by you for whatever
+   * purpose you can think of.  Constructing the exception in this
+   * manner makes the exception behave in the normal way - i.e., as
+   * documented in the class "Throwable".  The fields "errorToken",
+   * "expectedTokenSequences", and "tokenImage" do not contain
+   * relevant information.  The JavaCC generated code does not use
+   * these constructors.
+   */
+
   public ParseException() {
     super();
   }
 
+  /** Constructor with message. */
   public ParseException(String message) {
     super(message);
   }
 
 
+  /**
+   * This is the last token that has been consumed successfully.  If
+   * this object has been created due to a parse error, the token
+   * followng this token will (therefore) be the first error token.
+   */
   public Token currentToken;
 
+  /**
+   * Each entry in this array is an array of integers.  Each array
+   * of integers represents a sequence of tokens (by their ordinal
+   * values) that is expected at this point of the parse.
+   */
   public int[][] expectedTokenSequences;
 
+  /**
+   * This is a reference to the "tokenImage" array of the generated
+   * parser within which the parse error occurred.  This array is
+   * defined in the generated ...Constants interface.
+   */
   public String[] tokenImage;
 
+  /**
+   * It uses "currentToken" and "expectedTokenSequences" to generate a parse
+   * error message and returns it.  If this object has been created
+   * due to a parse error, and you do not catch it (it gets thrown
+   * from the parser) the correct error message
+   * gets displayed.
+   */
   private static String initialise(Token currentToken,
                            int[][] expectedTokenSequences,
                            String[] tokenImage,
@@ -111,11 +167,21 @@ public class ParseException extends org.semanticweb.owlapi.io.OWLParserException
     	int numExpectedTokens = expectedTokenSequences.length;
     	sb.append(EOL).append("Was expecting"+ (numExpectedTokens == 1 ? ":" : " one of:") + EOL + EOL);
     	sb.append(expected.toString());
-    }    
+    }
+    // 2013/07/30 --> Seems to be inaccurate as represents the readahead state, not the lexical state BEFORE the unknown token
+//    if (lexicalStateName != null) {
+//    	sb.append(EOL).append("** Lexical State : ").append(lexicalStateName).append(EOL).append(EOL);
+//    }
+    
     return sb.toString();
   }
 
 
+  /**
+   * Used to convert raw characters to their escaped version
+   * when these raw version cannot be used as part of an ASCII
+   * string literal.
+   */
   static String add_escapes(String str) {
       StringBuffer retval = new StringBuffer();
       char ch;
@@ -160,4 +226,4 @@ public class ParseException extends org.semanticweb.owlapi.io.OWLParserException
    }
 
 }
-/* JavaCC - OriginalChecksum=1809b5555d6819414362cc17698d3c21 (do not edit this line) */
+/* JavaCC - OriginalChecksum=b1544a00354a7897f05c2de16f08e4a2 (do not edit this line) */

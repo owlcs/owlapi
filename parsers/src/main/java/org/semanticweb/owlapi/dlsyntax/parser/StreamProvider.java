@@ -22,8 +22,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
- @SuppressWarnings("all")
-public class StreamProvider implements Provider {
+/**
+ * NOTE : This generated class can be safely deleted if installing in a GWT installation (use StringProvider instead)
+ */
+@SuppressWarnings("all")
+class StreamProvider implements Provider {
 
 	Reader _reader;
 
@@ -43,6 +46,13 @@ public class StreamProvider implements Provider {
 	public int read(char[] buffer, int off, int len) throws IOException {
 	   int result = _reader.read(buffer, off, len);
 
+	   /* CBA -- Added 2014/03/29 -- 
+	             This logic allows the generated Java code to be easily translated to C# (via sharpen) -
+	             as in C# 0 represents end of file, and in Java, -1 represents end of file
+	             See : http://msdn.microsoft.com/en-us/library/9kstw824(v=vs.110).aspx
+	             ** Technically, this is not required for java but the overhead is extremely low compared to the code generation benefits.
+	   */
+	   
 	   if (result == 0) {
 	      if (off < buffer.length && len > 0) {
 	        result = -1;
@@ -59,4 +69,4 @@ public class StreamProvider implements Provider {
 
 }
 
-/* JavaCC - OriginalChecksum=a075e369bc1e1243f7baf906de23cc7c (do not edit this line) */
+/* JavaCC - OriginalChecksum=cbe86b3ec9384e90b6c9ab3139556cc5 (do not edit this line) */

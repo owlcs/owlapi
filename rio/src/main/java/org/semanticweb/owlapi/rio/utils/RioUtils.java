@@ -35,7 +35,7 @@
  */
 package org.semanticweb.owlapi.rio.utils;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.Collections;

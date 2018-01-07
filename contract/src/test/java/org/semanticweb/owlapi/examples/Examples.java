@@ -17,9 +17,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
 
@@ -118,8 +118,8 @@ import org.semanticweb.owlapi.util.OWLEntityRemover;
 import org.semanticweb.owlapi.util.OWLOntologyMerger;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
-import org.semanticweb.owlapi.util.PrefixManagerImpl;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
+import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
@@ -1202,7 +1202,7 @@ public class Examples extends TestBase {
         // To generate an inferred ontology we use implementations of inferred
         // axiom generators to generate the parts of the ontology we want (e.g.
         // subclass axioms, equivalent classes axioms, class assertion axiom
-        // etc. - see the org.semanticweb.owlapi.util package for more
+        // etc. - see the org.semanticweb.owlapi.utilities package for more
         // implementations). Set up our list of inferred axiom generators
         List<InferredAxiomGenerator<? extends OWLAxiom>> gens =
             new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();

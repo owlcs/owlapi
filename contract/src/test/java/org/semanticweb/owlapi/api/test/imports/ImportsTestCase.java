@@ -23,9 +23,9 @@ import static org.mockito.Mockito.when;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ImportsDeclaration;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.io.File;
 import java.io.FileOutputStream;

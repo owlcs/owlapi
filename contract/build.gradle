@@ -2,4 +2,5 @@
 description = 'OWLAPI :: Tests and Tutorials'
 dependencies {
   compile project(':owlapi-apibinding')
+  compile project(':owlapi-tools')
 }

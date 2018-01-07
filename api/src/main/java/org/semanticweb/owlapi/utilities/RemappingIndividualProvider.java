@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.utilities;
 
 import java.util.Collections;
 import java.util.HashMap;

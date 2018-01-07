@@ -39,8 +39,8 @@
 package org.semanticweb.owlapi.api.test.multithread;
 
 import static org.junit.Assert.fail;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.HashSet;
 import java.util.List;

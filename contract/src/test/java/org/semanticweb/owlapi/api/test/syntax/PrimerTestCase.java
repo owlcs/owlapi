@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 

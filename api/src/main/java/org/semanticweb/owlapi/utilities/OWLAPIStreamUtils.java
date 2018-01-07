@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.utilities;
 
 import static java.util.Spliterator.DISTINCT;
 import static java.util.Spliterator.IMMUTABLE;

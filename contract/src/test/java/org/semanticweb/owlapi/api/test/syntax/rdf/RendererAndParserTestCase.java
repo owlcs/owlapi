@@ -17,8 +17,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.creat
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createDataProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
 import java.util.List;

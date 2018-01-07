@@ -15,7 +15,7 @@ import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParserFactory;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory;
-import org.semanticweb.owlapi.util.PriorityCollection;
+import org.semanticweb.owlapi.utilities.PriorityCollection;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

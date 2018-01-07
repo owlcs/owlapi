@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.OWLObjectDuplicator;
+import org.semanticweb.owlapi.utilities.OWLObjectDuplicator;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group

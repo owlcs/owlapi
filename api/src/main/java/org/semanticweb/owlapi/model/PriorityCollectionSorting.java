@@ -12,10 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.List;
 
-import org.semanticweb.owlapi.util.HasPriorityComparator;
+import javax.annotation.Nullable;
+
+import org.semanticweb.owlapi.annotations.HasPriority;
 
 /**
  * Specifies how PriorityCollection should sort its entries.
@@ -30,7 +34,7 @@ public enum PriorityCollectionSorting implements ByName<PriorityCollectionSortin
     ALWAYS {
         @Override
         public <O> List<O> sort(List<O> list) {
-            Collections.sort(list, new HasPriorityComparator<>());
+            Collections.sort(list, PriorityCollectionSorting::compare);
             return list;
         }
 
@@ -54,7 +58,7 @@ public enum PriorityCollectionSorting implements ByName<PriorityCollectionSortin
 
         @Override
         public <O> List<O> sortInputSet(List<O> list) {
-            Collections.sort(list, new HasPriorityComparator<>());
+            Collections.sort(list, PriorityCollectionSorting::compare);
             return list;
         }
     },
@@ -91,5 +95,19 @@ public enum PriorityCollectionSorting implements ByName<PriorityCollectionSortin
     @Override
     public PriorityCollectionSorting byName(CharSequence name) {
         return valueOf(name.toString());
+    }
+
+    private static double getPriority(@Nullable Object p) {
+        HasPriority priority = checkNotNull(p).getClass().getAnnotation(HasPriority.class);
+        if (priority != null) {
+            return priority.value();
+        }
+        // if the object does not have a priority annotation, only use
+        // it last
+        return Double.MAX_VALUE;
+    }
+
+    protected static <P> int compare(P a, P b) {
+        return Double.compare(getPriority(a), getPriority(b));
     }
 }

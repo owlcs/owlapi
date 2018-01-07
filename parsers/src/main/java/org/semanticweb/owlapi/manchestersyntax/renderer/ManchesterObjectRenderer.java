@@ -7,8 +7,8 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.PrefixManagerImpl;
-import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
+import org.semanticweb.owlapi.utilities.ShortFormProvider;
 
 /**
  * Adapter for running as OWLObjectRenderer from ToStringRenderer.

@@ -12,13 +12,36 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+
 import java.io.Serializable;
 import java.util.Comparator;
 
+import javax.annotation.Nullable;
+
+import org.semanticweb.owlapi.annotations.HasPriority;
+
 /**
- * String comparator interface (allows to store comparators without serialization complaints).
+ * Comparator for objects with HasPriority annotations. Objects without HasPriority are considered
+ * to have lowest priority (Double.MAX_VALUE).
  *
- * @since 4.0.0
+ * @param <T> comparator type
+ * @author ignazio
  */
-public interface StringComparator extends Comparator<String>, Serializable {
+public class HasPriorityComparator<T> implements Comparator<T>, Serializable {
+
+    private static double getPriority(@Nullable Object p) {
+        HasPriority priority = checkNotNull(p).getClass().getAnnotation(HasPriority.class);
+        if (priority != null) {
+            return priority.value();
+        }
+        // if the object does not have a priority annotation, only use
+        // it last
+        return Double.MAX_VALUE;
+    }
+
+    @Override
+    public int compare(@Nullable T o1, @Nullable T o2) {
+        return Double.compare(getPriority(o1), getPriority(o2));
+    }
 }

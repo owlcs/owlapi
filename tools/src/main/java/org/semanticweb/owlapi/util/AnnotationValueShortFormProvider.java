@@ -13,8 +13,8 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +32,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
+import org.semanticweb.owlapi.utilities.IRIShortFormProvider;
+import org.semanticweb.owlapi.utilities.ShortFormProvider;
 
 /**
  * A short form provider that generates short forms based on entity annotation values. A list of

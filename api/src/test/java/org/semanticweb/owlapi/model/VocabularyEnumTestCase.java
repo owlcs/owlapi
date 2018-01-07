@@ -16,7 +16,7 @@ import static java.util.Arrays.stream;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.Namespaces.DC;
 import static org.semanticweb.owlapi.vocab.Namespaces.OWL;
 import static org.semanticweb.owlapi.vocab.Namespaces.SKOS;

@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.concurrent.locks.ReadWriteLock;
 

@@ -22,7 +22,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.PrefixManagerImpl;
+import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**

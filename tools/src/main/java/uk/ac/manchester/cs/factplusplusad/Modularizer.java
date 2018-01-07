@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.factplusplusad;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
 import static uk.ac.manchester.cs.owlapi.modularity.ModuleType.STAR;
 import static uk.ac.manchester.cs.owlapi.modularity.ModuleType.TOP;
 

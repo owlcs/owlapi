@@ -49,8 +49,8 @@ import static org.semanticweb.owlapi.search.Searcher.isSymmetric;
 import static org.semanticweb.owlapi.search.Searcher.isTransitive;
 import static org.semanticweb.owlapi.search.Searcher.range;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.pairs;
 
 import java.io.Writer;
 import java.util.Collection;

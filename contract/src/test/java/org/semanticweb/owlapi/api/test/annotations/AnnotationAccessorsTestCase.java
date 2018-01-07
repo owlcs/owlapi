@@ -23,7 +23,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Liter
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.Arrays;
 import java.util.Collection;

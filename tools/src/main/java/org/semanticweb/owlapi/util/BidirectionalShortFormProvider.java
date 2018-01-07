@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.utilities.ShortFormProvider;
 
 /**
  * A short form provider which is capable of translating back and forth between entities and their

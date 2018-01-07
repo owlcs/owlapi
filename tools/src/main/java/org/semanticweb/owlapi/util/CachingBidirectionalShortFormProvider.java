@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createSyncMap;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 
 import java.util.HashSet;
 import java.util.Map;

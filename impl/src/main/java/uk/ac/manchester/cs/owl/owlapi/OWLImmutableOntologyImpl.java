@@ -13,12 +13,12 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.streamFromSorted;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -105,9 +105,9 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
-import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
-import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
-import org.semanticweb.owlapi.util.PrefixManagerImpl;
+import org.semanticweb.owlapi.utilities.OWLAPIStreamUtils;
+import org.semanticweb.owlapi.utilities.OWLAxiomSearchFilter;
+import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import com.github.benmanes.caffeine.cache.LoadingCache;

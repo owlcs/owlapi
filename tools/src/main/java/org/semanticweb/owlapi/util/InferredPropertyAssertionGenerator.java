@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Set;
 

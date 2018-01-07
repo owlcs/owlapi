@@ -35,7 +35,7 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.BufferedWriter;
 import java.io.OutputStream;

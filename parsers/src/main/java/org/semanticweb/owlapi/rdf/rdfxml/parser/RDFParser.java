@@ -19,8 +19,8 @@ import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_SUBJECT;
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_TYPE;
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.XMLLANG;
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.XMLNS;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.IOException;
 import java.io.StreamTokenizer;

@@ -5,9 +5,22 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import java.io.IOException;
 @SuppressWarnings("all")
-public interface Provider {
+interface Provider {
+    /**
+     * Reads characters into an array
+     * @param buffer  Destination buffer
+     * @param offset   Offset at which to start storing characters
+     * @param length   The maximum possible number of characters to read
+     * @return The number of characters read, or -1 if all read
+     * @exception  IOException
+     */
     int read(char buffer[], int offset, int length) throws IOException;
     
-     void close() throws IOException;    
+    /**
+     * Closes the stream and releases any system resources associated with
+     * it.
+     * @exception IOException
+     */
+     void close() throws IOException;
 }
-/* JavaCC - OriginalChecksum=096bff1d6cfdf09e578e8852d16b4a9f (do not edit this line) */
+/* JavaCC - OriginalChecksum=01dfa60ec290c2a0277af6fa3346208b (do not edit this line) */

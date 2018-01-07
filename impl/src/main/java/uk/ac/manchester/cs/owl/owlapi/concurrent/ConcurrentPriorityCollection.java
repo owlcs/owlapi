@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
-import org.semanticweb.owlapi.util.PriorityCollection;
+import org.semanticweb.owlapi.utilities.PriorityCollection;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 09/04/15 A priority

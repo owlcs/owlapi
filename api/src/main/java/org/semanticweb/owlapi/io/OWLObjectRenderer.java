@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.utilities.ShortFormProvider;
 
 /**
  * A general purpose interface, implementations of which can be used to renderer OWL objects (e.g.

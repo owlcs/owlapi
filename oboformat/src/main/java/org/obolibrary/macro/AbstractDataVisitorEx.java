@@ -1,6 +1,6 @@
 package org.obolibrary.macro;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.List;
 

@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
 import java.io.Serializable;

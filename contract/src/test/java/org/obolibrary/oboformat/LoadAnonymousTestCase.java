@@ -13,7 +13,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSC
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSLabel;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubAnnotationPropertyOf;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
 
 import java.util.Set;

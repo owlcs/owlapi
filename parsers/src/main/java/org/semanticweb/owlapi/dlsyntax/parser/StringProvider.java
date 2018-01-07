@@ -18,8 +18,8 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 	
 	import java.io.IOException;
 	@SuppressWarnings("all")
-	public class StringProvider implements Provider {
-
+	class StringProvider implements Provider {
+	
 		String _string;
 		int _position = 0;
 		int _size;
@@ -58,4 +58,4 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 		}
 		
 	}
-/* JavaCC - OriginalChecksum=ac323791d94735c36deb691e7d95801c (do not edit this line) */
+/* JavaCC - OriginalChecksum=2bf28d843bfd7eb5393573559b932b29 (do not edit this line) */

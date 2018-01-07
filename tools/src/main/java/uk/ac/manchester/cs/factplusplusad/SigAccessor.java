@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.factplusplusad;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 

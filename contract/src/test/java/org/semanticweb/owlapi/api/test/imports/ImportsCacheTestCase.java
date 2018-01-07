@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.api.test.imports;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import org.junit.Before;
 import org.junit.Test;

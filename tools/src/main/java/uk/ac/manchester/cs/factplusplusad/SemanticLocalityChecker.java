@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.factplusplusad;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.pairs;
 
 import java.util.Collection;
 import java.util.HashMap;

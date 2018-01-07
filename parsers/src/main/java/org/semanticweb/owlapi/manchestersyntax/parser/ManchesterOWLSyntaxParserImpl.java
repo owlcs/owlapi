@@ -96,7 +96,7 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.values;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.EOFTOKEN;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.eof;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -175,9 +175,9 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
-import org.semanticweb.owlapi.util.PrefixManagerImpl;
-import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
+import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
+import org.semanticweb.owlapi.utilities.RemappingIndividualProvider;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;

@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.utilities.ShortFormProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

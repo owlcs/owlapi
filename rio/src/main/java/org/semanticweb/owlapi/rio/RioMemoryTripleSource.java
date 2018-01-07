@@ -35,7 +35,7 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.Iterator;

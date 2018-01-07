@@ -10,21 +10,61 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
-
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLOntology;
+package org.semanticweb.owlapi.utilities;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
- * @since 2.2.0
+ * A simple utility class that describes the version of a piece of software e.g. reasoner version.
+ * <br>
+ * A version number is assumed to be the following format: <b>major.minor.patch.build</b>.
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @since 3.0.0
  */
-public class ImportsStructureEntitySorter extends ImportsStructureObjectSorter<OWLEntity> {
+public class Version {
+
+    private final int major;
+    private final int minor;
+    private final int patch;
+    private final int build;
 
     /**
-     * @param ontology the ontology
+     * @param major major version number
+     * @param minor minor version number
+     * @param patch patch number
+     * @param build build number
      */
-    public ImportsStructureEntitySorter(OWLOntology ontology) {
-        super(ontology, OWLOntology::unsortedSignature);
+    public Version(int major, int minor, int patch, int build) {
+        this.major = major;
+        this.minor = minor;
+        this.patch = patch;
+        this.build = build;
+    }
+
+    /**
+     * @return major version
+     */
+    public int getMajor() {
+        return major;
+    }
+
+    /**
+     * @return minor version
+     */
+    public int getMinor() {
+        return minor;
+    }
+
+    /**
+     * @return patch version
+     */
+    public int getPatch() {
+        return patch;
+    }
+
+    /**
+     * @return build version
+     */
+    public int getBuild() {
+        return build;
     }
 }

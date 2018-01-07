@@ -15,9 +15,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSyncList;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSyncMap;
 import static org.semanticweb.owlapi.util.CollectionFactory.list;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.File;
 import java.io.IOException;
@@ -113,7 +113,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 import org.semanticweb.owlapi.util.OWLAnnotationPropertyTransformer;
-import org.semanticweb.owlapi.util.PriorityCollection;
+import org.semanticweb.owlapi.utilities.PriorityCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

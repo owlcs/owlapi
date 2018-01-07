@@ -18,8 +18,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Decla
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.search.Searcher.negValues;
 import static org.semanticweb.owlapi.search.Searcher.values;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.net.URL;
 import java.util.Collection;

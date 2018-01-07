@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.utilities.*;
 import org.semanticweb.owlapi.util.*;
 
 import org.semanticweb.owlapi.model.*;
@@ -835,12 +836,6 @@ return getIRIFromId(t.image);
     finally { jj_save(13, xla); }
   }
 
-  private boolean jj_3_11()
- {
-    if (jj_3R_21()) return true;
-    return false;
-  }
-
   private boolean jj_3R_23()
  {
     if (jj_scan_token(SOME)) return true;
@@ -1335,6 +1330,12 @@ return getIRIFromId(t.image);
   private boolean jj_3_7()
  {
     if (jj_3R_14()) return true;
+    return false;
+  }
+
+  private boolean jj_3_11()
+ {
+    if (jj_3R_21()) return true;
     return false;
   }
 

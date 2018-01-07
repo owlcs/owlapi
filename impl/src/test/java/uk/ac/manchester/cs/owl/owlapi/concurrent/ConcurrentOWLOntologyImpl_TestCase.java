@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.Navigation;
-import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+import org.semanticweb.owlapi.utilities.OWLAxiomSearchFilter;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 03/04/15

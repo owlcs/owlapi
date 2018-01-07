@@ -15,10 +15,16 @@
 
 package org.semanticweb.owlapi.dlsyntax.parser;
 
+/**
+ * An implementation of interface CharStream, where the stream is assumed to
+ * contain only ASCII characters (with java-like unicode escape processing).
+ */
 @SuppressWarnings("all")
-class JavaCharStream
+ class JavaCharStream
 {
+  /** Whether parser is static. */
   public static final boolean staticFlag = false;
+
 
   static final int hexval(char c) throws java.io.IOException {
     switch(c)
@@ -67,6 +73,7 @@ class JavaCharStream
     throw new java.io.IOException(); // Should never come here
   }
 
+/** Position in buffer. */
   public int bufpos = -1;
   int bufsize;
   int available;
@@ -180,6 +187,7 @@ class JavaCharStream
     return nextCharBuf[nextCharInd];
   }
 
+/** @return starting character for token. */
   public char BeginToken() throws java.io.IOException
   {
     if (inBuf > 0)
@@ -259,6 +267,7 @@ class JavaCharStream
     bufcolumn[bufpos] = column;
   }
 
+/** Read a character. */
   public char readChar() throws java.io.IOException
   {
     if (inBuf > 0)
@@ -353,31 +362,44 @@ class JavaCharStream
   }
 
   @Deprecated
+  /**
+   * @deprecated
+   * @see #getEndColumn
+   */
   public int getColumn() {
     return bufcolumn[bufpos];
   }
 
   @Deprecated
+  /**
+   * @deprecated
+   * @see #getEndLine
+   */
   public int getLine() {
     return bufline[bufpos];
   }
 
+/** Get end column. */
   public int getEndColumn() {
     return bufcolumn[bufpos];
   }
 
+/** Get end line. */
   public int getEndLine() {
     return bufline[bufpos];
   }
 
+/** @return column of token start */
   public int getBeginColumn() {
     return bufcolumn[tokenBegin];
   }
 
+/** @return line number of token start */
   public int getBeginLine() {
     return bufline[tokenBegin];
   }
 
+/** Retreat. */
   public void backup(int amount) {
 
     inBuf += amount;
@@ -385,6 +407,7 @@ class JavaCharStream
       bufpos += bufsize;
   }
 
+/** Constructor. */
   public JavaCharStream(Provider dstream,
                  int startline, int startcolumn, int buffersize)
   {
@@ -399,17 +422,19 @@ class JavaCharStream
     nextCharBuf = new char[4096];
   }
 
+/** Constructor. */
   public JavaCharStream(Provider dstream,
                                         int startline, int startcolumn)
   {
     this(dstream, startline, startcolumn, 4096);
   }
 
+/** Constructor. */
   public JavaCharStream(Provider dstream)
   {
     this(dstream, 1, 1, 4096);
   }
-
+/** Reinitialise. */
   public void ReInit(Provider dstream,
                  int startline, int startcolumn, int buffersize)
   {
@@ -430,17 +455,22 @@ class JavaCharStream
     nextCharInd = bufpos = -1;
   }
 
+/** Reinitialise. */
   public void ReInit(Provider dstream,
                                         int startline, int startcolumn)
   {
     ReInit(dstream, startline, startcolumn, 4096);
   }
 
+/** Reinitialise. */
   public void ReInit(Provider dstream)
   {
     ReInit(dstream, 1, 1, 4096);
   }
 
+
+
+  /** @return token image as String */
   public String GetImage()
   {
     if (bufpos >= tokenBegin)
@@ -450,6 +480,7 @@ class JavaCharStream
                               new String(buffer, 0, bufpos + 1);
   }
 
+  /** @return suffix */
   public char[] GetSuffix(int len)
   {
     char[] ret = new char[len];
@@ -466,6 +497,7 @@ class JavaCharStream
     return ret;
   }
 
+  /** Set buffers back to null when finished. */
   public void Done()
   {
     nextCharBuf = null;
@@ -474,6 +506,9 @@ class JavaCharStream
     bufcolumn = null;
   }
 
+  /**
+   * Method to adjust line and column numbers for the start of a token.
+   */
   public void adjustBeginLineColumn(int newLine, int newCol)
   {
     int start = tokenBegin;
@@ -521,4 +556,4 @@ class JavaCharStream
   void setTrackLineColumn(boolean tlc) { trackLineColumn = tlc; }
 
 }
-/* JavaCC - OriginalChecksum=8f5f93436c83a3c39905839ed9f0ffc4 (do not edit this line) */
+/* JavaCC - OriginalChecksum=b092b8384064d6b335968cb2030f6339 (do not edit this line) */

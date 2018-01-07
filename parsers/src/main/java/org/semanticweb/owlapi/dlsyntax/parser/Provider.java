@@ -18,9 +18,22 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 
 import java.io.IOException;
 @SuppressWarnings("all")
-public interface Provider {
+interface Provider {
+    /**
+     * Reads characters into an array
+     * @param buffer  Destination buffer
+     * @param offset   Offset at which to start storing characters
+     * @param length   The maximum possible number of characters to read
+     * @return The number of characters read, or -1 if all read
+     * @exception  IOException
+     */
     int read(char buffer[], int offset, int length) throws IOException;
     
-     void close() throws IOException;    
+    /**
+     * Closes the stream and releases any system resources associated with
+     * it.
+     * @exception IOException
+     */
+     void close() throws IOException;
 }
-/* JavaCC - OriginalChecksum=36dc330a7bb2900aa788d0518c3f2b97 (do not edit this line) */
+/* JavaCC - OriginalChecksum=221fd419069c77b401ba1ada756d2906 (do not edit this line) */

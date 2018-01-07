@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -20,7 +20,7 @@ import java.util.TreeMap;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.util.StringLengthComparator;
+import org.semanticweb.owlapi.utilities.StringLengthComparator;
 
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .

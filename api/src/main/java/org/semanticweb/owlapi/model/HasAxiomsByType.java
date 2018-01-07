@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import static java.util.stream.Collectors.toSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;

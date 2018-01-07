@@ -38,9 +38,9 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
 import static org.semanticweb.owlapi.search.Searcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.pairs;
 
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -89,7 +89,7 @@ import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.search.Filters;
-import org.semanticweb.owlapi.util.OWLAPIStreamUtils.Pair;
+import org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.Pair;
 
 /**
  * A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS syntax. Note that only

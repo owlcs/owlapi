@@ -1,6 +1,6 @@
 package org.semanticweb.owlapitools.decomposition;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;

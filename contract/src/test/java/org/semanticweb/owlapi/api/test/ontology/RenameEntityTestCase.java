@@ -57,8 +57,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubOb
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TopDatatype;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.equalStreams;
 
 import java.util.Arrays;
 import java.util.HashSet;

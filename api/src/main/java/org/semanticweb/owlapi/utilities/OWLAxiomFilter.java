@@ -10,23 +10,20 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.utilities;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-
-import javax.annotation.Nullable;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * String comparator that takes length into account before natural ordering.
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @since 2.0.0
  */
-public class StringLengthComparator implements StringComparator {
+@FunctionalInterface
+public interface OWLAxiomFilter {
 
-    @Override
-    public int compare(@Nullable String o1, @Nullable String o2) {
-        int diff = verifyNotNull(o1).length() - verifyNotNull(o2).length();
-        if (diff != 0) {
-            return diff;
-        }
-        return verifyNotNull(o1).compareTo(o2);
-    }
+    /**
+     * @param axiom axiom to filter
+     * @return true if check passed
+     */
+    boolean passes(OWLAxiom axiom);
 }

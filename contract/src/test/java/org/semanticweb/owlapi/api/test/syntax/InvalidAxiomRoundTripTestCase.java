@@ -31,7 +31,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLNo
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SameIndividual;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 

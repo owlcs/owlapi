@@ -55,8 +55,8 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SYMMETRIC;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TRANSITIVE;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TYPES;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.Writer;
 import java.util.ArrayList;
@@ -110,9 +110,9 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.OWLAxiomFilter;
 import org.semanticweb.owlapi.util.OWLObjectComparator;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
+import org.semanticweb.owlapi.utilities.OWLAxiomFilter;
 
 import com.google.common.collect.Sets;
 

@@ -39,7 +39,7 @@ import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+import org.semanticweb.owlapi.utilities.OWLAxiomSearchFilter;
 
 /**
  * Collection of filters for use in searching through ontology axioms.

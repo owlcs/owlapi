@@ -10,38 +10,27 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
-
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+package org.semanticweb.owlapi.utilities;
 
 import java.io.Serializable;
-import java.util.Comparator;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.annotations.HasPriority;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * Comparator for objects with HasPriority annotations. Objects without HasPriority are considered
- * to have lowest priority (Double.MAX_VALUE).
- *
- * @param <T> comparator type
- * @author ignazio
+ * Search filter for axioms of various types, matching a pass condition on a key.
  */
-public class HasPriorityComparator<T> implements Comparator<T>, Serializable {
+public interface OWLAxiomSearchFilter extends Serializable {
 
-    private static double getPriority(@Nullable Object p) {
-        HasPriority priority = checkNotNull(p).getClass().getAnnotation(HasPriority.class);
-        if (priority != null) {
-            return priority.value();
-        }
-        // if the object does not have a priority annotation, only use
-        // it last
-        return Double.MAX_VALUE;
-    }
+    /**
+     * @return axiom types; expected to be one, but the filter could include multiple axiom types
+     */
+    Iterable<AxiomType<?>> getAxiomTypes();
 
-    @Override
-    public int compare(@Nullable T o1, @Nullable T o2) {
-        return Double.compare(getPriority(o1), getPriority(o2));
-    }
+    /**
+     * @param axiom axiom to check
+     * @param key key
+     * @return true if passed
+     */
+    boolean pass(OWLAxiom axiom, Object key);
 }

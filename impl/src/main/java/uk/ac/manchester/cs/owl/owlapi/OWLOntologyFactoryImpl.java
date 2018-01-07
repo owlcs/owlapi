@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -38,7 +38,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.util.PriorityCollection;
+import org.semanticweb.owlapi.utilities.PriorityCollection;
 
 import com.google.common.collect.Sets;
 

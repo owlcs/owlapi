@@ -1,6 +1,6 @@
 package org.obolibrary.obo2owl;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

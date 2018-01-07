@@ -30,6 +30,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.utilities.*;
 import org.semanticweb.owlapi.util.*;
 
 import org.semanticweb.owlapi.model.*;

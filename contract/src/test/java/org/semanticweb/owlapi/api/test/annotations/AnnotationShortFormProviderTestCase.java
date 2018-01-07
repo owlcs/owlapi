@@ -33,10 +33,10 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.PrefixManagerImpl;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 import org.semanticweb.owlapi.util.StringAnnotationVisitor;
+import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group

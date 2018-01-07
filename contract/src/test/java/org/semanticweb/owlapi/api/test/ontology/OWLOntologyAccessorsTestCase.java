@@ -67,8 +67,8 @@ import static org.semanticweb.owlapi.search.Searcher.range;
 import static org.semanticweb.owlapi.search.Searcher.sub;
 import static org.semanticweb.owlapi.search.Searcher.sup;
 import static org.semanticweb.owlapi.search.Searcher.types;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
 

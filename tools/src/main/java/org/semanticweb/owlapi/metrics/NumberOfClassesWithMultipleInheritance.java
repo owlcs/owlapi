@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.metrics;
 
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.HashSet;
 import java.util.List;

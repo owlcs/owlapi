@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;

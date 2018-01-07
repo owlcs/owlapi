@@ -1,8 +1,8 @@
 package org.obolibrary.oboformat.writer;
 
 import static org.semanticweb.owlapi.model.parameters.Navigation.IN_SUB_POSITION;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

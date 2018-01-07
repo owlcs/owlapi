@@ -24,7 +24,7 @@ import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TA
 import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_RANGE;
 import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_SAVED_BY;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 import java.util.Collections;

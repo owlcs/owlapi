@@ -91,7 +91,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.QNameShortFormProvider;
-import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.utilities.ShortFormProvider;
 
 /**
  * A renderer that provides an HTML version of the ontology.

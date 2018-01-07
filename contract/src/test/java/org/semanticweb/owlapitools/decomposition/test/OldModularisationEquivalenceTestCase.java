@@ -1,8 +1,8 @@
 package org.semanticweb.owlapitools.decomposition.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.ArrayList;
 import java.util.List;

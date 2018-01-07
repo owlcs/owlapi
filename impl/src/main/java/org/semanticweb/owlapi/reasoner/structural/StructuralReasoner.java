@@ -15,9 +15,9 @@ package org.semanticweb.owlapi.reasoner.structural;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.sub;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -79,7 +79,7 @@ import org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
-import org.semanticweb.owlapi.util.Version;
+import org.semanticweb.owlapi.utilities.Version;
 
 /**
  * This is a simple structural reasoner that essentially answers with told information. It is

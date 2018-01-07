@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.model;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Navigation.IN_SUB_POSITION;
 import static org.semanticweb.owlapi.model.parameters.Navigation.IN_SUPER_POSITION;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.Collection;
 import java.util.Set;
@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
-import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+import org.semanticweb.owlapi.utilities.OWLAxiomSearchFilter;
 
 /**
  * Axiom accessor methods - all OWLOntology methods that return sets of axioms of a certain type or

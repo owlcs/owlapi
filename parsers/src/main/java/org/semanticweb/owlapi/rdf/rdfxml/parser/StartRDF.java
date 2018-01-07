@@ -38,8 +38,8 @@ import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_TYPE;
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_XMLLITERAL;
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.XMLLANG;
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.XMLNS;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.HashSet;
 import java.util.Set;

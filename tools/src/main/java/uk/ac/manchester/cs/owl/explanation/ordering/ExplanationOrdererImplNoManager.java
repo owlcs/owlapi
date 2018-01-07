@@ -14,8 +14,8 @@ package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
 
 import java.util.ArrayList;
 import java.util.Collection;

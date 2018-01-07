@@ -36,7 +36,7 @@
 package org.semanticweb.owlapi.rio;
 
 import static java.util.Arrays.asList;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

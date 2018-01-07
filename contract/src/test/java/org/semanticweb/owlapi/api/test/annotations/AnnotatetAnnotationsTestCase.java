@@ -6,7 +6,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annot
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSLabel;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
 import java.util.Set;

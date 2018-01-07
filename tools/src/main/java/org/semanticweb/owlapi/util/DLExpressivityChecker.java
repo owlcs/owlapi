@@ -27,7 +27,7 @@ import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.R;
 import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.S;
 import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.TRAN;
 import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.U;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Arrays;

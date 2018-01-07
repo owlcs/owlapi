@@ -7,7 +7,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.util.PriorityCollection;
+import org.semanticweb.owlapi.utilities.PriorityCollection;
 
 /**
  * Class to build HTTP accept headers.

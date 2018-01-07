@@ -16,7 +16,7 @@ import static org.semanticweb.owlapi.model.EntityType.ANNOTATION_PROPERTY;
 import static org.semanticweb.owlapi.model.EntityType.CLASS;
 import static org.semanticweb.owlapi.model.EntityType.DATA_PROPERTY;
 import static org.semanticweb.owlapi.model.EntityType.OBJECT_PROPERTY;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;

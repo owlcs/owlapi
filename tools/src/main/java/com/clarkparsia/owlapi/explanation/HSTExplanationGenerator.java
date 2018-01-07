@@ -13,7 +13,7 @@
 package com.clarkparsia.owlapi.explanation;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,8 +36,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.util.OWLAPIPreconditions;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
+import org.semanticweb.owlapi.utilities.OWLAPIPreconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

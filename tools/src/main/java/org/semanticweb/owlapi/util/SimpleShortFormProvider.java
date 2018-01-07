@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.util;
 import java.io.Serializable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.utilities.ShortFormProvider;
 
 /**
  * A very simple short form provider which is intended to provide human readable display names for

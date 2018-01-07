@@ -1,6 +1,6 @@
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.utilities;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;

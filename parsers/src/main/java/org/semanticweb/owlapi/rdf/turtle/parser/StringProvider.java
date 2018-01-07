@@ -5,8 +5,8 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 	
 	import java.io.IOException;
 	@SuppressWarnings("all")
-	public class StringProvider implements Provider {
-
+	class StringProvider implements Provider {
+	
 		String _string;
 		int _position = 0;
 		int _size;
@@ -45,4 +45,4 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 		}
 		
 	}
-/* JavaCC - OriginalChecksum=3db8c8bc277dd5be6da35e5e3cb7b0f0 (do not edit this line) */
+/* JavaCC - OriginalChecksum=788d2f1c3ca4e00f419f22df517dd9e7 (do not edit this line) */

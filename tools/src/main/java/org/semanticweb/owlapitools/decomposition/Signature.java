@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
+import org.semanticweb.owlapi.utilities.OWLAPIStreamUtils;
 
 /**
  * class to hold the signature of a module
