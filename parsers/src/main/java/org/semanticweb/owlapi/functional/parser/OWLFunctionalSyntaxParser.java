@@ -13,7 +13,7 @@ import java.io.IOException;
 import org.semanticweb.owlapi.io.OWLParserException;
 
 @SuppressWarnings("all")
-public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
+class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     private OWLOntologyManager man;
     private OntologyConfigurator configuration;
     private OWLOntology ontology;

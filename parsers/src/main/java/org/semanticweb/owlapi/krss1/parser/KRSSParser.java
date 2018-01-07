@@ -8,7 +8,7 @@ import java.net.*;
 import java.util.*;
 
 @SuppressWarnings("all")
-public class KRSSParser implements KRSSParserConstants {
+class KRSSParser implements KRSSParserConstants {
     private OWLOntology ontology;
     private OWLDataFactory df;
     private Map<String, IRI> string2IRI;

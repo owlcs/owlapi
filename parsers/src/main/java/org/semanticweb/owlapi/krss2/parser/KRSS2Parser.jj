@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 // Suppress warnings in auto-generated code
 @SuppressWarnings("all")
-public class KRSS2Parser {
+class KRSS2Parser {
     private OWLOntology ontology;
     private OWLDataFactory df;
     private Map<String, IRI> string2IRI;

@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** The Class TurtleParser. */
 @SuppressWarnings("all")
-public class TurtleParser implements TurtleParserConstants {
+class TurtleParser implements TurtleParserConstants {
     private Map<String, IRI> string2IRI;
     private IRI base;
     private OWLRDFConsumer handler;

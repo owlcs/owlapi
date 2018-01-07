@@ -5,8 +5,8 @@ package org.semanticweb.owlapi.krss1.parser;
 	
 	import java.io.IOException;
 	@SuppressWarnings("all")
-	public class StringProvider implements Provider {
-
+	class StringProvider implements Provider {
+	
 		String _string;
 		int _position = 0;
 		int _size;
@@ -45,4 +45,4 @@ package org.semanticweb.owlapi.krss1.parser;
 		}
 		
 	}
-/* JavaCC - OriginalChecksum=991a3423b85e6d75afe5d09cbeee5e93 (do not edit this line) */
+/* JavaCC - OriginalChecksum=1a6bbcb263ccd2a6fd4902f843b23c43 (do not edit this line) */

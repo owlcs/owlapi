@@ -7,7 +7,7 @@ import java.net.*;
 import java.util.*;
 
 @SuppressWarnings("all")
-public class OBOParser implements OBOParserConstants {
+class OBOParser implements OBOParserConstants {
 
     private OBOParserHandler handler;
 

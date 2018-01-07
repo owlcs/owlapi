@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 // Suppress warnings in auto-generated code
 @SuppressWarnings("all")
-public class KRSS2Parser implements KRSS2ParserConstants {
+class KRSS2Parser implements KRSS2ParserConstants {
     private OWLOntology ontology;
     private OWLDataFactory df;
     private Map<String, IRI> string2IRI;
