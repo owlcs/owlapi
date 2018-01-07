@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Locale;
 import java.util.Optional;
 
 import javax.annotation.Nullable;
@@ -66,7 +67,7 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
         if (hashCode == 0) {
             hashCode = 37;
             hashCode = hashCode * 37 + lexicalValue.hashCode();
-            hashCode = hashCode * 37 + lang.hashCode();
+            hashCode = hashCode * 37 + lang.toLowerCase(Locale.ROOT).hashCode();
             hashCode = hashCode * 37 + datatype.hashCode();
         }
         return hashCode;
@@ -82,7 +83,7 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
             if (!lexicalValue.equals(other.lexicalValue)) {
                 return false;
             }
-            if (!lang.equals(other.lang)) {
+            if (!lang.toLowerCase(Locale.ROOT).equals(other.lang.toLowerCase(Locale.ROOT))) {
                 return false;
             }
             return datatype.equals(other.datatype);
@@ -98,7 +99,14 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
             if (!getLexicalForm().equals(((Literal) obj).getLexicalForm())) {
                 return false;
             }
-            if (!getLanguageTag().equals(literal.getLanguageTag())) {
+            Optional<String> thisTag = getLanguageTag();
+            Optional<String> thatTag = literal.getLanguageTag();
+            if (thisTag.isPresent() != thatTag.isPresent()) {
+                return false;
+            }
+            if (thisTag.isPresent() && thatTag.isPresent()
+                && !thisTag.get().toLowerCase(Locale.ROOT)
+                    .equalsIgnoreCase(thatTag.get().toLowerCase(Locale.ROOT))) {
                 return false;
             }
             return getDatatype().equals(literal.getDatatype());
