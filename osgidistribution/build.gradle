@@ -24,7 +24,7 @@ dependencies {
     compile project(':owlapi-compatibility')
     compile 'org.apache.servicemix.bundles:org.apache.servicemix.bundles.javax-inject:1_2'
     compile 'org.apache.servicemix.bundles:org.apache.servicemix.bundles.aopalliance:1.0_6'
-    testCompile 'biz.aQute.bnd:biz.aQute.bndlib:3.3.0'
+    testCompile 'biz.aQute.bnd:biz.aQute.bndlib:3.5.0'
     testCompile 'org.apache.felix:org.apache.felix.framework:5.6.1'
     testCompile 'org.osgi:osgi.core:6.0.0'
     testCompile 'org.apache.felix:org.apache.felix.bundlerepository:latest.release'
@@ -33,7 +33,7 @@ dependencies {
     testCompile 'org.ops4j.pax.exam:pax-exam-container-native:4.11.0'
     testCompile 'org.ops4j.pax.exam:pax-exam-junit4:4.11.0'
     testCompile 'org.ops4j.pax.exam:pax-exam-link-mvn:4.11.0'
-    testCompile 'org.slf4j:slf4j-simple:1.7.22'
+    testCompile 'org.slf4j:slf4j-simple:[1.7.0,1.7.26)'
 }
 
 apply plugin: 'java'

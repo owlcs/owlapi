@@ -4,7 +4,7 @@ buildscript {
 plugins {
     id 'groovy'
     id 'idea'
-
+    id 'com.github.ben-manes.versions' version '0.17.0'
 }
 repositories {
     jcenter()
@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    compile 'biz.aQute.bnd:biz.aQute.bndlib:3.3.0'
+    compile 'biz.aQute.bnd:biz.aQute.bndlib:3.5.0'
     compile fileTree(dir: 'lib', include: '*.jar')
     compile 'com.github.siom79.japicmp:japicmp:0.9.3'
     compile gradleApi()

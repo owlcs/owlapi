@@ -16,8 +16,12 @@ buildscript {
     dependencies {
         classpath fileTree('buildSrc/lib/')
         classpath 'me.champeau.gradle:japicmp-gradle-plugin:latest.integration'
-        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.3.0'
+        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.5.0'
     }
+}
+
+plugins {
+  id 'com.github.ben-manes.versions' version '0.17.0'
 }
 
 allprojects {
@@ -63,18 +67,17 @@ subprojects {
 
     dependencies {
         compile 'net.sf.trove4j:trove4j:[3.0.3,4)'
-        compile 'com.github.ben-manes.caffeine:caffeine:[2.1,3)'
-        compile 'com.google.guava:guava:[19.0,21)'
-        compile 'com.google.inject:guice:[4,4.1.1)'
-        compile 'com.google.inject.extensions:guice-assistedinject:[4,4.1.1)'
-        compile 'com.google.inject.extensions:guice-multibindings:[4,4.1.1)'
-        compile 'com.google.code.findbugs:jsr305:[2.0.1,3)'
-        compile 'org.slf4j:slf4j-api:[1.7.14,1.8)'
+        compile 'com.github.ben-manes.caffeine:caffeine:[2.6,3)'
+        compile 'com.google.guava:guava:[19.0,22.0]'
+        compile 'com.google.inject:guice:[4.0.0,4.1.0]'
+        compile 'com.google.inject.extensions:guice-multibindings:[4.0.0,4.1.0]'
+        compile 'com.google.code.findbugs:jsr305:[2.0.0,4)'
+        compile 'org.slf4j:slf4j-api:[1.7.0,1.7.26)'
         compile 'commons-io:commons-io:[2.4,3)'
         testCompile 'org.hamcrest:hamcrest-core:[1.3,2)'
         testCompile 'junit:junit:[4.12,5)'
         testCompile 'org.mockito:mockito-core:[2.8.47,3)'
-        testCompile 'org.slf4j:slf4j-simple:[1.7.14,1.8)'
+        testCompile 'org.slf4j:slf4j-simple:[1.7.0,1.7.26)'
     }
 
     task wrap(type: OSGIWrapTask) {

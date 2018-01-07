@@ -25,14 +25,14 @@
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-rio</artifactId><version>${project.version}</version></dependency>
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-api</artifactId><version>${project.version}</version></dependency>
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-compatibility</artifactId><version>${project.version}</version></dependency>
-		<dependency><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId><version>3.0.1</version></dependency>
+		<dependency><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId><version>[2.0.0,4)</version></dependency>
 		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-core</artifactId><version>2.8.5</version></dependency>
 		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId><version>2.8.5</version></dependency>
 		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-annotations</artifactId><version>2.8.5</version></dependency>
-		<dependency><groupId>org.apache.commons</groupId><artifactId>commons-rdf-api</artifactId><version>0.3.0-incubating</version></dependency>
-		<dependency><groupId>org.tukaani</groupId><artifactId>xz</artifactId><version>1.6</version></dependency>
-		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.22</version></dependency>
-		<dependency><groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j</artifactId><version>1.7.22</version></dependency>
+		<dependency><groupId>org.apache.commons</groupId><artifactId>commons-rdf-api</artifactId><version>0.5.0</version></dependency>
+		<dependency><groupId>org.tukaani</groupId><artifactId>xz</artifactId><version>1.8</version></dependency>
+		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>[1.7.0,1.7.26)</version></dependency>
+		<dependency><groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j</artifactId><version>[1.7.0,1.7.26)</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-api</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-languages</artifactId><version>${inherited.rdf4j.version}</version></dependency>
@@ -56,11 +56,11 @@
 		<dependency><groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version></dependency>
 		<dependency><groupId>commons-io</groupId><artifactId>commons-io</artifactId><version>2.5</version></dependency>
 		<dependency><groupId>net.sf.trove4j</groupId><artifactId>trove4j</artifactId><version>3.0.3</version></dependency>
-		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>20.0</version></dependency>
-		<dependency><groupId>com.google.inject</groupId><artifactId>guice</artifactId><version>4.1.0</version></dependency>
-		<dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-multibindings</artifactId><version>4.1.0</version></dependency>
-		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.5.6</version></dependency>
-		<dependency><groupId>com.squareup.okhttp3</groupId><artifactId>okhttp</artifactId><version>3.5.0</version></dependency>
+		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>[19.0,22.0]</version></dependency>
+		<dependency><groupId>com.google.inject</groupId><artifactId>guice</artifactId><version>[4.0.0,4.1.0]</version></dependency>
+		<dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-multibindings</artifactId><version>[4.0.0,4.1.0]</version></dependency>
+		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.6.1</version></dependency>
+		<dependency><groupId>com.squareup.okhttp3</groupId><artifactId>okhttp</artifactId><version>3.9.1</version></dependency>
 		<dependency><groupId>com.squareup.okio</groupId><artifactId>okio</artifactId><version>1.11.0</version></dependency>
 		<dependency><groupId>org.yaml</groupId><artifactId>snakeyaml</artifactId><version>1.19</version></dependency>
 		<!--  Disable until updated to use RDF4J
@@ -73,8 +73,8 @@
 		<dependency><groupId>org.apache.servicemix.bundles</groupId><artifactId>org.apache.servicemix.bundles.aopalliance</artifactId><version>1.0_6</version></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.apache.felix.framework</artifactId><version>5.6.1</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.osgi.core</artifactId><version>1.4.0</version><scope>test</scope></dependency>
-		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId><version>1.7.22</version><scope>test</scope></dependency>
-		<dependency><groupId>biz.aQute.bnd</groupId><artifactId>biz.aQute.bndlib</artifactId><version>3.3.0</version><scope>test</scope></dependency>
+		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId><version>[1.7.0,1.7.26)</version><scope>test</scope></dependency>
+		<dependency><groupId>biz.aQute.bnd</groupId><artifactId>biz.aQute.bndlib</artifactId><version>3.5.0</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.apache.felix.framework</artifactId><version>5.6.1</version><scope>test</scope></dependency>
 		<dependency><groupId>org.osgi</groupId><artifactId>osgi.core</artifactId><version>6.0.0</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.apache.felix.bundlerepository</artifactId><version>2.0.10</version><scope>test</scope></dependency>

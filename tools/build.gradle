@@ -3,5 +3,5 @@ description = 'OWLAPI :: Atomic Decomposition and Explanation'
 dependencies {
   compile project(':owlapi-api')
   compile 'org.yaml:snakeyaml:1.19'
-  testCompile 'org.apache.commons:commons-rdf-api:0.3.0-incubating:tests'
+  testCompile 'org.apache.commons:commons-rdf-api:0.5.0:tests'
 }
