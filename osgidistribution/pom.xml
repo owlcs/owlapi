@@ -24,7 +24,6 @@
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-oboformat</artifactId><version>${project.version}</version></dependency>
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-rio</artifactId><version>${project.version}</version></dependency>
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-api</artifactId><version>${project.version}</version></dependency>
-		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-compatibility</artifactId><version>${project.version}</version></dependency>
 		<dependency><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId><version>[2.0.0,4)</version></dependency>
 		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-core</artifactId><version>2.8.5</version></dependency>
 		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId><version>2.8.5</version></dependency>
@@ -171,7 +170,6 @@
 									<include>net.sourceforge.owlapi:owlapi-oboformat</include>
 									<include>net.sourceforge.owlapi:owlapi-parsers</include>
 									<include>net.sourceforge.owlapi:owlapi-rio</include>
-									<include>net.sourceforge.owlapi:owlapi-compatibility</include>
 									<include>net.sourceforge.owlapi:owlapi-tools</include>
 								</includes>
 								<excludes>
@@ -248,7 +246,6 @@
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboformat</dependencySourceInclude>
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-compatibility</dependencySourceInclude>
 							</dependencySourceIncludes>
 						</configuration>
 					</execution>

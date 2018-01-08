@@ -21,7 +21,6 @@ dependencies {
     compile project(':owlapi-oboformat')
     compile project(':owlapi-rio')
     compile project(':owlapi-api')
-    compile project(':owlapi-compatibility')
     compile 'org.apache.servicemix.bundles:org.apache.servicemix.bundles.javax-inject:1_2'
     compile 'org.apache.servicemix.bundles:org.apache.servicemix.bundles.aopalliance:1.0_6'
     testCompile 'biz.aQute.bnd:biz.aQute.bndlib:3.5.0'

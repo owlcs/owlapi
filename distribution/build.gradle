@@ -2,7 +2,7 @@ plugins {
   id 'maven'
   id 'java'
   id 'com.github.johnrengelman.shadow' version '1.2.4'
-  id 'com.github.ben-manes.versions' version '0.17.0'
+  //id 'com.github.ben-manes.versions' version '0.17.0'
 }
 description = 'OWLAPI :: Distribution'
 
@@ -18,7 +18,6 @@ dependencies {
   faux project(':owlapi-oboformat')
   faux project(':owlapi-rio')
   faux project(':owlapi-api')
-  faux project(':owlapi-compatibility')
 }
 bundle {
   deleteAllActions()

@@ -1,5 +1,0 @@
-
-description = 'OWLAPI :: Compatibility'
-dependencies {
-  compile project(':owlapi-apibinding')
-}

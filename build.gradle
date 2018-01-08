@@ -126,7 +126,7 @@ subprojects {
                     println "iPi ${it}"
                     def out = packageInfoFile.newPrintWriter()
                     MavenVersion v = MavenVersion.parseMavenString(project.version.toString())
-                    out.println "version 5"
+                    out.println "version 6"
                     out.close()
                 }
 
