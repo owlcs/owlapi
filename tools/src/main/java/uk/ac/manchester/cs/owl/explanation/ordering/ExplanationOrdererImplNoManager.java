@@ -77,9 +77,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
 
-    /**
-     * The comparator.
-     */
+    /** The comparator. */
     private static final Comparator<Tree<OWLAxiom>> COMPARATOR = (o1, o2) -> {
         OWLAxiom ax1 = o1.getUserObject();
         OWLAxiom ax2 = o2.getUserObject();
@@ -117,11 +115,11 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     };
     private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = createMap();
     private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = createMap();
-    private final SeedExtractor seedExtractor = new SeedExtractor();
+    protected final SeedExtractor seedExtractor = new SeedExtractor();
     private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = createMap();
     private final Set<OWLAxiom> consumedAxioms = createLinkedSet();
     private final Set<AxiomType<?>> passTypes = createLinkedSet();
-    private Set<OWLAxiom> currentExplanation;
+    protected Set<OWLAxiom> currentExplanation;
     private Map<OWLEntity, Set<OWLAxiom>> axioms = new HashMap<>();
 
     /**
@@ -134,7 +132,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
         passTypes.add(AxiomType.DISJOINT_CLASSES);
     }
 
-    private static void sortChildrenAxioms(ExplanationTree tree) {
+    protected static void sortChildrenAxioms(ExplanationTree tree) {
         tree.sortChildren(COMPARATOR);
     }
 
@@ -168,7 +166,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
         return childCount1 - childCount2;
     }
 
-    private void reset() {
+    protected void reset() {
         lhs2AxiomMap.clear();
         entitiesByAxiomRHS.clear();
         consumedAxioms.clear();
@@ -208,7 +206,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
      * @param target the current target
      * @return the target axioms
      */
-    private Set<OWLAxiom> getTargetAxioms(OWLEntity target) {
+    protected Set<OWLAxiom> getTargetAxioms(OWLEntity target) {
         return axioms.getOrDefault(target, Collections.emptySet());
     }
 
@@ -238,7 +236,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
         return getTargetAxioms(entity).stream();
     }
 
-    private void buildIndices() {
+    protected void buildIndices() {
         reset();
         AxiomMapBuilder builder = new AxiomMapBuilder();
         currentExplanation.forEach(ax -> ax.accept(builder));
@@ -276,9 +274,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
         add(getIndexedSet(axiom, entitiesByAxiomRHS, true), rhs.signature());
     }
 
-    /**
-     * The Class SeedExtractor.
-     */
+    /** The Class SeedExtractor. */
     private static class SeedExtractor implements OWLAxiomVisitor {
 
         @Nullable
@@ -368,10 +364,8 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
         }
     }
 
-    /**
-     * A visitor that indexes axioms by their left and right hand sides.
-     */
-    private class AxiomMapBuilder implements OWLAxiomVisitor {
+    /** A visitor that indexes axioms by their left and right hand sides. */
+    class AxiomMapBuilder implements OWLAxiomVisitor {
 
         AxiomMapBuilder() {}
 

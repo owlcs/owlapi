@@ -32,14 +32,14 @@ public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
     private final OWLOntologyWalker walker;
 
     /**
-     * @param walker walker
+     * @param walker ontology walker
      */
     public OWLOntologyWalkerVisitorEx(OWLOntologyWalker walker) {
         this.walker = checkNotNull(walker, "walker cannot be null");
     }
 
     /**
-     * @return current axiom
+     * @return current axiom from walker
      */
     @Nullable
     public OWLAxiom getCurrentAxiom() {
@@ -47,7 +47,7 @@ public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
     }
 
     /**
-     * @return current ontology
+     * @return current ontology from walker
      */
     public OWLOntology getCurrentOntology() {
         OWLOntology ontology = walker.getOntology();
@@ -59,7 +59,7 @@ public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
     }
 
     /**
-     * @return annotation
+     * @return current annotation from walker
      */
     @Nullable
     public OWLAnnotation getCurrentAnnotation() {
