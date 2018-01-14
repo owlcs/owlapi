@@ -15,8 +15,12 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
+
 import javax.annotation.Nullable;
+
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.model.OBODoc;
@@ -52,13 +56,13 @@ public class OboFormatTestBasics extends TestBase {
     }
 
     protected OBODoc parseOBOFile(String fn) {
-        return parseOBOFile(fn, false);
+        return parseOBOFile(fn, false, Collections.emptyMap());
     }
 
     @SuppressWarnings("resource")
-    protected OBODoc parseOBOFile(String fn, boolean allowEmptyFrames) {
+    protected OBODoc parseOBOFile(String fn, boolean allowEmptyFrames, Map<String, OBODoc> cache) {
         InputStream inputStream = getInputStream(fn);
-        OBOFormatParser p = new OBOFormatParser();
+        OBOFormatParser p = new OBOFormatParser(cache);
         OBODoc obodoc;
         try {
             obodoc = p.parse(new BufferedReader(new InputStreamReader(inputStream)));
@@ -173,7 +177,7 @@ public class OboFormatTestBasics extends TestBase {
             .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral && label
                 .equals(
                     ((OWLLiteral) aa.getValue()).getLiteral()))
-            .filter(aa -> aa.getSubject().isIRI()).findAny();
+                .filter(aa -> aa.getSubject().isIRI()).findAny();
         if (anyMatch.isPresent()) {
             return (IRI) anyMatch.get().getSubject();
         }

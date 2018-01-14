@@ -25,7 +25,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.annotation.Nullable;
+
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -39,6 +41,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -194,7 +197,7 @@ public class OWLAPIObo2Owl {
      * @param iri the iri
      * @param outFile the out file
      * @param defaultOnt -- e.g. "go". If the obo file contains no "ontology:" header tag, this is
-     * added
+     *        added
      * @param manager the manager to be used
      * @throws IOException Signals that an I/O exception has occurred.
      * @throws OWLOntologyCreationException the oWL ontology creation exception
@@ -532,8 +535,10 @@ public class OWLAPIObo2Owl {
             String path = getURI(cl.getValue().toString());
             IRI importIRI = IRI.create(path);
             OWLImportsDeclaration owlImportsDeclaration = fac.getOWLImportsDeclaration(importIRI);
-            manager
-                .makeLoadImportRequest(owlImportsDeclaration, new OWLOntologyLoaderConfiguration());
+            manager.makeLoadImportRequest(owlImportsDeclaration,
+                new OWLOntologyLoaderConfiguration());
+            AddImport ai = new AddImport(in, owlImportsDeclaration);
+            manager.applyChange(ai);
         }
         postProcess(in);
         return in;
@@ -739,9 +744,9 @@ public class OWLAPIObo2Owl {
         OWLClass cls = trClass(checkNotNull(termFrame.getId()));
         add(fac.getOWLDeclarationAxiom(cls));
         termFrame.getTags().stream().filter(OboFormatTag.TAG_ALT_ID.getTag()::equals).forEach(t ->
-            // Generate deprecated and replaced_by details for alternate
-            // identifier
-            add(translateAltIds(termFrame.getClauses(t), cls.getIRI(), true)));
+        // Generate deprecated and replaced_by details for alternate
+        // identifier
+        add(translateAltIds(termFrame.getClauses(t), cls.getIRI(), true)));
         termFrame.getTags().forEach(t -> add(trTermFrameClauses(cls, termFrame.getClauses(t), t)));
         return cls;
     }

@@ -23,12 +23,17 @@ import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.junit.Test;
 import org.obolibrary.macro.MacroExpansionGCIVisitor;
 import org.obolibrary.macro.MacroExpansionVisitor;
@@ -60,6 +65,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -172,7 +178,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
 
     @Test
     public void testCommentRemarkConversion() throws Exception {
-        OBODoc obo = parseOBOFile("comment_remark_conversion.obo", true);
+        OBODoc obo = parseOBOFile("comment_remark_conversion.obo", true, Collections.emptyMap());
         Frame headerFrame = obo.getHeaderFrame();
         Collection<String> remarks = headerFrame
             .getTagValues(OboFormatTag.TAG_REMARK, String.class);
@@ -496,7 +502,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
                 ces.remove(cet4);
                 OWLClassExpression clst4ex = ces.iterator().next();
                 assertEquals("ObjectSomeValuesFrom(" + BFO51.toQuotedString()
-                        + " ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom("
+                    + " ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom("
                         + BFO51
                         .toQuotedString() + " " + clst4.getIRI().toQuotedString() + ")))",
                     clst4ex.toString());
@@ -504,7 +510,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
                 ces.remove(cet5);
                 OWLClassExpression clst5ex = ces.iterator().next();
                 assertEquals("ObjectSomeValuesFrom(" + BFO51.toQuotedString()
-                        + " ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom("
+                    + " ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom("
                         + BFO51
                         .toQuotedString() + " <http://purl.obolibrary.org/obo/TEST_5>)))",
                     clst5ex.toString());
@@ -526,7 +532,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertEquals(
             "SubClassOf(<http://purl.obolibrary.org/obo/TEST_3> ObjectSomeValuesFrom(" + BFO51
                 .toQuotedString()
-                + " ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom("
+            + " ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom("
                 + BFO51
                 .toQuotedString() + " <http://purl.obolibrary.org/obo/TEST_4>))))", outputOntology
                 .subClassAxiomsForSubClass(cls).iterator().next().toString());
@@ -539,9 +545,9 @@ public class BasicsTestCase extends OboFormatTestBasics {
             y -> y instanceof OWLObjectSomeValuesFrom)
             .map(y -> ((OWLObjectSomeValuesFrom) y).getProperty()
                 .toString()).forEach(pStr -> {
-            assertEquals(BFO51.toQuotedString(), pStr);
-            ok.set(true);
-        });
+                assertEquals(BFO51.toQuotedString(), pStr);
+                ok.set(true);
+            });
         assertTrue(ok.get());
         writeOWL(ontology);
     }
@@ -639,6 +645,18 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
+    public void testImportsConverted() throws OWLOntologyCreationException {
+        Map<String, OBODoc> cache = new HashMap<>();
+        IRI iri = IRI.create("http://purl.obolibrary.org/obo/tests/test.obo");
+        cache.put(iri.toString(), new OBODoc());
+        m.createOntology(iri);
+        OBODoc oboDoc = parseOBOFile("annotated_import.obo", false, cache);
+        OWLAPIObo2Owl toOWL = new OWLAPIObo2Owl(m);
+        Stream<OWLImportsDeclaration> imports = toOWL.convert(oboDoc).importsDeclarations();
+        assertTrue(imports.allMatch(i -> i.getIRI().equals(iri)));
+    }
+
+    @Test
     public void testConvertLogicalDefinitionPropertyView() {
         // PARSE TEST FILE
         OWLOntology owlOntology = convert(
@@ -658,9 +676,9 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     /*
-    *
-    * Note there is currently a bug whereby blocks of constraints are not translated. E.g
-    *
+     *
+     * Note there is currently a bug whereby blocks of constraints are not translated. E.g
+     *
     * [Term]
     id: GO:0009657
     name: plastid organization
@@ -669,8 +687,8 @@ public class BasicsTestCase extends OboFormatTestBasics {
     relationship: never_in_taxon NCBITaxon:28009 {id="GOTAX:0000503", source="PMID:21311032"} ! Choanoflagellida
     relationship: never_in_taxon NCBITaxon:554915 {id="GOTAX:0000504", source="PMID:21311032"} ! Amoebozoa
 
-    *
-    */
+     * 
+     */
     @Test
     public void testExpandTaxonConstraints() {
         OWLOntology ontology = convert(parseOBOFile("taxon_constraints.obo"));
@@ -736,7 +754,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
 
     @Test
     public void writeTypeDefComments() throws Exception {
-        OBODoc doc = parseOBOFile("typedef_comments.obo", true);
+        OBODoc doc = parseOBOFile("typedef_comments.obo", true, Collections.emptyMap());
         String original = readResource("typedef_comments.obo");
         String written = renderOboToString(doc);
         assertEquals(original, written);
@@ -908,7 +926,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
 
     @Test
     public void testConvertXPsPropertyChain() {
-        assertNotNull(parseOBOFile("chaintest.obo", true));
+        assertNotNull(parseOBOFile("chaintest.obo", true, Collections.emptyMap()));
     }
 
     @Test
