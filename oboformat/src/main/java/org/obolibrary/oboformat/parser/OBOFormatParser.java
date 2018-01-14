@@ -14,10 +14,13 @@ import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nullable;
 
@@ -49,20 +52,29 @@ public class OBOFormatParser {
     private final LoadingCache<String, String> stringCache;
     private boolean followImport;
     private Object location;
+    private ConcurrentHashMap<String, OBODoc> importCache = new ConcurrentHashMap<>();
 
     /**
      *
      */
     public OBOFormatParser() {
-        this(new MyStream());
+        this(new MyStream(), Collections.emptyMap());
+    }
+
+    /**
+     * @param importsMap import map
+     */
+    public OBOFormatParser(Map<String, OBODoc> importsMap) {
+        this(new MyStream(), importsMap);
     }
 
     /**
      * @param s input stream
      */
     @SuppressWarnings("null")
-    protected OBOFormatParser(MyStream s) {
+    protected OBOFormatParser(MyStream s, Map<String, OBODoc> importsMap) {
         stream = s;
+        importCache.putAll(importsMap);
         Caffeine<String, String> builder = Caffeine.newBuilder().maximumWeight(8388608)
             .weigher((String key, String value) -> key.length());
         if (LOG.isDebugEnabled()) {
@@ -102,6 +114,15 @@ public class OBOFormatParser {
 
     private static String removeTrailingWS(String s) {
         return s.replaceAll("\\s*$", "");
+    }
+
+    /**
+     * @param key key for the import
+     * @param doc document
+     * @return true if the key is new
+     */
+    public boolean addImport(String key, OBODoc doc) {
+        return importCache.put(key, doc) == null;
     }
 
     /**
@@ -230,8 +251,11 @@ public class OBOFormatParser {
                 cl.setValue(path);
                 if (followImport) {
                     // resolve OboDoc documents from import paths.
-                    OBOFormatParser parser = new OBOFormatParser();
-                    OBODoc doc = parser.parseURL(path);
+                    OBODoc doc = importCache.get(path);
+                    if (doc == null) {
+                        OBOFormatParser parser = new OBOFormatParser(importCache);
+                        doc = parser.parseURL(path);
+                    }
                     imports.add(doc);
                 }
             }

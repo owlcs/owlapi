@@ -36,6 +36,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -526,6 +527,8 @@ public class OWLAPIObo2Owl {
             IRI importIRI = IRI.create(path);
             OWLImportsDeclaration owlImportsDeclaration = fac.getOWLImportsDeclaration(importIRI);
             manager.makeLoadImportRequest(owlImportsDeclaration, new OntologyConfigurator());
+            AddImport ai = new AddImport(in, owlImportsDeclaration);
+            manager.applyChange(ai);
         }
         postProcess(in);
         return in;

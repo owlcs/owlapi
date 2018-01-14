@@ -15,6 +15,8 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.Nullable;
@@ -56,12 +58,12 @@ public class OboFormatTestBasics extends TestBase {
     }
 
     protected OBODoc parseOBOFile(String fn) {
-        return parseOBOFile(fn, false);
+        return parseOBOFile(fn, false, Collections.emptyMap());
     }
 
-    protected OBODoc parseOBOFile(String fn, boolean allowEmptyFrames) {
+    protected OBODoc parseOBOFile(String fn, boolean allowEmptyFrames, Map<String, OBODoc> cache) {
         InputStream inputStream = getInputStream(fn);
-        OBOFormatParser p = new OBOFormatParser();
+        OBOFormatParser p = new OBOFormatParser(cache);
         OBODoc obodoc = p.parse(new BufferedReader(new InputStreamReader(inputStream)));
         assertNotNull("The obodoc should not be null", obodoc);
         if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
@@ -70,8 +72,8 @@ public class OboFormatTestBasics extends TestBase {
         return obodoc;
     }
 
-    protected OBODoc parseOBOFile(Reader fn, boolean allowEmptyFrames) {
-        OBOFormatParser p = new OBOFormatParser();
+    protected OBODoc parseOBOFile(Reader fn, boolean allowEmptyFrames, Map<String, OBODoc> cache) {
+        OBOFormatParser p = new OBOFormatParser(cache);
         OBODoc obodoc = p.parse(new BufferedReader(fn));
         assertNotNull("The obodoc should not be null", obodoc);
         if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {

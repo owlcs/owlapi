@@ -23,8 +23,11 @@ import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
@@ -62,6 +65,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -170,7 +174,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
 
     @Test
     public void testCommentRemarkConversion() throws Exception {
-        OBODoc obo = parseOBOFile("comment_remark_conversion.obo", true);
+        OBODoc obo = parseOBOFile("comment_remark_conversion.obo", true, Collections.emptyMap());
         Frame headerFrame = obo.getHeaderFrame();
         Collection<String> remarks =
             headerFrame.getTagValues(OboFormatTag.TAG_REMARK, String.class);
@@ -628,6 +632,18 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
+    public void testImportsConverted() throws OWLOntologyCreationException {
+        Map<String, OBODoc> cache = new HashMap<>();
+        IRI iri = IRI.create("http://purl.obolibrary.org/obo/tests/test.obo");
+        cache.put(iri.toString(), new OBODoc());
+        m.createOntology(iri);
+        OBODoc oboDoc = parseOBOFile("annotated_import.obo", false, cache);
+        OWLAPIObo2Owl toOWL = new OWLAPIObo2Owl(m);
+        Stream<OWLImportsDeclaration> imports = toOWL.convert(oboDoc).importsDeclarations();
+        assertTrue(imports.allMatch(i -> i.getIRI().equals(iri)));
+    }
+
+    @Test
     public void testConvertLogicalDefinitionPropertyView() {
         // PARSE TEST FILE
         OWLOntology owlOntology =
@@ -724,7 +740,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
 
     @Test
     public void writeTypeDefComments() throws Exception {
-        OBODoc doc = parseOBOFile("typedef_comments.obo", true);
+        OBODoc doc = parseOBOFile("typedef_comments.obo", true, Collections.emptyMap());
         String original = readResource("typedef_comments.obo");
         String written = renderOboToString(doc);
         assertEquals(original, written);
@@ -894,7 +910,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
 
     @Test
     public void testConvertXPsPropertyChain() {
-        assertNotNull(parseOBOFile("chaintest.obo", true));
+        assertNotNull(parseOBOFile("chaintest.obo", true, Collections.emptyMap()));
     }
 
     @Test
@@ -1041,7 +1057,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         // checkOBODoc(obodoc);
         // ROUNDTRIP AND TEST AGAIN
         String file = writeOBO(obodoc);
-        obodoc = parseOBOFile(new StringReader(file), false);
+        obodoc = parseOBOFile(new StringReader(file), false, Collections.emptyMap());
         checkOBODoc2(obodoc);
     }
 
