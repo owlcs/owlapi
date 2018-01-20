@@ -1365,7 +1365,12 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     public void visit(SWRLVariable node) {
         write(VARIABLE);
         writeOpenBracket();
-        node.getIRI().accept(this);
+        if ("urn:swrl:var#".equals(node.getIRI().getNamespace())
+            || "urn:swrl#".equals(node.getIRI().getNamespace())) {
+            IRI.create("urn:swrl:var#", node.getIRI().getFragment()).accept(this);
+        } else {
+            node.getIRI().accept(this);
+        }
         writeCloseBracket();
     }
 

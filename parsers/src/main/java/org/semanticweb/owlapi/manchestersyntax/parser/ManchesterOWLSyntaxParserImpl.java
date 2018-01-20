@@ -114,6 +114,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.function.Function;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -1683,11 +1684,16 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (fragment.startsWith("<")) {
             // then the variable was saved with a full IRI
             // preserve the namespace
-            return parseIRI();
+            IRI parseIRI = parseIRI();
+            // old style namespace? change it
+            if ("urn:swrl#".equals(parseIRI.getNamespace())) {
+                parseIRI = IRI.create("urn:swrl:var#", parseIRI.getFragment());
+            }
+            return parseIRI;
         } else {
             consumeToken();
         }
-        return IRI.create("urn:swrl#", fragment);
+        return IRI.create("urn:swrl:var#", fragment);
     }
 
     private SWRLDArgument parseDObject() {

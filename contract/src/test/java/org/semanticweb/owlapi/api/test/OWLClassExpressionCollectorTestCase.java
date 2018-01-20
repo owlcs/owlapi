@@ -34,25 +34,33 @@ import com.google.common.collect.Sets;
 @RunWith(Parameterized.class)
 public class OWLClassExpressionCollectorTestCase {
 
-    private static final String CI = "<urn:test#c>";
-    private static final String IRII = "<urn:test#iri>";
-    private static final String AND = "ObjectIntersectionOf(<urn:test#c> <urn:test#iri>)";
-    private static final String OR = "ObjectUnionOf(<urn:test#c> <urn:test#iri>)";
-    private static final String NOT = "ObjectComplementOf(<urn:test#c>)";
-    private static final String SOME = "ObjectSomeValuesFrom(<urn:test#op> <urn:test#c>)";
-    private static final String ALL = "ObjectAllValuesFrom(<urn:test#op> <urn:test#c>)";
-    private static final String HAS = "ObjectHasValue(<urn:test#op> <urn:test#i>)";
-    private static final String OMIN = "ObjectMinCardinality(1 <urn:test#op> <urn:test#c>)";
-    private static final String MAX = "ObjectMaxCardinality(1 <urn:test#op> <urn:test#c>)";
-    private static final String OEQ = "ObjectExactCardinality(1 <urn:test#op> <urn:test#c>)";
-    private static final String SELF = "ObjectHasSelf(<urn:test#op>)";
-    private static final String ONE = "ObjectOneOf(<urn:test#i>)";
-    private static final String DSOME = "DataSomeValuesFrom(<urn:test#dp> <urn:test#datatype>)";
-    private static final String DALL = "DataAllValuesFrom(<urn:test#dp> <urn:test#datatype>)";
-    private static final String DHAS = "DataHasValue(<urn:test#dp> \"false\"^^xsd:boolean)";
-    private static final String DMIN = "DataMinCardinality(1 <urn:test#dp> <urn:test#datatype>)";
-    private static final String DMAX = "DataMaxCardinality(1 <urn:test#dp> <urn:test#datatype>)";
-    private static final String DEQ = "DataExactCardinality(1 <urn:test#dp> <urn:test#datatype>)";
+    private static final String CI = "<urn:test:test#c>";
+    private static final String IRII = "<urn:test:test#iri>";
+    private static final String AND = "ObjectIntersectionOf(<urn:test:test#c> <urn:test:test#iri>)";
+    private static final String OR = "ObjectUnionOf(<urn:test:test#c> <urn:test:test#iri>)";
+    private static final String NOT = "ObjectComplementOf(<urn:test:test#c>)";
+    private static final String SOME = "ObjectSomeValuesFrom(<urn:test:test#op> <urn:test:test#c>)";
+    private static final String ALL = "ObjectAllValuesFrom(<urn:test:test#op> <urn:test:test#c>)";
+    private static final String HAS = "ObjectHasValue(<urn:test:test#op> <urn:test:test#i>)";
+    private static final String OMIN =
+        "ObjectMinCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
+    private static final String MAX =
+        "ObjectMaxCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
+    private static final String OEQ =
+        "ObjectExactCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
+    private static final String SELF = "ObjectHasSelf(<urn:test:test#op>)";
+    private static final String ONE = "ObjectOneOf(<urn:test:test#i>)";
+    private static final String DSOME =
+        "DataSomeValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>)";
+    private static final String DALL =
+        "DataAllValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>)";
+    private static final String DHAS = "DataHasValue(<urn:test:test#dp> \"false\"^^xsd:boolean)";
+    private static final String DMIN =
+        "DataMinCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
+    private static final String DMAX =
+        "DataMaxCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
+    private static final String DEQ =
+        "DataExactCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
     private static final String THING = "owl:Thing";
     private final OWLAxiom object;
     private final Set<String> expected;

@@ -169,9 +169,9 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
     @Parameters
     public static List<AxiomBuilder> getData() {
         return Arrays.asList(
-            //@formatter:off
+        //@formatter:off
             (AxiomBuilder) () -> swrl("http://www.owlapi#", df),
-            () -> swrl("urn:swrl#", df),
+            () -> swrl("urn:swrl:var#", df),
             () -> singleton(SubPropertyChainOf(Arrays.asList(pA, pB, pC), pD)),
             () -> singleton(AsymmetricObjectProperty(op)),
             () -> singleton(DifferentIndividuals(createIndividual(), createIndividual(), createIndividual(), createIndividual(), createIndividual(), createIndividual(), createIndividual(), createIndividual(), createIndividual(), createIndividual())),
@@ -234,17 +234,17 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
 
     protected static Set<OWLAxiom> swrl(String namespace, OWLDataFactory df2) {
         Set<OWLAxiom> axioms = new HashSet<>();
-        SWRLVariable varX = df2.getSWRLVariable(namespace, "x");
-        SWRLVariable varY = df2.getSWRLVariable(namespace, "y");
-        SWRLVariable varZ = df2.getSWRLVariable(namespace, "z");
+        SWRLVariable varX = df2.getSWRLVariable("urn:swrl:var#", "x");
+        SWRLVariable varY = df2.getSWRLVariable("urn:swrl:var#", "y");
+        SWRLVariable varZ = df2.getSWRLVariable("urn:swrl:var#", "z");
         Set<SWRLAtom> body = new HashSet<>();
         body.add(df2.getSWRLClassAtom(Class(iri("A")), varX));
         SWRLIndividualArgument indIArg = df2.getSWRLIndividualArgument(ind);
         SWRLIndividualArgument indJArg = df2.getSWRLIndividualArgument(indj);
         body.add(df2.getSWRLClassAtom(Class(iri("D")), indIArg));
         body.add(df2.getSWRLClassAtom(Class(iri("B")), varX));
-        SWRLVariable varQ = df2.getSWRLVariable(namespace, "q");
-        SWRLVariable varR = df2.getSWRLVariable(namespace, "r");
+        SWRLVariable varQ = df2.getSWRLVariable("urn:swrl:var#", "q");
+        SWRLVariable varR = df2.getSWRLVariable("urn:swrl:var#", "r");
         body.add(df2.getSWRLDataPropertyAtom(dp, varX, varQ));
         OWLLiteral lit = Literal(33);
         SWRLLiteralArgument litArg = df2.getSWRLLiteralArgument(lit);

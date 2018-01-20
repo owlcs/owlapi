@@ -13,13 +13,14 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,235 +29,247 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.OWLObjectComponentCollector;
 
-import com.google.common.collect.Sets;
-
 @SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class OWLObjectComponentCollectorTestCase {
 
-    private static final String CI = "<urn:test#c>";
-    private static final String C = "urn:test#c";
+    private static final String CI = "<urn:test:test#c>";
+    private static final String C = "urn:test:test#c";
     private static final String DTD =
-                    "DatatypeDefinition(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#datatype> xsd:double)";
+        "DatatypeDefinition(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#datatype> xsd:double)";
     private static final String DB = "http://www.w3.org/2001/XMLSchema#double";
-    private static final String DT = "urn:test#datatype";
-    private static final String DP = "urn:test#dp";
-    private static final String DPI = "<urn:test#dp>";
-    private static final String DTI = "<urn:test#datatype>";
+    private static final String DT = "urn:test:test#datatype";
+    private static final String DP = "urn:test:test#dp";
+    private static final String DPI = "<urn:test:test#dp>";
+    private static final String DTI = "<urn:test:test#datatype>";
     private static final String DPR =
-                    "DataPropertyRange(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#datatype>)";
+        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#datatype>)";
     private static final String DC =
-                    "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) Class(<urn:test#c>))";
-    private static final String OP = "urn:test#op";
-    private static final String OPI = "<urn:test#op>";
+        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Class(<urn:test:test#c>))";
+    private static final String OP = "urn:test:test#op";
+    private static final String OPI = "<urn:test:test#op>";
     private static final String DOP =
-                    "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectProperty(<urn:test#op>))";
-    private static final String ANN = "urn:test#ann";
-    private static final String ANNI = "<urn:test#ann>";
+        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectProperty(<urn:test:test#op>))";
+    private static final String ANN = "urn:test:test#ann";
+    private static final String ANNI = "<urn:test:test#ann>";
     private static final String DANN =
-                    "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) AnnotationProperty(<urn:test#ann>))";
+        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) AnnotationProperty(<urn:test:test#ann>))";
     private static final String DDP =
-                    "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) DataProperty(<urn:test#dp>))";
+        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataProperty(<urn:test:test#dp>))";
     private static final String DD =
-                    "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) Datatype(<urn:test#datatype>))";
+        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Datatype(<urn:test:test#datatype>))";
     private static final String FDP =
-                    "FunctionalDataProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp>)";
+        "FunctionalDataProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp>)";
     private static final String FOP =
-                    "FunctionalObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)";
+        "FunctionalObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
     private static final String IFP =
-                    "InverseFunctionalObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)";
+        "InverseFunctionalObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
     private static final String IOP =
-                    "InverseObjectProperties(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#op>)";
+        "InverseObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#op>)";
     private static final String DIND =
-                    "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) NamedIndividual(<urn:test#i>))";
-    private static final String DIFF = "DifferentIndividuals(<urn:test#i> <urn:test#iri> )";
-    private static final String DSJC = "DisjointClasses(<urn:test#c> <urn:test#iri>)";
-    private static final String IRI = "urn:test#iri";
-    private static final String IRII = "<urn:test#iri>";
-    private static final String I = "urn:test#i";
+        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) NamedIndividual(<urn:test:test#i>))";
+    private static final String DIFF =
+        "DifferentIndividuals(<urn:test:test#i> <urn:test:test#iri> )";
+    private static final String DSJC = "DisjointClasses(<urn:test:test#c> <urn:test:test#iri>)";
+    private static final String IRI = "urn:test:test#iri";
+    private static final String IRII = "<urn:test:test#iri>";
+    private static final String I = "urn:test:test#i";
     private static final String DISJDP =
-                    "DisjointDataProperties(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#iri> )";
+        "DisjointDataProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#iri> )";
     private static final String DSJOP =
-                    "DisjointObjectProperties(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#iri> <urn:test#op> )";
-    private static final String II = "<urn:test#i>";
+        "DisjointObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#iri> <urn:test:test#op> )";
+    private static final String II = "<urn:test:test#i>";
     private static final String SYMM =
-                    "SymmetricObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)";
+        "SymmetricObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
     private static final String plain = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
     private static final String adp =
-                    "DataPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#i> \"string\"@en)";
+        "DataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"string\"@en)";
     private static final String dpdomain =
-                    "DataPropertyDomain(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#c>)";
-    private static final String VAR1 = "Variable(<urn:swrl#var1>)";
+        "DataPropertyDomain(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#c>)";
+    private static final String VAR1 = "Variable(<urn:swrl:var#var1>)";
     private static final String DRA =
-                    "DataRangeAtom(<urn:test#datatype> Variable(<urn:swrl#var1>))";
-    private static final String v1 = "BuiltInAtom(<urn:test#iri> Variable(<urn:swrl#var1>) )";
-    private static final String v2 = "SameAsAtom(Variable(<urn:swrl#var2>) <urn:test#iri>)";
-    private static final String var2 = "Variable(<urn:swrl#var2>)";
+        "DataRangeAtom(<urn:test:test#datatype> Variable(<urn:swrl:var#var1>))";
+    private static final String v1 =
+        "BuiltInAtom(<urn:test:test#iri> Variable(<urn:swrl:var#var1>) )";
+    private static final String v2 =
+        "SameAsAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#iri>)";
+    private static final String var2 = "Variable(<urn:swrl:var#var2>)";
     private static final String diffvar2 =
-                    "DifferentFromAtom(Variable(<urn:swrl#var2>) <urn:test#i>)";
+        "DifferentFromAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#i>)";
     private static final String opavar2 =
-                    "ObjectPropertyAtom(<urn:test#op> Variable(<urn:swrl#var2>) Variable(<urn:swrl#var2>))";
+        "ObjectPropertyAtom(<urn:test:test#op> Variable(<urn:swrl:var#var2>) Variable(<urn:swrl:var#var2>))";
     private static final String dpvar2 =
-                    "DataPropertyAtom(<urn:test#dp> Variable(<urn:swrl#var2>) \"false\"^^xsd:boolean)";
-    private static final String classvar2 = "ClassAtom(<urn:test#c> Variable(<urn:swrl#var2>))";
+        "DataPropertyAtom(<urn:test:test#dp> Variable(<urn:swrl:var#var2>) \"false\"^^xsd:boolean)";
+    private static final String classvar2 =
+        "ClassAtom(<urn:test:test#c> Variable(<urn:swrl:var#var2>))";
     private static final String rule =
-                    "DLSafeRule(Annotation(<urn:test#ann> \"test\"^^xsd:string)  Body(BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) ) ClassAtom(<urn:test#c> Variable(<urn:swrl#var2>)) DataRangeAtom(<urn:test#datatype> Variable(<urn:swrl#var1>)) BuiltInAtom(<urn:test#iri> Variable(<urn:swrl#var1>) ) DifferentFromAtom(Variable(<urn:swrl#var2>) <urn:test#i>) SameAsAtom(Variable(<urn:swrl#var2>) <urn:test#iri>)) Head(BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) ) DataPropertyAtom(<urn:test#dp> Variable(<urn:swrl#var2>) \"false\"^^xsd:boolean) ObjectPropertyAtom(<urn:test#op> Variable(<urn:swrl#var2>) Variable(<urn:swrl#var2>))) )";
+        "DLSafeRule(Annotation(<urn:test:test#ann> \"test\"^^xsd:string)  Body(BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>) ) ClassAtom(<urn:test:test#c> Variable(<urn:swrl:var#var2>)) DataRangeAtom(<urn:test:test#datatype> Variable(<urn:swrl:var#var1>)) BuiltInAtom(<urn:test:test#iri> Variable(<urn:swrl:var#var1>) ) DifferentFromAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#i>) SameAsAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#iri>)) Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) ) DataPropertyAtom(<urn:test:test#dp> Variable(<urn:swrl:var#var2>) \"false\"^^xsd:boolean) ObjectPropertyAtom(<urn:test:test#op> Variable(<urn:swrl:var#var2>) Variable(<urn:swrl:var#var2>))) )";
     private static final String T =
-                    "TransitiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)";
+        "TransitiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
     private static final String HASKEY =
-                    "HasKey(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> (<urn:test#iri> <urn:test#op> ) (<urn:test#dp> ))";
+        "HasKey(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> (<urn:test:test#iri> <urn:test:test#op> ) (<urn:test:test#dp> ))";
     private static final String AANN =
-                    "AnnotationAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#ann> <urn:test#iri> \"false\"^^xsd:boolean)";
+        "AnnotationAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> <urn:test:test#iri> \"false\"^^xsd:boolean)";
     private static final String asymm =
-                    "AsymmetricObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)";
-    private static final String APD = "AnnotationPropertyDomain(<urn:test#ann> <urn:test#iri>)";
-    private static final String APR = "AnnotationPropertyRange(<urn:test#ann> <urn:test#iri>)";
+        "AsymmetricObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
+    private static final String APD =
+        "AnnotationPropertyDomain(<urn:test:test#ann> <urn:test:test#iri>)";
+    private static final String APR =
+        "AnnotationPropertyRange(<urn:test:test#ann> <urn:test:test#iri>)";
     private static final String ACL =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> <urn:test#i>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#i>)";
     private static final String ACLAND =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectIntersectionOf(<urn:test#c> <urn:test#iri>) <urn:test#i>)";
-    private static final String AND = "ObjectIntersectionOf(<urn:test#c> <urn:test#iri>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectIntersectionOf(<urn:test:test#c> <urn:test:test#iri>) <urn:test:test#i>)";
+    private static final String AND = "ObjectIntersectionOf(<urn:test:test#c> <urn:test:test#iri>)";
     private static final String ACLOR =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectUnionOf(<urn:test#c> <urn:test#iri>) <urn:test#i>)";
-    private static final String OR = "ObjectUnionOf(<urn:test#c> <urn:test#iri>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectUnionOf(<urn:test:test#c> <urn:test:test#iri>) <urn:test:test#i>)";
+    private static final String OR = "ObjectUnionOf(<urn:test:test#c> <urn:test:test#iri>)";
     private static final String DPRAND =
-                    "DataPropertyRange(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> DataIntersectionOf(<urn:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) ))";
+        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataIntersectionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) ))";
     private static final String DONEOF = "DataOneOf(\"false\"^^xsd:boolean )";
     private static final String DAND =
-                    "DataIntersectionOf(<urn:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) )";
+        "DataIntersectionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) )";
     private static final String DOR =
-                    "DataUnionOf(<urn:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) )";
+        "DataUnionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) )";
     private static final String DPROR =
-                    "DataPropertyRange(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> DataUnionOf(<urn:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) ))";
+        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataUnionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) ))";
     private static final String CNOT =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectComplementOf(<urn:test#c>) <urn:test#i>)";
-    private static final String NOT = "ObjectComplementOf(<urn:test#c>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectComplementOf(<urn:test:test#c>) <urn:test:test#i>)";
+    private static final String NOT = "ObjectComplementOf(<urn:test:test#c>)";
     private static final String ID = "_:id";
     private static final String ACNOT =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectComplementOf(<urn:test#c>) _:id)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectComplementOf(<urn:test:test#c>) _:id)";
     private static final String ACSOME =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectSomeValuesFrom(<urn:test#op> <urn:test#c>) <urn:test#i>)";
-    private static final String SOME = "ObjectSomeValuesFrom(<urn:test#op> <urn:test#c>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectSomeValuesFrom(<urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)";
+    private static final String SOME = "ObjectSomeValuesFrom(<urn:test:test#op> <urn:test:test#c>)";
     private static final String ACALL =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectAllValuesFrom(<urn:test#op> <urn:test#c>) <urn:test#i>)";
-    private static final String ALL = "ObjectAllValuesFrom(<urn:test#op> <urn:test#c>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectAllValuesFrom(<urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)";
+    private static final String ALL = "ObjectAllValuesFrom(<urn:test:test#op> <urn:test:test#c>)";
     private static final String ACHAS =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectHasValue(<urn:test#op> <urn:test#i>) <urn:test#i>)";
-    private static final String HAS = "ObjectHasValue(<urn:test#op> <urn:test#i>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectHasValue(<urn:test:test#op> <urn:test:test#i>) <urn:test:test#i>)";
+    private static final String HAS = "ObjectHasValue(<urn:test:test#op> <urn:test:test#i>)";
     private static final String AOMIN =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectMinCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)";
-    private static final String OMIN = "ObjectMinCardinality(1 <urn:test#op> <urn:test#c>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectMinCardinality(1 <urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)";
+    private static final String OMIN =
+        "ObjectMinCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
     private static final String AOMAX =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectMaxCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)";
-    private static final String MAX = "ObjectMaxCardinality(1 <urn:test#op> <urn:test#c>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectMaxCardinality(1 <urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)";
+    private static final String MAX =
+        "ObjectMaxCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
     private static final String AOEQ =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectExactCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)";
-    private static final String OEQ = "ObjectExactCardinality(1 <urn:test#op> <urn:test#c>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectExactCardinality(1 <urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)";
+    private static final String OEQ =
+        "ObjectExactCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
     private static final String ASELF =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectHasSelf(<urn:test#op>) <urn:test#i>)";
-    private static final String SELF = "ObjectHasSelf(<urn:test#op>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectHasSelf(<urn:test:test#op>) <urn:test:test#i>)";
+    private static final String SELF = "ObjectHasSelf(<urn:test:test#op>)";
     private static final String AONE =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectOneOf(<urn:test#i>) <urn:test#i>)";
-    private static final String ONE = "ObjectOneOf(<urn:test#i>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectOneOf(<urn:test:test#i>) <urn:test:test#i>)";
+    private static final String ONE = "ObjectOneOf(<urn:test:test#i>)";
     private static final String ADSOME =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) DataSomeValuesFrom(<urn:test#dp> <urn:test#datatype>) <urn:test#i>)";
-    private static final String DSOME = "DataSomeValuesFrom(<urn:test#dp> <urn:test#datatype>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataSomeValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)";
+    private static final String DSOME =
+        "DataSomeValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>)";
     private static final String ADALL =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) DataAllValuesFrom(<urn:test#dp> <urn:test#datatype>) <urn:test#i>)";
-    private static final String DALL = "DataAllValuesFrom(<urn:test#dp> <urn:test#datatype>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataAllValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)";
+    private static final String DALL =
+        "DataAllValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>)";
     private static final String ADHAS =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) DataHasValue(<urn:test#dp> \"false\"^^xsd:boolean) <urn:test#i>)";
-    private static final String DHAS = "DataHasValue(<urn:test#dp> \"false\"^^xsd:boolean)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataHasValue(<urn:test:test#dp> \"false\"^^xsd:boolean) <urn:test:test#i>)";
+    private static final String DHAS = "DataHasValue(<urn:test:test#dp> \"false\"^^xsd:boolean)";
     private static final String ADMIN =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) DataMinCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)";
-    private static final String DMIN = "DataMinCardinality(1 <urn:test#dp> <urn:test#datatype>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataMinCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)";
+    private static final String DMIN =
+        "DataMinCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
     private static final String ADMAX =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) DataMaxCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)";
-    private static final String DMAX = "DataMaxCardinality(1 <urn:test#dp> <urn:test#datatype>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataMaxCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)";
+    private static final String DMAX =
+        "DataMaxCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
     private static final String ADEQ =
-                    "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) DataExactCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)";
-    private static final String DEQ = "DataExactCardinality(1 <urn:test#dp> <urn:test#datatype>)";
+        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataExactCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)";
+    private static final String DEQ =
+        "DataExactCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
     private static final String ADONEOF =
-                    "DataPropertyRange(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> DataOneOf(\"false\"^^xsd:boolean ))";
+        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataOneOf(\"false\"^^xsd:boolean ))";
     private static final String DPRNOT =
-                    "DataPropertyRange(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> DataComplementOf(DataOneOf(\"false\"^^xsd:boolean )))";
+        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataComplementOf(DataOneOf(\"false\"^^xsd:boolean )))";
     private static final String DNOT = "DataComplementOf(DataOneOf(\"false\"^^xsd:boolean ))";
     private static final String FIVE = "\"5.0\"^^xsd:double";
     private static final String SIX = "\"6.0\"^^xsd:double";
     private static final String MINMAX =
-                    "DataPropertyRange(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> DataRangeRestriction(xsd:double facetRestriction(minExclusive \"5.0\"^^xsd:double) facetRestriction(maxExclusive \"6.0\"^^xsd:double)))";
+        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataRangeRestriction(xsd:double facetRestriction(minExclusive \"5.0\"^^xsd:double) facetRestriction(maxExclusive \"6.0\"^^xsd:double)))";
     private static final String MINMXSIX =
-                    "DataRangeRestriction(xsd:double facetRestriction(minExclusive \"5.0\"^^xsd:double) facetRestriction(maxExclusive \"6.0\"^^xsd:double))";
+        "DataRangeRestriction(xsd:double facetRestriction(minExclusive \"5.0\"^^xsd:double) facetRestriction(maxExclusive \"6.0\"^^xsd:double))";
     private static final String MIN5 = "facetRestriction(minExclusive \"5.0\"^^xsd:double)";
     private static final String MAXSIX = "facetRestriction(maxExclusive \"6.0\"^^xsd:double)";
     private static final String dpafalse =
-                    "DataPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#i> \"false\"^^xsd:boolean)";
+        "DataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"false\"^^xsd:boolean)";
     private static final String EQC =
-                    "EquivalentClasses(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> <urn:test#iri> )";
+        "EquivalentClasses(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#iri> )";
     private static final String EQDP =
-                    "EquivalentDataProperties(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#iri> )";
+        "EquivalentDataProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#iri> )";
     private static final String EQOP =
-                    "EquivalentObjectProperties(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#iri> <urn:test#op> )";
+        "EquivalentObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#iri> <urn:test:test#op> )";
     private static final String IRR =
-                    "IrreflexiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)";
+        "IrreflexiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
     private static final String BLN = "http://www.w3.org/2001/XMLSchema#boolean";
     private static final String FALSE = "\"false\"^^xsd:boolean";
     private static final String DU =
-                    "DisjointUnion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> <urn:test#c> <urn:test#iri> )";
+        "DisjointUnion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#c> <urn:test:test#iri> )";
     private static final String ANDP =
-                    "NegativeDataPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#i> \"false\"^^xsd:boolean)";
+        "NegativeDataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"false\"^^xsd:boolean)";
     private static final String ANOP =
-                    "NegativeObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)";
+        "NegativeObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#i> <urn:test:test#i>)";
     private static final String AOP =
-                    "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)";
-    private static final String INVERSE = "ObjectInverseOf(<urn:test#op>)";
+        "ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#i> <urn:test:test#i>)";
+    private static final String INVERSE = "ObjectInverseOf(<urn:test:test#op>)";
     private static final String AOINV =
-                    "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)";
-    private static final String JI = "<urn:test#j>";
-    private static final String J = "urn:test#j";
+        "ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test:test#op>) <urn:test:test#i> <urn:test:test#i>)";
+    private static final String JI = "<urn:test:test#j>";
+    private static final String J = "urn:test:test#j";
     private static final String AOPJ =
-                    "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)";
+        "ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test:test#op>) <urn:test:test#i> <urn:test:test#j>)";
     private static final String OPD =
-                    "ObjectPropertyDomain(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#c>)";
+        "ObjectPropertyDomain(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#c>)";
     private static final String OPR =
-                    "ObjectPropertyRange(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#c>)";
+        "ObjectPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#c>)";
     private static final String SUBO =
-                    "SubObjectPropertyOf(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectPropertyChain( <urn:test#iri> <urn:test#op> ) <urn:test#op>)";
+        "SubObjectPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectPropertyChain( <urn:test:test#iri> <urn:test:test#op> ) <urn:test:test#op>)";
     private static final String R =
-                    "ReflexiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)";
+        "ReflexiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
     private static final String SAME =
-                    "SameIndividual(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#i> <urn:test#iri> )";
+        "SameIndividual(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#i> <urn:test:test#iri> )";
     private static final String LABEL = "http://www.w3.org/2000/01/rdf-schema#label";
     private static final String LAB = "rdfs:label";
     private static final String SUBA =
-                    "SubAnnotationPropertyOf(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#ann> rdfs:label)";
+        "SubAnnotationPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> rdfs:label)";
     private static final String TOP = "http://www.w3.org/2002/07/owl#Thing";
     private static final String THING = "owl:Thing";
     private static final String SUBC =
-                    "SubClassOf(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> owl:Thing)";
+        "SubClassOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> owl:Thing)";
     private static final String TOPDT = "http://www.w3.org/2002/07/owl#topDataProperty";
     private static final String TDT = "owl:topDataProperty";
-    private static final String SUBD = "SubDataPropertyOf(<urn:test#dp> owl:topDataProperty)";
+    private static final String SUBD = "SubDataPropertyOf(<urn:test:test#dp> owl:topDataProperty)";
     private static final String TOPOP = "http://www.w3.org/2002/07/owl#topObjectProperty";
     private static final String TOPO = "owl:topObjectProperty";
     private static final String SUBOP =
-                    "SubObjectPropertyOf(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> owl:topObjectProperty)";
-    private static final String var6 = "Variable(<urn:swrl#var6>)";
-    private static final String var5 = "Variable(<urn:swrl#var5>)";
-    private static final String v4 = "Variable(<urn:swrl#var4>)";
+        "SubObjectPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> owl:topObjectProperty)";
+    private static final String var6 = "Variable(<urn:swrl:var#var6>)";
+    private static final String var5 = "Variable(<urn:swrl:var#var5>)";
+    private static final String v4 = "Variable(<urn:swrl:var#var4>)";
     private static final String v34 =
-                    "BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) )";
-    private static final String v3 = "Variable(<urn:swrl#var3>)";
+        "BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>) )";
+    private static final String v3 = "Variable(<urn:swrl:var#var3>)";
     private static final String var236 =
-                    "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )";
+        "BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) )";
     private static final String SHORTRULE =
-                    "DLSafeRule( Body(BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) )) Head(BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )) )";
+        "DLSafeRule( Body(BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>) )) Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) )) )";
     private final OWLAxiom object;
-    private final Set<String> expected;
+    private final List<String> expected;
 
     public OWLObjectComponentCollectorTestCase(OWLAxiom object, String[] expected) {
         this.object = object;
-        this.expected = Sets.newHashSet(expected);
+        this.expected = asList(Arrays.stream(expected).distinct().sorted());
     }
 
     @Parameterized.Parameters(name = "{0}")
@@ -311,7 +324,7 @@ public class OWLObjectComponentCollectorTestCase {
         map.put(b.assAnd(), new String[] {C, I, IRI, CI, IRII, II, ACLAND, AND});
         map.put(b.assOr(), new String[] {C, I, IRI, CI, IRII, II, ACLOR, OR});
         map.put(b.dRangeAnd(),
-                        new String[] {BLN, DT, DP, DPI, DPRAND, DTI, DONEOF, DAND, FALSE, BLN});
+            new String[] {BLN, DT, DP, DPI, DPRAND, DTI, DONEOF, DAND, FALSE, BLN});
         map.put(b.dRangeOr(), new String[] {BLN, DT, DP, DPI, DOR, DPROR, DTI, DONEOF, FALSE, BLN});
         map.put(b.assNot(), new String[] {C, I, CI, II, CNOT, NOT});
         map.put(b.assNotAnon(), new String[] {C, CI, ID, ACNOT, NOT});
@@ -332,13 +345,14 @@ public class OWLObjectComponentCollectorTestCase {
         map.put(b.dOneOf(), new String[] {BLN, DP, DPI, ADONEOF, FALSE, BLN, DONEOF});
         map.put(b.dNot(), new String[] {BLN, DP, DPI, DPRNOT, DNOT, FALSE, BLN, DONEOF});
         map.put(b.dRangeRestrict(),
-                        new String[] {DB, DP, DPI, MINMAX, MINMXSIX, MIN5, MAXSIX, FIVE, SIX, DB});
+            new String[] {DB, DP, DPI, MINMAX, MINMXSIX, MIN5, MAXSIX, FIVE, SIX, DB});
         map.put(b.assD(), new String[] {BLN, DP, I, DPI, II, dpafalse, FALSE, BLN});
         map.put(b.assDPlain(), new String[] {plain, DP, I, DPI, II, adp, plain, "\"string\"@en"});
         map.put(b.dDom(), new String[] {DP, DPI, dpdomain});
-        map.put(b.bigRule(), new String[] {FALSE, var6, var5, v1, v4, v34, v3, v2, var2, OPI,
-                        var236, FALSE, diffvar2, DP, VAR1, CI, DT, BLN, IRII, opavar2, DRA, II, BLN,
-                        dpvar2, OP, C, IRI, classvar2, IRII, I, rule, DTI, II, DPI});
+        map.put(b.bigRule(),
+            new String[] {FALSE, var6, var5, v1, v4, v34, v3, v2, var2, OPI, var236, FALSE,
+                diffvar2, DP, VAR1, CI, DT, BLN, IRII, opavar2, DRA, II, BLN, dpvar2, OP, C, IRI,
+                classvar2, IRII, I, rule, DTI, II, DPI});
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
         return toReturn;
@@ -348,7 +362,8 @@ public class OWLObjectComponentCollectorTestCase {
     public void testAssertion() {
         OWLObjectComponentCollector testsubject = new OWLObjectComponentCollector();
         Collection<OWLObject> components = testsubject.getComponents(object);
-        Set<String> strings = asUnorderedSet(components.stream().map(Object::toString));
+        List<String> strings =
+            asList(components.stream().map(Object::toString).sorted().distinct());
         assertEquals(expected, strings);
     }
 }

@@ -914,7 +914,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(SWRLVariable node) {
         writer.writeStartElement(VARIABLE);
-        writer.writeIRIAttribute(node.getIRI());
+        if ("urn:swrl:var#".equals(node.getIRI().getNamespace())
+            || "urn:swrl#".equals(node.getIRI().getNamespace())) {
+            writer.writeIRIAttribute(IRI.create("urn:swrl:var#", node.getIRI().getFragment()));
+        } else {
+            writer.writeIRIAttribute(node.getIRI());
+        }
         writer.writeEndElement();
     }
 

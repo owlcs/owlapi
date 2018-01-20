@@ -56,10 +56,10 @@ public class OWLXMLTestCase extends TestBase {
                         + "        <Head/>\n" + "    </DLSafeRule>\n" + "</Ontology>";
         OWLOntology o = loadOntologyFromString(in, new OWLXMLDocumentFormat());
         o.axioms(AxiomType.SWRL_RULE).forEach(r -> assertEquals(
-                        "DLSafeRule( Body(SameAsAtom(Variable(<urn:swrl#x>) Variable(<urn:swrl#y>))) Head() )",
+                        "DLSafeRule( Body(SameAsAtom(Variable(<urn:swrl:var#x>) Variable(<urn:swrl:var#y>))) Head() )",
                         r.toString()));
         String out = saveOntology(o, new OWLXMLDocumentFormat()).toString();
-        assertTrue(out, out.contains("<Variable IRI=\"urn:swrl#x\"/>"));
-        assertTrue(out, out.contains("<Variable IRI=\"urn:swrl#y\"/>"));
+        assertTrue(out, out.contains("<Variable IRI=\"urn:swrl:var#x\"/>"));
+        assertTrue(out, out.contains("<Variable IRI=\"urn:swrl:var#y\"/>"));
     }
 }

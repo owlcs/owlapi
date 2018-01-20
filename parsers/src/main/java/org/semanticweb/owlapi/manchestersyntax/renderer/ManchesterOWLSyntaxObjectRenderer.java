@@ -956,7 +956,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     public void visit(SWRLVariable node) {
         write("?");
         // do not save the namespace if it's the conventional one
-        if ("urn:swrl#".equals(node.getIRI().getNamespace())) {
+        if ("urn:swrl:var#".equals(node.getIRI().getNamespace())
+            || "urn:swrl#".equals(node.getIRI().getNamespace())) {
             write(node.getIRI().prefixedBy(""));
         } else {
             write(node.getIRI().toQuotedString());

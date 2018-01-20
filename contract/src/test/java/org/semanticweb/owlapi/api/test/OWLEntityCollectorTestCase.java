@@ -13,11 +13,14 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,135 +36,108 @@ import org.semanticweb.owlapi.util.OWLEntityCollector;
 public class OWLEntityCollectorTestCase {
 
     protected OWLAxiom object;
-    protected String expected;
+    protected List<String> expected;
 
-    public OWLEntityCollectorTestCase(OWLAxiom object, String expected) {
+    public OWLEntityCollectorTestCase(OWLAxiom object, String[] expected) {
         this.object = object;
-        this.expected = expected;
+        this.expected = new ArrayList<>(Arrays.asList(expected));
+        this.expected.sort(null);
     }
 
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> getData() {
+        String ann = "<urn:test:test#ann>";
+        String string = "http://www.w3.org/2001/XMLSchema#string";
+        String datatype = "<urn:test:test#datatype>";
+        String dp = "<urn:test:test#dp>";
+        String doubl = "http://www.w3.org/2001/XMLSchema#double";
+        String c = "<urn:test:test#c>";
+        String op = "<urn:test:test#op>";
+        String i = "<urn:test:test#i>";
+        String iri = "<urn:test:test#iri>";
+        String label = "rdfs:label";
+        String bool = "http://www.w3.org/2001/XMLSchema#boolean";
+        String j = "<urn:test:test#j>";
+        String thing = "owl:Thing";
+        String topData = "owl:topDataProperty";
+        String topObject = "owl:topObjectProperty";
+        String diff = "owl:differentFrom";
+        String same = "owl:sameAs";
+        String lang = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
         Builder b = new Builder();
-        Map<OWLAxiom, String> map = new LinkedHashMap<>();
-        map.put(b.dRange(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#datatype>, <urn:test#dp>]");
-        map.put(b.dDef(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, http://www.w3.org/2001/XMLSchema#double, <urn:test#datatype>]");
-        map.put(b.decC(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.decOp(),
-                        "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.decDp(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#dp>]");
-        map.put(b.decDt(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#datatype>]");
-        map.put(b.decAp(), "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.decI(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.assDi(), "[<urn:test#i>, <urn:test#iri>]");
-        map.put(b.dc(), "[<urn:test#c>, <urn:test#iri>]");
-        map.put(b.dDp(), "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#iri>, <urn:test#dp>]");
-        map.put(b.dOp(), "[<urn:test#ann>, <urn:test#iri>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.du(), "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>, <urn:test#iri>]");
-        map.put(b.ec(), "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>, <urn:test#iri>]");
-        map.put(b.eDp(), "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#iri>, <urn:test#dp>]");
-        map.put(b.eOp(), "[<urn:test#ann>, <urn:test#iri>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.fdp(), "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#dp>]");
-        map.put(b.fop(), "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.ifp(), "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.iop(), "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.irr(), "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.ndp(), "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#boolean, http://www.w3.org/2001/XMLSchema#string, <urn:test#dp>]");
-        map.put(b.nop(), "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.opa(), "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.opaInv(),
-                        "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.opaInvj(),
-                        "[<urn:test#j>, <urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.oDom(),
-                        "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.oRange(),
-                        "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.chain(),
-                        "[<urn:test#ann>, <urn:test#iri>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.ref(), "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.same(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#iri>]");
-        map.put(b.subAnn(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, rdfs:label]");
-        map.put(b.subClass(),
-                        "[<urn:test#ann>, owl:Thing, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.subData(), "[owl:topDataProperty, <urn:test#dp>]");
-        map.put(b.subObject(),
-                        "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string, owl:topObjectProperty]");
-        map.put(b.rule(), "[]");
-        map.put(b.symm(),
-                        "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.trans(),
-                        "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.hasKey(),
-                        "[<urn:test#ann>, <urn:test#iri>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>, <urn:test#dp>]");
+        Map<OWLAxiom, String[]> map = new LinkedHashMap<>();
+        map.put(b.dRange(), new String[] {ann, string, datatype, dp});
+        map.put(b.dDef(), new String[] {ann, string, doubl, datatype});
+        map.put(b.decC(), new String[] {ann, string, c});
+        map.put(b.decOp(), new String[] {ann, op, string});
+        map.put(b.decDp(), new String[] {ann, string, dp});
+        map.put(b.decDt(), new String[] {ann, string, datatype});
+        map.put(b.decAp(), new String[] {ann, string});
+        map.put(b.decI(), new String[] {i, ann, string});
+        map.put(b.assDi(), new String[] {i, iri});
+        map.put(b.dc(), new String[] {c, iri});
+        map.put(b.dDp(), new String[] {ann, string, iri, dp});
+        map.put(b.dOp(), new String[] {ann, iri, op, string});
+        map.put(b.du(), new String[] {ann, string, c, iri});
+        map.put(b.ec(), new String[] {ann, string, c, iri});
+        map.put(b.eDp(), new String[] {ann, string, iri, dp});
+        map.put(b.eOp(), new String[] {ann, iri, op, string});
+        map.put(b.fdp(), new String[] {ann, string, dp});
+        map.put(b.fop(), new String[] {ann, op, string});
+        map.put(b.ifp(), new String[] {ann, op, string});
+        map.put(b.iop(), new String[] {ann, op, string});
+        map.put(b.irr(), new String[] {ann, op, string});
+        map.put(b.ndp(), new String[] {i, ann, bool, string, dp});
+        map.put(b.nop(), new String[] {i, ann, op, string});
+        map.put(b.opa(), new String[] {i, ann, op, string});
+        map.put(b.opaInv(), new String[] {i, ann, op, string});
+        map.put(b.opaInvj(), new String[] {j, i, ann, op, string});
+        map.put(b.oDom(), new String[] {ann, op, string, c});
+        map.put(b.oRange(), new String[] {ann, op, string, c});
+        map.put(b.chain(), new String[] {ann, iri, op, string});
+        map.put(b.ref(), new String[] {ann, op, string});
+        map.put(b.same(), new String[] {i, ann, string, iri});
+        map.put(b.subAnn(), new String[] {ann, string, label});
+        map.put(b.subClass(), new String[] {ann, thing, string, c});
+        map.put(b.subData(), new String[] {topData, dp});
+        map.put(b.subObject(), new String[] {ann, op, string, topObject});
+        map.put(b.rule(), new String[] {});
+        map.put(b.symm(), new String[] {ann, op, string});
+        map.put(b.trans(), new String[] {ann, op, string});
+        map.put(b.hasKey(), new String[] {ann, iri, op, string, c, dp});
         map.put(b.bigRule(),
-                        "[<urn:test#i>, <urn:test#ann>, owl:differentFrom, http://www.w3.org/2001/XMLSchema#boolean, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>, <urn:test#datatype>, <urn:test#iri>, owl:sameAs, <urn:test#dp>]");
-        map.put(b.ann(), "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#boolean, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.asymm(),
-                        "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.annDom(), "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.annRange(), "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.ass(), "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.assAnd(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>, <urn:test#iri>]");
-        map.put(b.assOr(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>, <urn:test#iri>]");
-        map.put(b.dRangeAnd(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#boolean, http://www.w3.org/2001/XMLSchema#string, <urn:test#datatype>, <urn:test#dp>]");
-        map.put(b.dRangeOr(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#boolean, http://www.w3.org/2001/XMLSchema#string, <urn:test#datatype>, <urn:test#dp>]");
-        map.put(b.assNot(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.assNotAnon(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.assSome(),
-                        "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.assAll(),
-                        "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.assHas(),
-                        "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.assMin(),
-                        "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.assMax(),
-                        "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.assEq(),
-                        "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
-        map.put(b.assHasSelf(),
-                        "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.assOneOf(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string]");
-        map.put(b.assDSome(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#datatype>, <urn:test#dp>]");
-        map.put(b.assDAll(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#datatype>, <urn:test#dp>]");
-        map.put(b.assDHas(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#boolean, http://www.w3.org/2001/XMLSchema#string, <urn:test#dp>]");
-        map.put(b.assDMin(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#datatype>, <urn:test#dp>]");
-        map.put(b.assDMax(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#datatype>, <urn:test#dp>]");
-        map.put(b.assDEq(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#datatype>, <urn:test#dp>]");
-        map.put(b.dOneOf(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#boolean, http://www.w3.org/2001/XMLSchema#string, <urn:test#dp>]");
-        map.put(b.dNot(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#boolean, http://www.w3.org/2001/XMLSchema#string, <urn:test#dp>]");
-        map.put(b.dRangeRestrict(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, http://www.w3.org/2001/XMLSchema#double, <urn:test#dp>]");
-        map.put(b.assD(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#boolean, http://www.w3.org/2001/XMLSchema#string, <urn:test#dp>]");
-        map.put(b.assDPlain(),
-                        "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/1999/02/22-rdf-syntax-ns#langString, http://www.w3.org/2001/XMLSchema#string, <urn:test#dp>]");
-        map.put(b.dDom(),
-                        "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>, <urn:test#dp>]");
+            new String[] {i, ann, diff, bool, op, string, c, datatype, iri, same, dp});
+        map.put(b.ann(), new String[] {ann, bool, string});
+        map.put(b.asymm(), new String[] {ann, op, string});
+        map.put(b.annDom(), new String[] {ann, string});
+        map.put(b.annRange(), new String[] {ann, string});
+        map.put(b.ass(), new String[] {i, ann, string, c});
+        map.put(b.assAnd(), new String[] {i, ann, string, c, iri});
+        map.put(b.assOr(), new String[] {i, ann, string, c, iri});
+        map.put(b.dRangeAnd(), new String[] {ann, bool, string, datatype, dp});
+        map.put(b.dRangeOr(), new String[] {ann, bool, string, datatype, dp});
+        map.put(b.assNot(), new String[] {i, ann, string, c});
+        map.put(b.assNotAnon(), new String[] {ann, string, c});
+        map.put(b.assSome(), new String[] {i, ann, op, string, c});
+        map.put(b.assAll(), new String[] {i, ann, op, string, c});
+        map.put(b.assHas(), new String[] {i, ann, op, string});
+        map.put(b.assMin(), new String[] {i, ann, op, string, c});
+        map.put(b.assMax(), new String[] {i, ann, op, string, c});
+        map.put(b.assEq(), new String[] {i, ann, op, string, c});
+        map.put(b.assHasSelf(), new String[] {i, ann, op, string});
+        map.put(b.assOneOf(), new String[] {i, ann, string});
+        map.put(b.assDSome(), new String[] {i, ann, string, datatype, dp});
+        map.put(b.assDAll(), new String[] {i, ann, string, datatype, dp});
+        map.put(b.assDHas(), new String[] {i, ann, bool, string, dp});
+        map.put(b.assDMin(), new String[] {i, ann, string, datatype, dp});
+        map.put(b.assDMax(), new String[] {i, ann, string, datatype, dp});
+        map.put(b.assDEq(), new String[] {i, ann, string, datatype, dp});
+        map.put(b.dOneOf(), new String[] {ann, bool, string, dp});
+        map.put(b.dNot(), new String[] {ann, bool, string, dp});
+        map.put(b.dRangeRestrict(), new String[] {ann, string, doubl, dp});
+        map.put(b.assD(), new String[] {i, ann, bool, string, dp});
+        map.put(b.assDPlain(), new String[] {i, ann, lang, string, dp});
+        map.put(b.dDom(), new String[] {ann, string, c, dp});
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
         return toReturn;
@@ -172,7 +148,7 @@ public class OWLEntityCollectorTestCase {
         Set<OWLEntity> sig = new HashSet<>();
         OWLEntityCollector testsubject = new OWLEntityCollector(sig);
         object.accept(testsubject);
-        String result = sig.toString();
+        List<String> result = asList(sig.stream().map(Object::toString).distinct().sorted());
         assertEquals(expected, result);
     }
 }
