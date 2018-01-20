@@ -12,7 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,8 +38,7 @@ import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
@@ -42,42 +47,37 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<>();
-        SWRLVariable varX = df.getSWRLVariable(IRI("urn:swrl#x"));
-        SWRLVariable varY = df.getSWRLVariable(IRI("urn:swrl#y"));
-        SWRLVariable varZ = df.getSWRLVariable(IRI("urn:swrl#z"));
+        SWRLVariable varX = df.getSWRLVariable(IRI("urn:swrl:var#x"));
+        SWRLVariable varY = df.getSWRLVariable(IRI("urn:swrl:var#y"));
+        SWRLVariable varZ = df.getSWRLVariable(IRI("urn:swrl:var#z"));
         Set<SWRLAtom> body = new HashSet<>();
         body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
-        SWRLIndividualArgument indIArg = df
-                .getSWRLIndividualArgument(NamedIndividual(iri("i")));
-        SWRLIndividualArgument indJArg = df
-                .getSWRLIndividualArgument(NamedIndividual(iri("j")));
+        SWRLIndividualArgument indIArg = df.getSWRLIndividualArgument(NamedIndividual(iri("i")));
+        SWRLIndividualArgument indJArg = df.getSWRLIndividualArgument(NamedIndividual(iri("j")));
         body.add(df.getSWRLClassAtom(Class(iri("D")), indIArg));
         body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
-        SWRLVariable varQ = df.getSWRLVariable(IRI("urn:swrl#q"));
-        SWRLVariable varR = df.getSWRLVariable(IRI("urn:swrl#r"));
+        SWRLVariable varQ = df.getSWRLVariable(IRI("urn:swrl:var#q"));
+        SWRLVariable varR = df.getSWRLVariable(IRI("urn:swrl:var#r"));
         body.add(df.getSWRLDataPropertyAtom(DataProperty(iri("d")), varX, varQ));
         OWLLiteral lit = Literal(33);
         SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);
-        body.add(df.getSWRLDataPropertyAtom(DataProperty(iri("d")), varY,
-                litArg));
+        body.add(df.getSWRLDataPropertyAtom(DataProperty(iri("d")), varY, litArg));
         Set<SWRLAtom> head = new HashSet<>();
         head.add(df.getSWRLClassAtom(Class(iri("C")), varX));
-        head.add(df.getSWRLObjectPropertyAtom(ObjectProperty(iri("p")), varY,
-                varZ));
+        head.add(df.getSWRLObjectPropertyAtom(ObjectProperty(iri("p")), varY, varZ));
         head.add(df.getSWRLSameIndividualAtom(varX, varY));
         head.add(df.getSWRLSameIndividualAtom(indIArg, indJArg));
         head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
         head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
         head.add(df.getSWRLDifferentIndividualsAtom(indIArg, indJArg));
-        OWLObjectSomeValuesFrom svf = ObjectSomeValuesFrom(
-                ObjectProperty(iri("p")), Class(iri("A")));
+        OWLObjectSomeValuesFrom svf =
+            ObjectSomeValuesFrom(ObjectProperty(iri("p")), Class(iri("A")));
         head.add(df.getSWRLClassAtom(svf, varX));
         List<SWRLDArgument> args = new ArrayList<>();
         args.add(varQ);
         args.add(varR);
         args.add(litArg);
-        head.add(df
-                .getSWRLBuiltInAtom(IRI("http://www.owlapi#myBuiltIn"), args));
+        head.add(df.getSWRLBuiltInAtom(IRI("http://www.owlapi#myBuiltIn"), args));
         axioms.add(df.getSWRLRule(body, head));
         return axioms;
     }

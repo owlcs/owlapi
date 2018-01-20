@@ -12,7 +12,52 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.manchestersyntax.renderer;
 
-import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.*;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.AND;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ANNOTATIONS;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ANNOTATION_PROPERTY;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ASYMMETRIC;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CLASS;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.COMMA;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DATA_PROPERTY;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DIFFERENT_FROM;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DIFFERENT_INDIVIDUALS;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_CLASSES;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_PROPERTIES;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_UNION_OF;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_WITH;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DOMAIN;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EQUIVALENT_CLASSES;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EQUIVALENT_PROPERTIES;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EQUIVALENT_TO;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EXACTLY;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.FACET_RESTRICTION_SEPARATOR;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.FUNCTIONAL;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.HAS_KEY;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INDIVIDUAL;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INVERSE;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INVERSE_FUNCTIONAL;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INVERSE_OF;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.IRREFLEXIVE;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MAX;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MIN;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.NOT;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONE_OF_DELIMETER;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONLY;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONTOLOGY;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OR;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.RANGE;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.REFLEXIVE;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_AS;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_INDIVIDUAL;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SELF;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SOME;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUBCLASS_OF;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_OF;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SYMMETRIC;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TRANSITIVE;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TYPE;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.VALUE;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 
 import java.io.Writer;
@@ -24,25 +69,120 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnonymousClassExpression;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLHasValueRestriction;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLPropertyRange;
+import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
+import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     implements OWLObjectVisitor {
 
     /**
-     * @param writer
-     *        writer
-     * @param entityShortFormProvider
-     *        entityShortFormProvider
+     * @param writer writer
+     * @param entityShortFormProvider entityShortFormProvider
      */
     public ManchesterOWLSyntaxObjectRenderer(Writer writer,
         ShortFormProvider entityShortFormProvider) {
@@ -50,8 +190,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Nonnull
-    protected static <T extends OWLObject> List<T> sort(
-        @Nonnull Collection<T> objects) {
+    protected static <T extends OWLObject> List<T> sort(@Nonnull Collection<T> objects) {
         return CollectionFactory.sortOptionally(objects);
     }
 
@@ -59,8 +198,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         @Nonnull ManchesterOWLSyntax delimeter, boolean newline) {
         int tab = getIndent();
         pushTab(tab);
-        for (Iterator<? extends OWLObject> it = sort(objects).iterator(); it
-            .hasNext();) {
+        for (Iterator<? extends OWLObject> it = sort(objects).iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 if (newline && isUseWrapping()) {
@@ -72,8 +210,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         popTab();
     }
 
-    protected void writeCommaSeparatedList(
-        @Nonnull Set<? extends OWLObject> objects) {
+    protected void writeCommaSeparatedList(@Nonnull Set<? extends OWLObject> objects) {
         for (Iterator<? extends OWLObject> it = sort(objects).iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
@@ -82,11 +219,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         }
     }
 
-    protected void write(@Nonnull Set<? extends OWLClassExpression> objects,
-        boolean newline) {
+    protected void write(@Nonnull Set<? extends OWLClassExpression> objects, boolean newline) {
         boolean first = true;
-        for (Iterator<? extends OWLObject> it = sort(objects).iterator(); it
-            .hasNext();) {
+        for (Iterator<? extends OWLObject> it = sort(objects).iterator(); it.hasNext();) {
             OWLObject desc = it.next();
             if (!first) {
                 if (newline && isUseWrapping()) {
@@ -105,16 +240,14 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         }
     }
 
-    private void writeRestriction(
-        @Nonnull OWLQuantifiedDataRestriction restriction,
+    private void writeRestriction(@Nonnull OWLQuantifiedDataRestriction restriction,
         @Nonnull ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
         restriction.getFiller().accept(this);
     }
 
-    private void writeRestriction(
-        @Nonnull OWLQuantifiedObjectRestriction restriction,
+    private void writeRestriction(@Nonnull OWLQuantifiedObjectRestriction restriction,
         @Nonnull ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
@@ -138,16 +271,14 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     private <V extends OWLObject> void writeRestriction(
-        @Nonnull OWLHasValueRestriction<V> restriction,
-        @Nonnull OWLPropertyExpression p) {
+        @Nonnull OWLHasValueRestriction<V> restriction, @Nonnull OWLPropertyExpression p) {
         p.accept(this);
         write(VALUE);
         restriction.getFiller().accept(this);
     }
 
     private <F extends OWLPropertyRange> void writeRestriction(
-        @Nonnull OWLCardinalityRestriction<F> restriction,
-        @Nonnull ManchesterOWLSyntax keyword,
+        @Nonnull OWLCardinalityRestriction<F> restriction, @Nonnull ManchesterOWLSyntax keyword,
         @Nonnull OWLPropertyExpression p) {
         p.accept(this);
         write(keyword);
@@ -176,8 +307,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(@Nonnull OWLObjectUnionOf ce) {
         boolean first = true;
-        for (Iterator<? extends OWLClassExpression> it = sortOptionally(ce.getOperands())
-            .iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLClassExpression> it =
+            sortOptionally(ce.getOperands()).iterator(); it.hasNext();) {
             OWLClassExpression op = it.next();
             if (!first) {
                 write(" ", OR, " ");
@@ -479,10 +610,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         restore();
     }
 
-    private void writeBinaryOrNaryList(
-        @Nonnull ManchesterOWLSyntax binaryKeyword,
-        @Nonnull Set<? extends OWLObject> objects,
-        @Nonnull ManchesterOWLSyntax naryKeyword) {
+    private void writeBinaryOrNaryList(@Nonnull ManchesterOWLSyntax binaryKeyword,
+        @Nonnull Set<? extends OWLObject> objects, @Nonnull ManchesterOWLSyntax naryKeyword) {
         if (objects.size() == 2) {
             Iterator<? extends OWLObject> it = sort(objects).iterator();
             it.next().accept(this);
@@ -497,8 +626,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getClassExpressions(),
-            DISJOINT_CLASSES);
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getClassExpressions(), DISJOINT_CLASSES);
         restore();
     }
 
@@ -523,8 +651,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.getProperties(),
-            EQUIVALENT_PROPERTIES);
+        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.getProperties(), EQUIVALENT_PROPERTIES);
         restore();
     }
 
@@ -545,24 +672,21 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DIFFERENT_FROM, axiom.getIndividuals(),
-            DIFFERENT_INDIVIDUALS);
+        writeBinaryOrNaryList(DIFFERENT_FROM, axiom.getIndividuals(), DIFFERENT_INDIVIDUALS);
         restore();
     }
 
     @Override
     public void visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getProperties(),
-            DISJOINT_PROPERTIES);
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getProperties(), DISJOINT_PROPERTIES);
         restore();
     }
 
     @Override
     public void visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getProperties(),
-            DISJOINT_PROPERTIES);
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.getProperties(), DISJOINT_PROPERTIES);
         restore();
     }
 
@@ -723,8 +847,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.getClassExpressions(),
-            EQUIVALENT_CLASSES);
+        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.getClassExpressions(), EQUIVALENT_CLASSES);
         restore();
     }
 
@@ -782,8 +905,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
         setAxiomWriting();
-        for (Iterator<OWLObjectPropertyExpression> it = axiom
-            .getPropertyChain().iterator(); it.hasNext();) {
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it
+            .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(" o ");
@@ -876,16 +999,14 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     @Override
     public void visit(@Nonnull SWRLBuiltInAtom node) {
-        SWRLBuiltInsVocabulary voc = SWRLBuiltInsVocabulary.getBuiltIn(node
-            .getPredicate());
+        SWRLBuiltInsVocabulary voc = SWRLBuiltInsVocabulary.getBuiltIn(node.getPredicate());
         if (voc != null) {
             write(voc.getPrefixedName());
         } else {
             write(node.getPredicate().toQuotedString());
         }
         write("(");
-        for (Iterator<SWRLDArgument> it = sort(node.getArguments()).iterator(); it
-            .hasNext();) {
+        for (Iterator<SWRLDArgument> it = sort(node.getArguments()).iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
@@ -898,7 +1019,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     public void visit(@Nonnull SWRLVariable node) {
         write("?");
         // do not save the namespace if it's the conventional one
-        if ("urn:swrl#".equals(node.getIRI().getNamespace())) {
+        if ("urn:swrl:var#".equals(node.getIRI().getNamespace())
+            || "urn:swrl#".equals(node.getIRI().getNamespace())) {
             write(node.getIRI().prefixedBy(""));
         } else {
             write(node.getIRI().toQuotedString());
@@ -946,8 +1068,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         write(ANNOTATIONS.toString());
         write(": ");
         pushTab(getIndent());
-        for (Iterator<OWLAnnotation> annoIt = sort(annos).iterator(); annoIt
-            .hasNext();) {
+        for (Iterator<OWLAnnotation> annoIt = sort(annos).iterator(); annoIt.hasNext();) {
             OWLAnnotation anno = annoIt.next();
             anno.accept(this);
             if (annoIt.hasNext()) {
