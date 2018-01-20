@@ -73,13 +73,13 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.creat
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
-import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -105,6 +105,8 @@ import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
+
+import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -132,36 +134,32 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
     private static final OWLAnnotationProperty apropB = AnnotationProperty(iri("apropB"));
     private static final OWLNamedIndividual ind = NamedIndividual(iri("i"));
     private static final OWLNamedIndividual indj = NamedIndividual(iri("j"));
-    private static final OWLEntity peter = NamedIndividual(
-        IRI("http://www.another.com/ont#", "peter"));
+    private static final OWLEntity peter =
+        NamedIndividual(IRI("http://www.another.com/ont#", "peter"));
     private static final OWLAnnotation ann1 = Annotation(RDFSLabel(), Literal("Annotation 1"));
     private static final OWLAnnotation ann2 = Annotation(RDFSLabel(), Literal("Annotation 2"));
-    private static final OWLAnnotation eAnn1 = Annotation(RDFSLabel(),
-        Literal("EntityAnnotation 1"));
-    private static final OWLAnnotation eAnn2 = Annotation(RDFSLabel(),
-        Literal("EntityAnnotation 2"));
-    private static final OWLDatatype datatype = Datatype(
-        IRI("http://www.ont.com/myont/", "mydatatype"));
-    private static final OWLAnnotation annoOuterOuter1 = Annotation(
-        AnnotationProperty(iri("myOuterOuterLabel1")),
-        Literal("Outer Outer label 1"));
-    private static final OWLAnnotation annoOuterOuter2 = Annotation(
-        AnnotationProperty(iri("myOuterOuterLabel2")),
-        Literal("Outer Outer label 2"));
+    private static final OWLAnnotation eAnn1 =
+        Annotation(RDFSLabel(), Literal("EntityAnnotation 1"));
+    private static final OWLAnnotation eAnn2 =
+        Annotation(RDFSLabel(), Literal("EntityAnnotation 2"));
+    private static final OWLDatatype datatype =
+        Datatype(IRI("http://www.ont.com/myont/", "mydatatype"));
+    private static final OWLAnnotation annoOuterOuter1 =
+        Annotation(AnnotationProperty(iri("myOuterOuterLabel1")), Literal("Outer Outer label 1"));
+    private static final OWLAnnotation annoOuterOuter2 =
+        Annotation(AnnotationProperty(iri("myOuterOuterLabel2")), Literal("Outer Outer label 2"));
     private static final OWLDatatype dt = Datatype(IRI("file:/c/test.owlapi#", "SSN"));
-    private static final OWLFacetRestriction fr = FacetRestriction(OWLFacet.PATTERN, Literal(
-        "[0-9]{3}-[0-9]{2}-[0-9]{4}"));
-    private static final OWLDataRange dr = DatatypeRestriction(
-        Datatype(IRI("http://www.w3.org/2001/XMLSchema#",
-            "string")), fr);
+    private static final OWLFacetRestriction fr =
+        FacetRestriction(OWLFacet.PATTERN, Literal("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
+    private static final OWLDataRange dr =
+        DatatypeRestriction(Datatype(IRI("http://www.w3.org/2001/XMLSchema#", "string")), fr);
     private static final OWLDataIntersectionOf disj1 = DataIntersectionOf(DataComplementOf(dr), dt);
     private static final OWLDataIntersectionOf disj2 = DataIntersectionOf(DataComplementOf(dt), dr);
-    private static final OWLAnnotation annoOuter = Annotation(
-        AnnotationProperty(iri("myOuterLabel")), Literal(
-            "Outer label"), annoOuterOuter1, annoOuterOuter2);
-    private static final OWLAnnotation annoInner = Annotation(AnnotationProperty(iri("myLabel")),
-        Literal("Label"),
-        annoOuter);
+    private static final OWLAnnotation annoOuter =
+        Annotation(AnnotationProperty(iri("myOuterLabel")), Literal("Outer label"), annoOuterOuter1,
+            annoOuterOuter2);
+    private static final OWLAnnotation annoInner =
+        Annotation(AnnotationProperty(iri("myLabel")), Literal("Label"), annoOuter);
 
     public AxiomsRoundTrippingTestCase(AxiomBuilder f) {
         super(f);
@@ -171,56 +169,55 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
     public static List<AxiomBuilder> getData() {
         return Arrays.asList(
             // SWRLRuleAlternateNS
-            (AxiomBuilder)
-                () -> {
-                    Set<OWLAxiom> axioms = new HashSet<>();
-                    SWRLVariable varX = df.getSWRLVariable("http://www.owlapi#", "x");
-                    SWRLVariable varY = df.getSWRLVariable("http://www.owlapi#", "y");
-                    SWRLVariable varZ = df.getSWRLVariable("http://www.owlapi#", "z");
-                    Set<SWRLAtom> body = new HashSet<>();
-                    body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
-                    SWRLIndividualArgument indIArg = df.getSWRLIndividualArgument(ind);
-                    SWRLIndividualArgument indJArg = df.getSWRLIndividualArgument(indj);
-                    body.add(df.getSWRLClassAtom(Class(iri("D")), indIArg));
-                    body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
-                    SWRLVariable varQ = df.getSWRLVariable("http://www.owlapi#", "q");
-                    SWRLVariable varR = df.getSWRLVariable("http://www.owlapi#", "r");
-                    body.add(df.getSWRLDataPropertyAtom(dp, varX, varQ));
-                    OWLLiteral lit = Literal(33);
-                    SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);
-                    body.add(df.getSWRLDataPropertyAtom(dp, varY, litArg));
-                    Set<SWRLAtom> head = new HashSet<>();
-                    head.add(df.getSWRLClassAtom(Class(iri("C")), varX));
-                    head.add(df.getSWRLObjectPropertyAtom(op, varY, varZ));
-                    head.add(df.getSWRLSameIndividualAtom(varX, varY));
-                    head.add(df.getSWRLSameIndividualAtom(indIArg, indJArg));
-                    head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
-                    head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
-                    head.add(df.getSWRLDifferentIndividualsAtom(indIArg, indJArg));
-                    OWLObjectSomeValuesFrom svf = ObjectSomeValuesFrom(op, Class(iri("A")));
-                    head.add(df.getSWRLClassAtom(svf, varX));
-                    List<SWRLDArgument> args = new ArrayList<>();
-                    args.add(varQ);
-                    args.add(varR);
-                    args.add(litArg);
-                    head.add(df.getSWRLBuiltInAtom(IRI("http://www.owlapi#", "myBuiltIn"), args));
-                    axioms.add(df.getSWRLRule(body, head));
-                    return axioms;
-                },
-            // SWRLRule
-            () -> {
+            (AxiomBuilder) () -> {
                 Set<OWLAxiom> axioms = new HashSet<>();
-                SWRLVariable varX = df.getSWRLVariable("urn:swrl#", "x");
-                SWRLVariable varY = df.getSWRLVariable("urn:swrl#", "y");
-                SWRLVariable varZ = df.getSWRLVariable("urn:swrl#", "z");
+                SWRLVariable varX = df.getSWRLVariable("http://www.owlapi#", "x");
+                SWRLVariable varY = df.getSWRLVariable("http://www.owlapi#", "y");
+                SWRLVariable varZ = df.getSWRLVariable("http://www.owlapi#", "z");
                 Set<SWRLAtom> body = new HashSet<>();
                 body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
                 SWRLIndividualArgument indIArg = df.getSWRLIndividualArgument(ind);
                 SWRLIndividualArgument indJArg = df.getSWRLIndividualArgument(indj);
                 body.add(df.getSWRLClassAtom(Class(iri("D")), indIArg));
                 body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
-                SWRLVariable varQ = df.getSWRLVariable("urn:swrl#", "q");
-                SWRLVariable varR = df.getSWRLVariable("urn:swrl#", "r");
+                SWRLVariable varQ = df.getSWRLVariable("http://www.owlapi#", "q");
+                SWRLVariable varR = df.getSWRLVariable("http://www.owlapi#", "r");
+                body.add(df.getSWRLDataPropertyAtom(dp, varX, varQ));
+                OWLLiteral lit = Literal(33);
+                SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);
+                body.add(df.getSWRLDataPropertyAtom(dp, varY, litArg));
+                Set<SWRLAtom> head = new HashSet<>();
+                head.add(df.getSWRLClassAtom(Class(iri("C")), varX));
+                head.add(df.getSWRLObjectPropertyAtom(op, varY, varZ));
+                head.add(df.getSWRLSameIndividualAtom(varX, varY));
+                head.add(df.getSWRLSameIndividualAtom(indIArg, indJArg));
+                head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
+                head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
+                head.add(df.getSWRLDifferentIndividualsAtom(indIArg, indJArg));
+                OWLObjectSomeValuesFrom svf = ObjectSomeValuesFrom(op, Class(iri("A")));
+                head.add(df.getSWRLClassAtom(svf, varX));
+                List<SWRLDArgument> args = new ArrayList<>();
+                args.add(varQ);
+                args.add(varR);
+                args.add(litArg);
+                head.add(df.getSWRLBuiltInAtom(IRI("http://www.owlapi#", "myBuiltIn"), args));
+                axioms.add(df.getSWRLRule(body, head));
+                return axioms;
+            },
+            // SWRLRule
+            () -> {
+                Set<OWLAxiom> axioms = new HashSet<>();
+                SWRLVariable varX = df.getSWRLVariable("urn:swrl:var#", "x");
+                SWRLVariable varY = df.getSWRLVariable("urn:swrl:var#", "y");
+                SWRLVariable varZ = df.getSWRLVariable("urn:swrl:var#", "z");
+                Set<SWRLAtom> body = new HashSet<>();
+                body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
+                SWRLIndividualArgument indIArg = df.getSWRLIndividualArgument(ind);
+                SWRLIndividualArgument indJArg = df.getSWRLIndividualArgument(indj);
+                body.add(df.getSWRLClassAtom(Class(iri("D")), indIArg));
+                body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
+                SWRLVariable varQ = df.getSWRLVariable("urn:swrl:var#", "q");
+                SWRLVariable varR = df.getSWRLVariable("urn:swrl:var#", "r");
                 body.add(df.getSWRLDataPropertyAtom(dp, varX, varQ));
                 OWLLiteral lit = Literal(33);
                 SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);
@@ -248,30 +245,27 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             //
             () -> singleton(AsymmetricObjectProperty(op)),
             //
-            () -> singleton(
-                DifferentIndividuals(createIndividual(), createIndividual(), createIndividual(),
-                    createIndividual(), createIndividual(), createIndividual(), createIndividual(),
-                    createIndividual(),
-                    createIndividual(), createIndividual())),
+            () -> singleton(DifferentIndividuals(createIndividual(), createIndividual(),
+                createIndividual(), createIndividual(), createIndividual(), createIndividual(),
+                createIndividual(), createIndividual(), createIndividual(), createIndividual())),
             //
             () -> Sets.newHashSet(
                 SubClassOf(clsA, ObjectSomeValuesFrom(op, ObjectSomeValuesFrom(op, clsB))),
                 Declaration(clsA), Declaration(clsB)),
             //
             () -> Sets.newHashSet(Declaration(RDFSLabel()), Declaration(peter),
-                AnnotationAssertion(RDFSLabel(), peter
-                    .getIRI(), Literal("X", "en"), ann1, ann2)),
+                AnnotationAssertion(RDFSLabel(), peter.getIRI(), Literal("X", "en"), ann1, ann2)),
             //
             () -> Sets.newHashSet(Declaration(RDFSLabel()), Declaration(peter, eAnn1, eAnn2),
-                AnnotationAssertion(
-                    RDFSLabel(), peter.getIRI(), Literal("X", "en"), ann1, ann2)),
+                AnnotationAssertion(RDFSLabel(), peter.getIRI(), Literal("X", "en"), ann1, ann2)),
             //
             () -> singleton(InverseObjectProperties(oq, op)),
             //
             () -> singleton(InverseObjectProperties(op, oq)),
             //
-            () -> Sets.newHashSet(Declaration(clsA), AnnotationAssertion(apropA, clsA.getIRI(), IRI(
-                "http://www.semanticweb.org/owlapi#", "object"))),
+            () -> Sets.newHashSet(Declaration(clsA),
+                AnnotationAssertion(apropA, clsA.getIRI(),
+                    IRI("http://www.semanticweb.org/owlapi#", "object"))),
             //
             () -> singleton(SubClassOf(clsA, clsB, singleton(annoInner))),
             //
@@ -304,8 +298,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             () -> singleton(DataPropertyAssertion(dp, ind, Literal(33.3))),
             //
             () -> Sets.newHashSet(NegativeDataPropertyAssertion(dp, ind, Literal(33.3)),
-                NegativeDataPropertyAssertion(
-                    dp, ind, Literal("weasel", "")),
+                NegativeDataPropertyAssertion(dp, ind, Literal("weasel", "")),
                 NegativeDataPropertyAssertion(dp, ind, Literal("weasel"))),
             //
             () -> singleton(FunctionalDataProperty(dp)),
@@ -315,8 +308,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             () -> singleton(DataPropertyRange(dp, TopDatatype())),
             //
             () -> Sets.newHashSet(DisjointDataProperties(dpA, dpB, dpC), Declaration(dpA),
-                Declaration(dpB),
-                Declaration(dpC)),
+                Declaration(dpB), Declaration(dpC)),
             //
             () -> singleton(DisjointDataProperties(dpA, dpB)),
             //
@@ -328,15 +320,13 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
                 Declaration(datatype)),
             //
             () -> Sets.newHashSet(DifferentIndividuals(ind, indj),
-                DifferentIndividuals(ind, NamedIndividual(iri(
-                    "k")))),
+                DifferentIndividuals(ind, NamedIndividual(iri("k")))),
             //
             () -> singleton(DifferentIndividuals(ind, indj, NamedIndividual(iri("k")),
                 NamedIndividual(iri("l")))),
             //
             () -> Sets.newHashSet(DisjointObjectProperties(propA, propB, propC), Declaration(propA),
-                Declaration(propB),
-                Declaration(propC)),
+                Declaration(propB), Declaration(propC)),
             //
             () -> singleton(DisjointObjectProperties(propA, propB)),
             //
@@ -349,35 +339,33 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             //
             () -> singleton(IrreflexiveObjectProperty(op)),
             //
-            () -> singleton(
-                DifferentIndividuals(asUnorderedSet(Stream.generate(() -> createIndividual()).limit(
-                    1000)))),
+            () -> singleton(DifferentIndividuals(
+                asUnorderedSet(Stream.generate(() -> createIndividual()).limit(1000)))),
             //
             () -> Sets.newHashSet(AnnotationAssertion(apropA, clsA.getIRI(), Literal("abc", "en")),
                 Declaration(clsA)),
             //
             () -> Sets.newHashSet(AnnotationAssertion(apropA, iriA, Literal("abc", "en")),
-                AnnotationAssertion(apropA,
-                    iriA, Literal("abcd", "")), AnnotationAssertion(apropA, iriA, Literal("abcde")),
-                AnnotationAssertion(
-                    apropA, iriA, Literal("abcdef", OWL2Datatype.XSD_STRING)), Declaration(clsA)),
+                AnnotationAssertion(apropA, iriA, Literal("abcd", "")),
+                AnnotationAssertion(apropA, iriA, Literal("abcde")),
+                AnnotationAssertion(apropA, iriA, Literal("abcdef", OWL2Datatype.XSD_STRING)),
+                Declaration(clsA)),
             //
             () -> singleton(NegativeObjectPropertyAssertion(op, ind, indj)),
             //
             () -> singleton(ObjectPropertyAssertion(op, ind, indj)),
             //
             () -> singleton(SubPropertyChainOf(Arrays.asList(propA, propB, propC), propD,
-                Sets.newHashSet(Annotation(
-                    apropA, Literal("Test", "en")), Annotation(apropB, Literal("Test", ""))))),
+                Sets.newHashSet(Annotation(apropA, Literal("Test", "en")),
+                    Annotation(apropB, Literal("Test", ""))))),
             //
             () -> singleton(ObjectPropertyDomain(op, clsA)),
             //
             () -> singleton(ObjectPropertyRange(op, clsA)),
             //
-            () -> Sets
-                .newHashSet(Declaration(Class(IRI("http://www.test.com/ontology#", "Class%37A"))),
-                    Declaration(
-                        ObjectProperty(IRI("http://www.test.com/ontology#", "prop%37A")))),
+            () -> Sets.newHashSet(
+                Declaration(Class(IRI("http://www.test.com/ontology#", "Class%37A"))),
+                Declaration(ObjectProperty(IRI("http://www.test.com/ontology#", "prop%37A")))),
             //
             () -> singleton(ReflexiveObjectProperty(op)),
             //
@@ -386,8 +374,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             () -> singleton(DataPropertyAssertion(dp, ind, Literal("Test \"literal\"\nStuff"))),
             //
             () -> Sets.newHashSet(DataPropertyAssertion(dp, ind, Literal("Test \"literal\"")),
-                DataPropertyAssertion(dp,
-                    ind, Literal("Test 'literal'")),
+                DataPropertyAssertion(dp, ind, Literal("Test 'literal'")),
                 DataPropertyAssertion(dp, ind, Literal("Test \"\"\"literal\"\"\""))),
             //
             () -> singleton(SubObjectPropertyOf(op, oq)),
@@ -397,8 +384,8 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             () -> singleton(TransitiveObjectProperty(op)),
             //
             () -> Sets.newHashSet(DataPropertyAssertion(dp, ind, Literal(3)),
-                DataPropertyAssertion(dp, ind, Literal(
-                    33.3)), DataPropertyAssertion(dp, ind, Literal(true)),
+                DataPropertyAssertion(dp, ind, Literal(33.3)),
+                DataPropertyAssertion(dp, ind, Literal(true)),
                 DataPropertyAssertion(dp, ind, Literal(33.3f)),
                 DataPropertyAssertion(dp, ind, Literal("33.3"))));
     }
