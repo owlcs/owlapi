@@ -1837,6 +1837,7 @@ private void jjCheckNAddStates(int start, int end)
    } while (start++ != end);
 }
 
+    /** Constructor. */
     public TurtleParserTokenManager(JavaCharStream stream){
 
       if (JavaCharStream.staticFlag)
@@ -1845,11 +1846,14 @@ private void jjCheckNAddStates(int start, int end)
     input_stream = stream;
   }
 
+  /** Constructor. */
   public TurtleParserTokenManager (JavaCharStream stream, int lexState){
     ReInit(stream);
     SwitchTo(lexState);
   }
 
+  /** Reinitialise parser. */
+  
   public void ReInit(JavaCharStream stream)
   {
 
@@ -1870,6 +1874,7 @@ private void jjCheckNAddStates(int start, int end)
       jjrounds[i] = 0x80000000;
   }
 
+  /** Reinitialise parser. */
   public void ReInit(JavaCharStream stream, int lexState)
   
   {
@@ -1877,6 +1882,7 @@ private void jjCheckNAddStates(int start, int end)
     SwitchTo(lexState);
   }
 
+  /** Switch to specified lex state. */
   public void SwitchTo(int lexState)
   {
     if (lexState >= 5 || lexState < 0)

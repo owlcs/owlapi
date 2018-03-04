@@ -1464,6 +1464,7 @@ private void jjCheckNAddTwoStates(int state1, int state2)
    jjCheckNAdd(state2);
 }
 
+    /** Constructor. */
     public KRSSParserTokenManager(JavaCharStream stream){
 
       if (JavaCharStream.staticFlag)
@@ -1472,11 +1473,14 @@ private void jjCheckNAddTwoStates(int state1, int state2)
     input_stream = stream;
   }
 
+  /** Constructor. */
   public KRSSParserTokenManager (JavaCharStream stream, int lexState){
     ReInit(stream);
     SwitchTo(lexState);
   }
 
+  /** Reinitialise parser. */
+  
   public void ReInit(JavaCharStream stream)
   {
 
@@ -1497,6 +1501,7 @@ private void jjCheckNAddTwoStates(int state1, int state2)
       jjrounds[i] = 0x80000000;
   }
 
+  /** Reinitialise parser. */
   public void ReInit(JavaCharStream stream, int lexState)
   
   {
@@ -1504,6 +1509,7 @@ private void jjCheckNAddTwoStates(int state1, int state2)
     SwitchTo(lexState);
   }
 
+  /** Switch to specified lex state. */
   public void SwitchTo(int lexState)
   {
     if (lexState >= 4 || lexState < 0)
