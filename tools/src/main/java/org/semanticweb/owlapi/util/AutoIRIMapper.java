@@ -50,8 +50,10 @@ import com.google.common.base.Splitter;
 
 /**
  * A mapper which given a root folder attempts to automatically discover and map files to
- * ontologies. The mapper is only capable of mapping ontologies in RDF/XML and OWL/XML (other
- * serialisations are not supported).
+ * ontologies. The mapper is capable of mapping ontologies in RDF/XML, OWL/XML, Manchester OWL
+ * Syntax, Functional Syntax and OBO (other serialisations are not supported). Zip and jar files
+ * containing ontologies are supported, either as main argument to the constructor or as content of
+ * the root folder.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -76,7 +78,10 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * Creates an auto-mapper which examines ontologies that reside in the specified root folder
      * (and possibly sub-folders).
      *
-     * @param rootDirectory The root directory which should be searched for ontologies.
+     * @param rootDirectory The root directory which should be searched for ontologies; this can
+     *        also be a zip/jar file containing ontologies. If root is actually a folder, zip/jar
+     *        files included in the folder are parsed for ontologies. The zip parsing is delegated
+     *        to ZipIRIMapper.
      * @param recursive Sub directories will be searched recursively if {@code true}.
      */
     public AutoIRIMapper(File rootDirectory, boolean recursive) {

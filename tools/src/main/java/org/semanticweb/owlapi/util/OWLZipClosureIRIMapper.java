@@ -45,11 +45,13 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
             ZipEntry yaml = z.getEntry("owlzip.yaml");
             if (yaml != null) {
                 Yaml yamlParser = new Yaml();
-                OWLZipYaml load = new OWLZipYaml(yamlParser.load(z.getInputStream(yaml)));
-                load.roots().forEach((a, b) -> physicalRoots.add(IRI.create(basePhysicalIRI + b)));
-                load.entries()
-                    .forEach(e -> logicalToPhysicalIRI.put(e.getKey().getOntologyIRI().get(),
-                        IRI.create(basePhysicalIRI + e.getValue())));
+
+                Map<String, List> load2 = yamlParser.load(z.getInputStream(yaml));
+                OWLZipYaml load = new OWLZipYaml(load2.get("ontologies"));
+                load.roots()
+                    .forEach(e -> physicalRoots.add(IRI.create(basePhysicalIRI + e.path())));
+                load.entries().forEach(e -> logicalToPhysicalIRI.put(e.id().getOntologyIRI().get(),
+                    IRI.create(basePhysicalIRI + e.path())));
             } else {
                 ZipEntry index = z.getEntry("owlzip.properties");
                 if (index != null) {
