@@ -66,17 +66,26 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
     }
 
     protected boolean loadFromYaml(String basePhysicalIRI, ZipFile z) throws IOException {
-        ZipEntry yaml = z.getEntry("owlzip.yaml");
-        if (yaml == null) {
+        OWLZipYaml load = yaml(z);
+        if (load == null) {
             return false;
         }
-        Yaml yamlParser = new Yaml();
-        Map<String, List<Map<String, Object>>> load2 = yamlParser.load(z.getInputStream(yaml));
-        OWLZipYaml load = new OWLZipYaml(load2.get("ontologies"));
         load.roots().forEach(e -> physicalRoots.add(IRI.create(basePhysicalIRI + e.path())));
         load.entries().forEach(e -> logicalToPhysicalIRI.put(e.id().getOntologyIRI().get(),
             IRI.create(basePhysicalIRI + e.path())));
         return true;
+    }
+
+    @Nullable
+    protected OWLZipYaml yaml(ZipFile z) throws IOException {
+        ZipEntry yaml = z.getEntry("owlzip.yaml");
+        if (yaml == null) {
+            return null;
+        }
+        Yaml yamlParser = new Yaml();
+        Map<String, List<Map<String, Object>>> load2 = yamlParser.load(z.getInputStream(yaml));
+        OWLZipYaml load = new OWLZipYaml(load2.get("ontologies"));
+        return load;
     }
 
     protected boolean loadFromCatalog(String basePhysicalIRI, ZipFile z) throws IOException {
@@ -85,9 +94,8 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
         if (yaml == null) {
             return false;
         }
-        Document doc;
         try {
-            doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
                 .parse(z.getInputStream(yaml));
             NodeList uris = doc.getElementsByTagName("uri");
             for (int i = 0; i < uris.getLength(); i++) {
