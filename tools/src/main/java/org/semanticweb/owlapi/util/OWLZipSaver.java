@@ -31,7 +31,7 @@ public class OWLZipSaver {
     /** Properties entry name */
     public static final String PROPERTIES_INDEX_NAME = "owlzip.properties";
     /** Catalog entry name */
-    public static final String CATALOG_INDEX_NAME = "catalog-v001.xml";
+    public static final String CATALOG_INDEX_NAME = "catalog.xml";
     private Function<OWLOntologyID, String> entryPath = this::entryPath;
     private BiFunction<Collection<OWLOntology>, Collection<OWLOntology>, String> index =
         this::yamlIndex;
