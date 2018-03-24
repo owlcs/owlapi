@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
+import java.net.JarURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -120,7 +121,8 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                     // automatically
                     conn = newURL.openConnection();
                     conn.addRequestProperty("Accept", actualAcceptHeaders);
-                    if (config.getAuthorizationValue() != null && !config.getAuthorizationValue().isEmpty()) {
+                    if (config.getAuthorizationValue() != null
+                        && !config.getAuthorizationValue().isEmpty()) {
                         conn.setRequestProperty("Authorization", config.getAuthorizationValue());
                     }
                     if (config.isAcceptingHTTPCompression()) {
@@ -243,6 +245,15 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         } else if (documentSource.isInputStreamAvailable()) {
             is = new InputSource(documentSource.getInputStream());
         } else {
+            if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:")) {
+                try {
+                    return new InputSource(
+                        ((JarURLConnection) new URL(documentSource.getDocumentIRI().toString())
+                            .openConnection()).getInputStream());
+                } catch (IOException e) {
+                    throw new OWLParserException(e);
+                }
+            }
             Optional<String> headers = documentSource.getAcceptHeaders();
             if (headers.isPresent()) {
                 is = new InputSource(

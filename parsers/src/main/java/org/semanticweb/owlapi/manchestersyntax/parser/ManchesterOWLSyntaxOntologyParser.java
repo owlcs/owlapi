@@ -16,6 +16,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.JarURLConnection;
+import java.net.URL;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
@@ -25,6 +27,7 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
@@ -66,16 +69,25 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     br = new BufferedReader(new InputStreamReader(documentSource.getInputStream(),
                         DEFAULT_FILE_ENCODING));
                 } else {
-                    Optional<String> headers = documentSource.getAcceptHeaders();
                     InputStream is = null;
-                    if (headers.isPresent()) {
-                        is = getInputStream(documentSource.getDocumentIRI(), configuration,
-                            headers.get());
+                    if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:")) {
+                        try {
+                            is = ((JarURLConnection) new URL(
+                                documentSource.getDocumentIRI().toString()).openConnection())
+                                    .getInputStream();
+                        } catch (IOException e) {
+                            throw new OWLParserException(e);
+                        }
                     } else {
-                        is = getInputStream(documentSource.getDocumentIRI(), configuration,
-                            DEFAULT_REQUEST);
+                        Optional<String> headers = documentSource.getAcceptHeaders();
+                        if (headers.isPresent()) {
+                            is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                                headers.get());
+                        } else {
+                            is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                                DEFAULT_REQUEST);
+                        }
                     }
-
                     br = new BufferedReader(new InputStreamReader(is, DEFAULT_FILE_ENCODING));
                 }
                 StringBuilder sb = new StringBuilder();

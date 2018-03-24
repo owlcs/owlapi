@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.net.JarURLConnection;
+import java.net.URL;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
@@ -23,6 +25,7 @@ import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -67,15 +70,23 @@ public class TurtleOntologyParser extends AbstractOWLParser {
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
                     documentSource.getDocumentIRI());
             } else {
-                Optional<String> headers = documentSource.getAcceptHeaders();
-                if (headers.isPresent()) {
-                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
-                        headers.get());
+                if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:")) {
+                    try {
+                        is = ((JarURLConnection) new URL(documentSource.getDocumentIRI().toString())
+                            .openConnection()).getInputStream();
+                    } catch (IOException e) {
+                        throw new OWLParserException(e);
+                    }
                 } else {
-                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
-                        DEFAULT_REQUEST);
+                    Optional<String> headers = documentSource.getAcceptHeaders();
+                    if (headers.isPresent()) {
+                        is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                            headers.get());
+                    } else {
+                        is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                            DEFAULT_REQUEST);
+                    }
                 }
-
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
                     documentSource.getDocumentIRI());
             }

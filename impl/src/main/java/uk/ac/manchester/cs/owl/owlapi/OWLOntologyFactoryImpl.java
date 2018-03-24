@@ -49,9 +49,12 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyFactoryImpl.class);
     private final Set<String> parsableSchemes =
-        new HashSet<>(Arrays.asList("http", "https", "file", "ftp"));
+        new HashSet<>(Arrays.asList("http", "https", "file", "ftp", "jar"));
     private final OWLOntologyBuilder ontologyBuilder;
 
+    /**
+     * @param ontologyBuilder ontology builder
+     */
     @Inject
     public OWLOntologyFactoryImpl(OWLOntologyBuilder ontologyBuilder) {
         this.ontologyBuilder = verifyNotNull(ontologyBuilder);

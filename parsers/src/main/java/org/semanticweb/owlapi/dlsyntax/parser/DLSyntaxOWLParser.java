@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.net.JarURLConnection;
+import java.net.URL;
 import java.util.Optional;
 import java.util.Set;
 
@@ -64,13 +66,22 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
                 is = documentSource.getInputStream();
                 parser = new DLSyntaxParser(is);
             } else {
-                Optional<String> headers = documentSource.getAcceptHeaders();
-                if (headers.isPresent()) {
-                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
-                        headers.get());
+                if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:")) {
+                    try {
+                        is = ((JarURLConnection) new URL(documentSource.getDocumentIRI().toString())
+                            .openConnection()).getInputStream();
+                    } catch (IOException e) {
+                        throw new OWLParserException(e);
+                    }
                 } else {
-                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
-                        DEFAULT_REQUEST);
+                    Optional<String> headers = documentSource.getAcceptHeaders();
+                    if (headers.isPresent()) {
+                        is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                            headers.get());
+                    } else {
+                        is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                            DEFAULT_REQUEST);
+                    }
                 }
                 parser = new DLSyntaxParser(is);
             }
