@@ -11,6 +11,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
+import java.net.JarURLConnection;
+import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -114,6 +116,15 @@ public class DocumentSources {
         OWLOntologyLoaderConfiguration configuration) throws OWLOntologyInputSourceException {
         Optional<InputStream> input = source.getInputStream();
         if (!input.isPresent() && !source.hasAlredyFailedOnIRIResolution()) {
+            if (source.getDocumentIRI().getNamespace().startsWith("jar:")) {
+                try {
+                    return streamFromJar(source.getDocumentIRI()).getInputStream();
+                } catch (IOException e) {
+                    source.setIRIResolutionFailed(true);
+                    throw new OWLParserException(e);
+                }
+            }
+
             Optional<String> headers = source.getAcceptHeaders();
             if (headers.isPresent()) {
                 input = getInputStream(source.getDocumentIRI(), configuration, headers.get());
@@ -125,6 +136,11 @@ public class DocumentSources {
             return new BufferedInputStream(input.get());
         }
         throw new OWLOntologyInputSourceException("No input reader can be found");
+    }
+
+    protected static JarURLConnection streamFromJar(IRI documentIRI)
+        throws IOException, MalformedURLException {
+        return (JarURLConnection) new URL(documentIRI.toString()).openConnection();
     }
 
     /**
@@ -171,7 +187,8 @@ public class DocumentSources {
                 actualAcceptHeaders += LAST_REQUEST_TYPE;
             }
             conn.addRequestProperty("Accept", actualAcceptHeaders);
-            if (config.getAuthorizationValue() != null && !config.getAuthorizationValue().isEmpty()) {
+            if (config.getAuthorizationValue() != null
+                && !config.getAuthorizationValue().isEmpty()) {
                 conn.setRequestProperty("Authorization", config.getAuthorizationValue());
             }
             if (config.isAcceptingHTTPCompression()) {
