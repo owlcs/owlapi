@@ -44,6 +44,11 @@ import com.google.common.cache.LoadingCache;
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence,
     OWLPrimitive, HasShortForm {
 
+    @Override
+    public boolean isIRI() {
+        return true;
+    }
+
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters, so there is no loss
      * during this translation.
