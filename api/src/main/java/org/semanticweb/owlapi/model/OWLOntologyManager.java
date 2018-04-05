@@ -28,14 +28,10 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.io.FileDocumentSource;
-import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.OWLStorerFactory;
-import org.semanticweb.owlapi.io.StreamDocumentSource;
-import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 import org.semanticweb.owlapi.utilities.PriorityCollection;
 
@@ -587,12 +583,8 @@ public interface OWLOntologyManager
      *         ontology IRI and version IRI is the same as the ontology IRI and version IRI of the
      *         ontology contained in the document pointed to by {@code documentIRI}.
      */
-    default OWLOntology loadOntologyFromOntologyDocument(IRI documentIRI)
-        throws OWLOntologyCreationException {
-        // Ontology URI not known in advance
-        return loadOntologyFromOntologyDocument(new IRIDocumentSource(documentIRI, null, null),
-            getOntologyConfigurator());
-    }
+    OWLOntology loadOntologyFromOntologyDocument(IRI documentIRI)
+        throws OWLOntologyCreationException;
 
     /**
      * Loads an ontology from an ontology document contained in a local file. The loaded ontology
@@ -620,10 +612,7 @@ public interface OWLOntologyManager
      *         ontology IRI and version IRI is the same as the ontology IRI and version IRI of the
      *         ontology contained in the document pointed to by {@code documentIRI}.
      */
-    default OWLOntology loadOntologyFromOntologyDocument(File file)
-        throws OWLOntologyCreationException {
-        return loadOntologyFromOntologyDocument(new FileDocumentSource(file));
-    }
+    OWLOntology loadOntologyFromOntologyDocument(File file) throws OWLOntologyCreationException;
 
     /**
      * Loads an ontology from an ontology document obtained from an input stream. The loaded
@@ -650,10 +639,8 @@ public interface OWLOntologyManager
      *         ontology IRI and version IRI is the same as the ontology IRI and version IRI of the
      *         ontology obtained from parsing the content of the input stream.
      */
-    default OWLOntology loadOntologyFromOntologyDocument(InputStream inputStream)
-        throws OWLOntologyCreationException {
-        return loadOntologyFromOntologyDocument(new StreamDocumentSource(inputStream));
-    }
+    OWLOntology loadOntologyFromOntologyDocument(InputStream inputStream)
+        throws OWLOntologyCreationException;
 
     /**
      * A convenience method that load an ontology from an input source.
@@ -834,10 +821,8 @@ public interface OWLOntologyManager
      *         specified output stream
      * @throws UnknownOWLOntologyException if this manager does not manage the specified ontology.
      */
-    default void saveOntology(OWLOntology ontology, OutputStream outputStream)
-        throws OWLOntologyStorageException {
-        saveOntology(ontology, new StreamDocumentTarget(outputStream));
-    }
+    void saveOntology(OWLOntology ontology, OutputStream outputStream)
+        throws OWLOntologyStorageException;
 
     /**
      * Saves the specified ontology in the specified ontology format to its document URI.
@@ -873,10 +858,8 @@ public interface OWLOntologyManager
      * @throws OWLOntologyStorageException If the ontology could not be saved.
      * @throws UnknownOWLOntologyException if the specified ontology is not managed by the manager.
      */
-    default void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat,
-        OutputStream outputStream) throws OWLOntologyStorageException {
-        saveOntology(ontology, ontologyFormat, new StreamDocumentTarget(outputStream));
-    }
+    void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat,
+        OutputStream outputStream) throws OWLOntologyStorageException;
 
     /**
      * Saves the specified ontology to the specified

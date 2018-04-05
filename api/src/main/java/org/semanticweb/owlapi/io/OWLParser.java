@@ -19,11 +19,9 @@ import java.io.Reader;
 import java.io.Serializable;
 import java.io.StringReader;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.UnloadableImportException;
@@ -46,27 +44,6 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * @since 2.0.0
  */
 public interface OWLParser extends Serializable {
-
-    /**
-     * Parses the ontology with a concrete representation available at {@code documentIRI} and adds
-     * its axioms to {@code ontology}. Implementors of this method should load imported ontologies
-     * through
-     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OntologyConfigurator)
-     * makeLoadImportRequest()}.
-     *
-     * @param documentIRI the IRI of the document to parse
-     * @param ontology the ontology to which the parsed axioms are added
-     * @return the format of the parsed ontology
-     * @throws OWLParserException if there was a parsing problem parsing the ontology.
-     * @throws OWLOntologyChangeException if there was a problem updating {@code ontology}.
-     *         Typically this depends on the document being parsed containing an ontology with an
-     *         ontology IRI clashing with one already loaded.
-     * @throws UnloadableImportException if one or more imports could not be loaded.
-     */
-    default OWLDocumentFormat parse(IRI documentIRI, OWLOntology ontology) {
-        return new IRIDocumentSource(documentIRI, null, null).acceptParser(this, ontology,
-            ontology.getOWLOntologyManager().getOntologyConfigurator());
-    }
 
     /**
      * @return a unique name for the parser, typically the simple class name
