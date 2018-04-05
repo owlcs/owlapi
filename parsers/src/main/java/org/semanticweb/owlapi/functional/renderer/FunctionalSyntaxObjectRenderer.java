@@ -271,7 +271,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
             String ontologyIRIString = o.getOntologyID().getOntologyIRI().get().toString();
             if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {
                 String defaultPrefix = ontologyIRIString;
-                if (!ontologyIRIString.endsWith("/")) {
+                if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
                     defaultPrefix = ontologyIRIString + '#';
                 }
                 prefixManager.get().withDefaultPrefix(defaultPrefix);
