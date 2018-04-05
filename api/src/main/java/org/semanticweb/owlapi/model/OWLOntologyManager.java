@@ -315,7 +315,7 @@ public interface OWLOntologyManager
      */
     default OWLOntology createOntology(Collection<OWLAxiom> axioms)
         throws OWLOntologyCreationException {
-        return createOntology(axioms, IRI.getNextDocumentIRI("owlapi:ontology#ont"));
+        return createOntology(axioms, IRI.getNextDocumentIRI("urn:unnamed:ontology#ont"));
     }
 
     /**
@@ -329,7 +329,7 @@ public interface OWLOntologyManager
      */
     default OWLOntology createOntology(Stream<OWLAxiom> axioms)
         throws OWLOntologyCreationException {
-        return createOntology(axioms, IRI.getNextDocumentIRI("owlapi:ontology#ont"));
+        return createOntology(axioms, IRI.getNextDocumentIRI("urn:unnamed:ontology#ont"));
     }
 
     /**
