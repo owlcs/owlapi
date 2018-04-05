@@ -86,7 +86,7 @@ public class TurtleRenderer extends RDFRendererBase {
         if (!ontology.isAnonymous()) {
             String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
             String defaultPrefix = ontologyIRIString;
-            if (!ontologyIRIString.endsWith("/")) {
+            if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
                 defaultPrefix = ontologyIRIString + '#';
             }
             pm.setDefaultPrefix(defaultPrefix);
