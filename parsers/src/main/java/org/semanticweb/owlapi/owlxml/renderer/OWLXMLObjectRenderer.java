@@ -193,6 +193,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -748,8 +749,10 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(LITERAL);
         if (node.hasLang()) {
             writer.writeLangAttribute(node.getLang());
+        } else if (!node.isRDFPlainLiteral()
+            && !OWL2Datatype.XSD_STRING.matches(node.getDatatype())) {
+            writer.writeDatatypeAttribute(node.getDatatype());
         }
-        writer.writeDatatypeAttribute(node.getDatatype());
         writer.writeTextContent(node.getLiteral());
         writer.writeEndElement();
     }
