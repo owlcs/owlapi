@@ -14,6 +14,11 @@
 			<artifactId>owlapi-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+			<version>2.5.6</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

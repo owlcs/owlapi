@@ -27,6 +27,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -84,6 +85,9 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
+import com.github.benmanes.caffeine.cache.CacheLoader;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
@@ -95,6 +99,45 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     implements OWLOntology, Serializable {
 
     private static final long serialVersionUID = 40000L;
+    // @formatter:off
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLEntity>>              ontsignatures =                           build(OWLImmutableOntologyImpl::build);
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLAnonymousIndividual>> ontanonCaches =                    build(key -> asCacheable(key.ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLClass>>              ontclassesSignatures =              build(key -> asCacheable(key.ints.get(OWLClass.class, OWLAxiom.class).get().keySet()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> asCacheable(key.ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asCacheable(key.ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asCacheable(key.ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asCacheable(key.ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asCacheable(Iterables.concat(
+        key.ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION).get().keySet(),
+        Iterables.transform(key.ints.getOntologyAnnotations(false),OWLAnnotation::getProperty))));
+    // @formatter:on
+    static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
+        return Caffeine.newBuilder().weakKeys().softValues().build(c);
+    }
+
+    protected static void invalidateOntologyCaches(OWLImmutableOntologyImpl o) {
+        ontsignatures.invalidate(o);
+        ontanonCaches.invalidate(o);
+        ontclassesSignatures.invalidate(o);
+        ontdataPropertySignatures.invalidate(o);
+        ontobjectPropertySignatures.invalidate(o);
+        ontdatatypeSignatures.invalidate(o);
+        ontindividualSignatures.invalidate(o);
+        ontannotationPropertiesSignatures.invalidate(o);
+    }
+
+    private static Set<OWLEntity> build(OWLImmutableOntologyImpl key) {
+        List<OWLEntity> stream = new ArrayList<>();
+        Iterables.addAll(stream, key.classesInSignature());
+        Iterables.addAll(stream, key.objectPropertiesInSignature());
+        Iterables.addAll(stream, key.dataPropertiesInSignature());
+        Iterables.addAll(stream, key.individualsInSignature());
+        Iterables.addAll(stream, key.datatypesInSignature());
+        Iterables.addAll(stream, key.annotationPropertiesInSignature());
+        stream.sort(null);
+        return new LinkedHashSet<>(stream);
+    }
+
     @Nullable
     protected OWLOntologyManager manager;
     @Nonnull
@@ -734,16 +777,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Set<OWLEntity> getSignature() {
-        // We might want to cache this for performance reasons,
-        // but I'm not sure right now.
-        Set<OWLEntity> entities = createLinkedSet();
-        entities.addAll(getClassesInSignature());
-        entities.addAll(getObjectPropertiesInSignature());
-        entities.addAll(getDataPropertiesInSignature());
-        entities.addAll(getIndividualsInSignature());
-        entities.addAll(getDatatypesInSignature());
-        entities.addAll(getAnnotationPropertiesInSignature(EXCLUDED));
-        return entities;
+        return ontsignatures.get(this);
     }
 
     @Override
@@ -772,34 +806,74 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         return set;
     }
 
+    @Nonnull
+    private static <T> Set<T> asCacheable(Iterable<T> i) {
+        List<T> list = new ArrayList<>();
+        Iterables.addAll(list, i);
+        list.sort(null);
+        if (i instanceof Set) {
+            // in this case we can use a list for the defensive copy
+            return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(list);
+        }
+        // if the input is not a set, we need to make sure there are no
+        // duplicates
+        Set<T> set = new LinkedHashSet<>();
+        Iterables.addAll(set, list);
+        return set;
+    }
+
+    protected Iterable<OWLClass> classesInSignature() {
+        return ontclassesSignatures.get(this);
+    }
+
+    protected Iterable<OWLDataProperty> dataPropertiesInSignature() {
+        return ontdataPropertySignatures.get(this);
+    }
+
+    protected Iterable<OWLObjectProperty> objectPropertiesInSignature() {
+        return ontobjectPropertySignatures.get(this);
+    }
+
+    protected Iterable<OWLNamedIndividual> individualsInSignature() {
+        return ontindividualSignatures.get(this);
+    }
+
+    protected Iterable<OWLDatatype> datatypesInSignature() {
+        return ontdatatypeSignatures.get(this);
+    }
+
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return asSet(ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet());
+        return ontanonCaches.get(this);
+    }
+
+    protected Iterable<OWLAnnotationProperty> annotationPropertiesInSignature() {
+        return ontannotationPropertiesSignatures.get(this);
     }
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
-        return asSet(ints.get(OWLClass.class, OWLAxiom.class).get().keySet());
+        return asSet(classesInSignature());
     }
 
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        return asSet(ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet());
+        return asSet(dataPropertiesInSignature());
     }
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return asSet(ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet());
+        return asSet(objectPropertiesInSignature());
     }
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return asSet(ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet());
+        return asSet(individualsInSignature());
     }
 
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
-        return asSet(ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet());
+        return asSet(datatypesInSignature());
     }
 
     @Override
@@ -876,16 +950,16 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     }
 
     @Override
+    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
+        return asSet(annotationPropertiesInSignature());
+    }
+
+    @Override
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
         Imports includeImportsClosure) {
         Set<OWLAnnotationProperty> props = createLinkedSet();
         if (includeImportsClosure == EXCLUDED) {
-            Iterables.addAll(props,
-                ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION)
-                    .get().keySet());
-            for (OWLAnnotation anno : ints.getOntologyAnnotations(false)) {
-                props.add(anno.getProperty());
-            }
+            return asSet(annotationPropertiesInSignature());
         } else {
             for (OWLOntology ont : getImportsClosure()) {
                 props.addAll(ont.getAnnotationPropertiesInSignature(EXCLUDED));

@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.model.parameters.ChangeApplied.*;
+import static org.semanticweb.owlapi.model.parameters.ChangeApplied.NO_OPERATION;
+import static org.semanticweb.owlapi.model.parameters.ChangeApplied.SUCCESSFULLY;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,22 +42,21 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import com.google.inject.assistedinject.Assisted;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMutableOntology, Serializable {
+public class OWLOntologyImpl extends OWLImmutableOntologyImpl
+    implements OWLMutableOntology, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
     /**
-     * @param manager
-     *        ontology manager
-     * @param ontologyID
-     *        ontology id
+     * @param manager ontology manager
+     * @param ontologyID ontology id
      */
     @Inject
-    public OWLOntologyImpl(@Nonnull @Assisted OWLOntologyManager manager, @Nonnull @Assisted OWLOntologyID ontologyID) {
+    public OWLOntologyImpl(@Nonnull @Assisted OWLOntologyManager manager,
+        @Nonnull @Assisted OWLOntologyID ontologyID) {
         super(manager, ontologyID);
     }
 
@@ -113,13 +113,15 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         return getOWLOntologyManager().addAxioms(this, axioms);
     }
 
-    protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
+    protected class OWLOntologyChangeFilter
+        implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
 
         private static final long serialVersionUID = 40000L;
 
         @Override
         public ChangeApplied visit(@Nonnull RemoveAxiom change) {
             if (ints.removeAxiom(change.getAxiom())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -130,6 +132,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
             OWLOntologyID id = change.getNewOntologyID();
             if (!id.equals(ontologyID)) {
                 ontologyID = id;
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -138,6 +141,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         @Override
         public ChangeApplied visit(@Nonnull AddAxiom change) {
             if (ints.addAxiom(change.getAxiom())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -147,6 +151,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         public ChangeApplied visit(@Nonnull AddImport change) {
             // TODO change this to be done inside
             if (ints.addImportsDeclaration(change.getImportDeclaration())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -155,6 +160,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         @Override
         public ChangeApplied visit(@Nonnull RemoveImport change) {
             if (ints.removeImportsDeclaration(change.getImportDeclaration())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -163,6 +169,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         @Override
         public ChangeApplied visit(@Nonnull AddOntologyAnnotation change) {
             if (ints.addOntologyAnnotation(change.getAnnotation())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -171,6 +178,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         @Override
         public ChangeApplied visit(@Nonnull RemoveOntologyAnnotation change) {
             if (ints.removeOntologyAnnotation(change.getAnnotation())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
