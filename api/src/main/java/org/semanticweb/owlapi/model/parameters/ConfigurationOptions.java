@@ -108,7 +108,12 @@ public enum ConfigurationOptions {
     TO_STRING_RENDERER                  ("org.semanticweb.owlapi.util.SimpleRenderer"),
     /** Authorization
      * header Value. */
-    AUTHORIZATION_VALUE                 ("");
+    AUTHORIZATION_VALUE                 (""),
+    /**True if ontologies should
+     * be trimmed to size after load.
+     * If set to false, trim will
+     * only happen on explicit call.*/
+    TRIM_TO_SIZE                        (Boolean.TRUE);
     //@formatter:on
     private static final String PREFIX =
         "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";

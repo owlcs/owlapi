@@ -33,6 +33,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPOR
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SAVE_IDS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TREAT_DUBLINCORE_AS_BUILTIN;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TRIM_TO_SIZE;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.USE_NAMESPACE_ENTITIES;
 
 import java.io.Serializable;
@@ -455,6 +456,23 @@ public class OntologyConfigurator implements Serializable {
      */
     public OntologyConfigurator withPrettyPrintFunctionalSyntax(boolean b) {
         overrides.put(PRETTY_PRINT_FUNCTIONAL_SYNTAX, Boolean.valueOf(b));
+        return this;
+    }
+
+    /**
+     * @return true if ontologies should be trimmed to size
+     */
+    public boolean shouldTrimToSize() {
+        return TRIM_TO_SIZE.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @param b if ontologies should be trimmed to size
+     * @return A {@code OWLOntologyLoaderConfiguration} with the trim to size flag set to the new
+     *         value.
+     */
+    public OntologyConfigurator withTrimToSize(boolean b) {
+        overrides.put(TRIM_TO_SIZE, Boolean.valueOf(b));
         return this;
     }
 }
