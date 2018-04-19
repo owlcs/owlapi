@@ -27,6 +27,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPAI
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPORT_STACK_TRACES;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TREAT_DUBLINCORE_AS_BUILTIN;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TRIM_TO_SIZE;
 
 import java.io.Serializable;
 import java.util.EnumMap;
@@ -261,6 +262,13 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
+     * @return true if ontology should be trimmed to size after load
+     */
+    public boolean shouldTrimToSize() {
+        return TRIM_TO_SIZE.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
      * @param b true if HTTP compression should be accepted
      * @return a copy of this configuration with accepting HTTP compression set to the new value
      */
@@ -477,6 +485,19 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.overrides.put(AUTHORIZATION_VALUE, authorizationValue);
+        return configuration;
+    }
+
+    /**
+     * @param value new value for trim to size
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OWLOntologyLoaderConfiguration setTrimToSize(boolean value) {
+        if (shouldTrimToSize() == value) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(TRIM_TO_SIZE, Boolean.valueOf(value));
         return configuration;
     }
 }
