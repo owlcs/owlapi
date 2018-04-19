@@ -1254,7 +1254,7 @@ public class OWLOntologyManagerImpl
                 // Store the ontology to the document IRI mapping
                 documentIRIsByID.put(ontology.getOntologyID(), documentSource.getDocumentIRI());
                 ontologyConfigurationsByOntologyID.put(ontology.getOntologyID(), configuration);
-                if (ontology instanceof HasTrimToSize) {
+                if (ontology instanceof HasTrimToSize && configuration.shouldTrimToSize()) {
                     ((HasTrimToSize) ontology).trimToSize();
                 }
                 return ontology;

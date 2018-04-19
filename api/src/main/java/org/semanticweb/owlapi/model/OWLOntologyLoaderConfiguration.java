@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.AUTHORIZATION_VALUE;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ACCEPT_HTTP_COMPRESSION;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.AUTHORIZATION_VALUE;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNED_PARSERS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.CONNECTION_TIMEOUT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ENTITY_EXPANSION_LIMIT;
@@ -27,6 +27,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPAI
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPORT_STACK_TRACES;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TREAT_DUBLINCORE_AS_BUILTIN;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TRIM_TO_SIZE;
 
 import java.io.Serializable;
 import java.util.EnumMap;
@@ -194,7 +195,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     public boolean isAcceptingHTTPCompression() {
         return ACCEPT_HTTP_COMPRESSION.getValue(Boolean.class, overrides).booleanValue();
     }
-    
+
     /**
      * When loading an ontology, a parser might connect to a remote URL. If the remote URL is a 302
      * redirect and the protocol is different, e.g., http to https, the parser needs to decide
@@ -276,6 +277,13 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      */
     public String getEntityExpansionLimit() {
         return ENTITY_EXPANSION_LIMIT.getValue(String.class, overrides);
+    }
+
+    /**
+     * @return true if ontology should be trimmed to size after load
+     */
+    public boolean shouldTrimToSize() {
+        return TRIM_TO_SIZE.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -483,10 +491,9 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         configuration.overrides.put(REPAIR_ILLEGAL_PUNNINGS, Boolean.valueOf(b));
         return configuration;
     }
-	
-	/**
-     * @param authorizationValue
-     *        Authorization header value.
+
+    /**
+     * @param authorizationValue Authorization header value.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
     public OWLOntologyLoaderConfiguration setAuthorizationValue(String authorizationValue) {
@@ -495,6 +502,19 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.overrides.put(AUTHORIZATION_VALUE, authorizationValue);
+        return configuration;
+    }
+
+    /**
+     * @param value new value for trim to size
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OWLOntologyLoaderConfiguration setTrimToSize(boolean value) {
+        if (shouldTrimToSize() == value) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(TRIM_TO_SIZE, Boolean.valueOf(value));
         return configuration;
     }
 }

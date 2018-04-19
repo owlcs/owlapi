@@ -46,7 +46,7 @@ public enum ConfigurationOptions {
     REPORT_STACK_TRACES                 (Boolean.TRUE),
     /** Number of retries to 
      * attempt when retrieving an 
-     * ontology form a remote URL. 
+     * ontology from a remote URL. 
      * Defaults to 5. */
     RETRIES_TO_ATTEMPT                  (Integer.valueOf(5)),
     /** True if strict parsing 
@@ -79,7 +79,7 @@ public enum ConfigurationOptions {
     INDENTING                           (Boolean.TRUE),
     /** Size of indentation 
      * between levels. Only used 
-     * if indenting is to true. */
+     * if indenting is set to true. */
     INDENT_SIZE                         (Integer.valueOf(4)),
     /** True if rdfs:label values 
      * are to be used as banners 
@@ -100,7 +100,12 @@ public enum ConfigurationOptions {
     REPAIR_ILLEGAL_PUNNINGS             (Boolean.TRUE),
     /** Authorization
      * header Value. */
-    AUTHORIZATION_VALUE                      ("");
+    AUTHORIZATION_VALUE                 (""),
+    /**True if ontologies should
+     * be trimmed to size after load.
+     * If set to false, trim will
+     * only happen on explicit call.*/
+    TRIM_TO_SIZE                        (Boolean.TRUE);
     //@formatter:on
     private static final String PREFIX = "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
     private Object defaultValue;
