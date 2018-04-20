@@ -3,6 +3,7 @@ package org.coode.owlapi.obo12;
 import static org.junit.Assert.assertEquals;
 
 import org.coode.owlapi.obo12.parser.OBO12DocumentFormat;
+import org.coode.owlapi.obo12.parser.OBO12ParserFactory;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -17,26 +18,34 @@ public class LoadCellTestCase {
     @Test
     public void shouldParse() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        m.getOntologyParsers().add(new OBO12ParserFactory());
         assertEquals(19, m.getOntologyParsers().size());
-        OWLOntologyDocumentSource source = new StreamDocumentSource(getClass().getResourceAsStream("/celltype.obo"),
-            OWLOntologyDocumentSourceBase.getNextDocumentIRI("obo"), new OBO12DocumentFormat(), null);
+        OWLOntologyDocumentSource source =
+            new StreamDocumentSource(getClass().getResourceAsStream("/celltype.obo"),
+                OWLOntologyDocumentSourceBase.getNextDocumentIRI("obo"), new OBO12DocumentFormat(),
+                null);
         m.loadOntologyFromOntologyDocument(source);
     }
 
     @Test
     public void shouldParseOBO12() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        m.getOntologyParsers().add(new OBO12ParserFactory());
         assertEquals(19, m.getOntologyParsers().size());
-        OWLOntologyDocumentSource source = new StreamDocumentSource(getClass().getResourceAsStream("/behavior.obo"),
-            OWLOntologyDocumentSourceBase.getNextDocumentIRI("obo"), new OBO12DocumentFormat(), null);
+        OWLOntologyDocumentSource source =
+            new StreamDocumentSource(getClass().getResourceAsStream("/behavior.obo"),
+                OWLOntologyDocumentSourceBase.getNextDocumentIRI("obo"), new OBO12DocumentFormat(),
+                null);
         m.loadOntologyFromOntologyDocument(source);
     }
 
     @Test
     public void shouldParseGenericOBO() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        m.getOntologyParsers().add(new OBO12ParserFactory());
         assertEquals(19, m.getOntologyParsers().size());
-        OWLOntologyDocumentSource source = new StreamDocumentSource(getClass().getResourceAsStream("/behavior.obo"));
+        OWLOntologyDocumentSource source =
+            new StreamDocumentSource(getClass().getResourceAsStream("/behavior.obo"));
         m.loadOntologyFromOntologyDocument(source);
     }
 }
