@@ -1,3 +1,20 @@
+5.1.5 23 Apr 2018
+
+Features:
+*    Add an option to represent version build as strings
+*    Implement #375 OWLZip reader and writer
+*    Allow trimming to size after load to be disabled
+*    do not register deprecated oboparser by default #729
+
+Bug fixes:
+*    Fix SWRL variable IRIs violate URN spec #732
+*    default IRI for unnamed ontologies is not valid
+*    doubling of # at the end of default namespace
+*    IRI should return true for isIRI()
+*    Fix OWL/XML writes langString unnecessarily #748
+*    Fix importsDeclaration not returning imports for *.obo #727
+
+
 5.1.4 04 Jan 2018
 
 Features:
@@ -186,6 +203,26 @@ Features:
 *    Declaration of save methods on OWLOntology
 *    OWLAPI 5 uses Java 8
 
+4.5.2 22 Apr 2018
+
+Features:
+*    Add an option to represent version build as strings
+*    Implement #375 OWLZip reader and writer
+*    Signature cache for ontologies
+*    Allow trimming to size after load to be disabled
+*    do not register deprecated oboparser by default #729
+
+Bug fixes:
+*    Fix SWRL variable IRIs violate URN spec #732
+*    default IRI for unnamed ontologies is not valid
+*    doubling of # at the end of default namespace
+*    IRI should return true for isIRI()
+*    Fix OWL/XML writes langString unnecessarily #748
+
+4.5.1 07 Dec 2017
+
+Features:
+*    Support Authorization header in remote loading
 
 4.5.0 13 Oct 2017
 
