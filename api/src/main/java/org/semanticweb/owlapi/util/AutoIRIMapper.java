@@ -48,8 +48,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.google.common.base.Splitter;
-
 /**
  * A mapper which given a root folder attempts to automatically discover and map files to
  * ontologies. The mapper is capable of mapping ontologies in RDF/XML, OWL/XML, Manchester OWL
@@ -64,6 +62,7 @@ import com.google.common.base.Splitter;
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
 
     static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
+    static final Pattern manPattern = Pattern.compile("Ontology:[\r\n ]*<([^>]+)>");
     private static final Logger LOGGER = LoggerFactory.getLogger(AutoIRIMapper.class);
     private final Set<String> fileExtensions =
         new HashSet<>(Arrays.asList(".owl", ".xml", ".rdf", ".omn", ".ofn"));
@@ -96,7 +95,10 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
          * URI of the ontology document being parsed.
          */
         handlerMap.put(Namespaces.RDF + "RDF", this::baseIRI);
-        /** A handler that can handle OWL/XML files. */
+        /**
+         * A handler that can handle OWL/XML files as well as RDF/XML with an owl:Ontology element
+         * is defined with a non empty rdf:about.
+         */
         handlerMap.put(OWLXMLVocabulary.ONTOLOGY.toString(), this::ontologyIRI);
     }
 
@@ -105,6 +107,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         String ontURI = attributes.getValue(Namespaces.OWL.toString(), "ontologyIRI");
         if (ontURI == null) {
             ontURI = attributes.getValue("ontologyIRI");
+        }
+        if (ontURI == null) {
+            ontURI = attributes.getValue(Namespaces.RDF.toString(), "about");
         }
         if (ontURI == null) {
             return null;
@@ -313,12 +318,11 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     @Nullable
     private IRI parseManLine(File file, String line) {
-        for (String tok : Splitter.on(" ").split(line)) {
-            if (tok.startsWith("<") && tok.endsWith(">")) {
-                IRI iri = unquote(tok);
-                addMapping(iri, file);
-                return iri;
-            }
+        Matcher matcher = manPattern.matcher(line);
+        if (matcher.matches()) {
+            IRI iri = IRI.create(matcher.group(1));
+            addMapping(iri, file);
+            return iri;
         }
         return null;
     }
@@ -326,12 +330,15 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     @Override
     public void startElement(@Nullable String uri, @Nullable String localName,
         @Nullable String qName, @Nullable Attributes attributes) throws SAXException {
-        OntologyRootElementHandler handler = handlerMap.get(uri + localName);
+        String tag = uri + localName;
+        OntologyRootElementHandler handler = handlerMap.get(tag);
         if (handler != null) {
             IRI ontologyIRI = handler.handle(checkNotNull(attributes));
             if (ontologyIRI != null && currentFile != null) {
                 addMapping(ontologyIRI, verifyNotNull(currentFile));
             }
+        }
+        if (tag.equals("http://www.w3.org/2002/07/owl#Ontology")) {
             throw new SAXException();
         }
     }

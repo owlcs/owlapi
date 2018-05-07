@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,7 +34,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -78,14 +80,19 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void shouldLoad() throws Exception {
-        @Nonnull File importsBothNameAndVersion = folder.newFile("tempimportsNameAndVersion.owl");
-        @Nonnull File importsBothNameAndOther = folder.newFile("tempimportsNameAndOther.owl");
-        @Nonnull File ontologyByName = folder.newFile("tempmain.owl");
-        @Nonnull File ontologyByVersion = folder.newFile("tempversion.owl");
-        @Nonnull File ontologyByOtherPath = folder.newFile("tempother.owl");
-        OWLOntology ontology = getOWLOntology(
-            new OWLOntologyID(optional(IRI.create(ontologyByName)), optional(IRI
-                .create(ontologyByVersion))));
+        @Nonnull
+        File importsBothNameAndVersion = folder.newFile("tempimportsNameAndVersion.owl");
+        @Nonnull
+        File importsBothNameAndOther = folder.newFile("tempimportsNameAndOther.owl");
+        @Nonnull
+        File ontologyByName = folder.newFile("tempmain.owl");
+        @Nonnull
+        File ontologyByVersion = folder.newFile("tempversion.owl");
+        @Nonnull
+        File ontologyByOtherPath = folder.newFile("tempother.owl");
+        OWLOntology ontology =
+            getOWLOntology(new OWLOntologyID(optional(IRI.create(ontologyByName)),
+                optional(IRI.create(ontologyByVersion))));
         ontology.saveOntology(IRI.create(ontologyByName));
         ontology.saveOntology(IRI.create(ontologyByVersion));
         ontology.saveOntology(IRI.create(ontologyByOtherPath));
@@ -115,8 +122,8 @@ public class ImportsTestCase extends TestBase {
     @Test
     public void shouldNotLoadWrong() throws OWLOntologyCreationException {
         m.createOntology(IRI.create("urn:test#", "test"));
-        StringDocumentSource documentSource = new StringDocumentSource(
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        StringDocumentSource documentSource =
+            new StringDocumentSource("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                 + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl =\"http://www.w3.org/2002/07/owl#\">\n"
                 + "    <owl:Ontology><owl:imports rdf:resource=\"urn:test#test\"/></owl:Ontology></rdf:RDF>");
         OWLOntology o = m.loadOntologyFromOntologyDocument(documentSource);
@@ -176,38 +183,33 @@ public class ImportsTestCase extends TestBase {
         File ontologyDirectory = new File(RESOURCES, "importNoOntology");
         String ns = "http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/";
         IRI bobsOntologyName = IRI.create(ns, "subject-bob");
-        OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(ns + "subject-bob#",
-            "subjectOnImmunosuppressantA2");
+        OWLNamedIndividual bobsIndividual =
+            df.getOWLNamedIndividual(ns + "subject-bob#", "subjectOnImmunosuppressantA2");
         m.getIRIMappers().add(new SimpleIRIMapper(IRI.create(ns, "subject-amy"),
-            IRI.create(new File(ontologyDirectory,
-                "subject-amy.ttl"))));
-        m.getIRIMappers()
-            .add(new SimpleIRIMapper(bobsOntologyName, IRI.create(new File(ontologyDirectory,
-                "subject-bob.ttl"))));
+            IRI.create(new File(ontologyDirectory, "subject-amy.ttl"))));
+        m.getIRIMappers().add(new SimpleIRIMapper(bobsOntologyName,
+            IRI.create(new File(ontologyDirectory, "subject-bob.ttl"))));
         m.getIRIMappers().add(new SimpleIRIMapper(IRI.create(ns, "subject-sue"),
-            IRI.create(new File(ontologyDirectory,
-                "subject-sue.ttl"))));
-        m.getIRIMappers().add(
-            new SimpleIRIMapper(IRI.create("http://www.w3.org/2013/12/FDA-TA/", "core"), IRI.create(
-                new File(ontologyDirectory, "core.ttl"))));
-        OWLOntology topLevelImport = m
-            .loadOntologyFromOntologyDocument(new File(ontologyDirectory, "subjects.ttl"));
+            IRI.create(new File(ontologyDirectory, "subject-sue.ttl"))));
+        m.getIRIMappers()
+            .add(new SimpleIRIMapper(IRI.create("http://www.w3.org/2013/12/FDA-TA/", "core"),
+                IRI.create(new File(ontologyDirectory, "core.ttl"))));
+        OWLOntology topLevelImport =
+            m.loadOntologyFromOntologyDocument(new File(ontologyDirectory, "subjects.ttl"));
         assertTrue("Individuals about Bob are missing...",
-            topLevelImport.containsEntityInSignature(bobsIndividual,
-                INCLUDED));
+            topLevelImport.containsEntityInSignature(bobsIndividual, INCLUDED));
     }
 
     /**
-     * Tests to see if the method which obtains the imports closure behaves
-     * correctly.
+     * Tests to see if the method which obtains the imports closure behaves correctly.
      */
     @Test
     public void testImportsClosure() {
         OWLOntology ontA = getOWLOntology();
         OWLOntology ontB = getOWLOntology();
         assertTrue(contains(ontA.importsClosure(), ontA));
-        OWLImportsDeclaration importsDeclaration = ImportsDeclaration(
-            get(ontB.getOntologyID().getOntologyIRI()));
+        OWLImportsDeclaration importsDeclaration =
+            ImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
         ontA.applyChange(new AddImport(ontA, importsDeclaration));
         assertTrue(contains(ontA.importsClosure(), ontB));
         ontA.applyChange(new RemoveImport(ontA, importsDeclaration));
@@ -238,13 +240,11 @@ public class ImportsTestCase extends TestBase {
     @Test
     public void shouldRemapImportRdfXML() throws OWLOntologyCreationException {
         String input = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"urn:test#\"\n"
-            + "     xml:base=\"urn:test\"\n"
-            + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+            + "     xml:base=\"urn:test\"\n" + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
             + "    <owl:Ontology rdf:about=\"urn:test\">\n"
             + "        <owl:imports rdf:resource=\"http://test.org/TestPizzaImport.owl\"/>\n"
-            + "    </owl:Ontology>\n"
-            + "</rdf:RDF>";
+            + "    </owl:Ontology>\n" + "</rdf:RDF>";
         IRI testImport = IRI.create("http://test.org/", "TestPizzaImport.owl");
         IRI remap = IRI.create("urn:test:", "mockImport");
         StringDocumentSource source = new StringDocumentSource(input);
@@ -259,7 +259,8 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void testImportOntologyByLocation() throws Exception {
-        @Nonnull File f = folder.newFile("a.owl");
+        @Nonnull
+        File f = folder.newFile("a.owl");
         createOntologyFile(IRI("http://a.com", ""), f);
         // have to load an ontology for it to get a document IRI
         OWLOntology a = m.loadOntologyFromOntologyDocument(f);
@@ -276,8 +277,8 @@ public class ImportsTestCase extends TestBase {
     @Test
     public void shouldNotCreateIllegalPunning() throws OWLOntologyCreationException {
         m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
-        OWLOntology o = m.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
-            "importscyclic/relaMath.owl")));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(
+            IRI.create(new File(RESOURCES, "importscyclic/relaMath.owl")));
         OWLProfileReport checkOntology = Profiles.OWL2_DL.checkOntology(o);
         assertTrue(checkOntology.toString(), checkOntology.isInProfile());
         o.directImports()
@@ -298,8 +299,8 @@ public class ImportsTestCase extends TestBase {
         AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
         man.getIRIMappers().add(mapper);
         String name = "/imports/thesubont.omn";
-        OWLOntology root = man
-            .loadOntologyFromOntologyDocument(getClass().getResourceAsStream(name));
+        OWLOntology root =
+            man.loadOntologyFromOntologyDocument(getClass().getResourceAsStream(name));
         assertEquals(1, root.imports().count());
         for (OWLOntology ontology : asList(man.ontologies())) {
             man.removeOntology(ontology);
@@ -307,5 +308,19 @@ public class ImportsTestCase extends TestBase {
         assertEquals(0, man.ontologies().count());
         root = man.loadOntologyFromOntologyDocument(getClass().getResourceAsStream(name));
         assertEquals(1, root.imports().count());
+    }
+
+    @Test
+    public void testAutoIRIMapperShouldNotBeConfusedByPrefixes() {
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        assertTrue(mapper.getOntologyIRIs()
+            .contains(IRI.create("http://owlapitestontologies.com/thesubont")));
+    }
+
+    @Test
+    public void testAutoIRIMapperShouldRecogniseRdfAboutInOwlOntology() {
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        assertTrue(
+            mapper.getOntologyIRIs().contains(IRI.create("http://test.org/compleximports/A.owl")));
     }
 }
