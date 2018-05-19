@@ -1313,12 +1313,6 @@ public class OWLAPIObo2Owl {
         Integer max = getQVInt("maxCardinality", quals);
         boolean allSome = getQVBoolean("all_some", quals);
         boolean allOnly = getQVBoolean("all_only", quals);
-        // obo-format allows dangling references to classes in class
-        // expressions.
-        // Create an explicit class declaration to be sure
-        if (ce instanceof OWLClass) {
-            add(fac.getOWLDeclarationAxiom((OWLClass) ce));
-        }
         OWLClassExpression ex;
         if (exact != null && exact.intValue() > 0) {
             ex = fac.getOWLObjectExactCardinality(exact.intValue(), pe, ce);
