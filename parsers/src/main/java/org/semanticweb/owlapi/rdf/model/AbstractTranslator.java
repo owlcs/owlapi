@@ -102,12 +102,12 @@ import static org.semanticweb.owlapi.vocab.SWRLVocabulary.VARIABLE;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -239,7 +239,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     /**
      * Maps Objects to nodes.
      */
-    private final Map<OWLObject, N> nodeMap = new HashMap<>();
+    private final Map<OWLObject, N> nodeMap = new ConcurrentHashMap<>();
     private final Map<OWLObject, N> expressionMap = new IdentityHashMap<>();
     protected RDFGraph graph = new RDFGraph();
 
