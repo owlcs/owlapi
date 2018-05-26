@@ -23,6 +23,7 @@ import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.util.CollectionFactory.createList;
 import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.createSyncMap;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
@@ -227,7 +228,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     /**
      * The translated properties.
      */
-    private final Map<IRI, OWLObjectPropertyExpression> translatedProperties = createMap();
+    private final Map<IRI, OWLObjectPropertyExpression> translatedProperties = createSyncMap();
     private final Map<IRI, IRI> remappedIRIs = createMap();
     private final Map<String, IRI> remappedIRIStrings = createMap();
     // Caching IRIs here helps save memory. This cache is local to a particular
@@ -839,7 +840,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      * @return the oWL object property expression
      */
     public OWLObjectPropertyExpression translateOPE(IRI mainNode) {
-        return translatedProperties.computeIfAbsent(mainNode, this::buildOPE);
+        OWLObjectPropertyExpression node = translatedProperties.get(mainNode);
+        if (node == null) {
+            node = buildOPE(mainNode);
+            translatedProperties.put(mainNode, node);
+        }
+        return node;
     }
 
     protected OWLObjectPropertyExpression buildOPE(IRI mainNode) {
