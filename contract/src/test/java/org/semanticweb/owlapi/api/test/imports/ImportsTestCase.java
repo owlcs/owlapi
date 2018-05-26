@@ -312,4 +312,18 @@ public class ImportsTestCase extends TestBase {
         root = man.loadOntologyFromOntologyDocument(getClass().getResourceAsStream(name));
         assertEquals(1, root.imports().count());
     }
+
+    @Test
+    public void testAutoIRIMapperShouldNotBeConfusedByPrefixes() {
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        assertTrue(mapper.getOntologyIRIs()
+            .contains(IRI.create("http://owlapitestontologies.com/thesubont")));
+    }
+
+    @Test
+    public void testAutoIRIMapperShouldRecogniseRdfAboutInOwlOntology() {
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        assertTrue(
+            mapper.getOntologyIRIs().contains(IRI.create("http://test.org/compleximports/A.owl")));
+    }
 }
