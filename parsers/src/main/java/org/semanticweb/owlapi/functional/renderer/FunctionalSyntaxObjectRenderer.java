@@ -580,7 +580,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private String getEntityLabel(@Nonnull OWLEntity entity) {
-        return labelMaker.getShortForm(entity);
+        return labelMaker.getShortForm(entity).replace("\n", "\n# ");
     }
 
     /**
