@@ -13,7 +13,10 @@
 package org.semanticweb.owlapi.api.test.imports;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+
+import java.io.File;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -21,10 +24,10 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
@@ -42,5 +45,19 @@ public class ImportsClosureTestCase extends TestBase {
         assertEquals(1, m.getImportsClosure(ontA).size());
         m.createOntology(bIRI);
         assertEquals(2, m.getImportsClosure(ontA).size());
+    }
+
+    @Test
+    public void testAutoIRIMapperShouldNotBeConfusedByPrefixes() {
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        assertTrue(mapper.getOntologyIRIs()
+            .contains(IRI.create("http://owlapitestontologies.com/thesubont")));
+    }
+
+    @Test
+    public void testAutoIRIMapperShouldRecogniseRdfAboutInOwlOntology() {
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        assertTrue(
+            mapper.getOntologyIRIs().contains(IRI.create("http://test.org/compleximports/A.owl")));
     }
 }
