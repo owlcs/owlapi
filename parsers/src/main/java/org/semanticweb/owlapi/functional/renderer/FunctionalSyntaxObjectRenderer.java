@@ -502,7 +502,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private String getEntityLabel(OWLEntity entity) {
-        return verifyNotNull(labelMaker, "labelMaker has not been set yet").getShortForm(entity);
+        return verifyNotNull(labelMaker, "labelMaker has not been set yet").getShortForm(entity).replace("\n", "\n# ");
     }
 
     private void writeAxioms(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
