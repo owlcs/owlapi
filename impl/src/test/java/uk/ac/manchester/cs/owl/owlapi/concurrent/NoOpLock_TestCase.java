@@ -1,8 +1,9 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.mock;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,11 +30,11 @@ public class NoOpLock_TestCase {
 
     @Test
     public void shouldReturn_true_When_tryLock() {
-        assertThat(lock.tryLock(), is(true));
+        assertThat(lock.tryLock(), is(Boolean.TRUE));
     }
 
     @Test
     public void shouldReturn_true_When_tryLockWithTimeOut() throws InterruptedException {
-        assertThat(lock.tryLock(3, mock(TimeUnit.class)), is(true));
+        assertThat(lock.tryLock(3, TimeUnit.MINUTES), is(Boolean.TRUE));
     }
 }

@@ -3,7 +3,9 @@ package uk.ac.manchester.cs.owl.owlapi.concurrent;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -12,7 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -42,7 +44,6 @@ public class ConcurrentOWLOntologyBuilder_TestCase {
     @Before
     public void setUp() {
         when(delegateBuilder.createOWLOntology(manager, ontologyId)).thenReturn(ontology);
-        when(ontology.getOntologyID()).thenReturn(ontologyId);
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         builder = new ConcurrentOWLOntologyBuilder(delegateBuilder, readWriteLock);
