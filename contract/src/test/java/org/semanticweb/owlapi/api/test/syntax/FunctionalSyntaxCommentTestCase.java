@@ -51,17 +51,18 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
 
     @Test
     public void shouldParseCommentAndSkipIt() {
-        String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\nPrefix(owl:=<http://www.w3.org/2002/07/owl#>)\nPrefix(xml:=<http://www.w3.org/XML/1998/namespace>)\nPrefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\nPrefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\nPrefix(skos:=<http://www.w3.org/2004/02/skos/core#>)\n\n"
-                        + "Ontology(<file:test.owl>\n"
-                        + "Declaration(Class(<urn:test.owl#ContactInformation>))\n"
-                        + "#Test comment\n" + "Declaration(DataProperty(<urn:test.owl#city>))\n"
-                        + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
-                        + ')';
+        String input =
+            "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\nPrefix(owl:=<http://www.w3.org/2002/07/owl#>)\nPrefix(xml:=<http://www.w3.org/XML/1998/namespace>)\nPrefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\nPrefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\nPrefix(skos:=<http://www.w3.org/2004/02/skos/core#>)\n\n"
+                + "Ontology(<file:test.owl>\n"
+                + "Declaration(Class(<urn:test.owl#ContactInformation>))\n" + "#Test comment\n"
+                + "Declaration(DataProperty(<urn:test.owl#city>))\n"
+                + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
+                + ')';
         OWLOntology o = loadOntologyFromString(input, new FunctionalSyntaxDocumentFormat());
         OWLAxiom ax1 = Declaration(DataProperty(IRI("urn:test.owl#", "city")));
         OWLAxiom ax2 = SubClassOf(Class(IRI("urn:test.owl#", "ContactInformation")),
-                        DataMaxCardinality(1, DataProperty(IRI("urn:test.owl#", "city")),
-                                        Datatype(OWL2Datatype.XSD_STRING.getIRI())));
+            DataMaxCardinality(1, DataProperty(IRI("urn:test.owl#", "city")),
+                Datatype(OWL2Datatype.XSD_STRING.getIRI())));
         OWLAxiom ax3 = Declaration(Class(IRI("urn:test.owl#", "ContactInformation")));
         assertTrue(o.containsAxiom(ax1));
         assertTrue(o.containsAxiom(ax2));
@@ -78,7 +79,7 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
             + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
             + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n"
             + "\n\nOntology(<file:test.owl>\n\n" + "Declaration(Annotation(rdfs:label \"blah \n"
-            + "blah\") Class(<urn:test.owl#ContactInformation>))\n"
+            + "blah\")  Class(<urn:test.owl#ContactInformation>))\n"
             + "Declaration(DataProperty(<urn:test.owl#city>))\n"
             + "\n\n\n############################\n#   Classes\n############################\n\n"
             + "# Class: <urn:test.owl#ContactInformation> (blah \n# blah)\n\n"
@@ -98,37 +99,37 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
                 .asList(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("blah \nblah"))))));
         StringDocumentTarget saveOntology = saveOntology(o, new FunctionalSyntaxDocumentFormat());
         assertEquals(output, saveOntology.toString());
-        OWLOntology loadOntologyFromString = loadOntologyFromString(saveOntology);
+        OWLOntology loadOntologyFromString =
+            loadOntologyFromString(saveOntology.toString(), new FunctionalSyntaxDocumentFormat());
         equal(o, loadOntologyFromString);
     }
 
     @Test
     public void shouldParseCardinalityRestrictionWithMoreThanOneDigitRange()
-                    throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         String in = "Prefix(:=<urn:test#>)" + "Prefix(a:=<urn:test#>)"
-                        + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)"
-                        + "Prefix(owl2xml:=<http://www.w3.org/2006/12/owl2-xml#>)"
-                        + "Prefix(test:=<urn:test#>)"
-                        + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)"
-                        + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)"
-                        + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
-                        + "Ontology(<urn:test>\n" + "Declaration(NamedIndividual(test:a)) \n"
-                        + "    Declaration(Class(test:A)) \n"
-                        + "    Declaration(DataProperty(test:dp)) \n"
-                        + "    SubClassOf( test:A DataMinCardinality( 257 test:dp rdfs:Literal ) ) \n"
-                        + "    SubClassOf( test:A DataAllValuesFrom( test:dp xsd:byte ) ) \n"
-                        + "    ClassAssertion( test:A test:a ))";
+            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)"
+            + "Prefix(owl2xml:=<http://www.w3.org/2006/12/owl2-xml#>)" + "Prefix(test:=<urn:test#>)"
+            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)"
+            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)"
+            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+            + "Ontology(<urn:test>\n" + "Declaration(NamedIndividual(test:a)) \n"
+            + "    Declaration(Class(test:A)) \n" + "    Declaration(DataProperty(test:dp)) \n"
+            + "    SubClassOf( test:A DataMinCardinality( 257 test:dp rdfs:Literal ) ) \n"
+            + "    SubClassOf( test:A DataAllValuesFrom( test:dp xsd:byte ) ) \n"
+            + "    ClassAssertion( test:A test:a ))";
         OWLOntology o = loadOntologyFromString(
-                        new StringDocumentSource(in, new FunctionalSyntaxDocumentFormat()));
+            new StringDocumentSource(in, new FunctionalSyntaxDocumentFormat()));
         OWLClass a = df.getOWLClass(IRI.create("urn:test#", "A"));
         OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:test#", "dp"));
-        assertTrue(o.containsAxiom(df.getOWLSubClassOfAxiom(a, df.getOWLDataMinCardinality(257, p,
-                        OWL2Datatype.RDFS_LITERAL.getDatatype(df)))));
+        assertTrue(o.containsAxiom(df.getOWLSubClassOfAxiom(a,
+            df.getOWLDataMinCardinality(257, p, OWL2Datatype.RDFS_LITERAL.getDatatype(df)))));
     }
 
     @Test
     public void testConvertGetLoadedOntology() {
-        String input = "Prefix(:=<http://www.example.org/#>)\nOntology(<http://example.org/>\nSubClassOf(:a :b) )";
+        String input =
+            "Prefix(:=<http://www.example.org/#>)\nOntology(<http://example.org/>\nSubClassOf(:a :b) )";
         OWLOntology origOnt = loadOntologyFromString(input, new FunctionalSyntaxDocumentFormat());
         assertNotNull(origOnt);
         OWLOntologyManager manager = origOnt.getOWLOntologyManager();
