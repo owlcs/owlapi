@@ -16,20 +16,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annotation;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataMaxCardinality;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Datatype;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSLabel;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -37,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
@@ -59,6 +66,40 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
         assertTrue(o.containsAxiom(ax1));
         assertTrue(o.containsAxiom(ax2));
         assertTrue(o.containsAxiom(ax3));
+    }
+
+    @Test
+    public void shouldSaveMultilineComment()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String output = "Prefix(:=<file:test.owl#>)\n"
+            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+            + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
+            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n"
+            + "\n\nOntology(<file:test.owl>\n\n" + "Declaration(Annotation(rdfs:label \"blah \n"
+            + "blah\") Class(<urn:test.owl#ContactInformation>))\n"
+            + "Declaration(DataProperty(<urn:test.owl#city>))\n"
+            + "\n\n\n############################\n#   Classes\n############################\n\n"
+            + "# Class: <urn:test.owl#ContactInformation> (blah \n# blah)\n\n"
+            + "AnnotationAssertion(rdfs:label <urn:test.owl#ContactInformation> \"blah \n"
+            + "blah\")\n"
+            + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n\n\n)";
+        OWLOntology o = m.createOntology(IRI.create("file:test.owl"));
+        m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(IRI("urn:test.owl#ContactInformation"),
+            Annotation(RDFSLabel(), Literal("blah \nblah"))));
+        m.addAxiom(o, Declaration(DataProperty(IRI("urn:test.owl#city"))));
+        m.addAxiom(o,
+            SubClassOf(Class(IRI("urn:test.owl#ContactInformation")),
+                DataMaxCardinality(1, DataProperty(IRI("urn:test.owl#city")),
+                    Datatype(OWL2Datatype.XSD_STRING.getIRI()))));
+        m.addAxiom(o,
+            Declaration(Class(IRI("urn:test.owl#ContactInformation")), new HashSet<>(Arrays
+                .asList(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("blah \nblah"))))));
+        StringDocumentTarget saveOntology = saveOntology(o, new FunctionalSyntaxDocumentFormat());
+        assertEquals(output, saveOntology.toString());
+        OWLOntology loadOntologyFromString = loadOntologyFromString(saveOntology);
+        equal(o, loadOntologyFromString);
     }
 
     @Test

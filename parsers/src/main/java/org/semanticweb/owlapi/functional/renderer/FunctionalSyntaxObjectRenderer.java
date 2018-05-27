@@ -497,7 +497,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
 
     private String getEntityLabel(OWLEntity entity) {
         if (labelMaker.isPresent()) {
-            return labelMaker.get().getShortForm(entity);
+            return labelMaker.get().getShortForm(entity).replace("\n", "\n# ");;
         }
         return entity.getIRI().toQuotedString();
     }
