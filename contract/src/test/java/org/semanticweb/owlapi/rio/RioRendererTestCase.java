@@ -9,7 +9,9 @@ import static org.junit.Assert.assertTrue;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashSet;
+
 import javax.annotation.Nonnull;
+
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.vocabulary.OWL;
@@ -31,13 +33,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings({"javadoc", "null"})
 public class RioRendererTestCase extends TestBase {
 
-    private final @Nonnull
-    IRI testOntologyUri1 = IRI.create("urn:test:ontology:uri:1", "");
+    private final @Nonnull IRI testOntologyUri1 = IRI.create("urn:test:ontology:uri:1", "");
     private SimpleValueFactory vf;
-    private @Nonnull
-    OWLOntology testOntologyEmpty;
-    private @Nonnull
-    OWLOntology testOntologyKoala;
+    private @Nonnull OWLOntology testOntologyEmpty;
+    private @Nonnull OWLOntology testOntologyKoala;
     private Statement testOntologyEmptyStatement;
     private StatementCollector testHandlerStatementCollector;
     private StringWriter testRdfXmlStringWriter;
@@ -53,13 +52,12 @@ public class RioRendererTestCase extends TestBase {
         m.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
             new RioTurtleStorerFactory());
         testOntologyEmpty = m.createOntology(testOntologyUri1);
-        testOntologyKoala = m
-            .loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
+        testOntologyKoala =
+            m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
-        testOntologyEmptyStatement = vf
-            .createStatement(vf.createIRI("urn:test:ontology:uri:1"), RDF.TYPE,
-                OWL.ONTOLOGY);
+        testOntologyEmptyStatement =
+            vf.createStatement(vf.createIRI("urn:test:ontology:uri:1"), RDF.TYPE, OWL.ONTOLOGY);
         testRdfXmlStringWriter = new StringWriter();
         testRdfXmlRioWriter = Rio.createWriter(RDFFormat.RDFXML, testRdfXmlStringWriter);
         testTurtleStringWriter = new StringWriter();
@@ -68,14 +66,14 @@ public class RioRendererTestCase extends TestBase {
         testNTriplesRioWriter = Rio.createWriter(RDFFormat.NTRIPLES, testNTriplesStringWriter);
     }
 
-    /* 
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
+    /*
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
     public void testRenderEmptyStatementCollector() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testHandlerStatementCollector,
-            null);
+        RioRenderer testRenderer =
+            new RioRenderer(testOntologyEmpty, testHandlerStatementCollector, null);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(1, testHandlerStatementCollector.getStatements().size());
@@ -87,8 +85,8 @@ public class RioRendererTestCase extends TestBase {
     }
 
     /*
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
     public void testRenderEmptyRdfXmlWriter() {
@@ -101,8 +99,8 @@ public class RioRendererTestCase extends TestBase {
     }
 
     /*
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
     public void testRenderEmptyTurtleWriter() {
@@ -115,8 +113,8 @@ public class RioRendererTestCase extends TestBase {
     }
 
     /*
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
     public void testRenderEmptyNTriplesWriter() {
@@ -129,25 +127,25 @@ public class RioRendererTestCase extends TestBase {
     }
 
     /*
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
     public void testRenderKoalaStatementCollector() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testHandlerStatementCollector,
-            null);
+        RioRenderer testRenderer =
+            new RioRenderer(testOntologyKoala, testHandlerStatementCollector, null);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<>(
-            testHandlerStatementCollector.getStatements());
+        HashSet<Statement> resultStatements =
+            new HashSet<>(testHandlerStatementCollector.getStatements());
         assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
     }
 
     /*
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
     public void testRenderKoalaRdfXmlWriter() throws Exception {
@@ -159,11 +157,9 @@ public class RioRendererTestCase extends TestBase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result
-                .length() > 24000);
+            result.length() > 24000);
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result
-                .length() < 26000);
+            result.length() < 26000);
         RDFParser parser = Rio.createParser(RDFFormat.RDFXML, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -174,14 +170,14 @@ public class RioRendererTestCase extends TestBase {
         assertEquals(5, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<>(
-            testHandlerStatementCollector.getStatements());
+        HashSet<Statement> resultStatements =
+            new HashSet<>(testHandlerStatementCollector.getStatements());
         assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
     }
 
     /*
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
     public void testRenderKoalaTurtleWriter() throws Exception {
@@ -193,25 +189,23 @@ public class RioRendererTestCase extends TestBase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result
-                .length() > 8250);
+            result.length() > 8200);
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result
-                .length() < 9500);
+            result.length() < 9500);
         RDFParser parser = Rio.createParser(RDFFormat.TURTLE, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<>(
-            testHandlerStatementCollector.getStatements());
+        HashSet<Statement> resultStatements =
+            new HashSet<>(testHandlerStatementCollector.getStatements());
         assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
     }
 
     /*
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
     public void testRenderKoalaNTriplesWriter() throws Exception {
@@ -223,11 +217,9 @@ public class RioRendererTestCase extends TestBase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result
-                .length() > 26200);
+            result.length() > 26200);
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result
-                .length() < 27500);
+            result.length() < 27500);
         RDFParser parser = Rio.createParser(RDFFormat.NTRIPLES, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -236,8 +228,8 @@ public class RioRendererTestCase extends TestBase {
         assertEquals(0, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<>(
-            testHandlerStatementCollector.getStatements());
+        HashSet<Statement> resultStatements =
+            new HashSet<>(testHandlerStatementCollector.getStatements());
         assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
     }
 
@@ -250,14 +242,12 @@ public class RioRendererTestCase extends TestBase {
             + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
             + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
             + "Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>\n"
-            + "Datatype: xsd:decimal\n"
-            + "Datatype: xsd:int\n" + "Datatype: xsd:dateTime\n"
+            + "Datatype: xsd:decimal\n" + "Datatype: xsd:int\n" + "Datatype: xsd:dateTime\n"
             + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>\n"
             + "    Characteristics: \n" + "        Functional\n" + "    Range: \n"
             + "        xsd:int\n"
             + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasDate>\n"
-            + "    Range: \n"
-            + "        xsd:dateTime\n"
+            + "    Range: \n" + "        xsd:dateTime\n"
             + "Class: <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
             + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n"
             + "    Types: \n"

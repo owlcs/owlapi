@@ -14,8 +14,11 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Locale;
 import java.util.Optional;
+
 import javax.annotation.Nullable;
+
 import org.apache.commons.rdf.api.Literal;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -42,7 +45,7 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
      */
     public RDFLiteral(String literal, @Nullable String lang, @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
-        this.lang = lang == null ? "" : lang;
+        this.lang = lang == null ? "" : lang.toLowerCase(Locale.ROOT);
         OWL2Datatype defaultType =
             this.lang.isEmpty() ? OWL2Datatype.RDF_PLAIN_LITERAL : OWL2Datatype.RDF_LANG_STRING;
         this.datatype = datatype == null ? defaultType.getIRI() : datatype;
@@ -86,6 +89,16 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
             }
             return datatype.equals(other.datatype);
         }
+        if (obj instanceof RDFLiteral) {
+            RDFLiteral literal = (RDFLiteral) obj;
+            if (!getLexicalForm().equals(literal.getLexicalForm())) {
+                return false;
+            }
+            if (!getLanguageTag().equals(literal.getLanguageTag())) {
+                return false;
+            }
+            return getDatatype().equals(literal.getDatatype());
+        }
         if (obj instanceof Literal) {
             // Note: This also works on RDFLiteral
             // but is slightly more expensive as it must call the
@@ -97,7 +110,8 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
             if (!getLexicalForm().equals(((Literal) obj).getLexicalForm())) {
                 return false;
             }
-            if (!getLanguageTag().equals(literal.getLanguageTag())) {
+            if (!getLanguageTag()
+                .equals(literal.getLanguageTag().map(s -> s.toLowerCase(Locale.ROOT)))) {
                 return false;
             }
             return getDatatype().equals(literal.getDatatype());
@@ -184,12 +198,11 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
 
     @Override
     public String ntriplesString() {
-        String escaped = '"' + EscapeUtils.escapeString(getLexicalValue()).replace("\n", "\\n")
-            .replace("\r", "\\r")
+        String escaped = '"'
+            + EscapeUtils.escapeString(getLexicalValue()).replace("\n", "\\n").replace("\r", "\\r")
             + '"';
-        if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()) || datatype
-            .equals(OWL2Datatype.XSD_STRING
-                .getIRI())) {
+        if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI())
+            || datatype.equals(OWL2Datatype.XSD_STRING.getIRI())) {
             return escaped;
         } else if (hasLang()) {
             return escaped + "@" + getLang();

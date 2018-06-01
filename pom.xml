@@ -24,7 +24,7 @@
 	<properties>
 		<!-- Specify the encoding of the source files. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<rdf4j.version>2.2.2</rdf4j.version>
+		<rdf4j.version>2.3.2</rdf4j.version>
 		<!-- remove this line for releases, if the release process fails because 
 			of missing javadoc jars -->
 		<no-javadoc>false</no-javadoc>
@@ -147,12 +147,12 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-rdf-api</artifactId>
-				<version>0.3.0-incubating</version>
+				<version>0.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-rdf-api</artifactId>
-				<version>0.3.0-incubating</version>
+				<version>0.5.0</version>
 				<classifier>tests</classifier>
 				<scope>test</scope>
 			</dependency>
@@ -179,7 +179,7 @@
 			<dependency>
 				<groupId>com.github.jsonld-java</groupId>
 				<artifactId>jsonld-java</artifactId>
-				<version>0.11.1</version>
+				<version>0.12.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

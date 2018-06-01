@@ -164,6 +164,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         final RDFParser createParser = Rio.createParser(owlFormatFactory.getRioFormat());
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
+        createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_URI_SYNTAX);
         createParser.setRDFHandler(handler);
         long rioParseStart = System.currentTimeMillis();
         try {
