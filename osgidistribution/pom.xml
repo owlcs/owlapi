@@ -49,7 +49,7 @@
 		<dependency><groupId>org.openrdf.sesame</groupId><artifactId>sesame-rio-turtle</artifactId><version>${inherited.sesame.version}</version></dependency>
 		<dependency><groupId>org.openrdf.sesame</groupId><artifactId>sesame-rio-trig</artifactId><version>${inherited.sesame.version}</version></dependency>
 		<dependency><groupId>com.github.jsonld-java</groupId><artifactId>jsonld-java-sesame</artifactId><version>0.5.1</version></dependency>
-		<dependency><groupId>com.github.jsonld-java</groupId><artifactId>jsonld-java</artifactId><version>0.7.0</version></dependency>
+		<dependency><groupId>com.github.jsonld-java</groupId><artifactId>jsonld-java</artifactId><version>0.12.0</version></dependency>
 		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpclient</artifactId><version>4.5.2</version></dependency>
 		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpclient-cache</artifactId><version>4.5.2</version></dependency>
 		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpcore</artifactId><version>4.4.5</version></dependency>
