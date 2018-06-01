@@ -138,6 +138,7 @@ public class RioParserImpl implements OWLParser, RioParser {
                 .addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
             createParser.getParserConfig()
                 .addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
+            createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_URI_SYNTAX);
             createParser.setRDFHandler(handler);
             if (r instanceof Reader) {
                 createParser.parse((Reader) r, baseIRI(p.getOntology()));
