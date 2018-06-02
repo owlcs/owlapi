@@ -56,8 +56,6 @@ import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import gnu.trove.map.hash.TObjectIntHashMap;
-
 /**
  * The Class OBOFormatWriter.
  *
@@ -67,46 +65,15 @@ import gnu.trove.map.hash.TObjectIntHashMap;
 public class OBOFormatWriter {
 
     private static final Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
-    private static final TObjectIntHashMap<String> TAGSPRIORITIES = buildTagsPriorities();
-    private static final TObjectIntHashMap<String> TYPEDEFTAGSPRIORITIES =
-        buildTypeDefTagsPriorities();
     private static final Comparator<Frame> framesComparator = Comparator.comparing(Frame::getId);
-    private static final TObjectIntHashMap<String> HEADERTAGSPRIORITIES =
-        buildHeaderTagsPriorities();
     private static final Set<String> TAGSINFORMATIVE = buildTagsInformative();
-    private static final Comparator<String> headerTagsComparator =
-        Comparator.comparingInt(OBOFormatWriter::getHeaderPriority);
     /**
      * This comparator sorts clauses with the same tag in the specified write order.
      */
     private static final Comparator<Clause> clauseComparator = (o1, o2) -> compare(o1, o2);
-    private static Comparator<String> termsTagsComparator =
-        Comparator.comparingInt(OBOFormatWriter::getPriority);
-    private static Comparator<String> typeDefTagsComparator =
-        Comparator.comparingInt(OBOFormatWriter::getTypedefPriority);
-    private static Comparator<Clause> clauseListComparator =
-        Comparator.comparing(Clause::getTag, termsTagsComparator).thenComparing(clauseComparator);
+    private static Comparator<Clause> clauseListComparator = Comparator
+        .comparing(Clause::getTag, OBOFormatConstants.tagPriority).thenComparing(clauseComparator);
     private boolean isCheckStructure = true;
-
-    private static int getHeaderPriority(String s) {
-        return actualGet(s, HEADERTAGSPRIORITIES);
-    }
-
-    protected static int actualGet(String s, TObjectIntHashMap<String> map) {
-        int i = map.get(s);
-        if (i == map.getNoEntryValue()) {
-            return 10000;
-        }
-        return i;
-    }
-
-    private static int getPriority(String s) {
-        return actualGet(s, TAGSPRIORITIES);
-    }
-
-    private static int getTypedefPriority(String s) {
-        return actualGet(s, TYPEDEFTAGSPRIORITIES);
-    }
 
     private static Set<String> buildTagsInformative() {
         Set<String> set = new HashSet<>();
@@ -487,106 +454,6 @@ public class OBOFormatWriter {
         return replace;
     }
 
-    private static TObjectIntHashMap<String> buildHeaderTagsPriorities() {
-        TObjectIntHashMap<String> table = new TObjectIntHashMap<>();
-        table.put(OboFormatTag.TAG_FORMAT_VERSION.getTag(), 0);
-        table.put(OboFormatTag.TAG_DATA_VERSION.getTag(), 10);
-        table.put(OboFormatTag.TAG_DATE.getTag(), 15);
-        table.put(OboFormatTag.TAG_SAVED_BY.getTag(), 20);
-        table.put(OboFormatTag.TAG_AUTO_GENERATED_BY.getTag(), 25);
-        table.put(OboFormatTag.TAG_SUBSETDEF.getTag(), 35);
-        table.put(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag(), 40);
-        table.put(OboFormatTag.TAG_DEFAULT_NAMESPACE.getTag(), 45);
-        table.put(OboFormatTag.TAG_NAMESPACE_ID_RULE.getTag(), 46);
-        table.put(OboFormatTag.TAG_IDSPACE.getTag(), 50);
-        table.put(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT.getTag(), 55);
-        table.put(OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag(), 60);
-        table.put(OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag(), 65);
-        table.put(OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag(), 70);
-        table.put(OboFormatTag.TAG_REMARK.getTag(), 75);
-        // moved from pos 30 to emulate OBO-Edit behavior
-        table.put(OboFormatTag.TAG_IMPORT.getTag(), 80);
-        // moved from pos 5 to emulate OBO-Edit behavior
-        table.put(OboFormatTag.TAG_ONTOLOGY.getTag(), 85);
-        table.put(OboFormatTag.TAG_PROPERTY_VALUE.getTag(), 100);
-        table.put(OboFormatTag.TAG_OWL_AXIOMS.getTag(), 110);
-        return table;
-    }
-
-    private static TObjectIntHashMap<String> buildTagsPriorities() {
-        TObjectIntHashMap<String> table = new TObjectIntHashMap<>();
-        table.put(OboFormatTag.TAG_ID.getTag(), 5);
-        table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
-        table.put(OboFormatTag.TAG_NAME.getTag(), 15);
-        table.put(OboFormatTag.TAG_NAMESPACE.getTag(), 20);
-        table.put(OboFormatTag.TAG_ALT_ID.getTag(), 25);
-        table.put(OboFormatTag.TAG_DEF.getTag(), 30);
-        table.put(OboFormatTag.TAG_COMMENT.getTag(), 35);
-        table.put(OboFormatTag.TAG_SUBSET.getTag(), 40);
-        table.put(OboFormatTag.TAG_SYNONYM.getTag(), 45);
-        table.put(OboFormatTag.TAG_XREF.getTag(), 50);
-        table.put(OboFormatTag.TAG_BUILTIN.getTag(), 55);
-        table.put(OboFormatTag.TAG_HOLDS_OVER_CHAIN.getTag(), 60);
-        table.put(OboFormatTag.TAG_IS_A.getTag(), 65);
-        table.put(OboFormatTag.TAG_INTERSECTION_OF.getTag(), 70);
-        table.put(OboFormatTag.TAG_UNION_OF.getTag(), 80);
-        table.put(OboFormatTag.TAG_EQUIVALENT_TO.getTag(), 85);
-        table.put(OboFormatTag.TAG_DISJOINT_FROM.getTag(), 90);
-        table.put(OboFormatTag.TAG_RELATIONSHIP.getTag(), 95);
-        table.put(OboFormatTag.TAG_PROPERTY_VALUE.getTag(), 98);
-        table.put(OboFormatTag.TAG_IS_OBSELETE.getTag(), 110);
-        table.put(OboFormatTag.TAG_REPLACED_BY.getTag(), 115);
-        table.put(OboFormatTag.TAG_CONSIDER.getTag(), 120);
-        table.put(OboFormatTag.TAG_CREATED_BY.getTag(), 130);
-        table.put(OboFormatTag.TAG_CREATION_DATE.getTag(), 140);
-        return table;
-    }
-
-    private static TObjectIntHashMap<String> buildTypeDefTagsPriorities() {
-        TObjectIntHashMap<String> table = new TObjectIntHashMap<>();
-        table.put(OboFormatTag.TAG_ID.getTag(), 5);
-        table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
-        table.put(OboFormatTag.TAG_NAME.getTag(), 15);
-        table.put(OboFormatTag.TAG_NAMESPACE.getTag(), 20);
-        table.put(OboFormatTag.TAG_ALT_ID.getTag(), 25);
-        table.put(OboFormatTag.TAG_DEF.getTag(), 30);
-        table.put(OboFormatTag.TAG_COMMENT.getTag(), 35);
-        table.put(OboFormatTag.TAG_SUBSET.getTag(), 40);
-        table.put(OboFormatTag.TAG_SYNONYM.getTag(), 45);
-        table.put(OboFormatTag.TAG_XREF.getTag(), 50);
-        table.put(OboFormatTag.TAG_PROPERTY_VALUE.getTag(), 55);
-        table.put(OboFormatTag.TAG_DOMAIN.getTag(), 60);
-        table.put(OboFormatTag.TAG_RANGE.getTag(), 65);
-        table.put(OboFormatTag.TAG_BUILTIN.getTag(), 70);
-        table.put(OboFormatTag.TAG_HOLDS_OVER_CHAIN.getTag(), 71);
-        table.put(OboFormatTag.TAG_IS_ANTI_SYMMETRIC.getTag(), 75);
-        table.put(OboFormatTag.TAG_IS_CYCLIC.getTag(), 80);
-        table.put(OboFormatTag.TAG_IS_REFLEXIVE.getTag(), 85);
-        table.put(OboFormatTag.TAG_IS_SYMMETRIC.getTag(), 90);
-        table.put(OboFormatTag.TAG_IS_TRANSITIVE.getTag(), 100);
-        table.put(OboFormatTag.TAG_IS_FUNCTIONAL.getTag(), 105);
-        table.put(OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL.getTag(), 110);
-        table.put(OboFormatTag.TAG_IS_A.getTag(), 115);
-        table.put(OboFormatTag.TAG_INTERSECTION_OF.getTag(), 120);
-        table.put(OboFormatTag.TAG_UNION_OF.getTag(), 125);
-        table.put(OboFormatTag.TAG_EQUIVALENT_TO.getTag(), 130);
-        table.put(OboFormatTag.TAG_DISJOINT_FROM.getTag(), 135);
-        table.put(OboFormatTag.TAG_INVERSE_OF.getTag(), 140);
-        table.put(OboFormatTag.TAG_TRANSITIVE_OVER.getTag(), 145);
-        table.put(OboFormatTag.TAG_EQUIVALENT_TO_CHAIN.getTag(), 155);
-        table.put(OboFormatTag.TAG_DISJOINT_OVER.getTag(), 160);
-        table.put(OboFormatTag.TAG_RELATIONSHIP.getTag(), 165);
-        table.put(OboFormatTag.TAG_IS_OBSELETE.getTag(), 169);
-        table.put(OboFormatTag.TAG_REPLACED_BY.getTag(), 185);
-        table.put(OboFormatTag.TAG_CONSIDER.getTag(), 190);
-        table.put(OboFormatTag.TAG_CREATED_BY.getTag(), 191);
-        table.put(OboFormatTag.TAG_CREATION_DATE.getTag(), 192);
-        table.put(OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag(), 195);
-        table.put(OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag(), 200);
-        table.put(OboFormatTag.TAG_IS_METADATA_TAG.getTag(), 205);
-        table.put(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG.getTag(), 210);
-        return table;
-    }
 
     /**
      * Sort a list of term frame clauses according to in the OBO format specified tag and value
@@ -807,7 +674,7 @@ public class OBOFormatWriter {
     public void writeHeader(Frame frame, Writer writer, NameProvider nameProvider)
         throws IOException {
         List<String> tags = duplicateTags(frame.getTags());
-        Collections.sort(tags, headerTagsComparator);
+        Collections.sort(tags, OBOFormatConstants.headerPriority);
         write(new Clause(OboFormatTag.TAG_FORMAT_VERSION.getTag(), "1.2"), writer, nameProvider);
         for (String tag : tags) {
             if (tag.equals(OboFormatTag.TAG_FORMAT_VERSION.getTag())) {
@@ -845,13 +712,13 @@ public class OBOFormatWriter {
         Comparator<String> comparator = null;
         if (frame.getType() == FrameType.TERM) {
             writeLine("[Term]", writer);
-            comparator = termsTagsComparator;
+            comparator = OBOFormatConstants.tagPriority;
         } else if (frame.getType() == FrameType.TYPEDEF) {
             writeLine("[Typedef]", writer);
-            comparator = typeDefTagsComparator;
+            comparator = OBOFormatConstants.typeDefPriority;
         } else if (frame.getType() == FrameType.INSTANCE) {
             writeLine("[Instance]", writer);
-            comparator = typeDefTagsComparator;
+            comparator = OBOFormatConstants.typeDefPriority;
         }
         String id = frame.getId();
         if (id != null) {
