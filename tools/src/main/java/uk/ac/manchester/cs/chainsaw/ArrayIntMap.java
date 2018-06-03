@@ -3,9 +3,6 @@ package uk.ac.manchester.cs.chainsaw;
 import java.util.ArrayList;
 import java.util.List;
 
-import gnu.trove.list.TIntList;
-import gnu.trove.list.array.TIntArrayList;
-
 /**
  * a multimap for int to collection of int values.
  */
@@ -46,34 +43,6 @@ public class ArrayIntMap {
             }
         }
         return new FastSetSimple();
-    }
-
-    /**
-     * @return the set of keys
-     */
-    public TIntList keySet() {
-        TIntList toReturn = new TIntArrayList();
-        for (int i = 0; i < map.size(); i++) {
-            if (map.get(i) != null) {
-                toReturn.add(i);
-            }
-        }
-        return toReturn;
-    }
-
-    /**
-     * @return all values in the map
-     */
-    public TIntList getAllValues() {
-        TIntList toReturn = new TIntArrayList();
-        for (FastSet f : map) {
-            if (f != null) {
-                for (int i = 0; i < f.size(); i++) {
-                    toReturn.add(f.get(i));
-                }
-            }
-        }
-        return toReturn;
     }
 
     /**

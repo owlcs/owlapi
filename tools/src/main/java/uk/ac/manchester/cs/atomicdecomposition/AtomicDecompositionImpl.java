@@ -26,7 +26,6 @@ import org.semanticweb.owlapitools.decomposition.SyntacticLocalityChecker;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 
-import gnu.trove.map.hash.TObjectIntHashMap;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
@@ -39,7 +38,7 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     Set<OWLAxiom> globalAxioms;
     Set<OWLAxiom> tautologies;
     List<Atom> atoms;
-    TObjectIntHashMap<Atom> atomIndex = new TObjectIntHashMap<>();
+    Map<Atom, Integer> atomIndex = new HashMap<>();
     IdentityMultiMap<Atom, Atom> dependents = new IdentityMultiMap<>();
     IdentityMultiMap<Atom, Atom> dependencies = new IdentityMultiMap<>();
     Decomposer decomposer;
@@ -71,7 +70,7 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
         for (int i = 0; i < size; i++) {
             final Atom atom = new Atom(asSet(decomposer.getAOS().get(i).getAtomAxioms()));
             atoms.add(atom);
-            atomIndex.put(atom, i);
+            atomIndex.put(atom, Integer.valueOf(i));
             for (OWLEntity e : atom.getSignature()) {
                 termBasedIndex.put(e, atom);
             }
