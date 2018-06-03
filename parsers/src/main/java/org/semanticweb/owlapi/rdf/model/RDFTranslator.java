@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
+import java.util.IdentityHashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
@@ -33,9 +35,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 
-import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
-import gnu.trove.strategy.IdentityHashingStrategy;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -45,8 +44,7 @@ public class RDFTranslator
 
     protected final AxiomAppearance axiomOccurrences;
     private final AtomicInteger nextBlankNodeId;
-    private TObjectIntCustomHashMap<Object> blankNodeMap =
-        new TObjectIntCustomHashMap<>(new IdentityHashingStrategy<>());
+    private Map<Object, Integer> blankNodeMap = new IdentityHashMap<>();
 
     /**
      * @param manager the manager
@@ -57,8 +55,7 @@ public class RDFTranslator
      * @param counter counter for blank nodes
      */
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
-        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,
-        AtomicInteger counter) {
+        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger counter) {
         super(manager, ontology, useStrongTyping, occurrences);
         this.axiomOccurrences = axiomOccurrences;
         nextBlankNodeId = counter;
