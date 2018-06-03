@@ -16,7 +16,7 @@ buildscript {
     dependencies {
         classpath fileTree('buildSrc/lib/')
         classpath 'me.champeau.gradle:japicmp-gradle-plugin:latest.integration'
-        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.5.0'
+        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.0.0'
     }
 }
 
@@ -40,7 +40,7 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+//        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
 
     apply plugin: 'java'
@@ -67,7 +67,7 @@ subprojects {
     artifacts.archives packageJavadoc
 
     dependencies {
-        compile 'net.sf.trove4j:trove4j:[3.0.3,4)'
+//        compile 'net.sf.trove4j:trove4j:[3.0.3,4)'
         compile 'com.github.ben-manes.caffeine:caffeine:[2.6,3)'
         compile 'com.google.guava:guava:[19.0,22.0]'
         compile 'com.google.inject:guice:[4.0.0,4.1.0]'
