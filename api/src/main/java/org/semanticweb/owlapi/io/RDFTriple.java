@@ -13,32 +13,8 @@
 package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_SOURCE;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_TARGET;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATA_RANGE;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DEPRECATED;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISJOINT_WITH;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_EQUIVALENT_CLASS;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_EQUIVALENT_PROPERTY;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_CLASS;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_COMMENT;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DOMAIN;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_IS_DEFINED_BY;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_RANGE;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUBCLASS_OF;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUB_PROPERTY_OF;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_FIRST;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_REST;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -47,8 +23,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import gnu.trove.map.hash.TObjectIntHashMap;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
@@ -56,7 +30,6 @@ import gnu.trove.map.hash.TObjectIntHashMap;
 public class RDFTriple
     implements Serializable, Comparable<RDFTriple>, org.apache.commons.rdf.api.Triple {
 
-    static final TObjectIntHashMap<IRI> specialPredicateRanks = initMap();
     private final RDFResource subject;
     private final RDFResourceIRI predicate;
     private final RDFNode object;
@@ -108,38 +81,8 @@ public class RDFTriple
         return new RDFResourceIRI(iri);
     }
 
-    static TObjectIntHashMap<IRI> initMap() {
-        TObjectIntHashMap<IRI> predicates = new TObjectIntHashMap<>();
-        AtomicInteger nextId = new AtomicInteger(1);
-        List<OWLRDFVocabulary> ORDERED_URIS = Arrays.asList(RDF_TYPE, RDFS_LABEL, OWL_DEPRECATED,
-            RDFS_COMMENT, RDFS_IS_DEFINED_BY, RDF_FIRST, RDF_REST, OWL_EQUIVALENT_CLASS,
-            OWL_EQUIVALENT_PROPERTY, RDFS_SUBCLASS_OF, RDFS_SUB_PROPERTY_OF, RDFS_DOMAIN,
-            RDFS_RANGE, OWL_DISJOINT_WITH, OWL_ON_PROPERTY, OWL_DATA_RANGE, OWL_ON_CLASS,
-            OWL_ANNOTATED_SOURCE, OWL_ANNOTATED_PROPERTY, OWL_ANNOTATED_TARGET);
-        ORDERED_URIS.forEach(iri -> predicates.put(iri.getIRI(), nextId.getAndIncrement()));
-        Stream.of(OWLRDFVocabulary.values())
-            .forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId.getAndIncrement()));
-        return predicates;
-    }
-
     private static int comparePredicates(RDFResourceIRI predicate, RDFResourceIRI otherPredicate) {
-        IRI predicateIRI = predicate.getIRI();
-        int specialPredicateRank = specialPredicateRanks.get(predicateIRI);
-        IRI otherPredicateIRI = otherPredicate.getIRI();
-        int otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
-        if (specialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
-            if (otherSpecialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
-                return Integer.compare(specialPredicateRank, otherSpecialPredicateRank);
-            } else {
-                return -1;
-            }
-        } else {
-            if (otherSpecialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
-                return +1;
-            } else {
-                return predicateIRI.compareTo(otherPredicateIRI);
-            }
-        }
+        return OWLRDFVocabulary.compareByIRI.compare(predicate.getIRI(), otherPredicate.getIRI());
     }
 
     /**
