@@ -44,7 +44,7 @@ public class RDFTranslator
 
     protected final AxiomAppearance axiomOccurrences;
     private final AtomicInteger nextBlankNodeId;
-    private Map<Object, Integer> blankNodeMap = new IdentityHashMap<>();
+    private final Map<Object, Integer> blankNodeMap = new IdentityHashMap<>();
 
     /**
      * @param manager the manager
@@ -87,12 +87,12 @@ public class RDFTranslator
 
     protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual,
         boolean isAxiom, boolean needId) {
-        int id = blankNodeMap.get(key);
-        if (id == 0) {
-            id = nextBlankNodeId.getAndIncrement();
+        Integer id = blankNodeMap.get(key);
+        if (id == null) {
+            id = Integer.valueOf(nextBlankNodeId.getAndIncrement());
             blankNodeMap.put(key, id);
         }
-        return new RDFResourceBlankNode(id, isIndividual, needId, isAxiom);
+        return new RDFResourceBlankNode(id.intValue(), isIndividual, needId, isAxiom);
     }
 
     @Override
