@@ -56,7 +56,7 @@ public enum OBOPrefix {
     /**
      * obo owl prefix
      */
-    OBO_IN_OWL("http://www.geneontology.org/formats/oboInOWL#");
+    OBO_IN_OWL("http://www.geneontology.org/formats/oboInOwl#");
 
     private final String prefix;
 
