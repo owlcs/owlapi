@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.lang.ref.WeakReference;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,14 +21,23 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.WeakIndexCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;
 
@@ -41,8 +49,7 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
     private static Logger logger = LoggerFactory.getLogger(OWLDataFactoryInternalsImpl.class);
     private static final long serialVersionUID = 40000L;
 
-    protected class BuildableWeakIndexCache<V extends OWLEntity> extends
-        WeakIndexCache<IRI, V> {
+    protected class BuildableWeakIndexCache<V extends OWLEntity> extends WeakIndexCache<IRI, V> {
 
         private static final long serialVersionUID = 40000L;
 
@@ -84,18 +91,16 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
     }
 
     /**
-     * Annotations Cache uses a loading cache as a size limited Interner; the
-     * value of the loader is simply the key. As with an interner, each access
-     * constructs a new object that is discarded if the key is used. Most
-     * annotations will only be used once; however some annotations may be
-     * reused extremely frequently. for ontologies in the OBO family, a few
-     * annotations will be reused extremely frequently.
+     * Annotations Cache uses a loading cache as a size limited Interner; the value of the loader is
+     * simply the key. As with an interner, each access constructs a new object that is discarded if
+     * the key is used. Most annotations will only be used once; however some annotations may be
+     * reused extremely frequently. for ontologies in the OBO family, a few annotations will be
+     * reused extremely frequently.
      */
     private transient final LoadingCache<OWLAnnotation, OWLAnnotation> annotationsCache;
 
     /**
-     * @param useCompression
-     *        true if literals should be compressed
+     * @param useCompression true if literals should be compressed
      */
     @Inject
     public OWLDataFactoryInternalsImpl(@CompressionEnabled boolean useCompression) {
@@ -107,18 +112,12 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         individualsByURI = buildCache();
         annotationPropertiesByURI = buildCache();
         languageTagInterner = Interners.newWeakInterner();
-        CacheBuilder<Object, Object> annotationsCacheBuilder = CacheBuilder.newBuilder().maximumSize(512)
-            .expireAfterAccess(2, TimeUnit.MINUTES);
+        Caffeine<Object, Object> builder =
+            Caffeine.newBuilder().maximumSize(512).expireAfterAccess(2, TimeUnit.MINUTES);
         if (logger.isDebugEnabled()) {
-            annotationsCacheBuilder.recordStats();
+            builder.recordStats();
         }
-        annotationsCache = annotationsCacheBuilder.build(new CacheLoader<OWLAnnotation, OWLAnnotation>() {
-
-            @Override
-            public OWLAnnotation load(OWLAnnotation key) {
-                return key;
-            }
-        });
+        annotationsCache = builder.build(k -> k);
     }
 
     @SuppressWarnings("unchecked")
@@ -220,12 +219,11 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
     @Nonnull
     @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
-        return annotationPropertiesByURI.cache(iri,
-            Buildable.OWLANNOTATIONPROPERTY);
+        return annotationPropertiesByURI.cache(iri, Buildable.OWLANNOTATIONPROPERTY);
     }
 
     /*
-       Use a guava weak String interner for language tags.
+     * Use a guava weak String interner for language tags.
      */
     @Override
     public OWLLiteral getOWLLiteral(String literal, @Nullable String lang) {
@@ -242,17 +240,13 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
     public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
         @Nonnull Set<? extends OWLAnnotation> annotations) {
         OWLAnnotation key = new OWLAnnotationImpl(property, value, annotations);
-        try {
-            OWLAnnotation annotation = annotationsCache.get(key);
-            if (logger.isDebugEnabled()) {
-                int n = annotationsCount.incrementAndGet();
-                if (n % 1000 == 0) {
-                    logger.debug("{}: Annotations Cache stats: {}", n, annotationsCache.stats());
-                }
+        OWLAnnotation annotation = annotationsCache.get(key);
+        if (logger.isDebugEnabled()) {
+            int n = annotationsCount.incrementAndGet();
+            if (n % 1000 == 0) {
+                logger.debug("{}: Annotations Cache stats: {}", n, annotationsCache.stats());
             }
-            return annotation;
-        } catch (ExecutionException e) {
-            return key;
         }
+        return annotation;
     }
 }

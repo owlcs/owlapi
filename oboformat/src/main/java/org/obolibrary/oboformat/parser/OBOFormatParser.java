@@ -28,9 +28,8 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.Weigher;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /** implements the OBO Format 1.4 specification. */
 public class OBOFormatParser {
@@ -46,7 +45,7 @@ public class OBOFormatParser {
     private boolean followImport;
     private Object location;
     protected final MyStream stream;
-    public final com.google.common.cache.LoadingCache<String, String> stringCache;
+    public final LoadingCache<String, String> stringCache;
 
     /**
      *
@@ -60,21 +59,12 @@ public class OBOFormatParser {
      */
     protected OBOFormatParser(MyStream s) {
         stream = s;
-        Weigher<String, String> stringWeigher = (key, value) -> key.length();
-        CacheLoader<String, String> loader = new CacheLoader<String, String>() {
-
-            @Override
-            public String load(String key) throws Exception {
-                return key;
-            }
-        };
+        Caffeine<String, String> builder = Caffeine.newBuilder().maximumWeight(8388608)
+            .weigher((String key, String value) -> key.length());
         if (LOG.isDebugEnabled()) {
-            stringCache = CacheBuilder.newBuilder().recordStats().maximumWeight(8192 * 1024)
-                .weigher(stringWeigher).build(loader);
-        } else {
-            stringCache = CacheBuilder.newBuilder().maximumWeight(8192 * 1024)
-                .weigher(stringWeigher).build(loader);
+            builder.recordStats();
         }
+        stringCache = builder.build(key -> key);
     }
 
     protected static class MyStream {
@@ -1440,7 +1430,7 @@ public class OBOFormatParser {
             ret = sb.toString();
         }
         stream.advance(i);
-        String cachedValue = stringCache.getUnchecked(ret);
+        String cachedValue = stringCache.get(ret);
         if (LOG.isTraceEnabled()) {
             if (ret != cachedValue) {
                 LOG.trace("Cache hit for  {}", cachedValue);

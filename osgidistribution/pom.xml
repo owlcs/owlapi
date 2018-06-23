@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>4.5.2</version>
+		<version>4.5.3-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -57,7 +57,7 @@
 		<dependency><groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version></dependency>
 		<dependency><groupId>commons-io</groupId><artifactId>commons-io</artifactId><version>2.5</version></dependency>
 		<dependency><groupId>net.sf.trove4j</groupId><artifactId>trove4j</artifactId><version>3.0.3</version></dependency>
-		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>20.0</version></dependency>
+		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>18.0</version></dependency>
 		<dependency><groupId>com.google.inject</groupId><artifactId>guice</artifactId><version>4.1.0</version></dependency>
 		<dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-assistedinject</artifactId><version>4.1.0</version></dependency>
 		<dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-multibindings</artifactId><version>4.1.0</version></dependency>
@@ -80,7 +80,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.5.1</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -100,7 +100,8 @@
 							groupId=org.semarglproject;scope=compile|runtime|provided;inline=false,
 							groupId=org.tukaani;scope=compile|runtime|provided;inline=false,
 							groupId=commons-*;scope=compile|runtime|provided;inline=false,
-							groupId=javax.inject;scope=compile|runtime|provided;inline=false
+							groupId=javax.inject;scope=compile|runtime|provided;inline=false,
+							caffeine;scope=compile|runtime|provided;inline=false
 						</Embed-Dependency>
 						<excludeDependencies>
 							groupId=commons-*;scope=compile|runtime|provided,
@@ -127,8 +128,25 @@
 							!org.apache.avalon.framework.logger,
 							!org.apache.log*,
 							!javax.annotation,
+							!com.clarkparsia.*,
+							!org.obolibrary.*,
+							!org.semanticweb.owlapi.*,
+							!uk.ac.manchester.cs.*,
+							!com.google.errorprone.*,
+							!org.checkerframework.*,
 							net.sf.ehcache.*;resolution:=optional,
 							net.spy.memcached.*;resolution:=optional,
+							com.google.common.base;version="[18.0,22)",
+							com.google.common.cache;version="[18.0,22)",
+							com.google.common.collect;version="[18.0,22)",
+							com.google.common.io;version="[18.0,22)",
+							com.google.common.util.concurrent;version="[18.0,22)",
+							javax.inject;version="[1.0,2)",
+							com.google.inject;version="[1.4,2)",
+							com.google.inject.assistedinject;version="[1.4,2)",
+							com.google.inject.binder;version="[1.4,2)",
+							com.google.inject.multibindings;version="[1.4,2)",
+							javax.annotation;version=!,
 							*
 						</Import-Package>
 					</instructions>

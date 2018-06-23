@@ -19,7 +19,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
@@ -30,10 +29,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.google.common.base.Optional;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 
 /**
  * Represents International Resource Identifiers
@@ -300,23 +298,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     // Impl - All constructors are private - factory methods are used for
     // public creation
     private static final long serialVersionUID = 40000L;
-    private static final LoadingCache<String, String> PREFIX_CACHE = CacheBuilder.newBuilder()
-        .concurrencyLevel(8).maximumSize(1024).build(new CacheLoader<String, String>() {
-
-            @Override
-            public String load(String key) {
-                return key;
-            }
-        });
-
-    @Nonnull
-    private static String cache(@Nonnull String s) {
-        try {
-            return PREFIX_CACHE.get(s);
-        } catch (ExecutionException e) {
-            return s;
-        }
-    }
+    private static final LoadingCache<String, String> PREFIX_CACHE =
+        Caffeine.newBuilder().weakKeys().softValues().build(k -> k);
 
     @Nonnull
     private final String remainder;
@@ -330,7 +313,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @param suffix The suffix.
      */
     protected IRI(@Nonnull String prefix, @Nullable String suffix) {
-        namespace = cache(prefix);
+        namespace = PREFIX_CACHE.get(prefix);
         remainder = suffix == null ? "" : suffix;
     }
 
