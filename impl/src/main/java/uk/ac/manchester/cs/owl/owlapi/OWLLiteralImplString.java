@@ -35,7 +35,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -111,17 +110,17 @@ public class OWLLiteralImplString implements OWLLiteral {
 
     @Override
     public boolean parseBoolean() {
-        throw new OWLRuntimeException(getClass().getName() + " does not have a boolean value");
+        throw new NumberFormatException(getClass().getName() + " does not have a boolean value");
     }
 
     @Override
     public double parseDouble() {
-        throw new OWLRuntimeException(getClass().getName() + " does not have a double value");
+        throw new NumberFormatException(getClass().getName() + " does not have a double value");
     }
 
     @Override
     public float parseFloat() {
-        throw new OWLRuntimeException(getClass().getName() + " does not have a float value");
+        throw new NumberFormatException(getClass().getName() + " does not have a float value");
     }
 
     @Override
