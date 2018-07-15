@@ -86,7 +86,7 @@ public class RioOWLRDFParser extends AbstractRDFParser {
     }
 
     /**
-     * @param factories factories for ontology managers. This method is used for Guice injection.
+     * @param factories factories for ontology managers. This method is used for injection.
      */
     @Inject
     public void setOntologyManagerFactories(Set<OWLOntologyManagerFactory> factories) {

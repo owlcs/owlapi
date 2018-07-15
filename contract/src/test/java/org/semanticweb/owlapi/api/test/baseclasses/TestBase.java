@@ -72,8 +72,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
@@ -127,16 +125,14 @@ public abstract class TestBase {
     public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
     protected @Nonnull OntologyConfigurator config = new OntologyConfigurator();
     protected static @Nonnull OWLDataFactory df;
-    protected static @Nonnull Object masterInjector;
     protected static @Nonnull OntologyConfigurator masterConfigurator;
     protected @Nonnull OWLOntologyManager m;
     protected @Nonnull OWLOntologyManager m1;
 
     @BeforeClass
     public static void setupManagers() {
-        masterInjector = OWLManager.createInjector(Concurrency.NON_CONCURRENT);
         masterConfigurator = new OntologyConfigurator();
-        df = OWLManager.getOWLDataFactory(masterInjector);
+        df = OWLManager.getOWLDataFactory();
     }
 
     @Before
@@ -146,7 +142,7 @@ public abstract class TestBase {
     }
 
     protected static OWLOntologyManager setupManager() {
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager(masterInjector);
+        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         man.setOntologyConfigurator(masterConfigurator);
         return man;
     }

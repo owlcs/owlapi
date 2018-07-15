@@ -50,6 +50,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -164,6 +165,7 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
+@Singleton
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassProvider {
 //@formatter:off
     private static final LoadingCache<OWLAnnotation, OWLAnnotation>          annotations          = builder(key -> key);
@@ -188,8 +190,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
      * @param useCompression true if compression should be used
      */
     @Inject
-    public OWLDataFactoryImpl(@CompressionEnabled boolean useCompression) {
-        this.useCompression = useCompression;
+    public OWLDataFactoryImpl(@CompressionEnabled Boolean useCompression) {
+        this.useCompression = useCompression.booleanValue();
     }
 
     @Override

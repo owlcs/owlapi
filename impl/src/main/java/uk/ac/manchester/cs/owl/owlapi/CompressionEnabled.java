@@ -12,6 +12,6 @@ import javax.inject.Qualifier;
  */
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
+@Target({ElementType.PARAMETER, ElementType.FIELD})
 public @interface CompressionEnabled {
 }

@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
-
-import javax.inject.Provider;
+import java.util.function.Supplier;
 
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
@@ -23,10 +22,10 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  * Default implementations will have priorities starting at 0 and moving up by increments of one.
  * This allows the introduction of more storers at any position in the list: e.g., to insert a new
  * storer in the second position, it is sufficient for it to pick a priority value strictly between
- * 0 and 1. Storers can be provided by adding a Guice module to the injector used for binding, or
- * set directly on the manager after, or in place of, injection.
+ * 0 and 1. Storers can be provided by adding an entry to the
+ * /META-INF/services/org.semanticweb.owlapi.io.OWLStorer file, to be picked up by ServiceLoader.
  */
-public interface OWLStorerFactory extends Serializable, Provider<OWLStorer> {
+public interface OWLStorerFactory extends Serializable, Supplier<OWLStorer> {
 
     /**
      * Create new storer.

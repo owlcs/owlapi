@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
-
-import javax.inject.Provider;
+import java.util.function.Supplier;
 
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
@@ -25,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLParserFactory extends Serializable, Provider<OWLParser>, MIMETypeAware {
+public interface OWLParserFactory extends Serializable, Supplier<OWLParser>, MIMETypeAware {
 
     /**
      * Creates a parser.

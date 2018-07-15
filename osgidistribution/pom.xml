@@ -56,8 +56,6 @@
 		<dependency><groupId>commons-io</groupId><artifactId>commons-io</artifactId><version>2.5</version></dependency>
 		<dependency><groupId>net.sf.trove4j</groupId><artifactId>trove4j</artifactId><version>3.0.3</version></dependency>
 		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>[19.0,22.0]</version></dependency>
-		<dependency><groupId>com.google.inject</groupId><artifactId>guice</artifactId><version>[4.0.0,4.1.0]</version></dependency>
-		<dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-multibindings</artifactId><version>[4.0.0,4.1.0]</version></dependency>
 		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.6.1</version></dependency>
 		<dependency><groupId>com.squareup.okhttp3</groupId><artifactId>okhttp</artifactId><version>3.9.1</version></dependency>
 		<dependency><groupId>com.squareup.okio</groupId><artifactId>okio</artifactId><version>1.11.0</version></dependency>
@@ -67,9 +65,7 @@
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-core</artifactId><version>0.7</version></dependency>
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-rdfa</artifactId><version>0.7</version></dependency>
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-rdf</artifactId><version>0.7</version></dependency -->
-		<!-- Required to allow guice to work as a bundle -->
 		<dependency><groupId>org.apache.servicemix.bundles</groupId><artifactId>org.apache.servicemix.bundles.javax-inject</artifactId><version>1_2</version></dependency>
-		<dependency><groupId>org.apache.servicemix.bundles</groupId><artifactId>org.apache.servicemix.bundles.aopalliance</artifactId><version>1.0_6</version></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.apache.felix.framework</artifactId><version>5.6.1</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.osgi.core</artifactId><version>1.4.0</version><scope>test</scope></dependency>
 		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId><version>[1.7.0,1.7.26)</version><scope>test</scope></dependency>

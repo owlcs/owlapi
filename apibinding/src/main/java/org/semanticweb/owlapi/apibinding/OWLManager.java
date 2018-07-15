@@ -12,20 +12,26 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apibinding;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import java.lang.annotation.Annotation;
+import java.util.Arrays;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.Supplier;
 
-import org.semanticweb.owlapi.OWLAPIParsersModule;
-import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
+import org.semanticweb.owlapi.utilities.Injector;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLAPIImplModule;
-import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
+import uk.ac.manchester.cs.owl.owlapi.CompressionEnabled;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyBuilder;
+import uk.ac.manchester.cs.owl.owlapi.concurrent.NoOpReadWriteLock;
+import uk.ac.manchester.cs.owl.owlapi.concurrent.NonConcurrentDelegate;
+import uk.ac.manchester.cs.owl.owlapi.concurrent.NonConcurrentOWLOntologyBuilder;
 
 /**
  * Provides a point of convenience for creating an {@code OWLOntologyManager} with commonly required
@@ -35,6 +41,61 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
  * @since 2.0.0
  */
 public class OWLManager implements OWLOntologyManagerFactory {
+    enum InjectorConstants {
+        @CompressionEnabled
+        COMPRESSION_ENABLED(Boolean.class, () -> Boolean.FALSE),
+        //
+        CONCURRENTBUILDER(OWLOntologyBuilder.class, ConcurrentOWLOntologyBuilder.class),
+        //
+        @NonConcurrentDelegate
+        NONCONCURRENTBUILDER(OWLOntologyBuilder.class, NonConcurrentOWLOntologyBuilder.class),
+        //
+        CONFIG(OntologyConfigurator.class, OntologyConfigurator::new),
+        //
+        REENTRANT(ReadWriteLock.class, ReentrantReadWriteLock::new),
+        //
+        NOOP(ReadWriteLock.class, NoOpReadWriteLock::new);
+        private Class<?> c;
+        private Supplier<?> s;
+        private Class<?> type;
+
+        InjectorConstants(Class<?> c, Supplier<?> s) {
+            this.c = c;
+            this.s = s;
+        }
+
+        InjectorConstants(Class<?> c, Class<?> t) {
+            this.c = c;
+            type = t;
+        }
+
+        Annotation[] anns() {
+            try {
+                return InjectorConstants.class.getField(name()).getAnnotations();
+            } catch (NoSuchFieldException | SecurityException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        Injector init(Injector i) {
+            if (s != null) {
+                i.bindToOne(s, c, anns());
+            } else {
+                i.bind(type, c, anns());
+            }
+            return i;
+        }
+    }
+
+    private static final Injector concurrentInjector =
+        InjectorConstants.REENTRANT.init(configure(new Injector()));
+    private static final Injector normalInjector =
+        InjectorConstants.NOOP.init(configure(new Injector()));
+
+    private static Injector configure(Injector i) {
+        Arrays.stream(InjectorConstants.values()).forEach(f -> f.init(i));
+        return i;
+    }
 
     /**
      * Creates an OWL ontology manager that is configured with standard parsers, storeres etc.
@@ -42,7 +103,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
      * @return The new manager.
      */
     public static OWLOntologyManager createOWLOntologyManager() {
-        return createOWLOntologyManager(createInjector(Concurrency.NON_CONCURRENT));
+        return normalInjector.inject(normalInjector.getImplementation(OWLOntologyManager.class));
     }
 
     /**
@@ -52,7 +113,8 @@ public class OWLManager implements OWLOntologyManagerFactory {
      * @return The new manager.
      */
     public static OWLOntologyManager createConcurrentOWLOntologyManager() {
-        return createOWLOntologyManager(createInjector(Concurrency.CONCURRENT));
+        return concurrentInjector
+            .inject(concurrentInjector.getImplementation(OWLOntologyManager.class));
     }
 
     /**
@@ -61,61 +123,14 @@ public class OWLManager implements OWLOntologyManagerFactory {
      * @return An OWLDataFactory that can be used for creating OWL API objects.
      */
     public static OWLDataFactory getOWLDataFactory() {
-        return getOWLDataFactory(createInjector(Concurrency.NON_CONCURRENT));
-    }
-
-    /**
-     * Creates an OWL ontology manager that is configured with the standard parsers and storers and
-     * provides locking for concurrent access.
-     *
-     * @param injector injector object
-     * @return The new manager.
-     */
-    public static OWLOntologyManager createOWLOntologyManager(Object injector) {
-        return instatiateOWLOntologyManager(injector);
-    }
-
-    /**
-     * Gets a global data factory that can be used to create OWL API objects.
-     *
-     * @param injector injector object
-     * @return An OWLDataFactory that can be used for creating OWL API objects.
-     */
-    public static OWLDataFactory getOWLDataFactory(Object injector) {
-        return verifyNotNull(((Injector) injector).getInstance(OWLDataFactory.class));
+        return new OWLDataFactoryImpl();
     }
 
     /**
      * @return an initialized manchester syntax parser for parsing strings
      */
     public static ManchesterOWLSyntaxParser createManchesterParser() {
-        return ((Injector) createInjector(Concurrency.NON_CONCURRENT))
-            .getInstance(ManchesterOWLSyntaxParser.class);
-    }
-
-    /**
-     * @param concurrency concurrency value (concurrent or non concurrent?)
-     * @return an injector for OWLOntologyManager and OWLDataFactory; Object is returned so the
-     * interface is not tied to Guice.
-     */
-    public static Object createInjector(Concurrency concurrency) {
-        String previousStrategy = System.getProperty("guice_include_stack_traces");
-        System.setProperty("guice_include_stack_traces", "OFF");
-        Injector injector = Guice.createInjector(new OWLAPIImplModule(concurrency),
-            new OWLAPIParsersModule(), new OWLAPIServiceLoaderModule());
-        if (previousStrategy != null) {
-            System.setProperty("guice_include_stack_traces", previousStrategy);
-        } else {
-            System.getProperties().remove("guice_include_stack_traces");
-        }
-        return injector;
-    }
-
-    private static OWLOntologyManager instatiateOWLOntologyManager(Object injector) {
-        Injector inj = (Injector) injector;
-        OWLOntologyManager instance = inj.getInstance(OWLOntologyManager.class);
-        inj.injectMembers(instance);
-        return verifyNotNull(instance);
+        return normalInjector.getImplementation(ManchesterOWLSyntaxParser.class);
     }
 
     @Override

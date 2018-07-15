@@ -121,9 +121,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
-import javax.inject.Provider;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -414,7 +414,7 @@ enum PARSER_OWLXMLVocabulary implements HasIRI {
 
     private final IRI iri;
     private final String shortName;
-    private final Provider<OWLEH<?, ?>> create;
+    private final Supplier<OWLEH<?, ?>> create;
 
     PARSER_OWLXMLVocabulary(OWLXMLVocabulary name) {
         this(name, () -> {
@@ -423,7 +423,7 @@ enum PARSER_OWLXMLVocabulary implements HasIRI {
         });
     }
 
-    PARSER_OWLXMLVocabulary(OWLXMLVocabulary name, Provider<OWLEH<?, ?>> create) {
+    PARSER_OWLXMLVocabulary(OWLXMLVocabulary name, Supplier<OWLEH<?, ?>> create) {
         iri = IRI.create(Namespaces.OWL.toString(), name.getShortForm());
         shortName = name.getShortForm();
         this.create = create;
@@ -756,7 +756,7 @@ class ObjectREH<X extends OWLClassExpression, B extends Builder<X> & SettablePro
 
 class IRIEH extends OWLEH<IRI, Builder<IRI>> {
 
-    Provider<IRI> p;
+    Supplier<IRI> p;
 
     public IRIEH(boolean abbreviated) {
         child = HandleChild.ABSTRACTIRIEH;

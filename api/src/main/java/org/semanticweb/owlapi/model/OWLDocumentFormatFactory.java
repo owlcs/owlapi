@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-
-import javax.inject.Provider;
+import java.util.function.Supplier;
 
 /**
  * Factory for ontology formats.
@@ -23,7 +22,7 @@ import javax.inject.Provider;
  * @since 4.0.0
  */
 public interface OWLDocumentFormatFactory
-    extends Serializable, Provider<OWLDocumentFormat>, MIMETypeAware {
+    extends Serializable, Supplier<OWLDocumentFormat>, MIMETypeAware {
 
     /**
      * @return format instance. OWLDocumentFormat instances are stateless, so the value returned can

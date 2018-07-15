@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.utilities;
 
+import javax.annotation.Nullable;
+
 /**
  * A simple utility class that describes the version of a piece of software e.g. reasoner version.
  * <br>
@@ -46,7 +48,7 @@ public class Version {
      * @param buildString for systems where the build number is not fully numeric (snapshots,
      *        versions with a timestamp build)
      */
-    public Version(int major, int minor, int patch, int build, String buildString) {
+    public Version(int major, int minor, int patch, int build, @Nullable String buildString) {
         this.major = major;
         this.minor = minor;
         this.patch = patch;
