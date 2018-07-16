@@ -17,16 +17,15 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annot
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
-
-import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -40,11 +39,11 @@ public abstract class AnnotatedAxiomRoundTrippingTestCase extends AxiomsRoundTri
     private static OWLAnnotation anno1 = Annotation(prop, lit);
     private static OWLAnnotationProperty prop2 = AnnotationProperty(iri("prop2"));
     private static OWLAnnotation anno2 = Annotation(prop2, lit);
-    private static Set<OWLAnnotation> annos = Sets.newHashSet(anno1, anno2);
+    private static List<OWLAnnotation> annos = Arrays.asList(anno1, anno2);
 
-    public AnnotatedAxiomRoundTrippingTestCase(Function<Set<OWLAnnotation>, OWLAxiom> f) {
+    public AnnotatedAxiomRoundTrippingTestCase(Function<List<OWLAnnotation>, OWLAxiom> f) {
         super(() -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
+            List<OWLAxiom> axioms = new ArrayList<>();
             OWLAxiom ax = f.apply(annos);
             axioms.add(ax.getAnnotatedAxiom(annos));
             axioms.add(Declaration(prop));

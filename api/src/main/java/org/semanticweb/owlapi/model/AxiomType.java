@@ -16,16 +16,16 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
-
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 /**
  * Represents the type of axioms which can belong to ontologies. Axioms can be retrieved from
@@ -122,11 +122,12 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
             REFLEXIVE_OBJECT_PROPERTY, IRREFLEXIVE_OBJECT_PROPERTY);
     /** set of tbox and rbox axiom types */
     public static final Set<AxiomType<?>> TBoxAndRBoxAxiomTypes =
-        Sets.newHashSet(Iterables.concat(TBoxAxiomTypes, RBoxAxiomTypes));
-    private static final Map<String, AxiomType<? extends OWLAxiom>> NAME_TYPE_MAP =
-        Maps.uniqueIndex(AXIOM_TYPES, AxiomType::getName);
+        asSet(Stream.concat(TBoxAxiomTypes.stream(), RBoxAxiomTypes.stream()));
+    private static final Map<String, AxiomType<? extends OWLAxiom>> NAME_TYPE_MAP = AXIOM_TYPES
+        .stream().collect(Collectors.toConcurrentMap(AxiomType::getName, Function.identity()));
     private static final Map<Class<?>, AxiomType<? extends OWLAxiom>> CLASS_TYPE_MAP =
-        Maps.uniqueIndex(AXIOM_TYPES, AxiomType::getActualClass);
+        AXIOM_TYPES.stream()
+            .collect(Collectors.toConcurrentMap(AxiomType::getActualClass, Function.identity()));
     private final String name;
     private final boolean owl2Axiom;
     private final boolean nonSyntacticOWL2Axiom;
@@ -176,7 +177,7 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
      */
     public static Set<OWLAxiom> getAxiomsWithoutTypes(Collection<OWLAxiom> sourceAxioms,
         AxiomType<?>... axiomTypes) {
-        Set<AxiomType<?>> disallowed = Sets.newHashSet(axiomTypes);
+        Set<AxiomType<?>> disallowed = new HashSet<>(Arrays.asList(axiomTypes));
         return asSet(sourceAxioms.stream().filter(a -> !disallowed.contains(a.getAxiomType())));
     }
 
@@ -190,7 +191,7 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
      */
     public static Set<OWLAxiom> getAxiomsOfTypes(Collection<OWLAxiom> sourceAxioms,
         AxiomType<?>... axiomTypes) {
-        Set<AxiomType<?>> allowed = Sets.newHashSet(axiomTypes);
+        Set<AxiomType<?>> allowed = new HashSet<>(Arrays.asList(axiomTypes));
         return asSet(sourceAxioms.stream().filter(a -> allowed.contains(a.getAxiomType())));
     }
 

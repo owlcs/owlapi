@@ -67,9 +67,7 @@ subprojects {
     artifacts.archives packageJavadoc
 
     dependencies {
-//        compile 'net.sf.trove4j:trove4j:[3.0.3,4)'
         compile 'com.github.ben-manes.caffeine:caffeine:[2.6,3)'
-        compile 'com.google.guava:guava:[19.0,22.0]'
         compile 'javax.inject:javax.inject:1'
         compile 'com.google.code.findbugs:jsr305:[2.0.0,4)'
         compile 'org.slf4j:slf4j-api:[1.7.0,1.7.26)'

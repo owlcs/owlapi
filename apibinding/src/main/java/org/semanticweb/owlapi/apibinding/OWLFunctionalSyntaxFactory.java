@@ -114,8 +114,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-import com.google.common.collect.Sets;
-
 /**
  * A utility class whose methods may be statically imported so that OWL API objects can be
  * constructed by writing code that looks like the OWL 2 Functional Syntax. <br>
@@ -266,7 +264,7 @@ public final class OWLFunctionalSyntaxFactory {
     }
 
     public static OWLDeclarationAxiom Declaration(OWLEntity entity, OWLAnnotation... a) {
-        return DF.getOWLDeclarationAxiom(entity, Sets.newHashSet(a));
+        return DF.getOWLDeclarationAxiom(entity, Arrays.asList(a));
     }
 
     // Class Expressions
@@ -724,7 +722,7 @@ public final class OWLFunctionalSyntaxFactory {
 
     public static OWLAnnotationAssertionAxiom AnnotationAssertion(OWLAnnotationProperty property,
         OWLAnnotationSubject subject, OWLAnnotationValue value, OWLAnnotation... set) {
-        return DF.getOWLAnnotationAssertionAxiom(property, subject, value, Sets.newHashSet(set));
+        return DF.getOWLAnnotationAssertionAxiom(property, subject, value, Arrays.asList(set));
     }
 
     public static OWLAnnotation Annotation(OWLAnnotationProperty property,

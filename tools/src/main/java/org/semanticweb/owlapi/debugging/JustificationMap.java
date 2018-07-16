@@ -19,8 +19,11 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -63,9 +66,6 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
-import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -75,10 +75,9 @@ public class JustificationMap {
     private final Set<OWLAxiom> axioms;
     private final Set<OWLAxiom> rootAxioms = new HashSet<>();
     private final Set<OWLAxiom> usedAxioms = new HashSet<>();
-    private final Multimap<OWLAxiom, OWLAxiom> map =
-        MultimapBuilder.hashKeys().linkedHashSetValues().build();
-    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS =
-        MultimapBuilder.hashKeys().linkedHashSetValues().build();
+    private final Map<OWLAxiom, Set<OWLAxiom>> map = new HashMap<>();
+    private final Map<OWLEntity, Set<OWLAxiom>> axiomsByLHS =
+        new HashMap<OWLEntity, Set<OWLAxiom>>();
     private final OWLClassExpression desc;
 
     /**
@@ -100,7 +99,8 @@ public class JustificationMap {
             Set<OWLEntity> lhscollected = new HashSet<>();
             OWLEntityCollector lhsCollector = new OWLEntityCollector(lhscollected);
             extractor.getLHS().forEach(l -> l.accept(lhsCollector));
-            lhscollected.forEach(l -> axiomsByLHS.put(l, ax));
+            lhscollected
+                .forEach(l -> axiomsByLHS.computeIfAbsent(l, x -> new LinkedHashSet<>()).add(ax));
         }
         buildChildren(desc);
     }
@@ -121,7 +121,7 @@ public class JustificationMap {
         List<Set<OWLAxiom>> axiomChildren = new ArrayList<>();
         for (OWLAxiom ax : axiomSet) {
             Set<OWLAxiom> children = build(ax);
-            children.forEach(a -> map.put(a, ax));
+            children.forEach(a -> map.computeIfAbsent(a, x -> new LinkedHashSet<>()).add(ax));
             axiomChildren.add(children);
         }
         axiomChildren.forEach(this::buildChildren);

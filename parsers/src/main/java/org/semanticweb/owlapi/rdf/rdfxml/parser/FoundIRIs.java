@@ -11,6 +11,10 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TOP_DATA_PROPERT
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LITERAL;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -30,8 +34,6 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.ArrayListMultimap;
-
 class FoundIRIs {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FoundIRIs.class);
@@ -39,8 +41,7 @@ class FoundIRIs {
      * IRIs that had a type triple to owl:Ontology
      */
     protected final Set<IRI> ontologyIRIs = createSet();
-    protected final ArrayListMultimap<IRI, Class<?>> guessedDeclarations =
-        ArrayListMultimap.create();
+    protected final Map<IRI, List<Class<?>>> guessedDeclarations = new HashMap<>();
     // The set of IRIs that are either explicitly typed
     // an an owl:Class, or are inferred to be an owl:Class
     // because they are used in some triple whose predicate
@@ -139,7 +140,7 @@ class FoundIRIs {
             guessedDeclarations.remove(iri, class1);
         }
         if (!explicitlyTyped) {
-            guessedDeclarations.put(iri, class1);
+            guessedDeclarations.computeIfAbsent(iri, x -> new ArrayList<>()).add(class1);
         }
     }
 

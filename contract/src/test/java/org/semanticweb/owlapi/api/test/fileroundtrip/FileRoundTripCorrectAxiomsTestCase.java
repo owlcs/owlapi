@@ -50,6 +50,7 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -78,8 +79,6 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 import org.semanticweb.owlapi.search.Searcher;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-import com.google.common.collect.Sets;
-
 @SuppressWarnings("javadoc")
 public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
@@ -94,7 +93,7 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
     protected void assertEqualsSet(String ontology, OWLAxiom... axioms) {
         assertEquals(asUnorderedSet(ontologyFromClasspathFile(ontology).axioms()),
-                        Sets.newHashSet(axioms));
+            new HashSet<>(Arrays.asList(axioms)));
     }
 
     @Test
@@ -177,8 +176,8 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
     @Test
     public void testCorrectAxiomsDatatypeRestriction() {
-        OWLDataRange dr = DatatypeRestriction(Integer(),
-                        FacetRestriction(OWLFacet.MIN_INCLUSIVE, Literal(18)),
+        OWLDataRange dr =
+            DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.MIN_INCLUSIVE, Literal(18)),
                         FacetRestriction(OWLFacet.MAX_INCLUSIVE, Literal(30)));
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(dp, dr);
         assertEqualsSet("DatatypeRestriction.rdf", ax, Declaration(dp));
@@ -187,14 +186,14 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     @Test
     public void testCorrectAxiomsDeclarations() {
         OWLClass c = Class(IRI("http://www.semanticweb.org/ontologies/declarations#", "Cls"));
-        OWLObjectProperty o = ObjectProperty(
-                        IRI("http://www.semanticweb.org/ontologies/declarations#", "op"));
-        OWLDataProperty d = DataProperty(
-                        IRI("http://www.semanticweb.org/ontologies/declarations#", "dp"));
-        OWLNamedIndividual i = NamedIndividual(
-                        IRI("http://www.semanticweb.org/ontologies/declarations#", "ni"));
-        OWLAnnotationProperty ap = AnnotationProperty(
-                        IRI("http://www.semanticweb.org/ontologies/declarations#", "ap"));
+        OWLObjectProperty o =
+            ObjectProperty(IRI("http://www.semanticweb.org/ontologies/declarations#", "op"));
+        OWLDataProperty d =
+            DataProperty(IRI("http://www.semanticweb.org/ontologies/declarations#", "dp"));
+        OWLNamedIndividual i =
+            NamedIndividual(IRI("http://www.semanticweb.org/ontologies/declarations#", "ni"));
+        OWLAnnotationProperty ap =
+            AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/declarations#", "ap"));
         OWLDatatype datatype =
                         Datatype(IRI("http://www.semanticweb.org/ontologies/declarations#", "dt"));
         assertEqualsSet("TestDeclarations.rdf", Declaration(c), Declaration(o), Declaration(d),
@@ -256,8 +255,7 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     @Test
     public void testCorrectAxiomsObjectHasValue() {
         assertEqualsSet("ObjectHasValue.rdf",
-                        SubClassOf(clA, ObjectHasValue(op, NamedIndividual(iri("a")))),
-                        Declaration(op));
+            SubClassOf(clA, ObjectHasValue(op, NamedIndividual(iri("a")))), Declaration(op));
     }
 
     @Test
@@ -327,8 +325,8 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     public void testStructuralReasonerRecusion() {
         OWLOntology ontology = ontologyFromClasspathFile("koala.owl");
         String ontName = ontology.getOntologyID().getOntologyIRI().get().toString();
-        StructuralReasoner reasoner = new StructuralReasoner(ontology, new SimpleConfiguration(),
-                        BufferingMode.BUFFERING);
+        StructuralReasoner reasoner =
+            new StructuralReasoner(ontology, new SimpleConfiguration(), BufferingMode.BUFFERING);
         OWLClass cls = Class(IRI(ontName + "#", "Koala"));
         reasoner.getSubClasses(cls, false);
         reasoner.getSuperClasses(cls, false);

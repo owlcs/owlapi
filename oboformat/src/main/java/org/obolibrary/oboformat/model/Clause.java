@@ -1,6 +1,7 @@
 package org.obolibrary.oboformat.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,18 +14,14 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.Sets;
-
 /**
  * Clause.
  */
 public class Clause {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Clause.class);
-    @SuppressWarnings("unchecked")
-    private static final Set<?> trueValues = Sets.newHashSet(Boolean.TRUE, "true");
-    @SuppressWarnings("unchecked")
-    private static final Set<?> falseValues = Sets.newHashSet(Boolean.FALSE, "false");
+    private static final List<?> trueValues = Arrays.asList(Boolean.TRUE, "true");
+    private static final List<?> falseValues = Arrays.asList(Boolean.FALSE, "false");
     @Nullable
     protected String tag;
     protected List<Object> values = new ArrayList<>();

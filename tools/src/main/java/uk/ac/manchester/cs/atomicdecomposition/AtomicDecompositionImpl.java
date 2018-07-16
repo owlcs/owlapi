@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,9 +24,6 @@ import org.semanticweb.owlapitools.decomposition.IdentityMultiMap;
 import org.semanticweb.owlapitools.decomposition.OntologyAtom;
 import org.semanticweb.owlapitools.decomposition.SyntacticLocalityChecker;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
-
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
@@ -33,7 +31,7 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
  */
 public class AtomicDecompositionImpl implements AtomicDecomposition {
 
-    final Multimap<OWLEntity, Atom> termBasedIndex = LinkedHashMultimap.create();
+    final Map<OWLEntity, Set<Atom>> termBasedIndex = new LinkedHashMap<>();
     private final ModuleType type;
     Set<OWLAxiom> globalAxioms;
     Set<OWLAxiom> tautologies;
@@ -72,7 +70,7 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
             atoms.add(atom);
             atomIndex.put(atom, Integer.valueOf(i));
             for (OWLEntity e : atom.getSignature()) {
-                termBasedIndex.put(e, atom);
+                termBasedIndex.computeIfAbsent(e, x -> new HashSet<>()).add(atom);
             }
         }
         for (int i = 0; i < size; i++) {

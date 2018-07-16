@@ -15,8 +15,6 @@ import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 
-import com.google.common.collect.Iterators;
-
 /**
  * A collection that is sorted by HasPriority annotation on its members.
  *
@@ -166,7 +164,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
 
     @Override
     public Iterator<T> iterator() {
-        return Iterators.unmodifiableIterator(delegate.iterator());
+        return Collections.unmodifiableList(delegate).iterator();
     }
 
     /**

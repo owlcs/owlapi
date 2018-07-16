@@ -35,8 +35,6 @@ import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-import com.google.common.collect.Sets;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
@@ -61,26 +59,26 @@ public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends AxiomsRoundTr
         OWLClass clsA = Class(iri("A"));
         return Arrays.asList(
                         // AsymmetricObjectPropertyInverse
-                        () -> Sets.newHashSet(AsymmetricObjectProperty(p)),
+            () -> Arrays.asList(AsymmetricObjectProperty(p)),
                         // EquivalentObjectPropertiesWithInverses
-                        () -> Sets.newHashSet(EquivalentObjectProperties(p, q)),
+            () -> Arrays.asList(EquivalentObjectProperties(p, q)),
                         // FunctionalObjectPropertyInverse
-                        () -> Sets.newHashSet(FunctionalObjectProperty(p)),
+            () -> Arrays.asList(FunctionalObjectProperty(p)),
                         // InverseFunctionalObjectPropertyInverse
-                        () -> Sets.newHashSet(InverseFunctionalObjectProperty(p)),
+            () -> Arrays.asList(InverseFunctionalObjectProperty(p)),
                         // IrreflexiveObjectPropertyInverse
-                        () -> Sets.newHashSet(IrreflexiveObjectProperty(p)),
+            () -> Arrays.asList(IrreflexiveObjectProperty(p)),
                         // ObjectPropertyDomainInverse
-                        () -> Sets.newHashSet(ObjectPropertyDomain(p, clsA)),
+            () -> Arrays.asList(ObjectPropertyDomain(p, clsA)),
                         // ObjectPropertyRangeInverse
-                        () -> Sets.newHashSet(ObjectPropertyRange(p, clsA)),
+            () -> Arrays.asList(ObjectPropertyRange(p, clsA)),
                         // ReflexiveObjectPropertyInverse
-                        () -> Sets.newHashSet(ReflexiveObjectProperty(p)),
+            () -> Arrays.asList(ReflexiveObjectProperty(p)),
                         // SubObjectPropertyOfInverse
-                        () -> Sets.newHashSet(SubObjectPropertyOf(p, q)),
+            () -> Arrays.asList(SubObjectPropertyOf(p, q)),
                         // SymmetricObjectPropertyInverse
-                        () -> Sets.newHashSet(SymmetricObjectProperty(p)),
+            () -> Arrays.asList(SymmetricObjectProperty(p)),
                         // TransitiveObjectPropertyInverse
-                        () -> Sets.newHashSet(TransitiveObjectProperty(p)));
+            () -> Arrays.asList(TransitiveObjectProperty(p)));
     }
 }

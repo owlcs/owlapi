@@ -1,8 +1,10 @@
 package org.obolibrary.obo2owl;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -11,8 +13,6 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
-
-import com.google.common.collect.Maps;
 
 /**
  * @author Shahid Manzoor
@@ -37,7 +37,8 @@ public class Obo2OWLConstants {
      */
     public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX, "IAO_0000227");
     private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB =
-        Maps.uniqueIndex(Arrays.asList(Obo2OWLVocabulary.values()), v -> v.mappedTag);
+        Stream.of(Obo2OWLVocabulary.values()).collect(
+            Collectors.toConcurrentMap(Obo2OWLVocabulary::getMappedTag, Function.identity()));
 
     /**
      * @param tag tag

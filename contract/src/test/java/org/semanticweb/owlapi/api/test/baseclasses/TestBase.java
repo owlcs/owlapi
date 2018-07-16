@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -81,7 +82,7 @@ public abstract class TestBase {
 
     protected interface AxiomBuilder {
 
-        Set<OWLAxiom> build();
+        List<OWLAxiom> build();
     }
 
     protected static final Logger logger = LoggerFactory.getLogger(TestBase.class);

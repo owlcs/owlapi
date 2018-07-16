@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,9 +30,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nullable;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -89,7 +87,7 @@ public class CollectionFactory {
      */
     @SafeVarargs
     public static <T> List<T> createList(T... elements) {
-        return Lists.newArrayList(elements);
+        return new ArrayList<>(Arrays.asList(elements));
     }
 
     /**
@@ -106,7 +104,9 @@ public class CollectionFactory {
      * @return list from iterable
      */
     public static <T> List<T> list(Iterable<T> i) {
-        return Lists.newArrayList(i);
+        List<T> l = new ArrayList<>();
+        i.forEach(l::add);
+        return l;
     }
 
     /**
@@ -116,7 +116,7 @@ public class CollectionFactory {
      */
     @SafeVarargs
     public static <T> List<T> list(T... i) {
-        return Lists.newArrayList(i);
+        return createList(i);
     }
 
     /**
@@ -171,7 +171,7 @@ public class CollectionFactory {
      */
     @SafeVarargs
     public static <T> Set<T> createSet(T... elements) {
-        return Sets.newHashSet(elements);
+        return new HashSet<>(Arrays.asList(elements));
     }
 
     /**

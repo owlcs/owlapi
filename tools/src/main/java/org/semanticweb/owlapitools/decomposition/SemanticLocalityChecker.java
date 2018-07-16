@@ -1,10 +1,14 @@
 package org.semanticweb.owlapitools.decomposition;
 
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -55,9 +59,6 @@ import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
-
 /**
  * semantic locality checker for DL axioms
  */
@@ -72,7 +73,7 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
     /**
      * map between axioms and concept expressions
      */
-    Multimap<OWLAxiom, OWLClassExpression> exprMap = LinkedHashMultimap.create();
+    Map<OWLAxiom, List<OWLClassExpression>> exprMap = new LinkedHashMap<>();
     /**
      * remember the axiom locality value here
      */
@@ -142,7 +143,8 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         Signature s = new Signature();
         for (AxiomWrapper q : axioms) {
             if (q.isUsed()) {
-                exprMap.putAll(q.getAxiom(), asList(getExpr(q.getAxiom())));
+                add(exprMap.computeIfAbsent(q.getAxiom(), x -> new ArrayList<>()),
+                    getExpr(q.getAxiom()));
                 s.addAll(q.getAxiom().signature());
             }
         }
@@ -209,8 +211,8 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         int size = arguments.size();
         for (int i = 0; i < size; i++) {
             for (int j = i + 1; j < size; j++) {
-                if (!kernel.isEntailed(df.getOWLDisjointClassesAxiom(arguments.get(i),
-                    arguments.get(j)))) {
+                if (!kernel.isEntailed(
+                    df.getOWLDisjointClassesAxiom(arguments.get(i), arguments.get(j)))) {
                     return;
                 }
             }
@@ -226,8 +228,7 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         OWLObjectPropertyExpression r = arguments.get(0);
         for (int i = 1; i < size; i++) {
             if (!(kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(r, arguments.get(i)))
-                && kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(arguments.get(i),
-                r)))) {
+                && kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(arguments.get(i), r)))) {
                 return;
             }
         }
@@ -241,8 +242,8 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         List<OWLDataPropertyExpression> arguments = asList(axiom.properties());
         OWLDataPropertyExpression r = arguments.get(0);
         for (int i = 1; i < arguments.size(); i++) {
-            if (!(kernel.isEntailed(df.getOWLSubDataPropertyOfAxiom(r, arguments.get(i))) && kernel
-                .isEntailed(df.getOWLSubDataPropertyOfAxiom(arguments.get(i), r)))) {
+            if (!(kernel.isEntailed(df.getOWLSubDataPropertyOfAxiom(r, arguments.get(i)))
+                && kernel.isEntailed(df.getOWLSubDataPropertyOfAxiom(arguments.get(i), r)))) {
                 return;
             }
         }
@@ -274,11 +275,11 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
     // R = inverse(S) is tautology iff R [= S- and S [= R-
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        isLocal = kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(axiom.getFirstProperty(),
+        isLocal = kernel
+            .isEntailed(df.getOWLSubObjectPropertyOfAxiom(axiom.getFirstProperty(),
             axiom.getSecondProperty().getInverseProperty()))
             && kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(
-            axiom.getFirstProperty().getInverseProperty(),
-            axiom.getSecondProperty()));
+                axiom.getFirstProperty().getInverseProperty(), axiom.getSecondProperty()));
     }
 
     @Override

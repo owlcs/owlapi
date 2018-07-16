@@ -16,7 +16,9 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -27,8 +29,6 @@ import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
-
-import com.google.common.collect.Sets;
 
 @SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
@@ -67,7 +67,7 @@ public class OWLClassExpressionCollectorTestCase {
 
     public OWLClassExpressionCollectorTestCase(OWLAxiom object, String[] expected) {
         this.object = object;
-        this.expected = Sets.newHashSet(expected);
+        this.expected = new HashSet<>(Arrays.asList(expected));
     }
 
     @Parameterized.Parameters

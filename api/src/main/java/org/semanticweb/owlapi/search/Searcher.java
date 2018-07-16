@@ -26,7 +26,11 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -62,9 +66,6 @@ import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.parameters.Imports;
-
-import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Multimap;
 
 /**
  * A collection of static search utilities.
@@ -1884,10 +1885,11 @@ public final class Searcher {
      * @param o ontology to search
      * @return property values
      */
-    public static Multimap<OWLDataPropertyExpression, OWLLiteral> getDataPropertyValues(
+    public static Map<OWLDataPropertyExpression, List<OWLLiteral>> getDataPropertyValues(
         OWLIndividual i, OWLOntology o) {
-        Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap.create();
-        o.dataPropertyAssertionAxioms(i).forEach(ax -> map.put(ax.getProperty(), ax.getObject()));
+        Map<OWLDataPropertyExpression, List<OWLLiteral>> map = new HashMap<>();
+        o.dataPropertyAssertionAxioms(i).forEach(ax -> map
+            .computeIfAbsent(ax.getProperty(), x -> new ArrayList<>()).add(ax.getObject()));
         return map;
     }
 
@@ -1896,10 +1898,10 @@ public final class Searcher {
      * @param onts ontologies to search
      * @return literal values
      */
-    public static Multimap<OWLDataPropertyExpression, OWLLiteral> getDataPropertyValues(
+    public static Map<OWLDataPropertyExpression, List<OWLLiteral>> getDataPropertyValues(
         OWLIndividual i, Stream<OWLOntology> onts) {
-        Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap.create();
-        onts.forEach(o -> map.putAll(getDataPropertyValues(i, o)));
+        Map<OWLDataPropertyExpression, List<OWLLiteral>> map = new HashMap<>();
+        onts.map(o -> getDataPropertyValues(i, o)).forEach(m -> merge(map, m));
         return map;
     }
 
@@ -1908,10 +1910,11 @@ public final class Searcher {
      * @param o ontology to search
      * @return property values
      */
-    public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getObjectPropertyValues(
+    public static Map<OWLObjectPropertyExpression, List<OWLIndividual>> getObjectPropertyValues(
         OWLIndividual i, OWLOntology o) {
-        Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap.create();
-        o.objectPropertyAssertionAxioms(i).forEach(ax -> map.put(ax.getProperty(), ax.getObject()));
+        Map<OWLObjectPropertyExpression, List<OWLIndividual>> map = new HashMap<>();
+        o.objectPropertyAssertionAxioms(i).forEach(ax -> map
+            .computeIfAbsent(ax.getProperty(), x -> new ArrayList<>()).add(ax.getObject()));
         return map;
     }
 
@@ -1920,10 +1923,10 @@ public final class Searcher {
      * @param onts ontologies to search
      * @return property values
      */
-    public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getObjectPropertyValues(
+    public static Map<OWLObjectPropertyExpression, List<OWLIndividual>> getObjectPropertyValues(
         OWLIndividual i, Stream<OWLOntology> onts) {
-        Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap.create();
-        onts.forEach(o -> map.putAll(getObjectPropertyValues(i, o)));
+        Map<OWLObjectPropertyExpression, List<OWLIndividual>> map = new HashMap<>();
+        onts.map(o -> getObjectPropertyValues(i, o)).forEach(m -> merge(map, m));
         return map;
     }
 
@@ -1932,11 +1935,11 @@ public final class Searcher {
      * @param o ontology to search
      * @return property values
      */
-    public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getNegativeObjectPropertyValues(
+    public static Map<OWLObjectPropertyExpression, List<OWLIndividual>> getNegativeObjectPropertyValues(
         OWLIndividual i, OWLOntology o) {
-        Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap.create();
-        o.negativeObjectPropertyAssertionAxioms(i)
-            .forEach(ax -> map.put(ax.getProperty(), ax.getObject()));
+        Map<OWLObjectPropertyExpression, List<OWLIndividual>> map = new HashMap<>();
+        o.negativeObjectPropertyAssertionAxioms(i).forEach(ax -> map
+            .computeIfAbsent(ax.getProperty(), x -> new ArrayList<>()).add(ax.getObject()));
         return map;
     }
 
@@ -1945,11 +1948,11 @@ public final class Searcher {
      * @param o ontology to search
      * @return property values
      */
-    public static Multimap<OWLDataPropertyExpression, OWLLiteral> getNegativeDataPropertyValues(
+    public static Map<OWLDataPropertyExpression, List<OWLLiteral>> getNegativeDataPropertyValues(
         OWLIndividual i, OWLOntology o) {
-        Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap.create();
-        o.negativeDataPropertyAssertionAxioms(i)
-            .forEach(ax -> map.put(ax.getProperty(), ax.getObject()));
+        Map<OWLDataPropertyExpression, List<OWLLiteral>> map = new HashMap<>();
+        o.negativeDataPropertyAssertionAxioms(i).forEach(ax -> map
+            .computeIfAbsent(ax.getProperty(), x -> new ArrayList<>()).add(ax.getObject()));
         return map;
     }
 
@@ -1958,10 +1961,10 @@ public final class Searcher {
      * @param onts ontologies to search
      * @return property values
      */
-    public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getNegativeObjectPropertyValues(
+    public static Map<OWLObjectPropertyExpression, List<OWLIndividual>> getNegativeObjectPropertyValues(
         OWLIndividual i, Stream<OWLOntology> onts) {
-        Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap.create();
-        onts.forEach(o -> map.putAll(getNegativeObjectPropertyValues(i, o)));
+        Map<OWLObjectPropertyExpression, List<OWLIndividual>> map = new HashMap<>();
+        onts.map(o -> getNegativeObjectPropertyValues(i, o)).forEach(m -> merge(map, m));
         return map;
     }
 
@@ -1970,11 +1973,15 @@ public final class Searcher {
      * @param onts ontologies to search
      * @return property values
      */
-    public static Multimap<OWLDataPropertyExpression, OWLLiteral> getNegativeDataPropertyValues(
+    public static Map<OWLDataPropertyExpression, List<OWLLiteral>> getNegativeDataPropertyValues(
         OWLIndividual i, Stream<OWLOntology> onts) {
-        Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap.create();
-        onts.forEach(o -> map.putAll(getNegativeDataPropertyValues(i, o)));
+        Map<OWLDataPropertyExpression, List<OWLLiteral>> map = new HashMap<>();
+        onts.map(o -> getNegativeDataPropertyValues(i, o)).forEach(m -> merge(map, m));
         return map;
+    }
+
+    private static <T, K> void merge(Map<T, List<K>> merge, Map<T, List<K>> m) {
+        m.forEach((a, b) -> merge.computeIfAbsent(a, x -> new ArrayList<>()).addAll(b));
     }
 
     /**

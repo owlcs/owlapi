@@ -13,13 +13,12 @@
 package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -30,8 +29,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
-
-import com.google.common.collect.Iterators;
 
 /**
  * This composite change will convert a defined class to a primitive class by replacing equivalent
@@ -51,17 +48,17 @@ import com.google.common.collect.Iterators;
  */
 public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOntologyChange {
 
-    private static final OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>> INTERSECTION_SPLITTER =
-        new OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>>() {
+    private static final OWLClassExpressionVisitorEx<List<? extends OWLClassExpression>> INTERSECTION_SPLITTER =
+        new OWLClassExpressionVisitorEx<List<? extends OWLClassExpression>>() {
 
             @Override
-            public Stream<? extends OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
-                return ce.operands();
+            public List<? extends OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
+                return ce.getOperandsAsList();
             }
 
             @Override
-            public Stream<? extends OWLClassExpression> doDefault(OWLObject o) {
-                return empty();
+            public List<? extends OWLClassExpression> doDefault(OWLObject o) {
+                return Collections.emptyList();
             }
         };
     private final OWLOntology targetOntology;
@@ -108,10 +105,9 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
             supers.add(desc);
             return;
         }
-        Iterator<? extends OWLClassExpression> iterator =
-            desc.accept(INTERSECTION_SPLITTER).iterator();
-        if (iterator.hasNext()) {
-            Iterators.addAll(supers, iterator);
+        List<? extends OWLClassExpression> iterator = desc.accept(INTERSECTION_SPLITTER);
+        if (!iterator.isEmpty()) {
+            supers.addAll(iterator);
         } else {
             supers.add(desc);
         }

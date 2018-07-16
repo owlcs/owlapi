@@ -21,7 +21,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Objec
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Function;
 
 import org.junit.Test;
@@ -41,19 +40,19 @@ public class AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase
                 extends AnnotatedAxiomRoundTrippingTestCase {
 
     public AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase(
-                    Function<Set<OWLAnnotation>, OWLAxiom> f) {
+        Function<List<OWLAnnotation>, OWLAxiom> f) {
         super(f);
     }
 
     @Parameters
-    public static List<Function<Set<OWLAnnotation>, OWLAxiom>> getData() {
+    public static List<Function<List<OWLAnnotation>, OWLAxiom>> getData() {
         return Arrays.asList(
                         a -> EquivalentClasses(a, Class(iri("A")), Class(iri("B")), Class(iri("C")),
                                         Class(iri("D"))),
-                        a -> EquivalentDataProperties(a, DataProperty(iri("p")),
-                                        DataProperty(iri("q")), DataProperty(iri("r"))),
-                        a -> EquivalentObjectProperties(a, ObjectProperty(iri("p")),
-                                        ObjectProperty(iri("q")), ObjectProperty(iri("r"))));
+            a -> EquivalentDataProperties(a, DataProperty(iri("p")), DataProperty(iri("q")),
+                DataProperty(iri("r"))),
+            a -> EquivalentObjectProperties(a, ObjectProperty(iri("p")), ObjectProperty(iri("q")),
+                ObjectProperty(iri("r"))));
     }
 
     @Override

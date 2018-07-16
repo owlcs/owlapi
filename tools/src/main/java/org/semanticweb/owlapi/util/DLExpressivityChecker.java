@@ -36,6 +36,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -99,8 +100,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-import com.google.common.base.Joiner;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -140,7 +139,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
      * @return DL name
      */
     public String getDescriptionLogicName() {
-        return Joiner.on("").join(getOrderedConstructs());
+        return getOrderedConstructs().stream().map(Object::toString).collect(Collectors.joining());
     }
 
     private void pruneConstructs() {

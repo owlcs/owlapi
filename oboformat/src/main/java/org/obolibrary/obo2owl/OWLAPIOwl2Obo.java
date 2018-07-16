@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -93,8 +94,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.Sets;
-
 /**
  * The Class OWLAPIOwl2Obo.
  */
@@ -118,8 +117,9 @@ public class OWLAPIOwl2Obo {
         Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_synonymtypedef";
     private static final String IRI_CLASS_SUBSETDEF =
         Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_subsetdef";
-    private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation",
-        "gci_filler", CARDINALITY, MIN_CARDINALITY, MAX_CARDINALITY, "all_some", "all_only");
+    private static final Set<String> SKIPPED_QUALIFIERS =
+        new HashSet<>(Arrays.asList("gci_relation", "gci_filler", CARDINALITY, MIN_CARDINALITY,
+            MAX_CARDINALITY, "all_some", "all_only"));
     protected final Pattern absoluteURLPattern = Pattern.compile("<\\s*http.*?>");
     protected final Set<OWLAxiom> untranslatableAxioms = new HashSet<>();
     protected final Map<String, String> idSpaceMap = new HashMap<>();

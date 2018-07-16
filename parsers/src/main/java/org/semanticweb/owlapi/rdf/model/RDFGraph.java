@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -36,16 +37,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import com.google.common.collect.Sets;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFGraph implements Serializable {
 
-    private static final Set<IRI> skippedPredicates =
-        Sets.newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
+    private static final List<IRI> skippedPredicates =
+        Arrays.asList(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
     private final Set<RDFTriple> triples = createLinkedSet();
@@ -113,8 +112,7 @@ public class RDFGraph implements Serializable {
         Map<RDFNode, List<RDFTriple>> sharers = createMap();
         for (RDFTriple t : triples) {
             if (t.getObject().isAnonymous() && !t.getObject().isIndividual()
-                && !t.getObject().isAxiom()
-                && notInSkippedPredicates(t.getPredicate())) {
+                && !t.getObject().isAxiom() && notInSkippedPredicates(t.getPredicate())) {
                 List<RDFTriple> list = sharers.get(t.getObject());
                 if (list == null) {
                     list = new ArrayList<>(2);
@@ -127,8 +125,8 @@ public class RDFGraph implements Serializable {
             if (e.getValue().size() > 1) {
                 // found reused blank nodes
                 for (RDFTriple t : e.getValue()) {
-                    RDFResourceBlankNode bnode = new RDFResourceBlankNode(
-                        IRI.create(NodeID.nextAnonymousIRI()),
+                    RDFResourceBlankNode bnode =
+                        new RDFResourceBlankNode(IRI.create(NodeID.nextAnonymousIRI()),
                         e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
                     remappedNodes.put(bnode, e.getKey());
                     toReturn.put(t, bnode);

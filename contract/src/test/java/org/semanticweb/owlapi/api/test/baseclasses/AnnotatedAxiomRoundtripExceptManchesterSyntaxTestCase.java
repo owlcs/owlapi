@@ -22,7 +22,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Objec
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Function;
 
 import org.junit.Test;
@@ -42,12 +41,12 @@ public class AnnotatedAxiomRoundtripExceptManchesterSyntaxTestCase
                 extends AnnotatedAxiomRoundTrippingTestCase {
 
     public AnnotatedAxiomRoundtripExceptManchesterSyntaxTestCase(
-                    Function<Set<OWLAnnotation>, OWLAxiom> f) {
+        Function<List<OWLAnnotation>, OWLAxiom> f) {
         super(f);
     }
 
     @Parameters
-    public static List<Function<Set<OWLAnnotation>, OWLAxiom>> getData() {
+    public static List<Function<List<OWLAnnotation>, OWLAxiom>> getData() {
         return Arrays.asList(a -> Declaration(ObjectProperty(iri("propP")), a),
                         a -> Declaration(Datatype(iri("DT")), a),
                         a -> Declaration(NamedIndividual(iri("I")), a),

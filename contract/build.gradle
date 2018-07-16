@@ -4,4 +4,5 @@ dependencies {
   compile 'net.sf.trove4j:trove4j:[3.0.3,4)'
   compile project(':owlapi-apibinding')
   compile project(':owlapi-tools')
+  testCompile 'org.apache.commons:commons-rdf-api:0.5.0:tests'
 }

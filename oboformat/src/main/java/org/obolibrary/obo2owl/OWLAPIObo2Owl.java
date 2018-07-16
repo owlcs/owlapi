@@ -9,12 +9,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -74,10 +76,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.collect.Sets;
-
 /**
  * The Class OWLAPIObo2Owl.
  */
@@ -97,8 +95,9 @@ public class OWLAPIObo2Owl {
      * The log.
      */
     private static final Logger LOG = LoggerFactory.getLogger(OWLAPIObo2Owl.class);
-    private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation",
-        "gci_filler", "cardinality", "minCardinality", "maxCardinality", "all_some", "all_only");
+    private static final Set<String> SKIPPED_QUALIFIERS =
+        new HashSet<>(Arrays.asList("gci_relation", "gci_filler", "cardinality", "minCardinality",
+            "maxCardinality", "all_some", "all_only"));
     /**
      * The id space map.
      */
@@ -140,14 +139,12 @@ public class OWLAPIObo2Owl {
      * loading of keys is recursive, and a bug in ConcurrentHashMap implementation causes livelocks
      * for this particular situation.
      */
-    private final com.google.common.cache.LoadingCache<String, IRI> idToIRICache =
-        CacheBuilder.newBuilder().maximumSize(1024).build(new CacheLoader<String, IRI>() {
-
+    private final Map<String, IRI> idToIRICache = new LinkedHashMap<String, IRI>() {
             @Override
-            public IRI load(String key) {
-                return loadOboToIRI(key);
+        protected boolean removeEldestEntry(@Nullable java.util.Map.Entry<String, IRI> eldest) {
+            return size() > 1024;
             }
-        });
+    };
 
     /**
      * Instantiates a new oWLAPI obo2 owl.
@@ -1496,7 +1493,12 @@ public class OWLAPIObo2Owl {
      * @return the iri
      */
     public IRI oboIdToIRI(String id) {
-        return idToIRICache.getUnchecked(id);
+        IRI iri = idToIRICache.get(id);
+        if (iri == null) {
+            iri = loadOboToIRI(id);
+            idToIRICache.put(id, iri);
+        }
+        return iri;
     }
 
     /**

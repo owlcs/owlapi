@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
+import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createDataProperty;
@@ -54,33 +55,26 @@ public class RendererAndParserTestCase extends TestBase {
     public static List<AxiomBuilder> getData() {
         return Arrays.asList(
                         // AnonymousIndividual
-                        () -> singleton(df.getOWLClassAssertionAxiom(
-                                        df.getOWLObjectComplementOf(createClass()),
-                                        createIndividual())),
+            () -> singletonList(df.getOWLClassAssertionAxiom(
+                df.getOWLObjectComplementOf(createClass()), createIndividual())),
                         // ClassAssertionAxioms
-                        () -> singleton(df.getOWLClassAssertionAxiom(createClass(),
-                                        createIndividual())),
+            () -> singletonList(df.getOWLClassAssertionAxiom(createClass(), createIndividual())),
                         // DifferentIndividualsAxiom
-                        () -> singleton(df.getOWLDifferentIndividualsAxiom(createIndividual(),
-                                        createIndividual(), createIndividual(), createIndividual(),
-                                        createIndividual())),
+            () -> singletonList(df.getOWLDifferentIndividualsAxiom(createIndividual(),
+                createIndividual(), createIndividual(), createIndividual(), createIndividual())),
                         // EquivalentClasses
-                        () -> singleton(df.getOWLEquivalentClassesAxiom(createClass(),
-                                        df.getOWLObjectSomeValuesFrom(createObjectProperty(),
-                                                        df.getOWLThing()))),
+            () -> singletonList(df.getOWLEquivalentClassesAxiom(createClass(),
+                df.getOWLObjectSomeValuesFrom(createObjectProperty(), df.getOWLThing()))),
                         // NegativeDataPropertyAssertionAxiom
-                        () -> singleton(df.getOWLNegativeDataPropertyAssertionAxiom(
-                                        createDataProperty(), createIndividual(),
-                                        df.getOWLLiteral("TestConstant"))),
+            () -> singletonList(df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(),
+                createIndividual(), df.getOWLLiteral("TestConstant"))),
                         // NegativeObjectPropertyAssertionAxiom
-                        () -> singleton(df.getOWLNegativeObjectPropertyAssertionAxiom(
-                                        createObjectProperty(), createIndividual(),
-                                        createIndividual())),
+            () -> singletonList(df.getOWLNegativeObjectPropertyAssertionAxiom(
+                createObjectProperty(), createIndividual(), createIndividual())),
                         // QCR
-                        () -> singleton(df.getOWLSubClassOfAxiom(createClass(),
+            () -> singletonList(df.getOWLSubClassOfAxiom(createClass(),
                                         df.getOWLObjectMinCardinality(3, createObjectProperty(),
-                                                        df.getOWLObjectIntersectionOf(createClass(),
-                                                                        createClass())))));
+                    df.getOWLObjectIntersectionOf(createClass(), createClass())))));
     }
 
     @Before

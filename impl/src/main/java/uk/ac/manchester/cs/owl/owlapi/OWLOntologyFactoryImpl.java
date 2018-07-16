@@ -15,6 +15,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -40,8 +42,6 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.utilities.PriorityCollection;
 
-import com.google.common.collect.Sets;
-
 import uk.ac.manchester.cs.AcceptHeaderBuilder;
 
 /**
@@ -50,7 +50,7 @@ import uk.ac.manchester.cs.AcceptHeaderBuilder;
 public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
     private final Set<String> parsableSchemes =
-        Sets.newHashSet("http", "https", "file", "ftp", "jar");
+        new HashSet<>(Arrays.asList("http", "https", "file", "ftp", "jar"));
     private final OWLOntologyBuilder ontologyBuilder;
 
     /**
@@ -107,7 +107,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
-        Set<String> bannedParsers = Sets.newHashSet(configuration.getBannedParsers().split(" "));
+        Set<String> bannedParsers =
+            new HashSet<>(Arrays.asList(configuration.getBannedParsers().split(" ")));
         PriorityCollection<OWLParserFactory> parsers =
             documentSource.filter(manager.getOntologyParsers());
         // use the selection of parsers to set the accept headers explicitly, including weights

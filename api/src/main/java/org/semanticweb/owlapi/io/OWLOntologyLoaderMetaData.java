@@ -13,11 +13,11 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.IRI;
-
-import com.google.common.collect.Multimap;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -45,7 +45,7 @@ public interface OWLOntologyLoaderMetaData extends Serializable {
     /**
      * @return the guessed declarations, i.e., those not parsed from explicit declaration axioms
      */
-    Multimap<IRI, Class<?>> getGuessedDeclarations();
+    Map<IRI, List<Class<?>>> getGuessedDeclarations();
 
     /**
      * @param error error to add to the error set

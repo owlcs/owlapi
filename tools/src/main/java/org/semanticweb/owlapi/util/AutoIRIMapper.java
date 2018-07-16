@@ -46,8 +46,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.google.common.base.Splitter;
-
 /**
  * A mapper which given a root folder attempts to automatically discover and map files to
  * ontologies. The mapper is capable of mapping ontologies in RDF/XML, OWL/XML, Manchester OWL

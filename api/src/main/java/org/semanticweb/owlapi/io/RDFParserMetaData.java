@@ -15,15 +15,14 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.IRI;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -34,7 +33,7 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializabl
     private final int tripleCount;
     private final RDFOntologyHeaderStatus headerStatus;
     private final Set<RDFTriple> unparsedTriples;
-    private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations;
+    private final Map<IRI, List<Class<?>>> guessedDeclarations;
     // TODO make something of these
     private final Set<RDFResourceParseError> errors = new HashSet<>();
 
@@ -45,7 +44,7 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializabl
      * @param guessedDeclarations guessed declarations map
      */
     public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount,
-        Set<RDFTriple> unparsedTriples, ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
+        Set<RDFTriple> unparsedTriples, Map<IRI, List<Class<?>>> guessedDeclarations) {
         this.tripleCount = tripleCount;
         this.headerStatus = checkNotNull(headerStatus, "headerStatus cannot be null");
         this.unparsedTriples = checkNotNull(unparsedTriples, "unparsedTriples cannot be null");
@@ -69,8 +68,8 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializabl
     }
 
     @Override
-    public Multimap<IRI, Class<?>> getGuessedDeclarations() {
-        return Multimaps.unmodifiableMultimap(guessedDeclarations);
+    public Map<IRI, List<Class<?>>> getGuessedDeclarations() {
+        return Collections.unmodifiableMap(guessedDeclarations);
     }
 
     @Override

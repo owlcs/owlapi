@@ -61,9 +61,6 @@ public class RepositoryFun {
             System.out.println("bundle = " + bundle);
         }
         resolver = (ResolverImpl) admin.resolver();
-        requirement = new RequirementImpl("bundle");
-        requirement.setFilter("(symbolicname=com.google.guava)");
-        resolver.add(requirement);
         resolver.deploy(Resolver.START);
         for (Bundle bundle : framework.getBundleContext().getBundles()) {
             System.out.println("bundle = " + bundle);

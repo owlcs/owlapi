@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.reasoner;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -30,8 +32,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.utilities.Version;
-
-import com.google.common.collect.Sets;
 
 /**
  * An OWLReasoner reasons over a set of axioms (the set of reasoner axioms) that is based on the
@@ -486,7 +486,7 @@ public interface OWLReasoner {
      * @see OWLReasoner#isEntailed(Set)
      */
     default boolean isEntailed(OWLAxiom... axioms) {
-        return isEntailed(Sets.newHashSet(axioms));
+        return isEntailed(new HashSet<>(Arrays.asList(axioms)));
     }
 
     /**

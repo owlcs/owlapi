@@ -55,7 +55,6 @@
 		<dependency><groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version></dependency>
 		<dependency><groupId>commons-io</groupId><artifactId>commons-io</artifactId><version>2.5</version></dependency>
 		<dependency><groupId>net.sf.trove4j</groupId><artifactId>trove4j</artifactId><version>3.0.3</version></dependency>
-		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>[19.0,22.0]</version></dependency>
 		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.6.1</version></dependency>
 		<dependency><groupId>com.squareup.okhttp3</groupId><artifactId>okhttp</artifactId><version>3.9.1</version></dependency>
 		<dependency><groupId>com.squareup.okio</groupId><artifactId>okio</artifactId><version>1.11.0</version></dependency>
@@ -116,7 +115,6 @@
 						</Embed-Dependency>
 						<excludeDependencies>
 							groupId=commons-*;scope=compile|runtime|provided,
-							groupId=com.google.guava;scope=compile|runtime|provided,
 							groupId=com.google.inject*;scope=compile|runtime|provided,
 							slf4j-api;scope=compile|runtime|provided,
 							slf4j-simple;scope=compile|runtime|provided
@@ -179,8 +177,6 @@
 									<exclude>org.slf4j:*</exclude>
 									<exclude>org.semarglproject:*</exclude>
 									<exclude>com.github.ben-manes.caffeine:*</exclude>
-									<exclude>com.google.guava:*</exclude>
-									<exclude>com.google.inject:*</exclude>
 									<exclude>javax.inject:*</exclude>
 									<exclude>aopalliance:*</exclude>
 									<exclude>com.google.inject.extensions:*</exclude>

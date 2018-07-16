@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.utilities.IRIShortFormProvider;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-import com.google.common.base.Splitter;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
@@ -161,7 +159,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         String path = uri.getPath();
         if (path != null && !path.isEmpty()) {
             String candidatePathElement = "";
-            for (String tok : Splitter.on('/').split(path)) {
+            for (String tok : path.split("/")) {
                 if (isCandidatePathElement(tok)) {
                     candidatePathElement = stripExtensionIfPresent(tok);
                 }
