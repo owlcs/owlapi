@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicStampedReference;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -44,6 +45,7 @@ public class Injector {
     private Map<Object, List<Supplier<?>>> supplierOverrides = new ConcurrentHashMap<>();
     private Map<Object, Class<?>> typesOverrides = new ConcurrentHashMap<>();
     private Map<Object, List<Class<?>>> typesCache = new ConcurrentHashMap<>();
+    private Map<URL, AtomicStampedReference<List<String>>> filesCache = new ConcurrentHashMap<>();
 
     public static class Key {
         Class<?> c;
@@ -125,7 +127,7 @@ public class Injector {
 
     public <T> T inject(T t) {
         LOGGER.info("Injecting object {}", t);
-        List<Method> methodsToInject = new ArrayList<Method>();
+        List<Method> methodsToInject = new ArrayList<>();
         Class<?> c = t.getClass();
         while (c != null) {
             for (Method m : c.getDeclaredMethods()) {
@@ -314,14 +316,25 @@ public class Injector {
     }
 
     private Stream<String> entries(URL c) {
+        int time = (int) (System.currentTimeMillis() & 0x00000000FFFFFFFFL);
+        AtomicStampedReference<List<String>> l = filesCache.get(c);
+        if (l == null || time - l.getStamp() > 30000) {
+            // no cache or oldest value is more than 30 seconds old
+            l = new AtomicStampedReference<List<String>>(actualRead(c), time);
+            filesCache.put(c, l);
+        }
+        return l.getReference().stream();
+    }
+
+    protected List<String> actualRead(URL c) {
         try (InputStream in = c.openStream();
             InputStreamReader in2 = new InputStreamReader(in, StandardCharsets.UTF_8);
             BufferedReader r = new BufferedReader(in2)) {
-            return r.lines().collect(Collectors.toList()).stream();
+            return r.lines().collect(Collectors.toList());
         } catch (IOException e) {
             LOGGER.error("Error reading services files: " + c, e);
+            return Collections.emptyList();
         }
-        return Stream.empty();
     }
 
 }
