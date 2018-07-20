@@ -7,7 +7,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxObjectRenderer;
 import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -50,7 +49,7 @@ public class DLSyntaxTestCase extends TestBase {
 
     @Test
     public void testCommasOnDisjointThreeOntologyHTML() throws Exception {
-        OWLOntology o = m.createOntology(IRI.create("urn:test:onto"));
+        OWLOntology o = m.createOntology(df.create("urn:test:onto"));
         OWLClass a = df.getOWLClass("urn:test:", "A");
         OWLClass b = df.getOWLClass("urn:test:", "B");
         OWLClass c = df.getOWLClass("urn:test:", "C");
@@ -70,7 +69,7 @@ public class DLSyntaxTestCase extends TestBase {
 
     @Test
     public void testCommasOnDisjointTwoOntologyHTML() throws Exception {
-        OWLOntology o = m.createOntology(IRI.create("urn:test:onto"));
+        OWLOntology o = m.createOntology(df.create("urn:test:onto"));
         OWLClass a = df.getOWLClass("urn:test:", "A");
         OWLClass b = df.getOWLClass("urn:test:", "B");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b);
@@ -87,7 +86,7 @@ public class DLSyntaxTestCase extends TestBase {
 
     @Test
     public void testCommasOnDisjointFourOntologyHTML() throws Exception {
-        OWLOntology o = m.createOntology(IRI.create("urn:test:onto"));
+        OWLOntology o = m.createOntology(df.create("urn:test:onto"));
         OWLClass a = df.getOWLClass("urn:test:", "A");
         OWLClass b = df.getOWLClass("urn:test:", "B");
         OWLClass c = df.getOWLClass("urn:test:", "C");

@@ -33,4 +33,9 @@ public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Seriali
         checkNotNull(iri);
         return iri.getShortForm();
     }
+
+    @Override
+    public String getShortForm(String iri) {
+        return IRI.getShortForm(iri);
+    }
 }

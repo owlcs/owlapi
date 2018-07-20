@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -49,6 +50,11 @@ public class RDFGraph implements Serializable {
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
     private final Set<RDFTriple> triples = createLinkedSet();
     private final Map<RDFNode, RDFNode> remappedNodes = createMap();
+    private OWLDataFactory df;
+
+    public RDFGraph(OWLDataFactory df) {
+        this.df = df;
+    }
 
     /**
      * @param predicate predicate to check for inclusion
@@ -126,7 +132,7 @@ public class RDFGraph implements Serializable {
                 // found reused blank nodes
                 for (RDFTriple t : e.getValue()) {
                     RDFResourceBlankNode bnode =
-                        new RDFResourceBlankNode(IRI.create(NodeID.nextAnonymousIRI()),
+                        new RDFResourceBlankNode(df.create(NodeID.nextAnonymousIRI()),
                         e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
                     remappedNodes.put(bnode, e.getKey());
                     toReturn.put(t, bnode);

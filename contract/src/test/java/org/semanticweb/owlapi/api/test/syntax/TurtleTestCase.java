@@ -55,15 +55,15 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @SuppressWarnings("javadoc")
 public class TurtleTestCase extends TestBase {
 
-    private final IRI iri = IRI.create("urn:test#", "literals");
+    private final String iri = "urn:test:literals";
     private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
-    private final IRI s = IRI.create("urn:test#", "s");
+    private final IRI s = df.create("urn:test#", "s");
 
     @Test
     public void shouldSaveIRIsWithCommasInTurtle()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(IRI.create("http://example.com/ontology"));
-        IRI individualIRI = IRI.create("http://example.com/ontology/x,y");
+        OWLOntology o = m.createOntology(df.create("http://example.com/ontology"));
+        IRI individualIRI = df.create("http://example.com/ontology/x,y");
         OWLNamedIndividual individual = df.getOWLNamedIndividual(individualIRI);
         OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
         o.add(axiom);
@@ -78,8 +78,8 @@ public class TurtleTestCase extends TestBase {
     @Test
     public void shouldSaveIRIsWithCommasInRioTurtle()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(IRI.create("http://example.com/ontology"));
-        IRI individualIRI = IRI.create("http://example.com/ontology/x,y");
+        OWLOntology o = m.createOntology(df.create("http://example.com/ontology"));
+        IRI individualIRI = df.create("http://example.com/ontology/x,y");
         OWLNamedIndividual individual = df.getOWLNamedIndividual(individualIRI);
         OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
         o.add(axiom);
@@ -93,7 +93,7 @@ public class TurtleTestCase extends TestBase {
 
     @Test
     public void testLoadingUTF8BOM() throws Exception {
-        IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl").toURI());
+        IRI uri = df.create(getClass().getResource("/ttl-with-bom.ttl").toURI());
         m.loadOntologyFromOntologyDocument(uri);
     }
 
@@ -330,7 +330,7 @@ public class TurtleTestCase extends TestBase {
             + ":q rdf:type owl:Class .\n" + ":t rdf:type owl:Class ; rdfs:subClassOf :q .";
         OWLOntology in = loadOntologyFromString(input, new TurtleDocumentFormat());
         String string = "urn:test#test.owl/";
-        OWLOntology ontology = getOWLOntology(IRI.create(string, ""));
+        OWLOntology ontology = getOWLOntology(df.create(string, ""));
         ontology.add(
             df.getOWLSubClassOfAxiom(df.getOWLClass(string, "t"), df.getOWLClass(string, "q")));
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
@@ -384,7 +384,7 @@ public class TurtleTestCase extends TestBase {
     @Test
     public void shouldFindExpectedAxiomsForBlankNodes() {
         OWLObjectProperty r = ObjectProperty(
-            IRI.create("http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
+            df.create("http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
         String input =
             "@prefix : <http://www.derivo.de/ontologies/examples/anonymous-individuals#> .\n"
                 + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
@@ -408,9 +408,9 @@ public class TurtleTestCase extends TestBase {
     @Test
     public void shouldAllowMultipleDotsInIRIs()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
-        IRI test1 = IRI.create("http://www.semanticweb.org/ontology#A...");
-        IRI test2 = IRI.create("http://www.semanticweb.org/ontology#A...B");
-        OWLOntology o = m.createOntology(IRI.create("http://www.semanticweb.org/ontology"));
+        IRI test1 = df.create("http://www.semanticweb.org/ontology#A...");
+        IRI test2 = df.create("http://www.semanticweb.org/ontology#A...B");
+        OWLOntology o = m.createOntology(df.create("http://www.semanticweb.org/ontology"));
         m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test1)));
         m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test2)));
         TurtleDocumentFormat format = new TurtleDocumentFormat();

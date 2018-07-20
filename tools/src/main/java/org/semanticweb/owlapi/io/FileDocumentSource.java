@@ -19,7 +19,6 @@ import java.io.FileInputStream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
@@ -58,7 +57,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
      */
     public FileDocumentSource(File file, @Nullable OWLDocumentFormat format,
         @Nullable String mime) {
-        super(IRI.create(file),
+        super(file.toURI().toString(),
             () -> new FileInputStream(checkNotNull(file, "file cannot be null")), format, mime);
     }
 }

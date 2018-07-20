@@ -15,8 +15,8 @@ import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 
 /**
  * Tests for {@link OBOFormatWriter}.
@@ -34,7 +34,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     }
 
     private static String writeObsolete(Object value) throws Exception {
-        Clause cl = new Clause(OboFormatTag.TAG_IS_OBSELETE);
+        Clause cl = new Clause(OboFormatTag.TAG_IS_OBSOLETE);
         cl.addValue(value);
         StringWriter out = new StringWriter();
         try (BufferedWriter bufferedWriter = new BufferedWriter(out)) {

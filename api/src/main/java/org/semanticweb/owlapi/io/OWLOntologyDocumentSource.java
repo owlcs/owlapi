@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.io;
 import java.util.Collection;
 import java.util.Optional;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
@@ -69,7 +68,7 @@ public interface OWLOntologyDocumentSource {
      *
      * @return An IRI which represents the ontology document IRI
      */
-    IRI getDocumentIRI();
+    String getDocumentIRI();
 
     /**
      * @return An object containing metadata about loading

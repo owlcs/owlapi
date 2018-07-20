@@ -74,7 +74,7 @@ public class Builder {
     private final OWLDataProperty dp = df.getOWLDataProperty("urn:test:test#", "dp");
     private final OWLLiteral lit = df.getOWLLiteral(false);
     private final OWLLiteral plainlit = df.getOWLLiteral("string", "en");
-    private final IRI iri = IRI.create("urn:test:test#", "iri");
+    private final IRI iri = df.create("urn:test:test#", "iri");
     private final List<OWLAnnotation> as =
         Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
     private final OWLClass ce = df.getOWLClass("urn:test:test#", "c");
@@ -85,10 +85,10 @@ public class Builder {
     private final List<OWLObjectProperty> ops = Arrays.asList(df.getOWLObjectProperty(iri), op);
     private final List<OWLClass> classes = Arrays.asList(df.getOWLClass(iri), ce);
     private final List<OWLNamedIndividual> inds = Arrays.asList(i, df.getOWLNamedIndividual(iri));
-    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create("urn:swrl:var#", "v1"),
+    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(df.create("urn:swrl:var#", "v1"),
         Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:swrl:var#", "var3"),
             df.getSWRLVariable("urn:swrl:var#", "var4")));
-    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create("urn:swrl:var#", "v2"),
+    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(df.create("urn:swrl:var#", "v2"),
         Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:swrl:var#", "var5"),
             df.getSWRLVariable("urn:swrl:var#", "var6")));
     private final List<SWRLAtom> body = Arrays.asList(v1);
@@ -97,10 +97,10 @@ public class Builder {
     private final List<SWRLDArgument> var1list = Arrays.asList(var1);
     private final SWRLIArgument var2 = df.getSWRLVariable("urn:swrl:var#", "var2");
     private final List<SWRLAtom> body2 = Arrays.asList(v1, df.getSWRLClassAtom(ce, var2),
-            df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list),
-            df.getSWRLDifferentIndividualsAtom(var2, df.getSWRLIndividualArgument(i)),
-            df.getSWRLSameIndividualAtom(var2,
-                df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri))),
+        df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list),
+        df.getSWRLDifferentIndividualsAtom(var2, df.getSWRLIndividualArgument(i)),
+        df.getSWRLSameIndividualAtom(var2,
+            df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri))),
         df.getSWRLBuiltInAtom(iri, var1list));
     private final List<SWRLAtom> head2 =
         Arrays.asList(v2, df.getSWRLDataPropertyAtom(dp, var2, df.getSWRLLiteralArgument(lit)),
@@ -410,7 +410,7 @@ public class Builder {
 
     public OWLOntology onto() {
         try {
-            return m.createOntology(IRI.create("urn:test:test#", "test"));
+            return m.createOntology(df.create("urn:test:test#", "test"));
         } catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
         }

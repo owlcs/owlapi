@@ -51,7 +51,6 @@ import org.eclipse.rdf4j.rio.helpers.AbstractRDFParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -103,8 +102,7 @@ public class RioOWLRDFParser extends AbstractRDFParser {
     public void parse(@Nullable InputStream in, @Nullable String baseURI) {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
         String mime = getRDFFormat().getDefaultMIMEType();
-        IRI iri = IRI.create(checkNotNull(baseURI));
-        render(new StreamDocumentSource(checkNotNull(in), iri, nextFormat, mime));
+        render(new StreamDocumentSource(checkNotNull(in), checkNotNull(baseURI), nextFormat, mime));
     }
 
     /**
@@ -133,7 +131,7 @@ public class RioOWLRDFParser extends AbstractRDFParser {
     public void parse(@Nullable Reader reader, @Nullable String baseURI) {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
         String mime = getRDFFormat().getDefaultMIMEType();
-        IRI iri = IRI.create(checkNotNull(baseURI));
-        render(new ReaderDocumentSource(checkNotNull(reader), iri, nextFormat, mime));
+        render(new ReaderDocumentSource(checkNotNull(reader), checkNotNull(baseURI), nextFormat,
+            mime));
     }
 }

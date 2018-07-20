@@ -67,7 +67,7 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
     @Override
     public OWLEntity buildObject() {
         if (pm != null && string != null) {
-            return df.getOWLEntity(getEntityType(), getPM().getIRI(getString()));
+            return df.getOWLEntity(getEntityType(), getPM().getIRI(getString(), df));
         }
         return df.getOWLEntity(getEntityType(), getIRI());
     }

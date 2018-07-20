@@ -12,18 +12,18 @@ import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.rio.utils.RioUtils;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @SuppressWarnings({"javadoc", "null"})
-public class RioUtilsTestCase {
+public class RioUtilsTestCase extends TestBase {
 
     private static final ValueFactory VF = SimpleValueFactory.getInstance();
     private RDFTriple testOwlApiTripleAllIRI;
@@ -44,33 +44,33 @@ public class RioUtilsTestCase {
     @Before
     public void setUp() {
         RDFResourceIRI testOwlApiSubjectUri1 =
-            new RDFResourceIRI(IRI.create("urn:test:subject:uri:1", ""));
+            new RDFResourceIRI(df.create("urn:test:subject:uri:1", ""));
         RDFResourceIRI testOwlApiPredicateUri1 =
-            new RDFResourceIRI(IRI.create("urn:test:predicate:uri:1", ""));
+            new RDFResourceIRI(df.create("urn:test:predicate:uri:1", ""));
         RDFResourceIRI testOwlApiObjectUri1 =
-            new RDFResourceIRI(IRI.create("urn:test:object:uri:1", ""));
+            new RDFResourceIRI(df.create("urn:test:object:uri:1", ""));
         RDFLiteral testOwlApiObjectPlainLiteral1 = new RDFLiteral("Test literal", "", null);
         RDFLiteral testOwlApiObjectLangLiteral1 = new RDFLiteral("Test literal", "en", null);
         RDFLiteral testOwlApiObjectTypedLiteral1 =
-            new RDFLiteral("Test literal", null, IRI.create("urn:test:datatype:1", ""));
-        RDFResourceBlankNode testOwlApiSubjectBNode1 = new RDFResourceBlankNode(
-            IRI.create("subjectBnode1", ""), true, false, false);
-        RDFResourceBlankNode testOwlApiObjectBNode1 = new RDFResourceBlankNode(
-            IRI.create("objectBnode1", ""), true, false, false);
-        testOwlApiTripleAllIRI = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,
-            testOwlApiObjectUri1);
+            new RDFLiteral("Test literal", null, df.create("urn:test:datatype:1", ""));
+        RDFResourceBlankNode testOwlApiSubjectBNode1 =
+            new RDFResourceBlankNode(df.create("subjectBnode1", ""), true, false, false);
+        RDFResourceBlankNode testOwlApiObjectBNode1 =
+            new RDFResourceBlankNode(df.create("objectBnode1", ""), true, false, false);
+        testOwlApiTripleAllIRI =
+            new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1, testOwlApiObjectUri1);
         testOwlApiTriplePlainLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,
             testOwlApiObjectPlainLiteral1);
         testOwlApiTripleLangLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,
             testOwlApiObjectLangLiteral1);
         testOwlApiTripleTypedLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,
             testOwlApiObjectTypedLiteral1);
-        testOwlApiTripleSubjectBNode = new RDFTriple(testOwlApiSubjectBNode1,
-            testOwlApiPredicateUri1, testOwlApiObjectUri1);
-        testOwlApiTripleObjectBNode = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,
-            testOwlApiObjectBNode1);
-        testOwlApiTripleSubjectObjectBNode = new RDFTriple(testOwlApiSubjectBNode1,
-            testOwlApiPredicateUri1, testOwlApiObjectBNode1);
+        testOwlApiTripleSubjectBNode =
+            new RDFTriple(testOwlApiSubjectBNode1, testOwlApiPredicateUri1, testOwlApiObjectUri1);
+        testOwlApiTripleObjectBNode =
+            new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1, testOwlApiObjectBNode1);
+        testOwlApiTripleSubjectObjectBNode =
+            new RDFTriple(testOwlApiSubjectBNode1, testOwlApiPredicateUri1, testOwlApiObjectBNode1);
         org.eclipse.rdf4j.model.IRI testSesameSubjectUri1 = VF.createIRI("urn:test:subject:uri:1");
         org.eclipse.rdf4j.model.IRI testSesamePredicateUri1 =
             VF.createIRI("urn:test:predicate:uri:1");

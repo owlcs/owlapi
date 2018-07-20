@@ -18,8 +18,6 @@ import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
-import java.util.Optional;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
@@ -50,15 +48,13 @@ public class OntologyURITestCase extends TestBase {
     public void testOntologyID() {
         IRI iriA = IRI("http://www.another.com/", "ont");
         IRI iriB = IRI("http://www.another.com/ont/", "version");
-        OWLOntologyID ontIDBoth =
-            new OWLOntologyID(Optional.ofNullable(iriA), Optional.ofNullable(iriB));
-        OWLOntologyID ontIDBoth2 =
-            new OWLOntologyID(Optional.ofNullable(iriA), Optional.ofNullable(iriB));
+        OWLOntologyID ontIDBoth = df.getOWLOntologyID(iriA, iriB);
+        OWLOntologyID ontIDBoth2 = df.getOWLOntologyID(iriA, iriB);
         assertEquals(ontIDBoth, ontIDBoth2);
-        OWLOntologyID ontIDURIOnly = new OWLOntologyID(Optional.ofNullable(iriA), Optional.empty());
+        OWLOntologyID ontIDURIOnly = df.getOWLOntologyID(iriA);
         assertFalse(ontIDBoth.equals(ontIDURIOnly));
-        OWLOntologyID ontIDNoneA = new OWLOntologyID();
-        OWLOntologyID ontIDNoneB = new OWLOntologyID();
+        OWLOntologyID ontIDNoneA = df.getOWLOntologyID();
+        OWLOntologyID ontIDNoneB = df.getOWLOntologyID();
         assertFalse(ontIDNoneA.equals(ontIDNoneB));
     }
 
@@ -69,24 +65,23 @@ public class OntologyURITestCase extends TestBase {
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), iri);
         assertTrue(m.contains(iri));
         assertTrue(contains(m.ontologies(), ont));
-        OWLOntologyID ontID = new OWLOntologyID(Optional.ofNullable(iri), Optional.empty());
+        OWLOntologyID ontID = df.getOWLOntologyID(iri);
         assertEquals(ont.getOntologyID(), ontID);
     }
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testDuplicateOntologyURI() throws OWLOntologyCreationException {
-        IRI uri = IRI.getNextDocumentIRI("http://www.another.com/ont");
+        IRI uri = df.getNextDocumentIRI("http://www.another.com/ont");
         getOWLOntology(uri);
         getOWLOntology(uri);
     }
 
     @Test
     public void testSetOntologyURI() throws OWLOntologyCreationException {
-        IRI iri = IRI.getNextDocumentIRI("http://www.another.com/ont");
+        IRI iri = df.getNextDocumentIRI("http://www.another.com/ont");
         OWLOntology ont = getOWLOntology(iri);
-        IRI newIRI = IRI.getNextDocumentIRI("http://www.another.com/newont");
-        SetOntologyID sou = new SetOntologyID(ont,
-            new OWLOntologyID(Optional.ofNullable(newIRI), Optional.empty()));
+        IRI newIRI = df.getNextDocumentIRI("http://www.another.com/newont");
+        SetOntologyID sou = new SetOntologyID(ont, df.getOWLOntologyID(newIRI));
         ont.applyChange(sou);
         assertFalse(m.contains(iri));
         assertTrue(m.contains(newIRI));
@@ -95,20 +90,18 @@ public class OntologyURITestCase extends TestBase {
 
     @Test
     public void testVersionURI() throws OWLOntologyCreationException {
-        IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
-        IRI verIRI = IRI.getNextDocumentIRI("http://www.another.com/ont/versions/1.0.0");
-        OWLOntology ont = getOWLOntology(
-            new OWLOntologyID(Optional.ofNullable(ontIRI), Optional.ofNullable(verIRI)));
+        IRI ontIRI = df.getNextDocumentIRI("http://www.another.com/ont");
+        IRI verIRI = df.getNextDocumentIRI("http://www.another.com/ont/versions/1.0.0");
+        OWLOntology ont = getOWLOntology(df.getOWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
         assertEquals(ont.getOntologyID().getVersionIRI().get(), verIRI);
     }
 
     @Test
     public void testNullVersionURI() throws OWLOntologyCreationException {
-        IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
+        IRI ontIRI = df.getNextDocumentIRI("http://www.another.com/ont");
         IRI verIRI = null;
-        OWLOntology ont = getOWLOntology(
-            new OWLOntologyID(Optional.ofNullable(ontIRI), Optional.ofNullable(verIRI)));
+        OWLOntology ont = getOWLOntology(df.getOWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
         assertFalse(ont.getOntologyID().getVersionIRI().isPresent());
     }

@@ -35,7 +35,7 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
     public int initHashCode() {
         int hash = hashIndex();
         hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
-        hash = OWLObject.hashIteration(hash, literal * 65536);
+        hash = OWLObject.hashIteration(hash, getLiteral().hashCode() * 65536);
         return OWLObject.hashIteration(hash, getLang().hashCode());
     }
 

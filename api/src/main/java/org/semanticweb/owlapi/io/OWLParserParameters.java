@@ -10,7 +10,6 @@ import java.util.function.BiConsumer;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 
@@ -24,7 +23,7 @@ public class OWLParserParameters {
     private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
     private final OWLOntology ontology;
     private final OntologyConfigurator config;
-    private final IRI documentIRI;
+    private final String documentIRI;
     private Charset encoding = StandardCharsets.UTF_8;
     @Nullable
     private OWLOntologyLoaderMetaData loaderMetaData = null;
@@ -34,7 +33,7 @@ public class OWLParserParameters {
      * @param c loading config
      * @param iri document iri
      */
-    public OWLParserParameters(OWLOntology o, OntologyConfigurator c, IRI iri) {
+    public OWLParserParameters(OWLOntology o, OntologyConfigurator c, String iri) {
         ontology = o;
         config = c;
         documentIRI = iri;
@@ -111,7 +110,7 @@ public class OWLParserParameters {
     /**
      * @return the documentIRI
      */
-    public IRI getDocumentIRI() {
+    public String getDocumentIRI() {
         return documentIRI;
     }
 

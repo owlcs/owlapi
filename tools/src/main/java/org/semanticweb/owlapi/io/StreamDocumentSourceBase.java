@@ -27,7 +27,6 @@ import java.util.zip.GZIPOutputStream;
 import javax.annotation.Nullable;
 
 import org.apache.commons.io.IOUtils;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -49,24 +48,10 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      * @param format ontology format
      * @param mime mime type
      */
-    public StreamDocumentSourceBase(InputStream stream, IRI documentIRI,
+    public StreamDocumentSourceBase(InputStream stream, String documentIRI,
         @Nullable OWLDocumentFormat format, @Nullable String mime) {
         super(documentIRI, readIntoBuffer(checkNotNull(stream, "stream cannot be null")), format,
             mime);
-    }
-
-    /**
-     * Constructs an input source which will read an ontology from a representation from the
-     * specified stream.
-     *
-     * @param stream The stream that the ontology representation will be read from.
-     * @param prefix The document IRI prefix
-     * @param format ontology format
-     * @param mime mime type
-     */
-    protected StreamDocumentSourceBase(InputStream stream, String prefix,
-        @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        this(stream, IRI.getNextDocumentIRI(prefix), format, mime);
     }
 
     /**
@@ -78,7 +63,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      * @param format ontology format
      * @param mime mime type
      */
-    public StreamDocumentSourceBase(Reader stream, IRI documentIRI,
+    public StreamDocumentSourceBase(Reader stream, String documentIRI,
         @Nullable OWLDocumentFormat format, @Nullable String mime) {
         super(documentIRI, readIntoBuffer(checkNotNull(stream, "stream cannot be null")), format,
             mime);
@@ -87,20 +72,6 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
         if (stream instanceof InputStreamReader) {
             encoding = Charset.forName(((InputStreamReader) stream).getEncoding());
         }
-    }
-
-    /**
-     * Constructs an input source which will read an ontology from a representation from the
-     * specified stream.
-     *
-     * @param stream The stream that the ontology representation will be read from.
-     * @param prefix The document IRI prefix
-     * @param format ontology format
-     * @param mime mime type
-     */
-    protected StreamDocumentSourceBase(Reader stream, String prefix,
-        @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        this(stream, IRI.getNextDocumentIRI(prefix), format, mime);
     }
 
     /**

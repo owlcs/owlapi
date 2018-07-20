@@ -14,13 +14,13 @@ package org.semanticweb.owlapi.manchestersyntax.parser;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
@@ -40,10 +40,10 @@ public class ManchesterOWLSyntaxOntologyHeader {
      * @param annotations the ontology annotations
      * @param importsDeclarations the imports declarations
      */
-    public ManchesterOWLSyntaxOntologyHeader(@Nullable IRI ontologyIRI, @Nullable IRI versionIRI,
-        Set<OWLAnnotation> annotations, Set<OWLImportsDeclaration> importsDeclarations) {
-        ontologyID =
-            new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.ofNullable(versionIRI));
+    public ManchesterOWLSyntaxOntologyHeader(OWLDataFactory df, @Nullable IRI ontologyIRI,
+        @Nullable IRI versionIRI, Set<OWLAnnotation> annotations,
+        Set<OWLImportsDeclaration> importsDeclarations) {
+        ontologyID = df.getOWLOntologyID(ontologyIRI, versionIRI);
         this.annotations = new ArrayList<>(annotations);
         this.importsDeclarations = new ArrayList<>(importsDeclarations);
     }

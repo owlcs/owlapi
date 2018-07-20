@@ -25,7 +25,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
@@ -46,11 +45,9 @@ public class MoveOntologyTestCase extends TestBase {
                     + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
                     + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
                     + "    <owl:Ontology rdf:about=\"urn:testcopy\"><owl:imports rdf:resource=\"urn:test#test\"/></owl:Ontology>\n"
-                    + "    <rdfs:Datatype rdf:about=\"urn:mydatatype\">\n"
-                    + "        <owl:equivalentClass>\n"
+        + "    <rdfs:Datatype rdf:about=\"urn:mydatatype\">\n" + "        <owl:equivalentClass>\n"
                     + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
-                    + "        </owl:equivalentClass>\n" + "    </rdfs:Datatype>\n"
-                    + "    <owl:Axiom>\n"
+        + "        </owl:equivalentClass>\n" + "    </rdfs:Datatype>\n" + "    <owl:Axiom>\n"
                     + "        <rdfs:label >datatype definition</rdfs:label>\n"
                     + "        <owl:annotatedProperty rdf:resource=\"http://www.w3.org/2002/07/owl#equivalentClass\"/>\n"
                     + "        <owl:annotatedSource rdf:resource=\"urn:mydatatype\"/>\n"
@@ -60,7 +57,7 @@ public class MoveOntologyTestCase extends TestBase {
 
     @Before
     public void setUp() throws OWLOntologyCreationException {
-        m.createOntology(IRI.create("urn:test#", "test"));
+        m.createOntology(df.create("urn:test#", "test"));
     }
 
     @Test

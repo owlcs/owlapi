@@ -66,7 +66,7 @@ public class ProfileValidationTestCase extends TestBase {
         IRI rlIRI = IRI(ns, "RL");
         IRI premiseIRI = IRI(ns, "rdfXmlPremiseOntology");
         URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
-        IRI allTestURI = IRI.create(resourceURL);
+        IRI allTestURI = df.create(resourceURL);
         OWLOntology testCasesOntology = m.loadOntologyFromOntologyDocument(allTestURI);
         OWLClass profileIdentificationTestClass = Class(profile);
         OWLNamedIndividual el = df.getOWLNamedIndividual(elIRI);
@@ -79,24 +79,23 @@ public class ProfileValidationTestCase extends TestBase {
         for (OWLClassAssertionAxiom ax : asList(
             testCasesOntology.classAssertionAxioms(profileIdentificationTestClass))) {
             OWLIndividual ind = ax.getIndividual();
-            Collection<OWLLiteral> vals = asUnorderedSet(
-                values(testCasesOntology.dataPropertyAssertionAxioms(ind),
+            Collection<OWLLiteral> vals =
+                asUnorderedSet(values(testCasesOntology.dataPropertyAssertionAxioms(ind),
                     rdfXMLPremiseOntologyProperty));
             if (vals.size() != 1) {
                 continue;
             }
             String ontologySerialisation = vals.iterator().next().getLiteral();
-            OWLOntology ontology = loadOntologyFromString(ontologySerialisation,
-                new RDFXMLDocumentFormat());
+            OWLOntology ontology =
+                loadOntologyFromString(ontologySerialisation, new RDFXMLDocumentFormat());
             // FULL?
-            Collection<OWLIndividual> finder = asUnorderedSet(values(
-                testCasesOntology.objectPropertyAssertionAxioms(ind), speciesProperty));
+            Collection<OWLIndividual> finder = asUnorderedSet(
+                values(testCasesOntology.objectPropertyAssertionAxioms(ind), speciesProperty));
             if (finder.contains(full)) {
                 checkProfile(ontology, new OWL2Profile(), true);
             }
-            Collection<OWLIndividual> negativeFinder = asUnorderedSet(
-                negValues(testCasesOntology.negativeObjectPropertyAssertionAxioms(ind),
-                    speciesProperty));
+            Collection<OWLIndividual> negativeFinder = asUnorderedSet(negValues(
+                testCasesOntology.negativeObjectPropertyAssertionAxioms(ind), speciesProperty));
             if (negativeFinder.contains(full)) {
                 checkProfile(ontology, new OWL2Profile(), false);
             }
@@ -136,8 +135,8 @@ public class ProfileValidationTestCase extends TestBase {
     public void shouldNotFailELBecauseOfBoolean() {
         OWLOntology o = getOWLOntology();
         OWLAnnotation ann = df.getRDFSLabel(df.getOWLLiteral(true));
-        OWLAnnotationAssertionAxiom ax = df
-            .getOWLAnnotationAssertionAxiom(IRI.create("urn:test#", "ELProfile"), ann);
+        OWLAnnotationAssertionAxiom ax =
+            df.getOWLAnnotationAssertionAxiom(df.create("urn:test#", "ELProfile"), ann);
         o.add(ax, Declaration(OWL2Datatype.XSD_BOOLEAN.getDatatype(df)));
         checkProfile(o, new OWL2ELProfile(), true);
     }

@@ -111,8 +111,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         return count;
     }
 
-    private static IRI createIRI() {
-        return IRI.getNextDocumentIRI("http://debugging.blackbox#A");
+    private IRI createIRI() {
+        return df.getNextDocumentIRI("http://debugging.blackbox#A");
     }
 
     @Override

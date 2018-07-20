@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 @SuppressWarnings({"javadoc"})
 public class OWLOntologyChangeRecordTestCase extends TestBase {
 
-    private final OWLOntologyID mockOntologyID = new OWLOntologyID();
+    private final OWLOntologyID mockOntologyID = df.getOWLOntologyID();
     private final OWLOntologyChangeData mockChangeData = mock(OWLOntologyChangeData.class);
     private final OWLAxiom mockAxiom = mock(OWLAxiom.class);
 

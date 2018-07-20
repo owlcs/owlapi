@@ -16,8 +16,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.util.Optional;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
@@ -41,8 +39,8 @@ public class OntologyIDTestCase extends TestBase {
         IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
         IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
         assertEquals(iri1.hashCode(), iri2.hashCode());
-        OWLOntologyID id1 = new OWLOntologyID(Optional.ofNullable(iri1), Optional.empty());
-        OWLOntologyID id2 = new OWLOntologyID(Optional.ofNullable(iri2), Optional.empty());
+        OWLOntologyID id1 = df.getOWLOntologyID(iri1);
+        OWLOntologyID id2 = df.getOWLOntologyID(iri2);
         assertEquals(id1.hashCode(), id2.hashCode());
     }
 
@@ -51,18 +49,16 @@ public class OntologyIDTestCase extends TestBase {
         IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
         IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
         assertEquals(iri1.hashCode(), iri2.hashCode());
-        OWLOntologyID id1 = new OWLOntologyID(Optional.ofNullable(iri1), Optional.empty());
-        OWLOntologyID id2 = new OWLOntologyID(Optional.ofNullable(iri2), Optional.empty());
+        OWLOntologyID id1 = df.getOWLOntologyID(iri1);
+        OWLOntologyID id2 = df.getOWLOntologyID(iri2);
         assertEquals(id1.hashCode(), id2.hashCode());
         assertEquals(id1, id2);
     }
 
     @Test
     public void testUnequalIdsUnequal() {
-        OWLOntologyID id1 = new OWLOntologyID(Optional.ofNullable(IRI("http://www.w3.org/", "foo")),
-            Optional.empty());
-        OWLOntologyID id2 = new OWLOntologyID(Optional.ofNullable(IRI("http://www.w3.org/", "bar")),
-            Optional.empty());
+        OWLOntologyID id1 = df.getOWLOntologyID(IRI("http://www.w3.org/", "foo"));
+        OWLOntologyID id2 = df.getOWLOntologyID(IRI("http://www.w3.org/", "bar"));
         assertNotEquals(id1.hashCode(), id2.hashCode());
         assertNotEquals(id1, id2);
     }
@@ -75,11 +71,9 @@ public class OntologyIDTestCase extends TestBase {
         IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
         assertEquals(iri1.hashCode(), iri2.hashCode());
         assertEquals(iri1, iri2);
-        OWLOntologyID unversionedID =
-            new OWLOntologyID(Optional.ofNullable(iri1), Optional.empty());
+        OWLOntologyID unversionedID = df.getOWLOntologyID(iri1);
         IRI version1IRI = IRI(TEST_ONTOLOGY_IRI_STRING + "/", "version1");
-        OWLOntologyID version1ID =
-            new OWLOntologyID(Optional.ofNullable(iri2), Optional.ofNullable(version1IRI));
+        OWLOntologyID version1ID = df.getOWLOntologyID(iri2, version1IRI);
         assertEquals("null vs v1 base IRIs", unversionedID.getOntologyIRI(),
             version1ID.getOntologyIRI());
         assertNotEquals(unversionedID.getVersionIRI(), version1ID.getVersionIRI());
@@ -87,17 +81,14 @@ public class OntologyIDTestCase extends TestBase {
             version1ID.hashCode());
         assertNotEquals("null version vs version1", unversionedID, version1ID);
         OWLOntologyID duplicateVersion1ID =
-            new OWLOntologyID(Optional.ofNullable(IRI(TEST_ONTOLOGY_IRI_STRING, "")),
-                Optional.ofNullable(version1IRI));
+            df.getOWLOntologyID(IRI(TEST_ONTOLOGY_IRI_STRING, ""), version1IRI);
         assertEquals(" two version1 ids", version1ID, duplicateVersion1ID);
         OWLOntologyID differentBasedVersion1ID =
-            new OWLOntologyID(Optional.ofNullable(IRI(TEST_ONTOLOGY_IRI_STRING + "-of-doom", "")),
-                Optional.ofNullable(version1IRI));
+            df.getOWLOntologyID(IRI(TEST_ONTOLOGY_IRI_STRING + "-of-doom", ""), version1IRI);
         assertNotEquals("version1 of two base IRIs", version1ID, differentBasedVersion1ID);
         IRI version2IRI = IRI(TEST_ONTOLOGY_IRI_STRING + "/", "version2");
         IRI iri3 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
-        OWLOntologyID version2ID =
-            new OWLOntologyID(Optional.ofNullable(iri3), Optional.ofNullable(version2IRI));
+        OWLOntologyID version2ID = df.getOWLOntologyID(iri3, version2IRI);
         assertNotEquals("version1 vs version2", version1ID.hashCode(), version2ID.hashCode());
         assertNotEquals("version1 vs version2", version1ID, version2ID);
     }

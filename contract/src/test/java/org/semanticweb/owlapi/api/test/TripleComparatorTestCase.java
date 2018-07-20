@@ -26,16 +26,18 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 @SuppressWarnings("javadoc")
-public class TripleComparatorTestCase {
+public class TripleComparatorTestCase extends TestBase {
 
     private final String ns = "http://www.co-ode.org/roberts/pto.owl#";
     private final RDFResourceIRI g = r(Class(IRI(ns, "MoleOfGoldAtom")));
@@ -137,6 +139,6 @@ public class TripleComparatorTestCase {
     }
 
     private static RDFNode r(int s) {
-        return new RDFResourceBlankNode(s, false, false, false);
+        return new RDFResourceBlankNode(NodeID.nodeId(s, df), false, false, false);
     }
 }

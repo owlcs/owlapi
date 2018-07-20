@@ -3,8 +3,7 @@ package org.semanticweb.owlapi.util;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
 /**
@@ -72,14 +71,11 @@ public class OWLZipEntry {
     /**
      * @return ontology id for this entry
      */
-    public OWLOntologyID id() {
-        return new OWLOntologyID(iri(get(IRI)), iri(get(VERSION)));
-    }
-
-    private static Optional<org.semanticweb.owlapi.model.IRI> iri(@Nullable String s) {
-        if (s == null) {
-            return Optional.empty();
-        }
-        return Optional.of(org.semanticweb.owlapi.model.IRI.create(s));
+    public OWLOntologyID id(OWLDataFactory df) {
+        String s = get(IRI);
+        String v = get(VERSION);
+        org.semanticweb.owlapi.model.IRI o = s == null ? null : df.create(s);
+        org.semanticweb.owlapi.model.IRI version = v == null ? null : df.create(v);
+        return df.getOWLOntologyID(Optional.ofNullable(o), Optional.ofNullable(version));
     }
 }

@@ -113,7 +113,7 @@ public interface PrefixManager extends Serializable, ShortFormProvider, IRIShort
      * @throws OWLRuntimeException if the prefix name of the prefix IRI doesn't have a corresponding
      *         prefix managed by this manager.
      */
-    IRI getIRI(String prefixIRI);
+    IRI getIRI(String prefixIRI, OWLDataFactory df);
 
     /**
      * Gets the prefix IRI given a IRI (URI).

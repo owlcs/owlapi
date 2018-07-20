@@ -33,6 +33,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -49,13 +50,13 @@ import org.semanticweb.owlapi.model.OWLPrimitive;
 @RunWith(Parameterized.class)
 public class AnnotationAccessorsTestCase extends TestBase {
 
-    private static final IRI SUBJECT =
-        IRI.create("http://owlapi.sourceforge.net/ontologies/test#", "X");
 
     @Parameters
     public static Collection<OWLPrimitive> getData() {
-        return Arrays.asList(Class(SUBJECT), NamedIndividual(SUBJECT), DataProperty(SUBJECT),
-            ObjectProperty(SUBJECT), Datatype(SUBJECT), AnnotationProperty(SUBJECT),
+        IRI subject = OWLManager.getOWLDataFactory()
+            .create("http://owlapi.sourceforge.net/ontologies/test#", "X");
+        return Arrays.asList(Class(subject), NamedIndividual(subject), DataProperty(subject),
+            ObjectProperty(subject), Datatype(subject), AnnotationProperty(subject),
             AnonymousIndividual());
     }
 
@@ -68,7 +69,8 @@ public class AnnotationAccessorsTestCase extends TestBase {
     private static OWLAnnotationAssertionAxiom createAnnotationAssertionAxiom() {
         OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
         OWLAnnotationValue value = Literal("value");
-        return AnnotationAssertion(prop, SUBJECT, value);
+        IRI subject = df.create("http://owlapi.sourceforge.net/ontologies/test#", "X");
+        return AnnotationAssertion(prop, subject, value);
     }
 
     @Test
@@ -76,7 +78,8 @@ public class AnnotationAccessorsTestCase extends TestBase {
         OWLOntology ont = getOWLOntology();
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
         ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(ont.annotationAssertionAxioms(SUBJECT).anyMatch(a -> a.equals(ax)));
+        IRI subject = df.create("http://owlapi.sourceforge.net/ontologies/test#", "X");
+        assertTrue(ont.annotationAssertionAxioms(subject).anyMatch(a -> a.equals(ax)));
         if (e instanceof OWLEntity) {
             assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())
                 .anyMatch(a -> a.equals(ax)));

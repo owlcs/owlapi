@@ -5,10 +5,10 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -20,10 +20,10 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 /** The Class TurtleParser. */
 @SuppressWarnings("all")
 class TurtleParser implements TurtleParserConstants {
-    private Map<String, IRI> string2IRI;
     private IRI base;
     private OWLRDFConsumer handler;
-    private PrefixManager pm = new PrefixManagerImpl();
+    private PrefixManager pm;
+    private OWLDataFactory df;
 
     /** Instantiates a new turtle parser.
      * 
@@ -33,11 +33,12 @@ class TurtleParser implements TurtleParserConstants {
      *            the handler
      * @param base
      *            the base */
-    public TurtleParser(Provider r, OWLRDFConsumer handler, IRI base) {
+    public TurtleParser(Provider r, OWLRDFConsumer handler, IRI base, OWLDataFactory df) {
         this(r);
+        this.df = df;
+        this.pm = new PrefixManagerImpl();
         this.handler = handler;
         this.base = base;
-        string2IRI = new HashMap<String, IRI>();
         pm.withDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
@@ -64,12 +65,7 @@ class TurtleParser implements TurtleParserConstants {
                 string = NodeID.getIRIFromNodeID(id);
             }
         }
-        IRI iri = string2IRI.get(string);
-        if (iri == null) {
-            iri = IRI.create(string);
-            string2IRI.put(string, iri);
-        }
-        return iri;
+        return df.create(string);
     }
 
     /** Gets the iRI from q name.
@@ -91,7 +87,7 @@ class TurtleParser implements TurtleParserConstants {
         if(!pm.containsPrefixMapping(prefix)) {
             throw new ParseException("Prefix not declared: " + prefix);
         }
-        return pm.getIRI(qname);
+        return pm.getIRI(qname, df);
     }
 
     /** Gets the iri.
@@ -103,14 +99,10 @@ class TurtleParser implements TurtleParserConstants {
          if(s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
         }
-        IRI iri = string2IRI.get(s);
-        if(iri == null) {
-            iri = IRI.create(s);
+        IRI iri = df.create(s);
             if (!iri.isAbsolute()) {
-                iri = IRI.create(base.getNamespace().substring(0, base.getNamespace().lastIndexOf('/')+1), s);
+            iri = df.create(base.getNamespace().substring(0, base.getNamespace().lastIndexOf('/')+1), s);
             }
-            string2IRI.put(s, iri);
-        }
         return iri;
     }
 
@@ -192,7 +184,7 @@ pm.withPrefix(t.image, ns.toString());
   final public void parseBaseDirective() throws ParseException {Token t;
     jj_consume_token(BASE);
     t = jj_consume_token(FULLIRI);
-base = IRI.create(t.image.substring(1, t.image.length() - 1));
+base = df.create(t.image.substring(1, t.image.length() - 1));
 
 }
 
@@ -682,6 +674,47 @@ return EscapeUtils.unescapeString(rawString);
     finally { jj_save(2, xla); }
   }
 
+  private boolean jj_3R_10()
+ {
+    if (jj_3R_11()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_9()
+ {
+    if (jj_3R_10()) return true;
+    return false;
+  }
+
+  private boolean jj_3_2()
+ {
+    if (jj_3R_6()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_13()
+ {
+    if (jj_scan_token(FULLIRI)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_8()
+ {
+    if (jj_scan_token(A)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_5()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_8()) {
+    jj_scanpos = xsp;
+    if (jj_3R_9()) return true;
+    }
+    return false;
+  }
+
   private boolean jj_3R_6()
  {
     if (jj_scan_token(PNAME_LN)) return true;
@@ -723,47 +756,6 @@ return EscapeUtils.unescapeString(rawString);
     jj_scanpos = xsp;
     if (jj_3_3()) return true;
     }
-    }
-    return false;
-  }
-
-  private boolean jj_3R_10()
- {
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_9()
- {
-    if (jj_3R_10()) return true;
-    return false;
-  }
-
-  private boolean jj_3_2()
- {
-    if (jj_3R_6()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_13()
- {
-    if (jj_scan_token(FULLIRI)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_8()
- {
-    if (jj_scan_token(A)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_5()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_8()) {
-    jj_scanpos = xsp;
-    if (jj_3R_9()) return true;
     }
     return false;
   }

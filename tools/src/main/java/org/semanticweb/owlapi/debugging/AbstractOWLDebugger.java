@@ -19,7 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -60,8 +59,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     private void mergeImportsClosure() {
         OWLOntology o = ontology;
         try {
-            ontology = man.createOntology(
-                IRI.getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"),
+                   ontology =
+                man.createOntology(df.getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"),
                 o.importsClosure(), true);
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
@@ -105,15 +104,15 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
      * @param mups The current justification for the current class. This corresponds to a node in
      * the hitting set tree.
      * @param allMups All of the MUPS that have been found - this set gets populated over the course
-     * of the tree building process. Initially this should just contain the first justification
+     *        of the tree building process. Initially this should just contain the first
+     *        justification
      * @param satPaths Paths that have been completed.
      * @param currentPathContents The contents of the current path. Initially this should be an
      * empty set.
      * @throws OWLException if there is any problem
      */
     public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
-        Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents)
-        throws OWLException {
+        Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents) throws OWLException {
         // We go through the current mups, axiom by axiom, and extend the tree
         // with edges for each axiom
         for (OWLAxiom axiom : mups) {
@@ -138,8 +137,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     }
 
     protected void handleLateTermination(Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
-        Set<OWLAxiom> currentPathContents, boolean earlyTermination)
-        throws OWLException {
+        Set<OWLAxiom> currentPathContents, boolean earlyTermination) throws OWLException {
         if (!earlyTermination) {
             // Generate a new node - i.e. a new justification set
             Set<OWLAxiom> newMUPS = getSOSForInconsistentClass(getCurrentClass());

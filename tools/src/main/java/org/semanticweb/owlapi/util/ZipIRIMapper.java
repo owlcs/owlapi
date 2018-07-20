@@ -39,6 +39,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
@@ -68,6 +69,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
     private final Map<String, IRI> oboFileMap = createMap();
     @Nullable
     private IRI currentFile;
+    private OWLDataFactory df;
 
     /**
      * Creates an auto-mapper which examines ontologies that reside in the specified zip file.
@@ -76,8 +78,8 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
      * @param baseIRI base iri for physical IRIs
      * @throws IOException if an exception reading from input is raised
      */
-    public ZipIRIMapper(File zip, String baseIRI) throws IOException {
-        this(new ZipFile(zip), baseIRI);
+    public ZipIRIMapper(File zip, String baseIRI, OWLDataFactory df) throws IOException {
+        this(new ZipFile(zip), baseIRI, df);
     }
 
     /**
@@ -87,7 +89,8 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
      * @param baseIRI base iri for physical IRIs
      * @throws IOException if an exception reading from input is raised
      */
-    public ZipIRIMapper(ZipFile zip, String baseIRI) throws IOException {
+    public ZipIRIMapper(ZipFile zip, String baseIRI, OWLDataFactory df) throws IOException {
+        this.df = df;
         /**
          * A handler to handle RDF/XML files. The xml:base (if present) is taken to be the ontology
          * URI of the ontology document being parsed.
@@ -108,7 +111,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
         if (ontURI == null) {
             return null;
         }
-        return IRI.create(ontURI);
+        return df.create(ontURI);
     }
 
     @Nullable
@@ -117,17 +120,17 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
         if (baseValue == null) {
             return null;
         }
-        return IRI.create(baseValue);
+        return df.create(baseValue);
     }
 
     /**
      * @param tok token
      * @return IRI without quotes (&lt; and &gt;)
      */
-    static IRI unquote(String tok) {
+    private IRI unquote(String tok) {
         String substring = tok.substring(1, tok.length() - 1);
         assert substring != null;
-        return IRI.create(substring);
+        return df.create(substring);
     }
 
     /**
@@ -201,7 +204,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
             // no extension for the file, nothing to do
             return;
         }
-        IRI physicalIRI = IRI.create(baseIRI + name);
+        IRI physicalIRI = df.create(baseIRI + name);
         String extension = name.substring(lastIndexOf);
         if (".obo".equals(extension)) {
             oboFileMap.put(name, physicalIRI);
@@ -233,7 +236,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
      * @param input the file to parse
      */
     @Nullable
-    private static IRI parseFSSFile(InputStream input) {
+    private IRI parseFSSFile(InputStream input) {
         try (Reader reader = new InputStreamReader(input, "UTF-8");
             BufferedReader br = new BufferedReader(reader)) {
             String line = "";
@@ -244,7 +247,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
                 if (m.matches()) {
                     String group = m.group(1);
                     assert group != null;
-                    return IRI.create(group);
+                    return df.create(group);
                 }
             }
         } catch (IOException e) {
@@ -270,7 +273,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
     }
 
     @Nullable
-    private static IRI parseManchesterSyntaxFile(InputStream input) {
+    private IRI parseManchesterSyntaxFile(InputStream input) {
         try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(reader)) {
             // Ontology: <URI>
@@ -290,7 +293,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
     }
 
     @Nullable
-    private static IRI parseManLine(String line) {
+    private IRI parseManLine(String line) {
         for (String tok : line.split(" ")) {
             if (tok.startsWith("<") && tok.endsWith(">")) {
                 return unquote(tok);
@@ -317,7 +320,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
      * @param file file
      */
     protected void addMapping(IRI ontologyIRI, File file) {
-        ontologyIRI2PhysicalURIMap.put(ontologyIRI, IRI.create(file));
+        ontologyIRI2PhysicalURIMap.put(ontologyIRI, df.create(file));
     }
 
     @Override

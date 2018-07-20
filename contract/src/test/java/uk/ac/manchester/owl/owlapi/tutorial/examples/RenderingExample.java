@@ -41,8 +41,8 @@ public class RenderingExample {
         // A simple example of how to load and save an ontology
         /* Get an Ontology Manager */
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        IRI inputDocumentIRI = IRI.create(inputOntology);
-        IRI outputDocumentIRI = IRI.create(outputOntology);
+        IRI inputDocumentIRI = manager.getOWLDataFactory().create(inputOntology);
+        IRI outputDocumentIRI = manager.getOWLDataFactory().create(outputOntology);
         /* Load an ontology from a document IRI */
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputDocumentIRI);
         /* Report information about the ontology */

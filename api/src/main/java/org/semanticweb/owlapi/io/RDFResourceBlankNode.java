@@ -53,30 +53,6 @@ public class RDFResourceBlankNode extends RDFResource
         forceIdOutput = forceId;
     }
 
-    /**
-     * Create an RDFResource that is anonymous.
-     *
-     * @param anonId the number at the end of the anon IRI
-     * @param isIndividual true if the node represents an individual
-     * @param forceId true if id should be outputted
-     * @param isAxiom true if the resource is an axiom
-     */
-    public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId,
-        boolean isAxiom) {
-        this(NodeID.nodeId(anonId), isIndividual, forceId, isAxiom);
-    }
-
-    /**
-     * Create an RDFResource that is anonymous
-     *
-     * @param isIndividual true if this is an individual
-     * @param forceId true if the id should be outputted
-     * @param isAxiom true if the resource is an axiom
-     */
-    public RDFResourceBlankNode(boolean isIndividual, boolean forceId, boolean isAxiom) {
-        this(NodeID.nextFreshNodeId(), isIndividual, forceId, isAxiom);
-    }
-
     @Override
     public boolean isIndividual() {
         return isIndividual;

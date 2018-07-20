@@ -20,7 +20,6 @@ import java.util.zip.GZIPInputStream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
@@ -38,7 +37,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param is The stream that the ontology representation will be read from.
      */
     public GZipStreamDocumentSource(InputStream is) {
-        this(is, IRI.getNextDocumentIRI("gzipinputstream:ontology"), null, null);
+        this(is, "gzipinputstream:ontology:iri" + IRICounter.getAndIncrement(), null, null);
     }
 
     /**
@@ -50,7 +49,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param f ontology format
      * @param m mime type
      */
-    public GZipStreamDocumentSource(InputStream stream, IRI iri, @Nullable OWLDocumentFormat f,
+    public GZipStreamDocumentSource(InputStream stream, String iri, @Nullable OWLDocumentFormat f,
         @Nullable String m) {
         super(iri, () -> new GZIPInputStream(new ByteArrayInputStream(toByteArray(stream))), f, m);
     }

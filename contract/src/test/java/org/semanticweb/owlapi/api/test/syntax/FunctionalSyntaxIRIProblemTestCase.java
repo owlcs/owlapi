@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -67,7 +66,7 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
     @Test
     public void shouldRespectDefaultPrefix()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology ontology = m.createOntology(IRI.create("http://www.dis.uniroma1.it/example/"));
+        OWLOntology ontology = m.createOntology(df.create("http://www.dis.uniroma1.it/example/"));
         PrefixManager pm =
             new PrefixManagerImpl().withPrefix("example", "http://www.dis.uniroma1.it/example/");
         OWLClass pizza = df.getOWLClass("example:pizza", pm);
@@ -96,7 +95,7 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
     public void shouldPreservePrefix()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
         String prefix = "http://www.dis.uniroma1.it/pizza";
-        OWLOntology ontology = m.createOntology(IRI.create(prefix));
+        OWLOntology ontology = m.createOntology(df.create(prefix));
         PrefixManager pm = new PrefixManagerImpl().withPrefix("pizza", prefix);
         OWLClass pizza = df.getOWLClass("pizza:PizzaBase", pm);
         assertEquals(prefix + "PizzaBase", pizza.getIRI().toString());

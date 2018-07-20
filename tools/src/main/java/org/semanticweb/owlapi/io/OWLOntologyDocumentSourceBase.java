@@ -19,6 +19,7 @@ import java.io.Reader;
 import java.net.JarURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
+import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -27,6 +28,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -36,7 +38,6 @@ import java.util.zip.InflaterInputStream;
 import javax.annotation.Nullable;
 
 import org.apache.commons.io.input.BOMInputStream;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
@@ -64,6 +65,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
 
     protected static final Logger LOGGER =
         LoggerFactory.getLogger(OWLOntologyDocumentSourceBase.class);
+    protected static final AtomicInteger IRICounter = new AtomicInteger(1);
     private static final Pattern CONTENT_DISPOSITION_FILE =
         Pattern.compile(".*filename=\"([^\\s;]*)\".*");
     private static final String TEXTPLAIN_REQUEST_TYPE = ", text/plain; q=0.1";
@@ -79,7 +81,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
                 .followSslRedirects(true).build());
     protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
     protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
-    private final IRI documentIRI;
+    private final String documentIRI;
     @Nullable
     private final OWLDocumentFormat format;
     @Nullable
@@ -104,25 +106,12 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
      * @param format ontology format. If null, it is considered unspecified
      * @param mime mime type. If null or empty, it is considered unspecified.
      */
-    protected OWLOntologyDocumentSourceBase(IRI iri, Streamer<InputStream> in,
+    protected OWLOntologyDocumentSourceBase(String iri, Streamer<InputStream> in,
         @Nullable OWLDocumentFormat format, @Nullable String mime) {
         this.format = format;
         mimeType = mime;
         documentIRI = checkNotNull(iri, "document iri cannot be null");
         inputStream = in;
-    }
-
-    /**
-     * Constructs an ontology input source using the specified file.
-     *
-     * @param iriPrefix document IRI prefix - used to generate a new IRI
-     * @param in input stream
-     * @param format ontology format. If null, it is considered unspecified
-     * @param mime mime type. If null or empty, it is considered unspecified.
-     */
-    protected OWLOntologyDocumentSourceBase(String iriPrefix, Streamer<InputStream> in,
-        @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        this(IRI.getNextDocumentIRI(iriPrefix), in, format, mime);
     }
 
     @Override
@@ -142,7 +131,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
             parametersAtLoading == null ? null : parametersAtLoading.getLoaderMetaData());
     }
 
-    private static InputStream getInputStreamFromContentEncoding(IRI iri, Response response)
+    private static InputStream getInputStreamFromContentEncoding(String iri, Response response)
         throws IOException {
         String encoding = response.header("Content-Encoding");
         InputStream in = response.body().byteStream();
@@ -160,7 +149,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
         }
         String fileName = getFileNameFromContentDisposition(response.header("Content-Disposition"));
         if (fileName == null) {
-            fileName = iri.toString();
+            fileName = iri;
         }
         if (fileName.endsWith(".gz")) {
             return new GZIPInputStream(in);
@@ -171,7 +160,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
         return handleZips(in, fileName);
     }
 
-    private static Response getResponse(IRI documentIRI, OntologyConfigurator config,
+    private static Response getResponse(String documentIRI, OntologyConfigurator config,
         String acceptHeaders) throws IOException, OWLOntologyInputSourceException {
         String actualAcceptHeaders = acceptHeaders;
         if (!acceptHeaders.contains("text/plain")) {
@@ -204,10 +193,10 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
      * @return Response for connection
      * @throws IOException if the connection fails
      */
-    private static Response getResponse(IRI documentIRI, int timeout, String acceptHeaders,
+    private static Response getResponse(String documentIRI, int timeout, String acceptHeaders,
         @Nullable String authorizationHeader) throws IOException {
-        Builder builder = new Request.Builder().url(documentIRI.toString())
-            .addHeader("Accept", acceptHeaders).addHeader("Accept-Encoding", "xz,gzip,deflate");
+        Builder builder = new Request.Builder().url(documentIRI).addHeader("Accept", acceptHeaders)
+            .addHeader("Accept-Encoding", "xz,gzip,deflate");
         if (authorizationHeader != null && !authorizationHeader.isEmpty()) {
             builder.addHeader("Authorization", authorizationHeader);
         }
@@ -257,8 +246,8 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
             }
         }
         if (!failedOnIRI.get()) {
-            if (documentIRI.isFileIRI()) {
-                try (InputStream is = new FileInputStream(new File(documentIRI.toURI()));
+            if (documentIRI.startsWith("file:")) {
+                try (InputStream is = new FileInputStream(new File(URI.create(documentIRI)));
                     InputStream accountForZips = handleZips(is, documentIRI);
                     InputStream in = new BufferedInputStream(accountForZips)) {
                     if (textual) {
@@ -271,7 +260,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
                     throw new OWLParserException(e);
                 }
             }
-            if (documentIRI.getNamespace().startsWith("jar:")) {
+            if (documentIRI.startsWith("jar:")) {
                 try (InputStream jarSource = streamFromJar().getInputStream();
                     InputStream in = new BufferedInputStream(jarSource)) {
                     if (textual) {
@@ -304,17 +293,17 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     }
 
     protected JarURLConnection streamFromJar() throws IOException, MalformedURLException {
-        return (JarURLConnection) new URL(documentIRI.toString()).openConnection();
+        return (JarURLConnection) new URL(documentIRI).openConnection();
     }
 
     @Override
     public boolean loadingCanBeAttempted(Collection<String> parsableSchemes) {
         return !stringContent.isEmpty() || !failedOnStreams.get()
-            || !failedOnIRI.get() && parsableSchemes.contains(documentIRI.getScheme());
+            || !failedOnIRI.get() && parsableSchemes.contains(XMLUtils.schema(documentIRI));
     }
 
     @Override
-    public final IRI getDocumentIRI() {
+    public String getDocumentIRI() {
         return documentIRI;
     }
 

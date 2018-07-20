@@ -139,7 +139,7 @@ public enum OWLXMLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     private final String prefixedName;
 
     OWLXMLVocabulary(String name) {
-        iri = IRI.create(Namespaces.OWL.toString(), name);
+        iri = VocabFactory.df.create(Namespaces.OWL.toString(), name);
         shortName = name;
         prefixedName = Namespaces.OWL.getPrefixName() + ':' + name;
     }

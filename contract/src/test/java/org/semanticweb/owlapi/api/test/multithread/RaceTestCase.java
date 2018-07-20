@@ -53,7 +53,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -130,8 +129,8 @@ public class RaceTestCase {
                 manager = OWLManager.createConcurrentOWLOntologyManager();
                 factory = manager.getOWLDataFactory();
                 ontology = manager.createOntology();
-                x = factory.getOWLClass(IRI.create(NS, "X"));
-                y = factory.getOWLClass(IRI.create(NS, "Y"));
+                x = factory.getOWLClass(factory.create(NS, "X"));
+                y = factory.getOWLClass(factory.create(NS, "Y"));
             }
 
             @Override
@@ -179,12 +178,12 @@ public class RaceTestCase {
 
             @Override
             public void race() {
-                asList(ontology.subClassAxiomsForSubClass(factory
-                                .getOWLClass(IRI.create("http://www.race.org#", "testclass"))));
+                asList(ontology.subClassAxiomsForSubClass(
+                    factory.getOWLClass(factory.create("http://www.race.org#", "testclass"))));
             }
 
             public OWLClass createMiddleClass(int i) {
-                return factory.getOWLClass(IRI.create(NS, "P" + i));
+                return factory.getOWLClass(factory.create(NS, "P" + i));
             }
         }
     }

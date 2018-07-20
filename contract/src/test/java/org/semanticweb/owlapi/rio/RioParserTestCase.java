@@ -12,7 +12,6 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
@@ -53,7 +52,7 @@ public class RioParserTestCase extends TestBase {
         // OWLOntology ontology = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager().createOntology(
         OWLOntology ontology = m1.createOntology(
-            IRI.create("http://protege.stanford.edu/plugins/owl/owl-library/", "koala.owl"));
+            df.create("http://protege.stanford.edu/plugins/owl/owl-library/", "koala.owl"));
         OWLDocumentFormat rioOntologyFormat =
             getStream("/koala.owl").acceptParser(rioParser, ontology, config);
         assertEquals(new RioRDFXMLDocumentFormat(), rioOntologyFormat);
@@ -78,7 +77,7 @@ public class RioParserTestCase extends TestBase {
         // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager()
         OWLOntology rioOntologyPrimer =
-            m1.createOntology(IRI.create("http://example.com/owl/", "families"));
+            m1.createOntology(df.create("http://example.com/owl/", "families"));
         OWLDocumentFormat rioOntologyFormat =
             getStream("/primer.rdfxml.xml").acceptParser(rioParser, rioOntologyPrimer, config);
         assertEquals(new RioRDFXMLDocumentFormat(), rioOntologyFormat);
@@ -120,7 +119,7 @@ public class RioParserTestCase extends TestBase {
         // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager().createOntology(
         OWLOntology rioOntologyPrimer =
-            m1.createOntology(IRI.create("http://example.com/owl/", "families"));
+            m1.createOntology(df.create("http://example.com/owl/", "families"));
         OWLDocumentFormat rioOntologyFormat = getStream("/rioParserTest1-minimal.rdf")
             .acceptParser(rioParser, rioOntologyPrimer, config);
         assertEquals(new RioRDFXMLDocumentFormat(), rioOntologyFormat);

@@ -129,7 +129,6 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -188,7 +187,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
@@ -209,7 +207,6 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
@@ -304,7 +301,7 @@ import org.semanticweb.owlapitools.builders.SettableRange;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-enum PARSER_OWLXMLVocabulary implements HasIRI {
+enum PARSER_OWLXMLVocabulary {
 //@formatter:off
     /** CLASS.                              */  PARSER_CLASS                               (CLASS                               , OWLClassEH::new),
     /** DATA_PROPERTY.                      */  PARSER_DATA_PROPERTY                       (DATA_PROPERTY                       , DataPropertyEH::new),
@@ -412,7 +409,6 @@ enum PARSER_OWLXMLVocabulary implements HasIRI {
     /** DESCRIPTION_GRAPH_RULE.             */  PARSER_DESCRIPTION_GRAPH_RULE              (DESCRIPTION_GRAPH_RULE              );
 //@formatter:on
 
-    private final IRI iri;
     private final String shortName;
     private final Supplier<OWLEH<?, ?>> create;
 
@@ -424,14 +420,8 @@ enum PARSER_OWLXMLVocabulary implements HasIRI {
     }
 
     PARSER_OWLXMLVocabulary(OWLXMLVocabulary name, Supplier<OWLEH<?, ?>> create) {
-        iri = IRI.create(Namespaces.OWL.toString(), name.getShortForm());
         shortName = name.getShortForm();
         this.create = create;
-    }
-
-    @Override
-    public IRI getIRI() {
-        return iri;
     }
 
     /**
@@ -499,7 +489,7 @@ abstract class OWLEH<O, B extends Builder<O>> {
             return handler.getIRI(value);
         }
         ensureAttributeNotNull(null, IRI_ATTRIBUTE.getShortForm());
-        return IRI.create("");
+        return df.create("");
     }
 
     IRI getIRIFromElement(String elementLocalName, String textContent) {
@@ -1221,7 +1211,7 @@ class DatatypeFacetEH extends OWLEH<OWLFacetRestriction, BuilderFacetRestriction
     @Override
     void attribute(String localName, String value) {
         if ("facet".equals(localName)) {
-            builder.withFacet(OWLFacet.getFacet(IRI.create(value)));
+            builder.withFacet(OWLFacet.getFacet(df.create(value)));
         }
     }
 }
@@ -2044,7 +2034,7 @@ class VariableEH extends OWLEH<SWRLVariable, BuilderSWRLVariable> {
     @Override
     void attribute(String localName, String value) {
         if (XMLUtils.isNCName(value)) {
-            builder.with(IRI.create("urn:swrl:var#", value));
+            builder.with(df.create("urn:swrl:var#", value));
         } else {
             builder.with(getIRIFromAttribute(localName, value));
         }
@@ -2063,12 +2053,12 @@ class OntologyEH extends OWLEH<OWLOntology, Builder<OWLOntology>> {
     void attribute(String localName, String value) {
         OWLOntology o = handler.getOntology();
         if ("ontologyIRI".equals(localName)) {
-            o.applyChange(new SetOntologyID(o, new OWLOntologyID(
-                Optional.ofNullable(IRI.create(value)), o.getOntologyID().getVersionIRI())));
+            o.applyChange(new SetOntologyID(o, df.getOWLOntologyID(
+                Optional.ofNullable(df.create(value)), o.getOntologyID().getVersionIRI())));
         }
         if ("versionIRI".equals(localName)) {
-            o.applyChange(new SetOntologyID(o, new OWLOntologyID(o.getOntologyID().getOntologyIRI(),
-                Optional.ofNullable(IRI.create(value)))));
+            o.applyChange(new SetOntologyID(o, df.getOWLOntologyID(
+                o.getOntologyID().getOntologyIRI(), Optional.ofNullable(df.create(value)))));
         }
     }
 

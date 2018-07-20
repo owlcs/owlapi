@@ -16,9 +16,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.Optional;
-
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
 import org.semanticweb.owlapi.krss1.parser.KRSSOWLParser;
@@ -31,7 +30,6 @@ import org.semanticweb.owlapi.metrics.ImportClosureSize;
 import org.semanticweb.owlapi.metrics.MaximumNumberOfNamedSuperclasses;
 import org.semanticweb.owlapi.metrics.NumberOfClassesWithMultipleInheritance;
 import org.semanticweb.owlapi.metrics.UnsatisfiableClassCountMetric;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
@@ -44,7 +42,7 @@ import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 @SuppressWarnings({"javadoc"})
-public class NamesTestCase {
+public class NamesTestCase extends TestBase {
 
     @Test
     public void shoudReturnRightName() throws OWLOntologyCreationException {
@@ -61,10 +59,9 @@ public class NamesTestCase {
             new RemoveImportData(mock(OWLImportsDeclaration.class)).getName());
         assertEquals("RemoveOntologyAnnotationData",
             new RemoveOntologyAnnotationData(mock(OWLAnnotation.class)).getName());
-        assertEquals("SetOntologyIDData",
-            new SetOntologyIDData(
-                new OWLOntologyID(Optional.ofNullable(IRI.create("urn:test#", "test1")),
-                    Optional.ofNullable(IRI.create("urn:test#", "test2")))).getName());
+        assertEquals("SetOntologyIDData", new SetOntologyIDData(
+            df.getOWLOntologyID(df.create("urn:test#", "test1"), df.create("urn:test#", "test2")))
+                .getName());
         assertEquals("KRSS2OWLParser", new KRSS2OWLParser().getName());
         assertEquals("KRSSOWLParser", new KRSSOWLParser().getName());
         assertEquals("OWLFunctionalSyntaxOWLParser", new OWLFunctionalSyntaxOWLParser().getName());

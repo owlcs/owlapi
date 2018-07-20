@@ -21,7 +21,6 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -297,7 +296,7 @@ public interface OWLOntologyManager
      */
     default OWLOntology createOntology() throws OWLOntologyCreationException {
         // Brand new ontology without a URI
-        return createOntology(new OWLOntologyID());
+        return createOntology(getOWLDataFactory().getOWLOntologyID());
     }
 
     /**
@@ -311,7 +310,8 @@ public interface OWLOntologyManager
      */
     default OWLOntology createOntology(Collection<OWLAxiom> axioms)
         throws OWLOntologyCreationException {
-        return createOntology(axioms, IRI.getNextDocumentIRI("urn:unnamed:ontology#ont"));
+        return createOntology(axioms,
+            getOWLDataFactory().getNextDocumentIRI("urn:unnamed:ontology#ont"));
     }
 
     /**
@@ -325,7 +325,8 @@ public interface OWLOntologyManager
      */
     default OWLOntology createOntology(Stream<OWLAxiom> axioms)
         throws OWLOntologyCreationException {
-        return createOntology(axioms, IRI.getNextDocumentIRI("urn:unnamed:ontology#ont"));
+        return createOntology(axioms,
+            getOWLDataFactory().getNextDocumentIRI("urn:unnamed:ontology#ont"));
     }
 
     /**
@@ -399,8 +400,7 @@ public interface OWLOntologyManager
      *         manager.
      */
     default OWLOntology createOntology(IRI ontologyIRI) throws OWLOntologyCreationException {
-        return createOntology(
-            new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.empty()));
+        return createOntology(getOWLDataFactory().getOWLOntologyID(ontologyIRI));
     }
 
     /**

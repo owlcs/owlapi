@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -20,19 +19,18 @@ public class ThreeLayersOfAnnotationsTestCase extends AbstractRoundTrippingTestC
         String oboInOwl = "urn:obo:";
         OWLOntology o;
         try {
-            o = m.createOntology(IRI.create("urn:nested:", "ontology"));
+            o = m.createOntology(df.create("urn:nested:", "ontology"));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
-        OWLClass dbxref = df.getOWLClass(IRI.create(oboInOwl, "DbXref"));
-        OWLClass definition = df.getOWLClass(IRI.create(oboInOwl, "Definition"));
-        OWLObjectProperty adjacent_to =
-                        df.getOWLObjectProperty(IRI.create(oboInOwl, "adjacent_to"));
+        OWLClass dbxref = df.getOWLClass(df.create(oboInOwl, "DbXref"));
+        OWLClass definition = df.getOWLClass(df.create(oboInOwl, "Definition"));
+        OWLObjectProperty adjacent_to = df.getOWLObjectProperty(df.create(oboInOwl, "adjacent_to"));
         OWLAnnotationProperty hasDefinition =
-                        df.getOWLAnnotationProperty(IRI.create(oboInOwl, "hasDefinition"));
+            df.getOWLAnnotationProperty(df.create(oboInOwl, "hasDefinition"));
         OWLAnnotationProperty hasdbxref =
-                        df.getOWLAnnotationProperty(IRI.create(oboInOwl, "hasDbXref"));
-        OWLDataProperty hasuri = df.getOWLDataProperty(IRI.create(oboInOwl, "hasURI"));
+            df.getOWLAnnotationProperty(df.create(oboInOwl, "hasDbXref"));
+        OWLDataProperty hasuri = df.getOWLDataProperty(df.create(oboInOwl, "hasURI"));
         OWLAnonymousIndividual ind1 = df.getOWLAnonymousIndividual();
         m.addAxiom(o, df.getOWLClassAssertionAxiom(dbxref, ind1));
         m.addAxiom(o, df.getOWLDataPropertyAssertionAxiom(hasuri, ind1,

@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * Represents the different types of OWL 2 data ranges.
@@ -23,42 +23,38 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public enum DataRangeType implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
     //@formatter:off
-    /** Represents {@link OWLDatatype}.             */ DATATYPE             ("Datatype"             ),
-    /** Represents {@link OWLDataOneOf}.            */ DATA_ONE_OF          ("DataOneOf"            ),
-    /** Represents {@link OWLDatatypeRestriction}.  */ DATATYPE_RESTRICTION ("DatatypeRestriction"  ),
-    /** Represents {@link OWLDataComplementOf}.     */ DATA_COMPLEMENT_OF   ("DataComplementOf"     ),
-    /** Represents {@link OWLDataUnionOf}.          */ DATA_UNION_OF        ("DataUnionOf"          ),
-    /** Represents {@link OWLDataIntersectionOf}.   */ DATA_INTERSECTION_OF ("DataIntersectionOf"   );
+    /** Represents {@link OWLDatatype}.             */ DATATYPE             (OWLRDFVocabulary.OWL_DATATYPE),
+    /** Represents {@link OWLDataOneOf}.            */ DATA_ONE_OF          (OWLRDFVocabulary.OWL_DataOneOf),
+    /** Represents {@link OWLDatatypeRestriction}.  */ DATATYPE_RESTRICTION (OWLRDFVocabulary.OWL_DatatypeRestriction),
+    /** Represents {@link OWLDataComplementOf}.     */ DATA_COMPLEMENT_OF   (OWLRDFVocabulary.OWL_DataComplementOf),
+    /** Represents {@link OWLDataUnionOf}.          */ DATA_UNION_OF        (OWLRDFVocabulary.OWL_DataUnionOf),
+    /** Represents {@link OWLDataIntersectionOf}.   */ DATA_INTERSECTION_OF (OWLRDFVocabulary.OWL_DataIntersectionOf);
     //@formatter:on
-    private final String name;
-    private final String prefixedName;
-    private final IRI iri;
+    private final OWLRDFVocabulary name;
 
-    DataRangeType(String name) {
+    DataRangeType(OWLRDFVocabulary name) {
         this.name = name;
-        prefixedName = Namespaces.OWL.getPrefixName() + ':' + name;
-        iri = IRI.create(Namespaces.OWL.getPrefixIRI(), name);
     }
 
     /**
      * @return the name
      */
     public String getName() {
-        return name;
+        return name.getShortForm();
     }
 
     @Override
     public String getShortForm() {
-        return name;
+        return name.getShortForm();
     }
 
     @Override
     public IRI getIRI() {
-        return iri;
+        return name.getIRI();
     }
 
     @Override
     public String getPrefixedName() {
-        return prefixedName;
+        return name.getPrefixedName();
     }
 }

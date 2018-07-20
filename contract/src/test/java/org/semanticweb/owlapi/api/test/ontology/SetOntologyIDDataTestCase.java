@@ -17,12 +17,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.Optional;
-
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.change.SetOntologyIDData;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
@@ -32,16 +30,15 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * @since 3.2.0
  */
 @SuppressWarnings({"javadoc"})
-public class SetOntologyIDDataTestCase {
+public class SetOntologyIDDataTestCase extends TestBase {
 
     private final OWLOntology mockOntology = mock(OWLOntology.class);
-    private final OWLOntologyID mockOntologyID = new OWLOntologyID();
+    private final OWLOntologyID mockOntologyID = df.getOWLOntologyID();
 
     @Before
     public void setUp() {
-        when(mockOntology.getOntologyID())
-            .thenReturn(new OWLOntologyID(Optional.ofNullable(IRI.create("urn:test:", "onto1")),
-                Optional.ofNullable(IRI.create("urn:test:", "onto1_1"))));
+        when(mockOntology.getOntologyID()).thenReturn(df
+            .getOWLOntologyID(df.create("urn:test:", "onto1"), df.create("urn:test:", "onto1_1")));
     }
 
     private SetOntologyIDData createData() {

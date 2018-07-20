@@ -6,21 +6,20 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Optional;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
 @SuppressWarnings("javadoc")
-public class OWLOntologyChangeRecordTest {
+public class OWLOntologyChangeRecordTest extends TestBase {
 
     @Test
     public void testSerializeChangeRecord() throws Exception {
-        OWLOntologyID id1 = new OWLOntologyID(Optional.ofNullable(IRI.create("urn:test#", "a")),
-            Optional.ofNullable(IRI.create("urn:test#", "v1")));
-        OWLOntologyID id2 = new OWLOntologyID(Optional.ofNullable(IRI.create("urn:test#", "a")),
-            Optional.ofNullable(IRI.create("urn:test#", "v2")));
+        OWLOntologyID id1 =
+            df.getOWLOntologyID(df.create("urn:test#", "a"), df.create("urn:test#", "v1"));
+        OWLOntologyID id2 =
+            df.getOWLOntologyID(df.create("urn:test#", "a"), df.create("urn:test#", "v2"));
         OWLOntologyChangeRecord idChangeRecord =
             new OWLOntologyChangeRecord(id1, new SetOntologyIDData(id2));
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

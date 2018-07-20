@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.profiles.violations;
 import java.util.List;
 import java.util.Optional;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -60,8 +59,7 @@ public class OntologyVersionIRINotAbsolute extends OWLProfileViolation {
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary choice
         return list(new SetOntologyID(ontology,
-            new OWLOntologyID(
-                Optional.ofNullable(IRI.create("urn:profilesrepair:ontology#", "replaced")),
-                Optional.ofNullable(IRI.create("urn:profilesrepair:ontology#", "replaced1")))));
+            df.getOWLOntologyID(df.create("urn:profilesrepair:ontology#", "replaced"),
+                df.create("urn:profilesrepair:ontology#", "replaced1"))));
     }
 }

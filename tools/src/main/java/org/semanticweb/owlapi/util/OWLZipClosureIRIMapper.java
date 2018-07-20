@@ -17,6 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -32,12 +33,14 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
     private static final Pattern CATALOG_PATTERN = Pattern.compile("catalog[\\-v0-9]*\\.xml");
     private List<IRI> physicalRoots = new ArrayList<>();
     private Map<IRI, IRI> logicalToPhysicalIRI = new ConcurrentHashMap<>();
+    private OWLDataFactory df;
 
     /**
      * @param f zip file
      * @throws IOException thrown if access to the file is impossible
      */
-    public OWLZipClosureIRIMapper(File f) throws IOException {
+    public OWLZipClosureIRIMapper(File f, OWLDataFactory df) throws IOException {
+        this.df = df;
         String basePhysicalIRI = "jar:" + f.toURI() + "!/";
         try (ZipFile z = new ZipFile(f)) {
             // owlzip.yaml index
@@ -55,9 +58,9 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
             // no index: look up root.owl for root ontologies, others imported as usual
             ZipEntry root = z.getEntry("root.owl");
             if (root != null) {
-                physicalRoots.add(IRI.create(basePhysicalIRI + "root.owl"));
+                physicalRoots.add(df.create(basePhysicalIRI + "root.owl"));
             }
-            ZipIRIMapper mapper = new ZipIRIMapper(z, basePhysicalIRI);
+            ZipIRIMapper mapper = new ZipIRIMapper(z, basePhysicalIRI, df);
             mapper.iriMappings().forEach(e -> logicalToPhysicalIRI.put(e.getKey(), e.getValue()));
             // TODO OBO compressed files are not mapped according to the ontology IRI
             // but according to the file name in AutoIRIMapper and ZipIRIMapper. This needs
@@ -70,9 +73,9 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
         if (load == null) {
             return false;
         }
-        load.roots().forEach(e -> physicalRoots.add(IRI.create(basePhysicalIRI + e.path())));
-        load.entries().forEach(e -> logicalToPhysicalIRI.put(e.id().getOntologyIRI().get(),
-            IRI.create(basePhysicalIRI + e.path())));
+        load.roots().forEach(e -> physicalRoots.add(df.create(basePhysicalIRI + e.path())));
+        load.entries().forEach(e -> logicalToPhysicalIRI.put(e.id(df).getOntologyIRI().get(),
+            df.create(basePhysicalIRI + e.path())));
         return true;
     }
 
@@ -104,13 +107,13 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
                 // Duplicate entries are unsupported; entries whose name starts with duplicate: will
                 // cause mismatches
                 Element e = (Element) uris.item(i);
-                IRI physicalIRI = IRI.create(basePhysicalIRI + e.getAttribute("uri"));
+                IRI physicalIRI = df.create(basePhysicalIRI + e.getAttribute("uri"));
                 physicalRoots.add(physicalIRI);
                 String name = e.getAttribute("name");
                 if (name.startsWith("duplicate:")) {
                     name = name.replace("duplicate:", "");
                 }
-                logicalToPhysicalIRI.put(IRI.create(name), physicalIRI);
+                logicalToPhysicalIRI.put(df.create(name), physicalIRI);
             }
             return true;
         } catch (SAXException | ParserConfigurationException e1) {
@@ -130,11 +133,11 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
         for (String s : roots) {
             String name = s.trim();
             if (!name.isEmpty()) {
-                physicalRoots.add(IRI.create(basePhysicalIRI + name.trim()));
+                physicalRoots.add(df.create(basePhysicalIRI + name.trim()));
             }
             p.entrySet().stream().filter(e -> !e.getKey().equals("roots"))
-                .forEach(e -> logicalToPhysicalIRI.put(IRI.create(e.getValue().toString()),
-                    IRI.create(basePhysicalIRI + e.getKey())));
+                .forEach(e -> logicalToPhysicalIRI.put(df.create(e.getValue().toString()),
+                    df.create(basePhysicalIRI + e.getKey())));
         }
         return true;
     }

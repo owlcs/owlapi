@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,13 +21,13 @@ public class OWLXMLTestCase extends TestBase {
 
     @Test
     public void shouldFindExpectedAxiomsForBlankNodes() throws OWLOntologyCreationException {
-        OWLObjectProperty r = ObjectProperty(IRI.create(
-                        "http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
-        OWLOntology o = m.loadOntologyFromOntologyDocument(
-                        new File(RESOURCES, "owlxml_anonloop.owx"));
+        OWLObjectProperty r = ObjectProperty(
+            df.create("http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
+        OWLOntology o =
+            m.loadOntologyFromOntologyDocument(new File(RESOURCES, "owlxml_anonloop.owx"));
         o.axioms(AxiomType.CLASS_ASSERTION).forEach(ax -> {
-            OWLAxiom expected = df.getOWLObjectPropertyAssertionAxiom(r, ax.getIndividual(),
-                            ax.getIndividual());
+            OWLAxiom expected =
+                df.getOWLObjectPropertyAssertionAxiom(r, ax.getIndividual(), ax.getIndividual());
             assertTrue(expected + " not found", o.containsAxiom(expected));
         });
     }
@@ -48,12 +47,10 @@ public class OWLXMLTestCase extends TestBase {
                         + "    <Prefix name=\"xml\" IRI=\"http://www.w3.org/XML/1998/namespace\"/>\n"
                         + "    <Prefix name=\"xsd\" IRI=\"http://www.w3.org/2001/XMLSchema#\"/>\n"
                         + "    <Prefix name=\"rdfs\" IRI=\"http://www.w3.org/2000/01/rdf-schema#\"/>\n"
-                        + "    <DLSafeRule>\n" + "        <Body>\n"
-                        + "            <SameIndividualAtom>\n"
-                        + "                <Variable IRI=\"x\"/>\n"
-                        + "                <Variable IRI=\"y\"/>\n"
-                        + "            </SameIndividualAtom>\n" + "        </Body>\n"
-                        + "        <Head/>\n" + "    </DLSafeRule>\n" + "</Ontology>";
+            + "    <DLSafeRule>\n" + "        <Body>\n" + "            <SameIndividualAtom>\n"
+            + "                <Variable IRI=\"x\"/>\n" + "                <Variable IRI=\"y\"/>\n"
+            + "            </SameIndividualAtom>\n" + "        </Body>\n" + "        <Head/>\n"
+            + "    </DLSafeRule>\n" + "</Ontology>";
         OWLOntology o = loadOntologyFromString(in, new OWLXMLDocumentFormat());
         o.axioms(AxiomType.SWRL_RULE).forEach(r -> assertEquals(
                         "DLSafeRule( Body(SameAsAtom(Variable(<urn:swrl:var#x>) Variable(<urn:swrl:var#y>))) Head() )",

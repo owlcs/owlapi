@@ -225,7 +225,7 @@ public class BuildersTestCase<Q> {
     protected static @Nonnull OWLObjectProperty op = df.getOWLObjectProperty("urn:test#", "op");
     protected static @Nonnull OWLDataProperty dp = df.getOWLDataProperty("urn:test#", "dp");
     protected static @Nonnull OWLLiteral lit = df.getOWLLiteral(false);
-    protected static @Nonnull IRI iri = IRI.create("urn:test#", "iri");
+    protected static @Nonnull IRI iri = df.create("urn:test#", "iri");
     protected static @Nonnull Set<OWLAnnotation> anns =
         new HashSet<>(Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral("test"))));
     protected static @Nonnull OWLClass ce = df.getOWLClass("urn:test#", "c");
@@ -241,10 +241,10 @@ public class BuildersTestCase<Q> {
         new HashSet<>(Arrays.asList(i, df.getOWLNamedIndividual(iri)));
     protected static @Nonnull SWRLDArgument var1 = df.getSWRLVariable("urn:test#", "var1");
     protected static @Nonnull SWRLIArgument var2 = df.getSWRLVariable("urn:test#", "var2");
-    protected static @Nonnull SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create("urn:test#", "v1"),
+    protected static @Nonnull SWRLAtom v1 = df.getSWRLBuiltInAtom(df.create("urn:test#", "v1"),
         Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:test#", "var3"),
             df.getSWRLVariable("urn:test#", "var4")));
-    protected static @Nonnull SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create("urn:test#", "v2"),
+    protected static @Nonnull SWRLAtom v2 = df.getSWRLBuiltInAtom(df.create("urn:test#", "v2"),
         Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:test#", "var5"),
             df.getSWRLVariable("urn:test#", "var6")));
     protected static @Nonnull Set<SWRLAtom> body = new HashSet<>(Arrays.asList(v1));

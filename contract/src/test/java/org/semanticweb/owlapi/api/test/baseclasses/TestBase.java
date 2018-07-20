@@ -395,7 +395,7 @@ public abstract class TestBase {
 
     public OWLOntology getOWLOntology() {
         try {
-            return m.createOntology(IRI.getNextDocumentIRI(uriBase));
+            return m.createOntology(df.getNextDocumentIRI(uriBase));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -488,7 +488,8 @@ public abstract class TestBase {
     // }
     // }
     protected OWLOntology loadOntologyFromString(String input, IRI i, OWLDocumentFormat f) {
-        StringDocumentSource documentSource = new StringDocumentSource(input, i, f, null);
+        StringDocumentSource documentSource =
+            new StringDocumentSource(input, i.toString(), f, null);
         try {
             return setupManager().loadOntologyFromOntologyDocument(documentSource);
         } catch (OWLOntologyCreationException e) {
@@ -498,7 +499,7 @@ public abstract class TestBase {
 
     protected OWLOntology loadOntologyFromString(String input, OWLDocumentFormat f) {
         StringDocumentSource documentSource =
-            new StringDocumentSource(input, IRI.generateDocumentIRI(), f, null);
+            new StringDocumentSource(input, "uri:owlapi:ontology", f, null);
         try {
             return setupManager().loadOntologyFromOntologyDocument(documentSource);
         } catch (OWLOntologyCreationException e) {

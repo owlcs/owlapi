@@ -22,12 +22,13 @@ import java.util.Map;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
 @SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
-public class VisitorsTestCase {
+public class VisitorsTestCase extends TestBase {
 
     private final OWLObject object;
     private final String expected;

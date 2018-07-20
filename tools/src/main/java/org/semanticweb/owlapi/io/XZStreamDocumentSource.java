@@ -19,7 +19,6 @@ import java.io.InputStream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.tukaani.xz.XZInputStream;
 
@@ -38,7 +37,7 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param is The stream that the ontology representation will be read from.
      */
     public XZStreamDocumentSource(InputStream is) {
-        this(is, IRI.getNextDocumentIRI("xzinputstream:ontology"), null, null);
+        this(is, "xzinputstream:ontology:iri" + IRICounter.getAndIncrement(), null, null);
     }
 
     /**
@@ -50,7 +49,7 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param format ontology format
      * @param mime mime type
      */
-    public XZStreamDocumentSource(InputStream stream, IRI documentIRI,
+    public XZStreamDocumentSource(InputStream stream, String documentIRI,
         @Nullable OWLDocumentFormat format, @Nullable String mime) {
         super(documentIRI, () -> new XZInputStream(new ByteArrayInputStream(toByteArray(stream))),
             format, mime);

@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings({"javadoc", "null"})
 public class RioRendererTestCase extends TestBase {
 
-    private final @Nonnull IRI testOntologyUri1 = IRI.create("urn:test:ontology:uri:1", "");
+    private final @Nonnull IRI testOntologyUri1 = df.create("urn:test:ontology:uri:1", "");
     private SimpleValueFactory vf;
     private @Nonnull OWLOntology testOntologyEmpty;
     private @Nonnull OWLOntology testOntologyKoala;

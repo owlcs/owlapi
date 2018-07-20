@@ -110,6 +110,7 @@ public final class ToStringRenderer {
         try {
             ServiceLoader.load(OWLObjectRenderer.class).forEach(r);
         } catch (ServiceConfigurationError e) {
+            e.printStackTrace();
             logger.debug("ServiceLoading: ", e);
         }
         // in OSGi, the context class loader is likely null.

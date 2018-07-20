@@ -15,7 +15,6 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -38,8 +37,8 @@ public class UndeclaredAnnotationTestCase extends TestBase {
             + "    <owl:Ontology rdf:about=\"http://www.org/\"/>\n"
             + "    <rdf:Description rdf:about=\"&ns;test\"><ns:rel><rdf:Description ns:pred =\"Not visible\"/></ns:rel></rdf:Description>\n"
             + "</rdf:RDF>";
-        StringDocumentSource documentSource = new StringDocumentSource(input,
-            IRI.generateDocumentIRI(), new RDFXMLDocumentFormat(), null);
+        StringDocumentSource documentSource = new StringDocumentSource(input, "uri:owlapi:ontology",
+            new RDFXMLDocumentFormat(), null);
         OWLOntology oo = loadOntologyFromString(documentSource);
         assertTrue(documentSource.getOntologyLoaderMetaData().isPresent());
         assertEquals("Should have no unparsed triples", 0,
@@ -57,7 +56,7 @@ public class UndeclaredAnnotationTestCase extends TestBase {
         @Nonnull
         OWLAnonymousIndividual anonymousIndividual = anonymousIndividualSet.iterator().next();
         OWLAnnotationAssertionAxiom relAx = df.getOWLAnnotationAssertionAxiom(relProperty,
-            IRI.create("http://example.com/ns#", "test"), anonymousIndividual);
+            df.create("http://example.com/ns#", "test"), anonymousIndividual);
         OWLLiteral notVisible = df.getOWLLiteral("Not visible", "");
         OWLAnnotationAssertionAxiom predAx =
             df.getOWLAnnotationAssertionAxiom(predProperty, anonymousIndividual, notVisible);

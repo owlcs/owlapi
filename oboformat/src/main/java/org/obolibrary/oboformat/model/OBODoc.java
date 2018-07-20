@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.model.Frame.FrameType;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 
 /**
  * An OBODoc is a container for a header frame and zero or more entity frames.
@@ -122,7 +122,7 @@ public class OBODoc {
     public void freezeFrames() {
         verifyNotNull(headerFrame,
             "headerFrame cannot be null at this stage. Setting the headr frame has been skipped")
-            .freeze();
+                .freeze();
         freezeFrameMap(termFrameMap);
         freezeFrameMap(typedefFrameMap);
         freezeFrameMap(instanceFrameMap);

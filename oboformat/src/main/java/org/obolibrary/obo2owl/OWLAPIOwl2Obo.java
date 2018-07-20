@@ -27,15 +27,12 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.Frame.FrameType;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.model.Xref;
-import org.obolibrary.oboformat.parser.OBOFormatConstants;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -90,7 +87,11 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.Obo2OWLConstants;
+import org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -270,7 +271,7 @@ public class OWLAPIOwl2Obo {
                 isDeprecated = true;
             } else if (Obo2OWLConstants.IRI_IAO_0000231.equals(prop.getIRI())) {
                 isMerged = handleIAO227(isMerged, unrelatedAxioms, axiom);
-            } else if (Obo2OWLVocabulary.IRI_IAO_0100001.iri.equals(prop.getIRI())) {
+            } else if (Obo2OWLVocabulary.IRI_IAO_0100001.getIRI().equals(prop.getIRI())) {
                 replacedBy = handleIAO10001(replacedBy, unrelatedAxioms, axiom);
             } else {
                 unrelatedAxioms.add(axiom);
@@ -1282,8 +1283,8 @@ public class OWLAPIOwl2Obo {
             // use the property_value tag
             return trGenericPropertyValue(prop, annVal, qualifiers.stream(), frame);
         }
-        String value = getValue(annVal, tagString);
-        if (!value.trim().isEmpty()) {
+        Object value = getValue(annVal, tagString);
+        if (!value.toString().trim().isEmpty()) {
             if (tag == OboFormatTag.TAG_ID) {
                 if (!value.equals(frame.getId())) {
                     warn("Conflicting id definitions: 1) " + frame.getId() + "  2)" + value);
@@ -1294,7 +1295,8 @@ public class OWLAPIOwl2Obo {
             Clause clause = new Clause(tag);
             if (tag == OboFormatTag.TAG_DATE) {
                 try {
-                    clause.addValue(OBOFormatConstants.headerDateFormat().parseObject(value));
+                    clause.addValue(
+                        OBOFormatConstants.headerDateFormat().parseObject(value.toString()));
                 } catch (@SuppressWarnings("unused") ParseException e) {
                     error("Could not parse date string: " + value, true);
                     return false;
@@ -1320,7 +1322,7 @@ public class OWLAPIOwl2Obo {
                     }
                 }
             } else if (tag == OboFormatTag.TAG_XREF) {
-                Xref xref = new Xref(value);
+                Xref xref = new Xref(value.toString());
                 for (OWLAnnotation annotation : qualifiers) {
                     if (df.getRDFSLabel().equals(annotation.getProperty())) {
                         OWLAnnotationValue owlAnnotationValue = annotation.getValue();
@@ -1362,7 +1364,7 @@ public class OWLAPIOwl2Obo {
     }
 
     private boolean isMetadataTag(OWLAnnotationProperty p) {
-        final IRI metadataTagIRI = IRI.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX,
+        final IRI metadataTagIRI = df.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX,
             OboFormatTag.TAG_IS_METADATA_TAG.getTag());
         return owlOntology.annotationAssertionAxioms(p.getIRI())
             .anyMatch(ax -> metadataTagIRI.equals(ax.getProperty().getIRI()));
@@ -1468,23 +1470,26 @@ public class OWLAPIOwl2Obo {
      * @param tag the tag
      * @return the value
      */
-    protected String getValue(OWLAnnotationValue annVal, @Nullable String tag) {
-        String value = annVal.toString();
+    protected Object getValue(OWLAnnotationValue annVal, @Nullable String tag) {
+        Object value = annVal.toString();
         if (annVal instanceof OWLLiteral) {
-            value = ((OWLLiteral) annVal).getLiteral();
+            OWLLiteral l = (OWLLiteral) annVal;
+            value = l.isBoolean() ? Boolean.valueOf(l.parseBoolean()) : l.getLiteral();
         } else if (annVal.isIRI()) {
             value = getIdentifier((IRI) annVal);
         }
         if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(tag)) {
-            Matcher matcher = absoluteURLPattern.matcher(value);
+            String s = value.toString();
+            Matcher matcher = absoluteURLPattern.matcher(s);
             while (matcher.find()) {
                 String m = matcher.group();
                 m = m.replace("<", "");
                 m = m.replace(">", "");
                 int i = m.lastIndexOf('/');
                 m = m.substring(i + 1);
-                value = value.replace(matcher.group(), m);
+                s = s.replace(matcher.group(), m);
             }
+            value = s;
         }
         return value;
     }
@@ -1515,7 +1520,7 @@ public class OWLAPIOwl2Obo {
             String tagString = owlObjectToTag(property);
             if (OboFormatTag.TAG_COMMENT.getTag().equals(tagString)) {
                 property = df.getOWLAnnotationProperty(
-                    OWLAPIObo2Owl.trTagToIRI(OboFormatTag.TAG_REMARK.getTag()));
+                    OWLAPIObo2Owl.trTagToIRI(OboFormatTag.TAG_REMARK.getTag(), df));
             }
             tr(property, ann.getValue(), asList(ann.annotations()), f);
         }

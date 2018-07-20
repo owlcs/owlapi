@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * Represents the different types of OWL 2 class expressions.
@@ -24,59 +24,55 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public enum ClassExpressionType implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
     //@formatter:off
-    /** Represents {@link OWLClass}.                    */  OWL_CLASS               ("Class"                 ),
-    /** Represents {@link OWLObjectSomeValuesFrom}.     */  OBJECT_SOME_VALUES_FROM ("ObjectSomeValuesFrom"  ),
-    /** Represents {@link OWLObjectAllValuesFrom}.      */  OBJECT_ALL_VALUES_FROM  ("ObjectAllValuesFrom"   ),
-    /** Represents {@link OWLObjectMinCardinality}.     */  OBJECT_MIN_CARDINALITY  ("ObjectMinCardinality"  ),
-    /** Represents {@link OWLObjectMaxCardinality}.     */  OBJECT_MAX_CARDINALITY  ("ObjectMaxCardinality"  ),
-    /** Represents {@link OWLObjectExactCardinality}.   */  OBJECT_EXACT_CARDINALITY("ObjectExactCardinality"),
-    /** Represents {@link OWLObjectHasValue}.           */  OBJECT_HAS_VALUE        ("ObjectHasValue"        ),
-    /** Represents {@link OWLObjectHasSelf}.            */  OBJECT_HAS_SELF         ("ObjectHasSelf"         ),
-    /** Represents {@link OWLDataSomeValuesFrom}.       */  DATA_SOME_VALUES_FROM   ("DataSomeValuesFrom"    ),
-    /** Represents {@link OWLDataAllValuesFrom}.        */  DATA_ALL_VALUES_FROM    ("DataAllValuesFrom"     ),
-    /** Represents {@link OWLDataMinCardinality}.       */  DATA_MIN_CARDINALITY    ("DataMinCardinality"    ),
-    /** Represents {@link OWLDataMaxCardinality}.       */  DATA_MAX_CARDINALITY    ("DataMaxCardinality"    ),
-    /** Represents {@link OWLDataExactCardinality}.     */  DATA_EXACT_CARDINALITY  ("DataExactCardinality"  ),
-    /** Represents {@link OWLDataHasValue}.             */  DATA_HAS_VALUE          ("DataHasValue"          ),
-    /** Represents {@link OWLObjectIntersectionOf}.     */  OBJECT_INTERSECTION_OF  ("ObjectIntersectionOf"  ),
-    /** Represents {@link OWLObjectUnionOf}.            */  OBJECT_UNION_OF         ("ObjectUnionOf"         ),
-    /** Represents {@link OWLObjectComplementOf}.       */  OBJECT_COMPLEMENT_OF    ("ObjectComplementOf"    ),
-    /** Represents {@link OWLObjectComplementOf}.       */  OBJECT_ONE_OF           ("ObjectOneOf"           );
+    /** Represents {@link OWLClass}.                    */  OWL_CLASS               (OWLRDFVocabulary.OWL_CLASS                 ),
+    /** Represents {@link OWLObjectSomeValuesFrom}.     */  OBJECT_SOME_VALUES_FROM (OWLRDFVocabulary.OWL_ObjectSomeValuesFrom  ),
+    /** Represents {@link OWLObjectAllValuesFrom}.      */  OBJECT_ALL_VALUES_FROM  (OWLRDFVocabulary.OWL_ObjectAllValuesFrom   ),
+    /** Represents {@link OWLObjectMinCardinality}.     */  OBJECT_MIN_CARDINALITY  (OWLRDFVocabulary.OWL_ObjectMinCardinality  ),
+    /** Represents {@link OWLObjectMaxCardinality}.     */  OBJECT_MAX_CARDINALITY  (OWLRDFVocabulary.OWL_ObjectMaxCardinality  ),
+    /** Represents {@link OWLObjectExactCardinality}.   */  OBJECT_EXACT_CARDINALITY(OWLRDFVocabulary.OWL_ObjectExactCardinality),
+    /** Represents {@link OWLObjectHasValue}.           */  OBJECT_HAS_VALUE        (OWLRDFVocabulary.OWL_ObjectHasValue        ),
+    /** Represents {@link OWLObjectHasSelf}.            */  OBJECT_HAS_SELF         (OWLRDFVocabulary.OWL_ObjectHasSelf         ),
+    /** Represents {@link OWLDataSomeValuesFrom}.       */  DATA_SOME_VALUES_FROM   (OWLRDFVocabulary.OWL_DataSomeValuesFrom    ),
+    /** Represents {@link OWLDataAllValuesFrom}.        */  DATA_ALL_VALUES_FROM    (OWLRDFVocabulary.OWL_DataAllValuesFrom     ),
+    /** Represents {@link OWLDataMinCardinality}.       */  DATA_MIN_CARDINALITY    (OWLRDFVocabulary.OWL_DataMinCardinality    ),
+    /** Represents {@link OWLDataMaxCardinality}.       */  DATA_MAX_CARDINALITY    (OWLRDFVocabulary.OWL_DataMaxCardinality    ),
+    /** Represents {@link OWLDataExactCardinality}.     */  DATA_EXACT_CARDINALITY  (OWLRDFVocabulary.OWL_DataExactCardinality  ),
+    /** Represents {@link OWLDataHasValue}.             */  DATA_HAS_VALUE          (OWLRDFVocabulary.OWL_DataHasValue          ),
+    /** Represents {@link OWLObjectIntersectionOf}.     */  OBJECT_INTERSECTION_OF  (OWLRDFVocabulary.OWL_ObjectIntersectionOf  ),
+    /** Represents {@link OWLObjectUnionOf}.            */  OBJECT_UNION_OF         (OWLRDFVocabulary.OWL_ObjectUnionOf         ),
+    /** Represents {@link OWLObjectComplementOf}.       */  OBJECT_COMPLEMENT_OF    (OWLRDFVocabulary.OWL_ObjectComplementOf    ),
+    /** Represents {@link OWLObjectComplementOf}.       */  OBJECT_ONE_OF           (OWLRDFVocabulary.OWL_ObjectOneOf           );
     //@formatter:on
-    private final String name;
-    private final String prefixedName;
-    private final IRI iri;
+    private final OWLRDFVocabulary v;
 
-    ClassExpressionType(String name) {
-        this.name = name;
-        prefixedName = Namespaces.OWL.getPrefixName() + ':' + name;
-        iri = IRI.create(Namespaces.OWL.getPrefixIRI(), name);
+    ClassExpressionType(OWLRDFVocabulary name) {
+        v = name;
     }
 
     /**
      * @return the name
      */
     public String getName() {
-        return name;
+        return v.getShortForm();
     }
 
     @Override
     public String toString() {
-        return name;
+        return getName();
     }
 
     @Override
     public String getShortForm() {
-        return name;
+        return getName();
     }
 
     @Override
     public IRI getIRI() {
-        return iri;
+        return v.getIRI();
     }
 
     @Override
     public String getPrefixedName() {
-        return prefixedName;
+        return v.getPrefixedName();
     }
 }

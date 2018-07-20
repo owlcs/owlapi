@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-
 import java.io.Serializable;
 
 import javax.annotation.Nullable;
@@ -28,7 +26,6 @@ import org.semanticweb.owlapi.model.PrefixManager;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 5.0.0
  */
-@FunctionalInterface
 public interface DatatypeProvider extends Serializable {
 
     /**
@@ -56,9 +53,7 @@ public interface DatatypeProvider extends Serializable {
      * @param iri The IRI.
      * @return An {@link OWLDatatype} that has the specified IRI.
      */
-    default OWLDatatype getOWLDatatype(String iri) {
-        return getOWLDatatype(IRI.create(iri));
-    }
+    OWLDatatype getOWLDatatype(String iri);
 
     /**
      * Gets an instance of {@link OWLDatatype} that has the specified {@code IRI}. This is the same
@@ -68,9 +63,7 @@ public interface DatatypeProvider extends Serializable {
      * @param remainder optional reminder or local name
      * @return An {@link OWLDatatype} that has the specified IRI.
      */
-    default OWLDatatype getOWLDatatype(String namespace, @Nullable String remainder) {
-        return getOWLDatatype(IRI.create(namespace, remainder));
-    }
+    OWLDatatype getOWLDatatype(String namespace, @Nullable String remainder);
 
     /**
      * Gets an OWLDatatype that has an IRI that is obtained by expanding an abbreviated name using
@@ -79,21 +72,18 @@ public interface DatatypeProvider extends Serializable {
      * Specification</a> for more details.
      *
      * @param abbreviatedIRI The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
-     * PREFIX_NAME may be the empty string (the default prefix). Note that abbreviated IRIs always
-     * contain a colon as a delimiter, even if the prefix name is the empty string.
+     *        PREFIX_NAME may be the empty string (the default prefix). Note that abbreviated IRIs
+     *        always contain a colon as a delimiter, even if the prefix name is the empty string.
      * @param prefixManager The prefix manager that is responsible for mapping prefix names to
      * prefix IRIs.
      * @return An OWLDatatype that has the IRI obtained by expanding the specified abbreviated IRI
-     * using the specified prefix manager. <br> For example, suppose "m:Cat" was specified as the
-     * abbreviated IRI, the prefix manager would be used to obtain the IRI prefix for the "m:"
-     * prefix name, this prefix would then be concatenated with "Cat" to obtain the full IRI which
-     * would be the IRI of the OWLDatatype obtained by this method.
+     *         using the specified prefix manager. <br>
+     *         For example, suppose "m:Cat" was specified as the abbreviated IRI, the prefix manager
+     *         would be used to obtain the IRI prefix for the "m:" prefix name, this prefix would
+     *         then be concatenated with "Cat" to obtain the full IRI which would be the IRI of the
+     *         OWLDatatype obtained by this method.
      * @throws OWLRuntimeException if the prefix name in the specified abbreviated IRI does not have
      * a mapping to a prefix in the specified prefix manager.
      */
-    default OWLDatatype getOWLDatatype(String abbreviatedIRI, PrefixManager prefixManager) {
-        checkNotNull(abbreviatedIRI, "abbreviatedIRI cannot be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
-        return getOWLDatatype(prefixManager.getIRI(abbreviatedIRI));
-    }
+    OWLDatatype getOWLDatatype(String abbreviatedIRI, PrefixManager prefixManager);
 }

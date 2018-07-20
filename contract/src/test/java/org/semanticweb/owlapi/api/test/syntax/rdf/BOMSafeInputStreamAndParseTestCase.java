@@ -13,8 +13,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.ReaderDocumentSource;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
@@ -23,18 +24,18 @@ public class BOMSafeInputStreamAndParseTestCase extends TestBase {
 
     @Parameters
     public static Collection<String> data() {
+        OWLDataFactory f = OWLManager.getOWLDataFactory();
         return Arrays.asList("<Ontology xml:base=\""
-                        + IRI.getNextDocumentIRI("http://www.example.org/ISA14#o")
+            + f.getNextDocumentIRI("http://www.example.org/ISA14#o")
                         + "\" ontologyIRI=\"http://www.example.org/ISA14#\"> <Declaration><Class IRI=\"Researcher\"/></Declaration></Ontology>",
-                        "Ontology: <" + IRI.getNextDocumentIRI("http://www.example.org/ISA14#o")
+            "Ontology: <" + f.getNextDocumentIRI("http://www.example.org/ISA14#o")
                                         + ">\nClass: <http://www.example.org/ISA14#Researcher>",
-                        "Ontology(<" + IRI.getNextDocumentIRI("http://www.example.org/ISA14#o")
+            "Ontology(<" + f.getNextDocumentIRI("http://www.example.org/ISA14#o")
                                         + ">\nDeclaration(Class(<http://www.example.org/ISA14#Researcher>)))",
                         "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n<"
-                                        + IRI.getNextDocumentIRI("http://www.example.org/ISA14#o")
+                + f.getNextDocumentIRI("http://www.example.org/ISA14#o")
                                         + "> rdf:type owl:Ontology .\n<http://www.example.org/ISA14#Researcher> rdf:type owl:Class .",
-                        "<rdf:RDF xml:base=\""
-                                        + IRI.getNextDocumentIRI("http://www.example.org/ISA14#o")
+            "<rdf:RDF xml:base=\"" + f.getNextDocumentIRI("http://www.example.org/ISA14#o")
                                         + "\" xmlns:owl =\"http://www.w3.org/2002/07/owl#\" xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" ><owl:Ontology rdf:about=\"#\" /><owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/></rdf:RDF>");
     }
 

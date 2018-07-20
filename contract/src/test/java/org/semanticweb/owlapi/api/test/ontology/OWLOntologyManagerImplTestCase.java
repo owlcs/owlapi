@@ -49,15 +49,15 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
 
     @Before
     public void setUpManager() {
-        manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl(),
-                        new ReentrantReadWriteLock());
+        manager =
+            new OWLOntologyManagerImpl(new OWLDataFactoryImpl(), new ReentrantReadWriteLock());
         manager.getOntologyFactories()
                         .add(new OWLOntologyFactoryImpl((om, id) -> new OWLOntologyImpl(om, id)));
     }
 
     @Test
     public void testContains() throws OWLOntologyCreationException {
-        OWLOntology ont = manager.createOntology(IRI.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ont = manager.createOntology(df.getNextDocumentIRI("urn:testontology"));
         assertTrue(manager.contains(ont.getOntologyID()));
         assertNotNull("ontology should not be null", manager.getOntology(ont.getOntologyID()));
         assertTrue(contains(manager.ontologies(), ont));
@@ -68,8 +68,8 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
 
     @Test
     public void testImports() throws OWLOntologyCreationException {
-        OWLOntology ontA = manager.createOntology(IRI.getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontB = manager.createOntology(IRI.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontA = manager.createOntology(df.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontB = manager.createOntology(df.getNextDocumentIRI("urn:testontology"));
         OWLImportsDeclaration decl = manager.getOWLDataFactory()
                         .getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
         manager.applyChange(new AddImport(ontA, decl));
@@ -81,9 +81,9 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
     @Test
     public void testImportsClosure() throws OWLException {
         // OntA -> OntB -> OntC (-> means imports)
-        OWLOntology ontA = manager.createOntology(IRI.getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontB = manager.createOntology(IRI.getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontC = manager.createOntology(IRI.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontA = manager.createOntology(df.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontB = manager.createOntology(df.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontC = manager.createOntology(df.getNextDocumentIRI("urn:testontology"));
         OWLImportsDeclaration declA = manager.getOWLDataFactory()
                         .getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
         OWLImportsDeclaration declB = manager.getOWLDataFactory()
@@ -98,9 +98,9 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
 
     @Test
     public void testImportsLoad() throws OWLException {
-        OWLOntology ontA = manager.createOntology(IRI.create("urn:test:", "a"));
+        OWLOntology ontA = manager.createOntology(df.create("urn:test:", "a"));
         assertTrue(ontA.directImports().count() == 0);
-        IRI b = IRI.create("urn:test:", "b");
+        IRI b = df.create("urn:test:", "b");
         OWLImportsDeclaration declB = manager.getOWLDataFactory().getOWLImportsDeclaration(b);
         manager.applyChange(new AddImport(ontA, declB));
         Set<IRI> directImportsDocuments = asUnorderedSet(ontA.directImportsDocuments());

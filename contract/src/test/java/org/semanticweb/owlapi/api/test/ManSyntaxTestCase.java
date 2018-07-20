@@ -21,7 +21,6 @@ import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -117,7 +116,7 @@ public class ManSyntaxTestCase extends TestBase {
 
     @Test
     public void testAssertion() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = setupManager().createOntology(IRI.create("urn:test:manchester"));
+        OWLOntology o = setupManager().createOntology(df.create("urn:test:manchester"));
         o.getOWLOntologyManager().addAxiom(o, object);
         StringDocumentTarget s = saveOntology(o, new ManchesterSyntaxDocumentFormat());
         loadOntologyFromString(s, new ManchesterSyntaxDocumentFormat());

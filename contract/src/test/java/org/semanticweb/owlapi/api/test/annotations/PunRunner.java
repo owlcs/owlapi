@@ -37,8 +37,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 
 @SuppressWarnings("javadoc")
 public class PunRunner extends org.junit.runner.Runner {
@@ -74,13 +72,14 @@ public class PunRunner extends org.junit.runner.Runner {
     }
 
     private void addAllTests() {
-        PrefixManager pm = new PrefixManagerImpl().withDefaultPrefix("http://localhost#");
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLDataFactory df = m.getOWLDataFactory();
-        List<? extends OWLEntity> entities =
-            Arrays.asList(df.getOWLClass("a", pm), df.getOWLDatatype("a", pm),
-                df.getOWLAnnotationProperty("a", pm), df.getOWLDataProperty("a", pm),
-                df.getOWLObjectProperty("a", pm), df.getOWLNamedIndividual("a", pm));
+        List<? extends OWLEntity> entities = Arrays.asList(df.getOWLClass("http://localhost#", "a"),
+            df.getOWLDatatype("http://localhost#", "a"),
+            df.getOWLAnnotationProperty("http://localhost#", "a"),
+            df.getOWLDataProperty("http://localhost#", "a"),
+            df.getOWLObjectProperty("http://localhost#", "a"),
+            df.getOWLNamedIndividual("http://localhost#", "a"));
         List<Class<? extends OWLDocumentFormat>> formats = new ArrayList<>();
         formats.add(RDFXMLDocumentFormat.class);
         formats.add(TurtleDocumentFormat.class);
@@ -103,9 +102,12 @@ public class PunRunner extends org.junit.runner.Runner {
             Description testDescription = Description.createTestDescription(testClass, name);
             suiteDescription.addChild(testDescription);
             TestSetting setting =
-                new TestSetting(formatClass, m, df.getOWLClass("a", pm), df.getOWLDatatype("a", pm),
-                    df.getOWLAnnotationProperty("a", pm), df.getOWLDataProperty("a", pm),
-                    df.getOWLObjectProperty("a", pm), df.getOWLNamedIndividual("a", pm));
+                new TestSetting(formatClass, m, df.getOWLClass("http://localhost#", "a"),
+                    df.getOWLDatatype("http://localhost#", "a"),
+                    df.getOWLAnnotationProperty("http://localhost#", "a"),
+                    df.getOWLDataProperty("http://localhost#", "a"),
+                    df.getOWLObjectProperty("http://localhost#", "a"),
+                    df.getOWLNamedIndividual("http://localhost#", "a"));
             testSettings.put(testDescription, setting);
         }
     }
@@ -155,9 +157,9 @@ public class PunRunner extends org.junit.runner.Runner {
             OWLDocumentFormat format = formatClass.newInstance();
             StringDocumentTarget in = saveForRereading(o, format, ontologyManager);
             ontologyManager.removeOntology(o);
-            o = ontologyManager
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(in.toString(),
-                    o.getOntologyID().getOntologyIRI().get(), formatClass.newInstance(), null));
+            o = ontologyManager.loadOntologyFromOntologyDocument(new StringDocumentSource(
+                in.toString(), o.getOntologyID().getOntologyIRI().get().toString(),
+                formatClass.newInstance(), null));
         }
         assertEquals("annotationCount", entities.length,
             o.axioms(AxiomType.ANNOTATION_ASSERTION).count());

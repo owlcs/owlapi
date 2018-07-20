@@ -65,7 +65,7 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
 
     @Test
     public void shouldLoadAnnotatedannotationsCorrectly() throws OWLOntologyStorageException {
-        IRI subject = IRI.create("http://purl.obolibrary.org/obo/", "UBERON_0000033");
+        IRI subject = df.create("http://purl.obolibrary.org/obo/", "UBERON_0000033");
         String input = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"http://example.com#\"\n"
                         + "     xml:base=\"http://example.com\"\n"
                         + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
@@ -74,8 +74,7 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
                         + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
                         + "     xmlns:oboInOwl=\"http://www.geneontology.org/formats/oboInOwl#\">\n"
                         + "    <owl:Ontology rdf:about=\"http://example.com\"/>\n" + "\n"
-                        + "    <owl:AnnotationProperty rdf:about=\"http://www.geneontology.org/formats/oboInOwl#source\"/>\n"
-                        + "\n"
+                        + "    <owl:AnnotationProperty rdf:about=\"http://www.geneontology.org/formats/oboInOwl#source\"/>\n\n"
                         + "    <owl:Class rdf:about=\"http://purl.obolibrary.org/obo/UBERON_0000033\">\n"
                         + "        <rdfs:label rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">head</rdfs:label>\n"
                         + "        <oboInOwl:hasDbXref rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">UMLS:C0018670</oboInOwl:hasDbXref>\n"

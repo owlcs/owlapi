@@ -39,9 +39,35 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** http://www.w3.org/2002/07/owl#Thing.                */    OWL_THING                     (Namespaces.OWL,    "Thing"),
     /** http://www.w3.org/2002/07/owl#Nothing.              */    OWL_NOTHING                   (Namespaces.OWL,    "Nothing"),
     /** http://www.w3.org/2002/07/owl#Class.                */    OWL_CLASS                     (Namespaces.OWL,    "Class"),
+
+    /** http://www.w3.org/2002/07/owl#ObjectSomeValuesFrom. */    OWL_ObjectSomeValuesFrom      (Namespaces.OWL,    "ObjectSomeValuesFrom"),
+    /** http://www.w3.org/2002/07/owl#ObjectAllValuesFrom.  */    OWL_ObjectAllValuesFrom       (Namespaces.OWL,    "ObjectAllValuesFrom"),
+    /** http://www.w3.org/2002/07/owl#ObjectMinCardinality. */    OWL_ObjectMinCardinality      (Namespaces.OWL,    "ObjectMinCardinality"),
+    /** http://www.w3.org/2002/07/owl#ObjectMaxCardinality. */    OWL_ObjectMaxCardinality      (Namespaces.OWL,    "ObjectMaxCardinality"),
+    /** http://www.w3.org/2002/07/owl#ObjectExactCardinality.*/   OWL_ObjectExactCardinality    (Namespaces.OWL,    "ObjectExactCardinality"),
+    /** http://www.w3.org/2002/07/owl#ObjectHasValue.       */    OWL_ObjectHasValue            (Namespaces.OWL,    "ObjectHasValue"),
+    /** http://www.w3.org/2002/07/owl#ObjectHasSelf.        */    OWL_ObjectHasSelf             (Namespaces.OWL,    "ObjectHasSelf"),
+    /** http://www.w3.org/2002/07/owl#DataSomeValuesFrom.   */    OWL_DataSomeValuesFrom        (Namespaces.OWL,    "DataSomeValuesFrom"),
+    /** http://www.w3.org/2002/07/owl#DataAllValuesFrom.    */    OWL_DataAllValuesFrom         (Namespaces.OWL,    "DataAllValuesFrom"),
+    /** http://www.w3.org/2002/07/owl#DataMinCardinality.   */    OWL_DataMinCardinality        (Namespaces.OWL,    "DataMinCardinality"),
+    /** http://www.w3.org/2002/07/owl#DataMaxCardinality.   */    OWL_DataMaxCardinality        (Namespaces.OWL,    "DataMaxCardinality"),
+    /** http://www.w3.org/2002/07/owl#DataExactCardinality. */    OWL_DataExactCardinality      (Namespaces.OWL,    "DataExactCardinality"),
+    /** http://www.w3.org/2002/07/owl#DataHasValue.         */    OWL_DataHasValue              (Namespaces.OWL,    "DataHasValue"),
+    /** http://www.w3.org/2002/07/owl#ObjectIntersectionOf. */    OWL_ObjectIntersectionOf      (Namespaces.OWL,    "ObjectIntersectionOf"),
+    /** http://www.w3.org/2002/07/owl#ObjectUnionOf.        */    OWL_ObjectUnionOf             (Namespaces.OWL,    "ObjectUnionOf"),
+    /** http://www.w3.org/2002/07/owl#ObjectComplementOf.   */    OWL_ObjectComplementOf        (Namespaces.OWL,    "ObjectComplementOf"),
+    /** http://www.w3.org/2002/07/owl#ObjectOneOf.          */    OWL_ObjectOneOf               (Namespaces.OWL,    "ObjectOneOf"),
+
+    /** http://www.w3.org/2002/07/owl#DataOneOf.            */    OWL_DataOneOf                 (Namespaces.OWL,    "DataOneOf"),
+    /** http://www.w3.org/2002/07/owl#DatatypeRestriction.  */    OWL_DatatypeRestriction       (Namespaces.OWL,    "DatatypeRestriction"),
+    /** http://www.w3.org/2002/07/owl#DataComplementOf.     */    OWL_DataComplementOf          (Namespaces.OWL,    "DataComplementOf"),
+    /** http://www.w3.org/2002/07/owl#DataUnionOf.          */    OWL_DataUnionOf               (Namespaces.OWL,    "DataUnionOf"),
+    /** http://www.w3.org/2002/07/owl#DataIntersectionOf.   */    OWL_DataIntersectionOf        (Namespaces.OWL,    "DataIntersectionOf"),
+
     /** http://www.w3.org/2002/07/owl#Ontology.             */    OWL_ONTOLOGY                  (Namespaces.OWL,    "Ontology"),
     /** http://www.w3.org/2002/07/owl#imports.              */    OWL_IMPORTS                   (Namespaces.OWL,    "imports"),
     /** http://www.w3.org/2002/07/owl#versionIRI.           */    OWL_VERSION_IRI               (Namespaces.OWL,    "versionIRI"),
+    /** http://www.w3.org/2002/07/owl#ontologyIRI.          */    OWL_ONTOLOGY_IRI              (Namespaces.OWL,    "ontologyIRI"),
     /** http://www.w3.org/2002/07/owl#versionInfo.          */    OWL_VERSION_INFO              (Namespaces.OWL,    "versionInfo"),
     /** http://www.w3.org/2002/07/owl#equivalentClass.      */    OWL_EQUIVALENT_CLASS          (Namespaces.OWL,    "equivalentClass",                      8),
     /** http://www.w3.org/2002/07/owl#ObjectProperty.       */    OWL_OBJECT_PROPERTY           (Namespaces.OWL,    "ObjectProperty"),
@@ -72,6 +98,12 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** http://www.w3.org/2000/01/rdf-schema#subPropertyOf. */    RDFS_SUB_PROPERTY_OF          (Namespaces.RDFS,   "subPropertyOf",                        11),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#type.    */    RDF_TYPE                      (Namespaces.RDF,    "type",                                 1),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#nil.     */    RDF_NIL                       (Namespaces.RDF,    "nil"),
+    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#RDF.     */    RDF_RDF                       (Namespaces.RDF,    "RDF"),
+    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#resource.*/    RDF_RESOURCE                  (Namespaces.RDF,    "resource"),
+    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID.  */    RDF_NODEID                    (Namespaces.RDF,    "nodeID"),
+    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#about.   */    RDF_ABOUT                     (Namespaces.RDF,    "about"),
+    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype.*/    RDF_DATATYPE                  (Namespaces.RDF,    "datatype"),
+    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#parseType.*/   RDF_PARSETYPE                 (Namespaces.RDF,    "parseType"),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#rest.    */    RDF_REST                      (Namespaces.RDF,    "rest",                                 7),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#first.   */    RDF_FIRST                     (Namespaces.RDF,    "first",                                6),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#List.    */    RDF_LIST                      (Namespaces.RDF,    "List"),
@@ -239,7 +271,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         this.shortName = shortName;
         this.damlName = damlName;
         prefixedName = namespace.getPrefixName() + ':' + shortName;
-        iri = IRI.create(namespace.toString(), shortName);
+        iri = VocabFactory.df.create(namespace.toString(), shortName);
         this.order = order;
     }
 
@@ -259,7 +291,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      * @return DAML alternative IRI
      */
     public IRI getDAMLIRI() {
-        return IRI.create(DAML_NAMESPACE, damlName == null ? shortName : damlName);
+        return VocabFactory.df.create(DAML_NAMESPACE, damlName == null ? shortName : damlName);
     }
 
     @Override

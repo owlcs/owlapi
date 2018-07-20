@@ -46,7 +46,6 @@ import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.semanticweb.owlapi.io.OWLParserParameters;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 import org.semanticweb.owlapi.util.AnonymousNodeChecker;
 import org.slf4j.Logger;
@@ -67,7 +66,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
      * @param checker node checker
      */
     public RioOWLRDFConsumerAdapter(OWLParserParameters p, AnonymousNodeChecker checker) {
-        super(p, checker, null);
+        super(p, checker);
     }
 
     @Override
@@ -131,6 +130,6 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
     public void startRDF() {
         // creating a mock IRI here. In the current implementation its value is
         // ignored
-        startModel(IRI.create("urn:test:", "unused"));
+        startModel("urn:test:unused");
     }
 }

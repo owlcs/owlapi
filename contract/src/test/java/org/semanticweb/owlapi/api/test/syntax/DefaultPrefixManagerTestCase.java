@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
@@ -30,7 +31,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class DefaultPrefixManagerTestCase {
+public class DefaultPrefixManagerTestCase extends TestBase {
 
     @Test
     public void getPrefixIRIEmpty() {
@@ -54,7 +55,7 @@ public class DefaultPrefixManagerTestCase {
     @Test
     public void testPrefixIRIExpansion() {
         PrefixManager pm = new PrefixManagerImpl();
-        IRI iri = pm.getIRI("rdfs:comment");
+        IRI iri = pm.getIRI("rdfs:comment", df);
         assertEquals(iri, OWLRDFVocabulary.RDFS_COMMENT.getIRI());
     }
 
@@ -66,7 +67,7 @@ public class DefaultPrefixManagerTestCase {
         assertNotNull(pm.getDefaultPrefix());
         assertEquals(pm.getDefaultPrefix(), pm.getPrefix(":"));
         String expansion = defaultPrefix + 'A';
-        IRI iri = pm.getIRI(":A");
+        IRI iri = pm.getIRI(":A", df);
         assertEquals(iri.toString(), expansion);
     }
 }

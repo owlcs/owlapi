@@ -18,7 +18,6 @@ import java.util.Optional;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
@@ -60,8 +59,7 @@ public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation {
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary replacement
         return list(new SetOntologyID(ontology,
-            new OWLOntologyID(
-                Optional.ofNullable(IRI.create("urn:profilesrepair:ontology#", "renamed")),
-                Optional.ofNullable(IRI.create("urn:profilesrepair:ontology#", "renamed1")))));
+            df.getOWLOntologyID(df.create("urn:profilesrepair:ontology#", "renamed"),
+                df.create("urn:profilesrepair:ontology#", "renamed1"))));
     }
 }

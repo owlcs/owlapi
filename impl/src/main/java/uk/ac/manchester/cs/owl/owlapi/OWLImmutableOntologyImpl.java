@@ -155,7 +155,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     protected OWLOntologyID ontologyID;
     private final OWLEntityReferenceChecker entityReferenceChecker =
         new OWLEntityReferenceChecker();
-    private PrefixManager prefixManager = new PrefixManagerImpl();
+    private PrefixManager prefixManager;
 
     /**
      * @param manager ontology manager
@@ -165,6 +165,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
         df = manager.getOWLDataFactory();
+        prefixManager = new PrefixManagerImpl();
     }
 
     @Override

@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.io;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
@@ -26,7 +25,7 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
     /**
      * @param documentIRI the source document IRI
      */
-    public IRIDocumentSource(IRI documentIRI) {
+    public IRIDocumentSource(String documentIRI) {
         this(documentIRI, null, null);
     }
 
@@ -35,7 +34,7 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param format ontology format
      * @param mime mime type
      */
-    public IRIDocumentSource(IRI documentIRI, @Nullable OWLDocumentFormat format,
+    public IRIDocumentSource(String documentIRI, @Nullable OWLDocumentFormat format,
         @Nullable String mime) {
         super(documentIRI, () -> null, format, mime);
         failedOnStreams.set(true);

@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -92,7 +93,8 @@ public class RDFTranslator
             id = Integer.valueOf(nextBlankNodeId.getAndIncrement());
             blankNodeMap.put(key, id);
         }
-        return new RDFResourceBlankNode(id.intValue(), isIndividual, needId, isAxiom);
+        return new RDFResourceBlankNode(NodeID.nodeId(id.intValue(), manager.getOWLDataFactory()),
+            isIndividual, needId, isAxiom);
     }
 
     @Override

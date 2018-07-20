@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -37,6 +38,16 @@ public class PrefixManagerImpl implements PrefixManager {
             String sf = getPrefixIRI(iri);
             if (sf == null) {
                 return iri.toQuotedString();
+            } else {
+                return sf;
+            }
+        }
+
+        @Override
+        public String getShortForm(String iri) {
+            String sf = getPrefixIRI(iri);
+            if (sf == null) {
+                return '<' + iri + '>';
             } else {
                 return sf;
             }
@@ -146,6 +157,26 @@ public class PrefixManagerImpl implements PrefixManager {
         return iri.prefixedBy(prefix);
     }
 
+    String getPrefixIRI(String iri) {
+        String prefix = reverseprefix2NamespaceMap.get(XMLUtils.getNCNamePrefix(iri));
+        if (prefix == null) {
+            String prefixed = null;
+            for (String s : reverseprefix2NamespaceMap.keySet()) {
+                if (iri.startsWith(s) && XMLUtils.isQName(iri, s.length())) {
+                    prefix = reverseprefix2NamespaceMap.get(s);
+                    prefixed = iri.replace(s, prefix);
+                }
+            }
+            if (prefixed != null && XMLUtils.isQName(prefixed)) {
+                return prefixed;
+            }
+        }
+        if (prefix == null) {
+            return null;
+        }
+        return IRI.prefixedBy(iri, prefix);
+    }
+
     @Override
     @Nullable
     public String getDefaultPrefix() {
@@ -187,16 +218,16 @@ public class PrefixManagerImpl implements PrefixManager {
     }
 
     @Override
-    public IRI getIRI(String prefixIRI) {
+    public IRI getIRI(String prefixIRI, OWLDataFactory df) {
         if (prefixIRI.startsWith("<")) {
-            return IRI.create(prefixIRI.substring(1, prefixIRI.length() - 1));
+            return df.create(prefixIRI.substring(1, prefixIRI.length() - 1));
         }
         int sep = prefixIRI.indexOf(':');
         if (sep == -1) {
             if (getDefaultPrefix() == null) {
-                return IRI.create(prefixIRI);
+                return df.create(prefixIRI);
             }
-            return IRI.create(getDefaultPrefix() + prefixIRI);
+            return df.create(getDefaultPrefix() + prefixIRI);
         } else {
             String prefixName = prefixIRI.substring(0, sep + 1);
             if (!containsPrefixMapping(prefixName)) {
@@ -205,7 +236,7 @@ public class PrefixManagerImpl implements PrefixManager {
             }
             String prefix = getPrefix(prefixName);
             String localName = prefixIRI.substring(sep + 1);
-            return IRI.create(prefix, localName);
+            return df.create(prefix, localName);
         }
     }
 
@@ -248,6 +279,11 @@ public class PrefixManagerImpl implements PrefixManager {
 
     @Override
     public String getShortForm(IRI iri) {
+        return isfp.getShortForm(iri);
+    }
+
+    @Override
+    public String getShortForm(String iri) {
         return isfp.getShortForm(iri);
     }
 

@@ -59,7 +59,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     private final String prefixedName;
 
     OWLFacet(Namespaces ns, String shortForm, String symbolicForm) {
-        iri = IRI.create(ns.toString(), shortForm);
+        iri = VocabFactory.df.create(ns.toString(), shortForm);
         this.shortForm = shortForm;
         this.symbolicForm = symbolicForm;
         prefixedName = ns.getPrefixName() + ':' + shortForm;

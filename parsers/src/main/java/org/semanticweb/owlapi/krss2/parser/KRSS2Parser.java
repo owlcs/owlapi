@@ -55,10 +55,10 @@ class KRSS2Parser implements KRSS2ParserConstants {
             if (iri == null) {
                 switch(nameResolution) {
                     case IRI:
-                        iri = IRI.create(s);
+                        iri = df.create(s);
                         break;
                     case NAME:
-                        iri = IRI.create(base+s);
+                        iri = df.create(base+s);
                         break;
                     case ADAPTIVE:
                         if (adaptiveMaxRuns <=1) {
@@ -73,9 +73,9 @@ class KRSS2Parser implements KRSS2ParserConstants {
                     case CHECK:
                         String ns = XMLUtils.getNCNamePrefix(s);
                         if (ns.equals("")) {
-                                iri = IRI.create(base + s);
+                                iri = df.create(base + s);
                         } else {
-                                iri = IRI.create(s);
+                                iri = df.create(s);
                         }
                         break;
                 }

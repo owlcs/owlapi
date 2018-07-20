@@ -69,7 +69,6 @@ import java.util.TreeSet;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -364,7 +363,7 @@ public class RenameEntityTestCase extends TestBase {
         OWLEntityRenamer renamer =
             new OWLEntityRenamer(o1.getOWLOntologyManager(), Arrays.asList(o1));
         o1.annotationPropertiesInSignature()
-            .map(x -> renamer.changeIRI(x.getIRI(), IRI.create("urn:test:attempt")))
+            .map(x -> renamer.changeIRI(x.getIRI(), df.create("urn:test:attempt")))
             .forEach(list -> assertFalse(list.isEmpty()));
     }
 }

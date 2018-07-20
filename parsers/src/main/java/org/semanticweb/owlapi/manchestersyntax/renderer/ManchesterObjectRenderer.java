@@ -15,7 +15,11 @@ import org.semanticweb.owlapi.utilities.ShortFormProvider;
  */
 @Renders(ManchesterSyntaxDocumentFormat.class)
 public class ManchesterObjectRenderer implements OWLObjectRenderer {
-    private PrefixManager pm = new PrefixManagerImpl();
+    private PrefixManager pm;
+
+    public ManchesterObjectRenderer() {
+        pm = new PrefixManagerImpl();
+    }
 
     @Override
     public String render(OWLObject object) {

@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-
 import java.io.Serializable;
 
 import javax.annotation.Nullable;
@@ -28,7 +26,6 @@ import org.semanticweb.owlapi.model.PrefixManager;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
-@FunctionalInterface
 public interface NamedIndividualProvider extends Serializable {
 
     /**
@@ -56,9 +53,7 @@ public interface NamedIndividualProvider extends Serializable {
      * @param iri The IRI string.
      * @return An {@link OWLNamedIndividual} that has the specified IRI.
      */
-    default OWLNamedIndividual getOWLNamedIndividual(String iri) {
-        return getOWLNamedIndividual(IRI.create(iri));
-    }
+    OWLNamedIndividual getOWLNamedIndividual(String iri);
 
     /**
      * Gets an instance of {@link OWLNamedIndividual} that has the specified {@code IRI}. This is
@@ -68,9 +63,7 @@ public interface NamedIndividualProvider extends Serializable {
      * @param remainder optional remainder or local name
      * @return An {@link OWLNamedIndividual} that has the specified IRI.
      */
-    default OWLNamedIndividual getOWLNamedIndividual(String namespace, @Nullable String remainder) {
-        return getOWLNamedIndividual(IRI.create(namespace, remainder));
-    }
+    OWLNamedIndividual getOWLNamedIndividual(String namespace, @Nullable String remainder);
 
     /**
      * Gets an OWLNamedIndividual that has an IRI that is obtained by expanding an abbreviated name
@@ -79,22 +72,18 @@ public interface NamedIndividualProvider extends Serializable {
      * Specification</a> for more details.
      *
      * @param abbreviatedIRI The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
-     * PREFIX_NAME may be the empty string (the default prefix). Note that abbreviated IRIs always
-     * contain a colon as a delimiter, even if the prefix name is the empty string.
+     *        PREFIX_NAME may be the empty string (the default prefix). Note that abbreviated IRIs
+     *        always contain a colon as a delimiter, even if the prefix name is the empty string.
      * @param prefixManager The prefix manager that is responsible for mapping prefix names to
-     * prefix IRIs.
+     *        prefix IRIs.
      * @return An OWLNamedIndividual that has the IRI obtained by expanding the specified
-     * abbreviated IRI using the specified prefix manager. <br> For example, suppose "m:Cat" was
-     * specified as the abbreviated IRI, the prefix manager would be used to obtain the IRI prefix
-     * for the "m:" prefix name, this prefix would then be concatenated with "Cat" to obtain the
-     * full IRI which would be the IRI of the OWLNamedIndividual obtained by this method.
+     *         abbreviated IRI using the specified prefix manager. <br>
+     *         For example, suppose "m:Cat" was specified as the abbreviated IRI, the prefix manager
+     *         would be used to obtain the IRI prefix for the "m:" prefix name, this prefix would
+     *         then be concatenated with "Cat" to obtain the full IRI which would be the IRI of the
+     *         OWLNamedIndividual obtained by this method.
      * @throws OWLRuntimeException if the prefix name in the specified abbreviated IRI does not have
-     * a mapping to a prefix in the specified prefix manager.
+     *         a mapping to a prefix in the specified prefix manager.
      */
-    default OWLNamedIndividual getOWLNamedIndividual(String abbreviatedIRI,
-        PrefixManager prefixManager) {
-        checkNotNull(abbreviatedIRI, "curi canno be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
-        return getOWLNamedIndividual(prefixManager.getIRI(abbreviatedIRI));
-    }
+    OWLNamedIndividual getOWLNamedIndividual(String abbreviatedIRI, PrefixManager prefixManager);
 }

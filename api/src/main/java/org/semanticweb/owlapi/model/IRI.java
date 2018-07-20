@@ -13,24 +13,14 @@
 package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
-import java.io.File;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
-
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
  * Represents International Resource Identifiers.
@@ -38,144 +28,20 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence,
+public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence,
     OWLPrimitive, HasShortForm, org.apache.commons.rdf.api.IRI {
 
-    // Cache prefixes for memory gains.
-    private static final LoadingCache<String, String> CACHE =
-        Caffeine.newBuilder().maximumSize(2048).build(k -> k);
-    private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
-    // Impl - All constructors are private - factory methods are used for
-    // public creation
-    private final String remainder;
-    private final String namespace;
-
-    /**
-     * Constructs an IRI which is built from the concatenation of the specified prefix and suffix.
-     *
-     * @param prefix The prefix.
-     * @param suffix The suffix.
-     */
-    protected IRI(String prefix, @Nullable String suffix) {
-        namespace = CACHE.get(prefix);
-        remainder = suffix == null ? "" : suffix;
-    }
-
-    protected IRI(String s) {
-        this(XMLUtils.getNCNamePrefix(s), XMLUtils.getNCNameSuffix(s));
-    }
-
-    protected IRI(URI uri) {
-        this(checkNotNull(uri, "uri cannot be null").toString());
-    }
-
-    /**
-     * Creates an IRI from the specified String.
-     *
-     * @param str The String that specifies the IRI
-     * @return The IRI that has the specified string representation.
-     */
-    public static IRI create(String str) {
-        checkNotNull(str, "str cannot be null");
-        int index = XMLUtils.getNCNameSuffixIndex(str);
-        if (index < 0) {
-            // no ncname
-            return new IRI(str, "");
-        }
-        return new IRI(str.substring(0, index), str.substring(index));
-    }
-
-    /**
-     * Creates an IRI by concatenating two strings. The full IRI is an IRI that contains the
-     * characters in prefix + suffix.
-     *
-     * @param prefix The first string
-     * @param suffix The second string
-     * @return An IRI whose characters consist of prefix + suffix.
-     * @since 3.3
-     */
-    public static IRI create(@Nullable String prefix, @Nullable String suffix) {
-        if (prefix == null && suffix == null) {
-            throw new IllegalArgumentException("prefix and suffix cannot both be null");
-        }
-        if (prefix == null) {
-            return create(verifyNotNull(suffix));
-        }
-        if (suffix == null) {
-            // suffix set deliberately to null is used only in blank node
-            // management
-            // this is not great but blank nodes should be changed to not refer
-            // to IRIs at all
-            // XXX address blank node issues with iris
-            return create(prefix);
-        }
-        int index = XMLUtils.getNCNameSuffixIndex(prefix);
-        int test = XMLUtils.getNCNameSuffixIndex(suffix);
-        if (index == -1 && test == 0) {
-            // the prefix does not contain an ncname character and there is
-            // no illegal character in the suffix
-            // the split is therefore correct
-            return new IRI(prefix, suffix);
-        }
-        // otherwise the split is wrong; we could obtain the right split by
-        // using index and test, but it's just as easy to use the other
-        // constructor
-        return create(prefix + suffix);
-    }
-
-    /**
-     * @param file the file to create the IRI from
-     * @return file.toURI() IRI
-     */
-    public static IRI create(File file) {
-        checkNotNull(file, "file cannot be null");
-        return new IRI(file.toURI());
-    }
-
-    /**
-     * @param uri the uri to create the IRI from
-     * @return the IRI wrapping the uri
-     */
-    public static IRI create(URI uri) {
-        checkNotNull(uri, "uri cannot be null");
-        return new IRI(uri);
-    }
-
-    /**
-     * @param url the url to create the IRI from
-     * @return an IRI wrapping url.toURI()
-     * @throws OWLRuntimeException if the URL is ill formed
-     */
-    public static IRI create(URL url) {
-        checkNotNull(url, "url cannot be null");
-        try {
-            return new IRI(url.toURI());
-        } catch (URISyntaxException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    /**
-     * Gets an auto-generated ontology document IRI.
-     *
-     * @return An auto-generated ontology document IRI. The IRI has the form {@code
-     * owlapi:ontologyNNNNNNNNNNN}
-     */
-    public static IRI generateDocumentIRI() {
-        return getNextDocumentIRI("owlapi:ontology");
-    }
-
-    /**
-     * @param prefix prefix for result
-     * @return a fresh IRI
-     */
-    public static IRI getNextDocumentIRI(String prefix) {
-        return IRI.create(prefix + COUNTER.incrementAndGet());
-    }
 
     @Override
-    public boolean isIRI() {
+    default boolean isIRI() {
         return true;
+    }
+
+    /**
+     * @return the IRI scheme, e.g., http, urn, or the empty string if no scheme exists
+     */
+    default String getScheme() {
+        return XMLUtils.schema(getNamespace());
     }
 
     /**
@@ -184,8 +50,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *
      * @return The URI
      */
-    public URI toURI() {
-        return URI.create(namespace + remainder);
+    default URI toURI() {
+        return URI.create(getNamespace() + getFragment());
     }
 
     /**
@@ -193,58 +59,31 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *
      * @return {@code true} if this IRI is absolute or {@code false} if this IRI is not absolute
      */
-    public boolean isAbsolute() {
-        int colonIndex = namespace.indexOf(':');
-        if (colonIndex == -1) {
-            return false;
-        }
-        for (int i = 0; i < colonIndex; i++) {
-            char ch = namespace.charAt(i);
-            if (disallowed(ch)) {
-                return false;
-            }
-        }
-        return true;
+    default boolean isAbsolute() {
+        return XMLUtils.isAbsolute(getNamespace());
     }
 
-    protected boolean disallowed(char ch) {
-        return !Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+'
-            && ch != '-';
+    @Override
+    default CharSequence subSequence(int start, int end) {
+        return (getNamespace() + getFragment()).subSequence(start, end);
     }
 
-    /**
-     * @return the IRI scheme, e.g., http, urn
-     */
-    @Nullable
-    public String getScheme() {
-        int colonIndex = namespace.indexOf(':');
-        if (colonIndex == -1) {
-            return null;
+    @Override
+    default char charAt(int index) {
+        if (index < 0) {
+            throw new IndexOutOfBoundsException(Integer.toString(index));
         }
-        return namespace.substring(0, colonIndex);
+        String n = getNamespace();
+        if (index < n.length()) {
+            return n.charAt(index);
+        }
+        return getFragment().charAt(index - n.length());
     }
 
     /**
      * @return the prefix
      */
-    public String getNamespace() {
-        return namespace;
-    }
-
-    /**
-     * @param s the IRI stirng to be resolved
-     * @return s resolved against this IRI (with the URI::resolve() method, unless this IRI is
-     *         opaque)
-     */
-    public IRI resolve(String s) {
-        // shortcut: checking absolute and opaque here saves the creation of an
-        // extra URI object
-        URI uri = URI.create(s);
-        if (uri.isAbsolute() || uri.isOpaque()) {
-            return create(uri);
-        }
-        return create(toURI().resolve(uri));
-    }
+    String getNamespace();
 
     /**
      * Determines if this IRI is in the reserved vocabulary. An IRI is in the reserved vocabulary if
@@ -254,9 +93,10 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *
      * @return {@code true} if the IRI is in the reserved vocabulary, otherwise {@code false}.
      */
-    public boolean isReservedVocabulary() {
-        return Namespaces.OWL.inNamespace(namespace) || Namespaces.RDF.inNamespace(namespace)
-            || Namespaces.RDFS.inNamespace(namespace) || Namespaces.XSD.inNamespace(namespace);
+    default boolean isReservedVocabulary() {
+        String ns = getNamespace();
+        return Namespaces.OWL.inNamespace(ns) || Namespaces.RDF.inNamespace(ns)
+            || Namespaces.RDFS.inNamespace(ns) || Namespaces.XSD.inNamespace(ns);
     }
 
     /**
@@ -265,7 +105,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Thing&gt; and
      *         otherwise {@code false}
      */
-    public boolean isThing() {
+    default boolean isThing() {
         return equals(OWLRDFVocabulary.OWL_THING.getIRI());
     }
 
@@ -275,7 +115,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Nothing&gt;
      *         and otherwise {@code false}
      */
-    public boolean isNothing() {
+    default boolean isNothing() {
         return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }
 
@@ -286,8 +126,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;, otherwise
      *         {@code false}
      */
-    public boolean isPlainLiteral() {
-        return "PlainLiteral".equals(remainder) && Namespaces.RDF.inNamespace(namespace);
+    default boolean isPlainLiteral() {
+        return "PlainLiteral".equals(getFragment()) && Namespaces.RDF.inNamespace(getNamespace());
     }
 
     /**
@@ -296,25 +136,24 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *
      * @return The IRI fragment, or empty string if the IRI does not have a fragment
      */
-    public String getFragment() {
-        return remainder;
-    }
+    String getFragment();
 
     /**
      * @return the remainder (coincident with NCName usually) for this IRI.
      */
-    public Optional<String> getRemainder() {
-        if (remainder.isEmpty()) {
+    default Optional<String> getRemainder() {
+        String fragment = getFragment();
+        if (fragment.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(remainder);
+        return Optional.ofNullable(fragment);
     }
 
     /**
      * @return true if this IRI has a file: protocol
      */
-    public boolean isFileIRI() {
-        return namespace.startsWith("file:");
+    default boolean isFileIRI() {
+        return getNamespace().startsWith("file:");
     }
 
     /**
@@ -322,168 +161,114 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *
      * @return This IRI surrounded by &lt; and &gt;
      */
-    public String toQuotedString() {
+    default String toQuotedString() {
         return ntriplesString();
     }
 
-    /**
-     * @param suffix suffix to turn to optional. Empty string is the same as null
-     * @return optional value for remainder
-     */
-    protected Optional<String> asOptional(@Nullable String suffix) {
-        if (suffix == null || suffix.isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.ofNullable(suffix);
-    }
-
-    @Override
-    public int length() {
-        return namespace.length() + remainder.length();
-    }
-
-    @Override
-    public char charAt(int index) {
-        if (index < 0) {
-            throw new IndexOutOfBoundsException(Integer.toString(index));
-        }
-        if (index < namespace.length()) {
-            return namespace.charAt(index);
-        }
-        return remainder.charAt(index - namespace.length());
-    }
-
-    @Override
-    public CharSequence subSequence(int start, int end) {
-        StringBuilder sb = new StringBuilder(namespace);
-        sb.append(remainder);
-        return sb.subSequence(start, end);
-    }
 
     /**
      * @param prefix prefix to use for replacing the IRI namespace
      * @return prefix plus IRI ncname
      */
-    public String prefixedBy(String prefix) {
+    default String prefixedBy(String prefix) {
         checkNotNull(prefix, "prefix cannot be null");
-        if (remainder.isEmpty()) {
+        String r = getFragment();
+        if (r.isEmpty()) {
             return prefix;
         }
-        return prefix + remainder;
+        return prefix + r;
+    }
+
+
+    @Override
+    default void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
     }
 
     @Override
-    public String getShortForm() {
-        if (!remainder.isEmpty()) {
-            return remainder;
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    default int initHashCode() {
+        return hashCode();
+    }
+
+    @Override
+    default Optional<IRI> asIRI() {
+        return Optional.of(this);
+    }
+
+    @Override
+    default Stream<?> components() {
+        return Stream.empty();
+    }
+
+    @Override
+    default OWLObjectType type() {
+        return OWLObjectType.IRI;
+    }
+
+    @Override
+    default String getIRIString() {
+        String f = getFragment();
+        if (f.isEmpty()) {
+            return getNamespace();
         }
-        int lastSlashIndex = namespace.lastIndexOf('/');
-        if (lastSlashIndex != -1 && lastSlashIndex != namespace.length() - 1) {
-            return namespace.substring(lastSlashIndex + 1);
+        return getNamespace() + f;
+    }
+
+    @Override
+    default String toSyntax(OWLDocumentFormat format) {
+        // XXX can't use ToStringRenderer in the api package
+        return toString();
+    }
+
+    @Override
+    default String toSyntax(OWLDocumentFormat format, PrefixManager pm) {
+        // XXX can't use ToStringRenderer in the api package
+        return toString();
+    }
+
+    @Override
+    default String getShortForm() {
+        String r = getFragment();
+        if (!r.isEmpty()) {
+            return r;
+        }
+        String n = getNamespace();
+        int lastSlashIndex = n.lastIndexOf('/');
+        if (lastSlashIndex != -1 && lastSlashIndex != n.length() - 1) {
+            return n.substring(lastSlashIndex + 1);
         }
         return toQuotedString();
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
+    default String ntriplesString() {
+        return '<' + getNamespace() + getFragment() + '>';
     }
 
-    @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public int compareTo(@Nullable OWLObject o) {
-        checkNotNull(o);
-        assert o != null;
-        if (o == this || equals(o)) {
-            return 0;
+    static String getShortForm(String iri) {
+        String r = XMLUtils.getNCNameSuffix(iri);
+        if (r != null && !r.isEmpty()) {
+            return r;
         }
-        if (!o.isIRI()) {
-            return -1;
+        String n = XMLUtils.getNCNamePrefix(iri);
+        int lastSlashIndex = n.lastIndexOf('/');
+        if (lastSlashIndex != -1 && lastSlashIndex != n.length() - 1) {
+            return n.substring(lastSlashIndex + 1);
         }
-        IRI other = (IRI) o;
-        int diff = namespace.compareTo(other.namespace);
-        if (diff != 0) {
-            return diff;
+        return '<' + iri + '>';
+    }
+
+    static String prefixedBy(String iri, String prefix) {
+        checkNotNull(prefix, "prefix cannot be null");
+        String r = XMLUtils.getNCNameSuffix(iri);
+        if (r == null || r.isEmpty()) {
+            return prefix;
         }
-        return remainder.compareTo(other.remainder);
-    }
-
-    @Override
-    public String toString() {
-        return getIRIString();
-    }
-
-    @Override
-    public int hashCode() {
-        return namespace.hashCode() + remainder.hashCode();
-    }
-
-    @Override
-    public int initHashCode() {
-        return hashCode();
-    }
-
-    @Override
-    public String toSyntax(OWLDocumentFormat format) {
-        // XXX can't use ToStringRenderer in the api package
-        return toString();
-    }
-
-    @Override
-    public String toSyntax(OWLDocumentFormat format, PrefixManager pm) {
-        // XXX can't use ToStringRenderer in the api package
-        return toString();
-    }
-
-    @Override
-    public Optional<IRI> asIRI() {
-        return Optional.of(this);
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj == this) {
-            return true;
-        }
-        if (obj instanceof IRI) {
-            IRI other = (IRI) obj;
-            return remainder.equals(other.remainder) && other.namespace.equals(namespace);
-        }
-        // Commons RDF IRI equals() contract
-        if (obj instanceof org.apache.commons.rdf.api.IRI) {
-            org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) obj;
-            return ntriplesString().equals(iri.ntriplesString());
-        }
-        return false;
-    }
-
-    @Override
-    public String ntriplesString() {
-        return '<' + namespace + remainder + '>';
-    }
-
-    @Override
-    public String getIRIString() {
-        if (remainder.isEmpty()) {
-            return namespace;
-        }
-        return namespace + remainder;
-    }
-
-    @Override
-    public Stream<?> components() {
-        return Stream.empty();
-    }
-
-    @Override
-    public OWLObjectType type() {
-        return OWLObjectType.IRI;
+        return prefix + r;
     }
 }

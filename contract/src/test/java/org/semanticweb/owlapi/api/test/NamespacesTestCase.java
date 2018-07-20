@@ -39,7 +39,7 @@ public class NamespacesTestCase extends TestBase {
         EnumSet<Namespaces> reserved =
             EnumSet.of(Namespaces.OWL, Namespaces.RDF, Namespaces.RDFS, Namespaces.XSD);
         for (Namespaces n : Namespaces.values()) {
-            IRI iri = IRI.create(n.getPrefixIRI(), "test");
+            IRI iri = df.create(n.getPrefixIRI(), "test");
             boolean reservedVocabulary = iri.isReservedVocabulary();
             assertTrue(iri + " reserved? Should be " + reserved.contains(n) + " but is "
                 + reservedVocabulary, reservedVocabulary == reserved.contains(n));

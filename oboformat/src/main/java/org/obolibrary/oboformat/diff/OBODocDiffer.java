@@ -12,7 +12,7 @@ import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.Xref;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 
 /**
  * Diffs two OBO Documents. Performs structural diffing only - does not use reasoning (use OWLDiff

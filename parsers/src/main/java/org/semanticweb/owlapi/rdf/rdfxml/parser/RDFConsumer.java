@@ -29,7 +29,7 @@ public interface RDFConsumer {
      * @param physicalURI physical URI of the model
      * @throws OWLRuntimeException OWLRuntimeException
      */
-    void startModel(IRI physicalURI);
+    void startModel(String physicalURI);
 
     /**
      * Called when model parsing is finished.

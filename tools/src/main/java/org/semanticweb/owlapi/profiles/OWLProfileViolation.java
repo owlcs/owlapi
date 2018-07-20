@@ -40,7 +40,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public abstract class OWLProfileViolation {
 
     protected final OWLOntology ontology;
-    protected final OWLDataFactory df;
+    protected OWLDataFactory df;
     @Nullable
     protected final OWLAxiom axiom;
     @Nullable

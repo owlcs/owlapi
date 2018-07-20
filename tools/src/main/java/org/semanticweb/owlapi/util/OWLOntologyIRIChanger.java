@@ -23,7 +23,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.SetOntologyID;
@@ -58,8 +57,9 @@ public class OWLOntologyIRIChanger {
      */
     public List<OWLOntologyChange> getChanges(OWLOntology ontology, IRI newIRI) {
         List<OWLOntologyChange> changes = new ArrayList<>();
-        changes.add(new SetOntologyID(ontology, new OWLOntologyID(Optional.ofNullable(newIRI),
-            ontology.getOntologyID().getVersionIRI())));
+        changes.add(new SetOntologyID(ontology,
+            ontology.getOWLOntologyManager().getOWLDataFactory().getOWLOntologyID(
+                Optional.ofNullable(newIRI), ontology.getOntologyID().getVersionIRI())));
         OWLImportsDeclaration owlImport =
             owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(newIRI);
         IRI ontIRI = ontology.getOntologyID().getOntologyIRI().get();

@@ -15,7 +15,7 @@ import org.obolibrary.oboformat.model.Frame.FrameType;
 import org.obolibrary.oboformat.model.FrameMergeException;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.Xref;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,8 +102,8 @@ public class XrefExpander {
                     addRule(idSpace, new GenusDifferentiaExpansion(parts[1], parts[2]));
                     relationsUseByIdSpace.put(idSpace, parts[1]);
                     relation = parts[1];
-                } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA
-                    .getTag())) {
+                } else if (tag
+                    .equals(OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA.getTag())) {
                     addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1], parts[2]));
                     relationsUseByIdSpace.put(idSpace, parts[1]);
                     relation = parts[1];

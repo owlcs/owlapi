@@ -17,7 +17,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.HashSet;
-import java.util.Optional;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -69,8 +68,7 @@ public class MapperlessOntologyManagerTestCase extends TestBase {
     public void testCreateOntologyWithIdWithVersionIRI() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         IRI versionIRI = IRI("http://version/1", "");
-        OWLOntologyID id =
-            new OWLOntologyID(Optional.ofNullable(ONTOLOGY_IRI), Optional.ofNullable(versionIRI));
+        OWLOntologyID id = df.getOWLOntologyID(ONTOLOGY_IRI, versionIRI);
         OWLOntology ontology = manager.createOntology(id);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI().get());
         assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI().get());
@@ -80,7 +78,7 @@ public class MapperlessOntologyManagerTestCase extends TestBase {
     @Test
     public void testCreateOntologyWithId() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        OWLOntologyID id = new OWLOntologyID(Optional.ofNullable(ONTOLOGY_IRI), Optional.empty());
+        OWLOntologyID id = df.getOWLOntologyID(ONTOLOGY_IRI);
         OWLOntology ontology = manager.createOntology(id);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI().get());
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));

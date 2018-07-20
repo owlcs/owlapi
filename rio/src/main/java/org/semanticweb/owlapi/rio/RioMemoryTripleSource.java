@@ -43,6 +43,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.eclipse.rdf4j.RDF4JException;
 import org.eclipse.rdf4j.common.iteration.CloseableIteration;
@@ -54,7 +55,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserParameters;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
@@ -68,10 +69,10 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
  * @since 4.0.0
  */
 public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
-
+    protected static final AtomicInteger IRICounter = new AtomicInteger(1);
     private final Map<String, String> namespaces = new LinkedHashMap<>();
     private final Iterator<Statement> statementIterator;
-    private final IRI documentIRI;
+    private final String documentIRI;
     private OWLParserParameters parameters;
 
     /**
@@ -80,7 +81,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      * @param statements An {@link Iterator} of {@link Statement} objects that make up this source.
      */
     public RioMemoryTripleSource(Iterator<Statement> statements) {
-        documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
+        documentIRI = "rio-memory-triples:" + IRICounter.incrementAndGet();
         statementIterator = checkNotNull(statements, "statements cannot be null");
     }
 
@@ -104,7 +105,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        source.
      */
     public RioMemoryTripleSource(Iterable<Statement> statements) {
-        documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
+        documentIRI = "rio-memory-triples:" + IRICounter.incrementAndGet();
         statementIterator = statements.iterator();
         if (statements instanceof Model) {
             namespaces.putAll(Namespaces.asMap(((Model) statements).getNamespaces()));
@@ -121,7 +122,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      */
     public RioMemoryTripleSource(
         final CloseableIteration<Statement, ? extends RDF4JException> statements) {
-        documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
+        documentIRI = "rio-memory-triples:" + IRICounter.incrementAndGet();
         statementIterator = new StatementIterator(statements);
     }
 
@@ -155,7 +156,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     @Override
-    public IRI getDocumentIRI() {
+    public String getDocumentIRI() {
         return documentIRI;
     }
 
@@ -191,7 +192,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
     @Override
     public boolean loadingCanBeAttempted(Collection<String> parsableSchemes) {
-        return parsableSchemes.contains(documentIRI.getScheme());
+        return parsableSchemes.contains(XMLUtils.schema(documentIRI));
     }
 
     static final class StatementIterator implements Iterator<Statement> {

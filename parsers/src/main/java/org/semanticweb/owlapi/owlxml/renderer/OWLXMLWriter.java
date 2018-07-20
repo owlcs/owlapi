@@ -45,6 +45,7 @@ import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.utilities.StringLengthComparator;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
@@ -59,9 +60,6 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 public class OWLXMLWriter {
 
     private static final String LANG_IRI = "xml:lang";
-    private static final IRI VERSION_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "versionIRI");
-    private static final IRI ONTOLOGY_IRI =
-        IRI.create(Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
     private final XMLWriter writer;
     private final Map<String, String> iriPrefixMap = new TreeMap<>(new StringLengthComparator());
 
@@ -142,11 +140,12 @@ public class OWLXMLWriter {
         try {
             writer.startDocument(ONTOLOGY.getIRI());
             if (!ontology.isAnonymous()) {
-                writer.writeAttribute(ONTOLOGY_IRI,
+                writer.writeAttribute(OWLRDFVocabulary.OWL_ONTOLOGY_IRI.getIRI(),
                     ontology.getOntologyID().getOntologyIRI().get().toString());
                 Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
                 if (versionIRI.isPresent()) {
-                    writer.writeAttribute(VERSION_IRI, versionIRI.get().toString());
+                    writer.writeAttribute(OWLRDFVocabulary.OWL_VERSION_IRI.getIRI(),
+                        versionIRI.get().toString());
                 }
             }
         } catch (OWLRuntimeException e) {

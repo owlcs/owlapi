@@ -17,8 +17,8 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -26,13 +26,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class RDFXMLWriter {
 
-    private static final IRI RDF_RDF = IRI.create(Namespaces.RDF.getPrefixIRI(), "RDF");
-    private static final IRI RDF_RESOURCE = IRI.create(Namespaces.RDF.getPrefixIRI(), "resource");
     private static final String XML_LANG = "xml:lang";
-    private static final IRI RDF_NODEID = IRI.create(Namespaces.RDF.getPrefixIRI(), "nodeID");
-    private static final IRI RDF_ABOUT = IRI.create(Namespaces.RDF.getPrefixIRI(), "about");
-    private static final IRI RDF_DATATYPE = IRI.create(Namespaces.RDF.getPrefixIRI(), "datatype");
-    private static final IRI PARSETYPE_IRI = IRI.create(Namespaces.RDF.getPrefixIRI(), "parseType");
     private final XMLWriter writer;
 
     protected RDFXMLWriter(XMLWriter writer) {
@@ -51,14 +45,14 @@ public class RDFXMLWriter {
      * Parse type attribute.
      */
     public void writeParseTypeAttribute() {
-        writer.writeAttribute(PARSETYPE_IRI, "Collection");
+        writer.writeAttribute(OWLRDFVocabulary.RDF_PARSETYPE.getIRI(), "Collection");
     }
 
     /**
      * Parse type attribute for literals.
      */
     public void writeParseTypeLiteralAttribute() {
-        writer.writeAttribute(PARSETYPE_IRI, "Literal");
+        writer.writeAttribute(OWLRDFVocabulary.RDF_PARSETYPE.getIRI(), "Literal");
     }
 
     /**
@@ -69,7 +63,7 @@ public class RDFXMLWriter {
         if (OWL2Datatype.RDF_XML_LITERAL.getIRI().equals(datatypeIRI)) {
             writeParseTypeLiteralAttribute();
         } else {
-            writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
+            writer.writeAttribute(OWLRDFVocabulary.RDF_DATATYPE.getIRI(), datatypeIRI.toString());
         }
     }
 
@@ -98,7 +92,7 @@ public class RDFXMLWriter {
      * @param value value
      */
     public void writeAboutAttribute(IRI value) {
-        writeAttribute(RDF_ABOUT, value);
+        writeAttribute(OWLRDFVocabulary.RDF_ABOUT.getIRI(), value);
     }
 
     /**
@@ -106,7 +100,7 @@ public class RDFXMLWriter {
      */
     public void writeNodeIDAttribute(RDFResource node) {
         assert node.isAnonymous();
-        writer.writeAttribute(RDF_NODEID, node.getNodeIDValue());
+        writer.writeAttribute(OWLRDFVocabulary.RDF_NODEID.getIRI(), node.getNodeIDValue());
     }
 
     /**
@@ -130,14 +124,14 @@ public class RDFXMLWriter {
      * @param value value
      */
     public void writeResourceAttribute(IRI value) {
-        writeAttribute(RDF_RESOURCE, value);
+        writeAttribute(OWLRDFVocabulary.RDF_RESOURCE.getIRI(), value);
     }
 
     /**
      * Start document.
      */
     public void startDocument() {
-        writer.startDocument(RDF_RDF);
+        writer.startDocument(OWLRDFVocabulary.RDF_RDF.getIRI());
     }
 
     /**

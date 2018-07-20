@@ -12,7 +12,7 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;;
 
 /**
  * The Class Frame.
@@ -33,6 +33,7 @@ public class Frame {
      */
     @Nullable
     protected FrameType type;
+
     /**
      * Instantiates a new frame.
      */
@@ -373,12 +374,12 @@ public class Frame {
         }
         checkMaxOneCardinality(OboFormatTag.TAG_IS_ANONYMOUS, OboFormatTag.TAG_NAME,
             // OboFormatTag.TAG_NAMESPACE,
-            OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT,
-            OboFormatTag.TAG_IS_ANTI_SYMMETRIC, OboFormatTag.TAG_IS_CYCLIC,
-            OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
-            OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL,
-            OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL, OboFormatTag.TAG_IS_OBSELETE,
-            OboFormatTag.TAG_CREATED_BY, OboFormatTag.TAG_CREATION_DATE);
+            OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT, OboFormatTag.TAG_IS_ANTI_SYMMETRIC,
+            OboFormatTag.TAG_IS_CYCLIC, OboFormatTag.TAG_IS_REFLEXIVE,
+            OboFormatTag.TAG_IS_SYMMETRIC, OboFormatTag.TAG_IS_TRANSITIVE,
+            OboFormatTag.TAG_IS_FUNCTIONAL, OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
+            OboFormatTag.TAG_IS_OBSOLETE, OboFormatTag.TAG_CREATED_BY,
+            OboFormatTag.TAG_CREATION_DATE);
     }
 
     /**

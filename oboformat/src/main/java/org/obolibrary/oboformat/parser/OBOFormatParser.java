@@ -18,9 +18,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.Nullable;
 
@@ -31,11 +31,11 @@ import org.obolibrary.oboformat.model.FrameMergeException;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.model.Xref;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -196,8 +196,7 @@ public class OBOFormatParser {
     public OBODoc parseURL(String urlstr) {
         AtomicReference<OBODoc> doc = new AtomicReference<>();
         OBOFormatOWLAPIParser parser = new OBOFormatOWLAPIParser((o, d) -> doc.set(d));
-        new IRIDocumentSource(IRI.create(urlstr)).acceptParser(parser, null,
-            new OntologyConfigurator());
+        new IRIDocumentSource(urlstr).acceptParser(parser, null, new OntologyConfigurator());
         return doc.get();
     }
 
@@ -579,7 +578,7 @@ public class OBOFormatParser {
             parsePerson(cl);
         } else if (tag == OboFormatTag.TAG_CREATION_DATE) {
             parseISODate(cl);
-        } else if (tag == OboFormatTag.TAG_IS_OBSELETE) {
+        } else if (tag == OboFormatTag.TAG_IS_OBSOLETE) {
             parseBoolean(cl);
         } else if (tag == OboFormatTag.TAG_REPLACED_BY) {
             parseIdRef(cl);
@@ -727,7 +726,7 @@ public class OBOFormatParser {
             parsePerson(cl);
         } else if (tag == OboFormatTag.TAG_CREATION_DATE) {
             parseISODate(cl);
-        } else if (tag == OboFormatTag.TAG_IS_OBSELETE) {
+        } else if (tag == OboFormatTag.TAG_IS_OBSOLETE) {
             parseBoolean(cl);
         } else if (tag == OboFormatTag.TAG_REPLACED_BY) {
             parseIdRef(cl);

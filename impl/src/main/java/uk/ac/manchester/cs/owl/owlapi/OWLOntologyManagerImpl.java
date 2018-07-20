@@ -335,7 +335,8 @@ public class OWLOntologyManagerImpl
     @Override
     @Nullable
     public OWLOntology getOntology(IRI iri) {
-        OWLOntologyID ontologyID = new OWLOntologyID(Optional.ofNullable(iri), Optional.empty());
+        OWLOntologyID ontologyID =
+            getOWLDataFactory().getOWLOntologyID(Optional.ofNullable(iri), Optional.empty());
         readLock.lock();
         try {
             OWLOntology result = ontologiesByID.get(ontologyID);
@@ -733,7 +734,7 @@ public class OWLOntologyManagerImpl
                     return factory.createOWLOntology(this, ontologyID, documentIRI, this);
                 }
             }
-            throw new OWLOntologyFactoryNotFoundException(documentIRI);
+            throw new OWLOntologyFactoryNotFoundException(documentIRI.toString());
         } finally {
             writeLock.unlock();
         }
@@ -745,7 +746,7 @@ public class OWLOntologyManagerImpl
             if (!ontologyID.isAnonymous()) {
                 documentIRI = ontologyID.getDefaultDocumentIRI().orElse(null);
             } else {
-                documentIRI = IRI.generateDocumentIRI();
+                documentIRI = dataFactory.generateDocumentIRI();
             }
         }
         return documentIRI;
@@ -758,7 +759,7 @@ public class OWLOntologyManagerImpl
         try {
             if (contains(ontologyIRI)) {
                 throw new OWLOntologyAlreadyExistsException(
-                    new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.empty()));
+                    dataFactory.getOWLOntologyID(ontologyIRI));
             }
             OWLOntology ont = createOntology(ontologyIRI);
             addAxioms(ont,
@@ -776,7 +777,7 @@ public class OWLOntologyManagerImpl
         try {
             if (contains(ontologyIRI)) {
                 throw new OWLOntologyAlreadyExistsException(
-                    new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.empty()));
+                    dataFactory.getOWLOntologyID(ontologyIRI));
             }
             OWLOntology ont = createOntology(ontologyIRI);
             addAxioms(ont, axioms);
@@ -849,7 +850,7 @@ public class OWLOntologyManagerImpl
             if (ontByID != null) {
                 return ontByID;
             }
-            OWLOntologyID id = new OWLOntologyID(Optional.ofNullable(iri), Optional.empty());
+            OWLOntologyID id = dataFactory.getOWLOntologyID(iri);
             IRI documentIRI = getDocumentIRIFromMappers(id);
             if (documentIRI != null) {
                 if (documentIRIsByID.values().contains(documentIRI) && !allowExists) {
@@ -875,7 +876,8 @@ public class OWLOntologyManagerImpl
             if (ontByDocumentIRI != null) {
                 return ontByDocumentIRI;
             }
-            return loadOntology(iri, new IRIDocumentSource(documentIRI, null, null), configuration);
+            return loadOntology(iri, new IRIDocumentSource(documentIRI.toString(), null, null),
+                configuration);
         } finally {
             writeLock.unlock();
         }
@@ -916,7 +918,8 @@ public class OWLOntologyManagerImpl
         throws OWLOntologyCreationException {
         // XXX check default
         // Ontology URI not known in advance
-        return loadOntology(null, new IRIDocumentSource(documentIRI, null, null), configProvider);
+        return loadOntology(null, new IRIDocumentSource(documentIRI.toString(), null, null),
+            configProvider);
     }
 
     @Override
@@ -967,13 +970,13 @@ public class OWLOntologyManagerImpl
                 LOGGER.warn(
                     "Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
             }
-            fireStartedLoadingEvent(
-                new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.empty()),
-                documentSource.getDocumentIRI(), loadCount.get() > 0);
+            IRI documentIRI = dataFactory.create(documentSource.getDocumentIRI());
+            fireStartedLoadingEvent(getOWLDataFactory().getOWLOntologyID(ontologyIRI), documentIRI,
+                loadCount.get() > 0);
             loadCount.incrementAndGet();
             broadcastChanges.set(false);
             Exception ex = null;
-            OWLOntologyID idOfLoadedOntology = new OWLOntologyID();
+            OWLOntologyID idOfLoadedOntology = getOWLDataFactory().getOWLOntologyID();
             try {
                 OWLOntology o = load(documentSource, configuration);
                 if (o != null) {
@@ -994,10 +997,9 @@ public class OWLOntologyManagerImpl
                     broadcastChanges.set(true);
                     // Completed loading ontology and imports
                 }
-                fireFinishedLoadingEvent(idOfLoadedOntology, documentSource.getDocumentIRI(),
-                    loadCount.get() > 0, ex);
+                fireFinishedLoadingEvent(idOfLoadedOntology, documentIRI, loadCount.get() > 0, ex);
             }
-            throw new OWLOntologyFactoryNotFoundException(documentSource.getDocumentIRI());
+            throw new OWLOntologyFactoryNotFoundException(documentIRI.toString());
         } finally {
             writeLock.unlock();
         }
@@ -1006,6 +1008,7 @@ public class OWLOntologyManagerImpl
     @Nullable
     protected OWLOntology load(OWLOntologyDocumentSource documentSource,
         OntologyConfigurator configuration) throws OWLOntologyCreationException {
+        IRI documentIRI = dataFactory.create(documentSource.getDocumentIRI());
         for (OWLOntologyFactory factory : ontologyFactories) {
             if (factory.canAttemptLoading(documentSource)) {
                 try {
@@ -1018,7 +1021,7 @@ public class OWLOntologyManagerImpl
                         fixIllegalPunnings(ontology);
                     }
                     // Store the ontology to the document IRI mapping
-                    documentIRIsByID.put(ontology.getOntologyID(), documentSource.getDocumentIRI());
+                    documentIRIsByID.put(ontology.getOntologyID(), documentIRI);
                     ontologyConfigurationsByOntologyID.put(ontology.getOntologyID(), configuration);
                     if (ontology instanceof HasTrimToSize && configuration.shouldTrimToSize()) {
                         ((HasTrimToSize) ontology).trimToSize();

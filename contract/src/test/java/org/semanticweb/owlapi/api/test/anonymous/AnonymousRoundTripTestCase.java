@@ -32,15 +32,14 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 
 @SuppressWarnings("javadoc")
 public class AnonymousRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldNotFailOnAnonymousOntologySearch() throws OWLOntologyCreationException {
-        m.createOntology(new OWLOntologyID());
-        assertNull(m.getOntology(new OWLOntologyID()));
+        m.createOntology(df.getOWLOntologyID());
+        assertNull(m.getOntology(df.getOWLOntologyID()));
     }
 
     @Test

@@ -37,6 +37,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.SAXParsers;
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
@@ -53,12 +54,11 @@ import org.xml.sax.helpers.LocatorImpl;
  * <a href="http://www.w3.org/TR/rdf-syntax-grammar/" >http://www.w3.org/TR/rdf-
  * syntax-grammar/</a>.
  */
-public class RDFParser extends DefaultHandler implements IRIProvider {
+public class RDFParser extends DefaultHandler {
 
     protected static final Locator NULLDOCUMENTLOCATOR = new LocatorImpl();
     private static final String WRONGRESOLVE =
         "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
-    protected final Map<String, IRI> uriCache = new HashMap<>();
     /**
      * Stack of base IRIs.
      */
@@ -76,7 +76,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /**
      * Registered error handler.
      */
-    protected ErrorHandler errorHandler = new ErrorHandler() {
+    protected static ErrorHandler errorHandler = new ErrorHandler() {
 
         @Override
         public void warning(@Nullable SAXParseException exception) {
@@ -118,6 +118,11 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      */
     @Nullable
     protected Locator documentLocator;
+    private OWLDataFactory df;
+
+    public RDFParser(OWLDataFactory df) {
+        this.df = df;
+    }
 
     protected IRI getBaseIRI() {
         return verifyNotNull(baseIRI, "base IRI has not been set yet");
@@ -153,9 +158,9 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 throw new SAXException(
                     "Supplied InputSource object myst have systemId property set, which is needed for IRI resolution.");
             }
-            baseIRI = IRI.create(new URI(source.getSystemId()));
+            baseIRI = df.create(new URI(source.getSystemId()));
             consumer = inputConsumer;
-            inputConsumer.startModel(getBaseIRI());
+            inputConsumer.startModel(getBaseIRI().toString());
             DeclHandler handler = new DeclarationHandler();
             SAXParsers.initParserWithOWLAPIStandards(handler,
                 inputConsumer.getConfiguration().getEntityExpansionLimit()).parse(source, this);
@@ -176,7 +181,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @param errorHandler the error handler
      */
     public void setErrorHandler(ErrorHandler errorHandler) {
-        this.errorHandler = checkNotNull(errorHandler, "errorHandler cannot be null");
+        RDFParser.errorHandler = checkNotNull(errorHandler, "errorHandler cannot be null");
     }
 
     @Override
@@ -275,11 +280,11 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         states.remove(size - 1);
     }
 
-    private IRI resolveFromDelegate(IRI iri, String value) {
+    private String resolveFromDelegate(IRI iri, String value) {
         checkNotNull(iri, "iri cannot be null");
         checkNotNull(value, "value cannot be null");
         if (NodeID.isAnonymousNodeIRI(value)) {
-            return IRI.create(value, null);
+            return value;
         }
         // cache the delegate URI if not there already
         if (!baseURICache.containsKey(getBaseIRI())) {
@@ -288,8 +293,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         // get hold of the delegate URI
         URI delegateURI = baseURICache.get(getBaseIRI());
         // resolve against delegate
-        URI resolve = delegateURI.resolve(value.replace(" ", "%20"));
-        return IRI.create(resolve);
+        return delegateURI.resolve(value.replace(" ", "%20")).toString();
     }
 
     /**
@@ -303,7 +307,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         String value = atts.getValue(XMLNS, "base");
         if (value != null) {
             try {
-                baseIRI = resolveFromDelegate(getBaseIRI(), value);
+                baseIRI = df.create(resolveFromDelegate(getBaseIRI(), value));
                 resolvedIRIs.clear();
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e,
@@ -354,9 +358,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 if (resolved != null) {
                     return resolved;
                 }
-                IRI theIRI = resolveFromDelegate(getBaseIRI(), uri);
-                String u = theIRI.toString();
-                uriCache.put(u, theIRI);
+                String u = resolveFromDelegate(getBaseIRI(), uri);
                 resolvedIRIs.put(uri, u);
                 return u;
             } catch (IllegalArgumentException e) {
@@ -438,11 +440,6 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         } catch (IOException e) {
             throw new RDFParserException(e, "I/O error", getDocumentLocator());
         }
-    }
-
-    @Override
-    public IRI getIRI(String s) {
-        return uriCache.get(checkNotNull(s, "s cannot be null"));
     }
 
     /**

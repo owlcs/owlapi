@@ -84,7 +84,7 @@ public class OWL2ELProfile implements OWLProfile {
     }
 
     @Override
-    public IRI getIRI() {
+    public String getIRI() {
         return Profiles.OWL2_EL.getIRI();
     }
 
@@ -126,75 +126,75 @@ public class OWL2ELProfile implements OWLProfile {
         @Override
         public void visit(OWLDatatype node) {
             if (!ALLOWED_DATATYPES.contains(node.getIRI())) {
-                profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(),
-                    getCurrentAxiom(), node));
+                profileViolations
+                    .add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
             }
         }
 
         @Override
         public void visit(OWLAnonymousIndividual individual) {
-            profileViolations.add(new UseOfAnonymousIndividual(getCurrentOntology(),
-                getCurrentAxiom(), individual));
+            profileViolations.add(
+                new UseOfAnonymousIndividual(getCurrentOntology(), getCurrentAxiom(), individual));
         }
 
         @Override
         public void visit(OWLObjectInverseOf property) {
-            profileViolations.add(new UseOfObjectPropertyInverse(getCurrentOntology(),
-                getCurrentAxiom(), property));
+            profileViolations.add(
+                new UseOfObjectPropertyInverse(getCurrentOntology(), getCurrentAxiom(), property));
         }
 
         @Override
         public void visit(OWLDataAllValuesFrom ce) {
-            profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            profileViolations
+                .add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLDataExactCardinality ce) {
-            profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            profileViolations
+                .add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLDataMaxCardinality ce) {
-            profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            profileViolations
+                .add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLDataMinCardinality ce) {
-            profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            profileViolations
+                .add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLObjectAllValuesFrom ce) {
-            profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            profileViolations
+                .add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLObjectComplementOf ce) {
-            profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            profileViolations
+                .add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLObjectExactCardinality ce) {
-            profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            profileViolations
+                .add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLObjectMaxCardinality ce) {
-            profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            profileViolations
+                .add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLObjectMinCardinality ce) {
-            profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            profileViolations
+                .add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
@@ -207,14 +207,14 @@ public class OWL2ELProfile implements OWLProfile {
 
         @Override
         public void visit(OWLObjectUnionOf ce) {
-            profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            profileViolations
+                .add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLDataComplementOf node) {
-            profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(),
-                node));
+            profileViolations
+                .add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
         }
 
         @Override
@@ -227,14 +227,14 @@ public class OWL2ELProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDatatypeRestriction node) {
-            profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(),
-                node));
+            profileViolations
+                .add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
         }
 
         @Override
         public void visit(OWLDataUnionOf node) {
-            profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(),
-                node));
+            profileViolations
+                .add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
         }
 
         @Override
@@ -304,18 +304,13 @@ public class OWL2ELProfile implements OWLProfile {
                         // There must be an axiom that imposes a
                         // range on the last
                         // prop in the chain
-                        List<OWLObjectPropertyExpression> chain =
-                            axiom.getPropertyChain();
+                        List<OWLObjectPropertyExpression> chain = axiom.getPropertyChain();
                         if (!chain.isEmpty()) {
-                            OWLObjectPropertyExpression lastProperty =
-                                chain.get(chain.size() - 1);
-                            boolean rngPresent =
-                                rangePresent(imposedRange, lastProperty);
+                            OWLObjectPropertyExpression lastProperty = chain.get(chain.size() - 1);
+                            boolean rngPresent = rangePresent(imposedRange, lastProperty);
                             if (!rngPresent) {
-                                profileViolations.add(
-                                    new LastPropertyInChainNotInImposedRange(
-                                        getCurrentOntology(),
-                                        axiom, rngAx));
+                                profileViolations.add(new LastPropertyInChainNotInImposedRange(
+                                    getCurrentOntology(), axiom, rngAx));
                             }
                         }
                     }

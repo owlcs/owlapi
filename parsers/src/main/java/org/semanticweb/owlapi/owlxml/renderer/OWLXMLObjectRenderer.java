@@ -117,6 +117,7 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
@@ -201,12 +202,15 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     private final OWLXMLWriter writer;
+    private OWLDataFactory df;
 
     /**
      * @param writer writer
+     * @param df
      */
-    public OWLXMLObjectRenderer(OWLXMLWriter writer) {
+    public OWLXMLObjectRenderer(OWLXMLWriter writer, OWLDataFactory df) {
         this.writer = checkNotNull(writer, "writer cannot be null");
+        this.df = df;
     }
 
     private void writeAnnotations(OWLAxiom axiom) {
@@ -919,7 +923,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(VARIABLE);
         if ("urn:swrl:var#".equals(node.getIRI().getNamespace())
             || "urn:swrl#".equals(node.getIRI().getNamespace())) {
-            writer.writeIRIAttribute(IRI.create("urn:swrl:var#", node.getIRI().getFragment()));
+            writer.writeIRIAttribute(df.create("urn:swrl:var#", node.getIRI().getFragment()));
         } else {
             writer.writeIRIAttribute(node.getIRI());
         }

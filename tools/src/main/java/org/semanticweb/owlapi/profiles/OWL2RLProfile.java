@@ -85,7 +85,7 @@ public class OWL2RLProfile implements OWLProfile {
     }
 
     @Override
-    public IRI getIRI() {
+    public String getIRI() {
         return Profiles.OWL2_RL.getIRI();
     }
 

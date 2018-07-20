@@ -107,7 +107,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
@@ -179,7 +178,7 @@ public class OWLProfileTestCase extends TestBase {
     private static final OWLDatatype FAKEUNDECLAREDDATATYPE =
         Datatype(IRI("urn:datatype#", "fakeundeclareddatatype"));
     private static final OWLDatatype FAKEDATATYPE = Datatype(IRI("urn:datatype#", "fakedatatype"));
-    private static final IRI onto = IRI.create("urn:test#", "ontology");
+    private static final IRI onto = df.create("urn:test#", "ontology");
     private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
     private static final OWLObjectProperty P = ObjectProperty(IRI("urn:test#", "objectproperty"));
     private static final OWLIndividual I = NamedIndividual(IRI("urn:test#", "ind"));
@@ -337,8 +336,7 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLOntology ontology)")
     public void shouldCreateViolationForOWLOntologyInOWL2DLProfile()
         throws OWLOntologyCreationException {
-        o = m.createOntology(new OWLOntologyID(Optional.ofNullable(IRI(START, "test")),
-            Optional.ofNullable(IRI(START, "test1"))));
+        o = m.createOntology(df.getOWLOntologyID(IRI(START, "test"), IRI(START, "test1")));
         int expected = 2;
         Class[] expectedViolations = {UseOfReservedVocabularyForOntologyIRI.class,
             UseOfReservedVocabularyForVersionIRI.class};
@@ -640,8 +638,8 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLOntology ont)")
     public void shouldCreateViolationForOWLOntologyInOWL2Profile()
         throws OWLOntologyCreationException {
-        o = m.createOntology(new OWLOntologyID(Optional.ofNullable(IRI("test", "")),
-            Optional.ofNullable(IRI("test1", ""))));
+        o = m.createOntology(
+            df.getOWLOntologyID(Optional.of(IRI("test", "")), Optional.of(IRI("test1", ""))));
         int expected = 2;
         Class[] expectedViolations =
             {OntologyIRINotAbsolute.class, OntologyVersionIRINotAbsolute.class};

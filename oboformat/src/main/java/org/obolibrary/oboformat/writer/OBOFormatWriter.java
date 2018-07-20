@@ -38,8 +38,6 @@ import org.obolibrary.oboformat.model.Frame.FrameType;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.model.Xref;
-import org.obolibrary.oboformat.parser.OBOFormatConstants;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
@@ -53,6 +51,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -336,7 +336,7 @@ public class OBOFormatWriter {
      */
     public static void write(Clause clause, Writer writer, @Nullable NameProvider nameProvider)
         throws IOException {
-        if (OboFormatTag.TAG_IS_OBSELETE.getTag().equals(clause.getTag())) {
+        if (OboFormatTag.TAG_IS_OBSOLETE.getTag().equals(clause.getTag())) {
             // only write the obsolete tag if the value is Boolean.TRUE or
             // "true"
             Object value = clause.getValue();
@@ -346,7 +346,7 @@ public class OBOFormatWriter {
                 }
             } else {
                 // also check for a String representation of Boolean.TRUE
-                if (!Boolean.TRUE.toString().equals(value)) {
+                if (!(Boolean.TRUE.equals(value) || "true".equals(value.toString()))) {
                     return;
                 }
             }
@@ -556,8 +556,7 @@ public class OBOFormatWriter {
     public void write(String fn, Writer writer) throws IOException {
         AtomicReference<OBODoc> doc = new AtomicReference<>();
         OWLParser parser = new OBOFormatOWLAPIParser((o, d) -> doc.set(d));
-        new IRIDocumentSource(IRI.create(fn)).acceptParser(parser, null,
-            new OntologyConfigurator());
+        new IRIDocumentSource(fn).acceptParser(parser, null, new OntologyConfigurator());
         write(doc.get(), writer);
     }
 

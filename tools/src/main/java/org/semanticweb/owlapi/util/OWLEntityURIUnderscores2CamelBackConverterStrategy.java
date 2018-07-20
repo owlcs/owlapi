@@ -21,6 +21,7 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
@@ -35,14 +36,19 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy
     implements OWLEntityURIConverterStrategy {
 
     private final Map<IRI, IRI> iriMap = new HashMap<>();
+    private OWLDataFactory df;
 
-    private static IRI convert(IRI iri) {
+    public OWLEntityURIUnderscores2CamelBackConverterStrategy(OWLDataFactory df) {
+        this.df = df;
+    }
+
+    private IRI convert(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
         Optional<String> fragment = iri.getRemainder();
         if (fragment.isPresent()) {
             String base = iri.getNamespace();
             String camelCaseFragment = toCamelCase(fragment.get());
-            return IRI.create(base, camelCaseFragment);
+            return df.create(base, camelCaseFragment);
         }
         // for an IRI without fragment, the part to modify is the previous
         // fragment of the path.
@@ -53,7 +59,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy
             String camelCaseElement = toCamelCase(lastPathElement);
             String iriString = iri.toString();
             String base = iriString.substring(0, iriString.lastIndexOf('/') + 1);
-            return IRI.create(base, camelCaseElement);
+            return df.create(base, camelCaseElement);
         }
         return iri;
     }

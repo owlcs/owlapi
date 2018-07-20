@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.slf4j.Logger;
@@ -25,6 +26,11 @@ class TripleLogger {
     private final AtomicInteger count = new AtomicInteger();
     @Nullable
     private PrefixManager prefixManager;
+    private OWLDataFactory df;
+
+    public TripleLogger(OWLDataFactory df) {
+        this.df = df;
+    }
 
     /**
      * @param id log ontology id
@@ -72,7 +78,7 @@ class TripleLogger {
         }
         if (o instanceof String
             && (((String) o).startsWith("http:") || ((String) o).startsWith("urn:"))) {
-            return shorten(IRI.create((String) o));
+            return shorten(df.create((String) o));
         }
         if (prefixManager == null || !(o instanceof IRI)) {
             // quote strings and bnodes

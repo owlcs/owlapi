@@ -1,9 +1,9 @@
 package org.obolibrary.macro;
 
-import static org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary.IRI_IAO_0000424;
-import static org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary.IRI_IAO_0000425;
 import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary.IRI_IAO_0000424;
+import static org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary.IRI_IAO_0000425;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,7 +15,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nullable;
 
-import org.obolibrary.obo2owl.Obo2OWLConstants;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -63,6 +62,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.vocab.Obo2OWLConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,7 +101,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
                 .forEach(a -> mapToExpand(p, a)));
         o.annotationPropertiesInSignature().forEach(p -> expandAssertions(o, p));
         OIO_ISEXPANSION = df.getOWLAnnotationProperty(
-            IRI.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
+            df.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
         expansionMarkerAnnotation = df.getOWLAnnotation(OIO_ISEXPANSION, df.getOWLLiteral(true));
     }
 

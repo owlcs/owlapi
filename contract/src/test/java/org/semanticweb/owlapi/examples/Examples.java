@@ -30,7 +30,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -238,9 +237,6 @@ public class Examples extends TestBase {
     private static void printOntology(OWLOntologyManager manager, OWLOntology ontology) {
         IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI().get();
         IRI documentIRI = manager.getOntologyDocumentIRI(ontology);
-        // System.out.println(ontologyIRI == null ? "anonymous" : ontologyIRI
-        // .toQuotedString());
-        // System.out.println(" from " + documentIRI.toQuotedString());
     }
 
     /**
@@ -256,7 +252,7 @@ public class Examples extends TestBase {
      * @return The document IRI of the ontology in the TONES repository.
      */
     private static IRI getTONESRepositoryDocumentIRI(IRI ontologyIRI, IRI tones) {
-        return IRI.create(tones + "?ontology=" + ontologyIRI);
+        return df.create(tones + "?ontology=" + ontologyIRI);
     }
 
     /**
@@ -279,7 +275,7 @@ public class Examples extends TestBase {
         // an IRI to our local copy above.
         // iri and file here are used as examples
         IRI iri = ontology.getOntologyID().getOntologyIRI().get();
-        IRI remoteOntology = IRI.create("http://remote.ontology/we/dont/want/to/", "load");
+        IRI remoteOntology = df.create("http://remote.ontology/we/dont/want/to/", "load");
         manager.getIRIMappers().add(new SimpleIRIMapper(remoteOntology, iri));
         // Load the ontology as if we were loading it from the web (from its
         // ontology IRI)
@@ -314,7 +310,7 @@ public class Examples extends TestBase {
         // Now save a local copy of the ontology. (Specify a path appropriate to
         // your setup)
         File file = folder.newFile("owlapiexamples_saving.owl");
-        manager.saveOntology(ontology, IRI.create(file.toURI()));
+        manager.saveOntology(ontology, df.create(file.toURI()));
         // By default ontologies are saved in the format from which they were
         // loaded. In this case the ontology was loaded from rdf/xml. We
         // can get information about the format of an ontology from its manager
@@ -322,7 +318,7 @@ public class Examples extends TestBase {
         // We can save the ontology in a different format. Lets save the
         // ontology in owl/xml format
         OWLXMLDocumentFormat owlxmlFormat = new OWLXMLDocumentFormat();
-        manager.saveOntology(ontology, owlxmlFormat, IRI.create(file.toURI()));
+        manager.saveOntology(ontology, owlxmlFormat, df.create(file.toURI()));
         // We can also dump an ontology to System.out by specifying a different
         // OWLOntologyOutputTarget. Note that we can write an ontology to a
         // stream in a similar way using the StreamOutputTarget class
@@ -355,7 +351,7 @@ public class Examples extends TestBase {
         // for our class. There are two ways we can create classes (and other
         // entities). The first is by specifying the full IRI. First we create
         // an IRI object:
-        IRI iri = IRI.create("http://www.semanticweb.org/owlapi/ontologies/ontology#", "A");
+        IRI iri = df.create("http://www.semanticweb.org/owlapi/ontologies/ontology#", "A");
         // Now we create the class
         OWLClass clsAMethodA = factory.getOWLClass(iri);
         // The second is to use a prefix manager and specify abbreviated IRIs.
@@ -375,7 +371,7 @@ public class Examples extends TestBase {
         // ontology). Lets create an ontology, and add a declaration axiom to
         // the ontology that declares the above class
         OWLOntology ontology =
-            manager.createOntology(IRI.create("http://anyiri.com/can/be/used/", "ontology"));
+            manager.createOntology(df.create("http://anyiri.com/can/be/used/", "ontology"));
         // We can add a declaration axiom to the ontology, that essentially adds
         // the class to the signature of our ontology.
         OWLDeclarationAxiom declarationAxiom = factory.getOWLDeclarationAxiom(clsAMethodA);
@@ -432,7 +428,7 @@ public class Examples extends TestBase {
         OWLDataPropertyRangeAxiom rangeAxiom =
             factory.getOWLDataPropertyRangeAxiom(hasAge, integerGE18);
         OWLOntology ontology = manager
-            .createOntology(IRI.create("http://www.semanticweb.org/ontologies/", "dataranges"));
+            .createOntology(df.create("http://www.semanticweb.org/ontologies/", "dataranges"));
         // Add the range axiom to our ontology
         manager.addAxiom(ontology, rangeAxiom);
         // For creating datatype restrictions on integers or doubles there are
@@ -470,7 +466,7 @@ public class Examples extends TestBase {
     public void shouldUseDataranges() throws Exception {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         String base = "http://org.semanticweb.datarangeexample#";
-        OWLOntology ontology = manager.createOntology(IRI.create(base, ""));
+        OWLOntology ontology = manager.createOntology(df.create(base, ""));
         // We want to add an axiom to our ontology that states that adults have
         // an age greater than 18. To do this, we will create a restriction
         // along a hasAge property, with a filler that corresponds to the set of
@@ -555,7 +551,7 @@ public class Examples extends TestBase {
         // }
         // Now save a copy to another location in OWL/XML format (i.e. disregard
         // the format that the ontology was loaded in).
-        IRI destination = IRI.create(folder.newFile("owlapiexample_example1.xml"));
+        IRI destination = df.create(folder.newFile("owlapiexample_example1.xml"));
         manager.saveOntology(ontology, new OWLXMLDocumentFormat(), destination);
     }
 
@@ -576,9 +572,9 @@ public class Examples extends TestBase {
         // mapping which points to a concrete file where the ontology will be
         // stored. (It's good practice to do this even if we don't intend to
         // save the ontology).
-        IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/", "testont.owl");
+        IRI ontologyIRI = df.create("http://www.co-ode.org/ontologies/", "testont.owl");
         // Create the document IRI for our ontology
-        IRI documentIRI = IRI.create("file:/tmp/", "MyOnt.owl");
+        IRI documentIRI = df.create("file:/tmp/", "MyOnt.owl");
         // Set up a mapping, which maps the ontology to the document IRI
         SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
         manager.getIRIMappers().add(mapper);
@@ -636,7 +632,7 @@ public class Examples extends TestBase {
         // In OWL 2, an ontology may be named with an IRI (Internationalised
         // Resource Identifier) We can create an instance of the IRI class as
         // follows:
-        IRI ontologyIRI = IRI.create("http://www.semanticweb.org/ontologies/", "myontology");
+        IRI ontologyIRI = df.create("http://www.semanticweb.org/ontologies/", "myontology");
         // Here we have decided to call our ontology
         // "http://www.semanticweb.org/ontologies/myontology" If we publish our
         // ontology then we should make the location coincide with the ontology
@@ -663,11 +659,10 @@ public class Examples extends TestBase {
         // our ontology. In our case we will just "extend" our ontology IRI with
         // some version information. We could of course specify any IRI for our
         // version IRI.
-        IRI versionIRI = IRI.create(ontologyIRI + "/", "version1");
+        IRI versionIRI = df.create(ontologyIRI + "/", "version1");
         // Note that we MUST specify an ontology IRI if we want to specify a
         // version IRI
-        OWLOntologyID newOntologyID =
-            new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.ofNullable(versionIRI));
+        OWLOntologyID newOntologyID = df.getOWLOntologyID(ontologyIRI, versionIRI);
         // Create the change that will set our version IRI
         SetOntologyID setOntologyID = new SetOntologyID(ontology, newOntologyID);
         // Apply the change
@@ -675,11 +670,10 @@ public class Examples extends TestBase {
         // We can also just specify the ontology IRI and possibly the version
         // IRI at ontology creation time Set up our ID by specifying an ontology
         // IRI and version IRI
-        IRI ontologyIRI2 = IRI.create("http://www.semanticweb.org/ontologies/", "myontology2");
+        IRI ontologyIRI2 = df.create("http://www.semanticweb.org/ontologies/", "myontology2");
         IRI versionIRI2 =
-            IRI.create("http://www.semanticweb.org/ontologies/myontology2/", "newversion");
-        OWLOntologyID ontologyID2 =
-            new OWLOntologyID(Optional.ofNullable(ontologyIRI2), Optional.ofNullable(versionIRI2));
+            df.create("http://www.semanticweb.org/ontologies/myontology2/", "newversion");
+        OWLOntologyID ontologyID2 = df.getOWLOntologyID(ontologyIRI2, versionIRI2);
         // Now create the ontology
         OWLOntology ontology2 = manager.createOntology(ontologyID2);
         // Finally, if we don't want to give an ontology an IRI, in OWL 2 we
@@ -699,7 +693,7 @@ public class Examples extends TestBase {
         // We can specify the properties of an individual using property
         // assertions Get a copy of an ontology manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        IRI ontologyIRI = IRI.create("http://example.com/owl/families/", "");
+        IRI ontologyIRI = df.create("http://example.com/owl/families/", "");
         OWLOntology ontology = manager.createOntology(ontologyIRI);
         // Get hold of a data factory from the manager and set up a prefix
         // manager to make things easier
@@ -764,7 +758,7 @@ public class Examples extends TestBase {
         OWLClassAssertionAxiom classAssertion = dataFactory.getOWLClassAssertionAxiom(person, mary);
         // We need to add the class assertion to the ontology that we want
         // specify that :Mary is a :Person
-        OWLOntology ontology = manager.createOntology(IRI.create(base, ""));
+        OWLOntology ontology = manager.createOntology(df.create(base, ""));
         // Add the class assertion
         manager.addAxiom(ontology, classAssertion);
         // Dump the ontology to stdout
@@ -782,10 +776,10 @@ public class Examples extends TestBase {
         // mapping which points to a concrete file where the ontology will be
         // stored. (It's good practice to do this even if we don't intend to
         // save the ontology).
-        IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/", "testont.owl");
+        IRI ontologyIRI = df.create("http://www.co-ode.org/ontologies/", "testont.owl");
         // Create a document IRI which can be resolved to point to where our
         // ontology will be saved.
-        IRI documentIRI = IRI.create("file:/tmp/", "SWRLTest.owl");
+        IRI documentIRI = df.create("file:/tmp/", "SWRLTest.owl");
         // Set up a mapping, which maps the ontology to the document IRI
         SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
         manager.getIRIMappers().add(mapper);
@@ -826,7 +820,7 @@ public class Examples extends TestBase {
     public void shouldAddObjectPropertyAssertions() throws Exception {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         String base = "http://www.semanticweb.org/ontologies/individualsexample";
-        OWLOntology ont = man.createOntology(IRI.create(base, ""));
+        OWLOntology ont = man.createOntology(df.create(base, ""));
         OWLDataFactory dataFactory = man.getOWLDataFactory();
         // In this case, we would like to state that matthew has a father who is
         // peter. We need a subject and object - matthew is the subject and
@@ -857,7 +851,7 @@ public class Examples extends TestBase {
         // automatically and the change applied
         man.addAxiom(ont, ax);
         // Save our ontology
-        man.saveOntology(ont, IRI.create("file:/tmp/", "example.owl"));
+        man.saveOntology(ont, df.create("file:/tmp/", "example.owl"));
     }
 
     /**
@@ -917,7 +911,7 @@ public class Examples extends TestBase {
     public void shouldCreateRestrictions() throws Exception {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         String base = "http://org.semanticweb.restrictionexample";
-        OWLOntology ont = man.createOntology(IRI.create(base, ""));
+        OWLOntology ont = man.createOntology(df.create(base, ""));
         // In this example we will add an axiom to state that all Heads have
         // parts that are noses (in fact, here we merely state that a Head has
         // at least one nose!). We do this by creating an existential (some)
@@ -1093,7 +1087,7 @@ public class Examples extends TestBase {
         // This isn't always the case. A class may have a IRI that bears no
         // resemblance to the ontology IRI which contains axioms about the
         // class.
-        IRI quokkaIRI = IRI.create(ont.getOntologyID().getOntologyIRI().get() + "#", "Quokka");
+        IRI quokkaIRI = df.create(ont.getOntologyID().getOntologyIRI().get() + "#", "Quokka");
         OWLClass quokka = man.getOWLDataFactory().getOWLClass(quokkaIRI);
         // Now we want to collect the properties which are used in existential
         // restrictions on the class. To do this, we will create a utility class
@@ -1232,7 +1226,7 @@ public class Examples extends TestBase {
         // Just load two arbitrary ontologies for the purposes of this example
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         load(man);
-        OWLOntology o = man.createOntology(IRI.create("urn:test", ""));
+        OWLOntology o = man.createOntology(df.create("urn:test", ""));
         man.addAxiom(o, man.getOWLDataFactory()
             .getOWLDeclarationAxiom(man.getOWLDataFactory().getOWLClass("urn:test#", "class")));
         // Create our ontology merger
@@ -1240,7 +1234,7 @@ public class Examples extends TestBase {
         // We merge all of the loaded ontologies. Since an OWLOntologyManager is
         // an OWLOntologySetProvider we just pass this in. We also need to
         // specify the IRI of the new ontology that will be created.
-        IRI mergedOntologyIRI = IRI.create("http://www.semanticweb.com/", "mymergedont");
+        IRI mergedOntologyIRI = df.create("http://www.semanticweb.com/", "mymergedont");
         OWLOntology merged = merger.createMergedOntology(man, mergedOntologyIRI);
         // Print out the axioms in the merged ontology.
         // for (OWLAxiom ax : merged.getAxioms()) {
@@ -1331,10 +1325,10 @@ public class Examples extends TestBase {
     @Test
     public void shouldUseIRIMappers() throws Exception {
         IRI mgedOntologyIri =
-            IRI.create("http://mged.sourceforge.net/ontologies/", "MGEDOntology.owl");
-        IRI protegeOntologyIri = IRI.create("http://protege.stanford.edu/plugins/owl/", "protege");
+            df.create("http://mged.sourceforge.net/ontologies/", "MGEDOntology.owl");
+        IRI protegeOntologyIri = df.create("http://protege.stanford.edu/plugins/owl/", "protege");
         IRI tonesRepositoryIri =
-            IRI.create("http://owl.cs.manchester.ac.uk/repository/", "download");
+            df.create("http://owl.cs.manchester.ac.uk/repository/", "download");
         // Create a manager to work with
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // Load the MGED ontology. There is a copy of the MGED ontology located
@@ -1376,7 +1370,7 @@ public class Examples extends TestBase {
         File file = folder.newFolder();
         // We can also specify a flag to indicate whether the directory should
         // be searched recursively.
-        OWLOntologyIRIMapper autoIRIMapper = new AutoIRIMapper(file, false);
+        OWLOntologyIRIMapper autoIRIMapper = new AutoIRIMapper(file, false, df);
         // We can now use this mapper in the usual way, i.e.
         manager2.getIRIMappers().add(autoIRIMapper);
         // Of course, applications (such as Protege) usually implement their own
@@ -1425,7 +1419,7 @@ public class Examples extends TestBase {
         // ontology about the terms in the seed signature or the module.
         SyntacticLocalityModuleExtractor sme =
             new SyntacticLocalityModuleExtractor(man, ont, ModuleType.STAR);
-        IRI moduleIRI = IRI.create("urn:test:QuokkaModule.owl", "");
+        IRI moduleIRI = df.create("urn:test:QuokkaModule.owl", "");
         OWLOntology mod = sme.extractAsOntology(seedSig, moduleIRI);
         // The module can now be saved as usual
     }
@@ -1454,7 +1448,7 @@ public class Examples extends TestBase {
         // that the IRI doesn't necessarily point to a location on the web - in
         // this example, we won't publish the ontology at the URL corresponding
         // to the ontology IRI below.
-        IRI ontologyIRI = IRI.create("http://example.com/owlapi/", "families");
+        IRI ontologyIRI = df.create("http://example.com/owlapi/", "families");
         // Now that we have a IRI for out ontology, we can create the actual
         // ontology. Note that the create ontology method throws an
         // OWLOntologyCreationException if there was a problem creating the

@@ -29,5 +29,13 @@ public interface IRIShortFormProvider extends Serializable {
      * @param iri the IRI to shorten
      * @return the short form
      */
-    String getShortForm(IRI iri);
+    default String getShortForm(IRI iri) {
+        return getShortForm(iri.toString());
+    }
+
+    /**
+     * @param iri the IRI to shorten
+     * @return the short form
+     */
+    String getShortForm(String iri);
 }

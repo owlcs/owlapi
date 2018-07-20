@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
@@ -34,7 +33,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param f format
      */
     public StringDocumentSource(StringDocumentTarget target, OWLDocumentFormat f) {
-        this(target.toString(), STRING_ONTOLOGY, f, null);
+        this(target.toString(), STRING_ONTOLOGY + IRICounter.getAndIncrement(), f, null);
     }
 
     /**
@@ -42,35 +41,22 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param f format
      */
     public StringDocumentSource(String string, OWLDocumentFormat f) {
-        this(string, STRING_ONTOLOGY, f, null);
+        this(string, STRING_ONTOLOGY + IRICounter.getAndIncrement(), f, null);
     }
 
     /**
      * @param string the source string
      */
     public StringDocumentSource(String string) {
-        this(string, STRING_ONTOLOGY, null, null);
+        this(string, STRING_ONTOLOGY + IRICounter.getAndIncrement(), null, null);
     }
 
     /**
      * @param string the source string
      * @param iri The document IRI
      */
-    public StringDocumentSource(String string, IRI iri) {
+    public StringDocumentSource(String string, String iri) {
         this(string, iri, null, null);
-    }
-
-    /**
-     * Specifies a string as an ontology document.
-     *
-     * @param string The string
-     * @param prefix The document IRI prefix
-     * @param f ontology format
-     * @param mime mime type
-     */
-    public StringDocumentSource(String string, String prefix, @Nullable OWLDocumentFormat f,
-        @Nullable String mime) {
-        this(string, IRI.getNextDocumentIRI(prefix), f, mime);
     }
 
     /**
@@ -81,7 +67,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param f ontology format
      * @param mime mime type
      */
-    public StringDocumentSource(String string, IRI documentIRI, @Nullable OWLDocumentFormat f,
+    public StringDocumentSource(String string, String documentIRI, @Nullable OWLDocumentFormat f,
         @Nullable String mime) {
         super(documentIRI, () -> null, f, mime);
         checkNotNull(string, "string cannot be null");

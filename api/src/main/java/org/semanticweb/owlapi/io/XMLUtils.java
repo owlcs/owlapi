@@ -61,12 +61,9 @@ public final class XMLUtils {
      */
     public static boolean isXMLNameStartCharacter(int codePoint) {
         return codePoint == ':' || codePoint >= 'A' && codePoint <= 'Z' || codePoint == '_'
-            || codePoint >= 'a' && codePoint <= 'z'
-            || codePoint >= 0xC0 && codePoint <= 0xD6
-            || codePoint >= 0xD8 && codePoint <= 0xF6
-            || codePoint >= 0xF8 && codePoint <= 0x2FF
-            || codePoint >= 0x370 && codePoint <= 0x37D
-            || codePoint >= 0x37F && codePoint <= 0x1FFF
+            || codePoint >= 'a' && codePoint <= 'z' || codePoint >= 0xC0 && codePoint <= 0xD6
+            || codePoint >= 0xD8 && codePoint <= 0xF6 || codePoint >= 0xF8 && codePoint <= 0x2FF
+            || codePoint >= 0x370 && codePoint <= 0x37D || codePoint >= 0x37F && codePoint <= 0x1FFF
             || codePoint >= 0x200C && codePoint <= 0x200D
             || codePoint >= 0x2070 && codePoint <= 0x218F
             || codePoint >= 0x2C00 && codePoint <= 0x2FEF
@@ -216,8 +213,8 @@ public final class XMLUtils {
      *
      * @param s The character sequence.
      * @return The index of the longest suffix of the specified character sequence {@code s} that is
-     * an NCName, or -1 if the character sequence {@code s} does not have a suffix that is an
-     * NCName.
+     *         an NCName, or -1 if the character sequence {@code s} does not have a suffix that is
+     *         an NCName.
      */
     public static int getNCNameSuffixIndex(CharSequence s) {
         // identify bnode labels and do not try to split them
@@ -244,8 +241,8 @@ public final class XMLUtils {
      *
      * @param s The character sequence.
      * @return The String which is the longest suffix of the character sequence {@code s} that is an
-     * NCName, or {@code null} if the character sequence {@code s} does not have a suffix that is an
-     * NCName.
+     *         NCName, or {@code null} if the character sequence {@code s} does not have a suffix
+     *         that is an NCName.
      */
     @Nullable
     public static String getNCNameSuffix(CharSequence s) {
@@ -393,4 +390,32 @@ public final class XMLUtils {
     public static boolean isNullOrEmpty(@Nullable CharSequence s) {
         return s == null || s.length() == 0;
     }
+
+    public static String schema(String s) {
+        int i = s.indexOf(':');
+        if (i > -1) {
+            return s.substring(0, i);
+        }
+        return "";
+    }
+
+    public static boolean disallowed(char ch) {
+        return !Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+'
+            && ch != '-';
+    }
+
+    public static boolean isAbsolute(String namespace) {
+        int colonIndex = namespace.indexOf(':');
+        if (colonIndex == -1) {
+            return false;
+        }
+        for (int i = 0; i < colonIndex; i++) {
+            char ch = namespace.charAt(i);
+            if (XMLUtils.disallowed(ch)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

@@ -45,13 +45,15 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
@@ -127,6 +129,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -137,6 +140,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
@@ -156,7 +160,10 @@ import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
@@ -167,8 +174,12 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  */
 @Singleton
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassProvider {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OWLDataFactoryImpl.class);
+
 //@formatter:off
-    private static final LoadingCache<OWLAnnotation, OWLAnnotation>          annotations          = builder(key -> key);
+    private static final LoadingCache<String, String>                        iriNamespaces        = builder(x -> x);
+    private static final Cache<String, IRI>                                  iris                 = Caffeine.newBuilder().maximumSize(2048).build();
+    private static final LoadingCache<OWLAnnotation, OWLAnnotation>          annotations          = builder(x -> x);
     private static final LoadingCache<IRI,           OWLClass>               classes              = builder(OWLClassImpl::new);
     private static final LoadingCache<IRI,           OWLObjectProperty>      objectProperties     = builder(OWLObjectPropertyImpl::new);
     private static final LoadingCache<IRI,           OWLDataProperty>        dataProperties       = builder(OWLDataPropertyImpl::new);
@@ -176,24 +187,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     private static final LoadingCache<IRI,           OWLNamedIndividual>     individuals          = builder(OWLNamedIndividualImpl::new);
     private static final LoadingCache<IRI,           OWLAnnotationProperty>  annotationProperties = builder(OWLAnnotationPropertyImpl::new);
 //@formatter:on
+    private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
 
-    private final boolean useCompression;
-
-    /**
-     * Constructs an OWLDataFactoryImpl that uses caching but no compression.
-     */
-    public OWLDataFactoryImpl() {
-        this(false);
-    }
-
-    /**
-     * @param useCompression true if compression should be used
-     */
-    @Inject
-    public OWLDataFactoryImpl(@CompressionEnabled Boolean useCompression) {
-        this.useCompression = useCompression.booleanValue();
-    }
-
+    private final boolean useCompression=false;
     @Override
     public void purge() {
         classes.invalidateAll();
@@ -203,6 +199,204 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         individuals.invalidateAll();
         annotationProperties.invalidateAll();
         annotations.invalidateAll();
+    }
+
+    @Override
+    public OWLOntologyID getOWLOntologyID(@Nullable IRI iri, @Nullable IRI versionIRI) {
+        return getOWLOntologyID(opt(iri), opt(versionIRI));
+    }
+
+    private Optional<IRI> opt(@Nullable IRI i) {
+        if (i == null || NodeID.isAnonymousNodeIRI(i)) {
+            return Optional.empty();
+        }
+        if (!i.isAbsolute()) {
+            LOGGER.error(
+                "Ontology IRIs must be absolute; IRI {} is relative and will be made absolute by prefixing urn:absolute: to it",
+                i);
+            return Optional.ofNullable(create("urn:absolute:" + i));
+        }
+        return Optional.ofNullable(i);
+    }
+
+    @Override
+    public OWLOntologyID getOWLOntologyID(Optional<IRI> iri, Optional<IRI> version) {
+        return new OWLOntologyIDImpl(iri, version);
+    }
+
+    @Override
+    public IRI getNextDocumentIRI(String prefix) {
+        return create(prefix + COUNTER.incrementAndGet());
+    }
+
+    @Override
+    public IRI create(String str) {
+        checkNotNull(str, "str cannot be null");
+        IRI cached = iris.getIfPresent(str);
+        if (cached != null) {
+            return cached;
+        }
+        int index = XMLUtils.getNCNameSuffixIndex(str);
+        IRI created;
+        if (index < 0) {
+            // no ncname
+            created = new IRIImpl(verifyNotNull(iriNamespaces.get(str)), "");
+        } else {
+            created = create(str.substring(0, index), str.substring(index));
+        }
+        iris.put(str, created);
+        return created;
+    }
+
+    @Override
+    public IRI create(@Nullable String prefix, @Nullable String suffix) {
+        if (prefix == null && suffix == null) {
+            throw new IllegalArgumentException("prefix and suffix cannot both be null");
+        }
+        if (prefix == null) {
+            return create(verifyNotNull(suffix));
+        }
+        if (suffix == null) {
+            // suffix set deliberately to null is used only in blank node
+            // management
+            // this is not great but blank nodes should be changed to not refer
+            // to IRIs at all
+            // XXX address blank node issues with iris
+            return create(prefix);
+        }
+        int index = XMLUtils.getNCNameSuffixIndex(prefix);
+        int test = XMLUtils.getNCNameSuffixIndex(suffix);
+        if (index == -1 && test == 0) {
+            // the prefix does not contain an ncname character and there is
+            // no illegal character in the suffix
+            // the split is therefore correct
+            IRIImpl created = new IRIImpl(verifyNotNull(iriNamespaces.get(prefix)), suffix);
+            // this IRI is not cached; creating the string key would remove the memory advantage
+            return created;
+        }
+        // otherwise the split is wrong; we could obtain the right split by
+        // using index and test, but it's just as easy to use the other
+        // constructor
+        String key = prefix + suffix;
+        IRI created = create(key);
+        iris.put(key, created);
+        return created;
+    }
+
+    @Override
+    public OWLAnnotationProperty getOWLAnnotationProperty(String iri) {
+        return getOWLAnnotationProperty(create(iri));
+    }
+
+    @Override
+    public OWLAnnotationProperty getOWLAnnotationProperty(String namespace,
+        @Nullable String remainder) {
+        return getOWLAnnotationProperty(create(namespace, remainder));
+    }
+
+    @Override
+    public OWLAnnotationProperty getOWLAnnotationProperty(String abbreviatedIRI,
+        PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "abbreviatedIRI cannot be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLAnnotationProperty(prefixManager.getIRI(abbreviatedIRI, this));
+    }
+
+    @Override
+    public OWLClass getOWLClass(String iri) {
+        return getOWLClass(create(iri));
+    }
+
+    @Override
+    public OWLClass getOWLClass(String namespace, @Nullable String remainder) {
+        return getOWLClass(create(namespace, remainder));
+    }
+
+    @Override
+    public OWLClass getOWLClass(String abbreviatedIRI, PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "iri cannot be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLClass(prefixManager.getIRI(abbreviatedIRI, this));
+    }
+
+    @Override
+    public OWLDataProperty getOWLDataProperty(String iri) {
+        return getOWLDataProperty(create(iri));
+    }
+
+    @Override
+    public OWLDataProperty getOWLDataProperty(String namespace, @Nullable String remainder) {
+        return getOWLDataProperty(create(namespace, remainder));
+    }
+
+    @Override
+    public OWLDataProperty getOWLDataProperty(String abbreviatedIRI, PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "curi canno be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLDataProperty(prefixManager.getIRI(abbreviatedIRI, this));
+    }
+
+    @Override
+    public OWLDatatype getOWLDatatype(String iri) {
+        return getOWLDatatype(create(iri));
+    }
+
+    @Override
+    public OWLDatatype getOWLDatatype(String namespace, @Nullable String remainder) {
+        return getOWLDatatype(create(namespace, remainder));
+    }
+
+    @Override
+    public OWLDatatype getOWLDatatype(String abbreviatedIRI, PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "abbreviatedIRI cannot be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLDatatype(prefixManager.getIRI(abbreviatedIRI, this));
+    }
+
+    @Override
+    public OWLNamedIndividual getOWLNamedIndividual(String iri) {
+        return getOWLNamedIndividual(create(iri));
+    }
+
+    @Override
+    public OWLNamedIndividual getOWLNamedIndividual(String namespace, @Nullable String remainder) {
+        return getOWLNamedIndividual(create(namespace, remainder));
+    }
+
+    @Override
+    public OWLNamedIndividual getOWLNamedIndividual(String abbreviatedIRI,
+        PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "curi canno be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLNamedIndividual(prefixManager.getIRI(abbreviatedIRI, this));
+    }
+
+    @Override
+    public OWLObjectProperty getOWLObjectProperty(String iri) {
+        return getOWLObjectProperty(create(iri));
+    }
+
+    @Override
+    public OWLObjectProperty getOWLObjectProperty(String namespace, @Nullable String remainder) {
+        return getOWLObjectProperty(create(namespace, remainder));
+    }
+
+    @Override
+    public OWLObjectProperty getOWLObjectProperty(String abbreviatedIRI,
+        PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "curi canno be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLObjectProperty(prefixManager.getIRI(abbreviatedIRI, this));
+    }
+
+    @Override
+    public SWRLVariable getSWRLVariable(String iri) {
+        return getSWRLVariable(create(iri));
+    }
+
+    @Override
+    public SWRLVariable getSWRLVariable(String namespace, @Nullable String remainder) {
+        return getSWRLVariable(create(namespace, remainder));
     }
 
     @Override
@@ -1114,11 +1308,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     protected OWLLiteral getBasicLiteral(String lexicalValue, String lang,
         @Nullable OWLDatatype datatype) {
         if (useCompression) {
-            if (datatype == null || datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
-                return new OWLLiteralImplPlain(lexicalValue, lang);
-            }
-            return new OWLLiteralImpl(lexicalValue, lang, datatype);
+        if (datatype == null || datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
+            return new OWLLiteralImplPlain(lexicalValue, lang);
         }
+        return new OWLLiteralImpl(lexicalValue, lang, datatype);
+    }
         return new OWLLiteralImplNoCompression(lexicalValue, lang, datatype);
     }
 }

@@ -25,9 +25,9 @@ public class ImportsCacheTestCase extends TestBase {
 
     @Before
     public void setUpOntologies() throws Exception {
-        ontA = m.createOntology(IRI.create("http://ont.com/ontA"));
-        ontB = m.createOntology(IRI.create("http://ont.com/ontB"));
-        ontBDocIri = IRI.create("http://docs.ont.com/ontB");
+        ontA = m.createOntology(df.create("http://ont.com/ontA"));
+        ontB = m.createOntology(df.create("http://ont.com/ontB"));
+        ontBDocIri = df.create("http://docs.ont.com/ontB");
         ontBDocumentIriImportsDeclaration = new OWLImportsDeclarationImpl(ontBDocIri);
     }
 

@@ -97,13 +97,12 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // because
         // we throw an exception if someone tries to create an ontology directly
         OWLOntology existingOntology = null;
-        IRI iri = documentSource.getDocumentIRI();
+        IRI iri = manager.getOWLDataFactory().create(documentSource.getDocumentIRI());
         if (manager.contains(iri)) {
             existingOntology = manager.getOntology(iri);
         }
-        OWLOntologyID ontologyID = new OWLOntologyID();
-        OWLOntology ont =
-            createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
+        OWLOntologyID ontologyID = manager.getOWLDataFactory().getOWLOntologyID();
+        OWLOntology ont = createOWLOntology(manager, ontologyID, iri, handler);
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
@@ -122,8 +121,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
                     if (existingOntology == null && !ont.isEmpty()) {
                         // Junk from a previous parse. We should clear the ont
                         manager.removeOntology(ont);
-                        ont = createOWLOntology(manager, ontologyID,
-                            documentSource.getDocumentIRI(), handler);
+                        ont = createOWLOntology(manager, ontologyID, iri, handler);
                     }
                     handler.setOntologyFormat(ont,
                         documentSource.acceptParser(parser, ont, configuration));
@@ -166,7 +164,6 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // exception whose message contains the stack traces from all of the
         // parsers
         // that we have tried.
-        throw new UnparsableOntologyException(documentSource.getDocumentIRI(), exceptions,
-            configuration);
+        throw new UnparsableOntologyException(iri, exceptions, configuration);
     }
 }

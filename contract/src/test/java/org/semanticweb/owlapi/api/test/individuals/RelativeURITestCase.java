@@ -22,7 +22,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AxiomsRoundTrippingBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFXMLParserException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
@@ -36,7 +35,7 @@ public class RelativeURITestCase extends AxiomsRoundTrippingBase {
 
     public RelativeURITestCase() {
         super(() -> Collections.singletonList(
-            Declaration(Class(IRI(IRI.getNextDocumentIRI(uriBase) + "/", "Office")))));
+            Declaration(Class(IRI(df.getNextDocumentIRI(uriBase) + "/", "Office")))));
     }
 
     @Test

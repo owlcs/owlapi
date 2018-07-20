@@ -152,9 +152,7 @@ public interface SWRLProvider {
      * @param iri The IRI of the variable
      * @return A SWRLVariable that has the name specified by the IRI
      */
-    default SWRLVariable getSWRLVariable(String iri) {
-        return getSWRLVariable(IRI.create(iri));
-    }
+    SWRLVariable getSWRLVariable(String iri);
 
     /**
      * Gets a SWRLVariable.
@@ -163,9 +161,7 @@ public interface SWRLProvider {
      * @param remainder optional remainder or local name
      * @return A SWRLVariable that has the name specified by the IRI
      */
-    default SWRLVariable getSWRLVariable(String namespace, @Nullable String remainder) {
-        return getSWRLVariable(IRI.create(namespace, remainder));
-    }
+    SWRLVariable getSWRLVariable(String namespace, @Nullable String remainder);
 
     /**
      * Gets a SWRLVariable with the same IRI as the input.

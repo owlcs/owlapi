@@ -21,7 +21,6 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.utilities.IRIShortFormProvider;
@@ -43,10 +42,10 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     private static final String OBO_EXTENSION = ".obo";
     private static final String[] EXTENSIONS =
         {OWL_EXTENSION, RDF_EXTENSION, XML_EXTENSION, OBO_EXTENSION};
-    private static final Map<IRI, String> WELL_KNOWN_SHORTFORMS = initWellKnownShortForms();
+    private static final Map<String, String> WELL_KNOWN_SHORTFORMS = initWellKnownShortForms();
 
-    private static Map<IRI, String> initWellKnownShortForms() {
-        Map<IRI, String> map = new HashMap<>();
+    private static Map<String, String> initWellKnownShortForms() {
+        Map<String, String> map = new HashMap<>();
         for (Namespaces ns : Namespaces.values()) {
             String iriPrefix = ns.getPrefixIRI();
             String iri;
@@ -55,14 +54,14 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
             } else {
                 iri = iriPrefix;
             }
-            map.put(IRI.create(iri, ""), ns.getPrefixName().toLowerCase());
-            map.put(IRI.create(iri + '/', ""), ns.getPrefixName().toLowerCase());
+            map.put(iri, ns.getPrefixName().toLowerCase());
+            map.put(iri + '/', ns.getPrefixName().toLowerCase());
         }
         return Collections.unmodifiableMap(map);
     }
 
     @Nullable
-    private static String getWellKnownShortForm(IRI iri) {
+    private static String getWellKnownShortForm(String iri) {
         String wellKnownShortForm = WELL_KNOWN_SHORTFORMS.get(iri);
         if (wellKnownShortForm != null) {
             return wellKnownShortForm;
@@ -75,7 +74,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      *
      * @param shortForm The short form.
      * @return The short form with the extension removed if it was present, or the original short
-     * form if no extension was present.
+     *         form if no extension was present.
      */
     private static String stripExtensionIfPresent(String shortForm) {
         String lowerCaseShortForm = shortForm.toLowerCase();
@@ -92,7 +91,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      *
      * @param pathElement The path element to test. Not {@code null}.
      * @return {@code true} if the specified path element is a candidate short form, otherwise
-     * {@code false}.
+     *         {@code false}.
      */
     private static boolean isCandidatePathElement(String pathElement) {
         return !pathElement.isEmpty() && !isVersionString(pathElement);
@@ -150,12 +149,12 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     }
 
     @Override
-    public String getShortForm(IRI iri) {
+    public String getShortForm(String iri) {
         String wellKnownShortForm = getWellKnownShortForm(iri);
         if (wellKnownShortForm != null) {
             return wellKnownShortForm;
         }
-        URI uri = iri.toURI();
+        URI uri = URI.create(iri);
         String path = uri.getPath();
         if (path != null && !path.isEmpty()) {
             String candidatePathElement = "";

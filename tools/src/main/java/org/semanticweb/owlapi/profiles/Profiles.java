@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -39,7 +38,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *
  * @author ignazio
  */
-public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWLProfile> {
+public enum Profiles implements KnownFactories, OWLProfile, Supplier<OWLProfile> {
     //@formatter:off
     /** http://www.w3.org/ns/owl-profile/DL. **/     OWL2_DL     ("DL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2DLProfile();} },
     /** http://www.w3.org/ns/owl-profile/QL. **/     OWL2_QL     ("QL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2QLProfile();} },
@@ -47,12 +46,17 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWL
     /** http://www.w3.org/ns/owl-profile/RL. **/     OWL2_RL     ("RL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2RLProfile();} },
     /** http://www.w3.org/ns/owl-profile/Full. **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2Profile();  } };
     //@formatter:on
-    private final IRI iri;
     private final List<String> supportingFactories;
+    private String iriname;
 
     Profiles(String name, String... supportingFactories) {
-        iri = IRI.create("http://www.w3.org/ns/owl-profile/", name);
         this.supportingFactories = CollectionFactory.list(supportingFactories);
+        iriname = name;
+    }
+
+    @Override
+    public String getIRI() {
+        return "http://www.w3.org/ns/owl-profile/" + iriname;
     }
 
     /**
@@ -80,7 +84,8 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWL
      * @return Profiles with matching IRI, or null if none is found
      */
     public static Profiles valueForIRI(IRI i) {
-        return Stream.of(values()).filter(p -> p.iri.equals(i)).findAny().orElse(null);
+        return Stream.of(values()).filter(p -> p.getIRI().equals(i.toString())).findAny()
+            .orElse(null);
     }
 
     @Override
@@ -91,11 +96,6 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWL
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         return get().checkOntology(ontology);
-    }
-
-    @Override
-    public IRI getIRI() {
-        return iri;
     }
 
     /**

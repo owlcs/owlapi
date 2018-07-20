@@ -49,9 +49,9 @@ public class ClosureAxiomsExample {
                     throws OWLException {
         /* Create and Ontology Manager */
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        IRI documentIRI = IRI.create(inputOntology);
-        IRI classIRI = IRI.create(classToClose);
-        IRI outputDocumentIRI = IRI.create(outputOntology);
+        IRI documentIRI = manager.getOWLDataFactory().create(inputOntology);
+        IRI classIRI = manager.getOWLDataFactory().create(classToClose);
+        IRI outputDocumentIRI = manager.getOWLDataFactory().create(outputOntology);
         /* Load an ontology */
         System.out.println("Loading: " + documentIRI);
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);

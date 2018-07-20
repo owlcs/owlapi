@@ -57,8 +57,8 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
      * @param id id
      * @return IRI with full node id
      */
-    public static IRI nodeId(int id) {
-        return IRI.create(PREFIX_NODE + Integer.toString(id));
+    public static IRI nodeId(int id, OWLDataFactory df) {
+        return df.create(PREFIX_NODE + Integer.toString(id));
     }
 
     /**
@@ -86,8 +86,8 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
     /**
      * @return IRI with fresh node id
      */
-    public static IRI nextFreshNodeId() {
-        return IRI.create(PREFIX_NODE + COUNTER.incrementAndGet());
+    public static IRI nextFreshNodeId(OWLDataFactory df) {
+        return df.create(PREFIX_NODE + COUNTER.incrementAndGet());
     }
 
     /**

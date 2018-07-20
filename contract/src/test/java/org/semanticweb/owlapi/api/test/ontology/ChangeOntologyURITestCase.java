@@ -63,7 +63,7 @@ public class ChangeOntologyURITestCase extends TestBase {
 
     @Test
     public void shouldCheckContents() throws OWLOntologyCreationException {
-        m.createOntology(IRI.create("http://www.test.com/", "123"));
+        m.createOntology(df.create("http://www.test.com/", "123"));
         OWLOntologyID anonymousId = m1.createOntology().getOntologyID();
         m.contains(anonymousId);
     }

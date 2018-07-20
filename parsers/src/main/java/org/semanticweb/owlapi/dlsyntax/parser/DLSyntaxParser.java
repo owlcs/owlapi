@@ -15,8 +15,6 @@
 
 package org.semanticweb.owlapi.dlsyntax.parser;
 
-import java.util.Set;
-import java.util.HashSet;
 import java.util.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.utilities.*;
@@ -26,15 +24,16 @@ import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings("all")
 class DLSyntaxParser implements DLSyntaxParserConstants {
-    private String defaultNamespace = IRI.getNextDocumentIRI("http://www.semanticweb.org/ontologies/Ontology").toString();
+    private String defaultNamespace;
     private Map<String, String> namespaceMap = new HashMap<String, String>();
     private OWLDataFactory factory;
-    private Map<String, IRI> iriMap = new HashMap<String, IRI>();
     private Map<String, IRI> qnameIRIMap = new HashMap<String, IRI>();
     private Set<OWLAxiom> axioms = new LinkedHashSet<OWLAxiom>();
 
-    public void setOWLDataFactory(OWLDataFactory factory) {
+    public DLSyntaxParser(Provider stream, OWLDataFactory factory) {
+        this(stream);
         this.factory = factory;
+        defaultNamespace = factory.getNextDocumentIRI("http://www.semanticweb.org/ontologies/Ontology").toString();
     }
 
     public void setPrefixMapping(String prefix, String namespace) {
@@ -43,15 +42,6 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
 
     public void setDefaultNamespace(String ns) {
         defaultNamespace = ns;
-    }
-
-    public IRI getIRI(String val) {
-        IRI iri = iriMap.get(val);
-        if(iri == null) {
-            iri = IRI.create(val);
-            iriMap.put(val, iri);
-        }
-        return iri;
     }
 
     public IRI getIRIFromId(String qname) {
@@ -63,7 +53,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         }
         IRI iri = qnameIRIMap.get(qname);
         if(iri == null) {
-            iri = getIRI(defaultNamespace + "#" + qname);
+            iri = factory.create(defaultNamespace + "#" + qname);
             qnameIRIMap.put(qname, iri);
         }
         return iri;
@@ -836,6 +826,69 @@ return getIRIFromId(t.image);
     finally { jj_save(13, xla); }
   }
 
+  private boolean jj_3R_13()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_8()) {
+    jj_scanpos = xsp;
+    if (jj_3_9()) return true;
+    }
+    if (jj_scan_token(OPENPAR)) return true;
+    if (jj_3R_27()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_16()
+ {
+    if (jj_3R_29()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_56()
+ {
+    if (jj_3R_27()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_51()
+ {
+    if (jj_scan_token(ALL)) return true;
+    if (jj_3R_17()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(8)) jj_scanpos = xsp;
+    if (jj_3R_24()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_14()
+ {
+    if (jj_3R_27()) return true;
+    if (jj_scan_token(EXACT)) return true;
+    if (jj_3R_27()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_20()
+ {
+    if (jj_scan_token(IN)) return true;
+    if (jj_scan_token(TRANSITIVEROLES)) return true;
+    return false;
+  }
+
+  private boolean jj_3_7()
+ {
+    if (jj_3R_14()) return true;
+    return false;
+  }
+
+  private boolean jj_3_11()
+ {
+    if (jj_3R_21()) return true;
+    return false;
+  }
+
   private boolean jj_3R_23()
  {
     if (jj_scan_token(SOME)) return true;
@@ -1273,69 +1326,6 @@ return getIRIFromId(t.image);
   private boolean jj_3R_42()
  {
     if (jj_3R_46()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_13()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_8()) {
-    jj_scanpos = xsp;
-    if (jj_3_9()) return true;
-    }
-    if (jj_scan_token(OPENPAR)) return true;
-    if (jj_3R_27()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_16()
- {
-    if (jj_3R_29()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_56()
- {
-    if (jj_3R_27()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_51()
- {
-    if (jj_scan_token(ALL)) return true;
-    if (jj_3R_17()) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(8)) jj_scanpos = xsp;
-    if (jj_3R_24()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_14()
- {
-    if (jj_3R_27()) return true;
-    if (jj_scan_token(EXACT)) return true;
-    if (jj_3R_27()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_20()
- {
-    if (jj_scan_token(IN)) return true;
-    if (jj_scan_token(TRANSITIVEROLES)) return true;
-    return false;
-  }
-
-  private boolean jj_3_7()
- {
-    if (jj_3R_14()) return true;
-    return false;
-  }
-
-  private boolean jj_3_11()
- {
-    if (jj_3R_21()) return true;
     return false;
   }
 

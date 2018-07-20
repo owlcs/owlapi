@@ -7,7 +7,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -23,9 +22,9 @@ public class PunningAndDomainsRangesTestCase extends TestBase {
     @Test
     public void shouldKeepDomainsInFSS()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(IRI.create("urn:test#", "ontology"));
-        OWLAnnotationProperty p1 = df.getOWLAnnotationProperty(IRI.create("urn:property#", "p"));
-        OWLDataProperty p2 = df.getOWLDataProperty(IRI.create("urn:property#", "p"));
+        OWLOntology o = m.createOntology(df.create("urn:test#", "ontology"));
+        OWLAnnotationProperty p1 = df.getOWLAnnotationProperty(df.create("urn:property#", "p"));
+        OWLDataProperty p2 = df.getOWLDataProperty(df.create("urn:property#", "p"));
         m.addAxiom(o,
             df.getOWLAnnotationPropertyRangeAxiom(p1, OWL2Datatype.RDFS_LITERAL.getIRI()));
         m.addAxiom(o,
@@ -37,11 +36,11 @@ public class PunningAndDomainsRangesTestCase extends TestBase {
     @Test
     public void shouldSupportPunningClassesAndPropertiesInManchesterSyntax()
         throws OWLOntologyCreationException {
-        OWLClass b = df.getOWLClass(IRI.create("urn:test#", "B"));
-        OWLClass a = df.getOWLClass(IRI.create("urn:test#", "A"));
+        OWLClass b = df.getOWLClass(df.create("urn:test#", "B"));
+        OWLClass a = df.getOWLClass(df.create("urn:test#", "A"));
         OWLOntology o = m.createOntology();
         m.addAxiom(o,
-            df.getOWLDeclarationAxiom(df.getOWLObjectProperty(IRI.create("urn:test#", "B"))));
+            df.getOWLDeclarationAxiom(df.getOWLObjectProperty(df.create("urn:test#", "B"))));
         m.addAxiom(o, df.getOWLDeclarationAxiom(b));
         m.addAxiom(o, df.getOWLDeclarationAxiom(a));
         ManchesterOWLSyntaxParserImpl parser =

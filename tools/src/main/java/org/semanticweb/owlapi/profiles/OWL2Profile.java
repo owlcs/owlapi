@@ -53,7 +53,7 @@ public class OWL2Profile implements OWLProfile {
     }
 
     @Override
-    public IRI getIRI() {
+    public String getIRI() {
         return Profiles.OWL2_FULL.getIRI();
     }
 
@@ -107,8 +107,8 @@ public class OWL2Profile implements OWLProfile {
         @Override
         public void visit(IRI iri) {
             if (!iri.isAbsolute()) {
-                profileViolations.add(new UseOfNonAbsoluteIRI(getCurrentOntology(),
-                    getCurrentAxiom(), iri));
+                profileViolations
+                    .add(new UseOfNonAbsoluteIRI(getCurrentOntology(), getCurrentAxiom(), iri));
             }
         }
 
@@ -132,10 +132,8 @@ public class OWL2Profile implements OWLProfile {
             getCurrentOntology().importsClosure()
                 .flatMap(o -> o.axioms(AxiomType.DATATYPE_DEFINITION))
                 .filter(ax -> datatype.equals(ax.getDatatype()))
-                .forEach(ax -> profileViolations
-                    .add(new UseOfDefinedDatatypeInDatatypeRestriction(
-                        getCurrentOntology(), getCurrentAxiom(),
-                        node)));
+                .forEach(ax -> profileViolations.add(new UseOfDefinedDatatypeInDatatypeRestriction(
+                    getCurrentOntology(), getCurrentAxiom(), node)));
             // All facets must be allowed for the restricted datatype
             node.facetRestrictions().forEach(r -> {
                 OWL2Datatype dt = datatype.getBuiltInDatatype();
@@ -150,8 +148,8 @@ public class OWL2Profile implements OWLProfile {
         public void visit(OWLDatatypeDefinitionAxiom axiom) {
             // The datatype MUST be declared
             if (!getCurrentOntology().isDeclared(axiom.getDatatype(), INCLUDED)) {
-                profileViolations.add(new UseOfUndeclaredDatatype(getCurrentOntology(), axiom,
-                    axiom.getDatatype()));
+                profileViolations.add(
+                    new UseOfUndeclaredDatatype(getCurrentOntology(), axiom, axiom.getDatatype()));
             }
         }
     }

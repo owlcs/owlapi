@@ -35,11 +35,11 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 public class MultipleOntologyLoadsTestCase extends TestBase {
 
     private final Optional<IRI> v2 = Optional
-        .ofNullable(IRI.getNextDocumentIRI("http://test.example.org/ontology/0139/version:2"));
+        .ofNullable(df.getNextDocumentIRI("http://test.example.org/ontology/0139/version:2"));
     private final Optional<IRI> v1 = Optional
-        .ofNullable(IRI.getNextDocumentIRI("http://test.example.org/ontology/0139/version:1"));
+        .ofNullable(df.getNextDocumentIRI("http://test.example.org/ontology/0139/version:1"));
     private final Optional<IRI> i139 =
-        Optional.ofNullable(IRI.getNextDocumentIRI("http://test.example.org/ontology/0139"));
+        Optional.ofNullable(df.getNextDocumentIRI("http://test.example.org/ontology/0139"));
     private final String INPUT = "<?xml version=\"1.0\"?>\n"
         + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\">\n"
         + "  <rdf:Description rdf:about=\"" + i139.get().toString() + "\">\n"
@@ -51,27 +51,27 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testMultipleVersionLoadChangeIRI() throws Exception {
         secondOntology();
         try {
-            getOWLOntology(new OWLOntologyID(i139, v2));
+            getOWLOntology(df.getOWLOntologyID(i139, v2));
             fail("Did not receive expected OWLOntologyDocumentAlreadyExistsException");
         } catch (OWLOntologyAlreadyExistsException e) {
-            assertEquals(new OWLOntologyID(i139, v2), e.getOntologyID());
+            assertEquals(df.getOWLOntologyID(i139, v2), e.getOntologyID());
         }
     }
 
     @Test
     public void testMultipleVersionLoadNoChange() throws Exception {
-        initialOntology(new OWLOntologyID(i139, v1));
+        initialOntology(df.getOWLOntologyID(i139, v1));
         try {
-            getOWLOntology(new OWLOntologyID(i139, v1));
+            getOWLOntology(df.getOWLOntologyID(i139, v1));
             fail("Did not receive expected OWLOntologyAlreadyExistsException");
         } catch (OWLOntologyAlreadyExistsException e) {
-            assertEquals(new OWLOntologyID(i139, v1), e.getOntologyID());
+            assertEquals(df.getOWLOntologyID(i139, v1), e.getOntologyID());
         }
     }
 
     @Test
     public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
-        assertI139V1(initialOntology(new OWLOntologyID(i139, v1)));
+        assertI139V1(initialOntology(df.getOWLOntologyID(i139, v1)));
         assertI139V2(secondOntology());
     }
 
@@ -86,7 +86,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     protected OWLOntology secondOntology() throws OWLOntologyCreationException {
-        return initialOntology(new OWLOntologyID(i139, v2));
+        return initialOntology(df.getOWLOntologyID(i139, v2));
     }
 
     protected OWLOntology initialOntology(OWLOntologyID initialUniqueOWLOntologyID)
@@ -111,7 +111,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     @Test
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() throws Exception {
         Optional<IRI> empty = Optional.empty();
-        assertI139V1(initialOntology(new OWLOntologyID(i139, empty)));
+        assertI139V1(initialOntology(df.getOWLOntologyID(i139, empty)));
         assertI139V2(secondOntology());
     }
 
@@ -122,6 +122,6 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
 
     @Test
     public void testSingleVersionLoadNoChange() throws Exception {
-        assertI139V1(initialOntology(new OWLOntologyID(i139, v1)));
+        assertI139V1(initialOntology(df.getOWLOntologyID(i139, v1)));
     }
 }

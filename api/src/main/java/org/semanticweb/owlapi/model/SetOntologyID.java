@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Optional;
-
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.change.SetOntologyIDData;
@@ -56,7 +54,7 @@ public class SetOntologyID extends OWLOntologyChange {
      * @param ontologyIRI The ontology iri
      */
     public SetOntologyID(OWLOntology ont, IRI ontologyIRI) {
-        this(ont, new OWLOntologyID(Optional.ofNullable(ontologyIRI), Optional.empty()));
+        this(ont, ont.getOWLOntologyManager().getOWLDataFactory().getOWLOntologyID(ontologyIRI));
     }
 
     @Override

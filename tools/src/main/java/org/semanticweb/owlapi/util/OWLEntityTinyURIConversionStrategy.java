@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -44,13 +45,14 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
     private final String base;
     private final Map<OWLEntity, IRI> entityNameMap = new HashMap<>();
     private final OWLEntityFragmentProvider fragmentProvider = new OWLEntityFragmentProvider();
+    private OWLDataFactory df;
 
     /**
      * Constructs an entity URI converter strategy, where the base of the generated URIs corresponds
      * to the value specified by the DEFAULT_BASE constant.
      */
-    public OWLEntityTinyURIConversionStrategy() {
-        this(DEFAULT_BASE);
+    public OWLEntityTinyURIConversionStrategy(OWLDataFactory df) {
+        this(DEFAULT_BASE, df);
     }
 
     /**
@@ -59,8 +61,9 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
      *
      * @param base The base to be used.
      */
-    public OWLEntityTinyURIConversionStrategy(String base) {
+    public OWLEntityTinyURIConversionStrategy(String base, OWLDataFactory df) {
         this.base = checkNotNull(base, "base cannot be null");
+        this.df = df;
     }
 
     @Override
@@ -73,7 +76,7 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
             return entity.getIRI();
         }
         String name = fragmentProvider.getName(entity);
-        iri = IRI.create(base, name);
+        iri = df.create(base, name);
         entityNameMap.put(entity, iri);
         return iri;
     }

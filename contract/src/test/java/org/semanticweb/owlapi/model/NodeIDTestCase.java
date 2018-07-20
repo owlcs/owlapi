@@ -5,12 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 
 /**
  * @author ignazio
  */
 @SuppressWarnings("javadoc")
-public class NodeIDTestCase {
+public class NodeIDTestCase extends TestBase {
 
     @Test
     public void shouldCreateNodeString() {
@@ -37,9 +38,9 @@ public class NodeIDTestCase {
 
     @Test
     public void shouldFindAnonymousNodeIRI() {
-        assertTrue(NodeID.isAnonymousNodeIRI(IRI.create("_:sometest_genid_something")));
-        assertTrue(NodeID.isAnonymousNodeIRI(IRI.create("_:genid_something")));
-        assertFalse(NodeID.isAnonymousNodeIRI(IRI.create("http://sometest_genid#", "something")));
+        assertTrue(NodeID.isAnonymousNodeIRI(df.create("_:sometest_genid_something")));
+        assertTrue(NodeID.isAnonymousNodeIRI(df.create("_:genid_something")));
+        assertFalse(NodeID.isAnonymousNodeIRI(df.create("http://sometest_genid#", "something")));
         assertFalse(NodeID.isAnonymousNodeIRI((IRI) null));
     }
 
@@ -53,10 +54,10 @@ public class NodeIDTestCase {
 
     @Test
     public void shouldbuildNode() {
-        assertTrue(NodeID.isAnonymousNodeIRI(
-            NodeID.getNodeID("_:sometest_genid_something").getID()));
-        assertTrue(NodeID.isAnonymousNodeIRI(
-            NodeID.getNodeID("http://sometest_genid_something").getID()));
+        assertTrue(
+            NodeID.isAnonymousNodeIRI(NodeID.getNodeID("_:sometest_genid_something").getID()));
+        assertTrue(
+            NodeID.isAnonymousNodeIRI(NodeID.getNodeID("http://sometest_genid_something").getID()));
         assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(null).getID()));
         NodeID id = NodeID.getNodeID(null);
         assertEquals(id.getID(), id.toString());

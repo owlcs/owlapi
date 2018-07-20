@@ -37,6 +37,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
@@ -72,6 +73,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     private boolean mapped;
     @Nullable
     private transient File currentFile;
+    private final OWLDataFactory df;
 
     /**
      * Creates an auto-mapper which examines ontologies that reside in the specified root folder
@@ -83,7 +85,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      *        to ZipIRIMapper.
      * @param recursive Sub directories will be searched recursively if {@code true}.
      */
-    public AutoIRIMapper(File rootDirectory, boolean recursive) {
+    public AutoIRIMapper(File rootDirectory, boolean recursive, OWLDataFactory df) {
+        this.df = df;
         directoryPath =
             checkNotNull(rootDirectory, "rootDirectory cannot be null").getAbsolutePath();
         this.recursive = recursive;
@@ -112,7 +115,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         if (ontURI == null) {
             return null;
         }
-        return IRI.create(ontURI);
+        return df.create(ontURI);
     }
 
     @Nullable
@@ -121,17 +124,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         if (baseValue == null) {
             return null;
         }
-        return IRI.create(baseValue);
-    }
-
-    /**
-     * @param tok token
-     * @return IRI without quotes (&lt; and &gt;)
-     */
-    static IRI unquote(String tok) {
-        String substring = tok.substring(1, tok.length() - 1);
-        assert substring != null;
-        return IRI.create(substring);
+        return df.create(baseValue);
     }
 
     protected File getDirectory() {
@@ -234,7 +227,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         String extension = name.substring(lastIndexOf);
         if (".zip".equalsIgnoreCase(extension) || ".jar".equalsIgnoreCase(extension)) {
             try {
-                ZipIRIMapper mapper = new ZipIRIMapper(file, "jar:" + file.toURI() + "!/");
+                ZipIRIMapper mapper = new ZipIRIMapper(file, "jar:" + file.toURI() + "!/", df);
                 mapper.oboMappings().forEach(e -> oboFileMap.put(e.getKey(), e.getValue()));
                 mapper.iriMappings()
                     .forEach(e -> ontologyIRI2PhysicalURIMap.put(e.getKey(), e.getValue()));
@@ -244,7 +237,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             }
 
         } else if (".obo".equalsIgnoreCase(extension)) {
-            oboFileMap.put(name, IRI.create(file));
+            oboFileMap.put(name, df.create(file));
         } else if (".ofn".equalsIgnoreCase(extension)) {
             parseFSSFile(file);
         } else if (".omn".equalsIgnoreCase(extension)) {
@@ -271,7 +264,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
                 if (m.matches()) {
                     String group = m.group(1);
                     assert group != null;
-                    addMapping(IRI.create(group), file);
+                    addMapping(df.create(group), file);
                     break;
                 }
             }
@@ -316,7 +309,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     private IRI parseManLine(File file, String line) {
         Matcher matcher = manPattern.matcher(line);
         if (matcher.matches()) {
-            IRI iri = IRI.create(matcher.group(1));
+            IRI iri = df.create(matcher.group(1));
             addMapping(iri, file);
             return iri;
         }
@@ -344,7 +337,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * @param file file
      */
     protected void addMapping(IRI ontologyIRI, File file) {
-        ontologyIRI2PhysicalURIMap.put(ontologyIRI, IRI.create(file));
+        ontologyIRI2PhysicalURIMap.put(ontologyIRI, df.create(file));
     }
 
     @Override

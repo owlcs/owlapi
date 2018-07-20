@@ -7,7 +7,6 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -43,10 +42,10 @@ public class AtomicDecomposerDepedenciesTest {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLOntology o = m.createOntology();
         OWLDataFactory f = m.getOWLDataFactory();
-        OWLClass powerYoga = f.getOWLClass(IRI.create("urn:test#", "PowerYoga"));
-        OWLClass yoga = f.getOWLClass(IRI.create("urn:test#", "Yoga"));
-        OWLClass relaxation = f.getOWLClass(IRI.create("urn:test#", "Relaxation"));
-        OWLClass activity = f.getOWLClass(IRI.create("urn:test#", "Activity"));
+        OWLClass powerYoga = f.getOWLClass(f.create("urn:test#", "PowerYoga"));
+        OWLClass yoga = f.getOWLClass(f.create("urn:test#", "Yoga"));
+        OWLClass relaxation = f.getOWLClass(f.create("urn:test#", "Relaxation"));
+        OWLClass activity = f.getOWLClass(f.create("urn:test#", "Activity"));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(powerYoga, yoga));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(yoga, relaxation));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(relaxation, activity));

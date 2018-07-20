@@ -1,4 +1,4 @@
-package org.obolibrary.obo2owl;
+package org.semanticweb.owlapi.vocab;
 
 import java.util.Date;
 import java.util.Map;
@@ -8,11 +8,10 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.obolibrary.oboformat.parser.OBOFormatConstants;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 
 /**
  * @author Shahid Manzoor
@@ -31,11 +30,13 @@ public class Obo2OWLConstants {
     /**
      * IRI for the 'has obsolescence reason' annotation property
      */
-    public static final IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX, "IAO_0000231");
+    public static final IRI IRI_IAO_0000231 =
+        VocabFactory.df.create(DEFAULT_IRI_PREFIX, "IAO_0000231");
     /**
      * IRI for the 'terms merged' individual
      */
-    public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX, "IAO_0000227");
+    public static final IRI IRI_IAO_0000227 =
+        VocabFactory.df.create(DEFAULT_IRI_PREFIX, "IAO_0000227");
     private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB =
         Stream.of(Obo2OWLVocabulary.values()).collect(
             Collectors.toConcurrentMap(Obo2OWLVocabulary::getMappedTag, Function.identity()));
@@ -91,7 +92,7 @@ public class Obo2OWLConstants {
         final String mappedTag;
 
         Obo2OWLVocabulary(String namespce, String shortName, String label, String mappedTag) {
-            iri = IRI.create(namespce, shortName);
+            iri = VocabFactory.df.create(namespce, shortName);
             this.shortName = shortName;
             namespace = namespce;
             this.label = label;

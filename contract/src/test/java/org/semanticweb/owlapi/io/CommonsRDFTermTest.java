@@ -23,6 +23,7 @@ import org.apache.commons.rdf.api.Triple;
 import org.junit.Assume;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -103,7 +104,9 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
 
         @Override
         public RDFResourceBlankNode createBlankNode() {
-            return new RDFResourceBlankNode(bnodeCounter.incrementAndGet(), false, false, false);
+            return new RDFResourceBlankNode(
+                NodeID.nodeId(bnodeCounter.incrementAndGet(), OWLManager.getOWLDataFactory()),
+                false, false, false);
         }
 
         @Override
@@ -135,7 +138,7 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
         @Override
         public org.semanticweb.owlapi.model.IRI createIRI(@Nullable String iriStr) {
             org.semanticweb.owlapi.model.IRI innerIri =
-                org.semanticweb.owlapi.model.IRI.create(verifyNotNull(iriStr));
+                OWLManager.getOWLDataFactory().create(verifyNotNull(iriStr));
             return innerIri;
             // TODO: What about RDFResourceIRI?
             // return new RDFResourceIRI(innerIri);
@@ -143,8 +146,7 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
 
         @Override
         public Triple createTriple(@Nullable BlankNodeOrIRI subject,
-            @Nullable org.apache.commons.rdf.api.IRI predicate,
-            @Nullable RDFTerm object) {
+            @Nullable org.apache.commons.rdf.api.IRI predicate, @Nullable RDFTerm object) {
             RDFResource subject2 = (RDFResource) convert(subject);
             RDFResourceIRI predicate2 = (RDFResourceIRI) convert(predicate);
             RDFNode object2 = convert(object);

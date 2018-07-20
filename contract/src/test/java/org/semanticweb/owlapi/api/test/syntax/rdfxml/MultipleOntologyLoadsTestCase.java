@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.util.Optional;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -44,14 +42,11 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testMultipleVersionLoadChangeIRI() throws Exception {
         // given
         OWLOntologyDocumentSource initialDocumentSource = getDocumentSource();
-        OWLOntologyID expected =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV2));
-        OWLOntologyID initialUniqueOWLOntologyID =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV2));
+        OWLOntologyID expected = df.getOWLOntologyID(CREATE0139, CREATEV2);
+        OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(CREATE0139, CREATEV2);
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         parseOnto(initialDocumentSource, initialOntology);
-        OWLOntologyID secondUniqueOWLOntologyID =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV2));
+        OWLOntologyID secondUniqueOWLOntologyID = df.getOWLOntologyID(CREATE0139, CREATEV2);
         // when
         try {
             getOWLOntology(secondUniqueOWLOntologyID);
@@ -66,14 +61,11 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testMultipleVersionLoadNoChange() throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
-        OWLOntologyID expected =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV1));
-        OWLOntologyID initialUniqueOWLOntologyID =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV1));
+        OWLOntologyID expected = df.getOWLOntologyID(CREATE0139, CREATEV1);
+        OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(CREATE0139, CREATEV1);
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
-        OWLOntologyID secondUniqueOWLOntologyID =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV1));
+        OWLOntologyID secondUniqueOWLOntologyID = df.getOWLOntologyID(CREATE0139, CREATEV1);
         // when
         try {
             getOWLOntology(secondUniqueOWLOntologyID);
@@ -88,11 +80,9 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
-        OWLOntologyID initialUniqueOWLOntologyID =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV1));
+        OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(CREATE0139, CREATEV1);
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
-        OWLOntologyID secondUniqueOWLOntologyID =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV2));
+        OWLOntologyID secondUniqueOWLOntologyID = df.getOWLOntologyID(CREATE0139, CREATEV2);
         // when
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
@@ -110,8 +100,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
-        OWLOntologyID secondUniqueOWLOntologyID =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV2));
+        OWLOntologyID secondUniqueOWLOntologyID = df.getOWLOntologyID(CREATE0139, CREATEV2);
         // when
         OWLOntology initialOntology = getAnonymousOWLOntology();
         parseOnto(documentSource, initialOntology);
@@ -128,11 +117,9 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
-        OWLOntologyID initialUniqueOWLOntologyID =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.empty());
+        OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(CREATE0139);
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
-        OWLOntologyID secondUniqueOWLOntologyID =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV2));
+        OWLOntologyID secondUniqueOWLOntologyID = df.getOWLOntologyID(CREATE0139, CREATEV2);
         // when
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
@@ -149,8 +136,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testSingleVersionLoadChangeIRI() throws Exception {
         // given
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
-        OWLOntologyID secondUniqueOWLOntologyID =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV2));
+        OWLOntologyID secondUniqueOWLOntologyID = df.getOWLOntologyID(CREATE0139, CREATEV2);
         // when
         OWLOntology secondOntology = getOWLOntology(secondUniqueOWLOntologyID);
         parseOnto(secondDocumentSource, secondOntology);
@@ -163,8 +149,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testSingleVersionLoadNoChange() throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
-        OWLOntologyID initialUniqueOWLOntologyID =
-            new OWLOntologyID(Optional.ofNullable(CREATE0139), Optional.ofNullable(CREATEV1));
+        OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(CREATE0139, CREATEV1);
         // when
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);

@@ -44,8 +44,8 @@ public class DLSyntaxOWLParser implements OWLParser {
     }
 
     protected OWLDocumentFormat parse(OWLOntology o, Provider provider) {
-        DLSyntaxParser parser = new DLSyntaxParser(provider);
-        parser.setOWLDataFactory(o.getOWLOntologyManager().getOWLDataFactory());
+        DLSyntaxParser parser =
+            new DLSyntaxParser(provider, o.getOWLOntologyManager().getOWLDataFactory());
         o.add(parser.parseAxioms());
         return new DLSyntaxHTMLDocumentFormat();
     }

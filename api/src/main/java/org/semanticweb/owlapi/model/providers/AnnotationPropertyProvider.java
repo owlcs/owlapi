@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.HasIRI;
@@ -26,7 +24,6 @@ import org.semanticweb.owlapi.model.PrefixManager;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 5.0.0
  */
-@FunctionalInterface
 public interface AnnotationPropertyProvider {
 
     /**
@@ -54,9 +51,7 @@ public interface AnnotationPropertyProvider {
      * @param iri The IRI string.
      * @return An {@link OWLAnnotationProperty} that has the specified IRI.
      */
-    default OWLAnnotationProperty getOWLAnnotationProperty(String iri) {
-        return getOWLAnnotationProperty(IRI.create(iri));
-    }
+    OWLAnnotationProperty getOWLAnnotationProperty(String iri);
 
     /**
      * Gets an instance of {@link OWLAnnotationProperty} that has the specified {@code IRI}. This is
@@ -66,10 +61,7 @@ public interface AnnotationPropertyProvider {
      * @param remainder optional remainder or local name
      * @return An {@link OWLAnnotationProperty} that has the specified IRI.
      */
-    default OWLAnnotationProperty getOWLAnnotationProperty(String namespace,
-        @Nullable String remainder) {
-        return getOWLAnnotationProperty(IRI.create(namespace, remainder));
-    }
+    OWLAnnotationProperty getOWLAnnotationProperty(String namespace, @Nullable String remainder);
 
     /**
      * Gets an OWLAnnotationProperty that has an IRI that is obtained by expanding an abbreviated
@@ -78,22 +70,19 @@ public interface AnnotationPropertyProvider {
      * Specification</a> for more details.
      *
      * @param abbreviatedIRI The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
-     * PREFIX_NAME may be the empty string (the default prefix). Note that abbreviated IRIs always
-     * contain a colon as a delimiter, even if the prefix name is the empty string.
+     *        PREFIX_NAME may be the empty string (the default prefix). Note that abbreviated IRIs
+     *        always contain a colon as a delimiter, even if the prefix name is the empty string.
      * @param prefixManager The prefix manager that is responsible for mapping prefix names to
      * prefix IRIs.
      * @return An OWLAnnotationProperty that has the IRI obtained by expanding the specified
-     * abbreviated IRI using the specified prefix manager. <br> For example, suppose "m:Cat" was
-     * specified as the abbreviated IRI, the prefix manager would be used to obtain the IRI prefix
-     * for the "m:" prefix name, this prefix would then be concatenated with "Cat" to obtain the
-     * full IRI which would be the IRI of the OWLAnnotationProperty obtained by this method.
+     *         abbreviated IRI using the specified prefix manager. <br>
+     *         For example, suppose "m:Cat" was specified as the abbreviated IRI, the prefix manager
+     *         would be used to obtain the IRI prefix for the "m:" prefix name, this prefix would
+     *         then be concatenated with "Cat" to obtain the full IRI which would be the IRI of the
+     *         OWLAnnotationProperty obtained by this method.
      * @throws OWLRuntimeException if the prefix name in the specified abbreviated IRI does not have
      * a mapping to a prefix in the specified prefix manager.
      */
-    default OWLAnnotationProperty getOWLAnnotationProperty(String abbreviatedIRI,
-        PrefixManager prefixManager) {
-        checkNotNull(abbreviatedIRI, "abbreviatedIRI cannot be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
-        return getOWLAnnotationProperty(prefixManager.getIRI(abbreviatedIRI));
-    }
+    OWLAnnotationProperty getOWLAnnotationProperty(String abbreviatedIRI,
+        PrefixManager prefixManager);
 }

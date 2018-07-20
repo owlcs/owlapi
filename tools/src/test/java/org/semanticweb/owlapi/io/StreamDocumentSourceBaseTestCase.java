@@ -14,7 +14,6 @@ import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -35,7 +34,7 @@ public class StreamDocumentSourceBaseTestCase {
         StreamDocumentSourceBase source = new StreamDocumentSourceBase(
             new InputStreamReader(new ByteArrayInputStream(input.getBytes()),
                 StandardCharsets.UTF_8),
-            IRI.create("urn:test#", "test"), null, null) {};
+            "urn:test#test", null, null) {};
         StringWriter w = new StringWriter();
         OWLParser mockParser = new OWLParser() {
 

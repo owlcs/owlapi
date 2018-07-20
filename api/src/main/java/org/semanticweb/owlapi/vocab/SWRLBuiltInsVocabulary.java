@@ -112,7 +112,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm, HasIR
     SWRLBuiltInsVocabulary(String name, int minArity, int maxArity) {
         shortName = name;
         prefixedName = Namespaces.SWRLB.getPrefixName() + ':' + name;
-        iri = IRI.create(Namespaces.SWRLB.toString(), name);
+        iri = VocabFactory.df.create(Namespaces.SWRLB.toString(), name);
         this.minArity = minArity;
         this.maxArity = maxArity;
     }

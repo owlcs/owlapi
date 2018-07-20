@@ -114,7 +114,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -209,7 +208,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     protected final Set<String> individualNames = new HashSet<>();
     protected final Set<String> dataTypeNames = new HashSet<>();
     protected final Set<String> annotationPropertyNames = new HashSet<>();
-    protected final PrefixManager pm = new PrefixManagerImpl();
+    protected final PrefixManager pm;
     protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
     private final List<Token> tokens = new ArrayList<>();
     private final Map<ManchesterOWLSyntax, AnnAxiom<OWLClass, ?>> classFrameSections =
@@ -248,6 +247,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         loaderConfig = configurationProvider;
         df = dataFactory;
         anonProvider = new RemappingIndividualProvider(configurationProvider, df);
+        pm = new PrefixManagerImpl();
         pm.withPrefix("rdf:", Namespaces.RDF.toString());
         pm.withPrefix("rdfs:", Namespaces.RDFS.toString());
         pm.withPrefix("owl:", Namespaces.OWL.toString());
@@ -1687,13 +1687,13 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             IRI parseIRI = parseIRI();
             // old style namespace? change it
             if ("urn:swrl#".equals(parseIRI.getNamespace())) {
-                parseIRI = IRI.create("urn:swrl:var#", parseIRI.getFragment());
+                parseIRI = df.create("urn:swrl:var#", parseIRI.getFragment());
             }
             return parseIRI;
         } else {
             consumeToken();
         }
-        return IRI.create("urn:swrl:var#", fragment);
+        return df.create("urn:swrl:var#", fragment);
     }
 
     private SWRLDArgument parseDObject() {
@@ -2043,7 +2043,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!(iriString.startsWith("<") && iriString.endsWith(">"))) {
             throw new ExceptionBuilder().withKeyword("<$IRI$>").build();
         }
-        return IRI.create(iriString.substring(1, iriString.length() - 1));
+        return df.create(iriString.substring(1, iriString.length() - 1));
     }
 
     private void processDeclaredEntities() {
@@ -2095,7 +2095,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Override
     public ManchesterSyntaxDocumentFormat parseOntology(OWLOntology ont) {
         Set<OntologyAxiomPair> axioms = new HashSet<>();
-        OWLOntologyID ontologyID = new OWLOntologyID();
+        OWLOntologyID ontologyID = df.getOWLOntologyID();
         Set<AddImport> imports = new HashSet<>();
         Set<AddOntologyAnnotation> ontologyAnnotations = new HashSet<>();
         defaultOntology = ont;
@@ -2215,7 +2215,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 break;
             }
         }
-        return new ManchesterOWLSyntaxOntologyHeader(ontologyIRI, versionIRI, annotations, imports);
+        return new ManchesterOWLSyntaxOntologyHeader(df, ontologyIRI, versionIRI, annotations,
+            imports);
     }
 
     protected void handleImport(Set<OWLImportsDeclaration> imports) {
@@ -2270,13 +2271,13 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             return uri;
         }
         if (fullIRI) {
-            uri = IRI.create(name);
+            uri = df.create(name);
         } else {
             int colonIndex = name.indexOf(':');
             if (colonIndex == -1) {
                 name = ":" + name;
             }
-            uri = pm.getIRI(name);
+            uri = pm.getIRI(name, df);
         }
         nameIRIMap.put(name, uri);
         return uri;

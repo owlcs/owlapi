@@ -26,8 +26,6 @@ PARSER_BEGIN(DLSyntaxParser)
 
 package org.semanticweb.owlapi.dlsyntax.parser;
 
-import java.util.Set;
-import java.util.HashSet;
 import java.util.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.utilities.*;
@@ -37,15 +35,16 @@ import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings("all")
 class DLSyntaxParser {
-    private String defaultNamespace = IRI.getNextDocumentIRI("http://www.semanticweb.org/ontologies/Ontology").toString();
+    private String defaultNamespace;
     private Map<String, String> namespaceMap = new HashMap<String, String>();
     private OWLDataFactory factory;
-    private Map<String, IRI> iriMap = new HashMap<String, IRI>();
     private Map<String, IRI> qnameIRIMap = new HashMap<String, IRI>();
     private Set<OWLAxiom> axioms = new LinkedHashSet<OWLAxiom>();
 
-    public void setOWLDataFactory(OWLDataFactory factory) {
+    public DLSyntaxParser(Provider stream, OWLDataFactory factory) {
+        this(stream);
         this.factory = factory;
+        defaultNamespace = factory.getNextDocumentIRI("http://www.semanticweb.org/ontologies/Ontology").toString();
     }
 
     public void setPrefixMapping(String prefix, String namespace) {
@@ -54,15 +53,6 @@ class DLSyntaxParser {
 
     public void setDefaultNamespace(String ns) {
         defaultNamespace = ns;
-    }
-
-    public IRI getIRI(String val) {
-        IRI iri = iriMap.get(val);
-        if(iri == null) {
-            iri = IRI.create(val);
-            iriMap.put(val, iri);
-        }
-        return iri;
     }
 
     public IRI getIRIFromId(String qname) {
@@ -74,7 +64,7 @@ class DLSyntaxParser {
         }
         IRI iri = qnameIRIMap.get(qname);
         if(iri == null) {
-            iri = getIRI(defaultNamespace + "#" + qname);
+            iri = factory.create(defaultNamespace + "#" + qname);
             qnameIRIMap.put(qname, iri);
         }
         return iri;

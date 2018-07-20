@@ -20,15 +20,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Test;
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
-import org.obolibrary.obo2owl.Obo2OWLConstants;
-import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.obolibrary.oboformat.diff.Diff;
 import org.obolibrary.oboformat.diff.OBODocDiffer;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -49,6 +46,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
+import org.semanticweb.owlapi.vocab.Obo2OWLConstants;
+import org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
 
 @SuppressWarnings("javadoc")
 public class RoundTripTestCase extends RoundTripTestBasics {
@@ -61,8 +61,7 @@ public class RoundTripTestCase extends RoundTripTestBasics {
             .map(ax -> ax.getValue().asIRI()).filter(Optional::isPresent)
             .anyMatch(p -> Obo2OWLConstants.IRI_IAO_0000227.equals(p.get())));
         String altId = ont.annotationAssertionAxioms(iri)
-            .filter(
-                ax -> ax.getProperty().getIRI().equals(Obo2OWLVocabulary.IRI_IAO_0100001.getIRI()))
+            .filter(ax -> Obo2OWLVocabulary.IRI_IAO_0100001.sameIRI(ax.getProperty()))
             .map(ax -> ax.getValue().asIRI()).filter(Optional::isPresent)
             .map(p -> OWLAPIOwl2Obo.getIdentifier(p.get())).findAny().orElse(null);
         assertEquals(replacedBy, altId);
@@ -79,8 +78,8 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         // check owl
         // check that both alt_id is declared as deprecated class and has
         // appropriate annotations
-        IRI alt_id_t1 = IRI.create("http://purl.obolibrary.org/obo/", "TEST_1000");
-        IRI alt_id_r1 = IRI.create("http://purl.obolibrary.org/obo/", "TEST_REL_1000");
+        IRI alt_id_t1 = df.create("http://purl.obolibrary.org/obo/", "TEST_1000");
+        IRI alt_id_r1 = df.create("http://purl.obolibrary.org/obo/", "TEST_REL_1000");
         checkAsAltId(alt_id_t1, owl, "TEST:0001");
         checkAsAltId(alt_id_r1, owl, "TEST_REL:0001");
     }
@@ -233,9 +232,9 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         String outObo = renderOboToString(output);
         assertEquals(readResource("is_inferred_annotation.obo"), outObo);
         // check owl
-        IRI t1 = IRI.create("http://purl.obolibrary.org/obo/", "TEST_0001");
-        IRI t3 = IRI.create("http://purl.obolibrary.org/obo/", "TEST_0003");
-        IRI isInferredIRI = IRI.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_inferred");
+        IRI t1 = df.create("http://purl.obolibrary.org/obo/", "TEST_0001");
+        IRI t3 = df.create("http://purl.obolibrary.org/obo/", "TEST_0003");
+        IRI isInferredIRI = df.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_inferred");
         AtomicBoolean hasAnnotation = new AtomicBoolean(false);
         OWLAnnotationProperty infIRI = df.getOWLAnnotationProperty(isInferredIRI);
         owl.axioms(AxiomType.SUBCLASS_OF).forEach(axiom -> {
@@ -293,7 +292,7 @@ public class RoundTripTestCase extends RoundTripTestBasics {
     public void shouldContainExpectedAnnotationXrefescapecolon() {
         OBODoc oboFile = parseOBOFile("xref_escapecolon.obo");
         OWLOntology o = convert(oboFile);
-        IRI expected = IRI.create("http://purl.obolibrary.org/obo/", "GO_0042062%3A");
+        IRI expected = df.create("http://purl.obolibrary.org/obo/", "GO_0042062%3A");
         assertEquals(18, o.annotationAssertionAxioms(expected).count());
     }
 

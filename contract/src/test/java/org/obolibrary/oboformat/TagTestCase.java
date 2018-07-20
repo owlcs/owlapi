@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 
 @SuppressWarnings({"javadoc"})
 public class TagTestCase extends OboFormatTestBasics {

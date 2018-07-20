@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
 /**
@@ -33,14 +34,16 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
 
     private final IRI base;
     private final Map<IRI, IRI> iriMap = new HashMap<>();
+    private OWLDataFactory df;
 
     /**
      * Creates a mapper, which maps ontology URIs to URIs which share the specified base.
      *
      * @param base the base IRI
      */
-    public CommonBaseIRIMapper(IRI base) {
+    public CommonBaseIRIMapper(IRI base, OWLDataFactory df) {
         this.base = checkNotNull(base, "base cannot be null");
+        this.df = df;
     }
 
     /**
@@ -54,7 +57,7 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
     public void addMapping(IRI ontologyIRI, String localName) {
         checkNotNull(localName, "localName cannot be null");
         checkNotNull(ontologyIRI, "ontologyIRI cannot be null");
-        IRI documentIRI = base.resolve(localName);
+        IRI documentIRI = df.resolve(localName, base);
         iriMap.put(ontologyIRI, documentIRI);
     }
 

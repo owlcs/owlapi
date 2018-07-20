@@ -41,7 +41,7 @@ public class ManchesterImportTestCase extends TestBase {
     }
 
     private OWLOntologyManager getManager() {
-        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true, df);
         m.getIRIMappers().add(mapper);
         return m;
     }
@@ -58,8 +58,8 @@ public class ManchesterImportTestCase extends TestBase {
     @Test
     public void testEquivalentLoading() throws OWLOntologyCreationException {
         OWLOntologyManager managerStart = getManager();
-        OWLOntology manualImport = managerStart
-                        .loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
+        OWLOntology manualImport =
+            managerStart.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
         OWLOntologyManager managerTest = getManager();
         OWLOntology iriImport = managerTest.loadOntology(str);
         assertTrue(manualImport.equalAxioms(iriImport));

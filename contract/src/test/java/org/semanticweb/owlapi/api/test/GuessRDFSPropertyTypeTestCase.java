@@ -72,7 +72,7 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
 
     public void testProperty(String propertyName, String expectedDomain, String expectedRange,
         String expectedSuperProperty) {
-        IRI p11IRI = cidocOntology.getPrefixManager().getIRI(propertyName);
+        IRI p11IRI = cidocOntology.getPrefixManager().getIRI(propertyName, df);
         Set<OWLEntity> hadParticipant = asUnorderedSet(cidocOntology.entitiesInSignature(p11IRI));
         assertEquals("should have found " + propertyName, 1, hadParticipant.size());
         OWLEntity entity = hadParticipant.iterator().next();
@@ -95,9 +95,9 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
         assertEquals("should have 1 range", 1, ranges.size());
         HasIRI range = (HasIRI) ranges.iterator().next();
         IRI rangeIRI = range.getIRI();
-        IRI expectedIRI = IRI.create(expectedRange);
+        IRI expectedIRI = df.create(expectedRange);
         if (!expectedIRI.isAbsolute()) {
-            expectedIRI = cidocOntology.getPrefixManager().getIRI(expectedRange);
+            expectedIRI = cidocOntology.getPrefixManager().getIRI(expectedRange, df);
         }
         assertEquals("range", expectedIRI, rangeIRI);
         Stream<OWLClassExpression> domainStream =
@@ -107,7 +107,7 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
         HasIRI domain = (HasIRI) domains.iterator().next();
         IRI domainIRI = domain.getIRI();
         assertEquals("domain should be E5_Event",
-            cidocOntology.getPrefixManager().getIRI(expectedDomain), domainIRI);
+            cidocOntology.getPrefixManager().getIRI(expectedDomain, df), domainIRI);
         Stream<OWLObjectPropertyExpression> superStream = Searcher
             .sup(cidocOntology.axioms(Filters.subObjectPropertyWithSub, p11property, INCLUDED));
         Collection<OWLObjectPropertyExpression> superProperties = asUnorderedSet(superStream);
@@ -117,7 +117,7 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
         HasIRI superProperty = (HasIRI) superProperties.iterator().next();
         IRI superPropertyIRI = superProperty.getIRI();
         assertEquals("super property ",
-            cidocOntology.getPrefixManager().getIRI(expectedSuperProperty), superPropertyIRI);
+            cidocOntology.getPrefixManager().getIRI(expectedSuperProperty, df), superPropertyIRI);
     }
 
     private void testProperty(OWLDataProperty p11property, String expectedDomain,
@@ -128,9 +128,9 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
         assertEquals("should have 1 range", 1, ranges.size());
         HasIRI range = (HasIRI) ranges.iterator().next();
         IRI rangeIRI = range.getIRI();
-        IRI expectedIRI = IRI.create(expectedRange);
+        IRI expectedIRI = df.create(expectedRange);
         if (!expectedIRI.isAbsolute()) {
-            expectedIRI = cidocOntology.getPrefixManager().getIRI(expectedRange);
+            expectedIRI = cidocOntology.getPrefixManager().getIRI(expectedRange, df);
         }
         assertEquals("range", expectedIRI, rangeIRI);
         Stream<OWLClassExpression> domainStream =
@@ -141,7 +141,7 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
         HasIRI domain = (HasIRI) domains.iterator().next();
         IRI domainIRI = domain.getIRI();
         assertEquals("domain should be E5_Event",
-            cidocOntology.getPrefixManager().getIRI(expectedDomain), domainIRI);
+            cidocOntology.getPrefixManager().getIRI(expectedDomain, df), domainIRI);
         Stream<OWLObjectPropertyExpression> supStream = Searcher
             .sup(cidocOntology.axioms(Filters.subDataPropertyWithSub, p11property, INCLUDED));
         Collection<OWLObjectPropertyExpression> superProperties = asUnorderedSet(supStream);
@@ -151,7 +151,7 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
         HasIRI superProperty = (HasIRI) superProperties.iterator().next();
         IRI superPropertyIRI = superProperty.getIRI();
         assertEquals("super property ",
-            cidocOntology.getPrefixManager().getIRI(expectedSuperProperty), superPropertyIRI);
+            cidocOntology.getPrefixManager().getIRI(expectedSuperProperty, df), superPropertyIRI);
     }
 
     @Test

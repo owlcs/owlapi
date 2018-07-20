@@ -40,7 +40,6 @@ import org.obolibrary.macro.MacroExpansionVisitor;
 import org.obolibrary.macro.ManchesterSyntaxTool;
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
-import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.obolibrary.oboformat.diff.Diff;
 import org.obolibrary.oboformat.diff.OBODocDiffer;
 import org.obolibrary.oboformat.model.Clause;
@@ -50,7 +49,6 @@ import org.obolibrary.oboformat.model.FrameStructureException;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.model.Xref;
-import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.obolibrary.oboformat.parser.XrefExpander;
@@ -77,7 +75,9 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.search.Searcher;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
 
 /**
  * Tests for the conversion of rdfs:comment in OWL to remark tag in OBO. This is necessary as
@@ -88,12 +88,12 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class BasicsTestCase extends OboFormatTestBasics {
 
     private static final IRI SHORTHAND =
-        IRI.create("http://www.geneontology.org/formats/oboInOwl#", "shorthand");
-    private static final IRI ID = IRI.create("http://www.geneontology.org/formats/oboInOwl#", "id");
-    private static final IRI BFO50 = IRI.create("http://purl.obolibrary.org/obo/", "BFO_0000050");
-    private static final IRI RO2111 = IRI.create("http://purl.obolibrary.org/obo/", "RO_0002111");
-    private static final IRI BAR1 = IRI.create("http://purl.obolibrary.org/obo/", "BAR_0000001");
-    private static final IRI BFO51 = IRI.create("http://purl.obolibrary.org/obo/", "BFO_0000051");
+        df.create("http://www.geneontology.org/formats/oboInOwl#", "shorthand");
+    private static final IRI ID = df.create("http://www.geneontology.org/formats/oboInOwl#", "id");
+    private static final IRI BFO50 = df.create("http://purl.obolibrary.org/obo/", "BFO_0000050");
+    private static final IRI RO2111 = df.create("http://purl.obolibrary.org/obo/", "RO_0002111");
+    private static final IRI BAR1 = df.create("http://purl.obolibrary.org/obo/", "BAR_0000001");
+    private static final IRI BFO51 = df.create("http://purl.obolibrary.org/obo/", "BFO_0000051");
 
     private static void assertAnnotationPropertyCountEquals(OWLOntology owlOnt, IRI subjectIRI,
         OWLAnnotationProperty property, int expected) {
@@ -595,7 +595,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void testHeaderLostBug() throws OWLOntologyStorageException {
         OWLOntology ontology =
             roundTrip(convert(parseOBOFile("header_lost_bug.obo")), new RDFXMLDocumentFormat());
-        IRI ontologyIRI = IRI.create("http://purl.obolibrary.org/obo/", "test.owl");
+        IRI ontologyIRI = df.create("http://purl.obolibrary.org/obo/", "test.owl");
         // two tags in the header of the obo file are translated as annotation
         // assertions, so the axioms
         // should have two axioms in count.
@@ -634,7 +634,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     @Test
     public void testImportsConverted() throws OWLOntologyCreationException {
         Map<String, OBODoc> cache = new HashMap<>();
-        IRI iri = IRI.create("http://purl.obolibrary.org/obo/tests/test.obo");
+        IRI iri = df.create("http://purl.obolibrary.org/obo/tests/test.obo");
         cache.put(iri.toString(), new OBODoc());
         m.createOntology(iri);
         OBODoc oboDoc = parseOBOFile("annotated_import.obo", false, cache);
@@ -853,7 +853,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertEquals("003", oboId);
         // arbitrary URL to obo ID
         oboId = OWLAPIOwl2Obo
-            .getIdentifier(IRI.create("http://purl.obolibrary.org/obo/alternate#", "abcdef"));
+            .getIdentifier(df.create("http://purl.obolibrary.org/obo/alternate#", "abcdef"));
         // todo - test this
         // System.out.println("== "+oboId);
         iri = obo2owl.oboIdToIRI("part_of");
@@ -889,7 +889,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("obsolete_term_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
-        OWLAnnotationSubject subj = IRI.create("http://purl.obolibrary.org/obo/", "XX_0000034");
+        OWLAnnotationSubject subj = df.create("http://purl.obolibrary.org/obo/", "XX_0000034");
         boolean okDeprecated = Searcher
             .annotationObjects(ontology.annotationAssertionAxioms(subj),
                 df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_DEPRECATED))
@@ -902,10 +902,10 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OBODoc obodoc = convert(ontology);
         Frame tf = obodoc.getTermFrame("XX:0000034");
         assert tf != null;
-        Clause c = tf.getClause(OboFormatTag.TAG_IS_OBSELETE);
+        Clause c = tf.getClause(OboFormatTag.TAG_IS_OBSOLETE);
         assert c != null;
         Object v = c.getValue();
-        assertEquals("true", v); // should this be a Boolean object? TODO
+        assertEquals(Boolean.TRUE, v);
     }
 
     @Test
@@ -995,7 +995,8 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OWLClass c = factory.getOWLClass(iri);
         // Def
         OWLAnnotationProperty defProperty =
-            factory.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115);
+            factory.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115.getNamespace(),
+                Obo2OWLVocabulary.IRI_IAO_0000115.getShortName());
         int counter = 0;
         for (OWLAnnotationAssertionAxiom ax : asList(
             owlOntology.annotationAssertionAxioms(c.getIRI()))) {
@@ -1023,7 +1024,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void testConvertSubset() {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("subset_test.obo"));
-        OWLAnnotationSubject subj = IRI.create("http://purl.obolibrary.org/obo/", "GO_0000003");
+        OWLAnnotationSubject subj = df.create("http://purl.obolibrary.org/obo/", "GO_0000003");
         OWLAnnotationProperty p = df
             .getOWLAnnotationProperty("http://www.geneontology.org/formats/oboInOwl#", "inSubset");
         boolean ok =

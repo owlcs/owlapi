@@ -42,7 +42,8 @@ public class RDFXMLParser implements OWLParser {
         try {
             final RDFXMLDocumentFormat format =
                 (RDFXMLDocumentFormat) getSupportedFormat().createFormat();
-            RDFParser parser = new RDFParser() {
+            RDFParser parser =
+                new RDFParser(p.getOntology().getOWLOntologyManager().getOWLDataFactory()) {
 
                 @Override
                 public void startPrefixMapping(@Nullable String prefix, @Nullable String uri)
@@ -53,10 +54,11 @@ public class RDFXMLParser implements OWLParser {
                     }
                 }
             };
-            OWLRDFConsumer consumer = new OWLRDFConsumer(p, parser);
+            OWLRDFConsumer consumer = new OWLRDFConsumer(p);
             consumer.setOntologyFormat(format);
             InputSource is = new InputSource(r);
-            is.setSystemId(p.getDocumentIRI().toString());
+            String string = p.getDocumentIRI().toString();
+            is.setSystemId(string);
             parser.parse(is, consumer);
             return format;
         } catch (RDFParserException | SAXException | IOException e) {

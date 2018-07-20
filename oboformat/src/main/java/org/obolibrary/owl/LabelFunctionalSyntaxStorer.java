@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -91,6 +92,11 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
         }
 
         @Override
+        public String getShortForm(String iri) {
+            return getShortForm(ontology.getOWLOntologyManager().getOWLDataFactory().create(iri));
+        }
+
+        @Override
         public String getShortForm(OWLEntity entity) {
             return getShortForm(entity.getIRI());
         }
@@ -140,8 +146,8 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
         }
 
         @Override
-        public IRI getIRI(String prefixIRI) {
-            return delegate.getIRI(prefixIRI);
+        public IRI getIRI(String prefixIRI, OWLDataFactory df) {
+            return delegate.getIRI(prefixIRI, df);
         }
 
         @Override

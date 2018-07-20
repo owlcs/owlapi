@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -115,7 +114,7 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
                 + "            </rdf:Description>\n" + "        </swrl:head>\n"
                 + "    </rdf:Description>\n" + "</rdf:RDF>";
         OWLOntology o =
-            loadOntologyFromString(in, IRI.create("urn:test#", "test"), new RDFXMLDocumentFormat());
+            loadOntologyFromString(in, df.create("urn:test#", "test"), new RDFXMLDocumentFormat());
         String string = saveOntology(o).toString();
         assertFalse(string, string
             .contains("<rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Variable\"/>"));

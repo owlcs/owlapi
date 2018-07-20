@@ -232,7 +232,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     implements OWLObjectVisitor, SWRLObjectVisitor {
 
     protected final IndividualAppearance multipleOccurrences;
-    private final OWLOntologyManager manager;
+    protected final OWLOntologyManager manager;
     private final OWLOntology ont;
     private final boolean useStrongTyping;
     private final Set<OWLIndividual> currentIndividuals = createLinkedSet();
@@ -241,7 +241,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      */
     private final Map<OWLObject, N> nodeMap = new ConcurrentHashMap<>();
     private final Map<OWLObject, N> expressionMap = new IdentityHashMap<>();
-    protected RDFGraph graph = new RDFGraph();
+    protected RDFGraph graph;
 
     /**
      * @param manager the manager
@@ -253,6 +253,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         boolean useStrongTyping, IndividualAppearance multiple) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.manager = checkNotNull(manager, "manager cannot be null");
+        graph = new RDFGraph(manager.getOWLDataFactory());
         this.useStrongTyping = useStrongTyping;
         multipleOccurrences = multiple;
     }
@@ -1218,6 +1219,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * Clear the graph.
      */
     public void reset() {
-        graph = new RDFGraph();
+        graph = new RDFGraph(manager.getOWLDataFactory());
     }
 }

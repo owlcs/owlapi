@@ -1,4 +1,4 @@
-package org.obolibrary.oboformat.parser;
+package org.semanticweb.owlapi.vocab;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -102,7 +102,7 @@ public class OBOFormatConstants {
         /**TAG_RELATIONSHIP.                     */ TAG_RELATIONSHIP                                ("relationship",            10000,  95,     165),
         /**TAG_CREATED_BY.                       */ TAG_CREATED_BY                                  ("created_by",              10000,  130,    191),
         /**TAG_CREATION_DATE.                    */ TAG_CREATION_DATE                               ("creation_date",           10000,  140,    192),
-        /**TAG_IS_OBSELETE.                      */ TAG_IS_OBSELETE                                 ("is_obsolete",             10000,  110,    169),
+        /**TAG_IS_OBSOLETE.                      */ TAG_IS_OBSOLETE                                 ("is_obsolete",             10000,  110,    169),
         /**TAG_REPLACED_BY.                      */ TAG_REPLACED_BY                                 ("replaced_by",             10000,  115,    185),
         /**TAG_IS_ANONYMOUS.                     */ TAG_IS_ANONYMOUS                                ("is_anonymous",            10000,  10,     10),
         /**TAG_DOMAIN.                           */ TAG_DOMAIN                                      ("domain",                  10000,  10000,  60),
@@ -127,33 +127,15 @@ public class OBOFormatConstants {
         /**TAG_IS_ASYMMETRIC.                    */ TAG_IS_ASYMMETRIC                               ("is_asymmetric"),
         /**TAG_NAMESPACE_ID_RULE.                */ TAG_NAMESPACE_ID_RULE                           ("namespace-id-rule",       46),
         /**TAG_LOGICAL_DEFINITION_VIEW_RELATION. */ TAG_LOGICAL_DEFINITION_VIEW_RELATION            ("logical-definition-view-relation"),
-        //@formatter:on
         // these are keywords, not tags, but we keep them here for convenience
-        /**
-         * Scope.
-         */
-        TAG_SCOPE("scope"),
-        /**
-         * Implicit, in synonymtypedef.
-         */
-        TAG_HAS_SYNONYM_TYPE("has_synonym_type"),
-        /** implicit, in synonym. */
-        /**
-         * Broad.
-         */
-        TAG_BROAD("BROAD"),
-        /**
-         * Narrow.
-         */
-        TAG_NARROW("NARROW"),
-        /**
-         * Exact.
-         */
-        TAG_EXACT("EXACT"),
-        /**
-         * Related.
-         */
-        TAG_RELATED("RELATED");
+        /** Scope.                          */        TAG_SCOPE("scope"),
+        /** Implicit, in synonymtypedef.    */        TAG_HAS_SYNONYM_TYPE("has_synonym_type"),
+        /** implicit, in synonym.           */
+        /** Broad.                          */        TAG_BROAD("BROAD"),
+        /** Narrow.                         */        TAG_NARROW("NARROW"),
+        /** Exact.                          */        TAG_EXACT("EXACT"),
+        /** Related.                        */        TAG_RELATED("RELATED");
+        //@formatter:on
 
         /**
          * Term frames.

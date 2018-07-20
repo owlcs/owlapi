@@ -41,7 +41,7 @@ class KRSSParser implements KRSSParserConstants {
         s = base + s;
         IRI iri = string2IRI.get(s);
         if(iri == null) {
-            iri = IRI.create(s);
+            iri = df.create(s);
             string2IRI.put(s, iri);
         }
         return iri;

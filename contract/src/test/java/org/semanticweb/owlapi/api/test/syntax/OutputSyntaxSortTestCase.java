@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -41,17 +40,14 @@ public class OutputSyntaxSortTestCase extends TestBase {
                     + "Annotation(owl:versionInfo \"version 1.5\"^^xsd:string)\n"
                     + "Declaration(Class(:American))\n"
                     + "Declaration(Class(:AmericanHot))\nDeclaration(Class(:AnchoviesTopping))\nDeclaration(Class(:ArtichokeTopping))\nDeclaration(Class(:AsparagusTopping))\nDeclaration(Class(:Cajun))\nDeclaration(Class(:CajunSpiceTopping))\nDeclaration(Class(:CaperTopping))\nDeclaration(Class(:Capricciosa))\nDeclaration(Class(:Caprina))\nDeclaration(Class(:CheeseTopping))\nDeclaration(Class(:CheeseyPizza))\nDeclaration(Class(:CheeseyVegetableTopping))\nDeclaration(Class(:ChickenTopping))\nDeclaration(Class(:Country))\nDeclaration(Class(:DeepPanBase))\nDeclaration(Class(:DomainConcept))\nDeclaration(Class(:Fiorentina))\nDeclaration(Class(:FishTopping))\nDeclaration(Class(:Food))\nDeclaration(Class(:FourCheesesTopping))\nDeclaration(Class(:FourSeasons))\nDeclaration(Class(:FruitTopping))\nDeclaration(Class(:FruttiDiMare))\nDeclaration(Class(:GarlicTopping))\nDeclaration(Class(:Giardiniera))\nDeclaration(Class(:GoatsCheeseTopping))\nDeclaration(Class(:GorgonzolaTopping))\nDeclaration(Class(:GreenPepperTopping))\nDeclaration(Class(:HamTopping))\nDeclaration(Class(:HerbSpiceTopping))\nDeclaration(Class(:Hot))\nDeclaration(Class(:HotGreenPepperTopping))\nDeclaration(Class(:HotSpicedBeefTopping))\nDeclaration(Class(:IceCream))\nDeclaration(Class(:InterestingPizza))\nDeclaration(Class(:JalapenoPepperTopping))\nDeclaration(Class(:LaReine))\nDeclaration(Class(:LeekTopping))\nDeclaration(Class(:Margherita))\nDeclaration(Class(:MeatTopping))\nDeclaration(Class(:MeatyPizza))\nDeclaration(Class(:Medium))\nDeclaration(Class(:Mild))\nDeclaration(Class(:MixedSeafoodTopping))\nDeclaration(Class(:MozzarellaTopping))\nDeclaration(Class(:Mushroom))\nDeclaration(Class(:MushroomTopping))\nDeclaration(Class(:NamedPizza))\nDeclaration(Class(:Napoletana))\nDeclaration(Class(:NonVegetarianPizza))\nDeclaration(Class(:NutTopping))\nDeclaration(Class(:OliveTopping))\nDeclaration(Class(:OnionTopping))\nDeclaration(Class(:ParmaHamTopping))\nDeclaration(Class(:Parmense))\nDeclaration(Class(:ParmesanTopping))\nDeclaration(Class(:PeperonataTopping))\nDeclaration(Class(:PeperoniSausageTopping))\nDeclaration(Class(:PepperTopping))\nDeclaration(Class(:PetitPoisTopping))\nDeclaration(Class(:PineKernels))\nDeclaration(Class(:Pizza))\nDeclaration(Class(:PizzaBase))\nDeclaration(Class(:PizzaTopping))\nDeclaration(Class(:PolloAdAstra))\nDeclaration(Class(:PrawnsTopping))\nDeclaration(Class(:PrinceCarlo))\nDeclaration(Class(:QuattroFormaggi))\nDeclaration(Class(:RealItalianPizza))\nDeclaration(Class(:RedOnionTopping))\nDeclaration(Class(:RocketTopping))\nDeclaration(Class(:Rosa))\nDeclaration(Class(:RosemaryTopping))\nDeclaration(Class(:SauceTopping))\nDeclaration(Class(:Siciliana))\nDeclaration(Class(:SlicedTomatoTopping))\nDeclaration(Class(:SloppyGiuseppe))\nDeclaration(Class(:Soho))\nDeclaration(Class(:Spiciness))\nDeclaration(Class(:SpicyPizza))\nDeclaration(Class(:SpicyPizzaEquivalent))\nDeclaration(Class(:SpicyTopping))\nDeclaration(Class(:SpinachTopping))\nDeclaration(Class(:SultanaTopping))\nDeclaration(Class(:SundriedTomatoTopping))\nDeclaration(Class(:SweetPepperTopping))\nDeclaration(Class(:ThinAndCrispyBase))\nDeclaration(Class(:ThinAndCrispyPizza))\nDeclaration(Class(:TobascoPepperSauce))\nDeclaration(Class(:TomatoTopping))\nDeclaration(Class(:UnclosedPizza))\nDeclaration(Class(:ValuePartition))\nDeclaration(Class(:VegetableTopping))\nDeclaration(Class(:VegetarianPizza))\nDeclaration(Class(:VegetarianPizzaEquivalent1))\nDeclaration(Class(:VegetarianPizzaEquivalent2))\nDeclaration(Class(:VegetarianTopping))\nDeclaration(Class(:Veneziana))\nDeclaration(Class(<urn:classexpression>))\nDeclaration(Class(<urn:iri>))\nDeclaration(ObjectProperty(:hasBase))\nDeclaration(ObjectProperty(:hasCountryOfOrigin))\nDeclaration(ObjectProperty(:hasIngredient))\nDeclaration(ObjectProperty(:hasSpiciness))\nDeclaration(ObjectProperty(:hasTopping))\nDeclaration(ObjectProperty(:isBaseOf))\nDeclaration(ObjectProperty(:isIngredientOf))\nDeclaration(ObjectProperty(:isToppingOf))\nDeclaration(ObjectProperty(<urn:op>))\n"
-                    + "Declaration(DataProperty(<urn:dp>))\n"
-                    + "Declaration(DataProperty(<urn:testdp>))\n"
+        + "Declaration(DataProperty(<urn:dp>))\n" + "Declaration(DataProperty(<urn:testdp>))\n"
                     + "Declaration(NamedIndividual(:America))\nDeclaration(NamedIndividual(:England))\nDeclaration(NamedIndividual(:France))\nDeclaration(NamedIndividual(:Germany))\nDeclaration(NamedIndividual(:Italy))\nDeclaration(NamedIndividual(<urn:iri>))\nDeclaration(AnnotationProperty(<urn:ap>))\n"
                     + "SubAnnotationPropertyOf(<urn:ap> <urn:ap>)\n"
                     + "AnnotationPropertyRange(<urn:ap> <urn:iri>)\n"
                     + "AnnotationPropertyDomain(<urn:ap> <urn:iri>)\n"
                     + "SubObjectPropertyOf(:hasBase :hasIngredient)\n"
-                    + "InverseObjectProperties(:hasBase :isBaseOf)\n"
-                    + "FunctionalObjectProperty(:hasBase)\n"
-                    + "InverseFunctionalObjectProperty(:hasBase)\n"
-                    + "ObjectPropertyDomain(:hasBase :Pizza)\n"
+        + "InverseObjectProperties(:hasBase :isBaseOf)\n" + "FunctionalObjectProperty(:hasBase)\n"
+        + "InverseFunctionalObjectProperty(:hasBase)\n" + "ObjectPropertyDomain(:hasBase :Pizza)\n"
                     + "ObjectPropertyRange(:hasBase :PizzaBase)\n"
                     + "InverseObjectProperties(:hasIngredient :isIngredientOf)\n"
                     + "TransitiveObjectProperty(:hasIngredient)\n"
@@ -65,32 +61,26 @@ public class OutputSyntaxSortTestCase extends TestBase {
                     + "ObjectPropertyDomain(:hasTopping :Pizza)\n"
                     + "ObjectPropertyRange(:hasTopping :PizzaTopping)\n"
                     + "SubObjectPropertyOf(:isBaseOf :isIngredientOf)\n"
-                    + "FunctionalObjectProperty(:isBaseOf)\n"
-                    + "InverseFunctionalObjectProperty(:isBaseOf)\n"
-                    + "ObjectPropertyDomain(:isBaseOf :PizzaBase)\n"
-                    + "ObjectPropertyRange(:isBaseOf :Pizza)\n"
+        + "FunctionalObjectProperty(:isBaseOf)\n" + "InverseFunctionalObjectProperty(:isBaseOf)\n"
+        + "ObjectPropertyDomain(:isBaseOf :PizzaBase)\n" + "ObjectPropertyRange(:isBaseOf :Pizza)\n"
                     + "TransitiveObjectProperty(:isIngredientOf)\n"
                     + "ObjectPropertyDomain(:isIngredientOf :Food)\n"
                     + "ObjectPropertyRange(:isIngredientOf :Food)\n"
                     + "SubObjectPropertyOf(:isToppingOf :isIngredientOf)\n"
                     + "FunctionalObjectProperty(:isToppingOf)\n"
                     + "ObjectPropertyDomain(:isToppingOf :PizzaTopping)\n"
-                    + "ObjectPropertyRange(:isToppingOf :Pizza)\n"
-                    + "SubObjectPropertyOf(<urn:op> <urn:op>)\n"
+        + "ObjectPropertyRange(:isToppingOf :Pizza)\n" + "SubObjectPropertyOf(<urn:op> <urn:op>)\n"
                     + "InverseObjectProperties(<urn:op> <urn:op>)\n"
                     + "InverseObjectProperties(<urn:op> ObjectInverseOf(<urn:op>))\n"
-                    + "FunctionalObjectProperty(<urn:op>)\n"
-                    + "InverseFunctionalObjectProperty(<urn:op>)\n"
+        + "FunctionalObjectProperty(<urn:op>)\n" + "InverseFunctionalObjectProperty(<urn:op>)\n"
                     + "SymmetricObjectProperty(<urn:op>)\n" + "AsymmetricObjectProperty(<urn:op>)\n"
                     + "TransitiveObjectProperty(<urn:op>)\n" + "ReflexiveObjectProperty(<urn:op>)\n"
                     + "IrreflexiveObjectProperty(<urn:op>)\n"
                     + "ObjectPropertyDomain(<urn:op> <urn:classexpression>)\n"
                     + "ObjectPropertyRange(<urn:op> <urn:classexpression>)\n"
-                    + "SubDataPropertyOf(<urn:dp> <urn:dp>)\n"
-                    + "FunctionalDataProperty(<urn:dp>)\n"
+        + "SubDataPropertyOf(<urn:dp> <urn:dp>)\n" + "FunctionalDataProperty(<urn:dp>)\n"
                     + "DataPropertyDomain(<urn:dp> <urn:classexpression>)\n"
-                    + "DataPropertyRange(<urn:dp> xsd:int)\n"
-                    + "DataPropertyRange(<urn:dp> <testString>)\n"
+        + "DataPropertyRange(<urn:dp> xsd:int)\n" + "DataPropertyRange(<urn:dp> <testString>)\n"
                     + "DataPropertyRange(<urn:dp> DataOneOf(\"true\"^^xsd:boolean))\n"
                     + "DataPropertyRange(<urn:dp> xsd:int)\n"
                     + "DataPropertyRange(<urn:testdp> DatatypeRestriction(xsd:date xsd:maxInclusive \"1971-09-24\"^^xsd:date xsd:minInclusive \"1970-10-22\"^^xsd:date))\n"
@@ -172,13 +162,11 @@ public class OutputSyntaxSortTestCase extends TestBase {
                                     + "Annotation(owl:versionInfo \"v.1.4.\"@en)\n"
                                     + "Declaration(DataProperty(<urn:testdp>))\n"
                                     + "Declaration(Class(:AmericanHot))\nDeclaration(Class(:AnchoviesTopping))\nDeclaration(Class(:ArtichokeTopping))\nDeclaration(Class(:AsparagusTopping))\nDeclaration(Class(:Cajun))\nDeclaration(Class(:CajunSpiceTopping))\nDeclaration(Class(:CaperTopping))\nDeclaration(Class(:Capricciosa))\nDeclaration(Class(:Caprina))\nDeclaration(Class(:CheeseTopping))\nDeclaration(Class(:CheeseyPizza))\nDeclaration(Class(:CheeseyVegetableTopping))\nDeclaration(Class(:ChickenTopping))\nDeclaration(Class(:Country))\nDeclaration(Class(:DeepPanBase))\nDeclaration(Class(:DomainConcept))\nDeclaration(Class(:Fiorentina))\nDeclaration(Class(:FishTopping))\nDeclaration(Class(:Food))\nDeclaration(Class(:FourCheesesTopping))\nDeclaration(Class(:FourSeasons))\nDeclaration(Class(:FruitTopping))\nDeclaration(Class(:FruttiDiMare))\nDeclaration(Class(:GarlicTopping))\nDeclaration(Class(:Giardiniera))\nDeclaration(Class(:GoatsCheeseTopping))\nDeclaration(Class(:GorgonzolaTopping))\nDeclaration(Class(:GreenPepperTopping))\nDeclaration(Class(:HamTopping))\nDeclaration(Class(:HerbSpiceTopping))\nDeclaration(Class(:Hot))\nDeclaration(Class(:HotGreenPepperTopping))\nDeclaration(Class(:HotSpicedBeefTopping))\nDeclaration(Class(:IceCream))\nDeclaration(Class(:InterestingPizza))\nDeclaration(Class(:JalapenoPepperTopping))\nDeclaration(Class(:LaReine))\nDeclaration(Class(:LeekTopping))\nDeclaration(Class(:Margherita))\nDeclaration(Class(:MeatTopping))\nDeclaration(Class(:MeatyPizza))\nDeclaration(Class(:Medium))\nDeclaration(Class(:Mild))\nDeclaration(Class(:MixedSeafoodTopping))\nDeclaration(Class(:MozzarellaTopping))\nDeclaration(Class(:Mushroom))\nDeclaration(Class(:MushroomTopping))\nDeclaration(Class(:NamedPizza))\nDeclaration(Class(:Napoletana))\nDeclaration(Class(:NonVegetarianPizza))\nDeclaration(Class(:NutTopping))\nDeclaration(Class(:OliveTopping))\nDeclaration(Class(:OnionTopping))\nDeclaration(Class(:ParmaHamTopping))\nDeclaration(Class(:Parmense))\nDeclaration(Class(:ParmesanTopping))\nDeclaration(Class(:PeperonataTopping))\nDeclaration(Class(:PeperoniSausageTopping))\nDeclaration(Class(:PepperTopping))\nDeclaration(Class(:PetitPoisTopping))\nDeclaration(Class(:PineKernels))\nDeclaration(Class(:Pizza))\nDeclaration(Class(:PizzaBase))\nDeclaration(Class(:PizzaTopping))\nDeclaration(Class(:PolloAdAstra))\nDeclaration(Class(:PrawnsTopping))\nDeclaration(Class(:PrinceCarlo))\nDeclaration(Class(:QuattroFormaggi))\nDeclaration(Class(:RealItalianPizza))\nDeclaration(Class(:RedOnionTopping))\nDeclaration(Class(:RocketTopping))\nDeclaration(Class(:Rosa))\nDeclaration(Class(:RosemaryTopping))\nDeclaration(Class(:SauceTopping))\nDeclaration(Class(:Siciliana))\nDeclaration(Class(:SlicedTomatoTopping))\nDeclaration(Class(:SloppyGiuseppe))\nDeclaration(Class(:Soho))\nDeclaration(Class(:Spiciness))\nDeclaration(Class(:SpicyPizza))\nDeclaration(Class(:SpicyPizzaEquivalent))\nDeclaration(Class(:SpicyTopping))\nDeclaration(Class(:SpinachTopping))\nDeclaration(Class(:SultanaTopping))\nDeclaration(Class(:SundriedTomatoTopping))\nDeclaration(Class(:SweetPepperTopping))\nDeclaration(Class(:ThinAndCrispyBase))\nDeclaration(Class(:ThinAndCrispyPizza))\nDeclaration(Class(:TobascoPepperSauce))\nDeclaration(Class(:TomatoTopping))\nDeclaration(Class(:UnclosedPizza))\nDeclaration(Class(:ValuePartition))\nDeclaration(Class(:VegetableTopping))\nDeclaration(Class(:VegetarianPizza))\nDeclaration(Class(:VegetarianPizzaEquivalent1))\nDeclaration(Class(:VegetarianPizzaEquivalent2))\nDeclaration(Class(:VegetarianTopping))\nDeclaration(Class(:Veneziana))\nDeclaration(Class(<urn:classexpression>))\nDeclaration(Class(<urn:iri>))\nDeclaration(ObjectProperty(:hasBase))\nDeclaration(ObjectProperty(:hasCountryOfOrigin))\nDeclaration(ObjectProperty(:hasIngredient))\nDeclaration(ObjectProperty(:hasSpiciness))\nDeclaration(ObjectProperty(:hasTopping))\nDeclaration(ObjectProperty(:isBaseOf))\nDeclaration(ObjectProperty(:isIngredientOf))\nDeclaration(ObjectProperty(:isToppingOf))\nDeclaration(ObjectProperty(<urn:op>))\nDeclaration(DataProperty(<urn:dp>))\nDeclaration(NamedIndividual(:America))\nDeclaration(NamedIndividual(:England))\nDeclaration(NamedIndividual(:France))\nDeclaration(NamedIndividual(:Germany))\nDeclaration(NamedIndividual(:Italy))\nDeclaration(NamedIndividual(<urn:iri>))\nDeclaration(AnnotationProperty(<urn:ap>))\n"
-                                    + "Declaration(Class(:American))\n"
-                                    + "SubAnnotationPropertyOf(<urn:ap> <urn:ap>)\n"
+            + "Declaration(Class(:American))\n" + "SubAnnotationPropertyOf(<urn:ap> <urn:ap>)\n"
                                     + "AnnotationPropertyRange(<urn:ap> <urn:iri>)\n"
                                     + "AnnotationPropertyDomain(<urn:ap> <urn:iri>)\n"
                                     + "InverseObjectProperties(:hasBase :isBaseOf)\n"
-                                    + "FunctionalObjectProperty(:hasBase)\n"
-                                    + "InverseFunctionalObjectProperty(:hasBase)\n"
+            + "FunctionalObjectProperty(:hasBase)\n" + "InverseFunctionalObjectProperty(:hasBase)\n"
                                     + "ObjectPropertyDomain(:hasBase :Pizza)\n"
                                     + "InverseObjectProperties(:hasTopping :isToppingOf)\n"
                                     + "ObjectPropertyRange(:hasBase :PizzaBase)\n"
@@ -202,30 +190,25 @@ public class OutputSyntaxSortTestCase extends TestBase {
                                     + "ObjectPropertyRange(:isIngredientOf :Food)\n"
                                     + "SubObjectPropertyOf(:isToppingOf :isIngredientOf)\n"
                                     + "FunctionalObjectProperty(:isToppingOf)\n"
-                                    + "ObjectPropertyRange(:isToppingOf :Pizza)\n"
-                                    + "TransitiveObjectProperty(<urn:op>)\n"
+            + "ObjectPropertyRange(:isToppingOf :Pizza)\n" + "TransitiveObjectProperty(<urn:op>)\n"
                                     + "SubObjectPropertyOf(<urn:op> <urn:op>)\n"
                                     + "InverseObjectProperties(<urn:op> <urn:op>)\n"
                                     + "InverseObjectProperties(<urn:op> ObjectInverseOf(<urn:op>))\n"
                                     + "FunctionalObjectProperty(<urn:op>)\n"
                                     + "ObjectPropertyDomain(:isToppingOf :PizzaTopping)\n"
                                     + "InverseFunctionalObjectProperty(<urn:op>)\n"
-                                    + "ObjectPropertyRange(:isBaseOf :Pizza)\n"
-                                    + "SymmetricObjectProperty(<urn:op>)\n"
-                                    + "AsymmetricObjectProperty(<urn:op>)\n"
-                                    + "ReflexiveObjectProperty(<urn:op>)\n"
+            + "ObjectPropertyRange(:isBaseOf :Pizza)\n" + "SymmetricObjectProperty(<urn:op>)\n"
+            + "AsymmetricObjectProperty(<urn:op>)\n" + "ReflexiveObjectProperty(<urn:op>)\n"
                                     + "IrreflexiveObjectProperty(<urn:op>)\n"
                                     + "ObjectPropertyDomain(<urn:op> <urn:classexpression>)\n"
                                     + "ObjectPropertyRange(<urn:op> <urn:classexpression>)\n"
-                                    + "SubDataPropertyOf(<urn:dp> <urn:dp>)\n"
-                                    + "FunctionalDataProperty(<urn:dp>)\n"
+            + "SubDataPropertyOf(<urn:dp> <urn:dp>)\n" + "FunctionalDataProperty(<urn:dp>)\n"
                                     + "DataPropertyDomain(<urn:dp> <urn:classexpression>)\n"
                                     + "DataPropertyRange(<urn:dp> xsd:int)\n"
                                     + "DataPropertyRange(<urn:testdp> DatatypeRestriction(xsd:date xsd:maxInclusive \"1974-10-22\"^^xsd:date xsd:minInclusive \"1973-09-24\"^^xsd:date))\n"
                                     + "DataPropertyRange(<urn:testdp> DatatypeRestriction(xsd:date xsd:minInclusive \"1970-10-22\"^^xsd:date xsd:maxInclusive \"1971-09-24\"^^xsd:date))\n"
                                     + "DataPropertyRange(<urn:dp> DataOneOf(\"true\"^^xsd:boolean))\n"
-                                    + "DataPropertyRange(<urn:dp> xsd:int)\n"
-                                    + "DataPropertyRange(<urn:dp> <testString>)\n"
+            + "DataPropertyRange(<urn:dp> xsd:int)\n" + "DataPropertyRange(<urn:dp> <testString>)\n"
                                     + "SubClassOf(:American :NamedPizza)\n"
                                     + "SubClassOf(:American ObjectSomeValuesFrom(:hasTopping :MozzarellaTopping))\n"
                                     + "SubClassOf(:American ObjectHasValue(:hasCountryOfOrigin :America))\n"
@@ -300,8 +283,7 @@ public class OutputSyntaxSortTestCase extends TestBase {
     public static Collection<Object[]> getData() {
         return Arrays.<Object[]>asList(new Object[] {new ManchesterSyntaxDocumentFormat()},
                         new Object[] {new FunctionalSyntaxDocumentFormat()},
-                        new Object[] {new TurtleDocumentFormat()},
-                        new Object[] {new RDFXMLDocumentFormat()},
+            new Object[] {new TurtleDocumentFormat()}, new Object[] {new RDFXMLDocumentFormat()},
                         new Object[] {new OWLXMLDocumentFormat()});
     }
 
@@ -313,9 +295,8 @@ public class OutputSyntaxSortTestCase extends TestBase {
             List<OWLOntology> ontologies = new ArrayList<>();
             List<String> set = new ArrayList<>();
             for (String s : input) {
-                OWLOntology o = loadOntologyFromString(
-                                new StringDocumentSource(s, IRI.generateDocumentIRI(),
-                                                new FunctionalSyntaxDocumentFormat(), null));
+                OWLOntology o = loadOntologyFromString(new StringDocumentSource(s,
+                    "uri:owlapi:ontology", new FunctionalSyntaxDocumentFormat(), null));
                 set.add(saveOntology(o, format).toString());
                 ontologies.add(o);
             }
@@ -323,9 +304,9 @@ public class OutputSyntaxSortTestCase extends TestBase {
                 equal(ontologies.get(i), ontologies.get(i + 1));
             }
             for (int i = 0; i < set.size() - 1; i++) {
-                assertEquals(format.getKey() + " "
-                                + new ComparisonFailure("", set.get(i), set.get(i + 1))
-                                                .getMessage(),
+                assertEquals(
+                    format.getKey() + " "
+                        + new ComparisonFailure("", set.get(i), set.get(i + 1)).getMessage(),
                                 set.get(i), set.get(i + 1));
             }
         } finally {

@@ -21,8 +21,8 @@ public class OWLOntologyFactoryNotFoundException extends OWLRuntimeException {
     /**
      * @param documentIRI iri for ontology that cannot be parsed
      */
-    public OWLOntologyFactoryNotFoundException(IRI documentIRI) {
+    public OWLOntologyFactoryNotFoundException(String documentIRI) {
         super("Could not find an appropriate factory to load ontology from ontology document: "
-            + documentIRI.toQuotedString());
+            + documentIRI);
     }
 }

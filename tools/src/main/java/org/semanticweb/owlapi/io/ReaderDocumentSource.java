@@ -16,7 +16,6 @@ import java.io.Reader;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
@@ -33,7 +32,7 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * @param reader The reader that will be used to read an ontology.
      */
     public ReaderDocumentSource(Reader reader) {
-        this(reader, IRI.getNextDocumentIRI("reader:ontology"), null, null);
+        this(reader, "reader:ontology" + IRICounter.getAndIncrement(), null, null);
     }
 
     /**
@@ -43,7 +42,7 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * @param iri The ontology document IRI which will be used as the base of the document if
      * needed.
      */
-    public ReaderDocumentSource(Reader reader, IRI iri) {
+    public ReaderDocumentSource(Reader reader, String iri) {
         this(reader, iri, null, null);
     }
 
@@ -56,7 +55,7 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * @param f ontology format
      * @param mime mime type
      */
-    public ReaderDocumentSource(Reader reader, IRI iri, @Nullable OWLDocumentFormat f,
+    public ReaderDocumentSource(Reader reader, String iri, @Nullable OWLDocumentFormat f,
         @Nullable String mime) {
         super(reader, iri, f, mime);
     }

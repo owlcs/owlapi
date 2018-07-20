@@ -27,7 +27,6 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -106,7 +105,7 @@ public class ExplanationOrdererImpl extends ExplanationOrdererImplNoManager
             if (ont != null) {
                 man.removeOntology(verifyNotNull(getOntology()));
             }
-            ont = man.createOntology(IRI.create("http://www.semanticweb.org/",
+            ont = man.createOntology(man.getOWLDataFactory().create("http://www.semanticweb.org/",
                 "ontology" + RANDOMSTART.incrementAndGet()));
             List<AddAxiom> changes = new ArrayList<>();
             for (OWLAxiom ax : currentExplanation) {

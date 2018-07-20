@@ -12,6 +12,7 @@ import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.diff.Diff;
 import org.obolibrary.oboformat.diff.OBODocDiffer;
 import org.obolibrary.oboformat.model.OBODoc;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -42,7 +43,12 @@ public class RoundTripTestBasics extends OboFormatTestBasics {
 
     public List<Diff> roundTripOBODoc(OBODoc obodoc, boolean isExpectRoundtrip) throws Exception {
         OWLOntology oo = convert(obodoc);
+        StringDocumentTarget oo2 = new StringDocumentTarget();
+        StringDocumentTarget oo1 = new StringDocumentTarget();
+        oo.saveOntology(oo1);
         OBODoc obodoc2 = convert(oo);
+        convert(obodoc2).saveOntology(oo2);
+        assertEquals(oo1.toString(), oo2.toString());
         obodoc2.check();
         writeOBO(obodoc2);
         List<Diff> diffs = OBODocDiffer.getDiffs(obodoc, obodoc2);

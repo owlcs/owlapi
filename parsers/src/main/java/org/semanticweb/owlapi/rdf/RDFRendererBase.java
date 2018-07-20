@@ -277,7 +277,7 @@ public abstract class RDFRendererBase {
      * Render document.
      */
     public void render() {
-        graph = new RDFGraph();
+        graph = new RDFGraph(df);
         triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
         beginDocument();
         renderOntologyHeader();
