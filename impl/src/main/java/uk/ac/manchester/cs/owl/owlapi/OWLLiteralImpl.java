@@ -22,8 +22,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * Implementation of {@link OWLLiteral} that uses compression of strings. See also
- * {@link OWLLiteralImplNoCompression}
+ * Implementation of {@link OWLLiteral} that does not use compact representation for the literal and
+ * type.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
