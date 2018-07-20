@@ -48,7 +48,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy
         if (fragment.isPresent()) {
             String base = iri.getNamespace();
             String camelCaseFragment = toCamelCase(fragment.get());
-            return df.create(base, camelCaseFragment);
+            return df.getIRI(base, camelCaseFragment);
         }
         // for an IRI without fragment, the part to modify is the previous
         // fragment of the path.
@@ -59,7 +59,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy
             String camelCaseElement = toCamelCase(lastPathElement);
             String iriString = iri.toString();
             String base = iriString.substring(0, iriString.lastIndexOf('/') + 1);
-            return df.create(base, camelCaseElement);
+            return df.getIRI(base, camelCaseElement);
         }
         return iri;
     }

@@ -86,7 +86,7 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
             + "AnnotationAssertion(rdfs:label <urn:test.owl#ContactInformation> \"blah \n"
             + "blah\")\n"
             + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n\n\n)";
-        OWLOntology o = m.createOntology(df.create("file:test.owl"));
+        OWLOntology o = m.createOntology(df.getIRI("file:test.owl"));
         m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(IRI("urn:test.owl#ContactInformation"),
             Annotation(RDFSLabel(), Literal("blah \nblah"))));
         m.addAxiom(o, Declaration(DataProperty(IRI("urn:test.owl#city"))));
@@ -120,8 +120,8 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
             + "    ClassAssertion( test:A test:a ))";
         OWLOntology o = loadOntologyFromString(
             new StringDocumentSource(in, new FunctionalSyntaxDocumentFormat()));
-        OWLClass a = df.getOWLClass(df.create("urn:test#", "A"));
-        OWLDataProperty p = df.getOWLDataProperty(df.create("urn:test#", "dp"));
+        OWLClass a = df.getOWLClass(df.getIRI("urn:test#", "A"));
+        OWLDataProperty p = df.getOWLDataProperty(df.getIRI("urn:test#", "dp"));
         assertTrue(o.containsAxiom(df.getOWLSubClassOfAxiom(a,
             df.getOWLDataMinCardinality(257, p, OWL2Datatype.RDFS_LITERAL.getDatatype(df)))));
     }

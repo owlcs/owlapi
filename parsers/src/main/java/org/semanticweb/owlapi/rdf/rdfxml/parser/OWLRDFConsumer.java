@@ -360,7 +360,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         if (s == null) {
             return null;
         }
-        return df.create(s);
+        return df.getIRI(s);
     }
 
     /**
@@ -663,7 +663,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     @Override
     public void statementWithLiteralValue(String subject, String predicate, String object,
         @Nullable String language, @Nullable String datatype) {
-        statementWithLiteralValue(df.create(remapOnlyIfRemapped(subject)), df.create(predicate),
+        statementWithLiteralValue(df.getIRI(remapOnlyIfRemapped(subject)), df.getIRI(predicate),
             object, language, getNullableIRI(datatype));
     }
 
@@ -681,7 +681,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     @Override
     public void statementWithResourceValue(String subject, String predicate, String object) {
-        statementWithResourceValue(df.create(subject), df.create(predicate), df.create(object));
+        statementWithResourceValue(df.getIRI(subject), df.getIRI(predicate), df.getIRI(object));
     }
 
     @Override
@@ -922,7 +922,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     private <E extends OWLEntity> E getErrorEntity(EntityType<E> type) {
-        IRI iri = df.create("http://org.semanticweb.owlapi/error#",
+        IRI iri = df.getIRI("http://org.semanticweb.owlapi/error#",
             "Error" + ERRORCOUNTER.incrementAndGet());
         String message = "Entity not properly recognized, missing triples in input? " + iri
             + " for type " + type;
@@ -1008,7 +1008,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             return i;
         }
         IRI computeIfAbsent =
-            remappedIRIs.computeIfAbsent(i, x -> df.create(NodeID.nextAnonymousIRI()));
+            remappedIRIs.computeIfAbsent(i, x -> df.getIRI(NodeID.nextAnonymousIRI()));
         remappedIRIStrings.put(i.toString(), computeIfAbsent);
         return computeIfAbsent;
     }

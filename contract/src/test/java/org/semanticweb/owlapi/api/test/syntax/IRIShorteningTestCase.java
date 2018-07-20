@@ -63,7 +63,7 @@ public class IRIShorteningTestCase extends TestBase {
     @Test
     public void shouldOutputURNsCorrectly()
                     throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(df.create("urn:ontology:", "test"));
+        OWLOntology o = m.createOntology(df.getIRI("urn:ontology:", "test"));
         o.add(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty("urn:test#", "p"),
                         df.getOWLNamedIndividual("urn:test#", "test"),
                         df.getOWLNamedIndividual("urn:other:", "test")));

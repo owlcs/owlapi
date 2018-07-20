@@ -364,9 +364,9 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
                     if (bases.isEmpty()) {
                         throw new OWLXMLParserException(this, "Unable to resolve relative URI");
                     }
-                    iri = owlOntologyManager.getOWLDataFactory().create(getBase() + iriStr);
+                    iri = owlOntologyManager.getOWLDataFactory().getIRI(getBase() + iriStr);
                 } else {
-                    iri = owlOntologyManager.getOWLDataFactory().create(uri);
+                    iri = owlOntologyManager.getOWLDataFactory().getIRI(uri);
                 }
                 iriMap.put(iriStr, iri);
             }

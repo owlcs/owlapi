@@ -59,7 +59,7 @@ public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation {
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary replacement
         return list(new SetOntologyID(ontology,
-            df.getOWLOntologyID(df.create("urn:profilesrepair:ontology#", "renamed"),
-                df.create("urn:profilesrepair:ontology#", "renamed1"))));
+            df.getOWLOntologyID(df.getIRI("urn:profilesrepair:ontology#", "renamed"),
+                df.getIRI("urn:profilesrepair:ontology#", "renamed1"))));
     }
 }

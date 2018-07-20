@@ -78,8 +78,8 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         // check owl
         // check that both alt_id is declared as deprecated class and has
         // appropriate annotations
-        IRI alt_id_t1 = df.create("http://purl.obolibrary.org/obo/", "TEST_1000");
-        IRI alt_id_r1 = df.create("http://purl.obolibrary.org/obo/", "TEST_REL_1000");
+        IRI alt_id_t1 = df.getIRI("http://purl.obolibrary.org/obo/", "TEST_1000");
+        IRI alt_id_r1 = df.getIRI("http://purl.obolibrary.org/obo/", "TEST_REL_1000");
         checkAsAltId(alt_id_t1, owl, "TEST:0001");
         checkAsAltId(alt_id_r1, owl, "TEST_REL:0001");
     }
@@ -232,9 +232,9 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         String outObo = renderOboToString(output);
         assertEquals(readResource("is_inferred_annotation.obo"), outObo);
         // check owl
-        IRI t1 = df.create("http://purl.obolibrary.org/obo/", "TEST_0001");
-        IRI t3 = df.create("http://purl.obolibrary.org/obo/", "TEST_0003");
-        IRI isInferredIRI = df.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_inferred");
+        IRI t1 = df.getIRI("http://purl.obolibrary.org/obo/", "TEST_0001");
+        IRI t3 = df.getIRI("http://purl.obolibrary.org/obo/", "TEST_0003");
+        IRI isInferredIRI = df.getIRI(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_inferred");
         AtomicBoolean hasAnnotation = new AtomicBoolean(false);
         OWLAnnotationProperty infIRI = df.getOWLAnnotationProperty(isInferredIRI);
         owl.axioms(AxiomType.SUBCLASS_OF).forEach(axiom -> {
@@ -292,7 +292,7 @@ public class RoundTripTestCase extends RoundTripTestBasics {
     public void shouldContainExpectedAnnotationXrefescapecolon() {
         OBODoc oboFile = parseOBOFile("xref_escapecolon.obo");
         OWLOntology o = convert(oboFile);
-        IRI expected = df.create("http://purl.obolibrary.org/obo/", "GO_0042062%3A");
+        IRI expected = df.getIRI("http://purl.obolibrary.org/obo/", "GO_0042062%3A");
         assertEquals(18, o.annotationAssertionAxioms(expected).count());
     }
 

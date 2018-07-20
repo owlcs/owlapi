@@ -95,7 +95,7 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
         assertEquals("should have 1 range", 1, ranges.size());
         HasIRI range = (HasIRI) ranges.iterator().next();
         IRI rangeIRI = range.getIRI();
-        IRI expectedIRI = df.create(expectedRange);
+        IRI expectedIRI = df.getIRI(expectedRange);
         if (!expectedIRI.isAbsolute()) {
             expectedIRI = cidocOntology.getPrefixManager().getIRI(expectedRange, df);
         }
@@ -128,7 +128,7 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
         assertEquals("should have 1 range", 1, ranges.size());
         HasIRI range = (HasIRI) ranges.iterator().next();
         IRI rangeIRI = range.getIRI();
-        IRI expectedIRI = df.create(expectedRange);
+        IRI expectedIRI = df.getIRI(expectedRange);
         if (!expectedIRI.isAbsolute()) {
             expectedIRI = cidocOntology.getPrefixManager().getIRI(expectedRange, df);
         }

@@ -53,7 +53,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         }
         IRI iri = qnameIRIMap.get(qname);
         if(iri == null) {
-            iri = factory.create(defaultNamespace + "#" + qname);
+            iri = factory.getIRI(defaultNamespace + "#" + qname);
             qnameIRIMap.put(qname, iri);
         }
         return iri;

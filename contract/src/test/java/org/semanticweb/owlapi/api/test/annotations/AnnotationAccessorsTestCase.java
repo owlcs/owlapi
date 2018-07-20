@@ -54,7 +54,7 @@ public class AnnotationAccessorsTestCase extends TestBase {
     @Parameters
     public static Collection<OWLPrimitive> getData() {
         IRI subject = OWLManager.getOWLDataFactory()
-            .create("http://owlapi.sourceforge.net/ontologies/test#", "X");
+            .getIRI("http://owlapi.sourceforge.net/ontologies/test#", "X");
         return Arrays.asList(Class(subject), NamedIndividual(subject), DataProperty(subject),
             ObjectProperty(subject), Datatype(subject), AnnotationProperty(subject),
             AnonymousIndividual());
@@ -69,7 +69,7 @@ public class AnnotationAccessorsTestCase extends TestBase {
     private static OWLAnnotationAssertionAxiom createAnnotationAssertionAxiom() {
         OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
         OWLAnnotationValue value = Literal("value");
-        IRI subject = df.create("http://owlapi.sourceforge.net/ontologies/test#", "X");
+        IRI subject = df.getIRI("http://owlapi.sourceforge.net/ontologies/test#", "X");
         return AnnotationAssertion(prop, subject, value);
     }
 
@@ -78,7 +78,7 @@ public class AnnotationAccessorsTestCase extends TestBase {
         OWLOntology ont = getOWLOntology();
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
         ont.getOWLOntologyManager().addAxiom(ont, ax);
-        IRI subject = df.create("http://owlapi.sourceforge.net/ontologies/test#", "X");
+        IRI subject = df.getIRI("http://owlapi.sourceforge.net/ontologies/test#", "X");
         assertTrue(ont.annotationAssertionAxioms(subject).anyMatch(a -> a.equals(ax)));
         if (e instanceof OWLEntity) {
             assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())

@@ -363,7 +363,7 @@ public class RenameEntityTestCase extends TestBase {
         OWLEntityRenamer renamer =
             new OWLEntityRenamer(o1.getOWLOntologyManager(), Arrays.asList(o1));
         o1.annotationPropertiesInSignature()
-            .map(x -> renamer.changeIRI(x.getIRI(), df.create("urn:test:attempt")))
+            .map(x -> renamer.changeIRI(x.getIRI(), df.getIRI("urn:test:attempt")))
             .forEach(list -> assertFalse(list.isEmpty()));
     }
 }

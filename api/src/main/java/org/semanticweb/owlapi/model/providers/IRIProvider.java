@@ -43,9 +43,9 @@ public interface IRIProvider extends Serializable {
         // extra URI object
         URI uri = URI.create(s);
         if (uri.isAbsolute() || uri.isOpaque()) {
-            return create(uri);
+            return getIRI(uri);
         }
-        return create(iri.toURI().resolve(uri));
+        return getIRI(iri.toURI().resolve(uri));
     }
 
     /**
@@ -54,7 +54,7 @@ public interface IRIProvider extends Serializable {
      * @param str The String that specifies the IRI
      * @return The IRI that has the specified string representation.
      */
-    IRI create(String str);
+    IRI getIRI(String str);
 
     /**
      * Creates an IRI by concatenating two strings. The full IRI is an IRI that contains the
@@ -65,23 +65,23 @@ public interface IRIProvider extends Serializable {
      * @return An IRI whose characters consist of prefix + suffix.
      * @since 3.3
      */
-    IRI create(@Nullable String prefix, @Nullable String suffix);
+    IRI getIRI(@Nullable String prefix, @Nullable String suffix);
 
     /**
      * @param file the file to create the IRI from
      * @return file.toURI() IRI
      */
-    default IRI create(File file) {
+    default IRI getIRI(File file) {
         checkNotNull(file, "file cannot be null");
-        return create(file.toURI());
+        return getIRI(file.toURI());
     }
 
     /**
      * @param uri the uri to create the IRI from
      * @return the IRI wrapping the uri
      */
-    default IRI create(URI uri) {
-        return create(checkNotNull(uri, "uri cannot be null").toString());
+    default IRI getIRI(URI uri) {
+        return getIRI(checkNotNull(uri, "uri cannot be null").toString());
     }
 
     /**
@@ -89,10 +89,10 @@ public interface IRIProvider extends Serializable {
      * @return an IRI wrapping url.toURI()
      * @throws OWLRuntimeException if the URL is ill formed
      */
-    default IRI create(URL url) {
+    default IRI getIRI(URL url) {
         checkNotNull(url, "url cannot be null");
         try {
-            return create(url.toURI());
+            return getIRI(url.toURI());
         } catch (URISyntaxException e) {
             throw new OWLRuntimeException(e);
         }

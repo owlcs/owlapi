@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.util.OWLZipClosureIRIMapper;
 
 @SuppressWarnings("javadoc")
 public class OWLZipClosureIRIMapperTestCase extends TestBase {
-    protected IRI dIRI = df.create("http://test.org/complexImports/D.owl");
+    protected IRI dIRI = df.getIRI("http://test.org/complexImports/D.owl");
 
     @Test
     public void shouldLoadClosureWithYaml()

@@ -98,9 +98,9 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
 
     @Test
     public void testImportsLoad() throws OWLException {
-        OWLOntology ontA = manager.createOntology(df.create("urn:test:", "a"));
+        OWLOntology ontA = manager.createOntology(df.getIRI("urn:test:", "a"));
         assertTrue(ontA.directImports().count() == 0);
-        IRI b = df.create("urn:test:", "b");
+        IRI b = df.getIRI("urn:test:", "b");
         OWLImportsDeclaration declB = manager.getOWLDataFactory().getOWLImportsDeclaration(b);
         manager.applyChange(new AddImport(ontA, declB));
         Set<IRI> directImportsDocuments = asUnorderedSet(ontA.directImportsDocuments());

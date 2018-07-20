@@ -88,7 +88,7 @@ public class RDFParserTestCase extends TestBase {
                         + "<owl:Datatype rdf:about=\"&xsd;string\"/>\n" + "</rdf:RDF>";
         OWLOntology o = loadOntologyFromString(in, new RDFXMLDocumentFormat());
         assertFalse(o.containsObjectPropertyInSignature(
-            df.create("http://www.loa-cnr.it/ontologies/Plans.owl#", "iteration-cardinality")));
+            df.getIRI("http://www.loa-cnr.it/ontologies/Plans.owl#", "iteration-cardinality")));
     }
 
     @Test

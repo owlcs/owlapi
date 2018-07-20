@@ -129,8 +129,8 @@ public class RaceTestCase {
                 manager = OWLManager.createConcurrentOWLOntologyManager();
                 factory = manager.getOWLDataFactory();
                 ontology = manager.createOntology();
-                x = factory.getOWLClass(factory.create(NS, "X"));
-                y = factory.getOWLClass(factory.create(NS, "Y"));
+                x = factory.getOWLClass(factory.getIRI(NS, "X"));
+                y = factory.getOWLClass(factory.getIRI(NS, "Y"));
             }
 
             @Override
@@ -179,11 +179,11 @@ public class RaceTestCase {
             @Override
             public void race() {
                 asList(ontology.subClassAxiomsForSubClass(
-                    factory.getOWLClass(factory.create("http://www.race.org#", "testclass"))));
+                    factory.getOWLClass(factory.getIRI("http://www.race.org#", "testclass"))));
             }
 
             public OWLClass createMiddleClass(int i) {
-                return factory.getOWLClass(factory.create(NS, "P" + i));
+                return factory.getOWLClass(factory.getIRI(NS, "P" + i));
             }
         }
     }

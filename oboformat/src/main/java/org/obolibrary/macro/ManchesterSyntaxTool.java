@@ -263,7 +263,7 @@ public class ManchesterSyntaxTool {
             if (name.length() > 2 && name.charAt(0) == '<'
                 && name.charAt(name.length() - 1) == '>') {
                 // anything between <...> brackets is a complete IRI
-                return manager.getOWLDataFactory().create(name.substring(1, name.length() - 1));
+                return manager.getOWLDataFactory().getIRI(name.substring(1, name.length() - 1));
             }
             return getIRIByIdentifier(name);
         }

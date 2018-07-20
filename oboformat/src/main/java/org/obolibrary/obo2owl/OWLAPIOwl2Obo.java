@@ -1364,7 +1364,7 @@ public class OWLAPIOwl2Obo {
     }
 
     private boolean isMetadataTag(OWLAnnotationProperty p) {
-        final IRI metadataTagIRI = df.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX,
+        final IRI metadataTagIRI = df.getIRI(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX,
             OboFormatTag.TAG_IS_METADATA_TAG.getTag());
         return owlOntology.annotationAssertionAxioms(p.getIRI())
             .anyMatch(ax -> metadataTagIRI.equals(ax.getProperty().getIRI()));

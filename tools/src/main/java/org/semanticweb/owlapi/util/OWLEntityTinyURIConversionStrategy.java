@@ -76,7 +76,7 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
             return entity.getIRI();
         }
         String name = fragmentProvider.getName(entity);
-        iri = df.create(base, name);
+        iri = df.getIRI(base, name);
         entityNameMap.put(entity, iri);
         return iri;
     }

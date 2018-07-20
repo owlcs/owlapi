@@ -91,28 +91,28 @@ public class ImportsTestCase extends TestBase {
         @Nonnull
         File ontologyByOtherPath = folder.newFile("tempother.owl");
         OWLOntology ontology = getOWLOntology(
-            df.getOWLOntologyID(df.create(ontologyByName), df.create(ontologyByVersion)));
-        ontology.saveOntology(df.create(ontologyByName));
-        ontology.saveOntology(df.create(ontologyByVersion));
-        ontology.saveOntology(df.create(ontologyByOtherPath));
-        OWLOntology ontology1 = m1.createOntology(df.create(importsBothNameAndVersion));
-        OWLOntology ontology2 = m1.createOntology(df.create(importsBothNameAndOther));
+            df.getOWLOntologyID(df.getIRI(ontologyByName), df.getIRI(ontologyByVersion)));
+        ontology.saveOntology(df.getIRI(ontologyByName));
+        ontology.saveOntology(df.getIRI(ontologyByVersion));
+        ontology.saveOntology(df.getIRI(ontologyByOtherPath));
+        OWLOntology ontology1 = m1.createOntology(df.getIRI(importsBothNameAndVersion));
+        OWLOntology ontology2 = m1.createOntology(df.getIRI(importsBothNameAndOther));
         List<AddImport> changes = new ArrayList<>();
         changes
-            .add(new AddImport(ontology1, df.getOWLImportsDeclaration(df.create(ontologyByName))));
+            .add(new AddImport(ontology1, df.getOWLImportsDeclaration(df.getIRI(ontologyByName))));
         changes.add(
-            new AddImport(ontology1, df.getOWLImportsDeclaration(df.create(ontologyByVersion))));
+            new AddImport(ontology1, df.getOWLImportsDeclaration(df.getIRI(ontologyByVersion))));
         changes
-            .add(new AddImport(ontology2, df.getOWLImportsDeclaration(df.create(ontologyByName))));
+            .add(new AddImport(ontology2, df.getOWLImportsDeclaration(df.getIRI(ontologyByName))));
         changes.add(
-            new AddImport(ontology2, df.getOWLImportsDeclaration(df.create(ontologyByOtherPath))));
+            new AddImport(ontology2, df.getOWLImportsDeclaration(df.getIRI(ontologyByOtherPath))));
         ontology1.applyChanges(changes);
         ontology2.applyChanges(changes);
-        ontology1.saveOntology(df.create(importsBothNameAndVersion));
-        ontology2.saveOntology(df.create(importsBothNameAndOther));
+        ontology1.saveOntology(df.getIRI(importsBothNameAndVersion));
+        ontology2.saveOntology(df.getIRI(importsBothNameAndOther));
         // when
-        OWLOntology o1 = m.loadOntology(df.create(importsBothNameAndVersion));
-        OWLOntology o2 = m1.loadOntology(df.create(importsBothNameAndOther));
+        OWLOntology o1 = m.loadOntology(df.getIRI(importsBothNameAndVersion));
+        OWLOntology o2 = m1.loadOntology(df.getIRI(importsBothNameAndOther));
         // then
         assertNotNull(o1);
         assertNotNull(o2);
@@ -120,7 +120,7 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void shouldNotLoadWrong() throws OWLOntologyCreationException {
-        m.createOntology(df.create("urn:test#", "test"));
+        m.createOntology(df.getIRI("urn:test#", "test"));
         String input = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl =\"http://www.w3.org/2002/07/owl#\">\n"
             + "    <owl:Ontology><owl:imports rdf:resource=\"urn:test#test\"/></owl:Ontology></rdf:RDF>";
@@ -173,7 +173,7 @@ public class ImportsTestCase extends TestBase {
     @Test
     public void testCyclicImports2() throws OWLOntologyCreationException {
         m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true, df));
-        m.loadOntologyFromOntologyDocument(df.create(new File(RESOURCES, "importscyclic/D.owl")));
+        m.loadOntologyFromOntologyDocument(df.getIRI(new File(RESOURCES, "importscyclic/D.owl")));
     }
 
     @Test
@@ -182,18 +182,18 @@ public class ImportsTestCase extends TestBase {
         // reimported
         File ontologyDirectory = new File(RESOURCES, "importNoOntology");
         String ns = "http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/";
-        IRI bobsOntologyName = df.create(ns, "subject-bob");
+        IRI bobsOntologyName = df.getIRI(ns, "subject-bob");
         OWLNamedIndividual bobsIndividual =
             df.getOWLNamedIndividual(ns + "subject-bob#", "subjectOnImmunosuppressantA2");
-        m.getIRIMappers().add(new SimpleIRIMapper(df.create(ns, "subject-amy"),
-            df.create(new File(ontologyDirectory, "subject-amy.ttl"))));
+        m.getIRIMappers().add(new SimpleIRIMapper(df.getIRI(ns, "subject-amy"),
+            df.getIRI(new File(ontologyDirectory, "subject-amy.ttl"))));
         m.getIRIMappers().add(new SimpleIRIMapper(bobsOntologyName,
-            df.create(new File(ontologyDirectory, "subject-bob.ttl"))));
-        m.getIRIMappers().add(new SimpleIRIMapper(df.create(ns, "subject-sue"),
-            df.create(new File(ontologyDirectory, "subject-sue.ttl"))));
+            df.getIRI(new File(ontologyDirectory, "subject-bob.ttl"))));
+        m.getIRIMappers().add(new SimpleIRIMapper(df.getIRI(ns, "subject-sue"),
+            df.getIRI(new File(ontologyDirectory, "subject-sue.ttl"))));
         m.getIRIMappers()
-            .add(new SimpleIRIMapper(df.create("http://www.w3.org/2013/12/FDA-TA/", "core"),
-                df.create(new File(ontologyDirectory, "core.ttl"))));
+            .add(new SimpleIRIMapper(df.getIRI("http://www.w3.org/2013/12/FDA-TA/", "core"),
+                df.getIRI(new File(ontologyDirectory, "core.ttl"))));
         OWLOntology topLevelImport =
             m.loadOntologyFromOntologyDocument(new File(ontologyDirectory, "subjects.ttl"));
         assertTrue("Individuals about Bob are missing...",
@@ -225,8 +225,8 @@ public class ImportsTestCase extends TestBase {
         String input = "<?xml version=\"1.0\"?>\n"
             + "<Ontology  ontologyIRI=\"http://protege.org/ontologies/TestFunnyPizzaImport.owl\">\n"
             + "    <Import>http://test.org/TestPizzaImport.owl</Import>\n" + "</Ontology>";
-        IRI testImport = df.create("http://test.org/", "TestPizzaImport.owl");
-        IRI remap = df.create("urn:test:", "mockImport");
+        IRI testImport = df.getIRI("http://test.org/", "TestPizzaImport.owl");
+        IRI remap = df.getIRI("urn:test:", "mockImport");
         StringDocumentSource source = new StringDocumentSource(input, new OWLXMLDocumentFormat());
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
         when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
@@ -245,8 +245,8 @@ public class ImportsTestCase extends TestBase {
             + "    <owl:Ontology rdf:about=\"urn:test\">\n"
             + "        <owl:imports rdf:resource=\"http://test.org/TestPizzaImport.owl\"/>\n"
             + "    </owl:Ontology>\n" + "</rdf:RDF>";
-        IRI testImport = df.create("http://test.org/", "TestPizzaImport.owl");
-        IRI remap = df.create("urn:test:", "mockImport");
+        IRI testImport = df.getIRI("http://test.org/", "TestPizzaImport.owl");
+        IRI remap = df.getIRI("urn:test:", "mockImport");
         StringDocumentSource source = new StringDocumentSource(input, new RDFXMLDocumentFormat());
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
         when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
@@ -278,7 +278,7 @@ public class ImportsTestCase extends TestBase {
     public void shouldNotCreateIllegalPunning() throws OWLOntologyCreationException {
         m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true, df));
         OWLOntology o = m.loadOntologyFromOntologyDocument(
-            df.create(new File(RESOURCES, "importscyclic/relaMath.owl")));
+            df.getIRI(new File(RESOURCES, "importscyclic/relaMath.owl")));
         OWLProfileReport checkOntology = Profiles.OWL2_DL.checkOntology(o);
         assertTrue(checkOntology.toString(), checkOntology.isInProfile());
         o.directImports()
@@ -314,13 +314,13 @@ public class ImportsTestCase extends TestBase {
     public void testAutoIRIMapperShouldNotBeConfusedByPrefixes() {
         AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true, df);
         assertTrue(mapper.getOntologyIRIs()
-            .contains(df.create("http://owlapitestontologies.com/thesubont")));
+            .contains(df.getIRI("http://owlapitestontologies.com/thesubont")));
     }
 
     @Test
     public void testAutoIRIMapperShouldRecogniseRdfAboutInOwlOntology() {
         AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true, df);
         assertTrue(
-            mapper.getOntologyIRIs().contains(df.create("http://test.org/compleximports/A.owl")));
+            mapper.getOntologyIRIs().contains(df.getIRI("http://test.org/compleximports/A.owl")));
     }
 }

@@ -38,7 +38,7 @@ public class EntitiesTestCase extends TestBase {
                         + "    </rdf:Description>" + "</rdf:RDF>";
         OWLOntology o = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         OWLOntology o1 = m.createOntology();
-        o1.add(df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), df.create("urn:test:i"),
+        o1.add(df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), df.getIRI("urn:test:i"),
                         df.getOWLLiteral("")));
         equal(o, o1);
     }

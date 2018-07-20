@@ -271,7 +271,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         this.shortName = shortName;
         this.damlName = damlName;
         prefixedName = namespace.getPrefixName() + ':' + shortName;
-        iri = VocabFactory.df.create(namespace.toString(), shortName);
+        iri = VocabFactory.df.getIRI(namespace.toString(), shortName);
         this.order = order;
     }
 
@@ -291,7 +291,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      * @return DAML alternative IRI
      */
     public IRI getDAMLIRI() {
-        return VocabFactory.df.create(DAML_NAMESPACE, damlName == null ? shortName : damlName);
+        return VocabFactory.df.getIRI(DAML_NAMESPACE, damlName == null ? shortName : damlName);
     }
 
     @Override

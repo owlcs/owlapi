@@ -59,9 +59,9 @@ public class SerializationTestCase extends TestBase {
     private final OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
     private final OWLDataProperty dp = df.getOWLDataProperty("urn:test#", "dp");
     private final OWLObjectProperty op = df.getOWLObjectProperty("urn:test#", "op");
-    private final IRI iri = df.create("urn:test#", "iri");
+    private final IRI iri = df.getIRI("urn:test#", "iri");
     private final OWLLiteral owlliteral = df.getOWLLiteral(true);
-    private final OWLAnnotationSubject as = df.create("urn:test#", "i");
+    private final OWLAnnotationSubject as = df.getIRI("urn:test#", "i");
     private final OWLDatatype owldatatype = df.getOWLDatatype(owl2datatype);
     private final OWLDataRange dr = df.getOWLDatatypeRestriction(owldatatype);
     private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:test#", "ap");

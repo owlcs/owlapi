@@ -42,10 +42,10 @@ public class AtomicDecomposerDepedenciesTest {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLOntology o = m.createOntology();
         OWLDataFactory f = m.getOWLDataFactory();
-        OWLClass powerYoga = f.getOWLClass(f.create("urn:test#", "PowerYoga"));
-        OWLClass yoga = f.getOWLClass(f.create("urn:test#", "Yoga"));
-        OWLClass relaxation = f.getOWLClass(f.create("urn:test#", "Relaxation"));
-        OWLClass activity = f.getOWLClass(f.create("urn:test#", "Activity"));
+        OWLClass powerYoga = f.getOWLClass(f.getIRI("urn:test#", "PowerYoga"));
+        OWLClass yoga = f.getOWLClass(f.getIRI("urn:test#", "Yoga"));
+        OWLClass relaxation = f.getOWLClass(f.getIRI("urn:test#", "Relaxation"));
+        OWLClass activity = f.getOWLClass(f.getIRI("urn:test#", "Activity"));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(powerYoga, yoga));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(yoga, relaxation));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(relaxation, activity));

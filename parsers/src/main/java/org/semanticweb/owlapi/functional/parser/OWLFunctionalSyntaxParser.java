@@ -47,7 +47,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         IRI iri = string2IRI.get(s);
         if(iri == null) {
             if(s.charAt(0) == '<') {
-                iri = df.create(s.substring(1, s.length() - 1));
+                iri = df.getIRI(s.substring(1, s.length() - 1));
             }
             else {
                 int colonIndex = s.indexOf(':');
@@ -57,7 +57,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                     throw new OWLRuntimeException("Undefined prefix name: " + prefixName);
                 }
                 String fullIRIString = prefix + s.substring(colonIndex + 1);
-                iri = df.create(fullIRIString);
+                iri = df.getIRI(fullIRIString);
             }
             string2IRI.put(s, iri);
         }

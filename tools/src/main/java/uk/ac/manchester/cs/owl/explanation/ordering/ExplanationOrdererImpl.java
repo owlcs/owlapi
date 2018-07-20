@@ -105,7 +105,7 @@ public class ExplanationOrdererImpl extends ExplanationOrdererImplNoManager
             if (ont != null) {
                 man.removeOntology(verifyNotNull(getOntology()));
             }
-            ont = man.createOntology(man.getOWLDataFactory().create("http://www.semanticweb.org/",
+            ont = man.createOntology(man.getOWLDataFactory().getIRI("http://www.semanticweb.org/",
                 "ontology" + RANDOMSTART.incrementAndGet()));
             List<AddAxiom> changes = new ArrayList<>();
             for (OWLAxiom ax : currentExplanation) {

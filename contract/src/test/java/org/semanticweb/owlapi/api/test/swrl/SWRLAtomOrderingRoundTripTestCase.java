@@ -114,7 +114,7 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
                 + "            </rdf:Description>\n" + "        </swrl:head>\n"
                 + "    </rdf:Description>\n" + "</rdf:RDF>";
         OWLOntology o =
-            loadOntologyFromString(in, df.create("urn:test#", "test"), new RDFXMLDocumentFormat());
+            loadOntologyFromString(in, df.getIRI("urn:test#", "test"), new RDFXMLDocumentFormat());
         String string = saveOntology(o).toString();
         assertFalse(string, string
             .contains("<rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Variable\"/>"));

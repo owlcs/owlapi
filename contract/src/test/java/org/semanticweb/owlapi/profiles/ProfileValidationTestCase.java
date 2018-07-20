@@ -66,7 +66,7 @@ public class ProfileValidationTestCase extends TestBase {
         IRI rlIRI = IRI(ns, "RL");
         IRI premiseIRI = IRI(ns, "rdfXmlPremiseOntology");
         URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
-        IRI allTestURI = df.create(resourceURL);
+        IRI allTestURI = df.getIRI(resourceURL);
         OWLOntology testCasesOntology = m.loadOntologyFromOntologyDocument(allTestURI);
         OWLClass profileIdentificationTestClass = Class(profile);
         OWLNamedIndividual el = df.getOWLNamedIndividual(elIRI);
@@ -136,7 +136,7 @@ public class ProfileValidationTestCase extends TestBase {
         OWLOntology o = getOWLOntology();
         OWLAnnotation ann = df.getRDFSLabel(df.getOWLLiteral(true));
         OWLAnnotationAssertionAxiom ax =
-            df.getOWLAnnotationAssertionAxiom(df.create("urn:test#", "ELProfile"), ann);
+            df.getOWLAnnotationAssertionAxiom(df.getIRI("urn:test#", "ELProfile"), ann);
         o.add(ax, Declaration(OWL2Datatype.XSD_BOOLEAN.getDatatype(df)));
         checkProfile(o, new OWL2ELProfile(), true);
     }

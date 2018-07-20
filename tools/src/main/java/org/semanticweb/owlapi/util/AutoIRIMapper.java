@@ -115,7 +115,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         if (ontURI == null) {
             return null;
         }
-        return df.create(ontURI);
+        return df.getIRI(ontURI);
     }
 
     @Nullable
@@ -124,7 +124,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         if (baseValue == null) {
             return null;
         }
-        return df.create(baseValue);
+        return df.getIRI(baseValue);
     }
 
     protected File getDirectory() {
@@ -237,7 +237,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             }
 
         } else if (".obo".equalsIgnoreCase(extension)) {
-            oboFileMap.put(name, df.create(file));
+            oboFileMap.put(name, df.getIRI(file));
         } else if (".ofn".equalsIgnoreCase(extension)) {
             parseFSSFile(file);
         } else if (".omn".equalsIgnoreCase(extension)) {
@@ -264,7 +264,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
                 if (m.matches()) {
                     String group = m.group(1);
                     assert group != null;
-                    addMapping(df.create(group), file);
+                    addMapping(df.getIRI(group), file);
                     break;
                 }
             }
@@ -309,7 +309,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     private IRI parseManLine(File file, String line) {
         Matcher matcher = manPattern.matcher(line);
         if (matcher.matches()) {
-            IRI iri = df.create(matcher.group(1));
+            IRI iri = df.getIRI(matcher.group(1));
             addMapping(iri, file);
             return iri;
         }
@@ -337,7 +337,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * @param file file
      */
     protected void addMapping(IRI ontologyIRI, File file) {
-        ontologyIRI2PhysicalURIMap.put(ontologyIRI, df.create(file));
+        ontologyIRI2PhysicalURIMap.put(ontologyIRI, df.getIRI(file));
     }
 
     @Override

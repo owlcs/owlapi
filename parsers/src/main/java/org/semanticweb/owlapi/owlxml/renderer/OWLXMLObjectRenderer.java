@@ -923,7 +923,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(VARIABLE);
         if ("urn:swrl:var#".equals(node.getIRI().getNamespace())
             || "urn:swrl#".equals(node.getIRI().getNamespace())) {
-            writer.writeIRIAttribute(df.create("urn:swrl:var#", node.getIRI().getFragment()));
+            writer.writeIRIAttribute(df.getIRI("urn:swrl:var#", node.getIRI().getFragment()));
         } else {
             writer.writeIRIAttribute(node.getIRI());
         }

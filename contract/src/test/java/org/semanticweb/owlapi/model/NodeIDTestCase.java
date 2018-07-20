@@ -38,9 +38,9 @@ public class NodeIDTestCase extends TestBase {
 
     @Test
     public void shouldFindAnonymousNodeIRI() {
-        assertTrue(NodeID.isAnonymousNodeIRI(df.create("_:sometest_genid_something")));
-        assertTrue(NodeID.isAnonymousNodeIRI(df.create("_:genid_something")));
-        assertFalse(NodeID.isAnonymousNodeIRI(df.create("http://sometest_genid#", "something")));
+        assertTrue(NodeID.isAnonymousNodeIRI(df.getIRI("_:sometest_genid_something")));
+        assertTrue(NodeID.isAnonymousNodeIRI(df.getIRI("_:genid_something")));
+        assertFalse(NodeID.isAnonymousNodeIRI(df.getIRI("http://sometest_genid#", "something")));
         assertFalse(NodeID.isAnonymousNodeIRI((IRI) null));
     }
 

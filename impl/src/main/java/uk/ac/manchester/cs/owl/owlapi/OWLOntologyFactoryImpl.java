@@ -97,7 +97,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // because
         // we throw an exception if someone tries to create an ontology directly
         OWLOntology existingOntology = null;
-        IRI iri = manager.getOWLDataFactory().create(documentSource.getDocumentIRI());
+        IRI iri = manager.getOWLDataFactory().getIRI(documentSource.getDocumentIRI());
         if (manager.contains(iri)) {
             existingOntology = manager.getOntology(iri);
         }

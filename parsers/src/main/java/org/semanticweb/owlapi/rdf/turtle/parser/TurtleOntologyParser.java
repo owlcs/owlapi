@@ -51,7 +51,7 @@ public class TurtleOntologyParser implements OWLParser {
         TurtleDocumentFormat format = new TurtleDocumentFormat();
         consumer.setOntologyFormat(format);
         IRI iri =
-            p.getOntology().getOWLOntologyManager().getOWLDataFactory().create(p.getDocumentIRI());
+            p.getOntology().getOWLOntologyManager().getOWLDataFactory().getIRI(p.getDocumentIRI());
         consumer.startModel(p.getDocumentIRI());
         TurtleParser parser = new TurtleParser(provider, consumer, iri,
             p.getOntology().getOWLOntologyManager().getOWLDataFactory());

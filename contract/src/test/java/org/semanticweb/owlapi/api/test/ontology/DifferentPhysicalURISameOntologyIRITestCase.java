@@ -31,9 +31,9 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testDifferentPhysicalURISameOntologyIRI() throws Exception {
-        IRI ontologyADocumentIRI = df.create(DifferentPhysicalURISameOntologyIRITestCase.class
+        IRI ontologyADocumentIRI = df.getIRI(DifferentPhysicalURISameOntologyIRITestCase.class
                         .getResource('/' + ONTOLOGY_A).toURI());
-        IRI ontologyADocumentIRIB = df.create(DifferentPhysicalURISameOntologyIRITestCase.class
+        IRI ontologyADocumentIRIB = df.getIRI(DifferentPhysicalURISameOntologyIRITestCase.class
                         .getResource('/' + ONTOLOGY_A_EMPTY).toURI());
         m.loadOntologyFromOntologyDocument(ontologyADocumentIRI);
         m.loadOntologyFromOntologyDocument(ontologyADocumentIRIB);

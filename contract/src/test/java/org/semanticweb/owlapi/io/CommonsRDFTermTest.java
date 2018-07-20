@@ -138,7 +138,7 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
         @Override
         public org.semanticweb.owlapi.model.IRI createIRI(@Nullable String iriStr) {
             org.semanticweb.owlapi.model.IRI innerIri =
-                OWLManager.getOWLDataFactory().create(verifyNotNull(iriStr));
+                OWLManager.getOWLDataFactory().getIRI(verifyNotNull(iriStr));
             return innerIri;
             // TODO: What about RDFResourceIRI?
             // return new RDFResourceIRI(innerIri);

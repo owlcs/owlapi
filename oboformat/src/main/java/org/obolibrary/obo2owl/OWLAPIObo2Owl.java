@@ -353,7 +353,7 @@ public class OWLAPIObo2Owl {
     public static IRI trTagToIRI(String tag, OWLDataFactory df) {
         IRI iri = ANNOTATIONPROPERTYMAP.get(tag);
         if (iri == null) {
-            iri = df.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, tag);
+            iri = df.getIRI(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, tag);
         }
         return iri;
     }
@@ -479,15 +479,15 @@ public class OWLAPIObo2Owl {
             defaultIDSpace = ontOboId;
             IRI ontIRI;
             if (ontOboId.contains(":")) {
-                ontIRI = df.create(ontOboId);
+                ontIRI = df.getIRI(ontOboId);
             } else {
-                ontIRI = df.create(DEFAULT_IRI_PREFIX + ontOboId + ".owl");
+                ontIRI = df.getIRI(DEFAULT_IRI_PREFIX + ontOboId + ".owl");
             }
             Clause dvclause = hf.getClause(OboFormatTag.TAG_DATA_VERSION);
             if (dvclause != null) {
                 String dv = dvclause.getValue().toString();
                 IRI vIRI =
-                    df.create(DEFAULT_IRI_PREFIX + ontOboId + '/' + dv + '/' + ontOboId + ".owl");
+                    df.getIRI(DEFAULT_IRI_PREFIX + ontOboId + '/' + dv + '/' + ontOboId + ".owl");
                 OWLOntologyID oid = df.getOWLOntologyID(ontIRI, vIRI);
                 // if the ontology being read has a differet id from the one
                 // that was passed in, update it
@@ -508,7 +508,7 @@ public class OWLAPIObo2Owl {
         } else {
             defaultIDSpace = "TEMP";
             manager.applyChange(new SetOntologyID(in,
-                df.getOWLOntologyID(df.create(DEFAULT_IRI_PREFIX, defaultIDSpace))));
+                df.getOWLOntologyID(df.getIRI(DEFAULT_IRI_PREFIX, defaultIDSpace))));
             // TODO - warn
         }
         trHeaderFrame(hf);
@@ -518,7 +518,7 @@ public class OWLAPIObo2Owl {
         // TODO - individuals
         for (Clause cl : hf.getClauses(OboFormatTag.TAG_IMPORT)) {
             String path = getURI(cl.getValue().toString());
-            IRI importIRI = df.create(path);
+            IRI importIRI = df.getIRI(path);
             OWLImportsDeclaration owlImportsDeclaration = df.getOWLImportsDeclaration(importIRI);
             manager.makeLoadImportRequest(owlImportsDeclaration, new OntologyConfigurator());
             AddImport ai = new AddImport(in, owlImportsDeclaration);
@@ -684,9 +684,9 @@ public class OWLAPIObo2Owl {
                 String v3String = (String) it.next();
                 IRI valueIRI;
                 if (v3String.startsWith("xsd:")) {
-                    valueIRI = df.create(Namespaces.XSD.getPrefixIRI(), v3String.substring(4));
+                    valueIRI = df.getIRI(Namespaces.XSD.getPrefixIRI(), v3String.substring(4));
                 } else {
-                    valueIRI = df.create(v3String);
+                    valueIRI = df.getIRI(v3String);
                 }
                 OWLAnnotationValue value =
                     df.getOWLLiteral((String) v2, OWL2Datatype.getDatatype(valueIRI));
@@ -1172,9 +1172,9 @@ public class OWLAPIObo2Owl {
                 String v3String = (String) it.next();
                 IRI valueIRI;
                 if (v3String.startsWith("xsd:")) {
-                    valueIRI = df.create(Namespaces.XSD.getPrefixIRI(), v3String.substring(4));
+                    valueIRI = df.getIRI(Namespaces.XSD.getPrefixIRI(), v3String.substring(4));
                 } else {
-                    valueIRI = df.create(v3String);
+                    valueIRI = df.getIRI(v3String);
                 }
                 OWLAnnotationValue value =
                     df.getOWLLiteral((String) v2, OWL2Datatype.getDatatype(valueIRI));
@@ -1513,7 +1513,7 @@ public class OWLAPIObo2Owl {
         if (id.startsWith("http:") || id.startsWith("https:") || id.startsWith("ftp:")
             || id.startsWith("urn:")) {
             // TODO - roundtrip from other schemes
-            return df.create(id);
+            return df.getIRI(id);
         }
         // TODO - treat_xrefs_as_equivalent
         // special case rule for relation xrefs:
@@ -1558,7 +1558,7 @@ public class OWLAPIObo2Owl {
         }
         IRI iri = null;
         try {
-            iri = df.create(uriPrefix + safeId);
+            iri = df.getIRI(uriPrefix + safeId);
         } catch (IllegalArgumentException e) {
             throw new OWLRuntimeException(e);
         }

@@ -760,11 +760,11 @@ public final class OWLFunctionalSyntaxFactory {
     }
 
     public static IRI IRI(String iri) {
-        return DF.create(iri);
+        return DF.getIRI(iri);
     }
 
     public static IRI IRI(String ns, String fragment) {
-        return DF.create(ns, fragment);
+        return DF.getIRI(ns, fragment);
     }
 
     public static OWLLiteral PlainLiteral(String literal) {

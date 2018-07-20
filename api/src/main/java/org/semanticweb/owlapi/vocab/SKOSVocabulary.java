@@ -100,7 +100,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         localName = localname;
         prefixedName = Namespaces.SKOS.getPrefixName() + ':' + localname;
         this.entityType = entityType;
-        iri = VocabFactory.df.create(Namespaces.SKOS.toString(), localname);
+        iri = VocabFactory.df.getIRI(Namespaces.SKOS.toString(), localname);
     }
 
     private static Stream<SKOSVocabulary> stream() {

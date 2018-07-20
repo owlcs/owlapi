@@ -93,7 +93,7 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
 
         @Override
         public String getShortForm(String iri) {
-            return getShortForm(ontology.getOWLOntologyManager().getOWLDataFactory().create(iri));
+            return getShortForm(ontology.getOWLOntologyManager().getOWLDataFactory().getIRI(iri));
         }
 
         @Override

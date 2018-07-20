@@ -65,7 +65,7 @@ class TurtleParser implements TurtleParserConstants {
                 string = NodeID.getIRIFromNodeID(id);
             }
         }
-        return df.create(string);
+        return df.getIRI(string);
     }
 
     /** Gets the iRI from q name.
@@ -99,9 +99,9 @@ class TurtleParser implements TurtleParserConstants {
          if(s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
         }
-        IRI iri = df.create(s);
+        IRI iri = df.getIRI(s);
             if (!iri.isAbsolute()) {
-            iri = df.create(base.getNamespace().substring(0, base.getNamespace().lastIndexOf('/')+1), s);
+            iri = df.getIRI(base.getNamespace().substring(0, base.getNamespace().lastIndexOf('/')+1), s);
             }
         return iri;
     }
@@ -184,7 +184,7 @@ pm.withPrefix(t.image, ns.toString());
   final public void parseBaseDirective() throws ParseException {Token t;
     jj_consume_token(BASE);
     t = jj_consume_token(FULLIRI);
-base = df.create(t.image.substring(1, t.image.length() - 1));
+base = df.getIRI(t.image.substring(1, t.image.length() - 1));
 
 }
 

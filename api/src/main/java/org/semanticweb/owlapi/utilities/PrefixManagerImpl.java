@@ -220,14 +220,14 @@ public class PrefixManagerImpl implements PrefixManager {
     @Override
     public IRI getIRI(String prefixIRI, OWLDataFactory df) {
         if (prefixIRI.startsWith("<")) {
-            return df.create(prefixIRI.substring(1, prefixIRI.length() - 1));
+            return df.getIRI(prefixIRI.substring(1, prefixIRI.length() - 1));
         }
         int sep = prefixIRI.indexOf(':');
         if (sep == -1) {
             if (getDefaultPrefix() == null) {
-                return df.create(prefixIRI);
+                return df.getIRI(prefixIRI);
             }
-            return df.create(getDefaultPrefix() + prefixIRI);
+            return df.getIRI(getDefaultPrefix() + prefixIRI);
         } else {
             String prefixName = prefixIRI.substring(0, sep + 1);
             if (!containsPrefixMapping(prefixName)) {
@@ -236,7 +236,7 @@ public class PrefixManagerImpl implements PrefixManager {
             }
             String prefix = getPrefix(prefixName);
             String localName = prefixIRI.substring(sep + 1);
-            return df.create(prefix, localName);
+            return df.getIRI(prefix, localName);
         }
     }
 

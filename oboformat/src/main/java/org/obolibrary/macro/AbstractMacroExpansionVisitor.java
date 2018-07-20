@@ -101,7 +101,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
                 .forEach(a -> mapToExpand(p, a)));
         o.annotationPropertiesInSignature().forEach(p -> expandAssertions(o, p));
         OIO_ISEXPANSION = df.getOWLAnnotationProperty(
-            df.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
+            df.getIRI(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
         expansionMarkerAnnotation = df.getOWLAnnotation(OIO_ISEXPANSION, df.getOWLLiteral(true));
     }
 

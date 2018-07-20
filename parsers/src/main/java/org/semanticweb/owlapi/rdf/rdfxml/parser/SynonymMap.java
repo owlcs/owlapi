@@ -62,7 +62,7 @@ class SynonymMap {
         // vocabulary (e.g. DAML+OIL -> OWL)
         synonymMap.clear();
         // Legacy protege-owlapi representation of QCRs
-        synonymMap.put(df.create(OWL.getPrefixIRI(), "valuesFrom"), OWL_ON_CLASS.getIRI());
+        synonymMap.put(df.getIRI(OWL.getPrefixIRI(), "valuesFrom"), OWL_ON_CLASS.getIRI());
         if (!strict) {
             OWLRDFVocabulary.DAML_COMPATIBILITY
                 .forEach(x -> synonymMap.put(x.getDAMLIRI(), x.getIRI()));
@@ -87,7 +87,7 @@ class SynonymMap {
     private void addIntermediateOWLSpecVocabulary() {
         Stream.of(OWLRDFVocabulary.values()).forEach(this::addLegacyMapping);
         Stream.of(OWLFacet.values()).forEach(v -> Stream.of(OWL, OWL11, OWL2).forEach(
-            p -> synonymMap.put(df.create(p.getPrefixIRI(), v.getShortForm()), v.getIRI())));
+            p -> synonymMap.put(df.getIRI(p.getPrefixIRI(), v.getShortForm()), v.getIRI())));
         synonymMap.put(OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI(),
             OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
         synonymMap.put(OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIRI(),
@@ -97,8 +97,8 @@ class SynonymMap {
         synonymMap.put(OWL_PREDICATE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI());
         synonymMap.put(OWL_OBJECT.getIRI(), OWL_ANNOTATED_TARGET.getIRI());
         // Preliminary OWL 1.1 Vocab
-        synonymMap.put(df.create(OWL.getPrefixIRI(), "cardinalityType"), OWL_ON_CLASS.getIRI());
-        synonymMap.put(df.create(OWL.getPrefixIRI(), "dataComplementOf"),
+        synonymMap.put(df.getIRI(OWL.getPrefixIRI(), "cardinalityType"), OWL_ON_CLASS.getIRI());
+        synonymMap.put(df.getIRI(OWL.getPrefixIRI(), "dataComplementOf"),
             OWL_COMPLEMENT_OF.getIRI());
         synonymMap.put(OWL_ANTI_SYMMETRIC_PROPERTY.getIRI(), OWL_ASYMMETRIC_PROPERTY.getIRI());
         synonymMap.put(OWL_FUNCTIONAL_DATA_PROPERTY.getIRI(), OWL_FUNCTIONAL_PROPERTY.getIRI());
@@ -125,7 +125,7 @@ class SynonymMap {
     private void addLegacyMapping(OWLRDFVocabulary v) {
         // Map OWL11 to OWL
         // Map OWL2 to OWL
-        synonymMap.put(df.create(OWL2.getPrefixIRI(), v.getShortForm()), v.getIRI());
-        synonymMap.put(df.create(OWL11.getPrefixIRI(), v.getShortForm()), v.getIRI());
+        synonymMap.put(df.getIRI(OWL2.getPrefixIRI(), v.getShortForm()), v.getIRI());
+        synonymMap.put(df.getIRI(OWL11.getPrefixIRI(), v.getShortForm()), v.getIRI());
     }
 }

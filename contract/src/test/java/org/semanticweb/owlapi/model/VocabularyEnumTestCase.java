@@ -60,17 +60,15 @@ public class VocabularyEnumTestCase {
 
     @Parameters
     public static Collection<Object[]> getData() {
-        return asList(concat(
-            stream(DublinCoreVocabulary.values())
-                .map(input -> new Object[]{input, DC}),
-            stream(OWLRDFVocabulary.values())
-                .map(input -> new Object[]{input, input.getNamespace()}),
-            stream(OWLXMLVocabulary.values()).map(input -> new Object[]{input, OWL}),
-            stream(SKOSVocabulary.values()).map(input -> new Object[]{input, SKOS}),
-            stream(SWRLBuiltInsVocabulary.values())
-                .map(input -> new Object[]{input, SWRLB}),
-            stream(SWRLVocabulary.values()).map(input -> new Object[]{input, SWRL}),
-            stream(XSDVocabulary.values()).map(input -> new Object[]{input, XSD})));
+        return asList(
+            concat(stream(DublinCoreVocabulary.values()).map(input -> new Object[] {input, DC}),
+                stream(OWLRDFVocabulary.values())
+                    .map(input -> new Object[] {input, input.getNamespace()}),
+                stream(OWLXMLVocabulary.values()).map(input -> new Object[] {input, OWL}),
+                stream(SKOSVocabulary.values()).map(input -> new Object[] {input, SKOS}),
+                stream(SWRLBuiltInsVocabulary.values()).map(input -> new Object[] {input, SWRLB}),
+                stream(SWRLVocabulary.values()).map(input -> new Object[] {input, SWRL}),
+                stream(XSDVocabulary.values()).map(input -> new Object[] {input, XSD})));
     }
 
     @SafeVarargs

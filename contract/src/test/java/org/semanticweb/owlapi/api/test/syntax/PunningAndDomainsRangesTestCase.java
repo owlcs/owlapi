@@ -22,9 +22,9 @@ public class PunningAndDomainsRangesTestCase extends TestBase {
     @Test
     public void shouldKeepDomainsInFSS()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(df.create("urn:test#", "ontology"));
-        OWLAnnotationProperty p1 = df.getOWLAnnotationProperty(df.create("urn:property#", "p"));
-        OWLDataProperty p2 = df.getOWLDataProperty(df.create("urn:property#", "p"));
+        OWLOntology o = m.createOntology(df.getIRI("urn:test#", "ontology"));
+        OWLAnnotationProperty p1 = df.getOWLAnnotationProperty(df.getIRI("urn:property#", "p"));
+        OWLDataProperty p2 = df.getOWLDataProperty(df.getIRI("urn:property#", "p"));
         m.addAxiom(o,
             df.getOWLAnnotationPropertyRangeAxiom(p1, OWL2Datatype.RDFS_LITERAL.getIRI()));
         m.addAxiom(o,
@@ -36,11 +36,11 @@ public class PunningAndDomainsRangesTestCase extends TestBase {
     @Test
     public void shouldSupportPunningClassesAndPropertiesInManchesterSyntax()
         throws OWLOntologyCreationException {
-        OWLClass b = df.getOWLClass(df.create("urn:test#", "B"));
-        OWLClass a = df.getOWLClass(df.create("urn:test#", "A"));
+        OWLClass b = df.getOWLClass(df.getIRI("urn:test#", "B"));
+        OWLClass a = df.getOWLClass(df.getIRI("urn:test#", "A"));
         OWLOntology o = m.createOntology();
         m.addAxiom(o,
-            df.getOWLDeclarationAxiom(df.getOWLObjectProperty(df.create("urn:test#", "B"))));
+            df.getOWLDeclarationAxiom(df.getOWLObjectProperty(df.getIRI("urn:test#", "B"))));
         m.addAxiom(o, df.getOWLDeclarationAxiom(b));
         m.addAxiom(o, df.getOWLDeclarationAxiom(a));
         ManchesterOWLSyntaxParserImpl parser =

@@ -108,7 +108,7 @@ public class HashCodeTestCase extends TestBase {
     public void shouldHaveSameHashCodeForOntologies() throws OWLOntologyCreationException {
         final OWLOntology ontology = m.createOntology();
         int hash = ontology.hashCode();
-        IRI iri = df.create("urn:test:ontology");
+        IRI iri = df.getIRI("urn:test:ontology");
         ontology.applyChange(new SetOntologyID(ontology, iri));
         int otherHash = ontology.hashCode();
         assertNotEquals(hash, otherHash);
@@ -118,8 +118,8 @@ public class HashCodeTestCase extends TestBase {
 
     @Test
     public void shouldHaveSameHashCodeForOntologies1() {
-        OWLOntologyID id1 = df.getOWLOntologyID(df.create("http://purl.org/dc/elements/1.1/"));
-        OWLOntologyID id2 = df.getOWLOntologyID(df.create("http://purl.org/dc/elements/1.1/"));
+        OWLOntologyID id1 = df.getOWLOntologyID(df.getIRI("http://purl.org/dc/elements/1.1/"));
+        OWLOntologyID id2 = df.getOWLOntologyID(df.getIRI("http://purl.org/dc/elements/1.1/"));
         assertEquals(id1, id2);
         assertEquals(id1.hashCode(), id2.hashCode());
     }

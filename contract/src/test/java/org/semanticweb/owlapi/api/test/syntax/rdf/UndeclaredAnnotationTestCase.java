@@ -56,7 +56,7 @@ public class UndeclaredAnnotationTestCase extends TestBase {
         @Nonnull
         OWLAnonymousIndividual anonymousIndividual = anonymousIndividualSet.iterator().next();
         OWLAnnotationAssertionAxiom relAx = df.getOWLAnnotationAssertionAxiom(relProperty,
-            df.create("http://example.com/ns#", "test"), anonymousIndividual);
+            df.getIRI("http://example.com/ns#", "test"), anonymousIndividual);
         OWLLiteral notVisible = df.getOWLLiteral("Not visible", "");
         OWLAnnotationAssertionAxiom predAx =
             df.getOWLAnnotationAssertionAxiom(predProperty, anonymousIndividual, notVisible);

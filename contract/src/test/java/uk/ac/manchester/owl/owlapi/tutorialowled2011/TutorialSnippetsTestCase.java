@@ -120,11 +120,11 @@ public class TutorialSnippetsTestCase {
     private static final @Nonnull Logger LOG =
         LoggerFactory.getLogger(TutorialSnippetsTestCase.class);
     public static final @Nonnull IRI KOALA_IRI =
-        df.create("http://protege.stanford.edu/plugins/owl/owl-library/", "koala.owl");
+        df.getIRI("http://protege.stanford.edu/plugins/owl/owl-library/", "koala.owl");
     public static final @Nonnull IRI EXAMPLE_IRI =
-        df.create("http://www.semanticweb.org/ontologies/", "ont.owl");
+        df.getIRI("http://www.semanticweb.org/ontologies/", "ont.owl");
     public static final @Nonnull IRI EXAMPLE_SAVE_IRI =
-        df.create("file:materializedOntologies/", "ont1290535967123.owl");
+        df.getIRI("file:materializedOntologies/", "ont1290535967123.owl");
     protected @Nonnull OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
 
     public OWLOntologyManager create() {
@@ -192,7 +192,7 @@ public class TutorialSnippetsTestCase {
         // Output will be deleted on exit; to keep temporary file replace
         // previous line with the following
         // File output = File.createTempFile("saved_pizza", ".owl");
-        IRI documentIRI2 = df.create(output);
+        IRI documentIRI2 = df.getIRI(output);
         // save in OWL/XML format
         m.saveOntology(o, new OWLXMLDocumentFormat(), documentIRI2);
         // save in RDF/XML
@@ -213,7 +213,7 @@ public class TutorialSnippetsTestCase {
         // Output will be deleted on exit; to keep temporary file replace
         // previous line with the following
         // File output = File.createTempFile("saved_pizza", ".owl");
-        IRI documentIRI = df.create(output);
+        IRI documentIRI = df.getIRI(output);
         // Set up a mapping, which maps the ontology to the document IRI
         SimpleIRIMapper mapper = new SimpleIRIMapper(EXAMPLE_SAVE_IRI, documentIRI);
         m.getIRIMappers().add(mapper);
@@ -593,7 +593,7 @@ public class TutorialSnippetsTestCase {
         // an OWLOntologySetProvider we
         // just pass this in. We also need to specify the URI of the new
         // ontology that will be created.
-        IRI mergedOntologyIRI = df.create("http://www.semanticweb.com/", "mymergedont");
+        IRI mergedOntologyIRI = df.getIRI("http://www.semanticweb.com/", "mymergedont");
         OWLOntology merged = merger.createMergedOntology(m, mergedOntologyIRI);
         assertTrue(merged.getAxiomCount() > o1.getAxiomCount());
         assertTrue(merged.getAxiomCount() > o2.getAxiomCount());
@@ -704,7 +704,7 @@ public class TutorialSnippetsTestCase {
         // create a ClassAssertion to specify that :Mary is an instance of
         // :Person
         OWLClassAssertionAxiom classAssertion = df.getOWLClassAssertionAxiom(person, mary);
-        OWLOntology o = m.createOntology(df.create(base, ""));
+        OWLOntology o = m.createOntology(df.getIRI(base, ""));
         // Add the class assertion
         m.addAxiom(o, classAssertion);
         // Dump the ontology
@@ -738,7 +738,7 @@ public class TutorialSnippetsTestCase {
             df.getOWLDataProperty("http://www.semanticweb.org/ontologies/", "dataranges#hasAge");
         OWLDataPropertyRangeAxiom rangeAxiom = df.getOWLDataPropertyRangeAxiom(hasAge, integerGE18);
         OWLOntology o =
-            m.createOntology(df.create("http://www.semanticweb.org/ontologies/", "dataranges"));
+            m.createOntology(df.getIRI("http://www.semanticweb.org/ontologies/", "dataranges"));
         // Add the range axiom to our ontology
         m.addAxiom(o, rangeAxiom);
         // Now create a datatype definition axiom
@@ -756,7 +756,7 @@ public class TutorialSnippetsTestCase {
     public void testPropertyAssertions() throws OWLException {
         // how to specify various property assertions for individuals
         OWLOntologyManager m = create();
-        IRI ontologyIRI = df.create("http://example.com/owl/families/", "");
+        IRI ontologyIRI = df.getIRI("http://example.com/owl/families/", "");
         OWLOntology o = m.createOntology(ontologyIRI);
         PrefixManager pm = new PrefixManagerImpl().withDefaultPrefix(ontologyIRI.toString());
         // Let's specify the :John has a wife :Mary

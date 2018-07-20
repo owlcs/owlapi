@@ -32,7 +32,7 @@ public class ManchesterSyntaxParserTest extends TestBase {
     public static Collection<Object[]> data() {
         OWLDataFactory datafactory = OWLManager.getOWLDataFactory();
         OWLDataProperty hasAge =
-            datafactory.getOWLDataProperty(datafactory.create("http://example.org/hasAge"));
+            datafactory.getOWLDataProperty(datafactory.getIRI("http://example.org/hasAge"));
         return Arrays.asList(
             //@formatter:off
             new Object[] { "hasAge exactly 1 xsd:int",  datafactory.getOWLDataExactCardinality(1, hasAge, OWL2Datatype.XSD_INT) },
@@ -54,7 +54,7 @@ public class ManchesterSyntaxParserTest extends TestBase {
 
     @Test
     public void testParseDataCardinalityExpression() throws OWLOntologyCreationException {
-        OWLDataProperty hasAge = df.getOWLDataProperty(df.create("http://example.org/hasAge"));
+        OWLDataProperty hasAge = df.getOWLDataProperty(df.getIRI("http://example.org/hasAge"));
         OWLOntology ont = m.createOntology();
         m.addAxiom(ont, df.getOWLDeclarationAxiom(hasAge));
         ManchesterOWLSyntaxClassExpressionParser parser =

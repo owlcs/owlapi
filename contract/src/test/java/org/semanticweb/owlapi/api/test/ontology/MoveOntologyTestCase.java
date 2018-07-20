@@ -57,7 +57,7 @@ public class MoveOntologyTestCase extends TestBase {
 
     @Before
     public void setUp() throws OWLOntologyCreationException {
-        m.createOntology(df.create("urn:test#", "test"));
+        m.createOntology(df.getIRI("urn:test#", "test"));
     }
 
     @Test

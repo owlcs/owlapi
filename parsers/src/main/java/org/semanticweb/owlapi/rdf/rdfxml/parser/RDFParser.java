@@ -158,7 +158,7 @@ public class RDFParser extends DefaultHandler {
                 throw new SAXException(
                     "Supplied InputSource object myst have systemId property set, which is needed for IRI resolution.");
             }
-            baseIRI = df.create(new URI(source.getSystemId()));
+            baseIRI = df.getIRI(new URI(source.getSystemId()));
             consumer = inputConsumer;
             inputConsumer.startModel(getBaseIRI().toString());
             DeclHandler handler = new DeclarationHandler();
@@ -307,7 +307,7 @@ public class RDFParser extends DefaultHandler {
         String value = atts.getValue(XMLNS, "base");
         if (value != null) {
             try {
-                baseIRI = df.create(resolveFromDelegate(getBaseIRI(), value));
+                baseIRI = df.getIRI(resolveFromDelegate(getBaseIRI(), value));
                 resolvedIRIs.clear();
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e,

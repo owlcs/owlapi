@@ -22,7 +22,7 @@ public class OWLXMLTestCase extends TestBase {
     @Test
     public void shouldFindExpectedAxiomsForBlankNodes() throws OWLOntologyCreationException {
         OWLObjectProperty r = ObjectProperty(
-            df.create("http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
+            df.getIRI("http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
         OWLOntology o =
             m.loadOntologyFromOntologyDocument(new File(RESOURCES, "owlxml_anonloop.owx"));
         o.axioms(AxiomType.CLASS_ASSERTION).forEach(ax -> {

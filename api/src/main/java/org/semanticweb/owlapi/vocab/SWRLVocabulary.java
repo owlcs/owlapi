@@ -51,7 +51,7 @@ public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     SWRLVocabulary(String name) {
         shortName = name;
         prefixedName = Namespaces.SWRL.getPrefixName() + ':' + name;
-        iri = VocabFactory.df.create(Namespaces.SWRL.toString(), name);
+        iri = VocabFactory.df.getIRI(Namespaces.SWRL.toString(), name);
     }
 
     @Override

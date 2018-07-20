@@ -970,7 +970,7 @@ public class OWLOntologyManagerImpl
                 LOGGER.warn(
                     "Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
             }
-            IRI documentIRI = dataFactory.create(documentSource.getDocumentIRI());
+            IRI documentIRI = dataFactory.getIRI(documentSource.getDocumentIRI());
             fireStartedLoadingEvent(getOWLDataFactory().getOWLOntologyID(ontologyIRI), documentIRI,
                 loadCount.get() > 0);
             loadCount.incrementAndGet();
@@ -1008,7 +1008,7 @@ public class OWLOntologyManagerImpl
     @Nullable
     protected OWLOntology load(OWLOntologyDocumentSource documentSource,
         OntologyConfigurator configuration) throws OWLOntologyCreationException {
-        IRI documentIRI = dataFactory.create(documentSource.getDocumentIRI());
+        IRI documentIRI = dataFactory.getIRI(documentSource.getDocumentIRI());
         for (OWLOntologyFactory factory : ontologyFactories) {
             if (factory.canAttemptLoading(documentSource)) {
                 try {

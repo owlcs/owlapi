@@ -22,8 +22,8 @@ import org.semanticweb.owlapi.util.OWLZipSaver;
 
 @SuppressWarnings("javadoc")
 public class OWLZipSaverTestCase extends TestBase {
-    protected IRI iri1 = df.create("urn:test:o1.owl");
-    protected IRI iri2 = df.create("urn:test:o2.owl");
+    protected IRI iri1 = df.getIRI("urn:test:o1.owl");
+    protected IRI iri2 = df.getIRI("urn:test:o2.owl");
 
     @Test
     public void shouldSaveClosureWithYaml() throws ZipException, IOException,

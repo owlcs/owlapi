@@ -60,7 +60,7 @@ public class NamesTestCase extends TestBase {
         assertEquals("RemoveOntologyAnnotationData",
             new RemoveOntologyAnnotationData(mock(OWLAnnotation.class)).getName());
         assertEquals("SetOntologyIDData", new SetOntologyIDData(
-            df.getOWLOntologyID(df.create("urn:test#", "test1"), df.create("urn:test#", "test2")))
+            df.getOWLOntologyID(df.getIRI("urn:test#", "test1"), df.getIRI("urn:test#", "test2")))
                 .getName());
         assertEquals("KRSS2OWLParser", new KRSS2OWLParser().getName());
         assertEquals("KRSSOWLParser", new KRSSOWLParser().getName());

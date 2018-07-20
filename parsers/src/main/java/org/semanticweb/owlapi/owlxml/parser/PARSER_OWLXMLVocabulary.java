@@ -489,7 +489,7 @@ abstract class OWLEH<O, B extends Builder<O>> {
             return handler.getIRI(value);
         }
         ensureAttributeNotNull(null, IRI_ATTRIBUTE.getShortForm());
-        return df.create("");
+        return df.getIRI("");
     }
 
     IRI getIRIFromElement(String elementLocalName, String textContent) {
@@ -1211,7 +1211,7 @@ class DatatypeFacetEH extends OWLEH<OWLFacetRestriction, BuilderFacetRestriction
     @Override
     void attribute(String localName, String value) {
         if ("facet".equals(localName)) {
-            builder.withFacet(OWLFacet.getFacet(df.create(value)));
+            builder.withFacet(OWLFacet.getFacet(df.getIRI(value)));
         }
     }
 }
@@ -2034,7 +2034,7 @@ class VariableEH extends OWLEH<SWRLVariable, BuilderSWRLVariable> {
     @Override
     void attribute(String localName, String value) {
         if (XMLUtils.isNCName(value)) {
-            builder.with(df.create("urn:swrl:var#", value));
+            builder.with(df.getIRI("urn:swrl:var#", value));
         } else {
             builder.with(getIRIFromAttribute(localName, value));
         }
@@ -2054,11 +2054,11 @@ class OntologyEH extends OWLEH<OWLOntology, Builder<OWLOntology>> {
         OWLOntology o = handler.getOntology();
         if ("ontologyIRI".equals(localName)) {
             o.applyChange(new SetOntologyID(o, df.getOWLOntologyID(
-                Optional.ofNullable(df.create(value)), o.getOntologyID().getVersionIRI())));
+                Optional.ofNullable(df.getIRI(value)), o.getOntologyID().getVersionIRI())));
         }
         if ("versionIRI".equals(localName)) {
             o.applyChange(new SetOntologyID(o, df.getOWLOntologyID(
-                o.getOntologyID().getOntologyIRI(), Optional.ofNullable(df.create(value)))));
+                o.getOntologyID().getOntologyIRI(), Optional.ofNullable(df.getIRI(value)))));
         }
     }
 

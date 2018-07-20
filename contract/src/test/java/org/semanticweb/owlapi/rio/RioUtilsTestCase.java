@@ -44,19 +44,19 @@ public class RioUtilsTestCase extends TestBase {
     @Before
     public void setUp() {
         RDFResourceIRI testOwlApiSubjectUri1 =
-            new RDFResourceIRI(df.create("urn:test:subject:uri:1", ""));
+            new RDFResourceIRI(df.getIRI("urn:test:subject:uri:1", ""));
         RDFResourceIRI testOwlApiPredicateUri1 =
-            new RDFResourceIRI(df.create("urn:test:predicate:uri:1", ""));
+            new RDFResourceIRI(df.getIRI("urn:test:predicate:uri:1", ""));
         RDFResourceIRI testOwlApiObjectUri1 =
-            new RDFResourceIRI(df.create("urn:test:object:uri:1", ""));
+            new RDFResourceIRI(df.getIRI("urn:test:object:uri:1", ""));
         RDFLiteral testOwlApiObjectPlainLiteral1 = new RDFLiteral("Test literal", "", null);
         RDFLiteral testOwlApiObjectLangLiteral1 = new RDFLiteral("Test literal", "en", null);
         RDFLiteral testOwlApiObjectTypedLiteral1 =
-            new RDFLiteral("Test literal", null, df.create("urn:test:datatype:1", ""));
+            new RDFLiteral("Test literal", null, df.getIRI("urn:test:datatype:1", ""));
         RDFResourceBlankNode testOwlApiSubjectBNode1 =
-            new RDFResourceBlankNode(df.create("subjectBnode1", ""), true, false, false);
+            new RDFResourceBlankNode(df.getIRI("subjectBnode1", ""), true, false, false);
         RDFResourceBlankNode testOwlApiObjectBNode1 =
-            new RDFResourceBlankNode(df.create("objectBnode1", ""), true, false, false);
+            new RDFResourceBlankNode(df.getIRI("objectBnode1", ""), true, false, false);
         testOwlApiTripleAllIRI =
             new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1, testOwlApiObjectUri1);
         testOwlApiTriplePlainLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,

@@ -149,7 +149,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
     OWL2Datatype(Namespaces namespace, String shortForm, Category category, boolean finite,
         String regEx) {
-        iri = VocabFactory.df.create(namespace.toString(), shortForm);
+        iri = VocabFactory.df.getIRI(namespace.toString(), shortForm);
         this.shortForm = shortForm;
         prefixedName = namespace.getPrefixName() + ':' + shortForm;
         this.category = category;

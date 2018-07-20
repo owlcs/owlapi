@@ -65,7 +65,7 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
 
     @Test
     public void shouldLoadAnnotatedannotationsCorrectly() throws OWLOntologyStorageException {
-        IRI subject = df.create("http://purl.obolibrary.org/obo/", "UBERON_0000033");
+        IRI subject = df.getIRI("http://purl.obolibrary.org/obo/", "UBERON_0000033");
         String input = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"http://example.com#\"\n"
                         + "     xml:base=\"http://example.com\"\n"
                         + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"

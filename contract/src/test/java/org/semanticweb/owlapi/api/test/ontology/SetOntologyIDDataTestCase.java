@@ -38,7 +38,7 @@ public class SetOntologyIDDataTestCase extends TestBase {
     @Before
     public void setUp() {
         when(mockOntology.getOntologyID()).thenReturn(df
-            .getOWLOntologyID(df.create("urn:test:", "onto1"), df.create("urn:test:", "onto1_1")));
+            .getOWLOntologyID(df.getIRI("urn:test:", "onto1"), df.getIRI("urn:test:", "onto1_1")));
     }
 
     private SetOntologyIDData createData() {

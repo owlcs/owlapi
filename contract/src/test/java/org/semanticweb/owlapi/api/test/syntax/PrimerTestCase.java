@@ -26,7 +26,7 @@ public class PrimerTestCase extends TestBase {
 
     private static final String NS = "http://example.com/owl/families/";
     protected OWLOntology func = loadOntologyFromString(FUNCTIONAL,
-        df.create("urn:primer#", "functional"), new FunctionalSyntaxDocumentFormat());
+        df.getIRI("urn:primer#", "functional"), new FunctionalSyntaxDocumentFormat());
     OWL2DLProfile profile = new OWL2DLProfile();
 
     @Before
@@ -37,7 +37,7 @@ public class PrimerTestCase extends TestBase {
     @Test
     public void shouldManchBeEquivalent() throws OWLOntologyCreationException {
         OWLOntology manch = loadOntologyFromString(MANCHESTER,
-            df.create("urn:primer#", "manchester"), new ManchesterSyntaxDocumentFormat());
+            df.getIRI("urn:primer#", "manchester"), new ManchesterSyntaxDocumentFormat());
         assertTrue(profile.checkOntology(manch).getViolations().isEmpty());
         // XXX Manchester OWL Syntax does not support GCIs
         // the input adopts a trick to semantically get around this, by
@@ -66,7 +66,7 @@ public class PrimerTestCase extends TestBase {
 
     @Test
     public void shouldRDFXMLBeEquivalent() {
-        OWLOntology rdf = loadOntologyFromString(RDFXML, df.create("urn:primer#", "rdfxml"),
+        OWLOntology rdf = loadOntologyFromString(RDFXML, df.getIRI("urn:primer#", "rdfxml"),
                         new RDFXMLDocumentFormat());
         assertTrue(profile.checkOntology(rdf).getViolations().isEmpty());
         equal(func, rdf);
@@ -74,7 +74,7 @@ public class PrimerTestCase extends TestBase {
 
     @Test
     public void shouldOWLXMLBeEquivalent() {
-        OWLOntology owl = loadOntologyFromString(OWLXML, df.create("urn:primer#", "owlxml"),
+        OWLOntology owl = loadOntologyFromString(OWLXML, df.getIRI("urn:primer#", "owlxml"),
                         new OWLXMLDocumentFormat());
         assertTrue(profile.checkOntology(owl).getViolations().isEmpty());
         equal(func, owl);
@@ -82,7 +82,7 @@ public class PrimerTestCase extends TestBase {
 
     @Test
     public void shouldTURTLEBeEquivalent() {
-        OWLOntology turt = loadOntologyFromString(TURTLE, df.create("urn:primer#", "turtle"),
+        OWLOntology turt = loadOntologyFromString(TURTLE, df.getIRI("urn:primer#", "turtle"),
                         new TurtleDocumentFormat());
         assertTrue(profile.checkOntology(turt).getViolations().isEmpty());
         // XXX somehow the Turtle parser introduces a tautology: the inverse of

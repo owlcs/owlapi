@@ -53,9 +53,9 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
         String literal =
             "<div xmlns='http://www.w3.org/1999/xhtml'><h3>[unknown]</h3><p>(describe NameGroup \"[unknown]\")</p></div>";
         OWLOntology o = getOWLOntology();
-        OWLDataProperty p = df.getOWLDataProperty(df.create("urn:test#", "p"));
+        OWLDataProperty p = df.getOWLDataProperty(df.getIRI("urn:test#", "p"));
         OWLLiteral l = df.getOWLLiteral(literal, OWL2Datatype.RDF_XML_LITERAL);
-        OWLNamedIndividual i = df.getOWLNamedIndividual(df.create("urn:test#", "i"));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI("urn:test#", "i"));
         o.add(df.getOWLDataPropertyAssertionAxiom(p, i, l));
         String string = saveOntology(o).toString();
         assertTrue(string.contains(literal));
@@ -67,9 +67,9 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
         String literal =
             "<ncicp:ComplexDefinition><ncicp:def-definition>A form of cancer that begins in melanocytes (cells that make the pigment melanin). It may begin in a mole (skin melanoma), but can also begin in other pigmented tissues, such as in the eye or in the intestines.</ncicp:def-definition><ncicp:def-source>NCI-GLOSS</ncicp:def-source></ncicp:ComplexDefinition>";
         OWLOntology o = m.createOntology();
-        OWLDataProperty p = df.getOWLDataProperty(df.create("urn:test#", "p"));
+        OWLDataProperty p = df.getOWLDataProperty(df.getIRI("urn:test#", "p"));
         OWLLiteral l = df.getOWLLiteral(literal, OWL2Datatype.RDF_XML_LITERAL);
-        OWLNamedIndividual i = df.getOWLNamedIndividual(df.create("urn:test#", "i"));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI("urn:test#", "i"));
         o.add(df.getOWLDataPropertyAssertionAxiom(p, i, l));
         expectedException.expect(OWLOntologyStorageException.class);
         expectedException.expectMessage(literal);
@@ -119,8 +119,8 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
                                         new FunctionalSyntaxDocumentFormat(), null));
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o2);
-        OWLDataProperty p = df.getOWLDataProperty(df.create("urn:test#", "dp"));
-        OWLNamedIndividual i = df.getOWLNamedIndividual(df.create("urn:test#", "c"));
+        OWLDataProperty p = df.getOWLDataProperty(df.getIRI("urn:test#", "dp"));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI("urn:test#", "c"));
         assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(p, i,
                         df.getOWLLiteral("01", df.getIntegerOWLDatatype()))));
         assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(p, i,

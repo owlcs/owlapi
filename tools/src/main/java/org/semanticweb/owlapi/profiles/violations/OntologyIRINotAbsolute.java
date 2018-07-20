@@ -59,6 +59,6 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation {
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary choice
         return list(
-            new SetOntologyID(ontology, df.create("urn:profilesrepair:ontology#", "replaced")));
+            new SetOntologyID(ontology, df.getIRI("urn:profilesrepair:ontology#", "replaced")));
     }
 }

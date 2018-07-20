@@ -178,7 +178,7 @@ public class OWLProfileTestCase extends TestBase {
     private static final OWLDatatype FAKEUNDECLAREDDATATYPE =
         Datatype(IRI("urn:datatype#", "fakeundeclareddatatype"));
     private static final OWLDatatype FAKEDATATYPE = Datatype(IRI("urn:datatype#", "fakedatatype"));
-    private static final IRI onto = df.create("urn:test#", "ontology");
+    private static final IRI onto = df.getIRI("urn:test#", "ontology");
     private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
     private static final OWLObjectProperty P = ObjectProperty(IRI("urn:test#", "objectproperty"));
     private static final OWLIndividual I = NamedIndividual(IRI("urn:test#", "ind"));

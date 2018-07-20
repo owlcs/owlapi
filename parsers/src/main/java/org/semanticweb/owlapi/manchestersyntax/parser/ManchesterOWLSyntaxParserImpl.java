@@ -1687,13 +1687,13 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             IRI parseIRI = parseIRI();
             // old style namespace? change it
             if ("urn:swrl#".equals(parseIRI.getNamespace())) {
-                parseIRI = df.create("urn:swrl:var#", parseIRI.getFragment());
+                parseIRI = df.getIRI("urn:swrl:var#", parseIRI.getFragment());
             }
             return parseIRI;
         } else {
             consumeToken();
         }
-        return df.create("urn:swrl:var#", fragment);
+        return df.getIRI("urn:swrl:var#", fragment);
     }
 
     private SWRLDArgument parseDObject() {
@@ -2043,7 +2043,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!(iriString.startsWith("<") && iriString.endsWith(">"))) {
             throw new ExceptionBuilder().withKeyword("<$IRI$>").build();
         }
-        return df.create(iriString.substring(1, iriString.length() - 1));
+        return df.getIRI(iriString.substring(1, iriString.length() - 1));
     }
 
     private void processDeclaredEntities() {
@@ -2271,7 +2271,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             return uri;
         }
         if (fullIRI) {
-            uri = df.create(name);
+            uri = df.getIRI(name);
         } else {
             int colonIndex = name.indexOf(':');
             if (colonIndex == -1) {

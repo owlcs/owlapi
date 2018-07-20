@@ -116,7 +116,7 @@ public class ManSyntaxTestCase extends TestBase {
 
     @Test
     public void testAssertion() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = setupManager().createOntology(df.create("urn:test:manchester"));
+        OWLOntology o = setupManager().createOntology(df.getIRI("urn:test:manchester"));
         o.getOWLOntologyManager().addAxiom(o, object);
         StringDocumentTarget s = saveOntology(o, new ManchesterSyntaxDocumentFormat());
         loadOntologyFromString(s, new ManchesterSyntaxDocumentFormat());

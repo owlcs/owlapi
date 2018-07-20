@@ -13,23 +13,9 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Serializable;
-import java.io.Writer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.io.BufferByteArray;
-import org.semanticweb.owlapi.io.BufferByteArrayInput;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -44,24 +30,20 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
-    private static final int COMPRESSION_LIMIT = 160;
-    private final LiteralWrapper literal;
+    private final String literal;
     private final OWLDatatype datatype;
     private final String language;
 
     /**
-     * @param literal the lexical form
-     * @param lang the language; can be null or an empty string, in which case datatype can be any
-     *        datatype but not null
-     * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST
-     *        be RDFPlainLiteral
+     * @param literal actual literal form
+     * @param lang language for literal, can be null
+     * @param datatype datatype for literal
      */
     public OWLLiteralImpl(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
-        this.literal = new LiteralWrapper(checkNotNull(literal, "literal cannot be null"));
+        this.literal = checkNotNull(literal, "literal cannot be null");
         if (lang == null || lang.isEmpty()) {
             language = "";
-            if (datatype == null || datatype.equals(InternalizedEntities.PLAIN)
-                || datatype.equals(InternalizedEntities.XSDSTRING)) {
+            if (datatype == null) {
                 this.datatype = InternalizedEntities.XSDSTRING;
             } else {
                 this.datatype = datatype;
@@ -70,7 +52,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             if (datatype != null && !(datatype.equals(InternalizedEntities.LANGSTRING)
                 || datatype.equals(InternalizedEntities.PLAIN))) {
                 // ERROR: attempting to build a literal with a language tag and
-                // type different from plain literal or lang string
+                // type different from RDF_LANG_STRING or RDF_PLAIN_LITERAL
                 throw new OWLRuntimeException("Error: cannot build a literal with type: "
                     + datatype.getIRI() + " and language: " + lang);
             }
@@ -81,7 +63,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public String getLiteral() {
-        return literal.get();
+        return literal;
     }
 
     @Override
@@ -116,7 +98,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public int parseInteger() {
-        return Integer.parseInt(literal.get());
+        return Integer.parseInt(literal);
     }
 
     static boolean asBoolean(String s) {
@@ -125,17 +107,23 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean parseBoolean() {
-        return asBoolean(literal.get());
+        return asBoolean(literal);
     }
 
     @Override
     public double parseDouble() {
-        return Double.parseDouble(literal.get());
+        return Double.parseDouble(literal);
     }
 
     @Override
     public float parseFloat() {
-        return Float.parseFloat(literal.get());
+        if ("inf".equalsIgnoreCase(literal)) {
+            return Float.POSITIVE_INFINITY;
+        }
+        if ("-inf".equalsIgnoreCase(literal)) {
+            return Float.NEGATIVE_INFINITY;
+        }
+        return Float.parseFloat(literal);
     }
 
     @Override
@@ -160,76 +148,29 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     public int initHashCode() {
         int hash = hashIndex();
         hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
-        hash = OWLObject.hashIteration(hash, specificHash() * 65536);
+        hash = OWLObject.hashIteration(hash, specificHash(this) * 65536);
         return OWLObject.hashIteration(hash, getLang().hashCode());
     }
 
-    private int specificHash() {
-        if (literal.l != null) {
-            return literal.l.hashCode();
-        }
-        return literal.bytes == null ? 0 : literal.bytes.hashCode();
-    }
-
-    // Literal Wrapper
-    private static class LiteralWrapper implements Serializable {
-
-        private static final Charset COMPRESSED_ENCODING = StandardCharsets.UTF_16;
-        @Nullable
-        String l;
-        @Nullable
-        BufferByteArrayInput bytes;
-
-        LiteralWrapper(String s) {
-            if (s.length() > COMPRESSION_LIMIT) {
-                try {
-                    bytes = compress(s);
-                    l = null;
-                } catch (@SuppressWarnings("unused") OWLRuntimeException e) {
-                    // some problem happened - defaulting to no compression
-                    l = s;
-                    bytes = null;
-                }
-            } else {
-                bytes = null;
-                l = s;
+    static int specificHash(OWLLiteral l) {
+        try {
+            if (l.isInteger()) {
+                return l.parseInteger();
             }
-        }
-
-        String get() {
-            if (l != null) {
-                return verifyNotNull(l);
+            if (l.isDouble()) {
+                return (int) l.parseDouble();
             }
-            return decompress(verifyNotNull(bytes));
-        }
-
-        static BufferByteArrayInput compress(String s) {
-            try (BufferByteArray out = new BufferByteArray(32);
-                GZIPOutputStream zipout = new GZIPOutputStream(out);
-                Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING)) {
-                writer.write(s);
-                writer.flush();
-                zipout.finish();
-                zipout.flush();
-                return new BufferByteArrayInput(out);
-            } catch (IOException e) {
-                throw new OWLRuntimeException(e);
+            if (l.isFloat()) {
+                return (int) l.parseFloat();
             }
-        }
-
-        static String decompress(BufferByteArrayInput in) {
-            try (GZIPInputStream zipin = new GZIPInputStream(in);
-                Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING)) {
-                StringBuilder b = new StringBuilder();
-                int c = reader.read();
-                while (c > -1) {
-                    b.append((char) c);
-                    c = reader.read();
-                }
-                return b.toString();
-            } catch (IOException e) {
-                throw new OWLRuntimeException(e);
+            if (l.isBoolean()) {
+                return l.parseBoolean() ? 1 : 0;
             }
+        } catch (@SuppressWarnings("unused") NumberFormatException e) {
+            // it is possible that a literal does not have a value that's valid
+            // for its datatype; not very useful for a consistent ontology but
+            // some W3C reasoner tests use them
         }
+        return l.getLiteral().hashCode();
     }
 }

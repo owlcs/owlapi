@@ -189,7 +189,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 //@formatter:on
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
 
-    private final boolean useCompression=false;
     @Override
     public void purge() {
         classes.invalidateAll();
@@ -214,7 +213,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
             LOGGER.error(
                 "Ontology IRIs must be absolute; IRI {} is relative and will be made absolute by prefixing urn:absolute: to it",
                 i);
-            return Optional.ofNullable(create("urn:absolute:" + i));
+            return Optional.ofNullable(getIRI("urn:absolute:" + i));
         }
         return Optional.ofNullable(i);
     }
@@ -226,11 +225,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public IRI getNextDocumentIRI(String prefix) {
-        return create(prefix + COUNTER.incrementAndGet());
+        return getIRI(prefix + COUNTER.incrementAndGet());
     }
 
     @Override
-    public IRI create(String str) {
+    public IRI getIRI(String str) {
         checkNotNull(str, "str cannot be null");
         IRI cached = iris.getIfPresent(str);
         if (cached != null) {
@@ -242,19 +241,19 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
             // no ncname
             created = new IRIImpl(verifyNotNull(iriNamespaces.get(str)), "");
         } else {
-            created = create(str.substring(0, index), str.substring(index));
+            created = getIRI(str.substring(0, index), str.substring(index));
         }
         iris.put(str, created);
         return created;
     }
 
     @Override
-    public IRI create(@Nullable String prefix, @Nullable String suffix) {
+    public IRI getIRI(@Nullable String prefix, @Nullable String suffix) {
         if (prefix == null && suffix == null) {
             throw new IllegalArgumentException("prefix and suffix cannot both be null");
         }
         if (prefix == null) {
-            return create(verifyNotNull(suffix));
+            return getIRI(verifyNotNull(suffix));
         }
         if (suffix == null) {
             // suffix set deliberately to null is used only in blank node
@@ -262,7 +261,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
             // this is not great but blank nodes should be changed to not refer
             // to IRIs at all
             // XXX address blank node issues with iris
-            return create(prefix);
+            return getIRI(prefix);
         }
         int index = XMLUtils.getNCNameSuffixIndex(prefix);
         int test = XMLUtils.getNCNameSuffixIndex(suffix);
@@ -278,20 +277,20 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         // using index and test, but it's just as easy to use the other
         // constructor
         String key = prefix + suffix;
-        IRI created = create(key);
+        IRI created = getIRI(key);
         iris.put(key, created);
         return created;
     }
 
     @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(String iri) {
-        return getOWLAnnotationProperty(create(iri));
+        return getOWLAnnotationProperty(getIRI(iri));
     }
 
     @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(String namespace,
         @Nullable String remainder) {
-        return getOWLAnnotationProperty(create(namespace, remainder));
+        return getOWLAnnotationProperty(getIRI(namespace, remainder));
     }
 
     @Override
@@ -304,12 +303,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLClass getOWLClass(String iri) {
-        return getOWLClass(create(iri));
+        return getOWLClass(getIRI(iri));
     }
 
     @Override
     public OWLClass getOWLClass(String namespace, @Nullable String remainder) {
-        return getOWLClass(create(namespace, remainder));
+        return getOWLClass(getIRI(namespace, remainder));
     }
 
     @Override
@@ -321,12 +320,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLDataProperty getOWLDataProperty(String iri) {
-        return getOWLDataProperty(create(iri));
+        return getOWLDataProperty(getIRI(iri));
     }
 
     @Override
     public OWLDataProperty getOWLDataProperty(String namespace, @Nullable String remainder) {
-        return getOWLDataProperty(create(namespace, remainder));
+        return getOWLDataProperty(getIRI(namespace, remainder));
     }
 
     @Override
@@ -338,12 +337,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLDatatype getOWLDatatype(String iri) {
-        return getOWLDatatype(create(iri));
+        return getOWLDatatype(getIRI(iri));
     }
 
     @Override
     public OWLDatatype getOWLDatatype(String namespace, @Nullable String remainder) {
-        return getOWLDatatype(create(namespace, remainder));
+        return getOWLDatatype(getIRI(namespace, remainder));
     }
 
     @Override
@@ -355,12 +354,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLNamedIndividual getOWLNamedIndividual(String iri) {
-        return getOWLNamedIndividual(create(iri));
+        return getOWLNamedIndividual(getIRI(iri));
     }
 
     @Override
     public OWLNamedIndividual getOWLNamedIndividual(String namespace, @Nullable String remainder) {
-        return getOWLNamedIndividual(create(namespace, remainder));
+        return getOWLNamedIndividual(getIRI(namespace, remainder));
     }
 
     @Override
@@ -373,12 +372,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLObjectProperty getOWLObjectProperty(String iri) {
-        return getOWLObjectProperty(create(iri));
+        return getOWLObjectProperty(getIRI(iri));
     }
 
     @Override
     public OWLObjectProperty getOWLObjectProperty(String namespace, @Nullable String remainder) {
-        return getOWLObjectProperty(create(namespace, remainder));
+        return getOWLObjectProperty(getIRI(namespace, remainder));
     }
 
     @Override
@@ -391,12 +390,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public SWRLVariable getSWRLVariable(String iri) {
-        return getSWRLVariable(create(iri));
+        return getSWRLVariable(getIRI(iri));
     }
 
     @Override
     public SWRLVariable getSWRLVariable(String namespace, @Nullable String remainder) {
-        return getSWRLVariable(create(namespace, remainder));
+        return getSWRLVariable(getIRI(namespace, remainder));
     }
 
     @Override
@@ -1181,9 +1180,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLLiteral getOWLLiteral(String value) {
-        if (useCompression) {
-            return new OWLLiteralImpl(value, "", XSDSTRING);
-        }
         return new OWLLiteralImplString(value);
     }
 
@@ -1196,14 +1192,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
             normalisedLang = lang.trim().toLowerCase(Locale.ENGLISH);
         }
         if (normalisedLang.isEmpty()) {
-            if (useCompression) {
-                return new OWLLiteralImpl(literal, null, XSDSTRING);
-            }
             return new OWLLiteralImplString(literal);
         } else {
-            if (useCompression) {
-                return new OWLLiteralImpl(literal, normalisedLang, null);
-            }
             return new OWLLiteralImplPlain(literal, normalisedLang);
         }
     }
@@ -1307,12 +1297,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     protected OWLLiteral getBasicLiteral(String lexicalValue, String lang,
         @Nullable OWLDatatype datatype) {
-        if (useCompression) {
         if (datatype == null || datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
             return new OWLLiteralImplPlain(lexicalValue, lang);
         }
         return new OWLLiteralImpl(lexicalValue, lang, datatype);
-    }
-        return new OWLLiteralImplNoCompression(lexicalValue, lang, datatype);
     }
 }

@@ -111,7 +111,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
         if (ontURI == null) {
             return null;
         }
-        return df.create(ontURI);
+        return df.getIRI(ontURI);
     }
 
     @Nullable
@@ -120,7 +120,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
         if (baseValue == null) {
             return null;
         }
-        return df.create(baseValue);
+        return df.getIRI(baseValue);
     }
 
     /**
@@ -130,7 +130,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
     private IRI unquote(String tok) {
         String substring = tok.substring(1, tok.length() - 1);
         assert substring != null;
-        return df.create(substring);
+        return df.getIRI(substring);
     }
 
     /**
@@ -204,7 +204,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
             // no extension for the file, nothing to do
             return;
         }
-        IRI physicalIRI = df.create(baseIRI + name);
+        IRI physicalIRI = df.getIRI(baseIRI + name);
         String extension = name.substring(lastIndexOf);
         if (".obo".equals(extension)) {
             oboFileMap.put(name, physicalIRI);
@@ -247,7 +247,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
                 if (m.matches()) {
                     String group = m.group(1);
                     assert group != null;
-                    return df.create(group);
+                    return df.getIRI(group);
                 }
             }
         } catch (IOException e) {
@@ -320,7 +320,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
      * @param file file
      */
     protected void addMapping(IRI ontologyIRI, File file) {
-        ontologyIRI2PhysicalURIMap.put(ontologyIRI, df.create(file));
+        ontologyIRI2PhysicalURIMap.put(ontologyIRI, df.getIRI(file));
     }
 
     @Override

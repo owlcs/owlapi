@@ -31,12 +31,12 @@ public class Obo2OWLConstants {
      * IRI for the 'has obsolescence reason' annotation property
      */
     public static final IRI IRI_IAO_0000231 =
-        VocabFactory.df.create(DEFAULT_IRI_PREFIX, "IAO_0000231");
+        VocabFactory.df.getIRI(DEFAULT_IRI_PREFIX, "IAO_0000231");
     /**
      * IRI for the 'terms merged' individual
      */
     public static final IRI IRI_IAO_0000227 =
-        VocabFactory.df.create(DEFAULT_IRI_PREFIX, "IAO_0000227");
+        VocabFactory.df.getIRI(DEFAULT_IRI_PREFIX, "IAO_0000227");
     private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB =
         Stream.of(Obo2OWLVocabulary.values()).collect(
             Collectors.toConcurrentMap(Obo2OWLVocabulary::getMappedTag, Function.identity()));
@@ -92,7 +92,7 @@ public class Obo2OWLConstants {
         final String mappedTag;
 
         Obo2OWLVocabulary(String namespce, String shortName, String label, String mappedTag) {
-            iri = VocabFactory.df.create(namespce, shortName);
+            iri = VocabFactory.df.getIRI(namespce, shortName);
             this.shortName = shortName;
             namespace = namespce;
             this.label = label;

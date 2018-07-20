@@ -49,7 +49,7 @@ public class DLSyntaxTestCase extends TestBase {
 
     @Test
     public void testCommasOnDisjointThreeOntologyHTML() throws Exception {
-        OWLOntology o = m.createOntology(df.create("urn:test:onto"));
+        OWLOntology o = m.createOntology(df.getIRI("urn:test:onto"));
         OWLClass a = df.getOWLClass("urn:test:", "A");
         OWLClass b = df.getOWLClass("urn:test:", "B");
         OWLClass c = df.getOWLClass("urn:test:", "C");
@@ -69,7 +69,7 @@ public class DLSyntaxTestCase extends TestBase {
 
     @Test
     public void testCommasOnDisjointTwoOntologyHTML() throws Exception {
-        OWLOntology o = m.createOntology(df.create("urn:test:onto"));
+        OWLOntology o = m.createOntology(df.getIRI("urn:test:onto"));
         OWLClass a = df.getOWLClass("urn:test:", "A");
         OWLClass b = df.getOWLClass("urn:test:", "B");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b);
@@ -86,7 +86,7 @@ public class DLSyntaxTestCase extends TestBase {
 
     @Test
     public void testCommasOnDisjointFourOntologyHTML() throws Exception {
-        OWLOntology o = m.createOntology(df.create("urn:test:onto"));
+        OWLOntology o = m.createOntology(df.getIRI("urn:test:onto"));
         OWLClass a = df.getOWLClass("urn:test:", "A");
         OWLClass b = df.getOWLClass("urn:test:", "B");
         OWLClass c = df.getOWLClass("urn:test:", "C");

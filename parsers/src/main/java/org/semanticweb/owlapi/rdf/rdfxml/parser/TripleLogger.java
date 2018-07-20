@@ -78,7 +78,7 @@ class TripleLogger {
         }
         if (o instanceof String
             && (((String) o).startsWith("http:") || ((String) o).startsWith("urn:"))) {
-            return shorten(df.create((String) o));
+            return shorten(df.getIRI((String) o));
         }
         if (prefixManager == null || !(o instanceof IRI)) {
             // quote strings and bnodes

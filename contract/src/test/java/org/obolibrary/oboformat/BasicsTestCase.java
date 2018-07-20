@@ -88,12 +88,12 @@ import org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
 public class BasicsTestCase extends OboFormatTestBasics {
 
     private static final IRI SHORTHAND =
-        df.create("http://www.geneontology.org/formats/oboInOwl#", "shorthand");
-    private static final IRI ID = df.create("http://www.geneontology.org/formats/oboInOwl#", "id");
-    private static final IRI BFO50 = df.create("http://purl.obolibrary.org/obo/", "BFO_0000050");
-    private static final IRI RO2111 = df.create("http://purl.obolibrary.org/obo/", "RO_0002111");
-    private static final IRI BAR1 = df.create("http://purl.obolibrary.org/obo/", "BAR_0000001");
-    private static final IRI BFO51 = df.create("http://purl.obolibrary.org/obo/", "BFO_0000051");
+        df.getIRI("http://www.geneontology.org/formats/oboInOwl#", "shorthand");
+    private static final IRI ID = df.getIRI("http://www.geneontology.org/formats/oboInOwl#", "id");
+    private static final IRI BFO50 = df.getIRI("http://purl.obolibrary.org/obo/", "BFO_0000050");
+    private static final IRI RO2111 = df.getIRI("http://purl.obolibrary.org/obo/", "RO_0002111");
+    private static final IRI BAR1 = df.getIRI("http://purl.obolibrary.org/obo/", "BAR_0000001");
+    private static final IRI BFO51 = df.getIRI("http://purl.obolibrary.org/obo/", "BFO_0000051");
 
     private static void assertAnnotationPropertyCountEquals(OWLOntology owlOnt, IRI subjectIRI,
         OWLAnnotationProperty property, int expected) {
@@ -595,7 +595,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void testHeaderLostBug() throws OWLOntologyStorageException {
         OWLOntology ontology =
             roundTrip(convert(parseOBOFile("header_lost_bug.obo")), new RDFXMLDocumentFormat());
-        IRI ontologyIRI = df.create("http://purl.obolibrary.org/obo/", "test.owl");
+        IRI ontologyIRI = df.getIRI("http://purl.obolibrary.org/obo/", "test.owl");
         // two tags in the header of the obo file are translated as annotation
         // assertions, so the axioms
         // should have two axioms in count.
@@ -634,7 +634,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     @Test
     public void testImportsConverted() throws OWLOntologyCreationException {
         Map<String, OBODoc> cache = new HashMap<>();
-        IRI iri = df.create("http://purl.obolibrary.org/obo/tests/test.obo");
+        IRI iri = df.getIRI("http://purl.obolibrary.org/obo/tests/test.obo");
         cache.put(iri.toString(), new OBODoc());
         m.createOntology(iri);
         OBODoc oboDoc = parseOBOFile("annotated_import.obo", false, cache);
@@ -853,7 +853,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertEquals("003", oboId);
         // arbitrary URL to obo ID
         oboId = OWLAPIOwl2Obo
-            .getIdentifier(df.create("http://purl.obolibrary.org/obo/alternate#", "abcdef"));
+            .getIdentifier(df.getIRI("http://purl.obolibrary.org/obo/alternate#", "abcdef"));
         // todo - test this
         // System.out.println("== "+oboId);
         iri = obo2owl.oboIdToIRI("part_of");
@@ -889,7 +889,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("obsolete_term_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
-        OWLAnnotationSubject subj = df.create("http://purl.obolibrary.org/obo/", "XX_0000034");
+        OWLAnnotationSubject subj = df.getIRI("http://purl.obolibrary.org/obo/", "XX_0000034");
         boolean okDeprecated = Searcher
             .annotationObjects(ontology.annotationAssertionAxioms(subj),
                 df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_DEPRECATED))
@@ -1024,7 +1024,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void testConvertSubset() {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("subset_test.obo"));
-        OWLAnnotationSubject subj = df.create("http://purl.obolibrary.org/obo/", "GO_0000003");
+        OWLAnnotationSubject subj = df.getIRI("http://purl.obolibrary.org/obo/", "GO_0000003");
         OWLAnnotationProperty p = df
             .getOWLAnnotationProperty("http://www.geneontology.org/formats/oboInOwl#", "inSubset");
         boolean ok =

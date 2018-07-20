@@ -108,7 +108,7 @@ public final class SimpleHierarchyExample {
         @Nonnull
         String x = args[0];
         System.out.println(x);
-        IRI documentIRI = manager.getOWLDataFactory().create(x);
+        IRI documentIRI = manager.getOWLDataFactory().getIRI(x);
         // Now load the ontology.
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
         // Report information about the ontology

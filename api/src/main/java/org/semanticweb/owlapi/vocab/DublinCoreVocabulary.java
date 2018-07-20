@@ -59,7 +59,7 @@ public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedNam
     DublinCoreVocabulary(String name) {
         shortName = name;
         qname = Namespaces.DC.getPrefixName() + ':' + name;
-        iri = VocabFactory.df.create(NAME_SPACE, name);
+        iri = VocabFactory.df.getIRI(NAME_SPACE, name);
     }
 
     @Override
