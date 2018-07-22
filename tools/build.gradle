@@ -2,6 +2,8 @@
 description = 'OWLAPI :: Atomic Decomposition and Explanation'
 dependencies {
   compile project(':owlapi-api')
+  compile 'javax.inject:javax.inject:1'
+  compile 'commons-io:commons-io:[2.4,3)'
   compile 'com.github.ben-manes.caffeine:caffeine:[2.6,3)'
   compile 'org.yaml:snakeyaml:1.21'
   compile 'org.tukaani:xz:1.8'

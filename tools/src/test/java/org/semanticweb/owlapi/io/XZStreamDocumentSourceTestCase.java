@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -62,7 +61,12 @@ public class XZStreamDocumentSourceTestCase {
             @Override
             public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
                 try {
-                    IOUtils.copy(r, w);
+                    char[] buffer = new char[128];
+                    int i = r.read(buffer);
+                    while (i > -1) {
+                        w.write(buffer, 0, i);
+                        i = r.read(buffer);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     fail(e.getMessage());
