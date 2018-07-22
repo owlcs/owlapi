@@ -48,9 +48,10 @@ public class RoundTripTestBasics extends OboFormatTestBasics {
         oo.saveOntology(oo1);
         OBODoc obodoc2 = convert(oo);
         convert(obodoc2).saveOntology(oo2);
-        assertEquals(oo1.toString(), oo2.toString());
+        String s1 = oo1.toString();
+        String s2 = oo2.toString();
+        assertEquals(s1, s2);
         obodoc2.check();
-        writeOBO(obodoc2);
         List<Diff> diffs = OBODocDiffer.getDiffs(obodoc, obodoc2);
         if (isExpectRoundtrip) {
             assertEquals("Expected no diffs but " + diffs, 0, diffs.size());

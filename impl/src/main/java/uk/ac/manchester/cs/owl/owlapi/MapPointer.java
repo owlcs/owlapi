@@ -13,20 +13,22 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.Spliterator;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import javax.annotation.Nullable;
 
@@ -35,13 +37,15 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.SmallSet;
 import org.semanticweb.owlapi.utilities.OWLAxiomSearchFilter;
 
-import gnu.trove.map.hash.THashMap;
-import gnu.trove.set.hash.THashSet;
+import com.carrotsearch.hppcrt.cursors.ObjectCursor;
+import com.carrotsearch.hppcrt.maps.ObjectObjectHashMap;
+import com.carrotsearch.hppcrt.procedures.ObjectProcedure;
+import com.carrotsearch.hppcrt.sets.ObjectHashSet;
+
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
@@ -55,10 +59,6 @@ import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
  */
 public class MapPointer<K, V extends OWLAxiom> {
 
-    private static final AtomicLong totalInUse = new AtomicLong(0);
-    private static final AtomicLong totalAllocated = new AtomicLong(0);
-    private static final float DEFAULT_LOAD_FACTOR = 0.75F;
-    private static final int DEFAULT_INITIAL_CAPACITY = 5;
     @Nullable
     private final AxiomType<?> type;
     @Nullable
@@ -68,7 +68,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     @Nullable
     private SoftReference<Set<IRI>> iris;
     private int size = 0;
-    private final THashMap<K, Collection<V>> map = new THashMap<>(17, 0.75F);
+    private final ObjectObjectHashMap<K, Collection<V>> map = new ObjectObjectHashMap<>(17, 0.75F);
     private boolean neverTrimmed = true;
 
     /**
@@ -98,7 +98,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @param e entity
      * @return true if an entity with the same iri as the input exists in the collection
      */
-    public synchronized boolean containsReference(OWLEntity e) {
+    public synchronized boolean containsReference(K e) {
         return map.containsKey(e);
     }
 
@@ -119,15 +119,18 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     private Set<IRI> initSet() {
         Set<IRI> set = CollectionFactory.createSet();
-        for (K k : map.keySet()) {
-            if (k instanceof HasIRI) {
-                set.add(((HasIRI) k).getIRI());
-            } else if (k instanceof IRI) {
-                set.add((IRI) k);
-            }
-        }
+        ObjectProcedure<K> consumer = k -> consumer(set, k);
+        map.keys().forEach(consumer);
         iris = new SoftReference<>(set);
         return set;
+    }
+
+    protected void consumer(Set<IRI> set, K k) {
+        if (k instanceof HasIRI) {
+            set.add(((HasIRI) k).getIRI());
+        } else if (k instanceof IRI) {
+            set.add((IRI) k);
+        }
     }
 
     /**
@@ -172,9 +175,17 @@ public class MapPointer<K, V extends OWLAxiom> {
     /**
      * @return keyset
      */
-    public synchronized Collection<K> keySet() {
+    public synchronized Stream<K> keySet() {
         init();
-        return map.keySet();
+        return streamCursor(map.keys().spliterator());
+    }
+
+    private static <Q> Stream<Q> streamCursor(Spliterator<ObjectCursor<Q>> i) {
+        return StreamSupport.stream(i, false).map(v -> v.value);
+    }
+
+    private static <Q> Stream<Q> stream(Spliterator<Q> i) {
+        return StreamSupport.stream(i, false);
     }
 
     /**
@@ -187,10 +198,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (t == null) {
             return Stream.empty();
         }
-        if (t.size() < 3) {
-            return t.stream();
-        }
-        return new ArrayList<>(t).stream();
+        return stream(t.spliterator());
     }
 
     /**
@@ -218,15 +226,11 @@ public class MapPointer<K, V extends OWLAxiom> {
      */
     public synchronized Collection<V> getValuesAsCollection(K key) {
         init();
-        return getCollection(key);
-    }
-
-    private Collection<V> getCollection(K k) {
-        Collection<V> t = map.get(k);
+        Collection<V> t = map.get(key);
         if (t == null) {
-            return Collections.emptySet();
+            return Collections.emptyList();
         }
-        return new ArrayList<>(t);
+        return asUnorderedSet(stream(t.spliterator()));
     }
 
     /**
@@ -260,7 +264,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (t == null) {
             return empty();
         }
-        return ((Collection<O>) t).stream();
+        return (Stream<O>) stream(t.spliterator());
     }
 
     /**
@@ -273,21 +277,14 @@ public class MapPointer<K, V extends OWLAxiom> {
         init();
         List<OWLAxiom> toReturn = new ArrayList<>();
         for (AxiomType<?> at : filter.getAxiomTypes()) {
-            Collection<V> collection = map.get(at);
+            // This method is only used for MapPointer<AxiomType, OWLAxiom>
+            Collection<V> collection = map.get((K) at);
             if (collection != null) {
-                collection.stream().filter(x -> filter.pass(x, key)).forEach(toReturn::add);
+                stream(collection.spliterator()).filter(x -> filter.pass(x, key))
+                    .forEach(toReturn::add);
             }
         }
         return toReturn;
-    }
-
-    /**
-     * @param key key to look up
-     * @return true if there are values for key
-     */
-    public synchronized boolean hasValues(K key) {
-        init();
-        return map.containsKey(key);
     }
 
     /**
@@ -350,7 +347,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     public synchronized int size() {
         init();
         if (neverTrimmed) {
-            trimToSize();
+            // trimToSize();
         }
         return size;
     }
@@ -385,7 +382,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             if (set.contains(v)) {
                 return false;
             } else {
-                set = makeSet(set, v);
+                set = new HPPCSet(set, v);
                 map.put(k, set);
                 size++;
                 return true;
@@ -408,7 +405,7 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     private boolean removeInternal(K k, V v) {
         if (neverTrimmed) {
-            trimToSize();
+            // trimToSize();
         }
         Collection<V> t = map.get(k);
         if (t == null) {
@@ -433,53 +430,8 @@ public class MapPointer<K, V extends OWLAxiom> {
         return removed;
     }
 
-    private static class THashSetForSet<E> extends THashSet<E> {
-
-        private boolean constructing = true;
-
-        public THashSetForSet(Collection<E> set, E toAdd, int capacity, float load) {
-            super(capacity, load);
-            for (E e : set) {
-                add(e);
-            }
-            add(toAdd);
-            constructing = false;
-        }
-
-        public THashSetForSet(int capacity, float load) {
-            super(capacity, load);
-            constructing = false;
-        }
-
-        @Override
-        protected boolean equals(@Nullable Object notnull, @Nullable Object two) {
-            // shortcut: during construction from a set, no element is
-            // duplicate. The extra element is also guaranteed to be unique,
-            // given the use made in this class.
-            if (constructing) {
-                return notnull == two;
-            }
-            return super.equals(notnull, two);
-        }
-
-        @Override
-        public Stream<E> stream() {
-            return new ArrayList<>(this).stream();
-        }
-    }
-
-    private Collection<V> makeSet(Collection<V> collection, V extra) {
-        if (neverTrimmed) {
-            List<V> list = new ArrayList<>(collection);
-            list.add(extra);
-            return list;
-        }
-        return new THashSetForSet<>(collection, extra, DEFAULT_INITIAL_CAPACITY,
-            DEFAULT_LOAD_FACTOR);
-    }
-
     private Stream<V> values() {
-        return map.values().stream().flatMap(Collection::stream);
+        return stream(map.values().spliterator()).flatMap(s -> s.value.stream());
     }
 
     private Stream<V> get(K k) {
@@ -487,51 +439,128 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (t == null) {
             return Stream.empty();
         }
-        return t.stream();
+        return stream(t.spliterator());
+    }
+}
+
+
+class HPPCSet<S> implements Collection<S> {
+    private ObjectHashSet<S> delegate;
+
+    public HPPCSet() {
+        delegate = new ObjectHashSet<>();
     }
 
-    /**
-     * Trims the capacity of the map entries . An application can use this operation to minimize the
-     * storage of the map pointer instance.
-     */
-    public synchronized void trimToSize() {
-        if (initialized) {
-            map.trimToSize();
-            neverTrimmed = false;
-            for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
-                Collection<V> set = entry.getValue();
-                if (set instanceof ArrayList) {
-                    THashSet<V> value = new THashSetForSet<>(set.size(), DEFAULT_LOAD_FACTOR);
-                    value.addAll(set);
-                    entry.setValue(value);
-                    size = size - set.size() + value.size();
-                    value.trimToSize();
-                } else if (set instanceof THashSet) {
-                    THashSet<V> vs = (THashSet<V>) set;
-                    vs.trimToSize();
-                    totalInUse.addAndGet(set.size());
-                    totalAllocated.addAndGet(vs.capacity());
-                } else if (set instanceof SmallSet<?>) {
-                    totalInUse.addAndGet(set.size());
-                    totalAllocated.addAndGet(3);
-                } else {
-                    totalInUse.addAndGet(1);
-                    totalAllocated.addAndGet(1);
-                }
+    public HPPCSet(int initialCapacity) {
+        delegate = new ObjectHashSet<>(initialCapacity);
+    }
+
+    public HPPCSet(int initialCapacity, double loadFactor) {
+        delegate = new ObjectHashSet<>(initialCapacity, loadFactor);
+    }
+
+    public HPPCSet(Collection<S> container) {
+        delegate = new ObjectHashSet<>(container.size() + 1);
+        addAll(container);
+    }
+
+    public HPPCSet(Collection<S> container, S s) {
+        delegate = new ObjectHashSet<>(container.size() + 1);
+        addAll(container);
+        add(s);
+    }
+
+    @Override
+    public int size() {
+        return delegate.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return delegate.isEmpty();
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return delegate.contains((S) o);
+    }
+
+    @Override
+    public Iterator<S> iterator() {
+        final ObjectHashSet<S>.EntryIterator iterator = delegate.iterator();
+        return new Iterator<S>() {
+
+            @Override
+            public boolean hasNext() {
+                return iterator.hasNext();
+            }
+
+            @Override
+            public S next() {
+                return iterator.next().value;
+            }
+        };
+    }
+
+    @Override
+    public Object[] toArray() {
+        return delegate.toArray();
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a) {
+        throw new UnsupportedOperationException("Not suppoerted for " + getClass());
+    }
+
+    @Override
+    public boolean add(S e) {
+        return delegate.add(e);
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        return delegate.remove((S) o);
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        for (Object o : c) {
+            if (!delegate.contains((S) o)) {
+                return false;
             }
         }
+        return true;
     }
 
-    static synchronized void resetCounts() {
-        totalAllocated.set(0);
-        totalInUse.set(0);
+    @Override
+    public boolean addAll(Collection<? extends S> c) {
+        boolean toReturn = false;
+        for (S s : c) {
+            if (add(s)) {
+                toReturn = true;
+            }
+        }
+        return toReturn;
     }
 
-    static synchronized long getTotalInUse() {
-        return totalInUse.get();
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        boolean toReturn = false;
+        for (Object s : c) {
+            if (remove(s)) {
+                toReturn = true;
+            }
+        }
+        return toReturn;
     }
 
-    static synchronized long getTotalAllocated() {
-        return totalAllocated.get();
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return delegate.retainAll(new HPPCSet(c).delegate) > 0;
+    }
+
+    @Override
+    public void clear() {
+        this.delegate.clear();
     }
 }

@@ -346,7 +346,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     protected Stream<OWLAnnotationProperty> annotationProperties() {
-        return Stream.concat(owlAnnotationPropertyReferences.keySet().stream(),
+        return Stream.concat(owlAnnotationPropertyReferences.keySet(),
             ontologyAnnotations.stream().map(OWLAnnotation::getProperty));
     }
 
@@ -460,7 +460,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
      * the storage of the internals instance.
      */
     public void trimToSize() {
-        pointers.values().forEach(MapPointer::trimToSize);
+        // pointers.values().forEach(MapPointer::trimToSize);
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {

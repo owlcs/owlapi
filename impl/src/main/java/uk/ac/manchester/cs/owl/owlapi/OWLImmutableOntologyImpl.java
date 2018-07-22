@@ -120,12 +120,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     implements OWLOntology, Serializable {
     // @formatter:off
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLEntity>>              ontsignatures =                     build(OWLImmutableOntologyImpl::build);
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnonymousIndividual>> ontanonCaches =                    build(key -> asList(key.ints.owlAnonymousIndividualReferences  .keySet().stream().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLClass>>              ontclassesSignatures =              build(key -> asList(key.ints.owlClassReferences                .keySet().stream().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> asList(key.ints.owlDataPropertyReferences         .keySet().stream().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asList(key.ints.owlObjectPropertyReferences       .keySet().stream().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asList(key.ints.owlDatatypeReferences             .keySet().stream().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asList(key.ints.owlIndividualReferences           .keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnonymousIndividual>> ontanonCaches =                    build(key -> asList(key.ints.owlAnonymousIndividualReferences  .keySet().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLClass>>              ontclassesSignatures =              build(key -> asList(key.ints.owlClassReferences                .keySet().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> asList(key.ints.owlDataPropertyReferences         .keySet().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asList(key.ints.owlObjectPropertyReferences       .keySet().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asList(key.ints.owlDatatypeReferences             .keySet().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asList(key.ints.owlIndividualReferences           .keySet().distinct().sorted()));
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asList(key.ints.annotationProperties()                              .distinct().sorted()));
     // @formatter:on
     protected static void invalidateOntologyCaches(OWLImmutableOntologyImpl o) {
@@ -384,12 +384,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     @Override
     public Stream<OWLEntity> unsortedSignature() {
         return Stream
-            .of(ints.owlClassReferences.keySet().stream(),
-                ints.owlObjectPropertyReferences.keySet().stream(),
-                ints.owlDataPropertyReferences.keySet().stream(),
-                ints.owlIndividualReferences.keySet().stream(),
-                ints.owlDatatypeReferences.keySet().stream(),
-                ints.owlAnnotationPropertyReferences.keySet().stream(),
+            .of(ints.owlClassReferences.keySet(), ints.owlObjectPropertyReferences.keySet(),
+                ints.owlDataPropertyReferences.keySet(), ints.owlIndividualReferences.keySet(),
+                ints.owlDatatypeReferences.keySet(), ints.owlAnnotationPropertyReferences.keySet(),
                 ints.getOntologyAnnotations().map(OWLAnnotation::getProperty))
             .flatMap(Function.identity());
     }

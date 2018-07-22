@@ -729,8 +729,10 @@ public class OWLAPIOwl2Obo {
         setObodoc(new OBODoc());
         preProcess();
         tr(getOWLOntology());
-        OWLAxiomVisitor visitor = new Translator();
-        getOWLOntology().axioms().forEach(ax -> ax.accept(visitor));
+        // declarations need to be sorted - otherwise there is a risk of id being processed before
+        // altId, which causes spurious clauses.
+        accept(getOWLOntology().axioms(AxiomType.DECLARATION).sorted());
+        AxiomType.skipDeclarations().forEach(t -> accept(getOWLOntology().axioms(t)));
         if (!untranslatableAxioms.isEmpty() && !discardUntranslatable) {
             String axiomString =
                 OwlStringTools.translate(untranslatableAxioms, manager, storerParameters);
@@ -744,6 +746,11 @@ public class OWLAPIOwl2Obo {
             }
         }
         return getObodoc();
+    }
+
+    private void accept(Stream<? extends OWLAxiom> axioms) {
+        OWLAxiomVisitor visitor = new Translator();
+        axioms.forEach(ax -> ax.accept(visitor));
     }
 
     /**
