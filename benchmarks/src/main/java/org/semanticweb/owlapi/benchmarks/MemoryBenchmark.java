@@ -61,7 +61,8 @@ public class MemoryBenchmark {
         throws OWLOntologyCreationException, IOException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         File file = ontologyPath.toFile();
-        manager.getIRIMappers().add(new AutoIRIMapper(file.getParentFile(), false));
+        manager.getIRIMappers()
+            .add(new AutoIRIMapper(file.getParentFile(), false, manager.getOWLDataFactory()));
         OWLOntologyDocumentSource ds = null;
         if (file.getName().endsWith(".gz")) {
             ds = new GZipFileDocumentSource(file);
