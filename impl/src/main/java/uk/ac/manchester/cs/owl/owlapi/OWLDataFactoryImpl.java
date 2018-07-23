@@ -45,6 +45,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -156,6 +157,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
+@Singleton
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassProvider {
 
     private static final String LEXICAL_VALUE_CANNOT_BE_NULL = "lexicalValue cannot be null";
@@ -208,23 +210,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     private static final String IRI_CANNOT_BE_NULL = "iri cannot be null";
     private static final String ENTITY_TYPE_CANNOT_BE_NULL = "entityType cannot be null";
     private static final String ANNOTATIONS_CANNOT_BE_NULL = "annotations cannot be null";
-    private final boolean useCompression;
+    private final boolean useCompression = false;
     private transient OWLDataFactoryInternals dataFactoryInternals;
-
-    /**
-     * Constructs an OWLDataFactoryImpl that uses caching but no compression.
-     */
-    public OWLDataFactoryImpl() {
-        this(false);
-    }
 
     /**
      * @param useCompression true if compression should be used
      */
     @Inject
-    public OWLDataFactoryImpl(@CompressionEnabled boolean useCompression) {
-        this.useCompression = useCompression;
-        dataFactoryInternals = new OWLDataFactoryInternalsImpl(this.useCompression);
+    public OWLDataFactoryImpl() {
+        dataFactoryInternals = new OWLDataFactoryInternalsImpl(useCompression);
     }
 
     private static void checkAnnotations(Collection<OWLAnnotation> o) {

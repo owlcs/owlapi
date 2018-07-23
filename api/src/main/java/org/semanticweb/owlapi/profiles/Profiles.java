@@ -23,8 +23,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-import com.google.inject.Provides;
-
 /**
  * This enumeration includes all currently implemented profile checkers and known information about
  * available reasoners for those profiles. Note that reasoner capabilities might be out of date,
@@ -104,7 +102,6 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
      *
      * @return profile checker for this profile
      */
-    @Provides
     public abstract OWLProfile getOWLProfile();
 
     /**

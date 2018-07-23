@@ -67,8 +67,7 @@ public class BundleIsLoadableIntegrationTestCase {
         assertNotNull("context is null", context);
         List<String> bundles = Arrays.asList("org.apache.servicemix.bundles.javax-inject",
             "org.apache.servicemix.bundles.aopalliance", "slf4j-simple", "slf4j-api", "caffeine",
-            "guava", "jsr305",
-            "guice-multibindings", "guice-assistedinject", "guice-4", "commons-io", "commons-codec",
+            "guava", "jsr305", "commons-io", "commons-codec",
             "jcl-over-slf4j");
         for (String bundleName : bundles) {
             try {
