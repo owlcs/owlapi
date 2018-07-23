@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -526,14 +527,10 @@ public class OWLAPIOwl2Obo {
             if (sizeCurrent > 1) {
                 currentValue2 = current.getValue2();
             }
-            if (targetTag.equals(current.getTag()) && targetValue.equals(currentValue)) {
-                if (targetValue2 == null && currentValue2 == null) {
-                    similar.add(current);
-                    iterator.remove();
-                } else if (targetValue2 != null && targetValue2.equals(currentValue2)) {
-                    similar.add(current);
-                    iterator.remove();
-                }
+            if (targetTag.equals(current.getTag()) && targetValue.equals(currentValue)
+                && Objects.equals(targetValue2, currentValue2)) {
+                similar.add(current);
+                iterator.remove();
             }
         }
         return similar;
@@ -729,8 +726,10 @@ public class OWLAPIOwl2Obo {
         setObodoc(new OBODoc());
         preProcess();
         tr(getOWLOntology());
-        OWLAxiomVisitor visitor = new Translator();
-        getOWLOntology().axioms().forEach(ax -> ax.accept(visitor));
+        // declarations need to be sorted - otherwise there is a risk of id being processed before
+        // altId, which causes spurious clauses.
+        accept(getOWLOntology().axioms(AxiomType.DECLARATION).sorted());
+        AxiomType.skipDeclarations().forEach(t -> accept(getOWLOntology().axioms(t)));
         if (!untranslatableAxioms.isEmpty() && !discardUntranslatable) {
             String axiomString = OwlStringTools.translate(untranslatableAxioms, manager);
             if (!axiomString.isEmpty()) {
@@ -743,6 +742,11 @@ public class OWLAPIOwl2Obo {
             }
         }
         return getObodoc();
+    }
+
+    private void accept(Stream<? extends OWLAxiom> axioms) {
+        OWLAxiomVisitor visitor = new Translator();
+        axioms.forEach(ax -> ax.accept(visitor));
     }
 
     /**
@@ -1293,8 +1297,8 @@ public class OWLAPIOwl2Obo {
             // use the property_value tag
             return trGenericPropertyValue(prop, annVal, qualifiers.stream(), frame);
         }
-        String value = getValue(annVal, tagString);
-        if (!value.trim().isEmpty()) {
+        Object value = getValue(annVal, tagString);
+        if (!value.toString().trim().isEmpty()) {
             if (tag == OboFormatTag.TAG_ID) {
                 if (!value.equals(frame.getId())) {
                     warn("Conflicting id definitions: 1) " + frame.getId() + "  2)" + value);
@@ -1305,8 +1309,9 @@ public class OWLAPIOwl2Obo {
             Clause clause = new Clause(tag);
             if (tag == OboFormatTag.TAG_DATE) {
                 try {
-                    clause.addValue(OBOFormatConstants.headerDateFormat().parseObject(value));
-                } catch (@SuppressWarnings("unused") ParseException e) {
+                               clause.addValue(
+                        OBOFormatConstants.headerDateFormat().parseObject(value.toString()));
+     } catch (@SuppressWarnings("unused") ParseException e) {
                     error("Could not parse date string: " + value, true);
                     return false;
                 }
@@ -1331,7 +1336,7 @@ public class OWLAPIOwl2Obo {
                     }
                 }
             } else if (tag == OboFormatTag.TAG_XREF) {
-                Xref xref = new Xref(value);
+                Xref xref = new Xref(value.toString());
                 for (OWLAnnotation annotation : qualifiers) {
                     if (df.getRDFSLabel().equals(annotation.getProperty())) {
                         OWLAnnotationValue owlAnnotationValue = annotation.getValue();
@@ -1483,23 +1488,26 @@ public class OWLAPIOwl2Obo {
      * @param tag the tag
      * @return the value
      */
-    protected String getValue(OWLAnnotationValue annVal, @Nullable String tag) {
-        String value = annVal.toString();
+    protected Object getValue(OWLAnnotationValue annVal, @Nullable String tag) {
+        Object value = annVal.toString();
         if (annVal instanceof OWLLiteral) {
-            value = ((OWLLiteral) annVal).getLiteral();
+            OWLLiteral l = (OWLLiteral) annVal;
+            value = l.isBoolean() ? Boolean.valueOf(l.parseBoolean()) : l.getLiteral();
         } else if (annVal.isIRI()) {
             value = getIdentifier((IRI) annVal);
         }
         if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(tag)) {
-            Matcher matcher = absoluteURLPattern.matcher(value);
+            String s = value.toString();
+            Matcher matcher = absoluteURLPattern.matcher(s);
             while (matcher.find()) {
                 String m = matcher.group();
                 m = m.replace("<", "");
                 m = m.replace(">", "");
                 int i = m.lastIndexOf('/');
                 m = m.substring(i + 1);
-                value = value.replace(matcher.group(), m);
+                s = s.replace(matcher.group(), m);
             }
+            value = s;
         }
         return value;
     }
@@ -1942,7 +1950,7 @@ public class OWLAPIOwl2Obo {
                 scopeValue = a.get().getValue().asLiteral().get().getLiteral();
             }
             c.addValue(nameValue);
-            if (scopeValue != null) {
+            if (scopeValue != null && !scopeValue.isEmpty()) {
                 c.addValue(scopeValue);
             }
             f.addClause(c);

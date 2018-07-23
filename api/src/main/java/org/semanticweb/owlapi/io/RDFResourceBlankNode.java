@@ -15,7 +15,9 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.UUID;
+
 import javax.annotation.Nullable;
+
 import org.apache.commons.rdf.api.BlankNode;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
@@ -23,8 +25,8 @@ import org.semanticweb.owlapi.model.NodeID;
 /**
  * Anonymous node implementation.
  */
-public class RDFResourceBlankNode extends RDFResource implements
-    org.apache.commons.rdf.api.BlankNode {
+public class RDFResourceBlankNode extends RDFResource
+    implements org.apache.commons.rdf.api.BlankNode {
 
     /**
      * Random UUID, used by {@link #uniqueReference()}
@@ -43,7 +45,7 @@ public class RDFResourceBlankNode extends RDFResource implements
      * @param forceId true if id should be outputted
      */
     public RDFResourceBlankNode(IRI resource, boolean isIndividual, boolean forceId,
-                    boolean isAxiom) {
+        boolean isAxiom) {
         this.resource = checkNotNull(resource, "resource cannot be null");
         this.isIndividual = isIndividual;
         this.isAxiom = isAxiom;
@@ -57,8 +59,8 @@ public class RDFResourceBlankNode extends RDFResource implements
      * @param isIndividual true if the node represents an individual
      * @param forceId true if id should be outputted
      */
-    public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId,
-                    boolean isAxiom) {
+    public RDFResourceBlankNode(Integer anonId, boolean isIndividual, boolean forceId,
+        boolean isAxiom) {
         this(NodeID.nodeId(anonId), isIndividual, forceId, isAxiom);
     }
 

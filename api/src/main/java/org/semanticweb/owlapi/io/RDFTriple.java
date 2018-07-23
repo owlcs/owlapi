@@ -34,26 +34,29 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_FIRST;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_REST;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
-import gnu.trove.map.hash.TObjectIntHashMap;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.apache.commons.rdf.api.Triple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import com.carrotsearch.hppcrt.maps.ObjectIntHashMap;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public class RDFTriple implements Serializable, Comparable<RDFTriple>,
-    org.apache.commons.rdf.api.Triple {
+public class RDFTriple
+    implements Serializable, Comparable<RDFTriple>, org.apache.commons.rdf.api.Triple {
 
-    static final TObjectIntHashMap<IRI> specialPredicateRanks = initMap();
+    static final ObjectIntHashMap<IRI> specialPredicateRanks = initMap();
     private final RDFResource subject;
     private final RDFResourceIRI predicate;
     private final RDFNode object;
@@ -77,11 +80,10 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>,
      * @param objectAnon whether the object is anonymous
      */
     public RDFTriple(IRI subject, boolean subjectAnon, boolean subjectAxiom, IRI predicate,
-                    IRI object, boolean objectAnon, boolean objectAxiom) {
+        IRI object, boolean objectAnon, boolean objectAxiom) {
         this(getResource(subject, subjectAnon, subjectAxiom),
             // Predicate is not allowed to be anonymous
-                        new RDFResourceIRI(predicate),
-                        getResource(object, objectAnon, objectAxiom));
+            new RDFResourceIRI(predicate), getResource(object, objectAnon, objectAxiom));
     }
 
     /**
@@ -91,7 +93,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>,
      * @param object the object
      */
     public RDFTriple(IRI subject, boolean subjectAnon, boolean axiom, IRI predicate,
-                    OWLLiteral object) {
+        OWLLiteral object) {
         this(getResource(subject, subjectAnon, axiom), new RDFResourceIRI(predicate),
             new RDFLiteral(object));
     }
@@ -103,20 +105,17 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>,
         return new RDFResourceIRI(iri);
     }
 
-    static TObjectIntHashMap<IRI> initMap() {
-        TObjectIntHashMap<IRI> predicates = new TObjectIntHashMap<>();
+    static ObjectIntHashMap<IRI> initMap() {
+        ObjectIntHashMap<IRI> predicates = new ObjectIntHashMap<>();
         AtomicInteger nextId = new AtomicInteger(1);
-        List<OWLRDFVocabulary> ORDERED_URIS = Arrays
-            .asList(RDF_TYPE, RDFS_LABEL, OWL_DEPRECATED, RDFS_COMMENT,
-                RDFS_IS_DEFINED_BY, RDF_FIRST, RDF_REST, OWL_EQUIVALENT_CLASS,
-                OWL_EQUIVALENT_PROPERTY, RDFS_SUBCLASS_OF,
-                RDFS_SUB_PROPERTY_OF, RDFS_DOMAIN, RDFS_RANGE, OWL_DISJOINT_WITH, OWL_ON_PROPERTY,
-                OWL_DATA_RANGE,
-                OWL_ON_CLASS, OWL_ANNOTATED_SOURCE, OWL_ANNOTATED_PROPERTY, OWL_ANNOTATED_TARGET);
+        List<OWLRDFVocabulary> ORDERED_URIS = Arrays.asList(RDF_TYPE, RDFS_LABEL, OWL_DEPRECATED,
+            RDFS_COMMENT, RDFS_IS_DEFINED_BY, RDF_FIRST, RDF_REST, OWL_EQUIVALENT_CLASS,
+            OWL_EQUIVALENT_PROPERTY, RDFS_SUBCLASS_OF, RDFS_SUB_PROPERTY_OF, RDFS_DOMAIN,
+            RDFS_RANGE, OWL_DISJOINT_WITH, OWL_ON_PROPERTY, OWL_DATA_RANGE, OWL_ON_CLASS,
+            OWL_ANNOTATED_SOURCE, OWL_ANNOTATED_PROPERTY, OWL_ANNOTATED_TARGET);
         ORDERED_URIS.forEach(iri -> predicates.put(iri.getIRI(), nextId.getAndIncrement()));
         Stream.of(OWLRDFVocabulary.values())
-            .forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId
-                .getAndIncrement()));
+            .forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId.getAndIncrement()));
         return predicates;
     }
 
@@ -125,14 +124,14 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>,
         int specialPredicateRank = specialPredicateRanks.get(predicateIRI);
         IRI otherPredicateIRI = otherPredicate.getIRI();
         int otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
-        if (specialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
-            if (otherSpecialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
+        if (specialPredicateRank != specialPredicateRanks.getDefaultValue()) {
+            if (otherSpecialPredicateRank != specialPredicateRanks.getDefaultValue()) {
                 return Integer.compare(specialPredicateRank, otherSpecialPredicateRank);
             } else {
                 return -1;
             }
         } else {
-            if (otherSpecialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
+            if (otherSpecialPredicateRank != specialPredicateRanks.getDefaultValue()) {
                 return +1;
             } else {
                 return predicateIRI.compareTo(otherPredicateIRI);
@@ -174,8 +173,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>,
         }
         if (obj instanceof RDFTriple) {
             RDFTriple other = (RDFTriple) obj;
-            return subject.equals(other.subject) && predicate.equals(other.predicate) && object
-                .equals(other.object);
+            return subject.equals(other.subject) && predicate.equals(other.predicate)
+                && object.equals(other.object);
         }
         // Commons RDF Triple.equals() contract
         if (obj instanceof Triple) {
@@ -186,8 +185,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>,
             // To ensure future compatibility, the Commons RDF getter
             // methods are also called on this rather than using the fields.
             Triple triple = (Triple) obj;
-            return getSubject().equals(triple.getSubject()) && getPredicate()
-                .equals(triple.getPredicate())
+            return getSubject().equals(triple.getSubject())
+                && getPredicate().equals(triple.getPredicate())
                 && getObject().equals(triple.getObject());
         }
         return false;

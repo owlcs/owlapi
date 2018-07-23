@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>owlapi-parent</artifactId>
 		<groupId>net.sourceforge.owlapi</groupId>
-		<version>5.1.5</version>
+		<version>5.1.6</version>
 	</parent>
 	<artifactId>owlapi-rio</artifactId>
 	<name>OWLAPI :: RDF4J Rio</name>
@@ -97,6 +97,7 @@
 			<artifactId>jsonld-java</artifactId>
 		</dependency>
 	</dependencies>
+		<!-- 
 	<build>
 		<plugins>
 			<plugin>
@@ -118,11 +119,11 @@
 					</newVersion>
 					<parameter>
 						<onlyModified>true</onlyModified>
-						<!-- Large change from Sesame to RDF4J in this release branch causes classes to be missing -->
 						<ignoreMissingClasses>true</ignoreMissingClasses>
 					</parameter>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+			 -->
 </project>

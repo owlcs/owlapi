@@ -118,8 +118,7 @@ public class Clause {
                 values = Collections.emptyList();
                 break;
             case 1:
-                Object o = values.iterator().next();
-                values = Collections.singletonList(o);
+                values = Collections.singletonList(values.get(0));
                 break;
             default:
                 ((ArrayList<?>) values).trimToSize();
@@ -148,8 +147,7 @@ public class Clause {
                 qualifierValues = Collections.emptyList();
                 break;
             case 1:
-                QualifierValue qualifierValue = qualifierValues.iterator().next();
-                qualifierValues = Collections.singletonList(qualifierValue);
+                qualifierValues = Collections.singletonList(qualifierValues.iterator().next());
                 break;
             default:
                 if (qualifierValues instanceof ArrayList) {
@@ -265,16 +263,10 @@ public class Clause {
      * @throws FrameStructureException if there is no value
      */
     public Object getValue2() {
-        Object value = null;
         if (values.size() > 1) {
-            value = values.get(1);
+            return values.get(1);
         }
-        if (value == null) {
-            // TODO: Throw Exceptions
-            LOGGER.error("Cannot translate: {}", this);
-            throw new FrameStructureException("Clause second value is null: " + this);
-        }
-        return value;
+        return null;
     }
 
     /**
@@ -345,8 +337,8 @@ public class Clause {
                     this.qualifierValues = Collections.emptyList();
                     break;
                 case 1:
-                    QualifierValue qualifierValue = qualifierValues.iterator().next();
-                    this.qualifierValues = Collections.singletonList(qualifierValue);
+                    this.qualifierValues =
+                        Collections.singletonList(qualifierValues.iterator().next());
                     break;
                 default:
                     this.qualifierValues = new ArrayList<>(qualifierValues);

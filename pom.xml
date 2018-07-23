@@ -16,7 +16,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>5.1.5</version>
+	<version>5.1.6</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlcs.github.io/owlapi/</url>
@@ -73,9 +73,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>net.sf.trove4j</groupId>
-			<artifactId>trove4j</artifactId>
-			<version>3.0.3</version>
+			<groupId>com.github.vsonnier</groupId>
+			<artifactId>hppcrt</artifactId>
+			<version>0.7.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>
@@ -471,6 +471,7 @@
 						</execution>
 					</executions>
 				</plugin>
+				<!-- 
 				<plugin>
 					<groupId>com.github.siom79.japicmp</groupId>
 					<artifactId>japicmp-maven-plugin</artifactId>
@@ -501,7 +502,7 @@
 							</goals>
 						</execution>
 					</executions>
-				</plugin>
+				</plugin> -->
 			</plugins>
 		</pluginManagement>
 	</build>

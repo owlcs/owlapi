@@ -4,7 +4,6 @@ import static org.semanticweb.owlapi.model.parameters.Navigation.IN_SUB_POSITION
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import gnu.trove.map.hash.TObjectIntHashMap;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,8 +26,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -62,8 +63,7 @@ public class OBOFormatWriter {
     private static final Comparator<Frame> framesComparator = Comparator.comparing(Frame::getId);
     private static final Set<String> TAGSINFORMATIVE = buildTagsInformative();
     /**
-     * This comparator sorts clauses with the same tag in the specified write
-     * order.
+     * This comparator sorts clauses with the same tag in the specified write order.
      */
     private static final Comparator<Clause> clauseComparator = (o1, o2) -> compare(o1, o2);
     private static Comparator<Clause> clauseListComparator = Comparator
@@ -221,10 +221,9 @@ public class OBOFormatWriter {
         // to write []
         if (!xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
-        } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag()) || OboFormatTag.TAG_SYNONYM
-            .getTag().equals(
-                clause.getTag()) || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag()
-            .equals(clause.getTag())
+        } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag())
+            || OboFormatTag.TAG_SYNONYM.getTag().equals(clause.getTag())
+            || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clause.getTag())
             || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(clause.getTag())) {
             sb.append(" []");
         }
@@ -452,8 +451,8 @@ public class OBOFormatWriter {
 
 
     /**
-     * Sort a list of term frame clauses according to in the OBO format
-     * specified tag and value order.
+     * Sort a list of term frame clauses according to in the OBO format specified tag and value
+     * order.
      *
      * @param clauses the clauses
      */
@@ -553,8 +552,8 @@ public class OBOFormatWriter {
         if (fn.startsWith("http:")) {
             write(new URL(fn), writer);
         } else {
-            try (FileReader r = new FileReader(new File(fn)); Reader reader = new BufferedReader(
-                r);) {
+            try (FileReader r = new FileReader(new File(fn));
+                Reader reader = new BufferedReader(r);) {
                 write(reader, writer);
             }
         }
@@ -753,8 +752,8 @@ public class OBOFormatWriter {
                 } else if (OboFormatTag.TAG_NAMESPACE.getTag().equals(clauseTag)) {
                     // only write OBO namespace,
                     // if it is different from the default OBO namespace
-                    if (defaultOboNamespace == null || !clause.getValue()
-                        .equals(defaultOboNamespace)) {
+                    if (defaultOboNamespace == null
+                        || !clause.getValue().equals(defaultOboNamespace)) {
                         write(clause, writer, nameProvider);
                     }
                 } else {
@@ -778,14 +777,13 @@ public class OBOFormatWriter {
     //@formatter:on
 
     /**
-     * Provide names for given OBO identifiers. This abstraction layer allows to
-     * find names from different sources, including {@link OBODoc}.
+     * Provide names for given OBO identifiers. This abstraction layer allows to find names from
+     * different sources, including {@link OBODoc}.
      */
     public interface NameProvider {
 
         /**
-         * Try to retrieve the valid name for the given identifier. If not
-         * available return null.
+         * Try to retrieve the valid name for the given identifier. If not available return null.
          *
          * @param id identifier
          * @return name or null
@@ -818,8 +816,7 @@ public class OBOFormatWriter {
     }
 
     /**
-     * Default implementation of a {@link NameProvider} using an underlying.
-     * {@link OBODoc}.
+     * Default implementation of a {@link NameProvider} using an underlying. {@link OBODoc}.
      */
     public static class OBODocNameProvider implements NameProvider {
 
@@ -836,8 +833,8 @@ public class OBOFormatWriter {
             this.oboDoc = oboDoc;
             Frame headerFrame = oboDoc.getHeaderFrame();
             if (headerFrame != null) {
-                defaultOboNamespace = headerFrame
-                    .getTagValue(OboFormatTag.TAG_DEFAULT_NAMESPACE, String.class);
+                defaultOboNamespace =
+                    headerFrame.getTagValue(OboFormatTag.TAG_DEFAULT_NAMESPACE, String.class);
             } else {
                 defaultOboNamespace = null;
             }
@@ -868,10 +865,9 @@ public class OBOFormatWriter {
     }
 
     /**
-     * Alternative implementation to lookup labels in an {@link OWLOntology}.
-     * <br>
-     * This implementation might be a bit slower as it involves additional id
-     * conversion back into OWL.
+     * Alternative implementation to lookup labels in an {@link OWLOntology}. <br>
+     * This implementation might be a bit slower as it involves additional id conversion back into
+     * OWL.
      */
     public static class OWLOntologyNameProvider implements NameProvider {
 
@@ -895,9 +891,9 @@ public class OBOFormatWriter {
             OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(ont.getOWLOntologyManager());
             IRI iri = obo2owl.oboIdToIRI(id);
             // look for label of entity
-            List<OWLAnnotationAssertionAxiom> axioms = asList(
-                ont.axioms(OWLAnnotationAssertionAxiom.class,
-                    OWLAnnotationSubject.class, iri, Imports.INCLUDED, IN_SUB_POSITION));
+            List<OWLAnnotationAssertionAxiom> axioms =
+                asList(ont.axioms(OWLAnnotationAssertionAxiom.class, OWLAnnotationSubject.class,
+                    iri, Imports.INCLUDED, IN_SUB_POSITION));
             for (OWLAnnotationAssertionAxiom axiom : axioms) {
                 if (axiom.getProperty().isLabel()) {
                     OWLAnnotationValue value = axiom.getValue();

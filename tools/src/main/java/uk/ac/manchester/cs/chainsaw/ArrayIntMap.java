@@ -1,9 +1,9 @@
 package uk.ac.manchester.cs.chainsaw;
 
-import gnu.trove.list.TIntList;
-import gnu.trove.list.array.TIntArrayList;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.carrotsearch.hppcrt.lists.IntArrayList;
 
 /**
  * a multimap for int to collection of int values.
@@ -31,8 +31,8 @@ public class ArrayIntMap {
     }
 
     /**
-     * returns a mutable set of values connected to the key; if no value is
-     * connected, returns an immutable empty set
+     * returns a mutable set of values connected to the key; if no value is connected, returns an
+     * immutable empty set
      *
      * @param key key
      * @return the set of values connected with the key
@@ -50,8 +50,8 @@ public class ArrayIntMap {
     /**
      * @return the set of keys
      */
-    public TIntList keySet() {
-        TIntList toReturn = new TIntArrayList();
+    public IntArrayList keySet() {
+        IntArrayList toReturn = new IntArrayList();
         for (int i = 0; i < map.size(); i++) {
             if (map.get(i) != null) {
                 toReturn.add(i);
@@ -63,8 +63,8 @@ public class ArrayIntMap {
     /**
      * @return all values in the map
      */
-    public TIntList getAllValues() {
-        TIntList toReturn = new TIntArrayList();
+    public IntArrayList getAllValues() {
+        IntArrayList toReturn = new IntArrayList();
         for (FastSet f : map) {
             if (f != null) {
                 for (int i = 0; i < f.size(); i++) {

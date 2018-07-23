@@ -56,6 +56,6 @@ public class DeclareAnnotatedEntitiesTestCase extends TestBase {
         ontology2.add(annotationAssertionAxioms);
         OWLOntology o3 = roundTrip(ontology2, new RDFXMLDocumentFormat());
         Set<OWLDeclarationAxiom> reloadedDeclarations = asSet(o3.axioms(AxiomType.DECLARATION));
-        assertEquals(declarations.toString(), reloadedDeclarations.toString());
+        assertEquals(declarations, reloadedDeclarations);
     }
 }

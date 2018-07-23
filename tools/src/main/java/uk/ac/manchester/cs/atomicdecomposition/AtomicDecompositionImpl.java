@@ -1,8 +1,5 @@
 package uk.ac.manchester.cs.atomicdecomposition;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
-import gnu.trove.map.hash.TObjectIntHashMap;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,7 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -23,6 +22,11 @@ import org.semanticweb.owlapitools.decomposition.Decomposer;
 import org.semanticweb.owlapitools.decomposition.IdentityMultiMap;
 import org.semanticweb.owlapitools.decomposition.OntologyAtom;
 import org.semanticweb.owlapitools.decomposition.SyntacticLocalityChecker;
+
+import com.carrotsearch.hppcrt.maps.ObjectIntHashMap;
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
+
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
@@ -35,7 +39,7 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     Set<OWLAxiom> globalAxioms;
     Set<OWLAxiom> tautologies;
     List<Atom> atoms;
-    TObjectIntHashMap<Atom> atomIndex = new TObjectIntHashMap<>();
+    ObjectIntHashMap<Atom> atomIndex = new ObjectIntHashMap<>();
     IdentityMultiMap<Atom, Atom> dependents = new IdentityMultiMap<>();
     IdentityMultiMap<Atom, Atom> dependencies = new IdentityMultiMap<>();
     Decomposer decomposer;
@@ -219,8 +223,7 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     }
 
     /**
-     * get a set of axioms that corresponds to the module of the atom with the
-     * id INDEX
+     * get a set of axioms that corresponds to the module of the atom with the id INDEX
      *
      * @param index index
      * @return module at index
@@ -238,7 +241,6 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     public Stream<OWLAxiom> getModule(Stream<OWLEntity> signature, boolean useSemantics,
         ModuleType moduletype) {
         return decomposer.getModule(signature, useSemantics, moduletype).stream()
-            .map(AxiomWrapper::getAxiom).filter(
-                ax -> ax != null);
+            .map(AxiomWrapper::getAxiom).filter(ax -> ax != null);
     }
 }

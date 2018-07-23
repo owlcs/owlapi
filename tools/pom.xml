@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>5.1.5</version>
+		<version>5.1.6</version>
 	</parent>
 	<dependencies>
 		<dependency>
@@ -15,6 +15,7 @@
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
+	<!-- 
 	<build>
 		<plugins>
 			<plugin>
@@ -23,4 +24,5 @@
 			</plugin>
 		</plugins>
 	</build>
+	 -->
 </project>

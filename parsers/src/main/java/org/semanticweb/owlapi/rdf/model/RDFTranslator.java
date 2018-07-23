@@ -14,10 +14,12 @@ package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
-import gnu.trove.strategy.IdentityHashingStrategy;
+import java.util.IdentityHashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -37,13 +39,12 @@ import org.semanticweb.owlapi.util.IndividualAppearance;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class RDFTranslator extends
-    AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
+public class RDFTranslator
+    extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
     protected final AxiomAppearance axiomOccurrences;
     private final AtomicInteger nextBlankNodeId;
-    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
-        new IdentityHashingStrategy<>());
+    private final Map<Object, Integer> blankNodeMap = new IdentityHashMap<>();
 
     /**
      * @param manager the manager
@@ -74,7 +75,8 @@ public class RDFTranslator extends
         if (isIndividual) {
             OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
             needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
-            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, isAxiom, needId);
+            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, isAxiom,
+                needId);
         } else if (key instanceof OWLAxiom) {
             isIndividual = false;
             isAxiom = true;
@@ -84,10 +86,10 @@ public class RDFTranslator extends
     }
 
     protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual,
-                    boolean isAxiom, boolean needId) {
-        int id = blankNodeMap.get(key);
-        if (id == 0) {
-            id = nextBlankNodeId.getAndIncrement();
+        boolean isAxiom, boolean needId) {
+        Integer id = blankNodeMap.get(key);
+        if (id == null) {
+            id = Integer.valueOf(nextBlankNodeId.getAndIncrement());
             blankNodeMap.put(key, id);
         }
         return new RDFResourceBlankNode(id, isIndividual, needId, isAxiom);
