@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
@@ -24,12 +22,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.Spliterator;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import javax.annotation.Nullable;
 
@@ -178,15 +174,10 @@ public class MapPointer<K, V extends OWLAxiom> {
      */
     public synchronized Stream<K> keySet() {
         init();
-        return streamCursor(map.keys().spliterator());
-    }
-
-    private static <Q> Stream<Q> streamCursor(Spliterator<ObjectCursor<Q>> i) {
-        return StreamSupport.stream(i, false).map(v -> v.value);
-    }
-
-    private static <Q> Stream<Q> stream(Spliterator<Q> i) {
-        return StreamSupport.stream(i, false);
+        List<K> l = new ArrayList<>();
+        Consumer<ObjectCursor<K>> p = c -> l.add(c.value);
+        map.keys().forEach(p);
+        return l.stream();
     }
 
     /**
@@ -199,7 +190,13 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (t == null) {
             return Stream.empty();
         }
-        return stream(t.spliterator());
+        if (t instanceof SmallSet) {
+            return t.stream();
+        }
+        if (t instanceof HPPCSet) {
+            return new ArrayList<>(t).stream();
+        }
+        return t.stream();
     }
 
     /**
@@ -231,7 +228,13 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (t == null) {
             return Collections.emptyList();
         }
-        return asUnorderedSet(stream(t.spliterator()));
+        if (t instanceof SmallSet) {
+            return new ArrayList<>(t);
+        }
+        if (t instanceof HPPCSet) {
+            return new ArrayList<>(t);
+        }
+        return t;
     }
 
     /**
@@ -263,9 +266,15 @@ public class MapPointer<K, V extends OWLAxiom> {
         init();
         Collection<V> t = map.get(key);
         if (t == null) {
-            return empty();
+            return Stream.empty();
         }
-        return (Stream<O>) stream(t.spliterator());
+        if (t instanceof SmallSet) {
+            return (Stream<O>) t.stream();
+        }
+        if (t instanceof HPPCSet) {
+            return (Stream<O>) new ArrayList<>(t).stream();
+        }
+        return (Stream<O>) t.stream();
     }
 
     /**
@@ -281,8 +290,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             // This method is only used for MapPointer<AxiomType, OWLAxiom>
             Collection<V> collection = map.get((K) at);
             if (collection != null) {
-                stream(collection.spliterator()).filter(x -> filter.pass(x, key))
-                    .forEach(toReturn::add);
+                collection.stream().filter(x -> filter.pass(x, key)).forEach(toReturn::add);
             }
         }
         return toReturn;
@@ -432,7 +440,10 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     private Stream<V> values() {
-        return stream(map.values().spliterator()).flatMap(s -> s.value.stream());
+        List<V> l = new ArrayList<>();
+        Consumer<ObjectCursor<Collection<V>>> c = q -> l.addAll(q.value);
+        map.values().forEach(c);
+        return l.stream();
     }
 
     private Stream<V> get(K k) {
@@ -440,7 +451,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (t == null) {
             return Stream.empty();
         }
-        return stream(t.spliterator());
+        return t.stream();
     }
 }
 
@@ -488,19 +499,10 @@ class HPPCSet<S> implements Collection<S> {
 
     @Override
     public Iterator<S> iterator() {
-        final ObjectHashSet<S>.EntryIterator iterator = delegate.iterator();
-        return new Iterator<S>() {
-
-            @Override
-            public boolean hasNext() {
-                return iterator.hasNext();
-            }
-
-            @Override
-            public S next() {
-                return iterator.next().value;
-            }
-        };
+        List<S> l = new ArrayList<>();
+        Consumer<ObjectCursor<S>> c = q -> l.add(q.value);
+        delegate.forEach(c);
+        return l.iterator();
     }
 
     @Override
