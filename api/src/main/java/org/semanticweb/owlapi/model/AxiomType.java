@@ -101,7 +101,7 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
 //@formatter:on
 
     private AxiomType(Class<C> actualClass, int ind, String name, boolean owl2Axiom,
-                    boolean nonSyntacticOWL2Axiom, boolean isLogical) {
+        boolean nonSyntacticOWL2Axiom, boolean isLogical) {
         this.actualClass = actualClass;
         this.name = name;
         this.owl2Axiom = owl2Axiom;
@@ -111,10 +111,13 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
     }
 
     private static <O extends OWLAxiom> AxiomType<O> getInstance(Class<O> c, int i, String name,
-                    boolean owl2Axiom, boolean nonSyntacticOWL2Axiom, boolean isLogical) {
+        boolean owl2Axiom, boolean nonSyntacticOWL2Axiom, boolean isLogical) {
         return new AxiomType<>(c, i, name, owl2Axiom, nonSyntacticOWL2Axiom, isLogical);
     }
 
+    /**
+     * @return axiom types minus declarations
+     */
     public static Stream<AxiomType<?>> skipDeclarations() {
         return AXIOM_TYPES.stream().filter(t -> t != DECLARATION);
     }
@@ -141,7 +144,7 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
      *         that sourceAxioms will not be modified. The returned set is a copy.
      */
     public static Set<OWLAxiom> getAxiomsWithoutTypes(Collection<OWLAxiom> sourceAxioms,
-                    AxiomType<?>... axiomTypes) {
+        AxiomType<?>... axiomTypes) {
         Set<AxiomType<?>> disallowed = Sets.newHashSet(axiomTypes);
         return asSet(sourceAxioms.stream().filter(a -> !disallowed.contains(a.getAxiomType())));
     }
@@ -155,7 +158,7 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
      *         that sourceAxioms will not be modified. The returned set is a copy.
      */
     public static Set<OWLAxiom> getAxiomsOfTypes(Collection<OWLAxiom> sourceAxioms,
-                    AxiomType<?>... axiomTypes) {
+        AxiomType<?>... axiomTypes) {
         Set<AxiomType<?>> allowed = Sets.newHashSet(axiomTypes);
         return asSet(sourceAxioms.stream().filter(a -> allowed.contains(a.getAxiomType())));
     }

@@ -73,6 +73,7 @@ import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TA
 
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public class OBOFormatConstantsTestCase {
     @Test
     public void should() {

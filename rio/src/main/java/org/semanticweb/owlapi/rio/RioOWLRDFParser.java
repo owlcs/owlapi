@@ -41,8 +41,10 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.eclipse.rdf4j.rio.helpers.AbstractRDFParser;
@@ -57,8 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler}
- * s.
+ * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler} s.
  *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
@@ -85,7 +86,7 @@ public class RioOWLRDFParser extends AbstractRDFParser {
     }
 
     /**
-     * @param factories factories for ontology managers. This method is used for Guice injection.
+     * @param factories factories for ontology managers. This method is used for injection.
      */
     @Inject
     public void setOntologyManagerFactories(Set<OWLOntologyManagerFactory> factories) {

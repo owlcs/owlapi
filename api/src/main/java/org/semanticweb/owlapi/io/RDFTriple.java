@@ -75,9 +75,11 @@ public class RDFTriple
     /**
      * @param subject the subject
      * @param subjectAnon whether the subject is anonymous
+     * @param subjectAxiom true if axiom
      * @param predicate the predicate
      * @param object the object
      * @param objectAnon whether the object is anonymous
+     * @param objectAxiom true if axiom
      */
     public RDFTriple(IRI subject, boolean subjectAnon, boolean subjectAxiom, IRI predicate,
         IRI object, boolean objectAnon, boolean objectAxiom) {
@@ -89,6 +91,7 @@ public class RDFTriple
     /**
      * @param subject the subject
      * @param subjectAnon whether the subject is anonymous
+     * @param axiom true if axiom
      * @param predicate the predicate
      * @param object the object
      */

@@ -45,14 +45,15 @@ public class Injector {
     private Map<Object, Class<?>> typesOverrides = new ConcurrentHashMap<>();
     private Map<Object, List<Class<?>>> typesCache = new ConcurrentHashMap<>();
 
+    /**
+     * Key class for caches
+     * 
+     * @author ignazio
+     */
     public static class Key {
         Class<?> c;
         Annotation[] anns;
         int hash = 0;
-
-        public Key() {
-            // TODO Auto-generated constructor stub
-        }
 
         @Override
         public boolean equals(@Nullable Object obj) {
@@ -66,6 +67,11 @@ public class Injector {
             return Objects.equals(c, k.c) && Arrays.equals(anns, k.anns);
         }
 
+        /**
+         * @param cl class
+         * @param a annotations
+         * @return modified key
+         */
         public Key with(Class<?> cl, Annotation[] a) {
             c = cl;
             anns = a;
@@ -79,10 +85,14 @@ public class Injector {
         }
     }
 
-    public Injector() {
-        // TODO Auto-generated constructor stub
-    }
+    /**
+     * Default constructor
+     */
+    public Injector() {}
 
+    /**
+     * @param i injector to copy
+     */
     public Injector(Injector i) {
         supplierOverrides.putAll(i.supplierOverrides);
         typesOverrides.putAll(i.typesOverrides);
@@ -90,26 +100,70 @@ public class Injector {
 
     }
 
+    /**
+     * Associate a key made of interface type and optional annotations with an implementation type
+     * 
+     * @param t implementation type
+     * @param c interface type
+     * @param annotations annotations
+     * @return modified injector
+     */
     public Injector bind(Class<?> t, Class<?> c, Annotation... annotations) {
         typesOverrides.put(key(c, annotations), t);
         return this;
     }
 
+    /**
+     * Associate a key made of interface type and optional annotations with an instance, replacing
+     * existing associations
+     * 
+     * @param t instance
+     * @param c interface type
+     * @param annotations annotations
+     * @return modified injector
+     */
     public Injector bindToOne(Object t, Class<?> c, Annotation... annotations) {
         Supplier<?> s = () -> t;
         return bindToOne(s, c, annotations);
     }
 
+    /**
+     * Associate a key made of interface type and optional annotations with a supplier of instances,
+     * replacing existing associations
+     * 
+     * @param t supplier
+     * @param c interface type
+     * @param annotations annotations
+     * @return modified injector
+     */
     public Injector bindToOne(Supplier<?> t, Class<?> c, Annotation... annotations) {
         supplierOverrides.put(key(c, annotations), Collections.singletonList(t));
         return this;
     }
 
+    /**
+     * Associate a key made of interface type and optional annotations with an instance, adding to
+     * existing associations
+     * 
+     * @param t instance
+     * @param c interface type
+     * @param annotations annotations
+     * @return modified injector
+     */
     public <T> Injector bindOneMore(T t, Class<T> c, Annotation... annotations) {
         Supplier<T> s = () -> t;
         return bindOneMore(s, c, annotations);
     }
 
+    /**
+     * Associate a key made of interface type and optional annotations with a supplier of instances,
+     * adding to existing associations
+     * 
+     * @param t supplier
+     * @param c interface type
+     * @param annotations annotations
+     * @return modified injector
+     */
     public <T> Injector bindOneMore(Supplier<T> t, Class<T> c, Annotation... annotations) {
         supplierOverrides.computeIfAbsent(key(c, annotations), x -> new ArrayList<>()).add(t);
         return this;
@@ -123,9 +177,13 @@ public class Injector {
         return new Key().with(c, annotations);
     }
 
+    /**
+     * @param t object to inject
+     * @return input object with all methods annotated with @Inject having been set with instances.
+     */
     public <T> T inject(T t) {
         LOGGER.info("Injecting object {}", t);
-        List<Method> methodsToInject = new ArrayList<Method>();
+        List<Method> methodsToInject = new ArrayList<>();
         Class<?> c = t.getClass();
         while (c != null) {
             for (Method m : c.getDeclaredMethods()) {
@@ -175,15 +233,32 @@ public class Injector {
         return qualifiers.toArray(new Qualifier[qualifiers.size()]);
     }
 
+    /**
+     * @param c class
+     * @param qualifiers optional annotations
+     * @return instance
+     */
     public <T> T getImplementation(Class<T> c, Annotation... qualifiers) {
         return load(c, qualifiers).findAny().orElse(null);
     }
 
+    /**
+     * @param c class
+     * @param v configuration options
+     * @param qualifiers optional annotations
+     * @return instance
+     */
     public <T> T getImplementation(Class<T> c, OntologyConfigurator v, Annotation... qualifiers) {
         return new Injector(this).bindToOne(v, OntologyConfigurator.class).getImplementation(c,
             qualifiers);
     }
 
+    /**
+     * @param c class
+     * @param overrides local overrides of existing bindings
+     * @param qualifiers optional annotations
+     * @return instance
+     */
     public <T> T getImplementation(Class<T> c, Map<Object, List<Supplier<?>>> overrides,
         Annotation... qualifiers) {
         Injector i = new Injector(this);

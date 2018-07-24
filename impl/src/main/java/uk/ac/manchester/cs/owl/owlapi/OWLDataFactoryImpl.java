@@ -44,7 +44,6 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.semanticweb.owlapi.model.EntityType;
@@ -211,15 +210,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     private static final String ENTITY_TYPE_CANNOT_BE_NULL = "entityType cannot be null";
     private static final String ANNOTATIONS_CANNOT_BE_NULL = "annotations cannot be null";
     private final boolean useCompression = false;
-    private transient OWLDataFactoryInternals dataFactoryInternals;
-
-    /**
-     * @param useCompression true if compression should be used
-     */
-    @Inject
-    public OWLDataFactoryImpl() {
-        dataFactoryInternals = new OWLDataFactoryInternalsImpl(useCompression);
-    }
+    private transient OWLDataFactoryInternals dataFactoryInternals =
+        new OWLDataFactoryInternalsImpl(useCompression);
 
     private static void checkAnnotations(Collection<OWLAnnotation> o) {
         checkIterableNotNull(o, ANNOTATIONS_CANNOT_BE_NULL, true);
