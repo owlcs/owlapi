@@ -1,3 +1,17 @@
+5.1.6 24 Jul 2018
+
+Features:
+*    Remove Guice dependencies
+*    Upgrade to jsonld-java version 0.12.0 (performance) #763
+*    Allow building with Java 10
+
+Bug fixes:
+*    Move from Trove4j to HPPC-RT #774
+*    Fix incorrect sorting of OBO header tags
+*    Fix Line breaks in rdfs:label cause invalid FS output #758
+*    Fix AutoIriMapper chooses wrong IRIs. #755
+
+
 5.1.5 23 Apr 2018
 
 Features:
