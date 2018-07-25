@@ -1,6 +1,7 @@
 package org.obolibrary.obo2owl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
@@ -17,7 +18,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class ObsoleteTermTest extends OboFormatTestBasics {
 
     @Test
@@ -25,14 +26,11 @@ public class ObsoleteTermTest extends OboFormatTestBasics {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("obsolete_term_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
-        OWLAnnotationSubject subj = IRI
-                .create("http://purl.obolibrary.org/obo/XX_0000034");
-        Set<OWLAnnotationAssertionAxiom> aas = ontology
-                .getAnnotationAssertionAxioms(subj);
+        OWLAnnotationSubject subj = IRI.create("http://purl.obolibrary.org/obo/XX_0000034");
+        Set<OWLAnnotationAssertionAxiom> aas = ontology.getAnnotationAssertionAxioms(subj);
         boolean okDeprecated = false;
         for (OWLAnnotationAssertionAxiom aa : aas) {
-            if (aa.getProperty().getIRI()
-                    .equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI())) {
+            if (aa.getProperty().getIRI().equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI())) {
                 OWLLiteral v = (OWLLiteral) aa.getValue();
                 if (v.isBoolean()) {
                     if (v.parseBoolean()) {
@@ -49,6 +47,6 @@ public class ObsoleteTermTest extends OboFormatTestBasics {
         Frame tf = obodoc.getTermFrame("XX:0000034");
         Clause c = tf.getClause(OboFormatTag.TAG_IS_OBSELETE);
         Object v = c.getValue();
-        assertEquals("true", v); // should this be a Boolean object? TODO
+        assertEquals(Boolean.TRUE, v);
     }
 }

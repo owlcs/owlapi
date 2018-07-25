@@ -21,13 +21,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Named
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
-import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -40,21 +35,5 @@ public class DataPropertyAssertionAnnotatedTestCase
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return DataPropertyAssertion(DataProperty(iri("p")), NamedIndividual(iri("i")),
             Literal("xyz"), annos);
-    }
-
-    @Override
-    public void testOWLXML() throws Exception {
-        OWLOntology ont = getOnt();
-        Set<OWLDataPropertyAssertionAxiom> ax1 = ont.getAxioms(AxiomType.DATA_PROPERTY_ASSERTION);
-        ax1.forEach(System.out::println);
-        System.out.println("DataPropertyAssertionAnnotatedTestCase.testOWLXML() ");
-        StringDocumentTarget saveOntology = saveOntology(ont, new OWLXMLDocumentFormat());
-        Set<OWLDataPropertyAssertionAxiom> ax2 =
-            loadOntologyFromString(saveOntology, new OWLXMLDocumentFormat())
-                .getAxioms(AxiomType.DATA_PROPERTY_ASSERTION);
-        ax2.forEach(System.out::println);
-        assertEquals(ax2.iterator().next().getObject(), ax1.iterator().next().getObject());
-        assertEquals(ax1.iterator().next().getObject(), ax2.iterator().next().getObject());
-        roundTripOntology(ont, new OWLXMLDocumentFormat());
     }
 }

@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -300,6 +301,10 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
                 return input.getActualClass();
             }
         });
+
+    public static Stream<AxiomType<?>> skipDeclarations() {
+        return AXIOM_TYPES.stream().filter(t -> t != DECLARATION);
+    }
 
     /**
      * @param t

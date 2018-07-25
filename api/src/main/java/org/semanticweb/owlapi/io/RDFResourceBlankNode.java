@@ -56,7 +56,7 @@ public class RDFResourceBlankNode extends RDFResource {
      * @param forceId
      *        true if the id should be outputted
      */
-    public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId,
+    public RDFResourceBlankNode(Integer anonId, boolean isIndividual, boolean forceId,
         boolean isAxiom) {
         this(NodeID.nodeId(anonId), isIndividual, forceId, isAxiom);
     }

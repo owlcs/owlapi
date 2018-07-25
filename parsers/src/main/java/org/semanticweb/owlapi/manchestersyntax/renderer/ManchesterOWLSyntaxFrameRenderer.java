@@ -1259,13 +1259,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.ANNOTATION_ASSERTION)) {
             for (OWLOntology ontology : ontologies) {
                 SectionMap<Object, OWLAxiom> sectionMap = new SectionMap<>();
-                for (OWLAnnotationAssertionAxiom ax : ontology
-                    .getAnnotationAssertionAxioms(subject)) {
-                    if (isDisplayed(ax)) {
+                ontology.getAnnotationAssertionAxioms(subject).stream().sorted()
+                    .filter(this::isDisplayed).forEach(ax -> {
                         axioms.add(ax);
                         sectionMap.put(ax.getAnnotation(), ax);
-                    }
-                }
+                    });
                 writeSection(ANNOTATIONS, sectionMap, ",", true, ontology);
             }
         }

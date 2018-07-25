@@ -101,6 +101,7 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.VARIABLE;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -237,7 +238,9 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             annotation.accept(this);
         }
         // treat declarations separately from other axioms
-        Collection<OWLDeclarationAxiom> declarations = ontology.getAxioms(AxiomType.DECLARATION);
+        List<OWLDeclarationAxiom> declarations =
+            new ArrayList<>(ontology.getAxioms(AxiomType.DECLARATION));
+        declarations.sort(null);
         Set<OWLEntity> declared = new HashSet<>(ontology.getSignature());
         for (OWLDeclarationAxiom ax : declarations) {
             ax.accept(this);

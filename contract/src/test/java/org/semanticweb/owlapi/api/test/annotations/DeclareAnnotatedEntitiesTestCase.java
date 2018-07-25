@@ -15,6 +15,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /**
  * Created by vincent on 20.08.15.
  */
+@SuppressWarnings("javadoc")
 public class DeclareAnnotatedEntitiesTestCase extends TestBase {
 
     @Test
@@ -53,6 +54,6 @@ public class DeclareAnnotatedEntitiesTestCase extends TestBase {
         ontology2.getOWLOntologyManager().addAxioms(ontology2, annotationAssertionAxioms);
         OWLOntology o3 = roundTrip(ontology2, new RDFXMLDocumentFormat());
         Set<OWLDeclarationAxiom> reloadedDeclarations = o3.getAxioms(AxiomType.DECLARATION);
-        assertEquals(declarations.toString(), reloadedDeclarations.toString());
+        assertEquals(declarations, reloadedDeclarations);
     }
 }

@@ -52,8 +52,8 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
      * @return IRI with full node id
      */
     @Nonnull
-    public static IRI nodeId(int id) {
-        return IRI.create(PREFIX_NODE + Integer.toString(id));
+    public static IRI nodeId(Integer id) {
+        return IRI.create(PREFIX_NODE + id);
     }
 
     /**

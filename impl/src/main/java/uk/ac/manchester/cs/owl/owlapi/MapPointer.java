@@ -13,10 +13,16 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.lang.ref.SoftReference;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,24 +35,22 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
-import com.google.common.collect.Iterables;
+import com.carrotsearch.hppcrt.cursors.ObjectCursor;
+import com.carrotsearch.hppcrt.maps.ObjectObjectHashMap;
+import com.carrotsearch.hppcrt.procedures.ObjectProcedure;
+import com.carrotsearch.hppcrt.sets.ObjectHashSet;
 
-import gnu.trove.map.hash.THashMap;
-import gnu.trove.set.hash.THashSet;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 import uk.ac.manchester.cs.owl.owlapi.util.collections.SmallSet;
 
 /**
- * * Objects that identify contained maps - so that getting the keys of a
- * specific map does not require a specific method for each map nor does it
- * require the map to be copied and returned.
+ * * Objects that identify contained maps - so that getting the keys of a specific map does not
+ * require a specific method for each map nor does it require the map to be copied and returned.
  * 
  * @author ignazio
- * @param <K>
- *        key
- * @param <V>
- *        value
+ * @param <K> key
+ * @param <V> value
  */
 public class MapPointer<K, V extends OWLAxiom> {
 
@@ -61,21 +65,17 @@ public class MapPointer<K, V extends OWLAxiom> {
     protected final Internals i;
     private SoftReference<Set<IRI>> iris;
     private int size = 0;
-    private final THashMap<K, Collection<V>> map = new THashMap<>(17, 0.75F);
+    private final ObjectObjectHashMap<K, Collection<V>> map = new ObjectObjectHashMap<>(17, 0.75F);
     private boolean neverTrimmed = true;
 
     /**
-     * @param t
-     *        type of axioms contained
-     * @param v
-     *        visitor
-     * @param initialized
-     *        true if initialized
-     * @param i
-     *        internals containing this pointer
+     * @param t type of axioms contained
+     * @param v visitor
+     * @param initialized true if initialized
+     * @param i internals containing this pointer
      */
-    public MapPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v, boolean initialized,
-        @Nonnull Internals i) {
+    public MapPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
+        boolean initialized, @Nonnull Internals i) {
         type = t;
         visitor = v;
         this.initialized = initialized;
@@ -83,20 +83,16 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param e
-     *        entity
-     * @return true if an entity with the same iri as the input exists in the
-     *         collection
+     * @param e entity
+     * @return true if an entity with the same iri as the input exists in the collection
      */
-    public synchronized boolean containsReference(OWLEntity e) {
+    public synchronized boolean containsReference(K e) {
         return map.containsKey(e);
     }
 
     /**
-     * @param e
-     *        IRI
-     * @return true if an entity with the same iri as the input exists in the
-     *         collection
+     * @param e IRI
+     * @return true if an entity with the same iri as the input exists in the collection
      */
     public synchronized boolean containsReference(IRI e) {
         Set<IRI> set = null;
@@ -111,15 +107,18 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     private Set<IRI> initSet() {
         Set<IRI> set = CollectionFactory.createSet();
-        for (K k : map.keySet()) {
-            if (k instanceof OWLEntity) {
-                set.add(((OWLEntity) k).getIRI());
-            } else if (k instanceof IRI) {
-                set.add((IRI) k);
-            }
-        }
+        Consumer<ObjectCursor<K>> k = q -> consumer(set, q);
+        map.keys().forEach(k);
         iris = new SoftReference<>(set);
         return set;
+            }
+
+    protected void consumer(Set<IRI> set, ObjectCursor<K> k) {
+        if (k.value instanceof OWLEntity) {
+            set.add(((OWLEntity) k.value).getIRI());
+        } else if (k.value instanceof IRI) {
+            set.add((IRI) k.value);
+        }
     }
 
     /**
@@ -175,14 +174,15 @@ public class MapPointer<K, V extends OWLAxiom> {
     @Nonnull
     public synchronized Iterable<K> keySet() {
         init();
-        Set<K> keySet = map.keySet();
+        List<K> keySet = new ArrayList<>();
+        ObjectProcedure<K> predicate = keySet::add;
+        map.keys().forEach(predicate);
         assert keySet != null;
         return keySet;
     }
 
     /**
-     * @param key
-     *        key to look up
+     * @param key key to look up
      * @return value
      */
     @Nonnull
@@ -192,20 +192,18 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param <T>
-     *        type of key
-     * @param filter
-     *        filter to satisfy
-     * @param key
-     *        key
+     * @param <T> type of key
+     * @param filter filter to satisfy
+     * @param key key
      * @return set of values
      */
     @Nonnull
-    public synchronized <T> Collection<OWLAxiom> filterAxioms(@Nonnull OWLAxiomSearchFilter filter, @Nonnull T key) {
+    public synchronized <T> Collection<OWLAxiom> filterAxioms(@Nonnull OWLAxiomSearchFilter filter,
+        @Nonnull T key) {
         init();
         List<OWLAxiom> toReturn = new ArrayList<>();
         for (AxiomType<?> at : filter.getAxiomTypes()) {
-            Collection<V> collection = map.get(at);
+            Collection<V> collection = map.get((K) at);
             if (collection != null) {
                 for (OWLAxiom ax : collection) {
                     assert ax != null;
@@ -219,8 +217,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
+     * @param key key to look up
      * @return true if there are values for key
      */
     public synchronized boolean hasValues(K key) {
@@ -229,10 +226,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to add
-     * @param value
-     *        value to add
+     * @param key key to add
+     * @param value value to add
      * @return true if addition happens
      */
     public synchronized boolean put(K key, V value) {
@@ -245,10 +240,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
-     * @param value
-     *        value to remove
+     * @param key key to look up
+     * @param value value to remove
      * @return true if removal happens
      */
     public synchronized boolean remove(K key, V value) {
@@ -260,21 +253,17 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
+     * @param key key to look up
      * @return true if there are values for key
      */
-    @Nonnull
-    public synchronized Boolean containsKey(K key) {
+    public synchronized boolean containsKey(K key) {
         init();
         return map.containsKey(key);
     }
 
     /**
-     * @param key
-     *        key to look up
-     * @param value
-     *        value to look up
+     * @param key key to look up
+     * @param value value to look up
      * @return true if key and value are contained
      */
     public synchronized boolean contains(K key, V value) {
@@ -297,7 +286,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     public synchronized int size() {
         init();
         if (neverTrimmed) {
-            trimToSize();
+            // trimToSize();
         }
         return size;
     }
@@ -310,7 +299,10 @@ public class MapPointer<K, V extends OWLAxiom> {
         return size == 0;
     }
 
-    private boolean putInternal(K k, V v) {
+    private boolean putInternal(@Nullable K k, V v) {
+        if (k == null) {
+            return false;
+        }
         Collection<V> set = map.get(k);
         if (set == null) {
             set = Collections.singleton(v);
@@ -329,7 +321,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             if (set.contains(v)) {
                 return false;
             } else {
-                set = makeSet(set, v);
+                set = new HPPCSet(set, v);
                 map.put(k, set);
                 size++;
                 return true;
@@ -352,7 +344,7 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     private boolean removeInternal(K k, V v) {
         if (neverTrimmed) {
-            trimToSize();
+            // trimToSize();
         }
         Collection<V> t = map.get(k);
         if (t == null) {
@@ -377,43 +369,12 @@ public class MapPointer<K, V extends OWLAxiom> {
         return removed;
     }
 
-    private static class THashSetForSet<E> extends THashSet<E> {
-
-        private boolean constructing = true;
-
-        public THashSetForSet(Collection<E> set, E toAdd, int capacity, float load) {
-            super(capacity, load);
-            for (E e : set) {
-                add(e);
-            }
-            add(toAdd);
-            constructing = false;
-        }
-
-        @Override
-        protected boolean equals(Object notnull, Object two) {
-            // shortcut: during construction from a set, no element is
-            // duplicate. The extra element is also guaranteed to be unique,
-            // given the use made in this class.
-            if (constructing) {
-                return notnull == two;
-            }
-            return super.equals(notnull, two);
-        }
-    }
-
-    private Collection<V> makeSet(Collection<V> collection, V extra) {
-        if (neverTrimmed) {
-            List<V> list = new ArrayList<>(collection);
-            list.add(extra);
-            return list;
-        }
-        return new THashSetForSet<>(collection, extra, DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
-    }
-
     @Nonnull
     private Iterable<V> values() {
-        return Iterables.concat(map.values());
+        List<V> values = new ArrayList<>();
+        ObjectProcedure<? super Collection<V>> p = values::addAll;
+        map.values().forEach(p);
+        return values;
     }
 
     @Nonnull
@@ -426,53 +387,156 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * Trims the capacity of the map entries . An application can use this
-     * operation to minimize the storage of the map pointer instance.
-     */
-    private static AtomicLong totalInUse = new AtomicLong(0);
-    private static AtomicLong totalAllocated = new AtomicLong(0);
-
-    /**
      * Trim internal map to size.
      */
     public synchronized void trimToSize() {
-        if (initialized) {
-            map.trimToSize();
-            neverTrimmed = false;
-            for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
-                Collection<V> set = entry.getValue();
-                if (set instanceof ArrayList) {
-                    THashSet<V> value = new THashSet<>(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
-                    value.addAll(set);
-                    entry.setValue(value);
-                    size = size - set.size() + value.size();
-                    value.trimToSize();
-                } else if (set instanceof THashSet) {
-                    THashSet<V> vs = (THashSet<V>) set;
-                    vs.trimToSize();
-                    totalInUse.addAndGet(set.size());
-                    totalAllocated.addAndGet(vs.capacity());
-                } else if (set instanceof SmallSet<?>) {
-                    totalInUse.addAndGet(set.size());
-                    totalAllocated.addAndGet(3);
-                } else {
-                    totalInUse.addAndGet(1);
-                    totalAllocated.addAndGet(1);
-                }
+        // if (initialized) {
+        // map.trimToSize();
+        // neverTrimmed = false;
+        // for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
+        // Collection<V> set = entry.getValue();
+        // if (set instanceof ArrayList) {
+        // THashSet<V> value =
+        // new THashSet<>(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
+        // value.addAll(set);
+        // entry.setValue(value);
+        // size = size - set.size() + value.size();
+        // value.trimToSize();
+        // } else if (set instanceof THashSet) {
+        // THashSet<V> vs = (THashSet<V>) set;
+        // vs.trimToSize();
+        // totalInUse.addAndGet(set.size());
+        // totalAllocated.addAndGet(vs.capacity());
+        // } else if (set instanceof SmallSet<?>) {
+        // totalInUse.addAndGet(set.size());
+        // totalAllocated.addAndGet(3);
+        // } else {
+        // totalInUse.addAndGet(1);
+        // totalAllocated.addAndGet(1);
+        // }
+        // }
+        // }
+    }
+}
+
+
+class HPPCSet<S> implements Collection<S> {
+    private ObjectHashSet<S> delegate;
+
+    public HPPCSet() {
+        delegate = new ObjectHashSet<>();
+    }
+
+    public HPPCSet(int initialCapacity) {
+        delegate = new ObjectHashSet<>(initialCapacity);
+    }
+
+    public HPPCSet(int initialCapacity, double loadFactor) {
+        delegate = new ObjectHashSet<>(initialCapacity, loadFactor);
+    }
+
+    public HPPCSet(Collection<S> container) {
+        delegate = new ObjectHashSet<>(container.size() + 1);
+        addAll(container);
+    }
+
+    public HPPCSet(Collection<S> container, S s) {
+        delegate = new ObjectHashSet<>(container.size() + 1);
+        addAll(container);
+        add(s);
+            }
+
+    @Override
+    public int size() {
+        return delegate.size();
+        }
+
+        @Override
+    public boolean isEmpty() {
+        return delegate.isEmpty();
+            }
+
+    @Override
+    public boolean contains(@Nullable Object o) {
+        return delegate.contains((S) o);
+        }
+
+    @Override
+    public Iterator<S> iterator() {
+        final ObjectHashSet<S>.EntryIterator iterator = delegate.iterator();
+        return new Iterator<S>() {
+
+            @Override
+            public boolean hasNext() {
+                return iterator.hasNext();
+    }
+
+            @Override
+            public S next() {
+                return iterator.next().value;
+        }
+        };
+    }
+
+    @Override
+    public Object[] toArray() {
+        return delegate.toArray();
+    }
+
+    @Override
+    public <T> T[] toArray(@Nullable T[] a) {
+        throw new UnsupportedOperationException("Not suppoerted for " + getClass());
+        }
+
+    @Override
+    public boolean add(@Nullable S e) {
+        return delegate.add(e);
+    }
+
+    @Override
+    public boolean remove(@Nullable Object o) {
+        return delegate.remove((S) o);
+    }
+
+    @Override
+    public boolean containsAll(@Nullable Collection<?> c) {
+        for (Object o : c) {
+            if (!delegate.contains((S) o)) {
+                return false;
             }
         }
+        return true;
+                }
+
+    @Override
+    public boolean addAll(@Nullable Collection<? extends S> c) {
+        boolean toReturn = false;
+        for (S s : c) {
+            if (add(s)) {
+                toReturn = true;
+            }
+        }
+        return toReturn;
     }
 
-    static void resetCounts() {
-        totalAllocated.set(0);
-        totalInUse.set(0);
+    @Override
+    public boolean removeAll(@Nullable Collection<?> c) {
+        boolean toReturn = false;
+        for (Object s : c) {
+            if (remove(s)) {
+                toReturn = true;
+            }
+        }
+        return toReturn;
     }
 
-    static long getTotalInUse() {
-        return totalInUse.get();
+    @Override
+    public boolean retainAll(@Nullable Collection<?> c) {
+        return delegate.retainAll(new HPPCSet(verifyNotNull(c)).delegate) > 0;
     }
 
-    static long getTotalAllocated() {
-        return totalAllocated.get();
+    @Override
+    public void clear() {
+        this.delegate.clear();
     }
 }

@@ -229,9 +229,6 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import com.google.common.base.Optional;
 
-import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
-import gnu.trove.strategy.IdentityHashingStrategy;
-
 /**
  * An abstract translator that can produce an RDF graph from an OWLOntology. Subclasses must provide
  * implementations to create concrete representations of resources, triples etc.
@@ -252,8 +249,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     protected final IndividualAppearance multipleOccurrences;
     protected final AxiomAppearance axiomOccurrences;
     protected RDFGraph graph = new RDFGraph();
-    private TObjectIntCustomHashMap<Object> blankNodeMap =
-        new TObjectIntCustomHashMap<>(new IdentityHashingStrategy<>());
+    private IdentityHashMap<Object, Integer> blankNodeMap = new IdentityHashMap<>();
     private final AtomicInteger nextBlankNodeId;
     /** Maps Objects to nodes. */
     @Nonnull
@@ -282,9 +278,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Nonnull
     protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId,
         boolean isAxiom) {
-        int id = blankNodeMap.get(key);
-        if (id == 0) {
-            id = nextBlankNodeId.getAndIncrement();
+        Integer id = blankNodeMap.get(key);
+        if (id == null) {
+            id = Integer.valueOf(nextBlankNodeId.getAndIncrement());
             blankNodeMap.put(key, id);
         }
         return new RDFResourceBlankNode(id, isIndividual, needId, isAxiom);

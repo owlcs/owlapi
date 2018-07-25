@@ -18,6 +18,8 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -25,7 +27,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import gnu.trove.map.hash.THashMap;
+import com.carrotsearch.hppcrt.maps.ObjectIntHashMap;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -35,6 +37,7 @@ import gnu.trove.map.hash.THashMap;
 public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     private static final long serialVersionUID = 40000L;
+    static final ObjectIntHashMap<IRI> specialPredicateRanks = initMap();
     @Nonnull private final RDFResource subject;
     @Nonnull private final RDFResourceIRI predicate;
     @Nonnull private final RDFNode object;
@@ -78,6 +81,40 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
             return new RDFResourceBlankNode(iri, true, true, axiom);
         }
         return new RDFResourceIRI(iri);
+    }
+
+    static ObjectIntHashMap<IRI> initMap() {
+        ObjectIntHashMap<IRI> predicates = new ObjectIntHashMap<>();
+        AtomicInteger nextId = new AtomicInteger(1);
+        List<OWLRDFVocabulary> ORDERED_URIS = Arrays.asList(RDF_TYPE, RDFS_LABEL, OWL_DEPRECATED,
+            RDFS_COMMENT, RDFS_IS_DEFINED_BY, RDF_FIRST, RDF_REST, OWL_EQUIVALENT_CLASS,
+            OWL_EQUIVALENT_PROPERTY, RDFS_SUBCLASS_OF, RDFS_SUB_PROPERTY_OF, RDFS_DOMAIN,
+            RDFS_RANGE, OWL_DISJOINT_WITH, OWL_ON_PROPERTY, OWL_DATA_RANGE, OWL_ON_CLASS,
+            OWL_ANNOTATED_SOURCE, OWL_ANNOTATED_PROPERTY, OWL_ANNOTATED_TARGET);
+        ORDERED_URIS.forEach(iri -> predicates.put(iri.getIRI(), nextId.getAndIncrement()));
+        Stream.of(OWLRDFVocabulary.values())
+            .forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId.getAndIncrement()));
+        return predicates;
+    }
+
+    private static int comparePredicates(RDFResourceIRI predicate, RDFResourceIRI otherPredicate) {
+        IRI predicateIRI = predicate.getIRI();
+        int specialPredicateRank = specialPredicateRanks.get(predicateIRI);
+        IRI otherPredicateIRI = otherPredicate.getIRI();
+        int otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
+        if (specialPredicateRank != specialPredicateRanks.getDefaultValue()) {
+            if (otherSpecialPredicateRank != specialPredicateRanks.getDefaultValue()) {
+                return Integer.compare(specialPredicateRank, otherSpecialPredicateRank);
+            } else {
+                return -1;
+            }
+        } else {
+            if (otherSpecialPredicateRank != specialPredicateRanks.getDefaultValue()) {
+                return +1;
+            } else {
+                return predicateIRI.compareTo(otherPredicateIRI);
+            }
+        }
     }
 
     /**
@@ -145,27 +182,6 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         return String.format("%s %s %s.\n", subject, predicate, object);
     }
 
-    private static final List<IRI> ORDERED_URIS = Arrays.asList(RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(), OWL_DEPRECATED
-        .getIRI(), RDFS_COMMENT.getIRI(), RDFS_IS_DEFINED_BY.getIRI(), RDF_FIRST.getIRI(), RDF_REST.getIRI(),
-        OWL_EQUIVALENT_CLASS.getIRI(), OWL_EQUIVALENT_PROPERTY.getIRI(), RDFS_SUBCLASS_OF.getIRI(), RDFS_SUB_PROPERTY_OF
-            .getIRI(), RDFS_DOMAIN.getIRI(), RDFS_RANGE.getIRI(), OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(),
-        OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI(), OWL_ANNOTATED_SOURCE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI(),
-        OWL_ANNOTATED_TARGET.getIRI());
-    static final THashMap<IRI, Integer> specialPredicateRanks = new THashMap<>();
-
-    static {
-        int nextId = 1;
-        for (int i = 0; i < ORDERED_URIS.size(); i++) {
-            specialPredicateRanks.put(ORDERED_URIS.get(i), nextId++);
-        }
-        for (OWLRDFVocabulary vocabulary : OWLRDFVocabulary.values()) {
-            IRI iri = vocabulary.getIRI();
-            if (!specialPredicateRanks.containsKey(iri)) {
-                specialPredicateRanks.put(iri, nextId++);
-            }
-        }
-    }
-
     @Override
     public int compareTo(RDFTriple o) {
         // compare by predicate, then subject, then object
@@ -177,25 +193,5 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
             diff = object.compareTo(o.object);
         }
         return diff;
-    }
-
-    private static int comparePredicates(RDFResourceIRI predicate, RDFResourceIRI otherPredicate) {
-        IRI predicateIRI = predicate.getIRI();
-        Integer specialPredicateRank = specialPredicateRanks.get(predicateIRI);
-        IRI otherPredicateIRI = otherPredicate.getIRI();
-        Integer otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
-        if (specialPredicateRank != null) {
-            if (otherSpecialPredicateRank != null) {
-                return specialPredicateRank - otherSpecialPredicateRank;
-            } else {
-                return -1;
-            }
-        } else {
-            if (otherSpecialPredicateRank != null) {
-                return +1;
-            } else {
-                return predicateIRI.compareTo(otherPredicateIRI);
-            }
-        }
     }
 }
