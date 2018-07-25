@@ -17,22 +17,36 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLDataVisitor;
+import org.semanticweb.owlapi.model.OWLDataVisitorEx;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import com.google.common.base.Optional;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAnonCaching
+    implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_PLAIN_LITERAL =
+        new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final String literal;
     @Nonnull
@@ -54,14 +68,12 @@ public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAn
     }
 
     /**
-     * @param literal
-     *        actual literal form
-     * @param lang
-     *        language for literal, can be null
-     * @param datatype
-     *        datatype for literal
+     * @param literal actual literal form
+     * @param lang language for literal, can be null
+     * @param datatype datatype for literal
      */
-    public OWLLiteralImplNoCompression(@Nonnull String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
+    public OWLLiteralImplNoCompression(@Nonnull String literal, @Nullable String lang,
+        @Nullable OWLDatatype datatype) {
         this.literal = literal;
         if (lang == null || lang.isEmpty()) {
             language = "";
@@ -74,8 +86,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAn
             if (datatype != null && !datatype.isRDFPlainLiteral()) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal
-                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI()
-                    + " and language: " + lang);
+                throw new OWLRuntimeException("Error: cannot build a literal with type: "
+                    + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_PLAIN_LITERAL;
@@ -184,7 +196,13 @@ public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAn
 
     private final int getHashCode() {
         int code = 277;
-        code = code * 37 + getDatatype().hashCode();
+        OWLDatatype datatype2 = getDatatype();
+        if (datatype2.equals(RDF_PLAIN_LITERAL)
+            || datatype2.getIRI().equals(OWL2Datatype.XSD_STRING.getIRI())
+            || datatype2.getIRI().equals(OWLRDFVocabulary.RDF_LANG_STRING.getIRI())) {
+            datatype2 = RDF_PLAIN_LITERAL;
+        }
+        code = code * 37 + datatype2.hashCode();
         code *= 37;
         try {
             if (isInteger()) {
@@ -223,11 +241,22 @@ public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAn
         }
         OWLLiteral other = (OWLLiteral) obj;
         if (other instanceof OWLLiteralImplNoCompression) {
-            return literal.equals(((OWLLiteralImplNoCompression) other).literal) && datatype.equals(other.getDatatype())
+            return literal.equals(((OWLLiteralImplNoCompression) other).literal)
+                && (getDatatype().equals(other.getDatatype())
+                    || OWL2Datatype.XSD_STRING.getIRI().equals(other.getDatatype().getIRI())
+                    || OWLRDFVocabulary.RDF_LANG_STRING.getIRI()
+                        .equals(other.getDatatype().getIRI())
+                    || OWL2Datatype.XSD_STRING.getIRI().equals(getDatatype().getIRI())
+                    || OWLRDFVocabulary.RDF_LANG_STRING.getIRI().equals(getDatatype().getIRI()))
                 && language.equals(other.getLang());
         }
-        return literal.equals(other.getLiteral()) && datatype.equals(other.getDatatype()) && language.equals(other
-            .getLang());
+        return literal.equals(other.getLiteral())
+            && (getDatatype().equals(other.getDatatype())
+                || OWL2Datatype.XSD_STRING.getIRI().equals(other.getDatatype().getIRI())
+                || OWLRDFVocabulary.RDF_LANG_STRING.getIRI().equals(other.getDatatype().getIRI())
+                || OWL2Datatype.XSD_STRING.getIRI().equals(getDatatype().getIRI())
+                || OWLRDFVocabulary.RDF_LANG_STRING.getIRI().equals(getDatatype().getIRI()))
+            && language.equals(other.getLang());
     }
 
     @Override
@@ -289,6 +318,6 @@ public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAn
 
     @Override
     public Optional<OWLLiteral> asLiteral() {
-        return Optional.<OWLLiteral> of(this);
+        return Optional.<OWLLiteral>of(this);
     }
 }

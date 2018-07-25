@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import com.google.common.base.Optional;
 
@@ -145,7 +146,7 @@ public class OWLLiteralImplString implements OWLLiteral {
 
     private final int getHashCode(String lit) {
         int code = 277;
-        code = code * 37 + getDatatype().hashCode();
+        code = code * 37 + OWLLiteralImpl.RDF_PLAIN_LITERAL.hashCode();
         code = code * 37 + lit.hashCode() * 65536;
         if (hasLang()) {
             code = code * 37 + getLang().hashCode();
@@ -165,7 +166,10 @@ public class OWLLiteralImplString implements OWLLiteral {
             return false;
         }
         OWLLiteral other = (OWLLiteral) obj;
-        return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
+        return getLiteral().equals(other.getLiteral())
+            && (getDatatype().equals(other.getDatatype())
+                || OWL2Datatype.RDF_PLAIN_LITERAL.getIRI().equals(other.getDatatype().getIRI())
+                || OWLRDFVocabulary.RDF_LANG_STRING.getIRI().equals(other.getDatatype().getIRI()))
             && getLang().equals(other.getLang());
     }
 

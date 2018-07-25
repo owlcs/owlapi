@@ -45,6 +45,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import com.google.common.base.Optional;
 
@@ -61,13 +62,12 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching imp
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
     @Nonnull
-    private static final OWLDatatype RDF_PLAIN_LITERAL =
+    static final OWLDatatype RDF_PLAIN_LITERAL =
         new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
     private final String language;
-    private final int hashcode;
 
     @Override
     protected int index() {
@@ -101,7 +101,7 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching imp
             language = lang;
             this.datatype = RDF_PLAIN_LITERAL;
         }
-        hashcode = getHashCode(literal);
+        hashCode = getHashCode(literal);
     }
 
     @Override
@@ -199,12 +199,18 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching imp
 
     @Override
     public int hashCode() {
-        return hashcode;
+        return hashCode;
     }
 
     private final int getHashCode(String lit) {
         int code = 277;
-        code = code * 37 + getDatatype().hashCode();
+        OWLDatatype datatype2 = getDatatype();
+        if (datatype2.equals(RDF_PLAIN_LITERAL)
+            || datatype2.getIRI().equals(OWL2Datatype.XSD_STRING.getIRI())
+            || datatype2.getIRI().equals(OWLRDFVocabulary.RDF_LANG_STRING.getIRI())) {
+            datatype2 = RDF_PLAIN_LITERAL;
+        }
+        code = code * 37 + datatype2.hashCode();
         code *= 37;
         try {
             if (isInteger()) {
@@ -242,7 +248,12 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching imp
             return false;
         }
         OWLLiteral other = (OWLLiteral) obj;
-        return literal.get().equals(other.getLiteral()) && datatype.equals(other.getDatatype())
+        return literal.get().equals(other.getLiteral())
+            && (getDatatype().equals(other.getDatatype())
+                || OWL2Datatype.XSD_STRING.getIRI().equals(other.getDatatype().getIRI())
+                || OWLRDFVocabulary.RDF_LANG_STRING.getIRI().equals(other.getDatatype().getIRI())
+                || OWL2Datatype.XSD_STRING.getIRI().equals(getDatatype().getIRI())
+                || OWLRDFVocabulary.RDF_LANG_STRING.getIRI().equals(getDatatype().getIRI()))
             && language.equals(other.getLang());
     }
 

@@ -31,6 +31,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import com.google.common.base.Optional;
 
@@ -159,7 +160,7 @@ public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCachin
 
     private final int getHashCode(String lit) {
         int code = 277;
-        code = code * 37 + getDatatype().hashCode();
+        code = code * 37 + RDF_PLAIN_LITERAL.hashCode();
         code = code * 37 + lit.hashCode() * 65536;
         if (hasLang()) {
             code = code * 37 + getLang().hashCode();
@@ -183,7 +184,10 @@ public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCachin
             return literal.equals(((OWLLiteralImplPlain) other).literal)
                 && lang.equals(other.getLang());
         }
-        return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
+        return getLiteral().equals(other.getLiteral())
+            && (getDatatype().equals(other.getDatatype())
+                || OWL2Datatype.XSD_STRING.getIRI().equals(other.getDatatype().getIRI())
+                || OWLRDFVocabulary.RDF_LANG_STRING.getIRI().equals(other.getDatatype().getIRI()))
             && lang.equals(other.getLang());
     }
 
