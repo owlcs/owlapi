@@ -15,12 +15,10 @@ import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
 /**
- * Matthew Horridge Stanford Center for Biomedical Informatics Research 09/04/15
- * A priority collection that supports concurrent reading and writing through a
- * {@link ReadWriteLock}
+ * Matthew Horridge Stanford Center for Biomedical Informatics Research 09/04/15 A priority
+ * collection that supports concurrent reading and writing through a {@link ReadWriteLock}
  * 
- * @param <T>
- *        type in the collection
+ * @param <T> type in the collection
  */
 public class ConcurrentPriorityCollection<T extends Serializable> extends PriorityCollection<T> {
 
@@ -28,14 +26,14 @@ public class ConcurrentPriorityCollection<T extends Serializable> extends Priori
     private final Lock writeLock;
 
     /**
-     * Constructs a {@link ConcurrentPriorityCollection} using the specified
-     * {@link ReadWriteLock}
+     * Constructs a {@link ConcurrentPriorityCollection} using the specified {@link ReadWriteLock}
      * 
-     * @param readWriteLock
-     *        The {@link java.util.concurrent.locks.ReadWriteLock} that should
-     *        be used for locking.
+     * @param readWriteLock The {@link java.util.concurrent.locks.ReadWriteLock} that should be used
+     *        for locking.
+     * @param sorting sorting approach
      */
-    public ConcurrentPriorityCollection(@Nonnull ReadWriteLock readWriteLock, PriorityCollectionSorting sorting) {
+    public ConcurrentPriorityCollection(@Nonnull ReadWriteLock readWriteLock,
+        PriorityCollectionSorting sorting) {
         super(sorting);
         verifyNotNull(readWriteLock);
         this.readLock = readWriteLock.readLock();

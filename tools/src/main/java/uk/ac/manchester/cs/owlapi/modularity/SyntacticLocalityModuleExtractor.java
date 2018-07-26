@@ -238,6 +238,13 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         this(man, ontIRI, axs, moduleType, false);
     }
 
+    /**
+     * @param man manager
+     * @param ontIRI ontology IRI
+     * @param axs axioms
+     * @param moduleType module type
+     * @param excludeAssertions exclude assertions
+     */
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man, IRI ontIRI,
         @Nonnull Set<OWLAxiom> axs, @Nonnull ModuleType moduleType, boolean excludeAssertions) {
         this.moduleType = checkNotNull(moduleType, "moduleType cannot be null");

@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>4.5.3-SNAPSHOT</version>
+		<version>4.5.4</version>
 	</parent>
 
 	<properties>
@@ -58,9 +58,6 @@
 		<dependency><groupId>commons-io</groupId><artifactId>commons-io</artifactId><version>2.5</version></dependency>
 		<dependency><groupId>com.github.vsonnier</groupId><artifactId>hppcrt</artifactId><version>0.7.5</version></dependency>
 		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>18.0</version></dependency>
-		<dependency><groupId>com.google.inject</groupId><artifactId>guice</artifactId><version>4.0</version></dependency>
-		<dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-assistedinject</artifactId><version>4.0</version></dependency>
-		<dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-multibindings</artifactId><version>4.0</version></dependency>
 		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.5.6</version></dependency>
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-sesame</artifactId><version>0.7</version></dependency>
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-core</artifactId><version>0.7</version></dependency>
@@ -69,8 +66,6 @@
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.apache.felix.framework</artifactId><version>5.6.10</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.osgi.core</artifactId><version>1.4.0</version><scope>test</scope></dependency>
 		<!-- Required to allow guice to work as a bundle -->
-		<dependency><groupId>org.apache.servicemix.bundles</groupId><artifactId>org.apache.servicemix.bundles.javax-inject</artifactId><version>1_2</version></dependency>
-		<dependency><groupId>org.apache.servicemix.bundles</groupId><artifactId>org.apache.servicemix.bundles.aopalliance</artifactId><version>1.0_6</version></dependency>
 		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId><version>1.7.22</version><scope>test</scope></dependency>
 	</dependencies>
 
@@ -100,14 +95,12 @@
 							groupId=org.semarglproject;scope=compile|runtime|provided;inline=false,
 							groupId=org.tukaani;scope=compile|runtime|provided;inline=false,
 							groupId=commons-*;scope=compile|runtime|provided;inline=false,
-							groupId=javax.inject;scope=compile|runtime|provided;inline=false,
 							jsr305;scope=compile|runtime|provided;inline=false,
 							caffeine;scope=compile|runtime|provided;inline=false
 						</Embed-Dependency>
 						<excludeDependencies>
 							groupId=commons-*;scope=compile|runtime|provided,
 							groupId=com.google.guava;scope=compile|runtime|provided,
-							groupId=com.google.inject*;scope=compile|runtime|provided,
 							slf4j-api;scope=compile|runtime|provided,
 							slf4j-simple;scope=compile|runtime|provided
 						</excludeDependencies>
@@ -124,7 +117,6 @@
 						</_exportcontents>
 						<Import-Package>
 							!sun.misc,
-							!com.google.inject.internal.*;resolution:=optional,
 							!javax.servlet,
 							!org.apache.avalon.framework.logger,
 							!org.apache.log*,
@@ -142,11 +134,7 @@
 							com.google.common.collect;version="[18.0,22)",
 							com.google.common.io;version="[18.0,22)",
 							com.google.common.util.concurrent;version="[18.0,22)",
-							javax.inject;version="[1.0,2)",
-							com.google.inject;version="[1.4,2)",
-							com.google.inject.assistedinject;version="[1.4,2)",
-							com.google.inject.binder;version="[1.4,2)",
-							com.google.inject.multibindings;version="[1.4,2)",
+							!javax.inject;version="[1.0,2)",
 							javax.annotation;version=!,
 							*
 						</Import-Package>
@@ -188,10 +176,6 @@
 									<exclude>org.semarglproject:*</exclude>
 									<exclude>com.github.ben-manes.caffeine:*</exclude>
 									<exclude>com.google.guava:*</exclude>
-									<exclude>com.google.inject:*</exclude>
-									<exclude>javax.inject:*</exclude>
-									<exclude>aopalliance:*</exclude>
-									<exclude>com.google.inject.extensions:*</exclude>
 									<exclude>com.google.code.findbugs:*</exclude>
 									<exclude>org.slf4j:slf4j-api</exclude>
 									<exclude>commons-io:*</exclude>

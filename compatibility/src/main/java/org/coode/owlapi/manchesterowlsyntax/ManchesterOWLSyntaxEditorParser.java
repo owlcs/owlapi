@@ -16,74 +16,54 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-import com.google.inject.Provider;
-
 /**
- * A parser for the Manchester OWL Syntax. All properties must be defined before
- * they are used. For example, consider the restriction hasPart some Leg. The
- * parser must know in advance whether or not hasPart is an object property or a
- * data property so that Leg gets parsed correctly. In a tool, such as an
- * editor, it is expected that hasPart will already exists as either a data
- * property or an object property. If a complete ontology is being parsed, it is
- * expected that hasPart will have been defined at the top of the file before it
- * is used in any class expressions or property assertions (e.g. ObjectProperty:
- * hasPart)
+ * A parser for the Manchester OWL Syntax. All properties must be defined before they are used. For
+ * example, consider the restriction hasPart some Leg. The parser must know in advance whether or
+ * not hasPart is an object property or a data property so that Leg gets parsed correctly. In a
+ * tool, such as an editor, it is expected that hasPart will already exists as either a data
+ * property or an object property. If a complete ontology is being parsed, it is expected that
+ * hasPart will have been defined at the top of the file before it is used in any class expressions
+ * or property assertions (e.g. ObjectProperty: hasPart)
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Sep-2007
- * @deprecated use
- *             org.semanticweb.owlapi.apibinding.OWLManager#createManchesterParser
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         10-Sep-2007
+ * @deprecated use org.semanticweb.owlapi.apibinding.OWLManager#createManchesterParser
  */
 @Deprecated
-public class ManchesterOWLSyntaxEditorParser extends
-        ManchesterOWLSyntaxParserImpl {
+public class ManchesterOWLSyntaxEditorParser extends ManchesterOWLSyntaxParserImpl {
 
     /**
-     * @param dataFactory
-     *        dataFactory
-     * @param s
-     *        s
+     * @param dataFactory dataFactory
+     * @param s s
      */
-    public ManchesterOWLSyntaxEditorParser(@Nonnull OWLDataFactory dataFactory,
-            @Nonnull String s) {
+    public ManchesterOWLSyntaxEditorParser(@Nonnull OWLDataFactory dataFactory, @Nonnull String s) {
         this(new OWLOntologyLoaderConfiguration(), dataFactory, s);
     }
 
     /**
-     * @param configuration
-     *        configuration
-     * @param dataFactory
-     *        dataFactory
-     * @param s
-     *        s
+     * @param configuration configuration
+     * @param dataFactory dataFactory
+     * @param s s
      */
-    public ManchesterOWLSyntaxEditorParser(
-            final OWLOntologyLoaderConfiguration configuration,
-            @Nonnull OWLDataFactory dataFactory, @Nonnull String s) {
-        super(new Provider<OWLOntologyLoaderConfiguration>() {
-
-            @Override
-            public OWLOntologyLoaderConfiguration get() {
-                return configuration;
-            }
-        }, dataFactory);
+    public ManchesterOWLSyntaxEditorParser(final OWLOntologyLoaderConfiguration configuration,
+        @Nonnull OWLDataFactory dataFactory, @Nonnull String s) {
+        super(new OWLAPIConfigProvider(), dataFactory);
         setStringToParse(s);
     }
 
     /**
-     * @param b
-     *        unused
+     * @param b unused
      * @return set of class expressions
      * @deprecated use {@link #parseClassExpressionList()}
      */
     @Deprecated
-    public Set<OWLClassExpression> parseClassExpressionList(
-            @SuppressWarnings("unused") boolean b) {
+    public Set<OWLClassExpression> parseClassExpressionList(@SuppressWarnings("unused") boolean b) {
         return parseClassExpressionList();
     }
 }

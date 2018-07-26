@@ -9,7 +9,16 @@ import java.util.stream.Collectors;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
+/**
+ * Accept header builder.
+ * 
+ * @author ignazio
+ */
 public class AcceptHeaderBuilder {
+    /**
+     * @param parsers parsers to inspect
+     * @return accept headers from all parsers
+     */
     public static String headersFromParsers(PriorityCollection<OWLParserFactory> parsers) {
         Map<String, TreeSet<Integer>> map = new HashMap<>();
         parsers.forEach(p -> addToMap(map, p.getMIMETypes()));

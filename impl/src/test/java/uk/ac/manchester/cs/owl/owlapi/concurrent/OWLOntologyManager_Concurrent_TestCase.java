@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.function.Supplier;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +58,6 @@ import org.semanticweb.owlapi.model.OWLStorerFactory;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.google.inject.Provider;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
@@ -735,7 +735,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_setOntologyLoaderConfigurationProvider_with_writeLock() {
-        Provider<OWLOntologyLoaderConfiguration> arg0 = mock(Provider.class);
+        Supplier<OWLOntologyLoaderConfiguration> arg0 = mock(Supplier.class);
         manager.setOntologyLoaderConfigurationProvider(arg0);
         verifyWriteLock_LockUnlock();
     }

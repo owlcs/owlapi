@@ -13,14 +13,19 @@
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
- * @param <N>
- *        type of elements
+ * @param <N> type of elements
  */
 public class MutableTree<N> implements Tree<N> {
 
@@ -31,20 +36,13 @@ public class MutableTree<N> implements Tree<N> {
     private NodeRenderer<N> toStringRenderer;
 
     /**
-     * @param userObject
-     *        the user object
+     * @param userObject the user object
      */
     public MutableTree(N userObject) {
         this.userObject = userObject;
         children = new ArrayList<>();
         child2EdgeMap = new HashMap<>();
-        toStringRenderer = new NodeRenderer<N>() {
-
-            @Override
-            public String render(Tree<N> object) {
-                return object.toString();
-            }
-        };
+        toStringRenderer = object -> object.toString();
     }
 
     @Override
@@ -53,8 +51,7 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     /**
-     * @param parent
-     *        the new parent
+     * @param parent the new parent
      */
     public void setParent(MutableTree<N> parent) {
         if (this.parent != null) {
@@ -65,8 +62,7 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     /**
-     * @param child
-     *        child to add
+     * @param child child to add
      */
     public void addChild(MutableTree<N> child) {
         children.add(child);
@@ -74,10 +70,8 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     /**
-     * @param child
-     *        child to add
-     * @param edge
-     *        the edge
+     * @param child child to add
+     * @param edge the edge
      */
     public void addChild(MutableTree<N> child, Object edge) {
         addChild(child);
@@ -85,8 +79,7 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     /**
-     * @param child
-     *        child to remove
+     * @param child child to remove
      */
     public void removeChild(MutableTree<N> child) {
         children.remove(child);
@@ -117,7 +110,7 @@ public class MutableTree<N> implements Tree<N> {
 
     @Override
     public List<Tree<N>> getChildren() {
-        return new ArrayList<Tree<N>>(children);
+        return new ArrayList<>(children);
     }
 
     @Override
@@ -233,8 +226,7 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     /**
-     * @param tree
-     *        the node to put in place of this one
+     * @param tree the node to put in place of this one
      */
     public void replace(MutableTree<N> tree) {
         parent.children.remove(this);

@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.lang.reflect.Field;
@@ -41,12 +42,23 @@ public class OWLManagerTestCase extends TestBase {
     }
 
     @Test
-    public void shouldShareReadWriteLock() throws Exception {
+    public void shouldShareReadLock() throws Exception {
         // Nasty, but not sure of another way to do this without exposing it in
         // the interface
-        Field ontologyLockField = ConcurrentOWLOntologyImpl.class.getDeclaredField("readWriteLock");
+        Field ontologyLockField = ConcurrentOWLOntologyImpl.class.getDeclaredField("readLock");
         ontologyLockField.setAccessible(true);
-        Field ontologyManagerField = OWLOntologyManagerImpl.class.getDeclaredField("readWriteLock");
+        Field ontologyManagerField = OWLOntologyManagerImpl.class.getDeclaredField("readLock");
+        ontologyManagerField.setAccessible(true);
+        assertThat(ontologyLockField.get(ontology), is(ontologyManagerField.get(manager)));
+    }
+
+    @Test
+    public void shouldShareWriteLock() throws Exception {
+        // Nasty, but not sure of another way to do this without exposing it in
+        // the interface
+        Field ontologyLockField = ConcurrentOWLOntologyImpl.class.getDeclaredField("writeLock");
+        ontologyLockField.setAccessible(true);
+        Field ontologyManagerField = OWLOntologyManagerImpl.class.getDeclaredField("writeLock");
         ontologyManagerField.setAccessible(true);
         assertThat(ontologyLockField.get(ontology), is(ontologyManagerField.get(manager)));
     }

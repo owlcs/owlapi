@@ -13,7 +13,26 @@
 package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_SOURCE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_TARGET;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATA_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DEPRECATED;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISJOINT_WITH;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_EQUIVALENT_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_EQUIVALENT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_COMMENT;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DOMAIN;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_IS_DEFINED_BY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUBCLASS_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUB_PROPERTY_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_FIRST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_REST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -30,46 +49,43 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import com.carrotsearch.hppcrt.maps.ObjectIntHashMap;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
 public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     private static final long serialVersionUID = 40000L;
     static final ObjectIntHashMap<IRI> specialPredicateRanks = initMap();
-    @Nonnull private final RDFResource subject;
-    @Nonnull private final RDFResourceIRI predicate;
-    @Nonnull private final RDFNode object;
+    @Nonnull
+    private final RDFResource subject;
+    @Nonnull
+    private final RDFResourceIRI predicate;
+    @Nonnull
+    private final RDFNode object;
 
     /**
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
      */
-    public RDFTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI predicate, @Nonnull RDFNode object) {
+    public RDFTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI predicate,
+        @Nonnull RDFNode object) {
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.predicate = checkNotNull(predicate, "predicate cannot be null");
         this.object = checkNotNull(object, "object cannot be null");
     }
 
     /**
-     * @param subject
-     *        the subject
-     * @param subjectAnon
-     *        whether the subject is anonymous
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
-     * @param objectAnon
-     *        whether the object is anonymous
+     * @param subject the subject
+     * @param subjectAnon whether the subject is anonymous
+     * @param subjectAxiom true if subject is an axiom
+     * @param predicate the predicate
+     * @param object the object
+     * @param objectAnon whether the object is anonymous
+     * @param objectAxiom true if object is an axiom
      */
-    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, boolean subjectAxiom, @Nonnull IRI predicate, @Nonnull IRI object,
-        boolean objectAnon, boolean objectAxiom) {
+    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, boolean subjectAxiom,
+        @Nonnull IRI predicate, @Nonnull IRI object, boolean objectAnon, boolean objectAxiom) {
         this(getResource(subject, subjectAnon, subjectAxiom),
             // Predicate is not allowed to be anonymous
             new RDFResourceIRI(predicate), getResource(object, objectAnon, objectAxiom));
@@ -118,17 +134,16 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     }
 
     /**
-     * @param subject
-     *        the subject
-     * @param subjectAnon
-     *        whether the subject is anonymous
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
+     * @param subject the subject
+     * @param subjectAnon whether the subject is anonymous
+     * @param axiom true if axiom
+     * @param predicate the predicate
+     * @param object the object
      */
-    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, boolean axiom, @Nonnull IRI predicate, @Nonnull OWLLiteral object) {
-        this(getResource(subject, subjectAnon, axiom), new RDFResourceIRI(predicate), new RDFLiteral(object));
+    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, boolean axiom,
+        @Nonnull IRI predicate, @Nonnull OWLLiteral object) {
+        this(getResource(subject, subjectAnon, axiom), new RDFResourceIRI(predicate),
+            new RDFLiteral(object));
     }
 
     /** @return true if subject and object are the same */
@@ -174,7 +189,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
             return false;
         }
         RDFTriple other = (RDFTriple) obj;
-        return subject.equals(other.subject) && predicate.equals(other.predicate) && object.equals(other.object);
+        return subject.equals(other.subject) && predicate.equals(other.predicate)
+            && object.equals(other.object);
     }
 
     @Override

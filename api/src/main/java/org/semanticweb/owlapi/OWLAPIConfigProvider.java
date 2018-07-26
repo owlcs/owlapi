@@ -13,18 +13,15 @@
 package org.semanticweb.owlapi;
 
 import java.io.Serializable;
+import java.util.function.Supplier;
 
-import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-
-import com.google.inject.Provider;
 
 /**
  * Default configuration provider.
  */
-@OwlapiModule
-public class OWLAPIConfigProvider implements
-        Provider<OWLOntologyLoaderConfiguration>, Serializable {
+public class OWLAPIConfigProvider
+    implements Supplier<OWLOntologyLoaderConfiguration>, Serializable {
 
     private static final long serialVersionUID = 40000L;
 

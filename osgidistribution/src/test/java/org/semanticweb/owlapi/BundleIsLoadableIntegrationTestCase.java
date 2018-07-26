@@ -35,8 +35,8 @@ public class BundleIsLoadableIntegrationTestCase {
     @Test
     public void startBundle() throws BundleException, ClassNotFoundException,
         IllegalAccessException, InstantiationException {
-        System.out.println("BundleIsLoadableIntegrationTestCase.startBundle() "
-            + System.getProperty("java.class.path"));
+//        System.out.println("BundleIsLoadableIntegrationTestCase.startBundle() "
+//            + System.getProperty("java.class.path"));
         Map<String, String> configuration = new HashMap<>();
         configuration.put("org.osgi.framework.storage.clean", "onFirstInit");
         configuration.put("felix.log.level", "4");
@@ -66,8 +66,7 @@ public class BundleIsLoadableIntegrationTestCase {
         assertNotNull("context is null", context);
         List<String> bundles = Arrays.asList("org.apache.servicemix.bundles.javax-inject",
             "org.apache.servicemix.bundles.aopalliance", "slf4j-simple", "slf4j-api", "caffeine",
-            "guava", "jsr305", "guice-multibindings", "guice-assistedinject", "guice-4",
-            "commons-io", "commons-codec", "jcl-over-slf4j");
+            "guava", "jsr305", "commons-io", "commons-codec", "jcl-over-slf4j");
         for (String bundleName : bundles) {
             try {
                 String simple = getJarURL(bundleName);
@@ -113,7 +112,7 @@ public class BundleIsLoadableIntegrationTestCase {
             for (URL url : ((URLClassLoader) classLoader).getURLs()) {
                 String string = url.toString();
                 if (string.contains(jarNameFragment)) {
-                    System.out.println("BundleIsLoadableIntegrationTestCase.getJarURL() " + string);
+                  //  System.out.println("BundleIsLoadableIntegrationTestCase.getJarURL() " + string);
                     return string;
                 }
             }

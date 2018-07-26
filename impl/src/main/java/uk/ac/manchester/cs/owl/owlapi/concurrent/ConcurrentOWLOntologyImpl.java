@@ -109,7 +109,6 @@ import uk.ac.manchester.cs.owl.owlapi.HasTrimToSize;
 public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToSize {
 
     private final OWLOntology delegate;
-    private final ReadWriteLock readWriteLock;
     private final Lock readLock;
     private final Lock writeLock;
 
@@ -126,7 +125,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     public ConcurrentOWLOntologyImpl(@Nonnull OWLOntology delegate,
         @Nonnull ReadWriteLock readWriteLock) {
         this.delegate = verifyNotNull(delegate);
-        this.readWriteLock = verifyNotNull(readWriteLock);
         readLock = verifyNotNull(readWriteLock).readLock();
         writeLock = verifyNotNull(readWriteLock).writeLock();
     }

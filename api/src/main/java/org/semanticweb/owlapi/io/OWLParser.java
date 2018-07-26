@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * methods. <br>
  * {@code OWLParser} implementations are supposed to be stateless, and therefore
  * immutable. By default, implementation factories are injected in
- * OWLOntologyManager instances by a Guice injector at creation in OWLManager.
+ * OWLOntologyManager instances at creation in OWLManager.
  * This is not mandatory, and a specific manager can have different
  * implementations injected at any time after creation.<br>
  * OWLParsers are typically used by {@link OWLOntologyManager

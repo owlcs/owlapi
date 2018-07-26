@@ -37,10 +37,7 @@ package org.semanticweb.owlapi.rio;
 
 import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.RDFParserFactory;
-import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import org.semanticweb.owlapi.utilities.Injector;
 
 /**
  * {@link RDFParserFactory} that creates RDF statements from OWL Ontologies. It
@@ -51,8 +48,7 @@ import com.google.inject.Injector;
  */
 public abstract class RioAbstractParserFactory implements RDFParserFactory {
 
-    private static final Injector INJECTOR = Guice
-            .createInjector(new OWLAPIServiceLoaderModule());
+    private static final Injector INJECTOR = new Injector();
 
     @Override
     public abstract OWLAPIRDFFormat getRDFFormat();
@@ -60,7 +56,7 @@ public abstract class RioAbstractParserFactory implements RDFParserFactory {
     @Override
     public RDFParser getParser() {
         RioOWLRDFParser rioOWLRDFParser = new RioOWLRDFParser(getRDFFormat());
-        INJECTOR.injectMembers(rioOWLRDFParser);
+        INJECTOR.inject(rioOWLRDFParser);
         return rioOWLRDFParser;
     }
 }

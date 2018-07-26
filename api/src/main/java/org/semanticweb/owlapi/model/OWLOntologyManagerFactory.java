@@ -13,10 +13,9 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
-
-import com.google.inject.Provider;
 
 /**
  * An ontology manager factory is responsible from creating new ontology
@@ -25,8 +24,7 @@ import com.google.inject.Provider;
  * @author ignazio
  * @since 4.0.0
  */
-public interface OWLOntologyManagerFactory extends Serializable,
-        Provider<OWLOntologyManager> {
+public interface OWLOntologyManagerFactory extends Serializable, Supplier<OWLOntologyManager> {
 
     /**
      * Creates a new ontology manager.

@@ -4,12 +4,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImplementationFactory;
 
-import javax.annotation.Nonnull;
-import javax.inject.Inject;
-
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
 /**
  * Matthew Horridge
@@ -18,16 +14,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
  */
 public class NonConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
-    private transient final OWLOntologyImplementationFactory implementationFactory;
-
-    @Inject
-    public NonConcurrentOWLOntologyBuilder(@Nonnull OWLOntologyImplementationFactory implementationFactory) {
-        this.implementationFactory = verifyNotNull(implementationFactory);
-    }
-
-    @Nonnull
     @Override
-    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntologyID ontologyID) {
-        return implementationFactory.createOWLOntology(manager, ontologyID);
+    public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID) {
+        return new OWLOntologyImpl(manager, ontologyID);
     }
 }

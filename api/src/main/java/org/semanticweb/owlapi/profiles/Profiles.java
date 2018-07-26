@@ -24,8 +24,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-import com.google.inject.Provides;
-
 /*
  * Not a pretty pattern but I didn't want to have long strings repeated across
  * constructors, and no static constants are allowed before members declaration
@@ -93,11 +91,10 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     }
 
     /**
-     * factory method for OWLProfile checkers
+     * Factory method for OWLProfile checkers.
      * 
      * @return profile checker for this profile
      */
-    @Provides
     public abstract OWLProfile getOWLProfile();
 
     /**

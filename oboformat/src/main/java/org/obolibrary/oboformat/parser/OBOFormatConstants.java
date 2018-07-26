@@ -29,10 +29,19 @@ public class OBOFormatConstants {
         return f.applyAsInt(t);
     }
 
+    /**
+     * header priority comparator
+     */
     public static Comparator<String> headerPriority = (a, b) -> Integer
         .compare(map(a, OboFormatTag::headerPriority), map(b, OboFormatTag::headerPriority));
+    /**
+     * tag priority comparator
+     */
     public static Comparator<String> tagPriority = (a, b) -> Integer
         .compare(map(a, OboFormatTag::tagPriority), map(b, OboFormatTag::tagPriority));
+    /**
+     * typedef priority comparator
+     */
     public static Comparator<String> typeDefPriority = (a, b) -> Integer
         .compare(map(a, OboFormatTag::typeDefPriority), map(b, OboFormatTag::typeDefPriority));
     /**
@@ -185,14 +194,23 @@ public class OBOFormatConstants {
             typeDefTagsPriority = typedef;
         }
 
+        /**
+         * @return header priority
+         */
         public int headerPriority() {
             return headerTagsPriority;
         }
 
+        /**
+         * @return tag priority
+         */
         public int tagPriority() {
             return tagsPriority;
         }
 
+        /**
+         * @return typedef priority
+         */
         public int typeDefPriority() {
             return typeDefTagsPriority;
         }

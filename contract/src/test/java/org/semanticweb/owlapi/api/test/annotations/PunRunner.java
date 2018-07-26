@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 /**
  * Created by ses on 3/2/15.
  */
+@SuppressWarnings("javadoc")
 public class PunRunner extends org.junit.runner.Runner {
 
     private final Class<?> testClass;
@@ -51,7 +52,7 @@ public class PunRunner extends org.junit.runner.Runner {
         Class<? extends PrefixDocumentFormat> formatClass;
 
         public TestSetting(Class<? extends PrefixDocumentFormat> formatClass,
-                OWLEntity... entities) {
+            OWLEntity... entities) {
             this.formatClass = formatClass;
             this.entities = entities;
         }
@@ -68,15 +69,12 @@ public class PunRunner extends org.junit.runner.Runner {
     }
 
     private void addAllTests() {
-        DefaultPrefixManager pm = new DefaultPrefixManager(null, null,
-                "http://localhost#");
+        DefaultPrefixManager pm = new DefaultPrefixManager(null, null, "http://localhost#");
         OWLDataFactory df = OWLManager.getOWLDataFactory();
-        List<? extends OWLEntity> entities = Arrays.asList(
-                df.getOWLClass("a", pm), df.getOWLDatatype("a", pm),
-                df.getOWLAnnotationProperty("a", pm),
-                df.getOWLDataProperty("a", pm),
-                df.getOWLObjectProperty("a", pm),
-                df.getOWLNamedIndividual("a", pm));
+        List<? extends OWLEntity> entities =
+            Arrays.asList(df.getOWLClass("a", pm), df.getOWLDatatype("a", pm),
+                df.getOWLAnnotationProperty("a", pm), df.getOWLDataProperty("a", pm),
+                df.getOWLObjectProperty("a", pm), df.getOWLNamedIndividual("a", pm));
         List<Class<? extends PrefixDocumentFormat>> formats = new ArrayList<>();
         formats.add(RDFXMLDocumentFormat.class);
         formats.add(TurtleDocumentFormat.class);
@@ -92,25 +90,21 @@ public class PunRunner extends org.junit.runner.Runner {
                     if (i1 > -1) {
                         formatClassName = formatClassName.substring(i1 + 1);
                     }
-                    String name = String.format("%sVs%sFor%s",
-                            e1.getEntityType(), e2.getEntityType(),
-                            formatClassName);
-                    Description testDescription = Description
-                            .createTestDescription(testClass, name);
-                    testSettings.put(testDescription, new TestSetting(
-                            formatClass, e1, e2));
+                    String name = String.format("%sVs%sFor%s", e1.getEntityType(),
+                        e2.getEntityType(), formatClassName);
+                    Description testDescription =
+                        Description.createTestDescription(testClass, name);
+                    testSettings.put(testDescription, new TestSetting(formatClass, e1, e2));
                     suiteDescription.addChild(testDescription);
                 }
             }
             String name = "multiPun for " + formatClass.getName();
-            Description testDescription = Description.createTestDescription(
-                    testClass, name);
+            Description testDescription = Description.createTestDescription(testClass, name);
             suiteDescription.addChild(testDescription);
-            TestSetting setting = new TestSetting(formatClass, df.getOWLClass(
-                    "a", pm), df.getOWLDatatype("a", pm),
-                    df.getOWLAnnotationProperty("a", pm),
-                    df.getOWLDataProperty("a", pm), df.getOWLObjectProperty(
-                            "a", pm), df.getOWLNamedIndividual("a", pm));
+            TestSetting setting =
+                new TestSetting(formatClass, df.getOWLClass("a", pm), df.getOWLDatatype("a", pm),
+                    df.getOWLAnnotationProperty("a", pm), df.getOWLDataProperty("a", pm),
+                    df.getOWLObjectProperty("a", pm), df.getOWLNamedIndividual("a", pm));
             testSettings.put(testDescription, setting);
         }
     }
@@ -118,20 +112,18 @@ public class PunRunner extends org.junit.runner.Runner {
     /**
      * Run the tests for this runner.
      *
-     * @param notifier
-     *        will be notified of events while tests are being run--tests being
-     *        started, finishing, and failing
+     * @param notifier will be notified of events while tests are being run--tests being started,
+     *        finishing, and failing
      */
     @Override
     public void run(RunNotifier notifier) {
-        for (Map.Entry<Description, TestSetting> entry : testSettings
-                .entrySet()) {
+        for (Map.Entry<Description, TestSetting> entry : testSettings.entrySet()) {
             Description description = entry.getKey();
             notifier.fireTestStarted(description);
             try {
                 TestSetting setting = entry.getValue();
-                runTestForAnnotationsOnPunnedEntitiesForFormat(
-                        setting.formatClass, setting.entities);
+                runTestForAnnotationsOnPunnedEntitiesForFormat(setting.formatClass,
+                    setting.entities);
             } catch (Throwable t) {
                 notifier.fireTestFailure(new Failure(description, t));
             } finally {
@@ -141,92 +133,71 @@ public class PunRunner extends org.junit.runner.Runner {
     }
 
     /**
-     * @param formatClass
-     *        format class
-     * @param entities
-     *        entities
-     * @throws OWLOntologyCreationException
-     *         ontology cannot be created
-     * @throws OWLOntologyStorageException
-     *         ontology cannot be stored
-     * @throws IllegalAccessException
-     *         class cannot be accessed
-     * @throws InstantiationException
-     *         class cannot be instantiated
+     * @param formatClass format class
+     * @param entities entities
+     * @throws OWLOntologyCreationException ontology cannot be created
+     * @throws OWLOntologyStorageException ontology cannot be stored
+     * @throws IllegalAccessException class cannot be accessed
+     * @throws InstantiationException class cannot be instantiated
      */
     public void runTestForAnnotationsOnPunnedEntitiesForFormat(
-            Class<? extends PrefixDocumentFormat> formatClass,
-            OWLEntity... entities) throws OWLOntologyCreationException,
-            OWLOntologyStorageException, IllegalAccessException,
-            InstantiationException {
+        Class<? extends PrefixDocumentFormat> formatClass, OWLEntity... entities)
+        throws OWLOntologyCreationException, OWLOntologyStorageException, IllegalAccessException,
+        InstantiationException {
         OWLOntologyManager ontologyManager;
         OWLDataFactory df;
         synchronized (OWLManager.class) {
             ontologyManager = OWLManager.createOWLOntologyManager();
             df = ontologyManager.getOWLDataFactory();
         }
-        OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty(
-                ":ap",
-                new DefaultPrefixManager(null, null, "http://localhost#"));
-        OWLOntology o = makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
-                annotationProperty, ontologyManager, entities);
+        OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty(":ap",
+            new DefaultPrefixManager(null, null, "http://localhost#"));
+        OWLOntology o = makeOwlOntologyWithDeclarationsAndAnnotationAssertions(annotationProperty,
+            ontologyManager, entities);
         for (int i = 0; i < 10; i++) {
             PrefixDocumentFormat format = formatClass.newInstance();
-            format.setPrefixManager(new DefaultPrefixManager(null, null,
-                    "http://localhost#"));
-            ByteArrayInputStream in = saveForRereading(o, format,
-                    ontologyManager);
+            format.setPrefixManager(new DefaultPrefixManager(null, null, "http://localhost#"));
+            ByteArrayInputStream in = saveForRereading(o, format, ontologyManager);
             ontologyManager.removeOntology(o);
             o = ontologyManager.loadOntologyFromOntologyDocument(in);
         }
         assertEquals("annotationCount", entities.length,
-                o.getAxioms(AxiomType.ANNOTATION_ASSERTION).size());
+            o.getAxioms(AxiomType.ANNOTATION_ASSERTION).size());
     }
 
     /**
-     * @param annotationProperty
-     *        annotation property
-     * @param manager
-     *        manager
-     * @param entities
-     *        entities
+     * @param annotationProperty annotation property
+     * @param manager manager
+     * @param entities entities
      * @return new ontology
-     * @throws OWLOntologyCreationException
-     *         if the ontology cannot be created
+     * @throws OWLOntologyCreationException if the ontology cannot be created
      */
     @Nonnull
-    public static OWLOntology
-            makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
-                    @Nonnull OWLAnnotationProperty annotationProperty,
-                    OWLOntologyManager manager, OWLEntity... entities)
-                    throws OWLOntologyCreationException {
+    public static OWLOntology makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
+        @Nonnull OWLAnnotationProperty annotationProperty, OWLOntologyManager manager,
+        OWLEntity... entities) throws OWLOntologyCreationException {
         Set<OWLAxiom> axioms = new HashSet<>();
         OWLDataFactory dataFactory = manager.getOWLDataFactory();
         axioms.add(dataFactory.getOWLDeclarationAxiom(annotationProperty));
         for (OWLEntity entity : entities) {
-            axioms.add(dataFactory.getOWLAnnotationAssertionAxiom(
-                    annotationProperty, entity.getIRI(),
-                    dataFactory.getOWLAnonymousIndividual()));
+            axioms.add(dataFactory.getOWLAnnotationAssertionAxiom(annotationProperty,
+                entity.getIRI(), dataFactory.getOWLAnonymousIndividual()));
             axioms.add(dataFactory.getOWLDeclarationAxiom(entity));
         }
         return manager.createOntology(axioms);
     }
 
     /**
-     * @param o
-     *        ontology to save
-     * @param format
-     *        format to use
-     * @param manager
-     *        manager
+     * @param o ontology to save
+     * @param format format to use
+     * @param manager manager
      * @return input stream with the saved ontology
-     * @throws OWLOntologyStorageException
-     *         if the ontology cannot be saved
+     * @throws OWLOntologyStorageException if the ontology cannot be saved
      */
     @Nonnull
     public static ByteArrayInputStream saveForRereading(@Nonnull OWLOntology o,
-            @Nonnull PrefixDocumentFormat format, OWLOntologyManager manager)
-            throws OWLOntologyStorageException {
+        @Nonnull PrefixDocumentFormat format, OWLOntologyManager manager)
+        throws OWLOntologyStorageException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         manager.saveOntology(o, format, out);
         return new ByteArrayInputStream(out.toByteArray());

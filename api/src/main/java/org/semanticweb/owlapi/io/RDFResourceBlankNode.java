@@ -23,7 +23,8 @@ import org.semanticweb.owlapi.model.NodeID;
 public class RDFResourceBlankNode extends RDFResource {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull private final IRI resource;
+    @Nonnull
+    private final IRI resource;
     private final boolean isIndividual;
     private final boolean isAxiom;
     private final boolean forceIdOutput;
@@ -31,12 +32,10 @@ public class RDFResourceBlankNode extends RDFResource {
     /**
      * Create an RDFResource that is anonymous
      * 
-     * @param resource
-     *        The IRI of the resource
-     * @param isIndividual
-     *        true if this is an individual
-     * @param forceId
-     *        true if the id should be outputted
+     * @param resource The IRI of the resource
+     * @param isIndividual true if this is an individual
+     * @param forceId true if the id should be outputted
+     * @param isAxiom true if axiom
      */
     public RDFResourceBlankNode(@Nonnull IRI resource, boolean isIndividual, boolean forceId,
         boolean isAxiom) {
@@ -49,12 +48,10 @@ public class RDFResourceBlankNode extends RDFResource {
     /**
      * Create an RDFResource that is anonymous
      * 
-     * @param anonId
-     *        the number at the end of the anon IRI
-     * @param isIndividual
-     *        true if this is an individual
-     * @param forceId
-     *        true if the id should be outputted
+     * @param anonId the number at the end of the anon IRI
+     * @param isIndividual true if this is an individual
+     * @param forceId true if the id should be outputted
+     * @param isAxiom true if axiom
      */
     public RDFResourceBlankNode(Integer anonId, boolean isIndividual, boolean forceId,
         boolean isAxiom) {
@@ -64,13 +61,11 @@ public class RDFResourceBlankNode extends RDFResource {
     /**
      * Create an RDFResource that is anonymous
      * 
-     * @param isIndividual
-     *        true if this is an individual
-     * @param forceId
-     *        true if the id should be outputted
+     * @param isIndividual true if this is an individual
+     * @param forceId true if the id should be outputted
+     * @param isAxiom true if axiom
      */
-    public RDFResourceBlankNode(boolean isIndividual, boolean forceId,
-        boolean isAxiom) {
+    public RDFResourceBlankNode(boolean isIndividual, boolean forceId, boolean isAxiom) {
         this(NodeID.nextFreshNodeId(), isIndividual, forceId, isAxiom);
     }
 

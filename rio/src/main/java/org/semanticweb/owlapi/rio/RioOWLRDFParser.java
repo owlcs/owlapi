@@ -60,8 +60,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler}
- * s.
+ * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler} s.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
@@ -72,18 +71,15 @@ public class RioOWLRDFParser extends RDFParserBase {
     private final Set<OWLOntologyManagerFactory> ontologyManagerFactories = new HashSet<>();
 
     /**
-     * @param owlFormat
-     *        OWL format
+     * @param owlFormat OWL format
      */
     public RioOWLRDFParser(OWLAPIRDFFormat owlFormat) {
         this.owlFormat = owlFormat;
     }
 
     /**
-     * @param owlFormat
-     *        OWL format
-     * @param valueFactory
-     *        value factory
+     * @param owlFormat OWL format
+     * @param valueFactory value factory
      */
     public RioOWLRDFParser(OWLAPIRDFFormat owlFormat, ValueFactory valueFactory) {
         super(valueFactory);
@@ -91,13 +87,10 @@ public class RioOWLRDFParser extends RDFParserBase {
     }
 
     /**
-     * @param factories
-     *        factories for ontology managers. This method is used for Guice
-     *        injection.
+     * @param factories factories for ontology managers. This method is used for injection.
      */
     @Inject
-    public void setOntologyManagerFactories(
-            Set<OWLOntologyManagerFactory> factories) {
+    public void setOntologyManagerFactories(Set<OWLOntologyManagerFactory> factories) {
         ontologyManagerFactories.clear();
         ontologyManagerFactories.addAll(factories);
     }
@@ -110,34 +103,29 @@ public class RioOWLRDFParser extends RDFParserBase {
     @Override
     public void parse(InputStream in, String baseURI) throws IOException {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
-        StreamDocumentSource source = new StreamDocumentSource(checkNotNull(in,
-                "in cannot be null"), IRI.create(checkNotNull(baseURI,
-                "baseURI cannot be null")), nextFormat, getRDFFormat()
-                .getDefaultMIMEType());
+        StreamDocumentSource source =
+            new StreamDocumentSource(checkNotNull(in, "in cannot be null"),
+                IRI.create(checkNotNull(baseURI, "baseURI cannot be null")), nextFormat,
+                getRDFFormat().getDefaultMIMEType());
         render(source);
     }
 
     /**
-     * @param source
-     *        the ontology source to parse
-     * @throws IOException
-     *         if an exception is raised during render
+     * @param source the ontology source to parse
+     * @throws IOException if an exception is raised during render
      */
-    protected void render(@Nonnull OWLOntologyDocumentSource source)
-            throws IOException {
+    protected void render(@Nonnull OWLOntologyDocumentSource source) throws IOException {
         if (ontologyManagerFactories.isEmpty()) {
             throw new OWLRuntimeException(
-                    "No ontology manager factories available, parsing is impossible");
+                "No ontology manager factories available, parsing is impossible");
         }
         // it is expected that only one implementation of
         // OWLOntologyManagerFactory will be available, but if there is more
         // than one, no harm done
         try {
             for (OWLOntologyManagerFactory f : ontologyManagerFactories) {
-                OWLOntology ontology = f.get()
-                        .loadOntologyFromOntologyDocument(source);
-                new RioRenderer(ontology, getRDFHandler(), getRDFFormat()
-                        .getOWLFormat()).render();
+                OWLOntology ontology = f.get().loadOntologyFromOntologyDocument(source);
+                new RioRenderer(ontology, getRDFHandler(), getRDFFormat().getOWLFormat()).render();
                 return;
             }
         } catch (OWLOntologyCreationException e) {
@@ -148,10 +136,10 @@ public class RioOWLRDFParser extends RDFParserBase {
     @Override
     public void parse(Reader reader, String baseURI) throws IOException {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
-        ReaderDocumentSource source = new ReaderDocumentSource(checkNotNull(
-                reader, "reader cannot be null"), IRI.create(checkNotNull(
-                baseURI, "baseURI cannot be null")), nextFormat, getRDFFormat()
-                .getDefaultMIMEType());
+        ReaderDocumentSource source =
+            new ReaderDocumentSource(checkNotNull(reader, "reader cannot be null"),
+                IRI.create(checkNotNull(baseURI, "baseURI cannot be null")), nextFormat,
+                getRDFFormat().getDefaultMIMEType());
         render(source);
     }
 }

@@ -45,7 +45,7 @@ public class OBOFormatParser {
     private boolean followImport;
     private Object location;
     protected final MyStream stream;
-    public final LoadingCache<String, String> stringCache;
+    private final LoadingCache<String, String> stringCache;
 
     /**
      *
@@ -55,7 +55,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param s
+     * @param s stream
      */
     protected OBOFormatParser(MyStream s) {
         stream = s;

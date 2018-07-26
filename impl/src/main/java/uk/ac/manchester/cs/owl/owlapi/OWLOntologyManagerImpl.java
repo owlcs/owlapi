@@ -38,11 +38,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-import javax.inject.Provider;
 
 import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.io.FileDocumentSource;
@@ -175,7 +175,7 @@ public class OWLOntologyManagerImpl
         createSyncMap();
     private transient List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<>();
     @Nonnull
-    private Provider<OWLOntologyLoaderConfiguration> configProvider = new OWLAPIConfigProvider();
+    private Supplier<OWLOntologyLoaderConfiguration> configProvider = new OWLAPIConfigProvider();
     @Nonnull
     private Optional<OWLOntologyLoaderConfiguration> config = Optional.absent();
     @Nonnull
@@ -186,12 +186,12 @@ public class OWLOntologyManagerImpl
     protected final PriorityCollection<OWLParserFactory> parserFactories;
     @Nonnull
     protected final PriorityCollection<OWLStorerFactory> ontologyStorers;
-    private final ReadWriteLock readWriteLock;
     private final Lock readLock;
     private final Lock writeLock;
 
     /**
      * @param dataFactory data factory
+     * @param readWriteLock lock
      */
     @Inject
     public OWLOntologyManagerImpl(@Nonnull OWLDataFactory dataFactory,
@@ -199,10 +199,14 @@ public class OWLOntologyManagerImpl
         this(dataFactory, readWriteLock, PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
     }
 
+    /**
+     * @param dataFactory data factory
+     * @param readWriteLock lock
+     * @param sorting sorting approach
+     */
     public OWLOntologyManagerImpl(@Nonnull OWLDataFactory dataFactory, ReadWriteLock readWriteLock,
         PriorityCollectionSorting sorting) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
-        this.readWriteLock = readWriteLock;
         readLock = readWriteLock.readLock();
         writeLock = readWriteLock.writeLock();
         documentMappers = new ConcurrentPriorityCollection<>(readWriteLock, sorting);
@@ -232,7 +236,7 @@ public class OWLOntologyManagerImpl
 
     @Override
     public void setOntologyLoaderConfigurationProvider(
-        Provider<OWLOntologyLoaderConfiguration> provider) {
+        Supplier<OWLOntologyLoaderConfiguration> provider) {
         writeLock.lock();
         try {
             configProvider = provider;

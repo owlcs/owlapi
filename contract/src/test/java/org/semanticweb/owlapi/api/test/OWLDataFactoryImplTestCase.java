@@ -29,18 +29,15 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImplNoCache;
 
 /**
- * A test case to ensure that the reference implementation data factories do not
- * create duplicate objects for distinguished values (e.g. owl:Thing,
- * rdfs:Literal etc.)
+ * A test case to ensure that the reference implementation data factories do not create duplicate
+ * objects for distinguished values (e.g. owl:Thing, rdfs:Literal etc.)
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", })
+@SuppressWarnings({"javadoc",})
 @RunWith(Parameterized.class)
 public class OWLDataFactoryImplTestCase {
 
@@ -53,9 +50,9 @@ public class OWLDataFactoryImplTestCase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> parameters() {
-        OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
-        OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
-        return Arrays.asList(new Object[] { noCaching }, new Object[] { withCaching });
+        OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl();
+        OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl();
+        return Arrays.asList(new Object[] {noCaching}, new Object[] {withCaching});
     }
 
     @Test

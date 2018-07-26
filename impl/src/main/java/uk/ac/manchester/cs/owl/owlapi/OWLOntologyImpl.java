@@ -39,8 +39,6 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
-import com.google.inject.assistedinject.Assisted;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -55,8 +53,8 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
      * @param ontologyID ontology id
      */
     @Inject
-    public OWLOntologyImpl(@Nonnull @Assisted OWLOntologyManager manager,
-        @Nonnull @Assisted OWLOntologyID ontologyID) {
+    public OWLOntologyImpl(@Nonnull OWLOntologyManager manager,
+        @Nonnull OWLOntologyID ontologyID) {
         super(manager, ontologyID);
     }
 
