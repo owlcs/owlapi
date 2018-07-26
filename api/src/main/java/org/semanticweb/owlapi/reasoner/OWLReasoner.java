@@ -2525,7 +2525,7 @@ public interface OWLReasoner {
      * @return If {@code direct} is {@code true}, a {@code NodeSet} containing named individuals
      *         such that for each named individual {@code j} in the node set, the set of reasoner
      *         axioms entails {@code DirectClassAssertion(ce, j)}. <br>
-     *         If {@code direct} is {@code false}, a {@code NodeSet} containing named individuals
+     *         If {@code direct} is {@code false}, a {@code Stream} containing named individuals
      *         such that for each named individual {@code j} in the node set, the set of reasoner
      *         axioms entails {@code ClassAssertion(ce, j)}. <br>
      *         If ce is unsatisfiable with respect to the set of reasoner axioms then the empty
@@ -2545,6 +2545,40 @@ public interface OWLReasoner {
      */
     default Stream<OWLNamedIndividual> instances(OWLClassExpression ce, boolean direct) {
         return getInstances(ce, direct).entities();
+    }
+
+    /**
+     * Gets the individuals which are instances of the specified class expression. The individuals
+     * are returned a a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     *
+     * @param ce The class expression whose instances are to be retrieved.
+     * @param direct Specifies if the direct instances should be retrieved ( {@code true}), or if
+     *        all instances should be retrieved ( {@code false}).
+     * @return If {@code direct} is {@code true}, a {@code Stream} containing named individuals (if
+     *         the reasoner uses {@code IndividualNodeSetPolicy#BY_SAME_AS}, only the representative
+     *         individuals will be listed) such that for each named individual {@code j} in the node
+     *         set, the set of reasoner axioms entails {@code DirectClassAssertion(ce, j)}. <br>
+     *         If {@code direct} is {@code false}, a {@code NodeSet} containing named individuals
+     *         such that for each named individual {@code j} in the node set, the set of reasoner
+     *         axioms entails {@code ClassAssertion(ce, j)}. <br>
+     *         If ce is unsatisfiable with respect to the set of reasoner axioms then the empty
+     *         {@code NodeSet} is returned.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     *         inconsistent
+     * @throws ClassExpressionNotInProfileException if the class expression {@code ce} is not in the
+     *         profile that is supported by this reasoner.
+     * @throws FreshEntitiesException if the signature of the class expression is not contained
+     *         within the signature of the imports closure of the root ontology and the undeclared
+     *         entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     *         particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     *         {@link #getTimeOut()}.
+     * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy
+     */
+    default Stream<OWLNamedIndividual> representativeInstances(OWLClassExpression ce,
+        boolean direct) {
+        return getIndividualNodeSetPolicy().filter(getInstances(ce, direct));
     }
 
     /**
@@ -2589,6 +2623,28 @@ public interface OWLReasoner {
 
     /**
      * @param ce The class expression whose instances are to be retrieved.
+     * @param depth Specifies if the direct instances should be retrieved ( {@code DIRECT}), or if
+     *        all instances should be retrieved ( {@code ALL}).
+     * @return If {@code depth} is {@code DIRECT}, a {@code Stream} containing named individuals (if
+     *         the reasoner uses {@code IndividualNodeSetPolicy#BY_SAME_AS}, only the representative
+     *         individuals will be listed) such that for each named individual {@code j} in the node
+     *         set, the set of reasoner axioms entails {@code DirectClassAssertion(ce, j)}. <br>
+     *         If {@code depth} is {@code ALL}, a {@code
+     * NodeSet} containing named individuals such that for each named individual {@code j} in the
+     *         node set, the set of reasoner axioms entails {@code ClassAssertion(ce, j)}. <br>
+     *         If ce is unsatisfiable with respect to the set of reasoner axioms then the empty
+     *         {@code NodeSet} is returned.
+     * @see OWLReasoner#getInstances(OWLClassExpression, boolean) Gets the individuals which are
+     *      instances of the specified class expression. The individuals are returned a a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     */
+    default Stream<OWLNamedIndividual> representativeInstances(OWLClassExpression ce,
+        InferenceDepth depth) {
+        return getIndividualNodeSetPolicy().filter(getInstances(ce, depth));
+    }
+
+    /**
+     * @param ce The class expression whose instances are to be retrieved.
      * @return a {@code NodeSet} containing named individuals such that for each named individual
      *         {@code j} in the node set, the set of reasoner axioms entails
      *         {@code ClassAssertion(ce, j)}. <br>
@@ -2605,7 +2661,7 @@ public interface OWLReasoner {
 
     /**
      * @param ce The class expression whose instances are to be retrieved.
-     * @return a {@code NodeSet} containing named individuals such that for each named individual
+     * @return a {@code Stream} containing named individuals such that for each named individual
      *         {@code j} in the node set, the set of reasoner axioms entails
      *         {@code ClassAssertion(ce, j)}. <br>
      *         If ce is unsatisfiable with respect to the set of reasoner axioms then the empty
@@ -2617,6 +2673,23 @@ public interface OWLReasoner {
      */
     default Stream<OWLNamedIndividual> instances(OWLClassExpression ce) {
         return getInstances(ce, false).entities();
+    }
+
+    /**
+     * @param ce The class expression whose instances are to be retrieved.
+     * @return a {@code Stream} containing named individuals (if the reasoner uses
+     *         {@code IndividualNodeSetPolicy#BY_SAME_AS}, only the representative individuals will
+     *         be listed) such that for each named individual {@code j} in the node set, the set of
+     *         reasoner axioms entails {@code ClassAssertion(ce, j)}. <br>
+     *         If ce is unsatisfiable with respect to the set of reasoner axioms then the empty
+     *         {@code
+     * NodeSet} is returned.
+     * @see OWLReasoner#getInstances(OWLClassExpression, boolean) Gets the individuals which are
+     *      instances of the specified class expression. The individuals are returned a a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     */
+    default Stream<OWLNamedIndividual> representativeInstances(OWLClassExpression ce) {
+        return getIndividualNodeSetPolicy().filter(getInstances(ce, false));
     }
 
     /**
