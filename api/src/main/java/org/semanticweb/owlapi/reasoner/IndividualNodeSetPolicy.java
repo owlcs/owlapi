@@ -12,6 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
+import java.util.stream.Stream;
+
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+
 /**
  * The policy of how a reasoner will return {@code NodeSet}s of individuals for queries that return
  * node sets of named individuals such as {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getTypes(org.semanticweb.owlapi.model.OWLNamedIndividual,
@@ -30,7 +34,12 @@ public enum IndividualNodeSetPolicy {
      * instances of {@code A} will return a {@code NodeSet} containing two {@code Node}s, one
      * containing {@code i} and {@code j} and the other containing {@code k}.
      */
-    BY_SAME_AS,
+    BY_SAME_AS {
+        @Override
+        public Stream<OWLNamedIndividual> filter(NodeSet<OWLNamedIndividual> nodes) {
+            return nodes.nodes().map(Node::getRepresentativeElement);
+        }
+    },
     /**
      * Indicates that {@code NodeSet}s of named individuals will always contain singleton
      * {@code Node}s and individuals that are the same as each other will not be grouped together in
@@ -40,5 +49,15 @@ public enum IndividualNodeSetPolicy {
      * {@code NodeSet} containing <i>three</i> {@code Node}s, one containing {@code i}, one
      * containing {@code j} and the third containing {@code k}.
      */
-    BY_NAME,
+    BY_NAME {
+        @Override
+        public Stream<OWLNamedIndividual> filter(NodeSet<OWLNamedIndividual> nodes) {
+            return nodes.entities();
+        }
+    };
+    /**
+     * @param nodes node set to filter
+     * @return filtered individual stream
+     */
+    public abstract Stream<OWLNamedIndividual> filter(NodeSet<OWLNamedIndividual> nodes);
 }
