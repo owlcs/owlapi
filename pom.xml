@@ -26,7 +26,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<sesame.version>2.7.16</sesame.version>
 		<!-- remove this line for releases, if the release process fails because of missing javadoc jars -->
-		<no-javadoc>true</no-javadoc>
+		<no-javadoc>false</no-javadoc>
 		<!-- 4.0.0 is the earliest release on Maven Central for this series -->
 		<last.japicmp.compare.version>4.0.0</last.japicmp.compare.version>
 	</properties>
