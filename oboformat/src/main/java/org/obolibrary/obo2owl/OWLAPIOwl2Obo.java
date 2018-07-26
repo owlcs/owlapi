@@ -1936,7 +1936,7 @@ public class OWLAPIOwl2Obo {
                 scopeValue = a.get().getValue().asLiteral().get().getLiteral();
             }
             c.addValue(nameValue);
-            if (!scopeValue.isEmpty()) {
+            if (scopeValue!=null && !scopeValue.isEmpty()) {
                 c.addValue(scopeValue);
             }
             f.addClause(c);
