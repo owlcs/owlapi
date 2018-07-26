@@ -23,8 +23,8 @@ import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
-import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.utilities.Injector;
+import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 import uk.ac.manchester.cs.owl.owlapi.CompressionEnabled;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;

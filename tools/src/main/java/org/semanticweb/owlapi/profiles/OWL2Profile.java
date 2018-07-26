@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInDatatype
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalFacetRestriction;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonAbsoluteIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
+import org.semanticweb.owlapi.utility.OWLOntologyWalker;
+import org.semanticweb.owlapi.utility.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**

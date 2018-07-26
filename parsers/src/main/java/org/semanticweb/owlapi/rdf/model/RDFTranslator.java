@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.AxiomAppearance;
-import org.semanticweb.owlapi.util.IndividualAppearance;
+import org.semanticweb.owlapi.utility.AxiomAppearance;
+import org.semanticweb.owlapi.utility.IndividualAppearance;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

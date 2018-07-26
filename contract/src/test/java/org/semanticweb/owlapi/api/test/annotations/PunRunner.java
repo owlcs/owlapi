@@ -4,8 +4,8 @@ package org.semanticweb.owlapi.api.test.annotations;
  * Created by ses on 3/2/15.
  */
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.pairs;
 
 import java.util.ArrayList;
 import java.util.Arrays;

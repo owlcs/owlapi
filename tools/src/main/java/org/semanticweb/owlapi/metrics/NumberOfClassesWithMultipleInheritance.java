@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.metrics;
 
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.util.NamedConjunctChecker;
+import org.semanticweb.owlapi.utility.NamedConjunctChecker;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

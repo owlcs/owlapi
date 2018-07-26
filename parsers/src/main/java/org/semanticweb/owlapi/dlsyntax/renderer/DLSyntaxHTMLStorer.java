@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.util.SimpleShortFormProvider;
+import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

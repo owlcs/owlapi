@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.normalform;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.util.NNF;
+import org.semanticweb.owlapi.utility.NNF;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

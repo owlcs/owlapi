@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.utilities.OWLAPIStreamUtils;
+import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 
 /**
  * class to hold the signature of a module

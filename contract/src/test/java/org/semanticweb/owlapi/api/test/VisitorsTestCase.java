@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.SimpleRenderer;
+import org.semanticweb.owlapi.utility.SimpleRenderer;
 
 @SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)

@@ -1,8 +1,8 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
-import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utility.CollectionFactory.createLinkedSet;
+import static org.semanticweb.owlapi.utility.CollectionFactory.createMap;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.utility.CollectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

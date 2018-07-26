@@ -17,8 +17,8 @@ import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnonymousClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.NNF;
+import org.semanticweb.owlapi.utility.CollectionFactory;
+import org.semanticweb.owlapi.utility.NNF;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.util.SAXParsers;
+import org.semanticweb.owlapi.utility.SAXParsers;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 

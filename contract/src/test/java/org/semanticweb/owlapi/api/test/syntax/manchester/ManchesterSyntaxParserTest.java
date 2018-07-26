@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax.manchester;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,8 +20,8 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
-import org.semanticweb.owlapi.util.SimpleShortFormProvider;
+import org.semanticweb.owlapi.utility.BidirectionalShortFormProviderAdapter;
+import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")

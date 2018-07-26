@@ -28,8 +28,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForAnnotationPropertyIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredAnnotationProperty;
-import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
+import org.semanticweb.owlapi.utility.CollectionFactory;
+import org.semanticweb.owlapi.utility.OWLObjectPropertyManager;
 
 @SuppressWarnings("javadoc")
 public class ForbiddenVocabularyTestCase extends TestBase {

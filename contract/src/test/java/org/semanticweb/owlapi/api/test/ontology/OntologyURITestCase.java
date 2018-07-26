@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;

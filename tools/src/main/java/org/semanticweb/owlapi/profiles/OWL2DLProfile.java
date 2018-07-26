@@ -95,9 +95,9 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDataProperty;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredObjectProperty;
 import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
-import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
+import org.semanticweb.owlapi.utility.OWLObjectPropertyManager;
+import org.semanticweb.owlapi.utility.OWLOntologyWalker;
+import org.semanticweb.owlapi.utility.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 

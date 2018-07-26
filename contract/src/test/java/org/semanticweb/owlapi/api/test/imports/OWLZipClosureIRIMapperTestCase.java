@@ -9,8 +9,8 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.util.AutoIRIMapper;
-import org.semanticweb.owlapi.util.OWLZipClosureIRIMapper;
+import org.semanticweb.owlapi.utility.AutoIRIMapper;
+import org.semanticweb.owlapi.utility.OWLZipClosureIRIMapper;
 
 @SuppressWarnings("javadoc")
 public class OWLZipClosureIRIMapperTestCase extends TestBase {

@@ -31,12 +31,12 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
-import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
-import org.semanticweb.owlapi.util.SimpleShortFormProvider;
-import org.semanticweb.owlapi.util.StringAnnotationVisitor;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
+import org.semanticweb.owlapi.utility.AnnotationValueShortFormProvider;
+import org.semanticweb.owlapi.utility.CollectionFactory;
+import org.semanticweb.owlapi.utility.SimpleIRIShortFormProvider;
+import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
+import org.semanticweb.owlapi.utility.StringAnnotationVisitor;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group

@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseObjectProperties;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.search.Searcher.inverse;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Arrays;
 

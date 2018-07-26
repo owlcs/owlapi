@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
-import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
+import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * An expression parser that parses class expressions written in the Manchester OWL Syntax.

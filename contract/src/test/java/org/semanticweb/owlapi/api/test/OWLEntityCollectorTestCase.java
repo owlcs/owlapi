@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +29,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.util.OWLEntityCollector;
+import org.semanticweb.owlapi.utility.OWLEntityCollector;
 
 @SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)

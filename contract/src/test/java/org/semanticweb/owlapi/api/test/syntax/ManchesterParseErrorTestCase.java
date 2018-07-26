@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
+import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 @SuppressWarnings("javadoc")
 public class ManchesterParseErrorTestCase extends TestBase {

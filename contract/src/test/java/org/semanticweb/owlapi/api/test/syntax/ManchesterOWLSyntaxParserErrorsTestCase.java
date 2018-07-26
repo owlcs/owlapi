@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
+import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 

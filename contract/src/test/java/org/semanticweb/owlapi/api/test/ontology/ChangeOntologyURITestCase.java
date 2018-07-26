@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
+import org.semanticweb.owlapi.utility.OWLOntologyIRIChanger;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.util.SimpleRenderer;
+import org.semanticweb.owlapi.utility.SimpleRenderer;
 
 @SuppressWarnings("javadoc")
 public class SimpleRendererTestCase extends TestBase {

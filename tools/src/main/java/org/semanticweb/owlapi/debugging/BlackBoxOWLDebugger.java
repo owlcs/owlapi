@@ -13,12 +13,12 @@
 package org.semanticweb.owlapi.debugging;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utility.CollectionFactory.createSet;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.util.SimpleIRIMapper;
+import org.semanticweb.owlapi.utility.SimpleIRIMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

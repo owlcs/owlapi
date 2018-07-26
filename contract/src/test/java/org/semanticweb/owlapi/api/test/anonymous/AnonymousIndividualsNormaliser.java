@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Collection;
 import java.util.HashMap;

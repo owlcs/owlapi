@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.util.OWLZipSaver;
+import org.semanticweb.owlapi.utility.OWLZipSaver;
 
 @SuppressWarnings("javadoc")
 public class OWLZipSaverTestCase extends TestBase {

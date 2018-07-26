@@ -1,7 +1,7 @@
 package org.obolibrary.obo2owl;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag.TAG_AUTO_GENERATED_BY;
 import static org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag.TAG_COMMENT;
 import static org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag.TAG_CREATED_BY;

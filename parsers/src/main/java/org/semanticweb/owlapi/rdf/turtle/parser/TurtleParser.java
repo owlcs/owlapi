@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
-import org.semanticweb.owlapi.util.EscapeUtils;
+import org.semanticweb.owlapi.utility.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 

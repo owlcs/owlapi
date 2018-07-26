@@ -33,9 +33,9 @@ import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.SELF;
 import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.SUBCLASS;
 import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.TOP;
 import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.WEDGE;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -135,10 +135,10 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
-import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 import org.semanticweb.owlapi.utilities.IRIShortFormProvider;
 import org.semanticweb.owlapi.utilities.ShortFormProvider;
+import org.semanticweb.owlapi.utility.SimpleIRIShortFormProvider;
+import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 
 /**
  * Renders objects in unicode DL syntax.

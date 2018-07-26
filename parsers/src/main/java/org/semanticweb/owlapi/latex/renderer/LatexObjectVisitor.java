@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.latex.renderer;
 
 import static org.semanticweb.owlapi.io.ToStringRenderer.getRendering;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -113,9 +113,9 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 import org.semanticweb.owlapi.utilities.ShortFormProvider;
+import org.semanticweb.owlapi.utility.CollectionFactory;
+import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 

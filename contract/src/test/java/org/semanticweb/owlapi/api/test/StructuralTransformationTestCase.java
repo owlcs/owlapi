@@ -27,7 +27,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.util.StructuralTransformation;
+import org.semanticweb.owlapi.utility.StructuralTransformation;
 
 @SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)

@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.utility.CollectionFactory;
 
 /**
  * This enumeration includes all currently implemented profile checkers and known information about

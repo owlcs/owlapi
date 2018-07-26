@@ -67,7 +67,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.util.AnonymousNodeChecker;
+import org.semanticweb.owlapi.utility.AnonymousNodeChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

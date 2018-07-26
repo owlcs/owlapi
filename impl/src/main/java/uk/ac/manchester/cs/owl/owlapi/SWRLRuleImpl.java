@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkIterableNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.equalStreams;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.util.SWRLVariableExtractor;
+import org.semanticweb.owlapi.utility.SWRLVariableExtractor;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

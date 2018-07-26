@@ -21,10 +21,10 @@ import static org.semanticweb.owlapi.model.AxiomType.HAS_KEY;
 import static org.semanticweb.owlapi.model.AxiomType.SUB_PROPERTY_CHAIN_OF;
 import static org.semanticweb.owlapi.model.AxiomType.SWRL_RULE;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_AXIOM;
@@ -92,12 +92,12 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
-import org.semanticweb.owlapi.util.AxiomAppearance;
-import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
-import org.semanticweb.owlapi.util.IndividualAppearance;
-import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
-import org.semanticweb.owlapi.util.OWLObjectDesharer;
-import org.semanticweb.owlapi.util.SWRLVariableExtractor;
+import org.semanticweb.owlapi.utility.AxiomAppearance;
+import org.semanticweb.owlapi.utility.AxiomSubjectProviderEx;
+import org.semanticweb.owlapi.utility.IndividualAppearance;
+import org.semanticweb.owlapi.utility.OWLAnonymousIndividualsWithMultipleOccurrences;
+import org.semanticweb.owlapi.utility.OWLObjectDesharer;
+import org.semanticweb.owlapi.utility.SWRLVariableExtractor;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

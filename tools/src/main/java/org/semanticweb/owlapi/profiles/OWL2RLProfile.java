@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -56,8 +56,8 @@ import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonEquivalentClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonSubClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonSuperClassExpression;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
+import org.semanticweb.owlapi.utility.OWLOntologyWalker;
+import org.semanticweb.owlapi.utility.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**

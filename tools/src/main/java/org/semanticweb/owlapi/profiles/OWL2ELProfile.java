@@ -13,8 +13,8 @@
 package org.semanticweb.owlapi.profiles;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.HashSet;
 import java.util.List;
@@ -65,9 +65,9 @@ import org.semanticweb.owlapi.profiles.violations.UseOfIllegalClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
 import org.semanticweb.owlapi.profiles.violations.UseOfObjectOneOfWithMultipleIndividuals;
 import org.semanticweb.owlapi.profiles.violations.UseOfObjectPropertyInverse;
-import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
+import org.semanticweb.owlapi.utility.OWLObjectPropertyManager;
+import org.semanticweb.owlapi.utility.OWLOntologyWalker;
+import org.semanticweb.owlapi.utility.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**

@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.AutoIRIMapper;
+import org.semanticweb.owlapi.utility.AutoIRIMapper;
 
 @SuppressWarnings("javadoc")
 public class ManchesterImportTestCase extends TestBase {

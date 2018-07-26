@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
-import org.semanticweb.owlapi.util.SAXParsers;
+import org.semanticweb.owlapi.utility.SAXParsers;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

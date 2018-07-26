@@ -8,7 +8,7 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Set;
 
-import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.utility.CollectionFactory;
 
 /**
  * @param <K> key

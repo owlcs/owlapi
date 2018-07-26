@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
@@ -37,9 +37,9 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.SmallSet;
 import org.semanticweb.owlapi.utilities.OWLAxiomSearchFilter;
+import org.semanticweb.owlapi.utility.CollectionFactory;
+import org.semanticweb.owlapi.utility.SmallSet;
 
 import com.carrotsearch.hppcrt.cursors.ObjectCursor;
 import com.carrotsearch.hppcrt.maps.ObjectObjectHashMap;

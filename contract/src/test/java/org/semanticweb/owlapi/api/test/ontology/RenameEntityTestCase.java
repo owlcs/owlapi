@@ -57,8 +57,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubOb
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TopDatatype;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.equalStreams;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -82,7 +82,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.util.OWLEntityRenamer;
+import org.semanticweb.owlapi.utility.OWLEntityRenamer;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group

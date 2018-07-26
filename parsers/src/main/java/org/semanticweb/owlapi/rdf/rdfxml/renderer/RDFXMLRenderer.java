@@ -47,9 +47,9 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
-import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
-import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.utilities.ShortFormProvider;
+import org.semanticweb.owlapi.utility.AnnotationValueShortFormProvider;
+import org.semanticweb.owlapi.utility.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**

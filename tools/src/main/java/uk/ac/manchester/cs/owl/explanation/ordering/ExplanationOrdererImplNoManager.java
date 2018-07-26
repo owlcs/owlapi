@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
-import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.utility.CollectionFactory.createLinkedSet;
+import static org.semanticweb.owlapi.utility.CollectionFactory.createMap;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,7 +67,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.utility.CollectionFactory;
 
 /**
  * Provides ordering and indenting of explanations based on various ordering heuristics.

@@ -17,7 +17,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
+import org.semanticweb.owlapi.utility.SimpleIRIShortFormProvider;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group

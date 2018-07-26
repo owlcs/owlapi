@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.util.NNF;
+import org.semanticweb.owlapi.utility.NNF;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group

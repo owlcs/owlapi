@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+import static org.semanticweb.owlapi.utility.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.BUILT_IN_AP_IRIS;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY;

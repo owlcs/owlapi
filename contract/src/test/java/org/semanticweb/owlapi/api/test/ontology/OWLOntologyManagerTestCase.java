@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyDocumentAlreadyExistsException;
-import org.semanticweb.owlapi.util.SimpleIRIMapper;
+import org.semanticweb.owlapi.utility.SimpleIRIMapper;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group

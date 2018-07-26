@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.examples;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,11 +41,11 @@ import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
-import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
-import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
-import org.semanticweb.owlapi.util.SimpleShortFormProvider;
-import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.utilities.ShortFormProvider;
+import org.semanticweb.owlapi.utility.BidirectionalShortFormProvider;
+import org.semanticweb.owlapi.utility.BidirectionalShortFormProviderAdapter;
+import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
+import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * An example that shows how to do a Protege like DLQuery. The example contains several helper

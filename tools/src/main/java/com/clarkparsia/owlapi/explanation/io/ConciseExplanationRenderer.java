@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.util.SimpleRenderer;
+import org.semanticweb.owlapi.utility.SimpleRenderer;
 
 /**
  * Explanation renderer in concise form.

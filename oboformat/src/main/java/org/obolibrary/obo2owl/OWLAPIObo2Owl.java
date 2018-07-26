@@ -66,7 +66,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.utility.CollectionFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OBOFormatConstants;
 import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;

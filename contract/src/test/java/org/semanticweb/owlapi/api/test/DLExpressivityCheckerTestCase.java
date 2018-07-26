@@ -27,7 +27,7 @@ import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.util.DLExpressivityChecker;
+import org.semanticweb.owlapi.utility.DLExpressivityChecker;
 
 @SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)

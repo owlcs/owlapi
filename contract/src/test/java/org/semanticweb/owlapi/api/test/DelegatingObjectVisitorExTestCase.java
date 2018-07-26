@@ -103,7 +103,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.util.DelegatingObjectVisitorEx;
+import org.semanticweb.owlapi.utility.DelegatingObjectVisitorEx;
 
 @SuppressWarnings({"javadoc"})
 public class DelegatingObjectVisitorExTestCase extends TestBase {

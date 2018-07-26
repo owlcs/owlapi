@@ -13,8 +13,8 @@
 package org.semanticweb.owlapi.latex.renderer;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
@@ -34,9 +34,9 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.util.OWLEntityComparator;
-import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 import org.semanticweb.owlapi.utilities.ShortFormProvider;
+import org.semanticweb.owlapi.utility.OWLEntityComparator;
+import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

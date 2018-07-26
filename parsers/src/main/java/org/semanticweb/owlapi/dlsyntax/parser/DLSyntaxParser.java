@@ -18,8 +18,7 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 import java.util.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.utilities.*;
-import org.semanticweb.owlapi.util.*;
-
+import org.semanticweb.owlapi.utility.*;
 import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings("all")

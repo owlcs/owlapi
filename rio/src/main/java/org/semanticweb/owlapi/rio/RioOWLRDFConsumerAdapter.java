@@ -47,7 +47,7 @@ import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
-import org.semanticweb.owlapi.util.AnonymousNodeChecker;
+import org.semanticweb.owlapi.utility.AnonymousNodeChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

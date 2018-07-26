@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+import static org.semanticweb.owlapi.utility.CollectionFactory.createSet;
 
 import java.util.Set;
 

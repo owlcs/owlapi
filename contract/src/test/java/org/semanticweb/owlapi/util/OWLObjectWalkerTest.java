@@ -1,9 +1,9 @@
 package org.semanticweb.owlapi.util;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.util.AnnotationWalkingControl.DONT_WALK_ANNOTATIONS;
-import static org.semanticweb.owlapi.util.AnnotationWalkingControl.WALK_ANNOTATIONS;
-import static org.semanticweb.owlapi.util.AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY;
+import static org.semanticweb.owlapi.utility.AnnotationWalkingControl.DONT_WALK_ANNOTATIONS;
+import static org.semanticweb.owlapi.utility.AnnotationWalkingControl.WALK_ANNOTATIONS;
+import static org.semanticweb.owlapi.utility.AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +20,8 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.utility.AnnotationWalkingControl;
+import org.semanticweb.owlapi.utility.OWLObjectWalker;
 
 /**
  * Created by ses on 8/15/15.

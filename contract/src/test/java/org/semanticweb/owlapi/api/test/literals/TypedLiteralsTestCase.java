@@ -34,8 +34,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.util.OWLLiteralReplacer;
-import org.semanticweb.owlapi.util.OWLObjectTransformer;
+import org.semanticweb.owlapi.utility.OWLLiteralReplacer;
+import org.semanticweb.owlapi.utility.OWLObjectTransformer;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group

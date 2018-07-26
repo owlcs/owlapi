@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.functional.renderer;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION_ASSERTION;
@@ -221,10 +221,10 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
-import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi.utilities.ShortFormProvider;
+import org.semanticweb.owlapi.utility.AnnotationValueShortFormProvider;
+import org.semanticweb.owlapi.utility.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 

@@ -20,7 +20,7 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.utility.CollectionFactory;
 
 /**
  * The Class ParserException.

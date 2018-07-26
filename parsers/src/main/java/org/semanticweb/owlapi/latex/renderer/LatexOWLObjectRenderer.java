@@ -23,8 +23,8 @@ import org.semanticweb.owlapi.formats.LatexDocumentFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 import org.semanticweb.owlapi.utilities.ShortFormProvider;
+import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

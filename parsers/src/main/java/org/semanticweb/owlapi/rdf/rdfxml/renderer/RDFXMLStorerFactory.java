@@ -38,7 +38,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLStorer;
-import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
+import org.semanticweb.owlapi.utility.OWLStorerFactoryImpl;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

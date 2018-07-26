@@ -1,8 +1,8 @@
 package org.obolibrary.macro;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -36,12 +36,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
-import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
-import org.semanticweb.owlapi.util.OntologyAxiomPair;
-import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
-import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.utilities.IRIShortFormProvider;
 import org.semanticweb.owlapi.utilities.ShortFormProvider;
+import org.semanticweb.owlapi.utility.BidirectionalShortFormProviderAdapter;
+import org.semanticweb.owlapi.utility.OntologyAxiomPair;
+import org.semanticweb.owlapi.utility.SimpleIRIShortFormProvider;
+import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

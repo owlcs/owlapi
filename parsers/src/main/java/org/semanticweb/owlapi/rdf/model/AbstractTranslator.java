@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.model;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utility.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DIFFERENT;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DISJOINT_PROPERTIES;
@@ -213,7 +213,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
-import org.semanticweb.owlapi.util.IndividualAppearance;
+import org.semanticweb.owlapi.utility.IndividualAppearance;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 

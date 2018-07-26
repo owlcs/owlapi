@@ -24,8 +24,8 @@ import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
-import org.semanticweb.owlapi.util.OntologyAxiomPair;
-import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
+import org.semanticweb.owlapi.utility.OntologyAxiomPair;
+import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group

@@ -15,7 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.util.AbstractCollectorEx;
+import org.semanticweb.owlapi.utility.AbstractCollectorEx;
 
 /**
  * A utility class that visits axioms, class expressions etc. and accumulates the anonymous

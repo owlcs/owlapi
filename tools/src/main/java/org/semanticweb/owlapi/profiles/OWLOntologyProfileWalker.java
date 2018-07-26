@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.stream.Stream;
@@ -21,9 +21,9 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.util.OWLObjectWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.StructureWalker;
+import org.semanticweb.owlapi.utility.OWLObjectWalker;
+import org.semanticweb.owlapi.utility.OWLOntologyWalker;
+import org.semanticweb.owlapi.utility.StructureWalker;
 
 /**
  * A specialized walker that skips visiting annotation assertion literals. This is used by profile

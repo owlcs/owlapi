@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
+import static org.semanticweb.owlapi.utility.CollectionFactory.createMap;
 
 import java.util.Map;
 

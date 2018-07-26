@@ -7,6 +7,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.utility.OntologyIRIShortFormProvider;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group

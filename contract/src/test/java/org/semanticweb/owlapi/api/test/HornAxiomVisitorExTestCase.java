@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.HornAxiomVisitorEx;
+import org.semanticweb.owlapi.utility.HornAxiomVisitorEx;
 
 @SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)

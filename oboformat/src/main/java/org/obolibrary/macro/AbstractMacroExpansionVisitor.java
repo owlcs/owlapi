@@ -1,7 +1,7 @@
 package org.obolibrary.macro;
 
 import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary.IRI_IAO_0000424;
 import static org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary.IRI_IAO_0000425;
 
