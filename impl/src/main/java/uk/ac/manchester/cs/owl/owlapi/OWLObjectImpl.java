@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareIterators;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.Serializable;
@@ -160,9 +159,11 @@ public abstract class OWLObjectImpl
     }
 
     @Override
-    public int compareTo(@Nullable OWLObject o) {
-        checkNotNull(o);
-        assert o != null;
+    public int compareTo(@Nullable OWLObject _o) {
+        OWLObject o = verifyNotNull(_o);
+        if (o == this) {
+            return 0;
+        }
         int diff = Integer.compare(typeIndex(), o.typeIndex());
         if (diff != 0) {
             return diff;

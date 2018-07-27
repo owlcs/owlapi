@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDFS_LITERAL;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDF_PLAIN_LITERAL;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_BOOLEAN;
@@ -163,9 +164,10 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public int compareTo(@Nullable OWLObject o) {
-        if (o == null) {
-            throw new NullPointerException("o cannot be null in a compareTo call.");
+    public int compareTo(@Nullable OWLObject _o) {
+        OWLObject o = verifyNotNull(_o);
+        if (o == this) {
+            return 0;
         }
         int diff = Integer.compare(typeIndex(), o.typeIndex());
         if (diff != 0) {
