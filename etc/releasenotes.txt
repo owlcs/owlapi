@@ -217,6 +217,24 @@ Features:
 *    Declaration of save methods on OWLOntology
 *    OWLAPI 5 uses Java 8
 
+4.5.4 26 Jul 2018
+
+Features:
+*    Remove Guice dependencies
+*    Upgrade to jsonld-java version 0.12.0 (performance) #763
+*    Build with Java 10
+
+Bug fixes:
+*    Move from Trove4j to HPPC-RT #774
+*    Literals with no lang and string literals must equal each other
+*    Fix OWLLiteral.parseDouble should throw NumberFormatException #764
+*    No need for Guice and Guava version updates
+*    Amend pom files to build vaild osgi distribution #768
+*    Fix incorrect sorting of OBO header tags
+*    Fix Line breaks in rdfs:label cause invalid FS output #758
+*    Fix AutoIriMapper chooses wrong IRIs. #755
+
+
 4.5.2 22 Apr 2018
 
 Features:
