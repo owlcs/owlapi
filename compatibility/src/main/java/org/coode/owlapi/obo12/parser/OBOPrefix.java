@@ -50,7 +50,7 @@ public enum OBOPrefix {
     /** iao prefix */
     IAO(OBOPrefix.OBO + "IAO_"),
     /** obo owl prefix */
-    OBO_IN_OWL("http://www.geneontology.org/formats/oboInOWL#");
+    OBO_IN_OWL("http://www.geneontology.org/formats/oboInOwl#");
 
     private String prefix;
 
