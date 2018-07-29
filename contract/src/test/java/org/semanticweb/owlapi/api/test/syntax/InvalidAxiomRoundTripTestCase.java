@@ -62,7 +62,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     private static void assertCorrectResult(OWLAxiom wrongAxiom, OWLAxiom validAxiom,
-                    OWLOntology reloaded) {
+        OWLOntology reloaded) {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
@@ -90,7 +90,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidDisjointObjectProperties()
-                    throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:tes#", "t1"));
         OWLObjectProperty e2 = ObjectProperty(IRI("urn:tes#", "t2"));
@@ -120,7 +120,6 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         // FSS/API etc created single element axiom.
         // but this is coding around a problem in the spec.
         checkSingletonDisjointFixup(e1, DisjointClasses(e1, e1));
-        checkSingletonDisjointFixup(OWLThing(), DisjointClasses(OWLThing(), OWLThing()));
         OWLDisjointClassesAxiom singleClassDisjointAxiom = DisjointClasses(e1);
         checkSingletonDisjointFixup(e1, singleClassDisjointAxiom);
         OWLAxiom validAxiom = DisjointClasses(e2, e3);
@@ -201,7 +200,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidEquivalentObjectProperties()
-                    throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:tes#", "t1"));
         OWLObjectProperty e2 = ObjectProperty(IRI("urn:tes#", "t2"));
@@ -221,7 +220,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidEquivalentDataProperties()
-                    throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         // given
         OWLDataProperty e1 = DataProperty(IRI("urn:tes#", "t1"));
         OWLDataProperty e2 = DataProperty(IRI("urn:tes#", "t2"));

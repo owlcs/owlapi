@@ -12,21 +12,27 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes it possible to
@@ -56,5 +62,35 @@ public class DisjointsTestCase extends TestBase {
         ontA.add(ax);
         OWLOntology ontB = roundTrip(ontA);
         assertTrue(contains(ontB.axioms(), ax));
+    }
+
+    @Test
+    public void shouldAcceptSingleDisjointAxiom() {
+        // The famous idiomatic use of DisjointClasses with one operand
+        OWLClass t = df.getOWLClass("urn:test:class");
+        OWLDisjointClassesAxiom ax = df.getOWLDisjointClassesAxiom(Arrays.asList(t));
+        assertEquals(df.getOWLDisjointClassesAxiom(Arrays.asList(t, df.getOWLThing())),
+            ax.getAxiomWithoutAnnotations());
+        OWLLiteral value = df.getOWLLiteral(
+            "DisjointClasses(<urn:test:class>) replaced by DisjointClasses(<urn:test:class> owl:Thing)");
+        OWLAnnotation a = ax.annotationsAsList().get(0);
+        assertEquals(value, a.getValue());
+        assertEquals(df.getRDFSComment(), a.getProperty());
+    }
+
+    @Test
+    public void shouldRejectDisjointClassesWithSingletonThing() {
+        expectedException.expect(OWLRuntimeException.class);
+        expectedException.expectMessage(
+            "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing).");
+        df.getOWLDisjointClassesAxiom(Arrays.asList(df.getOWLThing()));
+    }
+
+    @Test
+    public void shouldRejectDisjointClassesWithSingletonNothing() {
+        expectedException.expect(OWLRuntimeException.class);
+        expectedException.expectMessage(
+            "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.");
+        df.getOWLDisjointClassesAxiom(Arrays.asList(df.getOWLNothing()));
     }
 }

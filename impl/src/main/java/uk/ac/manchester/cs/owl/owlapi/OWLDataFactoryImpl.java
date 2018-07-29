@@ -132,6 +132,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -788,13 +789,20 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         // member
         // which will usually be the result of :x owl:disjointWith :x .
         if (classExpressions.size() == 1) {
-            Set<OWLClassExpression> modifiedClassExpressions = new HashSet<>(2);
             OWLClassExpression classExpression = classExpressions.iterator().next();
-            OWLClass addedClass = classExpression.isOWLThing() ? OWL_NOTHING : OWL_THING;
-            modifiedClassExpressions.add(addedClass);
+            if (classExpression.isOWLThing()) {
+                throw new OWLRuntimeException(
+                    "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing).");
+            }
+            if (classExpression.isOWLNothing()) {
+                throw new OWLRuntimeException(
+                    "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.");
+            }
+            Set<OWLClassExpression> modifiedClassExpressions = new HashSet<>(2);
+            modifiedClassExpressions.add(OWL_THING);
             modifiedClassExpressions.add(classExpression);
             return getOWLDisjointClassesAxiom(modifiedClassExpressions,
-                makeSingletonDisjoinClassWarningAnnotation(anns, classExpression, addedClass));
+                makeSingletonDisjoinClassWarningAnnotation(anns, classExpression, OWL_THING));
         }
         return new OWLDisjointClassesAxiomImpl(classExpressions, anns);
     }
