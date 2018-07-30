@@ -1404,6 +1404,7 @@ public class Examples extends TestBase {
         // generate a seed signature that contains "Quokka" and its
         // subclasses. We start by creating a signature that consists of
         // "Quokka".
+        OWLDataFactory df = man.getOWLDataFactory();
         OWLClass toppingCls = df.getOWLClass(IRI.create(ont.getOntologyID().getOntologyIRI().get() + "#Quokka"));
         Set<OWLEntity> sig = new HashSet<OWLEntity>();
         sig.add(toppingCls);
