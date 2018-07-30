@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
  * @since 2.0.0
  */
 public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl
-                implements OWLObjectComplementOf {
+    implements OWLObjectComplementOf {
 
     private final OWLClassExpression operand;
 
@@ -35,7 +35,7 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl
 
     @Override
     public boolean isClassExpressionLiteral() {
-        return !operand.isAnonymous();
+        return operand.isNamed();
     }
 
     @Override

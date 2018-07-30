@@ -167,7 +167,7 @@ public abstract class TestBase {
     }
 
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
-        if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
+        if (ont1.isNamed() && ont2.isNamed()) {
             assertEquals("Ontologies supposed to be the same", ont1.getOntologyID(),
                 ont2.getOntologyID());
         }

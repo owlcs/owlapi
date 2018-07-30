@@ -126,7 +126,7 @@ public class OWL2DLProfile implements OWLProfile {
      *
      * @param ontology The ontology to be checked.
      * @return An {@code OWLProfileReport} that describes whether or not the ontology is within this
-     * profile.
+     *         profile.
      */
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
@@ -439,7 +439,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLNamedIndividual individual) {
-            if (!individual.isAnonymous() && individual.getIRI().isReservedVocabulary()) {
+            if (individual.isNamed() && individual.getIRI().isReservedVocabulary()) {
                 profileViolations.add(new UseOfReservedVocabularyForIndividualIRI(
                     getCurrentOntology(), getCurrentAxiom(), individual));
             }
@@ -526,7 +526,7 @@ public class OWL2DLProfile implements OWLProfile {
             }
             axiom.properties().filter(getPropertyManager()::isNonSimple).forEach(
                 p -> profileViolations.add(new UseOfNonSimplePropertyInDisjointPropertiesAxiom(
-                        getCurrentOntology(), axiom, p)));
+                    getCurrentOntology(), axiom, p)));
         }
 
         @Override

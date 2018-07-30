@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.OutputStream;
@@ -228,20 +229,22 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotation> getAnnotations() {
         readLock.lock();
         try {
-            return delegate.getAnnotations();
+            return asUnorderedSet(delegate.annotations());
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<IRI> getDirectImportsDocuments() {
         readLock.lock();
         try {
-            return delegate.getDirectImportsDocuments();
+            return asUnorderedSet(delegate.directImportsDocuments());
         } finally {
             readLock.unlock();
         }
@@ -258,10 +261,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLOntology> getDirectImports() {
         readLock.lock();
         try {
-            return delegate.getDirectImports();
+            return asUnorderedSet(delegate.directImports());
         } finally {
             readLock.unlock();
         }
@@ -278,10 +282,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLOntology> getImports() {
         readLock.lock();
         try {
-            return delegate.getImports();
+            return asUnorderedSet(delegate.imports());
         } finally {
             readLock.unlock();
         }
@@ -298,10 +303,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLOntology> getImportsClosure() {
         readLock.lock();
         try {
-            return delegate.getImportsClosure();
+            return asUnorderedSet(delegate.importsClosure());
         } finally {
             readLock.unlock();
         }
@@ -318,10 +324,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
         readLock.lock();
         try {
-            return delegate.getImportsDeclarations();
+            return asUnorderedSet(delegate.importsDeclarations());
         } finally {
             readLock.unlock();
         }
@@ -338,30 +345,33 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getTBoxAxioms(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getTBoxAxioms(imports);
+            return asUnorderedSet(delegate.tboxAxioms(imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getABoxAxioms(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getABoxAxioms(imports);
+            return asUnorderedSet(delegate.aboxAxioms(imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getRBoxAxioms(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getRBoxAxioms(imports);
+            return asUnorderedSet(delegate.rboxAxioms(imports));
         } finally {
             readLock.unlock();
         }
@@ -398,30 +408,33 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLClassAxiom> getGeneralClassAxioms() {
         readLock.lock();
         try {
-            return delegate.getGeneralClassAxioms();
+            return asUnorderedSet(delegate.generalClassAxioms());
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLEntity> getSignature() {
         readLock.lock();
         try {
-            return delegate.getSignature();
+            return asUnorderedSet(delegate.signature());
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLEntity> getSignature(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getSignature(imports);
+            return asUnorderedSet(delegate.signature(imports));
         } finally {
             readLock.unlock();
         }
@@ -563,10 +576,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLClassExpression> getNestedClassExpressions() {
         readLock.lock();
         try {
-            return delegate.getNestedClassExpressions();
+            return asUnorderedSet(delegate.nestedClassExpressions());
         } finally {
             readLock.unlock();
         }
@@ -674,80 +688,88 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         readLock.lock();
         try {
-            return delegate.getAnonymousIndividuals();
+            return asUnorderedSet(delegate.anonymousIndividuals());
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLClass> getClassesInSignature() {
         readLock.lock();
         try {
-            return delegate.getClassesInSignature();
+            return asUnorderedSet(delegate.classesInSignature());
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         readLock.lock();
         try {
-            return delegate.getObjectPropertiesInSignature();
+            return asUnorderedSet(delegate.objectPropertiesInSignature());
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         readLock.lock();
         try {
-            return delegate.getDataPropertiesInSignature();
+            return asUnorderedSet(delegate.dataPropertiesInSignature());
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         readLock.lock();
         try {
-            return delegate.getIndividualsInSignature();
+            return asUnorderedSet(delegate.individualsInSignature());
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDatatype> getDatatypesInSignature() {
         readLock.lock();
         try {
-            return delegate.getDatatypesInSignature();
+            return asUnorderedSet(delegate.datatypesInSignature());
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
         readLock.lock();
         try {
-            return delegate.getAnnotationPropertiesInSignature();
+            return asUnorderedSet(delegate.annotationPropertiesInSignature());
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getAxioms(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getAxioms(imports);
+            return asUnorderedSet(delegate.axioms(imports));
         } finally {
             readLock.unlock();
         }
@@ -764,10 +786,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLLogicalAxiom> getLogicalAxioms(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getLogicalAxioms(imports);
+            return asUnorderedSet(delegate.logicalAxioms(imports));
         } finally {
             readLock.unlock();
         }
@@ -784,10 +807,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, Imports imports) {
         readLock.lock();
         try {
-            return delegate.getAxioms(axiomType, imports);
+            return asUnorderedSet(delegate.axioms(axiomType, imports));
         } finally {
             readLock.unlock();
         }
@@ -825,10 +849,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom owlAxiom, Imports imports) {
         readLock.lock();
         try {
-            return delegate.getAxiomsIgnoreAnnotations(owlAxiom, imports);
+            return asUnorderedSet(delegate.axiomsIgnoreAnnotations(owlAxiom, imports));
         } finally {
             readLock.unlock();
         }
@@ -845,10 +870,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlPrimitive, Imports imports) {
         readLock.lock();
         try {
-            return delegate.getReferencingAxioms(owlPrimitive, imports);
+            return asUnorderedSet(delegate.referencingAxioms(owlPrimitive, imports));
         } finally {
             readLock.unlock();
         }
@@ -865,72 +891,79 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLClassAxiom> getAxioms(OWLClass owlClass, Imports imports) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlClass, imports);
+            return asUnorderedSet(delegate.axioms(owlClass, imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLObjectPropertyAxiom> getAxioms(
         OWLObjectPropertyExpression owlObjectPropertyExpression, Imports imports) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlObjectPropertyExpression, imports);
+            return asUnorderedSet(delegate.axioms(owlObjectPropertyExpression, imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty owlDataProperty, Imports imports) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlDataProperty, imports);
+            return asUnorderedSet(delegate.axioms(owlDataProperty, imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLIndividualAxiom> getAxioms(OWLIndividual owlIndividual, Imports imports) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlIndividual, imports);
+            return asUnorderedSet(delegate.axioms(owlIndividual, imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty owlAnnotationProperty,
         Imports imports) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlAnnotationProperty, imports);
+            return asUnorderedSet(delegate.axioms(owlAnnotationProperty, imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype owlDatatype, Imports imports) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlDatatype, imports);
+            return asUnorderedSet(delegate.axioms(owlDatatype, imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getAxioms() {
         readLock.lock();
         try {
-            return delegate.getAxioms();
+            return asUnorderedSet(delegate.axioms());
         } finally {
             readLock.unlock();
         }
@@ -948,10 +981,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLLogicalAxiom> getLogicalAxioms() {
         readLock.lock();
         try {
-            return delegate.getLogicalAxioms();
+            return asUnorderedSet(delegate.logicalAxioms());
         } finally {
             readLock.unlock();
         }
@@ -968,10 +1002,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
         readLock.lock();
         try {
-            return delegate.getAxioms(axiomType);
+            return asUnorderedSet(delegate.axioms(axiomType));
         } finally {
             readLock.unlock();
         }
@@ -998,162 +1033,182 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getAxioms(boolean b) {
         readLock.lock();
         try {
-            return delegate.getAxioms(b);
+            return asUnorderedSet(delegate.axioms(Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public int getAxiomCount(boolean b) {
         readLock.lock();
         try {
-            return delegate.getAxiomCount(b);
+            return delegate.getAxiomCount(Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLLogicalAxiom> getLogicalAxioms(boolean b) {
         readLock.lock();
         try {
-            return delegate.getLogicalAxioms(b);
+            return asUnorderedSet(delegate.logicalAxioms(Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public int getLogicalAxiomCount(boolean b) {
         readLock.lock();
         try {
-            return delegate.getLogicalAxiomCount(b);
+            return delegate.getLogicalAxiomCount(Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, boolean b) {
         readLock.lock();
         try {
-            return delegate.getAxioms(axiomType, b);
+            return asUnorderedSet(delegate.axioms(axiomType, Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType, boolean b) {
         readLock.lock();
         try {
-            return delegate.getAxiomCount(axiomType, b);
+            return delegate.getAxiomCount(axiomType, Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public boolean containsAxiom(OWLAxiom owlAxiom, boolean b) {
         readLock.lock();
         try {
-            return delegate.containsAxiom(owlAxiom, b);
+            return delegate.containsAxiom(owlAxiom, Imports.fromBoolean(b),
+                AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS);
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public boolean containsAxiomIgnoreAnnotations(OWLAxiom owlAxiom, boolean b) {
         readLock.lock();
         try {
-            return delegate.containsAxiomIgnoreAnnotations(owlAxiom, b);
+            return delegate.containsAxiom(owlAxiom, Imports.fromBoolean(b),
+                AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom owlAxiom, boolean b) {
         readLock.lock();
         try {
-            return delegate.getAxiomsIgnoreAnnotations(owlAxiom, b);
+            return asUnorderedSet(
+                delegate.axiomsIgnoreAnnotations(owlAxiom, Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlPrimitive, boolean b) {
         readLock.lock();
         try {
-            return delegate.getReferencingAxioms(owlPrimitive, b);
+            return asUnorderedSet(delegate.referencingAxioms(owlPrimitive, Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLClassAxiom> getAxioms(OWLClass owlClass, boolean b) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlClass, b);
+            return asUnorderedSet(delegate.axioms(owlClass, Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLObjectPropertyAxiom> getAxioms(
         OWLObjectPropertyExpression owlObjectPropertyExpression, boolean b) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlObjectPropertyExpression, b);
+            return asUnorderedSet(
+                delegate.axioms(owlObjectPropertyExpression, Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty owlDataProperty, boolean b) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlDataProperty, b);
+            return asUnorderedSet(delegate.axioms(owlDataProperty, Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLIndividualAxiom> getAxioms(OWLIndividual owlIndividual, boolean b) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlIndividual, b);
+            return asUnorderedSet(delegate.axioms(owlIndividual, Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty owlAnnotationProperty,
         boolean b) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlAnnotationProperty, b);
+            return asUnorderedSet(delegate.axioms(owlAnnotationProperty, Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype owlDatatype, boolean b) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlDatatype, b);
+            return asUnorderedSet(delegate.axioms(owlDatatype, Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
@@ -1200,10 +1255,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom owlAxiom) {
         readLock.lock();
         try {
-            return delegate.getAxiomsIgnoreAnnotations(owlAxiom);
+            return asUnorderedSet(delegate.axiomsIgnoreAnnotations(owlAxiom));
         } finally {
             readLock.unlock();
         }
@@ -1220,10 +1276,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlPrimitive) {
         readLock.lock();
         try {
-            return delegate.getReferencingAxioms(owlPrimitive);
+            return asUnorderedSet(delegate.referencingAxioms(owlPrimitive));
         } finally {
             readLock.unlock();
         }
@@ -1240,61 +1297,67 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLClassAxiom> getAxioms(OWLClass owlClass) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlClass);
+            return asUnorderedSet(delegate.axioms(owlClass));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLObjectPropertyAxiom> getAxioms(
         OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.axioms(owlObjectPropertyExpression));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty owlDataProperty) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlDataProperty);
+            return asUnorderedSet(delegate.axioms(owlDataProperty));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLIndividualAxiom> getAxioms(OWLIndividual owlIndividual) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlIndividual);
+            return asUnorderedSet(delegate.axioms(owlIndividual));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty owlAnnotationProperty) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlAnnotationProperty);
+            return asUnorderedSet(delegate.axioms(owlAnnotationProperty));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype owlDatatype) {
         readLock.lock();
         try {
-            return delegate.getAxioms(owlDatatype);
+            return asUnorderedSet(delegate.axioms(owlDatatype));
         } finally {
             readLock.unlock();
         }
@@ -1362,50 +1425,55 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLClass> getClassesInSignature(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getClassesInSignature(imports);
+            return asUnorderedSet(delegate.classesInSignature(imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLObjectProperty> getObjectPropertiesInSignature(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getObjectPropertiesInSignature(imports);
+            return asUnorderedSet(delegate.objectPropertiesInSignature(imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDataProperty> getDataPropertiesInSignature(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getDataPropertiesInSignature(imports);
+            return asUnorderedSet(delegate.dataPropertiesInSignature(imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLNamedIndividual> getIndividualsInSignature(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getIndividualsInSignature(imports);
+            return asUnorderedSet(delegate.individualsInSignature(imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getReferencedAnonymousIndividuals(imports);
+            return asUnorderedSet(delegate.referencedAnonymousIndividuals(imports));
         } finally {
             readLock.unlock();
         }
@@ -1432,20 +1500,22 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLDatatype> getDatatypesInSignature(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getDatatypesInSignature(imports);
+            return asUnorderedSet(delegate.datatypesInSignature(imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(Imports imports) {
         readLock.lock();
         try {
-            return delegate.getAnnotationPropertiesInSignature(imports);
+            return asUnorderedSet(delegate.annotationPropertiesInSignature(imports));
         } finally {
             readLock.unlock();
         }
@@ -1602,10 +1672,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLEntity> getEntitiesInSignature(IRI iri, Imports imports) {
         readLock.lock();
         try {
-            return delegate.getEntitiesInSignature(iri, imports);
+            return asUnorderedSet(delegate.entitiesInSignature(iri, imports));
         } finally {
             readLock.unlock();
         }
@@ -1642,16 +1713,18 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLEntity> getEntitiesInSignature(IRI iri) {
         readLock.lock();
         try {
-            return delegate.getEntitiesInSignature(iri);
+            return asUnorderedSet(delegate.entitiesInSignature(iri));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Stream<OWLEntity> entitiesInSignature(IRI iri) {
         readLock.lock();
         try {
@@ -1662,181 +1735,199 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLClass> getClassesInSignature(boolean b) {
         readLock.lock();
         try {
-            return delegate.getClassesInSignature(b);
+            return asUnorderedSet(delegate.classesInSignature(Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLObjectProperty> getObjectPropertiesInSignature(boolean b) {
         readLock.lock();
         try {
-            return delegate.getObjectPropertiesInSignature(b);
+            return asUnorderedSet(delegate.objectPropertiesInSignature(Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDataProperty> getDataPropertiesInSignature(boolean b) {
         readLock.lock();
         try {
-            return delegate.getDataPropertiesInSignature(b);
+            return asUnorderedSet(delegate.dataPropertiesInSignature(Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLNamedIndividual> getIndividualsInSignature(boolean b) {
         readLock.lock();
         try {
-            return delegate.getIndividualsInSignature(b);
+            return asUnorderedSet(delegate.individualsInSignature(Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(boolean b) {
         readLock.lock();
         try {
-            return delegate.getReferencedAnonymousIndividuals(b);
+            return asUnorderedSet(delegate.referencedAnonymousIndividuals(Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDatatype> getDatatypesInSignature(boolean b) {
         readLock.lock();
         try {
-            return delegate.getDatatypesInSignature(b);
+            return asUnorderedSet(delegate.datatypesInSignature(Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(boolean b) {
         readLock.lock();
         try {
-            return delegate.getAnnotationPropertiesInSignature(b);
+            return asUnorderedSet(delegate.annotationPropertiesInSignature(Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public boolean containsEntityInSignature(OWLEntity owlEntity, boolean b) {
         readLock.lock();
         try {
-            return delegate.containsEntityInSignature(owlEntity, b);
+            return delegate.containsEntityInSignature(owlEntity, Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public boolean containsEntityInSignature(IRI iri, boolean b) {
         readLock.lock();
         try {
-            return delegate.containsEntityInSignature(iri, b);
+            return delegate.containsEntityInSignature(iri, Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public boolean containsClassInSignature(IRI iri, boolean b) {
         readLock.lock();
         try {
-            return delegate.containsClassInSignature(iri, b);
+            return delegate.containsClassInSignature(iri, Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public boolean containsObjectPropertyInSignature(IRI iri, boolean b) {
         readLock.lock();
         try {
-            return delegate.containsObjectPropertyInSignature(iri, b);
+            return delegate.containsObjectPropertyInSignature(iri, Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public boolean containsDataPropertyInSignature(IRI iri, boolean b) {
         readLock.lock();
         try {
-            return delegate.containsDataPropertyInSignature(iri, b);
+            return delegate.containsDataPropertyInSignature(iri, Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public boolean containsAnnotationPropertyInSignature(IRI iri, boolean b) {
         readLock.lock();
         try {
-            return delegate.containsAnnotationPropertyInSignature(iri, b);
+            return delegate.containsAnnotationPropertyInSignature(iri, Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public boolean containsDatatypeInSignature(IRI iri, boolean b) {
         readLock.lock();
         try {
-            return delegate.containsDatatypeInSignature(iri, b);
+            return delegate.containsDatatypeInSignature(iri, Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public boolean containsIndividualInSignature(IRI iri, boolean b) {
         readLock.lock();
         try {
-            return delegate.containsIndividualInSignature(iri, b);
+            return delegate.containsIndividualInSignature(iri, Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLEntity> getEntitiesInSignature(IRI iri, boolean b) {
         readLock.lock();
         try {
-            return delegate.getEntitiesInSignature(iri, b);
+            return asUnorderedSet(delegate.entitiesInSignature(iri, Imports.fromBoolean(b)));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public boolean containsReference(OWLEntity owlEntity, boolean b) {
         readLock.lock();
         try {
-            return delegate.containsReference(owlEntity, b);
+            return delegate.containsReference(owlEntity, Imports.fromBoolean(b));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public <T extends OWLAxiom> Set<T> getAxioms(Class<T> aClass, OWLObject owlObject,
         Imports imports, Navigation navigation) {
         readLock.lock();
         try {
-            return delegate.getAxioms(aClass, owlObject, imports, navigation);
+            return asUnorderedSet(delegate.axioms(aClass, owlObject, imports, navigation));
         } finally {
             readLock.unlock();
         }
@@ -1854,11 +1945,12 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public <T extends OWLAxiom> Collection<T> filterAxioms(
         OWLAxiomSearchFilter owlAxiomSearchFilter, Object o, Imports imports) {
         readLock.lock();
         try {
-            return delegate.filterAxioms(owlAxiomSearchFilter, o, imports);
+            return asUnorderedSet(delegate.axioms(owlAxiomSearchFilter, o, imports));
         } finally {
             readLock.unlock();
         }
@@ -1885,12 +1977,13 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public <T extends OWLAxiom> Set<T> getAxioms(Class<T> aClass,
         Class<? extends OWLObject> aClass1, OWLObject owlObject, Imports imports,
         Navigation navigation) {
         readLock.lock();
         try {
-            return delegate.getAxioms(aClass, aClass1, owlObject, imports, navigation);
+            return asUnorderedSet(delegate.axioms(aClass, aClass1, owlObject, imports, navigation));
         } finally {
             readLock.unlock();
         }
@@ -1909,33 +2002,36 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(
         OWLAnnotationProperty owlAnnotationProperty) {
         readLock.lock();
         try {
-            return delegate.getSubAnnotationPropertyOfAxioms(owlAnnotationProperty);
+            return asUnorderedSet(delegate.subAnnotationPropertyOfAxioms(owlAnnotationProperty));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(
         OWLAnnotationProperty owlAnnotationProperty) {
         readLock.lock();
         try {
-            return delegate.getAnnotationPropertyDomainAxioms(owlAnnotationProperty);
+            return asUnorderedSet(delegate.annotationPropertyDomainAxioms(owlAnnotationProperty));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(
         OWLAnnotationProperty owlAnnotationProperty) {
         readLock.lock();
         try {
-            return delegate.getAnnotationPropertyRangeAxioms(owlAnnotationProperty);
+            return asUnorderedSet(delegate.annotationPropertyRangeAxioms(owlAnnotationProperty));
         } finally {
             readLock.unlock();
         }
@@ -1964,408 +2060,444 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity owlEntity) {
         readLock.lock();
         try {
-            return delegate.getDeclarationAxioms(owlEntity);
+            return asUnorderedSet(delegate.declarationAxioms(owlEntity));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
         OWLAnnotationSubject owlAnnotationSubject) {
         readLock.lock();
         try {
-            return delegate.getAnnotationAssertionAxioms(owlAnnotationSubject);
+            return asUnorderedSet(delegate.annotationAssertionAxioms(owlAnnotationSubject));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(OWLClass owlClass) {
         readLock.lock();
         try {
-            return delegate.getSubClassAxiomsForSubClass(owlClass);
+            return asUnorderedSet(delegate.subClassAxiomsForSubClass(owlClass));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(OWLClass owlClass) {
         readLock.lock();
         try {
-            return delegate.getSubClassAxiomsForSuperClass(owlClass);
+            return asUnorderedSet(delegate.subClassAxiomsForSuperClass(owlClass));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(OWLClass owlClass) {
         readLock.lock();
         try {
-            return delegate.getEquivalentClassesAxioms(owlClass);
+            return asUnorderedSet(delegate.equivalentClassesAxioms(owlClass));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLClass owlClass) {
         readLock.lock();
         try {
-            return delegate.getDisjointClassesAxioms(owlClass);
+            return asUnorderedSet(delegate.disjointClassesAxioms(owlClass));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLClass owlClass) {
         readLock.lock();
         try {
-            return delegate.getDisjointUnionAxioms(owlClass);
+            return asUnorderedSet(delegate.disjointUnionAxioms(owlClass));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLHasKeyAxiom> getHasKeyAxioms(OWLClass owlClass) {
         readLock.lock();
         try {
-            return delegate.getHasKeyAxioms(owlClass);
+            return asUnorderedSet(delegate.hasKeyAxioms(owlClass));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getObjectSubPropertyAxiomsForSubProperty(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.objectSubPropertyAxiomsForSubProperty(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getObjectSubPropertyAxiomsForSuperProperty(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.objectSubPropertyAxiomsForSuperProperty(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getObjectPropertyDomainAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.objectPropertyDomainAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getObjectPropertyRangeAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.objectPropertyRangeAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLInverseObjectPropertiesAxiom> getInverseObjectPropertyAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getInverseObjectPropertyAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.inverseObjectPropertyAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getEquivalentObjectPropertiesAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.equivalentObjectPropertiesAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getDisjointObjectPropertiesAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.disjointObjectPropertiesAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getFunctionalObjectPropertyAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.functionalObjectPropertyAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalObjectPropertyAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getInverseFunctionalObjectPropertyAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.inverseFunctionalObjectPropertyAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLSymmetricObjectPropertyAxiom> getSymmetricObjectPropertyAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getSymmetricObjectPropertyAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.symmetricObjectPropertyAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAsymmetricObjectPropertyAxiom> getAsymmetricObjectPropertyAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getAsymmetricObjectPropertyAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.asymmetricObjectPropertyAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLReflexiveObjectPropertyAxiom> getReflexiveObjectPropertyAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getReflexiveObjectPropertyAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.reflexiveObjectPropertyAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLIrreflexiveObjectPropertyAxiom> getIrreflexiveObjectPropertyAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getIrreflexiveObjectPropertyAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.irreflexiveObjectPropertyAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        OWLObjectPropertyExpression o) {
         readLock.lock();
         try {
-            return delegate.getTransitiveObjectPropertyAxioms(owlObjectPropertyExpression);
+            return asUnorderedSet(delegate.transitiveObjectPropertyAxioms(o));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(
         OWLDataProperty owlDataProperty) {
         readLock.lock();
         try {
-            return delegate.getDataSubPropertyAxiomsForSubProperty(owlDataProperty);
+            return asUnorderedSet(delegate.dataSubPropertyAxiomsForSubProperty(owlDataProperty));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(
-        OWLDataPropertyExpression owlDataPropertyExpression) {
+        OWLDataPropertyExpression p) {
         readLock.lock();
         try {
-            return delegate.getDataSubPropertyAxiomsForSuperProperty(owlDataPropertyExpression);
+            return asUnorderedSet(delegate.dataSubPropertyAxiomsForSuperProperty(p));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(
         OWLDataProperty owlDataProperty) {
         readLock.lock();
         try {
-            return delegate.getDataPropertyDomainAxioms(owlDataProperty);
+            return asUnorderedSet(delegate.dataPropertyDomainAxioms(owlDataProperty));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
-    public Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(
-        OWLDataProperty owlDataProperty) {
+    @Deprecated
+    public Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(OWLDataProperty p) {
         readLock.lock();
         try {
-            return delegate.getDataPropertyRangeAxioms(owlDataProperty);
+            return asUnorderedSet(delegate.dataPropertyRangeAxioms(p));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(
-        OWLDataProperty owlDataProperty) {
+        OWLDataProperty p) {
         readLock.lock();
         try {
-            return delegate.getEquivalentDataPropertiesAxioms(owlDataProperty);
+            return asUnorderedSet(delegate.equivalentDataPropertiesAxioms(p));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
-    public Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(
-        OWLDataProperty owlDataProperty) {
+    @Deprecated
+    public Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(OWLDataProperty p) {
         readLock.lock();
         try {
-            return delegate.getDisjointDataPropertiesAxioms(owlDataProperty);
+            return asUnorderedSet(delegate.disjointDataPropertiesAxioms(p));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(
         OWLDataPropertyExpression owlDataPropertyExpression) {
         readLock.lock();
         try {
-            return delegate.getFunctionalDataPropertyAxioms(owlDataPropertyExpression);
+            return asUnorderedSet(delegate.functionalDataPropertyAxioms(owlDataPropertyExpression));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLIndividual owlIndividual) {
         readLock.lock();
         try {
-            return delegate.getClassAssertionAxioms(owlIndividual);
+            return asUnorderedSet(delegate.classAssertionAxioms(owlIndividual));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
         OWLClassExpression owlClassExpression) {
         readLock.lock();
         try {
-            return delegate.getClassAssertionAxioms(owlClassExpression);
+            return asUnorderedSet(delegate.classAssertionAxioms(owlClassExpression));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(
         OWLIndividual owlIndividual) {
         readLock.lock();
         try {
-            return delegate.getDataPropertyAssertionAxioms(owlIndividual);
+            return asUnorderedSet(delegate.dataPropertyAssertionAxioms(owlIndividual));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionAxioms(
         OWLIndividual owlIndividual) {
         readLock.lock();
         try {
-            return delegate.getObjectPropertyAssertionAxioms(owlIndividual);
+            return asUnorderedSet(delegate.objectPropertyAssertionAxioms(owlIndividual));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLNegativeObjectPropertyAssertionAxiom> getNegativeObjectPropertyAssertionAxioms(
         OWLIndividual owlIndividual) {
         readLock.lock();
         try {
-            return delegate.getNegativeObjectPropertyAssertionAxioms(owlIndividual);
+            return asUnorderedSet(delegate.negativeObjectPropertyAssertionAxioms(owlIndividual));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(
         OWLIndividual owlIndividual) {
         readLock.lock();
         try {
-            return delegate.getNegativeDataPropertyAssertionAxioms(owlIndividual);
+            return asUnorderedSet(delegate.negativeDataPropertyAssertionAxioms(owlIndividual));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLSameIndividualAxiom> getSameIndividualAxioms(OWLIndividual owlIndividual) {
         readLock.lock();
         try {
-            return delegate.getSameIndividualAxioms(owlIndividual);
+            return asUnorderedSet(delegate.sameIndividualAxioms(owlIndividual));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(
         OWLIndividual owlIndividual) {
         readLock.lock();
         try {
-            return delegate.getDifferentIndividualAxioms(owlIndividual);
+            return asUnorderedSet(delegate.differentIndividualAxioms(owlIndividual));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype owlDatatype) {
         readLock.lock();
         try {
-            return delegate.getDatatypeDefinitions(owlDatatype);
+            return asUnorderedSet(delegate.datatypeDefinitions(owlDatatype));
         } finally {
             readLock.unlock();
         }
@@ -3022,11 +3154,12 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public <T extends OWLAxiom> Collection<T> filterAxioms(OWLAxiomSearchFilter filter,
         Object key) {
         readLock.lock();
         try {
-            return delegate.filterAxioms(filter, key);
+            return asUnorderedSet(delegate.axioms(filter, key));
         } finally {
             readLock.unlock();
         }
@@ -3055,43 +3188,47 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
         OWLAnnotationSubject entity, Imports imports) {
         readLock.lock();
         try {
-            return delegate.getAnnotationAssertionAxioms(entity, imports);
+            return asUnorderedSet(delegate.annotationAssertionAxioms(entity, imports));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
         readLock.lock();
         try {
-            return delegate.getAnnotations(annotationProperty);
+            return asUnorderedSet(delegate.annotations(annotationProperty));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public <T extends OWLAxiom> Set<T> getAxioms(Class<T> type,
         Class<? extends OWLObject> explicitClass, OWLObject entity, Navigation forSubPosition) {
         readLock.lock();
         try {
-            return delegate.getAxioms(type, explicitClass, entity, forSubPosition);
+            return asUnorderedSet(delegate.axioms(type, explicitClass, entity, forSubPosition));
         } finally {
             readLock.unlock();
         }
     }
 
     @Override
+    @Deprecated
     public <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity,
         Navigation forSubPosition) {
         readLock.lock();
         try {
-            return delegate.getAxioms(type, entity, forSubPosition);
+            return asUnorderedSet(delegate.axioms(type, entity, forSubPosition));
         } finally {
             readLock.unlock();
         }
@@ -3109,10 +3246,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Deprecated
     public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals() {
         readLock.lock();
         try {
-            return delegate.getReferencedAnonymousIndividuals();
+            return asUnorderedSet(delegate.referencedAnonymousIndividuals());
         } finally {
             readLock.unlock();
         }

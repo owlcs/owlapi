@@ -145,7 +145,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * @return the oWL class
      */
     private OWLClass setupDebuggingClass(OWLClassExpression cls) {
-        if (!cls.isAnonymous()) {
+        if (cls.isNamed()) {
             return (OWLClass) cls;
         } else {
             // The class is anonymous, so we need to assign it a name

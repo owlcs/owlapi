@@ -19,6 +19,7 @@ import java.util.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.utilities.*;
 import org.semanticweb.owlapi.utility.*;
+
 import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings("all")
@@ -262,7 +263,7 @@ if(lhs.isOWLThing()) {
                 ax = factory.getOWLObjectPropertyDomainAxiom(restriction.getProperty(), rhs);
             }
         } else {
-            if(rhs instanceof OWLObjectComplementOf && !rhs.isAnonymous()) {
+            if(rhs instanceof OWLObjectComplementOf && rhs.isNamed()) {
                 ax = factory.getOWLDisjointClassesAxiom(lhs, ((OWLObjectComplementOf) rhs).getOperand());
             } else {
                 ax = factory.getOWLSubClassOfAxiom(lhs, rhs);

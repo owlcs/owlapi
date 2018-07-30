@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
 
+import org.semanticweb.owlapi.model.IsAnonymous;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
@@ -272,7 +273,7 @@ public class InitVisitorFactory {
         public Stream<K> visit(OWLDisjointClassesAxiom axiom) {
             Stream<OWLClassExpression> stream = axiom.classExpressions();
             if (named) {
-                stream = stream.filter(c -> !c.isAnonymous());
+                stream = stream.filter(IsAnonymous::isNamed);
             }
             return (Stream<K>) stream;
         }
@@ -311,7 +312,7 @@ public class InitVisitorFactory {
         public Stream<K> visit(OWLEquivalentClassesAxiom axiom) {
             Stream<OWLClassExpression> stream = axiom.classExpressions();
             if (named) {
-                stream = stream.filter(c -> !c.isAnonymous());
+                stream = stream.filter(IsAnonymous::isNamed);
             }
             return (Stream<K>) stream;
         }

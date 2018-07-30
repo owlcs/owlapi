@@ -19,7 +19,7 @@ class KRSSParser implements KRSSParserConstants {
         this.ontology = ontology;
         this.df = ontology.getOWLOntologyManager().getOWLDataFactory();
         string2IRI = new HashMap<String, IRI>();
-        if (!ontology.isAnonymous()) {
+        if (ontology.isNamed()) {
             base = ontology.getOntologyID().getOntologyIRI() + "#";
         } else {
             base = Namespaces.OWL.toString();

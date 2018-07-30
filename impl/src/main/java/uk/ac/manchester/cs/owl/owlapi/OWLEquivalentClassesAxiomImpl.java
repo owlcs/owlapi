@@ -30,14 +30,14 @@ import org.semanticweb.owlapi.utility.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
-                implements OWLEquivalentClassesAxiom {
+    implements OWLEquivalentClassesAxiom {
 
     /**
      * @param classExpressions equivalent classes
      * @param annotations annotations
      */
     public OWLEquivalentClassesAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 
@@ -45,7 +45,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
     @SuppressWarnings("unchecked")
     public OWLEquivalentClassesAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-                        : new OWLEquivalentClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
+            : new OWLEquivalentClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
     }
 
     private static boolean named(OWLClassExpression d) {
-        return !d.isAnonymous() && !d.isOWLNothing() && !d.isOWLThing();
+        return d.isNamed() && !d.isOWLNothing() && !d.isOWLThing();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
     @Override
     public Stream<OWLClass> namedClasses() {
         return classExpressions().filter(OWLEquivalentClassesAxiomImpl::named)
-                        .map(OWLClassExpression::asOWLClass);
+            .map(OWLClassExpression::asOWLClass);
     }
 
     @Override

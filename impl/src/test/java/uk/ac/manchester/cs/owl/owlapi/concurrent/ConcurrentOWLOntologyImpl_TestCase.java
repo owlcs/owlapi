@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import static org.mockito.Matchers.anyListOf;
+import static org.mockito.ArgumentMatchers.anyListOf;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -45,6 +45,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.utilities.OWLAxiomSearchFilter;
 
@@ -52,7 +53,7 @@ import org.semanticweb.owlapi.utilities.OWLAxiomSearchFilter;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 03/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({"javadoc", "deprecation", "null"})
+@SuppressWarnings({"javadoc", "deprecation"})
 public class ConcurrentOWLOntologyImpl_TestCase {
 
     @Mock
@@ -76,8 +77,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     public void setUp() {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
-        when(delegate.applyChangesAndGetDetails(anyListOf(OWLOntologyChange.class))).thenReturn(
-                        new ChangeDetails(ChangeApplied.NO_OPERATION, Collections.emptyList()));
+        when(delegate.applyChangesAndGetDetails(anyListOf(OWLOntologyChange.class)))
+            .thenReturn(new ChangeDetails(ChangeApplied.NO_OPERATION, Collections.emptyList()));
         ontology = spy(new ConcurrentOWLOntologyImpl(delegate, readWriteLock));
     }
 
@@ -116,19 +117,19 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAnnotations_withReadLock() {
         ontology.getAnnotations();
-        readLock(i -> i.verify(delegate).getAnnotations());
+        readLock(i -> i.verify(delegate).annotations());
     }
 
     @Test
     public void shouldDelegateTo_getSignature_withReadLock() {
         ontology.getSignature(INCLUDED);
-        readLock(i -> i.verify(delegate).getSignature(INCLUDED));
+        readLock(i -> i.verify(delegate).signature(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getSignature_withReadLock_2() {
         ontology.getSignature();
-        readLock(i -> i.verify(delegate).getSignature());
+        readLock(i -> i.verify(delegate).signature());
     }
 
     @Test
@@ -155,55 +156,55 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getDirectImportsDocuments_withReadLock() {
         ontology.getDirectImportsDocuments();
-        readLock(i -> i.verify(delegate).getDirectImportsDocuments());
+        readLock(i -> i.verify(delegate).directImportsDocuments());
     }
 
     @Test
     public void shouldDelegateTo_getDirectImports_withReadLock() {
         ontology.getDirectImports();
-        readLock(i -> i.verify(delegate).getDirectImports());
+        readLock(i -> i.verify(delegate).directImports());
     }
 
     @Test
     public void shouldDelegateTo_getImports_withReadLock() {
         ontology.getImports();
-        readLock(i -> i.verify(delegate).getImports());
+        readLock(i -> i.verify(delegate).imports());
     }
 
     @Test
     public void shouldDelegateTo_getImportsClosure_withReadLock() {
         ontology.getImportsClosure();
-        readLock(i -> i.verify(delegate).getImportsClosure());
+        readLock(i -> i.verify(delegate).importsClosure());
     }
 
     @Test
     public void shouldDelegateTo_getImportsDeclarations_withReadLock() {
         ontology.getImportsDeclarations();
-        readLock(i -> i.verify(delegate).getImportsDeclarations());
+        readLock(i -> i.verify(delegate).importsDeclarations());
     }
 
     @Test
     public void shouldDelegateTo_getTBoxAxioms_withReadLock() {
         ontology.getTBoxAxioms(INCLUDED);
-        readLock(i -> i.verify(delegate).getTBoxAxioms(INCLUDED));
+        readLock(i -> i.verify(delegate).tboxAxioms(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getABoxAxioms_withReadLock() {
         ontology.getABoxAxioms(INCLUDED);
-        readLock(i -> i.verify(delegate).getABoxAxioms(INCLUDED));
+        readLock(i -> i.verify(delegate).aboxAxioms(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getRBoxAxioms_withReadLock() {
         ontology.getRBoxAxioms(INCLUDED);
-        readLock(i -> i.verify(delegate).getRBoxAxioms(INCLUDED));
+        readLock(i -> i.verify(delegate).rboxAxioms(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getGeneralClassAxioms_withReadLock() {
         ontology.getGeneralClassAxioms();
-        readLock(i -> i.verify(delegate).getGeneralClassAxioms());
+        readLock(i -> i.verify(delegate).generalClassAxioms());
     }
 
     @Mock
@@ -280,7 +281,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getNestedClassExpressions_withReadLock() {
         ontology.getNestedClassExpressions();
-        readLock(i -> i.verify(delegate).getNestedClassExpressions());
+        readLock(i -> i.verify(delegate).nestedClassExpressions());
     }
 
     @Test
@@ -304,49 +305,49 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAnonymousIndividuals_withReadLock() {
         ontology.getAnonymousIndividuals();
-        readLock(i -> i.verify(delegate).getAnonymousIndividuals());
+        readLock(i -> i.verify(delegate).anonymousIndividuals());
     }
 
     @Test
     public void shouldDelegateTo_getClassesInSignature_withReadLock() {
         ontology.getClassesInSignature();
-        readLock(i -> i.verify(delegate).getClassesInSignature());
+        readLock(i -> i.verify(delegate).classesInSignature());
     }
 
     @Test
     public void shouldDelegateTo_getObjectPropertiesInSignature_withReadLock() {
         ontology.getObjectPropertiesInSignature();
-        readLock(i -> i.verify(delegate).getObjectPropertiesInSignature());
+        readLock(i -> i.verify(delegate).objectPropertiesInSignature());
     }
 
     @Test
     public void shouldDelegateTo_getDataPropertiesInSignature_withReadLock() {
         ontology.getDataPropertiesInSignature();
-        readLock(i -> i.verify(delegate).getDataPropertiesInSignature());
+        readLock(i -> i.verify(delegate).dataPropertiesInSignature());
     }
 
     @Test
     public void shouldDelegateTo_getIndividualsInSignature_withReadLock() {
         ontology.getIndividualsInSignature();
-        readLock(i -> i.verify(delegate).getIndividualsInSignature());
+        readLock(i -> i.verify(delegate).individualsInSignature());
     }
 
     @Test
     public void shouldDelegateTo_getDatatypesInSignature_withReadLock() {
         ontology.getDatatypesInSignature();
-        readLock(i -> i.verify(delegate).getDatatypesInSignature());
+        readLock(i -> i.verify(delegate).datatypesInSignature());
     }
 
     @Test
     public void shouldDelegateTo_getAnnotationPropertiesInSignature_withReadLock() {
         ontology.getAnnotationPropertiesInSignature();
-        readLock(i -> i.verify(delegate).getAnnotationPropertiesInSignature());
+        readLock(i -> i.verify(delegate).annotationPropertiesInSignature());
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock() {
         ontology.getAxioms(datatype, INCLUDED);
-        readLock(i -> i.verify(delegate).getAxioms(datatype, INCLUDED));
+        readLock(i -> i.verify(delegate).axioms(datatype, INCLUDED));
     }
 
     @Mock
@@ -355,43 +356,43 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_2() {
         ontology.getAxioms(owlClass, INCLUDED);
-        readLock(i -> i.verify(delegate).getAxioms(owlClass, INCLUDED));
+        readLock(i -> i.verify(delegate).axioms(owlClass, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_3() {
         ontology.getAxioms(objectProperty, INCLUDED);
-        readLock(i -> i.verify(delegate).getAxioms(objectProperty, INCLUDED));
+        readLock(i -> i.verify(delegate).axioms(objectProperty, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_4() {
         ontology.getAxioms(dataProperty, INCLUDED);
-        readLock(i -> i.verify(delegate).getAxioms(dataProperty, INCLUDED));
+        readLock(i -> i.verify(delegate).axioms(dataProperty, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_5() {
         ontology.getAxioms(individual, INCLUDED);
-        readLock(i -> i.verify(delegate).getAxioms(individual, INCLUDED));
+        readLock(i -> i.verify(delegate).axioms(individual, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_6() {
         ontology.getAxioms(annotationProperty, INCLUDED);
-        readLock(i -> i.verify(delegate).getAxioms(annotationProperty, INCLUDED));
+        readLock(i -> i.verify(delegate).axioms(annotationProperty, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_7() {
         ontology.getAxioms(INCLUDED);
-        readLock(i -> i.verify(delegate).getAxioms(INCLUDED));
+        readLock(i -> i.verify(delegate).axioms(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_8() {
         ontology.getAxioms(AxiomType.SUBCLASS_OF, INCLUDED);
-        readLock(i -> i.verify(delegate).getAxioms(AxiomType.SUBCLASS_OF, INCLUDED));
+        readLock(i -> i.verify(delegate).axioms(AxiomType.SUBCLASS_OF, INCLUDED));
     }
 
     @Test
@@ -409,7 +410,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getLogicalAxioms_withReadLock() {
         ontology.getLogicalAxioms(INCLUDED);
-        readLock(i -> i.verify(delegate).getLogicalAxioms(INCLUDED));
+        readLock(i -> i.verify(delegate).logicalAxioms(INCLUDED));
     }
 
     @Test
@@ -422,7 +423,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     public void shouldDelegateTo_containsAxiom_withReadLock() {
         ontology.containsAxiom(axiom, INCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
         readLock(i -> i.verify(delegate).containsAxiom(axiom, INCLUDED,
-                        AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS));
+            AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS));
     }
 
     @Mock
@@ -431,13 +432,13 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAxiomsIgnoreAnnotations_withReadLock() {
         ontology.getAxiomsIgnoreAnnotations(axiom, INCLUDED);
-        readLock(i -> i.verify(delegate).getAxiomsIgnoreAnnotations(axiom, INCLUDED));
+        readLock(i -> i.verify(delegate).axiomsIgnoreAnnotations(axiom, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getReferencingAxioms_withReadLock() {
         ontology.getReferencingAxioms(primitive, INCLUDED);
-        readLock(i -> i.verify(delegate).getReferencingAxioms(primitive, INCLUDED));
+        readLock(i -> i.verify(delegate).referencingAxioms(primitive, INCLUDED));
     }
 
     @Mock
@@ -446,19 +447,19 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_9() {
         ontology.getAxioms();
-        readLock(i -> i.verify(delegate).getAxioms());
+        readLock(i -> i.verify(delegate).axioms());
     }
 
     @Test
     public void shouldDelegateTo_getLogicalAxioms_withReadLock_2() {
         ontology.getLogicalAxioms();
-        readLock(i -> i.verify(delegate).getLogicalAxioms());
+        readLock(i -> i.verify(delegate).logicalAxioms());
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_10() {
         ontology.getAxioms(AxiomType.SUBCLASS_OF);
-        readLock(i -> i.verify(delegate).getAxioms(AxiomType.SUBCLASS_OF));
+        readLock(i -> i.verify(delegate).axioms(AxiomType.SUBCLASS_OF));
     }
 
     @Test
@@ -470,25 +471,25 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_11() {
         ontology.getAxioms(datatype, true);
-        readLock(i -> i.verify(delegate).getAxioms(datatype, true));
+        readLock(i -> i.verify(delegate).axioms(datatype, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_12() {
         ontology.getAxioms(owlClass, true);
-        readLock(i -> i.verify(delegate).getAxioms(owlClass, true));
+        readLock(i -> i.verify(delegate).axioms(owlClass, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_13() {
         ontology.getAxioms(objectProperty, true);
-        readLock(i -> i.verify(delegate).getAxioms(objectProperty, true));
+        readLock(i -> i.verify(delegate).axioms(objectProperty, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_14() {
         ontology.getAxioms(dataProperty, true);
-        readLock(i -> i.verify(delegate).getAxioms(dataProperty, true));
+        readLock(i -> i.verify(delegate).axioms(dataProperty, INCLUDED));
     }
 
     @Mock
@@ -497,7 +498,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_15() {
         ontology.getAxioms(individual, true);
-        readLock(i -> i.verify(delegate).getAxioms(individual, true));
+        readLock(i -> i.verify(delegate).axioms(individual, INCLUDED));
     }
 
     @Mock
@@ -506,74 +507,77 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_16() {
         ontology.getAxioms(annotationProperty, true);
-        readLock(i -> i.verify(delegate).getAxioms(annotationProperty, true));
+        readLock(i -> i.verify(delegate).axioms(annotationProperty, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_17() {
         ontology.getAxioms(AxiomType.SUBCLASS_OF, true);
-        readLock(i -> i.verify(delegate).getAxioms(AxiomType.SUBCLASS_OF, true));
+        readLock(i -> i.verify(delegate).axioms(AxiomType.SUBCLASS_OF, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_18() {
         ontology.getAxioms(true);
-        readLock(i -> i.verify(delegate).getAxioms(true));
+        readLock(i -> i.verify(delegate).axioms(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxiomCount_withReadLock_3() {
         ontology.getAxiomCount(true);
-        readLock(i -> i.verify(delegate).getAxiomCount(true));
+        readLock(i -> i.verify(delegate).getAxiomCount(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getAxiomCount_withReadLock_4() {
         boolean arg1 = true;
         ontology.getAxiomCount(AxiomType.SUBCLASS_OF, arg1);
-        readLock(i -> i.verify(delegate).getAxiomCount(AxiomType.SUBCLASS_OF, arg1));
+        readLock(i -> i.verify(delegate).getAxiomCount(AxiomType.SUBCLASS_OF,
+            Imports.fromBoolean(arg1)));
     }
 
     @Test
     public void shouldDelegateTo_getLogicalAxioms_withReadLock_3() {
         ontology.getLogicalAxioms(true);
-        readLock(i -> i.verify(delegate).getLogicalAxioms(true));
+        readLock(i -> i.verify(delegate).logicalAxioms(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getLogicalAxiomCount_withReadLock_2() {
         ontology.getLogicalAxiomCount(true);
-        readLock(i -> i.verify(delegate).getLogicalAxiomCount(true));
+        readLock(i -> i.verify(delegate).getLogicalAxiomCount(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_containsAxiom_withReadLock_3() {
         ontology.containsAxiom(axiom, true);
-        readLock(i -> i.verify(delegate).containsAxiom(axiom, true));
+        readLock(i -> i.verify(delegate).containsAxiom(axiom, INCLUDED,
+            AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS));
     }
 
     @Test
     public void shouldDelegateTo_getAxiomsIgnoreAnnotations_withReadLock_2() {
         ontology.getAxiomsIgnoreAnnotations(axiom, true);
-        readLock(i -> i.verify(delegate).getAxiomsIgnoreAnnotations(axiom, true));
+        readLock(i -> i.verify(delegate).axiomsIgnoreAnnotations(axiom, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getReferencingAxioms_withReadLock_2() {
         ontology.getReferencingAxioms(primitive, true);
-        readLock(i -> i.verify(delegate).getReferencingAxioms(primitive, true));
+        readLock(i -> i.verify(delegate).referencingAxioms(primitive, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_containsAxiomIgnoreAnnotations_withReadLock() {
         ontology.containsAxiomIgnoreAnnotations(axiom, true);
-        readLock(i -> i.verify(delegate).containsAxiomIgnoreAnnotations(axiom, true));
+        readLock(i -> i.verify(delegate).containsAxiom(axiom, INCLUDED,
+            AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_19() {
         ontology.getAxioms(datatype);
-        readLock(i -> i.verify(delegate).getAxioms(datatype));
+        readLock(i -> i.verify(delegate).axioms(datatype));
     }
 
     @Mock
@@ -582,31 +586,31 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_20() {
         ontology.getAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).axioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_21() {
         ontology.getAxioms(dataProperty);
-        readLock(i -> i.verify(delegate).getAxioms(dataProperty));
+        readLock(i -> i.verify(delegate).axioms(dataProperty));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_22() {
         ontology.getAxioms(individual);
-        readLock(i -> i.verify(delegate).getAxioms(individual));
+        readLock(i -> i.verify(delegate).axioms(individual));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_23() {
         ontology.getAxioms(annotationProperty);
-        readLock(i -> i.verify(delegate).getAxioms(annotationProperty));
+        readLock(i -> i.verify(delegate).axioms(annotationProperty));
     }
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_24() {
         ontology.getAxioms(owlClass);
-        readLock(i -> i.verify(delegate).getAxioms(owlClass));
+        readLock(i -> i.verify(delegate).axioms(owlClass));
     }
 
     @Test
@@ -630,13 +634,13 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAxiomsIgnoreAnnotations_withReadLock_3() {
         ontology.getAxiomsIgnoreAnnotations(axiom);
-        readLock(i -> i.verify(delegate).getAxiomsIgnoreAnnotations(axiom));
+        readLock(i -> i.verify(delegate).axiomsIgnoreAnnotations(axiom));
     }
 
     @Test
     public void shouldDelegateTo_getReferencingAxioms_withReadLock_3() {
         ontology.getReferencingAxioms(primitive);
-        readLock(i -> i.verify(delegate).getReferencingAxioms(primitive));
+        readLock(i -> i.verify(delegate).referencingAxioms(primitive));
     }
 
     @Test
@@ -648,25 +652,25 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAnnotationPropertiesInSignature_withReadLock_2() {
         ontology.getAnnotationPropertiesInSignature(INCLUDED);
-        readLock(i -> i.verify(delegate).getAnnotationPropertiesInSignature(INCLUDED));
+        readLock(i -> i.verify(delegate).annotationPropertiesInSignature(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getIndividualsInSignature_withReadLock_2() {
         ontology.getIndividualsInSignature(INCLUDED);
-        readLock(i -> i.verify(delegate).getIndividualsInSignature(INCLUDED));
+        readLock(i -> i.verify(delegate).individualsInSignature(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getDatatypesInSignature_withReadLock_2() {
         ontology.getDatatypesInSignature(INCLUDED);
-        readLock(i -> i.verify(delegate).getDatatypesInSignature(INCLUDED));
+        readLock(i -> i.verify(delegate).datatypesInSignature(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getClassesInSignature_withReadLock_2() {
         ontology.getClassesInSignature(INCLUDED);
-        readLock(i -> i.verify(delegate).getClassesInSignature(INCLUDED));
+        readLock(i -> i.verify(delegate).classesInSignature(INCLUDED));
     }
 
     @Test
@@ -690,19 +694,19 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getObjectPropertiesInSignature_withReadLock_2() {
         ontology.getObjectPropertiesInSignature(INCLUDED);
-        readLock(i -> i.verify(delegate).getObjectPropertiesInSignature(INCLUDED));
+        readLock(i -> i.verify(delegate).objectPropertiesInSignature(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getDataPropertiesInSignature_withReadLock_2() {
         ontology.getDataPropertiesInSignature(INCLUDED);
-        readLock(i -> i.verify(delegate).getDataPropertiesInSignature(INCLUDED));
+        readLock(i -> i.verify(delegate).dataPropertiesInSignature(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getReferencedAnonymousIndividuals_withReadLock() {
         ontology.getReferencedAnonymousIndividuals(INCLUDED);
-        readLock(i -> i.verify(delegate).getReferencedAnonymousIndividuals(INCLUDED));
+        readLock(i -> i.verify(delegate).referencedAnonymousIndividuals(INCLUDED));
     }
 
     @Test
@@ -780,7 +784,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getEntitiesInSignature_withReadLock() {
         ontology.getEntitiesInSignature(iri, INCLUDED);
-        readLock(i -> i.verify(delegate).getEntitiesInSignature(iri, INCLUDED));
+        readLock(i -> i.verify(delegate).entitiesInSignature(iri, INCLUDED));
     }
 
     @Test
@@ -804,120 +808,126 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getEntitiesInSignature_withReadLock_2() {
         ontology.getEntitiesInSignature(iri);
-        readLock(i -> i.verify(delegate).getEntitiesInSignature(iri));
+        readLock(i -> i.verify(delegate).entitiesInSignature(iri));
     }
 
     @Test
     public void shouldDelegateTo_getAnnotationPropertiesInSignature_withReadLock_3() {
         boolean arg0 = true;
         ontology.getAnnotationPropertiesInSignature(arg0);
-        readLock(i -> i.verify(delegate).getAnnotationPropertiesInSignature(arg0));
+        readLock(
+            i -> i.verify(delegate).annotationPropertiesInSignature(Imports.fromBoolean(arg0)));
     }
 
     @Test
     public void shouldDelegateTo_getIndividualsInSignature_withReadLock_3() {
         boolean arg0 = true;
         ontology.getIndividualsInSignature(arg0);
-        readLock(i -> i.verify(delegate).getIndividualsInSignature(arg0));
+        readLock(i -> i.verify(delegate).individualsInSignature(Imports.fromBoolean(arg0)));
     }
 
     @Test
     public void shouldDelegateTo_getDatatypesInSignature_withReadLock_3() {
         boolean arg0 = true;
         ontology.getDatatypesInSignature(arg0);
-        readLock(i -> i.verify(delegate).getDatatypesInSignature(arg0));
+        readLock(i -> i.verify(delegate).datatypesInSignature(Imports.fromBoolean(arg0)));
     }
 
     @Test
     public void shouldDelegateTo_getClassesInSignature_withReadLock_3() {
         boolean arg0 = true;
         ontology.getClassesInSignature(arg0);
-        readLock(i -> i.verify(delegate).getClassesInSignature(arg0));
+        readLock(i -> i.verify(delegate).classesInSignature(Imports.fromBoolean(arg0)));
     }
 
     @Test
     public void shouldDelegateTo_containsEntityInSignature_withReadLock_5() {
         boolean arg1 = true;
         ontology.containsEntityInSignature(iri, arg1);
-        readLock(i -> i.verify(delegate).containsEntityInSignature(iri, arg1));
+        readLock(i -> i.verify(delegate).containsEntityInSignature(iri, Imports.fromBoolean(arg1)));
     }
 
     @Test
     public void shouldDelegateTo_containsEntityInSignature_withReadLock_6() {
         ontology.containsEntityInSignature(entity, true);
-        readLock(i -> i.verify(delegate).containsEntityInSignature(entity, true));
+        readLock(i -> i.verify(delegate).containsEntityInSignature(entity, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getObjectPropertiesInSignature_withReadLock_3() {
         ontology.getObjectPropertiesInSignature(true);
-        readLock(i -> i.verify(delegate).getObjectPropertiesInSignature(true));
+        readLock(i -> i.verify(delegate).objectPropertiesInSignature(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getDataPropertiesInSignature_withReadLock_3() {
         ontology.getDataPropertiesInSignature(true);
-        readLock(i -> i.verify(delegate).getDataPropertiesInSignature(true));
+        readLock(i -> i.verify(delegate).dataPropertiesInSignature(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getReferencedAnonymousIndividuals_withReadLock_2() {
         ontology.getReferencedAnonymousIndividuals(true);
-        readLock(i -> i.verify(delegate).getReferencedAnonymousIndividuals(true));
+        readLock(i -> i.verify(delegate).referencedAnonymousIndividuals(INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_containsClassInSignature_withReadLock_3() {
         ontology.containsClassInSignature(iri, true);
-        readLock(i -> i.verify(delegate).containsClassInSignature(iri, true));
+        readLock(i -> i.verify(delegate).containsClassInSignature(iri, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_containsObjectPropertyInSignature_withReadLock_3() {
         boolean arg1 = true;
         ontology.containsObjectPropertyInSignature(iri, arg1);
-        readLock(i -> i.verify(delegate).containsObjectPropertyInSignature(iri, arg1));
+        readLock(i -> i.verify(delegate).containsObjectPropertyInSignature(iri,
+            Imports.fromBoolean(arg1)));
     }
 
     @Test
     public void shouldDelegateTo_containsDataPropertyInSignature_withReadLock_3() {
         boolean arg1 = true;
         ontology.containsDataPropertyInSignature(iri, arg1);
-        readLock(i -> i.verify(delegate).containsDataPropertyInSignature(iri, arg1));
+        readLock(i -> i.verify(delegate).containsDataPropertyInSignature(iri,
+            Imports.fromBoolean(arg1)));
     }
 
     @Test
     public void shouldDelegateTo_containsAnnotationPropertyInSignature_withReadLock_3() {
         boolean arg1 = true;
         ontology.containsAnnotationPropertyInSignature(iri, arg1);
-        readLock(i -> i.verify(delegate).containsAnnotationPropertyInSignature(iri, arg1));
+        readLock(i -> i.verify(delegate).containsAnnotationPropertyInSignature(iri,
+            Imports.fromBoolean(arg1)));
     }
 
     @Test
     public void shouldDelegateTo_containsDatatypeInSignature_withReadLock_3() {
         boolean arg1 = true;
         ontology.containsDatatypeInSignature(iri, arg1);
-        readLock(i -> i.verify(delegate).containsDatatypeInSignature(iri, arg1));
+        readLock(
+            i -> i.verify(delegate).containsDatatypeInSignature(iri, Imports.fromBoolean(arg1)));
     }
 
     @Test
     public void shouldDelegateTo_containsIndividualInSignature_withReadLock_3() {
         boolean arg1 = true;
         ontology.containsIndividualInSignature(iri, arg1);
-        readLock(i -> i.verify(delegate).containsIndividualInSignature(iri, arg1));
+        readLock(
+            i -> i.verify(delegate).containsIndividualInSignature(iri, Imports.fromBoolean(arg1)));
     }
 
     @Test
     public void shouldDelegateTo_getEntitiesInSignature_withReadLock_3() {
         boolean arg1 = true;
         ontology.getEntitiesInSignature(iri, arg1);
-        readLock(i -> i.verify(delegate).getEntitiesInSignature(iri, arg1));
+        readLock(i -> i.verify(delegate).entitiesInSignature(iri, Imports.fromBoolean(arg1)));
     }
 
     @Test
     public void shouldDelegateTo_containsReference_withReadLock_3() {
         ontology.containsReference(entity, true);
-        readLock(i -> i.verify(delegate).containsReference(entity, true));
+        readLock(i -> i.verify(delegate).containsReference(entity, INCLUDED));
     }
 
     @Test
@@ -937,7 +947,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         Class arg1 = OWLClass.class;
         Navigation arg4 = Navigation.IN_SUB_POSITION;
         ontology.getAxioms(arg0, arg1, object, INCLUDED, arg4);
-        readLock(i -> i.verify(delegate).getAxioms(arg0, arg1, object, INCLUDED, arg4));
+        readLock(i -> i.verify(delegate).axioms(arg0, arg1, object, INCLUDED, arg4));
     }
 
     @Mock
@@ -949,20 +959,20 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         Class arg0 = OWLClass.class;
         Navigation arg3 = Navigation.IN_SUB_POSITION;
         ontology.getAxioms(arg0, object, INCLUDED, arg3);
-        readLock(i -> i.verify(delegate).getAxioms(arg0, object, INCLUDED, arg3));
+        readLock(i -> i.verify(delegate).axioms(arg0, object, INCLUDED, arg3));
     }
 
     @Test
     public void shouldDelegateTo_filterAxioms_withReadLock() {
         Object arg1 = new Object();
         ontology.filterAxioms(searchFilter, arg1, INCLUDED);
-        readLock(i -> i.verify(delegate).filterAxioms(searchFilter, arg1, INCLUDED));
+        readLock(i -> i.verify(delegate).axioms(searchFilter, arg1, INCLUDED));
     }
 
     @Test
     public void shouldDelegateTo_getSubAnnotationPropertyOfAxioms_withReadLock() {
         ontology.getSubAnnotationPropertyOfAxioms(annotationProperty);
-        readLock(i -> i.verify(delegate).getSubAnnotationPropertyOfAxioms(annotationProperty));
+        readLock(i -> i.verify(delegate).subAnnotationPropertyOfAxioms(annotationProperty));
     }
 
     @Mock
@@ -971,25 +981,25 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getAnnotationPropertyDomainAxioms_withReadLock() {
         ontology.getAnnotationPropertyDomainAxioms(annotationProperty);
-        readLock(i -> i.verify(delegate).getAnnotationPropertyDomainAxioms(annotationProperty));
+        readLock(i -> i.verify(delegate).annotationPropertyDomainAxioms(annotationProperty));
     }
 
     @Test
     public void shouldDelegateTo_getAnnotationPropertyRangeAxioms_withReadLock() {
         ontology.getAnnotationPropertyRangeAxioms(annotationProperty);
-        readLock(i -> i.verify(delegate).getAnnotationPropertyRangeAxioms(annotationProperty));
+        readLock(i -> i.verify(delegate).annotationPropertyRangeAxioms(annotationProperty));
     }
 
     @Test
     public void shouldDelegateTo_getDeclarationAxioms_withReadLock() {
         ontology.getDeclarationAxioms(entity);
-        readLock(i -> i.verify(delegate).getDeclarationAxioms(entity));
+        readLock(i -> i.verify(delegate).declarationAxioms(entity));
     }
 
     @Test
     public void shouldDelegateTo_getAnnotationAssertionAxioms_withReadLock() {
         ontology.getAnnotationAssertionAxioms(subject);
-        readLock(i -> i.verify(delegate).getAnnotationAssertionAxioms(subject));
+        readLock(i -> i.verify(delegate).annotationAssertionAxioms(subject));
     }
 
     @Mock
@@ -998,19 +1008,19 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getSubClassAxiomsForSubClass_withReadLock() {
         ontology.getSubClassAxiomsForSubClass(owlClass);
-        readLock(i -> i.verify(delegate).getSubClassAxiomsForSubClass(owlClass));
+        readLock(i -> i.verify(delegate).subClassAxiomsForSubClass(owlClass));
     }
 
     @Test
     public void shouldDelegateTo_getSubClassAxiomsForSuperClass_withReadLock() {
         ontology.getSubClassAxiomsForSuperClass(owlClass);
-        readLock(i -> i.verify(delegate).getSubClassAxiomsForSuperClass(owlClass));
+        readLock(i -> i.verify(delegate).subClassAxiomsForSuperClass(owlClass));
     }
 
     @Test
     public void shouldDelegateTo_getEquivalentClassesAxioms_withReadLock() {
         ontology.getEquivalentClassesAxioms(owlClass);
-        readLock(i -> i.verify(delegate).getEquivalentClassesAxioms(owlClass));
+        readLock(i -> i.verify(delegate).equivalentClassesAxioms(owlClass));
     }
 
     @Mock
@@ -1019,117 +1029,116 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getDisjointClassesAxioms_withReadLock() {
         ontology.getDisjointClassesAxioms(owlClass);
-        readLock(i -> i.verify(delegate).getDisjointClassesAxioms(owlClass));
+        readLock(i -> i.verify(delegate).disjointClassesAxioms(owlClass));
     }
 
     @Test
     public void shouldDelegateTo_getDisjointUnionAxioms_withReadLock() {
         ontology.getDisjointUnionAxioms(owlClass);
-        readLock(i -> i.verify(delegate).getDisjointUnionAxioms(owlClass));
+        readLock(i -> i.verify(delegate).disjointUnionAxioms(owlClass));
     }
 
     @Test
     public void shouldDelegateTo_getHasKeyAxioms_withReadLock() {
         ontology.getHasKeyAxioms(owlClass);
-        readLock(i -> i.verify(delegate).getHasKeyAxioms(owlClass));
+        readLock(i -> i.verify(delegate).hasKeyAxioms(owlClass));
     }
 
     @Test
     public void shouldDelegateTo_getObjectSubPropertyAxiomsForSubProperty_withReadLock() {
         ontology.getObjectSubPropertyAxiomsForSubProperty(objectProperty);
-        readLock(i -> i.verify(delegate).getObjectSubPropertyAxiomsForSubProperty(objectProperty));
+        readLock(i -> i.verify(delegate).objectSubPropertyAxiomsForSubProperty(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getObjectSubPropertyAxiomsForSuperProperty_withReadLock() {
         ontology.getObjectSubPropertyAxiomsForSuperProperty(objectProperty);
-        readLock(i -> i.verify(delegate)
-                        .getObjectSubPropertyAxiomsForSuperProperty(objectProperty));
+        readLock(i -> i.verify(delegate).objectSubPropertyAxiomsForSuperProperty(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getObjectPropertyDomainAxioms_withReadLock() {
         ontology.getObjectPropertyDomainAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getObjectPropertyDomainAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).objectPropertyDomainAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getObjectPropertyRangeAxioms_withReadLock() {
         ontology.getObjectPropertyRangeAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getObjectPropertyRangeAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).objectPropertyRangeAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getInverseObjectPropertyAxioms_withReadLock() {
         ontology.getInverseObjectPropertyAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getInverseObjectPropertyAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).inverseObjectPropertyAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getEquivalentObjectPropertiesAxioms_withReadLock() {
         ontology.getEquivalentObjectPropertiesAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getEquivalentObjectPropertiesAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).equivalentObjectPropertiesAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getDisjointObjectPropertiesAxioms_withReadLock() {
         ontology.getDisjointObjectPropertiesAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getDisjointObjectPropertiesAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).disjointObjectPropertiesAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getFunctionalObjectPropertyAxioms_withReadLock() {
         ontology.getFunctionalObjectPropertyAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getFunctionalObjectPropertyAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).functionalObjectPropertyAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getInverseFunctionalObjectPropertyAxioms_withReadLock() {
         ontology.getInverseFunctionalObjectPropertyAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getInverseFunctionalObjectPropertyAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).inverseFunctionalObjectPropertyAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getSymmetricObjectPropertyAxioms_withReadLock() {
         ontology.getSymmetricObjectPropertyAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getSymmetricObjectPropertyAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).symmetricObjectPropertyAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getAsymmetricObjectPropertyAxioms_withReadLock() {
         ontology.getAsymmetricObjectPropertyAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getAsymmetricObjectPropertyAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).asymmetricObjectPropertyAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getReflexiveObjectPropertyAxioms_withReadLock() {
         ontology.getReflexiveObjectPropertyAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getReflexiveObjectPropertyAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).reflexiveObjectPropertyAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getIrreflexiveObjectPropertyAxioms_withReadLock() {
         ontology.getIrreflexiveObjectPropertyAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getIrreflexiveObjectPropertyAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).irreflexiveObjectPropertyAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getTransitiveObjectPropertyAxioms_withReadLock() {
         ontology.getTransitiveObjectPropertyAxioms(objectProperty);
-        readLock(i -> i.verify(delegate).getTransitiveObjectPropertyAxioms(objectProperty));
+        readLock(i -> i.verify(delegate).transitiveObjectPropertyAxioms(objectProperty));
     }
 
     @Test
     public void shouldDelegateTo_getDataSubPropertyAxiomsForSubProperty_withReadLock() {
         ontology.getDataSubPropertyAxiomsForSubProperty(dataProperty);
-        readLock(i -> i.verify(delegate).getDataSubPropertyAxiomsForSubProperty(dataProperty));
+        readLock(i -> i.verify(delegate).dataSubPropertyAxiomsForSubProperty(dataProperty));
     }
 
     @Test
     public void shouldDelegateTo_getDataSubPropertyAxiomsForSuperProperty_withReadLock() {
         ontology.getDataSubPropertyAxiomsForSuperProperty(dataPropertyExpression);
-        readLock(i -> i.verify(delegate)
-                        .getDataSubPropertyAxiomsForSuperProperty(dataPropertyExpression));
+        readLock(
+            i -> i.verify(delegate).dataSubPropertyAxiomsForSuperProperty(dataPropertyExpression));
     }
 
     @Mock
@@ -1138,37 +1147,37 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getDataPropertyDomainAxioms_withReadLock() {
         ontology.getDataPropertyDomainAxioms(dataProperty);
-        readLock(i -> i.verify(delegate).getDataPropertyDomainAxioms(dataProperty));
+        readLock(i -> i.verify(delegate).dataPropertyDomainAxioms(dataProperty));
     }
 
     @Test
     public void shouldDelegateTo_getDataPropertyRangeAxioms_withReadLock() {
         ontology.getDataPropertyRangeAxioms(dataProperty);
-        readLock(i -> i.verify(delegate).getDataPropertyRangeAxioms(dataProperty));
+        readLock(i -> i.verify(delegate).dataPropertyRangeAxioms(dataProperty));
     }
 
     @Test
     public void shouldDelegateTo_getEquivalentDataPropertiesAxioms_withReadLock() {
         ontology.getEquivalentDataPropertiesAxioms(dataProperty);
-        readLock(i -> i.verify(delegate).getEquivalentDataPropertiesAxioms(dataProperty));
+        readLock(i -> i.verify(delegate).equivalentDataPropertiesAxioms(dataProperty));
     }
 
     @Test
     public void shouldDelegateTo_getDisjointDataPropertiesAxioms_withReadLock() {
         ontology.getDisjointDataPropertiesAxioms(dataProperty);
-        readLock(i -> i.verify(delegate).getDisjointDataPropertiesAxioms(dataProperty));
+        readLock(i -> i.verify(delegate).disjointDataPropertiesAxioms(dataProperty));
     }
 
     @Test
     public void shouldDelegateTo_getFunctionalDataPropertyAxioms_withReadLock() {
         ontology.getFunctionalDataPropertyAxioms(dataPropertyExpression);
-        readLock(i -> i.verify(delegate).getFunctionalDataPropertyAxioms(dataPropertyExpression));
+        readLock(i -> i.verify(delegate).functionalDataPropertyAxioms(dataPropertyExpression));
     }
 
     @Test
     public void shouldDelegateTo_getClassAssertionAxioms_withReadLock() {
         ontology.getClassAssertionAxioms(classExpression);
-        readLock(i -> i.verify(delegate).getClassAssertionAxioms(classExpression));
+        readLock(i -> i.verify(delegate).classAssertionAxioms(classExpression));
     }
 
     @Mock
@@ -1177,49 +1186,49 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getClassAssertionAxioms_withReadLock_2() {
         ontology.getClassAssertionAxioms(individual);
-        readLock(i -> i.verify(delegate).getClassAssertionAxioms(individual));
+        readLock(i -> i.verify(delegate).classAssertionAxioms(individual));
     }
 
     @Test
     public void shouldDelegateTo_getDataPropertyAssertionAxioms_withReadLock() {
         ontology.getDataPropertyAssertionAxioms(individual);
-        readLock(i -> i.verify(delegate).getDataPropertyAssertionAxioms(individual));
+        readLock(i -> i.verify(delegate).dataPropertyAssertionAxioms(individual));
     }
 
     @Test
     public void shouldDelegateTo_getObjectPropertyAssertionAxioms_withReadLock() {
         ontology.getObjectPropertyAssertionAxioms(individual);
-        readLock(i -> i.verify(delegate).getObjectPropertyAssertionAxioms(individual));
+        readLock(i -> i.verify(delegate).objectPropertyAssertionAxioms(individual));
     }
 
     @Test
     public void shouldDelegateTo_getNegativeObjectPropertyAssertionAxioms_withReadLock() {
         ontology.getNegativeObjectPropertyAssertionAxioms(individual);
-        readLock(i -> i.verify(delegate).getNegativeObjectPropertyAssertionAxioms(individual));
+        readLock(i -> i.verify(delegate).negativeObjectPropertyAssertionAxioms(individual));
     }
 
     @Test
     public void shouldDelegateTo_getNegativeDataPropertyAssertionAxioms_withReadLock() {
         ontology.getNegativeDataPropertyAssertionAxioms(individual);
-        readLock(i -> i.verify(delegate).getNegativeDataPropertyAssertionAxioms(individual));
+        readLock(i -> i.verify(delegate).negativeDataPropertyAssertionAxioms(individual));
     }
 
     @Test
     public void shouldDelegateTo_getSameIndividualAxioms_withReadLock() {
         ontology.getSameIndividualAxioms(individual);
-        readLock(i -> i.verify(delegate).getSameIndividualAxioms(individual));
+        readLock(i -> i.verify(delegate).sameIndividualAxioms(individual));
     }
 
     @Test
     public void shouldDelegateTo_getDifferentIndividualAxioms_withReadLock() {
         ontology.getDifferentIndividualAxioms(individual);
-        readLock(i -> i.verify(delegate).getDifferentIndividualAxioms(individual));
+        readLock(i -> i.verify(delegate).differentIndividualAxioms(individual));
     }
 
     @Test
     public void shouldDelegateTo_getDatatypeDefinitions_withReadLock() {
         ontology.getDatatypeDefinitions(datatype);
-        readLock(i -> i.verify(delegate).getDatatypeDefinitions(datatype));
+        readLock(i -> i.verify(delegate).datatypeDefinitions(datatype));
     }
 
     @Test

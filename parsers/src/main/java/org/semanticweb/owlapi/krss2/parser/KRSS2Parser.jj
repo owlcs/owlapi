@@ -40,7 +40,7 @@ class KRSS2Parser {
         this.df = ontology.getOWLOntologyManager().getOWLDataFactory();
         this.string2IRI = new HashMap<String, IRI>();
         OWLOntologyID id = ontology.getOntologyID();
-        if(!id.isAnonymous()) {
+        if(id.isNamed()) {
             this.base = id.getOntologyIRI().toString() + "#";
         }
         else {
@@ -64,10 +64,10 @@ class KRSS2Parser {
             if (iri == null) {
                 switch(nameResolution) {
                     case IRI: 
-                        iri = df.create(s);
+                        iri = df.getIRI(s);
                         break;
                     case NAME: 
-                        iri = df.create(base+s);
+                        iri = df.getIRI(base+s);
                         break;
                     case ADAPTIVE: 
                         if (adaptiveMaxRuns <=1) {
@@ -82,9 +82,9 @@ class KRSS2Parser {
                     case CHECK: 
                         String ns = XMLUtils.getNCNamePrefix(s);
                     	if (ns.equals("")) {
-                        	iri = df.create(base + s);
+                        	iri = df.getIRI(base + s);
                     	} else {
-                        	iri = df.create(s);
+                        	iri = df.getIRI(s);
                     	}
                         break;
                 }

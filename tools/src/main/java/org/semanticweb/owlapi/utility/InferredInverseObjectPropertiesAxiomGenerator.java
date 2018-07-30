@@ -32,7 +32,7 @@ public class InferredInverseObjectPropertiesAxiomGenerator
         OWLDataFactory dataFactory, Set<OWLInverseObjectPropertiesAxiom> result,
         Set<OWLObjectPropertyExpression> nonSimpleProperties) {
         for (OWLObjectPropertyExpression prop : reasoner.getInverseObjectProperties(entity)) {
-            if (!prop.isAnonymous()) {
+            if (prop.isNamed()) {
                 result.add(dataFactory.getOWLInverseObjectPropertiesAxiom(entity, prop));
             }
         }

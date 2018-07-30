@@ -95,7 +95,7 @@ public class RioParserImpl implements OWLParser, RioParser {
     protected String baseIRI(final OWLOntology ontology) {
         String baseUri = "urn:default:baseUri:";
         // Override the default baseUri for non-anonymous ontologies
-        if (!ontology.getOntologyID().isAnonymous()
+        if (ontology.getOntologyID().isNamed()
             && ontology.getOntologyID().getDefaultDocumentIRI().isPresent()) {
             baseUri = ontology.getOntologyID().getDefaultDocumentIRI().get().toString();
         }

@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.profiles;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -62,7 +61,7 @@ public class OWL2Profile implements OWLProfile {
      *
      * @param ontology The ontology to be checked.
      * @return An {@code OWLProfileReport} that describes whether or not the ontology is within this
-     * profile.
+     *         profile.
      */
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
@@ -90,17 +89,13 @@ public class OWL2Profile implements OWLProfile {
             // The ontology IRI and version IRI must be absolute and must not be
             // from the reserved vocab
             OWLOntologyID id = ontology.getOntologyID();
-            if (!id.isAnonymous()) {
+            if (id.isNamed()) {
                 IRI ontologyIRI = id.getOntologyIRI().get();
                 if (!ontologyIRI.isAbsolute()) {
                     profileViolations.add(new OntologyIRINotAbsolute(ontology));
                 }
-                Optional<IRI> versionIRI = id.getVersionIRI();
-                if (versionIRI.isPresent()) {
-                    if (!versionIRI.get().isAbsolute()) {
-                        profileViolations.add(new OntologyVersionIRINotAbsolute(ontology));
-                    }
-                }
+                id.getVersionIRI().filter(v -> !v.isAbsolute()).ifPresent(
+                    v -> profileViolations.add(new OntologyVersionIRINotAbsolute(ontology)));
             }
         }
 

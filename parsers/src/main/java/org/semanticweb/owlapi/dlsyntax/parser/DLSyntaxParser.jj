@@ -29,7 +29,7 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 import java.util.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.utilities.*;
-import org.semanticweb.owlapi.util.*;
+import org.semanticweb.owlapi.utility.*;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -64,7 +64,7 @@ class DLSyntaxParser {
         }
         IRI iri = qnameIRIMap.get(qname);
         if(iri == null) {
-            iri = factory.create(defaultNamespace + "#" + qname);
+            iri = factory.getIRI(defaultNamespace + "#" + qname);
             qnameIRIMap.put(qname, iri);
         }
         return iri;
@@ -219,7 +219,7 @@ public OWLAxiom parseClassAxiom() :
                 ax = factory.getOWLObjectPropertyDomainAxiom(restriction.getProperty(), rhs);
             }
         } else { 
-            if(rhs instanceof OWLObjectComplementOf && !rhs.isAnonymous()) {
+            if(rhs instanceof OWLObjectComplementOf && rhs.isNamed()) {
                 ax = factory.getOWLDisjointClassesAxiom(lhs, ((OWLObjectComplementOf) rhs).getOperand());
             } else { 
                 ax = factory.getOWLSubClassOfAxiom(lhs, rhs);

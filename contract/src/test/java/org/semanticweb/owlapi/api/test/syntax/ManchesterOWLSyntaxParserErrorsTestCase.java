@@ -50,7 +50,6 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
         OWLClass clsC1 = mock(OWLClass.class);
         when(entityChecker.getOWLClass("C1")).thenReturn(clsC1);
         OWLObjectProperty oP = mock(OWLObjectProperty.class);
-        when(oP.asOWLObjectProperty()).thenReturn(oP);
         when(entityChecker.getOWLObjectProperty("oP")).thenReturn(oP);
         when(entityChecker.getOWLDataProperty("dP")).thenReturn(mock(OWLDataProperty.class));
         when(entityChecker.getOWLAnnotationProperty("aP"))
@@ -59,7 +58,6 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
             .thenReturn(dataFactory.getRDFSComment());
         OWLNamedIndividual ind = mock(OWLNamedIndividual.class);
         when(entityChecker.getOWLIndividual("ind")).thenReturn(ind);
-        when(ind.asOWLNamedIndividual()).thenReturn(ind);
         parser = new ParserWrapper();
     }
 

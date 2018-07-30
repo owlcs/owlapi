@@ -699,7 +699,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         if (object instanceof OWLOntology) {
             writeFrameKeyword(ONTOLOGY);
             OWLOntology ont = (OWLOntology) object;
-            if (!ont.isAnonymous()) {
+            if (ont.isNamed()) {
                 write("<");
                 ont.getOntologyID().getOntologyIRI().ifPresent(x -> write(x.toString()));
                 write(">");

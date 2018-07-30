@@ -77,6 +77,6 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOn
     }
 
     protected boolean undefinedPrimitive(OWLOntology o, OWLClassExpression subCls) {
-        return !subCls.isAnonymous() && !isDefined(subCls.asOWLClass(), o);
+        return subCls.isNamed() && !isDefined(subCls.asOWLClass(), o);
     }
 }

@@ -238,8 +238,8 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         if (classExpression.isAnonymous()) {
             return false;
         }
-        return !ontologies.stream()
-            .anyMatch(ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
+        return ontologies.stream()
+            .noneMatch(ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
     }
 
     @Override

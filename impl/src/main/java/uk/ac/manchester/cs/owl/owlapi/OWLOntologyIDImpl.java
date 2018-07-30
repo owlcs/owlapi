@@ -151,7 +151,7 @@ public class OWLOntologyIDImpl implements OWLOntologyID {
             // one anonymous, one not: equals is false
             return false;
         }
-        if (!isAnonymous()) {
+        if (isNamed()) {
             boolean toReturn = ontologyIRI.equals(other.getOntologyIRI());
             if (!toReturn) {
                 return toReturn;

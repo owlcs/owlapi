@@ -1393,7 +1393,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         consumeToken(OBJECT_PROPERTY);
         String token = consumeToken();
         OWLObjectProperty prop = getOWLObjectProperty(token);
-        if (!prop.isAnonymous()) {
+        if (prop.isNamed()) {
             axioms.add(new OntologyAxiomPair(defaultOntology,
                 df.getOWLDeclarationAxiom(prop.asOWLObjectProperty())));
         }
@@ -1440,7 +1440,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         String subj = consumeToken();
         OWLIndividual ind = getOWLIndividual(subj);
         Set<OntologyAxiomPair> axioms = new HashSet<>();
-        if (!ind.isAnonymous()) {
+        if (ind.isNamed()) {
             axioms.add(new OntologyAxiomPair(getOntology(null),
                 df.getOWLDeclarationAxiom(ind.asOWLNamedIndividual())));
         }

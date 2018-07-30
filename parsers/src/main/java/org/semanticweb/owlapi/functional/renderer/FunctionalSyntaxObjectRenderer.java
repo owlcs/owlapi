@@ -266,7 +266,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         OntologyConfigurator config = o.getOWLOntologyManager().getOntologyConfigurator();
         addMissingDeclarations = config.shouldAddMissingTypes();
         prettyPrint = config.shouldPrettyPrintFunctionalSyntax();
-        if (!o.isAnonymous() && prefixManager.get().getDefaultPrefix() == null) {
+        if (o.isNamed() && prefixManager.get().getDefaultPrefix() == null) {
             String existingDefault = prefixManager.get().getDefaultPrefix();
             String ontologyIRIString = o.getOntologyID().getOntologyIRI().get().toString();
             if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {
@@ -377,7 +377,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         writeReturn();
         write(ONTOLOGY);
         writeOpenBracket();
-        if (!ontology.isAnonymous()) {
+        if (ontology.isNamed()) {
             writeFullIRI(ontology.getOntologyID().getOntologyIRI().get());
             Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
             if (versionIRI.isPresent()) {

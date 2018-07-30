@@ -27,9 +27,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectPropertyAssertionAxiomImpl extends
-                OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
-                implements OWLObjectPropertyAssertionAxiom {
+public class OWLObjectPropertyAssertionAxiomImpl
+    extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
+    implements OWLObjectPropertyAssertionAxiom {
 
     /**
      * @param subject subject
@@ -38,8 +38,8 @@ public class OWLObjectPropertyAssertionAxiomImpl extends
      * @param annotations annotations
      */
     public OWLObjectPropertyAssertionAxiomImpl(OWLIndividual subject,
-                    OWLObjectPropertyExpression property, OWLIndividual object,
-                    Collection<OWLAnnotation> annotations) {
+        OWLObjectPropertyExpression property, OWLIndividual object,
+        Collection<OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
@@ -47,37 +47,36 @@ public class OWLObjectPropertyAssertionAxiomImpl extends
     @SuppressWarnings("unchecked")
     public OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-                        : new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(),
-                                        getObject(), NO_ANNOTATIONS);
+            : new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
-                        new OWLObjectHasValueImpl(getProperty(), getObject()), NO_ANNOTATIONS);
+            new OWLObjectHasValueImpl(getProperty(), getObject()), NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
-                        mergeAnnos(anns));
+            mergeAnnos(anns));
     }
 
     @Override
     public OWLObjectPropertyAssertionAxiom getSimplified() {
-        if (!getProperty().isAnonymous()) {
+        if (isInSimplifiedForm()) {
             return this;
-        } else {
-            OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
-            OWLObjectPropertyExpression invProp = property.getInverse();
-            return new OWLObjectPropertyAssertionAxiomImpl(getObject(), invProp, getSubject(),
-                            NO_ANNOTATIONS);
         }
+        OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
+        OWLObjectPropertyExpression invProp = property.getInverse();
+        return new OWLObjectPropertyAssertionAxiomImpl(getObject(), invProp, getSubject(),
+            NO_ANNOTATIONS);
     }
 
     @Override
     public boolean isInSimplifiedForm() {
-        return !getProperty().isAnonymous();
+        return getProperty().isNamed();
     }
 }

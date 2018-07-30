@@ -75,7 +75,7 @@ public class OWLXMLWriter {
         nsm.setPrefix("rdfs", Namespaces.RDFS.toString());
         nsm.setPrefix("xml", Namespaces.XML.toString());
         String base = Namespaces.OWL.toString();
-        if (!ontology.isAnonymous()) {
+        if (ontology.isNamed()) {
             base = ontology.getOntologyID().getOntologyIRI().get().toString();
         }
         this.writer = new XMLWriterImpl(writer, nsm, base,
@@ -139,7 +139,7 @@ public class OWLXMLWriter {
     public void startDocument(OWLOntology ontology) throws OWLOntologyStorageException {
         try {
             writer.startDocument(ONTOLOGY.getIRI());
-            if (!ontology.isAnonymous()) {
+            if (ontology.isNamed()) {
                 writer.writeAttribute(OWLRDFVocabulary.OWL_ONTOLOGY_IRI.getIRI(),
                     ontology.getOntologyID().getOntologyIRI().get().toString());
                 Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();

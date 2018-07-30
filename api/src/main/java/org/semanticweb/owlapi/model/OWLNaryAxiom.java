@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -31,8 +32,8 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
 
     /**
      * @return a stream of all operands for this n-ary axiom. This provides a platform for common
-     * operations across different types, e.g., this will be the properties() stream for a
-     * DisjointObjectProperties, or a classExpressions() stream for a DisjointClasses.
+     *         operations across different types, e.g., this will be the properties() stream for a
+     *         DisjointObjectProperties, or a classExpressions() stream for a DisjointClasses.
      */
     @Override
     Stream<C> operands();
@@ -50,27 +51,27 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
     /**
      * @param <T> type returned by visitor
      * @param visitor visitor to apply to all pairwise elements in this axiom; pairs are not
-     * ordered, i.e., only (i,j) will be considered, for i!=j; (j, i) is not considered.
+     *        ordered, i.e., only (i,j) will be considered, for i!=j; (j, i) is not considered.
      * @return collection of all visitor return values that are not null
      */
     default <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, C> visitor) {
-        return asList(pairs(operands()).map(v -> visitor.visit(v.i, v.j)).filter(x -> x != null));
+        return asList(pairs(operands()).map(v -> visitor.visit(v.i, v.j)).filter(Objects::nonNull));
     }
 
     /**
      * @param <T> type returned by visitor
      * @param visitor visitor to apply to all pairwise elements in this axiom; pairs are ordered,
-     * i.e., (i, j) and (j, i) will be considered. (i,i) is skipped.
+     *        i.e., (i, j) and (j, i) will be considered. (i,i) is skipped.
      * @return collection of all visitor return values that are not null
      */
     default <T> Collection<T> walkAllPairwise(OWLPairwiseVisitor<T, C> visitor) {
-        return asList(allPairs(operands()).map(v -> visitor.visit(v.i, v.j))
-            .filter(x -> x != null));
+        return asList(
+            allPairs(operands()).map(v -> visitor.visit(v.i, v.j)).filter(Objects::nonNull));
     }
 
     /**
      * @param visitor visitor to apply to all pairwise elements in this axiom; pairs are not
-     * ordered, i.e., only (i,j) will be considered, for i!=j; (j, i) is not considered.
+     *        ordered, i.e., only (i,j) will be considered, for i!=j; (j, i) is not considered.
      */
     default void forEach(OWLPairwiseVoidVisitor<C> visitor) {
         pairs(operands()).forEach(v -> visitor.visit(v.i, v.j));
@@ -78,7 +79,7 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
 
     /**
      * @param visitor visitor to apply to all pairwise elements in this axiom; pairs are not
-     * ordered, i.e., only (i,j) will be considered, for i!=j; (j, i) is not considered.
+     *        ordered, i.e., only (i,j) will be considered, for i!=j; (j, i) is not considered.
      * @return true if at least one pair evaluation is true
      */
     default boolean anyMatch(OWLPairwiseBooleanVisitor<C> visitor) {
@@ -87,7 +88,7 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
 
     /**
      * @param visitor visitor to apply to all pairwise elements in this axiom; pairs are not
-     * ordered, i.e., only (i,j) will be considered, for i!=j; (j, i) is not considered.
+     *        ordered, i.e., only (i,j) will be considered, for i!=j; (j, i) is not considered.
      * @return true if all pairs evaluation is true
      */
     default boolean allMatch(OWLPairwiseBooleanVisitor<C> visitor) {
@@ -96,7 +97,7 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
 
     /**
      * @param visitor visitor to apply to all pairwise elements in this axiom; pairs are ordered,
-     * i.e., (i, j) and (j, i) will be considered. (i,i) is skipped.
+     *        i.e., (i, j) and (j, i) will be considered. (i,i) is skipped.
      */
     default void forEachAllPairs(OWLPairwiseVoidVisitor<C> visitor) {
         allPairs(operands()).forEach(v -> visitor.visit(v.i, v.j));
@@ -104,7 +105,7 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
 
     /**
      * @param visitor visitor to apply to all pairwise elements in this axiom; pairs are ordered,
-     * i.e., (i, j) and (j, i) will be considered. (i,i) is skipped.
+     *        i.e., (i, j) and (j, i) will be considered. (i,i) is skipped.
      * @return true if at least one pair evaluation is true
      */
     default boolean anyMatchAllPairs(OWLPairwiseBooleanVisitor<C> visitor) {
@@ -113,7 +114,7 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
 
     /**
      * @param visitor visitor to apply to all pairwise elements in this axiom; pairs are ordered,
-     * i.e., (i, j) and (j, i) will be considered. (i,i) is skipped.
+     *        i.e., (i, j) and (j, i) will be considered. (i,i) is skipped.
      * @return true if all pairs evaluation is true
      */
     default boolean allMatchAllPairs(OWLPairwiseBooleanVisitor<C> visitor) {

@@ -240,7 +240,7 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         owl.axioms(AxiomType.SUBCLASS_OF).forEach(axiom -> {
             OWLClassExpression superClassCE = axiom.getSuperClass();
             OWLClassExpression subClassCE = axiom.getSubClass();
-            if (!superClassCE.isAnonymous() && !subClassCE.isAnonymous()) {
+            if (superClassCE.isNamed() && subClassCE.isNamed()) {
                 OWLClass superClass = (OWLClass) superClassCE;
                 OWLClass subClass = (OWLClass) subClassCE;
                 if (superClass.getIRI().equals(t1) && subClass.getIRI().equals(t3)) {

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.semanticweb.owlapi.model.IsAnonymous;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -59,7 +60,7 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
         OWLClass cls) {
         count.incrementAndGet();
         int sup = (int) sup(ont.subClassAxiomsForSubClass(cls), OWLClassExpression.class)
-            .filter(c -> !c.isAnonymous()).count();
+            .filter(IsAnonymous::isNamed).count();
         if (sup == 0) {
             total.incrementAndGet();
         } else {

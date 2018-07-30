@@ -31,7 +31,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
         this.df = ontology.getOWLOntologyManager().getOWLDataFactory();
         this.string2IRI = new HashMap<String, IRI>();
         OWLOntologyID id = ontology.getOntologyID();
-        if(!id.isAnonymous()) {
+        if(id.isNamed()) {
             this.base = id.getOntologyIRI().toString() + "#";
         }
         else {

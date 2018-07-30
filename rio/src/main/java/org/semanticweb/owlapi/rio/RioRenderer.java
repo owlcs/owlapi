@@ -86,7 +86,7 @@ public class RioRenderer extends RDFRendererBase {
         this.writer = writer;
         // XXX maybe use the ontology prefix manager
         pm = ontology.getPrefixManager();
-        if (!ontology.isAnonymous()) {
+        if (ontology.isNamed()) {
             String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
             String defaultPrefix = ontologyIRIString;
             if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {

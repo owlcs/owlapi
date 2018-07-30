@@ -357,8 +357,8 @@ public class OWLOntologyManagerImpl
         readLock.lock();
         try {
             OWLOntology result = ontologiesByID.get(id);
-            if (result == null && !id.isAnonymous()) {
-                java.util.Optional<OWLOntologyID> findAny =
+            if (result == null && id.isNamed()) {
+                Optional<OWLOntologyID> findAny =
                     ids().filter(o -> o.matchOntology(id.getOntologyIRI().get())).findAny();
                 if (findAny.isPresent()) {
                     result = ontologiesByID.get(findAny.get());
@@ -743,7 +743,7 @@ public class OWLOntologyManagerImpl
     protected IRI computeDocumentIRI(OWLOntologyID ontologyID) {
         IRI documentIRI = getDocumentIRIFromMappers(ontologyID);
         if (documentIRI == null) {
-            if (!ontologyID.isAnonymous()) {
+            if (ontologyID.isNamed()) {
                 documentIRI = ontologyID.getDefaultDocumentIRI().orElse(null);
             } else {
                 documentIRI = dataFactory.generateDocumentIRI();

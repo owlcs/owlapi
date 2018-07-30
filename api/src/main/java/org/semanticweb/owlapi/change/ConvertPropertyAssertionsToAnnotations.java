@@ -71,8 +71,8 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
      */
     private Collection<OWLNamedIndividual> getPunnedIndividuals(
         Stream<OWLNamedIndividual> individuals) {
-        return asList(individuals.filter(
-            i -> ontologies().anyMatch(o -> o.containsClassInSignature(i.getIRI()))));
+        return asList(individuals
+            .filter(i -> ontologies().anyMatch(o -> o.containsClassInSignature(i.getIRI()))));
     }
 
     private void generateChanges() {
@@ -104,7 +104,7 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
     }
 
     protected void addAnnotations(OWLNamedIndividual ind, OWLOntology ont) {
-        ont.dataPropertyAssertionAxioms(ind).filter(ax -> !ax.getProperty().isAnonymous())
+        ont.dataPropertyAssertionAxioms(ind).filter(ax -> ax.getProperty().isNamed())
             .forEach(ax -> addAnnotation(ind, ont, ax));
     }
 

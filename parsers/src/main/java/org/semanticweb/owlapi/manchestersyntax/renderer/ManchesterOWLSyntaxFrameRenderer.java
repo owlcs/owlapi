@@ -309,7 +309,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         write(ONTOLOGY.toString());
         write(":");
         writeSpace();
-        if (!o.isAnonymous()) {
+        if (o.isNamed()) {
             int indent = getIndent();
             writeFullURI(o.getOntologyID().getOntologyIRI().get().toString());
             writeNewLine();

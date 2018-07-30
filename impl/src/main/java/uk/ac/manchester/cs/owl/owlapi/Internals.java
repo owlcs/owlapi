@@ -80,6 +80,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.IsAnonymous;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -1059,14 +1060,14 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
-            if (!axiom.getSubClass().isAnonymous()) {
+            if (axiom.getSubClass().isNamed()) {
                 OWLClass subClass = (OWLClass) axiom.getSubClass();
                 subClassAxiomsBySubPosition.put(subClass, axiom);
                 classAxiomsByClass.put(subClass, axiom);
             } else {
                 addGeneralClassAxioms(axiom);
             }
-            if (!axiom.getSuperClass().isAnonymous()) {
+            if (axiom.getSuperClass().isNamed()) {
                 subClassAxiomsBySuperPosition.put((OWLClass) axiom.getSuperClass(), axiom);
             }
         }
@@ -1090,15 +1091,19 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         public void visit(OWLDisjointClassesAxiom axiom) {
             AtomicBoolean allAnon = new AtomicBoolean(true);
             // Index against each named class in the axiom
-            axiom.classExpressions().filter(d -> !d.isAnonymous()).forEach(desc -> {
-                OWLClass cls = (OWLClass) desc;
-                disjointClassesAxiomsByClass.put(cls, axiom);
-                classAxiomsByClass.put(cls, axiom);
-                allAnon.set(false);
-            });
+            axiom.classExpressions().filter(IsAnonymous::isNamed)
+                .forEach(desc -> visitDisjoint(axiom, allAnon, desc));
             if (allAnon.get()) {
                 addGeneralClassAxioms(axiom);
             }
+        }
+
+        protected void visitDisjoint(OWLDisjointClassesAxiom axiom, AtomicBoolean allAnon,
+            OWLClassExpression desc) {
+            OWLClass cls = (OWLClass) desc;
+            disjointClassesAxiomsByClass.put(cls, axiom);
+            classAxiomsByClass.put(cls, axiom);
+            allAnon.set(false);
         }
 
         @Override
@@ -1212,7 +1217,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         @Override
         public void visit(OWLClassAssertionAxiom axiom) {
             classAssertionAxiomsByIndividual.put(axiom.getIndividual(), axiom);
-            if (!axiom.getClassExpression().isAnonymous()) {
+            if (axiom.getClassExpression().isNamed()) {
                 classAssertionAxiomsByClass.put(axiom.getClassExpression(), axiom);
             }
         }
@@ -1301,7 +1306,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
             AtomicBoolean allAnon = new AtomicBoolean(true);
-            axiom.classExpressions().filter(c -> !c.isAnonymous())
+            axiom.classExpressions().filter(IsAnonymous::isNamed)
                 .map(OWLClassExpression::asOWLClass).forEach(c -> {
                     disjointClassesAxiomsByClass.remove(c, axiom);
                     classAxiomsByClass.remove(c, axiom);
@@ -1434,7 +1439,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
             AtomicBoolean allAnon = new AtomicBoolean(true);
-            axiom.classExpressions().filter(c -> !c.isAnonymous())
+            axiom.classExpressions().filter(IsAnonymous::isNamed)
                 .map(OWLClassExpression::asOWLClass).forEach(c -> {
                     equivalentClassesAxiomsByClass.remove(c, axiom);
                     classAxiomsByClass.remove(c, axiom);

@@ -270,9 +270,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
             // the prefix does not contain an ncname character and there is
             // no illegal character in the suffix
             // the split is therefore correct
-            IRIImpl created = new IRIImpl(verifyNotNull(iriNamespaces.get(prefix)), suffix);
             // this IRI is not cached; creating the string key would remove the memory advantage
-            return created;
+            return new IRIImpl(verifyNotNull(iriNamespaces.get(prefix)), suffix);
         }
         // otherwise the split is wrong; we could obtain the right split by
         // using index and test, but it's just as easy to use the other

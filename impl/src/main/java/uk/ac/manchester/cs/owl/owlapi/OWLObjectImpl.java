@@ -159,8 +159,8 @@ public abstract class OWLObjectImpl
     }
 
     @Override
-    public int compareTo(@Nullable OWLObject _o) {
-        OWLObject o = verifyNotNull(_o);
+    public int compareTo(@Nullable OWLObject obj) {
+        OWLObject o = verifyNotNull(obj);
         if (o == this) {
             return 0;
         }
