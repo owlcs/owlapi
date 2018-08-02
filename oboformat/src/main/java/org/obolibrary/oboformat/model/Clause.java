@@ -227,11 +227,6 @@ public class Clause {
         if (!values.isEmpty()) {
             value = values.get(0);
         }
-        if (value == null) {
-            // TODO: Throw Exceptions
-            LOGGER.error("Cannot translate: {}", this);
-            throw new FrameStructureException("Clause value is null: " + this);
-        }
         return value;
     }
 

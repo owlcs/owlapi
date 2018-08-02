@@ -39,11 +39,6 @@ public class RemappingIndividualProvider implements AnonymousIndividualByIdProvi
         if (!cf.shouldRemapIds()) {
             return df.getOWLAnonymousIndividual(nodeId);
         }
-        OWLAnonymousIndividual toReturn = map.get(nodeId);
-        if (toReturn == null) {
-            toReturn = df.getOWLAnonymousIndividual();
-            map.put(nodeId, toReturn);
-        }
-        return toReturn;
+        return map.computeIfAbsent(nodeId, x -> df.getOWLAnonymousIndividual());
     }
 }

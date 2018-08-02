@@ -39,7 +39,7 @@ public class RDFResourceIRI extends RDFResource implements org.apache.commons.rd
 
     @Override
     public IRI getResource() {
-        return resource;
+        return getIRI();
     }
 
     @Override

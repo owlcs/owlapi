@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+
 import javax.annotation.Nullable;
 
 /**
@@ -55,7 +57,7 @@ public final class XMLUtils {
      * Determines if a character is an XML name start character.
      *
      * @param codePoint The code point of the character to be tested. For UTF-16 characters the code
-     * point corresponds to the value of the char that represents the character.
+     *        point corresponds to the value of the char that represents the character.
      * @return {@code true} if {@code codePoint} is an XML name start character, otherwise {@code
      * false}
      */
@@ -77,8 +79,8 @@ public final class XMLUtils {
      * Determines if a character is an XML name character.
      *
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     * characters the code point corresponds to the value of the char that represents the
-     * character.
+     *        characters the code point corresponds to the value of the char that represents the
+     *        character.
      * @return {@code true} if {@code codePoint} is an XML name start character, otherwise {@code
      * false}
      */
@@ -93,8 +95,8 @@ public final class XMLUtils {
      * Deterimines if a character is an NCName (Non-Colonised Name) start character.
      *
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     * characters the code point corresponds to the value of the char that represents the
-     * character.
+     *        characters the code point corresponds to the value of the char that represents the
+     *        character.
      * @return {@code true} if {@code codePoint} is a NCName start character, otherwise {@code
      * false}.
      */
@@ -106,8 +108,8 @@ public final class XMLUtils {
      * Deterimines if a character is an NCName (Non-Colonised Name) character.
      *
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     * characters the code point corresponds to the value of the char that represents the
-     * character.
+     *        characters the code point corresponds to the value of the char that represents the
+     *        character.
      * @return {@code true} if {@code codePoint} is a NCName character, otherwise {@code false}.
      */
     public static boolean isNCNameChar(int codePoint) {
@@ -119,19 +121,19 @@ public final class XMLUtils {
      * which starts with an NCName start character and is followed by zero or more NCName
      * characters.
      *
-     * @param s The character sequence to be tested.
+     * @param _s The character sequence to be tested.
      * @return {@code true} if {@code s} is an NCName, otherwise {@code false}.
      */
-    public static boolean isNCName(@Nullable CharSequence s) {
-        if (isNullOrEmpty(s)) {
+    public static boolean isNCName(@Nullable CharSequence s1) {
+        if (isNullOrEmpty(s1)) {
             return false;
         }
-        assert s != null;
+        CharSequence s = verifyNotNull(s1);
         int firstCodePoint = Character.codePointAt(s, 0);
         if (!isNCNameStartChar(firstCodePoint)) {
             return false;
         }
-        for (int i = Character.charCount(firstCodePoint); i < s.length(); ) {
+        for (int i = Character.charCount(firstCodePoint); i < s.length();) {
             int codePoint = Character.codePointAt(s, i);
             if (!isNCNameChar(codePoint)) {
                 return false;
@@ -262,7 +264,7 @@ public final class XMLUtils {
      *
      * @param s the charsequence to split
      * @return the prefix split at the last non-ncname character, or the whole input if no ncname is
-     * found
+     *         found
      */
     public static String getNCNamePrefix(CharSequence s) {
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
@@ -289,7 +291,7 @@ public final class XMLUtils {
         // greater than -- gt
         // apostrophe -- apos
         StringBuilder sb = new StringBuilder(s.length() * 2);
-        for (int i = 0; i < s.length(); ) {
+        for (int i = 0; i < s.length();) {
             int codePoint = Character.codePointAt(s, i);
             if (codePoint == '<') {
                 sb.append(LT);
@@ -356,7 +358,7 @@ public final class XMLUtils {
         // less than -- lt
         // greater than -- gt
         // apostrophe -- apos
-        for (int i = 0; i < sb.length(); ) {
+        for (int i = 0; i < sb.length();) {
             int codePoint = Character.codePointAt(sb, i);
             int length = Character.charCount(codePoint);
             if (codePoint == '<') {
@@ -385,7 +387,7 @@ public final class XMLUtils {
      *
      * @param s The character sequence.
      * @return {@code true} if the character sequence is {@code null}, {@code true} if the character
-     * sequence is empty, otherwise {@code false}.
+     *         sequence is empty, otherwise {@code false}.
      */
     public static boolean isNullOrEmpty(@Nullable CharSequence s) {
         return s == null || s.length() == 0;

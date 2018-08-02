@@ -10,6 +10,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -45,16 +47,15 @@ public class Injector {
     private Map<Object, List<Supplier<?>>> supplierOverrides = new ConcurrentHashMap<>();
     private Map<Object, Class<?>> typesOverrides = new ConcurrentHashMap<>();
     private Map<Object, List<Class<?>>> typesCache = new ConcurrentHashMap<>();
-    private Map<URL, AtomicStampedReference<List<String>>> filesCache = new ConcurrentHashMap<>();
+    private Map<URI, AtomicStampedReference<List<String>>> filesCache = new ConcurrentHashMap<>();
 
+    /**
+     * Key class for binding overrides
+     */
     public static class Key {
         Class<?> c;
         Annotation[] anns;
         int hash = 0;
-
-        public Key() {
-            // TODO Auto-generated constructor stub
-        }
 
         @Override
         public boolean equals(@Nullable Object obj) {
@@ -82,7 +83,7 @@ public class Injector {
     }
 
     public Injector() {
-        // TODO Auto-generated constructor stub
+        super();
     }
 
     public Injector(Injector i) {
@@ -179,6 +180,10 @@ public class Injector {
 
     public <T> T getImplementation(Class<T> c, Annotation... qualifiers) {
         return load(c, qualifiers).findAny().orElse(null);
+    }
+
+    public <T> Stream<T> getImplementations(Class<T> c, Annotation... qualifiers) {
+        return load(c, qualifiers);
     }
 
     public <T> T getImplementation(Class<T> c, OntologyConfigurator v, Annotation... qualifiers) {
@@ -299,35 +304,35 @@ public class Injector {
         }
     }
 
-    private Stream<URL> urls(String name) {
-        List<URL> l = new ArrayList<>();
+    private Stream<URI> urls(String name) {
+        List<URI> l = new ArrayList<>();
         try {
             Enumeration<URL> resources = classLoader().getResources(name);
             while (resources.hasMoreElements()) {
-                l.add(resources.nextElement());
+                l.add(resources.nextElement().toURI());
             }
             if (l.isEmpty()) {
                 LOGGER.warn("No files found for {}", name);
             }
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             LOGGER.error("Error accessing services files", e);
         }
         return l.stream();
     }
 
-    private Stream<String> entries(URL c) {
+    private Stream<String> entries(URI c) {
         int time = (int) (System.currentTimeMillis() & 0x00000000FFFFFFFFL);
         AtomicStampedReference<List<String>> l = filesCache.get(c);
         if (l == null || time - l.getStamp() > 30000) {
             // no cache or oldest value is more than 30 seconds old
-            l = new AtomicStampedReference<List<String>>(actualRead(c), time);
+            l = new AtomicStampedReference<>(actualRead(c), time);
             filesCache.put(c, l);
         }
         return l.getReference().stream();
     }
 
-    protected List<String> actualRead(URL c) {
-        try (InputStream in = c.openStream();
+    protected List<String> actualRead(URI c) {
+        try (InputStream in = c.toURL().openStream();
             InputStreamReader in2 = new InputStreamReader(in, StandardCharsets.UTF_8);
             BufferedReader r = new BufferedReader(in2)) {
             return r.lines().collect(Collectors.toList());

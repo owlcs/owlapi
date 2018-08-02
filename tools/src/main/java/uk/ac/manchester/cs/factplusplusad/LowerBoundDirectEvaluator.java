@@ -100,7 +100,8 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
     @Override
     int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
-        int min = getMinValue(m, r, c), max = getMaxValue(m, r, c);
+        int min = getMinValue(m, r, c);
+        int max = getMaxValue(m, r, c);
         // we need to take the lowest value
         if (min == noLowerValue() || max == noLowerValue()) {
             return noLowerValue();
@@ -121,7 +122,8 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
         boolean foundC = false;
         int foundM = 0;
         // the m- and k- values for the C_j with max m+k
-        int mMax = 0, kMax = 0;
+        int mMax = 0;
+        int kMax = 0;
         // sum of all known k
         int sumK = 0;
         // 1st pass: check for none-case, deals with deterministic cases

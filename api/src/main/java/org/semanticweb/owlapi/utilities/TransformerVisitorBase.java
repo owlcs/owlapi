@@ -186,13 +186,19 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
         return !axiom.equals(transform) ? transform : axiom;
     }
 
-    protected void visitId(@SuppressWarnings("unused") OWLOntology ontology) {}
+    protected void visitId(@SuppressWarnings("unused") OWLOntology ontology) {
+        // does not apply to ontologies
+    }
 
     @SuppressWarnings("unused")
-    protected void visitImports(OWLOntology ontology, OWLImportsDeclaration id) {}
+    protected void visitImports(OWLOntology ontology, OWLImportsDeclaration id) {
+        // does not apply to imports
+    }
 
     @SuppressWarnings("unused")
-    protected void visitAnnotation(OWLOntology ontology, OWLAnnotation a) {}
+    protected void visitAnnotation(OWLOntology ontology, OWLAnnotation a) {
+        // does not apply to annotations
+    }
 
     @Override
     public OWLObject visit(OWLOntology ontology) {

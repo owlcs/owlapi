@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class NamespaceUtil implements Serializable {
 
+    private static final String NAMESPACE_CANNOT_BE_NULL = "namespace cannot be null";
     private final Map<String, String> namespace2PrefixMap = new HashMap<>();
     private final Map<String, String> standardNamespacePrefixMappings = new HashMap<>();
     private final AtomicInteger candidateIndex = new AtomicInteger(1);
@@ -58,7 +59,7 @@ public class NamespaceUtil implements Serializable {
      * @return The prefix for the specified namespace.
      */
     public String getPrefix(String namespace) {
-        checkNotNull(namespace, "namespace cannot be null");
+        checkNotNull(namespace, NAMESPACE_CANNOT_BE_NULL);
         String prefix = namespace2PrefixMap.get(namespace);
         if (prefix != null) {
             return prefix;
@@ -86,7 +87,7 @@ public class NamespaceUtil implements Serializable {
      * mapping.
      */
     private String generatePrefix(String namespace) {
-        checkNotNull(namespace, "namespace cannot be null");
+        checkNotNull(namespace, NAMESPACE_CANNOT_BE_NULL);
         String prefix = standardNamespacePrefixMappings.get(namespace);
         if (prefix != null) {
             namespace2PrefixMap.put(namespace, prefix);
@@ -140,7 +141,7 @@ public class NamespaceUtil implements Serializable {
      * @param prefix The prefix for the namespace
      */
     public void setPrefix(String namespace, String prefix) {
-        checkNotNull(namespace, "namespace cannot be null");
+        checkNotNull(namespace, NAMESPACE_CANNOT_BE_NULL);
         checkNotNull(prefix, "prefix cannot be null");
         namespace2PrefixMap.put(namespace, prefix);
     }

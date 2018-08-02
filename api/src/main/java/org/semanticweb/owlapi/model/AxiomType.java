@@ -213,12 +213,12 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
     /**
      * Determines if there is an axiom type with the specified name.
      *
-     * @param _name The name to test for
+     * @param name The name to test for
      * @return {@code true} if there is an axiom type with the specified name, or {@code false} if
      *         there is no axiom type with the specified name.
      */
-    public static boolean isAxiomType(String _name) {
-        return NAME_TYPE_MAP.containsKey(_name);
+    public static boolean isAxiomType(String name) {
+        return NAME_TYPE_MAP.containsKey(name);
     }
 
     @Override

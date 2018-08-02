@@ -13,10 +13,10 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi.model.MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
-import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.AnnotationResourceTripleHandler;
-import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.InverseOfHandler;
-import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.ObjectPropertyAssertionHandler;
-import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.TypeHandler;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.ANNOTATIONRESOURCETRIPLEHANDLER;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.INVERSEOFHANDLER;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.OBJECTPROPERTYASSERTIONHANDLER;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.TYPEHANDLER;
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.getLiteralTripleHandlers;
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.getPredicateHandlers;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
@@ -285,7 +285,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         // a:A a:foo a:B and a:foo
         // is typed as both an annotation and data property then the
         // statement will be translated as an annotation on a:A
-        resources = Arrays.asList(ObjectPropertyAssertionHandler, AnnotationResourceTripleHandler);
+        resources = Arrays.asList(OBJECTPROPERTYASSERTIONHANDLER, ANNOTATIONRESOURCETRIPLEHANDLER);
         translatorAccessor = new TranslatorAccessor(this);
         synonymMap = new SynonymMap(strict(), df);
 
@@ -673,7 +673,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         tripleLogger.logTripleAtDebug(subject, predicate, object, language, datatype);
         OWLLiteral literal = getOWLLiteral(object, datatype, language);
         // Convert all literals to OWLLiterals
-        if (!literals.stream().anyMatch(x -> handleStreamConditionally(x, subject,
+        if (literals.stream().noneMatch(x -> handleStreamConditionally(x, subject,
             synonymMap.getSynonym(predicate), literal))) {
             tripleIndex.addTriple(subject, synonymMap.getSynonym(predicate), literal);
         }
@@ -697,7 +697,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             } else if (axiomTypes.get(o) == null) {
                 // Not a built in type
                 iris.addOWLNamedIndividual(subject, false);
-                consumed = handleStreamConditionally(TypeHandler, subject, p, o);
+                consumed = handleStreamConditionally(TYPEHANDLER, subject, p, o);
             } else {
                 addAxiom(subject);
             }
@@ -1322,6 +1322,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
                 ce(s);
                 return true;
             } else if (iris.isDataPropertyStrict(propIRI)) {
+                // nothing to do
             }
         }
         return false;
@@ -1797,14 +1798,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean handleOntologyTriple(IRI s, IRI p, IRI o) {
-        if (!anon.isAnonymousNode(s) && iris.getOntologies().isEmpty()) {
-            // Set IRI if it is not null before this point, and make sure to
-            // preserve the version IRI if it also existed before this point
-            if (!ont().getOntologyID().getOntologyIRI().isPresent()) {
-                OWLOntologyID id = df.getOWLOntologyID(Optional.ofNullable(s),
-                    ont().getOntologyID().getVersionIRI());
-                ont().applyChange(new SetOntologyID(ont(), id));
-            }
+        // Set IRI if it is not null before this point, and make sure to
+        // preserve the version IRI if it also existed before this point
+        if (!anon.isAnonymousNode(s) && iris.getOntologies().isEmpty() && ont().isAnonymous()) {
+            OWLOntologyID id =
+                df.getOWLOntologyID(Optional.ofNullable(s), ont().getOntologyID().getVersionIRI());
+            ont().applyChange(new SetOntologyID(ont(), id));
         }
         iris.addOntology(s);
         return tripleIndex.consumeTriple(s, p, o);
@@ -2210,7 +2209,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
         axiomParsingMode = true;
         // Inverse property axioms
-        tripleIndex.iterate((s, p, o) -> handleConditionally(InverseOfHandler, s, p, o));
+        tripleIndex.iterate((s, p, o) -> handleConditionally(INVERSEOFHANDLER, s, p, o));
         return tripleIndex.getRemainingTriples(anon::isAnonymousNode);
     }
 

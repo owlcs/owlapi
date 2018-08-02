@@ -127,7 +127,8 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
         boolean foundC = false;
         int foundM = 0;
         // the m- and k- values for the C_j with max m+k
-        int mMax = 0, kMax = 0;
+        int mMax = 0;
+        int kMax = 0;
         // sum of all known k
         int sumK = 0;
         // 1st pass: check for none-case, deals with deterministic cases

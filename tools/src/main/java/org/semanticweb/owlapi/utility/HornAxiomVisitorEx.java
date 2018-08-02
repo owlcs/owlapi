@@ -90,7 +90,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     @Override
     public Boolean visit(OWLDisjointClassesAxiom axiom) {
-        return Boolean.valueOf(!axiom.classExpressions().anyMatch(c -> !checkNegative(c)));
+        return Boolean.valueOf(axiom.classExpressions().allMatch(this::checkNegative));
     }
 
     @Override
@@ -124,7 +124,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
             return Boolean.FALSE;
         }
         return Boolean
-            .valueOf(!axiom.classExpressions().anyMatch(this::neitherPositiveNorNegative));
+            .valueOf(axiom.classExpressions().noneMatch(this::neitherPositiveNorNegative));
     }
 
     protected Boolean neitherPositiveNorNegative(OWLClassExpression c1) {
@@ -149,7 +149,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
     @Override
     public Boolean visit(OWLEquivalentClassesAxiom axiom) {
         return Boolean
-            .valueOf(!axiom.classExpressions().anyMatch(this::neitherPositiveNorNegative));
+            .valueOf(axiom.classExpressions().noneMatch(this::neitherPositiveNorNegative));
     }
 
     @Override
@@ -183,7 +183,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return Boolean.valueOf(!ce.operands().anyMatch(c -> c.accept(this) == Boolean.FALSE));
+            return Boolean.valueOf(ce.operands().noneMatch(c -> c.accept(this) == Boolean.FALSE));
         }
 
         @Override
@@ -234,12 +234,12 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return Boolean.valueOf(!ce.operands().anyMatch(c -> c.accept(this) == Boolean.FALSE));
+            return Boolean.valueOf(ce.operands().noneMatch(c -> c.accept(this) == Boolean.FALSE));
         }
 
         @Override
         public Boolean visit(OWLObjectUnionOf ce) {
-            return Boolean.valueOf(!ce.operands().anyMatch(c -> c.accept(this) == Boolean.FALSE));
+            return Boolean.valueOf(ce.operands().noneMatch(c -> c.accept(this) == Boolean.FALSE));
         }
 
         @Override

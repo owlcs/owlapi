@@ -1181,7 +1181,7 @@ public class OBOFormatParser {
     protected void parseUnquotedString(Clause cl) {
         parseZeroOrMoreWs();
         String v = getParseUntil("!{");
-        // strip whitespace from the end - TODO
+        // strip whitespace from the end
         v = removeTrailingWS(v);
         cl.setValue(v);
         if (stream.peekCharIs('{')) {

@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asMap;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.Namespaces.OWL;
 import static org.semanticweb.owlapi.vocab.Namespaces.RDF;
@@ -284,7 +284,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * @return The allowed facets
      */
     public Collection<OWLFacet> getFacets() {
-        return category.getFacets();
+        return asList(category.facets());
     }
 
     /**
@@ -336,11 +336,11 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         /** UNIVERSAL.                   */ CAT_UNIVERSAL                  ("Universal literal");
         //@formatter:on
         private final String name;
-        private final Set<OWLFacet> facets;
+        private final List<OWLFacet> facets;
 
         Category(String name, OWLFacet... facets) {
             this.name = name;
-            this.facets = asUnorderedSet(facets);
+            this.facets = Arrays.asList(facets);
         }
 
         /**

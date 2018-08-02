@@ -141,10 +141,11 @@ public class PrefixManagerImpl implements PrefixManager {
         if (prefix == null) {
             String iriString = iri.toString();
             String prefixed = null;
-            for (String s : reverseprefix2NamespaceMap.keySet()) {
-                if (iriString.startsWith(s) && XMLUtils.isQName(iriString, s.length())) {
-                    prefix = reverseprefix2NamespaceMap.get(s);
-                    prefixed = iriString.replace(s, prefix);
+            for (Map.Entry<String, String> s : reverseprefix2NamespaceMap.entrySet()) {
+                if (iriString.startsWith(s.getKey())
+                    && XMLUtils.isQName(iriString, s.getKey().length())) {
+                    prefix = s.getValue();
+                    prefixed = iriString.replace(s.getKey(), s.getValue());
                 }
             }
             if (prefixed != null && XMLUtils.isQName(prefixed)) {
@@ -161,10 +162,10 @@ public class PrefixManagerImpl implements PrefixManager {
         String prefix = reverseprefix2NamespaceMap.get(XMLUtils.getNCNamePrefix(iri));
         if (prefix == null) {
             String prefixed = null;
-            for (String s : reverseprefix2NamespaceMap.keySet()) {
-                if (iri.startsWith(s) && XMLUtils.isQName(iri, s.length())) {
-                    prefix = reverseprefix2NamespaceMap.get(s);
-                    prefixed = iri.replace(s, prefix);
+            for (Map.Entry<String, String> s : reverseprefix2NamespaceMap.entrySet()) {
+                if (iri.startsWith(s.getKey()) && XMLUtils.isQName(iri, s.getKey().length())) {
+                    prefix = s.getValue();
+                    prefixed = iri.replace(s.getKey(), s.getValue());
                 }
             }
             if (prefixed != null && XMLUtils.isQName(prefixed)) {
@@ -255,12 +256,12 @@ public class PrefixManagerImpl implements PrefixManager {
     public PrefixManager withPrefix(String inputPrefixName, String prefix) {
         checkNotNull(inputPrefixName, "prefixName cannot be null");
         checkNotNull(prefix, "prefix cannot be null");
-        String _prefixName = inputPrefixName;
-        if (!_prefixName.endsWith(":")) {
-            _prefixName += ":";
+        String prefixName = inputPrefixName;
+        if (!prefixName.endsWith(":")) {
+            prefixName += ":";
         }
-        prefix2NamespaceMap.put(_prefixName, prefix);
-        reverseprefix2NamespaceMap.put(prefix, _prefixName);
+        prefix2NamespaceMap.put(prefixName, prefix);
+        reverseprefix2NamespaceMap.put(prefix, prefixName);
         return this;
     }
 

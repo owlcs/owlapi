@@ -49,15 +49,15 @@ public class Debugger {
     @Nonnull
     private final OWLOntology ontology;
     @Nonnull
-    private final OWLDebugger debugger;
+    private final OWLDebugger owlDebugger;
     private final OWLReasoner checker;
 
     public Debugger(OWLOntologyManager manager, OWLOntology ontology,
-                    OWLReasonerFactory reasonerFactory) {
+        OWLReasonerFactory reasonerFactory) {
         this.ontology = ontology;
         checker = reasonerFactory.createNonBufferingReasoner(ontology);
         /* Create a new debugger */
-        debugger = new BlackBoxOWLDebugger(manager, ontology, reasonerFactory);
+        owlDebugger = new BlackBoxOWLDebugger(manager, ontology, reasonerFactory);
     }
 
     public void report(PrintWriter writer) throws OWLException {
@@ -66,7 +66,7 @@ public class Debugger {
         renderer.header();
         /* Collect the unsatisfiable classes that aren't bottom. */
         Set<OWLClass> unsatisfiables = asSet(ontology.classesInSignature()
-                        .filter(c -> !checker.isSatisfiable(c) && !c.isOWLNothing()));
+            .filter(c -> !checker.isSatisfiable(c) && !c.isOWLNothing()));
         writer.println("<h1>Ontology Debugging Report</h1>");
         writer.println("<br>Ontology: " + ontology.getOntologyID() + "<br>");
         if (unsatisfiables.isEmpty()) {
@@ -83,7 +83,7 @@ public class Debugger {
                  * Find the set of support for the inconsistency. This will return us a collection
                  * of axioms
                  */
-                Set<OWLAxiom> sos = debugger.getSOSForInconsistentClass(unsatisfiable);
+                Set<OWLAxiom> sos = owlDebugger.getSOSForInconsistentClass(unsatisfiable);
                 /* Print the axioms. */
                 for (OWLAxiom axiom : sos) {
                     writer.println("<li>");

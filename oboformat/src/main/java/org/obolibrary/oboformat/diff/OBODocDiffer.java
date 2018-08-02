@@ -71,16 +71,14 @@ public class OBODocDiffer {
         for (Clause c : f1.getClauses()) {
             boolean isMatched = false;
             for (Clause c2 : f2.getClauses()) {
-                if (sameTag(c, c2)) {
-                    if (c.equals(c2)) {
-                        isMatched = true;
-                        if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
-                            String a1 = c.getValue(Xref.class).getAnnotation();
-                            String a2 = c2.getValue(Xref.class).getAnnotation();
-                            isMatched = a1 == null && a2 == null || a1 != null && a1.equals(a2);
-                        }
-                        break;
+                if (sameTag(c, c2) && c.equals(c2)) {
+                    isMatched = true;
+                    if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
+                        String a1 = c.getValue(Xref.class).getAnnotation();
+                        String a2 = c2.getValue(Xref.class).getAnnotation();
+                        isMatched = a1 == null && a2 == null || a1 != null && a1.equals(a2);
                     }
+                    break;
                 }
             }
             if (!isMatched) {

@@ -138,9 +138,8 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
                     return false;
                 }
             } else {
-                if (pos.booleanValue() && !isTopEquivalent(arg)) {
-                    return false;
-                } else if (!pos.booleanValue() && !isBotEquivalent(arg)) {
+                if (pos.booleanValue() && !isTopEquivalent(arg)
+                    || !pos.booleanValue() && !isBotEquivalent(arg)) {
                     return false;
                 }
             }
@@ -270,14 +269,14 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty())
-            || isBotEquivalent(axiom.getSubProperty());
+        isLocal =
+            isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty())
-            || isBotEquivalent(axiom.getSubProperty());
+        isLocal =
+            isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override

@@ -68,8 +68,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
         dataFactory = checkNotNull(man, "man cannot be null").getOWLDataFactory();
         BlackBoxExplanation singleGen =
             new BlackBoxExplanation(checkNotNull(ontology, "ontology cannot be null"),
-                checkNotNull(reasonerFactory,
-                    "reasonerFactory cannot be null"),
+                checkNotNull(reasonerFactory, "reasonerFactory cannot be null"),
                 checkNotNull(reasoner, "reasoner cannot be null"));
         gen = new HSTExplanationGenerator(singleGen);
         if (progressMonitor != null) {
@@ -89,8 +88,9 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      * @return the explanation
      */
     public Set<OWLAxiom> getExplanation(OWLAxiom axiom) {
+        checkNotNull(axiom, "axiom cannot be null");
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
-        return getExplanation(converter.convert(checkNotNull(axiom, "axiom cannot be null")));
+        return getExplanation(converter.convert(axiom));
     }
 
     @Override
@@ -105,8 +105,9 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      * @return the set of explanations
      */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom) {
+        checkNotNull(axiom, "axiom cannot be null");
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
-        return getExplanations(converter.convert(checkNotNull(axiom, "axiom cannot be null")));
+        return getExplanations(converter.convert(axiom));
     }
 
     @Override
@@ -122,8 +123,8 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      * @return the set of explanations
      */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) {
+        checkNotNull(axiom, "axiom cannot be null");
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
-        return getExplanations(converter.convert(checkNotNull(axiom, "axiom cannot be null")),
-            maxExplanations);
+        return getExplanations(converter.convert(axiom), maxExplanations);
     }
 }

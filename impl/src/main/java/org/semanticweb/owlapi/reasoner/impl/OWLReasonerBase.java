@@ -58,9 +58,13 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         timeOut = configuration.getTimeOut();
         manager = rootOntology.getOWLOntologyManager();
         manager.addOntologyChangeListener(this::handleRawOntologyChanges);
-        reasonerAxioms = asUnorderedSet(rootOntology.importsClosure().flatMap(
-            o -> Stream.concat(o.logicalAxioms(), o.axioms(AxiomType.DECLARATION)))
-            .map(ax -> OWLAxiom.getAxiomWithoutAnnotations(ax)));
+        reasonerAxioms = asUnorderedSet(rootOntology.importsClosure()
+            .flatMap(o -> Stream.concat(o.logicalAxioms(), o.axioms(AxiomType.DECLARATION)))
+            .map(this::removeAnns));
+    }
+
+    private OWLAxiom removeAnns(OWLAxiom ax) {
+        return OWLAxiom.getAxiomWithoutAnnotations(ax);
     }
 
     /**
@@ -140,9 +144,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * there may be no changes for the reasoner to deal with.
      *
      * @param added The logical axioms that have been added to the imports closure of the reasoner
-     * root ontology
+     *        root ontology
      * @param removed The logical axioms that have been removed from the imports closure of the
-     * reasoner root ontology
+     *        reasoner root ontology
      */
     private void computeDiff(Set<OWLAxiom> added, Set<OWLAxiom> removed) {
         if (rawChanges.isEmpty()) {
@@ -166,9 +170,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * Gets the axioms that should be currently being reasoned over.
      *
      * @return A collections of axioms (not containing duplicates) that the reasoner should be
-     * taking into consideration when reasoning. This set of axioms many not correspond to the
-     * current state of the imports closure of the reasoner root ontology if the reasoner is
-     * buffered.
+     *         taking into consideration when reasoning. This set of axioms many not correspond to
+     *         the current state of the imports closure of the reasoner root ontology if the
+     *         reasoner is buffered.
      */
     public Collection<OWLAxiom> getReasonerAxioms() {
         return new ArrayList<>(reasonerAxioms);

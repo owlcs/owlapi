@@ -88,11 +88,8 @@ public class RDFTranslator
 
     protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual,
         boolean isAxiom, boolean needId) {
-        Integer id = blankNodeMap.get(key);
-        if (id == null) {
-            id = Integer.valueOf(nextBlankNodeId.getAndIncrement());
-            blankNodeMap.put(key, id);
-        }
+        Integer id = blankNodeMap.computeIfAbsent(key,
+            x -> Integer.valueOf(nextBlankNodeId.getAndIncrement()));
         return new RDFResourceBlankNode(NodeID.nodeId(id.intValue(), manager.getOWLDataFactory()),
             isIndividual, needId, isAxiom);
     }

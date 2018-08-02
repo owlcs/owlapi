@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.JarURLConnection;
-import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URL;
@@ -75,7 +74,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
             + LAST_REQUEST_TYPE;
     private static final LoadingCache<Integer, OkHttpClient> CACHE =
         Caffeine.newBuilder().maximumSize(16)
-            .build((timeout) -> new OkHttpClient.Builder()
+            .build(timeout -> new OkHttpClient.Builder()
                 .connectTimeout(timeout.longValue(), TimeUnit.MILLISECONDS)
                 .readTimeout(timeout.longValue(), TimeUnit.MILLISECONDS).followRedirects(true)
                 .followSslRedirects(true).build());
@@ -88,7 +87,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     private final String mimeType;
     protected Charset encoding = StandardCharsets.UTF_8;
     private final StreamerWrapper<Reader, InputStream> defaultReader =
-        (i) -> new InputStreamReader(new BOMInputStream(new BufferedInputStream(i), UTF_8, UTF_16BE,
+        i -> new InputStreamReader(new BOMInputStream(new BufferedInputStream(i), UTF_8, UTF_16BE,
             UTF_16LE, UTF_32BE, UTF_32LE), encoding);
     private Streamer<InputStream> inputStream;
     private Streamer<Reader> reader = () -> defaultReader.get(inputStream.get());
@@ -292,7 +291,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
             "No input could be resolved - exceptions raised against Reader, InputStream and IRI resolution");
     }
 
-    protected JarURLConnection streamFromJar() throws IOException, MalformedURLException {
+    protected JarURLConnection streamFromJar() throws IOException {
         return (JarURLConnection) new URL(documentIRI).openConnection();
     }
 

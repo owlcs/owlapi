@@ -114,10 +114,8 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @param witness Variable to ground the generic return type
      * @return The annotationless version of this axiom
      */
-    @SuppressWarnings("unchecked")
-    default <T extends OWLAxiom> T getAxiomWithoutAnnotations(
-        @SuppressWarnings("unused") Class<T> witness) {
-        return (T) getAxiomWithoutAnnotations();
+    default <T extends OWLAxiom> T getAxiomWithoutAnnotations(Class<T> witness) {
+        return witness.cast(getAxiomWithoutAnnotations());
     }
 
     /**
@@ -136,10 +134,9 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @return A copy of this axiom that has the specified annotations plus any existing annotations
      *         returned by the {@code OWLAxiom#getAnnotations()} method.
      */
-    @SuppressWarnings("unchecked")
-    default <T extends OWLAxiom> T getAnnotatedAxiom(@SuppressWarnings("unused") Class<T> witness,
+    default <T extends OWLAxiom> T getAnnotatedAxiom(Class<T> witness,
         Stream<OWLAnnotation> annotations) {
-        return (T) getAnnotatedAxiom(annotations);
+        return witness.cast(getAnnotatedAxiom(annotations));
     }
 
     /**

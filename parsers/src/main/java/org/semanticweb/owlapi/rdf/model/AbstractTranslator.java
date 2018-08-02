@@ -113,6 +113,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -764,13 +765,13 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLClass ce) {
-        putHasIRI(ce, x -> x.getIRI());
+        putHasIRI(ce, HasIRI::getIRI);
         addStrongTyping(ce);
     }
 
     @Override
     public void visit(OWLDatatype node) {
-        putHasIRI(node, x -> x.getIRI());
+        putHasIRI(node, HasIRI::getIRI);
         addStrongTyping(node);
     }
 
@@ -810,7 +811,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLNamedIndividual individual) {
-        putHasIRI(individual, x -> x.getIRI());
+        putHasIRI(individual, HasIRI::getIRI);
         addStrongTyping(individual);
     }
 
@@ -916,7 +917,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(SWRLVariable node) {
-        putHasIRI(node, x -> x.getIRI());
+        putHasIRI(node, HasIRI::getIRI);
         if (!ont.containsIndividualInSignature(node.getIRI())) {
             addTriple(node, RDF_TYPE.getIRI(), VARIABLE.getIRI());
         }

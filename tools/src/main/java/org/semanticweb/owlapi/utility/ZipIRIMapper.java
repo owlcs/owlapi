@@ -60,6 +60,7 @@ import org.xml.sax.helpers.DefaultHandler;
 @HasPriority(1)
 public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
 
+    private static final String EXCEPTION_READING_FILE = "Exception reading file";
     static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
     private static final Logger LOGGER = LoggerFactory.getLogger(ZipIRIMapper.class);
     private final Set<String> fileExtensions =
@@ -252,7 +253,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
             }
         } catch (IOException e) {
             // if we can't parse a file, then we can't map it
-            LOGGER.debug("Exception reading file", e);
+            LOGGER.debug(EXCEPTION_READING_FILE, e);
         }
         return null;
     }
@@ -267,7 +268,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
             SAXParsers.initParserWithOWLAPIStandards(null, "64000").parse(file, this);
         } catch (SAXException | IOException e) {
             // if we can't parse a file, then we can't map it
-            LOGGER.debug("Exception reading file", e);
+            LOGGER.debug(EXCEPTION_READING_FILE, e);
         }
         return currentFile;
     }
@@ -287,7 +288,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
             }
         } catch (IOException e) {
             // if we can't parse a file, then we can't map it
-            LOGGER.debug("Exception reading file", e);
+            LOGGER.debug(EXCEPTION_READING_FILE, e);
         }
         return null;
     }

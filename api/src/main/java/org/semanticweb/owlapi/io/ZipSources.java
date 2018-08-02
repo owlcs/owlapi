@@ -28,6 +28,8 @@ public class ZipSources {
 
     private static final Pattern ZIP_ENTRY_ONTOLOGY = Pattern.compile(".*owl|rdf|xml|mos");
 
+    private ZipSources() {}
+
     /**
      * @param is input stream to wrap if a zip file
      * @param name name of the file or the IRI

@@ -42,8 +42,8 @@ public class ParserException extends OWLParserException {
     private final boolean annotationPropertyExpected;
     private final Set<String> expectedKeywords = new LinkedHashSet<>();
     private final int startPos;
-    private boolean integerExpected;
-    private boolean ontologyNameExpected;
+    private final boolean integerExpected;
+    private final boolean ontologyNameExpected;
 
     /**
      * @param tokenSequence the token sequence
@@ -65,9 +65,20 @@ public class ParserException extends OWLParserException {
         boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
         boolean individualNameExpected, boolean datatypeNameExpected,
         boolean annotationPropertyExpected, boolean integerExpected, Set<String> expectedKeywords) {
-        this(tokenSequence, startPos, lineNumber, columnNumber, classNameExpected,
-            objectPropertyNameExpected, dataPropertyNameExpected, individualNameExpected,
-            datatypeNameExpected, annotationPropertyExpected, expectedKeywords);
+        currentToken = tokenSequence.iterator().next();
+        this.tokenSequence = tokenSequence;
+        this.lineNumber = lineNumber;
+        this.columnNumber = columnNumber;
+        this.classNameExpected = classNameExpected;
+        this.objectPropertyNameExpected = objectPropertyNameExpected;
+        this.dataPropertyNameExpected = dataPropertyNameExpected;
+        this.individualNameExpected = individualNameExpected;
+        this.datatypeNameExpected = datatypeNameExpected;
+        this.annotationPropertyExpected = annotationPropertyExpected;
+        if (expectedKeywords != null) {
+            this.expectedKeywords.addAll(expectedKeywords);
+        }
+        this.startPos = startPos;
         this.ontologyNameExpected = ontologyNameExpected;
         this.integerExpected = integerExpected;
     }
@@ -90,20 +101,9 @@ public class ParserException extends OWLParserException {
         boolean dataPropertyNameExpected, boolean individualNameExpected,
         boolean datatypeNameExpected, boolean annotationPropertyExpected,
         @Nullable Set<String> expectedKeywords) {
-        currentToken = tokenSequence.iterator().next();
-        this.tokenSequence = tokenSequence;
-        this.lineNumber = lineNumber;
-        this.columnNumber = columnNumber;
-        this.classNameExpected = classNameExpected;
-        this.objectPropertyNameExpected = objectPropertyNameExpected;
-        this.dataPropertyNameExpected = dataPropertyNameExpected;
-        this.individualNameExpected = individualNameExpected;
-        this.datatypeNameExpected = datatypeNameExpected;
-        this.annotationPropertyExpected = annotationPropertyExpected;
-        if (expectedKeywords != null) {
-            this.expectedKeywords.addAll(expectedKeywords);
-        }
-        this.startPos = startPos;
+        this(tokenSequence, startPos, lineNumber, columnNumber, classNameExpected,
+            objectPropertyNameExpected, dataPropertyNameExpected, individualNameExpected,
+            datatypeNameExpected, annotationPropertyExpected, false, false, expectedKeywords);
     }
 
     /**
@@ -139,8 +139,7 @@ public class ParserException extends OWLParserException {
     public ParserException(List<String> tokenSequence, int lineNumber, int columnNumber,
         boolean integerExpected, int startPos) {
         this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false,
-            false, new HashSet<String>());
-        this.integerExpected = integerExpected;
+            false, false, integerExpected, new HashSet<String>());
     }
 
     /**

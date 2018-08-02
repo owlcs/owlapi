@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -75,7 +76,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     static final Logger LOG = LoggerFactory.getLogger(AbstractMacroExpansionVisitor.class);
     static final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections.emptySet();
     protected final Map<IRI, String> expandExpressionMap;
-    protected final OWLAnnotationProperty OIO_ISEXPANSION;
+    protected final OWLAnnotationProperty oio_isexpansion;
     protected final OWLAnnotation expansionMarkerAnnotation;
     final OWLDataFactory df;
     final Map<IRI, String> expandAssertionToMap;
@@ -90,7 +91,6 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         this.shouldAddExpansionMarker = shouldAddExpansionMarker;
     }
 
-    @SuppressWarnings("null")
     protected AbstractMacroExpansionVisitor(OWLOntology o) {
         df = o.getOWLOntologyManager().getOWLDataFactory();
         expandExpressionMap = new HashMap<>();
@@ -100,9 +100,9 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             .forEach(p -> getAnnotationObjects(p, o.importsClosure(), ap424)
                 .forEach(a -> mapToExpand(p, a)));
         o.annotationPropertiesInSignature().forEach(p -> expandAssertions(o, p));
-        OIO_ISEXPANSION = df.getOWLAnnotationProperty(
+        oio_isexpansion = df.getOWLAnnotationProperty(
             df.getIRI(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
-        expansionMarkerAnnotation = df.getOWLAnnotation(OIO_ISEXPANSION, df.getOWLLiteral(true));
+        expansionMarkerAnnotation = df.getOWLAnnotation(oio_isexpansion, df.getOWLLiteral(true));
     }
 
     protected void mapToExpand(OWLObjectProperty p, OWLAnnotation a) {
@@ -129,8 +129,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     /**
      * @return value for OIO isexpansion
      */
-    public OWLAnnotationProperty getOIO_ISEXPANSION() {
-        return OIO_ISEXPANSION;
+    public OWLAnnotationProperty getOIOISEXPANSION() {
+        return oio_isexpansion;
     }
 
     /**
@@ -150,7 +150,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     protected void expandAssertions(OWLOntology o, OWLAnnotationProperty p) {
         OWLAnnotationProperty ap425 = df.getOWLAnnotationProperty(IRI_IAO_0000425.getIRI());
         getAnnotationObjects(p, o.importsClosure(), ap425).map(a -> a.getValue().asLiteral())
-            .filter(v -> v.isPresent()).forEach(v -> {
+            .filter(Optional::isPresent).forEach(v -> {
                 String str = v.get().getLiteral();
                 LOG.info("assertion mapping {} to {}", p, str);
                 expandAssertionToMap.put(p.getIRI(), str);

@@ -39,7 +39,7 @@ public class OWLZipYaml {
      * @throws ZipException if the zip file cannot be opened
      * @throws IOException if file read operations cannot be performed
      */
-    public OWLZipYaml(File f) throws ZipException, IOException {
+    public OWLZipYaml(File f) throws IOException {
         try (ZipFile z = new ZipFile(f)) {
             ZipEntry yaml = z.getEntry("owlzip.yaml");
             if (yaml == null) {

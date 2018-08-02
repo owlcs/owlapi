@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ManchesterSyntaxTool {
 
+    private static final String DISPOSED = "Illegal State: Trying to use an disposed instance.";
     private static final Logger LOG = LoggerFactory.getLogger(ManchesterSyntaxTool.class);
     protected final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
     private final OWLDataFactory dataFactory;
@@ -117,7 +118,7 @@ public class ManchesterSyntaxTool {
 
     private ManchesterOWLSyntaxParser createParser(String expression) {
         if (disposed.get()) {
-            throw new OWLRuntimeException("Illegal State: Trying to use an disposed instance.");
+            throw new OWLRuntimeException(DISPOSED);
         }
         ManchesterOWLSyntaxParser parser =
             new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
@@ -135,7 +136,7 @@ public class ManchesterSyntaxTool {
      */
     public String getId(IRI iri) {
         if (disposed.get()) {
-            throw new OWLRuntimeException("Illegal State: Trying to use an disposed instance.");
+            throw new OWLRuntimeException(DISPOSED);
         }
         return iriShortFormProvider.getShortForm(iri);
     }
@@ -148,7 +149,7 @@ public class ManchesterSyntaxTool {
      */
     public String getId(OWLEntity entity) {
         if (disposed.get()) {
-            throw new OWLRuntimeException("Illegal State: Trying to use an disposed instance.");
+            throw new OWLRuntimeException(DISPOSED);
         }
         return shortFormProvider.getShortForm(entity);
     }

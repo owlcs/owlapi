@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
  * @param <X> type to build
  * @param <B> builder
  */
-abstract public class BuilderSWRLIndividualsAtom<X extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument>, B extends Builder<X>>
+public abstract class BuilderSWRLIndividualsAtom<X extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument>, B extends Builder<X>>
     extends BaseBuilder<X, B> {
 
     @Nullable

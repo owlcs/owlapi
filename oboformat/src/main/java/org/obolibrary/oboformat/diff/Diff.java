@@ -140,13 +140,4 @@ public class Diff {
         }
         return verifyNotNull(f).getId();
     }
-    /*
-     * public String toOboDelta() throws IOException { Vector<String> lines = new Vector(); String
-     * line1 = null; if(frame1.getType() != frame2.getType()) { throw new
-     * IOException("Frames must be of same type: "+frame1+" -vs- "+frame2); } if(frame1.getType() ==
-     * FrameType.TERM) line1 = "[Term]"; else if(frame1.getType() == FrameType.TYPEDEF) line1 =
-     * "[Typedef]"; else if(frame1.getType() == FrameType.INSTANCE) line1 = "[Instance]";
-     * lines.add(line1); lines.add("id: "+frame1.getId()); if (clause1 == null) { } else {
-     * lines.add("-"); } return line1 + "\n" + line2 + "\n"; }
-     */
 }

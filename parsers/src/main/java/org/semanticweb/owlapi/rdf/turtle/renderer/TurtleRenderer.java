@@ -77,7 +77,8 @@ public class TurtleRenderer extends RDFRendererBase {
         this.writer = new PrintWriter(writer);
         pm = ontology.getPrefixManager();
         if (ontology.isNamed()) {
-            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
+            String ontologyIRIString =
+                ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
             String defaultPrefix = ontologyIRIString;
             if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
                 defaultPrefix = ontologyIRIString + '#';
@@ -174,14 +175,14 @@ public class TurtleRenderer extends RDFRendererBase {
         Collections.sort(prefixName2PrefixMap, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
         String actualIRI = iri.toString();
         for (Map.Entry<String, String> e : prefixName2PrefixMap) {
-            if (actualIRI.startsWith(e.getValue()) && noSplits(actualIRI, e.getValue().length())) {
+            if (actualIRI.startsWith(e.getValue()) && noSplits(actualIRI)) {
                 return e.getKey() + actualIRI.substring(e.getValue().length());
             }
         }
         return null;
     }
 
-    private static boolean noSplits(String s, int index) {
+    private static boolean noSplits(String s) {
         char[] reservedChars = new char[] {'~', '.', '-', '!', '$', '&', '(', ')', '*', '+', ',',
             ';', '=', '/', '?', '#', '@', '%', '_'};
         for (char c : reservedChars) {
@@ -294,7 +295,7 @@ public class TurtleRenderer extends RDFRendererBase {
         write("@base ");
         write("<");
         if (ontology.isNamed()) {
-            write(ontology.getOntologyID().getOntologyIRI().get().toString());
+            write(ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse(""));
         } else {
             write(Namespaces.OWL.toString());
         }

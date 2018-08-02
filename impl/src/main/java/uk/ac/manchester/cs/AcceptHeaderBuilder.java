@@ -13,6 +13,8 @@ import org.semanticweb.owlapi.utilities.PriorityCollection;
  * Class to build HTTP accept headers.
  */
 public class AcceptHeaderBuilder {
+    private AcceptHeaderBuilder() {}
+
     /**
      * @param parsers parsers to use
      * @return accept headers
@@ -21,7 +23,7 @@ public class AcceptHeaderBuilder {
         Map<String, TreeSet<Integer>> map = new HashMap<>();
         parsers.forEach(p -> addToMap(map, p.getMIMETypes()));
         return map.entrySet().stream().sorted(AcceptHeaderBuilder::compare)
-            .map(AcceptHeaderBuilder::tostring).collect(Collectors.joining(", "));
+            .map(AcceptHeaderBuilder::toAcceptString).collect(Collectors.joining(", "));
     }
 
     private static void addToMap(Map<String, TreeSet<Integer>> map, List<String> mimes) {
@@ -32,7 +34,7 @@ public class AcceptHeaderBuilder {
         }
     }
 
-    private static String tostring(Map.Entry<String, TreeSet<Integer>> e) {
+    private static String toAcceptString(Map.Entry<String, TreeSet<Integer>> e) {
         return String.format("%s; q=%.1f", e.getKey(),
             Double.valueOf(1D / e.getValue().first().intValue()));
     }

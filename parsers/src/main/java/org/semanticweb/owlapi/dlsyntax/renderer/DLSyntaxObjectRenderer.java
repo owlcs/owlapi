@@ -149,6 +149,7 @@ import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 @Renders(DLSyntaxDocumentFormat.class)
 public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisitor {
 
+    private static final String OBJECT_CANNOT_BE_NULL = "object cannot be null";
     private final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
     protected ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
     private StringBuilder buffer = new StringBuilder();
@@ -156,7 +157,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     private OWLObject focusedObject;
 
     protected static boolean isBracketedIfNested(OWLObject object) {
-        checkNotNull(object, "object cannot be null");
+        checkNotNull(object, OBJECT_CANNOT_BE_NULL);
         return !(object instanceof OWLEntity);
     }
 
@@ -193,7 +194,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     @Override
     public String render(OWLObject object) {
         buffer = new StringBuilder();
-        checkNotNull(object, "object cannot be null").accept(this);
+        checkNotNull(object, OBJECT_CANNOT_BE_NULL).accept(this);
         return buffer.toString();
     }
 
@@ -225,7 +226,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     private void writeObject(OWLObject object, boolean nest) {
-        checkNotNull(object, "object cannot be null");
+        checkNotNull(object, OBJECT_CANNOT_BE_NULL);
         if (nest) {
             roundedAnon(object);
         } else {

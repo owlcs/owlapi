@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 
@@ -22,8 +22,7 @@ import org.semanticweb.owlapi.model.IRI;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public abstract class RDFResource extends RDFNode
-    implements org.apache.commons.rdf.api.BlankNodeOrIRI {
+public abstract class RDFResource implements RDFNode, org.apache.commons.rdf.api.BlankNodeOrIRI {
 
     // XXX implement equals()
 
@@ -42,21 +41,20 @@ public abstract class RDFResource extends RDFNode
 
     @Override
     public int compareTo(@Nullable RDFNode o) {
-        checkNotNull(o);
-        assert o != null;
-        if (o.isLiteral()) {
+        RDFNode obj = verifyNotNull(o);
+        if (obj.isLiteral()) {
             return 1;
         }
         if (equals(o)) {
             return 0;
         }
         boolean anonA = isAnonymous();
-        boolean anonB = o.isAnonymous();
+        boolean anonB = obj.isAnonymous();
         if (anonA == anonB) {
             // if both are anonymous or both are not anonymous,
             // comparing the id() values corresponds to comparing IRIs or
             // comparing bnode ids
-            return getIRI().compareTo(o.getIRI());
+            return getIRI().compareTo(obj.getIRI());
         }
         // if one is anonymous and the other is not,
         // named nodes come first

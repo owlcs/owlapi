@@ -76,37 +76,37 @@ public class LatexStorer implements OWLStorer {
         w.write("}\n\n");
     }
 
-    private void render(OWLOntology o, PrintWriter _w) throws OWLOntologyStorageException {
+    private void render(OWLOntology o, PrintWriter w) throws OWLOntologyStorageException {
         try {
-            LatexWriter w = new LatexWriter(_w);
-            w.write("\\documentclass{article}\n");
-            w.write("\\parskip 0pt\n");
-            w.write("\\parindent 0pt\n");
-            w.write("\\oddsidemargin 0cm\n");
-            w.write("\\textwidth 19cm\n");
-            w.write("\\begin{document}\n\n");
-            LatexObjectVisitor renderer = new LatexObjectVisitor(w);
+            LatexWriter wr = new LatexWriter(w);
+            wr.write("\\documentclass{article}\n");
+            wr.write("\\parskip 0pt\n");
+            wr.write("\\parindent 0pt\n");
+            wr.write("\\oddsidemargin 0cm\n");
+            wr.write("\\textwidth 19cm\n");
+            wr.write("\\begin{document}\n\n");
+            LatexObjectVisitor renderer = new LatexObjectVisitor(wr);
             Collection<OWLClass> clses = sortEntities(o.classesInSignature());
             if (!clses.isEmpty()) {
-                w.write("\\subsection*{Classes}\n\n");
+                wr.write("\\subsection*{Classes}\n\n");
             }
             for (OWLClass cls : clses) {
-                writeEntity(w, renderer, cls, sortAxioms(o.axioms(cls)));
+                writeEntity(wr, renderer, cls, sortAxioms(o.axioms(cls)));
             }
-            w.write("\\section*{Object properties}");
+            wr.write("\\section*{Object properties}");
             sortEntities(o.objectPropertiesInSignature())
-                .forEach(p -> writeEntity(w, renderer, p, sortAxioms(o.axioms(p))));
-            w.write("\\section*{Data properties}");
+                .forEach(p -> writeEntity(wr, renderer, p, sortAxioms(o.axioms(p))));
+            wr.write("\\section*{Data properties}");
             o.dataPropertiesInSignature().sorted(entityComparator)
-                .forEach(prop -> writeEntity(w, renderer, prop, sortAxioms(o.axioms(prop))));
-            w.write("\\section*{Individuals}");
+                .forEach(prop -> writeEntity(wr, renderer, prop, sortAxioms(o.axioms(prop))));
+            wr.write("\\section*{Individuals}");
             o.individualsInSignature().sorted(entityComparator)
-                .forEach(i -> writeEntity(w, renderer, i, sortAxioms(o.axioms(i))));
-            w.write("\\section*{Datatypes}");
+                .forEach(i -> writeEntity(wr, renderer, i, sortAxioms(o.axioms(i))));
+            wr.write("\\section*{Datatypes}");
             o.datatypesInSignature().sorted(entityComparator).forEach(
-                type -> writeEntity(w, renderer, type, sortAxioms(o.axioms(type, EXCLUDED))));
-            w.write("\\end{document}\n");
-            w.flush();
+                type -> writeEntity(wr, renderer, type, sortAxioms(o.axioms(type, EXCLUDED))));
+            wr.write("\\end{document}\n");
+            wr.flush();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
         }

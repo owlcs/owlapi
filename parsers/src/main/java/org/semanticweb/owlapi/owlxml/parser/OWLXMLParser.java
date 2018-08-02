@@ -42,7 +42,7 @@ public class OWLXMLParser implements OWLParser {
         try {
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             InputSource isrc = new InputSource(r);
-            isrc.setSystemId(p.getDocumentIRI().toString());
+            isrc.setSystemId(p.getDocumentIRI());
             OWLXMLPH handler = new OWLXMLPH(p.getOntology(), p.getConfig());
             SAXParsers.initParserWithOWLAPIStandards(null, p.getConfig().getEntityExpansionLimit())
                 .parse(isrc, handler);

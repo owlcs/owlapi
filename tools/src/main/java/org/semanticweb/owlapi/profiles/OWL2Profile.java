@@ -90,10 +90,8 @@ public class OWL2Profile implements OWLProfile {
             // from the reserved vocab
             OWLOntologyID id = ontology.getOntologyID();
             if (id.isNamed()) {
-                IRI ontologyIRI = id.getOntologyIRI().get();
-                if (!ontologyIRI.isAbsolute()) {
-                    profileViolations.add(new OntologyIRINotAbsolute(ontology));
-                }
+                id.getOntologyIRI().filter(o -> !o.isAbsolute())
+                    .ifPresent(o -> profileViolations.add(new OntologyIRINotAbsolute(ontology)));
                 id.getVersionIRI().filter(v -> !v.isAbsolute()).ifPresent(
                     v -> profileViolations.add(new OntologyVersionIRINotAbsolute(ontology)));
             }
@@ -111,12 +109,15 @@ public class OWL2Profile implements OWLProfile {
         public void visit(OWLLiteral node) {
             // Check that the lexical value of the literal is in the lexical
             // space of the literal datatype
-            if (node.getDatatype().isBuiltIn()) {
-                if (!node.getDatatype().getBuiltInDatatype().isInLexicalSpace(node.getLiteral())) {
-                    profileViolations.add(new LexicalNotInLexicalSpace(getCurrentOntology(),
-                        getCurrentAxiom(), node));
-                }
+            if (isBuiltin(node)) {
+                profileViolations.add(
+                    new LexicalNotInLexicalSpace(getCurrentOntology(), getCurrentAxiom(), node));
             }
+        }
+
+        protected boolean isBuiltin(OWLLiteral node) {
+            return node.getDatatype().isBuiltIn()
+                && !node.getDatatype().getBuiltInDatatype().isInLexicalSpace(node.getLiteral());
         }
 
         @Override

@@ -76,10 +76,7 @@ public class QualifierValue implements Comparable<QualifierValue> {
         if (!qualifier.equals(other.qualifier)) {
             return false;
         }
-        if (!value.equals(other.value)) {
-            return false;
-        }
-        return true;
+        return value.equals(other.value);
     }
 
     @Override

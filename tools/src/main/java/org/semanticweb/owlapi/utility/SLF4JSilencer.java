@@ -23,6 +23,8 @@ public class SLF4JSilencer {
         }
     };
 
+    private SLF4JSilencer() {}
+
     /**
      * Silence SLF4J warnings.
      */

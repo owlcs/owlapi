@@ -576,7 +576,7 @@ class ResourceOrLiteralElement extends AbstractState implements State {
 class ParseTypeLiteralElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
-    protected final StringBuilder m_content = new StringBuilder();
+    protected final StringBuilder mContent = new StringBuilder();
     @Nullable
     protected String pIRI;
     @Nullable
@@ -599,25 +599,25 @@ class ParseTypeLiteralElement extends AbstractState implements State {
         if (depth == 0) {
             pIRI = nodeElement.getPropertyIRI(namespaceIRI + localName);
             reificationID = nodeElement.getReificationID(atts);
-            m_content.delete(0, m_content.length());
+            mContent.delete(0, mContent.length());
         } else {
-            m_content.append('<');
-            m_content.append(qName);
+            mContent.append('<');
+            mContent.append(qName);
             // ensure namespace declarations are added at the root, and only if
             // not already added in a parent node
             if (!localName.equals(qName) && declaredNamespaces.add(namespaceIRI)) {
-                m_content.append(" xmlns:").append(qName.substring(0, qName.indexOf(':')))
+                mContent.append(" xmlns:").append(qName.substring(0, qName.indexOf(':')))
                     .append("=\"").append(namespaceIRI).append('"');
             }
             int length = atts.getLength();
             for (int i = 0; i < length; i++) {
-                m_content.append(' ');
-                m_content.append(atts.getQName(i));
-                m_content.append("=\"");
-                m_content.append(atts.getValue(i));
-                m_content.append('"');
+                mContent.append(' ');
+                mContent.append(atts.getQName(i));
+                mContent.append("=\"");
+                mContent.append(atts.getValue(i));
+                mContent.append('"');
             }
-            m_content.append('>');
+            mContent.append('>');
         }
         depth++;
     }
@@ -625,21 +625,21 @@ class ParseTypeLiteralElement extends AbstractState implements State {
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (depth == 1) {
-            String content = verifyNotNull(m_content.toString());
+            String content = verifyNotNull(mContent.toString());
             parser.statementWithLiteralValue(nodeElement.subjectIRI(), propertyIRI(), content,
                 RDF_XMLLITERAL, reificationID);
             parser.popState();
         } else {
-            m_content.append("</");
-            m_content.append(qName);
-            m_content.append('>');
+            mContent.append("</");
+            mContent.append(qName);
+            mContent.append('>');
         }
         depth--;
     }
 
     @Override
     public void characters(char[] data, int start, int length) {
-        XMLUtils.escapeXML(data, start, length, m_content);
+        XMLUtils.escapeXML(data, start, length, mContent);
     }
 }
 

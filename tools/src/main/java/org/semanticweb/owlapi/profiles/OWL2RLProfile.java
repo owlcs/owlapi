@@ -146,7 +146,7 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return Boolean.valueOf(!ce.operands().anyMatch(e -> !e.accept(this).booleanValue()));
+            return Boolean.valueOf(ce.operands().allMatch(e -> e.accept(this).booleanValue()));
         }
 
         @Override
@@ -302,12 +302,12 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return Boolean.valueOf(!ce.operands().anyMatch(op -> !isOWL2RLSubClassExpression(op)));
+            return Boolean.valueOf(ce.operands().allMatch(op -> isOWL2RLSubClassExpression(op)));
         }
 
         @Override
         public Boolean visit(OWLObjectUnionOf ce) {
-            return Boolean.valueOf(!ce.operands().anyMatch(op -> !isOWL2RLSubClassExpression(op)));
+            return Boolean.valueOf(ce.operands().allMatch(op -> isOWL2RLSubClassExpression(op)));
         }
 
         @Override
@@ -354,7 +354,7 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return Boolean.valueOf(!ce.operands().anyMatch(e -> !e.accept(this).booleanValue()));
+            return Boolean.valueOf(ce.operands().allMatch(e -> e.accept(this).booleanValue()));
         }
 
         // XXX difference in subclass and superclass - correct?

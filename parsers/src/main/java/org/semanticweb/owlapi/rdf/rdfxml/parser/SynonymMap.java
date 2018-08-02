@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 class SynonymMap {
 
-    private final Map<IRI, IRI> synonymMap = createMap();
+    private final Map<IRI, IRI> synonyms = createMap();
     private final boolean strict;
     private OWLDataFactory df;
 
@@ -60,19 +60,19 @@ class SynonymMap {
         this.df = df;
         // We can load legacy ontologies by providing synonyms for built in
         // vocabulary (e.g. DAML+OIL -> OWL)
-        synonymMap.clear();
+        synonyms.clear();
         // Legacy protege-owlapi representation of QCRs
-        synonymMap.put(df.getIRI(OWL.getPrefixIRI(), "valuesFrom"), OWL_ON_CLASS.getIRI());
+        synonyms.put(df.getIRI(OWL.getPrefixIRI(), "valuesFrom"), OWL_ON_CLASS.getIRI());
         if (!strict) {
             OWLRDFVocabulary.DAML_COMPATIBILITY
-                .forEach(x -> synonymMap.put(x.getDAMLIRI(), x.getIRI()));
+                .forEach(x -> synonyms.put(x.getDAMLIRI(), x.getIRI()));
             addIntermediateOWLSpecVocabulary();
         }
     }
 
     protected IRI getSynonym(IRI original) {
         if (!strict) {
-            IRI synonymIRI = synonymMap.get(original);
+            IRI synonymIRI = synonyms.get(original);
             if (synonymIRI != null) {
                 return synonymIRI;
             }
@@ -86,46 +86,44 @@ class SynonymMap {
      */
     private void addIntermediateOWLSpecVocabulary() {
         Stream.of(OWLRDFVocabulary.values()).forEach(this::addLegacyMapping);
-        Stream.of(OWLFacet.values()).forEach(v -> Stream.of(OWL, OWL11, OWL2).forEach(
-            p -> synonymMap.put(df.getIRI(p.getPrefixIRI(), v.getShortForm()), v.getIRI())));
-        synonymMap.put(OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI(),
+        Stream.of(OWLFacet.values()).forEach(v -> Stream.of(OWL, OWL11, OWL2)
+            .forEach(p -> synonyms.put(df.getIRI(p.getPrefixIRI(), v.getShortForm()), v.getIRI())));
+        synonyms.put(OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI(),
             OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
-        synonymMap.put(OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIRI(),
+        synonyms.put(OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIRI(),
             OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
         // Intermediate OWL 2 spec
-        synonymMap.put(OWL_SUBJECT.getIRI(), OWL_ANNOTATED_SOURCE.getIRI());
-        synonymMap.put(OWL_PREDICATE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI());
-        synonymMap.put(OWL_OBJECT.getIRI(), OWL_ANNOTATED_TARGET.getIRI());
+        synonyms.put(OWL_SUBJECT.getIRI(), OWL_ANNOTATED_SOURCE.getIRI());
+        synonyms.put(OWL_PREDICATE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI());
+        synonyms.put(OWL_OBJECT.getIRI(), OWL_ANNOTATED_TARGET.getIRI());
         // Preliminary OWL 1.1 Vocab
-        synonymMap.put(df.getIRI(OWL.getPrefixIRI(), "cardinalityType"), OWL_ON_CLASS.getIRI());
-        synonymMap.put(df.getIRI(OWL.getPrefixIRI(), "dataComplementOf"),
-            OWL_COMPLEMENT_OF.getIRI());
-        synonymMap.put(OWL_ANTI_SYMMETRIC_PROPERTY.getIRI(), OWL_ASYMMETRIC_PROPERTY.getIRI());
-        synonymMap.put(OWL_FUNCTIONAL_DATA_PROPERTY.getIRI(), OWL_FUNCTIONAL_PROPERTY.getIRI());
-        synonymMap.put(OWL_FUNCTIONAL_OBJECT_PROPERTY.getIRI(), OWL_FUNCTIONAL_PROPERTY.getIRI());
-        synonymMap.put(OWL_SUB_DATA_PROPERTY_OF.getIRI(), RDFS_SUB_PROPERTY_OF.getIRI());
-        synonymMap.put(OWL_SUB_OBJECT_PROPERTY_OF.getIRI(), RDFS_SUB_PROPERTY_OF.getIRI());
-        synonymMap.put(OWL_OBJECT_PROPERTY_RANGE.getIRI(), RDFS_RANGE.getIRI());
-        synonymMap.put(OWL_DATA_PROPERTY_RANGE.getIRI(), RDFS_RANGE.getIRI());
-        synonymMap.put(OWL_OBJECT_PROPERTY_DOMAIN.getIRI(), RDFS_DOMAIN.getIRI());
-        synonymMap.put(OWL_DATA_PROPERTY_DOMAIN.getIRI(), RDFS_DOMAIN.getIRI());
-        synonymMap.put(OWL_DISJOINT_DATA_PROPERTIES.getIRI(), OWL_PROPERTY_DISJOINT_WITH.getIRI());
-        synonymMap.put(OWL_DISJOINT_OBJECT_PROPERTIES.getIRI(),
-            OWL_PROPERTY_DISJOINT_WITH.getIRI());
-        synonymMap.put(OWL_EQUIVALENT_DATA_PROPERTIES.getIRI(), OWL_EQUIVALENT_PROPERTY.getIRI());
-        synonymMap.put(OWL_EQUIVALENT_OBJECT_PROPERTIES.getIRI(), OWL_EQUIVALENT_PROPERTY.getIRI());
-        synonymMap.put(OWL_OBJECT_RESTRICTION.getIRI(), OWL_RESTRICTION.getIRI());
-        synonymMap.put(OWL_DATA_RESTRICTION.getIRI(), OWL_RESTRICTION.getIRI());
-        synonymMap.put(OWL_DATA_RANGE.getIRI(), RDFS_DATATYPE.getIRI());
-        synonymMap.put(OWL_SUBJECT.getIRI(), OWL_ANNOTATED_SOURCE.getIRI());
-        synonymMap.put(OWL_PREDICATE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI());
-        synonymMap.put(OWL_OBJECT.getIRI(), OWL_ANNOTATED_TARGET.getIRI());
+        synonyms.put(df.getIRI(OWL.getPrefixIRI(), "cardinalityType"), OWL_ON_CLASS.getIRI());
+        synonyms.put(df.getIRI(OWL.getPrefixIRI(), "dataComplementOf"), OWL_COMPLEMENT_OF.getIRI());
+        synonyms.put(OWL_ANTI_SYMMETRIC_PROPERTY.getIRI(), OWL_ASYMMETRIC_PROPERTY.getIRI());
+        synonyms.put(OWL_FUNCTIONAL_DATA_PROPERTY.getIRI(), OWL_FUNCTIONAL_PROPERTY.getIRI());
+        synonyms.put(OWL_FUNCTIONAL_OBJECT_PROPERTY.getIRI(), OWL_FUNCTIONAL_PROPERTY.getIRI());
+        synonyms.put(OWL_SUB_DATA_PROPERTY_OF.getIRI(), RDFS_SUB_PROPERTY_OF.getIRI());
+        synonyms.put(OWL_SUB_OBJECT_PROPERTY_OF.getIRI(), RDFS_SUB_PROPERTY_OF.getIRI());
+        synonyms.put(OWL_OBJECT_PROPERTY_RANGE.getIRI(), RDFS_RANGE.getIRI());
+        synonyms.put(OWL_DATA_PROPERTY_RANGE.getIRI(), RDFS_RANGE.getIRI());
+        synonyms.put(OWL_OBJECT_PROPERTY_DOMAIN.getIRI(), RDFS_DOMAIN.getIRI());
+        synonyms.put(OWL_DATA_PROPERTY_DOMAIN.getIRI(), RDFS_DOMAIN.getIRI());
+        synonyms.put(OWL_DISJOINT_DATA_PROPERTIES.getIRI(), OWL_PROPERTY_DISJOINT_WITH.getIRI());
+        synonyms.put(OWL_DISJOINT_OBJECT_PROPERTIES.getIRI(), OWL_PROPERTY_DISJOINT_WITH.getIRI());
+        synonyms.put(OWL_EQUIVALENT_DATA_PROPERTIES.getIRI(), OWL_EQUIVALENT_PROPERTY.getIRI());
+        synonyms.put(OWL_EQUIVALENT_OBJECT_PROPERTIES.getIRI(), OWL_EQUIVALENT_PROPERTY.getIRI());
+        synonyms.put(OWL_OBJECT_RESTRICTION.getIRI(), OWL_RESTRICTION.getIRI());
+        synonyms.put(OWL_DATA_RESTRICTION.getIRI(), OWL_RESTRICTION.getIRI());
+        synonyms.put(OWL_DATA_RANGE.getIRI(), RDFS_DATATYPE.getIRI());
+        synonyms.put(OWL_SUBJECT.getIRI(), OWL_ANNOTATED_SOURCE.getIRI());
+        synonyms.put(OWL_PREDICATE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI());
+        synonyms.put(OWL_OBJECT.getIRI(), OWL_ANNOTATED_TARGET.getIRI());
     }
 
     private void addLegacyMapping(OWLRDFVocabulary v) {
         // Map OWL11 to OWL
         // Map OWL2 to OWL
-        synonymMap.put(df.getIRI(OWL2.getPrefixIRI(), v.getShortForm()), v.getIRI());
-        synonymMap.put(df.getIRI(OWL11.getPrefixIRI(), v.getShortForm()), v.getIRI());
+        synonyms.put(df.getIRI(OWL2.getPrefixIRI(), v.getShortForm()), v.getIRI());
+        synonyms.put(df.getIRI(OWL11.getPrefixIRI(), v.getShortForm()), v.getIRI());
     }
 }

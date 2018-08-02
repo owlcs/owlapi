@@ -37,7 +37,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         this.iri = checkNotNull(iri, "iri cannot be null");
         top = iri.equals(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
         builtin = top || OWL2Datatype.isBuiltIn(iri)
-                        || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
+            || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override
@@ -69,7 +69,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     public OWL2Datatype getBuiltInDatatype() {
         if (!builtin) {
             throw new OWLRuntimeException(iri
-                            + " is not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
+                + " is not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
         }
         return OWL2Datatype.getDatatype(iri);
     }
@@ -101,7 +101,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
     @Override
     public boolean isTopDatatype() {
-        return top;
+        return isTopEntity();
     }
 
     @Override

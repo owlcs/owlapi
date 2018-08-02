@@ -515,11 +515,8 @@ public class OWLOntologyManagerImpl
     private boolean isChangeApplicable(OWLOntologyChange change) {
         OntologyConfigurator ontologyConfig =
             ontologyConfigurationsByOntologyID.get(change.getOntology().getOntologyID());
-        if (ontologyConfig != null && !ontologyConfig.shouldLoadAnnotations() && change.isAddAxiom()
-            && change.getAxiom() instanceof OWLAnnotationAxiom) {
-            return false;
-        }
-        return true;
+        return !(ontologyConfig != null && !ontologyConfig.shouldLoadAnnotations()
+            && change.isAddAxiom() && change.getAxiom() instanceof OWLAnnotationAxiom);
     }
 
     /**

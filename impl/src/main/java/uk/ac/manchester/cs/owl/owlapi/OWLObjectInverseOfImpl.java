@@ -39,6 +39,6 @@ public class OWLObjectInverseOfImpl extends OWLObjectImpl implements OWLObjectIn
 
     @Override
     public OWLObjectProperty getNamedProperty() {
-        return inverseProperty;
+        return getInverse();
     }
 }

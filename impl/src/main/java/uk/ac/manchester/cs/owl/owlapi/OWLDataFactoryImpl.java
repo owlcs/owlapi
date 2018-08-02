@@ -175,6 +175,8 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  */
 @Singleton
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassProvider {
+    private static final String PREFIX_MANAGER_CANNOT_BE_NULL = "prefixManager cannot be null";
+
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLDataFactoryImpl.class);
 
 //@formatter:off
@@ -297,7 +299,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     public OWLAnnotationProperty getOWLAnnotationProperty(String abbreviatedIRI,
         PrefixManager prefixManager) {
         checkNotNull(abbreviatedIRI, "abbreviatedIRI cannot be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
+        checkNotNull(prefixManager, PREFIX_MANAGER_CANNOT_BE_NULL);
         return getOWLAnnotationProperty(prefixManager.getIRI(abbreviatedIRI, this));
     }
 
@@ -314,7 +316,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     @Override
     public OWLClass getOWLClass(String abbreviatedIRI, PrefixManager prefixManager) {
         checkNotNull(abbreviatedIRI, "iri cannot be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
+        checkNotNull(prefixManager, PREFIX_MANAGER_CANNOT_BE_NULL);
         return getOWLClass(prefixManager.getIRI(abbreviatedIRI, this));
     }
 
@@ -330,8 +332,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLDataProperty getOWLDataProperty(String abbreviatedIRI, PrefixManager prefixManager) {
-        checkNotNull(abbreviatedIRI, "curi canno be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
+        checkNotNull(abbreviatedIRI, "abbreviatedIRI canno be null");
+        checkNotNull(prefixManager, PREFIX_MANAGER_CANNOT_BE_NULL);
         return getOWLDataProperty(prefixManager.getIRI(abbreviatedIRI, this));
     }
 
@@ -348,7 +350,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     @Override
     public OWLDatatype getOWLDatatype(String abbreviatedIRI, PrefixManager prefixManager) {
         checkNotNull(abbreviatedIRI, "abbreviatedIRI cannot be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
+        checkNotNull(prefixManager, PREFIX_MANAGER_CANNOT_BE_NULL);
         return getOWLDatatype(prefixManager.getIRI(abbreviatedIRI, this));
     }
 
@@ -366,7 +368,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     public OWLNamedIndividual getOWLNamedIndividual(String abbreviatedIRI,
         PrefixManager prefixManager) {
         checkNotNull(abbreviatedIRI, "curi canno be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
+        checkNotNull(prefixManager, PREFIX_MANAGER_CANNOT_BE_NULL);
         return getOWLNamedIndividual(prefixManager.getIRI(abbreviatedIRI, this));
     }
 
@@ -384,7 +386,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     public OWLObjectProperty getOWLObjectProperty(String abbreviatedIRI,
         PrefixManager prefixManager) {
         checkNotNull(abbreviatedIRI, "curi canno be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
+        checkNotNull(prefixManager, PREFIX_MANAGER_CANNOT_BE_NULL);
         return getOWLObjectProperty(prefixManager.getIRI(abbreviatedIRI, this));
     }
 

@@ -62,7 +62,7 @@ public class OWLOntologyIRIChanger {
                 Optional.ofNullable(newIRI), ontology.getOntologyID().getVersionIRI())));
         OWLImportsDeclaration owlImport =
             owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(newIRI);
-        IRI ontIRI = ontology.getOntologyID().getOntologyIRI().get();
+        IRI ontIRI = ontology.getOntologyID().getOntologyIRI().orElse(null);
         owlOntologyManager.ontologies().forEach(ont -> ont.importsDeclarations()
             .filter(decl -> decl.getIRI().equals(ontIRI)).forEach(decl -> {
                 changes.add(new RemoveImport(ont, decl));

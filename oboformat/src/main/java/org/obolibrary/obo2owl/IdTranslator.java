@@ -35,10 +35,7 @@ public class IdTranslator {
      * @return boolean
      */
     public static boolean isURI(String id) {
-        if (id.startsWith("http:") || id.startsWith("ftp:") || id.startsWith("https:")) {
-            return true;
-        }
-        return false;
+        return id.startsWith("http:") || id.startsWith("ftp:") || id.startsWith("https:");
     }
 
     /**

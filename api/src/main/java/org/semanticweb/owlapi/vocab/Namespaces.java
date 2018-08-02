@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.vocab.Namespaces.BuiltIn.NOT_BUILT_IN;
 import static org.semanticweb.owlapi.vocab.Namespaces.Status.IN_USE;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
 
@@ -88,7 +89,7 @@ public enum Namespaces {
     /**
      * Ignored imports.
      */
-    public static final EnumSet<Namespaces> defaultIgnoredImports =
+    public static final Set<Namespaces> defaultIgnoredImports =
         EnumSet.of(OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
     final Status status;
     final BuiltIn builtIn;

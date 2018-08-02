@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class RDFXMLRenderer extends RDFRendererBase {
 
+    private static final String PROP_CANNOT_BE_NULL = "prop cannot be null";
     private final RDFXMLWriter writer;
     private final RDFXMLNamespaceManager qnameManager;
     private final ShortFormProvider labelMaker;
@@ -129,7 +130,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     @Override
     protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
-        writeCommentForEntity("prop cannot be null", prop);
+        writeCommentForEntity(PROP_CANNOT_BE_NULL, prop);
     }
 
     @Override
@@ -139,7 +140,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     @Override
     protected void writeDataPropertyComment(OWLDataProperty prop) {
-        writeCommentForEntity("prop cannot be null", prop);
+        writeCommentForEntity(PROP_CANNOT_BE_NULL, prop);
     }
 
     @Override
@@ -149,7 +150,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     @Override
     protected void writeObjectPropertyComment(OWLObjectProperty prop) {
-        writeCommentForEntity("prop cannot be null", prop);
+        writeCommentForEntity(PROP_CANNOT_BE_NULL, prop);
     }
 
     @Override

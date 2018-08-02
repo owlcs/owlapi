@@ -59,6 +59,7 @@ import static org.semanticweb.owlapi.vocab.SWRLVocabulary.VARIABLE;
 
 import java.util.EnumSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -68,138 +69,65 @@ import org.semanticweb.owlapi.model.IRI;
 enum AbstractBuiltInTypeHandler
     implements BuiltInTypeHandler, ResourceTripleHandler, TriplePredicateHandler {
     //@formatter:off
-    TypeAnnotationHandler            (OWL_ANNOTATION,          (c, s, p, o) -> c.handleAnnotationTriple(s, p, o)),
-    TypeAnnotationPropertyHandler    (OWL_ANNOTATION_PROPERTY, (c, s, p, o) -> c.handleAnnotationPropertyTriple(s, p, o)),
-    TypeClassHandler                 (OWL_CLASS,               (c, s, p, o) -> c.handleClassDeclarationTriple(s, p, o)),
-    TypeDataPropertyHandler          (OWL_DATA_PROPERTY,       (c, s, p, o) -> c.handleDataPropertyTriple(s, p, o)),
-    TypeDataRangeHandler             (OWL_DATA_RANGE,          (c, s, p, o) -> c.handleDatarangeTriple(s, p, o)),
-    TypeDatatypeHandler              (RDFS_DATATYPE,           (c, s, p, o) -> c.handleDatatypeTriple(s, p, o)),
-    TypeDeprecatedClassHandler       (OWL_DEPRECATED_CLASS,    (c, s, p, o) -> c.handleDeprecatedClassTriple(s, p, o)),
-    TypeDeprecatedPropertyHandler    (OWL_DEPRECATED_PROPERTY, (c, s, p, o) -> c.handleDeprecatedPropertyTriple(s, p, o)),
-    TypeNamedIndividualHandler       (OWL_NAMED_INDIVIDUAL,    (c, s, p, o) -> c.handleNamedIndividualTriple(s, p, o)),
-    TypeListHandler                  (RDF_LIST,                (c, s, p, o) -> c.tripleIndex.consumeTriple(s, p, o)),
-    TypeObjectPropertyHandler        (OWL_OBJECT_PROPERTY,     (c, s, p, o) -> c.handleObjectTriple(s, p, o)),
-    TypeOntologyHandler              (OWL_ONTOLOGY,            (c, s, p, o) -> c.handleOntologyTriple(s, p, o)),
-    TypeOntologyPropertyHandler      (OWL_ONTOLOGY_PROPERTY,   (c, s, p, o) -> c.handleOntologyPropertyTriple(s, p, o)),
-    TypePropertyHandler              (RDF_PROPERTY,            (c, s, p, o) -> c.handleTypeTriple(s, p, o)),
-    TypeRDFSClassHandler             (RDFS_CLASS,              (c, s, p, o) -> c.handleClassTriple(s, p, o)),
-    TypeRestrictionHandler           (OWL_RESTRICTION,         (c, s, p, o) -> c.handleRestrictionTriple(s, p, o)),
-    TypeSWRLAtomListHandler          (ATOM_LIST,               (c, s, p, o) -> c.tripleIndex.consumeTriple(s, p, o)),
-    TypeSWRLBuiltInAtomHandler       (BUILT_IN_ATOM,           (c, s, p, o) -> c.handleSWRLBuiltinTriple(s, p, o)),
-    TypeSWRLBuiltInHandler           (BUILT_IN_CLASS,          (c, s, p, o) -> c.tripleIndex.consumeTriple(s, p, o)),
-    TypeSWRLClassAtomHandler         (CLASS_ATOM,              (c, s, p, o) -> c.handleSWRLClassAtomTriple(s, p, o)),
-    TypeSWRLDataRangeAtomHandler     (DATA_RANGE_ATOM,         (c, s, p, o) -> c.handleSWRLDatarangeTriple(s, p, o)),
-    TypeSWRLImpHandler               (IMP,                     (c, s, p, o) -> c.handleSWRLTriple(s, p, o)),
-    TypeSWRLSameIndividualAtomHandler(SAME_INDIVIDUAL_ATOM,    (c, s, p, o) -> c.handleSWRLSameAsTriple(s, p, o)),
-    TypeSWRLVariableHandler          (VARIABLE,                (c, s, p, o) -> c.handleSWRLVariableTriple(s, p, o)),
-    TypeSelfRestrictionHandler       (OWL_SELF_RESTRICTION,    (c, s, p, o) -> c.handleSelfTriple(s, p, o)),
-    TypeNegativeDataPropertyAssertionHandler(OWL_NEGATIVE_DATA_PROPERTY_ASSERTION, (c, s, p, o) -> c.handleNegDataAssertionTriple(s, p, o)),
-    TypeNegativePropertyAssertionHandler    (OWL_NEGATIVE_PROPERTY_ASSERTION,      (c, s, p, o) -> c.handleNegAssertionTriple(s, p, o)),
-    TypeSWRLDataValuedPropertyAtomHandler   (DATAVALUED_PROPERTY_ATOM,             (c, s, p, o) -> c.handleSWRLDataPropertyAtomTriple(s, p, o)),
-    TypeSWRLDifferentIndividualsAtomHandler (DIFFERENT_INDIVIDUALS_ATOM,           (c, s, p, o) -> c.handleSWRLDifferentTriple(s, p, o)),
-    TypeSWRLIndividualPropertyAtomHandler   (INDIVIDUAL_PROPERTY_ATOM,             (c, s, p, o) -> c.handleSWRLIndividualTriple(s, p, o)),
+    TYPEANNOTATIONHANDLER            (OWL_ANNOTATION,          (c, s, p, o) -> c.handleAnnotationTriple(s, p, o)),
+    TYPEANNOTATIONPROPERTYHANDLER    (OWL_ANNOTATION_PROPERTY, (c, s, p, o) -> c.handleAnnotationPropertyTriple(s, p, o)),
+    TYPECLASSHANDLER                 (OWL_CLASS,               (c, s, p, o) -> c.handleClassDeclarationTriple(s, p, o)),
+    TYPEDATAPROPERTYHANDLER          (OWL_DATA_PROPERTY,       (c, s, p, o) -> c.handleDataPropertyTriple(s, p, o)),
+    TYPEDATARANGEHANDLER             (OWL_DATA_RANGE,          (c, s, p, o) -> c.handleDatarangeTriple(s, p, o)),
+    TYPEDATATYPEHANDLER              (RDFS_DATATYPE,           (c, s, p, o) -> c.handleDatatypeTriple(s, p, o)),
+    TYPEDEPRECATEDCLASSHANDLER       (OWL_DEPRECATED_CLASS,    (c, s, p, o) -> c.handleDeprecatedClassTriple(s, p, o)),
+    TYPEDEPRECATEDPROPERTYHANDLER    (OWL_DEPRECATED_PROPERTY, (c, s, p, o) -> c.handleDeprecatedPropertyTriple(s, p, o)),
+    TYPENAMEDINDIVIDUALHANDLER       (OWL_NAMED_INDIVIDUAL,    (c, s, p, o) -> c.handleNamedIndividualTriple(s, p, o)),
+    TYPELISTHANDLER                  (RDF_LIST,                (c, s, p, o) -> c.tripleIndex.consumeTriple(s, p, o)),
+    TYPEOBJECTPROPERTYHANDLER        (OWL_OBJECT_PROPERTY,     (c, s, p, o) -> c.handleObjectTriple(s, p, o)),
+    TYPEONTOLOGYHANDLER              (OWL_ONTOLOGY,            (c, s, p, o) -> c.handleOntologyTriple(s, p, o)),
+    TYPEONTOLOGYPROPERTYHANDLER      (OWL_ONTOLOGY_PROPERTY,   (c, s, p, o) -> c.handleOntologyPropertyTriple(s, p, o)),
+    TYPEPROPERTYHANDLER              (RDF_PROPERTY,            (c, s, p, o) -> c.handleTypeTriple(s, p, o)),
+    TYPERDFSCLASSHANDLER             (RDFS_CLASS,              (c, s, p, o) -> c.handleClassTriple(s, p, o)),
+    TYPERESTRICTIONHANDLER           (OWL_RESTRICTION,         (c, s, p, o) -> c.handleRestrictionTriple(s, p, o)),
+    TYPESWRLATOMLISTHANDLER          (ATOM_LIST,               (c, s, p, o) -> c.tripleIndex.consumeTriple(s, p, o)),
+    TYPESWRLBUILTINATOMHANDLER       (BUILT_IN_ATOM,           (c, s, p, o) -> c.handleSWRLBuiltinTriple(s, p, o)),
+    TYPESWRLBUILTINHANDLER           (BUILT_IN_CLASS,          (c, s, p, o) -> c.tripleIndex.consumeTriple(s, p, o)),
+    TYPESWRLCLASSATOMHANDLER         (CLASS_ATOM,              (c, s, p, o) -> c.handleSWRLClassAtomTriple(s, p, o)),
+    TYPESWRLDATARANGEATOMHANDLER     (DATA_RANGE_ATOM,         (c, s, p, o) -> c.handleSWRLDatarangeTriple(s, p, o)),
+    TYPESWRLIMPHANDLER               (IMP,                     (c, s, p, o) -> c.handleSWRLTriple(s, p, o)),
+    TYPESWRLSAMEINDIVIDUALATOMHANDLER(SAME_INDIVIDUAL_ATOM,    (c, s, p, o) -> c.handleSWRLSameAsTriple(s, p, o)),
+    TYPESWRLVARIABLEHANDLER          (VARIABLE,                (c, s, p, o) -> c.handleSWRLVariableTriple(s, p, o)),
+    TYPESELFRESTRICTIONHANDLER       (OWL_SELF_RESTRICTION,    (c, s, p, o) -> c.handleSelfTriple(s, p, o)),
+    TYPENEGATIVEDATAPROPERTYASSERTIONHANDLER(OWL_NEGATIVE_DATA_PROPERTY_ASSERTION,  (c, s, p, o) -> c.handleNegDataAssertionTriple(s, p, o)),
+    TYPENEGATIVEPROPERTYASSERTIONHANDLER    (OWL_NEGATIVE_PROPERTY_ASSERTION,       (c, s, p, o) -> c.handleNegAssertionTriple(s, p, o)),
+    TYPESWRLDATAVALUEDPROPERTYATOMHANDLER   (DATAVALUED_PROPERTY_ATOM,              (c, s, p, o) -> c.handleSWRLDataPropertyAtomTriple(s, p, o)),
+    TYPESWRLDIFFERENTINDIVIDUALSATOMHANDLER (DIFFERENT_INDIVIDUALS_ATOM,            (c, s, p, o) -> c.handleSWRLDifferentTriple(s, p, o)),
+    TYPESWRLINDIVIDUALPROPERTYATOMHANDLER   (INDIVIDUAL_PROPERTY_ATOM,              (c, s, p, o) -> c.handleSWRLIndividualTriple(s, p, o)),
+    TYPEALLDIFFERENTHANDLER                 (OWL_ALL_DIFFERENT,                     (c, s, p, o) -> defaultCanHandle(c, OWL_ALL_DIFFERENT, s, p, o) && c.canHandleAllDifferent(s), NO_OP_IRI, (c, s, p, o) -> c.handleAllDifferentTriple(s, p, o)), 
+    TYPEALLDISJOINTCLASSESHANDLER           (OWL_ALL_DISJOINT_CLASSES,              (c, s, p, o) -> defaultCanHandle(c, OWL_ALL_DISJOINT_CLASSES, s, p, o) && c.tripleIndex.isResourcePresent(s, OWL_MEMBERS), NO_OP_IRI, (c, s, p, o) -> c.handleAllDisjointClassesTriple(s, p, o)), 
+    TYPEALLDISJOINTPROPERTIESHANDLER        (OWL_ALL_DISJOINT_PROPERTIES,           (c, s, p, o) -> defaultCanHandle(c, OWL_ALL_DISJOINT_PROPERTIES, s, p, o),  NO_OP_IRI, (c, s, p, o) -> c.handleAllDisjointTriple(s, p, o)), 
+    TYPEFUNCTIONALPROPERTYHANDLER           (OWL_FUNCTIONAL_PROPERTY,               (c, s, p, o) -> defaultCanHandle(c, OWL_FUNCTIONAL_PROPERTY, s, p, o),      NO_OP_IRI, (c, s, p, o) -> c.handleFunctionalTriple(s, p, o)), 
+    TYPEASYMMETRICPROPERTYHANDLER           (OWL_ASYMMETRIC_PROPERTY,               (c, s, p, o) -> defaultCanHandle(c, OWL_ASYMMETRIC_PROPERTY, s, p, o),      (c, s, p, o) -> c.canHandleAsymmetricStreaming(s), (c, s, p, o) -> c.handleAsymmetricTriple(s, p, o)), 
+    TYPEAH                                  (OWL_AXIOM,                             (c, s, p, o) -> defaultCanHandle(c, OWL_AXIOM, s, p, o),                    (c, s, p, o) -> c.canHandleAxiomStreaming(s), (c, s, p, o) -> c.handletypeaxiomTriple(s, p, o)), 
+    TYPEINVERSEFUNCTIONALPROPERTYHANDLER    (OWL_INVERSE_FUNCTIONAL_PROPERTY,       (c, s, p, o) -> defaultCanHandle(c, OWL_INVERSE_FUNCTIONAL_PROPERTY, s, p, o), (c, s, p, o) -> c .canHandleInverseFunctionalStreaming(s, p), (c, s, p, o) -> c.handleInverseFunctionalTriple(s, p, o)), 
+    TYPEIRREFLEXIVEPROPERTYHANDLER          (OWL_IRREFLEXIVE_PROPERTY,              (c, s, p, o) -> defaultCanHandle(c, OWL_IRREFLEXIVE_PROPERTY, s, p, o),     (c, s, p, o) -> c .canHandleIrreflexiveStreaming(s), (c, s, p, o) -> c.handleIrreflexiveTriple(s, p, o)), 
+    TYPEREFLEXIVEPROPERTYHANDLER            (OWL_REFLEXIVE_PROPERTY,                (c, s, p, o) -> defaultCanHandle(c, OWL_REFLEXIVE_PROPERTY, s, p, o),       (c, s, p, o) -> c .canHandleReflexiveStream(s), (c, s, p, o) -> c .handleReflexiveTriple(s, p, o)), 
+    TYPESYMMETRICPROPERTYHANDLER            (OWL_SYMMETRIC_PROPERTY,                (c, s, p, o) -> defaultCanHandle( c, OWL_SYMMETRIC_PROPERTY, s, p, o),      (c, s, p, o) -> c .canHandleSymmetricStreaming( s, p), (c, s, p, o) -> c .handleSymmetricTriple( s, p, o)), 
+    TYPETRANSITIVEPROPERTYHANDLER           (OWL_TRANSITIVE_PROPERTY,               (c, s, p, o) -> defaultCanHandle( c, OWL_TRANSITIVE_PROPERTY, s, p, o),     (c, s, p, o) -> c .canHandleTransitiveStreaming( s, p), (c, s, p, o) -> c .handleTransitiveTriple( s, p, o));
     //@formatter:on
-    TypeAllDifferentHandler(OWL_ALL_DIFFERENT,
-        (c, s, p, o) -> defaultCanHandle(c, OWL_ALL_DIFFERENT, s, p, o)
-            && c.canHandleAllDifferent(s),
-        NO_OP_IRI,
-        (c, s, p, o) -> c.handleAllDifferentTriple(s, p, o)), TypeAllDisjointClassesHandler(
-            OWL_ALL_DISJOINT_CLASSES,
-            (c, s, p, o) -> defaultCanHandle(c, OWL_ALL_DISJOINT_CLASSES, s, p, o)
-                && c.tripleIndex.isResourcePresent(s, OWL_MEMBERS),
-            NO_OP_IRI,
-            (c, s, p, o) -> c.handleAllDisjointClassesTriple(s, p,
-                o)), TypeAllDisjointPropertiesHandler(OWL_ALL_DISJOINT_PROPERTIES,
-                    (c, s, p, o) -> defaultCanHandle(c, OWL_ALL_DISJOINT_PROPERTIES, s, p, o),
-                    NO_OP_IRI,
-                    (c, s, p, o) -> c.handleAllDisjointTriple(s, p,
-                        o)), TypeFunctionalPropertyHandler(OWL_FUNCTIONAL_PROPERTY,
-                            (c, s, p, o) -> defaultCanHandle(c, OWL_FUNCTIONAL_PROPERTY, s, p, o),
-                            NO_OP_IRI,
-                            (c, s, p, o) -> c.handleFunctionalTriple(s, p,
-                                o)), TypeAsymmetricPropertyHandler(
-                                    OWL_ASYMMETRIC_PROPERTY,
-                                    (c, s, p, o) -> defaultCanHandle(c, OWL_ASYMMETRIC_PROPERTY, s,
-                                        p, o),
-                                    (c, s, p, o) -> c.canHandleAsymmetricStreaming(s),
-                                    (c, s, p, o) -> c.handleAsymmetricTriple(s, p, o)), TypeAH(
-                                        OWL_AXIOM,
-                                        (c, s, p, o) -> defaultCanHandle(c, OWL_AXIOM, s, p, o),
-                                        (c, s, p, o) -> c.canHandleAxiomStreaming(s),
-                                        (c, s, p, o) -> c.handletypeaxiomTriple(s, p,
-                                            o)), TypeInverseFunctionalPropertyHandler(
-                                                OWL_INVERSE_FUNCTIONAL_PROPERTY,
-                                                (c, s, p, o) -> defaultCanHandle(c,
-                                                    OWL_INVERSE_FUNCTIONAL_PROPERTY, s, p, o),
-                                                (c, s, p, o) -> c
-                                                    .canHandleInverseFunctionalStreaming(s, p),
-                                                (c, s, p, o) -> c.handleInverseFunctionalTriple(s,
-                                                    p, o)), TypeIrreflexivePropertyHandler(
-                                                        OWL_IRREFLEXIVE_PROPERTY,
-                                                        (c, s, p, o) -> defaultCanHandle(c,
-                                                            OWL_IRREFLEXIVE_PROPERTY, s, p, o),
-                                                        (c, s, p, o) -> c
-                                                            .canHandleIrreflexiveStreaming(s),
-                                                        (c, s, p, o) -> c.handleIrreflexiveTriple(s,
-                                                            p, o)), TypeReflexivePropertyHandler(
-                                                                OWL_REFLEXIVE_PROPERTY,
-                                                                (c, s, p, o) -> defaultCanHandle(c,
-                                                                    OWL_REFLEXIVE_PROPERTY, s, p,
-                                                                    o),
-                                                                (c, s, p, o) -> c
-                                                                    .canHandleReflexiveStream(s),
-                                                                (c, s, p, o) -> c
-                                                                    .handleReflexiveTriple(s, p,
-                                                                        o)), TypeSymmetricPropertyHandler(
-                                                                            OWL_SYMMETRIC_PROPERTY,
-                                                                            (c, s, p,
-                                                                                o) -> defaultCanHandle(
-                                                                                    c,
-                                                                                    OWL_SYMMETRIC_PROPERTY,
-                                                                                    s, p, o),
-                                                                            (c, s, p, o) -> c
-                                                                                .canHandleSymmetricStreaming(
-                                                                                    s, p),
-                                                                            (c, s, p, o) -> c
-                                                                                .handleSymmetricTriple(
-                                                                                    s, p,
-                                                                                    o)), TypeTransitivePropertyHandler(
-                                                                                        OWL_TRANSITIVE_PROPERTY,
-                                                                                        (c, s, p,
-                                                                                            o) -> defaultCanHandle(
-                                                                                                c,
-                                                                                                OWL_TRANSITIVE_PROPERTY,
-                                                                                                s,
-                                                                                                p,
-                                                                                                o),
-                                                                                        (c, s, p,
-                                                                                            o) -> c
-                                                                                                .canHandleTransitiveStreaming(
-                                                                                                    s,
-                                                                                                    p),
-                                                                                        (c, s, p,
-                                                                                            o) -> c
-                                                                                                .handleTransitiveTriple(
-                                                                                                    s,
-                                                                                                    p,
-                                                                                                    o));
 
-    public static EnumSet<AbstractBuiltInTypeHandler> strict = EnumSet.of(
-        TypeOntologyPropertyHandler, TypeAsymmetricPropertyHandler, TypeClassHandler,
-        TypeObjectPropertyHandler, TypeDataPropertyHandler, TypeDatatypeHandler,
-        TypeFunctionalPropertyHandler, TypeInverseFunctionalPropertyHandler,
-        TypeIrreflexivePropertyHandler, TypeReflexivePropertyHandler, TypeSymmetricPropertyHandler,
-        TypeTransitivePropertyHandler, TypeRestrictionHandler, TypeListHandler,
-        TypeAnnotationPropertyHandler, TypeDeprecatedClassHandler, TypeDeprecatedPropertyHandler,
-        TypeDataRangeHandler, TypeOntologyHandler, TypeNegativeDataPropertyAssertionHandler,
-        TypeRDFSClassHandler, TypeSelfRestrictionHandler, TypePropertyHandler,
-        TypeNamedIndividualHandler, TypeAnnotationHandler);
-    public static EnumSet<AbstractBuiltInTypeHandler> nonStrict =
-        EnumSet.of(TypeSWRLAtomListHandler, TypeSWRLBuiltInAtomHandler, TypeSWRLBuiltInHandler,
-            TypeSWRLClassAtomHandler, TypeSWRLDataRangeAtomHandler,
-            TypeSWRLDataValuedPropertyAtomHandler, TypeSWRLDifferentIndividualsAtomHandler,
-            TypeSWRLImpHandler, TypeSWRLIndividualPropertyAtomHandler,
-            TypeSWRLSameIndividualAtomHandler, TypeSWRLVariableHandler);
+    public static Set<AbstractBuiltInTypeHandler> strict = EnumSet.of(TYPEONTOLOGYPROPERTYHANDLER,
+        TYPEASYMMETRICPROPERTYHANDLER, TYPECLASSHANDLER, TYPEOBJECTPROPERTYHANDLER,
+        TYPEDATAPROPERTYHANDLER, TYPEDATATYPEHANDLER, TYPEFUNCTIONALPROPERTYHANDLER,
+        TYPEINVERSEFUNCTIONALPROPERTYHANDLER, TYPEIRREFLEXIVEPROPERTYHANDLER,
+        TYPEREFLEXIVEPROPERTYHANDLER, TYPESYMMETRICPROPERTYHANDLER, TYPETRANSITIVEPROPERTYHANDLER,
+        TYPERESTRICTIONHANDLER, TYPELISTHANDLER, TYPEANNOTATIONPROPERTYHANDLER,
+        TYPEDEPRECATEDCLASSHANDLER, TYPEDEPRECATEDPROPERTYHANDLER, TYPEDATARANGEHANDLER,
+        TYPEONTOLOGYHANDLER, TYPENEGATIVEDATAPROPERTYASSERTIONHANDLER, TYPERDFSCLASSHANDLER,
+        TYPESELFRESTRICTIONHANDLER, TYPEPROPERTYHANDLER, TYPENAMEDINDIVIDUALHANDLER,
+        TYPEANNOTATIONHANDLER);
+    public static final Set<AbstractBuiltInTypeHandler> nonStrict =
+        EnumSet.of(TYPESWRLATOMLISTHANDLER, TYPESWRLBUILTINATOMHANDLER, TYPESWRLBUILTINHANDLER,
+            TYPESWRLCLASSATOMHANDLER, TYPESWRLDATARANGEATOMHANDLER,
+            TYPESWRLDATAVALUEDPROPERTYATOMHANDLER, TYPESWRLDIFFERENTINDIVIDUALSATOMHANDLER,
+            TYPESWRLIMPHANDLER, TYPESWRLINDIVIDUALPROPERTYATOMHANDLER,
+            TYPESWRLSAMEINDIVIDUALATOMHANDLER, TYPESWRLVARIABLEHANDLER);
     HasIRI typeIRI;
     HandlerFunction<IRI> canHandle;
     HandlerFunction<IRI> canHandleStreaming;
@@ -224,8 +152,8 @@ enum AbstractBuiltInTypeHandler
     }
 
     public static Map<IRI, BuiltInTypeHandler> axioms() {
-        return toMap(Stream.of(TypeAH, TypeAllDifferentHandler, TypeAllDisjointClassesHandler,
-            TypeAllDisjointPropertiesHandler, TypeNegativePropertyAssertionHandler));
+        return toMap(Stream.of(TYPEAH, TYPEALLDIFFERENTHANDLER, TYPEALLDISJOINTCLASSESHANDLER,
+            TYPEALLDISJOINTPROPERTIESHANDLER, TYPENEGATIVEPROPERTYASSERTIONHANDLER));
     }
 
     protected static Map<IRI, BuiltInTypeHandler> toMap(

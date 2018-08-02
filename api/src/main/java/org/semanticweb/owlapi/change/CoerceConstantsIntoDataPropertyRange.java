@@ -61,7 +61,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         super(m.getOWLDataFactory());
         checkNotNull(ontologies, "ontologies cannot be null");
         Map<OWLDataPropertyExpression, OWLDatatype> map = asMap(datatypes(ontologies),
-            ax -> ax.getProperty(), ax -> ax.getRange().asOWLDatatype());
+            OWLDataPropertyRangeAxiom::getProperty, ax -> ax.getRange().asOWLDatatype());
         OWLConstantReplacer replacer = new OWLConstantReplacer(m, map);
         ontologies.forEach(o -> o.logicalAxioms().forEach(ax -> duplicate(replacer, o, ax)));
     }

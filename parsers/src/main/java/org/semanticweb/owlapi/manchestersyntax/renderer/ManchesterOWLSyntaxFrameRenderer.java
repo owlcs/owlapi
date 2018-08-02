@@ -311,7 +311,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         writeSpace();
         if (o.isNamed()) {
             int indent = getIndent();
-            writeFullURI(o.getOntologyID().getOntologyIRI().get().toString());
+            writeFullURI(o.getOntologyID().getOntologyIRI().map(Object::toString).orElse(""));
             writeNewLine();
             pushTab(indent);
             Optional<IRI> versionIRI = o.getOntologyID().getVersionIRI();
@@ -1252,12 +1252,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
 
         void put(O obj, V forAxiom) {
-            Collection<V> axioms = object2Axioms.get(obj);
-            if (axioms == null) {
-                axioms = sortedCollection();
-                object2Axioms.put(obj, axioms);
-            }
-            axioms.add(forAxiom);
+            object2Axioms.computeIfAbsent(obj, x -> sortedCollection()).add(forAxiom);
         }
 
         void remove(O obj) {

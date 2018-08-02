@@ -1,5 +1,6 @@
 package uk.ac.manchester.cs.atomicdecomposition;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -49,7 +50,7 @@ public interface AtomicDecomposition {
     /**
      * @return map between entities and atoms referencing them
      */
-    Map<OWLEntity, Set<Atom>> getTermBasedIndex();
+    Map<OWLEntity, Collection<Atom>> getTermBasedIndex();
 
     /**
      * @param atom atom

@@ -33,8 +33,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
-    private static final BiConsumer<OWLOntology, OBODoc> defaultBridge = (o, doc) -> bridge(o, doc);
-    private static final Consumer<OBODoc> defaultTreatDocument = (doc) -> {
+    private static final BiConsumer<OWLOntology, OBODoc> defaultBridge =
+        OBOFormatOWLAPIParser::bridge;
+    private static final Consumer<OBODoc> defaultTreatDocument = doc -> {
     };
     private final BiConsumer<OWLOntology, OBODoc> bridge;
     private final Consumer<OBODoc> treatDocument;

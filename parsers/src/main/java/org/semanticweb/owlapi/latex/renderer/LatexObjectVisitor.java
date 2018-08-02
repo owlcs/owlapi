@@ -859,7 +859,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         axiom.getProperty().accept(this);
         spaced(EQUIV);
         axiom.getProperty().accept(this);
-        write("\\ensuremath{^-}");
+        write(INVERSE);
     }
 
     @Override

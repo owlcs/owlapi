@@ -50,6 +50,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -484,12 +485,11 @@ public abstract class RDFRendererBase {
         return verifyNotNull(translator.getMappedNode(ontology), "ontology header node not found");
     }
 
-    private void addVersionIRIToOntologyHeader(RDFResource ontologyHeaderNode,
-        RDFTranslator translator) {
+    private void addVersionIRIToOntologyHeader(RDFResource header, RDFTranslator translator) {
         OWLOntologyID ontID = ontology.getOntologyID();
-        if (ontID.getVersionIRI().isPresent()) {
-            translator.addTriple(ontologyHeaderNode, OWL_VERSION_IRI.getIRI(),
-                ontID.getVersionIRI().get());
+        Optional<IRI> v = ontID.getVersionIRI();
+        if (v.isPresent()) {
+            translator.addTriple(header, OWL_VERSION_IRI.getIRI(), v.get());
         }
     }
 

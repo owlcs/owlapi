@@ -20,15 +20,15 @@ import org.semanticweb.owlapi.model.HasIRI;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public abstract class RDFNode implements Serializable, Comparable<RDFNode>, HasIRI,
-    org.apache.commons.rdf.api.RDFTerm {
+public interface RDFNode
+    extends Serializable, Comparable<RDFNode>, HasIRI, org.apache.commons.rdf.api.RDFTerm {
 
     /**
      * Determines if this node is a literal node.
      *
      * @return {@code true} if this node is a literal, otherwise {@code false}.
      */
-    public boolean isLiteral() {
+    default boolean isLiteral() {
         return false;
     }
 
@@ -37,7 +37,7 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>, HasI
      *
      * @return {@code true} if this node is a literal, otherwise {@code false}.
      */
-    public boolean isAxiom() {
+    default boolean isAxiom() {
         return false;
     }
 
@@ -46,31 +46,31 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>, HasI
      *
      * @return {@code true} if this is a resource node (i.e. {@code isLiteral} returns {@code
      * false}) and the node is anonymous, or {@code false} if this is a resource node and is not
-     * anonymous.
+     *         anonymous.
      */
-    public boolean isAnonymous() {
+    default boolean isAnonymous() {
         return false;
     }
 
     /**
      * @return true if this is an anonymous individual
      */
-    public boolean isIndividual() {
+    default boolean isIndividual() {
         return false;
     }
 
     /**
      * @return true if blank node id is mandatory for this resource
      */
-    public boolean shouldOutputId() {
+    default boolean shouldOutputId() {
         return false;
     }
 
     /**
      * @return true if an id is required for this node - only if this is an individual or an axiom
-     * and id is required
+     *         and id is required
      */
-    public boolean idRequiredForIndividualOrAxiom() {
+    default boolean idRequiredForIndividualOrAxiom() {
         return isAnonymous() && (isIndividual() || isAxiom()) && shouldOutputId();
     }
 }

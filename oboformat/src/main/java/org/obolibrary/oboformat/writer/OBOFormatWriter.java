@@ -70,7 +70,7 @@ public class OBOFormatWriter {
     /**
      * This comparator sorts clauses with the same tag in the specified write order.
      */
-    private static final Comparator<Clause> clauseComparator = (o1, o2) -> compare(o1, o2);
+    private static final Comparator<Clause> clauseComparator = OBOFormatWriter::compare;
     private static Comparator<Clause> clauseListComparator = Comparator
         .comparing(Clause::getTag, OBOFormatConstants.tagPriority).thenComparing(clauseComparator);
     private boolean isCheckStructure = true;

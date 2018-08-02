@@ -29,11 +29,11 @@ public class OBOFormatConstants {
         return f.applyAsInt(t);
     }
 
-    public static Comparator<String> headerPriority = (a, b) -> Integer
+    public static final Comparator<String> headerPriority = (a, b) -> Integer
         .compare(map(a, OboFormatTag::headerPriority), map(b, OboFormatTag::headerPriority));
-    public static Comparator<String> tagPriority = (a, b) -> Integer
+    public static final Comparator<String> tagPriority = (a, b) -> Integer
         .compare(map(a, OboFormatTag::tagPriority), map(b, OboFormatTag::tagPriority));
-    public static Comparator<String> typeDefPriority = (a, b) -> Integer
+    public static final Comparator<String> typeDefPriority = (a, b) -> Integer
         .compare(map(a, OboFormatTag::typeDefPriority), map(b, OboFormatTag::typeDefPriority));
     /**
      * tags
@@ -140,12 +140,12 @@ public class OBOFormatConstants {
         /**
          * Term frames.
          */
-        public static final EnumSet<OboFormatTag> TERM_FRAMES = EnumSet.of(TAG_INTERSECTION_OF,
+        public static final Set<OboFormatTag> TERM_FRAMES = EnumSet.of(TAG_INTERSECTION_OF,
             TAG_UNION_OF, TAG_EQUIVALENT_TO, TAG_DISJOINT_FROM, TAG_RELATIONSHIP, TAG_IS_A);
         /**
          * Typedef frames.
          */
-        public static final EnumSet<OboFormatTag> TYPEDEF_FRAMES =
+        public static final Set<OboFormatTag> TYPEDEF_FRAMES =
             EnumSet.of(TAG_INTERSECTION_OF, TAG_UNION_OF, TAG_EQUIVALENT_TO, TAG_DISJOINT_FROM,
                 TAG_INVERSE_OF, TAG_TRANSITIVE_OVER, TAG_DISJOINT_OVER, TAG_IS_A);
         private final String tag;

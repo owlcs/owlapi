@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.utilities;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnegative;
@@ -155,37 +154,6 @@ public final class OWLAPIPreconditions {
     }
 
     /**
-     * Check for absent and throw IllegalArgumentException if null or absent.
-     *
-     * @param object reference to check
-     * @param message message for the illegal argument exception
-     * @param <T> reference type
-     * @return the input reference if not null
-     * @throws IllegalArgumentException if object is null
-     * @deprecated use {@link #checkNotNull(Object, Supplier)}
-     */
-    @Deprecated
-    public static <T> T checkNotNull(@Nullable Optional<T> object, String message) {
-        return checkNotNull(object, () -> message);
-    }
-
-    /**
-     * Check for absent and throw IllegalArgumentException if null or absent.
-     *
-     * @param object reference to check
-     * @param message message for the illegal argument exception
-     * @param <T> reference type
-     * @return the input reference if not null
-     * @throws IllegalArgumentException if object is null
-     */
-    public static <T> T checkNotNull(@Nullable Optional<T> object, Supplier<String> message) {
-        if (object == null || !object.isPresent()) {
-            throw new IllegalArgumentException(message.get());
-        }
-        return verifyNotNull(object.get());
-    }
-
-    /**
      * @param <T> type of the returned collection
      * @param o collection to check for nullness and null elements, and optionally for emptiness
      * @param name message for error
@@ -194,9 +162,7 @@ public final class OWLAPIPreconditions {
      */
     public static <T> Collection<T> checkIterableNotNull(@Nullable Collection<T> o, String name,
         boolean emptyAllowed) {
-        checkNotNull(o, name);
-        assert o != null;
-        if (!emptyAllowed && o.isEmpty()) {
+        if (!emptyAllowed && verifyNotNull(o, name).isEmpty()) {
             throw new IllegalArgumentException(name + " or empty");
         }
         return o;

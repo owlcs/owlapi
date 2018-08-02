@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Map;
-import java.util.ServiceConfigurationError;
-import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -29,8 +27,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.semanticweb.owlapi.utilities.Injector;
 
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -50,7 +47,9 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  * @since 2.2.0
  */
 public final class ToStringRenderer {
-    private static Logger logger = LoggerFactory.getLogger(ToStringRenderer.class);
+    private static Injector injector = new Injector();
+
+    private ToStringRenderer() {}
 
     static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
         return Caffeine.newBuilder().weakKeys().softValues().build(c);
@@ -107,21 +106,7 @@ public final class ToStringRenderer {
                 map.put(annotation.value(), c.getClass());
             }
         };
-        try {
-            ServiceLoader.load(OWLObjectRenderer.class).forEach(r);
-        } catch (ServiceConfigurationError e) {
-            e.printStackTrace();
-            logger.debug("ServiceLoading: ", e);
-        }
-        // in OSGi, the context class loader is likely null.
-        // This would trigger the use of the system class loader, which would
-        // not see the OWLAPI jar, nor any other jar containing implementations.
-        // In that case, use this class classloader to load, at a minimum, the
-        // services provided by the OWLAPI jar itself.
-        if (map.isEmpty()) {
-            ClassLoader classLoader = ToStringRenderer.class.getClassLoader();
-            ServiceLoader.load(OWLObjectRenderer.class, classLoader).forEach(r);
-        }
+        injector.getImplementations(OWLObjectRenderer.class).forEach(r);
         return map;
     }
 

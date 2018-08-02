@@ -380,78 +380,78 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     private EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>> map() {
         EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>> m =
             new EnumMap<>(InternalsPointers.class);
-        m.put(InternalsPointers.axiomsByType, axiomsByType);
-        m.put(InternalsPointers.owlClassReferences, owlClassReferences);
-        m.put(InternalsPointers.owlObjectPropertyReferences, owlObjectPropertyReferences);
-        m.put(InternalsPointers.owlDataPropertyReferences, owlDataPropertyReferences);
-        m.put(InternalsPointers.owlIndividualReferences, owlIndividualReferences);
-        m.put(InternalsPointers.owlAnonymousIndividualReferences, owlAnonymousIndividualReferences);
-        m.put(InternalsPointers.owlDatatypeReferences, owlDatatypeReferences);
-        m.put(InternalsPointers.owlAnnotationPropertyReferences, owlAnnotationPropertyReferences);
-        m.put(InternalsPointers.declarationsByEntity, declarationsByEntity);
-        m.put(InternalsPointers.classAssertionAxiomsByClass, classAssertionAxiomsByClass);
-        m.put(InternalsPointers.annotationAssertionAxiomsBySubject,
+        m.put(InternalsPointers.AXIOMSBYTYPE, axiomsByType);
+        m.put(InternalsPointers.OWLCLASSREFERENCES, owlClassReferences);
+        m.put(InternalsPointers.OWLOBJECTPROPERTYREFERENCES, owlObjectPropertyReferences);
+        m.put(InternalsPointers.OWLDATAPROPERTYREFERENCES, owlDataPropertyReferences);
+        m.put(InternalsPointers.OWLINDIVIDUALREFERENCES, owlIndividualReferences);
+        m.put(InternalsPointers.OWLANONYMOUSINDIVIDUALREFERENCES, owlAnonymousIndividualReferences);
+        m.put(InternalsPointers.OWLDATATYPEREFERENCES, owlDatatypeReferences);
+        m.put(InternalsPointers.OWLANNOTATIONPROPERTYREFERENCES, owlAnnotationPropertyReferences);
+        m.put(InternalsPointers.DECLARATIONSBYENTITY, declarationsByEntity);
+        m.put(InternalsPointers.CLASSASSERTIONAXIOMSBYCLASS, classAssertionAxiomsByClass);
+        m.put(InternalsPointers.ANNOTATIONASSERTIONAXIOMSBYSUBJECT,
             annotationAssertionAxiomsBySubject);
-        m.put(InternalsPointers.subClassAxiomsBySubPosition, subClassAxiomsBySubPosition);
-        m.put(InternalsPointers.subClassAxiomsBySuperPosition, subClassAxiomsBySuperPosition);
-        m.put(InternalsPointers.objectSubPropertyAxiomsBySubPosition,
+        m.put(InternalsPointers.SUBCLASSAXIOMSBYSUBPOSITION, subClassAxiomsBySubPosition);
+        m.put(InternalsPointers.SUBCLASSAXIOMSBYSUPERPOSITION, subClassAxiomsBySuperPosition);
+        m.put(InternalsPointers.OBJECTSUBPROPERTYAXIOMSBYSUBPOSITION,
             objectSubPropertyAxiomsBySubPosition);
-        m.put(InternalsPointers.objectSubPropertyAxiomsBySuperPosition,
+        m.put(InternalsPointers.OBJECTSUBPROPERTYAXIOMSBYSUPERPOSITION,
             objectSubPropertyAxiomsBySuperPosition);
-        m.put(InternalsPointers.dataSubPropertyAxiomsBySubPosition,
+        m.put(InternalsPointers.DATASUBPROPERTYAXIOMSBYSUBPOSITION,
             dataSubPropertyAxiomsBySubPosition);
-        m.put(InternalsPointers.dataSubPropertyAxiomsBySuperPosition,
+        m.put(InternalsPointers.DATASUBPROPERTYAXIOMSBYSUPERPOSITION,
             dataSubPropertyAxiomsBySuperPosition);
-        m.put(InternalsPointers.classAxiomsByClass, classAxiomsByClass);
-        m.put(InternalsPointers.equivalentClassesAxiomsByClass, equivalentClassesAxiomsByClass);
-        m.put(InternalsPointers.disjointClassesAxiomsByClass, disjointClassesAxiomsByClass);
-        m.put(InternalsPointers.disjointUnionAxiomsByClass, disjointUnionAxiomsByClass);
-        m.put(InternalsPointers.hasKeyAxiomsByClass, hasKeyAxiomsByClass);
-        m.put(InternalsPointers.equivalentObjectPropertyAxiomsByProperty,
+        m.put(InternalsPointers.CLASSAXIOMSBYCLASS, classAxiomsByClass);
+        m.put(InternalsPointers.EQUIVALENTCLASSESAXIOMSBYCLASS, equivalentClassesAxiomsByClass);
+        m.put(InternalsPointers.DISJOINTCLASSESAXIOMSBYCLASS, disjointClassesAxiomsByClass);
+        m.put(InternalsPointers.DISJOINTUNIONAXIOMSBYCLASS, disjointUnionAxiomsByClass);
+        m.put(InternalsPointers.HASKEYAXIOMSBYCLASS, hasKeyAxiomsByClass);
+        m.put(InternalsPointers.EQUIVALENTOBJECTPROPERTYAXIOMSBYPROPERTY,
             equivalentObjectPropertyAxiomsByProperty);
-        m.put(InternalsPointers.disjointObjectPropertyAxiomsByProperty,
+        m.put(InternalsPointers.DISJOINTOBJECTPROPERTYAXIOMSBYPROPERTY,
             disjointObjectPropertyAxiomsByProperty);
-        m.put(InternalsPointers.objectPropertyDomainAxiomsByProperty,
+        m.put(InternalsPointers.OBJECTPROPERTYDOMAINAXIOMSBYPROPERTY,
             objectPropertyDomainAxiomsByProperty);
-        m.put(InternalsPointers.objectPropertyRangeAxiomsByProperty,
+        m.put(InternalsPointers.OBJECTPROPERTYRANGEAXIOMSBYPROPERTY,
             objectPropertyRangeAxiomsByProperty);
-        m.put(InternalsPointers.functionalObjectPropertyAxiomsByProperty,
+        m.put(InternalsPointers.FUNCTIONALOBJECTPROPERTYAXIOMSBYPROPERTY,
             functionalObjectPropertyAxiomsByProperty);
-        m.put(InternalsPointers.inverseFunctionalPropertyAxiomsByProperty,
+        m.put(InternalsPointers.INVERSEFUNCTIONALPROPERTYAXIOMSBYPROPERTY,
             inverseFunctionalPropertyAxiomsByProperty);
-        m.put(InternalsPointers.symmetricPropertyAxiomsByProperty,
+        m.put(InternalsPointers.SYMMETRICPROPERTYAXIOMSBYPROPERTY,
             symmetricPropertyAxiomsByProperty);
-        m.put(InternalsPointers.asymmetricPropertyAxiomsByProperty,
+        m.put(InternalsPointers.ASYMMETRICPROPERTYAXIOMSBYPROPERTY,
             asymmetricPropertyAxiomsByProperty);
-        m.put(InternalsPointers.reflexivePropertyAxiomsByProperty,
+        m.put(InternalsPointers.REFLEXIVEPROPERTYAXIOMSBYPROPERTY,
             reflexivePropertyAxiomsByProperty);
-        m.put(InternalsPointers.irreflexivePropertyAxiomsByProperty,
+        m.put(InternalsPointers.IRREFLEXIVEPROPERTYAXIOMSBYPROPERTY,
             irreflexivePropertyAxiomsByProperty);
-        m.put(InternalsPointers.transitivePropertyAxiomsByProperty,
+        m.put(InternalsPointers.TRANSITIVEPROPERTYAXIOMSBYPROPERTY,
             transitivePropertyAxiomsByProperty);
-        m.put(InternalsPointers.inversePropertyAxiomsByProperty, inversePropertyAxiomsByProperty);
-        m.put(InternalsPointers.equivalentDataPropertyAxiomsByProperty,
+        m.put(InternalsPointers.INVERSEPROPERTYAXIOMSBYPROPERTY, inversePropertyAxiomsByProperty);
+        m.put(InternalsPointers.EQUIVALENTDATAPROPERTYAXIOMSBYPROPERTY,
             equivalentDataPropertyAxiomsByProperty);
-        m.put(InternalsPointers.disjointDataPropertyAxiomsByProperty,
+        m.put(InternalsPointers.DISJOINTDATAPROPERTYAXIOMSBYPROPERTY,
             disjointDataPropertyAxiomsByProperty);
-        m.put(InternalsPointers.dataPropertyDomainAxiomsByProperty,
+        m.put(InternalsPointers.DATAPROPERTYDOMAINAXIOMSBYPROPERTY,
             dataPropertyDomainAxiomsByProperty);
-        m.put(InternalsPointers.dataPropertyRangeAxiomsByProperty,
+        m.put(InternalsPointers.DATAPROPERTYRANGEAXIOMSBYPROPERTY,
             dataPropertyRangeAxiomsByProperty);
-        m.put(InternalsPointers.functionalDataPropertyAxiomsByProperty,
+        m.put(InternalsPointers.FUNCTIONALDATAPROPERTYAXIOMSBYPROPERTY,
             functionalDataPropertyAxiomsByProperty);
-        m.put(InternalsPointers.classAssertionAxiomsByIndividual, classAssertionAxiomsByIndividual);
-        m.put(InternalsPointers.objectPropertyAssertionsByIndividual,
+        m.put(InternalsPointers.CLASSASSERTIONAXIOMSBYINDIVIDUAL, classAssertionAxiomsByIndividual);
+        m.put(InternalsPointers.OBJECTPROPERTYASSERTIONSBYINDIVIDUAL,
             objectPropertyAssertionsByIndividual);
-        m.put(InternalsPointers.dataPropertyAssertionsByIndividual,
+        m.put(InternalsPointers.DATAPROPERTYASSERTIONSBYINDIVIDUAL,
             dataPropertyAssertionsByIndividual);
-        m.put(InternalsPointers.negativeObjectPropertyAssertionAxiomsByIndividual,
+        m.put(InternalsPointers.NEGATIVEOBJECTPROPERTYASSERTIONAXIOMSBYINDIVIDUAL,
             negativeObjectPropertyAssertionAxiomsByIndividual);
-        m.put(InternalsPointers.negativeDataPropertyAssertionAxiomsByIndividual,
+        m.put(InternalsPointers.NEGATIVEDATAPROPERTYASSERTIONAXIOMSBYINDIVIDUAL,
             negativeDataPropertyAssertionAxiomsByIndividual);
-        m.put(InternalsPointers.differentIndividualsAxiomsByIndividual,
+        m.put(InternalsPointers.DIFFERENTINDIVIDUALSAXIOMSBYINDIVIDUAL,
             differentIndividualsAxiomsByIndividual);
-        m.put(InternalsPointers.sameIndividualsAxiomsByIndividual,
+        m.put(InternalsPointers.SAMEINDIVIDUALSAXIOMSBYINDIVIDUAL,
             sameIndividualsAxiomsByIndividual);
         return m;
     }

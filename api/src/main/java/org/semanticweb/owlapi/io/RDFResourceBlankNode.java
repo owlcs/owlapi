@@ -112,7 +112,7 @@ public class RDFResourceBlankNode extends RDFResource
 
     @Override
     public IRI getResource() {
-        return resource;
+        return getIRI();
     }
 
     @Override

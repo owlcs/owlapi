@@ -144,9 +144,8 @@ public class RDFTriple
     }
 
     @Override
-    public int compareTo(@Nullable RDFTriple o) {
-        checkNotNull(o);
-        assert o != null;
+    public int compareTo(@Nullable RDFTriple o1) {
+        RDFTriple o = checkNotNull(o1);
         // compare by predicate, then subject, then object
         int diff = comparePredicates(predicate, o.predicate);
         if (diff == 0) {

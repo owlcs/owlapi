@@ -73,10 +73,7 @@ public class OBODoc {
      * @return true, if is treat xrefs as equivalent
      */
     public static boolean isTreatXrefsAsEquivalent(@Nullable String prefix) {
-        if ("RO".equals(prefix)) {
-            return true;
-        }
-        return false;
+        return "RO".equals(prefix);
     }
 
     /**

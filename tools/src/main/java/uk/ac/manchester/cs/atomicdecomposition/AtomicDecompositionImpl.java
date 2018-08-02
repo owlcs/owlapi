@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -211,11 +212,9 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     }
 
     @Override
-    public Map<OWLEntity, Set<Atom>> getTermBasedIndex() {
-        Map<OWLEntity, Set<Atom>> toReturn = new HashMap<>();
-        for (OWLEntity e : termBasedIndex.keySet()) {
-            toReturn.put(e, new HashSet<>(termBasedIndex.get(e)));
-        }
+    public Map<OWLEntity, Collection<Atom>> getTermBasedIndex() {
+        Map<OWLEntity, Collection<Atom>> toReturn = new HashMap<>();
+        termBasedIndex.forEach((a, b) -> toReturn.put(a, new ArrayList<>(b)));
         return toReturn;
     }
 
@@ -238,6 +237,6 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     public Stream<OWLAxiom> getModule(Stream<OWLEntity> signature, boolean useSemantics,
         ModuleType moduletype) {
         return decomposer.getModule(signature, useSemantics, moduletype).stream()
-            .map(AxiomWrapper::getAxiom).filter(ax -> ax != null);
+            .map(AxiomWrapper::getAxiom).filter(Objects::nonNull);
     }
 }

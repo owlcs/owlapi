@@ -1,130 +1,30 @@
 package org.semanticweb.owlapi.functional.parser;
 
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONPROPERTYDOMAIN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONPROPERTYRANGE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ASYMMETRICOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.BODY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.BUILTINATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.CLASS;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.CLASSASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.CLASSATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.CLOSEPAR;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.COMMENT;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAALLVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATACOMPLEMENTOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAEXACTCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAHASVALUE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAINTERSECTIONOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAMAXCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAMINCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAONEOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROP;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYDOMAIN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYRANGE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATARANGEATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATASOMEVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATATYPE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATATYPEDEFINITION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATATYPEIDENTIFIER;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATATYPERESTRICTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAUNIONOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DECLARATION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DESCRIPTIONGRAPH;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DIFFERENTINDIVIDUALS;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DIFFERENTINDIVIDUALSATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTCLASSES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTDATAPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTOBJECTPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTUNION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DLSAFERULE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DOCUMENTATION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EDGEASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EDGES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EQUALS;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EQUIVALENTCLASSES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EQUIVALENTDATAPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EQUIVALENTOBJECTPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ERROR;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.FULLIRI;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.FUNCTIONALDATAPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.FUNCTIONALOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.HASKEY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.HEAD;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.IMPORT;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.INVERSEFUNCTIONALOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.INVERSEOBJECTPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.IRREFLEXIVEOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.LABEL;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.LANGIDENTIFIER;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.LENGTH;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MAINCLASSES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MAXEXCLUSIVE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MAXINCLUSIVE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MAXLENGTH;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MINEXCLUSIVE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MININCLUSIVE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MINLENGTH;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NAMEDINDIVIDUAL;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NEGATIVEDATAPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NEGATIVEOBJECTPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NODEASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NODEID;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NODES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTALLVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTCOMPLEMENTOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTEXACTCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTHASSELF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTHASVALUE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTINTERSECTIONOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTINVERSEOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTMAXCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTMINCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTONEOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROP;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYDOMAIN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYRANGE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTSOMEVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTUNIONOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ONTOLOGY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OPENPAR;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.PATTERN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.PNAME_NS;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.PN_LOCAL;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.PREFIX;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.REFLEXIVEOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SAMEINDIVIDUAL;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SAMEINDIVIDUALATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.STRINGLITERAL;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBANNOTATIONPROPERTYOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBCLASSOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBDATAPROPERTYOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBOBJECTPROPERTYCHAIN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBOBJECTPROPERTYOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SYMMETRICOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.TOTALDIGITS;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.TRANSITIVEOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.VARIABLE;
+import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.*;
 
 import java.io.EOFException;
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by ses on 6/9/14.
  */
 class CustomTokenizer implements TokenManager {
 
+    private static final Map<String, Integer> makeTokenMap=makeTokenMap();
     private int unreadChar = -1;
     private final Provider in;
     private boolean eofSeen = false;
     private final StringBuilder buf = new StringBuilder();
+    private int lineNo = 1;
+    private int colNo = 0;
+    private int startLine = -1;
+    private int startCol = -1;
+    // hack to adapt from Provider to CustomTokenizer. The Provider is already buffered, so little
+    // performance impact.
+    private char[] charReading = new char[1];
+
 
     public CustomTokenizer(Provider reader) {
         in = reader;
@@ -174,6 +74,7 @@ class CustomTokenizer implements TokenManager {
 
     private void skipComment() throws IOException {
         for (char c = readChar(); c != '\n'; c = readChar()) {
+            // read to end of line
         }
     }
 
@@ -265,214 +166,13 @@ class CustomTokenizer implements TokenManager {
                 return makeToken(OWLFunctionalSyntaxParserConstants.PNAME_LN, s);
             }
         }
-        switch (s) {
-            case "Ontology":
-                return makeToken(ONTOLOGY, s);
-            case "Label":
-                return makeToken(LABEL, s);
-            case "Import":
-                return makeToken(IMPORT, s);
-            case "Comment":
-                return makeToken(COMMENT, s);
-            case "SubClassOf":
-                return makeToken(SUBCLASSOF, s);
-            case "EquivalentClasses":
-                return makeToken(EQUIVALENTCLASSES, s);
-            case "DisjointClasses":
-                return makeToken(DISJOINTCLASSES, s);
-            case "DisjointUnion":
-                return makeToken(DISJOINTUNION, s);
-            case "Annotation":
-                return makeToken(ANNOTATION, s);
-            case "AnnotationProperty":
-                return makeToken(ANNOTATIONPROPERTY, s);
-            case "AnnotationAssertion":
-                return makeToken(ANNOTATIONASSERTION, s);
-            case "SubAnnotationPropertyOf":
-                return makeToken(SUBANNOTATIONPROPERTYOF, s);
-            case "AnnotationPropertyDomain":
-                return makeToken(ANNOTATIONPROPERTYDOMAIN, s);
-            case "AnnotationPropertyRange":
-                return makeToken(ANNOTATIONPROPERTYRANGE, s);
-            case "HasKey":
-                return makeToken(HASKEY, s);
-            case "Declaration":
-                return makeToken(DECLARATION, s);
-            case "Documentation":
-                return makeToken(DOCUMENTATION, s);
-            case "Class":
-                return makeToken(CLASS, s);
-            case "ObjectProperty":
-                return makeToken(OBJECTPROP, s);
-            case "DataProperty":
-                return makeToken(DATAPROP, s);
-            case "NamedIndividual":
-                return makeToken(NAMEDINDIVIDUAL, s);
-            case "Datatype":
-                return makeToken(DATATYPE, s);
-            case "DataOneOf":
-                return makeToken(DATAONEOF, s);
-            case "DataUnionOf":
-                return makeToken(DATAUNIONOF, s);
-            case "DataIntersectionOf":
-                return makeToken(DATAINTERSECTIONOF, s);
-            case "ObjectOneOf":
-                return makeToken(OBJECTONEOF, s);
-            case "ObjectUnionOf":
-                return makeToken(OBJECTUNIONOF, s);
-            case "ObjectHasValue":
-                return makeToken(OBJECTHASVALUE, s);
-            case "ObjectInverseOf":
-                return makeToken(OBJECTINVERSEOF, s);
-            case "InverseObjectProperties":
-                return makeToken(INVERSEOBJECTPROPERTIES, s);
-            case "DataComplementOf":
-                return makeToken(DATACOMPLEMENTOF, s);
-            case "DatatypeRestriction":
-                return makeToken(DATATYPERESTRICTION, s);
-            case "DatatypeDefinition":
-                return makeToken(DATATYPEDEFINITION, s);
-            case "ObjectIntersectionOf":
-                return makeToken(OBJECTINTERSECTIONOF, s);
-            case "ObjectComplementOf":
-                return makeToken(OBJECTCOMPLEMENTOF, s);
-            case "ObjectAllValuesFrom":
-                return makeToken(OBJECTALLVALUESFROM, s);
-            case "ObjectSomeValuesFrom":
-                return makeToken(OBJECTSOMEVALUESFROM, s);
-            case "ObjectHasSelf":
-                return makeToken(OBJECTHASSELF, s);
-            case "ObjectMinCardinality":
-                return makeToken(OBJECTMINCARDINALITY, s);
-            case "ObjectMaxCardinality":
-                return makeToken(OBJECTMAXCARDINALITY, s);
-            case "ObjectExactCardinality":
-                return makeToken(OBJECTEXACTCARDINALITY, s);
-            case "DataAllValuesFrom":
-                return makeToken(DATAALLVALUESFROM, s);
-            case "DataSomeValuesFrom":
-                return makeToken(DATASOMEVALUESFROM, s);
-            case "DataHasValue":
-                return makeToken(DATAHASVALUE, s);
-            case "DataMinCardinality":
-                return makeToken(DATAMINCARDINALITY, s);
-            case "DataMaxCardinality":
-                return makeToken(DATAMAXCARDINALITY, s);
-            case "DataExactCardinality":
-                return makeToken(DATAEXACTCARDINALITY, s);
-            case "ObjectPropertyChain":
-                return makeToken(SUBOBJECTPROPERTYCHAIN, s);
-            case "SubObjectPropertyOf":
-                return makeToken(SUBOBJECTPROPERTYOF, s);
-            case "EquivalentObjectProperties":
-                return makeToken(EQUIVALENTOBJECTPROPERTIES, s);
-            case "DisjointObjectProperties":
-                return makeToken(DISJOINTOBJECTPROPERTIES, s);
-            case "ObjectPropertyDomain":
-                return makeToken(OBJECTPROPERTYDOMAIN, s);
-            case "ObjectPropertyRange":
-                return makeToken(OBJECTPROPERTYRANGE, s);
-            case "FunctionalObjectProperty":
-                return makeToken(FUNCTIONALOBJECTPROPERTY, s);
-            case "InverseFunctionalObjectProperty":
-                return makeToken(INVERSEFUNCTIONALOBJECTPROPERTY, s);
-            case "ReflexiveObjectProperty":
-                return makeToken(REFLEXIVEOBJECTPROPERTY, s);
-            case "IrreflexiveObjectProperty":
-                return makeToken(IRREFLEXIVEOBJECTPROPERTY, s);
-            case "SymmetricObjectProperty":
-                return makeToken(SYMMETRICOBJECTPROPERTY, s);
-            case "AsymmetricObjectProperty":
-                return makeToken(ASYMMETRICOBJECTPROPERTY, s);
-            case "TransitiveObjectProperty":
-                return makeToken(TRANSITIVEOBJECTPROPERTY, s);
-            case "SubDataPropertyOf":
-                return makeToken(SUBDATAPROPERTYOF, s);
-            case "EquivalentDataProperties":
-                return makeToken(EQUIVALENTDATAPROPERTIES, s);
-            case "DisjointDataProperties":
-                return makeToken(DISJOINTDATAPROPERTIES, s);
-            case "DataPropertyDomain":
-                return makeToken(DATAPROPERTYDOMAIN, s);
-            case "DataPropertyRange":
-                return makeToken(DATAPROPERTYRANGE, s);
-            case "FunctionalDataProperty":
-                return makeToken(FUNCTIONALDATAPROPERTY, s);
-            case "SameIndividual":
-                return makeToken(SAMEINDIVIDUAL, s);
-            case "DifferentIndividuals":
-                return makeToken(DIFFERENTINDIVIDUALS, s);
-            case "ClassAssertion":
-                return makeToken(CLASSASSERTION, s);
-            case "ObjectPropertyAssertion":
-                return makeToken(OBJECTPROPERTYASSERTION, s);
-            case "NegativeObjectPropertyAssertion":
-                return makeToken(NEGATIVEOBJECTPROPERTYASSERTION, s);
-            case "DataPropertyAssertion":
-                return makeToken(DATAPROPERTYASSERTION, s);
-            case "NegativeDataPropertyAssertion":
-                return makeToken(NEGATIVEDATAPROPERTYASSERTION, s);
-            case "Prefix":
-                return makeToken(PREFIX, s);
-            case "length":
-                return makeToken(LENGTH, s);
-            case "minLength":
-                return makeToken(MINLENGTH, s);
-            case "maxLength":
-                return makeToken(MAXLENGTH, s);
-            case "pattern":
-                return makeToken(PATTERN, s);
-            case "minInclusive":
-                return makeToken(MININCLUSIVE, s);
-            case "maxInclusive":
-                return makeToken(MAXINCLUSIVE, s);
-            case "minExclusive":
-                return makeToken(MINEXCLUSIVE, s);
-            case "maxExclusive":
-                return makeToken(MAXEXCLUSIVE, s);
-            case "totalDigits":
-                return makeToken(TOTALDIGITS, s);
-            case "DLSafeRule":
-                return makeToken(DLSAFERULE, s);
-            case "Body":
-                return makeToken(BODY, s);
-            case "Head":
-                return makeToken(HEAD, s);
-            case "ClassAtom":
-                return makeToken(CLASSATOM, s);
-            case "DataRangeAtom":
-                return makeToken(DATARANGEATOM, s);
-            case "ObjectPropertyAtom":
-                return makeToken(OBJECTPROPERTYATOM, s);
-            case "DataPropertyAtom":
-                return makeToken(DATAPROPERTYATOM, s);
-            case "BuiltInAtom":
-                return makeToken(BUILTINATOM, s);
-            case "SameIndividualAtom":
-                return makeToken(SAMEINDIVIDUALATOM, s);
-            case "DifferentIndividualsAtom":
-                return makeToken(DIFFERENTINDIVIDUALSATOM, s);
-            case "Variable":
-                return makeToken(VARIABLE, s);
-            case "DescriptionGraphRule":
-                return makeToken(OWLFunctionalSyntaxParserConstants.DGRULE, s);
-            case "DescriptionGraph":
-                return makeToken(DESCRIPTIONGRAPH, s);
-            case "Nodes":
-                return makeToken(NODES, s);
-            case "NodeAssertion":
-                return makeToken(NODEASSERTION, s);
-            case "Edges":
-                return makeToken(EDGES, s);
-            case "EdgeAssertion":
-                return makeToken(EDGEASSERTION, s);
-            case "MainClasses":
-                return makeToken(MAINCLASSES, s);
-            default:
-                return makeToken(PN_LOCAL, s);
+        Integer value=makeTokenMap.get(s);
+        if(value==null) {
+            return makeToken(PN_LOCAL, s);
         }
+        return makeToken(value.intValue(), s);
     }
-
+ 
     private Token readNumber(char c) throws IOException {
         buf.setLength(0);
         buf.append(c);
@@ -487,10 +187,112 @@ class CustomTokenizer implements TokenManager {
         }
     }
 
-    private int lineNo = 1;
-    private int colNo = 0;
-    private int startLine = -1;
-    private int startCol = -1;
+    private static Map<String, Integer> makeTokenMap() {
+        Map<String, Integer> map=new ConcurrentHashMap<>();
+        map.put( "Ontology",Integer.valueOf(ONTOLOGY));
+        map.put( "Label",Integer.valueOf(LABEL));
+        map.put( "Import",Integer.valueOf(IMPORT));
+        map.put( "Comment",Integer.valueOf(COMMENT));
+        map.put( "SubClassOf",Integer.valueOf(SUBCLASSOF));
+        map.put( "EquivalentClasses",Integer.valueOf(EQUIVALENTCLASSES));
+        map.put( "DisjointClasses",Integer.valueOf(DISJOINTCLASSES));
+        map.put( "DisjointUnion",Integer.valueOf(DISJOINTUNION));
+        map.put( "Annotation",Integer.valueOf(ANNOTATION));
+        map.put( "AnnotationProperty",Integer.valueOf(ANNOTATIONPROPERTY));
+        map.put( "AnnotationAssertion",Integer.valueOf(ANNOTATIONASSERTION));
+        map.put( "SubAnnotationPropertyOf",Integer.valueOf(SUBANNOTATIONPROPERTYOF));
+        map.put( "AnnotationPropertyDomain",Integer.valueOf(ANNOTATIONPROPERTYDOMAIN));
+        map.put( "AnnotationPropertyRange",Integer.valueOf(ANNOTATIONPROPERTYRANGE));
+        map.put( "HasKey",Integer.valueOf(HASKEY));
+        map.put( "Declaration",Integer.valueOf(DECLARATION));
+        map.put( "Documentation",Integer.valueOf(DOCUMENTATION));
+        map.put( "Class",Integer.valueOf(CLASS));
+        map.put( "ObjectProperty",Integer.valueOf(OBJECTPROP));
+        map.put( "DataProperty",Integer.valueOf(DATAPROP));
+        map.put( "NamedIndividual",Integer.valueOf(NAMEDINDIVIDUAL));
+        map.put( "Datatype",Integer.valueOf(DATATYPE));
+        map.put( "DataOneOf",Integer.valueOf(DATAONEOF));
+        map.put( "DataUnionOf",Integer.valueOf(DATAUNIONOF));
+        map.put( "DataIntersectionOf",Integer.valueOf(DATAINTERSECTIONOF));
+        map.put( "ObjectOneOf",Integer.valueOf(OBJECTONEOF));
+        map.put( "ObjectUnionOf",Integer.valueOf(OBJECTUNIONOF));
+        map.put( "ObjectHasValue",Integer.valueOf(OBJECTHASVALUE));
+        map.put( "ObjectInverseOf",Integer.valueOf(OBJECTINVERSEOF));
+        map.put( "InverseObjectProperties",Integer.valueOf(INVERSEOBJECTPROPERTIES));
+        map.put( "DataComplementOf",Integer.valueOf(DATACOMPLEMENTOF));
+        map.put( "DatatypeRestriction",Integer.valueOf(DATATYPERESTRICTION));
+        map.put( "DatatypeDefinition",Integer.valueOf(DATATYPEDEFINITION));
+        map.put( "ObjectIntersectionOf",Integer.valueOf(OBJECTINTERSECTIONOF));
+        map.put( "ObjectComplementOf",Integer.valueOf(OBJECTCOMPLEMENTOF));
+        map.put( "ObjectAllValuesFrom",Integer.valueOf(OBJECTALLVALUESFROM));
+        map.put( "ObjectSomeValuesFrom",Integer.valueOf(OBJECTSOMEVALUESFROM));
+        map.put( "ObjectHasSelf",Integer.valueOf(OBJECTHASSELF));
+        map.put( "ObjectMinCardinality",Integer.valueOf(OBJECTMINCARDINALITY));
+        map.put( "ObjectMaxCardinality",Integer.valueOf(OBJECTMAXCARDINALITY));
+        map.put( "ObjectExactCardinality",Integer.valueOf(OBJECTEXACTCARDINALITY));
+        map.put( "DataAllValuesFrom",Integer.valueOf(DATAALLVALUESFROM));
+        map.put( "DataSomeValuesFrom",Integer.valueOf(DATASOMEVALUESFROM));
+        map.put( "DataHasValue",Integer.valueOf(DATAHASVALUE));
+        map.put( "DataMinCardinality",Integer.valueOf(DATAMINCARDINALITY));
+        map.put( "DataMaxCardinality",Integer.valueOf(DATAMAXCARDINALITY));
+        map.put( "DataExactCardinality",Integer.valueOf(DATAEXACTCARDINALITY));
+        map.put( "ObjectPropertyChain",Integer.valueOf(SUBOBJECTPROPERTYCHAIN));
+        map.put( "SubObjectPropertyOf",Integer.valueOf(SUBOBJECTPROPERTYOF));
+        map.put( "EquivalentObjectProperties",Integer.valueOf(EQUIVALENTOBJECTPROPERTIES));
+        map.put( "DisjointObjectProperties",Integer.valueOf(DISJOINTOBJECTPROPERTIES));
+        map.put( "ObjectPropertyDomain",Integer.valueOf(OBJECTPROPERTYDOMAIN));
+        map.put( "ObjectPropertyRange",Integer.valueOf(OBJECTPROPERTYRANGE));
+        map.put( "FunctionalObjectProperty",Integer.valueOf(FUNCTIONALOBJECTPROPERTY));
+        map.put( "InverseFunctionalObjectProperty",Integer.valueOf(INVERSEFUNCTIONALOBJECTPROPERTY));
+        map.put( "ReflexiveObjectProperty",Integer.valueOf(REFLEXIVEOBJECTPROPERTY));
+        map.put( "IrreflexiveObjectProperty",Integer.valueOf(IRREFLEXIVEOBJECTPROPERTY));
+        map.put( "SymmetricObjectProperty",Integer.valueOf(SYMMETRICOBJECTPROPERTY));
+        map.put( "AsymmetricObjectProperty",Integer.valueOf(ASYMMETRICOBJECTPROPERTY));
+        map.put( "TransitiveObjectProperty",Integer.valueOf(TRANSITIVEOBJECTPROPERTY));
+        map.put( "SubDataPropertyOf",Integer.valueOf(SUBDATAPROPERTYOF));
+        map.put( "EquivalentDataProperties",Integer.valueOf(EQUIVALENTDATAPROPERTIES));
+        map.put( "DisjointDataProperties",Integer.valueOf(DISJOINTDATAPROPERTIES));
+        map.put( "DataPropertyDomain",Integer.valueOf(DATAPROPERTYDOMAIN));
+        map.put( "DataPropertyRange",Integer.valueOf(DATAPROPERTYRANGE));
+        map.put( "FunctionalDataProperty",Integer.valueOf(FUNCTIONALDATAPROPERTY));
+        map.put( "SameIndividual",Integer.valueOf(SAMEINDIVIDUAL));
+        map.put( "DifferentIndividuals",Integer.valueOf(DIFFERENTINDIVIDUALS));
+        map.put( "ClassAssertion",Integer.valueOf(CLASSASSERTION));
+        map.put( "ObjectPropertyAssertion",Integer.valueOf(OBJECTPROPERTYASSERTION));
+        map.put( "NegativeObjectPropertyAssertion",Integer.valueOf(NEGATIVEOBJECTPROPERTYASSERTION));
+        map.put( "DataPropertyAssertion",Integer.valueOf(DATAPROPERTYASSERTION));
+        map.put( "NegativeDataPropertyAssertion",Integer.valueOf(NEGATIVEDATAPROPERTYASSERTION));
+        map.put( "Prefix",Integer.valueOf(PREFIX));
+        map.put( "length",Integer.valueOf(LENGTH));
+        map.put( "minLength",Integer.valueOf(MINLENGTH));
+        map.put( "maxLength",Integer.valueOf(MAXLENGTH));
+        map.put( "pattern",Integer.valueOf(PATTERN));
+        map.put( "minInclusive",Integer.valueOf(MININCLUSIVE));
+        map.put( "maxInclusive",Integer.valueOf(MAXINCLUSIVE));
+        map.put( "minExclusive",Integer.valueOf(MINEXCLUSIVE));
+        map.put( "maxExclusive",Integer.valueOf(MAXEXCLUSIVE));
+        map.put( "totalDigits",Integer.valueOf(TOTALDIGITS));
+        map.put( "DLSafeRule",Integer.valueOf(DLSAFERULE));
+        map.put( "Body",Integer.valueOf(BODY));
+        map.put( "Head",Integer.valueOf(HEAD));
+        map.put( "ClassAtom",Integer.valueOf(CLASSATOM));
+        map.put( "DataRangeAtom",Integer.valueOf(DATARANGEATOM));
+        map.put( "ObjectPropertyAtom",Integer.valueOf(OBJECTPROPERTYATOM));
+        map.put( "DataPropertyAtom",Integer.valueOf(DATAPROPERTYATOM));
+        map.put( "BuiltInAtom",Integer.valueOf(BUILTINATOM));
+        map.put( "SameIndividualAtom",Integer.valueOf(SAMEINDIVIDUALATOM));
+        map.put( "DifferentIndividualsAtom",Integer.valueOf(DIFFERENTINDIVIDUALSATOM));
+        map.put( "Variable",Integer.valueOf(VARIABLE));
+        map.put( "DescriptionGraphRule",Integer.valueOf(DGRULE));
+        map.put( "DescriptionGraph",Integer.valueOf(DESCRIPTIONGRAPH));
+        map.put( "Nodes",Integer.valueOf(NODES));
+        map.put( "NodeAssertion",Integer.valueOf(NODEASSERTION));
+        map.put( "Edges",Integer.valueOf(EDGES));
+        map.put( "EdgeAssertion",Integer.valueOf(EDGEASSERTION));
+        map.put( "MainClasses",Integer.valueOf(MAINCLASSES));
+
+        return map;
+    }
 
     private Token makeToken(int kind, String image) {
         Token result = new Token(kind, image);
@@ -516,10 +318,6 @@ class CustomTokenizer implements TokenManager {
             colNo--;
         }
     }
-
-    // hack to adapt from Provider to CustomTokenizer. The Provider is already buffered, so little
-    // performance impact.
-    private char[] charReading = new char[1];
 
     private char readChar() throws IOException {
         if (eofSeen) {

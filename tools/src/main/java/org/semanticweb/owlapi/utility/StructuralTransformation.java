@@ -304,22 +304,22 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public Collection<OWLAxiom> visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            return axiom.walkPairwise((a, b) -> df.getOWLEquivalentDataPropertiesAxiom(a, b));
+            return axiom.walkPairwise(df::getOWLEquivalentDataPropertiesAxiom);
         }
 
         @Override
         public Collection<OWLAxiom> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            return axiom.walkPairwise((a, b) -> df.getOWLEquivalentObjectPropertiesAxiom(a, b));
+            return axiom.walkPairwise(df::getOWLEquivalentObjectPropertiesAxiom);
         }
 
         @Override
         public Collection<OWLAxiom> visit(OWLDisjointDataPropertiesAxiom axiom) {
-            return axiom.walkPairwise((a, b) -> df.getOWLDisjointDataPropertiesAxiom(a, b));
+            return axiom.walkPairwise(df::getOWLDisjointDataPropertiesAxiom);
         }
 
         @Override
         public Collection<OWLAxiom> visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            return axiom.walkPairwise((a, b) -> df.getOWLDisjointObjectPropertiesAxiom(a, b));
+            return axiom.walkPairwise(df::getOWLDisjointObjectPropertiesAxiom);
         }
 
         @Override

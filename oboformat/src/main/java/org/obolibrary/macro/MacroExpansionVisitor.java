@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.utility.OntologyAxiomPair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -144,8 +145,8 @@ public class MacroExpansionVisitor {
                 OWLAxiom newAxiom = axiom.accept(visitor);
                 replaceIfDifferent(axiom, newAxiom);
             });
-            add(rmAxioms, inputOntology.axioms(AxiomType.ANNOTATION_ASSERTION)
-                .filter(this::expand));
+            add(rmAxioms,
+                inputOntology.axioms(AxiomType.ANNOTATION_ASSERTION).filter(this::expand));
         }
 
         private void replaceIfDifferent(OWLAxiom ax, OWLAxiom exAx) {
@@ -190,13 +191,11 @@ public class MacroExpansionVisitor {
                         declarations.add(declarationAxiom);
                         newAxioms.add(declarationAxiom);
                         manager.addAxiom(inputOntology, declarationAxiom);
-                        // we need to sync the MST entity checker with the new
-                        // ontology plus declarations;
-                        // we do this by creating a new MST - this is not
-                        // particularly efficient, a better
-                        // way might be to first scan the ontology for all
-                        // annotation axioms that will be expanded,
-                        // then add the declarations at this point
+                        // we need to sync the MST entity checker with the new ontology plus
+                        // declarations; we do this by creating a new MST - this is not particularly
+                        // efficient, a better way might be to first scan the ontology for all
+                        // annotation axioms that will be expanded, then add the declarations at
+                        // this point
                         visitor.rebuild(inputOntology);
                     }
                     LOG.info("Template to Expand {}", expandTo);
@@ -209,7 +208,6 @@ public class MacroExpansionVisitor {
                     } catch (Exception ex) {
                         LOG.error(ex.getMessage(), ex);
                     }
-                    // TODO:
                 }
             } finally {
                 inputOntology.remove(declarations);
@@ -220,10 +218,8 @@ public class MacroExpansionVisitor {
         protected void expandAndAddAnnotations(String expandTo, AtomicBoolean expandedSomething,
             Set<OWLAnnotation> annotations) {
             visitor.getTool().parseManchesterExpressionFrames(expandTo).stream()
-                .map(axp -> axp.getAxiom())
-                .map(ax -> shouldTransferAnnotations()
-                    ? ax.getAnnotatedAxiom(annotations)
-                    : ax)
+                .map(OntologyAxiomPair::getAxiom)
+                .map(ax -> shouldTransferAnnotations() ? ax.getAnnotatedAxiom(annotations) : ax)
                 .forEach(expandedAxiom -> {
                     newAxioms.add(expandedAxiom);
                     expandedSomething.set(true);

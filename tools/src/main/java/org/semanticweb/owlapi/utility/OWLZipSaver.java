@@ -138,7 +138,6 @@ public class OWLZipSaver {
                 o.saveOntology(temp);
                 f.write(temp.toByteArray());
             }
-            f.close();
         }
     }
 
@@ -170,14 +169,16 @@ public class OWLZipSaver {
         if (roots.size() + ontologies.size() > 0) {
             for (OWLOntology o : roots) {
                 b.append("        <uri id=\"test").append(id).append("\" name=\"")
-                    .append(o.getOntologyID().getOntologyIRI().get()).append("\" uri=\"")
-                    .append(entryPath.apply(o.getOntologyID())).append("\"/>\n");
+                    .append(o.getOntologyID().getOntologyIRI().map(Object::toString).orElse(""))
+                    .append("\" uri=\"").append(entryPath.apply(o.getOntologyID()))
+                    .append("\"/>\n");
                 id++;
             }
             for (OWLOntology o : ontologies) {
                 b.append("        <uri id=\"test").append(id).append("\" name=\"")
-                    .append(o.getOntologyID().getOntologyIRI().get()).append("\" uri=\"")
-                    .append(entryPath.apply(o.getOntologyID())).append("\"/>\n");
+                    .append(o.getOntologyID().getOntologyIRI().map(Object::toString).orElse(""))
+                    .append("\" uri=\"").append(entryPath.apply(o.getOntologyID()))
+                    .append("\"/>\n");
                 id++;
             }
         }
@@ -220,7 +221,7 @@ public class OWLZipSaver {
     public String propertiesIndex(Collection<OWLOntology> roots,
         Collection<OWLOntology> ontologies) {
         StringBuilder b = new StringBuilder();
-        if (roots.size() > 0) {
+        if (!roots.isEmpty()) {
             String rootsEntry = roots.stream().map(OWLOntology::getOntologyID).map(entryPath)
                 .collect(Collectors.joining(", "));
             b.append("roots=").append(rootsEntry).append("\n");
@@ -238,7 +239,7 @@ public class OWLZipSaver {
      * @return zip entry name for the ontology
      */
     public String entryPath(OWLOntologyID id) {
-        String string = id.getOntologyIRI().get().toString();
+        String string = id.getOntologyIRI().map(Object::toString).orElse("");
         if (string.endsWith("/") || string.endsWith("#")) {
             string = XMLUtils.getNCNameSuffix(string.subSequence(0, string.length() - 1));
         }

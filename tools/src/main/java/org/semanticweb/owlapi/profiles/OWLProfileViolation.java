@@ -39,6 +39,7 @@ import org.semanticweb.owlapi.utility.CollectionFactory;
  */
 public abstract class OWLProfileViolation {
 
+    private static final String S_IN_S = " [%s in %s]";
     protected final OWLOntology ontology;
     protected OWLDataFactory df;
     @Nullable
@@ -117,15 +118,15 @@ public abstract class OWLProfileViolation {
     public abstract <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor);
 
     protected String toString(String template) {
-        return String.format(template + " [%s in %s]", axiom, ontology.getOntologyID());
+        return String.format(template + S_IN_S, axiom, ontology.getOntologyID());
     }
 
     protected String toString(String template, Object object) {
-        return String.format(template + " [%s in %s]", object, axiom, ontology.getOntologyID());
+        return String.format(template + S_IN_S, object, axiom, ontology.getOntologyID());
     }
 
     protected String toString(String template, Object object1, Object object2) {
-        return String.format(template + " [%s in %s]", object1, object2, axiom,
+        return String.format(template + S_IN_S, object1, object2, axiom,
             ontology.getOntologyID());
     }
 

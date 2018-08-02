@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.atomicdecomposition.ModuleMethod;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
+import org.semanticweb.owlapitools.decomposition.OntologyAtom;
 
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
@@ -114,9 +116,10 @@ public class Modularizer {
     void addNonLocal(AxiomWrapper ax, boolean noCheck) {
         if (noCheck || isNonLocal(ax)) {
             addAxiomToModule(ax);
-            if (noAtomsProcessing && ax.getAtom().isPresent()) {
+            Optional<OntologyAtom> atom = ax.getAtom();
+            if (noAtomsProcessing && atom.isPresent()) {
                 noAtomsProcessing = false;
-                addNonLocal(ax.getAtom().get().getModule(), true);
+                addNonLocal(atom.get().getModule(), true);
                 noAtomsProcessing = true;
             }
         }

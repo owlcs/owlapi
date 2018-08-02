@@ -209,7 +209,7 @@ public class OWLAPIOwl2Obo {
      * @return The OBO ID of the ontology
      */
     public static String getOntologyId(OWLOntology ontology) {
-        return getOntologyId(ontology.getOntologyID().getOntologyIRI().get());
+        return getOntologyId(ontology.getOntologyID().getOntologyIRI().orElse(null));
     }
 
     /**
@@ -1928,15 +1928,17 @@ public class OWLAPIOwl2Obo {
             Optional<OWLAnnotation> a =
                 getAnnotationObjects(indv, getOWLOntology(), df.getRDFSLabel()).findFirst();
             if (a.isPresent()) {
-                nameValue = '"' + a.get().getValue().asLiteral().get().getLiteral() + '"';
+                nameValue = '"'
+                    + a.get().getValue().asLiteral().map(OWLLiteral::getLiteral).orElse("") + '"';
             }
             a = getAnnotationObjects(indv, getOWLOntology())
                 .filter(ann -> !ann.getProperty().equals(df.getRDFSLabel())).findFirst();
             if (a.isPresent()) {
-                scopeValue = a.get().getValue().asLiteral().get().getLiteral();
+                scopeValue =
+                    a.get().getValue().asLiteral().map(OWLLiteral::getLiteral).orElse(null);
             }
             c.addValue(nameValue);
-            if (scopeValue!=null && !scopeValue.isEmpty()) {
+            if (scopeValue != null && !scopeValue.isEmpty()) {
                 c.addValue(scopeValue);
             }
             f.addClause(c);
@@ -1956,7 +1958,9 @@ public class OWLAPIOwl2Obo {
             Optional<OWLAnnotation> value =
                 getAnnotationObjects(indv, getOWLOntology(), df.getRDFSLabel()).findFirst();
             if (value.isPresent()) {
-                nameValue = '"' + value.get().getValue().asLiteral().get().getLiteral() + '"';
+                nameValue =
+                    '"' + value.get().getValue().asLiteral().map(OWLLiteral::getLiteral).orElse("")
+                        + '"';
             }
             c.addValue(nameValue);
             f.addClause(c);
@@ -2098,11 +2102,9 @@ public class OWLAPIOwl2Obo {
                 clauses.forEach(f::addClause);
             } else {
                 error(ax, true);
-                return;
             }
         } else {
             error(ax, true);
-            return;
         }
     }
 

@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -190,7 +191,7 @@ public class CollectionFactory {
      * @return fresh threadsafe set
      */
     public static <T> Set<T> createSyncSet() {
-        ConcurrentHashMap<T, Boolean> internalMap = createSyncMap();
+        ConcurrentMap<T, Boolean> internalMap = createSyncMap();
         return Collections.newSetFromMap(internalMap);
     }
 
@@ -199,7 +200,7 @@ public class CollectionFactory {
      * @param <V> value type
      * @return fresh threadsafe hashmap
      */
-    public static <K, V> ConcurrentHashMap<K, V> createSyncMap() {
+    public static <K, V> ConcurrentMap<K, V> createSyncMap() {
         return new ConcurrentHashMap<>(16, 0.75F, EXPECTEDTHREADS.get());
     }
 

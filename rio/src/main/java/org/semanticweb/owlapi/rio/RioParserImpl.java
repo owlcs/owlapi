@@ -97,7 +97,8 @@ public class RioParserImpl implements OWLParser, RioParser {
         // Override the default baseUri for non-anonymous ontologies
         if (ontology.getOntologyID().isNamed()
             && ontology.getOntologyID().getDefaultDocumentIRI().isPresent()) {
-            baseUri = ontology.getOntologyID().getDefaultDocumentIRI().get().toString();
+            baseUri =
+                ontology.getOntologyID().getDefaultDocumentIRI().map(Object::toString).orElse("");
         }
         return baseUri;
     }
@@ -251,9 +252,8 @@ public class RioParserImpl implements OWLParser, RioParser {
         }
 
         @Override
-        public void handleStatement(@Nullable Statement nextStatement) {
-            checkNotNull(nextStatement);
-            assert nextStatement != null;
+        public void handleStatement(@Nullable Statement stat) {
+            Statement nextStatement = checkNotNull(stat);
             if (nextStatement.getPredicate().equals(RDF.FIRST)
                 || nextStatement.getPredicate().equals(RDF.REST)) {
                 if (!typedLists.contains(nextStatement.getSubject())) {

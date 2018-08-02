@@ -146,7 +146,7 @@ public class Modularizer {
         module.clear();
         // clear the module flag in the input
         list.forEach(p -> p.setInModule(false));
-        list.stream().filter(p -> p.isUsed()).forEach(p -> p.setInSearchSpace(true));
+        list.stream().filter(AxiomWrapper::isUsed).forEach(p -> p.setInSearchSpace(true));
         extractModuleQueue();
         list.forEach(p -> p.setInSearchSpace(false));
     }

@@ -18,9 +18,11 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.utilities.IRIShortFormProvider;
@@ -141,8 +143,9 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      */
     public String getShortForm(OWLOntology ont) {
         OWLOntologyID ontologyID = ont.getOntologyID();
-        if (ontologyID.getOntologyIRI().isPresent()) {
-            return getShortForm(verifyNotNull(ontologyID.getOntologyIRI().get()));
+        Optional<IRI> o = ontologyID.getOntologyIRI();
+        if (o.isPresent()) {
+            return getShortForm(verifyNotNull(o.get()));
         } else {
             return ontologyID.toString();
         }
@@ -165,9 +168,6 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
             }
             return candidatePathElement;
         }
-        if (uri.getHost() != null) {
-            return iri.toString();
-        }
-        return iri.toString();
+        return iri;
     }
 }

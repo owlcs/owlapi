@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -28,7 +29,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Literal {
+public class RDFLiteral implements RDFNode, org.apache.commons.rdf.api.Literal {
 
     private final String lexicalValue;
     private final String lang;
@@ -172,15 +173,13 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
 
     @Override
     public int compareTo(@Nullable RDFNode o) {
-        checkNotNull(o);
-        assert o != null;
-        if (!o.isLiteral()) {
+        if (!verifyNotNull(o).isLiteral()) {
             return -1;
         }
         if (equals(o)) {
             return 0;
         }
-        RDFLiteral lit2 = (RDFLiteral) o;
+        RDFLiteral lit2 = verifyNotNull((RDFLiteral) o);
         int diff = lexicalValue.compareTo(lit2.lexicalValue);
         if (diff == 0) {
             diff = getDatatype().compareTo(lit2.getDatatype());

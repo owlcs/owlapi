@@ -38,7 +38,7 @@ class MultiMap<K, V> {
     }
 
     <T> Stream<T> allValues(Function<V, T> f) {
-        return map.values().stream().flatMap(x -> x.stream()).map(f).distinct();
+        return map.values().stream().flatMap(Collection::stream).map(f).distinct();
     }
 
     @Override

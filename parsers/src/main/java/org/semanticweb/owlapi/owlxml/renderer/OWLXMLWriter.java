@@ -76,7 +76,7 @@ public class OWLXMLWriter {
         nsm.setPrefix("xml", Namespaces.XML.toString());
         String base = Namespaces.OWL.toString();
         if (ontology.isNamed()) {
-            base = ontology.getOntologyID().getOntologyIRI().get().toString();
+            base = ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
         }
         this.writer = new XMLWriterImpl(writer, nsm, base,
             ontology.getOWLOntologyManager().getOntologyConfigurator());
@@ -141,7 +141,7 @@ public class OWLXMLWriter {
             writer.startDocument(ONTOLOGY.getIRI());
             if (ontology.isNamed()) {
                 writer.writeAttribute(OWLRDFVocabulary.OWL_ONTOLOGY_IRI.getIRI(),
-                    ontology.getOntologyID().getOntologyIRI().get().toString());
+                    ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse(""));
                 Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
                 if (versionIRI.isPresent()) {
                     writer.writeAttribute(OWLRDFVocabulary.OWL_VERSION_IRI.getIRI(),

@@ -45,19 +45,19 @@ public class RDFXMLParser implements OWLParser {
             RDFParser parser =
                 new RDFParser(p.getOntology().getOWLOntologyManager().getOWLDataFactory()) {
 
-                @Override
-                public void startPrefixMapping(@Nullable String prefix, @Nullable String uri)
-                    throws SAXException {
-                    super.startPrefixMapping(prefix, uri);
-                    if (prefix != null && uri != null) {
-                        p.getOntology().getPrefixManager().withPrefix(prefix, uri);
+                    @Override
+                    public void startPrefixMapping(@Nullable String prefix, @Nullable String uri)
+                        throws SAXException {
+                        super.startPrefixMapping(prefix, uri);
+                        if (prefix != null && uri != null) {
+                            p.getOntology().getPrefixManager().withPrefix(prefix, uri);
+                        }
                     }
-                }
-            };
+                };
             OWLRDFConsumer consumer = new OWLRDFConsumer(p);
             consumer.setOntologyFormat(format);
             InputSource is = new InputSource(r);
-            String string = p.getDocumentIRI().toString();
+            String string = p.getDocumentIRI();
             is.setSystemId(string);
             parser.parse(is, consumer);
             return format;

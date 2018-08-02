@@ -112,6 +112,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import org.semanticweb.owlapi.annotations.Renders;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
@@ -227,6 +228,8 @@ import org.semanticweb.owlapi.utility.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.utility.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class OWLObjectRenderer.
@@ -236,7 +239,8 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  */
 @Renders(FunctionalSyntaxDocumentFormat.class)
 public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObjectRenderer {
-
+    private static final Logger LOGGER =
+        LoggerFactory.getLogger(FunctionalSyntaxObjectRenderer.class);
     protected final Optional<OWLOntology> ont;
     private final Writer writer;
     protected Optional<AnnotationValueShortFormProvider> labelMaker = Optional.empty();
@@ -247,6 +251,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     private int tabIndex = 0;
 
     /** Empty constructor, for use from ToStringRenderer */
+    @Inject
     public FunctionalSyntaxObjectRenderer() {
         this(null, new StringWriter());
     }
@@ -268,7 +273,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         prettyPrint = config.shouldPrettyPrintFunctionalSyntax();
         if (o.isNamed() && prefixManager.get().getDefaultPrefix() == null) {
             String existingDefault = prefixManager.get().getDefaultPrefix();
-            String ontologyIRIString = o.getOntologyID().getOntologyIRI().get().toString();
+            String ontologyIRIString =
+                o.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
             if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {
                 String defaultPrefix = ontologyIRIString;
                 if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
@@ -308,7 +314,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
 
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        prefixManager.get().setShortFormProvider(shortFormProvider);
+        prefixManager.ifPresent(p -> p.setShortFormProvider(shortFormProvider));
     }
 
     protected void writePrefix(String prefix, String namespace) {
@@ -361,12 +367,12 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
                 }
             }
         }
-        writeFullIRI(iri);
+        writeFullIRI(iri.toString());
     }
 
-    private void writeFullIRI(IRI iri) {
+    private void writeFullIRI(String iri) {
         write("<");
-        write(iri.toString());
+        write(iri);
         write(">");
     }
 
@@ -378,18 +384,19 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         write(ONTOLOGY);
         writeOpenBracket();
         if (ontology.isNamed()) {
-            writeFullIRI(ontology.getOntologyID().getOntologyIRI().get());
+            writeFullIRI(
+                ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse(""));
             Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
             if (versionIRI.isPresent()) {
                 writeReturn();
-                writeFullIRI(versionIRI.get());
+                writeFullIRI(versionIRI.map(Object::toString).orElse(""));
             }
             writeReturn();
         }
         ontology.importsDeclarations().forEach(decl -> {
             write(IMPORT);
             writeOpenBracket();
-            writeFullIRI(decl.getIRI());
+            writeFullIRI(decl.getIRI().toString());
             writeCloseBracket();
             writeReturn();
         });
@@ -474,11 +481,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         if (ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
             return false;
         }
-        if (ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
-            && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2) {
-            return false;
-        }
-        return true;
+        return !ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
+            || !(((OWLDisjointClassesAxiom) ax).getOperandsAsList().size() > 2);
     }
 
     private Stream<? extends OWLAxiom> getUnsortedAxiomsForEntity(OWLEntity entity) {
@@ -729,7 +733,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         List<OWLIndividual> individuals = asList(axiom.individuals());
         if (individuals.size() < 2) {
-            // TODO log
+            LOGGER.warn("{} with less than two elements skipped {}",
+                axiom.getClass().getSimpleName(), axiom);
             return;
         }
         writeAxiomStart(DIFFERENT_INDIVIDUALS, axiom);
@@ -741,7 +746,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     public void visit(OWLDisjointClassesAxiom axiom) {
         List<OWLClassExpression> classExpressions = asList(axiom.classExpressions());
         if (classExpressions.size() < 2) {
-            // TODO log
+            LOGGER.warn("{} with less than two elements skipped {}",
+                axiom.getClass().getSimpleName(), axiom);
             return;
         }
         writeAxiomStart(DISJOINT_CLASSES, axiom);
@@ -753,7 +759,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         List<OWLDataPropertyExpression> properties = asList(axiom.properties());
         if (properties.size() < 2) {
-            // TODO log
+            LOGGER.warn("{} with less than two elements skipped {}",
+                axiom.getClass().getSimpleName(), axiom);
             return;
         }
         writeAxiomStart(DISJOINT_DATA_PROPERTIES, axiom);
@@ -765,7 +772,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         List<OWLObjectPropertyExpression> properties = asList(axiom.properties());
         if (properties.size() < 2) {
-            // TODO log
+            LOGGER.warn("{} with less than two elements skipped {}",
+                axiom.getClass().getSimpleName(), axiom);
             return;
         }
         writeAxiomStart(DISJOINT_OBJECT_PROPERTIES, axiom);
@@ -794,7 +802,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     public void visit(OWLEquivalentClassesAxiom axiom) {
         List<OWLClassExpression> classExpressions = asList(axiom.classExpressions());
         if (classExpressions.size() < 2) {
-            // TODO log
+            LOGGER.warn("{} with less than two elements skipped {}",
+                axiom.getClass().getSimpleName(), axiom);
             return;
         }
         writeAxiomStart(EQUIVALENT_CLASSES, axiom);
@@ -806,7 +815,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         List<OWLDataPropertyExpression> properties = asList(axiom.properties());
         if (properties.size() < 2) {
-            // TODO log
+            LOGGER.warn("{} with less than two elements skipped {}",
+                axiom.getClass().getSimpleName(), axiom);
             return;
         }
         writeAxiomStart(EQUIVALENT_DATA_PROPERTIES, axiom);
@@ -818,7 +828,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         List<OWLObjectPropertyExpression> properties = asList(axiom.properties());
         if (properties.size() < 2) {
-            // TODO log
+            LOGGER.warn("{} with less than two elements skipped {}",
+                axiom.getClass().getSimpleName(), axiom);
             return;
         }
         writeAxiomStart(EQUIVALENT_OBJECT_PROPERTIES, axiom);
@@ -925,7 +936,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     public void visit(OWLSameIndividualAxiom axiom) {
         List<OWLIndividual> individuals = axiom.getIndividualsAsList();
         if (individuals.size() < 2) {
-            // TODO log
+            LOGGER.warn("{} with less than two elements skipped {}",
+                axiom.getClass().getSimpleName(), axiom);
             return;
         }
         writeAxiomStart(SAME_INDIVIDUAL, axiom);

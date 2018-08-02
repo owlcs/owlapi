@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.HasSignature;
@@ -76,8 +77,7 @@ public class JustificationMap {
     private final Set<OWLAxiom> rootAxioms = new HashSet<>();
     private final Set<OWLAxiom> usedAxioms = new HashSet<>();
     private final Map<OWLAxiom, Set<OWLAxiom>> map = new HashMap<>();
-    private final Map<OWLEntity, Set<OWLAxiom>> axiomsByLHS =
-        new HashMap<OWLEntity, Set<OWLAxiom>>();
+    private final Map<OWLEntity, Set<OWLAxiom>> axiomsByLHS = new ConcurrentHashMap<>();
     private final OWLClassExpression desc;
 
     /**

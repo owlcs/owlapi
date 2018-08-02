@@ -114,8 +114,9 @@ class AtomicDecomposer {
      */
     OntologyAtom createAtom(AxiomWrapper ax, OntologyAtom parent) {
         // check whether axiom already has an atom
-        if (ax.getAtom().isPresent()) {
-            return ax.getAtom().get();
+        Optional<OntologyAtom> at = ax.getAtom();
+        if (at.isPresent()) {
+            return at.get();
         }
         // build an atom: use a module to find atomic dependencies
         Optional<OntologyAtom> atom = buildModule(new Signature(ax.signature()), parent);

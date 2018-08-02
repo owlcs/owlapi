@@ -86,9 +86,8 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
     }
 
     @Override
-    public void handleStatement(@Nullable final Statement st) {
-        checkNotNull(st);
-        assert st != null;
+    public void handleStatement(@Nullable final Statement st1) {
+        Statement st = checkNotNull(st1);
         String subjectString;
         String objectString;
         if (st.getSubject() instanceof BNode) {

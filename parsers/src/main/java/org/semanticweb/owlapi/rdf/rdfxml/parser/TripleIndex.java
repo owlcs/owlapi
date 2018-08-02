@@ -90,13 +90,13 @@ class TripleIndex {
     protected Stream<OWLLiteral> getLiteralObjects(IRI subject, IRI predicate) {
         OWLLiteral obj = singlePredicateLiterals.get(subject, predicate, false);
         return Stream.concat(obj == null ? Stream.empty() : Stream.of(obj),
-            litTriples.getAll(subject, predicate, false));
+            litTriples.getAll(subject, predicate));
     }
 
     protected Stream<IRI> getResourceObjects(IRI subject, IRI predicate) {
         IRI obj = singlePredicateResources.get(subject, predicate, false);
         return Stream.concat(obj == null ? Stream.empty() : Stream.of(obj),
-            resTriples.getAll(subject, predicate, false));
+            resTriples.getAll(subject, predicate));
     }
 
     protected boolean consumeIfPresent(IRI subject, IRI predicate, IRI object) {
@@ -112,8 +112,7 @@ class TripleIndex {
     protected boolean hasPredicate(IRI subject, IRI predicate) {
         return singlePredicateResources.contains(subject, predicate)
             || singlePredicateLiterals.contains(subject, predicate)
-            || resTriples.contains(subject, predicate)
-            || litTriples.contains(subject, predicate);
+            || resTriples.contains(subject, predicate) || litTriples.contains(subject, predicate);
     }
 
     protected boolean consumeTriple(IRI subject, IRI predicate, IRI object) {
@@ -148,8 +147,7 @@ class TripleIndex {
             return false;
         }
         return OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.matches(literal.getDatatype())
-            && OWL2Datatype.XSD_NON_NEGATIVE_INTEGER
-            .isInLexicalSpace(literal.getLiteral());
+            && OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.isInLexicalSpace(literal.getLiteral());
     }
 
     protected boolean isNonNegativeIntegerLax(IRI mainNode, OWLRDFVocabulary p) {
@@ -179,10 +177,10 @@ class TripleIndex {
 
     protected Set<RDFTriple> getRemainingTriples(Predicate<IRI> anon) {
         Set<RDFTriple> remaining = new HashSet<>();
-        resTriples.iterate((s, p, o) -> remaining.add(new RDFTriple(s, anon.test(s), isAxiom(s), p,
-            o, anon.test(o), isAxiom(o))));
-        litTriples.iterate((s, p, o) -> remaining
-            .add(new RDFTriple(s, anon.test(s), isAxiom(s), p, o)));
+        resTriples.iterate((s, p, o) -> remaining
+            .add(new RDFTriple(s, anon.test(s), isAxiom(s), p, o, anon.test(o), isAxiom(o))));
+        litTriples
+            .iterate((s, p, o) -> remaining.add(new RDFTriple(s, anon.test(s), isAxiom(s), p, o)));
         return remaining;
     }
 

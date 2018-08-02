@@ -115,7 +115,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
      * @return all facets
      */
     public static Set<String> getFacets() {
-        return asSet(stream().map(v -> v.getSymbolicForm()));
+        return asSet(stream().map(OWLFacet::getSymbolicForm));
     }
 
     @Override

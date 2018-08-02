@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 class TripleMap<T> {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(TripleMap.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TripleMap.class);
     private Map<IRI, Map<IRI, T>> map = CollectionFactory.createMap();
 
     public Object put(IRI iri) {
@@ -46,8 +46,8 @@ class TripleMap<T> {
         // if info logging is disabled or all collections are empty, do not
         // output anything
         if (LOGGER.isInfoEnabled() && size() > 0) {
-            map.forEach((p, m) -> m.forEach(
-                (s, o) -> LOGGER.info("Unparsed triple: {} -> {} -> {}", s, p, o)));
+            map.forEach((p, m) -> m
+                .forEach((s, o) -> LOGGER.info("Unparsed triple: {} -> {} -> {}", s, p, o)));
         }
     }
 
@@ -56,10 +56,8 @@ class TripleMap<T> {
         Map<IRI, T> subjPredMap = map.get(predicate);
         if (subjPredMap != null) {
             T obj = subjPredMap.get(subject);
-            if (obj != null) {
-                if (consume) {
-                    subjPredMap.remove(subject);
-                }
+            if (obj != null && consume) {
+                subjPredMap.remove(subject);
             }
             return obj;
         }

@@ -87,8 +87,7 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
         }
         Yaml yamlParser = new Yaml();
         Map<String, List<Map<String, Object>>> load2 = yamlParser.load(z.getInputStream(yaml));
-        OWLZipYaml load = new OWLZipYaml(load2.get("ontologies"));
-        return load;
+        return new OWLZipYaml(load2.get("ontologies"));
     }
 
     protected boolean loadFromCatalog(String basePhysicalIRI, ZipFile z) throws IOException {

@@ -90,18 +90,12 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     @Override
     public boolean isTopNode() {
-        if (!getTopEntity().isPresent()) {
-            return false;
-        }
-        return entities.contains(getTopEntity().get());
+        return getTopEntity().map(entities::contains).orElse(Boolean.FALSE).booleanValue();
     }
 
     @Override
     public boolean isBottomNode() {
-        if (!getBottomEntity().isPresent()) {
-            return false;
-        }
-        return entities.contains(getBottomEntity().get());
+        return getBottomEntity().map(entities::contains).orElse(Boolean.FALSE).booleanValue();
     }
 
     @Override

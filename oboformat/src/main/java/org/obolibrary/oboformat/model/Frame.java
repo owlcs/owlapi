@@ -12,7 +12,7 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
-import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;;
+import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 
 /**
  * The Class Frame.

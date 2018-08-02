@@ -31,6 +31,8 @@ import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
  */
 public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
+    private static final String WRITER_CANNOT_BE_NULL = "writer cannot be null";
+
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
         return ontologyFormat instanceof DLSyntaxHTMLDocumentFormat;
@@ -63,7 +65,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     @Override
     protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null");
+        checkNotNull(writer, WRITER_CANNOT_BE_NULL);
         writer.println("<html>");
         writer.println("<body>");
         writer.println("<h1>Ontology: ");
@@ -79,14 +81,14 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     @Override
     protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null");
+        checkNotNull(writer, WRITER_CANNOT_BE_NULL);
         writer.println("</body>");
         writer.println("</html>");
     }
 
     @Override
     protected void beginWritingAxiom(PrintWriter writer) {
-        checkNotNull(writer, "writer cannot be null").println("<div class=\"axiombox\"> ");
+        checkNotNull(writer, WRITER_CANNOT_BE_NULL).println("<div class=\"axiombox\"> ");
     }
 
     @Override
@@ -97,7 +99,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     @Override
     protected void beginWritingAxioms(OWLEntity subject, PrintWriter writer) {
         checkNotNull(subject, "subject cannot be null");
-        checkNotNull(writer, "writer cannot be null");
+        checkNotNull(writer, WRITER_CANNOT_BE_NULL);
         writer.print("<h2><a name=\"");
         writer.print(new SimpleShortFormProvider().getShortForm(subject));
         writer.print("\">");

@@ -106,7 +106,7 @@ public class EntityType<E extends OWLEntity>
 
     @Override
     public String getShortForm() {
-        return name;
+        return getName();
     }
 
     @Override

@@ -27,12 +27,12 @@ public enum Extensions {
     /** Functional sytax, common extensions: fss, owl */        FUNCTIONALSYNTAX    (FunctionalSyntaxDocumentFormat.class,  ".fss", ".owl");
     //@formatter:on
 
-    private List<String> extensions;
+    private List<String> extensionList;
     private Class<? extends OWLDocumentFormat> documentFormat;
 
     private Extensions(Class<? extends OWLDocumentFormat> d, String... knownExtensions) {
         documentFormat = d;
-        extensions = Arrays.asList(knownExtensions);
+        extensionList = Arrays.asList(knownExtensions);
     }
 
     /**
@@ -52,6 +52,6 @@ public enum Extensions {
      * @return common extensions for this type
      */
     public Iterable<String> getCommonExtensions() {
-        return extensions;
+        return extensionList;
     }
 }

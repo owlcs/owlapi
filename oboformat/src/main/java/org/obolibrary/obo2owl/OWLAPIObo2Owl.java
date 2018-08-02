@@ -509,7 +509,7 @@ public class OWLAPIObo2Owl {
             defaultIDSpace = "TEMP";
             manager.applyChange(new SetOntologyID(in,
                 df.getOWLOntologyID(df.getIRI(DEFAULT_IRI_PREFIX, defaultIDSpace))));
-            // TODO - warn
+            LOG.warn("Setting ontology id to default as the ontology tag is missing");
         }
         trHeaderFrame(hf);
         obodoc.getTypedefFrames().forEach(this::trTypedefToAnnotationProperty);
@@ -652,7 +652,7 @@ public class OWLAPIObo2Owl {
             } else {
                 // TODO: Throw Exceptions
                 OBOFormatException e =
-                    new OBOFormatException("Cannot translate clause «" + clause + '»');
+                    new OBOFormatException("Cannot translate clause [" + clause + ']');
                 LOG.error(CANNOT_TRANSLATE, clause, e);
             }
         }
@@ -898,12 +898,7 @@ public class OWLAPIObo2Owl {
             }
         }
         eSet.add(df.getOWLObjectUnionOf(iSet));
-        // TODO - fix this
-        if (annotations.isEmpty()) {
-            return df.getOWLEquivalentClassesAxiom(eSet);
-        } else {
-            return df.getOWLEquivalentClassesAxiom(eSet, annotations);
-        }
+        return df.getOWLEquivalentClassesAxiom(eSet, annotations);
     }
 
     /**
@@ -927,12 +922,7 @@ public class OWLAPIObo2Owl {
             }
         }
         eSet.add(df.getOWLObjectIntersectionOf(iSet));
-        // TODO - fix this
-        if (annotations.isEmpty()) {
-            return df.getOWLEquivalentClassesAxiom(eSet);
-        } else {
-            return df.getOWLEquivalentClassesAxiom(eSet, annotations);
-        }
+        return df.getOWLEquivalentClassesAxiom(eSet, annotations);
     }
 
     // no data properties in obo

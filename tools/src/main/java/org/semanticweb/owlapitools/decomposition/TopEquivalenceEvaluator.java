@@ -134,7 +134,7 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
 
     @Override
     public void visit(OWLObjectIntersectionOf expr) {
-        isTopEq = !expr.operands().anyMatch(p -> !isTopEquivalent(p));
+        isTopEq = expr.operands().allMatch(p -> isTopEquivalent(p));
     }
 
     @Override

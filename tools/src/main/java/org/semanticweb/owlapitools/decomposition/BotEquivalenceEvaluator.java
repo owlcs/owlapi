@@ -137,7 +137,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
 
     @Override
     public void visit(OWLObjectUnionOf expr) {
-        isBotEq = !expr.operands().anyMatch(p -> !isBotEquivalent(p));
+        isBotEq = expr.operands().allMatch(this::isBotEquivalent);
     }
 
     @Override

@@ -60,6 +60,7 @@ import org.xml.sax.helpers.DefaultHandler;
 @HasPriority(1)
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
 
+    private static final String EXCEPTION_READING_FILE = "Exception reading file";
     static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
     static final Pattern manPattern = Pattern.compile("Ontology:[\r\n ]*<([^>]+)>");
     private static final Logger LOGGER = LoggerFactory.getLogger(AutoIRIMapper.class);
@@ -233,7 +234,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
                     .forEach(e -> ontologyIRI2PhysicalURIMap.put(e.getKey(), e.getValue()));
             } catch (IOException e) {
                 // if we can't parse a file, then we can't map it
-                LOGGER.debug("Exception reading file", e);
+                LOGGER.debug(EXCEPTION_READING_FILE, e);
             }
 
         } else if (".obo".equalsIgnoreCase(extension)) {
@@ -270,7 +271,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             }
         } catch (IOException e) {
             // if we can't parse a file, then we can't map it
-            LOGGER.debug("Exception reading file", e);
+            LOGGER.debug(EXCEPTION_READING_FILE, e);
         }
     }
 
@@ -283,7 +284,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             SAXParsers.initParserWithOWLAPIStandards(null, "64000").parse(file, this);
         } catch (SAXException | IOException e) {
             // if we can't parse a file, then we can't map it
-            LOGGER.debug("Exception reading file", e);
+            LOGGER.debug(EXCEPTION_READING_FILE, e);
         }
     }
 
@@ -301,7 +302,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             }
         } catch (IOException e) {
             // if we can't parse a file, then we can't map it
-            LOGGER.debug("Exception reading file", e);
+            LOGGER.debug(EXCEPTION_READING_FILE, e);
         }
     }
 
