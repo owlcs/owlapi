@@ -566,7 +566,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         MacroExpansionGCIVisitor mev = new MacroExpansionGCIVisitor(m1, ontology, false);
         OWLOntology gciOntology = mev.createGCIOntology();
         int axiomCount = gciOntology.getAxiomCount();
-        assertTrue(axiomCount > 0);
+        assertEquals(2, axiomCount);
         assertEquals(2, gciOntology.axioms().count());
     }
 

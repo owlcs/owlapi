@@ -52,6 +52,9 @@ public class RDFGraph implements Serializable {
     private final Map<RDFNode, RDFNode> remappedNodes = createMap();
     private OWLDataFactory df;
 
+    /**
+     * @param df data factory
+     */
     public RDFGraph(OWLDataFactory df) {
         this.df = df;
     }

@@ -180,9 +180,11 @@ public class CollectionFactory {
      * @param <T> axiom type
      * @return fresh non threadsafe set
      */
-    public static <T> Set<T> createSet(T element) {
+    public static <T> Set<T> createSet(@Nullable T element) {
         Set<T> result = createSet();
-        result.add(element);
+        if (element != null) {
+            result.add(element);
+        }
         return result;
     }
 

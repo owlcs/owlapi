@@ -55,6 +55,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
 
     /**
      * @param id id
+     * @param df data factory to build IRIs
      * @return IRI with full node id
      */
     public static IRI nodeId(int id, OWLDataFactory df) {
@@ -84,6 +85,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
     }
 
     /**
+     * @param df data factory to build IRIs
      * @return IRI with fresh node id
      */
     public static IRI nextFreshNodeId(OWLDataFactory df) {

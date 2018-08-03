@@ -312,7 +312,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         super.setDocumentLocator(locator);
         this.locator = checkNotNull(locator);
         try {
-            String systemId = this.locator.getSystemId();
+            String systemId = verifyNotNull(this.locator).getSystemId();
             if (systemId != null) {
                 bases.push(new URI(systemId));
             }

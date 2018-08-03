@@ -38,6 +38,9 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy
     private final Map<IRI, IRI> iriMap = new HashMap<>();
     private OWLDataFactory df;
 
+    /**
+     * @param df data factory
+     */
     public OWLEntityURIUnderscores2CamelBackConverterStrategy(OWLDataFactory df) {
         this.df = df;
     }

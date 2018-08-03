@@ -7,6 +7,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Ignore;
@@ -25,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+import uk.ac.manchester.cs.atomicdecomposition.Atom;
 import uk.ac.manchester.cs.atomicdecomposition.AtomicDecomposition;
 import uk.ac.manchester.cs.atomicdecomposition.AtomicDecompositionImpl;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
@@ -211,29 +213,23 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
             "SubClassOf(:SantaClause ObjectSomeValuesFrom(:likes :Cookies))\n" + 
             ")";
         //@formatter:on
-        OWLOntologyManager m = OWLManager.createConcurrentOWLOntologyManager();
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(in));
+        OWLOntologyManager m2 = OWLManager.createConcurrentOWLOntologyManager();
+        OWLOntology o = m2.loadOntologyFromOntologyDocument(new StringDocumentSource(in));
         SyntacticLocalityModuleExtractor ex =
-            new SyntacticLocalityModuleExtractor(m, o, ModuleType.STAR);
+            new SyntacticLocalityModuleExtractor(m2, o, ModuleType.STAR);
         o.logicalAxioms().forEach(axiom -> {
-            System.out.println(axiom.getSignature());
+            axiom.signature().forEach(System.out::println);
             System.out.println(axiom);
-            ex.extract(axiom.getSignature()).forEach(s -> {
-                if (s.isLogicalAxiom()) {
-                    System.out.println("    " + s);
-                }
-            });
+            ex.extract(asSet(axiom.signature())).stream().filter(OWLAxiom::isLogicalAxiom)
+                .forEach(System.out::println);
         });
         AtomicDecompositionImpl ad = new AtomicDecompositionImpl(o, ModuleType.STAR);
-        ad.getAtoms().forEach(atom -> {
-            System.out.println("[ ");
-            atom.getAxioms().forEach(x -> {
-                if (x.isLogicalAxiom()) {
-                    System.out.println("    " + x);
-                }
-            });
-            System.out.println("]");
-        });
+        ad.getAtoms().stream().map(this::nestedPrint).forEach(System.out::println);
+    }
+
+    protected String nestedPrint(Atom atom) {
+        return atom.getAxioms().stream().filter(OWLAxiom::isLogicalAxiom).map(Object::toString)
+            .collect(Collectors.joining("    ", "[ ", "]"));
     }
 
 }

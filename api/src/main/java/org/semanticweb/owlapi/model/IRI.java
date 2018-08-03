@@ -250,6 +250,12 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredi
         return '<' + getNamespace() + getFragment() + '>';
     }
 
+    /**
+     * @param iri iri to shorten
+     * @return short form. If ther eis a remainder, that is returned. If there is no remainder, the
+     *         last segment is returned. If there is no segment, the input bracketed between &lt;
+     *         and &gt; will be returned.
+     */
     static String getShortForm(String iri) {
         String r = XMLUtils.getNCNameSuffix(iri);
         if (r != null && !r.isEmpty()) {
@@ -263,6 +269,11 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredi
         return '<' + iri + '>';
     }
 
+    /**
+     * @param iri iri to prefix
+     * @param prefix prefix to use
+     * @return prefixed iri
+     */
     static String prefixedBy(String iri, String prefix) {
         checkNotNull(prefix, "prefix cannot be null");
         String r = XMLUtils.getNCNameSuffix(iri);

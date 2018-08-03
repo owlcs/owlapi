@@ -590,17 +590,17 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
         return illegals;
     }
 
+    /**
+     * @param illegals set of illegal punnings
+     * @param i iri to checl
+     * @param puns list of pun types
+     */
     static void computeIllegal(Collection<IRI> illegals, IRI i, List<EntityType<?>> puns) {
-        if (puns.contains(EntityType.OBJECT_PROPERTY)
-            && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
-            illegals.add(i);
-        } else if (puns.contains(EntityType.DATA_PROPERTY)
-            && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
-            illegals.add(i);
-        } else if (puns.contains(EntityType.DATA_PROPERTY)
-            && puns.contains(EntityType.OBJECT_PROPERTY)) {
-            illegals.add(i);
-        } else if (puns.contains(EntityType.DATATYPE) && puns.contains(EntityType.CLASS)) {
+        boolean hasObject = puns.contains(EntityType.OBJECT_PROPERTY);
+        boolean hasAnnotation = puns.contains(EntityType.ANNOTATION_PROPERTY);
+        boolean hasData = puns.contains(EntityType.DATA_PROPERTY);
+        if (hasObject && hasAnnotation || hasData && hasAnnotation || hasData && hasObject
+            || puns.contains(EntityType.DATATYPE) && puns.contains(EntityType.CLASS)) {
             illegals.add(i);
         }
     }

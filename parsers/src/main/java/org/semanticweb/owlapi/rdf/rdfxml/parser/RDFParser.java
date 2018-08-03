@@ -120,6 +120,9 @@ public class RDFParser extends DefaultHandler {
     protected Locator documentLocator;
     private OWLDataFactory df;
 
+    /**
+     * @param df data factory
+     */
     public RDFParser(OWLDataFactory df) {
         this.df = df;
     }

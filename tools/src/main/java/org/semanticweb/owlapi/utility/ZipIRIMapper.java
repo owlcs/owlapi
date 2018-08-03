@@ -77,6 +77,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
      *
      * @param zip The zip file to map.
      * @param baseIRI base iri for physical IRIs
+     * @param df data factory
      * @throws IOException if an exception reading from input is raised
      */
     public ZipIRIMapper(File zip, String baseIRI, OWLDataFactory df) throws IOException {
@@ -88,6 +89,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
      *
      * @param zip The zip file to map.
      * @param baseIRI base iri for physical IRIs
+     * @param df data factory
      * @throws IOException if an exception reading from input is raised
      */
     public ZipIRIMapper(ZipFile zip, String baseIRI, OWLDataFactory df) throws IOException {
@@ -182,10 +184,16 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
         return ontologyIRI2PhysicalURIMap.get(ontologyIRI);
     }
 
+    /**
+     * @return obo mappings
+     */
     public Stream<Map.Entry<String, IRI>> oboMappings() {
         return oboFileMap.entrySet().stream();
     }
 
+    /**
+     * @return iri mappings
+     */
     public Stream<Map.Entry<IRI, IRI>> iriMappings() {
         return ontologyIRI2PhysicalURIMap.entrySet().stream();
     }
@@ -235,6 +243,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
      * Search first 100 lines for FSS style Ontology(&lt;IRI&gt; ...
      *
      * @param input the file to parse
+     * @return ontology IRI, if one is found
      */
     @Nullable
     private IRI parseFSSFile(InputStream input) {

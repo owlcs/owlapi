@@ -37,6 +37,7 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
 
     /**
      * @param f zip file
+     * @param df data factory
      * @throws IOException thrown if access to the file is impossible
      */
     public OWLZipClosureIRIMapper(File f, OWLDataFactory df) throws IOException {

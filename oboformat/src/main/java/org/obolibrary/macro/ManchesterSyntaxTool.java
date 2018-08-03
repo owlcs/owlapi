@@ -59,7 +59,7 @@ public class ManchesterSyntaxTool {
     private final AdvancedEntityChecker entityChecker;
     private final ShortFormProvider shortFormProvider =
         e -> iriShortFormProvider.getShortForm(e.getIRI());
-    private final AtomicBoolean disposed = new AtomicBoolean(false);
+    private final AtomicBoolean isObjectDisposed = new AtomicBoolean(false);
 
     /**
      * Create a new parser instance for the given ontology. By default, this parser will also try to
@@ -117,7 +117,7 @@ public class ManchesterSyntaxTool {
     }
 
     private ManchesterOWLSyntaxParser createParser(String expression) {
-        if (disposed.get()) {
+        if (isObjectDisposed.get()) {
             throw new OWLRuntimeException(DISPOSED);
         }
         ManchesterOWLSyntaxParser parser =
@@ -135,7 +135,7 @@ public class ManchesterSyntaxTool {
      * @return short form
      */
     public String getId(IRI iri) {
-        if (disposed.get()) {
+        if (isObjectDisposed.get()) {
             throw new OWLRuntimeException(DISPOSED);
         }
         return iriShortFormProvider.getShortForm(iri);
@@ -148,7 +148,7 @@ public class ManchesterSyntaxTool {
      * @return short form
      */
     public String getId(OWLEntity entity) {
-        if (disposed.get()) {
+        if (isObjectDisposed.get()) {
             throw new OWLRuntimeException(DISPOSED);
         }
         return shortFormProvider.getShortForm(entity);
@@ -159,7 +159,7 @@ public class ManchesterSyntaxTool {
      * registered with the ontology manager.
      */
     public void dispose() {
-        if (!disposed.getAndSet(true)) {
+        if (!isObjectDisposed.getAndSet(true)) {
             shortFormProvider.dispose();
         }
     }

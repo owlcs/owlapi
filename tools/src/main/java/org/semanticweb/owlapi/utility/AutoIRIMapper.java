@@ -85,6 +85,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      *        files included in the folder are parsed for ontologies. The zip parsing is delegated
      *        to ZipIRIMapper.
      * @param recursive Sub directories will be searched recursively if {@code true}.
+     * @param df data factory
      */
     public AutoIRIMapper(File rootDirectory, boolean recursive, OWLDataFactory df) {
         this.df = df;

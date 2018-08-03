@@ -206,7 +206,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     /**
      * @param writer writer
-     * @param df
+     * @param df data factory
      */
     public OWLXMLObjectRenderer(OWLXMLWriter writer, OWLDataFactory df) {
         this.writer = checkNotNull(writer, "writer cannot be null");

@@ -53,6 +53,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * Base class for OWLOntologyDocumentSource.
@@ -133,7 +134,11 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     private static InputStream getInputStreamFromContentEncoding(String iri, Response response)
         throws IOException {
         String encoding = response.header("Content-Encoding");
-        InputStream in = response.body().byteStream();
+        ResponseBody body = response.body();
+        if (body == null) {
+            throw new IOException("Response has no body");
+        }
+        InputStream in = body.byteStream();
         if (encoding != null) {
             switch (encoding) {
                 case "xz":

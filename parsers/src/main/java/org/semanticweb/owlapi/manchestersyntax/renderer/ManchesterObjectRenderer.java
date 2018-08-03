@@ -17,6 +17,9 @@ import org.semanticweb.owlapi.utilities.ShortFormProvider;
 public class ManchesterObjectRenderer implements OWLObjectRenderer {
     private PrefixManager pm;
 
+    /**
+     * Default constructor.
+     */
     public ManchesterObjectRenderer() {
         pm = new PrefixManagerImpl();
     }

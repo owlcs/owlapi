@@ -64,7 +64,8 @@ public class ParserException extends OWLParserException {
         int columnNumber, boolean ontologyNameExpected, boolean classNameExpected,
         boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
         boolean individualNameExpected, boolean datatypeNameExpected,
-        boolean annotationPropertyExpected, boolean integerExpected, Set<String> expectedKeywords) {
+        boolean annotationPropertyExpected, boolean integerExpected,
+        @Nullable Set<String> expectedKeywords) {
         currentToken = tokenSequence.iterator().next();
         this.tokenSequence = tokenSequence;
         this.lineNumber = lineNumber;

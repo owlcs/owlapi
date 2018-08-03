@@ -174,7 +174,6 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi.utilities.RemappingIndividualProvider;
-import org.semanticweb.owlapi.utility.CollectionFactory;
 import org.semanticweb.owlapi.utility.NamespaceUtil;
 import org.semanticweb.owlapi.utility.OntologyAxiomPair;
 import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
@@ -1339,7 +1338,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (peekToken().equals(OPENBRACKET.keyword())) {
             return parseOntologyList();
         } else {
-            return CollectionFactory.createSet(defaultOntology);
+            return Collections.singleton(defaultOntology);
         }
     }
 

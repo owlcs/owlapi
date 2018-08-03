@@ -123,7 +123,7 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
 
     @Override
     public Set<OWLAxiom> getPrincipalIdeal(Atom atom) {
-        return asSet(getAtomModule(atomIndex.get(atom)));
+        return asSet(getAtomModule(atomIndex.get(atom).intValue()));
     }
 
     @Override

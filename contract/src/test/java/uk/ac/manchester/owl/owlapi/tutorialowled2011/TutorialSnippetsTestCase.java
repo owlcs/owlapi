@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -151,8 +152,7 @@ public class TutorialSnippetsTestCase {
     public void testOntologyLoadingFromStringSource() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
-        OWLDocumentFormat format = o.getFormat();
-        assertNotNull(o);
+        OWLDocumentFormat format = verifyNotNull(o.getFormat());
         // save an ontology to a document target which holds all data in memory
         StringDocumentTarget target = new StringDocumentTarget();
         m.saveOntology(o, target);
@@ -651,7 +651,7 @@ public class TutorialSnippetsTestCase {
      * @param reasoner The reasoner
      * @param cls The class expression
      */
-    private void printProperties(OWLOntology o, OWLReasoner reasoner, OWLClass cls) {
+    private static void printProperties(OWLOntology o, OWLReasoner reasoner, OWLClass cls) {
         o.objectPropertiesInSignature().forEach(prop -> {
             // To test whether an instance of A MUST have a property p with a
             // filler, check for the satisfiability of A and not (some p Thing)

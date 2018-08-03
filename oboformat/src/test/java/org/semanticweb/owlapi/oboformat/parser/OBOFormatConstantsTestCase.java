@@ -73,6 +73,7 @@ import static org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag.TAG_X
 
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public class OBOFormatConstantsTestCase {
     @Test
     public void should() {

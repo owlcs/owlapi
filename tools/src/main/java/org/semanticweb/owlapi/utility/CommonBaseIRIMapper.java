@@ -40,6 +40,7 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
      * Creates a mapper, which maps ontology URIs to URIs which share the specified base.
      *
      * @param base the base IRI
+     * @param df data factory
      */
     public CommonBaseIRIMapper(IRI base, OWLDataFactory df) {
         this.base = checkNotNull(base, "base cannot be null");

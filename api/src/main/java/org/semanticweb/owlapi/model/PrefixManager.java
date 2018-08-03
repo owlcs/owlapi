@@ -109,6 +109,7 @@ public interface PrefixManager extends Serializable, ShortFormProvider, IRIShort
      * registered with this manager, or a runtime exception will be thrown.
      *
      * @param prefixIRI The Prefix IRI
+     * @param df data factory to build IRIs
      * @return The full IRI.
      * @throws OWLRuntimeException if the prefix name of the prefix IRI doesn't have a corresponding
      *         prefix managed by this manager.

@@ -154,6 +154,9 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
         return new AxiomType<>(c, i, name, false, false, true);
     }
 
+    /**
+     * @return all axiom types minus DECLARATION
+     */
     public static Stream<AxiomType<?>> skipDeclarations() {
         return AXIOM_TYPES.stream().filter(t -> t != DECLARATION);
     }

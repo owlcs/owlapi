@@ -69,6 +69,7 @@ public class OWLZipEntry {
     }
 
     /**
+     * @param df data factory
      * @return ontology id for this entry
      */
     public OWLOntologyID id(OWLDataFactory df) {

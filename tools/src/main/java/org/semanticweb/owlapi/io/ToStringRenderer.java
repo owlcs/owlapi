@@ -63,7 +63,7 @@ public final class ToStringRenderer {
         try {
             return className.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            throw new OWLRuntimeException("Custom renderer unavailable: " + className);
+            throw new OWLRuntimeException("Custom renderer unavailable: " + className, e);
         }
     }
 
@@ -72,7 +72,7 @@ public final class ToStringRenderer {
         try {
             return (Class<OWLObjectRenderer>) Class.forName(value);
         } catch (ClassNotFoundException e) {
-            throw new OWLRuntimeException("Custom renderer unavailable: " + value);
+            throw new OWLRuntimeException("Custom renderer unavailable: " + value, e);
         }
     }
 

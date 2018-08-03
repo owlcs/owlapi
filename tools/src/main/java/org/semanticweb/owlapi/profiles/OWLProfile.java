@@ -19,6 +19,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public interface OWLProfile {
 
+    /**
+     * @return IRI for the profile
+     */
     String getIRI();
 
     /**

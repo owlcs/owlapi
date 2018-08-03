@@ -121,7 +121,7 @@ public final class XMLUtils {
      * which starts with an NCName start character and is followed by zero or more NCName
      * characters.
      *
-     * @param _s The character sequence to be tested.
+     * @param s1 The character sequence to be tested.
      * @return {@code true} if {@code s} is an NCName, otherwise {@code false}.
      */
     public static boolean isNCName(@Nullable CharSequence s1) {
@@ -393,6 +393,10 @@ public final class XMLUtils {
         return s == null || s.length() == 0;
     }
 
+    /**
+     * @param s IRI string
+     * @return schema for the IRI, or empty string if there is no schema
+     */
     public static String schema(String s) {
         int i = s.indexOf(':');
         if (i > -1) {
@@ -401,11 +405,19 @@ public final class XMLUtils {
         return "";
     }
 
+    /**
+     * @param ch character to check
+     * @return true if character is not a letter, a digit, a full stop, a plus sign or a minus sign
+     */
     public static boolean disallowed(char ch) {
         return !Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+'
             && ch != '-';
     }
 
+    /**
+     * @param namespace namespace string
+     * @return true if the namespace is absolute
+     */
     public static boolean isAbsolute(String namespace) {
         int colonIndex = namespace.indexOf(':');
         if (colonIndex == -1) {

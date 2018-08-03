@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
@@ -481,7 +482,7 @@ class HPPCSet<S> implements Collection<S> {
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(@Nullable Object o) {
         return delegate.contains((S) o);
     }
 
@@ -508,23 +509,23 @@ class HPPCSet<S> implements Collection<S> {
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
+    public <T> T[] toArray(@Nullable T[] a) {
         throw new UnsupportedOperationException("Not suppoerted for " + getClass());
     }
 
     @Override
-    public boolean add(S e) {
+    public boolean add(@Nullable S e) {
         return delegate.add(e);
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean remove(@Nullable Object o) {
         return delegate.remove((S) o);
     }
 
     @Override
-    public boolean containsAll(Collection<?> c) {
-        for (Object o : c) {
+    public boolean containsAll(@Nullable Collection<?> c) {
+        for (Object o : verifyNotNull(c)) {
             if (!delegate.contains((S) o)) {
                 return false;
             }
@@ -533,9 +534,9 @@ class HPPCSet<S> implements Collection<S> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends S> c) {
+    public boolean addAll(@Nullable Collection<? extends S> c) {
         boolean toReturn = false;
-        for (S s : c) {
+        for (S s : verifyNotNull(c)) {
             if (add(s)) {
                 toReturn = true;
             }
@@ -544,9 +545,9 @@ class HPPCSet<S> implements Collection<S> {
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(@Nullable Collection<?> c) {
         boolean toReturn = false;
-        for (Object s : c) {
+        for (Object s : verifyNotNull(c)) {
             if (remove(s)) {
                 toReturn = true;
             }
@@ -555,8 +556,8 @@ class HPPCSet<S> implements Collection<S> {
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
-        return delegate.retainAll(new HPPCSet(c).delegate) > 0;
+    public boolean retainAll(@Nullable Collection<?> c) {
+        return delegate.retainAll(new HPPCSet(verifyNotNull(c)).delegate) > 0;
     }
 
     @Override

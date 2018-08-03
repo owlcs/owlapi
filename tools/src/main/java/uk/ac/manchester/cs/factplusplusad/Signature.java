@@ -129,6 +129,11 @@ class Signature {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        return set.hashCode() * 37 + (topCLocality ? 1 : 0) + (topCLocality ? 1 : 0);
+    }
     // comparison
 
     /**

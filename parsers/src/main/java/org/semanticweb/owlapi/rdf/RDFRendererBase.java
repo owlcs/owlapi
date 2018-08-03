@@ -133,7 +133,6 @@ public abstract class RDFRendererBase {
     protected final AxiomAppearance axiomOccurrences;
     protected final OntologyConfigurator config;
     protected final Set<RDFResource> pending = new HashSet<>();
-    @Nullable
     private final Set<IRI> punned;
     @Nullable
     protected RDFGraph graph;

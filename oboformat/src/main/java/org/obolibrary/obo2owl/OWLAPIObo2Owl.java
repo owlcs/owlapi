@@ -348,6 +348,7 @@ public class OWLAPIObo2Owl {
      * Tr tag to iri.
      *
      * @param tag the tag
+     * @param df data factory for creating IRIs
      * @return the iri
      */
     public static IRI trTagToIRI(String tag, OWLDataFactory df) {

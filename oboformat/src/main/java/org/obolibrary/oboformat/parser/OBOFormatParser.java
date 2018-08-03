@@ -70,8 +70,8 @@ public class OBOFormatParser {
 
     /**
      * @param s input stream
+     * @param importsMap map for imports
      */
-    @SuppressWarnings("null")
     protected OBOFormatParser(MyStream s, Map<String, OBODoc> importsMap) {
         stream = s;
         importCache.putAll(importsMap);
