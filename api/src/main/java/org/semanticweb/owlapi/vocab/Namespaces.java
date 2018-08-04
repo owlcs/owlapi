@@ -40,6 +40,7 @@ public enum Namespaces {
     /** The SWRL namespace. */     SWRL        ("swrl",     "http://www.w3.org/2003/11/swrl#"),
     /** The SWRLB namespace. */    SWRLB       ("swrlb",    "http://www.w3.org/2003/11/swrlb#"),
     /** The SKOS namespace. */     SKOS        ("skos",     "http://www.w3.org/2004/02/skos/core#"),
+    /** The Time namespace */      TIME        ("time",     "http://www.w3.org/2006/time#", IN_USE),
 
     // Further namespaces from the RDFa Core Initial Context
     // http://www.w3.org/2011/rdfa-context/rdfa-1.1
