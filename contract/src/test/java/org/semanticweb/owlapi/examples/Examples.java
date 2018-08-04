@@ -1386,6 +1386,7 @@ public class Examples extends TestBase {
     public void shouldExtractModules() throws Exception {
         // Create our manager
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
         // Load the Koala ontology
         OWLOntology ont = load(man);
         // We want to extract a module for all toppings. We therefore have to
@@ -1393,7 +1394,7 @@ public class Examples extends TestBase {
         // subclasses. We start by creating a signature that consists of
         // "Quokka".
         OWLClass toppingCls =
-            df.getOWLClass(ont.getOntologyID().getOntologyIRI().get() + "#", "Quokka");
+            dataFactory.getOWLClass(ont.getOntologyID().getOntologyIRI().get() + "#", "Quokka");
         Set<OWLEntity> sig = new HashSet<OWLEntity>();
         sig.add(toppingCls);
         // We now add all subclasses (direct and indirect) of the chosen
@@ -1419,7 +1420,7 @@ public class Examples extends TestBase {
         // ontology about the terms in the seed signature or the module.
         SyntacticLocalityModuleExtractor sme =
             new SyntacticLocalityModuleExtractor(man, ont, ModuleType.STAR);
-        IRI moduleIRI = df.getIRI("urn:test:QuokkaModule.owl", "");
+        IRI moduleIRI = dataFactory.getIRI("urn:test:QuokkaModule.owl", "");
         OWLOntology mod = sme.extractAsOntology(seedSig, moduleIRI);
         // The module can now be saved as usual
     }
