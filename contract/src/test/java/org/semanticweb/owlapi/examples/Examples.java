@@ -1398,13 +1398,14 @@ public class Examples extends TestBase {
     public void shouldExtractModules() throws Exception {
         // Create our manager
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
         // Load the Koala ontology
         OWLOntology ont = load(man);
         // We want to extract a module for all toppings. We therefore have to
         // generate a seed signature that contains "Quokka" and its
         // subclasses. We start by creating a signature that consists of
         // "Quokka".
-        OWLClass toppingCls = df.getOWLClass(IRI.create(ont.getOntologyID().getOntologyIRI().get() + "#Quokka"));
+        OWLClass toppingCls = dataFactory.getOWLClass(IRI.create(ont.getOntologyID().getOntologyIRI().get() + "#Quokka"));
         Set<OWLEntity> sig = new HashSet<OWLEntity>();
         sig.add(toppingCls);
         // We now add all subclasses (direct and indirect) of the chosen
