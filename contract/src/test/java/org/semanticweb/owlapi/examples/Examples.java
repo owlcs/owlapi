@@ -1414,6 +1414,7 @@ public class Examples extends TestBase {
     public void shouldExtractModules() throws Exception {
         // Create our manager
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
         // Load the Koala ontology
         OWLOntology ont = load(man);
         // We want to extract a module for all toppings. We therefore have to
