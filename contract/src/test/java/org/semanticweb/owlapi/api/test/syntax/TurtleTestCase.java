@@ -25,6 +25,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Objec
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Set;
 
 import org.junit.Test;
@@ -50,6 +51,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
@@ -454,5 +457,24 @@ public class TurtleTestCase extends TestBase {
         StringDocumentTarget result = saveOntology(ont, ofmt);
         OWLOntology o1 = loadOntologyFromString(result, new TurtleDocumentFormat());
         equal(ont, o1);
+    }
+
+    @Test
+    public void shouldUseRightPrefixesWithPercentURLs()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        PrefixManager basePrefix =
+            new PrefixManagerImpl().withDefaultPrefix("http://www.example.com#");
+        OWLOntology ontology = m.createOntology(df.getIRI("http://www.example.com"));
+        OWLObjectProperty owlObjectP = df.getOWLObjectProperty("has%20space", basePrefix);
+
+        OWLClass domain = df.getOWLClass("domain1", basePrefix);
+        ontology.add(df.getOWLObjectPropertyDomainAxiom(owlObjectP, domain));
+
+        TurtleDocumentFormat turtle = new TurtleDocumentFormat();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ontology.saveOntology(turtle, out);
+        String string = out.toString();
+        assertTrue(string,
+            string.contains("<http://www.example.com#has%20space> rdf:type owl:ObjectProperty"));
     }
 }
