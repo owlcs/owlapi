@@ -191,15 +191,22 @@ public class TurtleRenderer extends RDFRendererBase {
         Collections.sort(prefixName2PrefixMap, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
         String actualIRI = iri.toString();
         for (Map.Entry<String, String> e : prefixName2PrefixMap) {
-            if (actualIRI.startsWith(e.getValue()) && noSplits(actualIRI, e.getValue().length())) {
+            if (actualIRI.startsWith(e.getValue()) && noSplits(actualIRI)) {
                 return e.getKey() + actualIRI.substring(e.getValue().length());
             }
         }
         return null;
     }
 
-    private static boolean noSplits(String s, int index) {
-        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
+    private static boolean noSplits(String s) {
+        char[] reservedChars = new char[] {'~', '.', '-', '!', '$', '&', '(', ')', '*', '+', ',',
+            ';', '=', '/', '?', '#', '@', '%', '_'};
+        for (char c : reservedChars) {
+            if (s.indexOf(c) >= 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void writeNewLine() {
