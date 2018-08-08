@@ -36,8 +36,10 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     @Override
     default int initHashCode() {
         int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, bodyList().hashCode());
-        hash = OWLObject.hashIteration(hash, headList().hashCode());
+        // head and body have an order that cannot be changed but it must not affect equals() and
+        // hashCode()
+        hash = OWLObject.hashIteration(hash, body().mapToInt(Object::hashCode).sum());
+        hash = OWLObject.hashIteration(hash, head().mapToInt(Object::hashCode).sum());
         return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
     }
 
@@ -108,7 +110,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * the predicate is the inverse (simplified) property.
      *
      * @return The rule such that any atoms of the form inverseOf(p)(x, y) are transformed to p(x,
-     * y).
+     *         y).
      */
     SWRLRule getSimplified();
 
@@ -134,7 +136,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * Determines if this rule uses anonymous class expressions in class atoms.
      *
      * @return {@code true} if this rule contains anonymous class expression in class atoms,
-     * otherwise {@code false}.
+     *         otherwise {@code false}.
      */
     boolean containsAnonymousClassExpressions();
 
@@ -142,7 +144,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * Gets the predicates of class atoms.
      *
      * @return A set of class expressions that represent the class class expressions that are
-     * predicates of class atoms.
+     *         predicates of class atoms.
      * @deprecated use {@link #classAtomPredicates()}
      */
     @Deprecated
@@ -154,7 +156,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * Gets the predicates of class atoms.
      *
      * @return A set of class expressions that represent the class class expressions that are
-     * predicates of class atoms.
+     *         predicates of class atoms.
      */
     Stream<OWLClassExpression> classAtomPredicates();
 
