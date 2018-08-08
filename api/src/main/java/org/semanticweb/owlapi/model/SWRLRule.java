@@ -36,8 +36,10 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     @Override
     default int initHashCode() {
         int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, bodyList().hashCode());
-        hash = OWLObject.hashIteration(hash, headList().hashCode());
+        // head and body have an order that cannot be changed but it must not affect equals() and
+        // hashCode()
+        hash = OWLObject.hashIteration(hash, body().mapToInt(Object::hashCode).sum());
+        hash = OWLObject.hashIteration(hash, head().mapToInt(Object::hashCode).sum());
         return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
     }
 
