@@ -27,6 +27,9 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+
 /**
  * Matthew Horridge
  * Stanford Center for Biomedical Informatics Research
@@ -3506,5 +3509,25 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
         } finally {
             writeLock.unlock();
         }
+    }
+
+    @Override
+    public String toFunctionalSyntax(PrefixManager pm) {
+        return toSyntax(new FunctionalSyntaxDocumentFormat(), pm);
+    }
+
+    @Override
+    public String toManchesterSyntax(PrefixManager pm) {
+        return toSyntax(new ManchesterSyntaxDocumentFormat(), pm);
+    }
+
+    @Override
+    public String toFunctionalSyntax() {
+        return toSyntax(new FunctionalSyntaxDocumentFormat());
+    }
+
+    @Override
+    public String toManchesterSyntax() {
+        return toSyntax(new ManchesterSyntaxDocumentFormat());
     }
 }

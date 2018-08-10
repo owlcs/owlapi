@@ -16,8 +16,11 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.PrefixManager;
 
 /**
  * Represents International Resource Identifiers.
@@ -114,5 +117,25 @@ public class IRIImpl implements IRI {
             return ntriplesString().equals(iri.ntriplesString());
         }
         return false;
+    }
+
+    @Override
+    public String toFunctionalSyntax(PrefixManager pm) {
+        return toSyntax(new FunctionalSyntaxDocumentFormat(), pm);
+    }
+
+    @Override
+    public String toManchesterSyntax(PrefixManager pm) {
+        return toSyntax(new ManchesterSyntaxDocumentFormat(), pm);
+    }
+
+    @Override
+    public String toFunctionalSyntax() {
+        return toSyntax(new FunctionalSyntaxDocumentFormat());
+    }
+
+    @Override
+    public String toManchesterSyntax() {
+        return toSyntax(new ManchesterSyntaxDocumentFormat());
     }
 }
