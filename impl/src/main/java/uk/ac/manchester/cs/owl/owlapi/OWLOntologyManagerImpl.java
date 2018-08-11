@@ -1590,7 +1590,8 @@ public class OWLOntologyManagerImpl
         writeLock.lock();
         try {
             IRI iri = declaration.getIRI();
-            if (!configuration.isImportIgnored(iri) && !importedIRIs.containsKey(iri)) {
+            if (!configuration.shouldDisableImportsLoading() && !configuration.isImportIgnored(iri)
+                && !importedIRIs.containsKey(iri)) {
                 // insert temporary value - we do not know the actual ID yet
                 importedIRIs.put(iri, new Object());
                 try {

@@ -109,11 +109,16 @@ public enum ConfigurationOptions {
     /** Authorization
      * header Value. */
     AUTHORIZATION_VALUE                 (""),
-    /**True if ontologies should
+    /** True if ontologies should
      * be trimmed to size after load.
      * If set to false, trim will
      * only happen on explicit call.*/
-    TRIM_TO_SIZE                        (Boolean.TRUE);
+    TRIM_TO_SIZE                        (Boolean.TRUE),
+    /** True if imports should not 
+     * automatically be loaded, 
+     * false otherwise. By default 
+     * imports are always loaded. */
+    DISABLE_IMPORTS_LOADING             (Boolean.FALSE);
     //@formatter:on
     private static final String PREFIX =
         "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";

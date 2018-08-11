@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.AUTHO
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNED_PARSERS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNERS_ENABLED;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.CONNECTION_TIMEOUT;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.DISABLE_IMPORTS_LOADING;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ENTITY_EXPANSION_LIMIT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.INDENTING;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.INDENT_SIZE;
@@ -473,6 +474,24 @@ public class OntologyConfigurator implements Serializable {
      */
     public OntologyConfigurator withTrimToSize(boolean b) {
         overrides.put(TRIM_TO_SIZE, Boolean.valueOf(b));
+        return this;
+    }
+
+    /**
+     * @return True if imports should not automatically be loaded, false otherwise. By default
+     *         imports are always loaded.
+     */
+    public boolean shouldDisableImportsLoading() {
+        return DISABLE_IMPORTS_LOADING.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @param b if imports should not automatically be loaded
+     * @return A {@code OWLOntologyLoaderConfiguration} with the disable imports loading flag set to
+     *         the new value.
+     */
+    public OntologyConfigurator withDisableImportsLoading(boolean b) {
+        overrides.put(DISABLE_IMPORTS_LOADING, Boolean.valueOf(b));
         return this;
     }
 }
