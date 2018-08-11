@@ -38,14 +38,12 @@ import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc", "null"})
-public class OWL2DatatypeImplTestCase extends TestBase {
+@SuppressWarnings("javadoc")
+public class OWL2DatatypeTestCase extends TestBase {
 
     private OWLDatatype plainLiteral;
 
@@ -255,7 +253,7 @@ public class OWL2DatatypeImplTestCase extends TestBase {
     public void contains() {
         IRI iri = XSD_BYTE.getIRI();
         Set<OWLDatatype> datatypes = new HashSet<>();
-        OWLDatatypeImpl dtImpl = new OWLDatatypeImpl(iri);
+        OWLDatatype dtImpl = df.getOWLDatatype(iri);
         OWLDatatype dt2Impl = XSD_BYTE.getDatatype(df);
         assertEquals(dtImpl, dt2Impl);
         datatypes.add(dt2Impl);

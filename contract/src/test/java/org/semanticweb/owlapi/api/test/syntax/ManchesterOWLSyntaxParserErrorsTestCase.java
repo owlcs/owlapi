@@ -13,19 +13,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
  * Some tests that ensure the correct token and token position are returned when errors are
@@ -36,7 +34,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  */
 @SuppressWarnings({"javadoc", "null"})
 @RunWith(MockitoJUnitRunner.class)
-public class ManchesterOWLSyntaxParserErrorsTestCase {
+public class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
 
     @Mock
     protected @Nonnull OWLEntityChecker entityChecker;
@@ -44,7 +42,6 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
 
     @Before
     public void setUp() {
-        OWLDataFactory dataFactory = new OWLDataFactoryImpl();
         OWLClass cls = mock(OWLClass.class);
         when(entityChecker.getOWLClass("C")).thenReturn(cls);
         OWLClass clsC1 = mock(OWLClass.class);
@@ -55,7 +52,7 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
         when(entityChecker.getOWLAnnotationProperty("aP"))
             .thenReturn(mock(OWLAnnotationProperty.class));
         when(entityChecker.getOWLAnnotationProperty("rdfs:comment"))
-            .thenReturn(dataFactory.getRDFSComment());
+            .thenReturn(df.getRDFSComment());
         OWLNamedIndividual ind = mock(OWLNamedIndividual.class);
         when(entityChecker.getOWLIndividual("ind")).thenReturn(ind);
         parser = new ParserWrapper();

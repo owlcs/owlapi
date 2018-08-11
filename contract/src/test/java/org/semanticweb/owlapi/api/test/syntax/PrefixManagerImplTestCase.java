@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class DefaultPrefixManagerTestCase extends TestBase {
+public class PrefixManagerImplTestCase extends TestBase {
 
     @Test
     public void getPrefixIRIEmpty() {

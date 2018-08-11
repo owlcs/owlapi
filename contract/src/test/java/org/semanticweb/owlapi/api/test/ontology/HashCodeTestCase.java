@@ -23,19 +23,13 @@ import java.util.Set;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplBoolean;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplDouble;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplFloat;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplInteger;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
@@ -46,10 +40,10 @@ public class HashCodeTestCase extends TestBase {
 
     @Test
     public void testSetContainsInt() {
-        OWLDatatypeImpl datatype = new OWLDatatypeImpl(OWL2Datatype.XSD_INTEGER.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImpl("3", null, datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImpl("3", null, datatype);
-        OWLLiteral litIntImpl = new OWLLiteralImplInteger(3);
+        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
+        OWLLiteral litNoComp = df.getOWLLiteral("3", datatype);
+        OWLLiteral litNoComp2 = df.getOWLLiteral("3", datatype);
+        OWLLiteral litIntImpl = df.getOWLLiteral(3);
         assertEquals(litNoComp, litIntImpl);
         assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
@@ -61,10 +55,10 @@ public class HashCodeTestCase extends TestBase {
 
     @Test
     public void testSetContainsDouble() {
-        OWLDatatypeImpl datatype = new OWLDatatypeImpl(OWL2Datatype.XSD_DOUBLE.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImpl("3.0", null, datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImpl("3.0", null, datatype);
-        OWLLiteral litIntImpl = new OWLLiteralImplDouble(3.0D);
+        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_DOUBLE.getIRI());
+        OWLLiteral litNoComp = df.getOWLLiteral("3.0", datatype);
+        OWLLiteral litNoComp2 = df.getOWLLiteral("3.0", datatype);
+        OWLLiteral litIntImpl = df.getOWLLiteral(3.0D);
         assertEquals(litNoComp, litIntImpl);
         assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
@@ -76,10 +70,10 @@ public class HashCodeTestCase extends TestBase {
 
     @Test
     public void testSetContainsFloat() {
-        OWLDatatypeImpl datatype = new OWLDatatypeImpl(OWL2Datatype.XSD_FLOAT.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImpl("3.0", null, datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImpl("3.0", null, datatype);
-        OWLLiteral litIntImpl = new OWLLiteralImplFloat(3.0F);
+        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_FLOAT.getIRI());
+        OWLLiteral litNoComp = df.getOWLLiteral("3.0", datatype);
+        OWLLiteral litNoComp2 = df.getOWLLiteral("3.0", datatype);
+        OWLLiteral litIntImpl = df.getOWLLiteral(3.0F);
         assertEquals(litNoComp, litIntImpl);
         assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
@@ -91,10 +85,10 @@ public class HashCodeTestCase extends TestBase {
 
     @Test
     public void testSetContainsBoolean() {
-        OWLDatatypeImpl datatype = new OWLDatatypeImpl(OWL2Datatype.XSD_BOOLEAN.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImpl("true", null, datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImpl("true", null, datatype);
-        OWLLiteral litIntImpl = new OWLLiteralImplBoolean(true);
+        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_BOOLEAN.getIRI());
+        OWLLiteral litNoComp = df.getOWLLiteral("true", datatype);
+        OWLLiteral litNoComp2 = df.getOWLLiteral("true", datatype);
+        OWLLiteral litIntImpl = df.getOWLLiteral(true);
         assertEquals(litNoComp, litIntImpl);
         assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());

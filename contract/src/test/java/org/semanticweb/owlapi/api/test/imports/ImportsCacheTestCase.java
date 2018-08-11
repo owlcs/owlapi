@@ -8,9 +8,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10 Jul 16
@@ -21,14 +20,14 @@ public class ImportsCacheTestCase extends TestBase {
     private OWLOntology ontA;
     private OWLOntology ontB;
     private IRI ontBDocIri;
-    private OWLImportsDeclarationImpl ontBDocumentIriImportsDeclaration;
+    private OWLImportsDeclaration ontBDocumentIriImportsDeclaration;
 
     @Before
     public void setUpOntologies() throws Exception {
         ontA = m.createOntology(df.getIRI("http://ont.com/ontA"));
         ontB = m.createOntology(df.getIRI("http://ont.com/ontB"));
         ontBDocIri = df.getIRI("http://docs.ont.com/ontB");
-        ontBDocumentIriImportsDeclaration = new OWLImportsDeclarationImpl(ontBDocIri);
+        ontBDocumentIriImportsDeclaration = df.getOWLImportsDeclaration(ontBDocIri);
     }
 
     /**

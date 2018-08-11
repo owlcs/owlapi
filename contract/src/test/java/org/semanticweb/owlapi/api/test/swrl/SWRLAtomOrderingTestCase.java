@@ -19,8 +19,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.SWRLAtom;
-
-import uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl;
+import org.semanticweb.owlapi.model.SWRLRule;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
@@ -34,7 +33,7 @@ public class SWRLAtomOrderingTestCase extends TestBase {
     protected SWRLAtom atomB;
     protected SWRLAtom atomC;
     protected SWRLAtom atomD;
-    private SWRLRuleImpl rule;
+    private SWRLRule rule;
     private final Set<SWRLAtom> body = new LinkedHashSet<>();
 
     @Before
@@ -53,7 +52,7 @@ public class SWRLAtomOrderingTestCase extends TestBase {
         body.add(atomA);
         Set<SWRLAtom> head = new LinkedHashSet<>();
         head.add(atomD);
-        rule = new SWRLRuleImpl(body, head, Collections.<OWLAnnotation>emptySet());
+        rule = df.getSWRLRule(body, head, Collections.<OWLAnnotation>emptySet());
     }
 
     @Test
