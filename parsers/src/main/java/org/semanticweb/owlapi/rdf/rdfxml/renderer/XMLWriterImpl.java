@@ -29,11 +29,11 @@ import java.util.Map;
 import javax.annotation.Nullable;
 import javax.xml.parsers.SAXParser;
 
-import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
+import org.semanticweb.owlapi.utilities.XMLUtils;
 import org.semanticweb.owlapi.utility.SAXParsers;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

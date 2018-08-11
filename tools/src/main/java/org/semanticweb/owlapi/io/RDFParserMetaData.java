@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import org.apache.commons.rdf.api.Triple;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -32,7 +33,7 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializabl
 
     private final int tripleCount;
     private final RDFOntologyHeaderStatus headerStatus;
-    private final Set<RDFTriple> unparsedTriples;
+    private final List<Triple> unparsedTriples;
     private final Map<IRI, List<Class<?>>> guessedDeclarations;
     // TODO make something of these
     private final Set<RDFResourceParseError> errors = new HashSet<>();
@@ -44,7 +45,7 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializabl
      * @param guessedDeclarations guessed declarations map
      */
     public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount,
-        Set<RDFTriple> unparsedTriples, Map<IRI, List<Class<?>>> guessedDeclarations) {
+        List<Triple> unparsedTriples, Map<IRI, List<Class<?>>> guessedDeclarations) {
         this.tripleCount = tripleCount;
         this.headerStatus = checkNotNull(headerStatus, "headerStatus cannot be null");
         this.unparsedTriples = checkNotNull(unparsedTriples, "unparsedTriples cannot be null");
@@ -63,7 +64,7 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializabl
     }
 
     @Override
-    public Stream<RDFTriple> getUnparsedTriples() {
+    public Stream<Triple> getUnparsedTriples() {
         return unparsedTriples.stream();
     }
 

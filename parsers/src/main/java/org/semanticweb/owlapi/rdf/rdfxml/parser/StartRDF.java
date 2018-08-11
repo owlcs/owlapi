@@ -47,8 +47,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.utilities.XMLUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;

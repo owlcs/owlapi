@@ -2,13 +2,14 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.rdf.api.Triple;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
@@ -175,8 +176,8 @@ class TripleIndex {
         return resource(mainNode, p, false) != null;
     }
 
-    protected Set<RDFTriple> getRemainingTriples(Predicate<IRI> anon) {
-        Set<RDFTriple> remaining = new HashSet<>();
+    protected List<Triple> getRemainingTriples(Predicate<IRI> anon) {
+        List<Triple> remaining = new ArrayList<>();
         resTriples.iterate((s, p, o) -> remaining
             .add(new RDFTriple(s, anon.test(s), isAxiom(s), p, o, anon.test(o), isAxiom(o))));
         litTriples

@@ -13,9 +13,11 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.commons.rdf.api.RDFTerm;
+import org.apache.commons.rdf.api.Triple;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
@@ -31,16 +33,16 @@ import org.semanticweb.owlapi.model.OWLEntity;
 public class RDFResourceParseError implements Serializable {
 
     private final OWLEntity parserGeneratedErrorEntity;
-    private final RDFNode mainNode;
-    private final Set<RDFTriple> mainNodeTriples = new HashSet<>();
+    private final RDFTerm mainNode;
+    private final List<Triple> mainNodeTriples = new ArrayList<>();
 
     /**
      * @param parserGeneratedErrorEntity the error entity
      * @param mainNode the main node
      * @param mainNodeTriples the main node triples
      */
-    public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity, RDFNode mainNode,
-        Set<RDFTriple> mainNodeTriples) {
+    public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity, RDFTerm mainNode,
+        List<Triple> mainNodeTriples) {
         this.parserGeneratedErrorEntity = parserGeneratedErrorEntity;
         this.mainNode = mainNode;
         this.mainNodeTriples.addAll(mainNodeTriples);
@@ -56,14 +58,14 @@ public class RDFResourceParseError implements Serializable {
     /**
      * @return the main node
      */
-    public RDFNode getMainNode() {
+    public RDFTerm getMainNode() {
         return mainNode;
     }
 
     /**
      * @return the main node triples
      */
-    public Set<RDFTriple> getMainNodeTriples() {
+    public List<Triple> getMainNodeTriples() {
         return mainNodeTriples;
     }
 }

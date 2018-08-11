@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.utilities.XMLUtils;
 
 /**
  * Represents the Node ID for anonymous individuals.

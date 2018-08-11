@@ -20,8 +20,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.utilities.XMLUtils;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group

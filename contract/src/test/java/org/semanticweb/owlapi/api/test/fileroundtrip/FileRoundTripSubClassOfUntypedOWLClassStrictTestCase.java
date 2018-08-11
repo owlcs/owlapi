@@ -17,9 +17,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.stream.Stream;
 
+import org.apache.commons.rdf.api.Triple;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -48,7 +48,7 @@ public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase
         OWLDocumentFormat format = ont.getFormat();
         assertTrue(format instanceof RDFXMLDocumentFormat);
         assertTrue(documentSource.getOntologyLoaderMetaData().isPresent());
-        Stream<RDFTriple> triples =
+        Stream<Triple> triples =
             documentSource.getOntologyLoaderMetaData().get().getUnparsedTriples();
         assertEquals(1, triples.count());
     }

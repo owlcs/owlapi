@@ -18,7 +18,7 @@ import java.net.URI;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.utilities.XMLUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 

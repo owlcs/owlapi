@@ -15,8 +15,8 @@ package org.semanticweb.owlapi.io;
 import java.io.Serializable;
 import java.util.function.Supplier;
 
+import org.semanticweb.owlapi.model.HasSupportedFormat;
 import org.semanticweb.owlapi.model.MIMETypeAware;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * An object that can create an {@code OWLParser}.
@@ -24,7 +24,8 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLParserFactory extends Serializable, Supplier<OWLParser>, MIMETypeAware {
+public interface OWLParserFactory
+    extends Serializable, Supplier<OWLParser>, MIMETypeAware, HasSupportedFormat {
 
     /**
      * Creates a parser.
@@ -33,8 +34,4 @@ public interface OWLParserFactory extends Serializable, Supplier<OWLParser>, MIM
      */
     OWLParser createParser();
 
-    /**
-     * @return The supported format for this parser.
-     */
-    OWLDocumentFormatFactory getSupportedFormat();
 }

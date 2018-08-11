@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.model.HasSupportedFormat;
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 
@@ -65,8 +65,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
 
     /**
      * @param c collection of elements to set. Existing elements will be removed, and the priority
-     * collection will be sorted according to the PriorityCollectionSorting value for the manager
-     * configuration.
+     *        collection will be sorted according to the PriorityCollectionSorting value for the
+     *        manager configuration.
      */
     public void set(Iterable<T> c) {
         clear();
@@ -75,8 +75,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
 
     /**
      * @param c collection of elements to set. Existing elements will be removed, and the priority
-     * collection will be sorted according to the PriorityCollectionSorting value for the manager
-     * configuration.
+     *        collection will be sorted according to the PriorityCollectionSorting value for the
+     *        manager configuration.
      */
     public void set(Set<T> c) {
         clear();
@@ -210,8 +210,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
         // will be ordered as in this PriorityCollection
         for (T t : delegate) {
             // if the instance has formats associated
-            if (t instanceof OWLParserFactory) {
-                OWLParserFactory mimeTypeAware = (OWLParserFactory) t;
+            if (t instanceof HasSupportedFormat) {
+                HasSupportedFormat mimeTypeAware = (HasSupportedFormat) t;
                 if (mimeTypeAware.getSupportedFormat().getKey().equals(formatKey)) {
                     pc.add(t);
                 }

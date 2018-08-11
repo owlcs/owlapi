@@ -53,7 +53,6 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
 
-import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
@@ -157,6 +156,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.providers.ClassProvider;
+import org.semanticweb.owlapi.utilities.XMLUtils;
 import org.semanticweb.owlapi.utility.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;

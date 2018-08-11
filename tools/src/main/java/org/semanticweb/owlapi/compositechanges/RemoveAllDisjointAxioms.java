@@ -10,56 +10,41 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.change;
+package org.semanticweb.owlapi.compositechanges;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
+ * Given a set of ontologies, this composite change will remove all disjoint classes axioms from
+ * these ontologies.
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
-public abstract class AbstractCompositeOntologyChange implements OWLCompositeOntologyChange {
-
-    protected final OWLDataFactory df;
-
-    private final List<OWLOntologyChange> changes = new ArrayList<>();
+public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
 
     /**
-     * Instantiates a new abstract composite ontology change.
+     * Instantiates a new removes the all disjoint axioms.
      *
-     * @param dataFactory the data factory
+     * @param dataFactory factory to use
+     * @param ontologies ontologies to change
      */
-    protected AbstractCompositeOntologyChange(OWLDataFactory dataFactory) {
-        df = checkNotNull(dataFactory, "dataFactory cannot be null");
+    public RemoveAllDisjointAxioms(OWLDataFactory dataFactory, Collection<OWLOntology> ontologies) {
+        super(dataFactory);
+        generateChanges(checkNotNull(ontologies, "ontologies cannot be null"));
     }
 
-    /**
-     * Adds the change.
-     *
-     * @param change the change
-     */
-    protected void addChange(OWLOntologyChange change) {
-        changes.add(change);
-    }
-
-    /**
-     * Adds the changes.
-     *
-     * @param c the changes
-     */
-    protected void addChanges(Collection<OWLOntologyChange> c) {
-        changes.addAll(c);
-    }
-
-    @Override
-    public List<OWLOntologyChange> getChanges() {
-        return changes;
+    private void generateChanges(Collection<OWLOntology> ontologies) {
+        for (OWLOntology ont : ontologies) {
+            ont.axioms(AxiomType.DISJOINT_CLASSES)
+                .forEach(ax -> addChange(new RemoveAxiom(ont, ax)));
+        }
     }
 }

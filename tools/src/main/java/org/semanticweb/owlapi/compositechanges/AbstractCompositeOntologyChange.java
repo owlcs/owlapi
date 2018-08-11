@@ -10,28 +10,56 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.change;
+package org.semanticweb.owlapi.compositechanges;
 
-import java.io.Serializable;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
- * A composite ontology change encapsulates a list of ontology changes, which should be applied as a
- * logical unit.
- *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
-@FunctionalInterface
-public interface OWLCompositeOntologyChange extends Serializable {
+public abstract class AbstractCompositeOntologyChange implements OWLCompositeOntologyChange {
+
+    protected final OWLDataFactory df;
+
+    private final List<OWLOntologyChange> changes = new ArrayList<>();
 
     /**
-     * Gets the changes which compose this composite change. Once this method has been invoked, it
-     * will always return the same list of changes.
+     * Instantiates a new abstract composite ontology change.
      *
-     * @return A list of ontology changes.
+     * @param dataFactory the data factory
      */
-    List<OWLOntologyChange> getChanges();
+    protected AbstractCompositeOntologyChange(OWLDataFactory dataFactory) {
+        df = checkNotNull(dataFactory, "dataFactory cannot be null");
+    }
+
+    /**
+     * Adds the change.
+     *
+     * @param change the change
+     */
+    protected void addChange(OWLOntologyChange change) {
+        changes.add(change);
+    }
+
+    /**
+     * Adds the changes.
+     *
+     * @param c the changes
+     */
+    protected void addChanges(Collection<OWLOntologyChange> c) {
+        changes.addAll(c);
+    }
+
+    @Override
+    public List<OWLOntologyChange> getChanges() {
+        return changes;
+    }
 }

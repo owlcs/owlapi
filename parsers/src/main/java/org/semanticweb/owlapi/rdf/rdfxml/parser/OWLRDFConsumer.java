@@ -86,6 +86,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.rdf.api.Triple;
 import org.semanticweb.owlapi.formats.RDFDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserParameters;
@@ -536,8 +537,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         // streaming parsing
         tripleLogger.logNumberOfTriples();
         translatorAccessor.consumeSWRLRules(swrlPieces.swrlRules);
-        Set<RDFTriple> remainingTriples = mopUp();
-        setParserMetadata(remainingTriples);
+        setParserMetadata(mopUp());
         // Do we need to change the ontology IRI?
         chooseAndSetOntologyIRI();
         TripleLogger.logOntologyID(ont().getOntologyID());
@@ -547,7 +547,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         removeAxiomsScheduledForRemoval();
     }
 
-    protected void setParserMetadata(Set<RDFTriple> triples) {
+    protected void setParserMetadata(List<Triple> triples) {
         if (ontologyFormat != null) {
             RDFParserMetaData loaderMetaData =
                 new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER,
@@ -947,8 +947,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         return new RDFTriple(getRDFResource(s), new RDFResourceIRI(p), new RDFLiteral(o));
     }
 
-    private Set<RDFTriple> getTriplesForMainNode(IRI n, IRI... augmentingTypes) {
-        Set<RDFTriple> triples = createLinkedSet();
+    private List<Triple> getTriplesForMainNode(IRI n, IRI... augmentingTypes) {
+        List<Triple> triples = new ArrayList<>();
         tripleIndex.getPredicatesBySubject(n).forEach(p -> {
             tripleIndex.getResourceObjects(n, p).forEach(o -> triples.add(getRDFTriple(n, p, o)));
             tripleIndex.getLiteralObjects(n, p)
@@ -2194,7 +2194,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      *
      * @return any remaining triples
      */
-    private Set<RDFTriple> mopUp() {
+    private List<Triple> mopUp() {
         // We need to mop up all remaining triples. These triples will be in
         // the triples by subject map. Other triples which reside in the
         // triples by predicate (single valued) triple aren't "root" triples

@@ -10,46 +10,28 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.io;
+package org.semanticweb.owlapi.compositechanges;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 
-import org.apache.commons.rdf.api.Triple;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
- * @since 3.1.0
+ * A composite ontology change encapsulates a list of ontology changes, which should be applied as a
+ * logical unit.
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @since 2.1.0
  */
-public interface OWLOntologyLoaderMetaData extends Serializable {
+@FunctionalInterface
+public interface OWLCompositeOntologyChange extends Serializable {
 
     /**
-     * Gets a count of the triples process during loading.
+     * Gets the changes which compose this composite change. Once this method has been invoked, it
+     * will always return the same list of changes.
      *
-     * @return The number of triples process during loading.
+     * @return A list of ontology changes.
      */
-    int getTripleCount();
-
-    /**
-     * @return the header status
-     */
-    RDFOntologyHeaderStatus getHeaderState();
-
-    /**
-     * @return the set of unparsed triples, as a copy
-     */
-    Stream<Triple> getUnparsedTriples();
-
-    /**
-     * @return the guessed declarations, i.e., those not parsed from explicit declaration axioms
-     */
-    Map<IRI, List<Class<?>>> getGuessedDeclarations();
-
-    /**
-     * @param error error to add to the error set
-     */
-    void addError(RDFResourceParseError error);
+    List<OWLOntologyChange> getChanges();
 }

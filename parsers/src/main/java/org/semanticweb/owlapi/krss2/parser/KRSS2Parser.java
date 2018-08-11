@@ -5,7 +5,7 @@ package org.semanticweb.owlapi.krss2.parser;
 import java.net.URISyntaxException;
 import java.util.*;
 
-import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.utilities.XMLUtils;
 import org.semanticweb.owlapi.krss1.parser.NameResolverStrategy;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
