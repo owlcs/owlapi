@@ -14,11 +14,9 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
@@ -35,97 +33,104 @@ public class DLExpressivityCheckerTestCase extends TestBase {
 
     private final OWLAxiom object;
     private final String expected;
+    private String expectedStrict;
 
-    public DLExpressivityCheckerTestCase(OWLAxiom object, String expected) {
+    public DLExpressivityCheckerTestCase(OWLAxiom object, String expected, String expectedStrict) {
         this.object = object;
         this.expected = expected;
+        this.expectedStrict = expectedStrict;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{index} {1} {0}")
     public static Collection<Object[]> getData() {
         Builder b = new Builder();
-        Map<OWLAxiom, String> map = new LinkedHashMap<>();
-        map.put(b.dRange(), "AL(D)");
-        map.put(b.dDef(), "AL");
-        map.put(b.decC(), "AL");
-        map.put(b.decOp(), "AL");
-        map.put(b.decDp(), "AL");
-        map.put(b.decDt(), "AL");
-        map.put(b.decAp(), "AL");
-        map.put(b.decI(), "AL");
-        map.put(b.assDi(), "ALCO");
-        map.put(b.dc(), "ALC");
-        map.put(b.dDp(), "AL(D)");
-        map.put(b.dOp(), "ALR");
-        map.put(b.du(), "ALC");
-        map.put(b.ec(), "AL");
-        map.put(b.eDp(), "ALH(D)");
-        map.put(b.eOp(), "ALH");
-        map.put(b.fdp(), "ALF(D)");
-        map.put(b.fop(), "ALF");
-        map.put(b.ifp(), "ALIF");
-        map.put(b.iop(), "ALI");
-        map.put(b.irr(), "ALR");
-        map.put(b.ndp(), "AL(D)");
-        map.put(b.nop(), "AL");
-        map.put(b.opa(), "AL");
-        map.put(b.opaInv(), "ALI");
-        map.put(b.opaInvj(), "ALI");
-        map.put(b.oDom(), "AL");
-        map.put(b.oRange(), "AL");
-        map.put(b.chain(), "ALR");
-        map.put(b.ref(), "ALR");
-        map.put(b.same(), "ALO");
-        map.put(b.subAnn(), "AL");
-        map.put(b.subClass(), "AL");
-        map.put(b.subData(), "ALH(D)");
-        map.put(b.subObject(), "ALH");
-        map.put(b.rule(), "AL");
-        map.put(b.symm(), "ALI");
-        map.put(b.trans(), "AL+");
-        map.put(b.hasKey(), "AL");
-        map.put(b.bigRule(), "AL");
-        map.put(b.ann(), "AL");
-        map.put(b.asymm(), "ALR");
-        map.put(b.annDom(), "AL");
-        map.put(b.annRange(), "AL");
-        map.put(b.ass(), "AL");
-        map.put(b.assAnd(), "AL");
-        map.put(b.assOr(), "ALU");
-        map.put(b.dRangeAnd(), "AL(D)");
-        map.put(b.dRangeOr(), "AL(D)");
-        map.put(b.assNot(), "ALC");
-        map.put(b.assNotAnon(), "ALC");
-        map.put(b.assSome(), "ALE");
-        map.put(b.assAll(), "AL");
-        map.put(b.assHas(), "ALEO");
-        map.put(b.assMin(), "ALQ");
-        map.put(b.assMax(), "ALQ");
-        map.put(b.assEq(), "ALQ");
-        map.put(b.assHasSelf(), "ALR");
-        map.put(b.assOneOf(), "ALUO");
-        map.put(b.assDSome(), "ALE(D)");
-        map.put(b.assDAll(), "AL(D)");
-        map.put(b.assDHas(), "AL(D)");
-        map.put(b.assDMin(), "ALQ(D)");
-        map.put(b.assDMax(), "ALQ(D)");
-        map.put(b.assDEq(), "ALQ(D)");
-        map.put(b.dOneOf(), "AL(D)");
-        map.put(b.dNot(), "AL(D)");
-        map.put(b.dRangeRestrict(), "AL(D)");
-        map.put(b.assD(), "AL(D)");
-        map.put(b.assDPlain(), "AL(D)");
-        map.put(b.dDom(), "AL(D)");
-        Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
-        return toReturn;
+        return Arrays.asList(
+        //@formatter:off
+            new Object[] {b.dRange(),           "AL(D)",    "RRESTR(D)"},
+            new Object[] {b.dDef(),             "AL",       ""},
+            new Object[] {b.decC(),             "AL",       ""},
+            new Object[] {b.decOp(),            "AL",       ""},
+            new Object[] {b.decDp(),            "AL",       ""},
+            new Object[] {b.decDt(),            "AL",       ""},
+            new Object[] {b.decAp(),            "AL",       ""},
+            new Object[] {b.decI(),             "AL",       ""},
+            new Object[] {b.assDi(),            "ALCO",     "CUO"},
+            new Object[] {b.dc(),               "ALC",      "C"},
+            new Object[] {b.dDp(),              "AL(D)",    "(D)"},
+            new Object[] {b.dOp(),              "ALR",      "R"},
+            new Object[] {b.du(),               "ALC",      "CU"},
+            new Object[] {b.ec(),               "AL",       ""},
+            new Object[] {b.eDp(),              "ALH(D)",   "H(D)"},
+            new Object[] {b.eOp(),              "ALH",      "H"},
+            new Object[] {b.fdp(),              "ALF(D)",   "F(D)"},
+            new Object[] {b.fop(),              "ALF",      "F"},
+            new Object[] {b.ifp(),              "ALIF",     "IF"},
+            new Object[] {b.iop(),              "ALI",      "I"},
+            new Object[] {b.irr(),              "ALR",      "R"},
+            new Object[] {b.ndp(),              "AL(D)",    "(D)"},
+            new Object[] {b.nop(),              "AL",       ""},
+            new Object[] {b.opa(),              "AL",       ""},
+            new Object[] {b.opaInv(),           "ALI",      "I"},
+            new Object[] {b.opaInvj(),          "ALI",      "I"},
+            new Object[] {b.oDom(),             "AL",       "RRESTR"},
+            new Object[] {b.oRange(),           "AL",       "RRESTR"},
+            new Object[] {b.chain(),            "ALR",      "R"},
+            new Object[] {b.ref(),              "ALR",      "R"},
+            new Object[] {b.same(),             "ALO",      "O"},
+            new Object[] {b.subAnn(),           "AL",       ""},
+            new Object[] {b.subClass(),         "AL",       ""},
+            new Object[] {b.subData(),          "ALH(D)",   "H(D)"},
+            new Object[] {b.subObject(),        "ALH",      "H"},
+            new Object[] {b.rule(),             "AL",       ""},
+            new Object[] {b.symm(),             "ALI",      "I"},
+            new Object[] {b.trans(),            "AL+",      "+"},
+            new Object[] {b.hasKey(),           "AL",       ""},
+            new Object[] {b.bigRule(),          "AL",       ""},
+            new Object[] {b.ann(),              "AL",       ""},
+            new Object[] {b.asymm(),            "ALR",      "R"},
+            new Object[] {b.annDom(),           "AL",       ""},
+            new Object[] {b.annRange(),         "AL",       ""},
+            new Object[] {b.ass(),              "AL",       ""},
+            new Object[] {b.assAnd(),           "AL",       "CINT"},
+            new Object[] {b.assOr(),            "ALU",      "U"},
+            new Object[] {b.dRangeAnd(),        "AL(D)",    "RRESTR(D)"},
+            new Object[] {b.dRangeOr(),         "AL(D)",    "RRESTR(D)"},
+            new Object[] {b.assNot(),           "ALC",      "C"},
+            new Object[] {b.assNotAnon(),       "ALC",      "C"},
+            new Object[] {b.assSome(),          "ALE",      "E"},
+            new Object[] {b.assAll(),           "AL",       "UNIVRESTR"},
+            new Object[] {b.assHas(),           "ALEO",     "EO"},
+            new Object[] {b.assMin(),           "ALQ",      "Q"},
+            new Object[] {b.assMax(),           "ALQ",      "Q"},
+            new Object[] {b.assEq(),            "ALQ",      "Q"},
+            new Object[] {b.assHasSelf(),       "ALR",      "R"},
+            new Object[] {b.assOneOf(),         "ALUO",     "UO"},
+            new Object[] {b.assDSome(),         "ALE(D)",   "E(D)"},
+            new Object[] {b.assDAll(),          "AL(D)",    "(D)"},
+            new Object[] {b.assDHas(),          "AL(D)",    "(D)"},
+            new Object[] {b.assDMin(),          "ALQ(D)",   "Q(D)"},
+            new Object[] {b.assDMax(),          "ALQ(D)",   "Q(D)"},
+            new Object[] {b.assDEq(),           "ALQ(D)",   "Q(D)"},
+            new Object[] {b.dOneOf(),           "AL(D)",    "RRESTR(D)"},
+            new Object[] {b.dNot(),             "AL(D)",    "RRESTR(D)"},
+            new Object[] {b.dRangeRestrict(),   "AL(D)",    "RRESTR(D)"},
+            new Object[] {b.assD(),             "AL(D)",    "(D)"},
+            new Object[] {b.assDPlain(),        "AL(D)",    "(D)"},
+            new Object[] {b.dDom(),             "AL(D)",    "RRESTR(D)"}
+            );
+        //@formatter:on
     }
 
     @Test
     public void testAssertion() {
         DLExpressivityChecker testsubject = new DLExpressivityChecker(ont());
-        String result = testsubject.getDescriptionLogicName();
-        assertEquals(expected, result);
+        assertEquals(expected, testsubject.getDescriptionLogicName());
+        assertEquals(expectedStrict, testsubject.getDescriptionLogicName(false));
+        System.out.println(
+            "DLExpressivityCheckerTestCase.testAssertion() " + testsubject.getConstructs(false));
+        for (DLExpressivityChecker.Construct c : DLExpressivityChecker.Construct.values()) {
+            System.out.println(c + "\t" + testsubject.isBelow(c));
+        }
     }
 
     public Set<OWLOntology> ont() {
