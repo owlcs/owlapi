@@ -172,6 +172,8 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
          * <li>Universal restrictions</li>
          * <li>Limited existential quantification</li></ul>*/
         AL          ("AL",ATOMNEG, CINT, UNIVRESTR, LIMEXIST),
+        /**ALC language*/
+        ALC         ("ALC",ATOMNEG, CINT, UNIVRESTR, LIMEXIST, C),
         /** S - An abbreviation for ALC with transitive roles. */
         S           ("S", ATOMNEG, CINT, UNIVRESTR, LIMEXIST, C, TRAN),
         /** EL - Existential language, allows:
@@ -189,6 +191,13 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         Construct(String s, Construct... components) {
             this.s = s;
             this.components = components;
+        }
+
+        /**
+         * @return constructs occurring within this name. Plain constructs have no components.
+         */
+        public Construct[] components() {
+            return components;
         }
 
         @Override
@@ -219,9 +228,24 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     /**
      * @param c construct to check
+     * @return true if the matched constructs either exactly equal c or its components, or the
+     *         matched constructs exceed the next lower expressivity construct (i.e., the matched
+     *         constructs exceed the expressivity of all construct with lower expressivity than c.
+     */
+    public boolean isOnlyWithin(Construct c) {
+        for (Construct other : Construct.values()) {
+            if (other.ordinal() < c.ordinal() && other.components.length > 0 && isWithin(other)) {
+                return false;
+            }
+        }
+        return isWithin(c);
+    }
+
+    /**
+     * @param c construct to check
      * @return true if the input includes all matched constructs.
      */
-    public boolean isBelow(Construct c) {
+    public boolean isWithin(Construct c) {
         return asSet(Stream.of(c.components)).containsAll(constructs);
     }
 

@@ -126,10 +126,14 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         DLExpressivityChecker testsubject = new DLExpressivityChecker(ont());
         assertEquals(expected, testsubject.getDescriptionLogicName());
         assertEquals(expectedStrict, testsubject.getDescriptionLogicName(false));
-        System.out.println(
-            "DLExpressivityCheckerTestCase.testAssertion() " + testsubject.getConstructs(false));
         for (DLExpressivityChecker.Construct c : DLExpressivityChecker.Construct.values()) {
-            System.out.println(c + "\t" + testsubject.isBelow(c));
+            boolean below = testsubject.isWithin(c);
+            boolean exactly = testsubject.isOnlyWithin(c);
+            if (below && c.components().length > 0) {
+                System.out.println("DLExpressivityCheckerTestCase.testAssertion() "
+                    + testsubject.getConstructs(false));
+                System.out.println(c + "\twithin:\t" + below + "\texactly:\t" + exactly);
+            }
         }
     }
 
