@@ -313,8 +313,9 @@ public class OWLAPIOwl2Obo {
             new ArrayList<>(getOWLOntology().getAxioms(AxiomType.DECLARATION));
         axioms.sort(null);
         axioms.forEach(this::consume);
-        AxiomType.skipDeclarations()
-            .forEach(t -> getOWLOntology().getAxioms(t).forEach(this::consume));
+        AxiomType.skipDeclarations().flatMap(t -> getOWLOntology().getAxioms(t).stream())
+        .map(x->(OWLAxiom)x)
+            .forEach(this::consume);
         if (!untranslatableAxioms.isEmpty() && !discardUntranslatable) {
             try {
                 String axiomString = OwlStringTools.translate(untranslatableAxioms, manager);
