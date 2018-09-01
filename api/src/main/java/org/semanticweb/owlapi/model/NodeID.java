@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.io.XMLUtils;
  */
 public final class NodeID implements Comparable<NodeID>, Serializable {
 
-    private static final AtomicLong COUNTER = new AtomicLong();
+    private static final AtomicLong COUNTER = new AtomicLong(Integer.MAX_VALUE);
     private static final String NODE_ID_PREFIX = "genid";
     private static final String SHARED_NODE_ID_PREFIX = "genid-nodeid-";
     private static final String PREFIX = "_:";
