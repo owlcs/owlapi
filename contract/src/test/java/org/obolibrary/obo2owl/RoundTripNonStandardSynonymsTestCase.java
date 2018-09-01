@@ -3,7 +3,7 @@ package org.obolibrary.obo2owl;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")
-public class RoundTripNonStandardSynonyms extends RoundTripTest {
+public class RoundTripNonStandardSynonymsTestCase extends RoundTripTest {
 
     @Test
     public void test() throws Exception {

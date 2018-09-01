@@ -14,7 +14,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings({ "javadoc", "null" })
-public class RoundTripCardinalityTest extends RoundTripTest {
+public class RoundTripCardinalityTestCase extends RoundTripTest {
 
     @Test
     public void testRoundTripCardinality() throws Exception {

@@ -3,7 +3,7 @@ package org.obolibrary.obo2owl;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")
-public class RoundTripRelationshipVsProperty extends RoundTripTest {
+public class RoundTripRelationshipVsPropertyTestCase extends RoundTripTest {
 
     @Test
     public void roundTripRelationshipVsProperty() throws Exception {

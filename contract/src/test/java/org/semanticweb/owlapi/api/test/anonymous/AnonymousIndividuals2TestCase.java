@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  *         Informatics Group
  * @since 3.1.0
  */
-public class AnonymousIndividualsTestCase2 extends
+public class AnonymousIndividuals2TestCase extends
         AbstractAxiomsRoundTrippingTestCase {
 
     @Nonnull

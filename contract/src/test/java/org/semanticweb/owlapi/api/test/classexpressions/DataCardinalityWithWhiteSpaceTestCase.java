@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTest
  *         Informatics Group
  * @since 3.1.0
  */
-public class DataCardinalityWithWhiteSpace extends
+public class DataCardinalityWithWhiteSpaceTestCase extends
         AbstractFileRoundTrippingTestCase {
 
     @Nonnull

@@ -16,7 +16,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import com.google.common.base.Optional;
 
 @SuppressWarnings("javadoc")
-public class RoundTripAltIds extends RoundTripTest {
+public class RoundTripAltIdsTestCase extends RoundTripTest {
 
     @Test
     public void testAltIds() throws Exception {

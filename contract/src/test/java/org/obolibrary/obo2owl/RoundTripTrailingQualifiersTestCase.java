@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.obolibrary.oboformat.TrailingQualifierTest;
 
 @SuppressWarnings("javadoc")
-public class RoundTripTrailingQualifiers extends RoundTripTest {
+public class RoundTripTrailingQualifiersTestCase extends RoundTripTest {
 
     /**
      * Round trip trailing qualifiers via obo2owl and owl2obo. Uses a slightly

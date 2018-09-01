@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 @SuppressWarnings("javadoc")
-public class RoundTripOboAnnotations extends RoundTripTest {
+public class RoundTripOboAnnotationsTestCase extends RoundTripTest {
 
     @Test
     public void testIsInferredAnnotation() throws Exception {

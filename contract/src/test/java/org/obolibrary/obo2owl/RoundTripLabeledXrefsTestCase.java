@@ -10,7 +10,7 @@ import org.obolibrary.oboformat.diff.OBODocDiffer;
 import org.obolibrary.oboformat.model.OBODoc;
 
 @SuppressWarnings("javadoc")
-public class RoundTripLabeledXrefsTest extends RoundTripTest {
+public class RoundTripLabeledXrefsTestCase extends RoundTripTest {
 
     @Test
     public void testRoundTrip() throws Exception {

@@ -10,28 +10,38 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.objectproperties;
+package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.OWLOntology;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
+ * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 2.2.0
+ * @since 3.0.0
  */
-public class InversePropertiesAxiomTestCase2 extends
-        AbstractRoundTrippingTestCase {
+public class DataUnionOf2TestCase extends AbstractAxiomsRoundTrippingTestCase {
 
+    @Nonnull
     @Override
-    protected OWLOntology createOntology() {
-        OWLOntology ont = getOWLOntology("ont");
-        ont.getOWLOntologyManager().addAxiom(
-                ont,
-                InverseObjectProperties(ObjectProperty(iri("q")),
-                        ObjectProperty(iri("p"))));
-        return ont;
+    protected Set<? extends OWLAxiom> createAxioms() {
+        OWLDatatype dt = Datatype(IRI("file:/c/test.owlapi#SSN"));
+        OWLFacetRestriction fr = FacetRestriction(OWLFacet.PATTERN, Literal("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
+        OWLDataRange dr = DatatypeRestriction(Datatype(IRI("http://www.w3.org/2001/XMLSchema#string")), fr);
+        OWLDataIntersectionOf disj1 = DataIntersectionOf(DataComplementOf(dr), dt);
+        // here I negate dr
+        OWLDataIntersectionOf disj2 = DataIntersectionOf(DataComplementOf(dt), dr);
+        // here I negate dt
+        OWLDataUnionOf union = DataUnionOf(disj1, disj2);
+        OWLDataProperty prop = DataProperty(iri("prop"));
+        OWLDataPropertyRangeAxiom ax = DataPropertyRange(prop, union);
+        return singleton(ax);
     }
 }

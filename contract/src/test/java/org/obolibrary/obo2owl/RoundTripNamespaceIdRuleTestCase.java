@@ -10,7 +10,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
-public class RoundTripNamespaceIdRule extends RoundTripTest {
+public class RoundTripNamespaceIdRuleTestCase extends RoundTripTest {
 
     @Test
     public void testWrite() throws Exception {
