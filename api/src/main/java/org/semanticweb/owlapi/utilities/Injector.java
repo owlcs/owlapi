@@ -254,17 +254,14 @@ public class Injector {
         return i.getImplementation(c, qualifiers);
     }
 
-    protected ClassLoader classLoader() {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        if (loader == null) {
-            // in OSGi, the context class loader is likely null.
-            // This would trigger the use of the system class loader, which would
-            // not see the OWLAPI jar, nor any other jar containing implementations.
-            // In that case, use this class classloader to load, at a minimum, the
-            // services provided by the OWLAPI jar itself.
-            loader = getClass().getClassLoader();
-        }
-        return loader;
+    protected List<ClassLoader> classLoaders() {
+        // in OSGi, the context class loader is likely null.
+        // This would trigger the use of the system class loader, which would
+        // not see the OWLAPI jar, nor any other jar containing implementations.
+        // In that case, use this class classloader to load, at a minimum, the
+        // services provided by the OWLAPI jar itself.
+        return Arrays.asList(Thread.currentThread().getContextClassLoader(),
+            ClassLoader.getSystemClassLoader(), getClass().getClassLoader());
     }
 
     /**
@@ -363,9 +360,15 @@ public class Injector {
     private Stream<URL> urls(String name) {
         List<URL> l = new ArrayList<>();
         try {
-            Enumeration<URL> resources = classLoader().getResources(name);
-            while (resources.hasMoreElements()) {
-                l.add(resources.nextElement());
+            for (ClassLoader cl : classLoaders()) {
+                if (cl != null) {
+                    Enumeration<URL> resources = cl.getResources(name);
+                    while (resources.hasMoreElements()) {
+                        URL e = resources.nextElement();
+                        l.add(e);
+                        LOGGER.info("Loading URL for service {}", e);
+                    }
+                }
             }
             if (l.isEmpty()) {
                 LOGGER.warn("No files found for {}", name);

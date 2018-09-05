@@ -65,7 +65,7 @@
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-rdf</artifactId><version>0.7</version></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.apache.felix.framework</artifactId><version>5.6.10</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.osgi.core</artifactId><version>1.4.0</version><scope>test</scope></dependency>
-		<!-- Required to allow guice to work as a bundle -->
+		<dependency><groupId>javax.inject</groupId><artifactId>javax.inject</artifactId><version>1</version></dependency>
 		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId><version>1.7.22</version><scope>test</scope></dependency>
 	</dependencies>
 
@@ -88,7 +88,6 @@
 							groupId=${project.groupId};inline=true;scope=compile|runtime|provided,
 							groupId=com.fasterxml.jackson.core;scope=compile|runtime|provided;inline=false,
 							jsonld-java*;scope=compile|runtime|provided;inline=false,
-							groupId=javax.inject;scope=compile|runtime|provided;inline=false,
 							groupId=com.github.vsonnier;scope=compile|runtime|provided;inline=false,
 							groupId=org.apache.httpcomponents;scope=compile|runtime|provided;inline=false,
 							groupId=org.openrdf.sesame;scope=compile|runtime|provided;inline=false,
@@ -134,7 +133,7 @@
 							com.google.common.collect;version="[18.0,22)",
 							com.google.common.io;version="[18.0,22)",
 							com.google.common.util.concurrent;version="[18.0,22)",
-							!javax.inject;version="[1.0,2)",
+							javax.inject;version="[1.0,2)",
 							javax.annotation;version=!,
 							*
 						</Import-Package>
