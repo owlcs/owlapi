@@ -181,7 +181,7 @@ public class Injector {
      * @return input object with all methods annotated with @Inject having been set with instances.
      */
     public <T> T inject(T t) {
-        LOGGER.info("Injecting object {}", t);
+        LOGGER.debug("Injecting object {}", t);
         List<Method> methodsToInject = new ArrayList<>();
         Class<?> c = t.getClass();
         while (c != null) {
@@ -209,8 +209,8 @@ public class Injector {
                 }
             }
             try {
-                if (LOGGER.isInfoEnabled()) {
-                    LOGGER.info("Injecting values {} on method {}.", Arrays.toString(args), m);
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("Injecting values {} on method {}.", Arrays.toString(args), m);
                 }
                 m.invoke(t, args);
             } catch (IllegalAccessException | IllegalArgumentException
@@ -286,7 +286,7 @@ public class Injector {
             return cached.stream().map(s -> instantiate(s, key)).map(type::cast);
         }
         String name = "META-INF/services/" + type.getName();
-        LOGGER.info("Loading file {}", name);
+        LOGGER.debug("Loading file {}", name);
         // J2EE compatible search
         return urls(name).flatMap(this::entries).distinct()
             .map(s -> (Class<T>) prepareClass(s, key)).map(s -> instantiate(s, key));
@@ -366,12 +366,12 @@ public class Injector {
                     while (resources.hasMoreElements()) {
                         URL e = resources.nextElement();
                         l.add(e);
-                        LOGGER.info("Loading URL for service {}", e);
+                        LOGGER.debug("Loading URL for service {}", e);
                     }
                 }
             }
             if (l.isEmpty()) {
-                LOGGER.warn("No files found for {}", name);
+                LOGGER.debug("No files found for {}", name);
             }
         } catch (IOException e) {
             LOGGER.error("Error accessing services files", e);
