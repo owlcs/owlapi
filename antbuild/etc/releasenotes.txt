@@ -1,3 +1,8 @@
+4.5.6 06 Sep 2018
+
+Bug fixes:
+*    OSGi issues fixed
+
 4.5.5 02 Sep 2018
 Features:
 *    PROV and TIME vocabularies
