@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+		<version>9</version>
 	</parent>
 
 	<groupId>net.sourceforge.owlapi</groupId>
@@ -92,7 +92,7 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>2.18.3</version>
+			<version>2.20.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -103,7 +103,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>[19.0,22.0]</version>
+			<version>[18.0,22.0]</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
@@ -374,6 +374,7 @@
 					</execution>
 				</executions>
 				<configuration>
+				<ignores><ignore>com.sun.management.*</ignore></ignores>
 					<signature>
 						<groupId>org.codehaus.mojo.signature</groupId>
 						<artifactId>java18</artifactId>
@@ -460,7 +461,7 @@
 				<plugin>
 					<groupId>com.github.siom79.japicmp</groupId>
 					<artifactId>japicmp-maven-plugin</artifactId>
-					<version>0.10.0</version>
+					<version>0.12.0</version>
 					<configuration>
 						<oldVersion>
 							<dependency>
@@ -477,6 +478,10 @@
 						</newVersion>
 						<parameter>
 							<onlyModified>true</onlyModified>
+							<ignoreMissingClasses>true</ignoreMissingClasses>
+							<ignoreMissingClassesByRegularExpressions>
+						<ignoreMissingClassesByRegularExpression>javax.activation.*</ignoreMissingClassesByRegularExpression>
+					</ignoreMissingClassesByRegularExpressions>
 						</parameter>
 					</configuration>
 					<executions>

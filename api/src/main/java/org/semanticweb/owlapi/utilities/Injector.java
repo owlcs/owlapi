@@ -182,7 +182,7 @@ public class Injector {
      * @return input object with all methods annotated with @Inject having been set with instances.
      */
     public <T> T inject(T t) {
-        LOGGER.info("Injecting object {}", t);
+        LOGGER.debug("Injecting object {}", t);
         List<Method> methodsToInject = new ArrayList<>();
         Class<?> c = t.getClass();
         while (c != null) {
@@ -210,8 +210,8 @@ public class Injector {
                 }
             }
             try {
-                if (LOGGER.isInfoEnabled()) {
-                    LOGGER.info("Injecting values {} on method {}.", Arrays.toString(args), m);
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("Injecting values {} on method {}.", Arrays.toString(args), m);
                 }
                 m.invoke(t, args);
             } catch (IllegalAccessException | IllegalArgumentException
@@ -266,17 +266,14 @@ public class Injector {
         return i.getImplementation(c, qualifiers);
     }
 
-    protected ClassLoader classLoader() {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        if (loader == null) {
+    protected List<ClassLoader> classLoaders() {
             // in OSGi, the context class loader is likely null.
             // This would trigger the use of the system class loader, which would
             // not see the OWLAPI jar, nor any other jar containing implementations.
             // In that case, use this class classloader to load, at a minimum, the
             // services provided by the OWLAPI jar itself.
-            loader = getClass().getClassLoader();
-        }
-        return loader;
+        return Arrays.asList(Thread.currentThread().getContextClassLoader(),
+            ClassLoader.getSystemClassLoader(), getClass().getClassLoader());
     }
 
     /**
@@ -301,7 +298,7 @@ public class Injector {
             return cached.stream().map(s -> instantiate(s, key)).map(type::cast);
         }
         String name = "META-INF/services/" + type.getName();
-        LOGGER.info("Loading file {}", name);
+        LOGGER.debug("Loading file {}", name);
         // J2EE compatible search
         return urls(name).flatMap(this::entries).distinct()
             .map(s -> (Class<T>) prepareClass(s, key)).map(s -> instantiate(s, key));
@@ -375,12 +372,18 @@ public class Injector {
     private Stream<URL> urls(String name) {
         List<URL> l = new ArrayList<>();
         try {
-            Enumeration<URL> resources = classLoader().getResources(name);
+            for (ClassLoader cl : classLoaders()) {
+                if (cl != null) {
+                    Enumeration<URL> resources = cl.getResources(name);
             while (resources.hasMoreElements()) {
-                l.add(resources.nextElement());
+                        URL e = resources.nextElement();
+                        l.add(e);
+                        LOGGER.debug("Loading URL for service {}", e);
+                    }
+                }
             }
             if (l.isEmpty()) {
-                LOGGER.warn("No files found for {}", name);
+                LOGGER.debug("No files found for {}", name);
             }
         } catch (IOException e) {
             LOGGER.error("Error accessing services files", e);

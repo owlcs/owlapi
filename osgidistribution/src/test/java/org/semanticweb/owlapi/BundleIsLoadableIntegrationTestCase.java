@@ -65,30 +65,30 @@ public class BundleIsLoadableIntegrationTestCase {
         assertNotNull("uri is null", uri);
         BundleContext context = framework.getBundleContext();
         assertNotNull("context is null", context);
-        List<String> bundles = Arrays.asList("slf4j-simple", "slf4j-api", "caffeine",            "guava", "jsr305", "commons-io", "commons-codec",            "jcl-over-slf4j");
+        List<String> bundles = Arrays.asList("org.apache.servicemix.bundles.javax-inject", "slf4j-simple", "slf4j-api", "caffeine", "guava", "jsr305", "commons-io", "commons-codec", "jcl-over-slf4j");
         for (String bundleName : bundles) {
             try {
                 String simple = getJarURL(bundleName);
                 if (simple.isEmpty()) {
                     System.out.println("Can't install " + bundleName + ";");
-                }
-                // System.out.println("BundleIsLoadableIntegrationTestCase.startBundle()
-                // " + simple);
+                } else {
                 Bundle simpleLoggerBundle = context.installBundle(simple);
                 try {
                     simpleLoggerBundle.start();
+                        System.out.println("Loaded " + bundleName + ";");
                 } catch (BundleException e) {
                     if (!"Fragment bundles can not be started.".equals(e.getMessage())) {
                         System.out.println("ERROR " + simple + " " + e.getMessage());
                     }
                 }
+                }
             } catch (Throwable e) {
                 System.out.println("ERROR " + e.getMessage());
             }
         }
+        try {
         Bundle bundle = context.installBundle(uri.toString());
         assertNotNull(bundle);
-        try {
             bundle.start();
             assertEquals("bundle state", bundle.getState(), Bundle.ACTIVE);
             Class<?> owlManagerClass = bundle
