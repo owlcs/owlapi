@@ -63,6 +63,26 @@ public class TurtleTestCase extends TestBase {
     private final IRI s = IRI.create("urn:test#", "s");
 
     @Test
+    public void irisWithQuotesInTurtle()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology o = m.createOntology(iri);
+        m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(IRI.create("urn:test#s't"),
+            df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(true))));
+        OWLOntology o1 = roundTrip(o, new TurtleDocumentFormat());
+        equal(o, o1);
+    }
+
+    @Test
+    public void irisWithQuotesInRioTurtle()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology o = m.createOntology(iri);
+        m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(IRI.create("urn:test#s't"),
+            df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(true))));
+        OWLOntology o1 = roundTrip(o, new RioTurtleDocumentFormat());
+        equal(o, o1);
+    }
+
+    @Test
     public void shouldSaveIRIsWithCommasInTurtle()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = m.createOntology(IRI.create("http://example.com/ontology"));
