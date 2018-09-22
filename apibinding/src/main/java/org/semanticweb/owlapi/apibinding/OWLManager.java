@@ -40,9 +40,6 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.NonConcurrentOWLOntologyBuilder
  * @since 2.0.0
  */
 public class OWLManager implements OWLOntologyManagerFactory {
-    final static ReadWriteLock LOCK = new ReentrantReadWriteLock();
-    final static NoOpReadWriteLock NOOPLOCK = new NoOpReadWriteLock();
-
     enum InjectorConstants {
         @CompressionEnabled
         COMPRESSION_ENABLED(Boolean.class, () -> Boolean.FALSE),
@@ -51,17 +48,26 @@ public class OWLManager implements OWLOntologyManagerFactory {
         //
         @NonConcurrentDelegate
         NONCONCURRENTBUILDER(OWLOntologyBuilder.class, NonConcurrentOWLOntologyBuilder.class),
+     // XXX ontology manager and ontology builder have independent locks in their constructors,
+        // but they should actually share the one lock. Ontologies moving managers should rely on
+        // the manager for locks. Now they rely on the fact that the locks are injector level
+        // singletons.
+        REENTRANT(ReadWriteLock.class, new ReentrantReadWriteLock()),
         //
-        REENTRANT(ReadWriteLock.class, () -> LOCK),
-        //
-        NOOP(ReadWriteLock.class, () -> NOOPLOCK);
+        NOOP(ReadWriteLock.class, new NoOpReadWriteLock());
         private Class<?> c;
         private Supplier<?> s;
         private Class<?> type;
+        private Object instance;
 
         InjectorConstants(Class<?> c, Supplier<?> s) {
             this.c = c;
             this.s = s;
+        }
+
+        InjectorConstants(Class<?> c, Object s) {
+            this.c = c;
+            instance = s;
         }
 
         InjectorConstants(Class<?> c, Class<?> t) {
@@ -78,7 +84,9 @@ public class OWLManager implements OWLOntologyManagerFactory {
         }
 
         Injector init(Injector i) {
-            if (s != null) {
+            if (instance != null) {
+                i.bindToOne(instance, c, anns());
+            } else if (s != null) {
                 i.bindToOne(s, c, anns());
             } else {
                 i.bind(type, c, anns());
