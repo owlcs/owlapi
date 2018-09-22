@@ -55,4 +55,22 @@ public class OWLManagerTestCase {
         ontologyManagerField.setAccessible(true);
         assertThat(ontologyLockField.get(ontology), is(ontologyManagerField.get(manager)));
     }
+
+    @Test
+    public void shouldShareReadWriteLockOnConcurrentManager() throws Exception {
+        // Nasty, but not sure of another way to do this without exposing it in
+        // the interface
+        manager = OWLManager.createConcurrentOWLOntologyManager();
+        ontology = manager.createOntology();
+        Field ontologyLockField = ConcurrentOWLOntologyImpl.class.getDeclaredField("readLock");
+        ontologyLockField.setAccessible(true);
+        Field ontologyManagerField = OWLOntologyManagerImpl.class.getDeclaredField("readLock");
+        ontologyManagerField.setAccessible(true);
+        assertThat(ontologyLockField.get(ontology), is(ontologyManagerField.get(manager)));
+        ontologyLockField = ConcurrentOWLOntologyImpl.class.getDeclaredField("writeLock");
+        ontologyLockField.setAccessible(true);
+        ontologyManagerField = OWLOntologyManagerImpl.class.getDeclaredField("writeLock");
+        ontologyManagerField.setAccessible(true);
+        assertThat(ontologyLockField.get(ontology), is(ontologyManagerField.get(manager)));
+    }
 }
