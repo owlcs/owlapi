@@ -34,8 +34,8 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.NonConcurrentDelegate;
 import uk.ac.manchester.cs.owl.owlapi.concurrent.NonConcurrentOWLOntologyBuilder;
 
 /**
- * Provides a point of convenience for creating an {@code OWLOntologyManager}
- * with commonly required features (such as an RDF parser for example).
+ * Provides a point of convenience for creating an {@code OWLOntologyManager} with commonly required
+ * features (such as an RDF parser for example).
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -51,17 +51,26 @@ public class OWLManager implements OWLOntologyManagerFactory {
         NONCONCURRENTBUILDER(OWLOntologyBuilder.class, NonConcurrentOWLOntologyBuilder.class),
         //
         CONFIG(OntologyConfigurator.class, OntologyConfigurator::new),
+        // XXX ontology manager and ontology builder have independent locks in their constructors,
+        // but they should actually share the one lock. Ontologies moving managers should rely on
+        // the manager for locks. Now they rely on the fact that the locks are injector level
+        // singletons.
+        REENTRANT(ReadWriteLock.class, new ReentrantReadWriteLock()),
         //
-        REENTRANT(ReadWriteLock.class, ReentrantReadWriteLock::new),
-        //
-        NOOP(ReadWriteLock.class, NoOpReadWriteLock::new);
+        NOOP(ReadWriteLock.class, new NoOpReadWriteLock());
         private Class<?> c;
         private Supplier<?> s;
         private Class<?> type;
+        private Object instance;
 
         InjectorConstants(Class<?> c, Supplier<?> s) {
             this.c = c;
             this.s = s;
+        }
+
+        InjectorConstants(Class<?> c, Object s) {
+            this.c = c;
+            instance = s;
         }
 
         InjectorConstants(Class<?> c, Class<?> t) {
@@ -78,7 +87,9 @@ public class OWLManager implements OWLOntologyManagerFactory {
         }
 
         Injector init(Injector i) {
-            if (s != null) {
+            if (instance != null) {
+                i.bindToOne(instance, c, anns());
+            } else if (s != null) {
                 i.bindToOne(s, c, anns());
             } else {
                 i.bind(type, c, anns());
@@ -98,8 +109,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
     }
 
     /**
-     * Creates an OWL ontology manager that is configured with standard parsers,
-     * storeres etc.
+     * Creates an OWL ontology manager that is configured with standard parsers, storeres etc.
      *
      * @return The new manager.
      */
@@ -108,8 +118,8 @@ public class OWLManager implements OWLOntologyManagerFactory {
     }
 
     /**
-     * Creates an OWL ontology manager that is configured with the standard
-     * parsers and storers and provides locking for concurrent access.
+     * Creates an OWL ontology manager that is configured with the standard parsers and storers and
+     * provides locking for concurrent access.
      *
      * @return The new manager.
      */
