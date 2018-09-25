@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
-import org.semanticweb.owlapi.util.EscapeUtils;
+import org.semanticweb.owlapi.utility.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
@@ -75,7 +75,7 @@ class TurtleParser {
                 string = NodeID.getIRIFromNodeID(id);
             }
         }
-        return df.create(string);
+        return df.getIRI(string);
     }
 
     /** Gets the iRI from q name.
@@ -109,9 +109,9 @@ class TurtleParser {
          if(s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
         }
-        IRI iri = df.create(s);
+        IRI iri = df.getIRI(s);
             if (!iri.isAbsolute()) {
-            iri = df.create(base.getNamespace().substring(0, base.getNamespace().lastIndexOf('/')+1), s);
+            iri = df.getIRI(base.getNamespace().substring(0, base.getNamespace().lastIndexOf('/')+1), s);
             }
         return iri;
     }
@@ -214,7 +214,7 @@ void parsePrefixDirective() :
 
 void parseBaseDirective() :
 { Token t; }
-{ <BASE> t=<FULLIRI> {base = df.create(t.image.substring(1, t.image.length() - 1));} { /* This should be handled properly as a prefix handler.handleBaseDirective(base);*/ } }
+{ <BASE> t=<FULLIRI> {base = df.getIRI(t.image.substring(1, t.image.length() - 1));} { /* This should be handled properly as a prefix handler.handleBaseDirective(base);*/ } }
 
 void parseStatement() :
 { }
