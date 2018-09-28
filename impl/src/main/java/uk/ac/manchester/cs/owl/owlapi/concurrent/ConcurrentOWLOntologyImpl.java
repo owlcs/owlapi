@@ -123,7 +123,7 @@ import uk.ac.manchester.cs.owl.owlapi.HasTrimToSize;
 @SuppressWarnings({"deprecation"})
 public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToSize {
 
-    public final OWLOntology delegate;
+    private final OWLOntology delegate;
     private final Lock readLock;
     private final Lock writeLock;
 
