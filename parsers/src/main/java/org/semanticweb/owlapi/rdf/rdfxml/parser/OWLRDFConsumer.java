@@ -368,6 +368,8 @@ public class OWLRDFConsumer
      */
     @Nullable
     private IRI firstOntologyIRI;
+    @Nullable
+    private IRI ontologyVersion;
     /**
      * The ontology format.
      */
@@ -776,15 +778,6 @@ public class OWLRDFConsumer
             // This will add and record the declaration for us
             handlerAccessor.handle(subject, property, object);
         }
-    }
-
-    /**
-     * Sets the ontology id.
-     *
-     * @param ontologyID the new ontology id
-     */
-    protected void setOntologyID(OWLOntologyID ontologyID) {
-        ontology.applyChange(new SetOntologyID(ontology, ontologyID));
     }
 
     /**
@@ -1486,7 +1479,13 @@ public class OWLRDFConsumer
             }
         }
         if (ontologyIRIToSet.isPresent() && !NodeID.isAnonymousNodeIRI(ontologyIRIToSet.get())) {
+            // It is possible for an ontology to have already had a version set.
+            // Only if the parser is being used by itself, so not a common occurrence,
+            // but it is existing behaviour and tested.
             Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
+            if (!versionIRI.isPresent()) {
+                versionIRI = Optional.ofNullable(ontologyVersion);
+            }
             OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRIToSet, versionIRI);
             ontology.applyChange(new SetOntologyID(ontology, ontologyID));
         }
@@ -2206,6 +2205,17 @@ public class OWLRDFConsumer
             firstOntologyIRI = iri;
         }
         ontologyIRIs.add(iri);
+    }
+
+    /**
+     * Adds the ontology version.
+     *
+     * @param version the version of the ontology
+     */
+    protected void addVersionIRI(IRI version) {
+        if (ontologyVersion == null) {
+            ontologyVersion = version;
+        }
     }
 
     /**
