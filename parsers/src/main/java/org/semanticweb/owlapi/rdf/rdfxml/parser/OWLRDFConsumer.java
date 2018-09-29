@@ -436,15 +436,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     /**
-     * Sets the ontology id.
-     *
-     * @param ontologyID the new ontology id
-     */
-    protected void setOntologyID(OWLOntologyID ontologyID) {
-        ont().applyChange(new SetOntologyID(ont(), ontologyID));
-    }
-
-    /**
      * Adds the ontology annotation.
      *
      * @param annotation the annotation
@@ -539,12 +530,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         translatorAccessor.consumeSWRLRules(swrlPieces.swrlRules);
         setParserMetadata(mopUp());
         // Do we need to change the ontology IRI?
-        chooseAndSetOntologyIRI();
-        TripleLogger.logOntologyID(ont().getOntologyID());
         tripleIndex.dumpRemainingTriples();
         cleanup();
         addAnnotationAxioms();
         removeAxiomsScheduledForRemoval();
+        chooseAndSetOntologyIRI();
+        TripleLogger.logOntologyID(ont().getOntologyID());
     }
 
     protected void setParserMetadata(List<Triple> triples) {
@@ -602,7 +593,13 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             }
         }
         if (ontologyIRIToSet.isPresent() && !NodeID.isAnonymousNodeIRI(ontologyIRIToSet.get())) {
+            // It is possible for an ontology to have already had a version set.
+            // Only if the parser is being used by itself, so not a common occurrence,
+            // but it is existing behaviour and tested.
             Optional<IRI> versionIRI = ont().getOntologyID().getVersionIRI();
+            if (!versionIRI.isPresent()) {
+                versionIRI = Optional.ofNullable(iris.getOntologyVersion());
+            }
             OWLOntologyID ontologyID = df.getOWLOntologyID(ontologyIRIToSet, versionIRI);
             ont().applyChange(new SetOntologyID(ont(), ontologyID));
         }
@@ -1343,19 +1340,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean handleVersionTriple(IRI s, IRI p, IRI o) {
-        // only setup the versionIRI if it is null before this point
-        if (!ont().getOntologyID().getVersionIRI().isPresent()) {
-            Optional<IRI> ontologyIRI = ont().getOntologyID().getOntologyIRI();
-            Optional<IRI> versionIRI = Optional.ofNullable(o);
-            // If there was no ontologyIRI before this point and the s
-            // of this statement was not anonymous,
-            // then use the s IRI as the ontology IRI, else we keep
-            // the previous definition for the ontology IRI
-            if (!ontologyIRI.isPresent() && !anon.isAnonymousNode(s)) {
-                ontologyIRI = Optional.ofNullable(s);
-            }
-            setOntologyID(df.getOWLOntologyID(ontologyIRI, versionIRI));
-        }
+        iris.addVersionIRI(o);
         return tripleIndex.consumeTriple(s, p, o);
     }
 
@@ -1798,13 +1783,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean handleOntologyTriple(IRI s, IRI p, IRI o) {
-        // Set IRI if it is not null before this point, and make sure to
-        // preserve the version IRI if it also existed before this point
-        if (!anon.isAnonymousNode(s) && iris.getOntologies().isEmpty() && ont().isAnonymous()) {
-            OWLOntologyID id =
-                df.getOWLOntologyID(Optional.ofNullable(s), ont().getOntologyID().getVersionIRI());
-            ont().applyChange(new SetOntologyID(ont(), id));
-        }
         iris.addOntology(s);
         return tripleIndex.consumeTriple(s, p, o);
     }

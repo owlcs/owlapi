@@ -77,6 +77,8 @@ class FoundIRIs {
      */
     @Nullable
     protected IRI firstOntologyIRI;
+    @Nullable
+    private IRI ontologyVersion;
 
     public FoundIRIs(boolean strict) {
         this.strict = strict;
@@ -241,7 +243,7 @@ class FoundIRIs {
      *
      * @param iri The IRI to check.
      * @return {@code true} if the IRI is an object property IRI and not a data property IRI and not
-     * an annotation property IRI. Otherwise, {@code false}.
+     *         an annotation property IRI. Otherwise, {@code false}.
      */
     protected boolean isObjectPropertyOnly(@Nullable IRI iri) {
         return iri != null && !isDP(iri) && !isAP(iri) && isOP(iri);
@@ -258,7 +260,7 @@ class FoundIRIs {
      *
      * @param iri The IRI to check.
      * @return {@code true} if the IRI is a data property IRI and not an object property IRI and not
-     * an annotation property IRI. Otherwise, {@code false}.
+     *         an annotation property IRI. Otherwise, {@code false}.
      */
     protected boolean isDataPropertyOnly(@Nullable IRI iri) {
         return iri != null && !isOP(iri) && !isAP(iri) && isDP(iri);
@@ -275,7 +277,7 @@ class FoundIRIs {
      *
      * @param iri The IRI to check.
      * @return {@code true} if the IRI is an annotation property IRI and not a data property IRI and
-     * not an object property IRI. Otherwise, {@code false}.
+     *         not an object property IRI. Otherwise, {@code false}.
      */
     protected boolean isAnnotationPropertyOnly(@Nullable IRI iri) {
         return iri != null && !isOP(iri) && !isDP(iri) && isAP(iri);
@@ -366,6 +368,21 @@ class FoundIRIs {
             firstOntologyIRI = iri;
         }
         ontologyIRIs.add(iri);
+    }
+
+    /**
+     * Adds the ontology version.
+     *
+     * @param version the version of the ontology
+     */
+    protected void addVersionIRI(IRI version) {
+        if (ontologyVersion == null) {
+            ontologyVersion = version;
+        }
+    }
+
+    public IRI getOntologyVersion() {
+        return ontologyVersion;
     }
 
     protected Set<IRI> getOntologies() {
