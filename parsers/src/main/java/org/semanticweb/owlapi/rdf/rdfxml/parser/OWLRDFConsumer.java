@@ -1399,12 +1399,12 @@ public class OWLRDFConsumer
             getOntologyFormat().setOntologyLoaderMetaData(metaData);
         }
         // Do we need to change the ontology IRI?
-        chooseAndSetOntologyIRI();
-        TripleLogger.logOntologyID(ontology.getOntologyID());
         dumpRemainingTriples();
         cleanup();
         addAnnotationAxioms();
         removeAxiomsScheduledForRemoval();
+        chooseAndSetOntologyIRI();
+        TripleLogger.logOntologyID(ontology.getOntologyID());
     }
 
     private void addAnnotationAxioms() {
