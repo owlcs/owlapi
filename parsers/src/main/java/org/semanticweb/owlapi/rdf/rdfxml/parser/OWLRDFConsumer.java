@@ -13,8 +13,53 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_SOURCE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_TARGET;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_COMPLEMENT_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATATYPE_COMPLEMENT_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATA_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATA_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_EQUIVALENT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_FUNCTIONAL_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_VALUE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_IMPORTS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INTERSECTION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INVERSE_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MAX_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MIN_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NOTHING;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ONE_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_DATA_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_DATA_TYPE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_PROPERTY_DISJOINT_WITH;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_RESTRICTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SOME_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_THING;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_UNION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_VERSION_INFO;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_WITH_RESTRICTIONS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_COMMENT;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DATATYPE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DOMAIN;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUBCLASS_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUB_PROPERTY_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.values;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +84,40 @@ import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividualByIdProvider;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.TranslatorAccessor;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor;
 import org.semanticweb.owlapi.util.AnonymousNodeChecker;
@@ -58,32 +136,31 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ArrayListMultimap;
 
 /**
- * A parser/interpreter for an RDF graph which represents an OWL ontology. The
- * consumer interprets triple patterns in the graph to produce the appropriate
- * OWLAPI entities, class expressions and axioms. The parser is based on triple
- * handlers. A given triple handler handles a specific type of triple. Generally
- * speaking this is based on the predicate of a triple, for example, A
- * rdfs:subClassOf B is handled by a subClassOf handler. A handler determines if
- * it can handle a triple in a streaming mode (i.e. while parsing is taking
- * place) or if it can handle a triple after parsing has taken place and the
- * complete graph is in memory. Once a handler handles a triple, that triple is
- * deemed to have been consumed an is discarded. The parser attempts to consume
- * as many triples as possible while streaming parsing is taking place. Whether
- * or not a triple can be consumed during parsing is determined by installed
- * triple handlers.
+ * A parser/interpreter for an RDF graph which represents an OWL ontology. The consumer interprets
+ * triple patterns in the graph to produce the appropriate OWLAPI entities, class expressions and
+ * axioms. The parser is based on triple handlers. A given triple handler handles a specific type of
+ * triple. Generally speaking this is based on the predicate of a triple, for example, A
+ * rdfs:subClassOf B is handled by a subClassOf handler. A handler determines if it can handle a
+ * triple in a streaming mode (i.e. while parsing is taking place) or if it can handle a triple
+ * after parsing has taken place and the complete graph is in memory. Once a handler handles a
+ * triple, that triple is deemed to have been consumed an is discarded. The parser attempts to
+ * consume as many triples as possible while streaming parsing is taking place. Whether or not a
+ * triple can be consumed during parsing is determined by installed triple handlers.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAnonymousIndividualByIdProvider {
+public class OWLRDFConsumer
+    implements RDFConsumer, AnonymousNodeChecker, OWLAnonymousIndividualByIdProvider {
 
     /** The Constant DAML_OIL. */
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLRDFConsumer.class);
-    @Nonnull final TripleLogger tripleLogger;
+    @Nonnull
+    final TripleLogger tripleLogger;
     /** The configuration. */
-    @Nonnull private final OWLOntologyLoaderConfiguration configuration;
+    @Nonnull
+    private final OWLOntologyLoaderConfiguration configuration;
     /** The owl ontology manager. */
     private final OWLOntologyManager owlOntologyManager;
     // The set of IRIs that are either explicitly typed
@@ -97,8 +174,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /** Same as classExpressionIRIs but for data properties */
     private final Set<IRI> dataPropertyExpressionIRIs;
     /**
-     * Same as classExpressionIRIs but for rdf properties things neither typed
-     * as a data or object property - bad!
+     * Same as classExpressionIRIs but for rdf properties things neither typed as a data or object
+     * property - bad!
      */
     private final Set<IRI> propertyIRIs;
     /** Set of IRIs that are typed by non-system types and also owl:Thing */
@@ -111,6 +188,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     private final Set<IRI> dataRangeIRIs;
     /** The IRI of the first reource that is typed as an ontology */
     private IRI firstOntologyIRI;
+    @Nullable
+    private IRI ontologyVersion;
     /** IRIs that had a type triple to owl:Ontology */
     private final Set<IRI> ontologyIRIs;
     /** IRIs that had a type triple to owl:Restriction */
@@ -130,7 +209,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /** The annotated anon source2 annotation map. */
     private final Map<IRI, Set<IRI>> annotatedAnonSource2AnnotationMap = new HashMap<>();
     /** The ontology that the RDF will be parsed into. */
-    @Nonnull private final OWLOntology ontology;
+    @Nonnull
+    private final OWLOntology ontology;
     /** The expected axioms. */
     private int expectedAxioms = -1;
     /** The parsed axioms. */
@@ -165,8 +245,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /** The iri provider. */
     private IRIProvider iriProvider;
     /**
-     * A cache of annotation axioms to be added at the end - saves some peek
-     * memory doing this.
+     * A cache of annotation axioms to be added at the end - saves some peek memory doing this.
      */
     private final Collection<OWLAnnotationAxiom> parsedAnnotationAxioms = new ArrayList<>();
     /** The axioms to be removed. */
@@ -176,30 +255,27 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     final HandlerAccessor handlerAccessor;
     final TranslatorAccessor translatorAccessor;
     private final AnonymousNodeChecker nodeCheckerDelegate;
-    @Nonnull private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
+    @Nonnull
+    private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
     RemappingIndividualProvider anonProvider;
 
     /**
      * Instantiates a new oWLRDF consumer.
      * 
-     * @param ontology
-     *        the ontology
-     * @param configuration
-     *        the configuration
+     * @param ontology the ontology
+     * @param configuration the configuration
      */
-    public OWLRDFConsumer(@Nonnull OWLOntology ontology, @Nonnull OWLOntologyLoaderConfiguration configuration) {
+    public OWLRDFConsumer(@Nonnull OWLOntology ontology,
+        @Nonnull OWLOntologyLoaderConfiguration configuration) {
         this(ontology, new AnonymousNodeCheckerImpl(), configuration);
     }
 
     /**
      * Instantiates a new oWLRDF consumer.
      * 
-     * @param ontology
-     *        the ontology
-     * @param checker
-     *        anonymous node checker
-     * @param configuration
-     *        the configuration
+     * @param ontology the ontology
+     * @param checker anonymous node checker
+     * @param configuration the configuration
      */
     public OWLRDFConsumer(@Nonnull OWLOntology ontology, @Nonnull AnonymousNodeChecker checker,
         @Nonnull OWLOntologyLoaderConfiguration configuration) {
@@ -271,8 +347,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Sets the iRI provider.
      * 
-     * @param iriProvider
-     *        the new iRI provider
+     * @param iriProvider the new iRI provider
      */
     protected void setIRIProvider(IRIProvider iriProvider) {
         this.iriProvider = iriProvider;
@@ -297,7 +372,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
         // where the vocabulary has simply changed (e.g. DAML+OIL -> OWL)
         synonymMap = CollectionFactory.createMap();
         // Legacy protege-owlapi representation of QCRs
-        synonymMap.put(IRI.create(Namespaces.OWL.getPrefixIRI(), "valuesFrom"), OWL_ON_CLASS.getIRI());
+        synonymMap.put(IRI.create(Namespaces.OWL.getPrefixIRI(), "valuesFrom"),
+            OWL_ON_CLASS.getIRI());
         if (!configuration.isStrict()) {
             addDAMLOILVocabulary();
             addIntermediateOWLSpecVocabulary();
@@ -339,9 +415,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     /**
-     * There may be some ontologies floating about that use early versions of
-     * the OWL 1.1 vocabulary. We can map early versions of the vocabulary to
-     * the current OWL 1.1 vocabulary.
+     * There may be some ontologies floating about that use early versions of the OWL 1.1
+     * vocabulary. We can map early versions of the vocabulary to the current OWL 1.1 vocabulary.
      */
     private void addIntermediateOWLSpecVocabulary() {
         for (OWLRDFVocabulary v : values()) {
@@ -364,21 +439,32 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
         synonymMap.put(DeprecatedVocabulary.OWL_PREDICATE, OWL_ANNOTATED_PROPERTY.getIRI());
         synonymMap.put(DeprecatedVocabulary.OWL_OBJECT, OWL_ANNOTATED_TARGET.getIRI());
         // Preliminary OWL 1.1 Vocab
-        synonymMap.put(IRI.create(Namespaces.OWL.toString(), "cardinalityType"), OWL_ON_CLASS.getIRI());
-        synonymMap.put(IRI.create(Namespaces.OWL.toString(), "dataComplementOf"), OWL_COMPLEMENT_OF.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_ANTI_SYMMETRIC_PROPERTY, OWL_ASYMMETRIC_PROPERTY.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_FUNCTIONAL_DATA_PROPERTY, OWL_FUNCTIONAL_PROPERTY.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY, OWL_FUNCTIONAL_PROPERTY.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_SUB_DATA_PROPERTY_OF, RDFS_SUB_PROPERTY_OF.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_SUB_OBJECT_PROPERTY_OF, RDFS_SUB_PROPERTY_OF.getIRI());
+        synonymMap.put(IRI.create(Namespaces.OWL.toString(), "cardinalityType"),
+            OWL_ON_CLASS.getIRI());
+        synonymMap.put(IRI.create(Namespaces.OWL.toString(), "dataComplementOf"),
+            OWL_COMPLEMENT_OF.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_ANTI_SYMMETRIC_PROPERTY,
+            OWL_ASYMMETRIC_PROPERTY.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_FUNCTIONAL_DATA_PROPERTY,
+            OWL_FUNCTIONAL_PROPERTY.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY,
+            OWL_FUNCTIONAL_PROPERTY.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_SUB_DATA_PROPERTY_OF,
+            RDFS_SUB_PROPERTY_OF.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_SUB_OBJECT_PROPERTY_OF,
+            RDFS_SUB_PROPERTY_OF.getIRI());
         synonymMap.put(DeprecatedVocabulary.OWL_OBJECT_PROPERTY_RANGE, RDFS_RANGE.getIRI());
         synonymMap.put(DeprecatedVocabulary.OWL_DATA_PROPERTY_RANGE, RDFS_RANGE.getIRI());
         synonymMap.put(DeprecatedVocabulary.OWL_OBJECT_PROPERTY_DOMAIN, RDFS_DOMAIN.getIRI());
         synonymMap.put(DeprecatedVocabulary.OWL_DATA_PROPERTY_DOMAIN, RDFS_DOMAIN.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_DISJOINT_DATA_PROPERTIES, OWL_PROPERTY_DISJOINT_WITH.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_DISJOINT_OBJECT_PROPERTIES, OWL_PROPERTY_DISJOINT_WITH.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_EQUIVALENT_DATA_PROPERTIES, OWL_EQUIVALENT_PROPERTY.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_EQUIVALENT_OBJECT_PROPERTIES, OWL_EQUIVALENT_PROPERTY.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_DISJOINT_DATA_PROPERTIES,
+            OWL_PROPERTY_DISJOINT_WITH.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_DISJOINT_OBJECT_PROPERTIES,
+            OWL_PROPERTY_DISJOINT_WITH.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_EQUIVALENT_DATA_PROPERTIES,
+            OWL_EQUIVALENT_PROPERTY.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_EQUIVALENT_OBJECT_PROPERTIES,
+            OWL_EQUIVALENT_PROPERTY.getIRI());
         synonymMap.put(DeprecatedVocabulary.OWL_OBJECT_RESTRICTION, OWL_RESTRICTION.getIRI());
         synonymMap.put(DeprecatedVocabulary.OWL_DATA_RESTRICTION, OWL_RESTRICTION.getIRI());
         synonymMap.put(OWL_DATA_RANGE.getIRI(), RDFS_DATATYPE.getIRI());
@@ -417,8 +503,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Sets the ontology format.
      * 
-     * @param format
-     *        the new ontology format
+     * @param format the new ontology format
      */
     public void setOntologyFormat(RDFDocumentFormat format) {
         ontologyFormat = format;
@@ -430,8 +515,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Sets the expected axioms.
      * 
-     * @param expectedAxioms
-     *        the new expected axioms
+     * @param expectedAxioms the new expected axioms
      */
     public void setExpectedAxioms(int expectedAxioms) {
         this.expectedAxioms = expectedAxioms;
@@ -450,8 +534,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     private final Map<String, IRI> IRIMap = CollectionFactory.createMap();
 
     /**
-     * Gets any annotations that were translated since the last call of this
-     * method (calling this method clears the current pending annotations).
+     * Gets any annotations that were translated since the last call of this method (calling this
+     * method clears the current pending annotations).
      * 
      * @return The set (possibly empty) of pending annotations.
      */
@@ -465,8 +549,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Sets the pending annotations.
      * 
-     * @param annotations
-     *        the new pending annotations
+     * @param annotations the new pending annotations
      */
     protected void addPendingAnnotations(Set<OWLAnnotation> annotations) {
         pendingAnnotations.addAll(annotations);
@@ -549,10 +632,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the shared anonymous node.
      * 
-     * @param iri
-     *        the iri
-     * @param translation
-     *        the translation
+     * @param iri the iri
+     * @param translation the translation
      */
     protected void addSharedAnonymousNode(IRI iri, Object translation) {
         sharedAnonymousNodes.put(iri, translation);
@@ -561,8 +642,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the shared anonymous node.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return the shared anonymous node
      */
     protected Object getSharedAnonymousNode(IRI iri) {
@@ -574,8 +654,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the axiom.
      * 
-     * @param axiom
-     *        the axiom
+     * @param axiom the axiom
      */
     protected void addAxiom(OWLAxiom axiom) {
         if (expectedAxioms > 0) {
@@ -596,12 +675,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     /**
-     * Marks an axioms for removal at the end of parsing. This is usually used
-     * for annotated axioms, since the RDF serialization spec mandates that a
-     * "base" triple must be included on serialization.
+     * Marks an axioms for removal at the end of parsing. This is usually used for annotated axioms,
+     * since the RDF serialization spec mandates that a "base" triple must be included on
+     * serialization.
      * 
-     * @param axiom
-     *        The axiom to be removed.
+     * @param axiom The axiom to be removed.
      */
     protected void removeAxiom(OWLAxiom axiom) {
         axiomsToBeRemoved.add(axiom);
@@ -610,8 +688,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Check for and process annotated declaration.
      * 
-     * @param mainNode
-     *        the main node
+     * @param mainNode the main node
      */
     protected void checkForAndProcessAnnotatedDeclaration(IRI mainNode) {
         IRI annotatedPropertyObject = getResourceObject(mainNode, OWL_ANNOTATED_PROPERTY, false);
@@ -633,51 +710,39 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
         boolean isEntityType = isEntityTypeIRI(annotatedTargetObject);
         if (isEntityType) {
             // This will add and record the declaration for us
-            handlerAccessor.handle(annotatedSubjectObject, annotatedPropertyObject, annotatedTargetObject);
+            handlerAccessor.handle(annotatedSubjectObject, annotatedPropertyObject,
+                annotatedTargetObject);
         }
     }
 
     /**
-     * Determines if the specified IRI is an IRI corresponding to owl:Class,
-     * owl:DatatypeProperty, rdfs:Datatype, owl:ObjectProperty,
-     * owl:AnnotationProperty, or owl:NamedIndividual.
+     * Determines if the specified IRI is an IRI corresponding to owl:Class, owl:DatatypeProperty,
+     * rdfs:Datatype, owl:ObjectProperty, owl:AnnotationProperty, or owl:NamedIndividual.
      * 
-     * @param iri
-     *        The IRI to check
-     * @return {@code true} if the IRI corresponds to a built in OWL entity IRI
-     *         otherwise {@code false}.
+     * @param iri The IRI to check
+     * @return {@code true} if the IRI corresponds to a built in OWL entity IRI otherwise
+     *         {@code false}.
      */
     private static boolean isEntityTypeIRI(IRI iri) {
-        return iri.equals(OWL_CLASS.getIRI()) || iri.equals(OWL_OBJECT_PROPERTY.getIRI()) || iri.equals(
-            OWL_DATA_PROPERTY.getIRI()) || iri.equals(OWL_ANNOTATION_PROPERTY.getIRI()) || iri.equals(RDFS_DATATYPE
-                .getIRI()) || iri.equals(OWL_NAMED_INDIVIDUAL.getIRI());
+        return iri.equals(OWL_CLASS.getIRI()) || iri.equals(OWL_OBJECT_PROPERTY.getIRI())
+            || iri.equals(OWL_DATA_PROPERTY.getIRI())
+            || iri.equals(OWL_ANNOTATION_PROPERTY.getIRI()) || iri.equals(RDFS_DATATYPE.getIRI())
+            || iri.equals(OWL_NAMED_INDIVIDUAL.getIRI());
     }
 
     /**
      * Apply change.
      * 
-     * @param change
-     *        the change
+     * @param change the change
      */
     protected void applyChange(@Nonnull OWLOntologyChange change) {
         owlOntologyManager.applyChange(change);
     }
 
     /**
-     * Sets the ontology id.
-     * 
-     * @param ontologyID
-     *        the new ontology id
-     */
-    protected void setOntologyID(@Nonnull OWLOntologyID ontologyID) {
-        applyChange(new SetOntologyID(ontology, ontologyID));
-    }
-
-    /**
      * Adds the ontology annotation.
      * 
-     * @param annotation
-     *        the annotation
+     * @param annotation the annotation
      */
     protected void addOntologyAnnotation(@Nonnull OWLAnnotation annotation) {
         applyChange(new AddOntologyAnnotation(ontology, annotation));
@@ -686,8 +751,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the import.
      * 
-     * @param declaration
-     *        the declaration
+     * @param declaration the declaration
      */
     protected void addImport(@Nonnull OWLImportsDeclaration declaration) {
         applyChange(new AddImport(ontology, declaration));
@@ -705,8 +769,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is individual.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is individual
      */
     protected boolean isIndividual(IRI iri) {
@@ -716,8 +779,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the rdf property.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addRDFProperty(IRI iri) {
         propertyIRIs.add(iri);
@@ -726,8 +788,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is rDF property.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is rDF property
      */
     protected boolean isRDFProperty(IRI iri) {
@@ -737,10 +798,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the class expression.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     public void addClassExpression(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLClass.class, explicitlyTyped);
@@ -762,8 +821,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is class expression.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is class expression
      */
     public boolean isClassExpression(IRI iri) {
@@ -773,10 +831,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the object property.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     public void addObjectProperty(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLObjectProperty.class, explicitlyTyped);
@@ -786,10 +842,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the data property.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     public void addDataProperty(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLDataProperty.class, explicitlyTyped);
@@ -799,10 +853,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the annotation property.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     protected void addAnnotationProperty(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLAnnotationProperty.class, explicitlyTyped);
@@ -812,10 +864,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the data range.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     public void addDataRange(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLDataRange.class, explicitlyTyped);
@@ -825,10 +875,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the owl named individual.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly type
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly type
      */
     protected void addOWLNamedIndividual(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLNamedIndividual.class, explicitlyTyped);
@@ -838,10 +886,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the owl restriction.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     protected void addOWLRestriction(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLClassExpression.class, explicitlyTyped);
@@ -859,8 +905,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is restriction.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is restriction
      */
     public boolean isRestriction(IRI iri) {
@@ -870,8 +915,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the annotation iri.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addAnnotationIRI(IRI iri) {
         annotationIRIs.add(iri);
@@ -880,8 +924,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is annotation.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is annotation
      */
     protected boolean isAnnotation(IRI iri) {
@@ -889,27 +932,23 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     /**
-     * Determines if a given IRI is currently an object property IRI and not a
-     * data property IRI and not an annotation property IRI. Note that this
-     * method is only guaranteed to return the same value once all triples in
-     * the imports closure of the RDF graph being parsed have been parsed.
+     * Determines if a given IRI is currently an object property IRI and not a data property IRI and
+     * not an annotation property IRI. Note that this method is only guaranteed to return the same
+     * value once all triples in the imports closure of the RDF graph being parsed have been parsed.
      * 
-     * @param iri
-     *        The IRI to check.
-     * @return {@code true} if the IRI is an object property IRI and not a data
-     *         property IRI and not an annotation property IRI. Otherwise,
-     *         {@code false}.
+     * @param iri The IRI to check.
+     * @return {@code true} if the IRI is an object property IRI and not a data property IRI and not
+     *         an annotation property IRI. Otherwise, {@code false}.
      */
     protected boolean isObjectPropertyOnly(IRI iri) {
-        return iri != null && !dataPropertyExpressionIRIs.contains(iri) && !annotationPropertyIRIs.contains(iri)
-            && objectPropertyExpressionIRIs.contains(iri);
+        return iri != null && !dataPropertyExpressionIRIs.contains(iri)
+            && !annotationPropertyIRIs.contains(iri) && objectPropertyExpressionIRIs.contains(iri);
     }
 
     /**
      * Checks if is object property.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is object property
      */
     protected boolean isObjectProperty(IRI iri) {
@@ -917,27 +956,23 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     /**
-     * Determines if a given IRI is currently a data property IRI and not an
-     * object property IRI and not an annotation property IRI. Note that this
-     * method is only guaranteed to return the same value once all triples in
-     * the imports closure of the RDF graph being parsed have been parsed.
+     * Determines if a given IRI is currently a data property IRI and not an object property IRI and
+     * not an annotation property IRI. Note that this method is only guaranteed to return the same
+     * value once all triples in the imports closure of the RDF graph being parsed have been parsed.
      * 
-     * @param iri
-     *        The IRI to check.
-     * @return {@code true} if the IRI is a data property IRI and not an object
-     *         property IRI and not an annotation property IRI. Otherwise,
-     *         {@code false}.
+     * @param iri The IRI to check.
+     * @return {@code true} if the IRI is a data property IRI and not an object property IRI and not
+     *         an annotation property IRI. Otherwise, {@code false}.
      */
     protected boolean isDataPropertyOnly(IRI iri) {
-        return iri != null && !objectPropertyExpressionIRIs.contains(iri) && !annotationPropertyIRIs.contains(iri)
-            && dataPropertyExpressionIRIs.contains(iri);
+        return iri != null && !objectPropertyExpressionIRIs.contains(iri)
+            && !annotationPropertyIRIs.contains(iri) && dataPropertyExpressionIRIs.contains(iri);
     }
 
     /**
      * Checks if is data property.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is data property
      */
     protected boolean isDataProperty(IRI iri) {
@@ -945,27 +980,23 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     /**
-     * Determines if a given IRI is currently an annotation property IRI and not
-     * a data property IRI and not an object property IRI. Note that this method
-     * is only guaranteed to return the same value once all triples in the
-     * imports closure of the RDF graph being parsed have been parsed.
+     * Determines if a given IRI is currently an annotation property IRI and not a data property IRI
+     * and not an object property IRI. Note that this method is only guaranteed to return the same
+     * value once all triples in the imports closure of the RDF graph being parsed have been parsed.
      * 
-     * @param iri
-     *        The IRI to check.
-     * @return {@code true} if the IRI is an annotation property IRI and not a
-     *         data property IRI and not an object property IRI. Otherwise,
-     *         {@code false}.
+     * @param iri The IRI to check.
+     * @return {@code true} if the IRI is an annotation property IRI and not a data property IRI and
+     *         not an object property IRI. Otherwise, {@code false}.
      */
     protected boolean isAnnotationPropertyOnly(IRI iri) {
-        return iri != null && !objectPropertyExpressionIRIs.contains(iri) && !dataPropertyExpressionIRIs.contains(iri)
-            && annotationPropertyIRIs.contains(iri);
+        return iri != null && !objectPropertyExpressionIRIs.contains(iri)
+            && !dataPropertyExpressionIRIs.contains(iri) && annotationPropertyIRIs.contains(iri);
     }
 
     /**
      * Checks if is annotation property.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is annotation property
      */
     protected boolean isAnnotationProperty(IRI iri) {
@@ -975,8 +1006,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is ontology.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is ontology
      */
     protected boolean isOntology(IRI iri) {
@@ -993,13 +1023,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     /**
-     * Records an annotation of an anonymous node (either an annotation of an
-     * annotation, or an annotation of an axiom for example).
+     * Records an annotation of an anonymous node (either an annotation of an annotation, or an
+     * annotation of an axiom for example).
      * 
-     * @param annotatedAnonSource
-     *        The source that the annotation annotates
-     * @param annotationMainNode
-     *        The annotations
+     * @param annotatedAnonSource The source that the annotation annotates
+     * @param annotationMainNode The annotations
      */
     public void addAnnotatedSource(IRI annotatedAnonSource, IRI annotationMainNode) {
         Set<IRI> annotationMainNodes = annotatedAnonSource2AnnotationMap.get(annotatedAnonSource);
@@ -1013,8 +1041,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the main nodes of annotations that annotated the specified source.
      * 
-     * @param source
-     *        The source (axiom or annotation main node)
+     * @param source The source (axiom or annotation main node)
      * @return The set of main nodes that annotate the specified source
      */
     public Set<IRI> getAnnotatedSourceAnnotationMainNodes(IRI source) {
@@ -1030,8 +1057,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the oWL class.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return the oWL class
      */
     @Nonnull
@@ -1042,8 +1068,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the oWL object property.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return the oWL object property
      */
     protected OWLObjectProperty getOWLObjectProperty(@Nonnull IRI iri) {
@@ -1053,8 +1078,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the oWL data property.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return the oWL data property
      */
     protected OWLDataProperty getOWLDataProperty(@Nonnull IRI iri) {
@@ -1064,8 +1088,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the oWL individual.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return the oWL individual
      */
     @Nonnull
@@ -1085,12 +1108,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Consume triple.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
      */
     protected void consumeTriple(IRI subject, IRI predicate, IRI object) {
         LOGGER.trace("consuming triple");
@@ -1101,12 +1121,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Consume triple.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param con
-     *        the con
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param con the con
      */
     protected void consumeTriple(IRI subject, IRI predicate, OWLLiteral con) {
         LOGGER.trace("consuming triple");
@@ -1118,8 +1135,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the swrl rule.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addSWRLRule(IRI iri) {
         swrlRules.add(iri);
@@ -1128,8 +1144,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is sWRL rule.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is sWRL rule
      */
     protected boolean isSWRLRule(IRI iri) {
@@ -1139,8 +1154,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the swrl individual property atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addSWRLIndividualPropertyAtom(IRI iri) {
         swrlIndividualPropertyAtoms.add(iri);
@@ -1149,8 +1163,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is sWRL individual property atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is sWRL individual property atom
      */
     protected boolean isSWRLIndividualPropertyAtom(IRI iri) {
@@ -1160,8 +1173,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the swrl data property atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addSWRLDataPropertyAtom(IRI iri) {
         swrlDataValuedPropertyAtoms.add(iri);
@@ -1170,8 +1182,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is sWRL data valued property atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is sWRL data valued property atom
      */
     protected boolean isSWRLDataValuedPropertyAtom(IRI iri) {
@@ -1181,8 +1192,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the swrl class atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addSWRLClassAtom(IRI iri) {
         swrlClassAtoms.add(iri);
@@ -1191,8 +1201,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is sWRL class atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is sWRL class atom
      */
     protected boolean isSWRLClassAtom(IRI iri) {
@@ -1202,8 +1211,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the swrl same as atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addSWRLSameAsAtom(IRI iri) {
         swrlSameAsAtoms.add(iri);
@@ -1212,8 +1220,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is sWRL same as atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is sWRL same as atom
      */
     protected boolean isSWRLSameAsAtom(IRI iri) {
@@ -1223,8 +1230,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the swrl different from atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addSWRLDifferentFromAtom(IRI iri) {
         swrlDifferentFromAtoms.add(iri);
@@ -1233,8 +1239,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is sWRL different from atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is sWRL different from atom
      */
     protected boolean isSWRLDifferentFromAtom(IRI iri) {
@@ -1244,8 +1249,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the swrl data range atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addSWRLDataRangeAtom(IRI iri) {
         swrlDataRangeAtoms.add(iri);
@@ -1254,8 +1258,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is sWRL data range atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is sWRL data range atom
      */
     protected boolean isSWRLDataRangeAtom(IRI iri) {
@@ -1265,8 +1268,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the swrl built in atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addSWRLBuiltInAtom(IRI iri) {
         swrlBuiltInAtoms.add(iri);
@@ -1275,8 +1277,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is sWRL built in atom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is sWRL built in atom
      */
     protected boolean isSWRLBuiltInAtom(IRI iri) {
@@ -1286,8 +1287,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the swrl variable.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addSWRLVariable(IRI iri) {
         swrlVariables.add(iri);
@@ -1296,8 +1296,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is sWRL variable.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is sWRL variable
      */
     protected boolean isSWRLVariable(IRI iri) {
@@ -1313,8 +1312,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     protected void dumpRemainingTriples() {
         // if info logging is disabled or all collections are empty, do not
         // output anything
-        if (LOGGER.isInfoEnabled() && singleValuedResTriplesByPredicate.size() + singleValuedLitTriplesByPredicate
-            .size() + resTriplesBySubject.size() + litTriplesBySubject.size() > 0) {
+        if (LOGGER.isInfoEnabled()
+            && singleValuedResTriplesByPredicate.size() + singleValuedLitTriplesByPredicate.size()
+                + resTriplesBySubject.size() + litTriplesBySubject.size() > 0) {
             for (IRI predicate : singleValuedResTriplesByPredicate.keySet()) {
                 Map<IRI, IRI> map = singleValuedResTriplesByPredicate.get(predicate);
                 for (IRI subject : map.keySet()) {
@@ -1372,17 +1372,18 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
         translatorAccessor.consumeSWRLRules(swrlRules);
         Set<RDFTriple> remainingTriples = handlerAccessor.mopUp();
         if (ontologyFormat != null) {
-            RDFParserMetaData metaData = new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER, tripleLogger
-                .count(), remainingTriples, guessedDeclarations);
+            RDFParserMetaData metaData =
+                new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER,
+                    tripleLogger.count(), remainingTriples, guessedDeclarations);
             ontologyFormat.setOntologyLoaderMetaData(metaData);
         }
-        // Do we need to change the ontology IRI?
-        chooseAndSetOntologyIRI();
-        TripleLogger.logOntologyID(ontology.getOntologyID());
         dumpRemainingTriples();
         cleanup();
         addAnnotationAxioms();
         removeAxiomsScheduledForRemoval();
+        // Do we need to change the ontology IRI?
+        chooseAndSetOntologyIRI();
+        TripleLogger.logOntologyID(ontology.getOntologyID());
     }
 
     private void addAnnotationAxioms() {
@@ -1400,14 +1401,14 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     /**
-     * Selects an IRI that should be used as the IRI of the parsed ontology, or
-     * {@code null} if the parsed ontology does not have an IRI
+     * Selects an IRI that should be used as the IRI of the parsed ontology, or {@code null} if the
+     * parsed ontology does not have an IRI
      */
     private void chooseAndSetOntologyIRI() {
         Optional<IRI> ontologyIRIToSet = Optional.absent();
         if (firstOntologyIRI != null) {
-            Collection<OWLAnnotationAssertionAxiom> annotationsForOntology = ontology.getAnnotationAssertionAxioms(
-                firstOntologyIRI);
+            Collection<OWLAnnotationAssertionAxiom> annotationsForOntology =
+                ontology.getAnnotationAssertionAxioms(firstOntologyIRI);
             for (OWLAnnotationAssertionAxiom ax : annotationsForOntology) {
                 addOntologyAnnotation(ax.getAnnotation());
                 if (ax.getAnnotations().isEmpty()) {
@@ -1418,10 +1419,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
                     owlOntologyManager.removeAxiom(ontology, ax);
                 }
             }
-            Collection<OWLAnnotationAxiom> annotationsParsed = new ArrayList<>(parsedAnnotationAxioms);
+            Collection<OWLAnnotationAxiom> annotationsParsed =
+                new ArrayList<>(parsedAnnotationAxioms);
             for (OWLAnnotationAxiom ax : annotationsParsed) {
-                if (ax instanceof OWLAnnotationAssertionAxiom && ((OWLAnnotationAssertionAxiom) ax).getSubject().equals(
-                    firstOntologyIRI)) {
+                if (ax instanceof OWLAnnotationAssertionAxiom
+                    && ((OWLAnnotationAssertionAxiom) ax).getSubject().equals(firstOntologyIRI)) {
                     addOntologyAnnotation(((OWLAnnotationAssertionAxiom) ax).getAnnotation());
                     if (ax.getAnnotations().isEmpty()) {
                         // axioms with annotations must be preserved,
@@ -1466,7 +1468,13 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
             }
         }
         if (ontologyIRIToSet.isPresent() && !NodeID.isAnonymousNodeIRI(ontologyIRIToSet.get())) {
+            // It is possible for an ontology to have already had a version set.
+            // Only if the parser is being used by itself, so not a common occurrence,
+            // but it is existing behaviour and tested.
             Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
+            if (!versionIRI.isPresent()) {
+                versionIRI = Optional.fromNullable(ontologyVersion);
+            }
             OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRIToSet, versionIRI);
             applyChange(new SetOntologyID(ontology, ontologyID));
         }
@@ -1503,8 +1511,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the synonym.
      * 
-     * @param original
-     *        the original
+     * @param original the original
      * @return the synonym
      */
     @Nonnull
@@ -1519,24 +1526,26 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     @Override
-    public void statementWithLiteralValue(@Nonnull String subject, @Nonnull String predicate, @Nonnull String object,
-        @Nullable String language, @Nullable String datatype) {
+    public void statementWithLiteralValue(@Nonnull String subject, @Nonnull String predicate,
+        @Nonnull String object, @Nullable String language, @Nullable String datatype) {
         tripleLogger.logTriple(subject, predicate, object, language, datatype);
         IRI subjectIRI = getIRI(remapOnlyIfRemapped(subject));
         IRI predicateIRI = getIRI(predicate);
         predicateIRI = getSynonym(predicateIRI);
-        handlerAccessor.handleStreaming(subjectIRI, predicateIRI, object, getIRINullable(datatype), language);
+        handlerAccessor.handleStreaming(subjectIRI, predicateIRI, object, getIRINullable(datatype),
+            language);
     }
 
     @Override
-    public void statementWithLiteralValue(@Nonnull IRI subject, @Nonnull IRI predicate, @Nonnull String object,
-        String language, IRI datatype) {
+    public void statementWithLiteralValue(@Nonnull IRI subject, @Nonnull IRI predicate,
+        @Nonnull String object, String language, IRI datatype) {
         tripleLogger.logTriple(subject, predicate, object, language, datatype);
         handlerAccessor.handleStreaming(subject, getSynonym(predicate), object, datatype, language);
     }
 
     @Override
-    public void statementWithResourceValue(@Nonnull String subject, @Nonnull String predicate, @Nonnull String object) {
+    public void statementWithResourceValue(@Nonnull String subject, @Nonnull String predicate,
+        @Nonnull String object) {
         tripleLogger.logTriple(subject, predicate, object);
         IRI subjectIRI = getIRI(subject);
         IRI predicateIRI = getIRI(predicate);
@@ -1546,7 +1555,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     @Override
-    public void statementWithResourceValue(@Nonnull IRI subject, @Nonnull IRI predicate, @Nonnull IRI object) {
+    public void statementWithResourceValue(@Nonnull IRI subject, @Nonnull IRI predicate,
+        @Nonnull IRI object) {
         tripleLogger.logTriple(subject, predicate, object);
         handlerAccessor.handleStreaming(subject, getSynonym(predicate), getSynonym(object));
     }
@@ -1554,17 +1564,14 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * A convenience method to obtain an {@code OWLLiteral}.
      * 
-     * @param literal
-     *        The literal
-     * @param datatype
-     *        The data type
-     * @param lang
-     *        The lang
-     * @return The {@code OWLLiteral} (either typed or untyped depending on the
-     *         params)
+     * @param literal The literal
+     * @param datatype The data type
+     * @param lang The lang
+     * @return The {@code OWLLiteral} (either typed or untyped depending on the params)
      */
     @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable IRI datatype, @Nullable String lang) {
+    OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable IRI datatype,
+        @Nullable String lang) {
         if (datatype != null) {
             return dataFactory.getOWLLiteral(literal, dataFactory.getOWLDatatype(datatype));
         } else {
@@ -1575,8 +1582,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * compatibility proxy for TranslatorAccessor#translateClassExpression
      * 
-     * @param i
-     *        iri fr the class expression
+     * @param i iri fr the class expression
      * @return translated class expression
      */
     @Nonnull
@@ -1587,10 +1593,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Given a main node, translated data ranges according to Table 12.
      * 
-     * @param mainNode
-     *        The main node
-     * @return The translated data range. If the data range could not be
-     *         translated then an OWLDatatype with the given IRI is returned.
+     * @param mainNode The main node
+     * @return The translated data range. If the data range could not be translated then an
+     *         OWLDatatype with the given IRI is returned.
      */
     @Nonnull
     public OWLDataRange translateDataRange(@Nonnull IRI mainNode) {
@@ -1603,12 +1608,14 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
         }
         IRI intersectionOfObject = getResourceObject(mainNode, OWL_INTERSECTION_OF, true);
         if (intersectionOfObject != null) {
-            Set<OWLDataRange> dataRanges = translatorAccessor.translateToDataRangeSet(intersectionOfObject);
+            Set<OWLDataRange> dataRanges =
+                translatorAccessor.translateToDataRangeSet(intersectionOfObject);
             return dataFactory.getOWLDataIntersectionOf(dataRanges);
         }
         IRI unionOfObject = getResourceObject(mainNode, OWL_UNION_OF, true);
         if (unionOfObject != null) {
-            Set<OWLDataRange> dataRanges = translatorAccessor.translateToDataRangeSet(unionOfObject);
+            Set<OWLDataRange> dataRanges =
+                translatorAccessor.translateToDataRangeSet(unionOfObject);
             return dataFactory.getOWLDataUnionOf(dataRanges);
         }
         // The plain complement of triple predicate is in here for legacy
@@ -1642,14 +1649,16 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
             Set<OWLFacetRestriction> restrictions = new HashSet<>();
             IRI facetRestrictionList = getResourceObject(mainNode, OWL_WITH_RESTRICTIONS, true);
             if (facetRestrictionList != null) {
-                restrictions = translatorAccessor.translateToFacetRestrictionSet(facetRestrictionList);
+                restrictions =
+                    translatorAccessor.translateToFacetRestrictionSet(facetRestrictionList);
             } else if (!configuration.isStrict()) {
                 // Try the legacy encoding
                 for (IRI facetIRI : OWLFacet.FACET_IRIS) {
                     assert facetIRI != null;
                     OWLLiteral val;
                     while ((val = getLiteralObject(mainNode, facetIRI, true)) != null) {
-                        restrictions.add(dataFactory.getOWLFacetRestriction(OWLFacet.getFacet(facetIRI), val));
+                        restrictions.add(
+                            dataFactory.getOWLFacetRestriction(OWLFacet.getFacet(facetIRI), val));
                     }
                 }
             }
@@ -1662,8 +1671,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Translate data property expression.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return the oWL data property expression
      */
     @Nonnull
@@ -1678,8 +1686,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Translate object property expression.
      * 
-     * @param mainNode
-     *        the main node
+     * @param mainNode the main node
      * @return the oWL object property expression
      */
     @Nonnull
@@ -1696,10 +1703,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
             // Inverse of a property expression
             IRI inverseOfObject = getResourceObject(mainNode, OWL_INVERSE_OF, true);
             if (inverseOfObject != null) {
-                OWLObjectPropertyExpression otherProperty = translateObjectPropertyExpression(inverseOfObject);
+                OWLObjectPropertyExpression otherProperty =
+                    translateObjectPropertyExpression(inverseOfObject);
                 prop = dataFactory.getOWLObjectInverseOf(otherProperty);
             } else {
-                prop = dataFactory.getOWLObjectInverseOf(dataFactory.getOWLObjectProperty(mainNode));
+                prop =
+                    dataFactory.getOWLObjectInverseOf(dataFactory.getOWLObjectProperty(mainNode));
             }
             objectPropertyExpressionIRIs.add(mainNode);
             translatedProperties.put(mainNode, prop);
@@ -1710,8 +1719,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Translate individual.
      * 
-     * @param node
-     *        the node
+     * @param node the node
      * @return the oWL individual
      */
     @Nonnull
@@ -1720,13 +1728,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     /**
-     * Translates the annotation on a main node. Triples whose subject is the
-     * specified main node and whose subject is typed an an annotation property
-     * (or is a built in annotation property) will be translated to annotation
-     * on this main node.
+     * Translates the annotation on a main node. Triples whose subject is the specified main node
+     * and whose subject is typed an an annotation property (or is a built in annotation property)
+     * will be translated to annotation on this main node.
      * 
-     * @param mainNode
-     *        The main node
+     * @param mainNode The main node
      * @return The set of annotations on the main node
      */
     @Nonnull
@@ -1765,8 +1771,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
             }
             IRI annotation = getSubjectForAnnotatedPropertyAndObject(mainNode, predicate, resVal);
             Set<OWLAnnotation> c = anns.get(annotation);
-            mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, val, c != null ? c
-                : Collections.<OWLAnnotation>emptySet()));
+            mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, val,
+                c != null ? c : Collections.<OWLAnnotation>emptySet()));
             resVal = getResourceObject(mainNode, predicate, true);
         }
         OWLLiteral litVal = getLiteralObject(mainNode, predicate, true);
@@ -1774,16 +1780,16 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
             OWLAnnotationProperty prop = dataFactory.getOWLAnnotationProperty(predicate);
             IRI annotation = getSubjectForAnnotatedPropertyAndObject(mainNode, predicate, litVal);
             Set<OWLAnnotation> c = anns.get(annotation);
-            mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, litVal, c != null ? c
-                : Collections.<OWLAnnotation>emptySet()));
+            mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, litVal,
+                c != null ? c : Collections.<OWLAnnotation>emptySet()));
             litVal = getLiteralObject(mainNode, predicate, true);
         }
     }
 
     private @Nullable IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, OWLLiteral v) {
         for (IRI i : getAnnotatedSourceAnnotationMainNodes(n)) {
-            if (p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false)) && v.equals(getLiteralObject(i,
-                OWL_ANNOTATED_TARGET, false))) {
+            if (p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
+                && v.equals(getLiteralObject(i, OWL_ANNOTATED_TARGET, false))) {
                 return i;
             }
         }
@@ -1792,23 +1798,27 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
 
     private @Nullable IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, IRI v) {
         for (IRI i : getAnnotatedSourceAnnotationMainNodes(n)) {
-            if (p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false)) && v.equals(getResourceObject(i,
-                OWL_ANNOTATED_TARGET, false))) {
+            if (p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
+                && v.equals(getResourceObject(i, OWL_ANNOTATED_TARGET, false))) {
                 return i;
             }
         }
         return null;
     }
 
-    @Nonnull private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
+    @Nonnull
+    private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
 
     @Nonnull
     private <E extends OWLEntity> E getErrorEntity(@Nonnull EntityType<E> entityType) {
-        IRI iri = IRI.create("http://org.semanticweb.owlapi/error#", "Error" + ERRORCOUNTER.incrementAndGet());
-        LOGGER.error("Entity not properly recognized, missing triples in input? {} for type {}", iri, entityType);
+        IRI iri = IRI.create("http://org.semanticweb.owlapi/error#",
+            "Error" + ERRORCOUNTER.incrementAndGet());
+        LOGGER.error("Entity not properly recognized, missing triples in input? {} for type {}",
+            iri, entityType);
         if (configuration.isStrict()) {
-            throw new OWLParserException("Entity not properly recognized, missing triples in input? " + iri
-                + " for type " + entityType);
+            throw new OWLParserException(
+                "Entity not properly recognized, missing triples in input? " + iri + " for type "
+                    + entityType);
         }
         return dataFactory.getOWLEntity(entityType, iri);
     }
@@ -1840,13 +1850,17 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     @Nonnull
-    private RDFTriple getRDFTriple(@Nonnull IRI subject, @Nonnull IRI predicate, @Nonnull IRI object) {
-        return new RDFTriple(getRDFResource(subject), new RDFResourceIRI(predicate), getRDFResource(object));
+    private RDFTriple getRDFTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
+        @Nonnull IRI object) {
+        return new RDFTriple(getRDFResource(subject), new RDFResourceIRI(predicate),
+            getRDFResource(object));
     }
 
     @Nonnull
-    private RDFTriple getRDFTriple(@Nonnull IRI subject, @Nonnull IRI predicate, @Nonnull OWLLiteral object) {
-        return new RDFTriple(getRDFResource(subject), new RDFResourceIRI(predicate), new RDFLiteral(object));
+    private RDFTriple getRDFTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
+        @Nonnull OWLLiteral object) {
+        return new RDFTriple(getRDFResource(subject), new RDFResourceIRI(predicate),
+            new RDFLiteral(object));
     }
 
     @Nonnull
@@ -1875,20 +1889,19 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     /**
-     * @param entityType
-     *        entity type
-     * @param mainNode
-     *        main node
-     * @param <E>
-     *        entity type
+     * @param entityType entity type
+     * @param mainNode main node
+     * @param <E> entity type
      * @return error entity
      */
     @Nonnull
-    public <E extends OWLEntity> E generateAndLogParseError(@Nonnull EntityType<E> entityType, @Nonnull IRI mainNode) {
+    public <E extends OWLEntity> E generateAndLogParseError(@Nonnull EntityType<E> entityType,
+        @Nonnull IRI mainNode) {
         E entity = getErrorEntity(entityType);
         RDFResource mainNodeResource = getRDFResource(mainNode);
         Set<RDFTriple> mainNodeTriples = getTriplesForMainNode(mainNode);
-        RDFResourceParseError error = new RDFResourceParseError(entity, mainNodeResource, mainNodeTriples);
+        RDFResourceParseError error =
+            new RDFResourceParseError(entity, mainNodeResource, mainNodeTriples);
         logError(error);
         return entity;
     }
@@ -1896,8 +1909,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the predicates by subject.
      * 
-     * @param subject
-     *        the subject
+     * @param subject the subject
      * @return the predicates by subject
      */
     protected Set<IRI> getPredicatesBySubject(IRI subject) {
@@ -1916,12 +1928,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the resource object.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param consume
-     *        the consume
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param consume the consume
      * @return the resource object
      */
     protected IRI getResourceObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
@@ -1931,12 +1940,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the resource object.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param consume
-     *        the consume
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param consume the consume
      * @return the resource object
      */
     protected IRI getResourceObject(IRI subject, IRI predicate, boolean consume) {
@@ -1971,10 +1977,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the resource objects.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
+     * @param subject the subject
+     * @param predicate the predicate
      * @return the resource objects
      */
     protected Set<IRI> getResourceObjects(IRI subject, IRI predicate) {
@@ -1999,27 +2003,22 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the literal object.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param consume
-     *        the consume
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param consume the consume
      * @return the literal object
      */
-    protected OWLLiteral getLiteralObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
+    protected OWLLiteral getLiteralObject(IRI subject, OWLRDFVocabulary predicate,
+        boolean consume) {
         return getLiteralObject(subject, predicate.getIRI(), consume);
     }
 
     /**
      * Gets the literal object.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param consume
-     *        the consume
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param consume the consume
      * @return the literal object
      */
     protected OWLLiteral getLiteralObject(IRI subject, IRI predicate, boolean consume) {
@@ -2051,10 +2050,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the literal objects.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
+     * @param subject the subject
+     * @param predicate the predicate
      * @return the literal objects
      */
     protected Set<OWLLiteral> getLiteralObjects(IRI subject, IRI predicate) {
@@ -2079,14 +2076,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is triple present.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
-     * @param consume
-     *        the consume
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
+     * @param consume the consume
      * @return true, if is triple present
      */
     protected boolean isTriplePresent(IRI subject, IRI predicate, IRI object, boolean consume) {
@@ -2124,29 +2117,26 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is general predicate.
      * 
-     * @param predicate
-     *        the predicate
+     * @param predicate the predicate
      * @return true, if is general predicate
      */
     protected static boolean isGeneralPredicate(IRI predicate) {
-        return !predicate.isReservedVocabulary() || OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(
-            predicate) || Namespaces.SWRL.inNamespace(predicate) || Namespaces.SWRLB.inNamespace(predicate);
+        return !predicate.isReservedVocabulary()
+            || OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(predicate)
+            || Namespaces.SWRL.inNamespace(predicate) || Namespaces.SWRLB.inNamespace(predicate);
     }
 
     /**
      * Checks if is triple present.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
-     * @param consume
-     *        the consume
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
+     * @param consume the consume
      * @return true, if is triple present
      */
-    protected boolean isTriplePresent(IRI subject, IRI predicate, OWLLiteral object, boolean consume) {
+    protected boolean isTriplePresent(IRI subject, IRI predicate, OWLLiteral object,
+        boolean consume) {
         Map<IRI, OWLLiteral> subjPredMap = singleValuedLitTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
             OWLLiteral obj = subjPredMap.get(subject);
@@ -2180,10 +2170,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks for predicate.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
+     * @param subject the subject
+     * @param predicate the predicate
      * @return true, if successful
      */
     protected boolean hasPredicate(IRI subject, IRI predicate) {
@@ -2212,10 +2200,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the rest.
      * 
-     * @param subject
-     *        the subject
-     * @param object
-     *        the object
+     * @param subject the subject
+     * @param object the object
      */
     protected void addRest(IRI subject, IRI object) {
         listRestTripleMap.put(subject, object);
@@ -2224,10 +2210,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the first.
      * 
-     * @param subject
-     *        the subject
-     * @param object
-     *        the object
+     * @param subject the subject
+     * @param object the object
      */
     protected void addFirst(IRI subject, IRI object) {
         listFirstResourceTripleMap.put(subject, object);
@@ -2236,10 +2220,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the first resource.
      * 
-     * @param subject
-     *        the subject
-     * @param consume
-     *        the consume
+     * @param subject the subject
+     * @param consume the consume
      * @return the first resource
      */
     protected IRI getFirstResource(IRI subject, boolean consume) {
@@ -2253,8 +2235,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the first literal.
      * 
-     * @param subject
-     *        the subject
+     * @param subject the subject
      * @return the first literal
      */
     protected OWLLiteral getFirstLiteral(IRI subject) {
@@ -2264,10 +2245,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Gets the rest.
      * 
-     * @param subject
-     *        the subject
-     * @param consume
-     *        the consume
+     * @param subject the subject
+     * @param consume the consume
      * @return the rest
      */
     protected IRI getRest(IRI subject, boolean consume) {
@@ -2281,10 +2260,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the first.
      * 
-     * @param subject
-     *        the subject
-     * @param object
-     *        the object
+     * @param subject the subject
+     * @param object the object
      */
     protected void addFirst(IRI subject, OWLLiteral object) {
         listFirstLiteralTripleMap.put(subject, object);
@@ -2293,14 +2270,24 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the ontology.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     protected void addOntology(IRI iri) {
         if (ontologyIRIs.isEmpty()) {
             firstOntologyIRI = iri;
         }
         ontologyIRIs.add(iri);
+    }
+
+    /**
+     * Adds the ontology version.
+     *
+     * @param version the version of the ontology
+     */
+    protected void addVersionIRI(IRI version) {
+        if (ontologyVersion == null) {
+            ontologyVersion = version;
+        }
     }
 
     /**
@@ -2315,8 +2302,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Adds the axiom.
      * 
-     * @param axiomIRI
-     *        the axiom iri
+     * @param axiomIRI the axiom iri
      */
     protected void addAxiom(IRI axiomIRI) {
         axioms.add(axiomIRI);
@@ -2325,8 +2311,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is axiom.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is axiom
      */
     protected boolean isAxiom(IRI iri) {
@@ -2336,8 +2321,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Checks if is data range.
      * 
-     * @param iri
-     *        the iri
+     * @param iri the iri
      * @return true, if is data range
      */
     protected boolean isDataRange(IRI iri) {
@@ -2354,8 +2338,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Iterate resource triples.
      * 
-     * @param iterator
-     *        the iterator
+     * @param iterator the iterator
      */
     protected void iterateResourceTriples(ResourceTripleIterator iterator) {
         for (IRI subject : resTriplesBySubject.keySet()) {
@@ -2381,8 +2364,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /**
      * Iterate literal triples.
      * 
-     * @param iterator
-     *        the iterator
+     * @param iterator the iterator
      */
     protected void iterateLiteralTriples(LiteralTripleIterator iterator) {
         for (IRI subject : new ArrayList<>(litTriplesBySubject.keySet())) {
@@ -2403,21 +2385,24 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     }
 
     /*
-     * Originally we had a special Triple class, which was specialised into
-     * ResourceTriple and LiteralTriple - this was used to store triples.
-     * However, with very large ontologies this proved to be inefficient in
-     * terms of memory usage. Now we just store raw subjects, predicates and
-     * object directly in varous maps.
+     * Originally we had a special Triple class, which was specialised into ResourceTriple and
+     * LiteralTriple - this was used to store triples. However, with very large ontologies this
+     * proved to be inefficient in terms of memory usage. Now we just store raw subjects, predicates
+     * and object directly in varous maps.
      */
     // Resource triples
     /** Subject, predicate, object */
-    private final Map<IRI, Map<IRI, Collection<IRI>>> resTriplesBySubject = CollectionFactory.createMap();
+    private final Map<IRI, Map<IRI, Collection<IRI>>> resTriplesBySubject =
+        CollectionFactory.createMap();
     /** Predicate, subject, object */
-    private final Map<IRI, Map<IRI, IRI>> singleValuedResTriplesByPredicate = CollectionFactory.createMap();
+    private final Map<IRI, Map<IRI, IRI>> singleValuedResTriplesByPredicate =
+        CollectionFactory.createMap();
     /** Literal triples */
-    private final Map<IRI, Map<IRI, Collection<OWLLiteral>>> litTriplesBySubject = CollectionFactory.createMap();
+    private final Map<IRI, Map<IRI, Collection<OWLLiteral>>> litTriplesBySubject =
+        CollectionFactory.createMap();
     /** Predicate, subject, object */
-    private final Map<IRI, Map<IRI, OWLLiteral>> singleValuedLitTriplesByPredicate = CollectionFactory.createMap();
+    private final Map<IRI, Map<IRI, OWLLiteral>> singleValuedLitTriplesByPredicate =
+        CollectionFactory.createMap();
     private final Map<IRI, IRI> remappedIRIs = CollectionFactory.createMap();
     private final Map<String, IRI> remappedIRIStrings = CollectionFactory.createMap();
 
@@ -2440,7 +2425,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     @Override
     @Nonnull
     public String remapOnlyIfRemapped(@Nonnull String i) {
-        if (nodeCheckerDelegate.isAnonymousNode(i) || nodeCheckerDelegate.isAnonymousSharedNode(i)) {
+        if (nodeCheckerDelegate.isAnonymousNode(i)
+            || nodeCheckerDelegate.isAnonymousSharedNode(i)) {
             // blank nodes do not need to be remapped in this method
             return i;
         }
