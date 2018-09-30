@@ -90,7 +90,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asList(key.ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet().distinct().sorted()));
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asList(key.ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet().distinct().sorted()));
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asList(key.ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asList(Stream.concat(key.ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION).get().keySet(),key.ints.getOntologyAnnotations().map(OWLAnnotation::getProperty)).distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asList(Stream.concat(key.ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION).get().keySet(),key.ints.getOntologyAnnotations().flatMap(a->a.annotationPropertiesInSignature())).distinct().sorted()));
     // @formatter:on
     protected static void invalidateOntologyCaches(OWLImmutableOntologyImpl o) {
         ontsignatures.invalidate(o);
