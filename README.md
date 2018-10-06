@@ -1098,7 +1098,7 @@ Main Bug Fixes:
 Release 3.0.0
 ----------------------------------------------------------------------
 
-Version 3.0.0 is incompatible with previous releases.  Many interface names have been changed in order to acheive a
+Version 3.0.0 is incompatible with previous releases.  Many interface names have been changed in order to achieve a
 close alignment with the names used in the OWL 2 Structural Specification and Functional Style Syntax.
 (See http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/)
 
