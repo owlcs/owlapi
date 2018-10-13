@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import com.google.common.collect.Sets;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
@@ -27,6 +26,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
@@ -42,8 +44,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class RDFGraph implements Serializable {
 
-    private static final Set<IRI> skippedPredicates = Sets
-        .newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
+    private static final Set<IRI> skippedPredicates = Collections.singleton(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
     private final Set<RDFTriple> triples = createLinkedSet();
@@ -52,15 +53,14 @@ public class RDFGraph implements Serializable {
     /**
      * @param predicate predicate to check for inclusion
      * @return true if the predicate IRI is not in the set of predicates that should be skipped from
-     * blank node reuse analysis.
+     *         blank node reuse analysis.
      */
     private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
         return !skippedPredicates.contains(predicate.getIRI());
     }
 
     /**
-     * Determines if this graph is empty (i.e. whether or not it contains any
-     * triples).
+     * Determines if this graph is empty (i.e. whether or not it contains any triples).
      *
      * @return {@code true} if the graph contains triples, otherwise {@code false}
      * @since 3.5
@@ -105,15 +105,14 @@ public class RDFGraph implements Serializable {
 
     /**
      * @return for each triple with a blank node object that is shared with other triples, compute a
-     * remapping of the node.
+     *         remapping of the node.
      */
     public Map<RDFTriple, RDFResourceBlankNode> computeRemappingForSharedNodes() {
         Map<RDFTriple, RDFResourceBlankNode> toReturn = createMap();
         Map<RDFNode, List<RDFTriple>> sharers = createMap();
         for (RDFTriple t : triples) {
             if (t.getObject().isAnonymous() && !t.getObject().isIndividual()
-                    && !t.getObject().isAxiom()
-                    && notInSkippedPredicates(t.getPredicate())) {
+                && !t.getObject().isAxiom() && notInSkippedPredicates(t.getPredicate())) {
                 List<RDFTriple> list = sharers.get(t.getObject());
                 if (list == null) {
                     list = new ArrayList<>(2);
@@ -126,9 +125,9 @@ public class RDFGraph implements Serializable {
             if (e.getValue().size() > 1) {
                 // found reused blank nodes
                 for (RDFTriple t : e.getValue()) {
-                    RDFResourceBlankNode bnode = new RDFResourceBlankNode(
-                        IRI.create(NodeID.nextAnonymousIRI()),
-                        e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
+                    RDFResourceBlankNode bnode =
+                        new RDFResourceBlankNode(IRI.create(NodeID.nextAnonymousIRI()),
+                            e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
                     remappedNodes.put(bnode, e.getKey());
                     toReturn.put(t, bnode);
                 }
@@ -181,5 +180,21 @@ public class RDFGraph implements Serializable {
      */
     public Set<RDFTriple> getAllTriples() {
         return Collections.unmodifiableSet(triples);
+    }
+
+    @Override
+    public String toString() {
+        return triples.stream().map(Object::toString)
+            .collect(Collectors.joining(",\n                     ", "triples            : ", "\n"))
+            + triplesBySubject.entrySet().stream().map(Object::toString).collect(
+                Collectors.joining(",\n                     ", "triplesBySubject   : ", "\n"))
+            + rootAnonymousNodes.stream().map(Object::toString).collect(
+                Collectors.joining(",\n                     ", "rootAnonymousNodes : ", "\n"))
+            + remappedNodes.entrySet().stream().map(Object::toString).collect(
+                Collectors.joining(",\n                     ", "remappedNodes      : ", ""));
+    }
+
+    public Stream<RDFResource> getSubjectsForObject(RDFResource node) {
+        return triples.stream().filter(p -> p.getObject().equals(node)).map(RDFTriple::getSubject);
     }
 }
