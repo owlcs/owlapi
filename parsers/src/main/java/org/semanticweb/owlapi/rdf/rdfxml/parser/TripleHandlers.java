@@ -13,8 +13,89 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi.model.MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.BUILT_IN_AP_IRIS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DIFFERENT;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DISJOINT_PROPERTIES;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_SOURCE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_TARGET;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ASSERTION_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_AXIOM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_COMPLEMENT_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATATYPE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATATYPE_COMPLEMENT_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATA_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATA_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DECLARED_AS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DEPRECATED_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DEPRECATED_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DIFFERENT_FROM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISJOINT_UNION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISJOINT_WITH;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISTINCT_MEMBERS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_EQUIVALENT_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_EQUIVALENT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_FUNCTIONAL_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_KEY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_SELF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_VALUE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_IMPORTS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INTERSECTION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INVERSE_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MEMBERS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NEGATIVE_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_OBJECT;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ONE_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ONTOLOGY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ONTOLOGY_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_DATA_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_PREDICATE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_PROPERTY_CHAIN;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_PROPERTY_CHAIN_AXIOM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_PROPERTY_DISJOINT_WITH;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_REFLEXIVE_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_RESTRICTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SAME_AS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SELF_RESTRICTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SOME_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SUBJECT;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TARGET_INDIVIDUAL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TARGET_VALUE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_UNION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_VERSION_IRI;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DATATYPE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DOMAIN;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUBCLASS_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUB_PROPERTY_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_FIRST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_LIST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_NIL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_OBJECT;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_PREDICATE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_REST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_SUBJECT;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,7 +107,35 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.AbstractRDFPrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -379,12 +488,11 @@ public class TripleHandlers {
 
         private Set<RDFTriple> getRemainingTriples() {
             Set<RDFTriple> remaining = new HashSet<>();
-            consumer.iterateResources((s, p,
-                            o) -> remaining.add(new RDFTriple(s, consumer.isAnonymousNode(s),
-                                            consumer.isAxiomIRI(s), p, o,
+            consumer.iterateResources((s, p, o) -> remaining
+                .add(new RDFTriple(s, consumer.isAnonymousNode(s), consumer.isAxiomIRI(s), p, o,
                     consumer.isAnonymousNode(o), consumer.isAxiomIRI(o))));
-            consumer.iterateLiterals((s, p, o) -> remaining.add(new RDFTriple(s,
-                            consumer.isAnonymousNode(s), consumer.isAxiomIRI(s), p, o)));
+            consumer.iterateLiterals((s, p, o) -> remaining
+                .add(new RDFTriple(s, consumer.isAnonymousNode(s), consumer.isAxiomIRI(s), p, o)));
             return remaining;
         }
 
@@ -452,8 +560,8 @@ public class TripleHandlers {
         @Override
         public void handleTriple(IRI s, IRI p, IRI o) {
             consume(s, p, o);
-            add(df.getOWLEquivalentClassesAxiom(
-                            Sets.newHashSet(ce(s), translateEquivalentClass(o))));
+            add(df
+                .getOWLEquivalentClassesAxiom(Sets.newHashSet(ce(s), translateEquivalentClass(o))));
         }
 
         protected abstract OWLClassExpression translateEquivalentClass(IRI mainNode);
@@ -648,8 +756,7 @@ public class TripleHandlers {
                 return false;
             }
             return OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.matches(literal.getDatatype())
-                            && OWL2Datatype.XSD_NON_NEGATIVE_INTEGER
-                                            .isInLexicalSpace(literal.getLiteral());
+                && OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.isInLexicalSpace(literal.getLiteral());
         }
 
         protected boolean isNonNegativeIntegerLax(IRI mainNode, OWLRDFVocabulary p) {
@@ -891,14 +998,13 @@ public class TripleHandlers {
             } else {
                 value = o;
             }
-            OWLAnnotationProperty prop = df.getOWLAnnotationProperty(p);
-            OWLAnnotation anno = df.getOWLAnnotation(prop, value);
             OWLAnnotationSubject subject = getSubject(s);
             if (consumer.isOntology(s)) {
-                // Assume we annotation our ontology?
-                consumer.addOntologyAnnotation(anno);
+                consumer.addOntologyAnnotation(
+                    df.getOWLAnnotation(df.getOWLAnnotationProperty(p), value, anns()));
             } else {
-                add(df.getOWLAnnotationAssertionAxiom(subject, anno, anns()));
+                add(df.getOWLAnnotationAssertionAxiom(subject,
+                    df.getOWLAnnotation(df.getOWLAnnotationProperty(p), value, anns())));
             }
             consume(s, p, o);
         }
@@ -1033,8 +1139,8 @@ public class TripleHandlers {
         public boolean canHandleStreaming(IRI s, IRI p, IRI o) {
             addR(s, false);
             IRI propIRI = getResourceObject(s, OWL_ON_PROPERTY);
-            if (propIRI != null && (!isAnon(o) || consumer.translatorAccessor
-                            .getClassExpressionIfTranslated(o) != null)) {
+            if (propIRI != null && (!isAnon(o)
+                || consumer.translatorAccessor.getClassExpressionIfTranslated(o) != null)) {
                 // The filler is either a datatype or named class
                 if (isObjectPropertyStrict(propIRI)) {
                     addCe(o, false);
@@ -1609,8 +1715,8 @@ public class TripleHandlers {
 
         @Override
         protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
-            return df.getOWLObjectOneOf(
-                            consumer.translatorAccessor.translateToIndividualSet(mainNode));
+            return df
+                .getOWLObjectOneOf(consumer.translatorAccessor.translateToIndividualSet(mainNode));
         }
     }
 
@@ -2278,8 +2384,7 @@ public class TripleHandlers {
 
         @Nullable
         protected OWLAxiom handleAxiomTriples(IRI subjectTripleObject, IRI predicateTripleObject,
-                        OWLLiteral con,
-                        @SuppressWarnings("unused") Set<OWLAnnotation> annotations) {
+            OWLLiteral con, @SuppressWarnings("unused") Set<OWLAnnotation> annotations) {
             consumer.handlerAccessor.handle(subjectTripleObject, predicateTripleObject, con);
             return consumer.getLastAddedAxiom();
         }
