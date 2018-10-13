@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -73,6 +74,8 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.github.jsonldjava.shaded.com.google.common.base.Objects;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -207,12 +210,19 @@ public abstract class TestBase {
         return ax.isOfType(AxiomType.DECLARATION) && ax.annotations().count() == 0;
     }
 
+    private static String str(Stream<?> s) {
+        return s.map(Object::toString).map(f -> f.replace(" ", "\n ").replace("(", "(\n"))
+            .collect(Collectors.joining("\n"));
+    }
+
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
             assertEquals("Ontologies supposed to be the same", ont1.getOntologyID(),
                 ont2.getOntologyID());
         }
-        assertEquals(asSet(ont1.annotations()), asSet(ont2.annotations()));
+        if (!Objects.equal(asSet(ont1.annotations()), asSet(ont2.annotations()))) {
+            assertEquals(str(ont1.annotations()), str(ont2.annotations()));
+        }
         Set<OWLAxiom> axioms1;
         Set<OWLAxiom> axioms2;
         // This isn't great - we normalise axioms by changing the ids of
@@ -284,7 +294,6 @@ public abstract class TestBase {
                 return true;
             }
         }
-        // assertEquals(axioms1, axioms2);
         return true;
     }
 
