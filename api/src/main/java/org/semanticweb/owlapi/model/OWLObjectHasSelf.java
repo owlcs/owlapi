@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -15,56 +15,61 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Self-Restriction">ObjectHasSelf </a>
- * class expression in the OWL 2 Specification.
+ * Represents an
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Self-Restriction">ObjectHasSelf
+ * </a> class expression in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public interface OWLObjectHasSelf extends OWLRestriction, OWLObjectRestriction {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getProperty());
-    }
+	@Override
+	default void accept(final OWLClassExpressionVisitor visitor) {
+		visitor.visit(this);
+	}
 
-    @Override
-    default int initHashCode() {
-        return OWLObject.hashIteration(hashIndex(), getProperty().hashCode());
-    }
+	@Override
+	default <O> O accept(final OWLClassExpressionVisitorEx<O> visitor) {
+		return visitor.visit(this);
+	}
 
-    @Override
-    default int hashIndex() {
-        return 233;
-    }
+	@Override
+	default void accept(final OWLObjectVisitor visitor) {
+		visitor.visit(this);
+	}
 
-    @Override
-    default int typeIndex() {
-        return 3011;
-    }
+	@Override
+	default <O> O accept(final OWLObjectVisitorEx<O> visitor) {
+		return visitor.visit(this);
+	}
 
-    @Override
-    default ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OBJECT_HAS_SELF;
-    }
+	@Override
+	default Stream<?> components() {
+		return Stream.of(getProperty());
+	}
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+	@Override
+	default ClassExpressionType getClassExpressionType() {
+		return ClassExpressionType.OBJECT_HAS_SELF;
+	}
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+	@Override
+	OWLObjectPropertyExpression getProperty();
 
-    @Override
-    default void accept(OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
+	@Override
+	default int hashIndex() {
+		return 233;
+	}
 
-    @Override
-    default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+	@Override
+	default int initHashCode() {
+		return OWLObject.hashIteration(hashIndex(), getProperty().hashCode());
+	}
+
+	@Override
+	default int typeIndex() {
+		return 3011;
+	}
 }
