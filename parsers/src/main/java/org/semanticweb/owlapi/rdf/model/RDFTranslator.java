@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -44,7 +43,7 @@ public class RDFTranslator
 
     protected final AxiomAppearance axiomOccurrences;
     private final AtomicInteger nextBlankNodeId;
-    private final Map<Object, Integer> blankNodeMap = new IdentityHashMap<>();
+    private final Map<Object, Integer> blankNodeMap;
 
     /**
      * @param manager the manager
@@ -55,10 +54,12 @@ public class RDFTranslator
      * @param counter counter for blank nodes
      */
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
-        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger counter) {
+        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger counter,
+        Map<Object, Integer> blankNodeMap) {
         super(manager, ontology, useStrongTyping, occurrences);
         this.axiomOccurrences = axiomOccurrences;
         nextBlankNodeId = counter;
+        this.blankNodeMap = blankNodeMap;
     }
 
     @Override

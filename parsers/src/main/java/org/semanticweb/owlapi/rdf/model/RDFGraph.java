@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.rdf.model;
 import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -27,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -44,7 +44,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class RDFGraph implements Serializable {
 
-    private static final Set<IRI> skippedPredicates = Collections.singleton(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
+    private static final Set<IRI> skippedPredicates =
+        Collections.singleton(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
     private final Set<RDFTriple> triples = createLinkedSet();
@@ -194,7 +195,26 @@ public class RDFGraph implements Serializable {
                 Collectors.joining(",\n                     ", "remappedNodes      : ", ""));
     }
 
-    public Stream<RDFResource> getSubjectsForObject(RDFResource node) {
-        return triples.stream().filter(p -> p.getObject().equals(node)).map(RDFTriple::getSubject);
+    public List<RDFResource> getSubjectsForObject(RDFResource node) {
+        List<RDFResource> current = asList(
+            triples.stream().filter(p -> p.getObject().equals(node)).map(RDFTriple::getSubject));
+        List<RDFResource> next = new ArrayList<>();
+        boolean change = true;
+        while (change) {
+            change = false;
+            for (RDFResource n : current) {
+                List<RDFResource> l = asList(triples.stream().filter(p -> p.getObject().equals(n))
+                    .map(RDFTriple::getSubject));
+                if (l.size() > 0) {
+                    change = true;
+                    next.addAll(l);
+                } else {
+                    next.add(n);
+                }
+            }
+            current = next;
+            next = new ArrayList<>();
+        }
+        return current;
     }
 }

@@ -753,15 +753,27 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     protected <T extends OWLObject> N putHasIRI(T i, Function<T, IRI> f) {
-        return nodeMap.computeIfAbsent(i, x -> getResourceNode(f.apply((T) x)));
+        N n = nodeMap.get(i);
+        if (n != null) {
+            return n;
+        }
+        n = getResourceNode(f.apply(i));
+        nodeMap.put(i, n);
+        return n;
     }
 
     protected void putLiteral(OWLLiteral i) {
-        nodeMap.computeIfAbsent(i, x -> getLiteralNode(i));
+        if (nodeMap.containsKey(i)) {
+            return;
+        }
+        nodeMap.put(i, getLiteralNode(i));
     }
 
     protected void putProperty(OWLProperty p) {
-        nodeMap.computeIfAbsent(p, x -> getPredicateNode(((OWLProperty) x).getIRI()));
+        if (nodeMap.containsKey(p)) {
+            return;
+        }
+        nodeMap.put(p, getPredicateNode(p.getIRI()));
     }
 
     @Override
@@ -944,10 +956,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     protected void putSWRLEntity(SWRLArgument i, OWLObject o) {
-        nodeMap.computeIfAbsent(i, (OWLObject x) -> {
-            o.accept(this);
-            return getMappedNode(o);
-        });
+        if (nodeMap.containsKey(i)) {
+            return;
+        }
+        o.accept(this);
+        nodeMap.put(i, getMappedNode(o));
     }
 
     @Override
@@ -1025,6 +1038,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private void translateAnnotation(OWLObject subject, OWLAnnotation annotation) {
         // We first add the base triple
         addTriple(subject, annotation.getProperty().getIRI(), annotation.getValue());
+        annotation.getProperty().accept(this);
         // if the annotation has a blank node as subject, add the triples here
         if (annotation.getValue() instanceof OWLAnonymousIndividual) {
             OWLAnonymousIndividual ind = (OWLAnonymousIndividual) annotation.getValue();

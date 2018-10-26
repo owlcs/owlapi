@@ -1751,15 +1751,21 @@ public class OWLRDFConsumer
         while (resVal != null) {
             IRI annotation = getSubjectForAnnotatedPropertyAndObject(n, p, resVal);
             OWLAnnotationValue val = getAnnotationValue(resVal);
-            nodeAnns.add(df.getOWLAnnotation(ap, val,
-                anns.getOrDefault(annotation, Collections.emptyList())));
+            Collection<OWLAnnotation> nestedAnns =
+                anns.getOrDefault(annotation, Collections.emptyList());
+            OWLAnnotation apVal = df.getOWLAnnotation(ap, val, nestedAnns);
+            nodeAnns.add(apVal);
+            consumeTriple(n, p, resVal);
             resVal = getResourceObject(n, p, true);
         }
         OWLLiteral litVal = getLiteralObject(n, p, true);
         while (litVal != null) {
             IRI annotation = getSubjectForAnnotatedPropertyAndObject(n, p, litVal);
-            nodeAnns.add(df.getOWLAnnotation(ap, litVal,
-                anns.getOrDefault(annotation, Collections.emptyList())));
+            Collection<OWLAnnotation> nestedAnns =
+                anns.getOrDefault(annotation, Collections.emptyList());
+            OWLAnnotation apLitVal = df.getOWLAnnotation(ap, litVal, nestedAnns);
+            nodeAnns.add(apLitVal);
+            consumeTriple(n, p, litVal);
             litVal = getLiteralObject(n, p, true);
         }
     }
@@ -1781,13 +1787,10 @@ public class OWLRDFConsumer
     }
 
     private OWLAnnotationValue getAnnotationValue(IRI resVal) {
-        OWLAnnotationValue val;
         if (isAnonymousNode(resVal)) {
-            val = df.getOWLAnonymousIndividual(resVal.toString());
-        } else {
-            val = resVal;
+            return anonProvider.getOWLAnonymousIndividual(resVal.toString());
         }
-        return val;
+        return resVal;
     }
 
     private <E extends OWLEntity> E getErrorEntity(EntityType<E> entityType) {

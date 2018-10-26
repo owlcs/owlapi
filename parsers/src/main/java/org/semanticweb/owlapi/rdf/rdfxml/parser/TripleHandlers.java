@@ -680,8 +680,8 @@ public class TripleHandlers {
             consumer.addAxiom(axiom);
         }
 
-        protected Set<OWLAnnotation> anns(IRI s) {
-            return consumer.translateAnnotations(s);
+        protected void anns(IRI s) {
+            consumer.addPendingAnnotations(consumer.translateAnnotations(s));
         }
 
         protected void addCe(IRI iri, boolean explicitlyTyped) {
@@ -962,7 +962,12 @@ public class TripleHandlers {
         public void handleTriple(IRI s, IRI p, OWLLiteral o) {
             OWLAnnotationProperty prop = df.getOWLAnnotationProperty(p);
             if (consumer.isOntology(s)) {
-                consumer.addOntologyAnnotation(df.getOWLAnnotation(prop, o, anns()));
+                anns(s);
+                Set<OWLAnnotation> anns = anns();
+                anns.forEach(consumer::addOntologyAnnotation);
+                if (anns.isEmpty()) {
+                    consumer.addOntologyAnnotation(df.getOWLAnnotation(prop, o));
+                }
             } else {
                 add(df.getOWLAnnotationAssertionAxiom(prop, getSubject(s), o, anns()));
             }
@@ -999,12 +1004,17 @@ public class TripleHandlers {
                 value = o;
             }
             OWLAnnotationSubject subject = getSubject(s);
+            OWLAnnotationProperty prop = df.getOWLAnnotationProperty(p);
             if (consumer.isOntology(s)) {
-                consumer.addOntologyAnnotation(
-                    df.getOWLAnnotation(df.getOWLAnnotationProperty(p), value, anns()));
+                anns(s);
+                Set<OWLAnnotation> anns = anns();
+                anns.forEach(consumer::addOntologyAnnotation);
+                if (anns.isEmpty()) {
+                    consumer.addOntologyAnnotation(df.getOWLAnnotation(prop, o));
+                }
             } else {
                 add(df.getOWLAnnotationAssertionAxiom(subject,
-                    df.getOWLAnnotation(df.getOWLAnnotationProperty(p), value, anns())));
+                    df.getOWLAnnotation(prop, value, anns())));
             }
             consume(s, p, o);
         }
@@ -2213,7 +2223,8 @@ public class TripleHandlers {
             if (listNode != null) {
                 Set<OWLClassExpression> desc =
                     consumer.translatorAccessor.translateToClassExpressionSet(listNode);
-                add(df.getOWLDisjointClassesAxiom(desc, anns(s)));
+                anns(s);
+                add(df.getOWLDisjointClassesAxiom(desc, anns()));
                 consume(s, p, o);
             }
         }
@@ -2236,10 +2247,12 @@ public class TripleHandlers {
             IRI listNode = verifyNotNull(getRO(s, OWL_MEMBERS));
             if (isOpLax(consumer.getFirstResource(listNode, false))) {
                 Set<OWLObjectPropertyExpression> props = ops(listNode);
-                consumer.addAxiom(df.getOWLDisjointObjectPropertiesAxiom(props, anns(s)));
+                anns(s);
+                consumer.addAxiom(df.getOWLDisjointObjectPropertiesAxiom(props, anns()));
             } else {
                 Set<OWLDataPropertyExpression> props = dps(listNode);
-                consumer.addAxiom(df.getOWLDisjointDataPropertiesAxiom(props, anns(s)));
+                anns(s);
+                consumer.addAxiom(df.getOWLDisjointDataPropertiesAxiom(props, anns()));
             }
         }
 
@@ -2356,8 +2369,8 @@ public class TripleHandlers {
             }
             // check that other conditions are not invalid
             if (annotatedSource != null && annotatedProperty != null) {
-                consume(s, p, o);
-                Set<OWLAnnotation> annotations = consumer.translateAnnotations(s);
+                anns(s);
+                Set<OWLAnnotation> annotations = anns();
                 consumer.addPendingAnnotations(annotations);
                 if (annotatedTarget != null) {
                     consumer.handlerAccessor.handle(annotatedSource, annotatedProperty,
@@ -2371,6 +2384,7 @@ public class TripleHandlers {
                     consumer.removeAxiom(verifyNotNull(ax, "no axiom added yet by the consumer")
                         .getAxiomWithoutAnnotations());
                 }
+                consume(s, p, o);
             }
         }
 
@@ -2645,7 +2659,7 @@ public class TripleHandlers {
             OWLIndividual sourceInd = consumer.getOWLIndividual(source);
             OWLDataPropertyExpression prop = dp(property);
             consume(s, p, o);
-            consumer.translateAnnotations(s);
+            anns(s);
             add(df.getOWLNegativeDataPropertyAssertionAxiom(prop, sourceInd, target, anns()));
         }
 
@@ -2694,13 +2708,13 @@ public class TripleHandlers {
             IRI source = source(s);
             IRI property = property(s);
             OWLObject target = target(s);
-            Set<OWLAnnotation> annos = consumer.translateAnnotations(s);
+            anns(s);
             if (target instanceof OWLLiteral && (!isStrict() || isDPLax(property))) {
                 translateNegativeDataPropertyAssertion(s, p, o, source, property,
-                    (OWLLiteral) target, annos);
+                    (OWLLiteral) target, anns());
             } else if (target.isIRI() && (!isStrict() || isOpLax(property))) {
                 translateNegativeObjectPropertyAssertion(s, p, o, source, property, (IRI) target,
-                    annos);
+                    anns());
             }
             // TODO LOG ERROR
         }
