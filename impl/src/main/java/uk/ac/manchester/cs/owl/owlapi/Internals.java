@@ -12,10 +12,55 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.model.AxiomType.*;
-import static org.semanticweb.owlapi.util.CollectionFactory.*;
+import static org.semanticweb.owlapi.model.AxiomType.ANNOTATION_ASSERTION;
+import static org.semanticweb.owlapi.model.AxiomType.ASYMMETRIC_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.model.AxiomType.AXIOM_TYPES;
+import static org.semanticweb.owlapi.model.AxiomType.CLASS_ASSERTION;
+import static org.semanticweb.owlapi.model.AxiomType.DATA_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.model.AxiomType.DATA_PROPERTY_DOMAIN;
+import static org.semanticweb.owlapi.model.AxiomType.DATA_PROPERTY_RANGE;
+import static org.semanticweb.owlapi.model.AxiomType.DIFFERENT_INDIVIDUALS;
+import static org.semanticweb.owlapi.model.AxiomType.DISJOINT_CLASSES;
+import static org.semanticweb.owlapi.model.AxiomType.DISJOINT_DATA_PROPERTIES;
+import static org.semanticweb.owlapi.model.AxiomType.DISJOINT_OBJECT_PROPERTIES;
+import static org.semanticweb.owlapi.model.AxiomType.DISJOINT_UNION;
+import static org.semanticweb.owlapi.model.AxiomType.EQUIVALENT_CLASSES;
+import static org.semanticweb.owlapi.model.AxiomType.EQUIVALENT_DATA_PROPERTIES;
+import static org.semanticweb.owlapi.model.AxiomType.EQUIVALENT_OBJECT_PROPERTIES;
+import static org.semanticweb.owlapi.model.AxiomType.FUNCTIONAL_DATA_PROPERTY;
+import static org.semanticweb.owlapi.model.AxiomType.FUNCTIONAL_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.model.AxiomType.HAS_KEY;
+import static org.semanticweb.owlapi.model.AxiomType.INVERSE_FUNCTIONAL_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.model.AxiomType.INVERSE_OBJECT_PROPERTIES;
+import static org.semanticweb.owlapi.model.AxiomType.IRREFLEXIVE_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.model.AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.model.AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.model.AxiomType.OBJECT_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.model.AxiomType.OBJECT_PROPERTY_DOMAIN;
+import static org.semanticweb.owlapi.model.AxiomType.OBJECT_PROPERTY_RANGE;
+import static org.semanticweb.owlapi.model.AxiomType.REFLEXIVE_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.model.AxiomType.SAME_INDIVIDUAL;
+import static org.semanticweb.owlapi.model.AxiomType.SUBCLASS_OF;
+import static org.semanticweb.owlapi.model.AxiomType.SUB_DATA_PROPERTY;
+import static org.semanticweb.owlapi.model.AxiomType.SUB_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.model.AxiomType.SYMMETRIC_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.model.AxiomType.TRANSITIVE_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.createSyncSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.*;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.ANNOTSUPERNAMED;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.CLASSCOLLECTIONS;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.CLASSEXPRESSIONS;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.CLASSSUBNAMED;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.CLASSSUPERNAMED;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.DPCOLLECTIONS;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.DPSUBNAMED;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.DPSUPERNAMED;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.ICOLLECTIONS;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.INDIVIDUALSUBNAMED;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.OPCOLLECTIONS;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.OPSUBNAMED;
+import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.OPSUPERNAMED;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -30,7 +75,64 @@ import java.util.TreeSet;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLogicalAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
@@ -86,7 +188,8 @@ public class Internals implements Serializable {
     protected class SetPointer<K extends Serializable> implements Serializable {
 
         private static final long serialVersionUID = 40000L;
-        @Nonnull private final Set<K> set = createSyncSet();
+        @Nonnull
+        private final Set<K> set = createSyncSet();
 
         public boolean isEmpty() {
             return set.isEmpty();
@@ -98,7 +201,7 @@ public class Internals implements Serializable {
         }
 
         @Nonnull
-        public Iterable<K> iterable() {
+        public Collection<K> iterable() {
             return set;
         }
 
@@ -174,7 +277,8 @@ public class Internals implements Serializable {
     @Nonnull protected transient MapPointer<OWLAnnotationProperty, OWLAxiom>     owlAnnotationPropertyReferences     = build();
     @Nonnull protected transient MapPointer<OWLEntity, OWLDeclarationAxiom>      declarationsByEntity                = build();
 //@formatter:on
-    @Nullable private List<OWLAxiom> axiomsForSerialization;
+    @Nullable
+    private List<OWLAxiom> axiomsForSerialization;
 
     @SuppressWarnings("null")
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
@@ -201,30 +305,36 @@ public class Internals implements Serializable {
         disjointClassesAxiomsByClass = buildLazy(DISJOINT_CLASSES, CLASSCOLLECTIONS);
         disjointUnionAxiomsByClass = buildLazy(DISJOINT_UNION, CLASSCOLLECTIONS);
         hasKeyAxiomsByClass = buildLazy(HAS_KEY, CLASSSUPERNAMED);
-        equivalentObjectPropertyAxiomsByProperty = buildLazy(EQUIVALENT_OBJECT_PROPERTIES, OPCOLLECTIONS);
-        disjointObjectPropertyAxiomsByProperty = buildLazy(DISJOINT_OBJECT_PROPERTIES, OPCOLLECTIONS);
+        equivalentObjectPropertyAxiomsByProperty =
+            buildLazy(EQUIVALENT_OBJECT_PROPERTIES, OPCOLLECTIONS);
+        disjointObjectPropertyAxiomsByProperty =
+            buildLazy(DISJOINT_OBJECT_PROPERTIES, OPCOLLECTIONS);
         objectPropertyDomainAxiomsByProperty = buildLazy(OBJECT_PROPERTY_DOMAIN, OPSUBNAMED);
         objectPropertyRangeAxiomsByProperty = buildLazy(OBJECT_PROPERTY_RANGE, OPSUBNAMED);
-        functionalObjectPropertyAxiomsByProperty = buildLazy(FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED);
-        inverseFunctionalPropertyAxiomsByProperty = buildLazy(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED);
+        functionalObjectPropertyAxiomsByProperty =
+            buildLazy(FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED);
+        inverseFunctionalPropertyAxiomsByProperty =
+            buildLazy(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED);
         symmetricPropertyAxiomsByProperty = buildLazy(SYMMETRIC_OBJECT_PROPERTY, OPSUBNAMED);
         asymmetricPropertyAxiomsByProperty = buildLazy(ASYMMETRIC_OBJECT_PROPERTY, OPSUBNAMED);
         reflexivePropertyAxiomsByProperty = buildLazy(REFLEXIVE_OBJECT_PROPERTY, OPSUBNAMED);
         irreflexivePropertyAxiomsByProperty = buildLazy(IRREFLEXIVE_OBJECT_PROPERTY, OPSUBNAMED);
         transitivePropertyAxiomsByProperty = buildLazy(TRANSITIVE_OBJECT_PROPERTY, OPSUBNAMED);
         inversePropertyAxiomsByProperty = buildLazy(INVERSE_OBJECT_PROPERTIES, OPCOLLECTIONS);
-        equivalentDataPropertyAxiomsByProperty = buildLazy(EQUIVALENT_DATA_PROPERTIES, DPCOLLECTIONS);
+        equivalentDataPropertyAxiomsByProperty =
+            buildLazy(EQUIVALENT_DATA_PROPERTIES, DPCOLLECTIONS);
         disjointDataPropertyAxiomsByProperty = buildLazy(DISJOINT_DATA_PROPERTIES, DPCOLLECTIONS);
         dataPropertyDomainAxiomsByProperty = buildLazy(DATA_PROPERTY_DOMAIN, DPSUBNAMED);
         dataPropertyRangeAxiomsByProperty = buildLazy(DATA_PROPERTY_RANGE, DPSUBNAMED);
         functionalDataPropertyAxiomsByProperty = buildLazy(FUNCTIONAL_DATA_PROPERTY, DPSUBNAMED);
         classAssertionAxiomsByIndividual = buildLazy(CLASS_ASSERTION, INDIVIDUALSUBNAMED);
-        objectPropertyAssertionsByIndividual = buildLazy(OBJECT_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
+        objectPropertyAssertionsByIndividual =
+            buildLazy(OBJECT_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
         dataPropertyAssertionsByIndividual = buildLazy(DATA_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
-        negativeObjectPropertyAssertionAxiomsByIndividual = buildLazy(NEGATIVE_OBJECT_PROPERTY_ASSERTION,
-            INDIVIDUALSUBNAMED);
-        negativeDataPropertyAssertionAxiomsByIndividual = buildLazy(NEGATIVE_DATA_PROPERTY_ASSERTION,
-            INDIVIDUALSUBNAMED);
+        negativeObjectPropertyAssertionAxiomsByIndividual =
+            buildLazy(NEGATIVE_OBJECT_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
+        negativeDataPropertyAssertionAxiomsByIndividual =
+            buildLazy(NEGATIVE_DATA_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
         differentIndividualsAxiomsByIndividual = buildLazy(DIFFERENT_INDIVIDUALS, ICOLLECTIONS);
         sameIndividualsAxiomsByIndividual = buildLazy(SAME_INDIVIDUAL, ICOLLECTIONS);
         for (OWLAxiom ax : axiomsForSerialization) {
@@ -260,8 +370,8 @@ public class Internals implements Serializable {
     }
 
     /**
-     * Trims the capacity of the axiom indexes . An application can use this
-     * operation to minimize the storage of the internals instance.
+     * Trims the capacity of the axiom indexes . An application can use this operation to minimize
+     * the storage of the internals instance.
      */
     public void trimToSize() {
         axiomsByType.trimToSize();
@@ -318,14 +428,17 @@ public class Internals implements Serializable {
         stream.defaultWriteObject();
     }
 
-    @Nonnull private final AddAxiomVisitor addChangeVisitor = new AddAxiomVisitor();
-    @Nonnull private final RemoveAxiomVisitor removeChangeVisitor = new RemoveAxiomVisitor();
-    @Nonnull private final ReferenceChecker refChecker = new ReferenceChecker();
-    @Nonnull private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiomsCollector();
+    @Nonnull
+    private final AddAxiomVisitor addChangeVisitor = new AddAxiomVisitor();
+    @Nonnull
+    private final RemoveAxiomVisitor removeChangeVisitor = new RemoveAxiomVisitor();
+    @Nonnull
+    private final ReferenceChecker refChecker = new ReferenceChecker();
+    @Nonnull
+    private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiomsCollector();
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a class with this iri exists
      */
     public boolean containsClassInSignature(IRI i) {
@@ -333,8 +446,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an object property with this iri exists
      */
     public boolean containsObjectPropertyInSignature(IRI i) {
@@ -342,8 +454,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a data property with this iri exists
      */
     public boolean containsDataPropertyInSignature(IRI i) {
@@ -351,8 +462,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an annotation property with this iri exists
      */
     public boolean containsAnnotationPropertyInSignature(IRI i) {
@@ -360,8 +470,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a individual with this iri exists
      */
     public boolean containsIndividualInSignature(IRI i) {
@@ -369,8 +478,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a datatype with this iri exists
      */
     public boolean containsDatatypeInSignature(IRI i) {
@@ -378,8 +486,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a class with this iri exists
      */
     public boolean containsClassInSignature(OWLClass i) {
@@ -387,8 +494,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an object property with this iri exists
      */
     public boolean containsObjectPropertyInSignature(OWLObjectProperty i) {
@@ -396,8 +502,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a data property with this iri exists
      */
     public boolean containsDataPropertyInSignature(OWLDataProperty i) {
@@ -405,8 +510,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an annotation property with this iri exists
      */
     public boolean containsAnnotationPropertyInSignature(OWLAnnotationProperty i) {
@@ -414,8 +518,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a individual with this iri exists
      */
     public boolean containsIndividualInSignature(OWLNamedIndividual i) {
@@ -423,8 +526,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a datatype with this iri exists
      */
     public boolean containsDatatypeInSignature(OWLDatatype i) {
@@ -432,14 +534,10 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param type
-     *        type of map key
-     * @param axiom
-     *        class of axiom indexed
-     * @param <T>
-     *        key type
-     * @param <A>
-     *        value type
+     * @param type type of map key
+     * @param axiom class of axiom indexed
+     * @param <T> key type
+     * @param <A> value type
      * @return map pointer matching the search, or null if there is not one
      */
     // not always not null, but supposed to
@@ -450,22 +548,16 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param type
-     *        type of map key
-     * @param axiom
-     *        class of axiom indexed
-     * @param position
-     *        for axioms with a left/right distinction, IN_SUPER_POSITION means
-     *        right index
-     * @param <T>
-     *        key type
-     * @param <A>
-     *        value type
+     * @param type type of map key
+     * @param axiom class of axiom indexed
+     * @param position for axioms with a left/right distinction, IN_SUPER_POSITION means right index
+     * @param <T> key type
+     * @param <A> value type
      * @return map pointer matching the search, or null if there is not one
      */
     // not always not null, but supposed to be
     @Nonnull
-    @SuppressWarnings({ "unchecked", })
+    @SuppressWarnings({"unchecked",})
     <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(@Nonnull Class<T> type,
         @Nonnull Class<A> axiom, Navigation position) {
         if (OWLEntity.class.isAssignableFrom(type) && axiom.equals(OWLDeclarationAxiom.class)) {
@@ -578,10 +670,12 @@ public class Internals implements Serializable {
                 return Optional.of((MapPointer<T, A>) dataPropertyAssertionsByIndividual);
             }
             if (axiom.equals(OWLNegativeObjectPropertyAssertionAxiom.class)) {
-                return Optional.of((MapPointer<T, A>) negativeObjectPropertyAssertionAxiomsByIndividual);
+                return Optional
+                    .of((MapPointer<T, A>) negativeObjectPropertyAssertionAxiomsByIndividual);
             }
             if (axiom.equals(OWLNegativeDataPropertyAssertionAxiom.class)) {
-                return Optional.of((MapPointer<T, A>) negativeDataPropertyAssertionAxiomsByIndividual);
+                return Optional
+                    .of((MapPointer<T, A>) negativeDataPropertyAssertionAxiomsByIndividual);
             }
             if (axiom.equals(OWLDifferentIndividualsAxiom.class)) {
                 return Optional.of((MapPointer<T, A>) differentIndividualsAxiomsByIndividual);
@@ -623,7 +717,8 @@ public class Internals implements Serializable {
     }
 
     @Nonnull
-    protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t, OWLAxiomVisitorEx<?> v) {
+    protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t,
+        OWLAxiomVisitorEx<?> v) {
         return new MapPointer<>(t, v, false, this);
     }
 
@@ -633,13 +728,13 @@ public class Internals implements Serializable {
     }
 
     @Nonnull
-    protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t, OWLAxiomVisitorEx<?> v) {
+    protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
+        OWLAxiomVisitorEx<?> v) {
         return new MapPointer<>(t, v, true, this);
     }
 
     /**
-     * @param axiom
-     *        axiom to add
+     * @param axiom axiom to add
      * @return true if the axiom was not already included
      */
     public boolean addAxiom(@Nonnull final OWLAxiom axiom) {
@@ -689,51 +784,51 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param axiom
-     *        axiom to remove
+     * @param axiom axiom to remove
      * @return true if removed
      */
     public boolean removeAxiom(@Nonnull final OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         if (getAxiomsByType().remove(axiom.getAxiomType(), axiom)) {
             axiom.accept(removeChangeVisitor);
-            AbstractEntityRegistrationManager referenceRemover = new AbstractEntityRegistrationManager() {
+            AbstractEntityRegistrationManager referenceRemover =
+                new AbstractEntityRegistrationManager() {
 
-                @Override
-                public void visit(OWLClass ce) {
-                    owlClassReferences.remove(ce, axiom);
-                }
+                    @Override
+                    public void visit(OWLClass ce) {
+                        owlClassReferences.remove(ce, axiom);
+                    }
 
-                @Override
-                public void visit(OWLObjectProperty property) {
-                    owlObjectPropertyReferences.remove(property, axiom);
-                }
+                    @Override
+                    public void visit(OWLObjectProperty property) {
+                        owlObjectPropertyReferences.remove(property, axiom);
+                    }
 
-                @Override
-                public void visit(OWLDataProperty property) {
-                    owlDataPropertyReferences.remove(property, axiom);
-                }
+                    @Override
+                    public void visit(OWLDataProperty property) {
+                        owlDataPropertyReferences.remove(property, axiom);
+                    }
 
-                @Override
-                public void visit(OWLNamedIndividual individual) {
-                    owlIndividualReferences.remove(individual, axiom);
-                }
+                    @Override
+                    public void visit(OWLNamedIndividual individual) {
+                        owlIndividualReferences.remove(individual, axiom);
+                    }
 
-                @Override
-                public void visit(OWLAnnotationProperty property) {
-                    owlAnnotationPropertyReferences.remove(property, axiom);
-                }
+                    @Override
+                    public void visit(OWLAnnotationProperty property) {
+                        owlAnnotationPropertyReferences.remove(property, axiom);
+                    }
 
-                @Override
-                public void visit(OWLDatatype node) {
-                    owlDatatypeReferences.remove(node, axiom);
-                }
+                    @Override
+                    public void visit(OWLDatatype node) {
+                        owlDatatypeReferences.remove(node, axiom);
+                    }
 
-                @Override
-                public void visit(OWLAnonymousIndividual individual) {
-                    owlAnonymousIndividualReferences.remove(individual, axiom);
-                }
-            };
+                    @Override
+                    public void visit(OWLAnonymousIndividual individual) {
+                        owlAnonymousIndividualReferences.remove(individual, axiom);
+                    }
+                };
             axiom.accept(referenceRemover);
             return true;
         }
@@ -741,8 +836,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param e
-     *        entity to check
+     * @param e entity to check
      * @return true if the entity is declared in the ontology
      */
     public boolean isDeclared(OWLEntity e) {
@@ -757,22 +851,22 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param filter
-     *        filter to satisfy
-     * @param <K>
-     *        key type
-     * @param key
-     *        key
+     * @param filter filter to satisfy
+     * @param <K> key type
+     * @param key key
      * @return set of values
      */
     @Nonnull
-    public <K> Collection<? extends OWLAxiom> filterAxioms(@Nonnull OWLAxiomSearchFilter filter, @Nonnull K key) {
+    public <K> Collection<? extends OWLAxiom> filterAxioms(@Nonnull OWLAxiomSearchFilter filter,
+        @Nonnull K key) {
         if (filter == Filters.annotations) {
-            Optional<MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>> mapPointerOptional = get(
-                OWLAnnotationSubject.class, OWLAnnotationAssertionAxiom.class);
+            Optional<MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>> mapPointerOptional =
+                get(OWLAnnotationSubject.class, OWLAnnotationAssertionAxiom.class);
             if (mapPointerOptional.isPresent()) {
-                MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom> mapPointer = mapPointerOptional.get();
-                Collection<OWLAnnotationAssertionAxiom> values = mapPointer.getValues((OWLAnnotationSubject) key);
+                MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom> mapPointer =
+                    mapPointerOptional.get();
+                Collection<OWLAnnotationAssertionAxiom> values =
+                    mapPointer.getValues((OWLAnnotationSubject) key);
                 return values;
             }
         }
@@ -780,12 +874,9 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param <K>
-     *        key type
-     * @param filter
-     *        filter to satisfy
-     * @param key
-     *        key to match
+     * @param <K> key type
+     * @param filter filter to satisfy
+     * @param key key to match
      * @return true if the filter is matched at least once
      */
     public <K> boolean contains(@Nonnull OWLAxiomSearchFilter filter, @Nonnull K key) {
@@ -801,10 +892,8 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param copy
-     *        true if a copy of the set should be returned, false for a non
-     *        defensive copy (to be used only by OWLImmutableOntologyImpl for
-     *        iteration)
+     * @param copy true if a copy of the set should be returned, false for a non defensive copy (to
+     *        be used only by OWLImmutableOntologyImpl for iteration)
      * @return iterable of imports declaration
      */
     @Nonnull
@@ -816,8 +905,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param importDeclaration
-     *        import declaration to remove
+     * @param importDeclaration import declaration to remove
      * @return true if added
      */
     public boolean addImportsDeclaration(OWLImportsDeclaration importDeclaration) {
@@ -825,8 +913,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param importDeclaration
-     *        import declaration to remove
+     * @param importDeclaration import declaration to remove
      * @return true if removed
      */
     public boolean removeImportsDeclaration(OWLImportsDeclaration importDeclaration) {
@@ -834,14 +921,12 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param copy
-     *        true if a copy of the set should be returned, false for a non
-     *        defensive copy (to be used only by OWLImmutableOntologyImpl for
-     *        iteration)
+     * @param copy true if a copy of the set should be returned, false for a non defensive copy (to
+     *        be used only by OWLImmutableOntologyImpl for iteration)
      * @return iterable of annotations
      */
     @Nonnull
-    Iterable<OWLAnnotation> getOntologyAnnotations(boolean copy) {
+    Collection<OWLAnnotation> getOntologyAnnotations(boolean copy) {
         if (!copy) {
             return ontologyAnnotations.iterable();
         }
@@ -849,8 +934,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param ann
-     *        annotation to add
+     * @param ann annotation to add
      * @return true if annotation added
      */
     public boolean addOntologyAnnotation(OWLAnnotation ann) {
@@ -858,8 +942,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param ann
-     *        annotation to remove
+     * @param ann annotation to remove
      * @return true if annotation removed
      */
     public boolean removeOntologyAnnotation(OWLAnnotation ann) {
@@ -867,16 +950,11 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param p
-     *        pointer
-     * @param <K>
-     *        key type
-     * @param <V>
-     *        value type
-     * @param k
-     *        key
-     * @param v
-     *        value
+     * @param p pointer
+     * @param <K> key type
+     * @param <V> value type
+     * @param k key
+     * @param v value
      * @return true if the pair (key, value) is contained
      */
     public static <K, V extends OWLAxiom> boolean contains(@Nonnull MapPointer<K, V> p, K k, V v) {
@@ -901,10 +979,8 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param <T>
-     *        axiom type
-     * @param axiomType
-     *        axiom type to count
+     * @param <T> axiom type
+     * @param axiomType axiom type to count
      * @return axiom count
      */
     public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType) {
@@ -952,8 +1028,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param ax
-     *        GCI axiom to add
+     * @param ax GCI axiom to add
      * @return true if axiom added
      */
     public boolean addGeneralClassAxioms(OWLClassAxiom ax) {
@@ -961,8 +1036,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param ax
-     *        axiom to remove
+     * @param ax axiom to remove
      * @return true if removed
      */
     public boolean removeGeneralClassAxioms(OWLClassAxiom ax) {
@@ -970,8 +1044,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param ax
-     *        axiom to add
+     * @param ax axiom to add
      * @return true if added
      */
     public boolean addPropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
@@ -979,8 +1052,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param ax
-     *        axiom to remove
+     * @param ax axiom to remove
      * @return true if removed
      */
     public boolean removePropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
@@ -1464,8 +1536,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param entity
-     *        entity to check
+     * @param entity entity to check
      * @return true if reference is contained
      */
     public boolean containsReference(@Nonnull OWLEntity entity) {
@@ -1473,8 +1544,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param owlEntity
-     *        entity to describe
+     * @param owlEntity entity to describe
      * @return referencing axioms
      */
     @Nonnull
@@ -1482,7 +1552,8 @@ public class Internals implements Serializable {
         return owlEntity.accept(refAxiomsCollector);
     }
 
-    private class ReferencedAxiomsCollector implements OWLEntityVisitorEx<Iterable<OWLAxiom>>, Serializable {
+    private class ReferencedAxiomsCollector
+        implements OWLEntityVisitorEx<Iterable<OWLAxiom>>, Serializable {
 
         private static final long serialVersionUID = 40000L;
 

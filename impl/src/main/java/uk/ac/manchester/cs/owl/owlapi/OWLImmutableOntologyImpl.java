@@ -31,6 +31,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -100,16 +101,16 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     private static final long serialVersionUID = 40000L;
     // @formatter:off
-    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLEntity>>              ontsignatures =                           build(OWLImmutableOntologyImpl::build);
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLEntity>>              ontsignatures =                    build(OWLImmutableOntologyImpl::build);
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLAnonymousIndividual>> ontanonCaches =                    build(key -> asCacheable(key.ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLClass>>              ontclassesSignatures =              build(key -> asCacheable(key.ints.get(OWLClass.class, OWLAxiom.class).get().keySet()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> asCacheable(key.ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asCacheable(key.ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asCacheable(key.ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asCacheable(key.ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLClass>>              ontclassesSignatures =              build(key -> asCacheable(key.ints.get(OWLClass.class,               OWLAxiom.class).get().keySet()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> asCacheable(key.ints.get(OWLDataProperty.class,        OWLAxiom.class).get().keySet()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asCacheable(key.ints.get(OWLObjectProperty.class,      OWLAxiom.class).get().keySet()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asCacheable(key.ints.get(OWLDatatype.class,            OWLAxiom.class).get().keySet()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asCacheable(key.ints.get(OWLNamedIndividual.class,     OWLAxiom.class).get().keySet()));
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asCacheable(Iterables.concat(
         key.ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION).get().keySet(),
-        Iterables.transform(key.ints.getOntologyAnnotations(false),OWLAnnotation::getProperty))));
+        key.ints.getOntologyAnnotations(false).stream().flatMap(a->a.getAnnotationPropertiesInSignature().stream()).collect(Collectors.toSet()))));
     // @formatter:on
     static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
         return Caffeine.newBuilder().weakKeys().softValues().build(c);
