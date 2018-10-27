@@ -26,7 +26,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -154,10 +157,18 @@ public abstract class TestBase {
         return ax.isOfType(AxiomType.DECLARATION) && ax.getAnnotations().isEmpty();
     }
 
+    private static String str(Stream<?> s) {
+        return s.map(Object::toString).map(f -> f.replace(" ", "\n ").replace("(", "(\n"))
+            .collect(Collectors.joining("\n"));
+    }
+
     public boolean equal(@Nonnull OWLOntology ont1, @Nonnull OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
             assertEquals("Ontologies supposed to be the same", ont1.getOntologyID(),
                 ont2.getOntologyID());
+        }
+        if (!Objects.equals(ont1.getAnnotations(), ont2.getAnnotations())) {
+            assertEquals(str(ont1.getAnnotations().stream()), str(ont2.getAnnotations().stream()));
         }
         assertEquals("Annotations supposed to be the same", ont1.getAnnotations(),
             ont2.getAnnotations());
