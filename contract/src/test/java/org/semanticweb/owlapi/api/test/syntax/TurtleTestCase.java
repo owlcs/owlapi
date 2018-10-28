@@ -316,7 +316,9 @@ public class TurtleTestCase extends TestBase {
             + ":ManagementType rdf:type owl:Class .\n"
             + ":DM rdf:type owl:NamedIndividual , prov:Person .\n"
             + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
+        System.out.println(input);
         OWLOntology ontology = loadOntologyFromString(input);
+        ontology.getAxioms().forEach(System.out::println);
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
         Set<OWLSubClassOfAxiom> axioms = o.getAxioms(AxiomType.SUBCLASS_OF);
         assertEquals(1, axioms.size());
@@ -329,7 +331,7 @@ public class TurtleTestCase extends TestBase {
                 anns.add(ax);
             }
         }
-        assertEquals(1, anns.size());
+        assertEquals(3, anns.size());
     }
 
     @Test

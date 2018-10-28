@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
@@ -50,8 +51,9 @@ public class RDFTranslator
      */
     public RDFTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
         boolean useStrongTyping, IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,
-        AtomicInteger nextNode) {
-        super(manager, ontology, useStrongTyping, occurrences, axiomOccurrences, nextNode);
+        AtomicInteger nextNode, Map<Object, Integer> blankNodeMap) {
+        super(manager, ontology, useStrongTyping, occurrences, axiomOccurrences, nextNode,
+            blankNodeMap);
     }
 
     @Override

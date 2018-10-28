@@ -252,8 +252,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     protected final IndividualAppearance multipleOccurrences;
     protected final AxiomAppearance axiomOccurrences;
     protected RDFGraph graph = new RDFGraph();
-    private IdentityHashMap<Object, Integer> blankNodeMap = new IdentityHashMap<>();
     private final AtomicInteger nextBlankNodeId;
+    private final Map<Object, Integer> blankNodeMap;
     /** Maps Objects to nodes. */
     @Nonnull
     private final Map<OWLObject, N> nodeMap = new HashMap<>();
@@ -269,13 +269,14 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      */
     public AbstractTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
         boolean useStrongTyping, IndividualAppearance multiple, AxiomAppearance appearance,
-        AtomicInteger nextNode) {
+        AtomicInteger nextNode, Map<Object, Integer> blankNodeMap) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.useStrongTyping = useStrongTyping;
         multipleOccurrences = multiple;
         this.axiomOccurrences = appearance;
         this.nextBlankNodeId = nextNode;
+        this.blankNodeMap = blankNodeMap;
     }
 
     @Nonnull
@@ -1061,6 +1062,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         @Nonnull OWLAnnotation annotation) {
         // We first add the base triple
         addTriple(subject, annotation.getProperty().getIRI(), annotation.getValue());
+        annotation.getProperty().accept(this);
         // if the annotation has a blank node as subject, add the triples here
         if (annotation.getValue() instanceof OWLAnonymousIndividual) {
             OWLAnonymousIndividual ind = (OWLAnonymousIndividual) annotation.getValue();

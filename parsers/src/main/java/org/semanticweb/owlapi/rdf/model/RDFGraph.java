@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -205,7 +204,26 @@ public class RDFGraph implements Serializable {
                 Collectors.joining(",\n                     ", "remappedNodes      : ", ""));
     }
 
-    public Stream<RDFResource> getSubjectsForObject(RDFResource node) {
-        return triples.stream().filter(p -> p.getObject().equals(node)).map(RDFTriple::getSubject);
+    public List<RDFResource> getSubjectsForObject(RDFResource node) {
+        List<RDFResource> current = triples.stream().filter(p -> p.getObject().equals(node))
+            .map(RDFTriple::getSubject).collect(Collectors.toList());
+        List<RDFResource> next = new ArrayList<>();
+        boolean change = true;
+        while (change) {
+            change = false;
+            for (RDFResource n : current) {
+                List<RDFResource> l = triples.stream().filter(p -> p.getObject().equals(n))
+                    .map(RDFTriple::getSubject).collect(Collectors.toList());
+                if (l.size() > 0) {
+                    change = true;
+                    next.addAll(l);
+                } else {
+                    next.add(n);
+                }
+            }
+            current = next;
+            next = new ArrayList<>();
+        }
+        return current;
     }
 }

@@ -1758,31 +1758,27 @@ public class OWLRDFConsumer
         return mainNodeAnnotations;
     }
 
-    protected void mapAnnotation(IRI mainNode, Map<IRI, Set<OWLAnnotation>> anns,
-        Set<OWLAnnotation> mainNodeAnnotations, IRI predicate) {
-        IRI resVal = getResourceObject(mainNode, predicate, true);
+    protected void mapAnnotation(IRI n, Map<IRI, Set<OWLAnnotation>> anns,
+        Set<OWLAnnotation> nodeAnns, IRI p) {
+        OWLAnnotationProperty ap = dataFactory.getOWLAnnotationProperty(p);
+        IRI resVal = getResourceObject(n, p, true);
         while (resVal != null) {
-            OWLAnnotationProperty prop = dataFactory.getOWLAnnotationProperty(predicate);
-            OWLAnnotationValue val;
-            if (isAnonymousNode(resVal)) {
-                val = dataFactory.getOWLAnonymousIndividual(resVal.toString());
-            } else {
-                val = resVal;
-            }
-            IRI annotation = getSubjectForAnnotatedPropertyAndObject(mainNode, predicate, resVal);
-            Set<OWLAnnotation> c = anns.get(annotation);
-            mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, val,
-                c != null ? c : Collections.<OWLAnnotation>emptySet()));
-            resVal = getResourceObject(mainNode, predicate, true);
+            IRI annotation = getSubjectForAnnotatedPropertyAndObject(n, p, resVal);
+            OWLAnnotationValue val = getAnnotationValue(resVal);
+            Set<OWLAnnotation> nestedAnns = anns.getOrDefault(annotation, Collections.emptySet());
+            OWLAnnotation apVal = dataFactory.getOWLAnnotation(ap, val, nestedAnns);
+            nodeAnns.add(apVal);
+            consumeTriple(n, p, resVal);
+            resVal = getResourceObject(n, p, true);
         }
-        OWLLiteral litVal = getLiteralObject(mainNode, predicate, true);
+        OWLLiteral litVal = getLiteralObject(n, p, true);
         while (litVal != null) {
-            OWLAnnotationProperty prop = dataFactory.getOWLAnnotationProperty(predicate);
-            IRI annotation = getSubjectForAnnotatedPropertyAndObject(mainNode, predicate, litVal);
-            Set<OWLAnnotation> c = anns.get(annotation);
-            mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, litVal,
-                c != null ? c : Collections.<OWLAnnotation>emptySet()));
-            litVal = getLiteralObject(mainNode, predicate, true);
+            IRI annotation = getSubjectForAnnotatedPropertyAndObject(n, p, litVal);
+            Set<OWLAnnotation> nestedAnns = anns.getOrDefault(annotation, Collections.emptySet());
+            OWLAnnotation apLitVal = dataFactory.getOWLAnnotation(ap, litVal, nestedAnns);
+            nodeAnns.add(apLitVal);
+            consumeTriple(n, p, litVal);
+            litVal = getLiteralObject(n, p, true);
         }
     }
 
@@ -1794,6 +1790,13 @@ public class OWLRDFConsumer
             }
         }
         return null;
+    }
+
+    private OWLAnnotationValue getAnnotationValue(IRI resVal) {
+        if (isAnonymousNode(resVal)) {
+            return anonProvider.getOWLAnonymousIndividual(resVal.toString());
+        }
+        return resVal;
     }
 
     private @Nullable IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, IRI v) {
@@ -2373,7 +2376,8 @@ public class OWLRDFConsumer
                 continue;
             }
             for (IRI predicate : new ArrayList<>(map.keySet())) {
-                Collection<OWLLiteral> objects = map.get(predicate);
+                Collection<OWLLiteral> objects =
+                    map.getOrDefault(predicate, Collections.emptyList());
                 for (OWLLiteral object : new ArrayList<>(objects)) {
                     assert subject != null;
                     assert predicate != null;

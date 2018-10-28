@@ -728,14 +728,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         return containsEntityInSignature(owlEntity, EXCLUDED);
     }
 
-    private final OWLEntityReferenceChecker entityReferenceChecker =
-        new OWLEntityReferenceChecker();
-
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity,
         Imports includeImportsClosure) {
         if (includeImportsClosure != INCLUDED) {
-            return entityReferenceChecker.containsReference(owlEntity);
+            return ontsignatures.get(this).contains(owlEntity);
         }
         for (OWLOntology o : getImportsClosure()) {
             if (o.containsEntityInSignature(owlEntity, EXCLUDED)) {

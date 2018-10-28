@@ -15,19 +15,18 @@ package org.semanticweb.owlapi.rdf;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_AXIOM;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CLASS;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATA_PROPERTY;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_IMPORTS;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NOTHING;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ONTOLOGY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_RESTRICTION;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_THING;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_VERSION_IRI;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DATATYPE;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_FIRST;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_LIST;
@@ -42,6 +41,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -59,7 +59,6 @@ import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
@@ -82,7 +81,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
@@ -144,6 +142,7 @@ public abstract class RDFRendererBase {
     protected final AxiomAppearance axiomOccurrences;
     protected Map<RDFTriple, RDFResourceBlankNode> triplesWithRemappedNodes;
     protected final Set<RDFResource> pending = new HashSet<>();
+    private final Map<Object, Integer> blankNodeMap = new IdentityHashMap<>();
 
     @Nonnull
     protected static Set<IRI> initPrettyTypes() {
@@ -443,6 +442,10 @@ public abstract class RDFRendererBase {
         }
     }
 
+    protected RDFGraph getRDFGraph() {
+        return verifyNotNull(graph, "rdfGraph not initialised yet");
+    }
+
     /**
      * Gets the general axioms in the ontology. These are axioms such as DifferentIndividuals,
      * General Class axioms which do not describe or define a named class and so can't be written
@@ -484,49 +487,22 @@ public abstract class RDFRendererBase {
 
     protected void renderOntologyHeader() throws IOException {
         RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
-            shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId);
+            shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId,
+            blankNodeMap);
         graph = translator.getGraph();
-        RDFResource ontologyHeaderNode = createOntologyHeaderNode(translator);
-        addVersionIRIToOntologyHeader(ontologyHeaderNode, translator);
-        addImportsDeclarationsToOntologyHeader(ontologyHeaderNode, translator);
-        addAnnotationsToOntologyHeader(ontologyHeaderNode, translator);
-        if (!graph.isEmpty()) {
-            render(ontologyHeaderNode, true);
-        }
-        triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
-    }
-
-    @Nonnull
-    private RDFResource createOntologyHeaderNode(RDFTranslator translator) {
+        graph = translator.getGraph();
         ontology.accept(translator);
-        return translator.getMappedNode(ontology);
-    }
-
-    private void addVersionIRIToOntologyHeader(@Nonnull RDFResource ontologyHeaderNode,
-        RDFTranslator translator) {
-        OWLOntologyID ontID = ontology.getOntologyID();
-        if (ontID.getVersionIRI().isPresent()) {
-            translator.addTriple(ontologyHeaderNode, OWL_VERSION_IRI.getIRI(),
-                ontID.getVersionIRI().get());
+        if (!getRDFGraph().isEmpty()) {
+            RDFResource node = translator.getMappedNode(ontology);
+            render(node);
         }
+        triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
     }
 
-    private void addImportsDeclarationsToOntologyHeader(@Nonnull RDFResource ontologyHeaderNode,
-        RDFTranslator translator) {
-        ontology.getImportsDeclarations().stream().sorted().forEach(
-            decl -> translator.addTriple(ontologyHeaderNode, OWL_IMPORTS.getIRI(), decl.getIRI()));
-    }
-
-    private void addAnnotationsToOntologyHeader(@Nonnull RDFResource ontologyHeaderNode,
-        RDFTranslator translator) {
-        for (OWLAnnotation anno : sortOptionally(ontology.getAnnotations())) {
-            translator.addTriple(ontologyHeaderNode, anno.getProperty().getIRI(), anno.getValue());
-            if (anno.getValue() instanceof OWLAnonymousIndividual) {
-                OWLAnonymousIndividual i = (OWLAnonymousIndividual) anno.getValue();
-                for (OWLAxiom ax : ontology.getReferencingAxioms(i)) {
-                    ax.accept(translator);
-                }
-            }
+    protected void render(RDFResource node) throws IOException {
+        render(node, true);
+        for (RDFResource n : getRDFGraph().getSubjectsForObject(node)) {
+            render(n, true);
         }
     }
 
@@ -641,7 +617,8 @@ public abstract class RDFRendererBase {
 
     protected void createGraph(@Nonnull Set<? extends OWLObject> objects) {
         RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
-            shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId);
+            shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId,
+            blankNodeMap);
         for (OWLObject obj : objects) {
             deshare(obj).accept(translator);
         }
