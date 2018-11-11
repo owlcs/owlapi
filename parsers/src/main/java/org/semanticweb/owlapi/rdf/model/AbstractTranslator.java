@@ -39,6 +39,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_FUNCTIONAL_PROPE
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_KEY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_SELF;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_VALUE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_IMPORTS;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INTERSECTION_OF;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INVERSE_OF;
@@ -68,6 +69,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TARGET_INDIVIDUA
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TARGET_VALUE;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_UNION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_VERSION_IRI;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_WITH_RESTRICTIONS;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DATATYPE;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DOMAIN;
@@ -186,6 +188,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
@@ -751,8 +754,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_RANGE.getIRI(), axiom.getRange());
     }
 
-    protected <T extends OWLObject> void putHasIRI(T i, Function<T, IRI> f) {
-        nodeMap.computeIfAbsent(i, x -> getResourceNode(f.apply((T) x)));
+    protected <T extends OWLObject> N putHasIRI(T i, Function<T, IRI> f) {
+        return nodeMap.computeIfAbsent(i, x -> getResourceNode(f.apply((T) x)));
     }
 
     protected void putLiteral(OWLLiteral i) {
@@ -829,6 +832,25 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             translateAnonymousNode(ontology);
         }
         addTriple(ontology, RDF_TYPE.getIRI(), OWL_ONTOLOGY.getIRI());
+        addVersionIRIToOntologyHeader(ontology);
+        addImportsDeclarationsToOntologyHeader(ontology);
+        addAnnotationsToOntologyHeader(ontology);
+    }
+
+    private void addVersionIRIToOntologyHeader(OWLOntology ontology) {
+        OWLOntologyID ontID = ontology.getOntologyID();
+        if (ontID.getVersionIRI().isPresent()) {
+            addTriple(ontology, OWL_VERSION_IRI.getIRI(), ontID.getVersionIRI().get());
+        }
+    }
+
+    private void addImportsDeclarationsToOntologyHeader(OWLOntology ontology) {
+        ontology.importsDeclarations()
+            .forEach(decl -> addTriple(ontology, OWL_IMPORTS.getIRI(), decl.getIRI()));
+    }
+
+    private void addAnnotationsToOntologyHeader(OWLOntology ontology) {
+        ontology.annotations().forEach(a -> translateAnnotation(ontology, a));
     }
 
     @Override
@@ -1032,12 +1054,14 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             "The translator should not be used directly on instances of OWLAnnotation because an annotation cannot be translated without a subject.");
     }
 
-    private void translateAnonymousNode(OWLObject object) {
+    private N translateAnonymousNode(OWLObject object) {
+        N anonymousNode = getAnonymousNode(object);
         if (object.isAnonymousExpression()) {
-            expressionMap.put(object, getAnonymousNode(object));
+            expressionMap.put(object, anonymousNode);
         } else {
-            nodeMap.put(object, getAnonymousNode(object));
+            nodeMap.put(object, anonymousNode);
         }
+        return anonymousNode;
     }
 
     /**
