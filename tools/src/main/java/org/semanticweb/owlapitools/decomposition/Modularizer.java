@@ -183,14 +183,11 @@ public class Modularizer {
         // here there is a star: do the cycle until stabilization
         int size;
         do {
-            workQueue.clear();
-            sig = new Signature(signature.getSignature().stream());
-            checker.setSignatureValue(sig);
-            sig.setLocality(topLocality);
             size = module.size();
             List<AxiomWrapper> oldModule = new ArrayList<>(module);
             topLocality = !topLocality;
-            sig = signature;
+            sig = new Signature(signature.getSignature().stream());
+            checker.setSignatureValue(sig);
             sig.setLocality(topLocality);
             extractModule(oldModule);
         } while (size != module.size());
