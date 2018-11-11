@@ -28,11 +28,11 @@ public class Modularizer {
     /**
      * internal syntactic locality checker
      */
-    private LocalityChecker checker;
+    private final LocalityChecker checker;
     /**
      * module as a list of axioms
      */
-    private List<AxiomWrapper> module = new ArrayList<>();
+    private final List<AxiomWrapper> module = new ArrayList<>();
     /**
      * queue of unprocessed entities
      */
@@ -173,7 +173,7 @@ public class Modularizer {
      */
     public void extract(List<AxiomWrapper> axioms, Signature signature, ModuleType type) {
         boolean topLocality = type == ModuleType.TOP;
-        sig = signature;
+        sig = new Signature(signature.getSignature().stream());
         checker.setSignatureValue(sig);
         sig.setLocality(topLocality);
         extractModule(axioms);
@@ -186,7 +186,8 @@ public class Modularizer {
             size = module.size();
             List<AxiomWrapper> oldModule = new ArrayList<>(module);
             topLocality = !topLocality;
-            sig = signature;
+            sig = new Signature(signature.getSignature().stream());
+            checker.setSignatureValue(sig);
             sig.setLocality(topLocality);
             extractModule(oldModule);
         } while (size != module.size());
