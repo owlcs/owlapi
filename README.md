@@ -22,6 +22,16 @@ The following components are included:
 
 ## Release notes
 
+5.1.7 02 Sep 2018
+
+Features:
+*    PROV and TIME vocabularies
+
+Bug fixes:
+*    Add representativeInstances() to OWLReasoner #772
+*    SWRLRule hash code computed incorrectly
+*    Fix OWLOntology with shared structure causes incorrect RDF/XML #780
+
 5.1.6 24 Jul 2018
 
 Features:
@@ -240,6 +250,15 @@ Features:
 *    Enabled OWLOntologyManager to build and keep an OntologyConfigurator instance
 *    Declaration of save methods on OWLOntology
 *    OWLAPI 5 uses Java 8
+
+4.5.5 02 Sep 2018
+
+Features:
+*    PROV and TIME vocabularies
+
+Bug fixes:
+*    Prefix splitting at wrong place with percent encoded IRI #737
+*    Fix OWLOntology with shared structure causes incorrect RDF/XML #780
 
 4.5.4 26 Jul 2018
 
@@ -1079,7 +1098,7 @@ Main Bug Fixes:
 Release 3.0.0
 ----------------------------------------------------------------------
 
-Version 3.0.0 is incompatible with previous releases.  Many interface names have been changed in order to acheive a
+Version 3.0.0 is incompatible with previous releases.  Many interface names have been changed in order to achieve a
 close alignment with the names used in the OWL 2 Structural Specification and Functional Style Syntax.
 (See http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/)
 
