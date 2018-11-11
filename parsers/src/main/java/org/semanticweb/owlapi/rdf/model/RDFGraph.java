@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.model;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createMap;
@@ -27,6 +28,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -62,7 +64,7 @@ public class RDFGraph implements Serializable {
     /**
      * @param predicate predicate to check for inclusion
      * @return true if the predicate IRI is not in the set of predicates that should be skipped from
-     * blank node reuse analysis.
+     *         blank node reuse analysis.
      */
     private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
         return !skippedPredicates.contains(predicate.getIRI());
@@ -114,7 +116,7 @@ public class RDFGraph implements Serializable {
 
     /**
      * @return for each triple with a blank node object that is shared with other triples, compute a
-     * remapping of the node.
+     *         remapping of the node.
      */
     public Map<RDFTriple, RDFResourceBlankNode> computeRemappingForSharedNodes() {
         Map<RDFTriple, RDFResourceBlankNode> toReturn = createMap();
@@ -136,7 +138,7 @@ public class RDFGraph implements Serializable {
                 for (RDFTriple t : e.getValue()) {
                     RDFResourceBlankNode bnode =
                         new RDFResourceBlankNode(df.getIRI(NodeID.nextAnonymousIRI()),
-                        e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
+                            e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
                     remappedNodes.put(bnode, e.getKey());
                     toReturn.put(t, bnode);
                 }
@@ -189,5 +191,40 @@ public class RDFGraph implements Serializable {
      */
     public Set<RDFTriple> getAllTriples() {
         return Collections.unmodifiableSet(triples);
+    }
+
+    @Override
+    public String toString() {
+        return triples.stream().map(Object::toString)
+            .collect(Collectors.joining(",\n                     ", "triples            : ", "\n"))
+            + triplesBySubject.entrySet().stream().map(Object::toString).collect(
+                Collectors.joining(",\n                     ", "triplesBySubject   : ", "\n"))
+            + rootAnonymousNodes.stream().map(Object::toString).collect(
+                Collectors.joining(",\n                     ", "rootAnonymousNodes : ", "\n"))
+            + remappedNodes.entrySet().stream().map(Object::toString).collect(
+                Collectors.joining(",\n                     ", "remappedNodes      : ", ""));
+    }
+
+    public List<RDFResource> getSubjectsForObject(RDFResource node) {
+        List<RDFResource> current = asList(
+            triples.stream().filter(p -> p.getObject().equals(node)).map(RDFTriple::getSubject));
+        List<RDFResource> next = new ArrayList<>();
+        boolean change = true;
+        while (change) {
+            change = false;
+            for (RDFResource n : current) {
+                List<RDFResource> l = asList(triples.stream().filter(p -> p.getObject().equals(n))
+                    .map(RDFTriple::getSubject));
+                if (l.size() > 0) {
+                    change = true;
+                    next.addAll(l);
+                } else {
+                    next.add(n);
+                }
+            }
+            current = next;
+            next = new ArrayList<>();
+        }
+        return current;
     }
 }
