@@ -126,7 +126,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asList(key.ints.owlObjectPropertyReferences       .keySet().distinct().sorted()));
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asList(key.ints.owlDatatypeReferences             .keySet().distinct().sorted()));
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asList(key.ints.owlIndividualReferences           .keySet().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asList(key.ints.annotationProperties()                              .distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asList(Stream.concat(key.ints.annotationProperties(), key.ints.getOntologyAnnotations().flatMap(OWLAnnotation::annotationPropertiesInSignature)).distinct().sorted()));
     // @formatter:on
     protected static void invalidateOntologyCaches(OWLImmutableOntologyImpl o) {
         ontsignatures.invalidate(o);
