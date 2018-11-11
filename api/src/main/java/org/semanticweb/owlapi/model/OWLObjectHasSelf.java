@@ -52,4 +52,7 @@ public interface OWLObjectHasSelf extends OWLRestriction, OWLObjectRestriction {
     default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    OWLObjectPropertyExpression getProperty();
 }
