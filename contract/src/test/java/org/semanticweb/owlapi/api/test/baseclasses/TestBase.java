@@ -520,15 +520,6 @@ public abstract class TestBase {
         return setupManager().loadOntologyFromOntologyDocument(input);
     }
 
-    // protected OWLOntology loadOntologyFromString(StringDocumentTarget input,
-    // OWLDocumentFormat f) {
-    // try {
-    // return setupManager().loadOntologyFromOntologyDocument(new
-    // StringDocumentSource(input,f));
-    // } catch (OWLOntologyCreationException e) {
-    // throw new OWLRuntimeException(e);
-    // }
-    // }
     protected OWLOntology loadOntologyFromString(StringDocumentTarget input, OWLDocumentFormat f) {
         try {
             return setupManager().loadOntologyFromOntologyDocument(

@@ -883,10 +883,16 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     protected void mapAnnotation(IRI n, MultiMap<IRI, OWLAnnotation> anns,
         Collection<OWLAnnotation> dest, IRI p) {
         OWLAnnotationProperty ap = ap(p);
-        consume(() -> tripleIndex.literal(n, p, true), l -> dest.add(df.getOWLAnnotation(ap, l,
-            anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, l)))));
-        consume(() -> tripleIndex.resource(n, p, true), r -> dest.add(df.getOWLAnnotation(ap,
-            getAnnotationValue(r), anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, r)))));
+        consume(() -> tripleIndex.literal(n, p, true), l -> {
+            dest.add(df.getOWLAnnotation(ap, l,
+                anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, l))));
+            tripleIndex.consumeIfPresent(n, p, l);
+        });
+        consume(() -> tripleIndex.resource(n, p, true), r -> {
+            dest.add(df.getOWLAnnotation(ap, getAnnotationValue(r),
+                anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, r))));
+            tripleIndex.consumeIfPresent(n, p, r);
+        });
     }
 
     @Nullable
@@ -914,8 +920,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     private OWLAnnotationValue getAnnotationValue(IRI resVal) {
-        return anon.isAnonymousNode(resVal) ? df.getOWLAnonymousIndividual(resVal.toString())
-            : resVal;
+        return anon.isAnonymousNode(resVal) ? getOWLAnonymousIndividual(resVal.toString()) : resVal;
     }
 
     private <E extends OWLEntity> E getErrorEntity(EntityType<E> type) {
@@ -1235,7 +1240,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             anon.isAnonymousNode(o) ? getOWLAnonymousIndividual(o.toString()) : o;
         if (iris.isOntology(s)) {
             // Assume we annotation our ontology?
-            addOntologyAnnotation(df.getOWLAnnotation(ap(p), value));
+            List<OWLAnnotation> pendingAnns = pendingAnns(s);
+            pendingAnns.forEach(this::addOntologyAnnotation);
+            if (pendingAnns.isEmpty()) {
+                addOntologyAnnotation(df.getOWLAnnotation(ap(p), value));
+            }
         } else {
             add(df.getOWLAnnotationAssertionAxiom(getSubject(s), df.getOWLAnnotation(ap(p), value),
                 pendingAnns()));
@@ -1300,7 +1309,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected boolean handleAnnotationLiteralTriple(IRI s, IRI p, OWLLiteral o) {
         if (iris.isOntology(s)) {
-            addOntologyAnnotation(df.getOWLAnnotation(ap(p), o, pendingAnns()));
+            List<OWLAnnotation> pendingAnns = pendingAnns(s);
+            pendingAnns.forEach(this::addOntologyAnnotation);
+            if (pendingAnns.isEmpty()) {
+                addOntologyAnnotation(df.getOWLAnnotation(ap(p), o));
+            }
         } else {
             add(df.getOWLAnnotationAssertionAxiom(ap(p), getSubject(s), o, pendingAnns()));
         }

@@ -418,7 +418,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
-        return entityReferenceChecker.containsReference(owlEntity);
+        return ontsignatures.get(this).contains(owlEntity);
     }
 
     @Override
