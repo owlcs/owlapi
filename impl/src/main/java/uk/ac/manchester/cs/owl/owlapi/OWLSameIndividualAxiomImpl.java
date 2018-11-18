@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl implements
-    OWLSameIndividualAxiom {
+public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
+    implements OWLSameIndividualAxiom {
 
     /**
      * @param individuals individuals
@@ -46,6 +46,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLSameIndividualAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -54,6 +55,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLSameIndividualAxiomImpl(individuals, mergeAnnos(anns));
     }

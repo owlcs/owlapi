@@ -26,7 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -78,7 +77,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
 
-    private static final AtomicLong RANDOMSTART = new AtomicLong(System.currentTimeMillis());
     /**
      * The comparator.
      */
@@ -177,15 +175,15 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     }
 
     @Override
-    public ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
-        currentExplanation = new HashSet<>(axioms);
+    public ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> current) {
+        currentExplanation = new HashSet<>(current);
         buildIndices();
         ExplanationTree root = new EntailedAxiomTree(entailment);
         insertChildren(seedExtractor.getSource(entailment), root);
         OWLEntity currentTarget = seedExtractor.getTarget(entailment);
         Set<OWLAxiom> axs = root.getUserObjectClosure();
         List<OWLAxiom> rootAxioms = new ArrayList<>();
-        for (OWLAxiom ax : axioms) {
+        for (OWLAxiom ax : current) {
             if (!axs.contains(ax)) {
                 rootAxioms.add(ax);
             }

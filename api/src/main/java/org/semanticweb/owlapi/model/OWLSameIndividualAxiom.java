@@ -24,6 +24,7 @@ import java.util.Collection;
 public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLSameIndividualAxiom getAxiomWithoutAnnotations();
 
     @Override

@@ -27,9 +27,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLFunctionalObjectPropertyAxiomImpl extends
-    OWLObjectPropertyCharacteristicAxiomImpl implements
-    OWLFunctionalObjectPropertyAxiom {
+public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
+    implements OWLFunctionalObjectPropertyAxiom {
 
     /**
      * @param property property
@@ -41,6 +40,7 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -49,6 +49,7 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLFunctionalObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
@@ -56,7 +57,6 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(OWL_THING,
-            new OWLObjectMaxCardinalityImpl(getProperty(), 1, OWL_THING),
-            NO_ANNOTATIONS);
+            new OWLObjectMaxCardinalityImpl(getProperty(), 1, OWL_THING), NO_ANNOTATIONS);
     }
 }

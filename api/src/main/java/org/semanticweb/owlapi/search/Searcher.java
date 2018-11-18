@@ -15,7 +15,9 @@ package org.semanticweb.owlapi.search;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.HasObject;
 import org.semanticweb.owlapi.model.HasProperty;
 import org.semanticweb.owlapi.model.IRI;
@@ -49,8 +51,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  */
 public final class Searcher {
 
-    private Searcher() {
-    }
+    private Searcher() {}
 
     private static boolean filter(@Nullable OWLPropertyExpression p, HasProperty<?> ax) {
         return p == null || ax.getProperty().equals(p);
@@ -139,8 +140,7 @@ public final class Searcher {
      * @return inverses of p
      */
     public static Stream<OWLObjectPropertyExpression> inverse(
-        Stream<OWLInverseObjectPropertiesAxiom> axioms,
-        OWLObjectPropertyExpression p) {
+        Stream<OWLInverseObjectPropertiesAxiom> axioms, OWLObjectPropertyExpression p) {
         return axioms.map(ax -> getInverse(p, ax));
     }
 
@@ -176,9 +176,8 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve annotations from a collection of axioms. For regular axioms,
-     * their annotations are retrieved; for annotation assertion axioms, their
-     * asserted annotation is retrieved as well.
+     * Retrieve annotations from a collection of axioms. For regular axioms, their annotations are
+     * retrieved; for annotation assertion axioms, their asserted annotation is retrieved as well.
      *
      * @param axioms axioms
      * @return annotations
@@ -195,8 +194,7 @@ public final class Searcher {
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotationObjects(
-        Stream<OWLAnnotationAssertionAxiom> axioms,
-        @Nullable OWLAnnotationProperty p) {
+        Stream<OWLAnnotationAssertionAxiom> axioms, @Nullable OWLAnnotationProperty p) {
         return axioms.flatMap(ax -> annotationObject(ax, p)).distinct();
     }
 
@@ -216,9 +214,8 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve annotations from a collection of annotation assertion axioms.
-     * This is limited to the annotation object and excludes annotations on the
-     * axiom itself.
+     * Retrieve annotations from a collection of annotation assertion axioms. This is limited to the
+     * annotation object and excludes annotations on the axiom itself.
      *
      * @param axioms axioms
      * @return annotations
@@ -229,9 +226,8 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve annotations from a collection of axioms. For regular axioms,
-     * their annotations are retrieved; for annotation assertion axioms, their
-     * asserted annotation is retrieved as well.
+     * Retrieve annotations from a collection of axioms. For regular axioms, their annotations are
+     * retrieved; for annotation assertion axioms, their asserted annotation is retrieved as well.
      *
      * @param axioms axioms
      * @param p optional annotation property to filter. Null means all.
@@ -243,15 +239,13 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve annotations from an axiom. For regular axioms, their annotations
-     * are retrieved; for annotation assertion axioms, their asserted annotation
-     * is retrieved as well.
+     * Retrieve annotations from an axiom. For regular axioms, their annotations are retrieved; for
+     * annotation assertion axioms, their asserted annotation is retrieved as well.
      *
      * @param axiom axiom
      * @param p optional annotation property to filter. Null means all.
      * @return annotations
      */
-    @SuppressWarnings("resource")
     public static Stream<OWLAnnotation> annotations(OWLAxiom axiom,
         @Nullable OWLAnnotationProperty p) {
         Stream<OWLAnnotation> stream = empty();
@@ -266,10 +260,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve equivalent entities from axioms, including individuals from
-     * sameAs axioms. A mixture of axiom types can be passed in, as long as the
-     * entity type they contain is compatible with the return type for the
-     * collection.
+     * Retrieve equivalent entities from axioms, including individuals from sameAs axioms. A mixture
+     * of axiom types can be passed in, as long as the entity type they contain is compatible with
+     * the return type for the collection.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -281,10 +274,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve equivalent entities from axioms, including individuals from
-     * sameAs axioms. A mixture of axiom types can be passed in, as long as the
-     * entity type they contain is compatible with the return type for the
-     * collection.
+     * Retrieve equivalent entities from axioms, including individuals from sameAs axioms. A mixture
+     * of axiom types can be passed in, as long as the entity type they contain is compatible with
+     * the return type for the collection.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -297,8 +289,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve equivalent entities from an axiom, including individuals from
-     * sameAs axioms.
+     * Retrieve equivalent entities from an axiom, including individuals from sameAs axioms.
      *
      * @param axiom axiom
      * @param <C> type contained in the returned collection
@@ -309,8 +300,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve equivalent entities from an axiom, including individuals from
-     * sameAs axioms.
+     * Retrieve equivalent entities from an axiom, including individuals from sameAs axioms.
      *
      * @param axiom axiom
      * @param type type returned
@@ -323,10 +313,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve disjoint entities from axioms, including individuals from
-     * differentFrom axioms. A mixture of axiom types can be passed in, as long
-     * as the entity type they contain is compatible with the return type for
-     * the collection.
+     * Retrieve disjoint entities from axioms, including individuals from differentFrom axioms. A
+     * mixture of axiom types can be passed in, as long as the entity type they contain is
+     * compatible with the return type for the collection.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -338,10 +327,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve disjoint entities from axioms, including individuals from
-     * differentFrom axioms. A mixture of axiom types can be passed in, as long
-     * as the entity type they contain is compatible with the return type for
-     * the collection.
+     * Retrieve disjoint entities from axioms, including individuals from differentFrom axioms. A
+     * mixture of axiom types can be passed in, as long as the entity type they contain is
+     * compatible with the return type for the collection.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -354,8 +342,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve disjoint entities from an axiom, including individuals from
-     * differentFrom axioms.
+     * Retrieve disjoint entities from an axiom, including individuals from differentFrom axioms.
      *
      * @param <C> returned type
      * @param axiom axiom
@@ -366,8 +353,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve disjoint entities from an axiom, including individuals from
-     * differentFrom axioms.
+     * Retrieve disjoint entities from an axiom, including individuals from differentFrom axioms.
      *
      * @param <C> returned type
      * @param axiom axiom
@@ -380,9 +366,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the sub part of axioms, i.e., subclass or subproperty. A mixture
-     * of axiom types can be passed in, as long as the entity type they contain
-     * is compatible with the return type for the collection.
+     * Retrieve the sub part of axioms, i.e., subclass or subproperty. A mixture of axiom types can
+     * be passed in, as long as the entity type they contain is compatible with the return type for
+     * the collection.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -394,9 +380,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the sub part of axioms, i.e., subclass or subproperty. A mixture
-     * of axiom types can be passed in, as long as the entity type they contain
-     * is compatible with the return type for the collection.
+     * Retrieve the sub part of axioms, i.e., subclass or subproperty. A mixture of axiom types can
+     * be passed in, as long as the entity type they contain is compatible with the return type for
+     * the collection.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -409,9 +395,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the sub part of an axiom, i.e., subclass or subproperty. A
-     * mixture of axiom types can be passed in, as long as the entity type they
-     * contain is compatible with the return type for the collection.
+     * Retrieve the sub part of an axiom, i.e., subclass or subproperty. A mixture of axiom types
+     * can be passed in, as long as the entity type they contain is compatible with the return type
+     * for the collection.
      *
      * @param <C> returned type
      * @param axiom axiom
@@ -422,9 +408,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the sub part of an axiom, i.e., subclass or subproperty. A
-     * mixture of axiom types can be passed in, as long as the entity type they
-     * contain is compatible with the return type for the collection.
+     * Retrieve the sub part of an axiom, i.e., subclass or subproperty. A mixture of axiom types
+     * can be passed in, as long as the entity type they contain is compatible with the return type
+     * for the collection.
      *
      * @param <C> returned type
      * @param axiom axiom
@@ -437,9 +423,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of axioms, i.e., superclass or superproperty. A
-     * mixture of axiom types can be passed in, as long as the entity type they
-     * contain is compatible with the return type for the collection.
+     * Retrieve the super part of axioms, i.e., superclass or superproperty. A mixture of axiom
+     * types can be passed in, as long as the entity type they contain is compatible with the return
+     * type for the collection.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -452,9 +438,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of axioms, i.e., superclass or superproperty. A
-     * mixture of axiom types can be passed in, as long as the entity type they
-     * contain is compatible with the return type for the collection.
+     * Retrieve the super part of axioms, i.e., superclass or superproperty. A mixture of axiom
+     * types can be passed in, as long as the entity type they contain is compatible with the return
+     * type for the collection.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -466,9 +452,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of an axiom, i.e., superclass or superproperty. A
-     * mixture of axiom types can be passed in, as long as the entity type they
-     * contain is compatible with the return type for the collection.
+     * Retrieve the super part of an axiom, i.e., superclass or superproperty. A mixture of axiom
+     * types can be passed in, as long as the entity type they contain is compatible with the return
+     * type for the collection.
      *
      * @param <C> returned type
      * @param axiom axiom
@@ -479,9 +465,9 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of an axiom, i.e., superclass or superproperty. A
-     * mixture of axiom types can be passed in, as long as the entity type they
-     * contain is compatible with the return type for the collection.
+     * Retrieve the super part of an axiom, i.e., superclass or superproperty. A mixture of axiom
+     * types can be passed in, as long as the entity type they contain is compatible with the return
+     * type for the collection.
      *
      * @param <C> returned type
      * @param axiom axiom
@@ -494,8 +480,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the domains from domain axioms. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -507,8 +492,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the domains from domain axioms. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -521,8 +505,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the domains from domain axioms. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
      * @param <C> returned type
      * @param axiom axiom
@@ -533,8 +516,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the domains from domain axioms. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
      * @param <C> returned type
      * @param axiom axiom
@@ -547,8 +529,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the ranges from range axioms. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the ranges from range axioms. A mixture of axiom types can be passed in.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -560,8 +541,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the ranges from range axioms. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the ranges from range axioms. A mixture of axiom types can be passed in.
      *
      * @param <C> returned type
      * @param axioms axioms
@@ -574,8 +554,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the ranges from a range axiom. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the ranges from a range axiom. A mixture of axiom types can be passed in.
      *
      * @param <C> returned type
      * @param axiom axiom
@@ -586,8 +565,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the ranges from a range axiom. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the ranges from a range axiom. A mixture of axiom types can be passed in.
      *
      * @param <C> returned type
      * @param axiom axiom
@@ -600,8 +578,8 @@ public final class Searcher {
     }
 
     /**
-     * Transform a collection of ontologies to a collection of IRIs of those
-     * ontologies. Anonymous ontologies are skipped.
+     * Transform a collection of ontologies to a collection of IRIs of those ontologies. Anonymous
+     * ontologies are skipped.
      *
      * @param ontologies ontologies to transform
      * @return collection of IRIs for the ontologies.
@@ -611,8 +589,8 @@ public final class Searcher {
     }
 
     /**
-     * Transform a collection of ontology ids to a collection of IRIs of those
-     * ontology ids. Anonymous ontology ids are skipped.
+     * Transform a collection of ontology ids to a collection of IRIs of those ontology ids.
+     * Anonymous ontology ids are skipped.
      *
      * @param ids ontology ids to transform
      * @return collection of IRIs for the ontology ids.

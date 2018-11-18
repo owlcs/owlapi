@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -86,7 +87,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
         Collection<OWLOntology> ontologies, ShortFormProvider shortFormProvider) {
         this(ontologies, shortFormProvider);
         this.man = checkNotNull(man, "man cannot be null");
-        this.man.addOntologyChangeListener(this::handleChanges);
+        verifyNotNull(this.man).addOntologyChangeListener(this::handleChanges);
     }
 
     @Override

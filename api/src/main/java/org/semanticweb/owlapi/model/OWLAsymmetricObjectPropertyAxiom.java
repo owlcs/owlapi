@@ -51,6 +51,7 @@ public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyChara
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override

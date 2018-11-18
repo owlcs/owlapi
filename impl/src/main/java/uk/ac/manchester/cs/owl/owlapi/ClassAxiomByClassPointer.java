@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -34,9 +35,8 @@ public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom
      * @param i internals
      */
     public ClassAxiomByClassPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
-        boolean initialized,
-        Internals i) {
-        super(t, v, initialized, i);
+        boolean initialized, Internals i) {
+        super(t, v, initialized, i, OWLClassAxiom.class);
     }
 
     @Override

@@ -27,9 +27,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLIrreflexiveObjectPropertyAxiomImpl extends
-    OWLObjectPropertyCharacteristicAxiomImpl implements
-    OWLIrreflexiveObjectPropertyAxiom {
+public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
+    implements OWLIrreflexiveObjectPropertyAxiom {
 
     /**
      * @param property property
@@ -41,6 +40,7 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLIrreflexiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -49,6 +49,7 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLIrreflexiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
@@ -56,7 +57,6 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(OWL_THING,
-            new OWLObjectComplementOfImpl(new OWLObjectHasSelfImpl(
-                getProperty())), NO_ANNOTATIONS);
+            new OWLObjectComplementOfImpl(new OWLObjectHasSelfImpl(getProperty())), NO_ANNOTATIONS);
     }
 }

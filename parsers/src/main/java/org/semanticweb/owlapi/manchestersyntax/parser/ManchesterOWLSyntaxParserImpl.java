@@ -1353,7 +1353,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (peekToken().equals(OPENBRACKET.keyword())) {
             return parseOntologyList();
         } else {
-            return CollectionFactory.createSet(defaultOntology);
+            Set<OWLOntology> result = CollectionFactory.createSet();
+            result.add(defaultOntology);
+            return result;
         }
     }
 

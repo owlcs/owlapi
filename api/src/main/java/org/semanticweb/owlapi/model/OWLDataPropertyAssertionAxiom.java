@@ -13,18 +13,17 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * Represents a
- * <a href="http://www.w3.org/TR/owl2-syntax/#Positive_Data_Property_Assertions"
+ * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Positive_Data_Property_Assertions"
  * >DataPropertyAssertion</a> in the OWL 2 Specification.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataPropertyAssertionAxiom
-    extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>,
-    OWLSubClassOfAxiomShortCut {
+public interface OWLDataPropertyAssertionAxiom extends
+    OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>, OWLSubClassOfAxiomShortCut {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
     @Override

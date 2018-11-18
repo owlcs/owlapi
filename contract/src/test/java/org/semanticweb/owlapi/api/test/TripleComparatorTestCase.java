@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
@@ -50,13 +51,13 @@ public class TripleComparatorTestCase {
     }
 
     private static RDFNode r(int s) {
-        return new RDFResourceBlankNode(s, false, false, false);
+        return new RDFResourceBlankNode(Integer.valueOf(s), false, false, false);
     }
 
     @Test
     public void shouldSort() {
         List<RDFTriple> list = new ArrayList<>(Arrays.asList(
-            //@formatter:off
+        //@formatter:off
             triple("MoleOfNiobiumAtom"),
             triple("MoleOfMercuryAtom"),
             triple("MoleOfHydrogenAtom"),

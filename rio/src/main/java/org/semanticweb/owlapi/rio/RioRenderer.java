@@ -38,6 +38,7 @@ package org.semanticweb.owlapi.rio;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
 import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
@@ -71,7 +72,6 @@ public class RioRenderer extends RDFRendererBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(RioRenderer.class);
     private final RDFHandler writer;
     private final DefaultPrefixManager pm;
-    private final Set<RDFResource> pending = new LinkedHashSet<>();
     private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
     private final Resource[] contexts;
 
@@ -82,8 +82,7 @@ public class RioRenderer extends RDFRendererBase {
      * @param contexts contexts
      */
     public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
-        final OWLDocumentFormat format,
-        final Resource... contexts) {
+        final OWLDocumentFormat format, final Resource... contexts) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;
@@ -230,8 +229,8 @@ public class RioRenderer extends RDFRendererBase {
                     renderedStatements.add(tripleToRender);
                     // then we go back and get context-sensitive statements and
                     // actually pass those to the RDFHandler
-                    for (Statement statement : RioUtils
-                        .tripleAsStatements(tripleToRender, contexts)) {
+                    for (Statement statement : RioUtils.tripleAsStatements(tripleToRender,
+                        contexts)) {
                         writer.handleStatement(statement);
                         if (tripleToRender.getObject() instanceof RDFResource) {
                             render((RDFResource) tripleToRender.getObject(), false);

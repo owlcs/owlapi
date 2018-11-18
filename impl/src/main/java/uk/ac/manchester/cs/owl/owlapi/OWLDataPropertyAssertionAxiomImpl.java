@@ -27,9 +27,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDataPropertyAssertionAxiomImpl extends
-    OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements
-    OWLDataPropertyAssertionAxiom {
+public class OWLDataPropertyAssertionAxiomImpl
+    extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
+    implements OWLDataPropertyAssertionAxiom {
 
     /**
      * @param subject subject
@@ -38,8 +38,8 @@ public class OWLDataPropertyAssertionAxiomImpl extends
      * @param annotations annotations
      */
     public OWLDataPropertyAssertionAxiomImpl(OWLIndividual subject,
-        OWLDataPropertyExpression property,
-        OWLLiteral value, Collection<OWLAnnotation> annotations) {
+        OWLDataPropertyExpression property, OWLLiteral value,
+        Collection<OWLAnnotation> annotations) {
         super(subject, property, value, annotations);
     }
 
@@ -50,14 +50,17 @@ public class OWLDataPropertyAssertionAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), NO_ANNOTATIONS);
+        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
+            NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
             mergeAnnos(anns));

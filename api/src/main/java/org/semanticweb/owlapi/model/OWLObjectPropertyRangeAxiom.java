@@ -19,11 +19,11 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLObjectPropertyRangeAxiom
-    extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>,
-    OWLObjectPropertyAxiom {
+public interface OWLObjectPropertyRangeAxiom extends
+    OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>, OWLObjectPropertyAxiom {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations();
 
     @Override

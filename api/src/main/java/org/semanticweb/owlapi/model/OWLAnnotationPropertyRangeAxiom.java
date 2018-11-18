@@ -27,6 +27,7 @@ public interface OWLAnnotationPropertyRangeAxiom
     extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>, HasRange<IRI> {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations();
 
     @Override

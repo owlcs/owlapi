@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
 
     @Override

@@ -28,8 +28,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
-    OWLAnnotationAssertionAxiom {
+public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl
+    implements OWLAnnotationAssertionAxiom {
 
     private final OWLAnnotationSubject subject;
     private final OWLAnnotationProperty property;
@@ -42,8 +42,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
      * @param annotations annotations on the axiom
      */
     public OWLAnnotationAssertionAxiomImpl(OWLAnnotationSubject subject,
-        OWLAnnotationProperty property,
-        OWLAnnotationValue value, Collection<OWLAnnotation> annotations) {
+        OWLAnnotationProperty property, OWLAnnotationValue value,
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
@@ -51,6 +51,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -60,8 +61,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
     }
 
     /**
-     * Determines if this annotation assertion deprecates the IRI that is the
-     * subject of the annotation.
+     * Determines if this annotation assertion deprecates the IRI that is the subject of the
+     * annotation.
      *
      * @return {@code true} if this annotation assertion deprecates the subject IRI of the
      *         assertion, otherwise {@code false}.
@@ -73,6 +74,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(), getValue(),
             mergeAnnos(anns));

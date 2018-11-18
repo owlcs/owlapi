@@ -16,6 +16,7 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -27,9 +28,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectPropertyDomainAxiomImpl extends
-    OWLPropertyDomainAxiomImpl<OWLObjectPropertyExpression> implements
-    OWLObjectPropertyDomainAxiom {
+public class OWLObjectPropertyDomainAxiomImpl
+    extends OWLPropertyDomainAxiomImpl<OWLObjectPropertyExpression>
+    implements OWLObjectPropertyDomainAxiom {
 
     /**
      * @param property property
@@ -37,12 +38,12 @@ public class OWLObjectPropertyDomainAxiomImpl extends
      * @param annotations annotations
      */
     public OWLObjectPropertyDomainAxiomImpl(OWLObjectPropertyExpression property,
-        OWLClassExpression domain,
-        Collection<OWLAnnotation> annotations) {
+        OWLClassExpression domain, Collection<OWLAnnotation> annotations) {
         super(property, domain, annotations);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLObjectPropertyDomainAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -51,6 +52,7 @@ public class OWLObjectPropertyDomainAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLObjectPropertyDomainAxiomImpl(getProperty(), getDomain(),
             mergeAnnos(anns));

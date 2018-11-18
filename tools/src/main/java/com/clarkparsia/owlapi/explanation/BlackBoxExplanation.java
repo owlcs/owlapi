@@ -370,8 +370,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         if (debuggingOntology != null) {
             man.removeOntology(verifyNotNull(debuggingOntology));
         }
-        debuggingOntology = man.createOntology();
-        debuggingOntology.add(debuggingAxioms);
+        debuggingOntology = man.createOntology(debuggingAxioms);
     }
 
     private void resetSatisfiabilityTestCounter() {

@@ -22,19 +22,18 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
- * A document source provides a point for loading an ontology. A document source
- * may provide three ways of obtaining an ontology document:
+ * A document source provides a point for loading an ontology. A document source may provide three
+ * ways of obtaining an ontology document:
  * <ol>
  * <li>From a {@link java.io.Reader}
  * <li>From an {@link java.io.InputStream}
  * <li>From an ontology document {@link org.semanticweb.owlapi.model.IRI}
  * </ol>
- * Consumers that use a document source will attempt to obtain a concrete
- * representation of an ontology in the above order. <br>
- * Note that while an ontology document source may appear similar to a SAX input
- * source, an important difference is that the getReader and getInputStream
- * methods return new instances each time the method is called. This allows
- * multiple attempts at loading an ontology.
+ * Consumers that use a document source will attempt to obtain a concrete representation of an
+ * ontology in the above order. <br>
+ * Note that while an ontology document source may appear similar to a SAX input source, an
+ * important difference is that the getReader and getInputStream methods return new instances each
+ * time the method is called. This allows multiple attempts at loading an ontology.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -42,10 +41,9 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 public interface OWLOntologyDocumentSource {
 
     /**
-     * Gets a reader which an ontology document can be read from. This method
-     * may be called multiple times. Each invocation will return a new
-     * {@code Reader}. If there is no reader stream available, returns
-     * Optional.absent.
+     * Gets a reader which an ontology document can be read from. This method may be called multiple
+     * times. Each invocation will return a new {@code Reader}. If there is no reader stream
+     * available, returns Optional.absent.
      *
      * @return A new {@code Reader} which the ontology can be read from, wrapped in an Optional.
      */
@@ -54,10 +52,9 @@ public interface OWLOntologyDocumentSource {
     }
 
     /**
-     * If an input stream can be obtained from this document source then this
-     * method creates it. This method may be called multiple times. Each
-     * invocation will return a new input stream. If there is no input stream
-     * available, returns Optional.absent. .
+     * If an input stream can be obtained from this document source then this method creates it.
+     * This method may be called multiple times. Each invocation will return a new input stream. If
+     * there is no input stream available, returns Optional.absent. .
      *
      * @return A new input stream which the ontology can be read from, wrapped in an Optional.
      */
@@ -91,7 +88,7 @@ public interface OWLOntologyDocumentSource {
      * @param headers accept headers; if not set, the mime type will be used; if that is also
      *        missing, the available parsers will contribute the headers
      */
-    default void setAcceptHeaders(String headers) {}
+    default void setAcceptHeaders(@SuppressWarnings("unused") String headers) {}
 
     /** @return currently set accept headers */
     default Optional<String> getAcceptHeaders() {
@@ -100,22 +97,22 @@ public interface OWLOntologyDocumentSource {
 
     /**
      * @return true if there is no reader or input stream available for this source, or reading from
-     * them has already been attempted in a previous call and has failed. This leaves attempting to
-     * resolve the document IRI as input. No attempt is made to verify that the document IRI is
-     * resolvable.
+     *         them has already been attempted in a previous call and has failed. This leaves
+     *         attempting to resolve the document IRI as input. No attempt is made to verify that
+     *         the document IRI is resolvable.
      */
     boolean hasAlredyFailedOnStreams();
 
     /**
      * @return true if resolving the document IRI has been attempted by a previous call and has
-     * failed, false if resolution has not been attempted yet or it has happened successfully.
+     *         failed, false if resolution has not been attempted yet or it has happened
+     *         successfully.
      */
     boolean hasAlredyFailedOnIRIResolution();
 
     /**
-     * IRI resolution does not happen inside this class. This method allows the
-     * resolver to mark the document IRI as unresolvable, so that the
-     * information is tracked with the source.
+     * IRI resolution does not happen inside this class. This method allows the resolver to mark the
+     * document IRI as unresolvable, so that the information is tracked with the source.
      *
      * @param value new value for the flag
      */

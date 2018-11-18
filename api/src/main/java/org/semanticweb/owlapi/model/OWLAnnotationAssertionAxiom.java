@@ -84,6 +84,7 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
     boolean isDeprecatedIRIAssertion();
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
 
     @Override

@@ -1,7 +1,5 @@
 package org.coode.owlapi.obo12.parser;
 
-import java.util.Collections;
-
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 

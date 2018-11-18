@@ -28,8 +28,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implements
-    OWLDisjointClassesAxiom {
+public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
+    implements OWLDisjointClassesAxiom {
 
     /**
      * @param classExpressions disjoint classes
@@ -41,6 +41,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLDisjointClassesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -49,6 +50,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDisjointClassesAxiomImpl(classExpressions, mergeAnnos(anns));
     }

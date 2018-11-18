@@ -52,6 +52,7 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom, OWLSubClassO
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLClassAssertionAxiom getAxiomWithoutAnnotations();
 
     /**

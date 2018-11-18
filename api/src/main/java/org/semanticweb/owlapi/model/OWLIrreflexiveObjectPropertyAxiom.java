@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * Represents
- * <a href="http://www.w3.org/TR/owl2-syntax/#Irreflexive_Object_Properties" >
+ * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Irreflexive_Object_Properties" >
  * IrreflexiveObjectProperty</a> axioms in the OWL 2 Specification.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -24,6 +23,7 @@ public interface OWLIrreflexiveObjectPropertyAxiom
     extends OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLIrreflexiveObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override

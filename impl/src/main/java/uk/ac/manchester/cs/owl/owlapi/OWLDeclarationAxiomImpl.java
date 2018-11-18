@@ -40,6 +40,7 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLDeclarationAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -48,6 +49,7 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDeclarationAxiomImpl(getEntity(), mergeAnnos(anns));
     }

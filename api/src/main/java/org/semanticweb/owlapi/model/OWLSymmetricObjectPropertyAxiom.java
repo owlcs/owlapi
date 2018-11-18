@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.Set;
 
 /**
- * Represents
- * <a href="http://www.w3.org/TR/owl2-syntax/#Symmetric_Object_Properties" >
+ * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Symmetric_Object_Properties" >
  * SymmetricObjectProperty</a> axioms in the OWL 2 specification.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -25,6 +24,7 @@ import java.util.Set;
 public interface OWLSymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override

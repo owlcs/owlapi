@@ -25,6 +25,7 @@ public interface OWLAnnotationPropertyDomainAxiom
     extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>, HasDomain<IRI> {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
 
     @Override

@@ -67,6 +67,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLDisjointUnionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -76,6 +77,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions(),
             mergeAnnos(anns));

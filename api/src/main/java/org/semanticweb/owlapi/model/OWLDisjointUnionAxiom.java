@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 public interface OWLDisjointUnionAxiom extends OWLClassAxiom, HasOperands<OWLClassExpression> {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLDisjointUnionAxiom getAxiomWithoutAnnotations();
 
     @Override

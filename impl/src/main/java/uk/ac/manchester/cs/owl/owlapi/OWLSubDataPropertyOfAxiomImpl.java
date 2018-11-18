@@ -25,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
  * @since 2.0.0
  */
 public class OWLSubDataPropertyOfAxiomImpl extends
-    OWLSubPropertyAxiomImpl<OWLDataPropertyExpression> implements
-    OWLSubDataPropertyOfAxiom {
+    OWLSubPropertyAxiomImpl<OWLDataPropertyExpression> implements OWLSubDataPropertyOfAxiom {
 
     /**
      * @param subProperty subproperty
@@ -34,12 +33,12 @@ public class OWLSubDataPropertyOfAxiomImpl extends
      * @param annotations annotations
      */
     public OWLSubDataPropertyOfAxiomImpl(OWLDataPropertyExpression subProperty,
-        OWLDataPropertyExpression superProperty,
-        Collection<OWLAnnotation> annotations) {
+        OWLDataPropertyExpression superProperty, Collection<OWLAnnotation> annotations) {
         super(subProperty, superProperty, annotations);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLSubDataPropertyOfAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -49,6 +48,7 @@ public class OWLSubDataPropertyOfAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
             mergeAnnos(anns));

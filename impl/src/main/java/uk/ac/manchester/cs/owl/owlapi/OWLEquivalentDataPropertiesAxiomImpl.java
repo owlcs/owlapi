@@ -28,9 +28,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentDataPropertiesAxiomImpl extends
-    OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
-    OWLEquivalentDataPropertiesAxiom {
+public class OWLEquivalentDataPropertiesAxiomImpl
+    extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression>
+    implements OWLEquivalentDataPropertiesAxiom {
 
     /**
      * @param properties properties
@@ -43,6 +43,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -51,6 +52,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLEquivalentDataPropertiesAxiomImpl(properties, mergeAnnos(anns));
     }

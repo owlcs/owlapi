@@ -182,10 +182,9 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     }
 
     /**
-     * Creates an OWLXML handler with the specified top level handler. This
-     * allows OWL/XML representations of axioms to be embedded in abitrary XML
-     * documents e.g. DIG 2.0 documents. (The default handler behaviour expects
-     * the top level element to be an Ontology element).
+     * Creates an OWLXML handler with the specified top level handler. This allows OWL/XML
+     * representations of axioms to be embedded in abitrary XML documents e.g. DIG 2.0 documents.
+     * (The default handler behaviour expects the top level element to be an Ontology element).
      *
      * @param ontology The ontology object that the XML representation should be parsed into.
      * @param topHandler top level handler
@@ -197,8 +196,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         this.ontology = ontology;
         this.configuration = configuration;
         anonProvider = new RemappingIndividualProvider(owlOntologyManager.getOntologyConfigurator(),
-            owlOntologyManager
-                .getOWLDataFactory());
+            owlOntologyManager.getOWLDataFactory());
         prefixName2PrefixMap.put("owl:", Namespaces.OWL.toString());
         prefixName2PrefixMap.put("xsd:", Namespaces.XSD.toString());
         if (topHandler != null) {
@@ -315,7 +313,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         super.setDocumentLocator(locator);
         this.locator = checkNotNull(locator);
         try {
-            String systemId = this.locator.getSystemId();
+            String systemId = verifyNotNull(this.locator).getSystemId();
             if (systemId != null) {
                 bases.push(new URI(systemId));
             }
@@ -449,8 +447,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
 
     @Override
     public void startElement(@Nullable String uri, @Nullable String localName,
-        @Nullable String qName,
-        @Nullable Attributes attributes) {
+        @Nullable String qName, @Nullable Attributes attributes) {
         if (localName == null || attributes == null) {
             // this should never happen, but DefaultHandler does not specify
             // these parameters as Nonnull

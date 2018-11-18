@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.Collection;
 
 /**
- * Represents
- * <a href= "http://www.w3.org/TR/owl2-syntax/#Equivalent_Object_Properties" >
+ * Represents <a href= "http://www.w3.org/TR/owl2-syntax/#Equivalent_Object_Properties" >
  * EquivalentObjectProperties</a> axioms in the OWL 2 specification.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -26,6 +25,7 @@ public interface OWLEquivalentObjectPropertiesAxiom
     extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override

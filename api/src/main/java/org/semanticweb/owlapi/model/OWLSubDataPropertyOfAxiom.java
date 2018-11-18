@@ -23,6 +23,7 @@ public interface OWLSubDataPropertyOfAxiom
     extends OWLSubPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLSubDataPropertyOfAxiom getAxiomWithoutAnnotations();
 
     @Override

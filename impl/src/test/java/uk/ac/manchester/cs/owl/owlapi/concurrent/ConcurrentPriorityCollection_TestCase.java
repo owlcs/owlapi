@@ -11,22 +11,24 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({"javadoc", "null"})
+@SuppressWarnings({"javadoc"})
 public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
 
-    private final PriorityCollectionSorting hasOntologyLoaderConfiguration = PriorityCollectionSorting.NEVER;
+    private final PriorityCollectionSorting hasOntologyLoaderConfiguration =
+        PriorityCollectionSorting.NEVER;
     private ConcurrentPriorityCollection<T> collection;
     @Mock
     private ReadWriteLock readWriteLock;
@@ -41,8 +43,8 @@ public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         iterable = Arrays.asList(element);
-        collection = new ConcurrentPriorityCollection<>(readWriteLock,
-            hasOntologyLoaderConfiguration);
+        collection =
+            new ConcurrentPriorityCollection<>(readWriteLock, hasOntologyLoaderConfiguration);
     }
 
     @Test

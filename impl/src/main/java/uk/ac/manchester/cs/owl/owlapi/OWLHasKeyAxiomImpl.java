@@ -50,6 +50,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLHasKeyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -58,6 +59,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions,
             mergeAnnos(anns));

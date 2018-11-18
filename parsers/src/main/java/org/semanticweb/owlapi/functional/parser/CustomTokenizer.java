@@ -1,126 +1,19 @@
 package org.semanticweb.owlapi.functional.parser;
 
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONPROPERTYDOMAIN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONPROPERTYRANGE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ASYMMETRICOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.BODY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.BUILTINATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.CLASS;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.CLASSASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.CLASSATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.CLOSEPAR;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.COMMENT;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAALLVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATACOMPLEMENTOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAEXACTCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAHASVALUE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAINTERSECTIONOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAMAXCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAMINCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAONEOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROP;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYDOMAIN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYRANGE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATARANGEATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATASOMEVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATATYPE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATATYPEDEFINITION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATATYPEIDENTIFIER;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATATYPERESTRICTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAUNIONOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DECLARATION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DESCRIPTIONGRAPH;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DIFFERENTINDIVIDUALS;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DIFFERENTINDIVIDUALSATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTCLASSES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTDATAPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTOBJECTPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTUNION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DLSAFERULE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DOCUMENTATION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EDGEASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EDGES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EQUALS;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EQUIVALENTCLASSES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EQUIVALENTDATAPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EQUIVALENTOBJECTPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ERROR;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.FULLIRI;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.FUNCTIONALDATAPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.FUNCTIONALOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.HASKEY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.HEAD;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.IMPORT;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.INVERSEFUNCTIONALOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.INVERSEOBJECTPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.IRREFLEXIVEOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.LABEL;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.LANGIDENTIFIER;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.LENGTH;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MAINCLASSES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MAXEXCLUSIVE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MAXINCLUSIVE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MAXLENGTH;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MINEXCLUSIVE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MININCLUSIVE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.MINLENGTH;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NAMEDINDIVIDUAL;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NEGATIVEDATAPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NEGATIVEOBJECTPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NODEASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NODEID;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NODES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTALLVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTCOMPLEMENTOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTEXACTCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTHASSELF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTHASVALUE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTINTERSECTIONOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTINVERSEOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTMAXCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTMINCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTONEOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROP;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYDOMAIN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYRANGE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTSOMEVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTUNIONOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ONTOLOGY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OPENPAR;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.PATTERN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.PNAME_NS;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.PN_LOCAL;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.PREFIX;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.REFLEXIVEOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SAMEINDIVIDUAL;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SAMEINDIVIDUALATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.STRINGLITERAL;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBANNOTATIONPROPERTYOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBCLASSOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBDATAPROPERTYOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBOBJECTPROPERTYCHAIN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBOBJECTPROPERTYOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SYMMETRICOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.TOTALDIGITS;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.TRANSITIVEOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.VARIABLE;
+import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.*;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Created by ses on 6/9/14.
  */
 class CustomTokenizer implements TokenManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomTokenizer.class);
 
     private int unreadChar = -1;
     private final Reader in;
@@ -168,6 +61,7 @@ class CustomTokenizer implements TokenManager {
                         return readTextualToken(c);
                 }
             } catch (IOException e) {
+                LOGGER.warn("Error reading from functional stream", e);
                 return makeToken(EOF, "");
             }
         }
@@ -213,11 +107,13 @@ class CustomTokenizer implements TokenManager {
                 }
             }
         } catch (IOException e) {
+            LOGGER.warn("Error reading from functional stream", e);
             return makeToken(ERROR, "<");
         }
     }
 
-    private Token readTextualToken(char c) throws IOException {
+    private Token readTextualToken(char input) throws IOException {
+        char c = input;
         if (c >= '0' && c <= '9') {
             return readNumber(c);
         }
@@ -251,7 +147,8 @@ class CustomTokenizer implements TokenManager {
                     default:
                         buf.append(c);
                 }
-            } catch (EOFException eof) {
+            } catch (EOFException e) {
+                LOGGER.trace("End of file reached", e);
                 break;
             }
         }
@@ -476,7 +373,8 @@ class CustomTokenizer implements TokenManager {
         }
     }
 
-    private Token readNumber(char c) throws IOException {
+    private Token readNumber(char input) throws IOException {
+        char c = input;
         buf.setLength(0);
         buf.append(c);
         while (true) {

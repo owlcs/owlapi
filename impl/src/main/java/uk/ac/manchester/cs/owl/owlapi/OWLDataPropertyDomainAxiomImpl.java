@@ -29,8 +29,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @since 2.0.0
  */
 public class OWLDataPropertyDomainAxiomImpl extends
-    OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression> implements
-    OWLDataPropertyDomainAxiom {
+    OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression> implements OWLDataPropertyDomainAxiom {
 
     /**
      * @param property property
@@ -38,12 +37,12 @@ public class OWLDataPropertyDomainAxiomImpl extends
      * @param annotations annotations
      */
     public OWLDataPropertyDomainAxiomImpl(OWLDataPropertyExpression property,
-        OWLClassExpression domain,
-        Collection<OWLAnnotation> annotations) {
+        OWLClassExpression domain, Collection<OWLAnnotation> annotations) {
         super(property, domain, annotations);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLDataPropertyDomainAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -52,14 +51,15 @@ public class OWLDataPropertyDomainAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDataPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLClassExpression sub = new OWLDataSomeValuesFromImpl(getProperty(),
-            new OWL2DatatypeImpl(RDFS_LITERAL));
+        OWLClassExpression sub =
+            new OWLDataSomeValuesFromImpl(getProperty(), new OWL2DatatypeImpl(RDFS_LITERAL));
         return new OWLSubClassOfAxiomImpl(sub, getDomain(), NO_ANNOTATIONS);
     }
 }

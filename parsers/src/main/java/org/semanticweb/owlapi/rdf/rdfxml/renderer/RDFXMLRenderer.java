@@ -104,6 +104,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     @Override
     protected void beginDocument() {
+        pending.clear();
         writer.startDocument();
     }
 
@@ -116,6 +117,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
             // comment to document it
             writer.writeComment("Warning: type declarations were not added automatically.");
         }
+        pending.clear();
     }
 
     @Override

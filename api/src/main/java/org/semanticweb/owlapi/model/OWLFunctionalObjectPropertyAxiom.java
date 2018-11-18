@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * Represents
- * <a href="http://www.w3.org/TR/owl2-syntax/#Functional_Object_Properties" >
+ * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Functional_Object_Properties" >
  * FunctionalObjectProperty</a> axioms in the OWL 2 specification.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -24,6 +23,7 @@ public interface OWLFunctionalObjectPropertyAxiom
     extends OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override

@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -26,9 +27,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectPropertyAssertionAxiomImpl extends
-    OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual> implements
-    OWLObjectPropertyAssertionAxiom {
+public class OWLObjectPropertyAssertionAxiomImpl
+    extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
+    implements OWLObjectPropertyAssertionAxiom {
 
     /**
      * @param subject subject
@@ -37,12 +38,13 @@ public class OWLObjectPropertyAssertionAxiomImpl extends
      * @param annotations annotations
      */
     public OWLObjectPropertyAssertionAxiomImpl(OWLIndividual subject,
-        OWLObjectPropertyExpression property,
-        OWLIndividual object, Collection<OWLAnnotation> annotations) {
+        OWLObjectPropertyExpression property, OWLIndividual object,
+        Collection<OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -54,11 +56,11 @@ public class OWLObjectPropertyAssertionAxiomImpl extends
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
-            new OWLObjectHasValueImpl(getProperty(),
-                getObject()), NO_ANNOTATIONS);
+            new OWLObjectHasValueImpl(getProperty(), getObject()), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
             mergeAnnos(anns));

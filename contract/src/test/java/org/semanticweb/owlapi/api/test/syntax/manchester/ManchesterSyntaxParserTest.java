@@ -5,6 +5,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Arrays;
 import java.util.Collection;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -30,6 +31,7 @@ public class ManchesterSyntaxParserTest extends TestBase {
 
     private String input;
     private Object expected;
+
     public ManchesterSyntaxParserTest(String input, Object expected) {
         this.input = input;
         this.expected = expected;
@@ -37,16 +39,18 @@ public class ManchesterSyntaxParserTest extends TestBase {
 
     @Parameters
     public static Collection<Object[]> data() {
-        OWLDataFactory df = OWLManager.getOWLDataFactory();
-        OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
+        // can't use df at this point - it has not been initialised yet
+        OWLDataFactory datafactory = OWLManager.getOWLDataFactory();
+        OWLDataProperty hasAge =
+            datafactory.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
         return Arrays.asList(
-            //@formatter:off
-            new Object[] { "hasAge exactly 1 xsd:int",  df.getOWLDataExactCardinality(1, hasAge, OWL2Datatype.XSD_INT) },
-            new Object[]{"hasAge exactly 1", df.getOWLDataExactCardinality(1, hasAge)},
-            new Object[] { "hasAge min 1 xsd:int",      df.getOWLDataMinCardinality(1, hasAge, OWL2Datatype.XSD_INT) }, 
-            new Object[]{"hasAge min 1", df.getOWLDataMinCardinality(1, hasAge)},
-            new Object[] { "hasAge max 1 xsd:int",      df.getOWLDataMaxCardinality(1, hasAge, OWL2Datatype.XSD_INT) }, 
-            new Object[]{"hasAge max 1", df.getOWLDataMaxCardinality(1, hasAge)});
+        //@formatter:off
+            new Object[] { "hasAge exactly 1 xsd:int",  datafactory.getOWLDataExactCardinality(1, hasAge, OWL2Datatype.XSD_INT) },
+            new Object[]{"hasAge exactly 1", datafactory.getOWLDataExactCardinality(1, hasAge)},
+            new Object[] { "hasAge min 1 xsd:int",      datafactory.getOWLDataMinCardinality(1, hasAge, OWL2Datatype.XSD_INT) }, 
+            new Object[]{"hasAge min 1", datafactory.getOWLDataMinCardinality(1, hasAge)},
+            new Object[] { "hasAge max 1 xsd:int",      datafactory.getOWLDataMaxCardinality(1, hasAge, OWL2Datatype.XSD_INT) }, 
+            new Object[]{"hasAge max 1", datafactory.getOWLDataMaxCardinality(1, hasAge)});
         //@formatter:on
     }
 
@@ -55,8 +59,8 @@ public class ManchesterSyntaxParserTest extends TestBase {
         OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
         OWLOntology ont = m.createOntology();
         m.addAxiom(ont, df.getOWLDeclarationAxiom(hasAge));
-        ManchesterOWLSyntaxClassExpressionParser parser = new ManchesterOWLSyntaxClassExpressionParser(
-            df, checker(m));
+        ManchesterOWLSyntaxClassExpressionParser parser =
+            new ManchesterOWLSyntaxClassExpressionParser(df, checker(m));
         assertEquals(expected, parser.parse(input));
     }
 

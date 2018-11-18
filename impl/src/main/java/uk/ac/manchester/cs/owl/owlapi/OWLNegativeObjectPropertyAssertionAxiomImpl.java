@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -25,9 +26,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLNegativeObjectPropertyAssertionAxiomImpl extends
-    OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual> implements
-    OWLNegativeObjectPropertyAssertionAxiom {
+public class OWLNegativeObjectPropertyAssertionAxiomImpl
+    extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
+    implements OWLNegativeObjectPropertyAssertionAxiom {
 
     /**
      * @param subject subject
@@ -36,33 +37,33 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends
      * @param annotations annotations
      */
     public OWLNegativeObjectPropertyAssertionAxiomImpl(OWLIndividual subject,
-        OWLObjectPropertyExpression property,
-        OWLIndividual object, Collection<OWLAnnotation> annotations) {
+        OWLObjectPropertyExpression property, OWLIndividual object,
+        Collection<OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
         }
         return new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(),
-            getObject(),
-            NO_ANNOTATIONS);
+            getObject(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(),
-            getObject(), mergeAnnos(
-            anns));
+            getObject(), mergeAnnos(anns));
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
-            new OWLObjectComplementOfImpl(
-                new OWLObjectHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
+            new OWLObjectComplementOfImpl(new OWLObjectHasValueImpl(getProperty(), getObject())),
+            NO_ANNOTATIONS);
     }
 
     @Override

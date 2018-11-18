@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.Collection;
 
 /**
- * Represents a
- * <a href="http://www.w3.org/TR/owl2-syntax/#Individual_Inequality" >
+ * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Individual_Inequality" >
  * DifferentIndividuals</a> axiom in the OWL 2 Specification.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -25,6 +24,7 @@ import java.util.Collection;
 public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
 
     @Override
@@ -33,8 +33,8 @@ public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
     }
 
     /**
-     * Determines whether this axiom contains anonymous individuals. Anonymous
-     * individuals are not allowed in different individuals axioms.
+     * Determines whether this axiom contains anonymous individuals. Anonymous individuals are not
+     * allowed in different individuals axioms.
      *
      * @return {@code true} if this axioms contains anonymous individual axioms
      */

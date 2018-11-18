@@ -27,8 +27,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDisjointObjectPropertiesAxiomImpl extends
-    OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
+public class OWLDisjointObjectPropertiesAxiomImpl
+    extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
     implements OWLDisjointObjectPropertiesAxiom {
 
     /**
@@ -42,6 +42,7 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLDisjointObjectPropertiesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -50,6 +51,7 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDisjointObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
     }

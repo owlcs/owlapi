@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements
-    OWLEquivalentClassesAxiom {
+public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
+    implements OWLEquivalentClassesAxiom {
 
     /**
      * @param classExpressions equivalent classes
@@ -46,6 +46,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLEquivalentClassesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -54,6 +55,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLEquivalentClassesAxiomImpl(classExpressions, mergeAnnos(anns));
     }

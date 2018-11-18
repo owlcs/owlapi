@@ -26,8 +26,8 @@ import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
-    OWLSubAnnotationPropertyOfAxiom {
+public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl
+    implements OWLSubAnnotationPropertyOfAxiom {
 
     private final OWLAnnotationProperty subProperty;
     private final OWLAnnotationProperty superProperty;
@@ -38,20 +38,21 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
      * @param annotations annotations on the axiom
      */
     public OWLSubAnnotationPropertyOfAxiomImpl(OWLAnnotationProperty subProperty,
-        OWLAnnotationProperty superProperty,
-        Collection<OWLAnnotation> annotations) {
+        OWLAnnotationProperty superProperty, Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subProperty = checkNotNull(subProperty, "subProperty cannot be null");
         this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
             mergeAnnos(anns));
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;

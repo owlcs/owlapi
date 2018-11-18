@@ -62,6 +62,7 @@ public class OWLInverseObjectPropertiesAxiomImpl
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -71,6 +72,7 @@ public class OWLInverseObjectPropertiesAxiomImpl
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(), getSecondProperty(),
             mergeAnnos(anns));

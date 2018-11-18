@@ -22,12 +22,14 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
 
     /**
      * Determines if this individual is an instance of
-     * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this
-     * method is the dual of {@link #isAnonymous()}.
+     * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this method is the dual of
+     * {@link #isAnonymous()}.
      *
-     * @return {@code true} if this individual is an instance of {@link org.semanticweb.owlapi.model.OWLNamedIndividual}
-     * because it is a named individuals, otherwise {@code false}
+     * @return {@code true} if this individual is an instance of
+     *         {@link org.semanticweb.owlapi.model.OWLNamedIndividual} because it is a named
+     *         individuals, otherwise {@code false}
      */
+    @Override
     default boolean isNamed() {
         return isOWLNamedIndividual();
     }
@@ -38,8 +40,7 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
     }
 
     /**
-     * Obtains this individual an anonymous individual if it is indeed
-     * anonymous.
+     * Obtains this individual an anonymous individual if it is indeed anonymous.
      *
      * @return The individual as an anonymous individual
      * @throws OWLRuntimeException if this individual is named
@@ -47,9 +48,8 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
     OWLAnonymousIndividual asOWLAnonymousIndividual();
 
     /**
-     * Returns a string representation that can be used as the ID of this
-     * individual. This is the toString representation of the node ID of this
-     * individual
+     * Returns a string representation that can be used as the ID of this individual. This is the
+     * toString representation of the node ID of this individual
      *
      * @return A string representing the toString of the node ID of this entity.
      */

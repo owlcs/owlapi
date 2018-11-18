@@ -47,14 +47,17 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLClassAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(), NO_ANNOTATIONS);
+        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(),
+            NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(),
             mergeAnnos(anns));

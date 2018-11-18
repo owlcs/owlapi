@@ -437,7 +437,9 @@ public abstract class RDFRendererBase {
         ontology.accept(translator);
         if (!getRDFGraph().isEmpty()) {
             RDFResource node = translator.getMappedNode(ontology);
-            render(node);
+            if (node != null) {
+                render(node);
+            }
         }
         triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
     }

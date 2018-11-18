@@ -27,9 +27,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLNegativeDataPropertyAssertionAxiomImpl extends
-    OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements
-    OWLNegativeDataPropertyAssertionAxiom {
+public class OWLNegativeDataPropertyAssertionAxiomImpl
+    extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
+    implements OWLNegativeDataPropertyAssertionAxiom {
 
     /**
      * @param subject subject
@@ -38,19 +38,20 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl extends
      * @param annotations annotations
      */
     public OWLNegativeDataPropertyAssertionAxiomImpl(OWLIndividual subject,
-        OWLDataPropertyExpression property,
-        OWLLiteral object, Collection<OWLAnnotation> annotations) {
+        OWLDataPropertyExpression property, OWLLiteral object,
+        Collection<OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
-            new OWLObjectComplementOfImpl(
-                new OWLDataHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
+            new OWLObjectComplementOfImpl(new OWLDataHasValueImpl(getProperty(), getObject())),
+            NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLNegativeDataPropertyAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -60,10 +61,10 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
-            getObject(), mergeAnnos(
-            anns));
+            getObject(), mergeAnnos(anns));
     }
 
     @Override

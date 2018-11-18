@@ -161,6 +161,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     Stream<OWLClassExpression> classAtomPredicates();
 
     @Override
+    @SuppressWarnings("unchecked")
     SWRLRule getAxiomWithoutAnnotations();
 
     @Override

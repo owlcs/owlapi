@@ -267,11 +267,11 @@ public class Injector {
     }
 
     protected List<ClassLoader> classLoaders() {
-            // in OSGi, the context class loader is likely null.
-            // This would trigger the use of the system class loader, which would
-            // not see the OWLAPI jar, nor any other jar containing implementations.
-            // In that case, use this class classloader to load, at a minimum, the
-            // services provided by the OWLAPI jar itself.
+        // in OSGi, the context class loader is likely null.
+        // This would trigger the use of the system class loader, which would
+        // not see the OWLAPI jar, nor any other jar containing implementations.
+        // In that case, use this class classloader to load, at a minimum, the
+        // services provided by the OWLAPI jar itself.
         return Arrays.asList(Thread.currentThread().getContextClassLoader(),
             ClassLoader.getSystemClassLoader(), getClass().getClassLoader());
     }
@@ -300,10 +300,11 @@ public class Injector {
         String name = "META-INF/services/" + type.getName();
         LOGGER.debug("Loading file {}", name);
         // J2EE compatible search
-        return urls(name).flatMap(this::entries).distinct()
-            .map(s -> (Class<T>) prepareClass(s, key)).map(s -> instantiate(s, key));
+        return urls(name).flatMap(this::entries).distinct().map(s -> prepareClass(s, key, type))
+            .map(s -> instantiate(s, key));
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> Constructor<T> injectableConstructor(Class<T> c) {
         try {
             Constructor<?>[] constructors = c.getConstructors();
@@ -319,6 +320,7 @@ public class Injector {
         } catch (SecurityException e) {
             LOGGER.error("No injectable constructor found for {} because of security restrictions",
                 c);
+            LOGGER.error("Security restriction accessing constructor list", e);
             return null;
         }
     }
@@ -336,7 +338,9 @@ public class Injector {
         return toReturn;
     }
 
-    private <T> Class<T> prepareClass(String s, Object key) {
+    @SuppressWarnings("unchecked")
+    private <T> Class<T> prepareClass(String s, Object key,
+        @SuppressWarnings("unused") Class<T> witness) {
         try {
             Class<?> forName = Class.forName(s);
             typesCache.computeIfAbsent(key, x -> new ArrayList<>()).add(forName);
@@ -375,7 +379,7 @@ public class Injector {
             for (ClassLoader cl : classLoaders()) {
                 if (cl != null) {
                     Enumeration<URL> resources = cl.getResources(name);
-            while (resources.hasMoreElements()) {
+                    while (resources.hasMoreElements()) {
                         URL e = resources.nextElement();
                         l.add(e);
                         LOGGER.debug("Loading URL for service {}", e);

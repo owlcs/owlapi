@@ -44,11 +44,13 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLSubClassOfAxiomImpl(subClass, superClass, mergeAnnos(anns));
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLSubClassOfAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;

@@ -1,15 +1,18 @@
 package org.obolibrary.obo2owl;
 
-import com.google.common.collect.Maps;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
+
 import javax.annotation.Nullable;
+
 import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
+
+import com.google.common.collect.Maps;
 
 /**
  * @author Shahid Manzoor
@@ -26,8 +29,7 @@ public class Obo2OWLConstants {
     public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX, "IAO_0000227");
     //@formatter:on
     private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB = Maps
-        .uniqueIndex(Arrays.asList(Obo2OWLVocabulary
-            .values()), v -> v.mappedTag);
+        .uniqueIndex(Arrays.asList(Obo2OWLVocabulary.values()), Obo2OWLVocabulary::getMappedTag);
 
     /**
      * @param tag tag
@@ -129,7 +131,7 @@ public class Obo2OWLConstants {
         /**
          * @param e entity to check
          * @return true if e has the same iri as the enum value, false if e is null or has a
-         * different iri
+         *         different iri
          */
         public boolean sameIRI(@Nullable OWLEntity e) {
             // if a null value is passed in, then no match

@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLPropertyExpression> {
 
     @Override
+    @SuppressWarnings("unchecked")
     OWLHasKeyAxiom getAxiomWithoutAnnotations();
 
     @Override

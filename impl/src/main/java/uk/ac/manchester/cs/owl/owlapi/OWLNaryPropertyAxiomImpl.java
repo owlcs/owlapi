@@ -40,6 +40,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
      * @param properties properties
      * @param annotations annotations
      */
+    @SuppressWarnings("unchecked")
     public OWLNaryPropertyAxiomImpl(Collection<? extends P> properties,
         Collection<OWLAnnotation> annotations) {
         super(annotations);

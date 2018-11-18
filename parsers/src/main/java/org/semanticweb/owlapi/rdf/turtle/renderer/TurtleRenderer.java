@@ -301,6 +301,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
     @Override
     protected void beginDocument() {
+        pending.clear();
         // Namespaces
         writeNamespaces();
         write("@base ");
@@ -323,6 +324,7 @@ public class TurtleRenderer extends RDFRendererBase {
             writeComment("Warning: type declarations were not added automatically.");
         }
         writer.flush();
+        pending.clear();
     }
 
     @Override

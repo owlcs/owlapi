@@ -16,6 +16,7 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -26,9 +27,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLReflexiveObjectPropertyAxiomImpl extends
-    OWLObjectPropertyCharacteristicAxiomImpl implements
-    OWLReflexiveObjectPropertyAxiom {
+public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
+    implements OWLReflexiveObjectPropertyAxiom {
 
     /**
      * @param property property
@@ -40,6 +40,7 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLReflexiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -54,6 +55,7 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLReflexiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }

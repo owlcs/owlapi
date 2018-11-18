@@ -1,16 +1,19 @@
 package org.obolibrary.oboformat.model;
 
-import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.annotation.Nullable;
+
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Sets;
 
 /**
  * Clause.
@@ -18,9 +21,7 @@ import org.slf4j.LoggerFactory;
 public class Clause {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Clause.class);
-    @SuppressWarnings("unchecked")
     private static final Set<?> trueValues = Sets.newHashSet(Boolean.TRUE, "true");
-    @SuppressWarnings("unchecked")
     private static final Set<?> falseValues = Sets.newHashSet(Boolean.FALSE, "false");
     @Nullable
     protected String tag;
@@ -102,9 +103,8 @@ public class Clause {
     }
 
     /**
-     * freezing a clause signals that the clause has become quiescent, and that
-     * data structures can be adjusted to increase performance, or reduce memory
-     * consumption.
+     * freezing a clause signals that the clause has become quiescent, and that data structures can
+     * be adjusted to increase performance, or reduce memory consumption.
      */
     void freeze() {
         freezeValues();
@@ -391,9 +391,8 @@ public class Clause {
 
     @Override
     public int hashCode() {
-        return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode() + 31 * 31 * values
-            .hashCode()
-            + taghash();
+        return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode()
+            + 31 * 31 * values.hashCode() + taghash();
     }
 
     private int taghash() {
@@ -449,8 +448,7 @@ public class Clause {
             Object v2 = other.getValue();
             if (v1 != v2 && !v1.equals(v2)) {
                 return trueValues.contains(v1) && trueValues.contains(v2)
-                    || falseValues.contains(v1) && falseValues
-                    .contains(v2);
+                    || falseValues.contains(v1) && falseValues.contains(v2);
             }
         } catch (FrameStructureException e) {
             // this cannot happen as it's already been tested
