@@ -112,18 +112,19 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
     boolean contains(OWLOntology ontology);
 
     /**
-     * Determines if there is an ontology with the specified IRI, and no version IRI, that is
-     * managed by this manager
+     * Determines if there is an ontology that has the specified ontology IRI, regardless of version
+     * IRI. If there is no ontology which has the input IRI as ontology IRI, the IRI is matched
+     * against the version IRI.
      *
-     * @param ontologyIRI The IRI of the ontology to test for (the version IRI is assumed to be
-     *        {@code null})
-     * @return {@code true} if there is an ontology with the specified IRI, and no version IRI, that
-     *         is managed by this manager, otherwise {@code false}.
+     * @param ontologyIRI The IRI of the ontology to test for.
+     * @return {@code true} if there is an ontology with the specified IRI or version IRI, that is
+     *         managed by this manager, otherwise {@code false}.
      */
     boolean contains(IRI ontologyIRI);
 
     /**
-     * Determines if there is an ontology with the specified id that is managed by this manager
+     * Determines if there is an ontology with the specified id that is managed by this manager;
+     * this method works only with non anonymous ids.
      *
      * @param id The id of the ontology to test for
      * @return {@code true} if there is an ontology with the specified id that is managed by this
@@ -166,23 +167,16 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
     Stream<OWLOntologyID> ontologyIDsByVersion(IRI ontologyVersionIRI);
 
     /**
-     * Gets a previously loaded/created ontology that has the specified ontology IRI and no version
-     * IRI.
+     * Gets a previously loaded/created ontology that has the specified ontology IRI, regardless of
+     * version IRI. If there is no ontology which has the input IRI as ontology IRI, the IRI is
+     * matched against the version IRI.
      *
      * @param ontologyIRI The IRI of the ontology to be retrieved.
-     * @return The ontology that has the specified IRI and no version IRI, or {@code null} if this
-     *         manager does not manage an ontology with the specified IRI and no version IRI.
+     * @return The ontology that has the specified IRI, {@code null} if none found.
      */
     @Nullable
     OWLOntology getOntology(IRI ontologyIRI);
 
-    /**
-     * Gets a previously loaded/created ontology that has the specified ontology ID
-     *
-     * @param ontologyID The ID of the ontology to retrieve
-     * @return The ontology that has the specified ID, or {@code null} if this manager does not
-     *         manage an ontology with the specified ontology ID.
-     */
     @Nullable
     @Override
     OWLOntology getOntology(OWLOntologyID ontologyID);

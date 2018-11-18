@@ -22,11 +22,12 @@ import javax.annotation.Nullable;
 public interface HasGetOntologyById {
 
     /**
-     * Get the ontology with the specified Id.
+     * Get a previously loaded/created ontology that has the specified ontology ID. For anonymous
+     * ids, this method tries to locate the ontology by document IRI.
      *
-     * @param ontologyID The Id.
-     * @return The ontology with the specified Id, or {@code null} if there is no ontology with the
-     * specified Id.
+     * @param ontologyID The ID of the ontology to retrieve.
+     * @return The ontology with the specified ID, or {@code null} if there is no ontology with the
+     *         specified ID.
      */
     @Nullable
     OWLOntology getOntology(OWLOntologyID ontologyID);
