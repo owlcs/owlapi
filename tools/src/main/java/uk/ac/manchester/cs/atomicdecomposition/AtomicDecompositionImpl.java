@@ -60,6 +60,15 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     }
 
     /**
+     * @param o o
+     * @param type type
+     * @param excludeAssertions true if assertions should be excluded
+     */
+    public AtomicDecompositionImpl(OWLOntology o, ModuleType type, boolean excludeAssertions) {
+        this(AxiomSelector.selectAxioms(o, excludeAssertions), type);
+    }
+
+    /**
      * @param axioms axioms
      * @param type type
      */

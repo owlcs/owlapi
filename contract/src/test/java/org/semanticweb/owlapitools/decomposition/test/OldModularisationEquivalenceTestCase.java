@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+
 import uk.ac.manchester.cs.atomicdecomposition.AtomicDecomposition;
 import uk.ac.manchester.cs.atomicdecomposition.AtomicDecompositionImpl;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
@@ -94,11 +96,9 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         l.add(l("Gender"));
         l.add(l("DryEucalyptForest"));
         l.add(l("GraduateStudent", "Koala", "KoalaWithPhD", "MaleStudentWith3Daughters", "Person",
-            "Quokka",
-            "Student"));
+            "Quokka", "Student"));
         l.add(l("DryEucalyptForest", "Forest", "Habitat", "Koala", "KoalaWithPhD", "Quokka",
-            "Rainforest",
-            "University"));
+            "Rainforest", "University"));
         l.add(l("DryEucalyptForest", "Forest", "Koala", "KoalaWithPhD", "Quokka", "Rainforest"));
         l.add(l("Degree", "Koala", "KoalaWithPhD", "Quokka"));
         l.add(l("Koala", "KoalaWithPhD", "MaleStudentWith3Daughters", "Parent", "Quokka"));
@@ -109,8 +109,8 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         l.add(l("Koala", "KoalaWithPhD", "Quokka", "TasmanianDevil"));
         l.add(l("Koala", "KoalaWithPhD", "Quokka", "University"));
         l.add(l("Animal", "Female", "GraduateStudent", "Koala", "KoalaWithPhD", "Male",
-            "MaleStudentWith3Daughters",
-            "Marsupials", "Parent", "Person", "Quokka", "Student", "TasmanianDevil"));
+            "MaleStudentWith3Daughters", "Marsupials", "Parent", "Person", "Quokka", "Student",
+            "TasmanianDevil"));
         l.add(l("Koala", "KoalaWithPhD", "Male", "MaleStudentWith3Daughters", "Quokka"));
         l.add(l("Koala", "KoalaWithPhD", "MaleStudentWith3Daughters", "Quokka"));
         l.add(l("Female", "Koala", "KoalaWithPhD", "Quokka"));
@@ -127,33 +127,30 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
     @Ignore
     public void testModularizationWithAtomicDecompositionStar() throws OWLException {
         OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
-        List<OWLAxiom> module1 = asList(
-            getADModule1(o, signature, ModuleType.STAR).stream().sorted());
-        List<OWLAxiom> module2 = asList(
-            getTraditionalModule(m, o, signature, ModuleType.STAR).stream().filter(ax -> ax
-                .isLogicalAxiom()).sorted());
+        List<OWLAxiom> module1 =
+            asList(getADModule1(o, signature, ModuleType.STAR).stream().sorted());
+        List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.STAR)
+            .stream().filter(ax -> ax.isLogicalAxiom()).sorted());
         makeAssertion(module1, module2);
     }
 
     @Test
     public void testModularizationWithAtomicDecompositionTop() throws OWLException {
         OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
-        List<OWLAxiom> module1 = asList(
-            getADModule1(o, signature, ModuleType.TOP).stream().sorted());
-        List<OWLAxiom> module2 = asList(
-            getTraditionalModule(m, o, signature, ModuleType.TOP).stream().filter(ax -> ax
-                .isLogicalAxiom()).sorted());
+        List<OWLAxiom> module1 =
+            asList(getADModule1(o, signature, ModuleType.TOP).stream().sorted());
+        List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.TOP)
+            .stream().filter(ax -> ax.isLogicalAxiom()).sorted());
         makeAssertion(module1, module2);
     }
 
     @Test
     public void testModularizationWithAtomicDecompositionBottom() throws OWLException {
         OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
-        List<OWLAxiom> module1 = asList(
-            getADModule1(o, signature, ModuleType.BOT).stream().sorted());
-        List<OWLAxiom> module2 = asList(
-            getTraditionalModule(m, o, signature, ModuleType.BOT).stream().filter(ax -> ax
-                .isLogicalAxiom()).sorted());
+        List<OWLAxiom> module1 =
+            asList(getADModule1(o, signature, ModuleType.BOT).stream().sorted());
+        List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.BOT)
+            .stream().filter(ax -> ax.isLogicalAxiom()).sorted());
         makeAssertion(module1, module2);
     }
 
@@ -172,8 +169,7 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
     }
 
     protected Set<OWLAxiom> getTraditionalModule(OWLOntologyManager man, OWLOntology o,
-        Set<OWLEntity> seedSig,
-        ModuleType type) {
+        Set<OWLEntity> seedSig, ModuleType type) {
         SyntacticLocalityModuleExtractor sme = new SyntacticLocalityModuleExtractor(man, o, type);
         return sme.extract(seedSig);
     }
@@ -184,7 +180,7 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
     // return new HashSet<>(om.getModule(sig.stream(), ModuleType.STAR));
     // }
     protected Set<OWLAxiom> getADModule1(OWLOntology o, Set<OWLEntity> sig, ModuleType mt) {
-        AtomicDecomposition ad = new AtomicDecompositionImpl(o);
+        AtomicDecomposition ad = new AtomicDecompositionImpl(o, mt, false);
         return asSet(ad.getModule(sig.stream(), false, mt));
     }
 }
