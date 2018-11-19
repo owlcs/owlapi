@@ -113,8 +113,6 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         // FSS/API etc created single element axiom.
         // but this is coding around a problem in the spec.
         checkSingletonDisjointFixup(e1, DisjointClasses(e1, e1));
-        checkSingletonDisjointFixup(OWLThing(),
-                DisjointClasses(OWLThing(), OWLThing()));
         OWLDisjointClassesAxiom singleClassDisjointAxiom = DisjointClasses(e1);
         checkSingletonDisjointFixup(e1, singleClassDisjointAxiom);
         OWLAxiom validAxiom = DisjointClasses(e2, e3);

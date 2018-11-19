@@ -920,11 +920,18 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, OWLClas
         checkNull(classExpressions, "classExpressions", true);
         checkAnnotations(annotations);
         // Hack to handle the case where classExpressions has only a single
-        // member
-        // which will usually be the result of :x owl:disjointWith :x .
+        // member which will usually be the result of :x owl:disjointWith :x .
         if (classExpressions.size() == 1) {
-            Set<OWLClassExpression> modifiedClassExpressions = new HashSet<>(2);
             OWLClassExpression classExpression = classExpressions.iterator().next();
+            if (classExpression.isOWLThing()) {
+                throw new OWLRuntimeException(
+                    "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing).");
+            }
+            if (classExpression.isOWLNothing()) {
+                throw new OWLRuntimeException(
+                    "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.");
+            }
+            Set<OWLClassExpression> modifiedClassExpressions = new HashSet<>(2);
             OWLClass addedClass = classExpression.isOWLThing() ? OWL_NOTHING : OWL_THING;
             modifiedClassExpressions.add(addedClass);
             modifiedClassExpressions.add(classExpression);

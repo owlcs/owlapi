@@ -12,32 +12,48 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
-import javax.annotation.Nonnull;
-
 /**
- * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
- * it possible to specify that a set of classes are mutually disjoint.
- * Unfortunately, this must be represented in RDF as a set of pairwise disjoint
- * statements. In otherwords, DisjointClasses(A, B, C) must be represented as
- * DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). ~This test case
- * ensure that these axioms are serialsed correctly.
+ * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes it possible to
+ * specify that a set of classes are mutually disjoint. Unfortunately, this must be represented in
+ * RDF as a set of pairwise disjoint statements. In otherwords, DisjointClasses(A, B, C) must be
+ * represented as DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). ~This test case ensure
+ * that these axioms are serialsed correctly.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
@@ -49,7 +65,7 @@ public class DisjointsTestCase extends TestBase {
             @Nonnull
             @Override
             public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-                                                 @Nonnull OWLOntologyID ontologyID) {
+                @Nonnull OWLOntologyID ontologyID) {
                 return new OWLOntologyImpl(manager, ontologyID);
             }
         };
@@ -58,8 +74,8 @@ public class DisjointsTestCase extends TestBase {
 
     @Test
     public void testAnonDisjoints() throws Exception {
-        OWLOntology ontA = m.createOntology(OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("urntests#uri"));
+        OWLOntology ontA =
+            m.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI("urntests#uri"));
         OWLClass clsA = createClass();
         OWLClass clsB = createClass();
         OWLObjectProperty prop = createObjectProperty();
@@ -72,5 +88,36 @@ public class DisjointsTestCase extends TestBase {
         m.applyChange(new AddAxiom(ontA, ax));
         OWLOntology ontB = roundTrip(ontA);
         assertTrue(ontB.getAxioms().contains(ax));
+    }
+
+    @Test
+    public void shouldAcceptSingleDisjointAxiom() {
+        // The famous idiomatic use of DisjointClasses with one operand
+        OWLClass t = df.getOWLClass(IRI.create("urn:test:class"));
+        OWLDisjointClassesAxiom ax = df.getOWLDisjointClassesAxiom(Collections.singleton(t));
+        assertEquals(
+            df.getOWLDisjointClassesAxiom(new HashSet<>(Arrays.asList(t, df.getOWLThing()))),
+            ax.getAxiomWithoutAnnotations());
+        OWLLiteral value = df.getOWLLiteral(
+            "DisjointClasses(<urn:test:class>) replaced by DisjointClasses(<urn:test:class> owl:Thing)");
+        OWLAnnotation a = ax.getAnnotations().iterator().next();
+        assertEquals(value, a.getValue());
+        assertEquals(df.getRDFSComment(), a.getProperty());
+    }
+
+    @Test
+    public void shouldRejectDisjointClassesWithSingletonThing() {
+        expectedException.expect(OWLRuntimeException.class);
+        expectedException.expectMessage(
+            "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing).");
+        df.getOWLDisjointClassesAxiom(new HashSet<>(Arrays.asList(df.getOWLThing())));
+    }
+
+    @Test
+    public void shouldRejectDisjointClassesWithSingletonNothing() {
+        expectedException.expect(OWLRuntimeException.class);
+        expectedException.expectMessage(
+            "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.");
+        df.getOWLDisjointClassesAxiom(Collections.singleton(df.getOWLNothing()));
     }
 }
