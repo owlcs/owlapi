@@ -16,19 +16,19 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 public interface HasGetOntologyById {
 
     /**
-     * Get the ontology with the specified Id.
+     * Get a previously loaded/created ontology that has the specified ontology ID. For anonymous
+     * ids, this method tries to locate the ontology by document IRI.
      * 
      * @param ontologyID
-     *        The Id. Not {@code null}.
-     * @return The ontology with the specified Id, or {@code null} if there is
-     *         no ontology with the specified Id.
+     *        The ID of the ontology to retrieve. Not {@code null}.
+     * @return The ontology with the specified ID, or {@code null} if there is
+     *         no ontology with the specified ID.
      */
     @Nullable
     OWLOntology getOntology(@Nonnull OWLOntologyID ontologyID);
