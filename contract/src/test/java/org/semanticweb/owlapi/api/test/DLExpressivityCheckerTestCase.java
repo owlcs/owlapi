@@ -421,9 +421,9 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         assertEquals(expected, testsubject.getDescriptionLogicName());
         assertEquals(delta("minimal", minimal, minimalLanguages), new HashSet<>(minimal),
             new HashSet<>(minimalLanguages));
-        String message = constructsFound + "\t" + "expressible in " + expressibleInLanguages
-            + "\tminimal:\t" + minimalLanguages;// + "\twithin:\t" + below;
-        System.out.println(message);
+        // String message = constructsFound + "\t" + "expressible in " + expressibleInLanguages
+        //    + "\tminimal:\t" + minimalLanguages;// + "\twithin:\t" + below;
+        // System.out.println(message);
     }
 
     private static String delta(String prefix, Collection<Languages> within2,
