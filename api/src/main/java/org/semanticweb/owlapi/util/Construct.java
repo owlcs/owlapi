@@ -5,7 +5,7 @@ package org.semanticweb.owlapi.util;
  */
 public enum Construct {
     //@formatter:off
-    /** Role restrictions. */
+    /** Role restrictions (domain and range on data and object properties). */
     RRESTR      ("RRESTR"),
     /** C - Complex concept negation. */
     C           ("C"),
@@ -13,10 +13,10 @@ public enum Construct {
     U           ("U"),
     /** E - Full existential qualification (existential restrictions that have fillers other than top. */
     E           ("E"),
-    /** R - Limited complex role inclusion axioms; reflexivity and irreflexivity; role disjointness. */
-    R           ("R"),
     /** H - Role hierarchy (subproperties: rdfs:subPropertyOf). */
     H           ("H"),
+    /** R - Limited complex role inclusion axioms; reflexivity and irreflexivity; role disjointness. */
+    R           ("R"),
     /** O - Nominals. (Enumerated classes of object value restrictions: owl:oneOf, owl:hasValue). */
     O           ("O"),
     /** I - Inverse properties. */

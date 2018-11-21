@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,12 +47,12 @@ public class DLExpressivityCheckerTestCase extends TestBase {
     private List<Languages> minimal;
 
     public DLExpressivityCheckerTestCase(OWLAxiom object, String expected, String expectedStrict,
-        List<Construct> c, List<Languages> exp, List<Languages> below, List<Languages> min) {
+        List<Construct> c, List<Languages> exp, List<Languages> within, List<Languages> min) {
         this.object = object;
         this.expected = expectedStrict;
         constructs = c;
         expressible = exp;
-        within = below;
+        this.within = within;
         minimal = min;
     }
 
@@ -61,111 +63,336 @@ public class DLExpressivityCheckerTestCase extends TestBase {
     @Parameterized.Parameters(name = "{index} {1} {0}")
     public static Collection<Object[]> getData() {
         Builder b = new Builder();
-        List<Languages> fl0el = l(FL0, EL);
-        List<Object> empty = l();
-        List<Construct> i = l(I);
-        List<Construct> rrestrd = l(RRESTR, D);
-        List<Languages> sroiqd = l(SROIQD);
-        List<Construct> cuo = l(C, U, O);
-        List<Construct> c = l(C);
-        List<Construct> d = l(D);
-        List<Construct> r = l(R);
-        List<Construct> cu = l(C, U);
-        List<Construct> hd = l(H, D);
-        List<Construct> h = l(H);
-        List<Construct> rrestr = l(RRESTR);
-        List<Construct> o = l(O);
-        List<Construct> f = l(F);
-        List<Construct> lif = l(I, F);
-        List<Construct> fd = l(F, D);
-        List<Construct> t = l(TRAN);
-        List<Construct> cint = l(CINT);
-        List<Construct> u = l(U);
-        List<Construct> q = l(Q);
-        List<Construct> uo = l(U, O);
-        List<Construct> qd = l(Q, D);
-        List<Construct> ed = l(E, D);
-        List<Construct> e = l(E);
-        List<Construct> univ = l(UNIVRESTR);
-        List<Construct> eo = l(E, O);
-        List<Languages> elplusplus = l(ELPLUSPLUS);
-        List<Languages> alcf = l(ALCF);
-        List<Languages> shind = l(SHIND);
         return Arrays.asList(
         //@formatter:off
-            new Object[] {b.dRange(),           "1  AL(D)",    "RRESTR(D)" , rrestrd, sroiqd, sroiqd, sroiqd },
-            new Object[] {b.dDef(),             "2  AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.decC(),             "3  AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.decOp(),            "4  AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.decDp(),            "5  AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.decDt(),            "6  AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.decAp(),            "7  AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.decI(),             "8  AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.assDi(),            "9  ALCO",     "CUO"       , cuo, l(ALCO), l(ALCO, ALCOI, ALCOF, ALCON, ALCOQ, ALCOIQ, ALCOIN, ALCOIF, SO, SOF, SON, SOQ, SOI, SOIF, SOIN, SOIQ, SHO, SHOF, SHON, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SROIQ, SROIQD), l(ALCO) },
-            new Object[] {b.dc(),               "10 ALC",      "C"         , c, l(ALC), l(ALC, ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF, ALCIF, ALCIN, ALCON, ALCOQ, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI, SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD), l(ALC) },
-            new Object[] {b.dDp(),              "11 AL(D)",    "(D)"       , d, l(ALCD), l(ALCD, SHIND, SROIQD), l(ALCD) },
-            new Object[] {b.dOp(),              "12 ALR",      "R"         , r, elplusplus, elplusplus, elplusplus },
-            new Object[] {b.du(),               "13 ALC",      "CU"        , cu, l(ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, S), l(ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF, ALCIF, ALCIN, ALCON, ALCOQ, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI, SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD), l(ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, S) },
-            new Object[] {b.ec(),               "14 AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.eDp(),              "15 ALH(D)",   "H(D)"      , hd, shind, shind, shind },
-            new Object[] {b.eOp(),              "16 ALH",      "H"         , h, l(SH), l(SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND), l(SH) },
-            new Object[] {b.fdp(),              "17 ALF(D)",   "F(D)"      , fd, empty, empty, empty },
-            new Object[] {b.fop(),              "18 ALF",      "F"         , f, alcf, l(ALCF, ALCOF, ALCIF, ALCOIF, SF, SOF, SIF, SOIF, SHF, SHOF, SHIF, SHOIF), alcf },
-            new Object[] {b.ifp(),              "19 ALIF",     "IF"        , lif, l(ALCIF), l(ALCIF, ALCOIF, SIF, SOIF, SHIF, SHOIF), l(ALCIF) },
-            new Object[] {b.iop(),              "20 ALI",      "I"         , i, l(ALCI), l(ALCI, ALCOI, ALCIF, ALCIN, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, SI, SIF, SIN, SIQ, SOI, SOIF, SOIN, SOIQ, SHI, SHIF, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD), l(ALCI) },
-            new Object[] {b.irr(),              "21 ALR",      "R"         , r, elplusplus, elplusplus, elplusplus },
-            new Object[] {b.ndp(),              "22 AL(D)",    "(D)"       , d, l(ALCD), l(ALCD, SHIND, SROIQD), l(ALCD) },
-            new Object[] {b.nop(),              "23 AL",       ""          , empty, fl0el, empty, fl0el },
-            new Object[] {b.opa(),              "24 AL",       ""          , empty, fl0el, empty, fl0el },
-            new Object[] {b.opaInv(),           "25 ALI",      "I"         , i, l(ALCI), l(ALCI, ALCOI, ALCIF, ALCIN, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, SI, SIF, SIN, SIQ, SOI, SOIF, SOIN, SOIQ, SHI, SHIF, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD), l(ALCI) },
-            new Object[] {b.opaInvj(),          "26 ALI",      "I"         , i, l(ALCI), l(ALCI, ALCOI, ALCIF, ALCIN, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, SI, SIF, SIN, SIQ, SOI, SOIF, SOIN, SOIQ, SHI, SHIF, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD), l(ALCI) },
-            new Object[] {b.oDom(),             "27 AL",       "RRESTR"    , rrestr, l(FL), l(FL, SROIQ, SROIQD), l(FL) },
-            new Object[] {b.oRange(),           "28 AL",       "RRESTR"    , rrestr, l(FL), l(FL, SROIQ, SROIQD), l(FL) },
-            new Object[] {b.chain(),            "29 ALR",      "R"         , r, elplusplus, elplusplus, elplusplus },
-            new Object[] {b.ref(),              "30 ALR",      "R"         , r, elplusplus, elplusplus, elplusplus },
-            new Object[] {b.same(),             "31 ALO",      "O"         , o, l(ALCO,ELPLUSPLUS), l(ALCO, ALCOI, ALCOF, ALCON, ALCOQ, ALCOIQ, ALCOIN, ALCOIF, SO, SOF, SON, SOQ, SOI, SOIF, SOIN, SOIQ, SHO, SHOF, SHON, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SROIQ, SROIQD, ELPLUSPLUS), l(ALCO,ELPLUSPLUS) },
-            new Object[] {b.subAnn(),           "32 AL",       ""          , empty, fl0el, empty, fl0el },
-            new Object[] {b.subClass(),         "33 AL",       ""          , empty, fl0el, empty, fl0el },
-            new Object[] {b.subData(),          "34 ALH(D)",   "H(D)"      , hd, shind, shind, shind },
-            new Object[] {b.subObject(),        "35 ALH",      "H"         , h, l(SH), l(SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND), l(SH) },
-            new Object[] {b.rule(),             "36 AL",       ""          , empty, fl0el, empty, fl0el },
-            new Object[] {b.symm(),             "37 ALI",      "I"         , i, l(ALCI), l(ALCI, ALCOI, ALCIF, ALCIN, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, SI, SIF, SIN, SIQ, SOI, SOIF, SOIN, SOIQ, SHI, SHIF, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD), l(ALCI) },
-            new Object[] {b.trans(),            "38 AL+",      "+"         , t, l(S), l(S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI, SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD), l(S) },
-            new Object[] {b.hasKey(),           "39 AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.bigRule(),          "40 AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.ann(),              "41 AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.asymm(),            "42 ALR",      "R"         , r, elplusplus, elplusplus, elplusplus },
-            new Object[] {b.annDom(),           "43 AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.annRange(),         "44 AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.ass(),              "45 AL",       ""          , empty, fl0el, l(), fl0el },
-            new Object[] {b.assAnd(),           "46 AL",       "CINT"      , cint, fl0el, l(Languages.values()), fl0el },
-            new Object[] {b.assOr(),            "47 ALU",      "U"         , u, l(ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, S), l(ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF, ALCIF, ALCIN, ALCON, ALCOQ, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI, SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD), l(ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, S) },
-            new Object[] {b.dRangeAnd(),        "48 AL(D)",    "RRESTR(D)" , rrestrd, sroiqd, sroiqd, sroiqd },
-            new Object[] {b.dRangeOr(),         "49 AL(D)",    "RRESTR(D)" , rrestrd, sroiqd, sroiqd, sroiqd },
-            new Object[] {b.assNot(),           "50 ALC",      "C"         , c, l(ALC), l(ALC, ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF, ALCIF, ALCIN, ALCON, ALCOQ, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI, SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD), l(ALC) },
-            new Object[] {b.assNotAnon(),       "51 ALC",      "C"         , c, l(ALC), l(ALC, ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF, ALCIF, ALCIN, ALCON, ALCOQ, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI, SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD), l(ALC) },
-            new Object[] {b.assSome(),          "52 ALE",      "E"         , e, l(EL), l(EL, ALE, ALC, ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF, ALCIF, ALCIN, ALCON, ALCOQ, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI, SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD, ELPLUSPLUS), l(EL) },
-            new Object[] {b.assAll(),           "53 AL",       "UNIVRESTR" , univ, l(FL0), l(FL0, FLMINUS, FL, AL, ALE, ALC, ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF, ALCIF, ALCIN, ALCON, ALCOQ, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI, SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD), l(FL0) },
-            new Object[] {b.assHas(),           "54 ALEO",     "EO"        , eo, l(ALCO,ELPLUSPLUS), l(ALCO, ALCOI, ALCOF, ALCON, ALCOQ, ALCOIQ, ALCOIN, ALCOIF, SO, SOF, SON, SOQ, SOI, SOIF, SOIN, SOIQ, SHO, SHOF, SHON, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SROIQ, SROIQD, ELPLUSPLUS), l(ALCO, ELPLUSPLUS) },
-            new Object[] {b.assMin(),           "55 ALQ",      "Q"         , q, l(ALCQ), l(ALCQ, ALCOQ, ALCIQ, ALCOIQ, SQ, SOQ, SIQ, SOIQ, SHQ, SHOQ, SHOIQ, SROIQ, SROIQD), l(ALCQ) },
-            new Object[] {b.assMax(),           "56 ALQ",      "Q"         , q, l(ALCQ), l(ALCQ, ALCOQ, ALCIQ, ALCOIQ, SQ, SOQ, SIQ, SOIQ, SHQ, SHOQ, SHOIQ, SROIQ, SROIQD), l(ALCQ) },
-            new Object[] {b.assEq(),            "57 ALQ",      "Q"         , q, l(ALCQ), l(ALCQ, ALCOQ, ALCIQ, ALCOIQ, SQ, SOQ, SIQ, SOIQ, SHQ, SHOQ, SHOIQ, SROIQ, SROIQD), l(ALCQ) },
-            new Object[] {b.assHasSelf(),       "58 ALR",      "R"         , r, elplusplus, elplusplus, elplusplus },
-            new Object[] {b.assOneOf(),         "59 ALUO",     "UO"        , uo, l(ALCO), l(ALCO, ALCOI, ALCOF, ALCON, ALCOQ, ALCOIQ, ALCOIN, ALCOIF, SO, SOF, SON, SOQ, SOI, SOIF, SOIN, SOIQ, SHO, SHOF, SHON, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SROIQ, SROIQD), l(ALCO) },
-            new Object[] {b.assDSome(),         "60 ALE(D)",   "E(D)"      , ed, l(ALCD), l(ALCD, SHIND, SROIQD), l(ALCD) },
-            new Object[] {b.assDAll(),          "61 AL(D)",    "(D)"       , d, l(ALCD), l(ALCD, SHIND, SROIQD), l(ALCD) },
-            new Object[] {b.assDHas(),          "62 AL(D)",    "(D)"       , d, l(ALCD), l(ALCD, SHIND, SROIQD), l(ALCD) },
-            new Object[] {b.assDMin(),          "63 ALQ(D)",   "Q(D)"      , qd, sroiqd, sroiqd, sroiqd },
-            new Object[] {b.assDMax(),          "64 ALQ(D)",   "Q(D)"      , qd, sroiqd, sroiqd, sroiqd },
-            new Object[] {b.assDEq(),           "65 ALQ(D)",   "Q(D)"      , qd, sroiqd, sroiqd, sroiqd },
-            new Object[] {b.dOneOf(),           "66 AL(D)",    "RRESTR(D)" , rrestrd, sroiqd, sroiqd, sroiqd },
-            new Object[] {b.dNot(),             "67 AL(D)",    "RRESTR(D)" , rrestrd, sroiqd, sroiqd, sroiqd },
-            new Object[] {b.dRangeRestrict(),   "68 AL(D)",    "RRESTR(D)" , rrestrd, sroiqd, sroiqd, sroiqd },
-            new Object[] {b.assD(),             "69 AL(D)",    "(D)"       , d, l(ALCD), l(ALCD, SHIND, SROIQD), l(ALCD) },
-            new Object[] {b.assDPlain(),        "70 AL(D)",    "(D)"       , d, l(ALCD), l(ALCD, SHIND, SROIQD), l(ALCD) },
-            new Object[] {b.dDom(),             "71 AL(D)",    "RRESTR(D)" , rrestrd, sroiqd, sroiqd, sroiqd }
+            new Object[] {b.assAll(),           "0 AL",       "UNIVRESTR" , l(UNIVRESTR), l(FL0), belowUniversal(), l(FL0) },
+            new Object[] {b.dDef(),             "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.decC(),             "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.decOp(),            "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.decDp(),            "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.decDt(),            "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.decAp(),            "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.decI(),             "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.ec(),               "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.nop(),              "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.opa(),              "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.subAnn(),           "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.subClass(),         "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.rule(),             "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.hasKey(),           "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.bigRule(),          "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.ann(),              "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.annDom(),           "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.annRange(),         "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.ass(),              "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
+            new Object[] {b.assDi(),            "2  ALCO",     "CUO"       , l(C, U, O), l(ALCO), belowCUO(), l(ALCO) },
+            new Object[] {b.dc(),               "3  ALC",      "C"         , l(C), l(ALC), belowC(), l(ALC) },
+            new Object[] {b.assNot(),           "3  ALC",      "C"         , l(C), l(ALC), belowC(), l(ALC) },
+            new Object[] {b.assNotAnon(),       "3  ALC",      "C"         , l(C), l(ALC), belowC(), l(ALC) },
+            new Object[] {b.dOp(),              "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
+            new Object[] {b.irr(),              "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
+            new Object[] {b.chain(),            "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
+            new Object[] {b.ref(),              "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
+            new Object[] {b.asymm(),            "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
+            new Object[] {b.assHasSelf(),       "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
+            new Object[] {b.dRange(),           "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
+            new Object[] {b.dRangeAnd(),        "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
+            new Object[] {b.dRangeOr(),         "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
+            new Object[] {b.dOneOf(),           "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
+            new Object[] {b.dNot(),             "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
+            new Object[] {b.dRangeRestrict(),   "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
+            new Object[] {b.dDom(),             "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
+            new Object[] {b.du(),               "6  ALC",      "CU"        , l(C, U), l(ALC), belowCU(), l(ALC) },
+            new Object[] {b.eDp(),              "7  ALH(D)",   "H(D)"      , l(H, D), l(ALCHD), belowHD(), l(ALCHD) },
+            new Object[] {b.subData(),          "7  ALH(D)",   "H(D)"      , l(H, D), l(ALCHD), belowHD(), l(ALCHD) },
+            new Object[] {b.eOp(),              "8  ALH",      "H"         , l(H), l(ALCH), belowH(), l(ALCH) },
+            new Object[] {b.subObject(),        "8  ALH",      "H"         , l(H), l(ALCH), belowH(), l(ALCH) },
+            new Object[] {b.fdp(),              "9 ALF(D)",   "F(D)"      , l(F, D), l(ALCFD), belowFD(), l(ALCFD) },
+            new Object[] {b.fop(),              "10 ALF",      "F"         , l(F), l(ALCF), belowF(), l(ALCF) },
+            new Object[] {b.ifp(),              "11 ALIF",     "IF"        , l(I, F), l(ALCIF), belowIF(), l(ALCIF) },
+            new Object[] {b.iop(),              "12 ALI",      "I"         , l(I), l(ALCI), belowI(), l(ALCI) },
+            new Object[] {b.opaInv(),           "12 ALI",      "I"         , l(I), l(ALCI), belowI(), l(ALCI) },
+            new Object[] {b.opaInvj(),          "12 ALI",      "I"         , l(I), l(ALCI), belowI(), l(ALCI) },
+            new Object[] {b.symm(),             "12 ALI",      "I"         , l(I), l(ALCI), belowI(), l(ALCI) },
+            new Object[] {b.dDp(),              "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
+            new Object[] {b.ndp(),              "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
+            new Object[] {b.assDAll(),          "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
+            new Object[] {b.assDHas(),          "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
+            new Object[] {b.assD(),             "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
+            new Object[] {b.assDPlain(),        "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
+            new Object[] {b.same(),             "14 ALO",      "O"         , l(O), l(ALCO,ELPLUSPLUS), belowO(), l(ALCO,ELPLUSPLUS) },
+            new Object[] {b.trans(),            "15 AL+",      "+"         , l(TRAN), l(S), belowTRAN(), l(S) },
+            new Object[] {b.assAnd(),           "16 AL",       "CINT"      , l(CINT), l(FL0, EL), l(Languages.values()), l(FL0, EL) },
+            new Object[] {b.assOr(),            "17 ALU",      "U"         , l(U), l(ALC), belowU(), l(ALC) },
+            new Object[] {b.oDom(),             "18 AL",       "RRESTR"    , l(RRESTR), l(FL), l(FL, SROIQ, SROIQD), l(FL) },
+            new Object[] {b.oRange(),           "18 AL",       "RRESTR"    , l(RRESTR), l(FL), l(FL, SROIQ, SROIQD), l(FL) },
+            new Object[] {b.assSome(),          "19 ALE",      "E"         , l(E), l(EL), belowE(), l(EL) },
+            new Object[] {b.assHas(),           "20 ALEO",     "EO"        , l(E, O), l(ALCO,ELPLUSPLUS), belowEO(), l(ALCO, ELPLUSPLUS) },
+            new Object[] {b.assMin(),           "21 ALQ",      "Q"         , l(Q), l(ALCQ), belowQ(), l(ALCQ) },
+            new Object[] {b.assMax(),           "21 ALQ",      "Q"         , l(Q), l(ALCQ), belowQ(), l(ALCQ) },
+            new Object[] {b.assEq(),            "21 ALQ",      "Q"         , l(Q), l(ALCQ), belowQ(), l(ALCQ) },
+            new Object[] {b.assOneOf(),         "22 ALUO",     "UO"        , l(U, O), l(ALCO), belowUO(), l(ALCO) },
+            new Object[] {b.assDSome(),         "23 ALE(D)",   "E(D)"      , l(E, D), l(ALCD), belowED(), l(ALCD) },
+            new Object[] {b.assDMin(),          "24 ALQ(D)",   "Q(D)"      , l(Q, D), l(ALCQD), belowQD(), l(ALCQD) },
+            new Object[] {b.assDMax(),          "24 ALQ(D)",   "Q(D)"      , l(Q, D), l(ALCQD), belowQD(), l(ALCQD) },
+            new Object[] {b.assDEq(),           "24 ALQ(D)",   "Q(D)"      , l(Q, D), l(ALCQD), belowQD(), l(ALCQD) }
             );
         //@formatter:on
+    }
+
+    protected static List<Languages> belowFD() {
+        return l(SHFD, ALCROIFD, SRIFD, ALCHOFD, SHOIFD, ALCHFD, SOFD, ALCHIFD, SFD, ALCRIFD,
+            SROIFD, ALCIFD, ALCOIFD, SOIFD, ALCHOIFD, ALCROFD, SHIFD, SROFD, ALCFD, SHOFD, SRFD,
+            ALCRFD, ALCOFD, SIFD);
+    }
+
+    protected static List<Object> empty() {
+        return l();
+    }
+
+    protected static List<Languages> belowED() {
+        return l(ALCD, SHIND, SROIQD, ALCROIND, SROQD, SOIFD, ALCHOND, ALCROND, SQD, ALCQD, ALCIFD,
+            SHOFD, SND, SHOQD, SHID, ALCOID, SROD, ALCROID, ALCOIQD, ALCHOIFD, SHND, ALCROIQD, SD,
+            ALCOND, ALCHND, ALCOD, ALCROD, SROFD, ALCHOQD, ALCHIND, SHOIFD, SROIND, SIND, ALCRIND,
+            SHIFD, ALCID, ALCRND, SRD, SROID, ALCHOIQD, SROND, ALCROQD, SHOD, ALCHD, ALCHIQD, SRFD,
+            ALCRFD, SIQD, ALCRID, SHIQD, ALCOIND, SOND, SHQD, SOQD, ALCRD, SRND, SHD, ALCIND,
+            ALCRIQD, ALCHID, ALCHOD, SOIQD, ALCOIFD, SFD, SOIND, ALCRIFD, SOID, ALCHFD, ALCHIFD,
+            SOD, SROIFD, ALCOQD, SRIND, SIFD, ALCOFD, SRIFD, SRQD, SHOID, SHOND, SHOIQD, SRID,
+            ALCROFD, ALCRQD, ALCIQD, SRIQD, SOFD, SHFD, ALCND, ALCHOFD, ALCROIFD, SHOIND, SID,
+            ALCHQD, ALCHOID, ALCHOIND, ALCFD);
+    }
+
+    protected static List<Languages> belowUO() {
+        return l(ALCO, ALCOI, ALCOF, ALCON, ALCOQ, ALCOIQ, ALCOIN, ALCOIF, SO, SOF, SON, SOQ, SOI,
+            SOIF, SOIN, SOIQ, SHO, SHOF, SHON, SHOQ, SHOI, SHOIF, SHOIN, SHOIQ, SROIQ, SROIQD,
+            ALCROIND, SROQD, ALCHOF, SOIFD, ALCHOND, ALCHOIF, ALCROND, SHOFD, SHOQD, ALCOID, SROD,
+            ALCROID, ALCOIQD, SROQ, ALCHOIFD, ALCROIQD, ALCROQ, ALCOND, ALCOD, ALCROD, SROFD, SROIN,
+            ALCHOQD, SHOIFD, SROIND, SRON, SROI, SRO, SROID, ALCHOIQD, SROND, ALCROQD, ALCHO, SHOD,
+            ALCROF, ALCHOIQ, ALCOIND, SOND, SOQD, ALCRON, ALCHOD, SOIQD, ALCOIFD, SOIND, SROF,
+            SROIF, SOID, SOD, SROIFD, ALCOQD, ALCOFD, SHOID, SHOND, SHOIQD, ALCROIF, ALCHON,
+            ALCROFD, ALCHOQ, SOFD, ALCROIQ, ALCROIN, ALCHOFD, ALCROIFD, SHOIND, ALCROI, ALCHOID,
+            ALCHOIN, ALCHOIND, ALCHOI, ALCRO);
+    }
+
+    protected static List<Languages> belowEO() {
+        return l(ALCO, ALCOI, ALCOF, ALCON, ALCOQ, ALCOIQ, ALCOIN, ALCOIF, SO, SOF, SON, SOQ, SOI,
+            SOIF, SOIN, SOIQ, SHO, SHOF, SHON, SHOQ, SHOI, SHOIF, SHOIN, SHOIQ, SROIQ, SROIQD,
+            ELPLUSPLUS, ALCROIND, SROQD, ALCHOF, SOIFD, ALCHOND, ALCHOIF, ALCROND, SHOFD, SHOQD,
+            ALCOID, SROD, ALCROID, ALCOIQD, SROQ, ALCHOIFD, ALCROIQD, ALCROQ, ALCOND, ALCOD, ALCROD,
+            SROFD, SROIN, ALCHOQD, SHOIFD, SROIND, SRON, SROI, SRO, SROID, ALCHOIQD, SROND, ALCROQD,
+            ALCHO, SHOD, ALCROF, ALCHOIQ, ALCOIND, SOND, SOQD, ALCRON, ALCHOD, SOIQD, ALCOIFD,
+            SOIND, SROF, SROIF, SOID, SOD, SROIFD, ALCOQD, ALCOFD, SHOID, SHOND, SHOIQD, ALCROIF,
+            ALCHON, ALCROFD, ALCHOQ, SOFD, ALCROIQ, ALCROIN, ALCHOFD, ALCROIFD, SHOIND, ALCROI,
+            ALCHOID, ALCHOIN, ALCHOIND, ALCHOI, ALCRO);
+    }
+
+    protected static List<Languages> belowE() {
+        return l(EL, ALE, ALC, ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF, ALCIF, ALCIN,
+            ALCON, ALCOQ, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN,
+            SOQ, SIQ, SOI, SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ,
+            SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD, ELPLUSPLUS, SOIFD, ALCHOND,
+            ALCHOIF, SQD, ALCIFD, ALCHIN, SHOFD, SRIF, SND, SHOQD, SHID, ALCOID, ALCHOIFD, SHND,
+            ALCROIQD, SD, ALCROQ, ALCH, ALCOD, SROIN, ALCHIND, SROIND, SRON, ALCHI, ALCID, ALCHIF,
+            SRO, SROID, ALCRIF, ALCHOIQD, ALCRIN, ALCROQD, ALCHF, ALCROF, ALCHIQD, SRFD, ALCHN,
+            SIQD, ALCRID, SHIQD, ALCOIND, SOQD, ALCRON, SHD, SR, ALCIND, ALCHID, ALCHOD, ALCOIFD,
+            SRQ, SOIND, ALCRIFD, ALCHFD, SOD, ALCOQD, SRIND, ALCOFD, SRIFD, ALCRI, SHOND, SRID,
+            ALCROIF, SRIQD, ALCRF, SOFD, SHFD, ALCROIN, ALCND, ALCHIQ, SHOIND, SID, SRIN, ALCHOID,
+            ALCHOIN, ALCHOIND, ALCRQ, ALCHOI, ALCR, ALCROIND, SROQD, ALCHOF, ALCROND, ALCHQ, ALCQD,
+            SROD, ALCROID, ALCOIQD, SROQ, ALCOND, ALCHND, ALCROD, SROFD, ALCHOQD, SHOIFD, ALCRIQ,
+            SRF, SIND, ALCRIND, SHIFD, ALCRND, SRD, SROI, SROND, ALCHO, SHOD, ALCHD, ALCRFD,
+            ALCHOIQ, SOND, SHQD, ALCRD, SRND, ALCRIQD, SOIQD, SFD, SROF, SROIF, SOID, SRN, ALCHIFD,
+            SROIFD, SIFD, SRQD, SHOID, SRIQ, SHOIQD, ALCHON, ALCROFD, ALCHOQ, ALCRQD, ALCIQD,
+            ALCROIQ, ALCHOFD, ALCROIFD, ALCHQD, ALCROI, SRI, ALCFD, ALCRN, ALCRO);
+    }
+
+    protected static List<Languages> belowU() {
+        return l(ALC, ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF, ALCIF, ALCIN, ALCON, ALCOQ,
+            ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI,
+            SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI,
+            SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD, SHOQD, SIQD, ALCRIFD, ALCOD, ALCHID,
+            SOIFD, SRIFD, SRF, ALCHND, ALCOIND, ALCHFD, SROIND, ALCHOIN, ALCROID, SRFD, ALCRIND,
+            SND, ALCHOIFD, ALCROIN, SOND, ALCHOI, SHOIFD, SROIFD, ALCOIQD, ALCROQ, SHIFD, ALCHIQ,
+            SOFD, SOID, ALCROQD, SRIF, SFD, ALCIND, ALCHOFD, SRID, ALCROF, ALCRIQ, ALCHOIQD, SOIQD,
+            SROID, ALCHOID, ALCHIND, ALCRQD, SHIQD, SHOND, ALCROIFD, ALCRQ, ALCHO, SRD, SRIND,
+            ALCROIQD, SOQD, SHOFD, ALCRIQD, ALCOID, ALCHI, ALCHOD, ALCHON, ALCIQD, ALCROIF, ALCHIQD,
+            ALCHOQ, SROF, SROD, SROIF, ALCRO, SHD, SROIN, ALCRF, ALCHOIQ, ALCROI, ALCRN, ALCRON,
+            SHID, ALCHIFD, SIFD, SRI, ALCND, ALCID, ALCHQ, SIND, SOIND, ALCOQD, SD, SHND, SHOID,
+            ALCRIN, ALCOIFD, ALCROD, ALCHIN, ALCFD, ALCROIQ, SROND, SHQD, SOD, SRON, SHOIND, ALCHIF,
+            SROQD, SHOD, ALCHF, ALCRIF, SQD, ALCRI, ALCRD, SRN, ALCHD, ALCHOF, ALCROND, SRND,
+            ALCHOIND, SRQD, SID, ALCH, SRIQ, SRO, ALCHOND, ALCOND, SROFD, ALCROFD, SRIQD, ALCRFD,
+            SHOIQD, SHFD, SROQ, ALCRND, ALCRID, ALCROIND, SRQ, ALCIFD, ALCR, SROI, SR, ALCHN,
+            ALCHQD, SRIN, ALCQD, ALCHOIF, ALCOFD, ALCHOQD);
+    }
+
+    protected static List<Languages> belowTRAN() {
+        return l(S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI, SOIF, SOIN, SOIQ, SH,
+            SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN,
+            SHIND, SROIQ, SROIQD, SHOQD, SHD, SROIN, SIQD, SOIFD, SHID, SRIFD, SRF, SIFD, SRI,
+            SROIND, SRFD, SIND, SOIND, SND, SD, SHND, SHOID, SOND, SHOIFD, SROIFD, SROND, SHQD, SOD,
+            SRON, SHOIND, SHIFD, SOFD, SROQD, SHOD, SQD, SRN, SOID, SRIF, SFD, SRND, SRQD, SID,
+            SRID, SRIQ, SRO, SROFD, SRIQD, SOIQD, SHOIQD, SHFD, SROID, SHIQD, SHOND, SROQ, SRD,
+            SRIND, SOQD, SHOFD, SRQ, SROI, SR, SROF, SRIN, SROD, SROIF);
+    }
+
+    protected static List<Languages> belowO() {
+        return l(ALCO, ALCOI, ALCOF, ALCON, ALCOQ, ALCOIQ, ALCOIN, ALCOIF, SO, SOF, SON, SOQ, SOI,
+            SOIF, SOIN, SOIQ, SHO, SHOF, SHON, SHOQ, SHOI, SHOIF, SHOIN, SHOIQ, SROIQ, SROIQD,
+            ELPLUSPLUS, ALCROF, SOND, ALCOQD, SHOIQD, ALCROI, ALCROND, ALCROIQD, SROIF, ALCHOD,
+            ALCHOIN, ALCHOFD, SHOND, ALCHOI, ALCOFD, SROND, SHOID, ALCHON, ALCOIQD, SOQD, SOIQD,
+            ALCHO, ALCRON, ALCROIQ, ALCROQD, ALCROFD, ALCOIFD, SHOD, ALCOID, ALCRO, SROFD, SROID,
+            SHOIFD, ALCHOIQ, ALCROIN, ALCOND, ALCOD, SOIND, ALCHOF, ALCHOID, SROIN, ALCROIND,
+            ALCROQ, ALCHOQD, SROQ, ALCOIND, ALCHOIF, ALCROID, ALCHOQ, ALCROIF, SROQD, ALCHOIQD,
+            ALCHOIFD, SHOQD, ALCHOND, SROF, SOIFD, SOD, SROIFD, SHOFD, ALCROD, SRO, SOID, ALCROIFD,
+            SHOIND, SROD, SRON, SROI, SROIND, ALCHOIND, SOFD);
+    }
+
+    protected static List<Languages> belowIF() {
+        return l(ALCIF, ALCOIF, SIF, SOIF, SHIF, SHOIF, SOIFD, ALCRIFD, SRIF, ALCRIF, SROIFD,
+            ALCROIF, SHOIFD, SROIF, ALCHIFD, ALCROIFD, ALCOIFD, SIFD, ALCIFD, ALCHOIFD, ALCHIF,
+            ALCHOIF, SHIFD, SRIFD);
+    }
+
+    protected static List<Languages> belowF() {
+        return l(ALCF, ALCOF, ALCIF, ALCOIF, SF, SOF, SIF, SOIF, SHF, SHOF, SHIF, SHOIF, SRF,
+            ALCHOFD, ALCHIFD, ALCHIF, SROF, ALCHOIF, ALCRIFD, SHFD, SRFD, ALCRFD, SHIFD, SOIFD,
+            SROIFD, ALCOIFD, ALCOFD, SRIFD, SFD, SRIF, ALCRIF, SROFD, SIFD, SHOFD, ALCROIF, ALCIFD,
+            SHOIFD, ALCHOIFD, ALCROIFD, SOFD, ALCFD, ALCROF, ALCRF, SROIF, ALCHF, ALCROFD, ALCHFD,
+            ALCHOF);
+    }
+
+    protected static List<Languages> belowCU() {
+        return l(ALC, ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF, ALCIF, ALCIN, ALCON, ALCOQ,
+            ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI,
+            SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI,
+            SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD, SRIQD, SRQD, SHIQD, ALCROQ, ALCH,
+            ALCRIQD, SROQD, SROIF, ALCROD, ALCOD, SIQD, ALCFD, ALCHOD, ALCID, ALCROIQD, ALCROIF,
+            SROIN, SHOFD, ALCRD, SRN, SRIN, SROD, ALCND, SRO, ALCRQD, SHND, SROFD, SD, ALCRIQ,
+            ALCRO, SRQ, ALCROID, SHOIFD, SRIND, ALCHIND, ALCHOIND, SOND, SHD, ALCRIFD, SROIND,
+            ALCHD, SOIQD, SROND, ALCHOQD, SROF, ALCOID, SND, SRFD, SRD, SIFD, ALCRIF, SHID, SROQ,
+            SROI, ALCOIND, ALCROF, SHIFD, ALCHI, ALCHOF, ALCHOID, ALCROIQ, ALCHOIQ, ALCIQD, ALCROI,
+            SRIF, ALCROND, ALCIFD, ALCHIQD, SOD, SHQD, ALCHQD, SFD, ALCHQ, ALCHOI, SHOIQD, SRND,
+            ALCOND, ALCOFD, ALCROIFD, ALCHOIQD, SHOIND, SOIFD, SROID, ALCHOND, ALCOQD, ALCHID,
+            ALCRFD, ALCRI, ALCHIFD, SRIFD, ALCRID, SRF, ALCQD, ALCRND, ALCHN, ALCRN, ALCHFD,
+            ALCHOIFD, ALCRON, ALCIND, SID, SQD, ALCHF, SHFD, ALCHIF, ALCR, ALCRIN, SIND, SRON,
+            SHOQD, ALCHIN, ALCROFD, ALCHON, ALCOIFD, ALCHIQ, ALCHOQ, ALCRF, SRIQ, ALCROQD, ALCROIN,
+            SR, ALCHOFD, SROIFD, ALCRIND, SOID, SOIND, SHOND, SRID, SRI, ALCHOIN, SHOID, SOFD,
+            ALCHND, ALCHOIF, ALCRQ, ALCROIND, ALCHO, SOQD, SHOD, ALCOIQD);
+    }
+
+    protected static List<Languages> belowCUO() {
+        return l(ALCO, ALCOI, ALCOF, ALCON, ALCOQ, ALCOIQ, ALCOIN, ALCOIF, SO, SOF, SON, SOQ, SOI,
+            SOIF, SOIN, SOIQ, SHO, SHOF, SHON, SHOQ, SHOI, SHOIF, SHOIN, SHOIQ, SROIQ, SROIQD,
+            ALCHOIND, ALCROI, SOIQD, ALCHOIQD, SHOIND, ALCROIFD, ALCHOQ, SOFD, ALCROFD, ALCOIND,
+            SOND, SHOID, SROI, SHOD, ALCROIN, SROF, SHOFD, ALCROD, SOQD, SRO, ALCOFD, ALCROND,
+            ALCHOI, ALCRON, SROQD, SROQ, ALCHON, ALCHOIQ, SOIFD, ALCHOD, SHOQD, ALCROID, SROIF,
+            SROIN, ALCHOIF, SROIFD, SROD, ALCOID, ALCHOQD, SHOIQD, ALCRO, ALCROF, ALCROIQ, SHOIFD,
+            SOID, SROFD, SROIND, ALCHOIN, SOD, ALCHOF, SHOND, SROID, ALCROIF, SRON, ALCROQ, SROND,
+            ALCHOND, ALCHOID, ALCROQD, SOIND, ALCHO, ALCOIFD, ALCHOIFD, ALCROIQD, ALCOIQD, ALCOQD,
+            ALCOD, ALCOND, ALCROIND, ALCHOFD);
+    }
+
+    protected static List<Languages> belowUniversal() {
+        return l(FL0, FLMINUS, FL, AL, ALE, ALC, ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF,
+            ALCIF, ALCIN, ALCON, ALCOQ, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF,
+            SIF, SON, SIN, SOQ, SIQ, SOI, SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF,
+            SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD, SOFD,
+            ALCROIND, ALCHOIQD, SOND, SRIQD, ALCQD, ALCIFD, ALCOFD, SIND, SRIFD, SHND, SIQD, ALCHID,
+            SROI, SRI, ALCHOQ, SRND, SRIQ, SROQ, SRIND, ALCHN, ALCHIF, ALCHO, ALCHOIND, ALCRO, SRO,
+            ALCROND, SRID, SRQ, ALCRIN, SOIND, SHIFD, SROND, ALCOD, SROD, ALCHOID, SHOID, SRIN,
+            ALCRIF, ALCROQ, ALCRIQD, SRON, ALCROQD, SHOD, ALCHI, ALCFD, SROFD, ALCROIQD, SROIFD, SD,
+            ALCHOIFD, SRQD, SHOIQD, ALCHOD, SOIQD, SOD, SROID, ALCHOQD, ALCHIFD, SHFD, ALCHOI, SHQD,
+            ALCIND, ALCHOIN, SROIF, ALCROID, SOQD, SROIN, ALCOID, ALCHF, ALCHOND, ALCRIQ, ALCROD,
+            ALCR, ALCROIN, ALCHOF, ALCHND, ALCOIND, ALCRF, SQD, ALCHIND, ALCHIQD, SHOND, SFD, ALCRI,
+            ALCRON, ALCROI, ALCHFD, SHIQD, ALCHOIF, ALCROIQ, ALCOQD, ALCOIQD, ALCROIFD, SIFD, ALCND,
+            ALCRFD, ALCRQD, SRF, SHD, ALCHIQ, ALCHD, SHOQD, SRD, ALCHOIQ, SRIF, ALCRND, SHID,
+            ALCRIND, SHOFD, ALCRD, SRN, SROF, ALCROIF, SOID, ALCRQ, SRFD, ALCOIFD, ALCHON, ALCHQD,
+            ALCRIFD, ALCROF, SHOIFD, ALCRID, ALCHIN, ALCHOFD, ALCOND, SROQD, SHOIND, ALCRN, SND,
+            ALCHQ, SID, ALCIQD, SOIFD, ALCH, SROIND, SR, ALCROFD, ALCID);
+    }
+
+    protected static List<Languages> belowQD() {
+        return l(ALCRIQD, SOQD, SRIQD, ALCHIQD, ALCIQD, SHIQD, SRQD, SQD, SHOQD, SIQD, SHOIQD,
+            ALCHOQD, ALCHOIQD, SHQD, ALCROIQD, ALCOQD, SOIQD, SROQD, ALCHQD, ALCOIQD, SROIQD,
+            ALCRQD, ALCROQD, ALCQD);
+    }
+
+    protected static List<Languages> belowQ() {
+        return l(ALCQ, ALCOQ, ALCIQ, ALCOIQ, SQ, SOQ, SIQ, SOIQ, SHQ, SHOQ, SHIQ, SHOIQ, SROIQ,
+            SROIQD, SROQD, ALCRIQD, SQD, ALCHQ, SOIQD, ALCQD, SRQ, SHOQD, ALCOQD, ALCOIQD, SROQ,
+            SRQD, ALCROIQD, ALCROQ, SRIQ, SHOIQD, ALCHOQ, ALCRQD, ALCHOQD, ALCIQD, SRIQD, ALCRIQ,
+            ALCROIQ, ALCHIQ, ALCHOIQD, ALCHQD, ALCROQD, ALCRQ, ALCHIQD, SIQD, ALCHOIQ, SHIQD, SHQD,
+            SOQD);
+    }
+
+    protected static List<Languages> belowD() {
+        return l(ALCD, SHIND, SROIQD, ALCROIQD, ALCHOQD, SHOID, ALCRND, ALCROND, SROND, SOFD,
+            ALCHID, ALCRID, ALCROQD, SHOIFD, ALCQD, ALCRFD, SQD, SHOD, SOQD, ALCOND, ALCIQD,
+            ALCROIND, SHOIQD, ALCOQD, SHOFD, ALCHFD, SND, SOIQD, ALCRIQD, ALCHOND, ALCRIND, ALCHQD,
+            SOIFD, ALCHOD, ALCHND, SHD, SHIFD, SROFD, ALCOIQD, ALCHOID, SHID, ALCOID, ALCHOFD,
+            ALCROIFD, ALCOIND, ALCHIND, SRQD, ALCIFD, SD, ALCHOIND, SHIQD, SROQD, SROIND, ALCROFD,
+            SHOQD, SID, SOD, ALCOIFD, ALCFD, ALCRQD, SHOIND, SRFD, SRND, SRIND, ALCHIQD, SROD,
+            SROIFD, SHQD, ALCROD, ALCID, SOIND, ALCHIFD, ALCIND, SHFD, ALCRD, SOND, ALCND, ALCOD,
+            SIND, SOID, SHND, SIQD, SRD, SHOND, ALCOFD, ALCHOIQD, ALCROID, SFD, SROID, ALCHD,
+            ALCHOIFD, SIFD, SRIFD, SRIQD, ALCRIFD, SRID);
+    }
+
+    protected static List<Languages> belowH() {
+        return l(SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI, SHOIF, SHOIN,
+            SHOIQ, SHIN, SHIND, ALCHOF, SHIQD, SHOFD, ALCHQ, ALCHOD, ALCHIQ, ALCHOND, ALCHIND,
+            ALCHI, ALCHD, SHOIFD, ALCHOIN, ALCHIFD, ALCHOQD, ALCHOIQ, SHOND, ALCHON, ALCHOIFD, SHID,
+            ALCHIF, ALCHND, ALCHOIND, ALCHIN, ALCHOIQD, ALCHIQD, ALCHOFD, ALCHQD, SHFD, ALCHOQ,
+            ALCHO, ALCHFD, SHOQD, SHND, ALCHOI, SHOIND, SHQD, SHOID, ALCHOID, ALCHN, ALCHID, SHOD,
+            ALCH, SHOIQD, ALCHF, ALCHOIF, SHD, SHIFD);
+    }
+
+    protected static List<Languages> belowHD() {
+        return l(SHIND, ALCHOIND, SHOQD, ALCHOD, ALCHD, ALCHOFD, SHIQD, SHND, ALCHND, SHOIFD,
+            ALCHOIQD, SHID, SHOD, SHOND, ALCHIQD, ALCHOND, ALCHIFD, ALCHOIFD, SHQD, SHFD, SHIFD,
+            ALCHOID, SHD, SHOID, ALCHIND, ALCHOQD, SHOFD, SHOIND, ALCHQD, ALCHFD, ALCHID, SHOIQD);
+    }
+
+    protected static List<Languages> belowI() {
+        return l(ALCI, ALCOI, ALCIF, ALCIN, ALCIQ, ALCOIQ, ALCOIN, ALCOIF, SI, SIF, SIN, SIQ, SOI,
+            SOIF, SOIN, SOIQ, SHI, SHIF, SHIQ, SHOI, SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ,
+            SROIQD, SIQD, ALCRID, SRI, SRIQD, ALCOIND, ALCHOIF, SROIND, ALCHOID, SOID, ALCIND, SRIQ,
+            ALCRI, SOIND, ALCRIND, SRIF, SHIQD, ALCID, ALCRIN, SRIN, ALCIQD, ALCRIQ, ALCROIF,
+            ALCHIN, ALCHOIQ, ALCHIQD, ALCHI, ALCHID, SHOIQD, ALCRIQD, SRID, SRIND, ALCHIFD, SROID,
+            SHOID, ALCOIQD, ALCHIF, ALCROIQD, ALCRIFD, SIND, ALCROID, SHID, SHIFD, SOIFD, ALCHIND,
+            SROIFD, SROI, ALCOIFD, SHOIND, SRIFD, SROIN, ALCROIND, ALCHOIN, ALCRIF, ALCHIQ, SIFD,
+            SOIQD, ALCHOI, ALCROI, ALCROIQ, ALCOID, ALCIFD, SHOIFD, ALCHOIFD, SID, ALCROIFD,
+            ALCHOIND, SROIF, ALCHOIQD, ALCROIN);
+    }
+
+    protected static List<Languages> belowC() {
+        return l(ALC, ALCD, ALCQ, ALCN, ALCF, ALCI, ALCO, ALCOI, ALCOF, ALCIF, ALCIN, ALCON, ALCOQ,
+            ALCIQ, ALCOIQ, ALCOIN, ALCOIF, S, SI, SO, SF, SN, SQ, SOF, SIF, SON, SIN, SOQ, SIQ, SOI,
+            SOIF, SOIN, SOIQ, SH, SHF, SHN, SHO, SHI, SHOF, SHIF, SHON, SHQ, SHOQ, SHIQ, SHOI,
+            SHOIF, SHOIN, SHOIQ, SHIN, SHIND, SROIQ, SROIQD, ALCROIND, ALCOFD, ALCHOIQ, ALCRF, SR,
+            ALCRIQ, ALCRD, SRIFD, ALCRO, SQD, SRI, ALCID, ALCH, SND, SOQD, SHOND, ALCRI, ALCHIND,
+            ALCOND, ALCHIFD, SRIN, SOIND, SROIFD, SRO, SRF, ALCHOID, SROI, SROIN, ALCOID, ALCHIQD,
+            SHND, ALCHOI, SROF, SHOIND, SHOD, SIQD, ALCQD, SHIQD, SOD, ALCHI, ALCHND, ALCHOIQD,
+            ALCOIQD, ALCROF, SROIND, ALCRID, SFD, SHFD, ALCRFD, SROQD, SHOIFD, ALCROI, SHOQD,
+            ALCRIQD, ALCFD, ALCHOD, ALCHF, ALCROIQD, SROFD, ALCHOIF, ALCRON, ALCROIF, ALCIND,
+            ALCHIQ, SROD, ALCRIN, ALCHOQ, SID, ALCHQ, ALCHOND, ALCOQD, ALCRIFD, ALCRIF, ALCROFD,
+            SRIQ, SRQ, ALCROD, ALCHD, ALCHN, SIFD, SRN, SRQD, SROND, ALCRIND, ALCHOF, SHOIQD,
+            ALCHOFD, SHQD, ALCR, SD, SROID, SOID, ALCROIN, SRON, SRD, ALCRN, ALCRND, SOFD, ALCRQ,
+            SRIND, ALCHOQD, ALCOIFD, ALCOD, SHIFD, ALCOIND, SIND, ALCHQD, ALCROQ, SOIQD, SHOFD,
+            ALCHFD, ALCROQD, ALCHOIND, ALCHOIN, SROIF, ALCROID, ALCROIFD, ALCHIN, SROQ, SHID, SHD,
+            ALCROND, ALCIFD, ALCIQD, ALCHOIFD, SRID, ALCHON, ALCRQD, SRFD, ALCROIQ, ALCHID, ALCND,
+            SOIFD, SRND, SRIF, ALCHO, SHOID, ALCHIF, SOND, SRIQD);
+    }
+
+    protected static List<Languages> belowR() {
+        return l(ELPLUSPLUS, SROIQ, SROIQD, SROFD, SRI, SRIQ, SRD, SROF, ALCROF, ALCROIQD, ALCRIN,
+            ALCROIF, ALCRFD, ALCRIQ, SROQ, SROND, ALCR, ALCROI, SROIF, SRN, ALCRIF, ALCRI, SRIFD,
+            SRIND, ALCRQD, SRF, SRIF, ALCRIND, ALCRID, ALCROID, ALCROND, ALCROIN, ALCRIFD, SROQD,
+            ALCRND, ALCROIFD, SRFD, SRQD, SRIN, SROIFD, ALCRD, ALCRN, ALCRQ, ALCRON, ALCROIQ,
+            ALCROIND, SRO, SROD, ALCROQ, SRON, ALCROFD, SRID, SRIQD, SRQ, ALCROQD, ALCRIQD, SRND,
+            SROID, SROIN, ALCRF, ALCROD, SR, SROI, ALCRO, SROIND);
+    }
+
+    protected static List<Languages> expressR() {
+        return l(ALCR, ELPLUSPLUS);
     }
 
     @Test
@@ -187,14 +414,26 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             }
         }
         Collection<Languages> expressibleInLanguages = testsubject.expressibleInLanguages();
-        assertEquals(expressible, expressibleInLanguages);
+        assertEquals(delta("expressible", expressible, expressibleInLanguages), expressible,
+            expressibleInLanguages);
         assertEquals(constructs, constructsFound);
-        assertEquals(within, below);
+        assertEquals(delta("below", within, below), new HashSet<>(within), new HashSet<>(below));
         assertEquals(expected, testsubject.getDescriptionLogicName());
-        assertEquals(minimal, minimalLanguages);
+        assertEquals(delta("minimal", minimal, minimalLanguages), new HashSet<>(minimal),
+            new HashSet<>(minimalLanguages));
         // String message = constructsFound + "\t" + "expressible in " + expressibleInLanguages
-        // + "\tminimal:\t" + minimalLanguages + "\twithin:\t" + below;
+        // + "\tminimal:\t" + minimalLanguages;// + "\twithin:\t" + below;
         // System.out.println(message);
+    }
+
+    private static String delta(String prefix, Collection<Languages> within2,
+        Collection<Languages> below) {
+        Set<Languages> onlyFirst = new HashSet<>(within2);
+        onlyFirst.removeAll(below);
+        Set<Languages> onlySecond = new HashSet<>(below);
+        onlySecond.removeAll(within2);
+        return prefix + "Only in first list: " + onlyFirst + "    Only in second list: \n"
+            + onlySecond.stream().map(Languages::name).collect(Collectors.joining(", ")) + "\n\n";
     }
 
     public Set<OWLOntology> ont() {
