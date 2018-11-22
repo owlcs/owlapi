@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.function.BooleanSupplier;
+import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -109,8 +112,7 @@ import uk.ac.manchester.cs.owl.owlapi.HasTrimToSize;
 public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToSize {
 
     private final OWLOntology delegate;
-    private final Lock readLock;
-    private final Lock writeLock;
+    private ReadWriteLock lock;
 
     /**
      * Constructs a ConcurrentOWLOntology that provides concurrent access to a delegate
@@ -125,22 +127,92 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     public ConcurrentOWLOntologyImpl(@Nonnull OWLOntology delegate,
         @Nonnull ReadWriteLock readWriteLock) {
         this.delegate = verifyNotNull(delegate);
-        readLock = verifyNotNull(readWriteLock).readLock();
-        writeLock = verifyNotNull(readWriteLock).writeLock();
+        lock = verifyNotNull(readWriteLock);
+    }
+
+    /**
+     * Override the lock in the ontology; this is a workaround for #806
+     * 
+     * @param lock overriding lock instance to use
+     */
+    public void setLockFromManager(ReadWriteLock lock) {
+        this.lock = lock;
+    }
+
+    private <T> T withWriteLock(Supplier<T> t) {
+        Lock writeLock = lock.writeLock();
+        writeLock.lock();
+        try {
+            return t.get();
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    private void callWriteLock(Runnable t) {
+        Lock writeLock = lock.writeLock();
+        writeLock.lock();
+        try {
+            t.run();
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    private <T> T withReadLock(Supplier<T> t) {
+        Lock readLock = lock.readLock();
+        readLock.lock();
+        try {
+            return t.get();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    private boolean withBooleanReadLock(BooleanSupplier t) {
+        Lock readLock = lock.readLock();
+        readLock.lock();
+        try {
+            return t.getAsBoolean();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    private int withIntReadLock(IntSupplier t) {
+        Lock readLock = lock.readLock();
+        readLock.lock();
+        try {
+            return t.getAsInt();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    private interface Store {
+        void store() throws OWLOntologyStorageException;
+    }
+
+    private void callReadLock(Store t) throws OWLOntologyStorageException {
+        Lock readLock = lock.readLock();
+        readLock.lock();
+        try {
+            t.store();
+        } finally {
+            readLock.unlock();
+        }
     }
 
     @Override
     public void trimToSize() {
-        writeLock.lock();
-        try {
-            if (delegate instanceof HasTrimToSize) {
-                HasTrimToSize trimmableDelegate = (HasTrimToSize) delegate;
-                trimmableDelegate.trimToSize();
-            }
-        } finally {
-            writeLock.unlock();
-        }
+        callWriteLock(this::trimToSizeInternal);
+    }
 
+    protected void trimToSizeInternal() {
+        if (delegate instanceof HasTrimToSize) {
+            HasTrimToSize trimmableDelegate = (HasTrimToSize) delegate;
+            trimmableDelegate.trimToSize();
+        }
     }
 
     @Override
@@ -156,324 +228,174 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
 
     @Override
     public int hashCode() {
-        readLock.lock();
-        try {
-            return delegate.hashCode();
-        } finally {
-            readLock.unlock();
-        }
+        return withIntReadLock(delegate::hashCode);
     }
 
     @Override
     public boolean equals(Object obj) {
-        readLock.lock();
-        try {
-            return delegate.equals(obj);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.equals(obj));
     }
 
     @Override
     @Nonnull
     public OWLOntologyManager getOWLOntologyManager() {
-        readLock.lock();
-        try {
-            return delegate.getOWLOntologyManager();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getOWLOntologyManager);
     }
 
     @Override
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
-        writeLock.lock();
-        try {
-            delegate.setOWLOntologyManager(owlOntologyManager);
-        } finally {
-            writeLock.unlock();
-        }
+        callWriteLock(() -> delegate.setOWLOntologyManager(owlOntologyManager));
     }
 
     @Override
     @Nonnull
     public OWLOntologyID getOntologyID() {
-        readLock.lock();
-        try {
-            return delegate.getOntologyID();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getOntologyID);
     }
 
     @Override
     public boolean isAnonymous() {
-        readLock.lock();
-        try {
-            return delegate.isAnonymous();
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(delegate::isAnonymous);
     }
 
     @Override
     @Nonnull
     public Set<OWLAnnotation> getAnnotations() {
-        readLock.lock();
-        try {
-            return delegate.getAnnotations();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getAnnotations);
     }
 
     @Override
     @Nonnull
     public Set<IRI> getDirectImportsDocuments() {
-        readLock.lock();
-        try {
-            return delegate.getDirectImportsDocuments();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getDirectImportsDocuments);
     }
 
     @Override
     @Nonnull
     public Set<OWLOntology> getDirectImports() {
-        readLock.lock();
-        try {
-            return delegate.getDirectImports();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getDirectImports);
     }
 
     @Override
     @Nonnull
     public Set<OWLOntology> getImports() {
-        readLock.lock();
-        try {
-            return delegate.getImports();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getImports);
     }
 
     @Override
     @Nonnull
     public Set<OWLOntology> getImportsClosure() {
-        readLock.lock();
-        try {
-            return delegate.getImportsClosure();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getImportsClosure);
     }
 
     @Override
     @Nonnull
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
-        readLock.lock();
-        try {
-            return delegate.getImportsDeclarations();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getImportsDeclarations);
     }
 
     @Override
     public boolean isEmpty() {
-        readLock.lock();
-        try {
-            return delegate.isEmpty();
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(delegate::isEmpty);
     }
 
     @Override
     @Nonnull
     public Set<OWLAxiom> getTBoxAxioms(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getTBoxAxioms(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getTBoxAxioms(imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLAxiom> getABoxAxioms(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getABoxAxioms(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getABoxAxioms(imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLAxiom> getRBoxAxioms(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getRBoxAxioms(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getRBoxAxioms(imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLClassAxiom> getGeneralClassAxioms() {
-        readLock.lock();
-        try {
-            return delegate.getGeneralClassAxioms();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getGeneralClassAxioms);
     }
 
     @Override
     @Nonnull
     public Set<OWLEntity> getSignature() {
-        readLock.lock();
-        try {
-            return delegate.getSignature();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getSignature);
     }
 
     @Override
     @Nonnull
     public Set<OWLEntity> getSignature(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getSignature(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getSignature(imports));
     }
 
     @Override
     public boolean isDeclared(@Nonnull OWLEntity owlEntity) {
-        readLock.lock();
-        try {
-            return delegate.isDeclared(owlEntity);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.isDeclared(owlEntity));
     }
 
     @Override
     public boolean isDeclared(@Nonnull OWLEntity owlEntity, @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.isDeclared(owlEntity, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.isDeclared(owlEntity, imports));
     }
 
     @Override
     public void saveOntology() throws OWLOntologyStorageException {
-        readLock.lock();
-        try {
-            delegate.saveOntology();
-        } finally {
-            readLock.unlock();
-        }
+        callReadLock(() -> delegate.saveOntology());
     }
 
     @Override
     public void saveOntology(@Nonnull IRI iri) throws OWLOntologyStorageException {
-        readLock.lock();
-        try {
-            delegate.saveOntology(iri);
-        } finally {
-            readLock.unlock();
-        }
+        callReadLock(() -> delegate.saveOntology(iri));
     }
 
     @Override
     public void saveOntology(@Nonnull OutputStream outputStream)
         throws OWLOntologyStorageException {
-        readLock.lock();
-        try {
-            delegate.saveOntology(outputStream);
-        } finally {
-            readLock.unlock();
-        }
+        callReadLock(() -> delegate.saveOntology(outputStream));
     }
 
     @Override
     public void saveOntology(@Nonnull OWLDocumentFormat owlDocumentFormat)
         throws OWLOntologyStorageException {
-        readLock.lock();
-        try {
-            delegate.saveOntology(owlDocumentFormat);
-        } finally {
-            readLock.unlock();
-        }
+        callReadLock(() -> delegate.saveOntology(owlDocumentFormat));
     }
 
     @Override
     public void saveOntology(@Nonnull OWLDocumentFormat owlDocumentFormat, @Nonnull IRI iri)
         throws OWLOntologyStorageException {
-        readLock.lock();
-        try {
-            delegate.saveOntology(owlDocumentFormat, iri);
-        } finally {
-            readLock.unlock();
-        }
+        callReadLock(() -> delegate.saveOntology(owlDocumentFormat, iri));
     }
 
     @Override
     public void saveOntology(@Nonnull OWLDocumentFormat owlDocumentFormat,
         @Nonnull OutputStream outputStream) throws OWLOntologyStorageException {
-        readLock.lock();
-        try {
-            delegate.saveOntology(owlDocumentFormat, outputStream);
-        } finally {
-            readLock.unlock();
-        }
+        callReadLock(() -> delegate.saveOntology(owlDocumentFormat, outputStream));
     }
 
     @Override
     public void saveOntology(@Nonnull OWLOntologyDocumentTarget owlOntologyDocumentTarget)
         throws OWLOntologyStorageException {
-        readLock.lock();
-        try {
-            delegate.saveOntology(owlOntologyDocumentTarget);
-        } finally {
-            readLock.unlock();
-        }
+        callReadLock(() -> delegate.saveOntology(owlOntologyDocumentTarget));
     }
 
     @Override
     public void saveOntology(@Nonnull OWLDocumentFormat owlDocumentFormat,
         @Nonnull OWLOntologyDocumentTarget owlOntologyDocumentTarget)
         throws OWLOntologyStorageException {
-        readLock.lock();
-        try {
-            delegate.saveOntology(owlDocumentFormat, owlOntologyDocumentTarget);
-        } finally {
-            readLock.unlock();
-        }
+        callReadLock(() -> delegate.saveOntology(owlDocumentFormat, owlOntologyDocumentTarget));
     }
 
     @Override
     @Nonnull
     public Set<OWLClassExpression> getNestedClassExpressions() {
-        readLock.lock();
-        try {
-            return delegate.getNestedClassExpressions();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getNestedClassExpressions);
     }
 
     @Override
@@ -489,262 +411,144 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
 
     @Override
     public boolean isTopEntity() {
-        readLock.lock();
-        try {
-            return delegate.isTopEntity();
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(delegate::isTopEntity);
     }
 
     @Override
     public boolean isBottomEntity() {
-        readLock.lock();
-        try {
-            return delegate.isBottomEntity();
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(delegate::isBottomEntity);
     }
 
     @Override
     @Nonnull
     public String toString() {
-        readLock.lock();
-        try {
-            return delegate.toString();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::toString);
     }
 
     @Override
     public int compareTo(OWLObject o) {
-        readLock.lock();
-        try {
-            return delegate.compareTo(o);
-        } finally {
-            readLock.unlock();
-        }
+        return withIntReadLock(() -> delegate.compareTo(o));
     }
 
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
-        readLock.lock();
-        try {
-            return delegate.containsEntityInSignature(owlEntity);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsEntityInSignature(owlEntity));
     }
 
     @Override
     public boolean containsEntitiesOfTypeInSignature(EntityType<?> type) {
-        readLock.lock();
-        try {
-            return delegate.containsEntitiesOfTypeInSignature(type);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsEntitiesOfTypeInSignature(type));
     }
 
     @Override
     public boolean containsEntitiesOfTypeInSignature(EntityType<?> type,
         Imports includeImportsClosure) {
-        readLock.lock();
-        try {
-            return delegate.containsEntitiesOfTypeInSignature(type, includeImportsClosure);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(
+            () -> delegate.containsEntitiesOfTypeInSignature(type, includeImportsClosure));
     }
 
     @Override
     @Nonnull
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        readLock.lock();
-        try {
-            return delegate.getAnonymousIndividuals();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getAnonymousIndividuals);
     }
 
     @Override
     @Nonnull
     public Set<OWLClass> getClassesInSignature() {
-        readLock.lock();
-        try {
-            return delegate.getClassesInSignature();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getClassesInSignature);
     }
 
     @Override
     @Nonnull
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        readLock.lock();
-        try {
-            return delegate.getObjectPropertiesInSignature();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getObjectPropertiesInSignature);
     }
 
     @Override
     @Nonnull
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        readLock.lock();
-        try {
-            return delegate.getDataPropertiesInSignature();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getDataPropertiesInSignature);
     }
 
     @Override
     @Nonnull
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        readLock.lock();
-        try {
-            return delegate.getIndividualsInSignature();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getIndividualsInSignature);
     }
 
     @Override
     @Nonnull
     public Set<OWLDatatype> getDatatypesInSignature() {
-        readLock.lock();
-        try {
-            return delegate.getDatatypesInSignature();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getDatatypesInSignature);
     }
 
     @Override
     @Nonnull
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
-        readLock.lock();
-        try {
-            return delegate.getAnnotationPropertiesInSignature();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getAnnotationPropertiesInSignature);
     }
 
     @Override
     @Nonnull
     public Set<OWLAxiom> getAxioms(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(imports));
     }
 
     @Override
     public int getAxiomCount(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAxiomCount(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withIntReadLock(() -> delegate.getAxiomCount(imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLLogicalAxiom> getLogicalAxioms(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getLogicalAxioms(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getLogicalAxioms(imports));
     }
 
     @Override
     public int getLogicalAxiomCount(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getLogicalAxiomCount(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withIntReadLock(() -> delegate.getLogicalAxiomCount(imports));
     }
 
     @Override
     @Nonnull
     public <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(axiomType, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(axiomType, imports));
     }
 
     @Override
     public <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAxiomCount(axiomType, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withIntReadLock(() -> delegate.getAxiomCount(axiomType, imports));
     }
 
     @Override
     public boolean containsAxiom(@Nonnull OWLAxiom owlAxiom, @Nonnull Imports imports,
         @Nonnull AxiomAnnotations axiomAnnotations) {
-        readLock.lock();
-        try {
-            return delegate.containsAxiom(owlAxiom, imports, axiomAnnotations);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(
+            () -> delegate.containsAxiom(owlAxiom, imports, axiomAnnotations));
     }
 
     @Override
     @Nonnull
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom owlAxiom,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAxiomsIgnoreAnnotations(owlAxiom, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxiomsIgnoreAnnotations(owlAxiom, imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlPrimitive,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getReferencingAxioms(owlPrimitive, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getReferencingAxioms(owlPrimitive, imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass owlClass, @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlClass, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlClass, imports));
     }
 
     @Override
@@ -752,230 +556,130 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     public Set<OWLObjectPropertyAxiom> getAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlObjectPropertyExpression, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlObjectPropertyExpression, imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLDataPropertyAxiom> getAxioms(@Nonnull OWLDataProperty owlDataProperty,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlDataProperty, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlDataProperty, imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLIndividualAxiom> getAxioms(@Nonnull OWLIndividual owlIndividual,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlIndividual, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlIndividual, imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLAnnotationAxiom> getAxioms(@Nonnull OWLAnnotationProperty owlAnnotationProperty,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlAnnotationProperty, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlAnnotationProperty, imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLDatatypeDefinitionAxiom> getAxioms(@Nonnull OWLDatatype owlDatatype,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlDatatype, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlDatatype, imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLAxiom> getAxioms() {
-        readLock.lock();
-        try {
-            return delegate.getAxioms();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getAxioms);
     }
 
     @Override
     @Nonnull
     public Set<OWLLogicalAxiom> getLogicalAxioms() {
-        readLock.lock();
-        try {
-            return delegate.getLogicalAxioms();
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(delegate::getLogicalAxioms);
     }
 
     @Override
     @Nonnull
     public <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(axiomType);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(axiomType));
     }
 
     @Override
     public boolean containsAxiom(@Nonnull OWLAxiom owlAxiom) {
-        readLock.lock();
-        try {
-            return delegate.containsAxiom(owlAxiom);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsAxiom(owlAxiom));
     }
 
     @Override
     @Nonnull
     @Deprecated
     public Set<OWLAxiom> getAxioms(boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(b));
     }
 
     @Override
     @Deprecated
     public int getAxiomCount(boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAxiomCount(b);
-        } finally {
-            readLock.unlock();
-        }
+        return withIntReadLock(() -> delegate.getAxiomCount(b));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public Set<OWLLogicalAxiom> getLogicalAxioms(boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getLogicalAxioms(b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getLogicalAxioms(b));
     }
 
     @Override
     @Deprecated
     public int getLogicalAxiomCount(boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getLogicalAxiomCount(b);
-        } finally {
-            readLock.unlock();
-        }
+        return withIntReadLock(() -> delegate.getLogicalAxiomCount(b));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(axiomType, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(axiomType, b));
     }
 
     @Override
     @Deprecated
     public <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAxiomCount(axiomType, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withIntReadLock(() -> delegate.getAxiomCount(axiomType, b));
     }
 
     @Override
     @Deprecated
     public boolean containsAxiom(@Nonnull OWLAxiom owlAxiom, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.containsAxiom(owlAxiom, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsAxiom(owlAxiom, b));
     }
 
     @Override
     @Deprecated
     public boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom owlAxiom, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.containsAxiomIgnoreAnnotations(owlAxiom, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsAxiomIgnoreAnnotations(owlAxiom, b));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom owlAxiom, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAxiomsIgnoreAnnotations(owlAxiom, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxiomsIgnoreAnnotations(owlAxiom, b));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlPrimitive, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getReferencingAxioms(owlPrimitive, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getReferencingAxioms(owlPrimitive, b));
     }
 
     @Override
     @Nonnull
     @Deprecated
     public Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass owlClass, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlClass, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlClass, b));
     }
 
     @Override
@@ -983,12 +687,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     @Deprecated
     public Set<OWLObjectPropertyAxiom> getAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlObjectPropertyExpression, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlObjectPropertyExpression, b));
     }
 
     @Override
@@ -996,24 +695,14 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     @Deprecated
     public Set<OWLDataPropertyAxiom> getAxioms(@Nonnull OWLDataProperty owlDataProperty,
         boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlDataProperty, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlDataProperty, b));
     }
 
     @Override
     @Nonnull
     @Deprecated
     public Set<OWLIndividualAxiom> getAxioms(@Nonnull OWLIndividual owlIndividual, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlIndividual, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlIndividual, b));
     }
 
     @Override
@@ -1021,98 +710,53 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     @Deprecated
     public Set<OWLAnnotationAxiom> getAxioms(@Nonnull OWLAnnotationProperty owlAnnotationProperty,
         boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlAnnotationProperty, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlAnnotationProperty, b));
     }
 
     @Override
     @Nonnull
     @Deprecated
     public Set<OWLDatatypeDefinitionAxiom> getAxioms(@Nonnull OWLDatatype owlDatatype, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlDatatype, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlDatatype, b));
     }
 
     @Override
     public int getAxiomCount() {
-        readLock.lock();
-        try {
-            return delegate.getAxiomCount();
-        } finally {
-            readLock.unlock();
-        }
+        return withIntReadLock(delegate::getAxiomCount);
     }
 
     @Override
     public int getLogicalAxiomCount() {
-        readLock.lock();
-        try {
-            return delegate.getLogicalAxiomCount();
-        } finally {
-            readLock.unlock();
-        }
+        return withIntReadLock(delegate::getLogicalAxiomCount);
     }
 
     @Override
     public <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType) {
-        readLock.lock();
-        try {
-            return delegate.getAxiomCount(axiomType);
-        } finally {
-            readLock.unlock();
-        }
+        return withIntReadLock(() -> delegate.getAxiomCount(axiomType));
     }
 
     @Override
     public boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom owlAxiom) {
-        readLock.lock();
-        try {
-            return delegate.containsAxiomIgnoreAnnotations(owlAxiom);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsAxiomIgnoreAnnotations(owlAxiom));
     }
 
     @Override
     @Nonnull
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom owlAxiom) {
-        readLock.lock();
-        try {
-            return delegate.getAxiomsIgnoreAnnotations(owlAxiom);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxiomsIgnoreAnnotations(owlAxiom));
     }
 
     @Override
     @Nonnull
     public Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlPrimitive) {
-        readLock.lock();
-        try {
-            return delegate.getReferencingAxioms(owlPrimitive);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getReferencingAxioms(owlPrimitive));
     }
 
     @Override
     @Nonnull
     @Deprecated
     public Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass owlClass) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlClass);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlClass));
     }
 
     @Override
@@ -1120,548 +764,299 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     @Deprecated
     public Set<OWLObjectPropertyAxiom> getAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     @Deprecated
     public Set<OWLDataPropertyAxiom> getAxioms(@Nonnull OWLDataProperty owlDataProperty) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlDataProperty);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlDataProperty));
     }
 
     @Override
     @Nonnull
     @Deprecated
     public Set<OWLIndividualAxiom> getAxioms(@Nonnull OWLIndividual owlIndividual) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlIndividual);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlIndividual));
     }
 
     @Override
     @Nonnull
     @Deprecated
     public Set<OWLAnnotationAxiom> getAxioms(@Nonnull OWLAnnotationProperty owlAnnotationProperty) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlAnnotationProperty);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlAnnotationProperty));
     }
 
     @Override
     @Nonnull
     @Deprecated
     public Set<OWLDatatypeDefinitionAxiom> getAxioms(@Nonnull OWLDatatype owlDatatype) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(owlDatatype);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(owlDatatype));
     }
 
     @Override
     @Nonnull
     public Set<OWLClass> getClassesInSignature(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getClassesInSignature(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getClassesInSignature(imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLObjectProperty> getObjectPropertiesInSignature(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getObjectPropertiesInSignature(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getObjectPropertiesInSignature(imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLDataProperty> getDataPropertiesInSignature(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getDataPropertiesInSignature(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDataPropertiesInSignature(imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLNamedIndividual> getIndividualsInSignature(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getIndividualsInSignature(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getIndividualsInSignature(imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getReferencedAnonymousIndividuals(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getReferencedAnonymousIndividuals(imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLDatatype> getDatatypesInSignature(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getDatatypesInSignature(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDatatypesInSignature(imports));
     }
 
     @Override
     @Nonnull
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getAnnotationPropertiesInSignature(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAnnotationPropertiesInSignature(imports));
     }
 
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.containsEntityInSignature(owlEntity, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsEntityInSignature(owlEntity, imports));
     }
 
     @Override
     public boolean containsEntityInSignature(@Nonnull IRI iri, @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.containsEntityInSignature(iri, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsEntityInSignature(iri, imports));
     }
 
     @Override
     public boolean containsClassInSignature(@Nonnull IRI iri, @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.containsClassInSignature(iri, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsClassInSignature(iri, imports));
     }
 
     @Override
     public boolean containsObjectPropertyInSignature(@Nonnull IRI iri, @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.containsObjectPropertyInSignature(iri, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsObjectPropertyInSignature(iri, imports));
     }
 
     @Override
     public boolean containsDataPropertyInSignature(@Nonnull IRI iri, @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.containsDataPropertyInSignature(iri, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsDataPropertyInSignature(iri, imports));
     }
 
     @Override
     public boolean containsAnnotationPropertyInSignature(@Nonnull IRI iri,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.containsAnnotationPropertyInSignature(iri, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(
+            () -> delegate.containsAnnotationPropertyInSignature(iri, imports));
     }
 
     @Override
     public boolean containsDatatypeInSignature(@Nonnull IRI iri, @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.containsDatatypeInSignature(iri, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsDatatypeInSignature(iri, imports));
     }
 
     @Override
     public boolean containsIndividualInSignature(@Nonnull IRI iri, @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.containsIndividualInSignature(iri, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsIndividualInSignature(iri, imports));
     }
 
     @Override
     public boolean containsDatatypeInSignature(@Nonnull IRI iri) {
-        readLock.lock();
-        try {
-            return delegate.containsDatatypeInSignature(iri);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsDatatypeInSignature(iri));
     }
 
     @Override
     public boolean containsEntityInSignature(@Nonnull IRI iri) {
-        readLock.lock();
-        try {
-            return delegate.containsEntityInSignature(iri);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsEntityInSignature(iri));
     }
 
     @Override
     public boolean containsClassInSignature(@Nonnull IRI iri) {
-        readLock.lock();
-        try {
-            return delegate.containsClassInSignature(iri);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsClassInSignature(iri));
     }
 
     @Override
     public boolean containsObjectPropertyInSignature(@Nonnull IRI iri) {
-        readLock.lock();
-        try {
-            return delegate.containsObjectPropertyInSignature(iri);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsObjectPropertyInSignature(iri));
     }
 
     @Override
     public boolean containsDataPropertyInSignature(@Nonnull IRI iri) {
-        readLock.lock();
-        try {
-            return delegate.containsDataPropertyInSignature(iri);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsDataPropertyInSignature(iri));
     }
 
     @Override
     public boolean containsAnnotationPropertyInSignature(@Nonnull IRI iri) {
-        readLock.lock();
-        try {
-            return delegate.containsAnnotationPropertyInSignature(iri);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsAnnotationPropertyInSignature(iri));
     }
 
     @Override
     public boolean containsIndividualInSignature(@Nonnull IRI iri) {
-        readLock.lock();
-        try {
-            return delegate.containsIndividualInSignature(iri);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsIndividualInSignature(iri));
     }
 
     @Override
     @Nonnull
     public Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri, @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getEntitiesInSignature(iri, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getEntitiesInSignature(iri, imports));
     }
 
     @Override
     public Set<IRI> getPunnedIRIs(@Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.getPunnedIRIs(imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getPunnedIRIs(imports));
     }
 
     @Override
     public boolean containsReference(@Nonnull OWLEntity owlEntity, @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.containsReference(owlEntity, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsReference(owlEntity, imports));
     }
 
     @Override
     public boolean containsReference(@Nonnull OWLEntity owlEntity) {
-        readLock.lock();
-        try {
-            return delegate.containsReference(owlEntity);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsReference(owlEntity));
     }
 
     @Override
     @Nonnull
     public Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri) {
-        readLock.lock();
-        try {
-            return delegate.getEntitiesInSignature(iri);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getEntitiesInSignature(iri));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public Set<OWLClass> getClassesInSignature(boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getClassesInSignature(b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getClassesInSignature(b));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public Set<OWLObjectProperty> getObjectPropertiesInSignature(boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getObjectPropertiesInSignature(b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getObjectPropertiesInSignature(b));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public Set<OWLDataProperty> getDataPropertiesInSignature(boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getDataPropertiesInSignature(b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDataPropertiesInSignature(b));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public Set<OWLNamedIndividual> getIndividualsInSignature(boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getIndividualsInSignature(b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getIndividualsInSignature(b));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getReferencedAnonymousIndividuals(b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getReferencedAnonymousIndividuals(b));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public Set<OWLDatatype> getDatatypesInSignature(boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getDatatypesInSignature(b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDatatypesInSignature(b));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getAnnotationPropertiesInSignature(b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAnnotationPropertiesInSignature(b));
     }
 
     @Override
     @Deprecated
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.containsEntityInSignature(owlEntity, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsEntityInSignature(owlEntity, b));
     }
 
     @Override
     @Deprecated
     public boolean containsEntityInSignature(@Nonnull IRI iri, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.containsEntityInSignature(iri, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsEntityInSignature(iri, b));
     }
 
     @Override
     @Deprecated
     public boolean containsClassInSignature(@Nonnull IRI iri, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.containsClassInSignature(iri, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsClassInSignature(iri, b));
     }
 
     @Override
     @Deprecated
     public boolean containsObjectPropertyInSignature(@Nonnull IRI iri, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.containsObjectPropertyInSignature(iri, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsObjectPropertyInSignature(iri, b));
     }
 
     @Override
     @Deprecated
     public boolean containsDataPropertyInSignature(@Nonnull IRI iri, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.containsDataPropertyInSignature(iri, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsDataPropertyInSignature(iri, b));
     }
 
     @Override
     @Deprecated
     public boolean containsAnnotationPropertyInSignature(@Nonnull IRI iri, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.containsAnnotationPropertyInSignature(iri, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsAnnotationPropertyInSignature(iri, b));
     }
 
     @Override
     @Deprecated
     public boolean containsDatatypeInSignature(@Nonnull IRI iri, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.containsDatatypeInSignature(iri, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsDatatypeInSignature(iri, b));
     }
 
     @Override
     @Deprecated
     public boolean containsIndividualInSignature(@Nonnull IRI iri, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.containsIndividualInSignature(iri, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsIndividualInSignature(iri, b));
     }
 
     @Override
     @Deprecated
     @Nonnull
     public Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.getEntitiesInSignature(iri, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getEntitiesInSignature(iri, b));
     }
 
     @Override
     @Deprecated
     public boolean containsReference(@Nonnull OWLEntity owlEntity, boolean b) {
-        readLock.lock();
-        try {
-            return delegate.containsReference(owlEntity, b);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.containsReference(owlEntity, b));
     }
 
     @Override
     @Nonnull
     public <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> aClass,
         @Nonnull OWLObject owlObject, @Nonnull Imports imports, @Nonnull Navigation navigation) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(aClass, owlObject, imports, navigation);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAxioms(aClass, owlObject, imports, navigation));
     }
 
     @Override
@@ -1669,23 +1064,13 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     public <T extends OWLAxiom> Collection<T> filterAxioms(
         @Nonnull OWLAxiomSearchFilter owlAxiomSearchFilter, @Nonnull Object o,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.filterAxioms(owlAxiomSearchFilter, o, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.filterAxioms(owlAxiomSearchFilter, o, imports));
     }
 
     @Override
     public boolean contains(@Nonnull OWLAxiomSearchFilter owlAxiomSearchFilter, @Nonnull Object o,
         @Nonnull Imports imports) {
-        readLock.lock();
-        try {
-            return delegate.contains(owlAxiomSearchFilter, o, imports);
-        } finally {
-            readLock.unlock();
-        }
+        return withBooleanReadLock(() -> delegate.contains(owlAxiomSearchFilter, o, imports));
     }
 
     @Override
@@ -1693,550 +1078,333 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     public <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> aClass,
         @Nonnull Class<? extends OWLObject> aClass1, @Nonnull OWLObject owlObject,
         @Nonnull Imports imports, @Nonnull Navigation navigation) {
-        readLock.lock();
-        try {
-            return delegate.getAxioms(aClass, aClass1, owlObject, imports, navigation);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getAxioms(aClass, aClass1, owlObject, imports, navigation));
     }
 
     @Override
     @Nonnull
     public Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(
         @Nonnull OWLAnnotationProperty owlAnnotationProperty) {
-        readLock.lock();
-        try {
-            return delegate.getSubAnnotationPropertyOfAxioms(owlAnnotationProperty);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getSubAnnotationPropertyOfAxioms(owlAnnotationProperty));
     }
 
     @Override
     @Nonnull
     public Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(
         @Nonnull OWLAnnotationProperty owlAnnotationProperty) {
-        readLock.lock();
-        try {
-            return delegate.getAnnotationPropertyDomainAxioms(owlAnnotationProperty);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getAnnotationPropertyDomainAxioms(owlAnnotationProperty));
     }
 
     @Override
     @Nonnull
     public Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(
         @Nonnull OWLAnnotationProperty owlAnnotationProperty) {
-        readLock.lock();
-        try {
-            return delegate.getAnnotationPropertyRangeAxioms(owlAnnotationProperty);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAnnotationPropertyRangeAxioms(owlAnnotationProperty));
     }
 
     @Override
     @Nonnull
     public Set<OWLDeclarationAxiom> getDeclarationAxioms(@Nonnull OWLEntity owlEntity) {
-        readLock.lock();
-        try {
-            return delegate.getDeclarationAxioms(owlEntity);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDeclarationAxioms(owlEntity));
     }
 
     @Override
     @Nonnull
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
         @Nonnull OWLAnnotationSubject owlAnnotationSubject) {
-        readLock.lock();
-        try {
-            return delegate.getAnnotationAssertionAxioms(owlAnnotationSubject);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getAnnotationAssertionAxioms(owlAnnotationSubject));
     }
 
     @Override
     @Nonnull
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(@Nonnull OWLClass owlClass) {
-        readLock.lock();
-        try {
-            return delegate.getSubClassAxiomsForSubClass(owlClass);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getSubClassAxiomsForSubClass(owlClass));
     }
 
     @Override
     @Nonnull
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(@Nonnull OWLClass owlClass) {
-        readLock.lock();
-        try {
-            return delegate.getSubClassAxiomsForSuperClass(owlClass);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getSubClassAxiomsForSuperClass(owlClass));
     }
 
     @Override
     @Nonnull
     public Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(@Nonnull OWLClass owlClass) {
-        readLock.lock();
-        try {
-            return delegate.getEquivalentClassesAxioms(owlClass);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getEquivalentClassesAxioms(owlClass));
     }
 
     @Override
     @Nonnull
     public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(@Nonnull OWLClass owlClass) {
-        readLock.lock();
-        try {
-            return delegate.getDisjointClassesAxioms(owlClass);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDisjointClassesAxioms(owlClass));
     }
 
     @Override
     @Nonnull
     public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(@Nonnull OWLClass owlClass) {
-        readLock.lock();
-        try {
-            return delegate.getDisjointUnionAxioms(owlClass);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDisjointUnionAxioms(owlClass));
     }
 
     @Override
     @Nonnull
     public Set<OWLHasKeyAxiom> getHasKeyAxioms(@Nonnull OWLClass owlClass) {
-        readLock.lock();
-        try {
-            return delegate.getHasKeyAxioms(owlClass);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getHasKeyAxioms(owlClass));
     }
 
     @Override
     @Nonnull
     public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getObjectSubPropertyAxiomsForSubProperty(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getObjectSubPropertyAxiomsForSubProperty(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getObjectSubPropertyAxiomsForSuperProperty(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getObjectSubPropertyAxiomsForSuperProperty(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getObjectPropertyDomainAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getObjectPropertyDomainAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getObjectPropertyRangeAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getObjectPropertyRangeAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLInverseObjectPropertiesAxiom> getInverseObjectPropertyAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getInverseObjectPropertyAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getInverseObjectPropertyAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getEquivalentObjectPropertiesAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getEquivalentObjectPropertiesAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getDisjointObjectPropertiesAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getDisjointObjectPropertiesAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getFunctionalObjectPropertyAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getFunctionalObjectPropertyAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalObjectPropertyAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getInverseFunctionalObjectPropertyAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getInverseFunctionalObjectPropertyAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLSymmetricObjectPropertyAxiom> getSymmetricObjectPropertyAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getSymmetricObjectPropertyAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getSymmetricObjectPropertyAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLAsymmetricObjectPropertyAxiom> getAsymmetricObjectPropertyAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getAsymmetricObjectPropertyAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getAsymmetricObjectPropertyAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLReflexiveObjectPropertyAxiom> getReflexiveObjectPropertyAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getReflexiveObjectPropertyAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getReflexiveObjectPropertyAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLIrreflexiveObjectPropertyAxiom> getIrreflexiveObjectPropertyAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getIrreflexiveObjectPropertyAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getIrreflexiveObjectPropertyAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(
         @Nonnull OWLObjectPropertyExpression owlObjectPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getTransitiveObjectPropertyAxioms(owlObjectPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getTransitiveObjectPropertyAxioms(owlObjectPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(
         @Nonnull OWLDataProperty owlDataProperty) {
-        readLock.lock();
-        try {
-            return delegate.getDataSubPropertyAxiomsForSubProperty(owlDataProperty);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDataSubPropertyAxiomsForSubProperty(owlDataProperty));
     }
 
     @Override
     @Nonnull
     public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(
         @Nonnull OWLDataPropertyExpression owlDataPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getDataSubPropertyAxiomsForSuperProperty(owlDataPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getDataSubPropertyAxiomsForSuperProperty(owlDataPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(
         @Nonnull OWLDataProperty owlDataProperty) {
-        readLock.lock();
-        try {
-            return delegate.getDataPropertyDomainAxioms(owlDataProperty);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDataPropertyDomainAxioms(owlDataProperty));
     }
 
     @Override
     @Nonnull
     public Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(
         @Nonnull OWLDataProperty owlDataProperty) {
-        readLock.lock();
-        try {
-            return delegate.getDataPropertyRangeAxioms(owlDataProperty);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDataPropertyRangeAxioms(owlDataProperty));
     }
 
     @Override
     @Nonnull
     public Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(
         @Nonnull OWLDataProperty owlDataProperty) {
-        readLock.lock();
-        try {
-            return delegate.getEquivalentDataPropertiesAxioms(owlDataProperty);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getEquivalentDataPropertiesAxioms(owlDataProperty));
     }
 
     @Override
     @Nonnull
     public Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(
         @Nonnull OWLDataProperty owlDataProperty) {
-        readLock.lock();
-        try {
-            return delegate.getDisjointDataPropertiesAxioms(owlDataProperty);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDisjointDataPropertiesAxioms(owlDataProperty));
     }
 
     @Override
     @Nonnull
     public Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(
         @Nonnull OWLDataPropertyExpression owlDataPropertyExpression) {
-        readLock.lock();
-        try {
-            return delegate.getFunctionalDataPropertyAxioms(owlDataPropertyExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(
+            () -> delegate.getFunctionalDataPropertyAxioms(owlDataPropertyExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
         @Nonnull OWLIndividual owlIndividual) {
-        readLock.lock();
-        try {
-            return delegate.getClassAssertionAxioms(owlIndividual);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getClassAssertionAxioms(owlIndividual));
     }
 
     @Override
     @Nonnull
     public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
         @Nonnull OWLClassExpression owlClassExpression) {
-        readLock.lock();
-        try {
-            return delegate.getClassAssertionAxioms(owlClassExpression);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getClassAssertionAxioms(owlClassExpression));
     }
 
     @Override
     @Nonnull
     public Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(
         @Nonnull OWLIndividual owlIndividual) {
-        readLock.lock();
-        try {
-            return delegate.getDataPropertyAssertionAxioms(owlIndividual);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDataPropertyAssertionAxioms(owlIndividual));
     }
 
     @Override
     @Nonnull
     public Set<OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionAxioms(
         @Nonnull OWLIndividual owlIndividual) {
-        readLock.lock();
-        try {
-            return delegate.getObjectPropertyAssertionAxioms(owlIndividual);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getObjectPropertyAssertionAxioms(owlIndividual));
     }
 
     @Override
     @Nonnull
     public Set<OWLNegativeObjectPropertyAssertionAxiom> getNegativeObjectPropertyAssertionAxioms(
         @Nonnull OWLIndividual owlIndividual) {
-        readLock.lock();
-        try {
-            return delegate.getNegativeObjectPropertyAssertionAxioms(owlIndividual);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getNegativeObjectPropertyAssertionAxioms(owlIndividual));
     }
 
     @Override
     @Nonnull
     public Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(
         @Nonnull OWLIndividual owlIndividual) {
-        readLock.lock();
-        try {
-            return delegate.getNegativeDataPropertyAssertionAxioms(owlIndividual);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getNegativeDataPropertyAssertionAxioms(owlIndividual));
     }
 
     @Override
     @Nonnull
     public Set<OWLSameIndividualAxiom> getSameIndividualAxioms(
         @Nonnull OWLIndividual owlIndividual) {
-        readLock.lock();
-        try {
-            return delegate.getSameIndividualAxioms(owlIndividual);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getSameIndividualAxioms(owlIndividual));
     }
 
     @Override
     @Nonnull
     public Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(
         @Nonnull OWLIndividual owlIndividual) {
-        readLock.lock();
-        try {
-            return delegate.getDifferentIndividualAxioms(owlIndividual);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDifferentIndividualAxioms(owlIndividual));
     }
 
     @Override
     @Nonnull
     public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(
         @Nonnull OWLDatatype owlDatatype) {
-        readLock.lock();
-        try {
-            return delegate.getDatatypeDefinitions(owlDatatype);
-        } finally {
-            readLock.unlock();
-        }
+        return withReadLock(() -> delegate.getDatatypeDefinitions(owlDatatype));
     }
 
     @Override
     @Nonnull
     public ChangeApplied applyChange(@Nonnull OWLOntologyChange owlOntologyChange) {
-        writeLock.lock();
-        try {
-            return getMutableOntology().applyChange(owlOntologyChange);
-        } finally {
-            writeLock.unlock();
-        }
+        return withWriteLock(() -> getMutableOntology().applyChange(owlOntologyChange));
     }
 
     @Override
     @Nonnull
     public ChangeApplied applyChanges(@Nonnull List<? extends OWLOntologyChange> list) {
-        writeLock.lock();
-        try {
-            return getMutableOntology().applyChanges(list);
-        } finally {
-            writeLock.unlock();
-        }
+        return withWriteLock(() -> getMutableOntology().applyChanges(list));
     }
 
     @Override
     public ChangeDetails applyChangesAndGetDetails(List<? extends OWLOntologyChange> list) {
-        writeLock.lock();
-        try {
-            return getMutableOntology().applyChangesAndGetDetails(list);
-        } finally {
-            writeLock.unlock();
-        }
+        return withWriteLock(() -> getMutableOntology().applyChangesAndGetDetails(list));
     }
 
     @Override
     @Nonnull
     public ChangeApplied addAxiom(@Nonnull OWLAxiom owlAxiom) {
-        writeLock.lock();
-        try {
-            return getMutableOntology().addAxiom(owlAxiom);
-        } finally {
-            writeLock.unlock();
-        }
+        return withWriteLock(() -> getMutableOntology().addAxiom(owlAxiom));
     }
 
     @Override
     public ChangeApplied addAxioms(@Nonnull Set<? extends OWLAxiom> set) {
-        writeLock.lock();
-        try {
-            return getMutableOntology().addAxioms(set);
-        } finally {
-            writeLock.unlock();
-        }
+        return withWriteLock(() -> getMutableOntology().addAxioms(set));
     }
 
     private OWLMutableOntology getMutableOntology() {

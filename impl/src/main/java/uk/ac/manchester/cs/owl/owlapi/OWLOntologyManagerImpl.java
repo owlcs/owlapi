@@ -122,6 +122,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
+import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyImpl;
 import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentPriorityCollection;
 
 /**
@@ -188,6 +189,7 @@ public class OWLOntologyManagerImpl
     protected final PriorityCollection<OWLStorerFactory> ontologyStorers;
     private final Lock readLock;
     private final Lock writeLock;
+    private final ReadWriteLock lock;
 
     /**
      * @param dataFactory data factory
@@ -209,6 +211,7 @@ public class OWLOntologyManagerImpl
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
         readLock = readWriteLock.readLock();
         writeLock = readWriteLock.writeLock();
+        lock = readWriteLock;
         documentMappers = new ConcurrentPriorityCollection<>(readWriteLock, sorting);
         ontologyFactories = new ConcurrentPriorityCollection<>(readWriteLock, sorting);
         parserFactories = new ConcurrentPriorityCollection<>(readWriteLock, sorting);
@@ -949,6 +952,9 @@ public class OWLOntologyManagerImpl
             for (OWLOntologyFactory factory : ontologyFactories) {
                 if (factory.canCreateFromDocumentIRI(documentIRI)) {
                     documentIRIsByID.put(ontologyID, documentIRI);
+                    if (factory instanceof OWLOntologyFactoryImpl) {
+                        ((OWLOntologyFactoryImpl) factory).setLockFromManager(lock);
+                    }
                     return factory.createOWLOntology(this, ontologyID, documentIRI, this);
                 }
             }
@@ -1052,6 +1058,10 @@ public class OWLOntologyManagerImpl
                 // at this point toReturn and toCopy are the same object
                 // change the manager on the ontology
                 toReturn.setOWLOntologyManager(this);
+                // change the lock on the ontology
+                if (toReturn instanceof ConcurrentOWLOntologyImpl) {
+                    ((ConcurrentOWLOntologyImpl) toReturn).setLockFromManager(lock);
+                }
             }
             return toReturn;
         } finally {
@@ -1250,6 +1260,9 @@ public class OWLOntologyManagerImpl
                 // Note - there is no need to add the ontology here,
                 // because it will be added
                 // when the ontology is created.
+                if (factory instanceof OWLOntologyFactoryImpl) {
+                    ((OWLOntologyFactoryImpl) factory).setLockFromManager(lock);
+                }
                 OWLOntology ontology =
                     factory.loadOWLOntology(this, documentSource, this, configuration);
                 if (configuration.shouldRepairIllegalPunnings()) {

@@ -48,11 +48,11 @@ public class OWLManager implements OWLOntologyManagerFactory {
         //
         @NonConcurrentDelegate
         NONCONCURRENTBUILDER(OWLOntologyBuilder.class, NonConcurrentOWLOntologyBuilder.class),
-     // XXX ontology manager and ontology builder have independent locks in their constructors,
+        // XXX ontology manager and ontology builder have independent locks in their constructors,
         // but they should actually share the one lock. Ontologies moving managers should rely on
         // the manager for locks. Now they rely on the fact that the locks are injector level
         // singletons.
-        REENTRANT(ReadWriteLock.class, new ReentrantReadWriteLock()),
+        REENTRANT(ReadWriteLock.class, () -> new ReentrantReadWriteLock()),
         //
         NOOP(ReadWriteLock.class, new NoOpReadWriteLock());
         private Class<?> c;

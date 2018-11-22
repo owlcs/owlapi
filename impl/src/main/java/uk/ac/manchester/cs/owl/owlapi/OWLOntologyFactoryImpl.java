@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.locks.ReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -40,6 +41,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Sets;
 
 import uk.ac.manchester.cs.AcceptHeaderBuilder;
+import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyBuilder;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
@@ -256,5 +258,16 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // that we have tried.
         throw new UnparsableOntologyException(documentSource.getDocumentIRI(), exceptions,
             configuration);
+    }
+
+    /**
+     * Override the lock in the ontology builder; this is a workaround for #806
+     * 
+     * @param lock overriding lock instance to use
+     */
+    public void setLockFromManager(ReadWriteLock lock) {
+        if (ontologyBuilder instanceof ConcurrentOWLOntologyBuilder) {
+            ((ConcurrentOWLOntologyBuilder) ontologyBuilder).setLockFromManager(lock);
+        }
     }
 }

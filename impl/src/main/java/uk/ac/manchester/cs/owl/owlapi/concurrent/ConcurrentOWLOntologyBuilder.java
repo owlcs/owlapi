@@ -19,7 +19,7 @@ public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
     private final OWLOntologyBuilder builder;
 
-    private final ReadWriteLock readWriteLock;
+    private ReadWriteLock readWriteLock;
 
     /**
      * @param builder builder delegate
@@ -38,5 +38,14 @@ public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
         @Nonnull OWLOntologyID ontologyID) {
         OWLOntology owlOntology = builder.createOWLOntology(manager, ontologyID);
         return new ConcurrentOWLOntologyImpl(owlOntology, readWriteLock);
+    }
+
+    /**
+     * Override the lock in the ontology builder; this is a workaround for #806
+     * 
+     * @param lock overriding lock instance to use
+     */
+    public void setLockFromManager(ReadWriteLock lock) {
+        readWriteLock = lock;
     }
 }
