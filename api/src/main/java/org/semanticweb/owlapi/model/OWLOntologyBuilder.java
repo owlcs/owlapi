@@ -13,14 +13,14 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
+import java.util.concurrent.locks.ReadWriteLock;
 
 import javax.annotation.Nonnull;
 
 /**
- * An ontology builder is responsible for choosing an OWLOntology
- * implementation. This interface allows for injecting different OWLOntology
- * implementations without having to rewrite code implemented in
- * OWLOntologyFactory classes.
+ * An ontology builder is responsible for choosing an OWLOntology implementation. This interface
+ * allows for injecting different OWLOntology implementations without having to rewrite code
+ * implemented in OWLOntologyFactory classes.
  * 
  * @author Ignazio
  * @since 4.0.0
@@ -28,13 +28,20 @@ import javax.annotation.Nonnull;
 public interface OWLOntologyBuilder extends Serializable {
 
     /**
-     * @param manager
-     *        manager for the ontology to be created
-     * @param ontologyID
-     *        id for the ontology to be created
+     * @param manager manager for the ontology to be created
+     * @param ontologyID id for the ontology to be created
      * @return new ontology instance
      */
     @Nonnull
     OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntologyID ontologyID);
+        @Nonnull OWLOntologyID ontologyID);
+
+    /**
+     * Override the lock in the ontology builder; this is a workaround for #806
+     * 
+     * @param lock overriding lock instance to use
+     */
+    default void setLock(@SuppressWarnings("unused") ReadWriteLock lock) {
+        // do nothing for the default implementation
+    }
 }

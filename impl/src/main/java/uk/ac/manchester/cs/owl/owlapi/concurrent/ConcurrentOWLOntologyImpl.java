@@ -130,12 +130,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
         lock = verifyNotNull(readWriteLock);
     }
 
-    /**
-     * Override the lock in the ontology; this is a workaround for #806
-     * 
-     * @param lock overriding lock instance to use
-     */
-    public void setLockFromManager(ReadWriteLock lock) {
+    @Override
+    public void setLock(ReadWriteLock lock) {
         this.lock = lock;
     }
 

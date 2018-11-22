@@ -122,7 +122,6 @@ import com.google.common.base.Optional;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
-import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyImpl;
 import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentPriorityCollection;
 
 /**
@@ -952,9 +951,7 @@ public class OWLOntologyManagerImpl
             for (OWLOntologyFactory factory : ontologyFactories) {
                 if (factory.canCreateFromDocumentIRI(documentIRI)) {
                     documentIRIsByID.put(ontologyID, documentIRI);
-                    if (factory instanceof OWLOntologyFactoryImpl) {
-                        ((OWLOntologyFactoryImpl) factory).setLockFromManager(lock);
-                    }
+                    factory.setLock(lock);
                     return factory.createOWLOntology(this, ontologyID, documentIRI, this);
                 }
             }
@@ -1059,8 +1056,8 @@ public class OWLOntologyManagerImpl
                 // change the manager on the ontology
                 toReturn.setOWLOntologyManager(this);
                 // change the lock on the ontology
-                if (toReturn instanceof ConcurrentOWLOntologyImpl) {
-                    ((ConcurrentOWLOntologyImpl) toReturn).setLockFromManager(lock);
+                if (toReturn instanceof OWLMutableOntology) {
+                    ((OWLMutableOntology) toReturn).setLock(lock);
                 }
             }
             return toReturn;
@@ -1260,9 +1257,7 @@ public class OWLOntologyManagerImpl
                 // Note - there is no need to add the ontology here,
                 // because it will be added
                 // when the ontology is created.
-                if (factory instanceof OWLOntologyFactoryImpl) {
-                    ((OWLOntologyFactoryImpl) factory).setLockFromManager(lock);
-                }
+                factory.setLock(lock);
                 OWLOntology ontology =
                     factory.loadOWLOntology(this, documentSource, this, configuration);
                 if (configuration.shouldRepairIllegalPunnings()) {

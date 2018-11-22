@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
+import java.util.concurrent.locks.ReadWriteLock;
 
 import javax.annotation.Nonnull;
 
@@ -99,6 +100,15 @@ public interface OWLOntologyFactory extends Serializable {
      *         source.
      */
     boolean canLoad(@Nonnull OWLOntologyDocumentSource documentSource);
+
+    /**
+     * Override the lock in the ontology builder; this is a workaround for #806
+     * 
+     * @param lock overriding lock instance to use
+     */
+    default void setLock(@SuppressWarnings("unused") ReadWriteLock lock) {
+        // do nothing for the default implementation
+    }
 
     /**
      * An {@code OWLOntologyCreationHandler} gets notified when the factory has

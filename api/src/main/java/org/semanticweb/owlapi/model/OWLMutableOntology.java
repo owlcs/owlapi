@@ -12,10 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.concurrent.locks.ReadWriteLock;
+
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLMutableOntology extends OWLOntology, HasApplyChange,
-        HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms {}
+public interface OWLMutableOntology
+    extends OWLOntology, HasApplyChange, HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms {
+    /**
+     * Override the lock in the ontology; this is a workaround for #806
+     * 
+     * @param lock overriding lock instance to use
+     */
+    default void setLock(@SuppressWarnings("unused") ReadWriteLock lock) {
+        // do nothing in the default implementation
+    }
+}
