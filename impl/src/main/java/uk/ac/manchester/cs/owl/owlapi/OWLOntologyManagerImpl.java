@@ -160,6 +160,7 @@ public class OWLOntologyManagerImpl
     private final AtomicBoolean broadcastChanges = new AtomicBoolean(true);
     private final Lock readLock;
     private final Lock writeLock;
+    private final ReadWriteLock lock;
     protected OWLOntologyChangeBroadcastStrategy defaultChangeBroadcastStrategy =
         new DefaultChangeBroadcastStrategy();
     protected ImpendingOWLOntologyChangeBroadcastStrategy defaultImpendingChangeBroadcastStrategy =
@@ -192,6 +193,7 @@ public class OWLOntologyManagerImpl
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
         readLock = readWriteLock.readLock();
         writeLock = readWriteLock.writeLock();
+        lock = readWriteLock;
         documentMappers = new ConcurrentPriorityCollection<>(readWriteLock, sorting);
         ontologyFactories = new ConcurrentPriorityCollection<>(readWriteLock, sorting);
         parserFactories = new ConcurrentPriorityCollection<>(readWriteLock, sorting);
@@ -785,6 +787,7 @@ public class OWLOntologyManagerImpl
             for (OWLOntologyFactory factory : ontologyFactories) {
                 if (factory.canCreateFromDocumentIRI(documentIRI)) {
                     documentIRIsByID.put(ontologyID, documentIRI);
+                    factory.setLock(lock);
                     return factory.createOWLOntology(this, ontologyID, documentIRI, this);
                 }
             }
@@ -879,6 +882,10 @@ public class OWLOntologyManagerImpl
                 // at this point toReturn and toCopy are the same object
                 // change the manager on the ontology
                 toReturn.setOWLOntologyManager(this);
+                // change the lock on the ontology
+                if (toReturn instanceof OWLMutableOntology) {
+                    ((OWLMutableOntology) toReturn).setLock(lock);
+                }
             }
             return toReturn;
         } finally {
@@ -1067,6 +1074,7 @@ public class OWLOntologyManagerImpl
                     // Note - there is no need to add the ontology here,
                     // because it will be added
                     // when the ontology is created.
+                    factory.setLock(lock);
                     OWLOntology ontology =
                         factory.loadOWLOntology(this, documentSource, this, configuration);
                     if (configuration.shouldRepairIllegalPunnings()) {

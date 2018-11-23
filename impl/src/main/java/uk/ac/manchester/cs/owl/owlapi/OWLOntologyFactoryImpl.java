@@ -19,6 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.locks.ReadWriteLock;
 
 import javax.inject.Inject;
 
@@ -233,5 +234,10 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // that we have tried.
         throw new UnparsableOntologyException(documentSource.getDocumentIRI(), exceptions,
             configuration);
+    }
+
+    @Override
+    public void setLock(ReadWriteLock lock) {
+        ontologyBuilder.setLock(lock);
     }
 }

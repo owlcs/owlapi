@@ -13,11 +13,13 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
+import java.util.concurrent.locks.ReadWriteLock;
+
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 
 /**
- * An ontology factory is responsible from creating new ontologies and creating
- * ontologies from ontology document IRIs.
+ * An ontology factory is responsible from creating new ontologies and creating ontologies from
+ * ontology document IRIs.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -31,46 +33,43 @@ public interface OWLOntologyFactory extends Serializable {
      * @param ontologyID The ID of the ontology to create. This MUST NOT BE {@code null}.
      * @param documentIRI The document IRI of the ontology
      * @param handler The ontology creation handler that will be notified when the ontology has been
-     * created.
+     *        created.
      * @return The newly created ontology
      * @throws OWLOntologyCreationException if the ontology could not be created.
      */
     OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID,
-        IRI documentIRI,
-        OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
+        IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
 
     /**
      * Creates and loads an {@code OWLOntology}.
      *
      * @param manager the ontology manager to set.
      * @param documentSource The document source that provides the means of getting a representation
-     * of a document.
+     *        of a document.
      * @param handler A pointer to an {@code OWLOntologyCreationHandler} which will be notified
-     * immediately after and empty ontology has been created, but before the source data is read and
-     * the ontology is loaded with axioms.
+     *        immediately after and empty ontology has been created, but before the source data is
+     *        read and the ontology is loaded with axioms.
      * @param configuration A configuration object which can be used to pass various options to the
-     * loader.
+     *        loader.
      * @return The newly created and loaded ontology.
      * @throws OWLOntologyCreationException if the ontology could not be created
      */
     OWLOntology loadOWLOntology(OWLOntologyManager manager,
-        OWLOntologyDocumentSource documentSource,
-        OWLOntologyCreationHandler handler, OWLOntologyLoaderConfiguration configuration)
-        throws OWLOntologyCreationException;
+        OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler handler,
+        OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException;
 
     /**
-     * Determines if the factory can create an ontology for the specified
-     * ontology document IRI.
+     * Determines if the factory can create an ontology for the specified ontology document IRI.
      *
      * @param documentIRI The document IRI
      * @return {@code true} if the factory can create an ontology given the specified document IRI,
-     * or {@code false} if the factory cannot create an ontology given the specified document IRI.
+     *         or {@code false} if the factory cannot create an ontology given the specified
+     *         document IRI.
      */
     boolean canCreateFromDocumentIRI(IRI documentIRI);
 
     /**
-     * Determines if the factory can load an ontology for the specified input
-     * source.
+     * Determines if the factory can load an ontology for the specified input source.
      *
      * @param documentSource The input source from which to load the ontology
      * @return {@code true} if the factory can load from the specified input source.
@@ -78,22 +77,29 @@ public interface OWLOntologyFactory extends Serializable {
     boolean canAttemptLoading(OWLOntologyDocumentSource documentSource);
 
     /**
-     * An {@code OWLOntologyCreationHandler} gets notified when the factory has
-     * created an empty ontology (during the loading process). This may be
-     * needed to handle features such as cyclic imports. For example if OntA and
-     * OntB are ontologies and OntA imports OntB and vice versa, OntA will
-     * probably be partially loaded, but then will require the loading of OntB
-     * to ensure that all entities are declared. OntB will also require the
-     * partial loading of OntA for the same reason. The handler allows a
-     * reference to an ontology which is being loaded to be obtained before
-     * loading is finished.
+     * Override the lock in the ontology builder; this is a workaround for #806
+     * 
+     * @param lock overriding lock instance to use
+     */
+    default void setLock(@SuppressWarnings("unused") ReadWriteLock lock) {
+        // do nothing for the default implementation
+    }
+
+    /**
+     * An {@code OWLOntologyCreationHandler} gets notified when the factory has created an empty
+     * ontology (during the loading process). This may be needed to handle features such as cyclic
+     * imports. For example if OntA and OntB are ontologies and OntA imports OntB and vice versa,
+     * OntA will probably be partially loaded, but then will require the loading of OntB to ensure
+     * that all entities are declared. OntB will also require the partial loading of OntA for the
+     * same reason. The handler allows a reference to an ontology which is being loaded to be
+     * obtained before loading is finished.
      */
     interface OWLOntologyCreationHandler {
 
         /**
-         * The factory calls this method as soon as it has created an ontology.
-         * If the factory is loading an ontology then the ontology will not have
-         * been populated with axioms at this stage.
+         * The factory calls this method as soon as it has created an ontology. If the factory is
+         * loading an ontology then the ontology will not have been populated with axioms at this
+         * stage.
          *
          * @param ontology The newly created ontology.
          */
