@@ -17,7 +17,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
     private final OWLOntologyBuilder builder;
-    private final ReadWriteLock readWriteLock;
+    private ReadWriteLock readWriteLock;
 
     /**
      * @param builder ontology builder
@@ -34,5 +34,10 @@ public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
     public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID) {
         OWLOntology owlOntology = builder.createOWLOntology(manager, ontologyID);
         return new ConcurrentOWLOntologyImpl(owlOntology, readWriteLock);
+    }
+
+    @Override
+    public void setLock(ReadWriteLock lock) {
+        readWriteLock = lock;
     }
 }

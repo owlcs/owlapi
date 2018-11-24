@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.locks.ReadWriteLock;
 
 import javax.inject.Inject;
 
@@ -165,5 +166,10 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // parsers
         // that we have tried.
         throw new UnparsableOntologyException(iri, exceptions, configuration);
+    }
+
+    @Override
+    public void setLock(ReadWriteLock lock) {
+        ontologyBuilder.setLock(lock);
     }
 }

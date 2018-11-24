@@ -33,7 +33,7 @@ public class ConcurrentOWLOntologyBuilder_TestCase {
     @Mock
     private ReadWriteLock readWriteLock;
     @Mock
-    private Lock readLock, writeLock;
+    private Lock readLock;
     @Mock
     private OWLOntologyManager manager;
     @Mock
@@ -45,7 +45,6 @@ public class ConcurrentOWLOntologyBuilder_TestCase {
     public void setUp() {
         when(delegateBuilder.createOWLOntology(manager, ontologyId)).thenReturn(ontology);
         when(readWriteLock.readLock()).thenReturn(readLock);
-        when(readWriteLock.writeLock()).thenReturn(writeLock);
         builder = new ConcurrentOWLOntologyBuilder(delegateBuilder, readWriteLock);
     }
 
