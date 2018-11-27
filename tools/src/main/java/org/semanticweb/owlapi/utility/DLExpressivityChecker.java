@@ -27,6 +27,7 @@ import static org.semanticweb.owlapi.utility.Construct.O;
 import static org.semanticweb.owlapi.utility.Construct.Q;
 import static org.semanticweb.owlapi.utility.Construct.R;
 import static org.semanticweb.owlapi.utility.Construct.RRESTR;
+import static org.semanticweb.owlapi.utility.Construct.Rr;
 import static org.semanticweb.owlapi.utility.Construct.TRAN;
 import static org.semanticweb.owlapi.utility.Construct.U;
 import static org.semanticweb.owlapi.utility.Construct.UNIVRESTR;
@@ -188,7 +189,16 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         if (constructs == null) {
             constructs = new TreeSet<>();
         }
-        constructs.add(c);
+        // Rr+I = R + I
+        if (c == I && constructs.contains(Rr)) {
+            constructs.add(c);
+            constructs.remove(Rr);
+            constructs.add(R);
+        } else if (c == Rr && constructs.contains(I)) {
+            constructs.add(R);
+        } else {
+            constructs.add(c);
+        }
     }
 
     private boolean isAtomic(OWLClassExpression classExpression) {
@@ -385,7 +395,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        addConstruct(R);
+        addConstruct(Rr);
         axiom.getProperty().accept(this);
     }
 
@@ -547,7 +557,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        addConstruct(R);
+        addConstruct(Rr);
         axiom.getPropertyChain().forEach(o -> o.accept(this));
         axiom.getSuperProperty().accept(this);
     }

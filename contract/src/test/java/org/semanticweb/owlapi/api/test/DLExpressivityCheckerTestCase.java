@@ -13,8 +13,252 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.utility.Construct.*;
-import static org.semanticweb.owlapi.utility.Languages.*;
+import static org.semanticweb.owlapi.utility.Construct.C;
+import static org.semanticweb.owlapi.utility.Construct.CINT;
+import static org.semanticweb.owlapi.utility.Construct.D;
+import static org.semanticweb.owlapi.utility.Construct.E;
+import static org.semanticweb.owlapi.utility.Construct.F;
+import static org.semanticweb.owlapi.utility.Construct.H;
+import static org.semanticweb.owlapi.utility.Construct.I;
+import static org.semanticweb.owlapi.utility.Construct.O;
+import static org.semanticweb.owlapi.utility.Construct.Q;
+import static org.semanticweb.owlapi.utility.Construct.R;
+import static org.semanticweb.owlapi.utility.Construct.RRESTR;
+import static org.semanticweb.owlapi.utility.Construct.Rr;
+import static org.semanticweb.owlapi.utility.Construct.TRAN;
+import static org.semanticweb.owlapi.utility.Construct.U;
+import static org.semanticweb.owlapi.utility.Construct.UNIVRESTR;
+import static org.semanticweb.owlapi.utility.Languages.AL;
+import static org.semanticweb.owlapi.utility.Languages.ALC;
+import static org.semanticweb.owlapi.utility.Languages.ALCD;
+import static org.semanticweb.owlapi.utility.Languages.ALCF;
+import static org.semanticweb.owlapi.utility.Languages.ALCFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCH;
+import static org.semanticweb.owlapi.utility.Languages.ALCHD;
+import static org.semanticweb.owlapi.utility.Languages.ALCHF;
+import static org.semanticweb.owlapi.utility.Languages.ALCHFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCHI;
+import static org.semanticweb.owlapi.utility.Languages.ALCHID;
+import static org.semanticweb.owlapi.utility.Languages.ALCHIF;
+import static org.semanticweb.owlapi.utility.Languages.ALCHIFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCHIN;
+import static org.semanticweb.owlapi.utility.Languages.ALCHIND;
+import static org.semanticweb.owlapi.utility.Languages.ALCHIQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCHIQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCHN;
+import static org.semanticweb.owlapi.utility.Languages.ALCHND;
+import static org.semanticweb.owlapi.utility.Languages.ALCHO;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOD;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOF;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOI;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOID;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOIF;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOIFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOIN;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOIND;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOIQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOIQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCHON;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOND;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCHOQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCHQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCHQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCI;
+import static org.semanticweb.owlapi.utility.Languages.ALCID;
+import static org.semanticweb.owlapi.utility.Languages.ALCIF;
+import static org.semanticweb.owlapi.utility.Languages.ALCIFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCIN;
+import static org.semanticweb.owlapi.utility.Languages.ALCIND;
+import static org.semanticweb.owlapi.utility.Languages.ALCIQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCIQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCN;
+import static org.semanticweb.owlapi.utility.Languages.ALCND;
+import static org.semanticweb.owlapi.utility.Languages.ALCO;
+import static org.semanticweb.owlapi.utility.Languages.ALCOD;
+import static org.semanticweb.owlapi.utility.Languages.ALCOF;
+import static org.semanticweb.owlapi.utility.Languages.ALCOFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCOI;
+import static org.semanticweb.owlapi.utility.Languages.ALCOID;
+import static org.semanticweb.owlapi.utility.Languages.ALCOIF;
+import static org.semanticweb.owlapi.utility.Languages.ALCOIFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCOIN;
+import static org.semanticweb.owlapi.utility.Languages.ALCOIND;
+import static org.semanticweb.owlapi.utility.Languages.ALCOIQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCOIQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCON;
+import static org.semanticweb.owlapi.utility.Languages.ALCOND;
+import static org.semanticweb.owlapi.utility.Languages.ALCOQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCOQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCR;
+import static org.semanticweb.owlapi.utility.Languages.ALCRD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRF;
+import static org.semanticweb.owlapi.utility.Languages.ALCRFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRI;
+import static org.semanticweb.owlapi.utility.Languages.ALCRID;
+import static org.semanticweb.owlapi.utility.Languages.ALCRIF;
+import static org.semanticweb.owlapi.utility.Languages.ALCRIFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRIN;
+import static org.semanticweb.owlapi.utility.Languages.ALCRIND;
+import static org.semanticweb.owlapi.utility.Languages.ALCRIQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCRIQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRN;
+import static org.semanticweb.owlapi.utility.Languages.ALCRND;
+import static org.semanticweb.owlapi.utility.Languages.ALCRO;
+import static org.semanticweb.owlapi.utility.Languages.ALCROD;
+import static org.semanticweb.owlapi.utility.Languages.ALCROF;
+import static org.semanticweb.owlapi.utility.Languages.ALCROFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCROI;
+import static org.semanticweb.owlapi.utility.Languages.ALCROID;
+import static org.semanticweb.owlapi.utility.Languages.ALCROIF;
+import static org.semanticweb.owlapi.utility.Languages.ALCROIFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCROIN;
+import static org.semanticweb.owlapi.utility.Languages.ALCROIND;
+import static org.semanticweb.owlapi.utility.Languages.ALCROIQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCROIQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRON;
+import static org.semanticweb.owlapi.utility.Languages.ALCROND;
+import static org.semanticweb.owlapi.utility.Languages.ALCROQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCROQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCRQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRr;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrF;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrN;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrND;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrO;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrOD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrOF;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrOFD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrON;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrOND;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrOQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrOQD;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrQ;
+import static org.semanticweb.owlapi.utility.Languages.ALCRrQD;
+import static org.semanticweb.owlapi.utility.Languages.ALE;
+import static org.semanticweb.owlapi.utility.Languages.EL;
+import static org.semanticweb.owlapi.utility.Languages.ELPLUSPLUS;
+import static org.semanticweb.owlapi.utility.Languages.FL;
+import static org.semanticweb.owlapi.utility.Languages.FL0;
+import static org.semanticweb.owlapi.utility.Languages.FLMINUS;
+import static org.semanticweb.owlapi.utility.Languages.S;
+import static org.semanticweb.owlapi.utility.Languages.SD;
+import static org.semanticweb.owlapi.utility.Languages.SF;
+import static org.semanticweb.owlapi.utility.Languages.SFD;
+import static org.semanticweb.owlapi.utility.Languages.SH;
+import static org.semanticweb.owlapi.utility.Languages.SHD;
+import static org.semanticweb.owlapi.utility.Languages.SHF;
+import static org.semanticweb.owlapi.utility.Languages.SHFD;
+import static org.semanticweb.owlapi.utility.Languages.SHI;
+import static org.semanticweb.owlapi.utility.Languages.SHID;
+import static org.semanticweb.owlapi.utility.Languages.SHIF;
+import static org.semanticweb.owlapi.utility.Languages.SHIFD;
+import static org.semanticweb.owlapi.utility.Languages.SHIN;
+import static org.semanticweb.owlapi.utility.Languages.SHIND;
+import static org.semanticweb.owlapi.utility.Languages.SHIQ;
+import static org.semanticweb.owlapi.utility.Languages.SHIQD;
+import static org.semanticweb.owlapi.utility.Languages.SHN;
+import static org.semanticweb.owlapi.utility.Languages.SHND;
+import static org.semanticweb.owlapi.utility.Languages.SHO;
+import static org.semanticweb.owlapi.utility.Languages.SHOD;
+import static org.semanticweb.owlapi.utility.Languages.SHOF;
+import static org.semanticweb.owlapi.utility.Languages.SHOFD;
+import static org.semanticweb.owlapi.utility.Languages.SHOI;
+import static org.semanticweb.owlapi.utility.Languages.SHOID;
+import static org.semanticweb.owlapi.utility.Languages.SHOIF;
+import static org.semanticweb.owlapi.utility.Languages.SHOIFD;
+import static org.semanticweb.owlapi.utility.Languages.SHOIN;
+import static org.semanticweb.owlapi.utility.Languages.SHOIND;
+import static org.semanticweb.owlapi.utility.Languages.SHOIQ;
+import static org.semanticweb.owlapi.utility.Languages.SHOIQD;
+import static org.semanticweb.owlapi.utility.Languages.SHON;
+import static org.semanticweb.owlapi.utility.Languages.SHOND;
+import static org.semanticweb.owlapi.utility.Languages.SHOQ;
+import static org.semanticweb.owlapi.utility.Languages.SHOQD;
+import static org.semanticweb.owlapi.utility.Languages.SHQ;
+import static org.semanticweb.owlapi.utility.Languages.SHQD;
+import static org.semanticweb.owlapi.utility.Languages.SI;
+import static org.semanticweb.owlapi.utility.Languages.SID;
+import static org.semanticweb.owlapi.utility.Languages.SIF;
+import static org.semanticweb.owlapi.utility.Languages.SIFD;
+import static org.semanticweb.owlapi.utility.Languages.SIN;
+import static org.semanticweb.owlapi.utility.Languages.SIND;
+import static org.semanticweb.owlapi.utility.Languages.SIQ;
+import static org.semanticweb.owlapi.utility.Languages.SIQD;
+import static org.semanticweb.owlapi.utility.Languages.SN;
+import static org.semanticweb.owlapi.utility.Languages.SND;
+import static org.semanticweb.owlapi.utility.Languages.SO;
+import static org.semanticweb.owlapi.utility.Languages.SOD;
+import static org.semanticweb.owlapi.utility.Languages.SOF;
+import static org.semanticweb.owlapi.utility.Languages.SOFD;
+import static org.semanticweb.owlapi.utility.Languages.SOI;
+import static org.semanticweb.owlapi.utility.Languages.SOID;
+import static org.semanticweb.owlapi.utility.Languages.SOIF;
+import static org.semanticweb.owlapi.utility.Languages.SOIFD;
+import static org.semanticweb.owlapi.utility.Languages.SOIN;
+import static org.semanticweb.owlapi.utility.Languages.SOIND;
+import static org.semanticweb.owlapi.utility.Languages.SOIQ;
+import static org.semanticweb.owlapi.utility.Languages.SOIQD;
+import static org.semanticweb.owlapi.utility.Languages.SON;
+import static org.semanticweb.owlapi.utility.Languages.SOND;
+import static org.semanticweb.owlapi.utility.Languages.SOQ;
+import static org.semanticweb.owlapi.utility.Languages.SOQD;
+import static org.semanticweb.owlapi.utility.Languages.SQ;
+import static org.semanticweb.owlapi.utility.Languages.SQD;
+import static org.semanticweb.owlapi.utility.Languages.SR;
+import static org.semanticweb.owlapi.utility.Languages.SRD;
+import static org.semanticweb.owlapi.utility.Languages.SRF;
+import static org.semanticweb.owlapi.utility.Languages.SRFD;
+import static org.semanticweb.owlapi.utility.Languages.SRI;
+import static org.semanticweb.owlapi.utility.Languages.SRID;
+import static org.semanticweb.owlapi.utility.Languages.SRIF;
+import static org.semanticweb.owlapi.utility.Languages.SRIFD;
+import static org.semanticweb.owlapi.utility.Languages.SRIN;
+import static org.semanticweb.owlapi.utility.Languages.SRIND;
+import static org.semanticweb.owlapi.utility.Languages.SRIQ;
+import static org.semanticweb.owlapi.utility.Languages.SRIQD;
+import static org.semanticweb.owlapi.utility.Languages.SRN;
+import static org.semanticweb.owlapi.utility.Languages.SRND;
+import static org.semanticweb.owlapi.utility.Languages.SRO;
+import static org.semanticweb.owlapi.utility.Languages.SROD;
+import static org.semanticweb.owlapi.utility.Languages.SROF;
+import static org.semanticweb.owlapi.utility.Languages.SROFD;
+import static org.semanticweb.owlapi.utility.Languages.SROI;
+import static org.semanticweb.owlapi.utility.Languages.SROID;
+import static org.semanticweb.owlapi.utility.Languages.SROIF;
+import static org.semanticweb.owlapi.utility.Languages.SROIFD;
+import static org.semanticweb.owlapi.utility.Languages.SROIN;
+import static org.semanticweb.owlapi.utility.Languages.SROIND;
+import static org.semanticweb.owlapi.utility.Languages.SROIQ;
+import static org.semanticweb.owlapi.utility.Languages.SROIQD;
+import static org.semanticweb.owlapi.utility.Languages.SRON;
+import static org.semanticweb.owlapi.utility.Languages.SROND;
+import static org.semanticweb.owlapi.utility.Languages.SROQ;
+import static org.semanticweb.owlapi.utility.Languages.SROQD;
+import static org.semanticweb.owlapi.utility.Languages.SRQ;
+import static org.semanticweb.owlapi.utility.Languages.SRQD;
+import static org.semanticweb.owlapi.utility.Languages.SRr;
+import static org.semanticweb.owlapi.utility.Languages.SRrD;
+import static org.semanticweb.owlapi.utility.Languages.SRrF;
+import static org.semanticweb.owlapi.utility.Languages.SRrFD;
+import static org.semanticweb.owlapi.utility.Languages.SRrN;
+import static org.semanticweb.owlapi.utility.Languages.SRrND;
+import static org.semanticweb.owlapi.utility.Languages.SRrO;
+import static org.semanticweb.owlapi.utility.Languages.SRrOD;
+import static org.semanticweb.owlapi.utility.Languages.SRrOF;
+import static org.semanticweb.owlapi.utility.Languages.SRrOFD;
+import static org.semanticweb.owlapi.utility.Languages.SRrON;
+import static org.semanticweb.owlapi.utility.Languages.SRrOND;
+import static org.semanticweb.owlapi.utility.Languages.SRrOQ;
+import static org.semanticweb.owlapi.utility.Languages.SRrOQD;
+import static org.semanticweb.owlapi.utility.Languages.SRrQ;
+import static org.semanticweb.owlapi.utility.Languages.SRrQD;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,17 +335,15 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             new Object[] {b.assNotAnon(),       "3  ALC",      "C"         , l(C), l(ALC), belowC(), l(ALC) },
             new Object[] {b.dOp(),              "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
             new Object[] {b.irr(),              "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
-            new Object[] {b.chain(),            "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
-            new Object[] {b.ref(),              "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
             new Object[] {b.asymm(),            "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
             new Object[] {b.assHasSelf(),       "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
-            new Object[] {b.dRange(),           "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
-            new Object[] {b.dRangeAnd(),        "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
-            new Object[] {b.dRangeOr(),         "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
-            new Object[] {b.dOneOf(),           "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
-            new Object[] {b.dNot(),             "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
-            new Object[] {b.dRangeRestrict(),   "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
-            new Object[] {b.dDom(),             "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(SROIQD), l(SROIQD), l(SROIQD) },
+            new Object[] {b.dRange(),           "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
+            new Object[] {b.dRangeAnd(),        "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
+            new Object[] {b.dRangeOr(),         "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
+            new Object[] {b.dOneOf(),           "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
+            new Object[] {b.dNot(),             "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
+            new Object[] {b.dRangeRestrict(),   "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
+            new Object[] {b.dDom(),             "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
             new Object[] {b.du(),               "6  ALC",      "CU"        , l(C, U), l(ALC), belowCU(), l(ALC) },
             new Object[] {b.eDp(),              "7  ALH(D)",   "H(D)"      , l(H, D), l(ALCHD), belowHD(), l(ALCHD) },
             new Object[] {b.subData(),          "7  ALH(D)",   "H(D)"      , l(H, D), l(ALCHD), belowHD(), l(ALCHD) },
@@ -114,36 +356,73 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             new Object[] {b.opaInv(),           "12 ALI",      "I"         , l(I), l(ALCI), belowI(), l(ALCI) },
             new Object[] {b.opaInvj(),          "12 ALI",      "I"         , l(I), l(ALCI), belowI(), l(ALCI) },
             new Object[] {b.symm(),             "12 ALI",      "I"         , l(I), l(ALCI), belowI(), l(ALCI) },
-            new Object[] {b.dDp(),              "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
-            new Object[] {b.ndp(),              "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
-            new Object[] {b.assDAll(),          "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
-            new Object[] {b.assDHas(),          "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
-            new Object[] {b.assD(),             "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
-            new Object[] {b.assDPlain(),        "13 AL(D)",    "(D)"       , l(D), l(ALCD), belowD(), l(ALCD) },
+            new Object[] {b.dDp(),              "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
+            new Object[] {b.ndp(),              "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
+            new Object[] {b.assDAll(),          "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
+            new Object[] {b.assDHas(),          "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
+            new Object[] {b.assD(),             "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
+            new Object[] {b.assDPlain(),        "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
             new Object[] {b.same(),             "14 ALO",      "O"         , l(O), l(ALCO,ELPLUSPLUS), belowO(), l(ALCO,ELPLUSPLUS) },
-            new Object[] {b.trans(),            "15 AL+",      "+"         , l(TRAN), l(S), belowTRAN(), l(S) },
-            new Object[] {b.assAnd(),           "16 AL",       "CINT"      , l(CINT), l(FL0, EL), l(Languages.values()), l(FL0, EL) },
+            new Object[] {b.trans(),            "15 AL+",      "+"         , l(TRAN), l(S, ELPLUSPLUS), belowTRAN(), l(S, ELPLUSPLUS) },
+            new Object[] {b.assAnd(),           "16 AL",       "CINT"      , l(CINT), l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS) },
             new Object[] {b.assOr(),            "17 ALU",      "U"         , l(U), l(ALC), belowU(), l(ALC) },
-            new Object[] {b.oDom(),             "18 AL",       "RRESTR"    , l(RRESTR), l(FL), l(FL, SROIQ, SROIQD), l(FL) },
-            new Object[] {b.oRange(),           "18 AL",       "RRESTR"    , l(RRESTR), l(FL), l(FL, SROIQ, SROIQD), l(FL) },
-            new Object[] {b.assSome(),          "19 ALE",      "E"         , l(E), l(EL), belowE(), l(EL) },
+            new Object[] {b.oDom(),             "18 AL",       "RRESTR"    , l(RRESTR), l(FL, EL), belowRRESTR(), l(FL, EL) },
+            new Object[] {b.oRange(),           "18 AL",       "RRESTR"    , l(RRESTR), l(FL, EL), belowRRESTR(), l(FL, EL) },
+            new Object[] {b.assSome(),          "19 ALE",      "E"         , l(E), l(EL,ALE, ELPLUSPLUS), belowE(), l(EL,ALE, ELPLUSPLUS) },
             new Object[] {b.assHas(),           "20 ALEO",     "EO"        , l(E, O), l(ALCO,ELPLUSPLUS), belowEO(), l(ALCO, ELPLUSPLUS) },
             new Object[] {b.assMin(),           "21 ALQ",      "Q"         , l(Q), l(ALCQ), belowQ(), l(ALCQ) },
             new Object[] {b.assMax(),           "21 ALQ",      "Q"         , l(Q), l(ALCQ), belowQ(), l(ALCQ) },
             new Object[] {b.assEq(),            "21 ALQ",      "Q"         , l(Q), l(ALCQ), belowQ(), l(ALCQ) },
             new Object[] {b.assOneOf(),         "22 ALUO",     "UO"        , l(U, O), l(ALCO), belowUO(), l(ALCO) },
-            new Object[] {b.assDSome(),         "23 ALE(D)",   "E(D)"      , l(E, D), l(ALCD), belowED(), l(ALCD) },
+            new Object[] {b.assDSome(),         "23 ALE(D)",   "E(D)"      , l(E, D), l(ALCD,ELPLUSPLUS), belowED(), l(ALCD,ELPLUSPLUS) },
             new Object[] {b.assDMin(),          "24 ALQ(D)",   "Q(D)"      , l(Q, D), l(ALCQD), belowQD(), l(ALCQD) },
             new Object[] {b.assDMax(),          "24 ALQ(D)",   "Q(D)"      , l(Q, D), l(ALCQD), belowQD(), l(ALCQD) },
-            new Object[] {b.assDEq(),           "24 ALQ(D)",   "Q(D)"      , l(Q, D), l(ALCQD), belowQD(), l(ALCQD) }
+            new Object[] {b.assDEq(),           "24 ALQ(D)",   "Q(D)"      , l(Q, D), l(ALCQD), belowQD(), l(ALCQD) },
+            new Object[] {b.chain(),            "25 ALR",      "Rr"        , l(Rr), expressRr(), belowRr(), expressRr() },
+            new Object[] {b.ref(),              "25 ALR",      "Rr"        , l(Rr), expressRr(), belowRr(), expressRr() }
             );
         //@formatter:on
     }
 
+    protected static List<Languages> belowRRESTR() {
+        return l(FL, SROIQ, SROIQD, ALCHOID, ALCHIQ, ALCROF, SHQ, ALCIFD, SROD, ALCN, ALCRrF, SRD,
+            ALCOID, ALCHOI, ALCHOIF, SHIQD, ALCHFD, ALCHN, SRIQD, ALCROID, ALCHOF, SRQD, SHIFD,
+            ALCROQD, SRrN, SROID, ALCROIQ, ALCRQ, SI, SHOD, SHOIFD, ALCHOQ, ALCRrQ, ALCRrOD, SRIQ,
+            ALCHID, SHQD, ALCHOIQD, ALCIN, ALCIQ, ALCOI, ALCOIQD, ALCRrD, ALCRD, SRrOQ, ALCROND,
+            SIQD, SHIQ, ALCRr, ALCOQD, SRND, ALCRrOND, ALCRrOQ, ALCQ, SHN, SRrOF, SHO, SHD, ALCOIQ,
+            SOIQ, SROND, ALCO, SIFD, SHOIND, ALCHO, SIND, SOI, SRQ, ALCHQD, SROIND, ALCIQD, SHOF,
+            ALCROFD, ALCH, ALCOQ, ALCRON, ALCRrO, SHOIN, SRrOQD, EL, SN, ALCI, ALCRIQ, SOQ, SHF,
+            ALCRO, SRN, SOQD, ALCHIFD, ALCOIN, SHON, SROF, SRr, SRID, ALCOFD, ALCOIFD, ALCHIND,
+            SHOQD, SROQD, SQD, SHOFD, ALCHOIFD, ALCRFD, SND, ALCRrFD, SHFD, SFD, ALCHQ, SHIND,
+            ALCRrOF, SHIN, SHOIQD, ALCRN, SHOQ, S, ALCOND, SOID, SRrOND, ALCOF, ALCRID, SRrF, ALCOD,
+            ALCHON, SIF, ALCHD, SRrOFD, SHND, ALCRF, ALCRIQD, SRrD, SHOND, SRrON, SRIND, SROFD,
+            SRON, SHID, ALCIND, SRrO, SRrND, SRO, ALCHOIN, SRI, SOIFD, ALCHOD, ALCIF, SROIFD, ALCHF,
+            SID, ALCRrON, ALCD, SO, SROIF, SIN, SRF, ALCROIFD, ALCROIF, ALCHOND, SF, SOIND, ALCND,
+            SRIN, ALCROI, ALCRND, SHI, ALCROIQD, ALC, ALCFD, SROIN, ALCRrQD, SHOIF, ALCID, ALCHOQD,
+            ALCHIQD, ALCRIF, SOIN, ALCROIND, ALCRIND, ALCROQ, SH, SRIF, SD, SRFD, SRrQ, ALCR,
+            ALCOIND, ALCHIF, ALCRrND, ALCF, ALCROIN, ALCHIN, ALCHOFD, ALCROD, SRrOD, SRrQD, SR,
+            SOIF, ALCHOIQ, ALCON, ALCHND, ALCQD, SIQ, ALCRI, SRrFD, SQ, SOF, ALCHOIND, ALCHI, SROQ,
+            SON, SOND, SOFD, SRIFD, ALCRIFD, SHOIQ, SOIQD, ALCRQD, SOD, SHOI, SROI, ALCRrOQD, SHIF,
+            ALCRrN, ALCOIF, ALCRIN, SHOID, ALCRrOFD);
+    }
+
+    protected static List<Languages> belowALD() {
+        return l(ALCHD, SRD, ALCQD, SID, ALCFD, ALCHOIND, SROFD, SQD, SHND, ALCHQD, ALCHOD, SIND,
+            SHIFD, SRID, SRND, ALCRND, ALCROIQD, SRrOFD, ALCIND, ALCRrFD, SRrD, SHQD, ALCOID,
+            SROIQD, ALCRFD, SOIFD, SRIQD, ALCOND, SRrFD, SOID, SROIFD, ALCOIQD, ALCRIFD, SIQD,
+            SRIND, SROIND, SOQD, SHOND, ALCRrOQD, ALCND, ALCRD, ALCHIND, ALCHOND, ALCROIFD, ALCROQD,
+            ALCROIND, ALCROND, SRrQD, ALCOIND, ALCHOID, SHOQD, SRQD, ALCOQD, SROID, SOND, ALCHFD,
+            ALCHOQD, ALCRrOD, SROQD, ALCROID, ALCHID, ALCRrOFD, SHOFD, SRIFD, ALCIQD, SOIND, SHD,
+            ALCIFD, SHOIQD, SHOID, ALCRQD, SND, SRrND, SHIQD, SROD, SOD, SRFD, ALCHND, ALCRrQD,
+            ALCHOIQD, ALCRIQD, SRrOD, SOIQD, ALCROD, SFD, ALCID, ALCHOFD, ALCHOIFD, ALCRIND,
+            ALCOIFD, ALCRID, SHOIND, SHIND, ALCHIFD, SHFD, ALCOFD, ALCOD, ALCRrD, SHOD, ALCROFD,
+            SIFD, ALCRrND, SRrOND, ALCRrOND, SD, SRrOQD, SROND, SHOIFD, SOFD, ALCHIQD, SHID, ALCD);
+    }
+
     protected static List<Languages> belowFD() {
-        return l(SHFD, ALCROIFD, SRIFD, ALCHOFD, SHOIFD, ALCHFD, SOFD, ALCHIFD, SFD, ALCRIFD, 
-            SROIFD, ALCIFD, ALCOIFD, SOIFD, ALCHOIFD, ALCROFD, SHIFD, SROFD, ALCFD, SHOFD, 
-            SRFD, ALCRFD, ALCOFD, SIFD);
+        return l(SHFD, ALCROIFD, SRIFD, ALCHOFD, SHOIFD, ALCHFD, SOFD, ALCHIFD, SFD, ALCRIFD,
+            SROIFD, ALCIFD, ALCOIFD, SOIFD, ALCHOIFD, ALCROFD, SHIFD, SROFD, ALCFD, SHOFD, SRFD,
+            ALCRFD, ALCOFD, SIFD, SRrFD, SRrOFD, ALCRrFD, ALCRrOFD);
     }
 
     protected static List<Object> empty() {
@@ -159,7 +438,9 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             ALCRIQD, ALCHID, ALCHOD, SOIQD, ALCOIFD, SFD, SOIND, ALCRIFD, SOID, ALCHFD, ALCHIFD,
             SOD, SROIFD, ALCOQD, SRIND, SIFD, ALCOFD, SRIFD, SRQD, SHOID, SHOND, SHOIQD, SRID,
             ALCROFD, ALCRQD, ALCIQD, SRIQD, SOFD, SHFD, ALCND, ALCHOFD, ALCROIFD, SHOIND, SID,
-            ALCHQD, ALCHOID, ALCHOIND, ALCFD);
+            ALCHQD, ALCHOID, ALCHOIND, ALCFD, SRrOFD, SRrD, ALCRrFD, ALCRrOFD, ELPLUSPLUS, ALCRrQD,
+            ALCRrOQD, SRrOND, SRrND, ALCRrD, SRrQD, ALCRrOD, SRrOD, SRrOQD, SRrFD, ALCRrND,
+            ALCRrOND);
     }
 
     protected static List<Languages> belowUO() {
@@ -171,7 +452,8 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             ALCROF, ALCHOIQ, ALCOIND, SOND, SOQD, ALCRON, ALCHOD, SOIQD, ALCOIFD, SOIND, SROF,
             SROIF, SOID, SOD, SROIFD, ALCOQD, ALCOFD, SHOID, SHOND, SHOIQD, ALCROIF, ALCHON,
             ALCROFD, ALCHOQ, SOFD, ALCROIQ, ALCROIN, ALCHOFD, ALCROIFD, SHOIND, ALCROI, ALCHOID,
-            ALCHOIN, ALCHOIND, ALCHOI, ALCRO);
+            ALCHOIN, ALCHOIND, ALCHOI, ALCRO, SRrOFD, ALCRrOQ, ALCRrOFD, ALCRrOQD, SRrOND, SRrON,
+            SRrOF, SRrOQ, SRrO, ALCRrO, ALCRrOD, SRrOD, ALCRrON, SRrOQD, ALCRrOF, ALCRrOND);
     }
 
     protected static List<Languages> belowEO() {
@@ -183,7 +465,9 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             ALCHO, SHOD, ALCROF, ALCHOIQ, ALCOIND, SOND, SOQD, ALCRON, ALCHOD, SOIQD, ALCOIFD,
             SOIND, SROF, SROIF, SOID, SOD, SROIFD, ALCOQD, ALCOFD, SHOID, SHOND, SHOIQD, ALCROIF,
             ALCHON, ALCROFD, ALCHOQ, SOFD, ALCROIQ, ALCROIN, ALCHOFD, ALCROIFD, SHOIND, ALCROI,
-            ALCHOID, ALCHOIN, ALCHOIND, ALCHOI, ALCRO);
+            ALCHOID, ALCHOIN, ALCHOIND, ALCHOI, ALCRO, ALCRrOF, SRrOND, SRrOFD, SRrON, SRrO,
+            ALCRrON, ALCRrOD, SRrOQ, ALCRrOND, ALCRrOQ, SRrOF, SRrOD, ALCRrO, SRrOQD, ALCRrOQD,
+            ALCRrOFD);
     }
 
     protected static List<Languages> belowE() {
@@ -202,7 +486,10 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             SRF, SIND, ALCRIND, SHIFD, ALCRND, SRD, SROI, SROND, ALCHO, SHOD, ALCHD, ALCRFD,
             ALCHOIQ, SOND, SHQD, ALCRD, SRND, ALCRIQD, SOIQD, SFD, SROF, SROIF, SOID, SRN, ALCHIFD,
             SROIFD, SIFD, SRQD, SHOID, SRIQ, SHOIQD, ALCHON, ALCROFD, ALCHOQ, ALCRQD, ALCIQD,
-            ALCROIQ, ALCHOFD, ALCROIFD, ALCHQD, ALCROI, SRI, ALCFD, ALCRN, ALCRO);
+            ALCROIQ, ALCHOFD, ALCROIFD, ALCHQD, ALCROI, SRI, ALCFD, ALCRN, ALCRO, ALCRrF, SRrN,
+            ALCRrQ, ALCRrOD, ALCRrD, SRrOQ, ALCRr, ALCRrOND, ALCRrOQ, SRrOF, ALCRrO, SRrOQD, SRr,
+            ALCRrFD, ALCRrOF, SRrOND, SRrF, SRrOFD, SRrD, SRrON, SRrO, SRrND, ALCRrON, ALCRrQD,
+            SRrQ, ALCRrND, SRrOD, SRrQD, SRrFD, ALCRrOQD, ALCRrN, ALCRrOFD);
     }
 
     protected static List<Languages> belowU() {
@@ -221,7 +508,10 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             SROQD, SHOD, ALCHF, ALCRIF, SQD, ALCRI, ALCRD, SRN, ALCHD, ALCHOF, ALCROND, SRND,
             ALCHOIND, SRQD, SID, ALCH, SRIQ, SRO, ALCHOND, ALCOND, SROFD, ALCROFD, SRIQD, ALCRFD,
             SHOIQD, SHFD, SROQ, ALCRND, ALCRID, ALCROIND, SRQ, ALCIFD, ALCR, SROI, SR, ALCHN,
-            ALCHQD, SRIN, ALCQD, ALCHOIF, ALCOFD, ALCHOQD);
+            ALCHQD, SRIN, ALCQD, ALCHOIF, ALCOFD, ALCHOQD, SRrD, ALCRrOFD, ALCRr, SRrOND, ALCRrQ,
+            SRrON, SRrOF, ALCRrN, SRrND, ALCRrO, ALCRrD, SRrQD, SRrN, SRrOD, SRrOQD, SRrF, ALCRrOND,
+            SRrOFD, ALCRrFD, ALCRrOQ, ALCRrQD, ALCRrOQD, SRrQ, ALCRrF, SRrOQ, SRrO, ALCRrOD,
+            ALCRrON, SRrFD, ALCRrOF, SRr, ALCRrND);
     }
 
     protected static List<Languages> belowTRAN() {
@@ -231,7 +521,9 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             SROIND, SRFD, SIND, SOIND, SND, SD, SHND, SHOID, SOND, SHOIFD, SROIFD, SROND, SHQD, SOD,
             SRON, SHOIND, SHIFD, SOFD, SROQD, SHOD, SQD, SRN, SOID, SRIF, SFD, SRND, SRQD, SID,
             SRID, SRIQ, SRO, SROFD, SRIQD, SOIQD, SHOIQD, SHFD, SROID, SHIQD, SHOND, SROQ, SRD,
-            SRIND, SOQD, SHOFD, SRQ, SROI, SR, SROF, SRIN, SROD, SROIF);
+            SRIND, SOQD, SHOFD, SRQ, SROI, SR, SROF, SRIN, SROD, SROIF, SRrO, SRr, SRrOD, SRrD,
+            SRrN, SRrQD, SRrOF, SRrQ, SRrON, SRrOND, SRrOQD, SRrOFD, ELPLUSPLUS, SRrOQ, SRrFD,
+            SRrND, SRrF);
     }
 
     protected static List<Languages> belowO() {
@@ -243,7 +535,9 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             SHOIFD, ALCHOIQ, ALCROIN, ALCOND, ALCOD, SOIND, ALCHOF, ALCHOID, SROIN, ALCROIND,
             ALCROQ, ALCHOQD, SROQ, ALCOIND, ALCHOIF, ALCROID, ALCHOQ, ALCROIF, SROQD, ALCHOIQD,
             ALCHOIFD, SHOQD, ALCHOND, SROF, SOIFD, SOD, SROIFD, SHOFD, ALCROD, SRO, SOID, ALCROIFD,
-            SHOIND, SROD, SRON, SROI, SROIND, ALCHOIND, SOFD);
+            SHOIND, SROD, SRON, SROI, SROIND, ALCHOIND, SOFD, ALCRrOFD, ALCRrOD, SRrOD, SRrOF,
+            SRrOFD, SRrOQ, SRrON, ALCRrOQ, SRrO, ALCRrOF, ALCRrOND, ALCRrON, SRrOQD, ALCRrOQD,
+            ALCRrO, SRrOND);
     }
 
     protected static List<Languages> belowIF() {
@@ -257,7 +551,7 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             ALCHOFD, ALCHIFD, ALCHIF, SROF, ALCHOIF, ALCRIFD, SHFD, SRFD, ALCRFD, SHIFD, SOIFD,
             SROIFD, ALCOIFD, ALCOFD, SRIFD, SFD, SRIF, ALCRIF, SROFD, SIFD, SHOFD, ALCROIF, ALCIFD,
             SHOIFD, ALCHOIFD, ALCROIFD, SOFD, ALCFD, ALCROF, ALCRF, SROIF, ALCHF, ALCROFD, ALCHFD,
-            ALCHOF);
+            ALCHOF, SRrOFD, ALCRrFD, SRrFD, ALCRrOFD, SRrOF, ALCRrF, SRrF, ALCRrOF);
     }
 
     protected static List<Languages> belowCU() {
@@ -276,7 +570,10 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             ALCHOIFD, ALCRON, ALCIND, SID, SQD, ALCHF, SHFD, ALCHIF, ALCR, ALCRIN, SIND, SRON,
             SHOQD, ALCHIN, ALCROFD, ALCHON, ALCOIFD, ALCHIQ, ALCHOQ, ALCRF, SRIQ, ALCROQD, ALCROIN,
             SR, ALCHOFD, SROIFD, ALCRIND, SOID, SOIND, SHOND, SRID, SRI, ALCHOIN, SHOID, SOFD,
-            ALCHND, ALCHOIF, ALCRQ, ALCROIND, ALCHO, SOQD, SHOD, ALCOIQD);
+            ALCHND, ALCHOIF, ALCRQ, ALCROIND, ALCHO, SOQD, SHOD, ALCOIQD, ALCRrQD, ALCRrOFD,
+            ALCRrOD, SRrND, SRr, ALCRrOND, ALCRrQ, ALCRrO, ALCRrOQ, ALCRrF, SRrOFD, SRrN, SRrOQ,
+            SRrOF, ALCRrFD, SRrOD, ALCRrOF, SRrQD, SRrOQD, SRrQ, ALCRr, ALCRrND, SRrFD, SRrOND,
+            ALCRrN, SRrON, SRrF, SRrO, ALCRrON, ALCRrD, ALCRrOQD, SRrD);
     }
 
     protected static List<Languages> belowCUO() {
@@ -288,7 +585,8 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             SROIN, ALCHOIF, SROIFD, SROD, ALCOID, ALCHOQD, SHOIQD, ALCRO, ALCROF, ALCROIQ, SHOIFD,
             SOID, SROFD, SROIND, ALCHOIN, SOD, ALCHOF, SHOND, SROID, ALCROIF, SRON, ALCROQ, SROND,
             ALCHOND, ALCHOID, ALCROQD, SOIND, ALCHO, ALCOIFD, ALCHOIFD, ALCROIQD, ALCOIQD, ALCOQD,
-            ALCOD, ALCOND, ALCROIND, ALCHOFD);
+            ALCOD, ALCOND, ALCROIND, ALCHOFD, SRrOD, ALCRrOF, ALCRrOFD, SRrOQD, ALCRrOD, ALCRrOND,
+            SRrOND, ALCRrO, SRrON, ALCRrOQ, SRrOFD, SRrOQ, SRrOF, SRrO, ALCRrON, ALCRrOQD);
     }
 
     protected static List<Languages> belowUniversal() {
@@ -307,21 +605,24 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             ALCRFD, ALCRQD, SRF, SHD, ALCHIQ, ALCHD, SHOQD, SRD, ALCHOIQ, SRIF, ALCRND, SHID,
             ALCRIND, SHOFD, ALCRD, SRN, SROF, ALCROIF, SOID, ALCRQ, SRFD, ALCOIFD, ALCHON, ALCHQD,
             ALCRIFD, ALCROF, SHOIFD, ALCRID, ALCHIN, ALCHOFD, ALCOND, SROQD, SHOIND, ALCRN, SND,
-            ALCHQ, SID, ALCIQD, SOIFD, ALCH, SROIND, SR, ALCROFD, ALCID);
+            ALCHQ, SID, ALCIQD, SOIFD, ALCH, SROIND, SR, ALCROFD, ALCID, ALCRrQD, ALCRrOFD, ALCRrOD,
+            SRrND, SRr, ALCRrOND, ALCRrQ, ALCRrO, ALCRrOQ, ALCRrF, SRrOFD, SRrN, SRrOQ, SRrOF,
+            ALCRrFD, SRrOD, ALCRrOF, SRrQD, SRrOQD, SRrQ, ALCRr, ALCRrND, SRrFD, SRrOND, ALCRrN,
+            SRrON, SRrF, SRrO, ALCRrON, ALCRrD, ALCRrOQD, SRrD);
     }
 
     protected static List<Languages> belowQD() {
         return l(ALCRIQD, SOQD, SRIQD, ALCHIQD, ALCIQD, SHIQD, SRQD, SQD, SHOQD, SIQD, SHOIQD,
             ALCHOQD, ALCHOIQD, SHQD, ALCROIQD, ALCOQD, SOIQD, SROQD, ALCHQD, ALCOIQD, SROIQD,
-            ALCRQD, ALCROQD, ALCQD);
+            ALCRQD, ALCROQD, ALCQD, SRrOQD, ALCRrOQD, ALCRrQD, SRrQD);
     }
 
     protected static List<Languages> belowQ() {
-        return l(ALCQ, ALCOQ, ALCIQ, ALCOIQ, SQ, SOQ, SIQ, SOIQ, SHQ, SHOQ, SHIQ, SHOIQ, SROIQ,
-            SROIQD, SROQD, ALCRIQD, SQD, ALCHQ, SOIQD, ALCQD, SRQ, SHOQD, ALCOQD, ALCOIQD, SROQ,
-            SRQD, ALCROIQD, ALCROQ, SRIQ, SHOIQD, ALCHOQ, ALCRQD, ALCHOQD, ALCIQD, SRIQD, ALCRIQ,
-            ALCROIQ, ALCHIQ, ALCHOIQD, ALCHQD, ALCROQD, ALCRQ, ALCHIQD, SIQD, ALCHOIQ, SHIQD, SHQD,
-            SOQD);
+        return l(SRrQ, ALCHOIQD, SOIQ, SRIQ, SHQD, SRIQD, ALCHOQ, SRQD, ALCROIQ, ALCHQ, ALCRrOQ,
+            SHOIQ, SOQD, SROQ, SIQ, ALCROQ, SOQ, ALCIQ, SHIQ, ALCHIQ, ALCRIQD, SHOQD, ALCHOQD,
+            SRrOQD, ALCROIQD, ALCOQD, SHQ, ALCRrQD, SOIQD, SRrQD, ALCOQ, ALCRQ, ALCRrOQD, SQ,
+            ALCHIQD, ALCRIQ, SROQD, SIQD, SHOIQD, ALCHQD, SROIQD, SHOQ, SQD, SRQ, ALCQD, ALCOIQ,
+            SROIQ, ALCIQD, SHIQD, ALCHOIQ, ALCROQD, ALCRQD, SRrOQ, ALCRrQ, ALCQ, ALCOIQD);
     }
 
     protected static List<Languages> belowD() {
@@ -333,7 +634,9 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             SHOQD, SID, SOD, ALCOIFD, ALCFD, ALCRQD, SHOIND, SRFD, SRND, SRIND, ALCHIQD, SROD,
             SROIFD, SHQD, ALCROD, ALCID, SOIND, ALCHIFD, ALCIND, SHFD, ALCRD, SOND, ALCND, ALCOD,
             SIND, SOID, SHND, SIQD, SRD, SHOND, ALCOFD, ALCHOIQD, ALCROID, SFD, SROID, ALCHD,
-            ALCHOIFD, SIFD, SRIFD, SRIQD, ALCRIFD, SRID);
+            ALCHOIFD, SIFD, SRIFD, SRIQD, ALCRIFD, SRID, SRrOQD, ALCRrOQD, ALCRrQD, SRrND,
+            ELPLUSPLUS, SRrQD, SRrOFD, SRrOND, ALCRrND, ALCRrD, SRrOD, ALCRrOFD, SRrD, ALCRrOND,
+            ALCRrOD, ALCRrFD, SRrFD);
     }
 
     protected static List<Languages> belowH() {
@@ -379,20 +682,33 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             SRIND, ALCHOQD, ALCOIFD, ALCOD, SHIFD, ALCOIND, SIND, ALCHQD, ALCROQ, SOIQD, SHOFD,
             ALCHFD, ALCROQD, ALCHOIND, ALCHOIN, SROIF, ALCROID, ALCROIFD, ALCHIN, SROQ, SHID, SHD,
             ALCROND, ALCIFD, ALCIQD, ALCHOIFD, SRID, ALCHON, ALCRQD, SRFD, ALCROIQ, ALCHID, ALCND,
-            SOIFD, SRND, SRIF, ALCHO, SHOID, ALCHIF, SOND, SRIQD);
+            SOIFD, SRND, SRIF, ALCHO, SHOID, ALCHIF, SOND, SRIQD, ALCRrQD, ALCRrOFD, ALCRrOD, SRrND,
+            SRr, ALCRrOND, ALCRrQ, ALCRrO, ALCRrOQ, ALCRrF, SRrOFD, SRrN, SRrOQ, SRrOF, ALCRrFD,
+            SRrOD, ALCRrOF, SRrQD, SRrOQD, SRrQ, ALCRr, ALCRrND, SRrFD, SRrOND, ALCRrN, SRrON, SRrF,
+            SRrO, ALCRrON, ALCRrD, ALCRrOQD, SRrD);
     }
 
     protected static List<Languages> belowR() {
-        return l(ELPLUSPLUS, SROIQ, SROIQD, SROFD, SRI, SRIQ, SRD, SROF, ALCROF, ALCROIQD, ALCRIN,
-            ALCROIF, ALCRFD, ALCRIQ, SROQ, SROND, ALCR, ALCROI, SROIF, SRN, ALCRIF, ALCRI, SRIFD,
-            SRIND, ALCRQD, SRF, SRIF, ALCRIND, ALCRID, ALCROID, ALCROND, ALCROIN, ALCRIFD, SROQD,
-            ALCRND, ALCROIFD, SRFD, SRQD, SRIN, SROIFD, ALCRD, ALCRN, ALCRQ, ALCRON, ALCROIQ,
-            ALCROIND, SRO, SROD, ALCROQ, SRON, ALCROFD, SRID, SRIQD, SRQ, ALCROQD, ALCRIQD, SRND,
-            SROID, SROIN, ALCRF, ALCROD, SR, SROI, ALCRO, SROIND);
+        return l(SROQD, SRIQD, ALCROQD, SROF, SRI, SROID, ALCROQ, SRIN, ALCROIFD, ALCRF, ALCROIND,
+            SRF, ELPLUSPLUS, SRID, SROIQ, ALCRND, ALCROIQD, ALCRI, ALCROIF, ALCRD, ALCRON, SROD,
+            ALCROIQ, ALCRO, ALCROF, SROIF, SROND, ALCRIF, SRQD, SRIFD, SRIND, SROFD, SROIND, ALCRQ,
+            SROQ, ALCRFD, ALCROID, SRND, SROIN, ALCROND, ALCRIN, SRD, ALCR, ALCRQD, ALCRIQD, SROI,
+            SRON, ALCROI, ALCRIFD, ALCRID, SRFD, ALCRN, SRIF, SR, SRN, SRO, SROIFD, ALCROFD,
+            ALCRIND, ALCROIN, SRQ, ALCROD, SRIQ, SROIQD, ALCRIQ);
+    }
+
+    protected static List<Languages> belowRr() {
+        return l(ALCRr, ALCRrON, SRrQD, SRrD, ALCRrO, ALCRrFD, ALCRrOQ, SRrOF, ALCRrOQD, ALCRrF,
+            SRrQ, ALCRrN, ALCRrOFD, SRrON, SRrFD, ALCRrQ, SRrO, ALCRrQD, SRrND, ALCRrOND, SRrOND,
+            ALCRrOF, SRrOQD, ALCRrD, SRrF, ALCRrND, SRrOD, SRrN, ALCRrOD, SRrOFD, SRrOQ, SRr);
     }
 
     protected static List<Languages> expressR() {
         return l(ALCR, ELPLUSPLUS);
+    }
+
+    protected static List<Languages> expressRr() {
+        return l(ALCRr);
     }
 
     @Test
@@ -421,9 +737,9 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         assertEquals(expected, testsubject.getDescriptionLogicName());
         assertEquals(delta("minimal", minimal, minimalLanguages), new HashSet<>(minimal),
             new HashSet<>(minimalLanguages));
-        // String message = constructsFound + "\t" + "expressible in " + expressibleInLanguages
-        //    + "\tminimal:\t" + minimalLanguages;// + "\twithin:\t" + below;
-        // System.out.println(message);
+        String message = constructsFound + "\t" + "expressible in " + expressibleInLanguages
+            + "\tminimal:\t" + minimalLanguages;// + "\twithin:\t" + below;
+        System.out.println(message);
     }
 
     private static String delta(String prefix, Collection<Languages> within2,

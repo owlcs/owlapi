@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.utility;
 
+import java.util.EnumSet;
+
 /**
  * Construct enum.
  */
@@ -15,7 +17,9 @@ public enum Construct {
     E           ("E"),
     /** H - Role hierarchy (subproperties: rdfs:subPropertyOf). */
     H           ("H"),
-    /** R - Limited complex role inclusion axioms; reflexivity and irreflexivity; role disjointness. */
+    /** Rr - Reflexivity and property chains. */
+    Rr          ("Rr"),
+    /** R - Limited complex role inclusion axioms; irreflexivity; role disjointness. */
     R           ("R"),
     /** O - Nominals. (Enumerated classes of object value restrictions: owl:oneOf, owl:hasValue). */
     O           ("O"),
@@ -40,6 +44,8 @@ public enum Construct {
     /** Limited existential quantifications (Top only). */
     LIMEXIST    ("LIMEXIST");
     //@formatter:on
+    public static EnumSet<Construct> incompatibleRoleFetures = EnumSet.of(Rr, I);
+
     private final String s;
     Construct[] components;
 
