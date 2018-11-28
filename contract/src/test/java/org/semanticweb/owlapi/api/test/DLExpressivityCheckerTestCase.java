@@ -13,21 +13,22 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.utility.Construct.C;
-import static org.semanticweb.owlapi.utility.Construct.CINT;
+import static org.semanticweb.owlapi.utility.Construct.CONCEPT_COMPLEX_NEGATION;
+import static org.semanticweb.owlapi.utility.Construct.CONCEPT_INTERSECTION;
+import static org.semanticweb.owlapi.utility.Construct.CONCEPT_UNION;
 import static org.semanticweb.owlapi.utility.Construct.D;
-import static org.semanticweb.owlapi.utility.Construct.E;
 import static org.semanticweb.owlapi.utility.Construct.F;
-import static org.semanticweb.owlapi.utility.Construct.H;
-import static org.semanticweb.owlapi.utility.Construct.I;
-import static org.semanticweb.owlapi.utility.Construct.O;
+import static org.semanticweb.owlapi.utility.Construct.FULL_EXISTENTIAL;
+import static org.semanticweb.owlapi.utility.Construct.N;
+import static org.semanticweb.owlapi.utility.Construct.NOMINALS;
 import static org.semanticweb.owlapi.utility.Construct.Q;
-import static org.semanticweb.owlapi.utility.Construct.R;
-import static org.semanticweb.owlapi.utility.Construct.RRESTR;
-import static org.semanticweb.owlapi.utility.Construct.Rr;
-import static org.semanticweb.owlapi.utility.Construct.TRAN;
-import static org.semanticweb.owlapi.utility.Construct.U;
-import static org.semanticweb.owlapi.utility.Construct.UNIVRESTR;
+import static org.semanticweb.owlapi.utility.Construct.ROLE_COMPLEX;
+import static org.semanticweb.owlapi.utility.Construct.ROLE_DOMAIN_RANGE;
+import static org.semanticweb.owlapi.utility.Construct.ROLE_HIERARCHY;
+import static org.semanticweb.owlapi.utility.Construct.ROLE_INVERSE;
+import static org.semanticweb.owlapi.utility.Construct.ROLE_REFLEXIVITY_CHAINS;
+import static org.semanticweb.owlapi.utility.Construct.ROLE_TRANSITIVE;
+import static org.semanticweb.owlapi.utility.Construct.UNIVERSAL_RESTRICTION;
 import static org.semanticweb.owlapi.utility.Languages.AL;
 import static org.semanticweb.owlapi.utility.Languages.ALC;
 import static org.semanticweb.owlapi.utility.Languages.ALCD;
@@ -283,16 +284,16 @@ import org.semanticweb.owlapi.utility.Languages;
 @RunWith(Parameterized.class)
 public class DLExpressivityCheckerTestCase extends TestBase {
 
-    private final OWLAxiom object;
+    private final List<OWLAxiom> objects;
     private final String expected;
     private List<Construct> constructs;
     private List<Languages> expressible;
     private List<Languages> within;
     private List<Languages> minimal;
 
-    public DLExpressivityCheckerTestCase(OWLAxiom object, String expected, String expectedStrict,
-        List<Construct> c, List<Languages> exp, List<Languages> within, List<Languages> min) {
-        this.object = object;
+    public DLExpressivityCheckerTestCase(String expected, String expectedStrict, List<Construct> c,
+        List<Languages> exp, List<Languages> within, List<Languages> min, List<OWLAxiom> objects) {
+        this.objects = objects;
         this.expected = expectedStrict;
         constructs = c;
         expressible = exp;
@@ -309,79 +310,93 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         Builder b = new Builder();
         return Arrays.asList(
         //@formatter:off
-            new Object[] {b.assAll(),           "0 AL",       "UNIVRESTR" , l(UNIVRESTR), l(FL0), belowUniversal(), l(FL0) },
-            new Object[] {b.dDef(),             "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.decC(),             "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.decOp(),            "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.decDp(),            "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.decDt(),            "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.decAp(),            "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.decI(),             "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.ec(),               "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.nop(),              "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.opa(),              "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.subAnn(),           "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.subClass(),         "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.rule(),             "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.hasKey(),           "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.bigRule(),          "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.ann(),              "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.annDom(),           "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.annRange(),         "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.ass(),              "1  AL",       ""          , empty(), l(FL0, EL), empty(), l(FL0, EL) },
-            new Object[] {b.assDi(),            "2  ALCO",     "CUO"       , l(C, U, O), l(ALCO), belowCUO(), l(ALCO) },
-            new Object[] {b.dc(),               "3  ALC",      "C"         , l(C), l(ALC), belowC(), l(ALC) },
-            new Object[] {b.assNot(),           "3  ALC",      "C"         , l(C), l(ALC), belowC(), l(ALC) },
-            new Object[] {b.assNotAnon(),       "3  ALC",      "C"         , l(C), l(ALC), belowC(), l(ALC) },
-            new Object[] {b.dOp(),              "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
-            new Object[] {b.irr(),              "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
-            new Object[] {b.asymm(),            "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
-            new Object[] {b.assHasSelf(),       "4  ALR",      "R"         , l(R), expressR(), belowR(), expressR() },
-            new Object[] {b.dRange(),           "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
-            new Object[] {b.dRangeAnd(),        "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
-            new Object[] {b.dRangeOr(),         "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
-            new Object[] {b.dOneOf(),           "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
-            new Object[] {b.dNot(),             "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
-            new Object[] {b.dRangeRestrict(),   "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
-            new Object[] {b.dDom(),             "5  AL(D)",    "RRESTR(D)" , l(RRESTR, D), l(ALCD), belowALD(), l(ALCD) },
-            new Object[] {b.du(),               "6  ALC",      "CU"        , l(C, U), l(ALC), belowCU(), l(ALC) },
-            new Object[] {b.eDp(),              "7  ALH(D)",   "H(D)"      , l(H, D), l(ALCHD), belowHD(), l(ALCHD) },
-            new Object[] {b.subData(),          "7  ALH(D)",   "H(D)"      , l(H, D), l(ALCHD), belowHD(), l(ALCHD) },
-            new Object[] {b.eOp(),              "8  ALH",      "H"         , l(H), l(ALCH), belowH(), l(ALCH) },
-            new Object[] {b.subObject(),        "8  ALH",      "H"         , l(H), l(ALCH), belowH(), l(ALCH) },
-            new Object[] {b.fdp(),              "9 ALF(D)",   "F(D)"      , l(F, D), l(ALCFD), belowFD(), l(ALCFD) },
-            new Object[] {b.fop(),              "10 ALF",      "F"         , l(F), l(ALCF), belowF(), l(ALCF) },
-            new Object[] {b.ifp(),              "11 ALIF",     "IF"        , l(I, F), l(ALCIF), belowIF(), l(ALCIF) },
-            new Object[] {b.iop(),              "12 ALI",      "I"         , l(I), l(ALCI), belowI(), l(ALCI) },
-            new Object[] {b.opaInv(),           "12 ALI",      "I"         , l(I), l(ALCI), belowI(), l(ALCI) },
-            new Object[] {b.opaInvj(),          "12 ALI",      "I"         , l(I), l(ALCI), belowI(), l(ALCI) },
-            new Object[] {b.symm(),             "12 ALI",      "I"         , l(I), l(ALCI), belowI(), l(ALCI) },
-            new Object[] {b.dDp(),              "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
-            new Object[] {b.ndp(),              "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
-            new Object[] {b.assDAll(),          "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
-            new Object[] {b.assDHas(),          "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
-            new Object[] {b.assD(),             "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
-            new Object[] {b.assDPlain(),        "13 AL(D)",    "(D)"       , l(D), l(ALCD, ELPLUSPLUS), belowD(), l(ALCD, ELPLUSPLUS) },
-            new Object[] {b.same(),             "14 ALO",      "O"         , l(O), l(ALCO,ELPLUSPLUS), belowO(), l(ALCO,ELPLUSPLUS) },
-            new Object[] {b.trans(),            "15 AL+",      "+"         , l(TRAN), l(S, ELPLUSPLUS), belowTRAN(), l(S, ELPLUSPLUS) },
-            new Object[] {b.assAnd(),           "16 AL",       "CINT"      , l(CINT), l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS) },
-            new Object[] {b.assOr(),            "17 ALU",      "U"         , l(U), l(ALC), belowU(), l(ALC) },
-            new Object[] {b.oDom(),             "18 AL",       "RRESTR"    , l(RRESTR), l(FL, EL), belowRRESTR(), l(FL, EL) },
-            new Object[] {b.oRange(),           "18 AL",       "RRESTR"    , l(RRESTR), l(FL, EL), belowRRESTR(), l(FL, EL) },
-            new Object[] {b.assSome(),          "19 ALE",      "E"         , l(E), l(EL,ALE, ELPLUSPLUS), belowE(), l(EL,ALE, ELPLUSPLUS) },
-            new Object[] {b.assHas(),           "20 ALEO",     "EO"        , l(E, O), l(ALCO,ELPLUSPLUS), belowEO(), l(ALCO, ELPLUSPLUS) },
-            new Object[] {b.assMin(),           "21 ALQ",      "Q"         , l(Q), l(ALCQ), belowQ(), l(ALCQ) },
-            new Object[] {b.assMax(),           "21 ALQ",      "Q"         , l(Q), l(ALCQ), belowQ(), l(ALCQ) },
-            new Object[] {b.assEq(),            "21 ALQ",      "Q"         , l(Q), l(ALCQ), belowQ(), l(ALCQ) },
-            new Object[] {b.assOneOf(),         "22 ALUO",     "UO"        , l(U, O), l(ALCO), belowUO(), l(ALCO) },
-            new Object[] {b.assDSome(),         "23 ALE(D)",   "E(D)"      , l(E, D), l(ALCD,ELPLUSPLUS), belowED(), l(ALCD,ELPLUSPLUS) },
-            new Object[] {b.assDMin(),          "24 ALQ(D)",   "Q(D)"      , l(Q, D), l(ALCQD), belowQD(), l(ALCQD) },
-            new Object[] {b.assDMax(),          "24 ALQ(D)",   "Q(D)"      , l(Q, D), l(ALCQD), belowQD(), l(ALCQD) },
-            new Object[] {b.assDEq(),           "24 ALQ(D)",   "Q(D)"      , l(Q, D), l(ALCQD), belowQD(), l(ALCQD) },
-            new Object[] {b.chain(),            "25 ALR",      "Rr"        , l(Rr), expressRr(), belowRr(), expressRr() },
-            new Object[] {b.ref(),              "25 ALR",      "Rr"        , l(Rr), expressRr(), belowRr(), expressRr() }
+            new Object[] {"0 AL",       "UNIVRESTR" , l(UNIVERSAL_RESTRICTION),                               l(FL0),                 belowUniversal(),l(FL0) ,                      l(b.assAll())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.dDef())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decC())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decOp())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decDp())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decDt())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decAp())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decI())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.ec())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.nop())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.opa())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.subAnn())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.subClass())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.rule())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.hasKey())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.bigRule())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.ann())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.annDom())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.annRange())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.ass())},
+            new Object[] {"2  ALCO",     "CUO"       , l(CONCEPT_COMPLEX_NEGATION, CONCEPT_UNION, NOMINALS),  l(ALCO),                belowCUO(),     l(ALCO),                       l(b.assDi())},
+            new Object[] {"3  ALC",      "C"         , l(CONCEPT_COMPLEX_NEGATION),                           l(ALC),                 belowC(),       l(ALC),                        l(b.dc())},
+            new Object[] {"3  ALC",      "C"         , l(CONCEPT_COMPLEX_NEGATION),                           l(ALC),                 belowC(),       l(ALC),                        l(b.assNot())},
+            new Object[] {"3  ALC",      "C"         , l(CONCEPT_COMPLEX_NEGATION),                           l(ALC),                 belowC(),       l(ALC),                        l(b.assNotAnon())},
+            new Object[] {"4  ALR",      "R"         , l(ROLE_COMPLEX),                                       expressR(),             belowR(),       expressR(),                    l(b.dOp())},
+            new Object[] {"4  ALR",      "R"         , l(ROLE_COMPLEX),                                       expressR(),             belowR(),       expressR(),                    l(b.irr())},
+            new Object[] {"4  ALR",      "R"         , l(ROLE_COMPLEX),                                       expressR(),             belowR(),       expressR(),                    l(b.asymm())},
+            new Object[] {"4  ALR",      "R"         , l(ROLE_COMPLEX),                                       expressR(),             belowR(),       expressR(),                    l(b.assHasSelf())},
+            new Object[] {"5  AL(D)",    "RRESTR(D)" , l(ROLE_DOMAIN_RANGE, D),                               l(ALCD),                belowALD(),     l(ALCD),                       l(b.dRange())},
+            new Object[] {"5  AL(D)",    "RRESTR(D)" , l(ROLE_DOMAIN_RANGE, D),                               l(ALCD),                belowALD(),     l(ALCD),                       l(b.dRangeAnd())},
+            new Object[] {"5  AL(D)",    "RRESTR(D)" , l(ROLE_DOMAIN_RANGE, D),                               l(ALCD),                belowALD(),     l(ALCD),                       l(b.dRangeOr())},
+            new Object[] {"5  AL(D)",    "RRESTR(D)" , l(ROLE_DOMAIN_RANGE, D),                               l(ALCD),                belowALD(),     l(ALCD),                       l(b.dOneOf())},
+            new Object[] {"5  AL(D)",    "RRESTR(D)" , l(ROLE_DOMAIN_RANGE, D),                               l(ALCD),                belowALD(),     l(ALCD),                       l(b.dNot())},
+            new Object[] {"5  AL(D)",    "RRESTR(D)" , l(ROLE_DOMAIN_RANGE, D),                               l(ALCD),                belowALD(),     l(ALCD),                       l(b.dRangeRestrict())},
+            new Object[] {"5  AL(D)",    "RRESTR(D)" , l(ROLE_DOMAIN_RANGE, D),                               l(ALCD),                belowALD(),     l(ALCD),                       l(b.dDom())},
+            new Object[] {"6  ALC",      "CU"        , l(CONCEPT_COMPLEX_NEGATION, CONCEPT_UNION),            l(ALC),                 belowCU(),      l(ALC),                        l(b.du())},
+            new Object[] {"7  ALH(D)",   "H(D)"      , l(ROLE_HIERARCHY, D),                                  l(ALCHD),               belowHD(),      l(ALCHD),                      l(b.eDp())},
+            new Object[] {"7  ALH(D)",   "H(D)"      , l(ROLE_HIERARCHY, D),                                  l(ALCHD),               belowHD(),      l(ALCHD),                      l(b.subData())},
+            new Object[] {"8  ALH",      "H"         , l(ROLE_HIERARCHY),                                     l(ALCH),                belowH(),       l(ALCH),                       l(b.eOp())},
+            new Object[] {"8  ALH",      "H"         , l(ROLE_HIERARCHY),                                     l(ALCH),                belowH(),       l(ALCH),                       l(b.subObject())},
+            new Object[] {"9 ALF(D)",    "F(D)"      , l(F, D),                                               l(ALCFD),               belowFD(),      l(ALCFD),                      l(b.fdp())},
+            new Object[] {"10 ALF",      "F"         , l(F),                                                  l(ALCF),                belowF(),       l(ALCF),                       l(b.fop())},
+            new Object[] {"11 ALIF",     "IF"        , l(ROLE_INVERSE, F),                                    l(ALCIF),               belowIF(),      l(ALCIF),                      l(b.ifp())},
+            new Object[] {"12 ALI",      "I"         , l(ROLE_INVERSE),                                       l(ALCI),                belowI(),       l(ALCI),                       l(b.iop())},
+            new Object[] {"12 ALI",      "I"         , l(ROLE_INVERSE),                                       l(ALCI),                belowI(),       l(ALCI),                       l(b.opaInv())},
+            new Object[] {"12 ALI",      "I"         , l(ROLE_INVERSE),                                       l(ALCI),                belowI(),       l(ALCI),                       l(b.opaInvj())},
+            new Object[] {"12 ALI",      "I"         , l(ROLE_INVERSE),                                       l(ALCI),                belowI(),       l(ALCI),                       l(b.symm())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),           l(b.dDp())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),           l(b.ndp())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),           l(b.assDAll())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),           l(b.assDHas())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),           l(b.assD())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),           l(b.assDPlain())},
+            new Object[] {"14 ALO",      "O"         , l(NOMINALS),                                           l(ALCO,ELPLUSPLUS),     belowO(),       l(ALCO,ELPLUSPLUS),            l(b.same())},
+            new Object[] {"15 AL+",      "+"         , l(ROLE_TRANSITIVE),                                    l(S, ELPLUSPLUS),       belowTRAN(),    l(S, ELPLUSPLUS),              l(b.trans())},
+            new Object[] {"16 AL",       "CINT"      , l(CONCEPT_INTERSECTION),                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.assAnd())},
+            new Object[] {"17 ALU",      "U"         , l(CONCEPT_UNION),                                      l(ALC),                 belowU(),       l(ALC),                        l(b.assOr())},
+            new Object[] {"18 AL",       "RRESTR"    , l(ROLE_DOMAIN_RANGE),                                  l(FL, EL),              belowRRESTR(),  l(FL, EL),                     l(b.oDom())},
+            new Object[] {"18 AL",       "RRESTR"    , l(ROLE_DOMAIN_RANGE),                                  l(FL, EL),              belowRRESTR(),  l(FL, EL),                     l(b.oRange())},
+            new Object[] {"19 ALE",      "E"         , l(FULL_EXISTENTIAL),                                   l(EL,ALE, ELPLUSPLUS),  belowE(),       l(EL,ALE, ELPLUSPLUS),         l(b.assSome())},
+            new Object[] {"20 ALEO",     "EO"        , l(FULL_EXISTENTIAL, NOMINALS),                         l(ALCO,ELPLUSPLUS),     belowEO(),      l(ALCO, ELPLUSPLUS),           l(b.assHas())},
+            new Object[] {"21 ALQ",      "Q"         , l(Q),                                                  l(ALCQ),                belowQ(),       l(ALCQ),                       l(b.assMin())},
+            new Object[] {"21 ALQ",      "Q"         , l(Q),                                                  l(ALCQ),                belowQ(),       l(ALCQ),                       l(b.assMax())},
+            new Object[] {"21 ALQ",      "Q"         , l(Q),                                                  l(ALCQ),                belowQ(),       l(ALCQ),                       l(b.assEq())},
+            new Object[] {"22 ALUO",     "UO"        , l(CONCEPT_UNION, NOMINALS),                            l(ALCO),                belowUO(),      l(ALCO),                       l(b.assOneOf())},
+            new Object[] {"23 ALE(D)",   "E(D)"      , l(FULL_EXISTENTIAL, D),                                l(ALCD,ELPLUSPLUS),     belowED(),      l(ALCD,ELPLUSPLUS),            l(b.assDSome())},
+            new Object[] {"24 ALQ(D)",   "Q(D)"      , l(Q, D),                                               l(ALCQD),               belowQD(),      l(ALCQD),                      l(b.assDMin())},
+            new Object[] {"24 ALQ(D)",   "Q(D)"      , l(Q, D),                                               l(ALCQD),               belowQD(),      l(ALCQD),                      l(b.assDMax())},
+            new Object[] {"24 ALQ(D)",   "Q(D)"      , l(Q, D),                                               l(ALCQD),               belowQD(),      l(ALCQD),                      l(b.assDEq())},
+            new Object[] {"25 ALR",      "Rr"        , l(ROLE_REFLEXIVITY_CHAINS),                            expressRr(),            belowRr(),      expressRr(),                   l(b.chain())},
+            new Object[] {"25 ALR",      "Rr"        , l(ROLE_REFLEXIVITY_CHAINS),                            expressRr(),            belowRr(),      expressRr(),                   l(b.ref())},
+            new Object[] {"26 ALR",      "RIQ"       , l(ROLE_COMPLEX, ROLE_INVERSE, Q),                      l(ALCRIQ),              belowRIQ(),     l(ALCRIQ),                     l(b.ref(), b.trans(), b.symm(), b.subObject(), b.fop(),b.assMinTop(), b.assMin()) },
+            new Object[] {"27 ALN",      "N"         , l(N),                                                  l(ALCN),                belowN(),       l(ALCN),                       l(b.assMinTop())}
             );
         //@formatter:on
+    }
+
+    protected static List<Languages> belowN() {
+        return l(ALCRND, SHND, SHIND, ALCRN, ALCROIN, ALCHND, SRND, SROIN, ALCOND, SHIN, ALCHIN,
+            ALCRON, SHOND, ALCON, ALCND, SOIN, SRON, ALCRrOND, ALCIN, SRN, SOIND, ALCRIND, SND, SHN,
+            SRIND, SRrOND, ALCOIN, SIN, ALCHIND, SN, ALCIND, ALCRrND, ALCHOIN, ALCHN, SOND,
+            ALCHOIND, SHOIN, SRrN, SRrON, SON, SHOIND, ALCOIND, ALCROND, SROIND, ALCROIND, SRrND,
+            ALCHOND, ALCRrON, ALCN, SHON, ALCRIN, ALCRrN, SRIN, SROND, SIND, ALCHON);
+    }
+
+    protected static List<Languages> belowRIQ() {
+        return l(ALCRIQD, SROIQ, SROIQD, SRIQD, ALCROIQD, SRIQ, ALCROIQ, ALCRIQ);
     }
 
     protected static List<Languages> belowRRESTR() {
@@ -713,7 +728,8 @@ public class DLExpressivityCheckerTestCase extends TestBase {
 
     @Test
     public void testAssertion() {
-        DLExpressivityChecker testsubject = new DLExpressivityChecker(ont());
+        Set<OWLOntology> ont = ont();
+        DLExpressivityChecker testsubject = new DLExpressivityChecker(ont);
         List<Construct> constructsFound = testsubject.getConstructs();
         if (constructsFound.isEmpty()) {
             return;
@@ -737,9 +753,9 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         assertEquals(expected, testsubject.getDescriptionLogicName());
         assertEquals(delta("minimal", minimal, minimalLanguages), new HashSet<>(minimal),
             new HashSet<>(minimalLanguages));
-        String message = constructsFound + "\t" + "expressible in " + expressibleInLanguages
-            + "\tminimal:\t" + minimalLanguages;// + "\twithin:\t" + below;
-        System.out.println(message);
+        // String message = asList(ont.iterator().next().axioms()) + "\n" + constructsFound + "\t"
+        // + "expressible in " + expressibleInLanguages + "\tminimal:\t" + minimalLanguages;
+        // System.out.println(message);
     }
 
     private static String delta(String prefix, Collection<Languages> within2,
@@ -754,7 +770,7 @@ public class DLExpressivityCheckerTestCase extends TestBase {
 
     public Set<OWLOntology> ont() {
         OWLOntology o = getOWLOntology();
-        o.add(object);
+        o.add(objects);
         Set<OWLOntology> singleton = Collections.singleton(o);
         return singleton;
     }
