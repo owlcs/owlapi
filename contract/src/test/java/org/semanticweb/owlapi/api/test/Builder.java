@@ -353,6 +353,11 @@ public class Builder {
         return df.getOWLClassAssertionAxiom(df.getOWLObjectMinCardinality(1, op, ce), i, as);
     }
 
+    public OWLClassAssertionAxiom assMinTop() {
+        return df.getOWLClassAssertionAxiom(df.getOWLObjectMinCardinality(1, op, df.getOWLThing()),
+            i, as);
+    }
+
     public OWLClassAssertionAxiom assHas() {
         return df.getOWLClassAssertionAxiom(df.getOWLObjectHasValue(op, i), i, as);
     }
