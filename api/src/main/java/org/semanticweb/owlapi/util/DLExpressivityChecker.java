@@ -107,6 +107,7 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
             constructs = new TreeSet<>();
             ontologies.stream().flatMap(o->o.getLogicalAxioms().stream()).forEach(ax -> ax.accept(this));
             }
+        Construct.trim(constructs);
         return constructs;
         }
 
@@ -114,7 +115,16 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
         if (constructs == null) {
             constructs = new TreeSet<>();
         }
+        // Rr+I = R + I
+        if (c == ROLE_INVERSE && constructs.contains(ROLE_REFLEXIVITY_CHAINS)) {
         constructs.add(c);
+            constructs.remove(ROLE_REFLEXIVITY_CHAINS);
+            constructs.add(ROLE_COMPLEX);
+        } else if (c == ROLE_REFLEXIVITY_CHAINS && constructs.contains(ROLE_INVERSE)) {
+            constructs.add(ROLE_COMPLEX);
+        } else {
+            constructs.add(c);
+        }
     }
 
     private boolean isAtomic(OWLClassExpression classExpression) {
@@ -148,7 +158,7 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
     // Property expression
     @Override
     public void visit(OWLObjectInverseOf property) {
-        addConstruct(I);
+        addConstruct(ROLE_INVERSE);
     }
 
     @Override
@@ -185,22 +195,22 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
     // class expressions
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
-        addConstruct(CINT);
+        addConstruct(CONCEPT_INTERSECTION);
         ce.getOperandsAsList().forEach(o -> o.accept(this));
     }
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
-        addConstruct(U);
+        addConstruct(CONCEPT_UNION);
         ce.getOperandsAsList().forEach(o -> o.accept(this));
     }
 
     @Override
     public void visit(OWLObjectComplementOf ce) {
         if (isAtomic(ce)) {
-            addConstruct(ATOMNEG);
+            addConstruct(ATOMIC_NEGATION);
         } else {
-            addConstruct(C);
+            addConstruct(CONCEPT_COMPLEX_NEGATION);
         }
         ce.getOperand().accept(this);
     }
@@ -208,9 +218,9 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
     @Override
     public void visit(OWLObjectSomeValuesFrom ce) {
         if (isTop(ce.getFiller())) {
-            addConstruct(LIMEXIST);
+            addConstruct(LIMITED_EXISTENTIAL);
         } else {
-            addConstruct(E);
+            addConstruct(FULL_EXISTENTIAL);
         }
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
@@ -218,15 +228,15 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLObjectAllValuesFrom ce) {
-        addConstruct(UNIVRESTR);
+        addConstruct(UNIVERSAL_RESTRICTION);
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
     public void visit(OWLObjectHasValue ce) {
-        addConstruct(O);
-        addConstruct(E);
+        addConstruct(NOMINALS);
+        addConstruct(FULL_EXISTENTIAL);
         ce.getProperty().accept(this);
     }
 
@@ -248,18 +258,18 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
     @Override
     public void visit(OWLObjectHasSelf ce) {
         ce.getProperty().accept(this);
-        addConstruct(R);
+        addConstruct(ROLE_COMPLEX);
     }
 
     @Override
     public void visit(OWLObjectOneOf ce) {
-        addConstruct(U);
-        addConstruct(O);
+        addConstruct(CONCEPT_UNION);
+        addConstruct(NOMINALS);
     }
 
     @Override
     public void visit(OWLDataSomeValuesFrom ce) {
-        addConstruct(E);
+        addConstruct(FULL_EXISTENTIAL);
         ce.getFiller().accept(this);
         ce.getProperty().accept(this);
     }
@@ -305,25 +315,25 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        addConstruct(R);
+        addConstruct(ROLE_COMPLEX);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        addConstruct(R);
+        addConstruct(ROLE_REFLEXIVITY_CHAINS);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        addConstruct(C);
+        addConstruct(CONCEPT_COMPLEX_NEGATION);
         axiom.getClassExpressionsAsList().forEach(o -> o.accept(this));
     }
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        addConstruct(RRESTR);
+        addConstruct(ROLE_DOMAIN_RANGE);
         addConstruct(D);
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
@@ -331,14 +341,14 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        addConstruct(RRESTR);
+        addConstruct(ROLE_DOMAIN_RANGE);
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        addConstruct(H);
+        addConstruct(ROLE_HIERARCHY);
         axiom.getProperties().forEach(o -> o.accept(this));
     }
 
@@ -349,9 +359,9 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        addConstruct(U);
-        addConstruct(O);
-        addConstruct(C);
+        addConstruct(CONCEPT_UNION);
+        addConstruct(NOMINALS);
+        addConstruct(CONCEPT_COMPLEX_NEGATION);
     }
 
     @Override
@@ -362,13 +372,13 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        addConstruct(R);
+        addConstruct(ROLE_COMPLEX);
         axiom.getProperties().forEach(o -> o.accept(this));
     }
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        addConstruct(RRESTR);
+        addConstruct(ROLE_DOMAIN_RANGE);
         axiom.getRange().accept(this);
         axiom.getProperty().accept(this);
     }
@@ -386,27 +396,27 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        addConstruct(H);
+        addConstruct(ROLE_HIERARCHY);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
     }
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-        addConstruct(U);
-        addConstruct(C);
+        addConstruct(CONCEPT_UNION);
+        addConstruct(CONCEPT_COMPLEX_NEGATION);
         axiom.getClassExpressions().forEach(o -> o.accept(this));
     }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        addConstruct(I);
+        addConstruct(ROLE_INVERSE);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
-        addConstruct(RRESTR);
+        addConstruct(ROLE_DOMAIN_RANGE);
         addConstruct(D);
         axiom.getProperty().accept(this);
     }
@@ -420,7 +430,7 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        addConstruct(H);
+        addConstruct(ROLE_HIERARCHY);
         addConstruct(D);
         axiom.getProperties().forEach(o -> o.accept(this));
     }
@@ -443,43 +453,43 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        addConstruct(TRAN);
+        addConstruct(ROLE_TRANSITIVE);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        addConstruct(R);
+        addConstruct(ROLE_COMPLEX);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        addConstruct(H);
+        addConstruct(ROLE_HIERARCHY);
         addConstruct(D);
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        addConstruct(I);
+        addConstruct(ROLE_INVERSE);
         addConstruct(F);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        addConstruct(O);
+        addConstruct(NOMINALS);
     }
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        addConstruct(R);
+        addConstruct(ROLE_REFLEXIVITY_CHAINS);
         axiom.getPropertyChain().forEach(o -> o.accept(this));
         axiom.getSuperProperty().accept(this);
     }
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        addConstruct(I);
+        addConstruct(ROLE_INVERSE);
     }
 }
