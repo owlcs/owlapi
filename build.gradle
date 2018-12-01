@@ -16,12 +16,12 @@ buildscript {
     dependencies {
         classpath fileTree('buildSrc/lib/')
         classpath 'me.champeau.gradle:japicmp-gradle-plugin:latest.integration'
-        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.0.0'
+        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.1.0'
     }
 }
 
 plugins {
-  id 'com.github.ben-manes.versions' version '0.17.0'
+  id 'com.github.ben-manes.versions' version '0.20.0'
 }
 
 allprojects {
@@ -88,7 +88,7 @@ subprojects {
     }
     classes {
         copy {
-            into sourceSets.main.output.classesDir
+            into sourceSets.main.java.outputDir
             from sourceSets.main.allSource
             include "**/packageinfo"
         }

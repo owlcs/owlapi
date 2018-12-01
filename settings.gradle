@@ -7,7 +7,7 @@ include ':owlapi-oboformat'
 include ':owlapi-rio'
 include ':owlapi-apibinding'
 include ':owlapi-contract'
-include ':owlapi-distribution'
+//include ':owlapi-distribution'
 //include ':owlapi-osgidistribution'
 //include ':benchmarks'
 
@@ -19,6 +19,6 @@ project(':owlapi-oboformat').projectDir = "$rootDir/oboformat" as File
 project(':owlapi-rio').projectDir = "$rootDir/rio" as File
 project(':owlapi-apibinding').projectDir = "$rootDir/apibinding" as File
 project(':owlapi-contract').projectDir = "$rootDir/contract" as File
-project(':owlapi-distribution').projectDir = "$rootDir/distribution" as File
+//project(':owlapi-distribution').projectDir = "$rootDir/distribution" as File
 //project(':owlapi-osgidistribution').projectDir = "$rootDir/osgidistribution" as File
 //project(':benchmarks').projectDir = "$rootDir/benchmarks" as File

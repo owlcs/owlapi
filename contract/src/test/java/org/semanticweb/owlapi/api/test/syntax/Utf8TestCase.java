@@ -40,8 +40,7 @@ import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 public class Utf8TestCase extends TestBase {
 
     private static final String INVALID_UTF8 =
-        "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
-            + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
+        "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
             + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
             + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
             + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
