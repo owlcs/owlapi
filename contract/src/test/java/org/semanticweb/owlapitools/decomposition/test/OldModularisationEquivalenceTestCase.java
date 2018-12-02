@@ -187,49 +187,7 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
     // return new HashSet<>(om.getModule(sig.stream(), ModuleType.STAR));
     // }
     protected Set<OWLAxiom> getADModule1(OWLOntology o, Set<OWLEntity> sig, ModuleType mt) {
-        AtomicDecomposition ad = new AtomicDecompositionImpl(o);
+        AtomicDecomposition ad = new AtomicDecompositionImpl(o, mt, false);
         return asSet(ad.getModule(sig.stream(), false, mt));
     }
-
-    @Test
-    @Ignore
-    public void should() throws Exception {
-        String in =
-        //@formatter:off
-            "Prefix(:=<urn:t:test#>)\n" + 
-            "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n" + 
-            "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n" + 
-            "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n" + 
-            "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n" + 
-            "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + 
-            "Ontology(<urn:t:test>\n" + 
-            "Declaration(Class(:Cookies))\n" + 
-            "Declaration(Class(:FatherChristmas))\n" + 
-            "Declaration(Class(:SantaClause))\n" + 
-            "Declaration(ObjectProperty(:likes))\n" + 
-            "Declaration(ObjectProperty(:isAbleTo))\n" + 
-            "EquivalentClasses(:FatherChristmas :SantaClause)\n" + 
-            "SubClassOf(:FatherChristmas owl:Nothing)\n" + 
-            "SubClassOf(:SantaClause ObjectSomeValuesFrom(:likes :Cookies))\n" + 
-            ")";
-        //@formatter:on
-        OWLOntologyManager m2 = OWLManager.createConcurrentOWLOntologyManager();
-        OWLOntology o = m2.loadOntologyFromOntologyDocument(new StringDocumentSource(in));
-        SyntacticLocalityModuleExtractor ex =
-            new SyntacticLocalityModuleExtractor(m2, o, ModuleType.STAR);
-        o.logicalAxioms().forEach(axiom -> {
-            axiom.signature().forEach(System.out::println);
-            System.out.println(axiom);
-            ex.extract(asSet(axiom.signature())).stream().filter(OWLAxiom::isLogicalAxiom)
-                .forEach(System.out::println);
-        });
-        AtomicDecompositionImpl ad = new AtomicDecompositionImpl(o, ModuleType.STAR);
-        ad.getAtoms().stream().map(this::nestedPrint).forEach(System.out::println);
-    }
-
-    protected String nestedPrint(Atom atom) {
-        return atom.getAxioms().stream().filter(OWLAxiom::isLogicalAxiom).map(Object::toString)
-            .collect(Collectors.joining("    ", "[ ", "]"));
-    }
-
 }
