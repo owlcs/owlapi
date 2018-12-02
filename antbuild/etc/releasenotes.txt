@@ -1,3 +1,18 @@
+4.5.7 01 Dec 2018
+
+Features:
+Add OWLClassExpression.isNamed method #790
+Fix injection problem under OSGi
+Expressivity Checker for EL and FL #500
+
+Bugs:
+Fix ReadWriteLock should be injector singleton #785
+Fix Cyclic import of versioned ontologies fails #788
+Fix Annotate ontology annotations #791
+Fix Incorrect documentation for OWLOntologyManager methods. #795
+DisjointClasses with OWL:Thing produces incorrect axiom #747
+Fix Concurrent managers with own lock shared with own ontologies #806
+
 4.5.6 06 Sep 2018
 
 Bug fixes:
