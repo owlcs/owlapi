@@ -1,0 +1,7 @@
+
+description = 'OWLAPI :: RDF/XML and Turtle Formats'
+dependencies {
+  compile project(':owlapi-api')
+  compile project(':owlapi-tools')
+  compile 'javax.inject:javax.inject:1'
+}

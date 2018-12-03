@@ -1,0 +1,2 @@
+org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory
+org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory

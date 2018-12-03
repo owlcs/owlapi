@@ -2,8 +2,12 @@ rootProject.name = 'owlapi-parent'
 include ':owlapi-api'
 include ':owlapi-impl'
 include ':owlapi-tools'
-include ':owlapi-parsers'
+include ':owlapi-functionalformat'
+include ':owlapi-manchesterformat'
+include ':owlapi-rdfformats'
+include ':owlapi-owlxmlformat'
 include ':owlapi-oboformat'
+include ':owlapi-otherformats'
 include ':owlapi-rio'
 include ':owlapi-apibinding'
 include ':owlapi-contract'
@@ -14,8 +18,12 @@ include ':owlapi-contract'
 project(':owlapi-api').projectDir = "$rootDir/api" as File
 project(':owlapi-impl').projectDir = "$rootDir/impl" as File
 project(':owlapi-tools').projectDir = "$rootDir/tools" as File
-project(':owlapi-parsers').projectDir = "$rootDir/parsers" as File
+project(':owlapi-functionalformat').projectDir = "$rootDir/functionalformat" as File
+project(':owlapi-manchesterformat').projectDir = "$rootDir/manchesterformat" as File
+project(':owlapi-rdfformats').projectDir = "$rootDir/rdfformats" as File
+project(':owlapi-owlxmlformat').projectDir = "$rootDir/owlxmlformat" as File
 project(':owlapi-oboformat').projectDir = "$rootDir/oboformat" as File
+project(':owlapi-otherformats').projectDir = "$rootDir/otherformats" as File
 project(':owlapi-rio').projectDir = "$rootDir/rio" as File
 project(':owlapi-apibinding').projectDir = "$rootDir/apibinding" as File
 project(':owlapi-contract').projectDir = "$rootDir/contract" as File

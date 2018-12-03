@@ -1,0 +1,8 @@
+
+description = 'OWLAPI :: OWL/XML Format'
+dependencies {
+  compile project(':owlapi-api')
+  compile project(':owlapi-tools')
+  compile project(':owlapi-rdfformats')
+  compile 'javax.inject:javax.inject:1'
+}

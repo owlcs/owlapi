@@ -1,0 +1,7 @@
+
+description = 'OWLAPI :: Manchester Syntax Format'
+dependencies {
+  compile project(':owlapi-api')
+  compile project(':owlapi-tools')
+  compile 'javax.inject:javax.inject:1'
+}

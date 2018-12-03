@@ -1,7 +1,7 @@
 
 description = 'OWLAPI :: RDF4J Rio'
 dependencies {
-    compile project(':owlapi-parsers')
+    compile project(':owlapi-rdfformats')
     compile 'javax.inject:javax.inject:1'
     compile 'org.eclipse.rdf4j:rdf4j-model:2.4.2'
     compile 'org.eclipse.rdf4j:rdf4j-rio-api:2.4.2'

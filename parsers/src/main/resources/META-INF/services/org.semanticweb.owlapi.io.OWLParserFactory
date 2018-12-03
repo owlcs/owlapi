@@ -1,7 +1,0 @@
-org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParserFactory
-org.semanticweb.owlapi.krss2.parser.KRSS2OWLParserFactory
-org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory
-org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParserFactory
-org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory
-org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory
-org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxOWLParserFactory
