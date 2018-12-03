@@ -151,7 +151,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
      *
      * @param dataFactory The data factory to be used for the duplication.
      * @param iriReplacementMap The map to use for the replacement of URIs. Any uris the appear in
-     * the map will be replaced as objects are duplicated. This can be used to "rename" entities.
+     *        the map will be replaced as objects are duplicated. This can be used to "rename"
+     *        entities.
      */
     public OWLAnnotationPropertyTransformer(OWLDataFactory dataFactory,
         Map<OWLEntity, OWLEntity> iriReplacementMap) {
@@ -166,14 +167,14 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
      *
      * @param dataFactory The data factory to be used for the duplication.
      * @param entityIRIReplacementMap The map to use for the replacement of URIs. Any uris the
-     * appear in the map will be replaced as objects are duplicated. This can be used to "rename"
-     * entities.
+     *        appear in the map will be replaced as objects are duplicated. This can be used to
+     *        "rename" entities.
      */
     public OWLAnnotationPropertyTransformer(Map<OWLEntity, OWLEntity> entityIRIReplacementMap,
         OWLDataFactory dataFactory) {
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
-        replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap,
-            "entityIRIReplacementMap cannot be null"));
+        replacementMap = new HashMap<>(
+            checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
     }
 
     /**
@@ -242,8 +243,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom ax) {
-        obj = df.getOWLDataPropertyDomainAxiom(dup(ax.getProperty()), dup(ax.getDomain()),
-            anns(ax));
+        obj =
+            df.getOWLDataPropertyDomainAxiom(dup(ax.getProperty()), dup(ax.getDomain()), anns(ax));
     }
 
     @Override
@@ -387,9 +388,9 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom ax) {
-        obj = df.getOWLSubPropertyChainOfAxiom(
-            asList(ax.getPropertyChain().stream().map(this::dup)),
-            dup(ax.getSuperProperty()), anns(ax));
+        obj =
+            df.getOWLSubPropertyChainOfAxiom(asList(ax.getPropertyChain().stream().map(this::dup)),
+                dup(ax.getSuperProperty()), anns(ax));
     }
 
     @Override
@@ -400,8 +401,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom ax) {
-        obj = df.getOWLObjectPropertyRangeAxiom(dup(ax.getProperty()), dup(ax.getRange()),
-            anns(ax));
+        obj =
+            df.getOWLObjectPropertyRangeAxiom(dup(ax.getProperty()), dup(ax.getRange()), anns(ax));
     }
 
     @Override
@@ -594,8 +595,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(SWRLRule rule) {
-        obj = df.getSWRLRule(asList(rule.body().map(this::dup)),
-            asList(rule.head().map(this::dup)));
+        obj =
+            df.getSWRLRule(asList(rule.body().map(this::dup)), asList(rule.head().map(this::dup)));
     }
 
     @Override
@@ -723,8 +724,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
                 asList(ax.annotations()));
             return;
         }
-        obj = df.getOWLAnnotationPropertyRangeAxiom(prop.asOWLAnnotationProperty(), range,
-            anns(ax));
+        obj =
+            df.getOWLAnnotationPropertyRangeAxiom(prop.asOWLAnnotationProperty(), range, anns(ax));
     }
 
     @Override
@@ -795,6 +796,7 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
      * A utility function that duplicates a set of objects.
      *
      * @param objects The set of object to be duplicated
+     * @param <O> type contained in the collections
      * @return The set of duplicated objects
      */
     private <O extends OWLObject> Collection<O> set(Stream<O> objects) {

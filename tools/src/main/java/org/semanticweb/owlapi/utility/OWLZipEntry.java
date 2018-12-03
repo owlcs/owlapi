@@ -40,8 +40,10 @@ public class OWLZipEntry {
     /**
      * @param key key to set
      * @param value value to set
+     * @param <T> type of the value
      * @return previous value
      */
+    @SuppressWarnings("unchecked")
     public <T> T set(String key, T value) {
         return (T) values.put(key, value);
     }
@@ -49,7 +51,9 @@ public class OWLZipEntry {
     /**
      * @param key key to retrieve
      * @return value associated
+     * @param <T> type of the value
      */
+    @SuppressWarnings("unchecked")
     public <T> T get(String key) {
         return (T) values.get(key);
     }

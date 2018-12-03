@@ -152,6 +152,7 @@ public class Injector {
      * @param t instance
      * @param c interface type
      * @param annotations annotations
+     * @param <T> type bound
      * @return modified injector
      */
     public <T> Injector bindOneMore(T t, Class<T> c, Annotation... annotations) {
@@ -166,6 +167,7 @@ public class Injector {
      * @param t supplier
      * @param c interface type
      * @param annotations annotations
+     * @param <T> type bound
      * @return modified injector
      */
     public <T> Injector bindOneMore(Supplier<T> t, Class<T> c, Annotation... annotations) {
@@ -183,6 +185,7 @@ public class Injector {
 
     /**
      * @param t object to inject
+     * @param <T> type bound
      * @return input object with all methods annotated with @Inject having been set with instances.
      */
     public <T> T inject(T t) {
@@ -240,6 +243,7 @@ public class Injector {
     /**
      * @param c class
      * @param qualifiers optional annotations
+     * @param <T> type bound
      * @return instance
      */
     public <T> T getImplementation(Class<T> c, Annotation... qualifiers) {
@@ -250,6 +254,7 @@ public class Injector {
      * @param c type to look up
      * @param qualifiers optional qualifiers
      * @return all implementations for the arguments
+     * @param <T> type bound
      */
     public <T> Stream<T> getImplementations(Class<T> c, Annotation... qualifiers) {
         return load(c, qualifiers);
@@ -259,6 +264,7 @@ public class Injector {
      * @param c type to look up
      * @param v local override for configuration properties
      * @param qualifiers optional qualifiers
+     * @param <T> type bound
      * @return implementation for the arguments (first of the list if multiple ones exist)
      */
     public <T> T getImplementation(Class<T> c, OntologyConfigurator v, Annotation... qualifiers) {
@@ -270,6 +276,7 @@ public class Injector {
      * @param c class
      * @param overrides local overrides of existing bindings
      * @param qualifiers optional annotations
+     * @param <T> type bound
      * @return instance
      */
     public <T> T getImplementation(Class<T> c, Map<Object, List<Supplier<?>>> overrides,
@@ -298,6 +305,7 @@ public class Injector {
      * @param <T> return type
      * @return iterable over T implementations
      */
+    @SuppressWarnings("unchecked")
     protected <T> Stream<T> load(Class<T> type, Annotation... qualifiers) {
         Object key = key(type, qualifiers);
         Class<?> c = typesOverrides.get(key);
@@ -320,6 +328,7 @@ public class Injector {
             .map(s -> (Class<T>) prepareClass(s, key)).map(s -> instantiate(s, key));
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> Constructor<T> injectableConstructor(Class<T> c) {
         try {
             Constructor<?>[] constructors = c.getConstructors();
@@ -353,6 +362,7 @@ public class Injector {
         return toReturn;
     }
 
+    @SuppressWarnings("unchecked")
     private <T> Class<T> prepareClass(String s, Object key) {
         try {
             Class<?> forName = Class.forName(s);

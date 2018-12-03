@@ -553,9 +553,11 @@ public class OBOFormatWriter {
      * @throws IOException Signals that an I/O exception has occurred.
      * @throws OBOFormatParserException the oBO format parser exception
      */
+    @SuppressWarnings("null")
     public void write(String fn, Writer writer) throws IOException {
         AtomicReference<OBODoc> doc = new AtomicReference<>();
         OWLParser parser = new OBOFormatOWLAPIParser((o, d) -> doc.set(d));
+        // Ontology can be null here - it is ignored in the parser object
         new IRIDocumentSource(fn).acceptParser(parser, null, new OntologyConfigurator());
         write(doc.get(), writer);
     }

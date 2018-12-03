@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
@@ -71,19 +71,22 @@ public class MapPointer<K, V extends OWLAxiom> {
     private int size = 0;
     private final ObjectObjectHashMap<K, Collection<V>> map = new ObjectObjectHashMap<>(17, 0.75F);
     private boolean neverTrimmed = true;
+    private final Class<V> valueWithness;
 
     /**
      * @param t type of axioms contained
      * @param v visitor
      * @param initialized true if initialized
      * @param i internals containing this pointer
+     * @param valueWithness witness for the value type
      */
     public MapPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
-        boolean initialized, Internals i) {
+        boolean initialized, Internals i, Class<V> valueWithness) {
         type = t;
         visitor = v;
         this.initialized = initialized;
         this.i = checkNotNull(i, "i cannot be null");
+        this.valueWithness = valueWithness;
     }
 
     /**
@@ -279,6 +282,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         List<OWLAxiom> toReturn = new ArrayList<>();
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             // This method is only used for MapPointer<AxiomType, OWLAxiom>
+            @SuppressWarnings("unchecked")
             Collection<V> collection = map.get((K) at);
             if (collection != null) {
                 stream(collection.spliterator()).filter(x -> filter.pass(x, key))
@@ -383,7 +387,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             if (set.contains(v)) {
                 return false;
             } else {
-                set = new HPPCSet(set, v);
+                set = new HPPCSet<>(set, v, valueWithness);
                 map.put(k, set);
                 size++;
                 return true;
@@ -447,26 +451,32 @@ public class MapPointer<K, V extends OWLAxiom> {
 
 class HPPCSet<S> implements Collection<S> {
     private ObjectHashSet<S> delegate;
+    private final Class<S> witness;
 
-    public HPPCSet() {
+    public HPPCSet(Class<S> c) {
         delegate = new ObjectHashSet<>();
+        this.witness = c;
     }
 
-    public HPPCSet(int initialCapacity) {
+    public HPPCSet(int initialCapacity, Class<S> c) {
         delegate = new ObjectHashSet<>(initialCapacity);
+        this.witness = c;
     }
 
-    public HPPCSet(int initialCapacity, double loadFactor) {
+    public HPPCSet(int initialCapacity, double loadFactor, Class<S> c) {
         delegate = new ObjectHashSet<>(initialCapacity, loadFactor);
+        this.witness = c;
     }
 
-    public HPPCSet(Collection<S> container) {
+    public HPPCSet(Collection<S> container, Class<S> c) {
         delegate = new ObjectHashSet<>(container.size() + 1);
+        this.witness = c;
         addAll(container);
     }
 
-    public HPPCSet(Collection<S> container, S s) {
+    public HPPCSet(Collection<S> container, S s, Class<S> c) {
         delegate = new ObjectHashSet<>(container.size() + 1);
+        this.witness = c;
         addAll(container);
         add(s);
     }
@@ -483,7 +493,7 @@ class HPPCSet<S> implements Collection<S> {
 
     @Override
     public boolean contains(@Nullable Object o) {
-        return delegate.contains((S) o);
+        return witness.isInstance(o) && delegate.contains(witness.cast(o));
     }
 
     @Override
@@ -520,13 +530,19 @@ class HPPCSet<S> implements Collection<S> {
 
     @Override
     public boolean remove(@Nullable Object o) {
-        return delegate.remove((S) o);
+        if (witness.isInstance(o)) {
+            return delegate.remove(witness.cast(o));
+        }
+        return false;
     }
 
     @Override
     public boolean containsAll(@Nullable Collection<?> c) {
-        for (Object o : verifyNotNull(c)) {
-            if (!delegate.contains((S) o)) {
+        if (c == null) {
+            return false;
+        }
+        for (Object o : c) {
+            if (!witness.isInstance(o) || !delegate.contains(witness.cast(o))) {
                 return false;
             }
         }
@@ -535,8 +551,11 @@ class HPPCSet<S> implements Collection<S> {
 
     @Override
     public boolean addAll(@Nullable Collection<? extends S> c) {
+        if (c == null) {
+            return false;
+        }
         boolean toReturn = false;
-        for (S s : verifyNotNull(c)) {
+        for (S s : c) {
             if (add(s)) {
                 toReturn = true;
             }
@@ -546,8 +565,11 @@ class HPPCSet<S> implements Collection<S> {
 
     @Override
     public boolean removeAll(@Nullable Collection<?> c) {
+        if (c == null) {
+            return false;
+        }
         boolean toReturn = false;
-        for (Object s : verifyNotNull(c)) {
+        for (Object s : c) {
             if (remove(s)) {
                 toReturn = true;
             }
@@ -557,7 +579,11 @@ class HPPCSet<S> implements Collection<S> {
 
     @Override
     public boolean retainAll(@Nullable Collection<?> c) {
-        return delegate.retainAll(new HPPCSet(verifyNotNull(c)).delegate) > 0;
+        if (c == null) {
+            return false;
+        }
+        List<S> asList = asList(c.stream().filter(witness::isInstance), witness);
+        return delegate.retainAll(new HPPCSet<>(asList, witness).delegate) > 0;
     }
 
     @Override

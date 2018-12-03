@@ -28,6 +28,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -132,37 +133,42 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
             parametersAtLoading == null ? null : parametersAtLoading.getLoaderMetaData());
     }
 
-    private static InputStream getInputStreamFromContentEncoding(String iri, Response response)
-        throws IOException {
+    private static OWLDocumentFormat getInputStreamFromContentEncoding(String iri,
+        Response response, Function<InputStream, OWLDocumentFormat> c) throws IOException {
         String encoding = response.header("Content-Encoding");
-        ResponseBody body = response.body();
-        if (body == null) {
-            throw new IOException("Response has no body");
-        }
-        InputStream in = body.byteStream();
-        if (encoding != null) {
-            switch (encoding) {
-                case "xz":
-                    return new XZInputStream(in);
-                case "gzip":
-                    return new GZIPInputStream(in);
-                case "deflate":
-                    return new InflaterInputStream(in, new Inflater(true));
-                default:
-                    break;
+        try (ResponseBody body = response.body()) {
+            if (body == null) {
+                throw new IOException("Response has no body");
+            }
+            try (InputStream in = body.byteStream()) {
+                if (encoding != null) {
+                    switch (encoding) {
+                        case "xz":
+                            return c.apply(new XZInputStream(in));
+                        case "gzip":
+                            return c.apply(new GZIPInputStream(in));
+                        case "deflate":
+                            return c.apply(new InflaterInputStream(in, new Inflater(true)));
+                        default:
+                            break;
+                    }
+                }
+                String fileName =
+                    getFileNameFromContentDisposition(response.header("Content-Disposition"));
+                if (fileName == null) {
+                    fileName = iri;
+                }
+                if (fileName.endsWith(".gz")) {
+                    return c.apply(new GZIPInputStream(in));
+                }
+                if (fileName.endsWith(".xz")) {
+                    try (XZInputStream xz = new XZInputStream(in)) {
+                        return c.apply(xz);
+                    }
+                }
+                return c.apply(handleZips(in, fileName));
             }
         }
-        String fileName = getFileNameFromContentDisposition(response.header("Content-Disposition"));
-        if (fileName == null) {
-            fileName = iri;
-        }
-        if (fileName.endsWith(".gz")) {
-            return new GZIPInputStream(in);
-        }
-        if (fileName.endsWith(".xz")) {
-            return new XZInputStream(in);
-        }
-        return handleZips(in, fileName);
     }
 
     private static Response getResponse(String documentIRI, OntologyConfigurator config,
@@ -278,16 +284,21 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
                     throw new OWLParserException(e);
                 }
             }
-            try (
-                Response response =
-                    getResponse(documentIRI, config, getAcceptHeaders().orElse(DEFAULT_REQUEST));
-                InputStream is = getInputStreamFromContentEncoding(documentIRI, response);
-                InputStream in = new BufferedInputStream(is)) {
-                if (textual) {
-                    return parser.parse(defaultReader.get(in), parameters);
-                } else {
-                    return parser.parse(in, parameters);
-                }
+            try (Response response =
+                getResponse(documentIRI, config, getAcceptHeaders().orElse(DEFAULT_REQUEST))) {
+                return getInputStreamFromContentEncoding(documentIRI, response, is -> {
+                    InputStream in = new BufferedInputStream(is);
+                    if (textual) {
+                        try {
+                            return parser.parse(defaultReader.get(in), parameters);
+                        } catch (IOException e) {
+                            failedOnIRI.set(true);
+                            throw new OWLParserException(e);
+                        }
+                    } else {
+                        return parser.parse(in, parameters);
+                    }
+                });
             } catch (OWLOntologyInputSourceException | IOException e) {
                 failedOnIRI.set(true);
                 throw new OWLParserException(e);

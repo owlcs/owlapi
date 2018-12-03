@@ -30,14 +30,12 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION_PROPE
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_AXIOM;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CLASS;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATA_PROPERTY;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_IMPORTS;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NOTHING;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ONTOLOGY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_RESTRICTION;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_THING;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_VERSION_IRI;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DATATYPE;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_FIRST;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_LIST;
@@ -51,7 +49,6 @@ import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -87,7 +84,6 @@ import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.SWRLRule;
@@ -475,7 +471,7 @@ public abstract class RDFRendererBase {
         ontology.accept(translator);
         if (!getRDFGraph().isEmpty()) {
             RDFResource node = translator.getMappedNode(ontology);
-            render(node);
+            render(verifyNotNull(node));
         }
         triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
     }

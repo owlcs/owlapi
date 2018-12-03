@@ -291,8 +291,9 @@ public class DLExpressivityCheckerTestCase extends TestBase {
     private List<Languages> within;
     private List<Languages> minimal;
 
-    public DLExpressivityCheckerTestCase(String expected, String expectedStrict, List<Construct> c,
-        List<Languages> exp, List<Languages> within, List<Languages> min, List<OWLAxiom> objects) {
+    public DLExpressivityCheckerTestCase(@SuppressWarnings("unused") String expected,
+        String expectedStrict, List<Construct> c, List<Languages> exp, List<Languages> within,
+        List<Languages> min, List<OWLAxiom> objects) {
         this.objects = objects;
         this.expected = expectedStrict;
         constructs = c;
@@ -301,6 +302,7 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         minimal = min;
     }
 
+    @SafeVarargs
     static <T> List<T> l(T... t) {
         return Arrays.asList(t);
     }

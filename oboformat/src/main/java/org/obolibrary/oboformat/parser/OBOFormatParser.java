@@ -193,9 +193,11 @@ public class OBOFormatParser {
      * @return parsed obo document
      * @throws OBOFormatParserException parser exception
      */
+    @SuppressWarnings("null")
     public OBODoc parseURL(String urlstr) {
         AtomicReference<OBODoc> doc = new AtomicReference<>();
         OBOFormatOWLAPIParser parser = new OBOFormatOWLAPIParser((o, d) -> doc.set(d));
+        // Ontology can be null here - it is ignored in the parser object
         new IRIDocumentSource(urlstr).acceptParser(parser, null, new OntologyConfigurator());
         return doc.get();
     }

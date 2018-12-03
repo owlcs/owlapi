@@ -32,7 +32,7 @@ public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom
      */
     public ClassAxiomByClassPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
         boolean initialized, Internals i) {
-        super(t, v, initialized, i);
+        super(t, v, initialized, i, OWLClassAxiom.class);
     }
 
     @Override

@@ -149,7 +149,8 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
 
     /**
      * Processing method for all Disjoint axioms.
-     *
+     * 
+     * @param <T> generic type of input
      * @param axiom axiom
      * @return true if axiom is local
      */

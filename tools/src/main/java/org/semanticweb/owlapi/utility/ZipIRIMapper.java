@@ -80,6 +80,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
      * @param df data factory
      * @throws IOException if an exception reading from input is raised
      */
+    @SuppressWarnings("resource")
     public ZipIRIMapper(File zip, String baseIRI, OWLDataFactory df) throws IOException {
         this(new ZipFile(zip), baseIRI, df);
     }

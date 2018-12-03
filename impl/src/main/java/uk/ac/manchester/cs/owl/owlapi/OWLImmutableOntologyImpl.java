@@ -65,7 +65,6 @@ import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
@@ -153,8 +152,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     protected OWLOntologyManager manager;
     protected OWLDataFactory df;
     protected OWLOntologyID ontologyID;
-    private final OWLEntityReferenceChecker entityReferenceChecker =
-        new OWLEntityReferenceChecker();
     private PrefixManager prefixManager;
 
     /**
@@ -418,42 +415,42 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
-        return ontsignatures.get(this).contains(owlEntity);
+        return verifyNotNull(ontsignatures.get(this)).contains(owlEntity);
     }
 
     @Override
     public Stream<OWLEntity> signature() {
-        return streamFromSorted(ontsignatures.get(this));
+        return streamFromSorted(verifyNotNull(ontsignatures.get(this)));
     }
 
     @Override
     public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
-        return streamFromSorted(ontanonCaches.get(this));
+        return streamFromSorted(verifyNotNull(ontanonCaches.get(this)));
     }
 
     @Override
     public Stream<OWLClass> classesInSignature() {
-        return streamFromSorted(ontclassesSignatures.get(this));
+        return streamFromSorted(verifyNotNull(ontclassesSignatures.get(this)));
     }
 
     @Override
     public Stream<OWLDataProperty> dataPropertiesInSignature() {
-        return streamFromSorted(ontdataPropertySignatures.get(this));
+        return streamFromSorted(verifyNotNull(ontdataPropertySignatures.get(this)));
     }
 
     @Override
     public Stream<OWLObjectProperty> objectPropertiesInSignature() {
-        return streamFromSorted(ontobjectPropertySignatures.get(this));
+        return streamFromSorted(verifyNotNull(ontobjectPropertySignatures.get(this)));
     }
 
     @Override
     public Stream<OWLNamedIndividual> individualsInSignature() {
-        return streamFromSorted(ontindividualSignatures.get(this));
+        return streamFromSorted(verifyNotNull(ontindividualSignatures.get(this)));
     }
 
     @Override
     public Stream<OWLDatatype> datatypesInSignature() {
-        return streamFromSorted(ontdatatypeSignatures.get(this));
+        return streamFromSorted(verifyNotNull(ontdatatypeSignatures.get(this)));
     }
 
     @Override
@@ -463,7 +460,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
-        return streamFromSorted(ontannotationPropertiesSignatures.get(this));
+        return streamFromSorted(verifyNotNull(ontannotationPropertiesSignatures.get(this)));
     }
 
     @Override
@@ -872,49 +869,5 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     @Override
     public boolean containsReference(OWLEntity entity) {
         return ints.containsReference(entity);
-    }
-
-    private class OWLEntityReferenceChecker implements OWLEntityVisitor, Serializable {
-
-        private boolean ref;
-
-        OWLEntityReferenceChecker() {}
-
-        public boolean containsReference(OWLEntity entity) {
-            ref = false;
-            entity.accept(this);
-            return ref;
-        }
-
-        @Override
-        public void visit(OWLClass cls) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsClassInSignature(cls);
-        }
-
-        @Override
-        public void visit(OWLDatatype datatype) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsDatatypeInSignature(datatype);
-        }
-
-        @Override
-        public void visit(OWLNamedIndividual individual) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsIndividualInSignature(individual);
-        }
-
-        @Override
-        public void visit(OWLDataProperty property) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsDataPropertyInSignature(property);
-        }
-
-        @Override
-        public void visit(OWLObjectProperty property) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsObjectPropertyInSignature(property);
-        }
-
-        @Override
-        public void visit(OWLAnnotationProperty property) {
-            ref =
-                OWLImmutableOntologyImpl.this.ints.containsAnnotationPropertyInSignature(property);
-        }
     }
 }

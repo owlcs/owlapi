@@ -471,6 +471,7 @@ abstract class OWLEH<O, B extends Builder<O>> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T getOWLObject() {
         return (T) builder.buildObject();
     }
@@ -530,6 +531,7 @@ abstract class OWLEH<O, B extends Builder<O>> {
 
     void handleChild(DataRangeEH<? extends OWLDataRange, ?> h) {}
 
+    @SuppressWarnings("unchecked")
     void handleChild(ObjectPropertyEH h) {
         if (builder instanceof SettableProperty) {
             ((SettableProperty<OWLObjectPropertyExpression, ?>) builder)
@@ -537,6 +539,7 @@ abstract class OWLEH<O, B extends Builder<O>> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     void handleChild(DataPropertyEH h) {
         if (builder instanceof SettableProperty) {
             ((SettableProperty<OWLDataPropertyExpression, ?>) builder)
@@ -556,6 +559,7 @@ abstract class OWLEH<O, B extends Builder<O>> {
 
     void handleChild(DatatypeFacetEH h) {}
 
+    @SuppressWarnings("unchecked")
     void handleChild(AnnotationPropEH h) {
         if (builder instanceof SettableProperty) {
             ((SettableProperty<OWLAnnotationProperty, ?>) builder)
@@ -759,6 +763,7 @@ class IRIEH extends OWLEH<IRI, Builder<IRI>> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public IRI getOWLObject() {
         return p.get();
     }
@@ -1764,6 +1769,7 @@ class ChainEH
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<OWLObjectPropertyExpression> getOWLObject() {
         return propertyList;
     }
@@ -1815,6 +1821,7 @@ class SubObjectPropertyOfEH extends AxiomEH<OWLSubObjectPropertyOfAxiom, Builder
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T getOWLObject() {
         if (verifyNotNull(chain).chainSize() > 0) {
             return (T) verifyNotNull(chain).buildObject();
@@ -1854,6 +1861,7 @@ class AtomListEH extends OWLEH<List<SWRLAtom>, Builder<List<SWRLAtom>>> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<SWRLAtom> getOWLObject() {
         return atoms;
     }
@@ -2084,6 +2092,7 @@ class OntologyEH extends OWLEH<OWLOntology, Builder<OWLOntology>> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLOntology getOWLObject() {
         return handler.getOntology();
     }
@@ -2106,7 +2115,7 @@ class ImportsEH extends OWLEH<OWLOntology, Builder<OWLOntology>> {
     }
 
     @Override
-    public OWLOntology getOWLObject() {
+    public <T> T getOWLObject() {
         throw new OWLRuntimeException("There is no OWLObject for imports handlers");
     }
 

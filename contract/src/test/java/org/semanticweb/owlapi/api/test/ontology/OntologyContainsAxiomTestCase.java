@@ -156,14 +156,16 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         assertTrue(containsConsider(ont2, axAsubB));
         @Nonnull
         File savedLocation1 = folder.newFile("testont1A.owl");
-        FileOutputStream out1 = new FileOutputStream(savedLocation1);
-        StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
-        ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
+        try (FileOutputStream out1 = new FileOutputStream(savedLocation1)) {
+            StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
+            ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
+        }
         @Nonnull
         File savedLocation2 = folder.newFile("testont2A.owl");
-        FileOutputStream out2 = new FileOutputStream(savedLocation2);
-        StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
-        ont2.getOWLOntologyManager().saveOntology(ont2, format, writer2);
+        try (FileOutputStream out2 = new FileOutputStream(savedLocation2)) {
+            StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
+            ont2.getOWLOntologyManager().saveOntology(ont2, format, writer2);
+        }
         OWLOntologyManager man = setupManager();
         OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
         OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
@@ -256,14 +258,16 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         assertTrue(containsConsider(ont2, axAsubB));
         @Nonnull
         File savedLocation1 = folder.newFile("testont1B.owl");
-        FileOutputStream out1 = new FileOutputStream(savedLocation1);
-        StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
-        ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
+        try (FileOutputStream out1 = new FileOutputStream(savedLocation1)) {
+            StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
+            ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
+        }
         @Nonnull
         File savedLocation2 = folder.newFile("testont2B.owl");
-        FileOutputStream out2 = new FileOutputStream(savedLocation2);
-        StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
-        ont2.getOWLOntologyManager().saveOntology(ont2, format, writer2);
+        try (FileOutputStream out2 = new FileOutputStream(savedLocation2)) {
+            StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
+            ont2.getOWLOntologyManager().saveOntology(ont2, format, writer2);
+        }
         OWLOntologyManager man = setupManager();
         @SuppressWarnings("unused")
         OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);

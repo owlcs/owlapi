@@ -87,6 +87,7 @@ class SyntacticLocalityChecker extends LocalityChecker {
      * Processing method for all Equivalent axioms.
      *
      * @param axiom axiom
+     * @param <T> generic type of input
      * @return true if axiom is local
      */
     <T extends OWLObject> boolean processEquivalentAxiom(HasOperands<T> axiom) {
@@ -125,6 +126,7 @@ class SyntacticLocalityChecker extends LocalityChecker {
      * Processing method for all Disjoint axioms.
      *
      * @param axiom axiom
+     * @param <T> generic type of input
      * @return true if axiom is local
      */
     private <T extends OWLObject> boolean processDisjointAxiom(HasOperands<T> axiom) {
@@ -243,14 +245,14 @@ class SyntacticLocalityChecker extends LocalityChecker {
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty())
-            || isBotEquivalent(axiom.getSubProperty());
+        isLocal =
+            isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty())
-            || isBotEquivalent(axiom.getSubProperty());
+        isLocal =
+            isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override

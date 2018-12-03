@@ -62,14 +62,17 @@ public class OboFormatTestBasics extends TestBase {
     }
 
     protected OBODoc parseOBOFile(String fn, boolean allowEmptyFrames, Map<String, OBODoc> cache) {
-        InputStream inputStream = getInputStream(fn);
-        OBOFormatParser p = new OBOFormatParser(cache);
-        OBODoc obodoc = p.parse(new BufferedReader(new InputStreamReader(inputStream)));
-        assertNotNull("The obodoc should not be null", obodoc);
-        if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
-            fail("Term frames should not be empty.");
+        try (InputStream inputStream = getInputStream(fn)) {
+            OBOFormatParser p = new OBOFormatParser(cache);
+            OBODoc obodoc = p.parse(new BufferedReader(new InputStreamReader(inputStream)));
+            assertNotNull("The obodoc should not be null", obodoc);
+            if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
+                fail("Term frames should not be empty.");
+            }
+            return obodoc;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return obodoc;
     }
 
     protected OBODoc parseOBOFile(Reader fn, boolean allowEmptyFrames, Map<String, OBODoc> cache) {
@@ -82,6 +85,7 @@ public class OboFormatTestBasics extends TestBase {
         return obodoc;
     }
 
+    @SuppressWarnings("resource")
     protected InputStream getInputStream(String fn) {
         InputStream inputStream = OboFormatTestBasics.class.getResourceAsStream(fn);
         if (inputStream == null) {

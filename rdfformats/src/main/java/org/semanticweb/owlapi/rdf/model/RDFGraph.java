@@ -205,6 +205,10 @@ public class RDFGraph implements Serializable {
                 Collectors.joining(",\n                     ", "remappedNodes      : ", ""));
     }
 
+    /**
+     * @param node object to search for
+     * @return all subjects referring to the input object
+     */
     public List<RDFResource> getSubjectsForObject(RDFResource node) {
         List<RDFResource> current = asList(
             triples.stream().filter(p -> p.getObject().equals(node)).map(RDFTriple::getSubject));

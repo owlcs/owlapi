@@ -41,6 +41,7 @@ import java.io.BufferedWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.Writer;
 
 import javax.annotation.Nullable;
@@ -148,6 +149,7 @@ public class RioStorer implements OWLStorer {
      * @throws OWLOntologyStorageException If the format does not have an {@link RDFWriter}
      *         implementation available on the classpath.
      */
+    @SuppressWarnings("unchecked")
     protected RDFHandler getRDFHandlerForWriter(@Nullable RDFFormat format, Writer writer,
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         // by default return a StatementCollector if they did not specify a
@@ -159,7 +161,7 @@ public class RioStorer implements OWLStorer {
             RDFWriter createWriter = Rio.createWriter(format, writer);
             storerParameters.stream((k, v) -> {
                 if (k instanceof RioSetting) {
-                    createWriter.set((RioSetting) k, v);
+                    createWriter.set((RioSetting<Serializable>) k, v);
                 }
             });
             return createWriter;

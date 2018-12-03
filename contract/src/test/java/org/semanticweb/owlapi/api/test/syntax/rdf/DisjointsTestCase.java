@@ -80,17 +80,17 @@ public class DisjointsTestCase extends TestBase {
 
     @Test
     public void shouldRejectDisjointClassesWithSingletonThing() {
-        expectedException.expect(OWLRuntimeException.class);
-        expectedException.expectMessage(
-            "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing).");
-        df.getOWLDisjointClassesAxiom(Arrays.asList(df.getOWLThing()));
+        assertThrowsWithMessage(
+            "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing).",
+            OWLRuntimeException.class,
+            () -> df.getOWLDisjointClassesAxiom(Arrays.asList(df.getOWLThing())));
     }
 
     @Test
     public void shouldRejectDisjointClassesWithSingletonNothing() {
-        expectedException.expect(OWLRuntimeException.class);
-        expectedException.expectMessage(
-            "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.");
-        df.getOWLDisjointClassesAxiom(Arrays.asList(df.getOWLNothing()));
+        assertThrowsWithMessage(
+            "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.",
+            OWLRuntimeException.class,
+            () -> df.getOWLDisjointClassesAxiom(Arrays.asList(df.getOWLNothing())));
     }
 }

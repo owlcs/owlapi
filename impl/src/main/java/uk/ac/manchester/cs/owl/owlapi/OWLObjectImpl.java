@@ -94,37 +94,37 @@ public abstract class OWLObjectImpl
 
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
-        return signatures.get(this).contains(owlEntity);
+        return verifyNotNull(signatures.get(this)).contains(owlEntity);
     }
 
     @Override
     public Stream<OWLClass> classesInSignature() {
-        return streamFromSorted(classesSignatures.get(this));
+        return streamFromSorted(verifyNotNull(classesSignatures.get(this)));
     }
 
     @Override
     public Stream<OWLDataProperty> dataPropertiesInSignature() {
-        return streamFromSorted(dataPropertySignatures.get(this));
+        return streamFromSorted(verifyNotNull(dataPropertySignatures.get(this)));
     }
 
     @Override
     public Stream<OWLObjectProperty> objectPropertiesInSignature() {
-        return streamFromSorted(objectPropertySignatures.get(this));
+        return streamFromSorted(verifyNotNull(objectPropertySignatures.get(this)));
     }
 
     @Override
     public Stream<OWLNamedIndividual> individualsInSignature() {
-        return streamFromSorted(individualSignatures.get(this));
+        return streamFromSorted(verifyNotNull(individualSignatures.get(this)));
     }
 
     @Override
     public Stream<OWLDatatype> datatypesInSignature() {
-        return streamFromSorted(datatypeSignatures.get(this));
+        return streamFromSorted(verifyNotNull(datatypeSignatures.get(this)));
     }
 
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
-        return streamFromSorted(annotationPropertiesSignatures.get(this));
+        return streamFromSorted(verifyNotNull(annotationPropertiesSignatures.get(this)));
     }
 
     @Override

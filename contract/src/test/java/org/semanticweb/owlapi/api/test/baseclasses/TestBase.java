@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
@@ -39,7 +40,7 @@ import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
-import org.junit.rules.ExpectedException;
+import org.junit.function.ThrowingRunnable;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
@@ -118,11 +119,14 @@ public abstract class TestBase {
         }
     }
 
+    public static void assertThrowsWithMessage(String message, Class<? extends Throwable> c,
+        ThrowingRunnable r) {
+        assertTrue(assertThrows(c, r).getMessage().contains(message));
+    }
+
     @Nonnull
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
     @Nonnull
     @Rule
     public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);

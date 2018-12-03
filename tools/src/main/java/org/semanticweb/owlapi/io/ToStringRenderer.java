@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -67,6 +68,7 @@ public final class ToStringRenderer {
         }
     }
 
+    @SuppressWarnings("unchecked")
     static Class<OWLObjectRenderer> value() {
         String value = ConfigurationOptions.TO_STRING_RENDERER.getValue(String.class, null);
         try {
@@ -83,7 +85,7 @@ public final class ToStringRenderer {
      * @return the singleton instance
      */
     public static OWLObjectRenderer getInstance() {
-        return renderers.get(value()).get();
+        return verifyNotNull(renderers.get(value())).get();
     }
 
     private static final Map<Class<? extends OWLDocumentFormat>, Class<? extends OWLObjectRenderer>> formatToRenderer =
@@ -117,6 +119,7 @@ public final class ToStringRenderer {
      */
     public static OWLObjectRenderer getInstance(OWLDocumentFormat format,
         @Nullable PrefixManager pm) {
+        @SuppressWarnings("unchecked")
         Class<OWLObjectRenderer> class1 =
             (Class<OWLObjectRenderer>) formatToRenderer.get(format.getClass());
         if (class1 == null) {

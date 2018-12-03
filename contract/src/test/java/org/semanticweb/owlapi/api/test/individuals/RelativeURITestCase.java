@@ -40,9 +40,6 @@ public class RelativeURITestCase extends AxiomsRoundTrippingBase {
 
     @Test
     public void shouldThrowMeaningfulException() {
-        expectedException.expect(OWLRDFXMLParserException.class);
-        expectedException.expectMessage(
-            "[line=1:column=375] IRI 'http://example.com/#1#2' cannot be resolved against current base IRI ");
         // on Java 6 for Mac the following assertion does not work: the root
         // exception does not have a message.
         // expectedException
@@ -58,7 +55,10 @@ public class RelativeURITestCase extends AxiomsRoundTrippingBase {
             + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#NamedIndividual\"/>"
             + "  </owl:Thing>" + "</rdf:RDF>";
         OWLOntology ontology = getOWLOntology();
-        new StringDocumentSource(rdfContent, new RDFXMLDocumentFormat())
-            .acceptParser(new RDFXMLParser(), ontology, config);
+        assertThrowsWithMessage(
+            "[line=1:column=375] IRI 'http://example.com/#1#2' cannot be resolved against current base IRI ",
+            OWLRDFXMLParserException.class,
+            () -> new StringDocumentSource(rdfContent, new RDFXMLDocumentFormat())
+                .acceptParser(new RDFXMLParser(), ontology, config));
     }
 }

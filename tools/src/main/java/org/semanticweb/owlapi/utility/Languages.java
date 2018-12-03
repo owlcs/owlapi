@@ -3,20 +3,20 @@ package org.semanticweb.owlapi.utility;
 import static org.semanticweb.owlapi.utility.Construct.ATOMIC_NEGATION;
 import static org.semanticweb.owlapi.utility.Construct.CONCEPT_COMPLEX_NEGATION;
 import static org.semanticweb.owlapi.utility.Construct.CONCEPT_INTERSECTION;
+import static org.semanticweb.owlapi.utility.Construct.CONCEPT_UNION;
 import static org.semanticweb.owlapi.utility.Construct.D;
-import static org.semanticweb.owlapi.utility.Construct.FULL_EXISTENTIAL;
 import static org.semanticweb.owlapi.utility.Construct.F;
-import static org.semanticweb.owlapi.utility.Construct.ROLE_HIERARCHY;
-import static org.semanticweb.owlapi.utility.Construct.ROLE_INVERSE;
+import static org.semanticweb.owlapi.utility.Construct.FULL_EXISTENTIAL;
 import static org.semanticweb.owlapi.utility.Construct.LIMITED_EXISTENTIAL;
 import static org.semanticweb.owlapi.utility.Construct.N;
 import static org.semanticweb.owlapi.utility.Construct.NOMINALS;
 import static org.semanticweb.owlapi.utility.Construct.Q;
 import static org.semanticweb.owlapi.utility.Construct.ROLE_COMPLEX;
 import static org.semanticweb.owlapi.utility.Construct.ROLE_DOMAIN_RANGE;
+import static org.semanticweb.owlapi.utility.Construct.ROLE_HIERARCHY;
+import static org.semanticweb.owlapi.utility.Construct.ROLE_INVERSE;
 import static org.semanticweb.owlapi.utility.Construct.ROLE_REFLEXIVITY_CHAINS;
 import static org.semanticweb.owlapi.utility.Construct.ROLE_TRANSITIVE;
-import static org.semanticweb.owlapi.utility.Construct.CONCEPT_UNION;
 import static org.semanticweb.owlapi.utility.Construct.UNIVERSAL_RESTRICTION;
 
 import java.util.Arrays;
@@ -336,10 +336,18 @@ public enum Languages {
         return this != l && l.components.containsAll(components);
     }
 
+    /**
+     * @param constructs constructs to check
+     * @return true if this language includes all the constructs in input
+     */
     public boolean hasAllConstructs(Construct... constructs) {
         return components.containsAll(Arrays.asList(constructs));
     }
 
+    /**
+     * @param constructs constructs to check
+     * @return true if this language includes all the constructs in input
+     */
     public boolean hasAllConstructs(Collection<Construct> constructs) {
         return components.containsAll(constructs);
     }
