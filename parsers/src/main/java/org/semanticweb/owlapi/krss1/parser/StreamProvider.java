@@ -9,41 +9,51 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
+/**
+ * NOTE : This generated class can be safely deleted if installing in a GWT installation (use StringProvider instead)
+ */
 @SuppressWarnings("all")
-public class StreamProvider implements Provider {
+class StreamProvider implements Provider {
 
-    Reader _reader;
+	Reader _reader;
 
-    public StreamProvider(Reader reader) {
-        _reader = reader;
-    }
+	public StreamProvider(Reader reader) {
+		_reader = reader;
+	}
+	
+	public StreamProvider(InputStream stream) throws IOException {
+		_reader = new BufferedReader(new InputStreamReader(stream));
+	}
+	
+	public StreamProvider(InputStream stream, String charsetName) throws IOException {
+		_reader = new BufferedReader(new InputStreamReader(stream, charsetName));
+	}
 
-    public StreamProvider(InputStream stream) throws IOException {
-        _reader = new BufferedReader(new InputStreamReader(stream));
-    }
+	@Override
+	public int read(char[] buffer, int off, int len) throws IOException {
+	   int result = _reader.read(buffer, off, len);
 
-    public StreamProvider(InputStream stream, String charsetName) throws IOException {
-        _reader = new BufferedReader(new InputStreamReader(stream, charsetName));
-    }
+	   /* CBA -- Added 2014/03/29 -- 
+	             This logic allows the generated Java code to be easily translated to C# (via sharpen) -
+	             as in C# 0 represents end of file, and in Java, -1 represents end of file
+	             See : http://msdn.microsoft.com/en-us/library/9kstw824(v=vs.110).aspx
+	             ** Technically, this is not required for java but the overhead is extremely low compared to the code generation benefits.
+	   */
+	   
+	   if (result == 0) {
+	      if (off < buffer.length && len > 0) {
+	        result = -1;
+	      }
+	   }
+	   
+		return result;
+	}
 
-    @Override
-    public int read(char[] buffer, int off, int len) throws IOException {
-        int result = _reader.read(buffer, off, len);
-
-        if (result == 0) {
-            if (off < buffer.length && len > 0) {
-                result = -1;
-            }
-        }
-
-        return result;
-    }
-
-    @Override
-    public void close() throws IOException {
-        _reader.close();
-    }
+	@Override
+	public void close() throws IOException {
+		_reader.close();
+	}
 
 }
 
-/* JavaCC - OriginalChecksum=7c2a47fc74e1499f47f4370d16bdd73b (do not edit this line) */
+/* JavaCC - OriginalChecksum=5bf0806dc5ed3c6da9cb53f18ffdba3e (do not edit this line) */

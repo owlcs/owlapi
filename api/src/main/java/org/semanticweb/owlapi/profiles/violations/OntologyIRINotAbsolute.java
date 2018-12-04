@@ -32,7 +32,15 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation {
      * @param ontology ontology
      */
     public OntologyIRINotAbsolute(OWLOntology ontology) {
-        super(ontology, null, ontology.getOntologyID());
+        this(ontology, ontology.getOntologyID());
+    }
+
+    /**
+     * @param ontology ontology
+     * @param id id
+     */
+    public OntologyIRINotAbsolute(OWLOntology ontology, OWLOntologyID id) {
+        super(ontology, null, id);
     }
 
     @Override

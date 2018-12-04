@@ -13,9 +13,10 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
+
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
@@ -30,7 +31,7 @@ public class UseOfPropertyInChainCausesCycle extends OWLProfileViolation {
      * @param axiom axiom
      * @param property property
      */
-    public UseOfPropertyInChainCausesCycle(OWLOntology ontology, OWLSubPropertyChainOfAxiom axiom,
+    public UseOfPropertyInChainCausesCycle(OWLOntology ontology, OWLAxiom axiom,
         OWLObjectPropertyExpression property) {
         super(ontology, axiom, property);
     }

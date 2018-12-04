@@ -317,13 +317,9 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         OWLOntology o = loadOntologyFromString(input);
         OWL2DLProfile p = new OWL2DLProfile();
         OWLProfileReport checkOntology = p.checkOntology(o);
-        assertEquals(2, checkOntology.getViolations().size());
+        assertEquals(1, checkOntology.getViolations().size());
         OWLProfileViolation v = checkOntology.getViolations().get(0);
-        assertTrue(v instanceof UseOfUndeclaredAnnotationProperty
-            || v instanceof UseOfReservedVocabularyForAnnotationPropertyIRI);
-        v = checkOntology.getViolations().get(1);
-        assertTrue(v instanceof UseOfUndeclaredAnnotationProperty
-            || v instanceof UseOfReservedVocabularyForAnnotationPropertyIRI);
+        assertTrue(v instanceof UseOfReservedVocabularyForAnnotationPropertyIRI);
     }
 
     @Test
