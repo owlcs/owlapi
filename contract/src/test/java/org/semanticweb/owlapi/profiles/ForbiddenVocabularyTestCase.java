@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForAnnotationPropertyIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredAnnotationProperty;
 import org.semanticweb.owlapi.utility.CollectionFactory;
 import org.semanticweb.owlapi.utility.OWLObjectPropertyManager;
 
@@ -195,13 +194,9 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         OWLOntology o = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         OWL2DLProfile p = new OWL2DLProfile();
         OWLProfileReport checkOntology = p.checkOntology(o);
-        assertEquals(2, checkOntology.getViolations().size());
+        assertEquals(1, checkOntology.getViolations().size());
         OWLProfileViolation v = checkOntology.getViolations().get(0);
-        assertTrue(v instanceof UseOfUndeclaredAnnotationProperty
-            || v instanceof UseOfReservedVocabularyForAnnotationPropertyIRI);
-        v = checkOntology.getViolations().get(1);
-        assertTrue(v instanceof UseOfUndeclaredAnnotationProperty
-            || v instanceof UseOfReservedVocabularyForAnnotationPropertyIRI);
+        assertTrue(v instanceof UseOfReservedVocabularyForAnnotationPropertyIRI);
     }
 
     @Test
