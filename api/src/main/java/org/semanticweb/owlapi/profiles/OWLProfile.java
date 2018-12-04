@@ -12,30 +12,48 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public interface OWLProfile extends HasIRI {
 
     /**
      * Gets the name of the profile.
-     * 
+     *
      * @return A string that represents the name of the profile
      */
     String getName();
 
     /**
-     * Checks an ontology and its import closure to see if it is within this
-     * profile.
-     * 
-     * @param ontology
-     *        The ontology to be checked.
-     * @return An {@code OWLProfileReport} that describes whether or not the
-     *         ontology is within this profile.
+     * Checks an ontology and its import closure to see if it is within this profile.
+     *
+     * @param ontology The ontology to be checked.
+     * @return An {@code OWLProfileReport} that describes whether or not the ontology is within this
+     *         profile.
      */
     OWLProfileReport checkOntology(OWLOntology ontology);
+
+    /**
+     * Checks an ontology and its import closure to see if it is within the specified profiles.
+     *
+     * @param ontology The ontology to be checked.
+     * @param profiles the profiles to check
+     * @return An {@code OWLProfileReport} that describes whether or not the ontology is within the
+     *         specified profiles.
+     */
+    default OWLProfileReport checkOntologyClosureInProfiles(OWLOntology ontology,
+        Profiles... profiles) {
+        Set<OWLProfileViolation> violations = new LinkedHashSet<>();
+        OWLOntologyProfileWalker walker =
+            new OWLOntologyProfileWalker(ontology.getImportsClosure());
+        walker.walkStructure(new ProfileVisitor(walker, violations, Arrays.asList(profiles)));
+        return new OWLProfileReport(this, violations);
+    }
 }

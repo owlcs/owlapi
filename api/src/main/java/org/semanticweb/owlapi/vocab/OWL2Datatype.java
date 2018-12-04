@@ -13,27 +13,76 @@
 package org.semanticweb.owlapi.vocab;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.vocab.Namespaces.*;
-import static org.semanticweb.owlapi.vocab.OWLFacet.*;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.*;
+import static org.semanticweb.owlapi.vocab.Namespaces.OWL;
+import static org.semanticweb.owlapi.vocab.Namespaces.RDF;
+import static org.semanticweb.owlapi.vocab.Namespaces.RDFS;
+import static org.semanticweb.owlapi.vocab.OWLFacet.LANG_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLFacet.LENGTH;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_INCLUSIVE;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_LENGTH;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_EXCLUSIVE;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_LENGTH;
+import static org.semanticweb.owlapi.vocab.OWLFacet.PATTERN;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.ANY_URI;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.BASE_64_BINARY;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.BOOLEAN;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.BYTE;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.DATE_TIME;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.DATE_TIME_STAMP;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.DECIMAL;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.DOUBLE;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.FLOAT;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.HEX_BINARY;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.INT;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.INTEGER;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.LANGUAGE;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.LONG;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.NAME;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.NCNAME;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.NEGATIVE_INTEGER;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.NMTOKEN;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.NON_NEGATIVE_INTEGER;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.NON_POSITIVE_INTEGER;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.NORMALIZED_STRING;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.POSITIVE_INTEGER;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.SHORT;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.STRING;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.TOKEN;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.UNSIGNED_BYTE;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.UNSIGNED_INT;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.UNSIGNED_LONG;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.UNSIGNED_SHORT;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * An enumeration of the datatypes in the OWL 2 specification. These are the
- * datatypes in the OWL 2 datatype map.
+ * An enumeration of the datatypes in the OWL 2 specification. These are the datatypes in the OWL 2
+ * datatype map.
  * 
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
+public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -70,6 +119,25 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     /** XSD_DATE_TIME */            XSD_DATE_TIME            (DATE_TIME,            Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"),
     /** XSD_DATE_TIME_STAMP */      XSD_DATE_TIME_STAMP      (DATE_TIME_STAMP,      Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
 //@formatter:on
+    /**
+     * Datatypes allowed in the EL and QL profiles.
+     */
+    public static final List<OWL2Datatype> EL_DATATYPES =
+        Arrays.asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL, RDFS_LITERAL, OWL_RATIONAL, OWL_REAL,
+            XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER, XSD_STRING, XSD_NORMALIZED_STRING,
+            XSD_TOKEN, XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_HEX_BINARY, XSD_BASE_64_BINARY,
+            XSD_ANY_URI, XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
+    /**
+     * Datatypes supported in the RL profile.
+     */
+    public static final List<OWL2Datatype> RL_DATATYPES =
+        Arrays.asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL, RDFS_LITERAL, XSD_DECIMAL, XSD_INTEGER,
+            XSD_NON_NEGATIVE_INTEGER, XSD_NON_POSITIVE_INTEGER, XSD_POSITIVE_INTEGER,
+            XSD_NEGATIVE_INTEGER, XSD_LONG, XSD_INT, XSD_SHORT, XSD_BYTE, XSD_UNSIGNED_LONG,
+            XSD_UNSIGNED_BYTE, XSD_FLOAT, XSD_DOUBLE, XSD_STRING, XSD_NORMALIZED_STRING, XSD_TOKEN,
+            XSD_LANGUAGE, XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_BOOLEAN, XSD_HEX_BINARY,
+            XSD_BASE_64_BINARY, XSD_ANY_URI, XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
+
     @Nonnull
     private static final Set<IRI> ALL_IRIS = init();
 
@@ -86,8 +154,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     /**
      * Gets all of the built in datatype IRIs.
      * 
-     * @return A set of IRIs corresponding to the set of IRIs of all built in
-     *         {@code OWL2Datatype}s.
+     * @return A set of IRIs corresponding to the set of IRIs of all built in {@code OWL2Datatype}s.
      */
     @Nonnull
     public static Set<IRI> getDatatypeIRIs() {
@@ -95,8 +162,8 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     }
 
     /**
-     * Gets the Pattern that specifies the regular expression for the allowed
-     * lexical values of a datatype.
+     * Gets the Pattern that specifies the regular expression for the allowed lexical values of a
+     * datatype.
      * 
      * @return The Pattern, or {@code null}
      */
@@ -105,8 +172,8 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     }
 
     /**
-     * Gets the Pattern string that specifies the regular expression for the
-     * allowed lexical values of a datatype.
+     * Gets the Pattern string that specifies the regular expression for the allowed lexical values
+     * of a datatype.
      * 
      * @return The Pattern string. Not null.
      */
@@ -118,24 +185,21 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     /**
      * Determines if the specified IRI identifies a built in datatype.
      * 
-     * @param datatypeIRI
-     *        The datatype IRI
-     * @return {@code true} if the IRI identifies a built in datatype, or
-     *         {@code false} if the IRI does not identify a built in datatype.
+     * @param datatypeIRI The datatype IRI
+     * @return {@code true} if the IRI identifies a built in datatype, or {@code false} if the IRI
+     *         does not identify a built in datatype.
      */
     public static boolean isBuiltIn(IRI datatypeIRI) {
         return ALL_IRIS.contains(datatypeIRI);
     }
 
     /**
-     * Given an IRI that identifies an {@link OWLDatatype}, this method obtains
-     * the corresponding {@code OWL2Datatype}.
+     * Given an IRI that identifies an {@link OWLDatatype}, this method obtains the corresponding
+     * {@code OWL2Datatype}.
      * 
-     * @param datatype
-     *        The datatype IRI. Not {@code null}.
+     * @param datatype The datatype IRI. Not {@code null}.
      * @return The {@code OWL2Datatype} that has the specified {@link IRI}.
-     * @throws OWLRuntimeException
-     *         if the specified IRI is not a built in datatype IRI.
+     * @throws OWLRuntimeException if the specified IRI is not a built in datatype IRI.
      */
     @Nonnull
     public static OWL2Datatype getDatatype(IRI datatype) {
@@ -164,8 +228,8 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     @Nonnull
     private final String prefixedName;
 
-    OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm, @Nonnull Category category, boolean finite,
-        @Nonnull String regEx) {
+    OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm,
+        @Nonnull Category category, boolean finite, @Nonnull String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
         this.shortForm = shortForm;
         prefixedName = namespace.getPrefixName() + ':' + shortForm;
@@ -175,7 +239,8 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
-    OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category, boolean finite, @Nonnull String regEx) {
+    OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category, boolean finite,
+        @Nonnull String regEx) {
         iri = xsd.getIRI();
         shortForm = xsd.getShortForm();
         prefixedName = xsd.getPrefixedName();
@@ -217,8 +282,8 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     /**
      * Determines whether or not this datatype is finite.
      * 
-     * @return {@code true} if this datatype is finite, or {@code false} if this
-     *         datatype is infinite.
+     * @return {@code true} if this datatype is finite, or {@code false} if this datatype is
+     *         infinite.
      */
     public boolean isFinite() {
         return finite;
@@ -236,10 +301,9 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     /**
      * Gets the equivalent OWLDatatype from the given factory.
      * 
-     * @param factory
-     *        the OWLDataFactory. Not {@code null}.
-     * @return An {@link OWLDatatype} that has the same IRI as this
-     *         {@code OWL2Datatype}. Not {@code null}.
+     * @param factory the OWLDataFactory. Not {@code null}.
+     * @return An {@link OWLDatatype} that has the same IRI as this {@code OWL2Datatype}. Not
+     *         {@code null}.
      */
     @Nonnull
     public OWLDatatype getDatatype(@Nonnull OWLDataFactory factory) {
@@ -250,10 +314,8 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     /**
      * Determines if the specified string is the lexical space of this datatype.
      * 
-     * @param s
-     *        The string to test
-     * @return {@code true} if the string is in the lexical space, otherwise
-     *         {@code false}
+     * @param s The string to test
+     * @return {@code true} if the string is in the lexical space, otherwise {@code false}
      */
     public boolean isInLexicalSpace(@Nonnull String s) {
         return pattern.matcher(s).matches();
@@ -303,8 +365,8 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     /** Normalization enum. */
     public enum WhiteSpaceNormalisation {
         /**
-         * No normalization is done, the value is not changed (this is the
-         * behavior required by [XML] for element content).
+         * No normalization is done, the value is not changed (this is the behavior required by
+         * [XML] for element content).
          */
         PRESERVE {
 
@@ -314,8 +376,8 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
             }
         },
         /**
-         * All occurrences of #x9 (tab), #xA (line feed) and #xD (carriage
-         * return) are replaced with #x20 (space).
+         * All occurrences of #x9 (tab), #xA (line feed) and #xD (carriage return) are replaced with
+         * #x20 (space).
          */
         REPLACE {
 
@@ -325,9 +387,8 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
             }
         },
         /**
-         * After the processing implied by replace, contiguous sequences of
-         * #x20's are collapsed to a single #x20, and any #x20 at the start or
-         * end of the string is then removed.
+         * After the processing implied by replace, contiguous sequences of #x20's are collapsed to
+         * a single #x20, and any #x20 at the start or end of the string is then removed.
          */
         COLLAPSE {
 
@@ -340,8 +401,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
         /**
          * Gets the normalised version of a string.
          * 
-         * @param s
-         *        The string to normalise
+         * @param s The string to normalise
          * @return The normalised string
          */
         public abstract String getNormalisedString(@Nonnull String s);

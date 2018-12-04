@@ -14,13 +14,18 @@ package org.semanticweb.owlapi.profiles;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class OWLProfileReport {
 
@@ -29,13 +34,10 @@ public class OWLProfileReport {
     private final List<OWLProfileViolation> violations;
 
     /**
-     * @param profile
-     *        the profile used
-     * @param violations
-     *        the set of violations
+     * @param profile the profile used
+     * @param violations the set of violations
      */
-    public OWLProfileReport(OWLProfile profile,
-            Set<OWLProfileViolation> violations) {
+    public OWLProfileReport(OWLProfile profile, Set<OWLProfileViolation> violations) {
         this.profile = profile;
         this.violations = new ArrayList<>(violations);
     }
@@ -55,20 +57,44 @@ public class OWLProfileReport {
         return violations;
     }
 
+    /**
+     * @param o ontology of interest
+     * @return the violations found, filtered by ontology
+     */
+    public List<OWLProfileViolation> getViolations(OWLOntology o) {
+        return violations.stream().filter(v -> Objects.equals(v.getOntology(), o))
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * @param e entity of interest
+     * @return the violations found, filtered by entity
+     */
+    public List<OWLProfileViolation> getViolations(OWLEntity e) {
+        return violations.stream().filter(v -> Objects.equals(v.getExpression(), e))
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * @param ax axom of interest
+     * @return the violations found, filtered by axiom
+     */
+    public List<OWLProfileViolation> getViolations(OWLAxiom ax) {
+        return violations.stream().filter(v -> Objects.equals(v.getAxiom(), ax))
+            .collect(Collectors.toList());
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(profile.getName());
+        StringBuilder sb = new StringBuilder(profile.getName());
         sb.append(" Profile Report: ");
         if (isInProfile()) {
             sb.append("[Ontology and imports closure in profile]\n");
         } else {
-            sb.append("Ontology and imports closure NOT in profile. The following violations are present:\n");
+            sb.append(
+                "Ontology and imports closure NOT in profile. The following violations are present:\n");
         }
-        for (OWLProfileViolation na : violations) {
-            sb.append(na);
-            sb.append('\n');
-        }
+        violations.forEach(v -> sb.append(v).append('\n'));
         return sb.toString();
     }
 }
