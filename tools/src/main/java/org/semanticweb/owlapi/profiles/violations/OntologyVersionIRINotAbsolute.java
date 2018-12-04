@@ -32,7 +32,15 @@ public class OntologyVersionIRINotAbsolute extends OWLProfileViolation {
      * @param ontology ontology
      */
     public OntologyVersionIRINotAbsolute(OWLOntology ontology) {
-        super(ontology, null, ontology.getOntologyID());
+        this(ontology, ontology.getOntologyID());
+    }
+
+    /**
+     * @param ontology ontology
+     * @param id id
+     */
+    public OntologyVersionIRINotAbsolute(OWLOntology ontology, OWLOntologyID id) {
+        super(ontology, null, id);
     }
 
     @Override

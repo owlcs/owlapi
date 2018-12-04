@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -31,8 +31,8 @@ public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileV
      * @param axiom axiom
      * @param prop prop
      */
-    public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology,
-        OWLDisjointObjectPropertiesAxiom axiom, OWLObjectPropertyExpression prop) {
+    public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology, OWLAxiom axiom,
+        OWLObjectPropertyExpression prop) {
         super(ontology, axiom, prop);
     }
 
