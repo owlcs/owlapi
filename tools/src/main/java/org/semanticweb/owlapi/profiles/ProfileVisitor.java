@@ -69,6 +69,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
@@ -287,6 +288,11 @@ public class ProfileVisitor extends ProfileVisitorBase {
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         dl(() -> irreflexiveNonSimple(axiom));
         el(() -> illegalAxiom());
+    }
+
+    @Override
+    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        rl(() -> illegalAxiom());
     }
 
     @Override
