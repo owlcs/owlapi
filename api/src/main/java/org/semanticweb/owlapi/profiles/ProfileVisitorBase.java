@@ -90,6 +90,7 @@ import org.semanticweb.owlapi.profiles.violations.UseOfAnonymousIndividual;
 import org.semanticweb.owlapi.profiles.violations.UseOfBuiltInDatatypeInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.UseOfDataOneOfWithMultipleLiterals;
 import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInDatatypeRestriction;
+import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInLiteral;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalAxiom;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
@@ -605,6 +606,10 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     }
 
     protected void notInLexicalSpace(OWLLiteral node) {
+        if (!node.getDatatype().isBuiltIn()) {
+            violations.add(
+                new UseOfDefinedDatatypeInLiteral(getCurrentOntology(), getCurrentAxiom(), node));
+        }
         // Check that the lexical value of the literal is in the lexical
         // space of the literal datatype
         if (isBuiltin(node)) {
