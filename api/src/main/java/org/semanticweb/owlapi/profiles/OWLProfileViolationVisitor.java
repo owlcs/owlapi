@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.profiles.violations.OntologyVersionIRINotAbsolute;
 import org.semanticweb.owlapi.profiles.violations.UseOfAnonymousIndividual;
 import org.semanticweb.owlapi.profiles.violations.UseOfBuiltInDatatypeInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInDatatypeRestriction;
+import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInLiteral;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalAxiom;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
@@ -257,6 +258,11 @@ public interface OWLProfileViolationVisitor {
      *        UseOfDefinedDatatypeInDatatypeRestriction to visit
      */
     void visit(UseOfDefinedDatatypeInDatatypeRestriction v);
+
+    /**
+     * @param v UseOfDefinedDatatypeInLiteral to visit
+     */
+    void visit(UseOfDefinedDatatypeInLiteral v);
 
     /**
      * @param v

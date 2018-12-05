@@ -131,6 +131,7 @@ import org.semanticweb.owlapi.profiles.violations.UseOfAnonymousIndividual;
 import org.semanticweb.owlapi.profiles.violations.UseOfBuiltInDatatypeInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.UseOfDataOneOfWithMultipleLiterals;
 import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInDatatypeRestriction;
+import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInLiteral;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalAxiom;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
@@ -777,6 +778,19 @@ public class OWLProfileTestCase extends TestBase {
         OWL2Profile profile = new OWL2Profile();
         int expected = 1;
         Class[] expectedViolations = {LexicalNotInLexicalSpace.class};
+        runAssert(o, profile, expected, expectedViolations);
+    }
+
+    @Test
+    @Tests(method = "public Object visit(OWLLiteral node)")
+    public void shouldCreateViolationForDefineDatatypeOWLLiteralInOWL2Profile() throws Exception {
+        OWLOntology o = createOnto();
+        declare(o, DATAP);
+        m.addAxiom(o, DataPropertyAssertion(DATAP, AnonymousIndividual(),
+            Literal("wrong", df.getOWLDatatype(IRI.create("urn:test:","defineddatatype")))));
+        OWL2Profile profile = new OWL2Profile();
+        int expected = 1;
+        Class[] expectedViolations = {UseOfDefinedDatatypeInLiteral.class};
         runAssert(o, profile, expected, expectedViolations);
     }
 
