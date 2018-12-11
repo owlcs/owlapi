@@ -213,7 +213,7 @@ public class RDFGraph implements Serializable {
     public List<RDFResource> getSubjectsForObject(RDFResource node) {
         List<RDFResource> current = asList(
             triples.stream().filter(p -> p.getObject().equals(node)).map(RDFTriple::getSubject));
-        Set<RDFResource> visited = new HashSet<>(current);
+        Set<RDFResource> visited = new HashSet<>();
         List<RDFResource> next = new ArrayList<>();
         boolean change = true;
         while (change) {
