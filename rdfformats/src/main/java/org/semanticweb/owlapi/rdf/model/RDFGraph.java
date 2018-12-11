@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -212,18 +213,21 @@ public class RDFGraph implements Serializable {
     public List<RDFResource> getSubjectsForObject(RDFResource node) {
         List<RDFResource> current = asList(
             triples.stream().filter(p -> p.getObject().equals(node)).map(RDFTriple::getSubject));
+        Set<RDFResource> visited = new HashSet<>(current);
         List<RDFResource> next = new ArrayList<>();
         boolean change = true;
         while (change) {
             change = false;
             for (RDFResource n : current) {
-                List<RDFResource> l = asList(triples.stream().filter(p -> p.getObject().equals(n))
-                    .map(RDFTriple::getSubject));
-                if (l.size() > 0) {
-                    change = true;
-                    next.addAll(l);
-                } else {
-                    next.add(n);
+                if (visited.add(n)) {
+                    List<RDFResource> l = asList(triples.stream()
+                        .filter(p -> p.getObject().equals(n)).map(RDFTriple::getSubject));
+                    if (l.size() > 0) {
+                        change = true;
+                        next.addAll(l);
+                    } else {
+                        next.add(n);
+                    }
                 }
             }
             current = next;
