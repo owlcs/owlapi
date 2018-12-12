@@ -22,6 +22,29 @@ The following components are included:
 
 ## Release notes
 
+5.1.9 12 Dec 2018
+
+Bugs:
+*    Refactor OWLProfile implementations #638
+*    Fix Missing user defined datatype violation in literals #639
+*    Fix RDFGraph getSubjectsForObjects caught in infinite loop #809
+
+5.1.8 01 Dec 2018
+
+Features:
+*    Add OWLClassExpression.isNamed method #790
+*    Fix injection problem under OSGi
+*    Implement Allow Atomic Decomposition to skip assertions #796
+*    Expressivity Checker for EL and FL #500
+
+Bugs:
+*    Fix ReadWriteLock should be injector singleton #785
+*    Fix Cyclic import of versioned ontologies fails #788
+*    Fix Annotate ontology annotations #791
+*    Fix Incorrect documentation for OWLOntologyManager methods. #795
+*    DisjointClasses with OWL:Thing produces incorrect axiom #747
+*    Fix Concurrent managers with own lock shared with own ontologies #806
+
 5.1.7 02 Sep 2018
 
 Features:
@@ -1098,7 +1121,7 @@ Main Bug Fixes:
 Release 3.0.0
 ----------------------------------------------------------------------
 
-Version 3.0.0 is incompatible with previous releases.  Many interface names have been changed in order to achieve a
+Version 3.0.0 is incompatible with previous releases.  Many interface names have been changed in order to acheive a
 close alignment with the names used in the OWL 2 Structural Specification and Functional Style Syntax.
 (See http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/)
 
