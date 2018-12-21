@@ -66,25 +66,25 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         return Arrays.asList(
         //@formatter:off
             new Object[] {"0 AL",       "UNIVRESTR" , l(UNIVERSAL_RESTRICTION),                               l(FL0),                 belowUniversal(),l(FL0) ,                      l(b.assAll())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.dDef())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decC())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decOp())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decDp())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decDt())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decAp())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.decI())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.ec())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.nop())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.opa())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.subAnn())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.subClass())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.rule())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.hasKey())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.bigRule())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.ann())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.annDom())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.annRange())},
-            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL),             empty(),        l(FL0, EL),                    l(b.ass())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.dDef())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.decC())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.decOp())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.decDp())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.decDt())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.decAp())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.decI())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.ec())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.nop())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.opa())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.subAnn())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.subClass())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.rule())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.hasKey())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.bigRule())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.ann())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.annDom())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.annRange())},
+            new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.ass())},
             new Object[] {"2  ALCO",     "CUO"       , l(CONCEPT_COMPLEX_NEGATION, CONCEPT_UNION, NOMINALS),  l(ALCO),                belowCUO(),     l(ALCO),                       l(b.assDi())},
             new Object[] {"3  ALC",      "C"         , l(CONCEPT_COMPLEX_NEGATION),                           l(ALC),                 belowC(),       l(ALC),                        l(b.dc())},
             new Object[] {"3  ALC",      "C"         , l(CONCEPT_COMPLEX_NEGATION),                           l(ALC),                 belowC(),       l(ALC),                        l(b.assNot())},
@@ -486,10 +486,6 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         Set<OWLOntology> ont = ont();
         DLExpressivityChecker testsubject = new DLExpressivityChecker(ont);
         List<Construct> constructsFound = testsubject.getConstructs();
-        if (constructsFound.isEmpty()) {
-            return;
-        }
-        // if (!testsubject.getConstructs().isEmpty()) {
         List<Languages> below = new ArrayList<>();
         List<Languages> minimalLanguages = new ArrayList<>();
         for (Languages c : Languages.values()) {
