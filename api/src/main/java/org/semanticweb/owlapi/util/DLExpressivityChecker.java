@@ -13,13 +13,28 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.Construct.*;
-import static org.semanticweb.owlapi.util.Languages.*;
+import static org.semanticweb.owlapi.util.Construct.ATOMIC_NEGATION;
+import static org.semanticweb.owlapi.util.Construct.CONCEPT_COMPLEX_NEGATION;
+import static org.semanticweb.owlapi.util.Construct.CONCEPT_INTERSECTION;
+import static org.semanticweb.owlapi.util.Construct.CONCEPT_UNION;
+import static org.semanticweb.owlapi.util.Construct.D;
+import static org.semanticweb.owlapi.util.Construct.F;
+import static org.semanticweb.owlapi.util.Construct.FULL_EXISTENTIAL;
+import static org.semanticweb.owlapi.util.Construct.LIMITED_EXISTENTIAL;
+import static org.semanticweb.owlapi.util.Construct.N;
+import static org.semanticweb.owlapi.util.Construct.NOMINALS;
+import static org.semanticweb.owlapi.util.Construct.Q;
+import static org.semanticweb.owlapi.util.Construct.ROLE_COMPLEX;
+import static org.semanticweb.owlapi.util.Construct.ROLE_DOMAIN_RANGE;
+import static org.semanticweb.owlapi.util.Construct.ROLE_HIERARCHY;
+import static org.semanticweb.owlapi.util.Construct.ROLE_INVERSE;
+import static org.semanticweb.owlapi.util.Construct.ROLE_REFLEXIVITY_CHAINS;
+import static org.semanticweb.owlapi.util.Construct.ROLE_TRANSITIVE;
+import static org.semanticweb.owlapi.util.Construct.UNIVERSAL_RESTRICTION;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -27,7 +42,66 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -84,7 +158,6 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
      */
     public DLExpressivityChecker(Set<OWLOntology> ontologies) {
         this.ontologies = new ArrayList<>(ontologies);
-        constructs = new HashSet<>();
     }
 
     private static boolean isTop(OWLClassExpression classExpression) {
@@ -105,11 +178,12 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
     private Set<Construct> getOrderedConstructs() {
         if (constructs == null) {
             constructs = new TreeSet<>();
-            ontologies.stream().flatMap(o->o.getLogicalAxioms().stream()).forEach(ax -> ax.accept(this));
-            }
+            ontologies.stream().flatMap(o -> o.getLogicalAxioms().stream())
+                .forEach(ax -> ax.accept(this));
+        }
         Construct.trim(constructs);
         return constructs;
-        }
+    }
 
     private void addConstruct(Construct c) {
         if (constructs == null) {
@@ -117,7 +191,7 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
         }
         // Rr+I = R + I
         if (c == ROLE_INVERSE && constructs.contains(ROLE_REFLEXIVITY_CHAINS)) {
-        constructs.add(c);
+            constructs.add(c);
             constructs.remove(ROLE_REFLEXIVITY_CHAINS);
             constructs.add(ROLE_COMPLEX);
         } else if (c == ROLE_REFLEXIVITY_CHAINS && constructs.contains(ROLE_INVERSE)) {
