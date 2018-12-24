@@ -1,0 +1,11 @@
+org.semanticweb.owlapi6.rio.RioBinaryRdfParserFactory
+org.semanticweb.owlapi6.rio.RioJsonLDParserFactory
+org.semanticweb.owlapi6.rio.RioJsonParserFactory
+org.semanticweb.owlapi6.rio.RioN3ParserFactory
+org.semanticweb.owlapi6.rio.RioNQuadsParserFactory
+org.semanticweb.owlapi6.rio.RioNTriplesParserFactory
+org.semanticweb.owlapi6.rio.RioRDFaParserFactory
+org.semanticweb.owlapi6.rio.RioRDFXMLParserFactory
+org.semanticweb.owlapi6.rio.RioTrigParserFactory
+org.semanticweb.owlapi6.rio.RioTrixParserFactory
+org.semanticweb.owlapi6.rio.RioTurtleParserFactory

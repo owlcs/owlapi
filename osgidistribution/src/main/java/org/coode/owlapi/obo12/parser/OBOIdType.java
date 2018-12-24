@@ -36,17 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo12.parser;
+package org.coode.owlapi6.obo12.parser;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi6.model.IRI;
+import org.semanticweb.owlapi6.model.OWLOntologyID;
 
 /**
  * Author: Matthew Horridge<br>

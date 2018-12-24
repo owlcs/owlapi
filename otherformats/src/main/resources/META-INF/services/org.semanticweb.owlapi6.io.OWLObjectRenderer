@@ -1,0 +1,2 @@
+org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntaxObjectRenderer
+org.semanticweb.owlapi6.latex.renderer.LatexOWLObjectRenderer

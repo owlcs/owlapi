@@ -1,0 +1,2 @@
+org.semanticweb.owlapi6.krss2.parser.KRSS2OWLParserFactory
+org.semanticweb.owlapi6.dlsyntax.parser.DLSyntaxOWLParserFactory

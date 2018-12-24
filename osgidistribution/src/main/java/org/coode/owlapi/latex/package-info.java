@@ -14,4 +14,4 @@
  * Latex compatibility package.
  */
 @javax.annotation.ParametersAreNonnullByDefault
-package org.coode.owlapi.latex;
+package org.coode.owlapi6.latex;

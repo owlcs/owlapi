@@ -8,9 +8,9 @@ JAVA_UNICODE_ESCAPE=true;
 
 PARSER_BEGIN(OBOParser)
 
-package org.coode.owlapi.obo12.parser;
+package org.coode.owlapi6.obo12.parser;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi6.model.*;
 import java.net.*;
 import java.util.*;
 

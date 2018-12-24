@@ -1,0 +1,4 @@
+org.semanticweb.owlapi6.krss2.renderer.KRSS2OWLSyntaxStorerFactory
+org.semanticweb.owlapi6.latex.renderer.LatexStorerFactory
+org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntaxHTMLStorerFactory
+org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntaxStorerFactory

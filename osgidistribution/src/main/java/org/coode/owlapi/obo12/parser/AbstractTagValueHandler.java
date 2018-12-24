@@ -36,7 +36,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo12.parser;
+package org.coode.owlapi6.obo12.parser;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,24 +49,24 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.HasIRI;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi6.model.AddAxiom;
+import org.semanticweb.owlapi6.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi6.model.HasIRI;
+import org.semanticweb.owlapi6.model.IRI;
+import org.semanticweb.owlapi6.model.OWLAnnotation;
+import org.semanticweb.owlapi6.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi6.model.OWLAxiom;
+import org.semanticweb.owlapi6.model.OWLClass;
+import org.semanticweb.owlapi6.model.OWLClassExpression;
+import org.semanticweb.owlapi6.model.OWLDataFactory;
+import org.semanticweb.owlapi6.model.OWLEntity;
+import org.semanticweb.owlapi6.model.OWLLiteral;
+import org.semanticweb.owlapi6.model.OWLObjectProperty;
+import org.semanticweb.owlapi6.model.OWLOntology;
+import org.semanticweb.owlapi6.model.OWLOntologyChange;
+import org.semanticweb.owlapi6.model.OWLOntologyManager;
+import org.semanticweb.owlapi6.utilities.CollectionFactory;
 
 /**
  * Author: Matthew Horridge<br>

@@ -1,6 +1,6 @@
-package org.coode.owlapi.obo12.parser;
+package org.coode.owlapi6.obo12.parser;
 
-import org.semanticweb.owlapi.formats.OWLDocumentFormatFactoryImpl;
+import org.semanticweb.owlapi6.formats.OWLDocumentFormatFactoryImpl;
 
 @SuppressWarnings("javadoc")
 public class OBO12DocumentFormatFactory extends OWLDocumentFormatFactoryImpl {

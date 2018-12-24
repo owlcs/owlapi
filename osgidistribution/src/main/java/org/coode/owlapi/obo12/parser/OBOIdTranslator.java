@@ -36,9 +36,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo12.parser;
+package org.coode.owlapi6.obo12.parser;
 
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi6.model.IRI;
 
 /**
  * Author: Matthew Horridge<br>

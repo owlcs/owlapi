@@ -1,0 +1,453 @@
+options {
+    STATIC=false;
+    JAVA_UNICODE_ESCAPE=true;
+    //LOOKAHEAD=2; 
+    JAVA_TEMPLATE_TYPE = "modern";
+    EXCEPTIONS_SUPER_CLASS = "org.semanticweb.owlapi6.io.OWLParserException";
+    SUPPORT_CLASS_VISIBILITY_PUBLIC=false;
+    //DEBUG_PARSER=true;
+    //DEBUG_TOKEN_MANAGER=true;
+}
+
+PARSER_BEGIN(DLSyntaxParser)
+
+/* This file is part of the OWL API.
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ * Copyright 2014, The University of Manchester
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0 in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
+
+package org.semanticweb.owlapi6.dlsyntax.parser;
+
+import java.util.*;
+import org.semanticweb.owlapi6.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi6.utilities.*;
+import org.semanticweb.owlapi6.utility.*;
+
+import org.semanticweb.owlapi6.model.*;
+
+@SuppressWarnings("all")
+class DLSyntaxParser {
+    private String defaultNamespace;
+    private Map<String, String> namespaceMap = new HashMap<String, String>();
+    private OWLDataFactory factory;
+    private Map<String, IRI> qnameIRIMap = new HashMap<String, IRI>();
+    private Set<OWLAxiom> axioms = new LinkedHashSet<OWLAxiom>();
+
+    public DLSyntaxParser(Provider stream, OWLDataFactory factory) {
+        this(stream);
+        this.factory = factory;
+        defaultNamespace = factory.getNextDocumentIRI("http://www.semanticweb.org/ontologies/Ontology").toString();
+    }
+
+    public void setPrefixMapping(String prefix, String namespace) {
+        namespaceMap.put(prefix, namespace);
+    }
+
+    public void setDefaultNamespace(String ns) {
+        defaultNamespace = ns;
+    }
+
+    public IRI getIRIFromId(String qname) {
+        if(qname.equals("top") || qname.equals("\u22A4")) {
+            return OWLRDFVocabulary.OWL_THING.getIRI();
+        }
+        if(qname.equals("bottom") || qname.equals("\u22A5")) {
+            return OWLRDFVocabulary.OWL_NOTHING.getIRI();
+        }
+        IRI iri = qnameIRIMap.get(qname);
+        if(iri == null) {
+            iri = factory.getIRI(defaultNamespace + "#" + qname);
+            qnameIRIMap.put(qname, iri);
+        }
+        return iri;
+    }
+    private void addAxiom(OWLAxiom ax) {
+        if (ax == null) {
+          return;
+        }
+        axioms.add(ax);
+    }
+}
+
+PARSER_END(DLSyntaxParser)
+
+// We skip over any white space
+SKIP: {" " | "\r" | "\t"}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TOKEN: { <SUBCLASSOF: ("\u2291" | "->" | "sub" | "\\sqsubseteq")> }
+TOKEN: { <EQUIVALENTTO: ("\u2261" | "==" | "\\equiv")> }
+TOKEN: { <NEQ: ("\u2260" | "!=" | "\\not=")> }
+TOKEN: { <COMPOSE: "o" | "\u2218" > }
+TOKEN: { <DOT: "."> }
+TOKEN: { <INVERSE: "\u207B" | "^-"> }
+TOKEN: { <OPENPAR: "("> }
+TOKEN: { <CLOSEPAR: ")"> }
+TOKEN: { <OPENSQPAR: "["> }
+TOKEN: { <CLOSESQPAR: "]"> }
+TOKEN: { <OPENBRACE: "{"> }
+TOKEN: { <CLOSEBRACE: "}"> }
+TOKEN: { <COLON: ":"> }
+TOKEN: { <AND: ("\u2293" | "and" | "\\sqcap")> }
+TOKEN: { <OR: ("\u2294" | "or" | "\\sqcup")> }
+TOKEN: { <NOT: ("\u00AC" | "not" | "\\lnot")> }
+TOKEN: { <SOME: ("\u2203" | "exists" | "\\exists")> }
+TOKEN: { <ALL: ("\u2200" | "forall" | "\\forall")> }
+TOKEN: { <MIN: ("\u2265" | ">" | "\\geq")> }
+TOKEN: { <MAX: ("\u2264" | "<" | "\\leq")> }
+TOKEN: { <EXACT: ("=" | "equal")> }
+TOKEN: { <IN: ("in" | "\u2208")> }
+TOKEN: { <TRANSITIVEROLES: ("trans" | "transitive" | "R\u207A")> }
+TOKEN: { <INT: (["0"-"9"])+> }
+TOKEN: { <DOUBLE: (<INT>)+<DOT>(<INT>)*> }
+TOKEN: { <ID: ((~[" ", "\n", "\t", "(", ")", "[", "]", "{", "}", ",", "^", "=", "<", ">", ".", "\u207B", "\u00AC", "\u2208"]))+> }
+
+OWLClassExpression parseDescription() :
+{ OWLClassExpression desc; }
+{   desc = parseClassDescription() <EOF> { return desc; } }
+
+public Set<OWLAxiom> parseAxioms() :
+{ OWLAxiom ax; }
+{ (("\n")? ax=parseAxiom(){addAxiom(ax);})*<EOF> { return axioms; } }
+
+public OWLAxiom parseAxiom() :
+{ OWLAxiom ax; }
+{
+   ((<COLON> ax = parsePropertyAxiom())
+    | LOOKAHEAD(3)(ax = parseClassAxiom())
+    | LOOKAHEAD(3)(ax = parseIndividualAxiom())
+    | LOOKAHEAD(3)(ax = parseObjectPropertyAssertion())
+    | LOOKAHEAD(3)(ax = parseDataPropertyAssertion())
+    | LOOKAHEAD(2)(ax = parseDifferentIndividualsAxiom()))
+    {return ax;}
+}
+
+public OWLAxiom parseIndividualAxiom() :
+{ OWLAxiom ax; }
+{
+    (LOOKAHEAD(2)ax=parseClassAssertion() | LOOKAHEAD(2)ax=parseSameIndividual())
+    { return ax; }
+}
+
+public OWLAxiom parseDifferentIndividualsAxiom() :
+{
+    Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+    OWLIndividual ind;
+}
+{
+    (ind=parseIndividualId(){inds.add(ind);} <NEQ> ind=parseIndividualId(){inds.add(ind);} (<NEQ> ind=parseIndividualId(){inds.add(ind);})*)
+    { return factory.getOWLDifferentIndividualsAxiom(inds); }
+}
+
+public OWLAxiom parseObjectPropertyAssertion() :
+{
+    OWLIndividual subj, obj;
+    OWLObjectPropertyExpression prop;
+}
+{
+    prop=parseObjectPropertyId() <OPENPAR> subj=parseIndividualId() "," obj=parseIndividualId()<CLOSEPAR>
+    { return factory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj); }
+}
+
+public OWLAxiom parseDataPropertyAssertion() :
+{
+    OWLIndividual subj;
+    OWLDataPropertyExpression prop;
+    OWLLiteral obj;
+}
+{
+    prop=parseDataPropertyId() <OPENPAR> subj=parseIndividualId() "," obj=parseLiteral()<CLOSEPAR>
+    { return factory.getOWLDataPropertyAssertionAxiom(prop, subj, obj); }
+}
+
+public OWLAxiom parseSameIndividual() :
+{
+    OWLIndividual indA;
+    OWLIndividual indB;
+}
+{
+    indA=parseIndividualId() <EXACT> indB=parseIndividualId()
+    { return factory.getOWLSameIndividualAxiom(indA, indB); }
+}
+
+public OWLAxiom parseClassAssertion() :
+{
+    OWLIndividual ind;
+    OWLClassExpression desc;
+}
+{
+(  (LOOKAHEAD(3)(<OPENPAR>desc = parseDescription()<CLOSEPAR>)
+    |LOOKAHEAD(3) (desc = parseClassDescription()))
+    <OPENPAR>ind=parseIndividualId()<CLOSEPAR> ("\n"{jj_input_stream.backup(1);} | <EOF>))
+    { return factory.getOWLClassAssertionAxiom(desc, ind); }
+}
+
+public OWLAxiom parseClassAxiom() :
+{
+    OWLClassExpression lhs;
+    OWLClassExpression rhs;
+    boolean subClassAxiom = false;
+    OWLAxiom ax = null;
+}
+{
+    (lhs = parseClassDescription()
+    (<SUBCLASSOF>
+        rhs = parseClassDescription() {
+        if(lhs.isOWLThing()) {
+             if(rhs instanceof OWLObjectAllValuesFrom) {
+                 // Interpret as Range
+                 OWLObjectAllValuesFrom r = (OWLObjectAllValuesFrom) rhs;
+                 ax = factory.getOWLObjectPropertyRangeAxiom(r.getProperty(), r.getFiller());
+             } else if(rhs instanceof OWLObjectMaxCardinality) {
+                OWLObjectMaxCardinality r = (OWLObjectMaxCardinality) rhs;
+                if(r.getCardinality() == 1 && r.getFiller().isOWLThing()) {
+                    ax = factory.getOWLFunctionalObjectPropertyAxiom(r.getProperty());
+                }
+            }
+        } else if(lhs instanceof OWLObjectSomeValuesFrom) {
+            OWLObjectSomeValuesFrom restriction = (OWLObjectSomeValuesFrom) lhs;
+            if(restriction.getFiller().isOWLThing()) {
+                ax = factory.getOWLObjectPropertyDomainAxiom(restriction.getProperty(), rhs);
+            }
+        } else { 
+            if(rhs instanceof OWLObjectComplementOf && rhs.isNamed()) {
+                ax = factory.getOWLDisjointClassesAxiom(lhs, ((OWLObjectComplementOf) rhs).getOperand());
+            } else { 
+                ax = factory.getOWLSubClassOfAxiom(lhs, rhs);
+            }
+         }
+     }
+     | <EQUIVALENTTO> rhs = parseClassDescription(){ax = factory.getOWLEquivalentClassesAxiom(lhs, rhs);})
+    )
+    { return ax; }
+}
+
+public OWLAxiom parsePropertyChain() :
+{
+    OWLObjectPropertyExpression prop;
+    OWLObjectPropertyExpression supProp;
+    List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>();
+}
+{
+    prop=parseObjectPropertyId(){props.add(prop);}
+    <COMPOSE> prop=parseObjectPropertyId(){props.add(prop);}
+    (<COMPOSE> prop=parseObjectPropertyId(){props.add(prop);})*
+    <SUBCLASSOF> supProp=parseObjectPropertyId()
+    { return factory.getOWLSubPropertyChainOfAxiom(props, supProp); }
+}
+
+public OWLAxiom parsePropertyAxiom() :
+{
+    OWLObjectPropertyExpression lhs;
+    OWLObjectPropertyExpression rhs;
+    OWLAxiom ax;
+}
+{(
+    LOOKAHEAD(3)lhs = parseObjectPropertyId()
+    (
+        (<SUBCLASSOF> rhs = parseObjectPropertyId() {ax = factory.getOWLSubObjectPropertyOfAxiom(lhs, rhs);})
+        |
+        (<EQUIVALENTTO> rhs = parseObjectPropertyId() {
+            if(rhs instanceof OWLObjectInverseOf) {
+                OWLObjectInverseOf inv = (OWLObjectInverseOf) rhs;
+                ax = factory.getOWLInverseObjectPropertiesAxiom(lhs, inv.getInverse());
+            } else { 
+                ax = factory.getOWLEquivalentObjectPropertiesAxiom(CollectionFactory.createSet(lhs, rhs));
+            }
+        })
+        | (<IN><TRANSITIVEROLES> {ax = factory.getOWLTransitiveObjectPropertyAxiom(lhs);})
+    )
+    |
+    LOOKAHEAD(3)ax=parsePropertyChain())
+    { return ax; }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+public OWLClassExpression parseClassDescription():
+{ OWLClassExpression desc; }
+{ desc = Or() { return desc; } }
+
+OWLClassExpression Or():
+{
+    OWLClassExpression desc;
+    Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
+}
+{
+    (desc=And(){operands.add(desc);} (<OR> desc=And(){operands.add(desc);})*)
+    {
+        if(operands.size() == 1) { return desc; }
+        return factory.getOWLObjectUnionOf(operands);
+    }
+}
+
+OWLClassExpression And():
+{
+    OWLClassExpression desc;
+    Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
+}
+{
+    (desc=NonNaryBooleanDescription(){operands.add(desc);} (<AND> desc=NonNaryBooleanDescription() {operands.add(desc);})*)
+    {
+        if(operands.size() == 1) { return desc; }
+        return factory.getOWLObjectIntersectionOf(operands);
+    }
+}
+
+OWLClassExpression NonNaryBooleanDescription():
+{ OWLClassExpression desc; }
+{
+    (desc=parseRestriction()
+    | desc=parseObjectComplementOf()
+    | desc=NamedClassOrNestedDescription())
+    { return desc; }
+}
+
+OWLObjectPropertyExpression parseObjectPropertyId():
+{
+    IRI iri;
+    boolean inverse = false;
+}
+{
+    iri=parseId() (<INVERSE>{inverse = true;})?
+    { if(inverse) {
+          return factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(iri));
+      }
+      return factory.getOWLObjectProperty(iri);
+    }
+}
+
+OWLDataPropertyExpression parseDataPropertyId():
+{ IRI iri; }
+{ iri=parseId() { return factory.getOWLDataProperty(iri); } }
+
+OWLClassExpression parseRestriction():
+{ OWLClassExpression desc; }
+{
+    (LOOKAHEAD(3)desc=parseSomeRestriction()
+    |LOOKAHEAD(3) desc=parseDataSomeRestriction()
+    | desc=parseAllRestriction()
+    | desc=parseCardinalityRestriction())
+    { return desc; }
+}
+
+OWLClassExpression parseSomeRestriction():
+{
+    OWLObjectPropertyExpression prop;
+    OWLClassExpression filler;
+}
+{
+    (<SOME>  prop=parseObjectPropertyId() (<DOT>)? (filler=NamedClassOrNestedDescription()))
+    { return factory.getOWLObjectSomeValuesFrom(prop, filler); }
+}
+
+OWLClassExpression parseDataSomeRestriction():
+{
+    OWLDataPropertyExpression prop;
+    OWLDataRange filler;
+}
+{
+    (<SOME>  prop=parseDataPropertyId() (<DOT>)? (filler=parseDataOneOf()))
+    { return factory.getOWLDataSomeValuesFrom(prop, filler); }
+}
+
+OWLClassExpression parseAllRestriction():
+{
+    OWLObjectPropertyExpression prop;
+    OWLClassExpression filler;
+}
+{
+    (<ALL> prop=parseObjectPropertyId() (<DOT>)? (filler=NamedClassOrNestedDescription()))
+    { return factory.getOWLObjectAllValuesFrom(prop, filler); }
+}
+
+OWLClassExpression parseCardinalityRestriction():
+{
+    OWLObjectPropertyExpression prop;
+    OWLClassExpression filler = null;
+    boolean min = false;
+    boolean exactly = false;
+    boolean max = false;
+    Token t;
+}
+{
+    ((<MIN>{min=true;}
+    | <EXACT>{exactly=true;}
+    | <MAX>{max=true;})
+    t=<INT> prop=parseObjectPropertyId()
+    (LOOKAHEAD(2)(<DOT>)? filler=NamedClassOrNestedDescription())?)
+    {
+        int card = Integer.parseInt(t.image);
+        if(filler == null) { filler = factory.getOWLThing(); }
+        if(min) { return factory.getOWLObjectMinCardinality(card, prop, filler); }
+        else if(exactly) { return factory.getOWLObjectExactCardinality(card, prop, filler);}
+        else { return factory.getOWLObjectMaxCardinality(card, prop, filler); }
+    }
+}
+
+OWLIndividual parseIndividualId():
+{ IRI iri; }
+{ iri=parseId() { return factory.getOWLNamedIndividual(iri); } }
+
+
+OWLClassExpression parseObjectComplementOf():
+{ OWLClassExpression op; }
+{ <NOT> op=NamedClassOrNestedDescription() { return factory.getOWLObjectComplementOf(op); } }
+
+OWLClassExpression parseObjectOneOf():
+{
+    OWLIndividual ind;
+    Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+}
+{
+    <OPENBRACE>(ind=parseIndividualId(){inds.add(ind);} (ind=parseIndividualId(){inds.add(ind);})*)<CLOSEBRACE>
+    { return factory.getOWLObjectOneOf(inds); }
+}
+
+OWLDataRange parseDataOneOf():
+{
+    OWLLiteral val;
+    Set<OWLLiteral> values = new HashSet<OWLLiteral>();
+}
+{
+    <OPENBRACE>(val=parseLiteral(){values.add(val);} (val=parseLiteral(){values.add(val);})*)<CLOSEBRACE>
+    { return factory.getOWLDataOneOf(values); }
+}
+
+OWLClassExpression NamedClassOrNestedDescription():
+{ OWLClassExpression desc; }
+{ (desc=parseClassId() | desc=NestedClassDescription())  { return desc; } }
+
+OWLClass parseClassId():
+{ IRI iri; }
+{ iri=parseId() { return factory.getOWLClass(iri); } }
+
+OWLClassExpression NestedClassDescription():
+{ OWLClassExpression desc; }
+{
+    ((<OPENPAR>desc=Or()<CLOSEPAR>) | (desc = parseObjectOneOf()))
+    { return desc;}
+}
+OWLLiteral parseLiteral() :
+{
+    Token t;
+    OWLLiteral l;
+}
+{
+    (t=<INT>{l= factory.getOWLLiteral(Integer.parseInt(t.image));}
+    |t=<DOUBLE>{l= factory.getOWLLiteral(Double.parseDouble(t.image));})
+    { return l; }
+}
+
+IRI parseId() :
+{ Token t; }
+{ t=<ID> { return getIRIFromId(t.image); } }

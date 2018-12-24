@@ -10,7 +10,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.coode.owlapi.manchesterowlsyntax;
+package org.coode.owlapi6.manchesterowlsyntax;
 
 import javax.annotation.Nullable;
 
@@ -33,7 +33,7 @@ public enum ManchesterOWLSyntax {
     /** OPENBRACKET                 */   OPENBRACKET                 (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OPENBRACKET                 ),
     /** CLOSEBRACKET                */   CLOSEBRACKET                (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CLOSEBRACKET                ),
     /** ONTOLOGY                    */   ONTOLOGY                    (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONTOLOGY                    ),
-    /** IMPORT                      */   IMPORT                      (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.IMPORT                      ),
+    /** IMPORT                      */   IMPORT                      (org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntax.IMPORT                      ),
     /** PREFIX                      */   PREFIX                      (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.PREFIX                      ),
     /** CLASS                       */   CLASS                       (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CLASS                       ),
     /** OBJECT_PROPERTY             */   OBJECT_PROPERTY             (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OBJECT_PROPERTY             ),

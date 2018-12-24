@@ -1,7 +1,0 @@
-
-description = 'OWLAPI :: Parsers'
-dependencies {
-  compile project(':owlapi-api')
-  compile project(':owlapi-tools')
-  compile 'javax.inject:javax.inject:1'
-}

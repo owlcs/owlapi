@@ -36,10 +36,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo12.parser;
+package org.coode.owlapi6.obo12.parser;
 
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
+import org.semanticweb.owlapi6.model.OWLDocumentFormat;
+import org.semanticweb.owlapi6.model.OWLDocumentFormatImpl;
 
 /**
  * Author: Matthew Horridge<br>

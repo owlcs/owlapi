@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.test;
+package org.semanticweb.owlapi6.test;
 
 /**
  * Marker interface for integration tests

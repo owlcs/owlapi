@@ -10,9 +10,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi6.util;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -20,15 +20,15 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi6.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi6.model.OWLClass;
+import org.semanticweb.owlapi6.model.OWLDataProperty;
+import org.semanticweb.owlapi6.model.OWLDatatype;
+import org.semanticweb.owlapi6.model.OWLEntity;
+import org.semanticweb.owlapi6.model.OWLNamedIndividual;
+import org.semanticweb.owlapi6.model.OWLObjectProperty;
+import org.semanticweb.owlapi6.model.OWLOntology;
 
 /**
  * A utility class that visits axioms, class expressions etc. and accumulates the named objects that

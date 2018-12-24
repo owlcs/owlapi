@@ -1,10 +1,10 @@
-package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
+package uk.ac.manchester.cs.owl.owlapi6.mansyntaxrenderer;
 
 import java.io.Writer;
 import java.util.Collection;
 
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi6.model.OWLOntology;
+import org.semanticweb.owlapi6.model.PrefixManager;
 
 /**
  * @deprecated use org.semanticweb.owlapi.mansyntax.renderer. ManchesterOWLSyntaxFrameRenderer

@@ -36,7 +36,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo12.parser;
+package org.coode.owlapi6.obo12.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,11 +44,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.semanticweb.owlapi.model.HasIRI;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi6.model.HasIRI;
+import org.semanticweb.owlapi6.model.IRI;
+import org.semanticweb.owlapi6.model.OWLRuntimeException;
+import org.semanticweb.owlapi6.vocab.DublinCoreVocabulary;
+import org.semanticweb.owlapi6.vocab.OWLRDFVocabulary;
 
 /**
  * Author: Matthew Horridge<br>

@@ -36,20 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo12.parser;
+package org.coode.owlapi6.obo12.parser;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.Reader;
 import java.util.List;
 
-import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserParameters;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OntologyConfigurator;
+import org.semanticweb.owlapi6.io.OWLParser;
+import org.semanticweb.owlapi6.io.OWLParserParameters;
+import org.semanticweb.owlapi6.model.IRI;
+import org.semanticweb.owlapi6.model.OWLDocumentFormat;
+import org.semanticweb.owlapi6.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi6.model.OWLOntology;
+import org.semanticweb.owlapi6.model.OntologyConfigurator;
 
 /**
  * Author: Matthew Horridge<br>

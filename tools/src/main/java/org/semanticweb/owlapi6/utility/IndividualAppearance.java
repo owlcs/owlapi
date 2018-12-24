@@ -1,0 +1,17 @@
+package org.semanticweb.owlapi6.utility;
+
+import org.semanticweb.owlapi6.model.OWLAnonymousIndividual;
+
+/**
+ * An interface for checking if an anonymous individual is references multiple times as object of a
+ * statement. This requires an id to be emitted.
+ */
+@FunctionalInterface
+public interface IndividualAppearance {
+
+    /**
+     * @param i an anonymous individual
+     * @return true if i appears more than once as object.
+     */
+    boolean appearsMultipleTimes(OWLAnonymousIndividual i);
+}

@@ -14,4 +14,4 @@
  * Manchester syntax compatibility package.
  */
 @javax.annotation.ParametersAreNonnullByDefault
-package org.coode.owlapi.manchesterowlsyntax;
+package org.coode.owlapi6.manchesterowlsyntax;

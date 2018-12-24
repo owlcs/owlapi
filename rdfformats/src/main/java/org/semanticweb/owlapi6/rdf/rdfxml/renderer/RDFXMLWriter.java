@@ -1,0 +1,150 @@
+/* This file is part of the OWL API.
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ * Copyright 2014, The University of Manchester
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0 in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
+package org.semanticweb.owlapi6.rdf.rdfxml.renderer;
+
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
+
+import org.semanticweb.owlapi6.io.RDFResource;
+import org.semanticweb.owlapi6.model.IRI;
+import org.semanticweb.owlapi6.model.OWLObject;
+import org.semanticweb.owlapi6.vocab.OWL2Datatype;
+import org.semanticweb.owlapi6.vocab.OWLRDFVocabulary;
+
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @since 2.0.0
+ */
+public class RDFXMLWriter {
+
+    private static final String XML_LANG = "xml:lang";
+    private final XMLWriter writer;
+
+    protected RDFXMLWriter(XMLWriter writer) {
+        this.writer = checkNotNull(writer, "writer cannot be null");
+    }
+
+    /**
+     * @param elementName elementName
+     */
+    public void writeStartElement(IRI elementName) {
+        // Sort out with namespace
+        writer.writeStartElement(checkNotNull(elementName, "elementName cannot be null"));
+    }
+
+    /**
+     * Parse type attribute.
+     */
+    public void writeParseTypeAttribute() {
+        writer.writeAttribute(OWLRDFVocabulary.RDF_PARSETYPE.getIRI(), "Collection");
+    }
+
+    /**
+     * Parse type attribute for literals.
+     */
+    public void writeParseTypeLiteralAttribute() {
+        writer.writeAttribute(OWLRDFVocabulary.RDF_PARSETYPE.getIRI(), "Literal");
+    }
+
+    /**
+     * @param datatypeIRI datatypeIRI
+     */
+    public void writeDatatypeAttribute(IRI datatypeIRI) {
+        checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
+        if (OWL2Datatype.RDF_XML_LITERAL.getIRI().equals(datatypeIRI)) {
+            writeParseTypeLiteralAttribute();
+        } else {
+            writer.writeAttribute(OWLRDFVocabulary.RDF_DATATYPE.getIRI(), datatypeIRI.toString());
+        }
+    }
+
+    /**
+     * @param text text
+     */
+    public void writeTextContent(String text) {
+        writer.writeTextContent(text);
+    }
+
+    /**
+     * @param lang lang
+     */
+    public void writeLangAttribute(String lang) {
+        writer.writeAttribute(XML_LANG, lang);
+    }
+
+    /**
+     * Write end element.
+     */
+    public void writeEndElement() {
+        writer.writeEndElement();
+    }
+
+    /**
+     * @param value value
+     */
+    public void writeAboutAttribute(IRI value) {
+        writeAttribute(OWLRDFVocabulary.RDF_ABOUT.getIRI(), value);
+    }
+
+    /**
+     * @param node node
+     */
+    public void writeNodeIDAttribute(RDFResource node) {
+        assert node.isAnonymous();
+        writer.writeAttribute(OWLRDFVocabulary.RDF_NODEID.getIRI(), node.getNodeIDValue());
+    }
+
+    /**
+     * @param attributeName attribute name
+     * @param value value
+     */
+    public void writeAttribute(IRI attributeName, IRI value) {
+        writer.writeAttribute(attributeName,
+            checkNotNull(value, "value cannot be null").toString());
+    }
+
+    /**
+     * @param owlObject owlObject
+     */
+    @SuppressWarnings("unused")
+    public void writeOWLObject(OWLObject owlObject) {
+        // nothing to do here
+    }
+
+    /**
+     * @param value value
+     */
+    public void writeResourceAttribute(IRI value) {
+        writeAttribute(OWLRDFVocabulary.RDF_RESOURCE.getIRI(), value);
+    }
+
+    /**
+     * Start document.
+     */
+    public void startDocument() {
+        writer.startDocument(OWLRDFVocabulary.RDF_RDF.getIRI());
+    }
+
+    /**
+     * End document.
+     */
+    public void endDocument() {
+        writer.endDocument();
+    }
+
+    /**
+     * @param comment comment
+     */
+    public void writeComment(String comment) {
+        writer.writeComment(comment);
+    }
+}

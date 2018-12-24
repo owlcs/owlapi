@@ -25,14 +25,14 @@ import org.ops4j.pax.exam.options.UrlProvisionOption;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerClass;
 import org.osgi.framework.BundleContext;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+import org.semanticweb.owlapi6.apibinding.OWLManager;
+import org.semanticweb.owlapi6.model.OWLClass;
+import org.semanticweb.owlapi6.model.OWLDataFactory;
+import org.semanticweb.owlapi6.model.OWLOntology;
+import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi6.model.OWLOntologyManager;
+import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi6.model.parameters.ChangeApplied;
 
 import aQute.bnd.osgi.Jar;
 

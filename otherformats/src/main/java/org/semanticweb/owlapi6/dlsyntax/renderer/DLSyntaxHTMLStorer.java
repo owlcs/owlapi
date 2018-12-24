@@ -1,0 +1,140 @@
+/* This file is part of the OWL API.
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ * Copyright 2014, The University of Manchester
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0 in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
+package org.semanticweb.owlapi6.dlsyntax.renderer;
+
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
+
+import java.io.PrintWriter;
+
+import javax.annotation.Nullable;
+
+import org.semanticweb.owlapi6.formats.DLSyntaxHTMLDocumentFormat;
+import org.semanticweb.owlapi6.model.OWLAxiom;
+import org.semanticweb.owlapi6.model.OWLDocumentFormat;
+import org.semanticweb.owlapi6.model.OWLEntity;
+import org.semanticweb.owlapi6.model.OWLOntology;
+import org.semanticweb.owlapi6.utility.SimpleShortFormProvider;
+
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @since 2.2.0
+ */
+public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
+
+    private static final String WRITER_CANNOT_BE_NULL = "writer cannot be null";
+
+    @Override
+    public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
+        return ontologyFormat instanceof DLSyntaxHTMLDocumentFormat;
+    }
+
+    @Override
+    protected String getRendering(@Nullable final OWLEntity subject, OWLAxiom axiom) {
+        checkNotNull(axiom, "axiom cannot be null");
+        DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
+            @Override
+            protected void writeEntity(OWLEntity entity) {
+                String shortForm =
+                    shortFormProvider.getShortForm(checkNotNull(entity, "entity cannot be null"));
+                if (entity.equals(subject)) {
+                    write(shortForm);
+                } else {
+                    write("<a href=\"#" + shortForm + "\">" + shortForm + "</a>");
+                }
+            }
+
+            @Override
+            protected void write(DLSyntax keyword) {
+                write(checkNotNull(keyword, "keyword cannot be null").toHTMLString());
+            }
+        };
+        ren.setFocusedObject(subject);
+        return ren.render(axiom);
+    }
+
+    @Override
+    protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
+        checkNotNull(ontology, "ontology cannot be null");
+        checkNotNull(writer, WRITER_CANNOT_BE_NULL);
+        writer.println("<html>");
+        writer.println("<body>");
+        writer.println("<h1>Ontology: ");
+        writer.print(ontology.getOntologyID());
+        writer.println("</h1>");
+    }
+
+    @SuppressWarnings("unused")
+    protected void writeEntity(OWLEntity entity, PrintWriter writer) {
+        // nothing to do here
+    }
+
+    @Override
+    protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
+        checkNotNull(ontology, "ontology cannot be null");
+        checkNotNull(writer, WRITER_CANNOT_BE_NULL);
+        writer.println("</body>");
+        writer.println("</html>");
+    }
+
+    @Override
+    protected void beginWritingAxiom(PrintWriter writer) {
+        checkNotNull(writer, WRITER_CANNOT_BE_NULL).println("<div class=\"axiombox\"> ");
+    }
+
+    @Override
+    protected void endWritingAxiom(PrintWriter writer) {
+        closeDiv(writer);
+    }
+
+    @Override
+    protected void beginWritingAxioms(OWLEntity subject, PrintWriter writer) {
+        checkNotNull(subject, "subject cannot be null");
+        checkNotNull(writer, WRITER_CANNOT_BE_NULL);
+        writer.print("<h2><a name=\"");
+        writer.print(new SimpleShortFormProvider().getShortForm(subject));
+        writer.print("\">");
+        writer.print(subject.getIRI());
+        writer.println("</a></h2>");
+        writer.println("<div class=\"entitybox\">");
+    }
+
+    @Override
+    protected void endWritingAxioms(PrintWriter writer) {
+        closeDiv(writer);
+    }
+
+    @Override
+    protected void beginWritingGeneralAxioms(PrintWriter writer) {
+        writer.println("<div>");
+    }
+
+    @Override
+    protected void endWritingGeneralAxioms(PrintWriter writer) {
+        closeDiv(writer);
+    }
+
+    @Override
+    protected void beginWritingUsage(int size, PrintWriter writer) {
+        writer.println("<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">");
+        writer.println("<h3>Usages (" + size + ")</h3>");
+    }
+
+    @Override
+    protected void endWritingUsage(PrintWriter writer) {
+        closeDiv(writer);
+    }
+
+    protected void closeDiv(PrintWriter writer) {
+        writer.println("</div>");
+    }
+}

@@ -36,9 +36,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo12.parser;
+package org.coode.owlapi6.obo12.parser;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashMap;
 import java.util.Map;

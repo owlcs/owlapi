@@ -1,6 +1,6 @@
 package org.obolibrary.owl;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi6.model.OWLOntologyFormat;
 
 /**
  * Format for serializing an OWL ontology in a functional syntax format and labels instead of
