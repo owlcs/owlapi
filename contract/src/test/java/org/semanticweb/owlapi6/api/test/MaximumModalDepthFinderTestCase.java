@@ -25,7 +25,6 @@ import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi6.model.OWLObject;
 import org.semanticweb.owlapi6.utility.MaximumModalDepthFinder;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class MaximumModalDepthFinderTestCase {
 

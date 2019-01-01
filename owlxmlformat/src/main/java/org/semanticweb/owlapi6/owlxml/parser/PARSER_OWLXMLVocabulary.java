@@ -211,7 +211,6 @@ import org.semanticweb.owlapi6.builders.BuilderUnionOf;
 import org.semanticweb.owlapi6.builders.SettableCardinality;
 import org.semanticweb.owlapi6.builders.SettableProperty;
 import org.semanticweb.owlapi6.builders.SettableRange;
-import org.semanticweb.owlapi6.model.AddAxiom;
 import org.semanticweb.owlapi6.model.AddImport;
 import org.semanticweb.owlapi6.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi6.model.IRI;
@@ -451,7 +450,7 @@ interface ObjectPropertyEH {
 }
 
 
-@SuppressWarnings({"unused", "null"})
+@SuppressWarnings({"unused"})
 abstract class OWLEH<O, B extends Builder<O>> {
 
     final StringBuilder sb = new StringBuilder();
@@ -523,7 +522,7 @@ abstract class OWLEH<O, B extends Builder<O>> {
     void handleChild(AxiomEH<? extends OWLAxiom, ?> h) {
         OWLAxiom axiom = h.getOWLObject();
         if (!axiom.isAnnotationAxiom() || handler.getConfiguration().shouldLoadAnnotations()) {
-            handler.getOWLOntologyManager().applyChange(new AddAxiom(handler.getOntology(), axiom));
+            handler.getOntology().add(axiom);
         }
     }
 
@@ -2110,7 +2109,7 @@ class ImportsEH extends OWLEH<OWLOntology, Builder<OWLOntology>> {
     void endElement() {
         IRI ontIRI = handler.getIRI(getText().trim());
         OWLImportsDeclaration decl = df.getOWLImportsDeclaration(ontIRI);
-        handler.getOWLOntologyManager().applyChange(new AddImport(handler.getOntology(), decl));
+        handler.getOntology().applyChange(new AddImport(handler.getOntology(), decl));
         handler.getOWLOntologyManager().makeLoadImportRequest(decl, handler.getConfiguration());
     }
 

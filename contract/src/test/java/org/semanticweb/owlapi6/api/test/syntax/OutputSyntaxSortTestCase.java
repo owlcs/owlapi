@@ -23,7 +23,6 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class OutputSyntaxSortTestCase extends TestBase {
 

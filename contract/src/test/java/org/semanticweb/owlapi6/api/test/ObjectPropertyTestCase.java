@@ -35,7 +35,6 @@ import org.semanticweb.owlapi6.model.OWLSubPropertyChainOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-@SuppressWarnings("javadoc")
 public class ObjectPropertyTestCase extends TestBase {
 
     @Test
@@ -78,7 +77,7 @@ public class ObjectPropertyTestCase extends TestBase {
         OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLObjectProperty propQ = ObjectProperty(iri("q"));
         OWLAxiom ax = InverseObjectProperties(propP, propQ);
-        ont.getOWLOntologyManager().addAxiom(ont, ax);
+        ont.addAxiom(ax);
         assertTrue(contains(inverse(ont.inverseObjectPropertyAxioms(propP), propP), propQ));
         assertFalse(contains(inverse(ont.inverseObjectPropertyAxioms(propP), propP), propP));
     }
@@ -88,7 +87,7 @@ public class ObjectPropertyTestCase extends TestBase {
         OWLOntology ont = getOWLOntology();
         OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLAxiom ax = InverseObjectProperties(propP, propP);
-        ont.getOWLOntologyManager().addAxiom(ont, ax);
+        ont.addAxiom(ax);
         assertTrue(contains(inverse(ont.inverseObjectPropertyAxioms(propP), propP), propP));
     }
 

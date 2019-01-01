@@ -84,7 +84,6 @@ import org.semanticweb.owlapi6.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
  * OBO-Edit won't load any OBO ontology containing a comment-tag in the ontology header. WARNING:
  * This conversion will not conserve the order of remark tags in a round-trip via OWL.
  */
-@SuppressWarnings({"javadoc", "null"})
 public class BasicsTestCase extends OboFormatTestBasics {
 
     private static final IRI SHORTHAND =
@@ -108,6 +107,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         Frame headerFrame = doc.getHeaderFrame();
         assertNotNull(headerFrame);
         Clause clause = headerFrame.getClause(OboFormatTag.TAG_IDSPACE);
+        assertNotNull(clause);
         Collection<Object> values = clause.getValues();
         assertNotNull(values);
         assertEquals(3, values.size());
@@ -176,6 +176,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void testCommentRemarkConversion() throws Exception {
         OBODoc obo = parseOBOFile("comment_remark_conversion.obo", true, Collections.emptyMap());
         Frame headerFrame = obo.getHeaderFrame();
+        assertNotNull(headerFrame);
         Collection<String> remarks =
             headerFrame.getTagValues(OboFormatTag.TAG_REMARK, String.class);
         OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(m1);
@@ -190,6 +191,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(m1);
         OBODoc oboRoundTrip = owl2Obo.convert(owlOntology, storerParameters);
         Frame headerFrameRoundTrip = oboRoundTrip.getHeaderFrame();
+        assertNotNull(headerFrameRoundTrip);
         Collection<String> remarksRoundTrip =
             headerFrameRoundTrip.getTagValues(OboFormatTag.TAG_REMARK, String.class);
         assertEquals(remarks.size(), remarksRoundTrip.size());
@@ -256,10 +258,12 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OBODoc obodoc = parseOBOFile("caro.obo");
         assertTrue(obodoc.getTermFrames().size() > 2);
         Frame cc = obodoc.getTermFrame("CARO:0000014");
+        assertNotNull(cc);
         assertEquals("cell component", cc.getTagValue(OboFormatTag.TAG_NAME));
         assertEquals("Anatomical structure that is a direct part of the cell.",
             cc.getTagValue(OboFormatTag.TAG_DEF));
         Clause dc = cc.getClause(OboFormatTag.TAG_DEF);
+        assertNotNull(dc);
         Collection<Xref> dcxs = dc.getXrefs();
         assertEquals("CARO:MAH", dcxs.iterator().next().getIdref());
         /*
@@ -314,7 +318,10 @@ public class BasicsTestCase extends OboFormatTestBasics {
         String oboString = renderOboToString(doc);
         assertTrue(oboString.contains("comment: Comment with a '\\{' curly braces '}'"));
         OBODoc doc2 = parseOboToString(oboString);
-        assertEquals(comment, doc2.getTermFrame(id).getTagValue(OboFormatTag.TAG_COMMENT));
+        assertNotNull(doc2);
+        Frame termFrame = doc2.getTermFrame(id);
+        assertNotNull(termFrame);
+        assertEquals(comment, termFrame.getTagValue(OboFormatTag.TAG_COMMENT));
     }
 
     @Test
@@ -624,6 +631,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void testIgnoreImportAnnotations() {
         OBODoc oboDoc = parseOBOFile("annotated_import.obo");
         Frame headerFrame = oboDoc.getHeaderFrame();
+        assertNotNull(headerFrame);
         Collection<Clause> imports = headerFrame.getClauses(OboFormatTag.TAG_IMPORT);
         assertEquals(1, imports.size());
         Clause clause = imports.iterator().next();
@@ -751,15 +759,20 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OBODoc obodoc = parseOBOFile("escape_chars_test.obo");
         assertEquals(3, obodoc.getTermFrames().size());
         Frame f1 = obodoc.getTermFrame("GO:0033942");
+        assertNotNull(f1);
         assertEquals("GO:0033942", f1.getId());
         Clause nameClause = f1.getClause(OboFormatTag.TAG_NAME);
+        assertNotNull(nameClause);
         assertEquals("4-alpha-D-{(1->4)-alpha-D-glucano}trehalose trehalohydrolase activity",
             nameClause.getValue());
         Frame f2 = obodoc.getTermFrame("CL:0000096");
+        assertNotNull(f2);
         assertEquals("CL:0000096", f2.getId());
         Clause defClause = f2.getClause(OboFormatTag.TAG_DEF);
+        assertNotNull(defClause);
         assertEquals("bla bla .\"", defClause.getValue());
         Clause commentClause = f2.getClause(OboFormatTag.TAG_COMMENT);
+        assertNotNull(commentClause);
         assertEquals("bla bla bla.\nbla bla (bla).", commentClause.getValue());
     }
 
@@ -778,8 +791,10 @@ public class BasicsTestCase extends OboFormatTestBasics {
     @Test
     public void testExpandPropertyValue() {
         OBODoc obodoc = parseOBOFile("property_value_test.obo");
-        Clause propertyValue =
-            obodoc.getTermFrame("UBERON:0004657").getClause(OboFormatTag.TAG_PROPERTY_VALUE);
+        Frame termFrame = obodoc.getTermFrame("UBERON:0004657");
+        assertNotNull(termFrame);
+        Clause propertyValue = termFrame.getClause(OboFormatTag.TAG_PROPERTY_VALUE);
+        assertNotNull(propertyValue);
         assertEquals("IAO:0000412", propertyValue.getValue());
         assertEquals("http://purl.obolibrary.org/obo/uberon.owl", propertyValue.getValue2());
     }
@@ -1076,11 +1091,17 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OBODoc tdoc = obodoc.getImportedOBODocs().iterator().next();
         assertTrue(!tdoc.getTermFrames().isEmpty());
         Frame termFrame = tdoc.getTermFrame("ZFA:0001689");
+        assertNotNull(termFrame);
         assertEquals(2, termFrame.getClauses(OboFormatTag.TAG_INTERSECTION_OF).size());
         termFrame = tdoc.getTermFrame("EHDAA:571");
-        assertEquals("UBERON:0002539", termFrame.getClause(OboFormatTag.TAG_IS_A).getValue());
+        assertNotNull(termFrame);
+        Clause clause = termFrame.getClause(OboFormatTag.TAG_IS_A);
+        assertNotNull(clause);
+        assertEquals("UBERON:0002539", clause.getValue());
         termFrame = tdoc.getTermFrame("UBERON:0006800");
-        assertEquals("CARO:0000008", termFrame.getClause(OboFormatTag.TAG_IS_A).getValue());
+        clause = termFrame.getClause(OboFormatTag.TAG_IS_A);
+        assertNotNull(clause);
+        assertEquals("CARO:0000008", clause.getValue());
     }
 
     @Test
@@ -1095,27 +1116,33 @@ public class BasicsTestCase extends OboFormatTestBasics {
                 continue;
             }
             Clause impClause = hf.getClause(OboFormatTag.TAG_ONTOLOGY);
-            // if (impClause == null) {
-            // continue;
-            // }
+            assertNotNull(impClause);
             String tid = impClause.getValue(String.class).replace("bridge-", "");
             if (tid.equals("zfa")) {
-                assertEquals(2, tdoc.getTermFrame("ZFA:0001689")
-                    .getClauses(OboFormatTag.TAG_INTERSECTION_OF).size());
+                Frame termFrame = tdoc.getTermFrame("ZFA:0001689");
+                assertNotNull(termFrame);
+                assertEquals(2, termFrame.getClauses(OboFormatTag.TAG_INTERSECTION_OF).size());
                 Frame pf = tdoc.getTypedefFrame("part_of");
                 assert pf != null;
-                assertEquals("BFO:0000050",
-                    pf.getClause(OboFormatTag.TAG_XREF).getValue().toString());
+                Clause clause = pf.getClause(OboFormatTag.TAG_XREF);
+                assertNotNull(clause);
+                assertEquals("BFO:0000050", clause.getValue().toString());
                 n++;
             }
             if (tid.equals("ehdaa")) {
-                assertEquals("UBERON:0002539",
-                    tdoc.getTermFrame("EHDAA:571").getClause(OboFormatTag.TAG_IS_A).getValue());
+                Frame termFrame = tdoc.getTermFrame("EHDAA:571");
+                assertNotNull(termFrame);
+                Clause clause = termFrame.getClause(OboFormatTag.TAG_IS_A);
+                assertNotNull(clause);
+                assertEquals("UBERON:0002539", clause.getValue());
                 n++;
             }
             if (tid.equals("caro")) {
-                assertEquals("CARO:0000008", tdoc.getTermFrame("UBERON:0006800")
-                    .getClause(OboFormatTag.TAG_IS_A).getValue());
+                Frame termFrame = tdoc.getTermFrame("UBERON:0006800");
+                assertNotNull(termFrame);
+                Clause clause = termFrame.getClause(OboFormatTag.TAG_IS_A);
+                assertNotNull(clause);
+                assertEquals("CARO:0000008", clause.getValue());
                 n++;
             }
         }
@@ -1152,6 +1179,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OBODoc obo = owl2Obo.convert(original, storerParameters);
         renderOboToString(obo);
         Frame headerFrame = obo.getHeaderFrame();
+        assertNotNull(headerFrame);
         String owlAxiomString = headerFrame.getTagValue(OboFormatTag.TAG_OWL_AXIOMS, String.class);
         assertNotNull(owlAxiomString);
         OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(m1);

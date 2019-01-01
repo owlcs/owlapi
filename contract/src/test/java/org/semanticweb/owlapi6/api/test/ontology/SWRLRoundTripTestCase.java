@@ -36,7 +36,6 @@ import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi6.model.SWRLAtom;
@@ -44,7 +43,6 @@ import org.semanticweb.owlapi6.model.SWRLRule;
 import org.semanticweb.owlapi6.model.SWRLVariable;
 import org.semanticweb.owlapi6.vocab.XSDVocabulary;
 
-@SuppressWarnings("javadoc")
 public class SWRLRoundTripTestCase extends TestBase {
 
     private static final String NS = "urn:test";
@@ -62,7 +60,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         Set<SWRLAtom> head = new TreeSet<>();
         head.add(df.getSWRLClassAtom(a, x));
         SWRLRule rule = df.getSWRLRule(body, head);
-        ontology.getOWLOntologyManager().addAxiom(ontology, rule);
+        ontology.addAxiom(rule);
         ontology = roundTrip(ontology, new OWLXMLDocumentFormat());
         OWLOntology onto2 = roundTrip(ontology, new OWLXMLDocumentFormat());
         equal(ontology, onto2);
@@ -81,7 +79,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         Set<SWRLAtom> head = new TreeSet<>();
         head.add(df.getSWRLClassAtom(a, x));
         SWRLRule rule = df.getSWRLRule(body, head);
-        ontology.getOWLOntologyManager().addAxiom(ontology, rule);
+        ontology.addAxiom(rule);
         ontology = roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
         OWLOntology onto2 = roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
         equal(ontology, onto2);
@@ -169,12 +167,12 @@ public class SWRLRoundTripTestCase extends TestBase {
         Set<SWRLAtom> head = new TreeSet<>();
         head.add(df.getSWRLClassAtom(a, x));
         SWRLRule rule = df.getSWRLRule(body, head, singleton(df.getRDFSLabel("test")));
-        ontology.getOWLOntologyManager().addAxiom(ontology, rule);
+        ontology.addAxiom(rule);
         OWLDatatypeDefinitionAxiom def =
             df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"),
                 df.getOWLDatatypeMaxExclusiveRestriction(200D),
                 singleton(df.getRDFSLabel("datatype definition")));
-        ontology.getOWLOntologyManager().addAxiom(ontology, def);
+        ontology.addAxiom(def);
         return ontology;
     }
 
@@ -184,7 +182,7 @@ public class SWRLRoundTripTestCase extends TestBase {
             df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"),
                 df.getOWLDatatypeMaxExclusiveRestriction(200D),
                 singleton(df.getRDFSLabel("datatype definition")));
-        ontology.getOWLOntologyManager().addAxiom(ontology, def);
+        ontology.addAxiom(def);
         return ontology;
     }
 

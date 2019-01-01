@@ -13,10 +13,8 @@
 package org.semanticweb.owlapi6.model;
 
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -56,17 +54,6 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
      * @return The datatype that is restricted
      */
     OWLDatatype getDatatype();
-
-    /**
-     * Gets the facet restrictions on this data range.
-     *
-     * @return A {@code Set} of facet restrictions that apply to this data range
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLFacetRestriction> getFacetRestrictions() {
-        return asSet(facetRestrictions());
-    }
 
     /**
      * Gets the sorted facet restrictions on this data range.

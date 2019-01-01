@@ -27,7 +27,6 @@ import org.semanticweb.owlapi6.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class DisjointClassesRoundTripTestCase extends TestBase {
 
     private static final String NS = "http://ns.owl";

@@ -17,7 +17,6 @@ import org.semanticweb.owlapi6.expression.OWLExpressionParser;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLDataFactory;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
-import org.semanticweb.owlapi6.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group

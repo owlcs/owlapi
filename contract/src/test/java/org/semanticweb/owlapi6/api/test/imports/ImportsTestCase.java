@@ -61,7 +61,6 @@ import org.semanticweb.owlapi6.utility.SimpleIRIMapper;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
 public class ImportsTestCase extends TestBase {
 
     @Test

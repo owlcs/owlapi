@@ -7,7 +7,6 @@ import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class AnnotationStreamTestCase extends TestBase {
 
     @Test

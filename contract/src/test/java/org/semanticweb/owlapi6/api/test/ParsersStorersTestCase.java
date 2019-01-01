@@ -60,7 +60,6 @@ import org.semanticweb.owlapi6.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 import org.semanticweb.owlapi6.rdf.turtle.parser.TurtleOntologyParserFactory;
 import org.semanticweb.owlapi6.rdf.turtle.renderer.TurtleStorerFactory;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class ParsersStorersTestCase extends TestBase {
 

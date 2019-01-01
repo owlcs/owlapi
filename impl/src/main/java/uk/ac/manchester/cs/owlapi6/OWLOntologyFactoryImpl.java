@@ -72,8 +72,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
     @Override
     public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID,
-        IRI documentIRI, OWLOntologyCreationHandler handler) {
-        OWLOntology ont = ontologyBuilder.createOWLOntology(manager, ontologyID);
+        IRI documentIRI, OWLOntologyCreationHandler handler, OntologyConfigurator config) {
+        OWLOntology ont = ontologyBuilder.createOWLOntology(manager, ontologyID, config);
         handler.ontologyCreated(ont);
         handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());
         return ont;
@@ -101,7 +101,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
             existingOntology = manager.getOntology(iri);
         }
         OWLOntologyID ontologyID = manager.getOWLDataFactory().getOWLOntologyID();
-        OWLOntology ont = createOWLOntology(manager, ontologyID, iri, handler);
+        OWLOntology ont = createOWLOntology(manager, ontologyID, iri, handler, configuration);
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
@@ -120,7 +120,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
                     if (existingOntology == null && !ont.isEmpty()) {
                         // Junk from a previous parse. We should clear the ont
                         manager.removeOntology(ont);
-                        ont = createOWLOntology(manager, ontologyID, iri, handler);
+                        ont = createOWLOntology(manager, ontologyID, iri, handler, configuration);
                     }
                     handler.setOntologyFormat(ont,
                         documentSource.acceptParser(parser, ont, configuration));

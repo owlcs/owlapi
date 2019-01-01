@@ -18,7 +18,6 @@ import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.model.AxiomType;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class OWLOntologyManagerRemoveAxiomsTestCase extends TestBase {
 
     @Test

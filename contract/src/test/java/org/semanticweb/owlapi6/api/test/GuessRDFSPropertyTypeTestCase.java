@@ -42,12 +42,11 @@ import org.semanticweb.owlapi6.search.Searcher;
  * <p/>
  * See <a href="http://www.cidoc-crm.org/">The CIDOC Web Site</a> for more details.
  */
-@SuppressWarnings({"javadoc", "null"})
 public class GuessRDFSPropertyTypeTestCase extends TestBase {
 
     private static final @Nonnull String CIDOC_FILE = "cidoc_crm_v5.0.4_official_release.rdfs.xml";
     private static final @Nonnull String CIDOC_PREFIX = "http://www.cidoc-crm.org/cidoc-crm/";
-    private @Nonnull OWLOntology cidocOntology;
+    private OWLOntology cidocOntology;
 
     @Before
     public void setUp() {

@@ -59,16 +59,6 @@ public class Clause {
         this(tag.getTag(), value);
     }
 
-    /**
-     * Default constructor.
-     *
-     * @deprecated use Clause(String). Using this constructor makes the hashcode variable.
-     */
-    @Deprecated
-    public Clause() {
-        super();
-    }
-
     private static boolean collectionsEquals(@Nullable Collection<?> c1,
         @Nullable Collection<?> c2) {
         if (c1 == null || c1.isEmpty()) {

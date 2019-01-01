@@ -18,7 +18,6 @@ import org.semanticweb.owlapi6.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi6.io.StringDocumentTarget;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class OntologyVersionIsOntologyTestCase extends TestBase {
 
     @Test

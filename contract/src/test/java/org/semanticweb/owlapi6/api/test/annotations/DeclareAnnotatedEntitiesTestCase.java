@@ -17,7 +17,6 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 /**
  * Created by vincent on 20.08.15.
  */
-@SuppressWarnings("javadoc")
 public class DeclareAnnotatedEntitiesTestCase extends TestBase {
 
     @Test

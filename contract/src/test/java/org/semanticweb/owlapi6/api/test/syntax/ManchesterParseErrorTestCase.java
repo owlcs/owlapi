@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
 import org.semanticweb.owlapi6.expression.OWLEntityChecker;
+import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi6.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLClass;
@@ -27,9 +28,7 @@ import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDatatype;
 import org.semanticweb.owlapi6.model.OWLNamedIndividual;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
-import org.semanticweb.owlapi6.utility.mansyntax.ManchesterOWLSyntaxParser;
 
-@SuppressWarnings("javadoc")
 public class ManchesterParseErrorTestCase extends TestBase {
 
     @Test(expected = ParserException.class)

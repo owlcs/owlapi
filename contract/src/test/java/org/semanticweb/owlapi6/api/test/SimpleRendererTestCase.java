@@ -8,7 +8,6 @@ import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.utility.SimpleRenderer;
 
-@SuppressWarnings("javadoc")
 public class SimpleRendererTestCase extends TestBase {
 
     private final SimpleRenderer testSubject = new SimpleRenderer();

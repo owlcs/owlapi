@@ -16,7 +16,6 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 
-@SuppressWarnings("javadoc")
 public class OWLXMLTestCase extends TestBase {
 
     @Test

@@ -105,7 +105,6 @@ import org.semanticweb.owlapi6.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi6.model.SWRLVariable;
 import org.semanticweb.owlapi6.utility.DelegatingObjectVisitorEx;
 
-@SuppressWarnings({"javadoc"})
 public class DelegatingObjectVisitorExTestCase extends TestBase {
 
     @Test

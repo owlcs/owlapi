@@ -39,7 +39,6 @@ import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends AxiomsRoundTrippingBase {
 

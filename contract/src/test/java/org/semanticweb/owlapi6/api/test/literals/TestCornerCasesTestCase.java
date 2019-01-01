@@ -27,7 +27,6 @@ import org.semanticweb.owlapi6.model.OWLDatatype;
 import org.semanticweb.owlapi6.model.OWLLiteral;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class TestCornerCasesTestCase extends TestBase {
 
     @Test

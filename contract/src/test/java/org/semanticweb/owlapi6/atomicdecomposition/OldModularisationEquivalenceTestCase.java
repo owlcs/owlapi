@@ -30,7 +30,6 @@ import uk.ac.manchester.cs.owlapi6.atomicdecomposition.AtomicDecompositionImpl;
 import uk.ac.manchester.cs.owlapi6.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi6.modularity.SyntacticLocalityModuleExtractor;
 
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class OldModularisationEquivalenceTestCase extends TestBase {
 

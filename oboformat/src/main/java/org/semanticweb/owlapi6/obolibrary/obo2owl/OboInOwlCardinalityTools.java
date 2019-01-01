@@ -43,7 +43,6 @@ import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLDataFactory;
 import org.semanticweb.owlapi6.model.OWLEntity;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.model.OWLRuntimeException;
 import org.semanticweb.owlapi6.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi6.obolibrary.oboformat.model.Frame;
@@ -114,12 +113,11 @@ public final class OboInOwlCardinalityTools {
     public static void checkAnnotationCardinality(OWLOntology ontology,
         @Nullable AnnotationCardinalityReporter reporter,
         @Nullable AnnotationCardinalityConfictHandler handler) {
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        OWLDataFactory factory = manager.getOWLDataFactory();
+        OWLDataFactory factory = ontology.getOWLOntologyManager().getOWLDataFactory();
         Set<OWLAnnotationProperty> headerProperties =
             getProperties(factory, TAG_ONTOLOGY, TAG_FORMAT_VERSION, TAG_DATE,
                 TAG_DEFAULT_NAMESPACE, TAG_SAVED_BY, TAG_AUTO_GENERATED_BY);
-        checkOntologyAnnotations(headerProperties, ontology, reporter, handler, manager);
+        checkOntologyAnnotations(headerProperties, ontology, reporter, handler);
         Set<OWLAnnotationProperty> properties = getProperties(factory, TAG_IS_ANONYMOUS, TAG_NAME,
             TAG_NAMESPACE, TAG_DEF, TAG_COMMENT, TAG_DOMAIN, TAG_RANGE, TAG_IS_ANTI_SYMMETRIC,
             TAG_IS_CYCLIC, TAG_IS_REFLEXIVE, TAG_IS_SYMMETRIC, TAG_IS_TRANSITIVE, TAG_IS_FUNCTIONAL,
@@ -141,7 +139,7 @@ public final class OboInOwlCardinalityTools {
 
     private static void checkOntologyAnnotations(Set<OWLAnnotationProperty> properties,
         OWLOntology ontology, @Nullable AnnotationCardinalityReporter reporter,
-        @Nullable AnnotationCardinalityConfictHandler handler, OWLOntologyManager manager) {
+        @Nullable AnnotationCardinalityConfictHandler handler) {
         Set<OWLAnnotation> annotations = asUnorderedSet(ontology.annotations());
         Map<OWLAnnotationProperty, Set<OWLAnnotation>> groupedAnnotations = new HashMap<>();
         for (OWLAnnotation annotation : annotations) {
@@ -172,9 +170,9 @@ public final class OboInOwlCardinalityTools {
                     // if conflict is not resolvable, throws exception
                     List<OWLAnnotation> changed = handler.handleConflict(e.getKey(), e.getValue());
                     e.getValue().forEach(
-                        a -> manager.applyChange(new RemoveOntologyAnnotation(ontology, a)));
+                        a -> ontology.applyChange(new RemoveOntologyAnnotation(ontology, a)));
                     changed
-                        .forEach(a -> manager.applyChange(new AddOntologyAnnotation(ontology, a)));
+                        .forEach(a -> ontology.applyChange(new AddOntologyAnnotation(ontology, a)));
                 }
             }
         }

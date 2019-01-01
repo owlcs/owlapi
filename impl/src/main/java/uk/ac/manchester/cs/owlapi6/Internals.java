@@ -138,7 +138,6 @@ import org.semanticweb.owlapi6.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi6.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.parameters.Navigation;
-import org.semanticweb.owlapi6.search.Filters;
 import org.semanticweb.owlapi6.utilities.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi6.utility.AbstractCollector;
 import org.slf4j.Logger;
@@ -910,10 +909,6 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
      * @return set of values
      */
     public <K> Collection<? extends OWLAxiom> filterAxioms(OWLAxiomSearchFilter filter, K key) {
-        if (filter == Filters.annotations) {
-            return annotationAssertionAxiomsBySubject
-                .getValuesAsCollection((OWLAnnotationSubject) key);
-        }
         return getAxiomsByType().filterAxioms(filter, key);
     }
 

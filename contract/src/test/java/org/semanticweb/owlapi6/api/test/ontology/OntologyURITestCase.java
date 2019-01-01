@@ -31,7 +31,6 @@ import org.semanticweb.owlapi6.model.SetOntologyID;
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-@SuppressWarnings("javadoc")
 public class OntologyURITestCase extends TestBase {
 
     @Test

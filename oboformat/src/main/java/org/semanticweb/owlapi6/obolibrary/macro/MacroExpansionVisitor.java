@@ -190,7 +190,7 @@ public class MacroExpansionVisitor {
                             dataFactory.getOWLDeclarationAxiom(axValClass, annotations);
                         declarations.add(declarationAxiom);
                         newAxioms.add(declarationAxiom);
-                        manager.addAxiom(inputOntology, declarationAxiom);
+                        inputOntology.addAxiom(declarationAxiom);
                         // we need to sync the MST entity checker with the new ontology plus
                         // declarations; we do this by creating a new MST - this is not particularly
                         // efficient, a better way might be to first scan the ontology for all

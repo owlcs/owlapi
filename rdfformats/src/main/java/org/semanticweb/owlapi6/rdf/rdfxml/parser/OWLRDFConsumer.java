@@ -467,9 +467,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             // from the imported ontology to out importing ontology and
             // remove the imported ontology.
             // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
-            man.applyChange(new RemoveImport(ont(), id));
-            io.importsDeclarations().forEach(d -> man.applyChange(new AddImport(ont(), d)));
-            io.annotations().forEach(ann -> man.applyChange(new AddOntologyAnnotation(ont(), ann)));
+            ont().applyChange(new RemoveImport(ont(), id));
+            io.importsDeclarations().forEach(d -> ont().applyChange(new AddImport(ont(), d)));
+            io.annotations()
+                .forEach(ann -> ont().applyChange(new AddOntologyAnnotation(ont(), ann)));
             io.axioms().forEach(this::add);
             man.removeOntology(io);
         }

@@ -26,7 +26,6 @@ import org.semanticweb.owlapi6.model.OntologyConfigurator;
 /**
  * Created by ses on 3/10/14.
  */
-@SuppressWarnings("javadoc")
 public class UndeclaredAnnotationTestCase extends TestBase {
 
     @Test

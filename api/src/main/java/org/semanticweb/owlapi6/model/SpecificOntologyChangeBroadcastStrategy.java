@@ -15,6 +15,7 @@ package org.semanticweb.owlapi6.model;
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChang
 
     @Override
     public void broadcastChanges(OWLOntologyChangeListener listener,
-        List<? extends OWLOntologyChange> changes) {
+        Collection<? extends OWLOntologyChange> changes) {
         checkNotNull(listener, "listener cannot be null");
         checkNotNull(changes, "changes cannot be null");
         List<OWLOntologyChange> broadcastChanges =

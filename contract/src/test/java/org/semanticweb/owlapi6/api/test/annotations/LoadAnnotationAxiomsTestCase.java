@@ -52,7 +52,6 @@ import org.semanticweb.owlapi6.model.OntologyConfigurator;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
 public class LoadAnnotationAxiomsTestCase extends TestBase {
 
     @Test

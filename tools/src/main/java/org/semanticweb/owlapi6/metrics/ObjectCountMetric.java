@@ -14,7 +14,7 @@ package org.semanticweb.owlapi6.metrics;
 
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -72,7 +72,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(Collection<? extends OWLOntologyChange> changes) {
         return true;
     }
 }

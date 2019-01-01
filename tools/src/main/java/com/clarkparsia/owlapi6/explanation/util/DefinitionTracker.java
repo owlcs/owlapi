@@ -15,9 +15,9 @@ package com.clarkparsia.owlapi6.explanation.util;
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.contains;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -97,7 +97,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
+    public void ontologiesChanged(Collection<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             if (!change.isAxiomChange()
                 || !contains(ontology.importsClosure(), change.getOntology())) {

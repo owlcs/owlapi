@@ -20,6 +20,7 @@ import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.empty;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.streamFromSorted;
 
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,10 +34,16 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi6.io.IRIDocumentTarget;
+import org.semanticweb.owlapi6.io.OWLOntologyDocumentTarget;
+import org.semanticweb.owlapi6.io.OWLStorer;
+import org.semanticweb.owlapi6.io.OWLStorerFactory;
+import org.semanticweb.owlapi6.io.StreamDocumentTarget;
 import org.semanticweb.owlapi6.model.AxiomType;
 import org.semanticweb.owlapi6.model.EntityType;
 import org.semanticweb.owlapi6.model.HasSignature;
 import org.semanticweb.owlapi6.model.IRI;
+import org.semanticweb.owlapi6.model.ImmutableOWLOntologyChangeException;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
 import org.semanticweb.owlapi6.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
@@ -64,6 +71,7 @@ import org.semanticweb.owlapi6.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi6.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi6.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi6.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLEntity;
 import org.semanticweb.owlapi6.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi6.model.OWLEquivalentDataPropertiesAxiom;
@@ -90,8 +98,10 @@ import org.semanticweb.owlapi6.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi6.model.OWLOntology;
+import org.semanticweb.owlapi6.model.OWLOntologyChange;
 import org.semanticweb.owlapi6.model.OWLOntologyID;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
+import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi6.model.OWLPrimitive;
 import org.semanticweb.owlapi6.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.OWLSameIndividualAxiom;
@@ -100,8 +110,10 @@ import org.semanticweb.owlapi6.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi6.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi6.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi6.model.OntologyConfigurator;
 import org.semanticweb.owlapi6.model.PrefixManager;
 import org.semanticweb.owlapi6.model.parameters.AxiomAnnotations;
+import org.semanticweb.owlapi6.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi6.model.parameters.Imports;
 import org.semanticweb.owlapi6.model.parameters.Navigation;
 import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils;
@@ -153,16 +165,30 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     protected OWLDataFactory df;
     protected OWLOntologyID ontologyID;
     private PrefixManager prefixManager;
+    protected OntologyConfigurator config;
 
     /**
      * @param manager ontology manager
      * @param ontologyID ontology id
+     * @param config ontology configurator
      */
-    public OWLImmutableOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
+    public OWLImmutableOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID,
+        OntologyConfigurator config) {
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
         df = manager.getOWLDataFactory();
         prefixManager = new PrefixManagerImpl();
+        this.config = config;
+    }
+
+    @Override
+    public OntologyConfigurator getOntologyConfigurator() {
+        return config;
+    }
+
+    @Override
+    public void setOntologyConfigurator(OntologyConfigurator configurator) {
+        config = configurator;
     }
 
     @Override
@@ -869,5 +895,71 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     @Override
     public boolean containsReference(OWLEntity entity) {
         return ints.containsReference(entity);
+    }
+
+    @Override
+    public ChangeApplied enactChange(OWLOntologyChange change) {
+        throw new ImmutableOWLOntologyChangeException(change.getChangeData(),
+            getOntologyID().toString());
+    }
+
+    @Override
+    public void saveOntology(OWLDocumentFormat ontologyFormat,
+        OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException {
+        for (OWLStorerFactory storerFactory : getOWLOntologyManager().getOntologyStorers()) {
+            OWLStorer storer = storerFactory.createStorer();
+            // XXX review storer factory interface
+            if (storer.canStoreOntology(ontologyFormat)) {
+                documentTarget.store(storer, this, ontologyFormat);
+                return;
+            }
+        }
+        throw new OWLOntologyStorageException(
+            "Could not find an ontology storer which can handle the format: " + ontologyFormat);
+    }
+
+    @Override
+    public void saveOntology() throws OWLOntologyStorageException {
+        saveOntology(getOWLOntologyManager().getNonnullOntologyFormat(this),
+            new IRIDocumentTarget(getOWLOntologyManager().getOntologyDocumentIRI(this)));
+    }
+
+    @Override
+    public void saveOntology(IRI documentIRI) throws OWLOntologyStorageException {
+        // XXX attach format to ontology
+        // XXX attach document iri to ontology
+        saveOntology(getOWLOntologyManager().getNonnullOntologyFormat(this),
+            new IRIDocumentTarget(documentIRI));
+    }
+
+    @Override
+    public void saveOntology(OWLDocumentFormat ontologyFormat) throws OWLOntologyStorageException {
+        saveOntology(ontologyFormat,
+            new IRIDocumentTarget(getOWLOntologyManager().getOntologyDocumentIRI(this)));
+    }
+
+    @Override
+    public void saveOntology(OutputStream outputStream) throws OWLOntologyStorageException {
+        saveOntology(getOWLOntologyManager().getNonnullOntologyFormat(this),
+            new StreamDocumentTarget(outputStream));
+    }
+
+    @Override
+    public void saveOntology(OWLDocumentFormat ontologyFormat, IRI documentIRI)
+        throws OWLOntologyStorageException {
+        saveOntology(getOWLOntologyManager().getNonnullOntologyFormat(this),
+            new IRIDocumentTarget(documentIRI));
+    }
+
+    @Override
+    public void saveOntology(OWLDocumentFormat ontologyFormat, OutputStream outputStream)
+        throws OWLOntologyStorageException {
+        saveOntology(ontologyFormat, new StreamDocumentTarget(outputStream));
+    }
+
+    @Override
+    public void saveOntology(OWLOntologyDocumentTarget documentTarget)
+        throws OWLOntologyStorageException {
+        saveOntology(getOWLOntologyManager().getNonnullOntologyFormat(this), documentTarget);
     }
 }

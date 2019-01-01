@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owlapi6.model.AddAxiom;
 import org.semanticweb.owlapi6.model.AxiomType;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLClass;
@@ -24,7 +23,6 @@ import org.semanticweb.owlapi6.model.OWLClassExpression;
 import org.semanticweb.owlapi6.model.OWLDataFactory;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
 
 /**
@@ -36,17 +34,14 @@ import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
 public class ClosureAxioms {
 
-    private final OWLOntologyManager manager;
     private final OWLOntology ontology;
     private final OWLDataFactory factory;
 
-    public ClosureAxioms(OWLOntologyManager manager, OWLOntology ontology) {
-        this.manager = manager;
+    public ClosureAxioms(OWLOntology ontology) {
         this.ontology = ontology;
-        factory = manager.getOWLDataFactory();
+        factory = ontology.getOWLOntologyManager().getOWLDataFactory();
     }
 
     public void addClosureAxioms(OWLClass clazz) {
@@ -77,9 +72,7 @@ public class ClosureAxioms {
             /* Create a new axiom */
             OWLAxiom newAxiom = factory.getOWLSubClassOfAxiom(clazz, universal);
             /* Now add the axiom to the ontology */
-            AddAxiom addAxiom = new AddAxiom(ontology, newAxiom);
-            /* Use the manager to apply the change */
-            manager.applyChange(addAxiom);
+            ontology.add(newAxiom);
         }
     }
 }

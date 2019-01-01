@@ -13,10 +13,8 @@
 package org.semanticweb.owlapi6.model;
 
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -58,17 +56,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
         return OWLObjectType.SWRL_RULE;
     }
 
-    /**
-     * Gets the atoms in the body of the rule.
-     *
-     * @return A set of {@code SWRLAtom}s, which represent the atoms in the body of the rule.
-     * @deprecated use {@link #body()}
-     */
-    @Deprecated
-    default Set<SWRLAtom> getBody() {
-        return asSet(body());
-    }
-
     /** @return body as list */
     default List<SWRLAtom> bodyList() {
         return asList(body());
@@ -85,17 +72,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the body of the rule.
      */
     Stream<SWRLAtom> body();
-
-    /**
-     * Gets the atoms in the head of the rule.
-     *
-     * @return A set of {@code SWRLAtom}s, which represent the atoms in the head of the rule
-     * @deprecated use {@link #head()}
-     */
-    @Deprecated
-    default Set<SWRLAtom> getHead() {
-        return asSet(head());
-    }
 
     /**
      * Gets the atoms in the head of the rule.
@@ -118,17 +94,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * Gets the variables that appear in this rule.
      *
      * @return A set of variables.
-     * @deprecated use {@link #variables()}
-     */
-    @Deprecated
-    default Set<SWRLVariable> getVariables() {
-        return asSet(variables());
-    }
-
-    /**
-     * Gets the variables that appear in this rule.
-     *
-     * @return A set of variables.
      */
     Stream<SWRLVariable> variables();
 
@@ -139,18 +104,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      *         otherwise {@code false}.
      */
     boolean containsAnonymousClassExpressions();
-
-    /**
-     * Gets the predicates of class atoms.
-     *
-     * @return A set of class expressions that represent the class class expressions that are
-     *         predicates of class atoms.
-     * @deprecated use {@link #classAtomPredicates()}
-     */
-    @Deprecated
-    default Set<OWLClassExpression> getClassAtomPredicates() {
-        return asSet(classAtomPredicates());
-    }
 
     /**
      * Gets the predicates of class atoms.

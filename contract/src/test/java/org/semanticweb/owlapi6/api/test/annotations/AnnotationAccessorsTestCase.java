@@ -46,7 +46,6 @@ import org.semanticweb.owlapi6.model.OWLPrimitive;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AnnotationAccessorsTestCase extends TestBase {
 
@@ -77,7 +76,7 @@ public class AnnotationAccessorsTestCase extends TestBase {
     public void testClassAccessor() {
         OWLOntology ont = getOWLOntology();
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
-        ont.getOWLOntologyManager().addAxiom(ont, ax);
+        ont.addAxiom(ax);
         IRI subject = df.getIRI("http://owlapi.sourceforge.net/ontologies/test#", "X");
         assertTrue(ont.annotationAssertionAxioms(subject).anyMatch(a -> a.equals(ax)));
         if (e instanceof OWLEntity) {

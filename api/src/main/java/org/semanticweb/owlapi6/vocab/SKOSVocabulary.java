@@ -37,6 +37,7 @@ import org.semanticweb.owlapi6.model.providers.AnnotationPropertyProvider;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
+// XXX do vocabularies belong in the API?
 public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
     /** BROADMATCH.       */  BROADMATCH          ("broadMatch",          OBJECT_PROPERTY), 

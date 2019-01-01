@@ -26,7 +26,6 @@ import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLObject;
 import org.semanticweb.owlapi6.utility.SimpleRenderer;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class VisitorsTestCase extends TestBase {
 

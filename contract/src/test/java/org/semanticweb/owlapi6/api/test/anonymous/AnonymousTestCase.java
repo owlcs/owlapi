@@ -34,7 +34,6 @@ import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class AnonymousTestCase extends TestBase {
 
     @Test

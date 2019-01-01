@@ -215,7 +215,6 @@ import uk.ac.manchester.cs.owlapi6.OWLOntologyFactoryImpl;
 import uk.ac.manchester.cs.owlapi6.OWLOntologyImpl;
 import uk.ac.manchester.cs.owlapi6.OWLOntologyManagerImpl;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class BuildersTestCase<Q> {
 
@@ -363,7 +362,7 @@ public class BuildersTestCase<Q> {
     private static OWLOntologyManager getManager() {
         OWLOntologyManager instance = new OWLOntologyManagerImpl(df, new ReentrantReadWriteLock());
         instance.getOntologyFactories()
-            .set(new OWLOntologyFactoryImpl((o, id) -> new OWLOntologyImpl(o, id)));
+            .set(new OWLOntologyFactoryImpl((o, id, c) -> new OWLOntologyImpl(o, id, c)));
         return instance;
     }
 

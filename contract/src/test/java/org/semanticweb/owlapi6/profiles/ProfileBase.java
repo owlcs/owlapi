@@ -10,7 +10,6 @@ import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class ProfileBase extends TestBase {
 
     protected void test(OWLDocumentFormat f, String in, boolean el, boolean ql, boolean rl,

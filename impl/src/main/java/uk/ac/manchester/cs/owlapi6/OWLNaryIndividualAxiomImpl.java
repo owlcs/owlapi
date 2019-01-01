@@ -50,11 +50,6 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
     }
 
     @Override
-    public List<OWLIndividual> getIndividualsAsList() {
-        return getOperandsAsList();
-    }
-
-    @Override
     public List<OWLIndividual> getOperandsAsList() {
         return individuals;
     }

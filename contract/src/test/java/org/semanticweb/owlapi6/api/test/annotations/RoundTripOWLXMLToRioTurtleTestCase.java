@@ -14,7 +14,6 @@ import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi6.model.OWLRuntimeException;
 
-@SuppressWarnings("javadoc")
 public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTestCase {
 
 //@formatter:off

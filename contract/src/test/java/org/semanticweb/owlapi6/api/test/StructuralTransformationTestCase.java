@@ -29,7 +29,6 @@ import org.semanticweb.owlapi6.apibinding.OWLManager;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.utility.StructuralTransformation;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class StructuralTransformationTestCase {
 

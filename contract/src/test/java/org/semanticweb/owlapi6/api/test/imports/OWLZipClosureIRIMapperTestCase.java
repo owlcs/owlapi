@@ -12,7 +12,6 @@ import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.utility.AutoIRIMapper;
 import org.semanticweb.owlapi6.utility.OWLZipClosureIRIMapper;
 
-@SuppressWarnings("javadoc")
 public class OWLZipClosureIRIMapperTestCase extends TestBase {
     protected IRI dIRI = df.getIRI("http://test.org/complexImports/D.owl");
 

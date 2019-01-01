@@ -19,12 +19,12 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi6.model.OWLOntologyID;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
+import org.semanticweb.owlapi6.model.OntologyConfigurator;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({"javadoc", "null"})
 public class ConcurrentOWLOntologyBuilder_TestCase {
 
     private ConcurrentOWLOntologyBuilder builder;
@@ -40,23 +40,25 @@ public class ConcurrentOWLOntologyBuilder_TestCase {
     private OWLOntologyID ontologyId;
     @Mock
     private OWLOntology ontology;
+    @Mock
+    private OntologyConfigurator config;
 
     @Before
     public void setUp() {
-        when(delegateBuilder.createOWLOntology(manager, ontologyId)).thenReturn(ontology);
+        when(delegateBuilder.createOWLOntology(manager, ontologyId, config)).thenReturn(ontology);
         when(readWriteLock.readLock()).thenReturn(readLock);
         builder = new ConcurrentOWLOntologyBuilder(delegateBuilder, readWriteLock);
     }
 
     @Test
     public void shouldCallDelegate() {
-        builder.createOWLOntology(manager, ontologyId);
-        verify(delegateBuilder, times(1)).createOWLOntology(manager, ontologyId);
+        builder.createOWLOntology(manager, ontologyId, config);
+        verify(delegateBuilder, times(1)).createOWLOntology(manager, ontologyId, config);
     }
 
     @Test
     public void shouldCreateWrappedOntology() {
-        OWLOntology concurrentOntology = builder.createOWLOntology(manager, ontologyId);
+        OWLOntology concurrentOntology = builder.createOWLOntology(manager, ontologyId, config);
         assertThat(concurrentOntology, is(equalTo(ontology)));
     }
 }

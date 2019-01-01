@@ -21,7 +21,6 @@ import org.semanticweb.owlapi6.vocab.OBOFormatConstants.OboFormatTag;
 /**
  * Tests for {@link OBOFormatWriter}.
  */
-@SuppressWarnings({"javadoc"})
 public class OBOFormatWriterTestCase extends OboFormatTestBasics {
 
     private static List<Clause> createSynonymClauses(String... labels) {

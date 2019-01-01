@@ -33,7 +33,6 @@ import org.semanticweb.owlapi6.model.OWLObjectExactCardinality;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi6.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi6.obolibrary.obo2owl.OWLAPIObo2Owl;
@@ -50,7 +49,6 @@ import org.semanticweb.owlapi6.vocab.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi6.vocab.Obo2OWLConstants;
 import org.semanticweb.owlapi6.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
 
-@SuppressWarnings("javadoc")
 public class RoundTripTestCase extends RoundTripTestBasics {
 
     private static void checkAsAltId(IRI iri, OWLOntology ont, String replacedBy) {
@@ -176,9 +174,8 @@ public class RoundTripTestCase extends RoundTripTestBasics {
     public void testWriteReadConvertedOWLNamespaceIdRule() throws Exception {
         OBODoc oboDoc = parseOBOFile("namespace-id-rule.obo");
         OWLOntology owlOntology = convert(oboDoc);
-        OWLOntologyManager manager = owlOntology.getOWLOntologyManager();
         StringDocumentTarget documentTarget = new StringDocumentTarget();
-        manager.saveOntology(owlOntology, new OWLXMLDocumentFormat(), documentTarget);
+        owlOntology.saveOntology(new OWLXMLDocumentFormat(), documentTarget);
         String owlString = documentTarget.toString();
         OWLOntology reloadedOwl = loadOntologyFromString(owlString, new OWLXMLDocumentFormat());
         assertEquals(owlOntology.getAxiomCount(), reloadedOwl.getAxiomCount());

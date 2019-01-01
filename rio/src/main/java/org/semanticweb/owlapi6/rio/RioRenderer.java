@@ -56,7 +56,6 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLRuntimeException;
 import org.semanticweb.owlapi6.model.PrefixManager;
 import org.semanticweb.owlapi6.rdf.RDFRendererBase;
-import org.semanticweb.owlapi6.rio.utils.RioUtils;
 import org.semanticweb.owlapi6.utility.VersionInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

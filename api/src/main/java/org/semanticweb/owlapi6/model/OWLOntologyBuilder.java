@@ -29,9 +29,11 @@ public interface OWLOntologyBuilder extends Serializable {
     /**
      * @param manager manager for the ontology to be created
      * @param ontologyID id for the ontology to be created
+     * @param config ontology configurator
      * @return new ontology instance
      */
-    OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID);
+    OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID,
+        OntologyConfigurator config);
 
     /**
      * Override the lock in the ontology builder; this is a workaround for #806

@@ -31,7 +31,6 @@ import org.semanticweb.owlapi6.vocab.OWLRDFVocabulary;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
 public class BuiltInClassTestCase {
 
     @Test

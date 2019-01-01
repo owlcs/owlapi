@@ -79,7 +79,6 @@ import org.semanticweb.owlapi6.reasoner.structural.StructuralReasoner;
 import org.semanticweb.owlapi6.search.Searcher;
 import org.semanticweb.owlapi6.vocab.OWLFacet;
 
-@SuppressWarnings("javadoc")
 public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
     protected OWLDataProperty dp = DataProperty(iri("p"));

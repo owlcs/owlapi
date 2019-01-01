@@ -30,13 +30,12 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({"javadoc", "null"})
 public class RioRendererTestCase extends TestBase {
 
     private final @Nonnull IRI testOntologyUri1 = df.getIRI("urn:test:ontology:uri:1", "");
     private SimpleValueFactory vf;
-    private @Nonnull OWLOntology testOntologyEmpty;
-    private @Nonnull OWLOntology testOntologyKoala;
+    private OWLOntology testOntologyEmpty;
+    private OWLOntology testOntologyKoala;
     private Statement testOntologyEmptyStatement;
     private StatementCollector testHandlerStatementCollector;
     private StringWriter testRdfXmlStringWriter;

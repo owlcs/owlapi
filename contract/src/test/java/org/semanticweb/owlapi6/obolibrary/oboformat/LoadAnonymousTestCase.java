@@ -37,7 +37,6 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
 
-@SuppressWarnings("javadoc")
 public class LoadAnonymousTestCase extends TestBase {
 
     private static OWLLiteral literal(String s) {

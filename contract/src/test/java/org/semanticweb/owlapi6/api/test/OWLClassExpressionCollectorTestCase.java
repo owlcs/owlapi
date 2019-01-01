@@ -30,7 +30,6 @@ import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
 import org.semanticweb.owlapi6.utility.OWLClassExpressionCollector;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class OWLClassExpressionCollectorTestCase {
 

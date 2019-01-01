@@ -12,7 +12,6 @@ import org.semanticweb.owlapi6.obolibrary.oboformat.model.OBODoc;
 import org.semanticweb.owlapi6.obolibrary.oboformat.parser.OBOFormatParser;
 import org.semanticweb.owlapi6.vocab.OBOFormatConstants.OboFormatTag;
 
-@SuppressWarnings({"javadoc"})
 public class TagTestCase extends OboFormatTestBasics {
 
     private static Clause parseLine(String line) {

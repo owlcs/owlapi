@@ -18,13 +18,13 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Supplier;
 
+import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi6.model.OWLDataFactory;
 import org.semanticweb.owlapi6.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
 import org.semanticweb.owlapi6.utilities.Injector;
-import org.semanticweb.owlapi6.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 import uk.ac.manchester.cs.owlapi6.CompressionEnabled;
 import uk.ac.manchester.cs.owlapi6.OWLDataFactoryImpl;

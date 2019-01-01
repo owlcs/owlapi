@@ -3,7 +3,6 @@ package org.semanticweb.owlapi6.obolibrary.oboformat;
 import org.junit.Test;
 import org.semanticweb.owlapi6.formats.OBODocumentFormat;
 
-@SuppressWarnings({"javadoc"})
 public class CreatedBySpaceTest extends OboFormatTestBasics {
 
     @Test

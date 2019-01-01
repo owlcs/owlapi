@@ -21,7 +21,6 @@ import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLOntologyID;
 
-@SuppressWarnings("javadoc")
 public class OntologyIDTestCase extends TestBase {
 
     private static final String TEST_ONTOLOGY_IRI_STRING = "http://test.it/check1";

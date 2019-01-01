@@ -9,7 +9,6 @@ import org.semanticweb.owlapi6.model.OWLDataProperty;
 
 import uk.ac.manchester.cs.owlapi6.OWLDataFactoryImpl;
 
-@SuppressWarnings("javadoc")
 public class InternalizedEntitiesTest {
     @Test
     public void shouldBeTop() {

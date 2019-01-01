@@ -30,7 +30,6 @@ import org.semanticweb.owlapi6.io.OWLParserFactory;
  *
  * @author ignazio
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class FormatsMimeTestcase {
     @Parameters(name = "{1}")

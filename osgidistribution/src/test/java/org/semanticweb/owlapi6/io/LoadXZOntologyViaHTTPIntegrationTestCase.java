@@ -15,7 +15,6 @@ import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.test.IntegrationTest;
 
 @SuppressWarnings("javadoc")
-@Category(IntegrationTest.class)
 public class LoadXZOntologyViaHTTPIntegrationTestCase {
 
     @Test

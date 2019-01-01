@@ -151,7 +151,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             // The class is anonymous, so we need to assign it a name
             OWLClass curCls = df.getOWLClass(createIRI());
             temporaryAxioms.add(df.getOWLEquivalentClassesAxiom(createSet(curCls, cls)));
-            temporaryAxioms.forEach(ax -> man.addAxiom(getOWLOntology(), ax));
+            temporaryAxioms.forEach(ax -> getOWLOntology().addAxiom(ax));
             return curCls;
         }
     }
@@ -362,7 +362,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         // being debugged
         OWLAxiom ax = df.getOWLSubClassOfAxiom(verifyNotNull(currentClass), df.getOWLThing());
         changes.add(new AddAxiom(getDebuggingOntology(), ax));
-        man.applyChanges(changes);
+        getDebuggingOntology().applyChanges(changes);
     }
 
     private void resetSatisfiabilityTestCounter() {

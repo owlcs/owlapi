@@ -29,6 +29,7 @@ import org.semanticweb.owlapi6.expression.OWLEntityChecker;
 import org.semanticweb.owlapi6.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.io.StringDocumentSource;
+import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
 import org.semanticweb.owlapi6.model.OWLEntity;
@@ -45,7 +46,6 @@ import org.semanticweb.owlapi6.utilities.ShortFormProvider;
 import org.semanticweb.owlapi6.utility.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi6.utility.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi6.utility.SimpleShortFormProvider;
-import org.semanticweb.owlapi6.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * An example that shows how to do a Protege like DLQuery. The example contains several helper
@@ -58,7 +58,6 @@ import org.semanticweb.owlapi6.utility.mansyntax.ManchesterOWLSyntaxParser;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings({"javadoc"})
 public class DLQueryExample {
 
     private static final String KOALA = "<?xml version=\"1.0\"?>\n"
@@ -187,7 +186,7 @@ class DLQueryEngine {
      * @param classExpressionString The string from which the class expression will be parsed.
      * @param direct Specifies whether direct superclasses should be returned or not.
      * @return The superclasses of the specified class expression If there was a problem parsing the
-     * class expression.
+     *         class expression.
      */
     public Set<OWLClass> getSuperClasses(String classExpressionString, boolean direct) {
         if (classExpressionString.trim().isEmpty()) {
@@ -203,7 +202,7 @@ class DLQueryEngine {
      *
      * @param classExpressionString The string from which the class expression will be parsed.
      * @return The equivalent classes of the specified class expression If there was a problem
-     * parsing the class expression.
+     *         parsing the class expression.
      */
     public Set<OWLClass> getEquivalentClasses(String classExpressionString) {
         if (classExpressionString.trim().isEmpty()) {
@@ -220,7 +219,7 @@ class DLQueryEngine {
      * @param classExpressionString The string from which the class expression will be parsed.
      * @param direct Specifies whether direct subclasses should be returned or not.
      * @return The subclasses of the specified class expression If there was a problem parsing the
-     * class expression.
+     *         class expression.
      */
     public Set<OWLClass> getSubClasses(String classExpressionString, boolean direct) {
         if (classExpressionString.trim().isEmpty()) {
@@ -237,7 +236,7 @@ class DLQueryEngine {
      * @param classExpressionString The string from which the class expression will be parsed.
      * @param direct Specifies whether direct instances should be returned or not.
      * @return The instances of the specified class expression If there was a problem parsing the
-     * class expression.
+     *         class expression.
      */
     public Set<OWLNamedIndividual> getInstances(String classExpressionString, boolean direct) {
         if (classExpressionString.trim().isEmpty()) {
@@ -260,9 +259,9 @@ class DLQueryParser {
      * IRIs to short names.
      *
      * @param rootOntology The root ontology. This essentially provides the domain vocabulary for
-     * the query.
+     *        the query.
      * @param shortFormProvider A short form provider to be used for mapping back and forth between
-     * entities and their short names (renderings).
+     *        entities and their short names (renderings).
      */
     DLQueryParser(OWLOntology rootOntology, ShortFormProvider shortFormProvider) {
         this.rootOntology = rootOntology;
@@ -271,8 +270,8 @@ class DLQueryParser {
         // Create a bidirectional short form provider to do the actual mapping.
         // It will generate names using the input
         // short form provider.
-        bidiShortFormProvider = new BidirectionalShortFormProviderAdapter(manager, importsClosure,
-            shortFormProvider);
+        bidiShortFormProvider =
+            new BidirectionalShortFormProviderAdapter(manager, importsClosure, shortFormProvider);
     }
 
     /**
@@ -280,7 +279,7 @@ class DLQueryParser {
      *
      * @param classExpressionString The class expression string
      * @return The corresponding class expression if the class expression string is malformed or
-     * contains unknown entity names.
+     *         contains unknown entity names.
      */
     public OWLClassExpression parseClassExpression(String classExpressionString) {
         // Set up the real parser

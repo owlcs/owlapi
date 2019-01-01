@@ -21,7 +21,6 @@ import org.semanticweb.owlapi6.io.OWLParser;
 import org.semanticweb.owlapi6.io.OWLParserParameters;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi6.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

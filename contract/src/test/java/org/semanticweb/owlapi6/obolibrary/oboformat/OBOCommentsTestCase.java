@@ -7,7 +7,6 @@ import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.OBODocumentFormat;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class OBOCommentsTestCase extends TestBase {
 
     @Test

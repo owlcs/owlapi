@@ -10,7 +10,6 @@ import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class ProfileNoRLTestCase extends ProfileBase {
 

@@ -31,7 +31,6 @@ import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLEntity;
 import org.semanticweb.owlapi6.utility.OWLEntityCollector;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class OWLEntityCollectorTestCase {
 

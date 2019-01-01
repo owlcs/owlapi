@@ -152,7 +152,6 @@ public class OWLAPIObo2Owl {
      *
      * @param manager the manager
      */
-    @SuppressWarnings("null")
     public OWLAPIObo2Owl(OWLOntologyManager manager) {
         idSpaceMap = new HashMap<>();
         apToDeclare = new HashSet<>();
@@ -178,7 +177,7 @@ public class OWLAPIObo2Owl {
         OWLOntology o = manager.createOntology();
         new IRIDocumentSource(iri).acceptParser(new OBOFormatOWLAPIParser(), o,
             new OntologyConfigurator());
-        saveAsRDFXML(outFile, manager, o);
+        saveAsRDFXML(outFile, o);
     }
 
     /**
@@ -202,15 +201,15 @@ public class OWLAPIObo2Owl {
         OBOFormatOWLAPIParser parser =
             new OBOFormatOWLAPIParser(obo -> obo.addDefaultOntologyHeader(defaultOnt));
         new IRIDocumentSource(iri).acceptParser(parser, o, new OntologyConfigurator());
-        saveAsRDFXML(outFile, manager, o);
+        saveAsRDFXML(outFile, o);
     }
 
-    protected static void saveAsRDFXML(String outFile, OWLOntologyManager manager, OWLOntology o)
+    protected static void saveAsRDFXML(String outFile, OWLOntology o)
         throws OWLOntologyStorageException, IOException {
         try (FileOutputStream outputStream = new FileOutputStream(outFile)) {
             OWLDocumentFormat format = new RDFXMLDocumentFormat();
             LOG.info("saving to {} fmt={}", outFile, format);
-            manager.saveOntology(o, format, outputStream);
+            o.saveOntology(format, outputStream);
         }
     }
 
@@ -495,7 +494,7 @@ public class OWLAPIObo2Owl {
                 // when parsing, the original ontology is likely an anonymous,
                 // empty one
                 if (!oid.equals(in.getOntologyID())) {
-                    manager.applyChange(new SetOntologyID(in, oid));
+                    in.applyChange(new SetOntologyID(in, oid));
                 }
             } else {
                 // if the ontology being read has a differet id from the one
@@ -503,12 +502,12 @@ public class OWLAPIObo2Owl {
                 // when parsing, the original ontology is likely an anonymous,
                 // empty one
                 if (!ontIRI.equals(in.getOntologyID().getOntologyIRI().orElse(null))) {
-                    manager.applyChange(new SetOntologyID(in, df.getOWLOntologyID(ontIRI)));
+                    in.applyChange(new SetOntologyID(in, df.getOWLOntologyID(ontIRI)));
                 }
             }
         } else {
             defaultIDSpace = "TEMP";
-            manager.applyChange(new SetOntologyID(in,
+            in.applyChange(new SetOntologyID(in,
                 df.getOWLOntologyID(df.getIRI(DEFAULT_IRI_PREFIX, defaultIDSpace))));
             LOG.warn("Setting ontology id to default as the ontology tag is missing");
         }
@@ -523,7 +522,7 @@ public class OWLAPIObo2Owl {
             OWLImportsDeclaration owlImportsDeclaration = df.getOWLImportsDeclaration(importIRI);
             manager.makeLoadImportRequest(owlImportsDeclaration, new OntologyConfigurator());
             AddImport ai = new AddImport(in, owlImportsDeclaration);
-            manager.applyChange(ai);
+            in.applyChange(ai);
         }
         postProcess(in);
         return in;
@@ -960,17 +959,8 @@ public class OWLAPIObo2Owl {
      * @param change the change
      */
     protected void apply(OWLOntologyChange change) {
-        apply(CollectionFactory.list(change));
-    }
-
-    /**
-     * Apply the changes.
-     *
-     * @param changes the changes
-     */
-    protected void apply(List<OWLOntologyChange> changes) {
         try {
-            manager.applyChanges(changes);
+            change.getOntology().applyChange(change);
         } catch (Exception e) {
             LOG.error("COULD NOT TRANSLATE AXIOM", e);
         }

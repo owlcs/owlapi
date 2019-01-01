@@ -20,7 +20,6 @@ import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi6.utility.OWLZipSaver;
 
-@SuppressWarnings("javadoc")
 public class OWLZipSaverTestCase extends TestBase {
     protected IRI iri1 = df.getIRI("urn:test:o1.owl");
     protected IRI iri2 = df.getIRI("urn:test:o2.owl");

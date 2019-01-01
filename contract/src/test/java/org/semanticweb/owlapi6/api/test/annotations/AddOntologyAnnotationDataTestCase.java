@@ -30,7 +30,6 @@ import org.semanticweb.owlapi6.model.OWLOntology;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc"})
 public class AddOntologyAnnotationDataTestCase extends TestBase {
 
     private final OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);

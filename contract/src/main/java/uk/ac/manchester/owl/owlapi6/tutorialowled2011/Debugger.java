@@ -43,7 +43,6 @@ import org.semanticweb.owlapi6.reasoner.OWLReasonerFactory;
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
 public class Debugger {
 
     @Nonnull

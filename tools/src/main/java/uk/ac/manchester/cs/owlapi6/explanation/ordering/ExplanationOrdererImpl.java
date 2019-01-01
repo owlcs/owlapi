@@ -112,7 +112,7 @@ public class ExplanationOrdererImpl extends ExplanationOrdererImplNoManager
                 changes.add(new AddAxiom(getOntology(), ax));
                 ax.accept(builder);
             }
-            man.applyChanges(changes);
+            getOntology().applyChanges(changes);
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }

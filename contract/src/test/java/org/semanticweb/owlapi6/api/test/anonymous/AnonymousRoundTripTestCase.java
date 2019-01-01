@@ -33,7 +33,6 @@ import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 
-@SuppressWarnings("javadoc")
 public class AnonymousRoundTripTestCase extends TestBase {
 
     @Test

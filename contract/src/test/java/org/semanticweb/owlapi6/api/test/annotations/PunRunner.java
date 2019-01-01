@@ -38,14 +38,12 @@ import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 
-@SuppressWarnings("javadoc")
 public class PunRunner extends org.junit.runner.Runner {
 
     private final Class<?> testClass;
     private Description suiteDescription;
     private final Map<Description, TestSetting> testSettings = new HashMap<>();
 
-    @SuppressWarnings("null")
     public PunRunner(Class<?> testClass) {
         this.testClass = testClass;
     }
@@ -155,7 +153,7 @@ public class PunRunner extends org.junit.runner.Runner {
         o.getPrefixManager().withDefaultPrefix("http://localhost#");
         for (int i = 0; i < 10; i++) {
             OWLDocumentFormat format = formatClass.newInstance();
-            StringDocumentTarget in = saveForRereading(o, format, ontologyManager);
+            StringDocumentTarget in = saveForRereading(o, format);
             ontologyManager.removeOntology(o);
             o = ontologyManager.loadOntologyFromOntologyDocument(new StringDocumentSource(
                 in.toString(), o.getOntologyID().getOntologyIRI().get().toString(),
@@ -179,10 +177,10 @@ public class PunRunner extends org.junit.runner.Runner {
         return manager.createOntology(axioms);
     }
 
-    public static StringDocumentTarget saveForRereading(OWLOntology o, OWLDocumentFormat format,
-        OWLOntologyManager manager) throws OWLOntologyStorageException {
+    public static StringDocumentTarget saveForRereading(OWLOntology o, OWLDocumentFormat format)
+        throws OWLOntologyStorageException {
         StringDocumentTarget out = new StringDocumentTarget();
-        manager.saveOntology(o, format, out);
+        o.saveOntology(format, out);
         return out;
     }
 }

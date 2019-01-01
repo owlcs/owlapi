@@ -14,7 +14,6 @@ import org.junit.Test;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
-@SuppressWarnings({"javadoc", "null"})
 public class NoOpLock_TestCase {
 
     private NoOpLock lock;

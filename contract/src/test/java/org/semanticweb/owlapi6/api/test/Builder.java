@@ -65,7 +65,6 @@ import org.semanticweb.owlapi6.model.SWRLDArgument;
 import org.semanticweb.owlapi6.model.SWRLIArgument;
 import org.semanticweb.owlapi6.model.SWRLRule;
 
-@SuppressWarnings("javadoc")
 public class Builder {
 
     private static OWLDataFactory df = OWLManager.getOWLDataFactory();

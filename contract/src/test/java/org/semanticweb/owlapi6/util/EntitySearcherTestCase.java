@@ -22,7 +22,6 @@ import org.semanticweb.owlapi6.model.PrefixManager;
 import org.semanticweb.owlapi6.search.Searcher;
 import org.semanticweb.owlapi6.utilities.PrefixManagerImpl;
 
-@SuppressWarnings({"javadoc", "null"})
 public class EntitySearcherTestCase extends TestBase {
 
     private OWLObjectProperty superProperty;

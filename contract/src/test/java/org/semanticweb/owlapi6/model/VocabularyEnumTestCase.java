@@ -44,7 +44,6 @@ import org.semanticweb.owlapi6.vocab.XSDVocabulary;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class VocabularyEnumTestCase {
 

@@ -17,7 +17,6 @@ import uk.ac.manchester.cs.owlapi6.atomicdecomposition.Atom;
 import uk.ac.manchester.cs.owlapi6.atomicdecomposition.AtomicDecomposition;
 import uk.ac.manchester.cs.owlapi6.atomicdecomposition.AtomicDecompositionImpl;
 
-@SuppressWarnings("javadoc")
 public class AtomicDecomposerDepedenciesTest {
 
     @Test
@@ -46,9 +45,9 @@ public class AtomicDecomposerDepedenciesTest {
         OWLClass yoga = f.getOWLClass(f.getIRI("urn:test#", "Yoga"));
         OWLClass relaxation = f.getOWLClass(f.getIRI("urn:test#", "Relaxation"));
         OWLClass activity = f.getOWLClass(f.getIRI("urn:test#", "Activity"));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(powerYoga, yoga));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(yoga, relaxation));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(relaxation, activity));
+        o.addAxiom(f.getOWLSubClassOfAxiom(powerYoga, yoga));
+        o.addAxiom(f.getOWLSubClassOfAxiom(yoga, relaxation));
+        o.addAxiom(f.getOWLSubClassOfAxiom(relaxation, activity));
         return o;
     }
 }

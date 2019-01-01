@@ -64,7 +64,6 @@ public class XMLWriterImpl implements XMLWriter {
      * @param xmlBase xmlBase
      * @param preferences xml writer preferences instance
      */
-    @SuppressWarnings("null")
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager,
         String xmlBase, OntologyConfigurator preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");

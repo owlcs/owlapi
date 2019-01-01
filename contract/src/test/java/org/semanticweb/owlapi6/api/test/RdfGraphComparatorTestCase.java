@@ -19,7 +19,6 @@ import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.io.RDFResourceIRI;
 import org.semanticweb.owlapi6.io.RDFTriple;
 
-@SuppressWarnings("javadoc")
 public class RdfGraphComparatorTestCase extends TestBase {
 
     @Test

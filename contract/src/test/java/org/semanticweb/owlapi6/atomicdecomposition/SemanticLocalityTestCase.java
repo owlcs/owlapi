@@ -28,7 +28,6 @@ import org.semanticweb.owlapi6.model.SWRLAtom;
 import org.semanticweb.owlapi6.reasoner.structural.StructuralReasonerFactory;
 
 @Ignore
-@SuppressWarnings({"javadoc", "boxing"})
 public class SemanticLocalityTestCase {
 
     private OWLAxiom axiom;

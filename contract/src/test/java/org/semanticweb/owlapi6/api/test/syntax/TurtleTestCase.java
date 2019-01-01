@@ -55,7 +55,6 @@ import org.semanticweb.owlapi6.model.PrefixManager;
 import org.semanticweb.owlapi6.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 
-@SuppressWarnings("javadoc")
 public class TurtleTestCase extends TestBase {
 
     private final String iri = "urn:test:literals";
@@ -414,8 +413,8 @@ public class TurtleTestCase extends TestBase {
         IRI test1 = df.getIRI("http://www.semanticweb.org/ontology#A...");
         IRI test2 = df.getIRI("http://www.semanticweb.org/ontology#A...B");
         OWLOntology o = m.createOntology(df.getIRI("http://www.semanticweb.org/ontology"));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test1)));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test2)));
+        o.addAxiom(df.getOWLDeclarationAxiom(df.getOWLClass(test1)));
+        o.addAxiom(df.getOWLDeclarationAxiom(df.getOWLClass(test2)));
         TurtleDocumentFormat format = new TurtleDocumentFormat();
         o.getPrefixManager().withDefaultPrefix("http://www.semanticweb.org/ontology#");
         roundTrip(o, format);

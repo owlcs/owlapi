@@ -160,7 +160,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         private OWLClassExpression newClassExpression;
         private Collection<OWLEntity> signature;
 
-        @SuppressWarnings("null")
         BottomReplacer() {}
 
         /**
@@ -292,8 +291,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectAllValuesFrom ce) {
             if (signature.contains(ce.getProperty().getNamedProperty())) {
-                newClassExpression = df.getOWLObjectAllValuesFrom(ce.getProperty(),
-                    replaceBottom(ce.getFiller()));
+                newClassExpression =
+                    df.getOWLObjectAllValuesFrom(ce.getProperty(), replaceBottom(ce.getFiller()));
             } else {
                 newClassExpression = df.getOWLThing();
             }
@@ -349,8 +348,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectSomeValuesFrom ce) {
             if (signature.contains(ce.getProperty().getNamedProperty())) {
-                newClassExpression = df.getOWLObjectSomeValuesFrom(ce.getProperty(),
-                    replaceBottom(ce.getFiller()));
+                newClassExpression =
+                    df.getOWLObjectSomeValuesFrom(ce.getProperty(), replaceBottom(ce.getFiller()));
             } else {
                 newClassExpression = df.getOWLNothing();
             }

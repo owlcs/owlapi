@@ -45,7 +45,6 @@ import org.semanticweb.owlapi6.vocab.OWL2Datatype;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public class ProfileValidationTestCase extends TestBase {
 
     private static void checkProfile(OWLOntology ontology, OWLProfile profile,

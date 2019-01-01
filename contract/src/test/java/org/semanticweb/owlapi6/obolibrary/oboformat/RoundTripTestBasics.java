@@ -17,7 +17,6 @@ import org.semanticweb.owlapi6.obolibrary.oboformat.diff.Diff;
 import org.semanticweb.owlapi6.obolibrary.oboformat.diff.OBODocDiffer;
 import org.semanticweb.owlapi6.obolibrary.oboformat.model.OBODoc;
 
-@SuppressWarnings("javadoc")
 public class RoundTripTestBasics extends OboFormatTestBasics {
 
     private static boolean compareOWLOntologiesPartial(OWLOntology oo, OWLOntology oo2,

@@ -30,7 +30,6 @@ import org.semanticweb.owlapi6.rdf.rdfxml.parser.RDFXMLParser;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public class RelativeURITestCase extends AxiomsRoundTrippingBase {
 
     public RelativeURITestCase() {

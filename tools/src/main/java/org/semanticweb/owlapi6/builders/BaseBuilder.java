@@ -113,7 +113,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         List<OWLOntologyChange> changes =
             asList(report.getViolations().stream().flatMap(v -> v.repair().stream()));
         // fix the ontology
-        o.getOWLOntologyManager().applyChanges(changes);
+        o.applyChanges(changes);
         // return all applied changes for reference
         changes.add(change);
         return changes;

@@ -16,20 +16,19 @@ import static org.semanticweb.owlapi6.model.parameters.ChangeApplied.NO_OPERATIO
 import static org.semanticweb.owlapi6.model.parameters.ChangeApplied.SUCCESSFULLY;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi6.model.AddAxiom;
 import org.semanticweb.owlapi6.model.AddImport;
 import org.semanticweb.owlapi6.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi6.model.ChangeDetails;
+import org.semanticweb.owlapi6.model.OWLAnnotationAxiom;
 import org.semanticweb.owlapi6.model.OWLMutableOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyChange;
 import org.semanticweb.owlapi6.model.OWLOntologyChangeVisitorEx;
 import org.semanticweb.owlapi6.model.OWLOntologyID;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
+import org.semanticweb.owlapi6.model.OntologyConfigurator;
 import org.semanticweb.owlapi6.model.RemoveAxiom;
 import org.semanticweb.owlapi6.model.RemoveImport;
 import org.semanticweb.owlapi6.model.RemoveOntologyAnnotation;
@@ -46,36 +45,38 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
     /**
      * @param manager ontology manager
      * @param ontologyID ontology id
+     * @param config ontology configurator
      */
     @Inject
-    public OWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
-        super(manager, ontologyID);
+    public OWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID,
+        OntologyConfigurator config) {
+        super(manager, ontologyID, config);
+    }
+
+    /**
+     * Determines if a change is applicable. A change may not be applicable for a number of reasons.
+     * 
+     * @param change The change to be tested.
+     * @return {@code true} if the change is applicable, otherwise, {@code false}.
+     */
+    private boolean isChangeApplicable(OWLOntologyChange change) {
+        return config.shouldLoadAnnotations() || !isAnnotationAxiom(change);
+    }
+
+    protected boolean isAnnotationAxiom(OWLOntologyChange change) {
+        return change.isAddAxiom() && change.getAxiom() instanceof OWLAnnotationAxiom;
     }
 
     @Override
-    public ChangeApplied applyDirectChange(OWLOntologyChange change) {
-        OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
-        return change.accept(changeFilter);
-    }
-
-    @Override
-    public ChangeDetails applyChangesAndGetDetails(List<? extends OWLOntologyChange> changes) {
-        List<OWLOntologyChange> enactedChanges = new ArrayList<>();
-        ChangeApplied appliedChanges = SUCCESSFULLY;
-        OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
-        for (OWLOntologyChange change : changes) {
-            ChangeApplied result = change.accept(changeFilter);
-            if (result == SUCCESSFULLY) {
-                enactedChanges.add(change);
-            }
-            if (appliedChanges == SUCCESSFULLY) {
-                // overwrite only if appliedChanges is still successful. If one
-                // change has been unsuccessful, we want to preserve that
-                // information
-                appliedChanges = result;
-            }
+    public ChangeApplied enactChange(OWLOntologyChange change) {
+        if (!isChangeApplicable(change)) {
+            return ChangeApplied.UNSUCCESSFULLY;
         }
-        return new ChangeDetails(appliedChanges, enactedChanges);
+        OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
+        getOWLOntologyManager().handleOntologyIDChange(change);
+        ChangeApplied appliedChange = change.accept(changeFilter);
+        getOWLOntologyManager().handleImportsChange(change);
+        return appliedChange;
     }
 
     protected class OWLOntologyChangeFilter

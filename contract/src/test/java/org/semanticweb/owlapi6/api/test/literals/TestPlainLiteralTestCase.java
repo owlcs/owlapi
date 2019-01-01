@@ -35,7 +35,6 @@ import org.semanticweb.owlapi6.model.OWLLiteral;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 
-@SuppressWarnings("javadoc")
 public class TestPlainLiteralTestCase extends TestBase {
 
     @Test

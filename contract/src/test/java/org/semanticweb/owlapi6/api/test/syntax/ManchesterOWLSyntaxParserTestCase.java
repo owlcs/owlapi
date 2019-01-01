@@ -40,6 +40,7 @@ import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.io.StringDocumentTarget;
+import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi6.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
@@ -61,12 +62,10 @@ import org.semanticweb.owlapi6.utilities.ShortFormProvider;
 import org.semanticweb.owlapi6.utility.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi6.utility.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi6.utility.BidirectionalShortFormProviderAdapter;
-import org.semanticweb.owlapi6.utility.mansyntax.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 import org.semanticweb.owlapi6.vocab.OWLFacet;
 import org.semanticweb.owlapi6.vocab.XSDVocabulary;
 
-@SuppressWarnings({"javadoc", "null"})
 public class ManchesterOWLSyntaxParserTestCase extends TestBase {
 
     @Test
@@ -216,8 +215,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     public static final @Nonnull String NS = "http://protege.org/ontologies/Test.owl";
-    protected @Nonnull OWLDataProperty p;
-    protected @Nonnull OWLDatatype dateTime;
+    protected OWLDataProperty p;
+    protected OWLDatatype dateTime;
 
     @Before
     public void setUpPAndDateTime() {
@@ -403,8 +402,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         OWLClass b = Class(IRI("urn:test#B"));
         String in = "name max 1 owl:real";
         OWLOntology o = m.createOntology();
-        m.addAxiom(o, df.getOWLDeclarationAxiom(name));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(b));
+        o.addAxiom(df.getOWLDeclarationAxiom(name));
+        o.addAxiom(df.getOWLDeclarationAxiom(b));
         // select a short form provider that uses annotations
         ShortFormProvider sfp =
             new AnnotationValueShortFormProvider(Arrays.asList(df.getRDFSLabel()),

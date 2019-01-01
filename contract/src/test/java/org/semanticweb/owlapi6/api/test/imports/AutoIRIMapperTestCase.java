@@ -7,7 +7,6 @@ import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.utility.AutoIRIMapper;
 
-@SuppressWarnings("javadoc")
 public class AutoIRIMapperTestCase extends TestBase {
 
     @Test

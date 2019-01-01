@@ -12,9 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.reasoner;
 
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
-
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi6.model.OWLObject;
@@ -27,18 +24,6 @@ import org.semanticweb.owlapi6.model.OWLObject;
  * @since 3.0.0
  */
 public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
-
-    /**
-     * A convenience method that gets all of the entities contained in the {@code Nodes} in this
-     * {@code NodeSet}.
-     *
-     * @return The union of the entities contained in the {@code Nodes} in this {@code NodeSet}.
-     * @deprecated use {@link #entities()}
-     */
-    @Deprecated
-    default Set<E> getFlattened() {
-        return asSet(entities());
-    }
 
     /**
      * A convenience method that gets all of the entities contained in the {@code Nodes} in this
@@ -90,18 +75,6 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * @see org.semanticweb.owlapi6.reasoner.Node#isBottomNode()
      */
     boolean isBottomSingleton();
-
-    /**
-     * Gets the {@code Node}s contained in this {@code NodeSet}.
-     *
-     * @return The set of {@code Node}s contained in this {@code NodeSet}. Note that this set will
-     *         be an unmodifiable set.
-     * @deprecated use {@link #nodes()}
-     */
-    @Deprecated
-    default Set<Node<E>> getNodes() {
-        return asSet(nodes());
-    }
 
     /**
      * Gets the {@code Node}s contained in this {@code NodeSet}.

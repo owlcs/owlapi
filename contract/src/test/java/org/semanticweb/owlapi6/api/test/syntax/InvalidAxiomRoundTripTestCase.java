@@ -35,8 +35,6 @@ import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asUnorderedSet
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
@@ -51,10 +49,9 @@ import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 
-@SuppressWarnings({"javadoc", "null"})
 public class InvalidAxiomRoundTripTestCase extends TestBase {
 
-    private @Nonnull OWLOntology o;
+    private OWLOntology o;
 
     @Before
     public void setUpO() {

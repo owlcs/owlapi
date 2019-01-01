@@ -20,7 +20,6 @@ import org.semanticweb.owlapi6.test.IntegrationTest;
 import org.semanticweb.owlapi6.utilities.VersionInfo;
 
 @SuppressWarnings("javadoc")
-@Category(IntegrationTest.class)
 public class VerifyVersionInfoIntegrationTestCase {
 
     @Test

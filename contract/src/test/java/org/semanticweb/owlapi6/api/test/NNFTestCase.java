@@ -26,7 +26,6 @@ import org.semanticweb.owlapi6.apibinding.OWLManager;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.utility.NNF;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class NNFTestCase {
 

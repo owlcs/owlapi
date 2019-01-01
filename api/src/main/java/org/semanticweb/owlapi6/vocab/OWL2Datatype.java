@@ -15,7 +15,6 @@ package org.semanticweb.owlapi6.vocab;
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asMap;
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi6.vocab.Namespaces.OWL;
 import static org.semanticweb.owlapi6.vocab.Namespaces.RDF;
 import static org.semanticweb.owlapi6.vocab.Namespaces.RDFS;
@@ -348,15 +347,6 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
          */
         public String getName() {
             return name;
-        }
-
-        /**
-         * @return facets
-         * @deprecated use {@link #facets()}
-         */
-        @Deprecated
-        public Set<OWLFacet> getFacets() {
-            return asSet(facets());
         }
 
         /**

@@ -4,6 +4,7 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi6.model.OWLOntologyID;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
+import org.semanticweb.owlapi6.model.OntologyConfigurator;
 
 import uk.ac.manchester.cs.owlapi6.OWLOntologyImpl;
 
@@ -13,7 +14,8 @@ import uk.ac.manchester.cs.owlapi6.OWLOntologyImpl;
 public class NonConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
     @Override
-    public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID) {
-        return new OWLOntologyImpl(manager, ontologyID);
+    public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID,
+        OntologyConfigurator config) {
+        return new OWLOntologyImpl(manager, ontologyID, config);
     }
 }

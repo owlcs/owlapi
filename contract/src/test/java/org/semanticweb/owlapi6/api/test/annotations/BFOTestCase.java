@@ -5,7 +5,6 @@ import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.rdf.rdfxml.parser.RDFXMLParserFactory;
 
-@SuppressWarnings("javadoc")
 public class BFOTestCase extends TestBase {
 
     @Test

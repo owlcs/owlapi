@@ -41,7 +41,6 @@ import org.semanticweb.owlapi6.obolibrary.oboformat.model.OBODoc;
 import org.semanticweb.owlapi6.obolibrary.oboformat.parser.OBOFormatParser;
 import org.semanticweb.owlapi6.obolibrary.oboformat.writer.OBOFormatWriter;
 
-@SuppressWarnings({"javadoc"})
 public class OboFormatTestBasics extends TestBase {
     protected OWLStorerParameters storerParameters = new OWLStorerParameters();
 
@@ -155,9 +154,8 @@ public class OboFormatTestBasics extends TestBase {
 
     protected StringDocumentTarget writeOWL(OWLOntology ontology, OWLDocumentFormat format) {
         StringDocumentTarget target = new StringDocumentTarget();
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
         try {
-            manager.saveOntology(ontology, format, target);
+            ontology.saveOntology(format, target);
         } catch (OWLOntologyStorageException e) {
             throw new OWLRuntimeException(e);
         }

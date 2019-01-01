@@ -97,7 +97,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * @param changes The list of raw changes.
      */
     protected synchronized void handleRawOntologyChanges(
-        List<? extends OWLOntologyChange> changes) {
+        Collection<? extends OWLOntologyChange> changes) {
         rawChanges.addAll(changes);
         // We auto-flush the changes if the reasoner is non-buffering
         if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {

@@ -15,7 +15,7 @@ package org.semanticweb.owlapi6.metrics;
 import static org.semanticweb.owlapi6.search.Searcher.getEquivalentClasses;
 import static org.semanticweb.owlapi6.search.Searcher.getSubClasses;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.function.Predicate;
 
 import org.semanticweb.owlapi6.model.OWLAxiom;
@@ -51,7 +51,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(Collection<? extends OWLOntologyChange> changes) {
         return changes.stream().filter(OWLOntologyChange::isAxiomChange)
             .map(OWLOntologyChange::getAxiom).anyMatch(equivalentOrSubclass);
     }

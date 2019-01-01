@@ -12,7 +12,6 @@ import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.PrefixManager;
 import org.semanticweb.owlapi6.utilities.PrefixManagerImpl;
 
-@SuppressWarnings("javadoc")
 public class ToSyntaxTestCase extends TestBase {
     String namespace = "urn:test:";
     OWLObjectProperty p = df.getOWLObjectProperty("urn:test:", "p");

@@ -26,7 +26,6 @@ import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi6.model.SWRLAtom;
 
-@SuppressWarnings({"javadoc", "boxing"})
 public class SyntacticLocalityTestCase {
 
     @Test

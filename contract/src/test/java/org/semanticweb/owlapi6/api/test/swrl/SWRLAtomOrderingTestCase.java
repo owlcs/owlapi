@@ -25,7 +25,6 @@ import org.semanticweb.owlapi6.model.SWRLRule;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
  *         04/04/2014
  */
-@SuppressWarnings({"javadoc", "null"})
 @RunWith(MockitoJUnitRunner.class)
 public class SWRLAtomOrderingTestCase extends TestBase {
 

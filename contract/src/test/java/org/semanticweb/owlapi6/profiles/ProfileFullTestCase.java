@@ -10,7 +10,6 @@ import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class ProfileFullTestCase extends ProfileBase {
 
@@ -98,7 +97,6 @@ public class ProfileFullTestCase extends ProfileBase {
     @Test
     public void testFull() {
         test(premise.startsWith("<rdf:RDF") ? new RDFXMLDocumentFormat()
-                : new FunctionalSyntaxDocumentFormat(), premise, false, false, false,
-            false);
+            : new FunctionalSyntaxDocumentFormat(), premise, false, false, false, false);
     }
 }

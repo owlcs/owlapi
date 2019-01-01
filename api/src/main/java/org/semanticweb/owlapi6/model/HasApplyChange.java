@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.model;
 
-import org.semanticweb.owlapi6.model.parameters.ChangeApplied;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
@@ -22,8 +20,7 @@ import org.semanticweb.owlapi6.model.parameters.ChangeApplied;
 public interface HasApplyChange {
 
     /**
-     * A convenience method that applies just one change to an ontology that is managed by this
-     * manager.
+     * A convenience method that applies just one change to this ontology.
      *
      * @param change The change to be applied
      * @return ChangeApplied.SUCCESSFULLY if the change is applied with success,
@@ -35,5 +32,5 @@ public interface HasApplyChange {
      *         {@link org.semanticweb.owlapi6.model.OWLOntologyID} already belongs to an ontology
      *         managed by this manager.
      */
-    ChangeApplied applyChange(OWLOntologyChange change);
+    ChangeReport applyChange(OWLOntologyChange change);
 }

@@ -17,12 +17,10 @@ import org.semanticweb.owlapi6.io.RDFLiteral;
 import org.semanticweb.owlapi6.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi6.io.RDFResourceIRI;
 import org.semanticweb.owlapi6.io.RDFTriple;
-import org.semanticweb.owlapi6.rio.utils.RioUtils;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({"javadoc", "null"})
 public class RioUtilsTestCase extends TestBase {
 
     private static final ValueFactory VF = SimpleValueFactory.getInstance();

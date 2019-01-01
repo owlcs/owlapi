@@ -14,7 +14,7 @@ package org.semanticweb.owlapi6.metrics;
 
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.semanticweb.owlapi6.model.OWLOntologyChange;
 import org.semanticweb.owlapi6.reasoner.OWLReasoner;
@@ -48,7 +48,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(Collection<? extends OWLOntologyChange> changes) {
         return false;
     }
 }

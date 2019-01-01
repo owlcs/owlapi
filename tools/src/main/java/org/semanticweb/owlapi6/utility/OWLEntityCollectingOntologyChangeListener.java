@@ -14,11 +14,9 @@ package org.semanticweb.owlapi6.utility;
 
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi6.model.OWLAxiomChange;
 import org.semanticweb.owlapi6.model.OWLEntity;
@@ -38,7 +36,7 @@ public abstract class OWLEntityCollectingOntologyChangeListener
     private final Set<OWLEntity> entities = new HashSet<>();
 
     @Override
-    public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> changes) {
+    public void ontologiesChanged(Collection<? extends OWLOntologyChange> changes) {
         entities.clear();
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange()) {

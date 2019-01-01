@@ -23,7 +23,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.utility.QNameShortFormProvider;
 
-@SuppressWarnings("javadoc")
 public class ShortFormProviderTestCase {
 
     @Test

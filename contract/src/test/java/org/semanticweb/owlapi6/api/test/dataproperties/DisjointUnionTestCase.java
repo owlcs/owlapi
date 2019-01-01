@@ -22,7 +22,6 @@ import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class DisjointUnionTestCase extends TestBase {
 
     private static final String NS = "http://protege.org/protege/DisjointUnion.owl";

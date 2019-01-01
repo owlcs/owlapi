@@ -35,7 +35,6 @@ import org.semanticweb.owlapi6.vocab.OWL2Datatype;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings("javadoc")
 public class HashCodeTestCase extends TestBase {
 
     @Test

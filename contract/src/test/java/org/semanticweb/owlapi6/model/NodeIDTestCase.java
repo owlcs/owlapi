@@ -10,7 +10,6 @@ import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 /**
  * @author ignazio
  */
-@SuppressWarnings("javadoc")
 public class NodeIDTestCase extends TestBase {
 
     @Test

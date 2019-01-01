@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLOntologyID;
 
-@SuppressWarnings("javadoc")
 public class OWLOntologyChangeRecordTest extends TestBase {
 
     @Test

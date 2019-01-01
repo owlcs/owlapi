@@ -32,7 +32,6 @@ import org.semanticweb.owlapi6.model.UnknownOWLOntologyException;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc"})
 public class OWLOntologyChangeRecordTestCase extends TestBase {
 
     private final OWLOntologyID mockOntologyID = df.getOWLOntologyID();

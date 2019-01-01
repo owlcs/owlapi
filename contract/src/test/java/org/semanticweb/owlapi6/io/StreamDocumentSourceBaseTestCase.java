@@ -18,10 +18,8 @@ import org.semanticweb.owlapi6.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
 
-@SuppressWarnings("javadoc")
 public class StreamDocumentSourceBaseTestCase {
 
-    @SuppressWarnings("null")
     @Test
     public void shouldCreateRewindableReaderWithKnownContent() {
         String input =

@@ -25,7 +25,6 @@ import org.semanticweb.owlapi6.vocab.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi6.vocab.Obo2OWLConstants;
 import org.semanticweb.owlapi6.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
 
-@SuppressWarnings("javadoc")
 public class Owl2OboTestCase extends OboFormatTestBasics {
 
     private static void addLabelAndId(OWLNamedObject obj, String label, String id, OWLOntology o) {

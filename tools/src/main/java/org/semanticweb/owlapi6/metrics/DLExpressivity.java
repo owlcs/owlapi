@@ -14,7 +14,7 @@ package org.semanticweb.owlapi6.metrics;
 
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyChange;
@@ -47,12 +47,7 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange change : changes) {
-            if (change.isAxiomChange() && change.getAxiom().isLogicalAxiom()) {
-                return true;
-            }
-        }
-        return false;
+    protected boolean isMetricInvalidated(Collection<? extends OWLOntologyChange> changes) {
+        return changes.stream().anyMatch(c -> c.isAxiomChange() && c.getAxiom().isLogicalAxiom());
     }
 }

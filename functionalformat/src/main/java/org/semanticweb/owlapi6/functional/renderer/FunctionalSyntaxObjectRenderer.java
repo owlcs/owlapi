@@ -934,7 +934,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        List<OWLIndividual> individuals = axiom.getIndividualsAsList();
+        List<OWLIndividual> individuals = axiom.getOperandsAsList();
         if (individuals.size() < 2) {
             LOGGER.warn("{} with less than two elements skipped {}",
                 axiom.getClass().getSimpleName(), axiom);

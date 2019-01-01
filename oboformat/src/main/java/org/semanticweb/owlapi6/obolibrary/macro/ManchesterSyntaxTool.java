@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi6.expression.OWLEntityChecker;
 import org.semanticweb.owlapi6.expression.ShortFormEntityChecker;
+import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi6.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi6.model.AxiomType;
@@ -41,7 +42,6 @@ import org.semanticweb.owlapi6.utilities.ShortFormProvider;
 import org.semanticweb.owlapi6.utility.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi6.utility.OntologyAxiomPair;
 import org.semanticweb.owlapi6.utility.SimpleIRIShortFormProvider;
-import org.semanticweb.owlapi6.utility.mansyntax.ManchesterOWLSyntaxParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

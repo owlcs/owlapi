@@ -42,7 +42,6 @@ import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
  * test for 3294629 - currently disabled. Not clear whether structure sharing is allowed or
  * disallowed. Data is equivalent, ontology annotations are not
  */
-@SuppressWarnings("javadoc")
 public class SharedBlankNodeTestCase extends TestBase {
 
     String NS = "urn:test";
@@ -99,8 +98,8 @@ public class SharedBlankNodeTestCase extends TestBase {
         return ontology;
     }
 
-    private void annotate(OWLOntology o, String p, OWLAnnotationValue v) {
-        m.applyChange(new AddOntologyAnnotation(o, Annotation(AnnotationProperty(IRI(p)), v)));
+    private static void annotate(OWLOntology o, String p, OWLAnnotationValue v) {
+        o.applyChange(new AddOntologyAnnotation(o, Annotation(AnnotationProperty(IRI(p)), v)));
     }
 
     private static OWLAxiom dataAssertion(String p, OWLIndividual i, String l) {

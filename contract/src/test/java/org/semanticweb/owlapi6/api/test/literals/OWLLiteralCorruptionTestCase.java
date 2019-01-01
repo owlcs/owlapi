@@ -30,7 +30,6 @@ import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 
-@SuppressWarnings({"javadoc"})
 public class OWLLiteralCorruptionTestCase extends TestBase {
 
     @Test

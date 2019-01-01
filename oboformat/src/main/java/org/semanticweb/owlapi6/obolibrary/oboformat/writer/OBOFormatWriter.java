@@ -29,7 +29,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi6.io.IRIDocumentSource;
 import org.semanticweb.owlapi6.io.OWLParser;
@@ -61,7 +60,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author Shahid Manzoor
  */
-@ParametersAreNonnullByDefault
 public class OBOFormatWriter {
 
     private static final Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);

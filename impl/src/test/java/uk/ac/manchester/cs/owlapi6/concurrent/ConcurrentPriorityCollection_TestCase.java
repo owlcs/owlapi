@@ -24,7 +24,6 @@ import org.semanticweb.owlapi6.model.PriorityCollectionSorting;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({"javadoc", "null"})
 public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
 
     private ConcurrentPriorityCollection<T> collection;

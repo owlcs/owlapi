@@ -42,7 +42,6 @@ import org.semanticweb.owlapi6.model.OWLDatatype;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings("javadoc")
 public class OWL2DatatypeTestCase extends TestBase {
 
     private OWLDatatype plainLiteral;

@@ -18,10 +18,8 @@ import org.semanticweb.owlapi6.model.OntologyConfigurator;
 /**
  * Created by ses on 3/12/15.
  */
-@SuppressWarnings("javadoc")
 public class XZStreamDocumentSourceTestCase {
 
-    @SuppressWarnings("null")
     @Test
     public void testReadKoalaDoc() {
         XZStreamDocumentSource source =

@@ -31,7 +31,6 @@ import org.semanticweb.owlapi6.utilities.OWLObjectDuplicator;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
 
     private final Map<OWLAnonymousIndividual, OWLAnonymousIndividual> renamingMap = new HashMap<>();
