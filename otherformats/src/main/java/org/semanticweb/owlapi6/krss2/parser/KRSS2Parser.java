@@ -50,7 +50,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
         }
     }
 
-     public IRI getIRI(final String s) {
+     public IRI getIRI(String s) {
             IRI iri = string2IRI.get(s);
             if (iri == null) {
                 switch(nameResolution) {

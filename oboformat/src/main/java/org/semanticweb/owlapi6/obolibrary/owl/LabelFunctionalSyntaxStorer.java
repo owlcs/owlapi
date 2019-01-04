@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi6.formats.LabelFunctionalDocumentFormat;
 import org.semanticweb.owlapi6.functional.renderer.FunctionalSyntaxObjectRenderer;
@@ -32,7 +31,6 @@ import org.semanticweb.owlapi6.utilities.StringComparator;
 /**
  * Implement the writer for {@link LabelFunctionalDocumentFormat}.
  */
-@ParametersAreNonnullByDefault
 public class LabelFunctionalSyntaxStorer implements OWLStorer {
 
     @Override

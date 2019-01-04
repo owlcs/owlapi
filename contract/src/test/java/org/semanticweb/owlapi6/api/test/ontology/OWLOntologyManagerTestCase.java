@@ -43,7 +43,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
     }
 
     @Test
-    public void testCreateOntologyWithIRI() throws OWLOntologyCreationException {
+    public void testCreateOntologyWithIRI() {
         IRI ontologyIRI = df.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology");
         OWLOntology ontology = getOWLOntology(ontologyIRI);
         assertNotNull("ontology should not be null", ontology);
@@ -55,7 +55,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
     }
 
     @Test
-    public void testCreateOntologyWithIRIAndVersionIRI() throws OWLOntologyCreationException {
+    public void testCreateOntologyWithIRIAndVersionIRI() {
         IRI ontologyIRI = df.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology");
         IRI versionIRI =
             df.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology/version");
@@ -69,7 +69,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
     }
 
     @Test
-    public void testCreateOntologyWithIRIWithMapper() throws OWLOntologyCreationException {
+    public void testCreateOntologyWithIRIWithMapper() {
         IRI ontologyIRI = df.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology");
         IRI documentIRI = df.getNextDocumentIRI("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
@@ -84,8 +84,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
     }
 
     @Test
-    public void testCreateOntologyWithIRIAndVersionIRIWithMapper()
-        throws OWLOntologyCreationException {
+    public void testCreateOntologyWithIRIAndVersionIRIWithMapper() {
         IRI ontologyIRI = df.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology");
         IRI versionIRI =
             df.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology/version");
@@ -104,8 +103,8 @@ public class OWLOntologyManagerTestCase extends TestBase {
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testCreateDuplicateOntologyWithIRI() throws OWLOntologyCreationException {
         IRI ontologyIRI = df.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology");
-        getOWLOntology(ontologyIRI);
-        getOWLOntology(ontologyIRI);
+        m.createOntology(ontologyIRI);
+        m.createOntology(ontologyIRI);
     }
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
@@ -113,8 +112,8 @@ public class OWLOntologyManagerTestCase extends TestBase {
         throws OWLOntologyCreationException {
         IRI ontologyIRI = df.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology");
         IRI versionIRI = df.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology");
-        getOWLOntology(df.getOWLOntologyID(ontologyIRI, versionIRI));
-        getOWLOntology(df.getOWLOntologyID(ontologyIRI, versionIRI));
+        m.createOntology(df.getOWLOntologyID(ontologyIRI, versionIRI));
+        m.createOntology(df.getOWLOntologyID(ontologyIRI, versionIRI));
     }
 
     @Test(expected = OWLOntologyDocumentAlreadyExistsException.class)
@@ -124,7 +123,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
         IRI documentIRI = df.getNextDocumentIRI("file:documentIRI");
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI, documentIRI));
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI2, documentIRI));
-        getOWLOntology(df.getOWLOntologyID(ontologyIRI));
-        getOWLOntology(df.getOWLOntologyID(ontologyIRI2));
+        m.createOntology(df.getOWLOntologyID(ontologyIRI));
+        m.createOntology(df.getOWLOntologyID(ontologyIRI2));
     }
 }

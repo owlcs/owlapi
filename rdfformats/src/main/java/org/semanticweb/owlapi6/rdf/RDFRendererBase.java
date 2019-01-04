@@ -583,7 +583,7 @@ public abstract class RDFRendererBase {
         }
     }
 
-    protected RDFTriple remapNodesIfNecessary(final RDFResource node, final RDFTriple triple) {
+    protected RDFTriple remapNodesIfNecessary(RDFResource node, RDFTriple triple) {
         RDFTriple tripleToRender = triple;
         RDFResourceBlankNode remappedNode =
             verifyNotNull(triplesWithRemappedNodes, "triplesWithRemappedNodes not initialised yet")

@@ -286,7 +286,7 @@ public class OWLAPIOwl2Obo {
     }
 
     protected static boolean handleIAO227(boolean isMerged,
-        final Set<OWLAnnotationAssertionAxiom> unrelatedAxioms, OWLAnnotationAssertionAxiom axiom) {
+        Set<OWLAnnotationAssertionAxiom> unrelatedAxioms, OWLAnnotationAssertionAxiom axiom) {
         OWLAnnotationValue value = axiom.getValue();
         Optional<IRI> asIRI = value.asIRI();
         if (asIRI.isPresent()) {
@@ -298,7 +298,7 @@ public class OWLAPIOwl2Obo {
 
     @Nullable
     protected static String handleIAO10001(@Nullable String replacedBy,
-        final Set<OWLAnnotationAssertionAxiom> unrelatedAxioms, OWLAnnotationAssertionAxiom axiom) {
+        Set<OWLAnnotationAssertionAxiom> unrelatedAxioms, OWLAnnotationAssertionAxiom axiom) {
         OWLAnnotationValue value = axiom.getValue();
         Optional<OWLLiteral> asLiteral = value.asLiteral();
         if (asLiteral.isPresent()) {

@@ -138,9 +138,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      * @param namespaces A Map of namespaces from prefix to full URI which are to be used by this
      *        source.
      */
-    public RioMemoryTripleSource(
-        final CloseableIteration<Statement, ? extends RDF4JException> statements,
-        final Map<String, String> namespaces) {
+    public RioMemoryTripleSource(CloseableIteration<Statement, ? extends RDF4JException> statements,
+        Map<String, String> namespaces) {
         this(statements);
         this.namespaces.putAll(namespaces);
     }

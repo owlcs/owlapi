@@ -130,8 +130,7 @@ public class Utf8TestCase extends TestBase {
         checkOntology(newOntology, c, chinese);
     }
 
-    private OWLOntology createOriginalOntology(String ns, OWLClass c, String chinese)
-        throws OWLOntologyCreationException {
+    private OWLOntology createOriginalOntology(String ns, OWLClass c, String chinese) {
         OWLOntology ontology = getOWLOntology(IRI(ns, ""));
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(), Literal(chinese));
         ontology.add(annotationAxiom);

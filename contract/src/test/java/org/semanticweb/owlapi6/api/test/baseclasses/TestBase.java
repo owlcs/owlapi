@@ -405,12 +405,20 @@ public abstract class TestBase {
         }
     }
 
-    public OWLOntology getOWLOntology(IRI iri) throws OWLOntologyCreationException {
-        return m.createOntology(iri);
+    public OWLOntology getOWLOntology(IRI iri) {
+        try {
+            return m.createOntology(iri);
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
-    public OWLOntology getOWLOntology(OWLOntologyID iri) throws OWLOntologyCreationException {
-        return m.createOntology(iri);
+    public OWLOntology getOWLOntology(OWLOntologyID iri) {
+        try {
+            return m.createOntology(iri);
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     public OWLOntology getAnonymousOWLOntology() {

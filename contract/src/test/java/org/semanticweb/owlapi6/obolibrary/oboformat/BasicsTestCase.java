@@ -1099,6 +1099,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertNotNull(clause);
         assertEquals("UBERON:0002539", clause.getValue());
         termFrame = tdoc.getTermFrame("UBERON:0006800");
+        assertNotNull(termFrame);
         clause = termFrame.getClause(OboFormatTag.TAG_IS_A);
         assertNotNull(clause);
         assertEquals("CARO:0000008", clause.getValue());

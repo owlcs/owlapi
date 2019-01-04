@@ -419,13 +419,11 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
 
     @Override
     public boolean isTopEquivalent(OWLObject expr) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean isBotEquivalent(OWLObject expr) {
-        // TODO Auto-generated method stub
         return false;
     }
 }

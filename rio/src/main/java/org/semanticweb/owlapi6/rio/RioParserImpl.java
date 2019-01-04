@@ -92,7 +92,7 @@ public class RioParserImpl implements OWLParser, RioParser {
         return owlFormatFactory;
     }
 
-    protected String baseIRI(final OWLOntology ontology) {
+    protected String baseIRI(OWLOntology ontology) {
         String baseUri = "urn:default:baseUri:";
         // Override the default baseUri for non-anonymous ontologies
         if (ontology.getOntologyID().isNamed()
@@ -147,7 +147,7 @@ public class RioParserImpl implements OWLParser, RioParser {
                 createParser.parse((InputStream) r, baseIRI(p.getOntology()));
             }
             return consumer.getOntologyFormat();
-        } catch (final RDFHandlerException e) {
+        } catch (RDFHandlerException e) {
             // See sourceforge bug 3566820 for more information about this
             // branch
             if (e.getCause() != null && e.getCause().getCause() != null
@@ -176,7 +176,7 @@ public class RioParserImpl implements OWLParser, RioParser {
         RIOAnonymousNodeChecker() {}
 
         @Override
-        public boolean isAnonymousNode(final IRI iri) {
+        public boolean isAnonymousNode(IRI iri) {
             // HACK: FIXME: When the mess of having blank nodes
             // represented as IRIs is
             // finished remove the genid hack below
@@ -184,7 +184,7 @@ public class RioParserImpl implements OWLParser, RioParser {
         }
 
         @Override
-        public boolean isAnonymousNode(final String iri) {
+        public boolean isAnonymousNode(String iri) {
             // HACK: FIXME: When the mess of having blank nodes
             // represented as IRIs is
             // finished remove the genid hack below
@@ -195,14 +195,14 @@ public class RioParserImpl implements OWLParser, RioParser {
         // gave a name to the blank
         // node themselves
         @Override
-        public boolean isAnonymousSharedNode(final String iri) {
+        public boolean isAnonymousSharedNode(String iri) {
             // HACK: FIXME: When the mess of having blank nodes
             // represented as IRIs is
             // finished remove the genid hack below
             return anon(iri);
         }
 
-        boolean anon(final String iri) {
+        boolean anon(String iri) {
             return iri.startsWith("_:") || iri.contains("genid");
         }
     }

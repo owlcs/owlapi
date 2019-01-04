@@ -124,7 +124,7 @@ public class RioStorer implements OWLStorer {
         }
         try {
             return Rio.createWriter(format, outputStream);
-        } catch (final UnsupportedRDFormatException e) {
+        } catch (UnsupportedRDFormatException e) {
             throw new OWLOntologyStorageException(e);
         }
     }
@@ -165,7 +165,7 @@ public class RioStorer implements OWLStorer {
                 }
             });
             return createWriter;
-        } catch (final UnsupportedRDFormatException e) {
+        } catch (UnsupportedRDFormatException e) {
             throw new OWLOntologyStorageException(e);
         }
     }
@@ -181,7 +181,7 @@ public class RioStorer implements OWLStorer {
     /**
      * @param rioHandler the rioHandler to set
      */
-    public void setRioHandler(final RDFHandler rioHandler) {
+    public void setRioHandler(RDFHandler rioHandler) {
         this.rioHandler = rioHandler;
     }
 

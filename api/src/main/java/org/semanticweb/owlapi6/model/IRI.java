@@ -220,18 +220,6 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredi
     }
 
     @Override
-    default String toSyntax(OWLDocumentFormat format) {
-        // XXX can't use ToStringRenderer in the api package
-        return toString();
-    }
-
-    @Override
-    default String toSyntax(OWLDocumentFormat format, PrefixManager pm) {
-        // XXX can't use ToStringRenderer in the api package
-        return toString();
-    }
-
-    @Override
     default String getShortForm() {
         String r = getFragment();
         if (!r.isEmpty()) {

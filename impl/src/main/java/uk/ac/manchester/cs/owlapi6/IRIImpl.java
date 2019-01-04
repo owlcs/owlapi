@@ -18,7 +18,9 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi6.io.ToStringRenderer;
 import org.semanticweb.owlapi6.model.IRI;
+import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLObject;
 import org.semanticweb.owlapi6.model.PrefixManager;
 
@@ -117,6 +119,16 @@ public class IRIImpl implements IRI {
             return ntriplesString().equals(iri.ntriplesString());
         }
         return false;
+    }
+
+    @Override
+    public String toSyntax(OWLDocumentFormat format) {
+        return ToStringRenderer.getInstance(format).render(this);
+    }
+
+    @Override
+    public String toSyntax(OWLDocumentFormat format, PrefixManager pm) {
+        return ToStringRenderer.getInstance(format, pm).render(this);
     }
 
     @Override
