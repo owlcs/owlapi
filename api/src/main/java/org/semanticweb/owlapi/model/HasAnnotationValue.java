@@ -20,22 +20,21 @@ public interface HasAnnotationValue {
      * @return for IRI values, the IRI, else an empty Optional
      */
     default Optional<IRI> iriValue() {
-        return Optional.ofNullable(annotationValue().asIRI().or((IRI) null));
+        return Optional.ofNullable(annotationValue().asIRI().orNull());
     }
 
     /**
      * @return for literal values, the literal, else an empty Optional
      */
     default Optional<OWLLiteral> literalValue() {
-        return Optional.ofNullable(annotationValue().asLiteral().or((OWLLiteral) null));
+        return Optional.ofNullable(annotationValue().asLiteral().orNull());
     }
 
     /**
      * @return for anonymous individual values, the individual, else an empty Optional
      */
     default Optional<OWLAnonymousIndividual> anonymousIndividualValue() {
-        return Optional.ofNullable(
-            annotationValue().asAnonymousIndividual().or((OWLAnonymousIndividual) null));
+        return Optional.ofNullable(annotationValue().asAnonymousIndividual().orNull());
     }
 
     /**
@@ -50,6 +49,7 @@ public interface HasAnnotationValue {
      * predicate evaluates to true; the alternative runnable is executed if the predicate does not
      * match or the type does not match (only once if both conditions do not match).
      * 
+     * @param <T> type of input
      * @param witness class for which predicate and consumer should be executed
      * @param p predicate to test
      * @param c consumer to apply
