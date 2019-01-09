@@ -51,7 +51,7 @@ public class TokenMap {
      *        String to match
      * @return index of the corresponding token in
      *         OWLFunctionalSyntaxParserConstants.tokenImage if one found, index
-     *         of PN_LOCAL otherwise
+     *         of {@code <PN_LOCAL>} otherwise
      */
     public static int tokenIndex(String s) {
         return makeTokenMap.getOrDefault(s, DEFAULT).intValue();
@@ -62,7 +62,7 @@ public class TokenMap {
      *        index to match
      * @return String corresponding to index of the corresponding token in
      *         OWLFunctionalSyntaxParserConstants.tokenImage if one found, index
-     *         of <PN_LOCAL> otherwise
+     *         of {@code <PN_LOCAL>} otherwise
      */
     public static String indexToken(int in) {
         if (in >= index.length || in < 0) {
