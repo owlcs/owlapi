@@ -14,6 +14,7 @@ package org.semanticweb.owlapi6.profiles.violations;
 
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,16 +30,21 @@ import org.semanticweb.owlapi6.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi6.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * Specifies that an IRI that is used for a datatype is also used for a class IRI.
+ * Specifies that an IRI that is used for a datatype is also used for a class
+ * IRI.
  *
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
 public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation {
 
     /**
-     * @param ontology ontology
-     * @param axiom axiom
-     * @param iri iri
+     * @param ontology
+     *        ontology
+     * @param axiom
+     *        axiom
+     * @param iri
+     *        iri
      */
     public DatatypeIRIAlsoUsedAsClassIRI(OWLOntology ontology, @Nullable OWLAxiom axiom, IRI iri) {
         super(ontology, checkNotNull(axiom), iri);
@@ -69,6 +75,6 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation {
         // XXX arbitrary decision: drop the axiom
         // better fix would be to look for usage and remove the smallest number
         // of axioms
-        return list(new RemoveAxiom(ontology, getAxiom()));
+        return Collections.singletonList(new RemoveAxiom(ontology, getAxiom()));
     }
 }
