@@ -928,8 +928,7 @@ public class OBOFormatParser {
         }
         cl.setTag(OboFormatTag.TAG_SYNONYM.getTag());
         if (stream.consume("\"")) {
-            String syn = getParseUntilAdv("\"");
-            cl.setValue(syn);
+            cl.setValue(getParseUntilAdv("\""));
             cl.addValue(scope);
             parseZeroOrMoreWs();
             parseXrefList(cl, false);
@@ -940,8 +939,7 @@ public class OBOFormatParser {
 
     private Clause parseSynonym(Clause cl) {
         if (stream.consume("\"")) {
-            String syn = getParseUntilAdv("\"");
-            cl.setValue(syn);
+            cl.setValue(getParseUntilAdv("\""));
             parseZeroOrMoreWs();
             if (!stream.peekCharIs('[')) {
                 parseIdRef(cl, true);
@@ -963,8 +961,7 @@ public class OBOFormatParser {
     // ----------------------------------------
     private Clause parseDef(Clause cl) {
         if (stream.consume("\"")) {
-            String def = getParseUntilAdv("\"");
-            cl.setValue(def);
+            cl.setValue(getParseUntilAdv("\""));
             parseZeroOrMoreWs();
             parseXrefList(cl, true);
         } else {
@@ -975,8 +972,7 @@ public class OBOFormatParser {
 
     private Clause parseOwlDef(Clause cl) {
         if (stream.consume("\"")) {
-            String def = getParseUntilAdv("\"");
-            cl.setValue(def);
+            cl.setValue(getParseUntilAdv("\""));
             parseZeroOrMoreWs();
             parseXrefList(cl, true);
         } else {
@@ -1019,12 +1015,12 @@ public class OBOFormatParser {
             if (id.contains(" ")) {
                 warn("accepting bad xref with spaces:" + id);
             }
-            Xref xref = new Xref(id);
-            cl.addXref(xref);
+            Xref xrefId = new Xref(id);
+            cl.addXref(xrefId);
             parseZeroOrMoreWs();
             if (stream.peekCharIs('"')) {
                 stream.consume("\"");
-                xref.setAnnotation(getParseUntilAdv("\""));
+                xrefId.setAnnotation(getParseUntilAdv("\""));
             }
             return true;
         }
@@ -1040,12 +1036,12 @@ public class OBOFormatParser {
             warn("accepting bad xref with spaces:<" + id + '>');
         }
         id = id.replaceAll(" +\\Z", "");
-        Xref xref = new Xref(id);
-        cl.addValue(xref);
+        Xref xrefId = new Xref(id);
+        cl.addValue(xrefId);
         parseZeroOrMoreWs();
         if (stream.peekCharIs('"')) {
             stream.consume("\"");
-            xref.setAnnotation(getParseUntilAdv("\""));
+            xrefId.setAnnotation(getParseUntilAdv("\""));
         }
         return cl;
     }
