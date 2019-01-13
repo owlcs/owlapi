@@ -49,7 +49,7 @@ public class ManchesterImportTestCase extends TestBase {
     public void testRemoteIsParseable() throws OWLOntologyCreationException {
         OWLOntologyManager manager = getManager();
         OWLOntology ontology = manager.loadOntology(str);
-        assertEquals(1, ontology.axioms().count());
+        assertEquals(1, ontology.getAxiomCount());
         assertEquals(ontology.getOntologyID().getOntologyIRI().get(), str);
         assertNotNull(manager.getOntology(str));
     }
@@ -57,8 +57,7 @@ public class ManchesterImportTestCase extends TestBase {
     @Test
     public void testEquivalentLoading() throws OWLOntologyCreationException {
         OWLOntologyManager managerStart = getManager();
-        OWLOntology manualImport =
-            managerStart.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
+        OWLOntology manualImport = managerStart.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
         OWLOntologyManager managerTest = getManager();
         OWLOntology iriImport = managerTest.loadOntology(str);
         assertTrue(manualImport.equalAxioms(iriImport));

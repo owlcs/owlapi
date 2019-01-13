@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi6.latex.renderer;
 
 import static org.semanticweb.owlapi6.io.ToStringRenderer.getRendering;
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -404,7 +403,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
-        iterate(node.operands().iterator(), () -> spaced(AND));
+        iterate(node.getOperandsAsList().iterator(), () -> spaced(AND));
     }
 
     @Override
@@ -419,7 +418,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataOneOf node) {
-        iterate(node.operands().iterator(), this::braced, () -> spaced(OR));
+        iterate(node.getOperandsAsList().iterator(), this::braced, () -> spaced(OR));
     }
 
     @Override
@@ -481,7 +480,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataUnionOf node) {
-        iterate(node.operands().iterator(), () -> spaced(OR));
+        iterate(node.getOperandsAsList().iterator(), () -> spaced(OR));
     }
 
     @Override
@@ -497,7 +496,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> classExpressions = asList(axiom.classExpressions());
+        List<OWLClassExpression> classExpressions = axiom.getOperandsAsList();
         if (classExpressions.size() != 2) {
             renderDisjointLongList(classExpressions);
         } else {
@@ -564,7 +563,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        List<OWLClassExpression> classExpressions = asList(axiom.classExpressions());
+        List<OWLClassExpression> classExpressions = axiom.getOperandsAsList();
         if (classExpressions.size() > 2) {
             renderLongList(classExpressions);
         } else if (classExpressions.size() == 2) {
@@ -744,7 +743,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
-        iterate(ce.operands().iterator(), () -> spaced(AND));
+        iterate(ce.getOperandsAsList().iterator(), () -> spaced(AND));
     }
 
     @Override
@@ -799,7 +798,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
-        iterate(ce.operands().iterator(), () -> spaced(OR));
+        iterate(ce.getOperandsAsList().iterator(), () -> spaced(OR));
     }
 
     @Override
@@ -878,7 +877,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     public void visit(SWRLBuiltInAtom node) {
         node.getPredicate().accept(this);
         writeSpace();
-        iterate(node.getArguments().iterator(), this::writeSpace);
+        iterate(node.argumentsAsList().iterator(), this::writeSpace);
     }
 
     @Override

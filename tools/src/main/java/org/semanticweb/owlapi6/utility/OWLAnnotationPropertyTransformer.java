@@ -312,7 +312,7 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
                 relatedIndividual = df.getOWLNamedIndividual((IRI) value);
             }
             obj = df.getOWLObjectPropertyAssertionAxiom(prop.asOWLObjectProperty(), individual, relatedIndividual,
-                asList(ax.annotations()));
+                ax.annotationsAsList());
             return;
         } else if (prop.isDataPropertyExpression()) {
             // turn to data property assertion
@@ -323,7 +323,7 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
                 individual = df.getOWLNamedIndividual((IRI) subject);
             }
             obj = df.getOWLDataPropertyAssertionAxiom(prop.asOWLDataProperty(), individual, (OWLLiteral) value,
-                asList(ax.annotations()));
+                ax.annotationsAsList());
             return;
         }
         obj = df.getOWLAnnotationAssertionAxiom(prop.asOWLAnnotationProperty(), subject, value, anns(ax));
@@ -670,7 +670,7 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property domain axiom turned to object property domain after parsing. This could introduce errors if the original domain was an anonymous expression: {} is the new domain.",
                 domain);
-            obj = df.getOWLObjectPropertyDomainAxiom(prop.asOWLObjectProperty(), d, asList(ax.annotations()));
+            obj = df.getOWLObjectPropertyDomainAxiom(prop.asOWLObjectProperty(), d, ax.annotationsAsList());
             return;
         } else if (prop.isDataPropertyExpression()) {
             // turn to data property domain
@@ -678,7 +678,7 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property domain axiom turned to data property domain after parsing. This could introduce errors if the original domain was an anonymous expression: {} is the new domain.",
                 domain);
-            obj = df.getOWLDataPropertyDomainAxiom(prop.asOWLDataProperty(), d, asList(ax.annotations()));
+            obj = df.getOWLDataPropertyDomainAxiom(prop.asOWLDataProperty(), d, ax.annotationsAsList());
             return;
         }
         obj = df.getOWLAnnotationPropertyDomainAxiom(prop.asOWLAnnotationProperty(), domain, anns(ax));
@@ -694,7 +694,7 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property range axiom turned to object property range after parsing. This could introduce errors if the original range was an anonymous expression: {} is the new domain.",
                 range);
-            obj = df.getOWLObjectPropertyRangeAxiom(prop.asOWLObjectProperty(), d, asList(ax.annotations()));
+            obj = df.getOWLObjectPropertyRangeAxiom(prop.asOWLObjectProperty(), d, ax.annotationsAsList());
             return;
         } else if (prop.isDataPropertyExpression()) {
             // turn to data property domain
@@ -702,7 +702,7 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property range axiom turned to data property range after parsing. This could introduce errors if the original range was an anonymous expression: {} is the new domain.",
                 range);
-            obj = df.getOWLDataPropertyRangeAxiom(prop.asOWLDataProperty(), d, asList(ax.annotations()));
+            obj = df.getOWLDataPropertyRangeAxiom(prop.asOWLDataProperty(), d, ax.annotationsAsList());
             return;
         }
         obj = df.getOWLAnnotationPropertyRangeAxiom(prop.asOWLAnnotationProperty(), range, anns(ax));
@@ -717,7 +717,7 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             // illegal punning, where this fix cannot be applied
             if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
                 obj = df.getOWLSubObjectPropertyOfAxiom(sub.asOWLObjectProperty(), sup.asOWLObjectProperty(),
-                    asList(ax.annotations()));
+                    ax.annotationsAsList());
             } else {
                 // cannot repair: leave unchanged
                 obj = ax;
@@ -726,7 +726,7 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         } else if (sub.isDataPropertyExpression() || sup.isDataPropertyExpression()) {
             if (sub.isOWLDataProperty() && sup.isOWLDataProperty()) {
                 obj = df.getOWLSubDataPropertyOfAxiom(sub.asOWLDataProperty(), sup.asOWLDataProperty(),
-                    asList(ax.annotations()));
+                    ax.annotationsAsList());
             } else {
                 // cannot repair: leave unchanged
                 obj = ax;
@@ -782,5 +782,6 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
      */
     private <O extends OWLObject> Collection<O> set(Stream<O> objects) {
         return asList(objects.map(this::dup));
+        // XXX review and remove intermediate steps
     }
 }

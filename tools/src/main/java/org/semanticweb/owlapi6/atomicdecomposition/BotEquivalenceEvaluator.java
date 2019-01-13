@@ -153,7 +153,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
 
     @Override
     public void visit(OWLObjectOneOf expr) {
-        isBotEq = expr.individuals().count() == 0;
+        isBotEq = expr.getOperandsAsList().isEmpty();
     }
 
     @Override

@@ -154,7 +154,7 @@ public abstract class TestBase {
     }
 
     protected boolean isSimpleDeclaration(OWLAxiom ax) {
-        return ax.isOfType(AxiomType.DECLARATION) && ax.annotations().count() == 0;
+        return ax.isOfType(AxiomType.DECLARATION) && ax.annotationsAsList().isEmpty();
     }
 
     private static String str(Stream<?> s) {
@@ -251,7 +251,7 @@ public abstract class TestBase {
             for (OWLAxiom ax : new ArrayList<>(axioms1)) {
                 if (ax instanceof OWLEquivalentClassesAxiom) {
                     OWLEquivalentClassesAxiom ax2 = (OWLEquivalentClassesAxiom) ax;
-                    if (ax2.classExpressions().count() > 2) {
+                    if (ax2.getOperandsAsList().size() > 2) {
                         Collection<OWLEquivalentClassesAxiom> pairs = ax2.splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {
                             axioms1.remove(ax);
@@ -260,7 +260,7 @@ public abstract class TestBase {
                     }
                 } else if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
                     OWLEquivalentDataPropertiesAxiom ax2 = (OWLEquivalentDataPropertiesAxiom) ax;
-                    if (ax2.properties().count() > 2) {
+                    if (ax2.getOperandsAsList().size() > 2) {
                         Collection<OWLEquivalentDataPropertiesAxiom> pairs = ax2.splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {
                             axioms1.remove(ax);
@@ -269,7 +269,7 @@ public abstract class TestBase {
                     }
                 } else if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
                     OWLEquivalentObjectPropertiesAxiom ax2 = (OWLEquivalentObjectPropertiesAxiom) ax;
-                    if (ax2.properties().count() > 2) {
+                    if (ax2.getOperandsAsList().size() > 2) {
                         Collection<OWLEquivalentObjectPropertiesAxiom> pairs = ax2.splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {
                             axioms1.remove(ax);

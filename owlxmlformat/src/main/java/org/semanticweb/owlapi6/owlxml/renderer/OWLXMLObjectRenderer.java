@@ -757,7 +757,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(SWRLBuiltInAtom node) {
         writer.writeStartElement(BUILT_IN_ATOM);
         writer.writeIRIAttribute(node.getPredicate());
-        node.getArguments().forEach(this::accept);
+        node.argumentsAsList().forEach(this::accept);
         writer.writeEndElement();
     }
 

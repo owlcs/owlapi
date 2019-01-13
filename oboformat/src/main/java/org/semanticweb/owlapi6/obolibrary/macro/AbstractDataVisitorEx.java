@@ -1,9 +1,5 @@
 package org.semanticweb.owlapi6.obolibrary.macro;
 
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
-
-import java.util.List;
-
 import org.semanticweb.owlapi6.model.OWLDataComplementOf;
 import org.semanticweb.owlapi6.model.OWLDataFactory;
 import org.semanticweb.owlapi6.model.OWLDataIntersectionOf;
@@ -38,14 +34,12 @@ public class AbstractDataVisitorEx implements OWLDataVisitorEx<OWLDataRange> {
 
     @Override
     public OWLDataRange visit(OWLDataIntersectionOf node) {
-        List<OWLDataRange> ops = asList(node.operands().map(op -> op.accept(this)));
-        return df.getOWLDataIntersectionOf(ops);
+        return df.getOWLDataIntersectionOf(node.operands().map(op -> op.accept(this)));
     }
 
     @Override
     public OWLDataRange visit(OWLDataUnionOf node) {
-        List<OWLDataRange> ops = asList(node.operands().map(op -> op.accept(this)));
-        return df.getOWLDataUnionOf(ops);
+        return df.getOWLDataUnionOf(node.operands().map(op -> op.accept(this)));
     }
 
     @Override

@@ -117,8 +117,8 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
     @Test
     public void testCorrectAxiomsDataAllValuesFrom() {
-        assertEqualsSet("DataAllValuesFrom.rdf", SubClassOf(clA, DataAllValuesFrom(dp, dt)),
-                        Declaration(dt), Declaration(dp));
+        assertEqualsSet("DataAllValuesFrom.rdf", SubClassOf(clA, DataAllValuesFrom(dp, dt)), Declaration(dt),
+            Declaration(dp));
     }
 
     @Test
@@ -130,8 +130,8 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
     @Test
     public void testCorrectAxiomsDataHasValue() {
-        assertEqualsSet("DataHasValue.rdf", SubClassOf(clA, DataHasValue(dp, Literal(3))),
-                        Declaration(dp), SubClassOf(clA, DataHasValue(dp, Literal("A", ""))));
+        assertEqualsSet("DataHasValue.rdf", SubClassOf(clA, DataHasValue(dp, Literal(3))), Declaration(dp),
+            SubClassOf(clA, DataHasValue(dp, Literal("A", ""))));
     }
 
     @Test
@@ -143,14 +143,14 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
     @Test
     public void testCorrectAxiomsDataMaxCardinality() {
-        assertEqualsSet("DataMaxCardinality.rdf",
-                        SubClassOf(clA, DataMaxCardinality(3, dp, TopDatatype())), Declaration(dp));
+        assertEqualsSet("DataMaxCardinality.rdf", SubClassOf(clA, DataMaxCardinality(3, dp, TopDatatype())),
+            Declaration(dp));
     }
 
     @Test
     public void testCorrectAxiomsDataMinCardinality() {
-        assertEqualsSet("DataMinCardinality.rdf",
-                        SubClassOf(clA, DataMinCardinality(3, dp, TopDatatype())), Declaration(dp));
+        assertEqualsSet("DataMinCardinality.rdf", SubClassOf(clA, DataMinCardinality(3, dp, TopDatatype())),
+            Declaration(dp));
     }
 
     @Test
@@ -162,8 +162,8 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
     @Test
     public void testCorrectAxiomsDataSomeValuesFrom() {
-        assertEqualsSet("DataSomeValuesFrom.rdf", SubClassOf(clA, DataSomeValuesFrom(dp, dt)),
-                        Declaration(dt), Declaration(dp));
+        assertEqualsSet("DataSomeValuesFrom.rdf", SubClassOf(clA, DataSomeValuesFrom(dp, dt)), Declaration(dt),
+            Declaration(dp));
     }
 
     @Test
@@ -175,9 +175,8 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
     @Test
     public void testCorrectAxiomsDatatypeRestriction() {
-        OWLDataRange dr =
-            DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.MIN_INCLUSIVE, Literal(18)),
-                        FacetRestriction(OWLFacet.MAX_INCLUSIVE, Literal(30)));
+        OWLDataRange dr = DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.MIN_INCLUSIVE, Literal(18)),
+            FacetRestriction(OWLFacet.MAX_INCLUSIVE, Literal(30)));
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(dp, dr);
         assertEqualsSet("DatatypeRestriction.rdf", ax, Declaration(dp));
     }
@@ -185,18 +184,13 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     @Test
     public void testCorrectAxiomsDeclarations() {
         OWLClass c = Class(IRI("http://www.semanticweb.org/ontologies/declarations#", "Cls"));
-        OWLObjectProperty o =
-            ObjectProperty(IRI("http://www.semanticweb.org/ontologies/declarations#", "op"));
-        OWLDataProperty d =
-            DataProperty(IRI("http://www.semanticweb.org/ontologies/declarations#", "dp"));
-        OWLNamedIndividual i =
-            NamedIndividual(IRI("http://www.semanticweb.org/ontologies/declarations#", "ni"));
-        OWLAnnotationProperty ap =
-            AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/declarations#", "ap"));
-        OWLDatatype datatype =
-                        Datatype(IRI("http://www.semanticweb.org/ontologies/declarations#", "dt"));
-        assertEqualsSet("TestDeclarations.rdf", Declaration(c), Declaration(o), Declaration(d),
-                        Declaration(i), Declaration(ap), Declaration(datatype));
+        OWLObjectProperty o = ObjectProperty(IRI("http://www.semanticweb.org/ontologies/declarations#", "op"));
+        OWLDataProperty d = DataProperty(IRI("http://www.semanticweb.org/ontologies/declarations#", "dp"));
+        OWLNamedIndividual i = NamedIndividual(IRI("http://www.semanticweb.org/ontologies/declarations#", "ni"));
+        OWLAnnotationProperty ap = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/declarations#", "ap"));
+        OWLDatatype datatype = Datatype(IRI("http://www.semanticweb.org/ontologies/declarations#", "dt"));
+        assertEqualsSet("TestDeclarations.rdf", Declaration(c), Declaration(o), Declaration(d), Declaration(i),
+            Declaration(ap), Declaration(datatype));
     }
 
     @Test
@@ -204,10 +198,10 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
         OWLOntology ont = ontologyFromClasspathFile("Deprecated.rdf");
         OWLClass cls = Class(IRI("http://www.semanticweb.org/owlapi/test#", "ClsA"));
         Searcher.annotationObjects(ont.annotationAssertionAxioms(cls.getIRI(), INCLUDED))
-                        .forEach(a -> a.isDeprecatedIRIAnnotation());
+            .forEach(a -> a.isDeprecatedIRIAnnotation());
         OWLDataProperty prop = DataProperty(IRI("http://www.semanticweb.org/owlapi/test#", "prop"));
         Searcher.annotationObjects(ont.annotationAssertionAxioms(prop.getIRI(), INCLUDED))
-                        .forEach(a -> assertTrue(a.isDeprecatedIRIAnnotation()));
+            .forEach(a -> assertTrue(a.isDeprecatedIRIAnnotation()));
     }
 
     @Test
@@ -220,8 +214,8 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
         OWLClass cls = Class(IRI("http://example.com/", "Person"));
         OWLDataProperty propP = DataProperty(IRI("http://example.com/", "dataProperty"));
         OWLObjectProperty propQ = ObjectProperty(IRI("http://example.com/", "objectProperty"));
-        assertEqualsSet("HasKey.rdf", HasKey(cls, propQ, propP), Declaration(cls),
-                        Declaration(propP), Declaration(propQ));
+        assertEqualsSet("HasKey.rdf", HasKey(cls, propQ, propP), Declaration(cls), Declaration(propP),
+            Declaration(propQ));
     }
 
     @Test
@@ -231,14 +225,14 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
     @Test
     public void testCorrectAxiomsObjectAllValuesFrom() {
-        assertEqualsSet("ObjectAllValuesFrom.rdf", SubClassOf(clA, ObjectAllValuesFrom(op, clB)),
-                        Declaration(clB), Declaration(op));
+        assertEqualsSet("ObjectAllValuesFrom.rdf", SubClassOf(clA, ObjectAllValuesFrom(op, clB)), Declaration(clB),
+            Declaration(op));
     }
 
     @Test
     public void testCorrectAxiomsObjectCardinality() {
         assertEqualsSet("ObjectCardinality.rdf", Declaration(op),
-                        SubClassOf(clA, ObjectExactCardinality(3, op, OWLThing())));
+            SubClassOf(clA, ObjectExactCardinality(3, op, OWLThing())));
     }
 
     @Test
@@ -253,38 +247,37 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
     @Test
     public void testCorrectAxiomsObjectHasValue() {
-        assertEqualsSet("ObjectHasValue.rdf",
-            SubClassOf(clA, ObjectHasValue(op, NamedIndividual(iri("a")))), Declaration(op));
+        assertEqualsSet("ObjectHasValue.rdf", SubClassOf(clA, ObjectHasValue(op, NamedIndividual(iri("a")))),
+            Declaration(op));
     }
 
     @Test
     public void testCorrectAxiomsObjectIntersectionOf() {
-        assertEqualsSet("ObjectIntersectionOf.rdf",
-                        SubClassOf(clA, ObjectIntersectionOf(clB, classC)));
+        assertEqualsSet("ObjectIntersectionOf.rdf", SubClassOf(clA, ObjectIntersectionOf(clB, classC)));
     }
 
     @Test
     public void testCorrectAxiomsObjectMaxCardinality() {
         assertEqualsSet("ObjectMaxCardinality.rdf", Declaration(op),
-                        SubClassOf(clA, ObjectMaxCardinality(3, op, OWLThing())));
+            SubClassOf(clA, ObjectMaxCardinality(3, op, OWLThing())));
     }
 
     @Test
     public void testCorrectAxiomsObjectMaxQualifiedCardinality() {
         assertEqualsSet("ObjectMaxQualifiedCardinality.rdf", Declaration(op),
-                        SubClassOf(clA, ObjectMaxCardinality(3, op, clB)));
+            SubClassOf(clA, ObjectMaxCardinality(3, op, clB)));
     }
 
     @Test
     public void testCorrectAxiomsObjectMinCardinality() {
         assertEqualsSet("ObjectMinCardinality.rdf", Declaration(op),
-                        SubClassOf(clA, ObjectMinCardinality(3, op, OWLThing())));
+            SubClassOf(clA, ObjectMinCardinality(3, op, OWLThing())));
     }
 
     @Test
     public void testCorrectAxiomsObjectMinQualifiedCardinality() {
         assertEqualsSet("ObjectMinQualifiedCardinality.rdf", Declaration(op),
-                        SubClassOf(clA, ObjectMinCardinality(3, op, clB)));
+            SubClassOf(clA, ObjectMinCardinality(3, op, clB)));
     }
 
     @Test
@@ -297,13 +290,13 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     @Test
     public void testCorrectAxiomsObjectQualifiedCardinality() {
         assertEqualsSet("ObjectQualifiedCardinality.rdf", Declaration(op),
-                        SubClassOf(clA, ObjectExactCardinality(3, op, clB)));
+            SubClassOf(clA, ObjectExactCardinality(3, op, clB)));
     }
 
     @Test
     public void testCorrectAxiomsObjectSomeValuesFrom() {
-        assertEqualsSet("ObjectSomeValuesFrom.rdf", SubClassOf(clA, ObjectSomeValuesFrom(op, clB)),
-                        Declaration(clB), Declaration(op));
+        assertEqualsSet("ObjectSomeValuesFrom.rdf", SubClassOf(clA, ObjectSomeValuesFrom(op, clB)), Declaration(clB),
+            Declaration(op));
     }
 
     @Test
@@ -324,8 +317,8 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     public void testStructuralReasonerRecusion() {
         OWLOntology ontology = ontologyFromClasspathFile("koala.owl");
         String ontName = ontology.getOntologyID().getOntologyIRI().get().toString();
-        StructuralReasoner reasoner =
-            new StructuralReasoner(ontology, new SimpleConfiguration(), BufferingMode.BUFFERING);
+        StructuralReasoner reasoner = new StructuralReasoner(ontology, new SimpleConfiguration(),
+            BufferingMode.BUFFERING);
         OWLClass cls = Class(IRI(ontName + "#", "Koala"));
         reasoner.getSubClasses(cls, false);
         reasoner.getSuperClasses(cls, false);
@@ -351,7 +344,7 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
         OWLOntology ontology = ontologyFromClasspathFile("SubClassOfUntypedOWLClass.rdf");
         List<OWLSubClassOfAxiom> axioms = asList(ontology.axioms(AxiomType.SUBCLASS_OF));
         assertEquals(1, axioms.size());
-        OWLSubClassOfAxiom ax = axioms.iterator().next();
+        OWLSubClassOfAxiom ax = axioms.get(0);
         OWLClass subCls = Class(IRI("http://www.semanticweb.org/owlapi/test#", "A"));
         OWLClass supCls = Class(IRI("http://www.semanticweb.org/owlapi/test#", "B"));
         assertEquals(subCls, ax.getSubClass());
@@ -363,14 +356,13 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
         OWLOntology ontology = ontologyFromClasspathFile("SubClassOfUntypedSomeValuesFrom.rdf");
         List<OWLSubClassOfAxiom> axioms = asList(ontology.axioms(AxiomType.SUBCLASS_OF));
         assertEquals(1, axioms.size());
-        OWLSubClassOfAxiom ax = axioms.iterator().next();
+        OWLSubClassOfAxiom ax = axioms.get(0);
         OWLClass subCls = Class(IRI("http://www.semanticweb.org/owlapi/test#", "A"));
         assertEquals(subCls, ax.getSubClass());
         OWLClassExpression supCls = ax.getSuperClass();
         assertTrue(supCls instanceof OWLObjectSomeValuesFrom);
         OWLObjectSomeValuesFrom someValuesFrom = (OWLObjectSomeValuesFrom) supCls;
-        OWLObjectProperty property =
-                        ObjectProperty(IRI("http://www.semanticweb.org/owlapi/test#", "P"));
+        OWLObjectProperty property = ObjectProperty(IRI("http://www.semanticweb.org/owlapi/test#", "P"));
         OWLClass fillerCls = Class(IRI("http://www.semanticweb.org/owlapi/test#", "C"));
         assertEquals(property, someValuesFrom.getProperty());
         assertEquals(fillerCls, someValuesFrom.getFiller());

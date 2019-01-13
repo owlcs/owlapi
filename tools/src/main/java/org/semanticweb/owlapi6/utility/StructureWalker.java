@@ -699,7 +699,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     @Override
     public void visit(SWRLBuiltInAtom node) {
         process(node);
-        node.getArguments().forEach(a -> a.accept(this));
+        node.arguments().forEach(a -> a.accept(this));
     }
 
     @Override

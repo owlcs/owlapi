@@ -208,7 +208,7 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
     @Override
     public void visit(OWLObjectOneOf expr) {
-        value = getOneNoneLower(expr.individuals().count() > 0);
+        value = getOneNoneLower(expr.getOperandsAsList().size() > 0);
     }
 
     @Override
