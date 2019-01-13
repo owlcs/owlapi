@@ -101,6 +101,7 @@ import static org.semanticweb.owlapi6.vocab.OWLXMLVocabulary.VARIABLE;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi6.model.AxiomType;
 import org.semanticweb.owlapi6.model.HasAnnotations;
@@ -248,7 +249,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
                 }
             }
         }
-        AxiomType.skipDeclarations().flatMap(ontology::axioms).distinct().sorted().forEach(this::accept);
+        Stream<? extends OWLAxiom> flatMap = AxiomType.skipDeclarations().flatMap(t -> ontology.axioms(t));
+        flatMap.distinct().sorted().forEach(this::accept);
     }
 
     private void accept(OWLObject o) {

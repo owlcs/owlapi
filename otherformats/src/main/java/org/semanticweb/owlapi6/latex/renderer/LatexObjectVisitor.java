@@ -120,11 +120,12 @@ import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 import org.semanticweb.owlapi6.vocab.OWLRDFVocabulary;
 
 /**
- * NOTE: this class was not designed as a general purpose renderer, i.e., some ontologies might be
- * misrepresented in the output. Please report any formatting error you find to the bug tracker or
- * the mailing list.
+ * NOTE: this class was not designed as a general purpose renderer, i.e., some
+ * ontologies might be misrepresented in the output. Please report any
+ * formatting error you find to the bug tracker or the mailing list.
  *
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group
  * @since 2.0.0
  */
 public class LatexObjectVisitor implements OWLObjectVisitor {
@@ -150,14 +151,14 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     /** SUBCLASS. */      public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
     /** TOP. */           public static final String TOP      = "\\ensuremath{\\top}";
     //@formatter:on
-
     private boolean prettyPrint = true;
     private ShortFormProvider shortFormProvider;
     private OWLObject subject = OWLRDFVocabulary.OWL_THING.getIRI();
     private final LatexWriter writer;
 
     /**
-     * @param writer writer
+     * @param writer
+     *        writer
      */
     public LatexObjectVisitor(LatexWriter writer) {
         this.writer = writer;
@@ -169,12 +170,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param classExpression class expression
+     * @param classExpression
+     *        class expression
      * @return true if bracket required
      */
     protected static boolean requiresBracket(OWLClassExpression classExpression) {
-        return !(classExpression.type() == OWLObjectType.CLASS
-            || classExpression.type() == OWLObjectType.NOT_OBJECT);
+        return !(classExpression.type() == OWLObjectType.CLASS || classExpression.type() == OWLObjectType.NOT_OBJECT);
     }
 
     protected void braced(OWLObject o) {
@@ -255,21 +256,24 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param prettyPrint prettyPrint
+     * @param prettyPrint
+     *        prettyPrint
      */
     public void setPrettyPrint(boolean prettyPrint) {
         this.prettyPrint = prettyPrint;
     }
 
     /**
-     * @param shortFormProvder shortFormProvder
+     * @param shortFormProvder
+     *        shortFormProvder
      */
     public void setShortFormProvider(ShortFormProvider shortFormProvder) {
         shortFormProvider = shortFormProvder;
     }
 
     /**
-     * @param subject subject
+     * @param subject
+     *        subject
      */
     public void setSubject(OWLObject subject) {
         this.subject = subject;
@@ -328,7 +332,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param value value
+     * @param value
+     *        value
      */
     public void visit(OWLAnnotationValue value) {
         value.accept(new OWLAnnotationValueVisitor() {
@@ -414,7 +419,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataOneOf node) {
-        iterate(node.values().iterator(), this::braced, () -> spaced(OR));
+        iterate(node.operands().iterator(), this::braced, () -> spaced(OR));
     }
 
     @Override
@@ -643,7 +648,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param axiom the axiom
+     * @param axiom
+     *        the axiom
      */
     public void visit(OWLImportsDeclaration axiom) {
         write("ImportsDeclaration");

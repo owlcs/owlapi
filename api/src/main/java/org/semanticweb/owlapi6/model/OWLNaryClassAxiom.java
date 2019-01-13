@@ -16,33 +16,12 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassExpression>,
     OWLSubClassOfAxiomSetShortCut, HasOperands<OWLClassExpression> {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getOperandsAsList(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getOperandsAsList().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getOperandsAsList());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), getOperandsAsList());
-    }
 
     /**
      * Gets all of the top level class expressions that appear in this axiom.
@@ -57,21 +36,26 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
     }
 
     /**
-     * Determines if this class axiom contains the specified class expression as an operand.
+     * Determines if this class axiom contains the specified class expression as
+     * an operand.
      *
-     * @param ce The class expression to test for
-     * @return {@code true} if this axiom contains the specified class expression as an operand,
-     * otherwise {@code false}.
+     * @param ce
+     *        The class expression to test for
+     * @return {@code true} if this axiom contains the specified class
+     *         expression as an operand, otherwise {@code false}.
      */
     boolean contains(OWLClassExpression ce);
 
     /**
-     * Gets the set of class expressions that appear in this axiom minus the specfied class
-     * expressions.
+     * Gets the set of class expressions that appear in this axiom minus the
+     * specfied class expressions.
      *
-     * @param desc The class expressions to subtract from the class expressions in this axiom
-     * @return A set containing all of the class expressions in this axiom (the class expressions
-     * returned by getClassExpressions()) minus the specified list of class expressions
+     * @param desc
+     *        The class expressions to subtract from the class expressions in
+     *        this axiom
+     * @return A set containing all of the class expressions in this axiom (the
+     *         class expressions returned by getClassExpressions()) minus the
+     *         specified list of class expressions
      */
     Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc);
 }

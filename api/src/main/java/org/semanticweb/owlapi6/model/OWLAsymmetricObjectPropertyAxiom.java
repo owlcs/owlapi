@@ -24,13 +24,6 @@ package org.semanticweb.owlapi6.model;
 public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
     @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getProperty().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
     default OWLObjectType type() {
         return OWLObjectType.ASYMMETRIC;
     }

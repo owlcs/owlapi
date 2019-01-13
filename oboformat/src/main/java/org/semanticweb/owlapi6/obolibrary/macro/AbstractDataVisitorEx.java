@@ -33,7 +33,7 @@ public class AbstractDataVisitorEx implements OWLDataVisitorEx<OWLDataRange> {
     @Override
     public OWLDataRange visit(OWLDataOneOf node) {
         // Encode as a data union of and return result
-        return df.getOWLDataUnionOf(node.values().map(df::getOWLDataOneOf)).accept(this);
+        return df.getOWLDataUnionOf(node.operands().map(df::getOWLDataOneOf)).accept(this);
     }
 
     @Override
