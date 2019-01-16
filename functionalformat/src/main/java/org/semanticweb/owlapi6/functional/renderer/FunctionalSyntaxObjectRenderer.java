@@ -391,43 +391,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         write(iri.toQuotedString());
     }
 
-    @Override
-    public void visit(OWLOntology ontology) {
-        writePrefixes();
-        writeReturn();
-        writeReturn();
-        write(ONTOLOGY);
-        writeOpenBracket();
-        if (ontology.isNamed()) {
-            writeFullIRI(ontology.getOntologyID().getOntologyIRI().orElse(null));
-            ontology.getOntologyID().getVersionIRI().ifPresent(v -> {
-                writeReturn();
-                writeFullIRI(v);
-            });
-            writeReturn();
-        }
-        ontology.importsDeclarations().forEach(this::writeImport);
-        ontology.annotations().forEach(this::acceptAndReturn);
-        writeReturn();
-        Set<OWLAxiom> writtenAxioms = new HashSet<>();
-        Collection<IRI> illegals = ontology.determineIllegalPunnings(addMissingDeclarations);
-        ontology.signature().forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
-        writeSortedEntities(ontology, "Annotation Properties", "Annotation Property",
-            ontology.annotationPropertiesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(ontology, "Object Properties", "Object Property",
-            ontology.objectPropertiesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(ontology, "Data Properties", "Data Property", ontology.dataPropertiesInSignature(EXCLUDED),
-            writtenAxioms);
-        writeSortedEntities(ontology, "Datatypes", "Datatype", ontology.datatypesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(ontology, "Classes", "Class", ontology.classesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(ontology, "Named Individuals", "Individual", ontology.individualsInSignature(EXCLUDED),
-            writtenAxioms);
-        ontology.signature().forEach(e -> writeAxioms(e, writtenAxioms));
-        ontology.axioms().filter(ax -> !writtenAxioms.contains(ax)).sorted().forEach(this::acceptAndReturn);
-        writeCloseBracket();
-        flush();
-    }
-
     protected void writeImport(OWLImportsDeclaration decl) {
         write(IMPORT);
         writeOpenBracket();
@@ -681,6 +644,88 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         write(objects);
     }
 
+    protected void writeAxiomsWithCollections(int v, OWLAxiom axiom, List<? extends OWLObject> l) {
+        if (l.size() < 2) {
+            LOGGER.warn("{} with less than two elements skipped {}", axiom.getClass().getSimpleName(), axiom);
+            return;
+        }
+        write(v);
+        writeOpenBracket();
+        writeAnnotations(axiom);
+        write(l);
+        writeCloseBracket();
+    }
+
+    private void printConditionally(int v, HasIRI i) {
+        if (!writeEntitiesAsURIs) {
+            write(v);
+            writeOpenBracket();
+        }
+        accept(i.getIRI());
+        if (!writeEntitiesAsURIs) {
+            writeCloseBracket();
+        }
+    }
+
+    private <F extends OWLPropertyRange> void writeRestriction(int v, OWLCardinalityRestriction<F> restriction,
+        OWLPropertyExpression p) {
+        write(v);
+        writeOpenBracket();
+        write(Integer.toString(restriction.getCardinality()));
+        writeSpace();
+        accept(p);
+        if (restriction.isQualified()) {
+            writeSpace();
+            accept(restriction.getFiller());
+        }
+        writeCloseBracket();
+    }
+
+    private void writeSingleton(int v, List<? extends OWLObject> l) {
+        if (l.size() == 1) {
+            accept(l.get(0));
+            return;
+        }
+        write(v, l);
+    }
+
+    @Override
+    public void visit(OWLOntology ontology) {
+        writePrefixes();
+        writeReturn();
+        writeReturn();
+        write(ONTOLOGY);
+        writeOpenBracket();
+        if (ontology.isNamed()) {
+            writeFullIRI(ontology.getOntologyID().getOntologyIRI().orElse(null));
+            ontology.getOntologyID().getVersionIRI().ifPresent(v -> {
+                writeReturn();
+                writeFullIRI(v);
+            });
+            writeReturn();
+        }
+        ontology.importsDeclarations().forEach(this::writeImport);
+        ontology.annotations().forEach(this::acceptAndReturn);
+        writeReturn();
+        Set<OWLAxiom> writtenAxioms = new HashSet<>();
+        Collection<IRI> illegals = ontology.determineIllegalPunnings(addMissingDeclarations);
+        ontology.signature().forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
+        writeSortedEntities(ontology, "Annotation Properties", "Annotation Property",
+            ontology.annotationPropertiesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(ontology, "Object Properties", "Object Property",
+            ontology.objectPropertiesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(ontology, "Data Properties", "Data Property", ontology.dataPropertiesInSignature(EXCLUDED),
+            writtenAxioms);
+        writeSortedEntities(ontology, "Datatypes", "Datatype", ontology.datatypesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(ontology, "Classes", "Class", ontology.classesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(ontology, "Named Individuals", "Individual", ontology.individualsInSignature(EXCLUDED),
+            writtenAxioms);
+        ontology.signature().forEach(e -> writeAxioms(e, writtenAxioms));
+        ontology.axioms().filter(ax -> !writtenAxioms.contains(ax)).sorted().forEach(this::acceptAndReturn);
+        writeCloseBracket();
+        flush();
+    }
+
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         writeAnnotatedElement(ASYMMETRICOBJECTPROPERTY, axiom, axiom.getProperty());
@@ -725,18 +770,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         writeAxiomsWithCollections(DIFFERENTINDIVIDUALS, axiom, axiom.getOperandsAsList());
-    }
-
-    protected void writeAxiomsWithCollections(int v, OWLAxiom axiom, List<? extends OWLObject> l) {
-        if (l.size() < 2) {
-            LOGGER.warn("{} with less than two elements skipped {}", axiom.getClass().getSimpleName(), axiom);
-            return;
-        }
-        write(v);
-        writeOpenBracket();
-        writeAnnotations(axiom);
-        write(l);
-        writeCloseBracket();
     }
 
     @Override
@@ -882,39 +915,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     @Override
     public void visit(OWLClass ce) {
         printConditionally(CLASS, ce);
-    }
-
-    private void printConditionally(int v, HasIRI i) {
-        if (!writeEntitiesAsURIs) {
-            write(v);
-            writeOpenBracket();
-        }
-        accept(i.getIRI());
-        if (!writeEntitiesAsURIs) {
-            writeCloseBracket();
-        }
-    }
-
-    private <F extends OWLPropertyRange> void writeRestriction(int v, OWLCardinalityRestriction<F> restriction,
-        OWLPropertyExpression p) {
-        write(v);
-        writeOpenBracket();
-        write(Integer.toString(restriction.getCardinality()));
-        writeSpace();
-        accept(p);
-        if (restriction.isQualified()) {
-            writeSpace();
-            accept(restriction.getFiller());
-        }
-        writeCloseBracket();
-    }
-
-    private void writeSingleton(int v, List<? extends OWLObject> l) {
-        if (l.size() == 1) {
-            accept(l.get(0));
-            return;
-        }
-        write(v, l);
     }
 
     @Override
@@ -1082,11 +1082,11 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         accept(axiom.getClassExpression());
         writeSpace();
         writeOpenBracket();
-        write(asList(axiom.objectPropertyExpressions()));
+        write(axiom.objectPropertyExpressionsAsList());
         writeCloseBracket();
         writeSpace();
         writeOpenBracket();
-        write(asList(axiom.dataPropertyExpressions()));
+        write(axiom.dataPropertyExpressionsAsList());
         writeCloseBracket();
         writeCloseBracket();
     }

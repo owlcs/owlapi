@@ -58,7 +58,6 @@ import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSynta
 import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntax.TRANSITIVE;
 import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntax.TYPE;
 import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntax.VALUE;
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.Writer;
 import java.util.Collection;
@@ -889,9 +888,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         setAxiomWriting();
         axiom.getClassExpression().accept(this);
         write(HAS_KEY);
-        // XXX
-        write(asList(axiom.objectPropertyExpressions()), COMMA, false);
-        write(asList(axiom.dataPropertyExpressions()), COMMA, false);
+        write(axiom.objectPropertyExpressionsAsList(), COMMA, false);
+        write(axiom.dataPropertyExpressionsAsList(), COMMA, false);
     }
 
     // SWRL

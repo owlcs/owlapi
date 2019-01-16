@@ -15,7 +15,7 @@ public class SimpleRendererTestCase extends TestBase {
     @Test
     public void shouldSetPrefixes() {
         testSubject.setPrefix("test", "urn:test#");
-        assertEquals("test:t", testSubject.getShortForm(df.getIRI("urn:test#", "t")));
+        assertEquals("test:t", testSubject.render(df.getOWLClass("urn:test#", "t")));
     }
 
     @Test
@@ -25,6 +25,6 @@ public class SimpleRendererTestCase extends TestBase {
         o.getOWLOntologyManager().setOntologyFormat(o, f);
         o.getPrefixManager().withPrefix("test", "urn:test#");
         testSubject.setPrefixesFromOntologyFormat(o, true);
-        assertEquals("test:t", testSubject.getShortForm(df.getIRI("urn:test#", "t")));
+        assertEquals("test:t", testSubject.render(df.getOWLClass("urn:test#", "t")));
     }
 }

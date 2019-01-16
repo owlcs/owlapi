@@ -679,8 +679,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(HAS_KEY);
         axiom.annotationsAsList().forEach(this::accept);
         accept(axiom.getClassExpression());
-        axiom.objectPropertyExpressions().forEach(this::accept);
-        axiom.dataPropertyExpressions().forEach(this::accept);
+        axiom.objectPropertyExpressionsAsList().forEach(this::accept);
+        axiom.dataPropertyExpressionsAsList().forEach(this::accept);
         writer.writeEndElement();
     }
 
