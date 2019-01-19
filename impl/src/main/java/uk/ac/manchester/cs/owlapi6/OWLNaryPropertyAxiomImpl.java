@@ -73,6 +73,11 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
      * Constructor to be used to override the order and duplicate removal, for
      * cases where the n-ary property axiom contains a list not a set - i.e.,
      * inverse properties.
+     * 
+     * @param annotations
+     *        annotations
+     * @param properties
+     *        properties
      */
     protected OWLNaryPropertyAxiomImpl(Collection<OWLAnnotation> annotations, List<P> properties) {
         super(annotations);
