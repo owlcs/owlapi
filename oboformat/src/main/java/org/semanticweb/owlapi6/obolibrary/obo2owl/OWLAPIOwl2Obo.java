@@ -151,10 +151,7 @@ public class OWLAPIOwl2Obo {
      */
     protected static Map<String, String> initAnnotationPropertyMap() {
         Map<String, String> map = new HashMap<>();
-        for (String key : OWLAPIObo2Owl.ANNOTATIONPROPERTYMAP.keySet()) {
-            IRI propIRI = OWLAPIObo2Owl.ANNOTATIONPROPERTYMAP.get(key);
-            map.put(propIRI.toString(), key);
-        }
+        OWLAPIObo2Owl.ANNOTATIONPROPERTYMAP.forEach((a, b) -> map.put(b.toString(), a));
         return map;
     }
 
@@ -243,14 +240,9 @@ public class OWLAPIOwl2Obo {
     @Nullable
     public static String getDataVersion(OWLOntology ontology) {
         String oid = getOntologyId(ontology);
-        Optional<IRI> v = ontology.getOntologyID().getVersionIRI();
-        if (v.isPresent()) {
-            String vs = v.get().toString().replace(PURL_OBO, "");
-            vs = vs.replaceFirst(oid + '/', "");
-            vs = vs.replace('/' + oid + ".owl", "");
-            return vs;
-        }
-        return null;
+        return ontology.getOntologyID().getVersionIRI()
+            .map(vs -> vs.toString().replace(PURL_OBO, "").replaceFirst(oid + '/', "").replace('/' + oid + ".owl", ""))
+            .orElse(null);
     }
 
     /**
@@ -773,9 +765,10 @@ public class OWLAPIOwl2Obo {
         return getObodoc();
     }
 
+    private OWLAxiomVisitor visitor = new Translator();
+
     private void accept(Stream<? extends OWLAxiom> axioms) {
-        OWLAxiomVisitor visitor = new Translator();
-        axioms.forEach(ax -> ax.accept(visitor));
+        axioms.filter(ax -> !(ax instanceof OWLAnnotationAssertionAxiom)).forEach(ax -> ax.accept(visitor));
     }
 
     /**
@@ -938,357 +931,6 @@ public class OWLAPIOwl2Obo {
             }
         }
         error(ax, true);
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLSubPropertyChainOfAxiom ax) {
-        OWLObjectPropertyExpression pEx = ax.getSuperProperty();
-        if (pEx.isAnonymous()) {
-            error(ax, false);
-            return;
-        }
-        OWLObjectProperty p = pEx.asOWLObjectProperty();
-        Frame f = getTypedefFrame(p);
-        if (p.isBottomEntity() || p.isTopEntity()) {
-            error("Property chains using Top or Bottom entities are not supported in OBO.", ax, false);
-            return;
-        }
-        List<OWLObjectPropertyExpression> list = ax.getPropertyChain();
-        if (list.size() != 2) {
-            error(ax, false);
-            return;
-        }
-        OWLObjectPropertyExpression exp1 = list.get(0);
-        OWLObjectPropertyExpression exp2 = list.get(1);
-        if (exp1.isBottomEntity() || exp1.isTopEntity() || exp2.isBottomEntity() || exp2.isTopEntity()) {
-            error("Property chains using Top or Bottom entities are not supported in OBO.", ax, false);
-            return;
-        }
-        String rel1 = getIdentifier(exp1);
-        String rel2 = getIdentifier(exp2);
-        if (rel1 == null || rel2 == null) {
-            error(ax, false);
-            return;
-        }
-        Clause clause;
-        // set of unprocessed annotations
-        List<OWLAnnotation> unprocessedAnnotations = new ArrayList<>(ax.annotationsAsList());
-        if (rel1.equals(f.getId())) {
-            clause = new Clause(OboFormatTag.TAG_TRANSITIVE_OVER, rel2);
-        } else {
-            OboFormatTag tag = OboFormatTag.TAG_HOLDS_OVER_CHAIN;
-            List<OWLAnnotation> collect = asList(ax.annotations());
-            for (OWLAnnotation ann : collect) {
-                if (OWLAPIObo2Owl.IRI_PROP_ISREVERSIBLEPROPERTYCHAIN.equals(ann.getProperty().getIRI().toString())) {
-                    tag = OboFormatTag.TAG_EQUIVALENT_TO_CHAIN;
-                    // remove annotation from unprocessed set.
-                    unprocessedAnnotations.remove(ann);
-                    break;
-                }
-            }
-            clause = new Clause(tag);
-            clause.addValue(rel1);
-            clause.addValue(rel2);
-        }
-        f.addClause(clause);
-        addQualifiers(clause, unprocessedAnnotations.stream());
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLEquivalentObjectPropertiesAxiom ax) {
-        trNaryPropertyAxiom(ax, OboFormatTag.TAG_EQUIVALENT_TO.getTag());
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLTransitiveObjectPropertyAxiom ax) {
-        OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
-            OboFormatTag.TAG_IS_TRANSITIVE.getTag(), Boolean.TRUE, ax.annotations())) {
-            return;
-        }
-        error(ax, true);
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLDisjointObjectPropertiesAxiom ax) {
-        trNaryPropertyAxiom(ax, OboFormatTag.TAG_DISJOINT_FROM.getTag());
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLReflexiveObjectPropertyAxiom ax) {
-        OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
-            OboFormatTag.TAG_IS_REFLEXIVE.getTag(), Boolean.TRUE, ax.annotations())) {
-            return;
-        }
-        error(ax, true);
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLInverseFunctionalObjectPropertyAxiom ax) {
-        OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
-            OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL.getTag(), Boolean.TRUE, ax.annotations())) {
-            return;
-        }
-        error(ax, true);
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLInverseObjectPropertiesAxiom ax) {
-        OWLObjectPropertyExpression prop1 = ax.getFirstProperty();
-        OWLObjectPropertyExpression prop2 = ax.getSecondProperty();
-        if (prop1.isOWLObjectProperty() && prop2.isOWLObjectProperty() && trObjectProperty(prop1.asOWLObjectProperty(),
-            OboFormatTag.TAG_INVERSE_OF.getTag(), getIdentifier(prop2), ax.annotations())) {
-            return;
-        }
-        error(ax, true);
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLObjectPropertyDomainAxiom ax) {
-        OWLClassExpression domain = ax.getDomain();
-        OWLObjectPropertyExpression propEx = ax.getProperty();
-        if (propEx.isAnonymous()) {
-            error(ax, true);
-            return;
-        }
-        OWLObjectProperty prop = propEx.asOWLObjectProperty();
-        if (domain.isBottomEntity() || domain.isTopEntity()) {
-            // at least get the type def frame
-            getTypedefFrame(prop);
-            // now throw the error
-            error("domains using top or bottom entities are not translatable to OBO.", ax, false);
-            return;
-        }
-        String range = getIdentifier(domain);
-        if (range != null) {
-            if (trObjectProperty(prop, OboFormatTag.TAG_DOMAIN.getTag(), range, ax.annotations())) {
-                return;
-            } else {
-                error("trObjectProperty failed for " + prop, ax, true);
-            }
-        } else {
-            error("no range translatable for " + ax, false);
-        }
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLAsymmetricObjectPropertyAxiom ax) {
-        OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
-            OboFormatTag.TAG_IS_ASYMMETRIC.getTag(), Boolean.TRUE, ax.annotations())) {
-            return;
-        }
-        error(ax, true);
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLSymmetricObjectPropertyAxiom ax) {
-        OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
-            OboFormatTag.TAG_IS_SYMMETRIC.getTag(), Boolean.TRUE, ax.annotations())) {
-            return;
-        }
-        error(ax, true);
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLFunctionalObjectPropertyAxiom ax) {
-        OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
-            OboFormatTag.TAG_IS_FUNCTIONAL.getTag(), Boolean.TRUE, ax.annotations())) {
-            return;
-        }
-        error(ax, true);
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLObjectPropertyRangeAxiom ax) {
-        OWLClassExpression owlRange = ax.getRange();
-        OWLObjectPropertyExpression propEx = ax.getProperty();
-        if (propEx.isAnonymous()) {
-            error(ax, false);
-        }
-        OWLObjectProperty prop = propEx.asOWLObjectProperty();
-        if (owlRange.isBottomEntity() || owlRange.isTopEntity()) {
-            // at least create the property frame
-            getTypedefFrame(prop);
-            // error message
-            error("ranges using top or bottom entities are not translatable to OBO.", ax, false);
-            return;
-        }
-        String range = getIdentifier(owlRange);
-        if (range != null && trObjectProperty(prop, OboFormatTag.TAG_RANGE.getTag(), range, ax.annotations())) {
-            return;
-        }
-        error(ax, false);
-    }
-
-    protected void tr(OWLSubObjectPropertyOfAxiom ax) {
-        OWLObjectPropertyExpression sup = ax.getSuperProperty();
-        OWLObjectPropertyExpression sub = ax.getSubProperty();
-        if (sub.isBottomEntity() || sub.isTopEntity() || sup.isBottomEntity() || sup.isTopEntity()) {
-            error("SubProperties using Top or Bottom entites are not supported in OBO.", false);
-            return;
-        }
-        if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
-            String supId = checkNotNull(getIdentifier(sup));
-            if (supId.startsWith("owl:")) {
-                return;
-            }
-            Frame f = getTypedefFrame((OWLObjectProperty) sub);
-            Clause clause = new Clause(OboFormatTag.TAG_IS_A, supId);
-            f.addClause(clause);
-            addQualifiers(clause, ax.annotations());
-        } else {
-            error(ax, true);
-        }
-    }
-
-    protected void tr(OWLSubAnnotationPropertyOfAxiom ax) {
-        OWLAnnotationProperty sup = ax.getSuperProperty();
-        OWLAnnotationProperty sub = ax.getSubProperty();
-        if (sub.isBottomEntity() || sub.isTopEntity() || sup.isBottomEntity() || sup.isTopEntity()) {
-            error("SubAnnotationProperties using Top or Bottom entites are not supported in OBO.", false);
-            return;
-        }
-        String tagObject = owlObjectToTag(sup);
-        if (OboFormatTag.TAG_SYNONYMTYPEDEF.getTag().equals(tagObject)) {
-            String name = "";
-            String scope = null;
-            for (OWLAnnotationAssertionAxiom axiom : asList(getOWLOntology().annotationAssertionAxioms(sub.getIRI()))) {
-                String tg = owlObjectToTag(axiom.getProperty());
-                if (OboFormatTag.TAG_NAME.getTag().equals(tg)) {
-                    name = ((OWLLiteral) axiom.getValue()).getLiteral();
-                } else if (OboFormatTag.TAG_SCOPE.getTag().equals(tg)) {
-                    scope = owlObjectToTag(axiom.getValue());
-                }
-            }
-            Frame hf = checkNotNull(getObodoc().getHeaderFrame());
-            assert hf != null;
-            Clause clause = new Clause(OboFormatTag.TAG_SYNONYMTYPEDEF);
-            clause.addValue(getIdentifier(sub));
-            clause.addValue(name);
-            if (scope != null) {
-                clause.addValue(scope);
-            }
-            addQualifiers(clause, ax.annotations());
-            if (!hf.getClauses().contains(clause)) {
-                hf.addClause(clause);
-            } else {
-                LOG.error("duplicate clause: {} in header", clause);
-            }
-            return;
-        } else if (OboFormatTag.TAG_SUBSETDEF.getTag().equals(tagObject)) {
-            String comment = "";
-            for (OWLAnnotationAssertionAxiom axiom : asList(getOWLOntology().annotationAssertionAxioms(sub.getIRI()))) {
-                String tg = owlObjectToTag(axiom.getProperty());
-                if (OboFormatTag.TAG_COMMENT.getTag().equals(tg)) {
-                    comment = ((OWLLiteral) axiom.getValue()).getLiteral();
-                    break;
-                }
-            }
-            Frame hf = checkNotNull(getObodoc().getHeaderFrame());
-            assert hf != null;
-            Clause clause = new Clause(OboFormatTag.TAG_SUBSETDEF);
-            clause.addValue(getIdentifier(sub));
-            clause.addValue(comment);
-            if (!hf.getClauses().contains(clause)) {
-                hf.addClause(clause);
-            } else {
-                LOG.error("duplicate clause: {} in header", clause);
-            }
-            addQualifiers(clause, ax.annotations());
-            return;
-        }
-        if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
-            String supId = getIdentifier(sup);
-            if (supId == null || supId.startsWith("owl:")) {
-                return;
-            }
-            Frame f = getTypedefFrame(sub);
-            Clause clause = new Clause(OboFormatTag.TAG_IS_A, supId);
-            f.addClause(clause);
-            addQualifiers(clause, ax.annotations());
-        } else {
-            error(ax, true);
-        }
-    }
-
-    /**
-     * Tr.
-     *
-     * @param aanAx
-     *        the aan ax
-     * @param frame
-     *        the frame
-     */
-    protected void tr(OWLAnnotationAssertionAxiom aanAx, Frame frame) {
-        boolean success = tr(aanAx.getProperty(), aanAx.getValue(), aanAx.annotationsAsList(), frame);
-        if (!success) {
-            untranslatableAxioms.add(aanAx);
-        }
     }
 
     /**
@@ -1583,268 +1225,7 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLEquivalentClassesAxiom ax) {
-        /*
-         * Assumption: the underlying data structure is a set The order is not guaranteed to be
-         * preserved.
-         */
-        // handle expression list with size other than two elements as error
-        if (ax.getOperandsAsList().size() != 2) {
-            error(ax, false);
-            return;
-        }
-        Iterator<OWLClassExpression> it = ax.classExpressions().iterator();
-        OWLClassExpression ce1 = it.next();
-        OWLClassExpression ce2 = it.next();
-        if (ce1.isBottomEntity() || ce1.isTopEntity() || ce2.isBottomEntity() || ce2.isTopEntity()) {
-            error("Equivalent classes axioms using Top or Bottom entities are not supported in OBO.", ax, false);
-            return;
-        }
-        if (!(ce1 instanceof OWLClass)) {
-            // check whether ce2 is the actual OWLEntity
-            if (ce2 instanceof OWLClass) {
-                // three way exchange
-                OWLClassExpression temp = ce2;
-                ce2 = ce1;
-                ce1 = temp;
-            } else {
-                // this might happen for some GCI axioms, which are not
-                // expressible in OBO
-                error("GCI axioms are not expressible in OBO.", ax, false);
-                return;
-            }
-        }
-        Frame f = getTermFrame(ce1.asOWLClass());
-        boolean isUntranslateable = false;
-        List<Clause> equivalenceAxiomClauses = new ArrayList<>();
-        String cls2 = getIdentifier(ce2);
-        if (cls2 != null) {
-            Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO.getTag());
-            c.setValue(cls2);
-            f.addClause(c);
-            addQualifiers(c, ax.annotations());
-        } else if (ce2 instanceof OWLObjectUnionOf) {
-            List<? extends OWLClassExpression> list2 = ((OWLObjectUnionOf) ce2).getOperandsAsList();
-            for (OWLClassExpression oce : list2) {
-                String id = getIdentifier(oce);
-                if (id == null) {
-                    error(ax, true);
-                    return;
-                }
-                Clause c = new Clause(OboFormatTag.TAG_UNION_OF.getTag());
-                c.setValue(id);
-                equivalenceAxiomClauses.add(c);
-                addQualifiers(c, ax.annotations());
-            }
-        } else if (ce2 instanceof OWLObjectIntersectionOf) {
-            List<? extends OWLClassExpression> list2 = ((OWLObjectIntersectionOf) ce2).getOperandsAsList();
-            for (OWLClassExpression ce : list2) {
-                String r = null;
-                cls2 = getIdentifier(ce);
-                Integer exact = null; // cardinality
-                Integer min = null; // minCardinality
-                Integer max = null; // maxCardinality
-                Boolean allSome = null; // all_some
-                Boolean allOnly = null; // all_only
-                if (ce instanceof OWLObjectSomeValuesFrom) {
-                    OWLObjectSomeValuesFrom ristriction = (OWLObjectSomeValuesFrom) ce;
-                    r = getIdentifier(ristriction.getProperty());
-                    cls2 = getIdentifier(ristriction.getFiller());
-                } else if (ce instanceof OWLObjectExactCardinality) {
-                    OWLObjectExactCardinality card = (OWLObjectExactCardinality) ce;
-                    r = getIdentifier(card.getProperty());
-                    cls2 = getIdentifier(card.getFiller());
-                    exact = Integer.valueOf(card.getCardinality());
-                } else if (ce instanceof OWLObjectMinCardinality) {
-                    OWLObjectMinCardinality card = (OWLObjectMinCardinality) ce;
-                    r = getIdentifier(card.getProperty());
-                    cls2 = getIdentifier(card.getFiller());
-                    min = Integer.valueOf(card.getCardinality());
-                } else if (ce instanceof OWLObjectMaxCardinality) {
-                    OWLObjectMaxCardinality card = (OWLObjectMaxCardinality) ce;
-                    r = getIdentifier(card.getProperty());
-                    cls2 = getIdentifier(card.getFiller());
-                    max = Integer.valueOf(card.getCardinality());
-                } else if (ce instanceof OWLObjectAllValuesFrom) {
-                    OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom) ce;
-                    OWLClassExpression filler = all.getFiller();
-                    if (filler instanceof OWLClass) {
-                        r = getIdentifier(all.getProperty());
-                        cls2 = getIdentifier(filler);
-                        allOnly = Boolean.TRUE;
-                    } else if (filler instanceof OWLObjectComplementOf) {
-                        OWLObjectComplementOf restriction = (OWLObjectComplementOf) filler;
-                        r = getIdentifier(all.getProperty());
-                        cls2 = getIdentifier(restriction.getOperand());
-                        exact = Integer.valueOf(0);
-                    }
-                } else if (ce instanceof OWLObjectIntersectionOf) {
-                    // either a min-max or a some-all combination
-                    List<OWLClassExpression> operands = ((OWLObjectIntersectionOf) ce).getOperandsAsList();
-                    if (operands.size() == 2) {
-                        for (OWLClassExpression operand : operands) {
-                            if (operand instanceof OWLObjectMinCardinality) {
-                                OWLObjectMinCardinality card = (OWLObjectMinCardinality) operand;
-                                r = getIdentifier(card.getProperty());
-                                cls2 = getIdentifier(card.getFiller());
-                                min = Integer.valueOf(card.getCardinality());
-                            } else if (operand instanceof OWLObjectMaxCardinality) {
-                                OWLObjectMaxCardinality card = (OWLObjectMaxCardinality) operand;
-                                r = getIdentifier(card.getProperty());
-                                cls2 = getIdentifier(card.getFiller());
-                                max = Integer.valueOf(card.getCardinality());
-                            } else if (operand instanceof OWLObjectAllValuesFrom) {
-                                OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom) operand;
-                                r = getIdentifier(all.getProperty());
-                                cls2 = getIdentifier(all.getFiller());
-                                allOnly = Boolean.TRUE;
-                            } else if (operand instanceof OWLObjectSomeValuesFrom) {
-                                OWLObjectSomeValuesFrom all = (OWLObjectSomeValuesFrom) operand;
-                                r = getIdentifier(all.getProperty());
-                                cls2 = getIdentifier(all.getFiller());
-                                allSome = Boolean.TRUE;
-                            }
-                        }
-                    }
-                }
-                if (cls2 != null) {
-                    Clause c = new Clause(OboFormatTag.TAG_INTERSECTION_OF.getTag());
-                    if (r != null) {
-                        c.addValue(r);
-                    }
-                    c.addValue(cls2);
-                    equivalenceAxiomClauses.add(c);
-                    if (exact != null) {
-                        String string = exact.toString();
-                        c.addQualifierValue(new QualifierValue(CARDINALITY, string));
-                    }
-                    if (min != null) {
-                        String string = min.toString();
-                        c.addQualifierValue(new QualifierValue(MIN_CARDINALITY, string));
-                    }
-                    if (max != null) {
-                        String string = max.toString();
-                        c.addQualifierValue(new QualifierValue(MAX_CARDINALITY, string));
-                    }
-                    if (allSome != null) {
-                        String string = allSome.toString();
-                        c.addQualifierValue(new QualifierValue("all_some", string));
-                    }
-                    if (allOnly != null) {
-                        String string = allOnly.toString();
-                        c.addQualifierValue(new QualifierValue("all_only", string));
-                    }
-                    addQualifiers(c, ax.annotations());
-                } else if (!f.getClauses(OboFormatTag.TAG_INTERSECTION_OF).isEmpty()) {
-                    error("The axiom is not translated (maximimum one IntersectionOf EquivalenceAxiom)", ax, false);
-                } else {
-                    isUntranslateable = true;
-                    error(ax, false);
-                }
-            }
-        } else {
-            isUntranslateable = true;
-            error(ax, false);
-        }
-        // Only add clauses if the *entire* equivalence axiom can be translated
-        if (!isUntranslateable) {
-            equivalenceAxiomClauses.forEach(f::addClause);
-        }
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLDisjointClassesAxiom ax) {
-        // use set, the OWL-API does not provide an order
-        if (ax.getOperandsAsList().size() != 2) {
-            error("Expected two classes in a disjoin classes axiom.", ax, false);
-        }
-        Iterator<OWLClassExpression> it = ax.classExpressions().iterator();
-        OWLClassExpression ce1 = it.next();
-        OWLClassExpression ce2 = it.next();
-        if (ce1.isBottomEntity() || ce1.isTopEntity() || ce2.isBottomEntity() || ce2.isTopEntity()) {
-            error("Disjoint classes axiom using Top or Bottom entities are not supported.", ax, false);
-        }
-        String cls2 = getIdentifier(ce2);
-        if (cls2 == null) {
-            error(ax, true);
-            return;
-        }
-        if (ce1.isAnonymous()) {
-            error(ax, false);
-            return;
-        }
-        OWLClass cls1 = ce1.asOWLClass();
-        Frame f = getTermFrame(cls1);
-        Clause c = new Clause(OboFormatTag.TAG_DISJOINT_FROM.getTag());
-        c.setValue(cls2);
-        f.addClause(c);
-        addQualifiers(c, ax.annotations());
-    }
-
-    /**
-     * Tr.
-     *
-     * @param axiom
-     *        the axiom
-     */
-    protected void tr(OWLDeclarationAxiom axiom) {
-        OWLEntity entity = axiom.getEntity();
-        if (entity.isBottomEntity() || entity.isTopEntity()) {
-            return;
-        }
-        List<OWLAnnotationAssertionAxiom> set = asList(owlOntology.annotationAssertionAxioms(entity.getIRI()));
-        if (set.isEmpty()) {
-            return;
-        }
-        boolean isClass = entity.isOWLClass();
-        boolean isObjectProperty = entity.isOWLObjectProperty();
-        boolean isAnnotationProperty = entity.isOWLAnnotationProperty();
-        // check whether the entity is an alt_id
-        Optional<OboAltIdCheckResult> altIdOptional = checkForOboAltId(set);
-        if (altIdOptional.isPresent()) {
-            // the entity will not be translated
-            // instead create the appropriate alt_id in the replaced_by frame
-            String currentId = getIdentifier(entity.getIRI());
-            addAltId(altIdOptional.get().replacedBy, currentId, isClass, isObjectProperty);
-            // add unrelated annotations to untranslatableAxioms axioms
-            untranslatableAxioms.addAll(altIdOptional.get().unrelated);
-            return;
-        }
-        // translate
-        Frame f = null;
-        if (isClass) {
-            f = getTermFrame(entity.asOWLClass());
-        } else if (isObjectProperty) {
-            f = getTypedefFrame(entity.asOWLObjectProperty());
-        } else if (isAnnotationProperty) {
-            for (OWLAnnotationAssertionAxiom ax : set) {
-                OWLAnnotationProperty prop = ax.getProperty();
-                String tag = owlObjectToTag(prop);
-                if (OboFormatTag.TAG_IS_METADATA_TAG.getTag().equals(tag)) {
-                    f = getTypedefFrame(entity);
-                    break;
-                }
-            }
-        }
-        if (f != null) {
-            Frame f1 = f;
-            set.forEach(a -> tr(a, f1));
-            add(f);
-        }
-    }
-
-    private void addAltId(String replacedBy, String altId, boolean isClass, boolean isProperty) {
+    protected void addAltId(String replacedBy, String altId, boolean isClass, boolean isProperty) {
         Frame replacedByFrame = null;
         if (isClass) {
             replacedByFrame = getTermFrame(replacedBy);
@@ -1906,8 +1287,7 @@ public class OWLAPIOwl2Obo {
      * @return the term frame
      */
     protected Frame getTermFrame(OWLClass entity) {
-        String id = getIdentifier(entity.getIRI());
-        return getTermFrame(id);
+        return getTermFrame(getIdentifier(entity.getIRI()));
     }
 
     private Frame getTermFrame(String id) {
@@ -1929,8 +1309,7 @@ public class OWLAPIOwl2Obo {
      * @return the typedef frame
      */
     protected Frame getTypedefFrame(OWLEntity entity) {
-        String id = getIdentifier(entity);
-        return getTypedefFrame(checkNotNull(id));
+        return getTypedefFrame(checkNotNull(getIdentifier(entity)));
     }
 
     private Frame getTypedefFrame(String id) {
@@ -1942,207 +1321,6 @@ public class OWLAPIOwl2Obo {
             add(f);
         }
         return f;
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLClassAssertionAxiom ax) {
-        OWLObject cls = ax.getClassExpression();
-        if (!(cls instanceof OWLClass)) {
-            return;
-        }
-        String clsIRI = ((OWLClass) cls).getIRI().toString();
-        Frame f = checkNotNull(getObodoc().getHeaderFrame());
-        assert f != null;
-        if (IRI_CLASS_SYNONYMTYPEDEF.equals(clsIRI)) {
-            Clause c = new Clause(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag());
-            OWLNamedIndividual indv = (OWLNamedIndividual) ax.getIndividual();
-            String indvId = checkNotNull(getIdentifier(indv));
-            // TODO: full specify this in the spec document.
-            // we may want to allow full IDs for subsets in future.
-            // here we would have a convention that an unprefixed
-            // subsetdef/synonymtypedef
-            // gets placed in a temp ID space, and only this id space is
-            // stripped
-            indvId = indvId.replaceFirst(".*:", "");
-            c.addValue(indvId);
-            c.addValue(indvId);
-            String nameValue = "";
-            String scopeValue = null;
-            Optional<OWLAnnotation> a = getAnnotationObjects(indv, getOWLOntology(), df.getRDFSLabel()).findFirst();
-            if (a.isPresent()) {
-                nameValue = '"' + a.get().getValue().asLiteral().map(OWLLiteral::getLiteral).orElse("") + '"';
-            }
-            a = getAnnotationObjects(indv, getOWLOntology()).filter(ann -> !ann.getProperty().equals(df.getRDFSLabel()))
-                .findFirst();
-            if (a.isPresent()) {
-                scopeValue = a.get().getValue().asLiteral().map(OWLLiteral::getLiteral).orElse(null);
-            }
-            c.addValue(nameValue);
-            if (scopeValue != null && !scopeValue.isEmpty()) {
-                c.addValue(scopeValue);
-            }
-            f.addClause(c);
-        } else if (IRI_CLASS_SUBSETDEF.equals(clsIRI)) {
-            Clause c = new Clause(OboFormatTag.TAG_SUBSETDEF.getTag());
-            OWLNamedIndividual indv = (OWLNamedIndividual) ax.getIndividual();
-            String indvId = checkNotNull(getIdentifier(indv));
-            // TODO: full specify this in the spec document.
-            // we may want to allow full IDs for subsets in future.
-            // here we would have a convention that an unprefixed
-            // subsetdef/synonymtypedef
-            // gets placed in a temp ID space, and only this id space is
-            // stripped
-            indvId = indvId.replaceFirst(".*:", "");
-            c.addValue(indvId);
-            String nameValue = "";
-            Optional<OWLAnnotation> value = getAnnotationObjects(indv, getOWLOntology(), df.getRDFSLabel()).findFirst();
-            if (value.isPresent()) {
-                nameValue = '"' + value.get().getValue().asLiteral().map(OWLLiteral::getLiteral).orElse("") + '"';
-            }
-            c.addValue(nameValue);
-            f.addClause(c);
-        } else {
-            // TODO: individual
-        }
-    }
-
-    /**
-     * Tr.
-     *
-     * @param ax
-     *        the ax
-     */
-    protected void tr(OWLSubClassOfAxiom ax) {
-        OWLClassExpression sub = ax.getSubClass();
-        OWLClassExpression sup = ax.getSuperClass();
-        Set<QualifierValue> qvs = new HashSet<>();
-        if (sub.isOWLNothing() || sub.isTopEntity() || sup.isTopEntity() || sup.isOWLNothing()) {
-            error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
-            return;
-        }
-        // 5.2.2
-        if (sub instanceof OWLObjectIntersectionOf) {
-            List<OWLClassExpression> xs = ((OWLObjectIntersectionOf) sub).getOperandsAsList();
-            // obo-format is limited to very restricted GCIs - the LHS of the
-            // axiom
-            // must correspond to ObjectIntersectionOf(cls
-            // ObjectSomeValuesFrom(p filler))
-            if (xs.size() == 2) {
-                OWLClass c = null;
-                OWLObjectProperty p = null;
-                OWLClass filler = null;
-                for (OWLClassExpression x : xs) {
-                    if (x instanceof OWLClass) {
-                        c = (OWLClass) x;
-                    }
-                    if (x instanceof OWLObjectSomeValuesFrom) {
-                        OWLObjectSomeValuesFrom r = (OWLObjectSomeValuesFrom) x;
-                        if (r.getProperty().isOWLObjectProperty() && r.getFiller() instanceof OWLClass) {
-                            p = r.getProperty().asOWLObjectProperty();
-                            filler = (OWLClass) r.getFiller();
-                        }
-                    }
-                }
-                if (c != null && p != null && filler != null) {
-                    sub = c;
-                    qvs.add(new QualifierValue("gci_relation", checkNotNull(getIdentifier(p))));
-                    qvs.add(new QualifierValue("gci_filler", checkNotNull(getIdentifier(filler))));
-                }
-            }
-        }
-        if (sub instanceof OWLClass) {
-            Frame f = getTermFrame((OWLClass) sub);
-            if (sup instanceof OWLClass) {
-                Clause c = new Clause(OboFormatTag.TAG_IS_A.getTag());
-                c.setValue(checkNotNull(getIdentifier(sup)));
-                c.setQualifierValues(qvs);
-                f.addClause(c);
-                addQualifiers(c, ax.annotations());
-            } else if (sup instanceof OWLObjectCardinalityRestriction) {
-                // OWLObjectExactCardinality
-                // OWLObjectMinCardinality
-                // OWLObjectMaxCardinality
-                OWLObjectCardinalityRestriction cardinality = (OWLObjectCardinalityRestriction) sup;
-                OWLClassExpression filler = cardinality.getFiller();
-                if (filler.isBottomEntity() || filler.isTopEntity()) {
-                    error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
-                    return;
-                }
-                String fillerId = getIdentifier(filler);
-                if (fillerId == null) {
-                    error(ax, true);
-                    return;
-                }
-                f.addClause(createRelationshipClauseWithCardinality(cardinality, fillerId, qvs, ax));
-            } else if (sup instanceof OWLQuantifiedObjectRestriction) {
-                // OWLObjectSomeValuesFrom
-                // OWLObjectAllValuesFrom
-                OWLQuantifiedObjectRestriction r = (OWLQuantifiedObjectRestriction) sup;
-                OWLClassExpression filler = r.getFiller();
-                if (filler.isBottomEntity() || filler.isTopEntity()) {
-                    error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
-                    return;
-                }
-                String fillerId = getIdentifier(filler);
-                if (fillerId == null) {
-                    error(ax, true);
-                    return;
-                }
-                f.addClause(createRelationshipClauseWithRestrictions(r, fillerId, qvs, ax));
-            } else if (sup instanceof OWLObjectIntersectionOf) {
-                OWLObjectIntersectionOf i = (OWLObjectIntersectionOf) sup;
-                List<Clause> clauses = new ArrayList<>();
-                for (OWLClassExpression operand : i.getOperandsAsList()) {
-                    if (operand instanceof OWLObjectCardinalityRestriction) {
-                        OWLObjectCardinalityRestriction restriction = (OWLObjectCardinalityRestriction) operand;
-                        OWLClassExpression filler = restriction.getFiller();
-                        if (filler.isBottomEntity() || filler.isTopEntity()) {
-                            error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
-                            return;
-                        }
-                        String fillerId = getIdentifier(filler);
-                        if (fillerId == null) {
-                            error(ax, true);
-                            return;
-                        }
-                        clauses.add(
-                            createRelationshipClauseWithCardinality(restriction, fillerId, new HashSet<>(qvs), ax));
-                    } else if (operand instanceof OWLQuantifiedObjectRestriction) {
-                        OWLQuantifiedObjectRestriction restriction = (OWLQuantifiedObjectRestriction) operand;
-                        OWLClassExpression filler = restriction.getFiller();
-                        if (filler.isBottomEntity() || filler.isTopEntity()) {
-                            error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
-                            return;
-                        }
-                        String fillerId = getIdentifier(filler);
-                        if (fillerId == null) {
-                            error(ax, true);
-                            return;
-                        }
-                        clauses.add(
-                            createRelationshipClauseWithRestrictions(restriction, fillerId, new HashSet<>(qvs), ax));
-                    } else {
-                        error(ax, true);
-                        return;
-                    }
-                }
-                if (clauses.isEmpty()) {
-                    error(ax, true);
-                    return;
-                }
-                clauses = normalizeRelationshipClauses(clauses);
-                clauses.forEach(f::addClause);
-            } else {
-                error(ax, true);
-            }
-        } else {
-            error(ax, true);
-        }
     }
 
     /**
@@ -2226,6 +1404,12 @@ public class OWLAPIOwl2Obo {
         }
     }
 
+    protected void handleAnnotation(List<OWLAnnotationAssertionAxiom> set, Frame f) {
+        set.stream().filter(a -> !tr(a.getProperty(), a.getValue(), a.annotationsAsList(), f))
+            .forEach(untranslatableAxioms::add);
+        add(f);
+    }
+
     /**
      * Helper class: allow to return two values for the alt id check.
      */
@@ -2271,105 +1455,724 @@ public class OWLAPIOwl2Obo {
     class Translator implements OWLAxiomVisitor {
 
         @Override
-        public void visit(OWLDeclarationAxiom ax) {
-            tr(ax);
+        public void visit(OWLDeclarationAxiom axiom) {
+            OWLEntity entity = axiom.getEntity();
+            if (entity.isBottomEntity() || entity.isTopEntity()) {
+                return;
+            }
+            List<OWLAnnotationAssertionAxiom> set = asList(owlOntology.annotationAssertionAxioms(entity.getIRI()));
+            if (set.isEmpty()) {
+                return;
+            }
+            boolean isClass = entity.isOWLClass();
+            boolean isObjectProperty = entity.isOWLObjectProperty();
+            boolean isAnnotationProperty = entity.isOWLAnnotationProperty();
+            // check whether the entity is an alt_id
+            Optional<OboAltIdCheckResult> altIdOptional = checkForOboAltId(set);
+            if (altIdOptional.isPresent()) {
+                // the entity will not be translated
+                // instead create the appropriate alt_id in the replaced_by
+                // frame
+                String currentId = getIdentifier(entity.getIRI());
+                addAltId(altIdOptional.get().replacedBy, currentId, isClass, isObjectProperty);
+                // add unrelated annotations to untranslatableAxioms axioms
+                untranslatableAxioms.addAll(altIdOptional.get().unrelated);
+                return;
+            }
+            // translate
+            Frame f = null;
+            if (isClass) {
+                f = getTermFrame(entity.asOWLClass());
+            } else if (isObjectProperty) {
+                f = getTypedefFrame(entity.asOWLObjectProperty());
+            } else if (isAnnotationProperty) {
+                for (OWLAnnotationAssertionAxiom ax : set) {
+                    OWLAnnotationProperty prop = ax.getProperty();
+                    String tag = owlObjectToTag(prop);
+                    if (OboFormatTag.TAG_IS_METADATA_TAG.getTag().equals(tag)) {
+                        f = getTypedefFrame(entity);
+                        break;
+                    }
+                }
+            }
+            if (f != null) {
+                handleAnnotation(set, f);
+            }
         }
 
         @Override
         public void visit(OWLSubClassOfAxiom ax) {
-            tr(ax);
+            OWLClassExpression sub = ax.getSubClass();
+            OWLClassExpression sup = ax.getSuperClass();
+            Set<QualifierValue> qvs = new HashSet<>();
+            if (sub.isOWLNothing() || sub.isTopEntity() || sup.isTopEntity() || sup.isOWLNothing()) {
+                error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
+                return;
+            }
+            // 5.2.2
+            if (sub instanceof OWLObjectIntersectionOf) {
+                List<OWLClassExpression> xs = ((OWLObjectIntersectionOf) sub).getOperandsAsList();
+                // obo-format is limited to very restricted GCIs - the LHS of
+                // the
+                // axiom
+                // must correspond to ObjectIntersectionOf(cls
+                // ObjectSomeValuesFrom(p filler))
+                if (xs.size() == 2) {
+                    OWLClass c = null;
+                    OWLObjectProperty p = null;
+                    OWLClass filler = null;
+                    for (OWLClassExpression x : xs) {
+                        if (x instanceof OWLClass) {
+                            c = (OWLClass) x;
+                        }
+                        if (x instanceof OWLObjectSomeValuesFrom) {
+                            OWLObjectSomeValuesFrom r = (OWLObjectSomeValuesFrom) x;
+                            if (r.getProperty().isOWLObjectProperty() && r.getFiller() instanceof OWLClass) {
+                                p = r.getProperty().asOWLObjectProperty();
+                                filler = (OWLClass) r.getFiller();
+                            }
+                        }
+                    }
+                    if (c != null && p != null && filler != null) {
+                        sub = c;
+                        qvs.add(new QualifierValue("gci_relation", checkNotNull(getIdentifier(p))));
+                        qvs.add(new QualifierValue("gci_filler", checkNotNull(getIdentifier(filler))));
+                    }
+                }
+            }
+            if (sub instanceof OWLClass) {
+                Frame f = getTermFrame((OWLClass) sub);
+                if (sup instanceof OWLClass) {
+                    Clause c = new Clause(OboFormatTag.TAG_IS_A.getTag());
+                    c.setValue(checkNotNull(getIdentifier(sup)));
+                    c.setQualifierValues(qvs);
+                    f.addClause(c);
+                    addQualifiers(c, ax.annotations());
+                } else if (sup instanceof OWLObjectCardinalityRestriction) {
+                    // OWLObjectExactCardinality
+                    // OWLObjectMinCardinality
+                    // OWLObjectMaxCardinality
+                    OWLObjectCardinalityRestriction cardinality = (OWLObjectCardinalityRestriction) sup;
+                    OWLClassExpression filler = cardinality.getFiller();
+                    if (filler.isBottomEntity() || filler.isTopEntity()) {
+                        error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
+                        return;
+                    }
+                    String fillerId = getIdentifier(filler);
+                    if (fillerId == null) {
+                        error(ax, true);
+                        return;
+                    }
+                    f.addClause(createRelationshipClauseWithCardinality(cardinality, fillerId, qvs, ax));
+                } else if (sup instanceof OWLQuantifiedObjectRestriction) {
+                    // OWLObjectSomeValuesFrom
+                    // OWLObjectAllValuesFrom
+                    OWLQuantifiedObjectRestriction r = (OWLQuantifiedObjectRestriction) sup;
+                    OWLClassExpression filler = r.getFiller();
+                    if (filler.isBottomEntity() || filler.isTopEntity()) {
+                        error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
+                        return;
+                    }
+                    String fillerId = getIdentifier(filler);
+                    if (fillerId == null) {
+                        error(ax, true);
+                        return;
+                    }
+                    f.addClause(createRelationshipClauseWithRestrictions(r, fillerId, qvs, ax));
+                } else if (sup instanceof OWLObjectIntersectionOf) {
+                    OWLObjectIntersectionOf i = (OWLObjectIntersectionOf) sup;
+                    List<Clause> clauses = new ArrayList<>();
+                    for (OWLClassExpression operand : i.getOperandsAsList()) {
+                        if (operand instanceof OWLObjectCardinalityRestriction) {
+                            OWLObjectCardinalityRestriction restriction = (OWLObjectCardinalityRestriction) operand;
+                            OWLClassExpression filler = restriction.getFiller();
+                            if (filler.isBottomEntity() || filler.isTopEntity()) {
+                                error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
+                                return;
+                            }
+                            String fillerId = getIdentifier(filler);
+                            if (fillerId == null) {
+                                error(ax, true);
+                                return;
+                            }
+                            clauses.add(
+                                createRelationshipClauseWithCardinality(restriction, fillerId, new HashSet<>(qvs), ax));
+                        } else if (operand instanceof OWLQuantifiedObjectRestriction) {
+                            OWLQuantifiedObjectRestriction restriction = (OWLQuantifiedObjectRestriction) operand;
+                            OWLClassExpression filler = restriction.getFiller();
+                            if (filler.isBottomEntity() || filler.isTopEntity()) {
+                                error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
+                                return;
+                            }
+                            String fillerId = getIdentifier(filler);
+                            if (fillerId == null) {
+                                error(ax, true);
+                                return;
+                            }
+                            clauses.add(createRelationshipClauseWithRestrictions(restriction, fillerId,
+                                new HashSet<>(qvs), ax));
+                        } else {
+                            error(ax, true);
+                            return;
+                        }
+                    }
+                    if (clauses.isEmpty()) {
+                        error(ax, true);
+                        return;
+                    }
+                    clauses = normalizeRelationshipClauses(clauses);
+                    clauses.forEach(f::addClause);
+                } else {
+                    error(ax, true);
+                }
+            } else {
+                error(ax, true);
+            }
         }
 
         @Override
         public void visit(OWLDisjointClassesAxiom ax) {
-            tr(ax);
+            // use set, the OWL-API does not provide an order
+            if (ax.getOperandsAsList().size() != 2) {
+                error("Expected two classes in a disjoin classes axiom.", ax, false);
+            }
+            Iterator<OWLClassExpression> it = ax.classExpressions().iterator();
+            OWLClassExpression ce1 = it.next();
+            OWLClassExpression ce2 = it.next();
+            if (ce1.isBottomEntity() || ce1.isTopEntity() || ce2.isBottomEntity() || ce2.isTopEntity()) {
+                error("Disjoint classes axiom using Top or Bottom entities are not supported.", ax, false);
+            }
+            String cls2 = getIdentifier(ce2);
+            if (cls2 == null) {
+                error(ax, true);
+                return;
+            }
+            if (ce1.isAnonymous()) {
+                error(ax, false);
+                return;
+            }
+            OWLClass cls1 = ce1.asOWLClass();
+            Frame f = getTermFrame(cls1);
+            Clause c = new Clause(OboFormatTag.TAG_DISJOINT_FROM.getTag());
+            c.setValue(cls2);
+            f.addClause(c);
+            addQualifiers(c, ax.annotations());
         }
 
         @Override
         public void visit(OWLEquivalentClassesAxiom ax) {
-            tr(ax);
+            /*
+             * Assumption: the underlying data structure is a set The order is not guaranteed to be
+             * preserved.
+             */
+            // handle expression list with size other than two elements as error
+            if (ax.getOperandsAsList().size() != 2) {
+                error(ax, false);
+                return;
+            }
+            Iterator<OWLClassExpression> it = ax.classExpressions().iterator();
+            OWLClassExpression ce1 = it.next();
+            OWLClassExpression ce2 = it.next();
+            if (ce1.isBottomEntity() || ce1.isTopEntity() || ce2.isBottomEntity() || ce2.isTopEntity()) {
+                error("Equivalent classes axioms using Top or Bottom entities are not supported in OBO.", ax, false);
+                return;
+            }
+            if (!(ce1 instanceof OWLClass)) {
+                // check whether ce2 is the actual OWLEntity
+                if (ce2 instanceof OWLClass) {
+                    // three way exchange
+                    OWLClassExpression temp = ce2;
+                    ce2 = ce1;
+                    ce1 = temp;
+                } else {
+                    // this might happen for some GCI axioms, which are not
+                    // expressible in OBO
+                    error("GCI axioms are not expressible in OBO.", ax, false);
+                    return;
+                }
+            }
+            Frame f = getTermFrame(ce1.asOWLClass());
+            boolean isUntranslateable = false;
+            List<Clause> equivalenceAxiomClauses = new ArrayList<>();
+            String cls2 = getIdentifier(ce2);
+            if (cls2 != null) {
+                Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO.getTag());
+                c.setValue(cls2);
+                f.addClause(c);
+                addQualifiers(c, ax.annotations());
+            } else if (ce2 instanceof OWLObjectUnionOf) {
+                List<? extends OWLClassExpression> list2 = ((OWLObjectUnionOf) ce2).getOperandsAsList();
+                for (OWLClassExpression oce : list2) {
+                    String id = getIdentifier(oce);
+                    if (id == null) {
+                        error(ax, true);
+                        return;
+                    }
+                    Clause c = new Clause(OboFormatTag.TAG_UNION_OF.getTag());
+                    c.setValue(id);
+                    equivalenceAxiomClauses.add(c);
+                    addQualifiers(c, ax.annotations());
+                }
+            } else if (ce2 instanceof OWLObjectIntersectionOf) {
+                List<? extends OWLClassExpression> list2 = ((OWLObjectIntersectionOf) ce2).getOperandsAsList();
+                for (OWLClassExpression ce : list2) {
+                    String r = null;
+                    cls2 = getIdentifier(ce);
+                    Integer exact = null; // cardinality
+                    Integer min = null; // minCardinality
+                    Integer max = null; // maxCardinality
+                    Boolean allSome = null; // all_some
+                    Boolean allOnly = null; // all_only
+                    if (ce instanceof OWLObjectSomeValuesFrom) {
+                        OWLObjectSomeValuesFrom ristriction = (OWLObjectSomeValuesFrom) ce;
+                        r = getIdentifier(ristriction.getProperty());
+                        cls2 = getIdentifier(ristriction.getFiller());
+                    } else if (ce instanceof OWLObjectExactCardinality) {
+                        OWLObjectExactCardinality card = (OWLObjectExactCardinality) ce;
+                        r = getIdentifier(card.getProperty());
+                        cls2 = getIdentifier(card.getFiller());
+                        exact = Integer.valueOf(card.getCardinality());
+                    } else if (ce instanceof OWLObjectMinCardinality) {
+                        OWLObjectMinCardinality card = (OWLObjectMinCardinality) ce;
+                        r = getIdentifier(card.getProperty());
+                        cls2 = getIdentifier(card.getFiller());
+                        min = Integer.valueOf(card.getCardinality());
+                    } else if (ce instanceof OWLObjectMaxCardinality) {
+                        OWLObjectMaxCardinality card = (OWLObjectMaxCardinality) ce;
+                        r = getIdentifier(card.getProperty());
+                        cls2 = getIdentifier(card.getFiller());
+                        max = Integer.valueOf(card.getCardinality());
+                    } else if (ce instanceof OWLObjectAllValuesFrom) {
+                        OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom) ce;
+                        OWLClassExpression filler = all.getFiller();
+                        if (filler instanceof OWLClass) {
+                            r = getIdentifier(all.getProperty());
+                            cls2 = getIdentifier(filler);
+                            allOnly = Boolean.TRUE;
+                        } else if (filler instanceof OWLObjectComplementOf) {
+                            OWLObjectComplementOf restriction = (OWLObjectComplementOf) filler;
+                            r = getIdentifier(all.getProperty());
+                            cls2 = getIdentifier(restriction.getOperand());
+                            exact = Integer.valueOf(0);
+                        }
+                    } else if (ce instanceof OWLObjectIntersectionOf) {
+                        // either a min-max or a some-all combination
+                        List<OWLClassExpression> operands = ((OWLObjectIntersectionOf) ce).getOperandsAsList();
+                        if (operands.size() == 2) {
+                            for (OWLClassExpression operand : operands) {
+                                if (operand instanceof OWLObjectMinCardinality) {
+                                    OWLObjectMinCardinality card = (OWLObjectMinCardinality) operand;
+                                    r = getIdentifier(card.getProperty());
+                                    cls2 = getIdentifier(card.getFiller());
+                                    min = Integer.valueOf(card.getCardinality());
+                                } else if (operand instanceof OWLObjectMaxCardinality) {
+                                    OWLObjectMaxCardinality card = (OWLObjectMaxCardinality) operand;
+                                    r = getIdentifier(card.getProperty());
+                                    cls2 = getIdentifier(card.getFiller());
+                                    max = Integer.valueOf(card.getCardinality());
+                                } else if (operand instanceof OWLObjectAllValuesFrom) {
+                                    OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom) operand;
+                                    r = getIdentifier(all.getProperty());
+                                    cls2 = getIdentifier(all.getFiller());
+                                    allOnly = Boolean.TRUE;
+                                } else if (operand instanceof OWLObjectSomeValuesFrom) {
+                                    OWLObjectSomeValuesFrom all = (OWLObjectSomeValuesFrom) operand;
+                                    r = getIdentifier(all.getProperty());
+                                    cls2 = getIdentifier(all.getFiller());
+                                    allSome = Boolean.TRUE;
+                                }
+                            }
+                        }
+                    }
+                    if (cls2 != null) {
+                        Clause c = new Clause(OboFormatTag.TAG_INTERSECTION_OF.getTag());
+                        if (r != null) {
+                            c.addValue(r);
+                        }
+                        c.addValue(cls2);
+                        equivalenceAxiomClauses.add(c);
+                        if (exact != null) {
+                            String string = exact.toString();
+                            c.addQualifierValue(new QualifierValue(CARDINALITY, string));
+                        }
+                        if (min != null) {
+                            String string = min.toString();
+                            c.addQualifierValue(new QualifierValue(MIN_CARDINALITY, string));
+                        }
+                        if (max != null) {
+                            String string = max.toString();
+                            c.addQualifierValue(new QualifierValue(MAX_CARDINALITY, string));
+                        }
+                        if (allSome != null) {
+                            String string = allSome.toString();
+                            c.addQualifierValue(new QualifierValue("all_some", string));
+                        }
+                        if (allOnly != null) {
+                            String string = allOnly.toString();
+                            c.addQualifierValue(new QualifierValue("all_only", string));
+                        }
+                        addQualifiers(c, ax.annotations());
+                    } else if (!f.getClauses(OboFormatTag.TAG_INTERSECTION_OF).isEmpty()) {
+                        error("The axiom is not translated (maximimum one IntersectionOf EquivalenceAxiom)", ax, false);
+                    } else {
+                        isUntranslateable = true;
+                        error(ax, false);
+                    }
+                }
+            } else {
+                isUntranslateable = true;
+                error(ax, false);
+            }
+            // Only add clauses if the *entire* equivalence axiom can be
+            // translated
+            if (!isUntranslateable) {
+                equivalenceAxiomClauses.forEach(f::addClause);
+            }
         }
 
         @Override
         public void visit(OWLClassAssertionAxiom ax) {
-            tr(ax);
+            OWLObject cls = ax.getClassExpression();
+            if (!(cls instanceof OWLClass)) {
+                return;
+            }
+            String clsIRI = ((OWLClass) cls).getIRI().toString();
+            Frame f = checkNotNull(getObodoc().getHeaderFrame());
+            assert f != null;
+            if (IRI_CLASS_SYNONYMTYPEDEF.equals(clsIRI)) {
+                Clause c = new Clause(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag());
+                OWLNamedIndividual indv = (OWLNamedIndividual) ax.getIndividual();
+                String indvId = checkNotNull(getIdentifier(indv));
+                // TODO: full specify this in the spec document.
+                // we may want to allow full IDs for subsets in future.
+                // here we would have a convention that an unprefixed
+                // subsetdef/synonymtypedef
+                // gets placed in a temp ID space, and only this id space is
+                // stripped
+                indvId = indvId.replaceFirst(".*:", "");
+                c.addValue(indvId);
+                c.addValue(indvId);
+                String nameValue = "";
+                String scopeValue = null;
+                Optional<OWLAnnotation> a = getAnnotationObjects(indv, getOWLOntology(), df.getRDFSLabel()).findFirst();
+                if (a.isPresent()) {
+                    nameValue = '"' + a.get().getValue().asLiteral().map(OWLLiteral::getLiteral).orElse("") + '"';
+                }
+                a = getAnnotationObjects(indv, getOWLOntology())
+                    .filter(ann -> !ann.getProperty().equals(df.getRDFSLabel())).findFirst();
+                if (a.isPresent()) {
+                    scopeValue = a.get().getValue().asLiteral().map(OWLLiteral::getLiteral).orElse(null);
+                }
+                c.addValue(nameValue);
+                if (scopeValue != null && !scopeValue.isEmpty()) {
+                    c.addValue(scopeValue);
+                }
+                f.addClause(c);
+            } else if (IRI_CLASS_SUBSETDEF.equals(clsIRI)) {
+                Clause c = new Clause(OboFormatTag.TAG_SUBSETDEF.getTag());
+                OWLNamedIndividual indv = (OWLNamedIndividual) ax.getIndividual();
+                String indvId = checkNotNull(getIdentifier(indv));
+                // TODO: full specify this in the spec document.
+                // we may want to allow full IDs for subsets in future.
+                // here we would have a convention that an unprefixed
+                // subsetdef/synonymtypedef
+                // gets placed in a temp ID space, and only this id space is
+                // stripped
+                indvId = indvId.replaceFirst(".*:", "");
+                c.addValue(indvId);
+                String nameValue = "";
+                Optional<OWLAnnotation> value = getAnnotationObjects(indv, getOWLOntology(), df.getRDFSLabel())
+                    .findFirst();
+                if (value.isPresent()) {
+                    nameValue = '"' + value.get().getValue().asLiteral().map(OWLLiteral::getLiteral).orElse("") + '"';
+                }
+                c.addValue(nameValue);
+                f.addClause(c);
+            } else {
+                // TODO: individual
+            }
         }
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom ax) {
-            tr(ax);
+            trNaryPropertyAxiom(ax, OboFormatTag.TAG_EQUIVALENT_TO.getTag());
         }
 
         @Override
         public void visit(OWLSubAnnotationPropertyOfAxiom ax) {
-            tr(ax);
+            OWLAnnotationProperty sup = ax.getSuperProperty();
+            OWLAnnotationProperty sub = ax.getSubProperty();
+            if (sub.isBottomEntity() || sub.isTopEntity() || sup.isBottomEntity() || sup.isTopEntity()) {
+                error("SubAnnotationProperties using Top or Bottom entites are not supported in OBO.", false);
+                return;
+            }
+            String tagObject = owlObjectToTag(sup);
+            if (OboFormatTag.TAG_SYNONYMTYPEDEF.getTag().equals(tagObject)) {
+                String name = "";
+                String scope = null;
+                for (OWLAnnotationAssertionAxiom axiom : asList(
+                    getOWLOntology().annotationAssertionAxioms(sub.getIRI()))) {
+                    String tg = owlObjectToTag(axiom.getProperty());
+                    if (OboFormatTag.TAG_NAME.getTag().equals(tg)) {
+                        name = ((OWLLiteral) axiom.getValue()).getLiteral();
+                    } else if (OboFormatTag.TAG_SCOPE.getTag().equals(tg)) {
+                        scope = owlObjectToTag(axiom.getValue());
+                    }
+                }
+                Frame hf = checkNotNull(getObodoc().getHeaderFrame());
+                assert hf != null;
+                Clause clause = new Clause(OboFormatTag.TAG_SYNONYMTYPEDEF);
+                clause.addValue(getIdentifier(sub));
+                clause.addValue(name);
+                if (scope != null) {
+                    clause.addValue(scope);
+                }
+                addQualifiers(clause, ax.annotations());
+                if (!hf.getClauses().contains(clause)) {
+                    hf.addClause(clause);
+                } else {
+                    LOG.error("duplicate clause: {} in header", clause);
+                }
+                return;
+            } else if (OboFormatTag.TAG_SUBSETDEF.getTag().equals(tagObject)) {
+                String comment = "";
+                for (OWLAnnotationAssertionAxiom axiom : asList(
+                    getOWLOntology().annotationAssertionAxioms(sub.getIRI()))) {
+                    String tg = owlObjectToTag(axiom.getProperty());
+                    if (OboFormatTag.TAG_COMMENT.getTag().equals(tg)) {
+                        comment = ((OWLLiteral) axiom.getValue()).getLiteral();
+                        break;
+                    }
+                }
+                Frame hf = checkNotNull(getObodoc().getHeaderFrame());
+                assert hf != null;
+                Clause clause = new Clause(OboFormatTag.TAG_SUBSETDEF);
+                clause.addValue(getIdentifier(sub));
+                clause.addValue(comment);
+                if (!hf.getClauses().contains(clause)) {
+                    hf.addClause(clause);
+                } else {
+                    LOG.error("duplicate clause: {} in header", clause);
+                }
+                addQualifiers(clause, ax.annotations());
+                return;
+            }
+            if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
+                String supId = getIdentifier(sup);
+                if (supId == null || supId.startsWith("owl:")) {
+                    return;
+                }
+                Frame f = getTypedefFrame(sub);
+                Clause clause = new Clause(OboFormatTag.TAG_IS_A, supId);
+                f.addClause(clause);
+                addQualifiers(clause, ax.annotations());
+            } else {
+                error(ax, true);
+            }
         }
 
         @Override
         public void visit(OWLSubObjectPropertyOfAxiom ax) {
-            tr(ax);
+            OWLObjectPropertyExpression sup = ax.getSuperProperty();
+            OWLObjectPropertyExpression sub = ax.getSubProperty();
+            if (sub.isBottomEntity() || sub.isTopEntity() || sup.isBottomEntity() || sup.isTopEntity()) {
+                error("SubProperties using Top or Bottom entites are not supported in OBO.", false);
+                return;
+            }
+            if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
+                String supId = checkNotNull(getIdentifier(sup));
+                if (supId.startsWith("owl:")) {
+                    return;
+                }
+                Frame f = getTypedefFrame((OWLObjectProperty) sub);
+                Clause clause = new Clause(OboFormatTag.TAG_IS_A, supId);
+                f.addClause(clause);
+                addQualifiers(clause, ax.annotations());
+            } else {
+                error(ax, true);
+            }
         }
 
         @Override
         public void visit(OWLObjectPropertyRangeAxiom ax) {
-            tr(ax);
+            OWLClassExpression owlRange = ax.getRange();
+            OWLObjectPropertyExpression propEx = ax.getProperty();
+            if (propEx.isAnonymous()) {
+                error(ax, false);
+            }
+            OWLObjectProperty prop = propEx.asOWLObjectProperty();
+            if (owlRange.isBottomEntity() || owlRange.isTopEntity()) {
+                // at least create the property frame
+                getTypedefFrame(prop);
+                // error message
+                error("ranges using top or bottom entities are not translatable to OBO.", ax, false);
+                return;
+            }
+            String range = getIdentifier(owlRange);
+            if (range != null && trObjectProperty(prop, OboFormatTag.TAG_RANGE.getTag(), range, ax.annotations())) {
+                return;
+            }
+            error(ax, false);
         }
 
         @Override
         public void visit(OWLFunctionalObjectPropertyAxiom ax) {
-            tr(ax);
+            OWLObjectPropertyExpression prop = ax.getProperty();
+            if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
+                OboFormatTag.TAG_IS_FUNCTIONAL.getTag(), Boolean.TRUE, ax.annotations())) {
+                return;
+            }
+            error(ax, true);
         }
 
         @Override
         public void visit(OWLSymmetricObjectPropertyAxiom ax) {
-            tr(ax);
+            OWLObjectPropertyExpression prop = ax.getProperty();
+            if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
+                OboFormatTag.TAG_IS_SYMMETRIC.getTag(), Boolean.TRUE, ax.annotations())) {
+                return;
+            }
+            error(ax, true);
         }
 
         @Override
         public void visit(OWLAsymmetricObjectPropertyAxiom ax) {
-            tr(ax);
+            OWLObjectPropertyExpression prop = ax.getProperty();
+            if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
+                OboFormatTag.TAG_IS_ASYMMETRIC.getTag(), Boolean.TRUE, ax.annotations())) {
+                return;
+            }
+            error(ax, true);
         }
 
         @Override
         public void visit(OWLObjectPropertyDomainAxiom ax) {
-            tr(ax);
+            OWLClassExpression domain = ax.getDomain();
+            OWLObjectPropertyExpression propEx = ax.getProperty();
+            if (propEx.isAnonymous()) {
+                error(ax, true);
+                return;
+            }
+            OWLObjectProperty prop = propEx.asOWLObjectProperty();
+            if (domain.isBottomEntity() || domain.isTopEntity()) {
+                // at least get the type def frame
+                getTypedefFrame(prop);
+                // now throw the error
+                error("domains using top or bottom entities are not translatable to OBO.", ax, false);
+                return;
+            }
+            String range = getIdentifier(domain);
+            if (range != null) {
+                if (trObjectProperty(prop, OboFormatTag.TAG_DOMAIN.getTag(), range, ax.annotations())) {
+                    return;
+                } else {
+                    error("trObjectProperty failed for " + prop, ax, true);
+                }
+            } else {
+                error("no range translatable for " + ax, false);
+            }
         }
 
         @Override
         public void visit(OWLInverseFunctionalObjectPropertyAxiom ax) {
-            tr(ax);
+            OWLObjectPropertyExpression prop = ax.getProperty();
+            if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
+                OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL.getTag(), Boolean.TRUE, ax.annotations())) {
+                return;
+            }
+            error(ax, true);
         }
 
         @Override
         public void visit(OWLInverseObjectPropertiesAxiom ax) {
-            tr(ax);
+            OWLObjectPropertyExpression prop1 = ax.getFirstProperty();
+            OWLObjectPropertyExpression prop2 = ax.getSecondProperty();
+            if (prop1.isOWLObjectProperty() && prop2.isOWLObjectProperty()
+                && trObjectProperty(prop1.asOWLObjectProperty(), OboFormatTag.TAG_INVERSE_OF.getTag(),
+                    getIdentifier(prop2), ax.annotations())) {
+                return;
+            }
+            error(ax, true);
         }
 
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom ax) {
-            tr(ax);
+            trNaryPropertyAxiom(ax, OboFormatTag.TAG_DISJOINT_FROM.getTag());
         }
 
         @Override
         public void visit(OWLReflexiveObjectPropertyAxiom ax) {
-            tr(ax);
+            OWLObjectPropertyExpression prop = ax.getProperty();
+            if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
+                OboFormatTag.TAG_IS_REFLEXIVE.getTag(), Boolean.TRUE, ax.annotations())) {
+                return;
+            }
+            error(ax, true);
         }
 
         @Override
         public void visit(OWLTransitiveObjectPropertyAxiom ax) {
-            tr(ax);
+            OWLObjectPropertyExpression prop = ax.getProperty();
+            if (prop.isOWLObjectProperty() && trObjectProperty(prop.asOWLObjectProperty(),
+                OboFormatTag.TAG_IS_TRANSITIVE.getTag(), Boolean.TRUE, ax.annotations())) {
+                return;
+            }
+            error(ax, true);
         }
 
         @Override
         public void visit(OWLSubPropertyChainOfAxiom ax) {
-            tr(ax);
-        }
-
-        @Override
-        public void doDefault(OWLObject o) {
-            if (!(o instanceof OWLAnnotationAssertionAxiom)) {
-                error((OWLAxiom) o, false);
+            OWLObjectPropertyExpression pEx = ax.getSuperProperty();
+            if (pEx.isAnonymous()) {
+                error(ax, false);
+                return;
             }
+            OWLObjectProperty p = pEx.asOWLObjectProperty();
+            Frame f = getTypedefFrame(p);
+            if (p.isBottomEntity() || p.isTopEntity()) {
+                error("Property chains using Top or Bottom entities are not supported in OBO.", ax, false);
+                return;
+            }
+            List<OWLObjectPropertyExpression> list = ax.getPropertyChain();
+            if (list.size() != 2) {
+                error(ax, false);
+                return;
+            }
+            OWLObjectPropertyExpression exp1 = list.get(0);
+            OWLObjectPropertyExpression exp2 = list.get(1);
+            if (exp1.isBottomEntity() || exp1.isTopEntity() || exp2.isBottomEntity() || exp2.isTopEntity()) {
+                error("Property chains using Top or Bottom entities are not supported in OBO.", ax, false);
+                return;
+            }
+            String rel1 = getIdentifier(exp1);
+            String rel2 = getIdentifier(exp2);
+            if (rel1 == null || rel2 == null) {
+                error(ax, false);
+                return;
+            }
+            Clause clause;
+            // set of unprocessed annotations
+            List<OWLAnnotation> unprocessedAnnotations = new ArrayList<>(ax.annotationsAsList());
+            if (rel1.equals(f.getId())) {
+                clause = new Clause(OboFormatTag.TAG_TRANSITIVE_OVER, rel2);
+            } else {
+                OboFormatTag tag = OboFormatTag.TAG_HOLDS_OVER_CHAIN;
+                List<OWLAnnotation> collect = asList(ax.annotations());
+                for (OWLAnnotation ann : collect) {
+                    if (OWLAPIObo2Owl.IRI_PROP_ISREVERSIBLEPROPERTYCHAIN
+                        .equals(ann.getProperty().getIRI().toString())) {
+                        tag = OboFormatTag.TAG_EQUIVALENT_TO_CHAIN;
+                        // remove annotation from unprocessed set.
+                        unprocessedAnnotations.remove(ann);
+                        break;
+                    }
+                }
+                clause = new Clause(tag);
+                clause.addValue(rel1);
+                clause.addValue(rel2);
+            }
+            f.addClause(clause);
+            addQualifiers(clause, unprocessedAnnotations.stream());
         }
     }
 }
