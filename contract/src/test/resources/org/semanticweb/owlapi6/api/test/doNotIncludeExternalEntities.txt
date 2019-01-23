@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<!DOCTYPE testinginjection [<!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
+<rdf:RDF xmlns:owl ="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xsd ="http://www.w3.org/2001/XMLSchema#"> 
+<owl:Ontology rdf:about=""/>    <rdf:Description rdf:about="urn:test:i">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&xxe;</rdfs:comment>
+    </rdf:Description></rdf:RDF>

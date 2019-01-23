@@ -1,0 +1,1 @@
+[SubAnnotationPropertyOf(Annotation(<urn:test:test#ann> "test"^^xsd:string) <urn:test:test#ann> rdfs:label)]

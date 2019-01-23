@@ -1,0 +1,1 @@
+DataHasValue(<urn:test:test#dp> "false"^^xsd:boolean)

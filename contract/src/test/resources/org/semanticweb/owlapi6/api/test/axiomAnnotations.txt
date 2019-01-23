@@ -1,0 +1,26 @@
+@prefix : <urn:fm2#> .
+@prefix fm:    <urn:fm2#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <urn:prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <urn:fm2> .
+
+<http://www.ida.org/fm2.owl> rdf:type owl:Ontology.
+:prov rdf:type owl:AnnotationProperty .
+
+:Manage rdf:type owl:Class ; rdfs:subClassOf :ManagementType .
+[ rdf:type owl:Axiom ;
+  owl:annotatedSource :Manage ;
+  owl:annotatedTarget :ManagementType ;
+  owl:annotatedProperty rdfs:subClassOf ;
+  :prov [
+ prov:gen :FMDomain ;
+ prov:att :DM .
+ ]
+ ] .
+:ManagementType rdf:type owl:Class .
+:DM rdf:type owl:NamedIndividual , prov:Person .
+:FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .

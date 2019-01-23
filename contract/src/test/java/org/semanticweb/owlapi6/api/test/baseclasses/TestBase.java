@@ -442,6 +442,8 @@ public abstract class TestBase {
             logger.trace(targetForDebug.toString());
         }
         ont.saveOntology(format, target);
+        // ont.axioms().forEach(System.out::println);
+        // System.out.println("TestBase.roundTripOntology() " + target);
         OWLOntology ont2 = setupManager().loadOntologyFromOntologyDocument(
             new StringDocumentSource(target.toString(), "string:ontology", format, null),
             new OntologyConfigurator().setReportStackTraces(true));

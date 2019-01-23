@@ -1,0 +1,4 @@
+@prefix ex: <http://example.com/test> .
+ ex:ex1 a ex:Something ; ex:prop1 _:a .
+ _:a a ex:Something1 ; ex:prop2 _:b .
+ _:b a ex:Something ; ex:prop3 _:a .

@@ -1,0 +1,1 @@
+Declaration(Annotation(<urn:test:test#ann> "test"^^xsd:string) DataProperty(<urn:test:test#dp>))

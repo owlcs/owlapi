@@ -1,0 +1,1 @@
+ClassAtom(<urn:test:test#c> Variable(<urn:swrl:var#var2>))

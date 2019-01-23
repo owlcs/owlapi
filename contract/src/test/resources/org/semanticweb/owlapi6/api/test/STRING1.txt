@@ -1,0 +1,14 @@
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+Ontology: <http://www.semanticweb.org/owlapi/test224612089629142>
+Datatype: xsd:string
+DataProperty: <http://owlapi.sourceforge.net/ontology#prop>
+Class: owl:Thing
+Individual: <http://owlapi.sourceforge.net/ontology#A>
+    Types: 
+        owl:Thing
+    Facts:  
+     <http://owlapi.sourceforge.net/ontology#prop>  "test url"

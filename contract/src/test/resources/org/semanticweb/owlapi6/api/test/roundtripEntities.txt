@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [<!ENTITY vin  "http://www.w3.org/TR/2004/REC-owl-guide-20040210/wine#" > ]>
+<rdf:RDF xmlns:owl ="http://www.w3.org/2002/07/owl#" xmlns:rdf ="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xsd ="http://www.w3.org/2001/XMLSchema#"> 
+<owl:Ontology rdf:about=""><owl:priorVersion rdf:resource="&vin;test"/></owl:Ontology></rdf:RDF>

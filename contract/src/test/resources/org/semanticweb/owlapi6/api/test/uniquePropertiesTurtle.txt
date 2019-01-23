@@ -1,0 +1,5 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+<http://example.org/> rdf:type owl:Ontology .
+<http://example.org/> rdfs:label "foo" .
+<http://example.org/#bar>    rdfs:label  "bar" .

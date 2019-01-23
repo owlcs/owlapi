@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#" xmlns="urn:test#" xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:sqwrl="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#" xml:base="urn:test">
+  <owl:Ontology rdf:about=""></owl:Ontology>
+  <owl:AnnotationProperty rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+  <owl:ObjectProperty rdf:ID="hasDriver"><owl:inverseOf><owl:ObjectProperty rdf:ID="drives"/></owl:inverseOf></owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#drives"><owl:inverseOf rdf:resource="#hasDriver"/></owl:ObjectProperty>
+  <swrl:Imp

@@ -1,0 +1,140 @@
+Prefix: : <http://example.com/owl/families/>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: otherOnt: <http://example.org/otherOntologies/families/>
+Ontology: <http://example.com/owl/families>
+#Import: <http://example.org/otherOntologies/families.owl>
+
+ObjectProperty: otherOnt:child
+DataProperty: otherOnt:age
+ObjectProperty: hasWife
+   SubPropertyOf: hasSpouse
+   Domain:        Man
+   Range:         Woman
+ObjectProperty: hasParent
+   InverseOf: hasChild
+ObjectProperty: hasSpouse
+   Characteristics: Symmetric
+ObjectProperty: hasChild
+   Characteristics: Asymmetric
+ObjectProperty: hasRelative
+   Characteristics: Reflexive
+ObjectProperty: parentOf
+   Characteristics: Irreflexive
+ObjectProperty: hasHusband
+   Characteristics: Functional
+   Characteristics: InverseFunctional
+ObjectProperty: hasAncestor
+   Characteristics: Transitive
+ObjectProperty: hasGrandparent
+   SubPropertyChain: hasParent o hasParent
+ObjectProperty: hasUncle
+   SubPropertyChain: hasFather o hasBrother
+ObjectProperty: hasFather
+   SubPropertyOf: hasParent
+ObjectProperty: hasBrother
+ObjectProperty: hasDaughter
+ObjectProperty: hasSon
+ObjectProperty: loves
+
+DisjointProperties: hasParent, hasSpouse
+DisjointProperties: hasSon,    hasDaughter
+EquivalentProperties: hasChild, otherOnt:child
+EquivalentProperties: hasAge,   otherOnt:age
+
+DataProperty: hasAge
+   Domain: Person
+   Range:  xsd:nonNegativeInteger
+   Characteristics: Functional
+DataProperty: hasSSN
+
+Datatype: personAge
+   EquivalentTo: xsd:integer[>= 0 , <= 150]
+Datatype: minorAge
+   EquivalentTo: xsd:integer[>= 0 , <= 18]
+Datatype: majorAge
+   EquivalentTo: personAge and not minorAge
+Datatype: toddlerAge
+   EquivalentTo: { 1, 2 }
+Datatype: minorAge
+
+Class: Woman
+   SubClassOf: Person
+Class: Mother
+   SubClassOf:   Woman
+   EquivalentTo: Woman and Parent
+Class: Person
+   Annotations:  rdfs:comment "Represents the set of all people."
+   EquivalentTo: Human
+   HasKey: hasSSN
+Class: Parent
+   EquivalentTo: hasChild some Person
+   EquivalentTo: Mother or Father
+Class: ChildlessPerson
+   EquivalentTo: Person and not Parent
+   SubClassOf:   Person and not ( inverse hasParent  some owl:Thing)
+Class: Grandfather
+   SubClassOf: Man and Parent
+Class: HappyPerson
+   EquivalentTo: hasChild only HappyPerson and hasChild some HappyPerson
+Class: JohnsChildren
+   EquivalentTo: hasParent value John
+Class: NarcisticPerson
+   EquivalentTo: loves Self
+Class: Orphan
+   EquivalentTo: inverse hasChild only Dead
+Class: Teenager
+   SubClassOf: hasAge some xsd:integer[<= 19 , > 12]
+Class: Man
+   SubClassOf: Annotations: rdfs:comment "States that every man is a person." Person
+Class: MyBirthdayGuests
+   EquivalentTo: { Bill, John, Mary }
+Class: Father
+   SubClassOf: Man and Parent
+Class: X
+   SubClassOf:   Parent and hasChild max 1 and hasChild only Female
+   EquivalentTo: {Mary, Bill, Meg} and Female
+Class: Dead
+Class: Father
+Class: Female
+Class: Happy
+Class: Human
+Class: SocialRole
+Class: YoungChild
+Class: Adult
+DisjointClasses: Mother, Father, YoungChild
+DisjointClasses: Woman, Man
+Class: otherOnt:Grownup
+EquivalentClasses: Adult, otherOnt:Grownup
+
+Individual: Mary
+   Types: Person
+   Types: Woman
+Individual: Jack
+   Types: Person and not Parent
+Individual: John
+   Types: Father
+   Types: hasChild max 4 Parent
+   Types: hasChild min 2 Parent
+   Types: hasChild exactly 3 Parent
+   Types: hasChild exactly 5
+   Facts: hasAge "51"^^xsd:integer
+   Facts: hasWife Mary
+   DifferentFrom: Bill
+Individual: Bill
+   Facts: not hasWife     Mary
+   Facts: not hasDaughter Susan
+Individual: James
+   SameAs: Jim
+Individual: Jack
+   Facts: not hasAge "53"^^xsd:integer
+Individual: Father
+   Types: SocialRole
+Individual: Meg
+Individual: Susan
+Individual: Jim
+Individual: otherOnt:JohnBrown
+Individual: otherOnt:MaryBrown
+
+SameIndividual: John, otherOnt:JohnBrown
+SameIndividual: Mary, otherOnt:MaryBrown

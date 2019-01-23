@@ -1,0 +1,10 @@
+><swrl:body><swrl:AtomList/></swrl:body>
+    <swrl:head><swrl:AtomList><rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        <rdf:first><swrl:IndividualPropertyAtom>
+            <swrl:argument2><Person rdf:ID="i62"/></swrl:argument2>
+            <swrl:argument1><Person rdf:ID="i61"/></swrl:argument1>
+            <swrl:propertyPredicate rdf:resource="#drives"/>
+          </swrl:IndividualPropertyAtom></rdf:first></swrl:AtomList></swrl:head>
+    <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">:i62, :i61</rdfs:comment></swrl:Imp>
+</rdf:RDF>

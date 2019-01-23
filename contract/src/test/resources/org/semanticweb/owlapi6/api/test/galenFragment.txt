@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<rdf:RDF  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.co-ode.org/ontologies/galen"/>
+<owl:ObjectProperty rdf:about="http://www.co-ode.org/ontologies/galen#hasQuantity"/>
+<owl:Class rdf:about="http://www.co-ode.org/ontologies/galen#test">
+<rdfs:subClassOf><owl:Restriction>
+<owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/galen#hasQuantity"/>
+<owl:someValuesFrom><owl:Class rdf:about="http://www.co-ode.org/ontologies/galen#anotherTest"/></owl:someValuesFrom>
+</owl:Restriction></rdfs:subClassOf></owl:Class></rdf:RDF>

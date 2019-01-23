@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="urn:test:nestedAnnotations"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="urn:test:nestedAnnotations">
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration><NamedIndividual IRI="#b"/></Declaration>
+    <Declaration><NamedIndividual IRI="#c"/></Declaration>
+    <Declaration><NamedIndividual IRI="#a"/></Declaration>
+    <Declaration><ObjectProperty IRI="#r"/></Declaration>
+    <Declaration><AnnotationProperty abbreviatedIRI="rdfs:commment"/></Declaration>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <Annotation>
+                <AnnotationProperty abbreviatedIRI="rdfs:commment"/>
+                <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">comment for one</Literal>
+            </Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">one</Literal>
+        </Annotation>
+        <Annotation>
+            <Annotation>
+                <AnnotationProperty abbreviatedIRI="rdfs:commment"/>
+                <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">comment for two</Literal>
+            </Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">two</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#r"/>
+        <NamedIndividual IRI="#a"/>
+        <NamedIndividual IRI="#b"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <Annotation>
+                <AnnotationProperty abbreviatedIRI="rdfs:commment"/>
+                <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">comment for three</Literal>
+            </Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">three</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#r"/>
+        <NamedIndividual IRI="#b"/>
+        <NamedIndividual IRI="#c"/>
+    </ObjectPropertyAssertion>
+</Ontology>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="urn:test:ann#" xml:base="urn:test:ann" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:annotations="urn:test:ann#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="urn:test:ann">
+        <testAnnotProp6>Ontology annotation</testAnnotProp6>
+    </owl:Ontology>
+    <owl:AnnotationProperty rdf:about="urn:test:ann#testAnnotProp1"/>
+    <owl:AnnotationProperty rdf:about="urn:test:ann#testAnnotProp2"/>
+    <owl:AnnotationProperty rdf:about="urn:test:ann#testAnnotProp3"/>
+    <owl:AnnotationProperty rdf:about="urn:test:ann#testAnnotProp4">
+        <testAnnotProp5>annotation on annotation property</testAnnotProp5>
+    </owl:AnnotationProperty>
+    <owl:AnnotationProperty rdf:about="urn:test:ann#testAnnotProp5"/>
+    <owl:AnnotationProperty rdf:about="urn:test:ann#testAnnotProp7"/>
+    <owl:Class rdf:about="urn:test:ann#Class1">
+        <testAnnotProp1>test entity annotation</testAnnotProp1>
+        <testAnnotProp7>simple entity annotation (no annotations on this annotation)</testAnnotProp7>
+        <testAnnotProp8>annotation with externally declared annotation property</testAnnotProp8>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="urn:test:ann#Class1"/>
+        <owl:annotatedProperty rdf:resource="urn:test:ann#testAnnotProp1"/>
+        <owl:annotatedTarget>test entity annotation</owl:annotatedTarget>
+        <testAnnotProp2>test annotation on annotation</testAnnotProp2>
+    </owl:Axiom>
+    <owl:Class rdf:about="urn:test:ann#Class2">
+        <rdfs:subClassOf rdf:resource="urn:test:ann#Class1"/>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="urn:test:ann#Class2"/>
+        <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
+        <owl:annotatedTarget rdf:resource="urn:test:ann#Class1"/>
+        <testAnnotProp3>test axiom annotation</testAnnotProp3>
+    </owl:Axiom>
+</rdf:RDF>

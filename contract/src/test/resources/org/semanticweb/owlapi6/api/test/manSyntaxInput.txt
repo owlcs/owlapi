@@ -1,0 +1,23 @@
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>
+Datatype: xsd:decimal
+Datatype: xsd:int
+Datatype: xsd:dateTime
+DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>
+    Characteristics: 
+        Functional
+    Range: 
+        xsd:int
+DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasDate>
+    Range: 
+        xsd:dateTime
+Class: <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>
+Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>
+    Types: 
+        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>
+Rule: 
+    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)

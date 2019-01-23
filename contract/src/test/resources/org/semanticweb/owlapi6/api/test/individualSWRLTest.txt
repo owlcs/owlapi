@@ -1,0 +1,59 @@
+<rdf:RDF xmlns="urn:test#" xml:base="urn:test" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:swrlb="http://www.w3.org/2003/11/swrlb#" xmlns:swrl="http://www.w3.org/2003/11/swrl#" xmlns:protege="urn:test#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="urn:test"/>
+    <owl:ObjectProperty rdf:about="urn:test#drives"/>
+    <owl:ObjectProperty rdf:about="urn:test#hasDriver"/>
+    <owl:NamedIndividual rdf:about="urn:test#i61"/>
+    <owl:NamedIndividual rdf:about="urn:test#i62"/>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:argument1 rdf:resource="urn:test#i61"/>
+                        <swrl:argument2 rdf:resource="urn:test#i62"/>
+                        <swrl:propertyPredicate rdf:resource="urn:test#drives"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">:i62, :i61</rdfs:comment>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:argument1 rdf:resource="urn:test#i62"/>
+                        <swrl:argument2 rdf:resource="urn:test#i61"/>
+                        <swrl:propertyPredicate rdf:resource="urn:test#hasDriver"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                        <swrl:arguments rdf:parseType="Collection">
+                            <rdf:Description rdf:about="urn:test#i62"/>
+                            <rdf:Description rdf:about="urn:test#i61"/>
+                        </swrl:arguments>
+                        <swrl:builtin rdf:resource="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+</rdf:RDF>

@@ -1,0 +1,1 @@
+[Declaration(Annotation(<urn:test:test#ann> "test"^^xsd:string) ObjectProperty(<urn:test:test#op>))]

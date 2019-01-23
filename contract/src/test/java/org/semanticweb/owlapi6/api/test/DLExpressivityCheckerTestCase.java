@@ -310,15 +310,14 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         Builder b = new Builder();
         return Arrays.asList(
         //@formatter:off
-            new Object[] {"13 AL(D)",    "UNIVRESTR(D)"       , l(UNIVERSAL_RESTRICTION, D),                                                  l(ALCD),    belowDU(),       l(ALCD),           l(b.assDAll())},
-            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),    l(b.hasKey())},
-            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),    l(b.bigRule())},
-            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),           l(b.dDp())},
-            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),           l(b.ndp())},
-            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),           l(b.assDHas())},
-            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),           l(b.assD())},
-            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),       l(ALCD, ELPLUSPLUS),           l(b.assDPlain())},
-            new Object[] {"0 AL",       "UNIVRESTR" , l(UNIVERSAL_RESTRICTION),                               l(FL0),                 belowUniv(),l(FL0) ,                      l(b.assAll())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),              l(ALCD, ELPLUSPLUS),    l(b.hasKey())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),              l(ALCD, ELPLUSPLUS),    l(b.bigRule())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),              l(ALCD, ELPLUSPLUS),    l(b.dDp())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),              l(ALCD, ELPLUSPLUS),    l(b.ndp())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),              l(ALCD, ELPLUSPLUS),    l(b.assDHas())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),              l(ALCD, ELPLUSPLUS),    l(b.assD())},
+            new Object[] {"13 AL(D)",    "(D)"       , l(D),                                                  l(ALCD, ELPLUSPLUS),    belowD(),              l(ALCD, ELPLUSPLUS),    l(b.assDPlain())},
+            new Object[] {"0 AL",        "UNIVRESTR" , l(UNIVERSAL_RESTRICTION),                              l(FL0),                 belowUniv(),           l(FL0) ,                l(b.assAll())},
             new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.dDef())},
             new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.decC())},
             new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.decOp())},
@@ -367,8 +366,8 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             new Object[] {"15 AL+",      "+"         , l(ROLE_TRANSITIVE),                                    l(S, ELPLUSPLUS),       belowTRAN(),    l(S, ELPLUSPLUS),              l(b.trans())},
             new Object[] {"16 AL",       "CINT"      , l(CONCEPT_INTERSECTION),                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.assAnd())},
             new Object[] {"17 ALU",      "U"         , l(CONCEPT_UNION),                                      l(ALC),                 belowU(),       l(ALC),                        l(b.assOr())},
-            new Object[] {"18 AL",       "RRESTR"    , l(ROLE_DOMAIN_RANGE),                                  l(FL, EL),              belowRRST(),  l(FL, EL),                     l(b.oDom())},
-            new Object[] {"18 AL",       "RRESTR"    , l(ROLE_DOMAIN_RANGE),                                  l(FL, EL),              belowRRST(),  l(FL, EL),                     l(b.oRange())},
+            new Object[] {"18 AL",       "RRESTR"    , l(ROLE_DOMAIN_RANGE),                                  l(FL, EL),              belowRRST(),    l(FL, EL),                     l(b.oDom())},
+            new Object[] {"18 AL",       "RRESTR"    , l(ROLE_DOMAIN_RANGE),                                  l(FL, EL),              belowRRST(),    l(FL, EL),                     l(b.oRange())},
             new Object[] {"19 ALE",      "E"         , l(FULL_EXISTENTIAL),                                   l(EL,ALE, ELPLUSPLUS),  belowE(),       l(EL,ALE, ELPLUSPLUS),         l(b.assSome())},
             new Object[] {"20 ALEO",     "EO"        , l(FULL_EXISTENTIAL, NOMINALS),                         l(ALCO,ELPLUSPLUS),     belowEO(),      l(ALCO, ELPLUSPLUS),           l(b.assHas())},
             new Object[] {"21 ALQ",      "Q"         , l(Q),                                                  l(ALCQ),                belowQ(),       l(ALCQ),                       l(b.assMin())},
@@ -379,10 +378,11 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             new Object[] {"24 ALQ(D)",   "Q(D)"      , l(Q, D),                                               l(ALCQD),               belowQD(),      l(ALCQD),                      l(b.assDMin())},
             new Object[] {"24 ALQ(D)",   "Q(D)"      , l(Q, D),                                               l(ALCQD),               belowQD(),      l(ALCQD),                      l(b.assDMax())},
             new Object[] {"24 ALQ(D)",   "Q(D)"      , l(Q, D),                                               l(ALCQD),               belowQD(),      l(ALCQD),                      l(b.assDEq())},
-            new Object[] {"25 ALR",      "Rr"        , l(ROLE_REFLEXIVITY_CHAINS),                            exprsRr(),            belowRr(),      exprsRr(),                   l(b.chain())},
-            new Object[] {"25 ALR",      "Rr"        , l(ROLE_REFLEXIVITY_CHAINS),                            exprsRr(),            belowRr(),      exprsRr(),                   l(b.ref())},
+            new Object[] {"25 ALR",      "Rr"        , l(ROLE_REFLEXIVITY_CHAINS),                            exprsRr(),              belowRr(),      exprsRr(),                     l(b.chain())},
+            new Object[] {"25 ALR",      "Rr"        , l(ROLE_REFLEXIVITY_CHAINS),                            exprsRr(),              belowRr(),      exprsRr(),                     l(b.ref())},
             new Object[] {"26 ALR",      "RIQ"       , l(ROLE_COMPLEX, ROLE_INVERSE, Q),                      l(ALCRIQ),              belowRIQ(),     l(ALCRIQ),                     l(b.ref(), b.trans(), b.symm(), b.subObject(), b.fop(),b.assMinTop(), b.assMin()) },
-            new Object[] {"27 ALN",      "N"         , l(N),                                                  l(ALCN),                belowN(),       l(ALCN),                       l(b.assMinTop())}
+            new Object[] {"27 ALN",      "N"         , l(N),                                                  l(ALCN),                belowN(),       l(ALCN),                       l(b.assMinTop())},
+            new Object[] {"28 AL(D)",  "UNIVRESTR(D)", l(UNIVERSAL_RESTRICTION, D),                           l(ALCD),                belowDU(),      l(ALCD),                       l(b.assDAll())}
             );
         //@formatter:on
     }

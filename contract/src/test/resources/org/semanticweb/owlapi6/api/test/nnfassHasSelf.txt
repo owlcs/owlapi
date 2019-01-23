@@ -1,0 +1,1 @@
+ClassAssertion(ObjectHasSelf(<urn:test:test#op>) <urn:test:test#i>)

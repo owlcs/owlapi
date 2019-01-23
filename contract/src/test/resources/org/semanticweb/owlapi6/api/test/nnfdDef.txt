@@ -1,0 +1,1 @@
+DatatypeDefinition(Annotation(<urn:test:test#ann> "test"^^xsd:string) <urn:test:test#datatype> xsd:double)

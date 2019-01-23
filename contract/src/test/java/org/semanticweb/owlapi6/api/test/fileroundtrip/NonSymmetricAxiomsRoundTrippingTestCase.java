@@ -13,15 +13,17 @@
 package org.semanticweb.owlapi6.api.test.fileroundtrip;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi6.api.test.TestEntities.A;
+import static org.semanticweb.owlapi6.api.test.TestEntities.B;
+import static org.semanticweb.owlapi6.api.test.TestEntities.C;
+import static org.semanticweb.owlapi6.api.test.TestEntities.DP;
+import static org.semanticweb.owlapi6.api.test.TestEntities.P;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.DataIntersectionOf;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.DataSomeValuesFrom;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.DataUnionOf;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.Datatype;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.DatatypeDefinition;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.ObjectIntersectionOf;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.ObjectUnionOf;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
@@ -35,15 +37,11 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLAxiom;
-import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi6.model.OWLDataUnionOf;
 import org.semanticweb.owlapi6.model.OWLDatatype;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
@@ -56,17 +54,11 @@ import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 @RunWith(Parameterized.class)
 public class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
 
-    private static final IRI iriA = iri("A");
-    private static final OWLClass clsA = Class(iriA);
-    private static final OWLClass clsB = Class(iri("B"));
-    private static final OWLClass clsC = Class(iri("C"));
     private static final OWLDatatype dataD = Datatype(iri("D"));
     private static final OWLDatatype dataE = Datatype(iri("E"));
-    private static final OWLObjectProperty propA = ObjectProperty(iri("propA"));
-    private static final OWLDataProperty propB = DataProperty(iri("propB"));
-    private static final OWLObjectSomeValuesFrom d = ObjectSomeValuesFrom(propA, ObjectIntersectionOf(clsB, clsC));
-    private static final OWLDataSomeValuesFrom e = DataSomeValuesFrom(propB, DataIntersectionOf(dataD, dataE));
-    private static final OWLClassExpression du = ObjectUnionOf(clsB, clsC);
+    private static final OWLObjectSomeValuesFrom d = ObjectSomeValuesFrom(P, ObjectIntersectionOf(B, C));
+    private static final OWLDataSomeValuesFrom e = DataSomeValuesFrom(DP, DataIntersectionOf(dataD, dataE));
+    private static final OWLClassExpression du = ObjectUnionOf(B, C);
     private static final OWLDataUnionOf eu = DataUnionOf(dataD, dataE);
     private OWLAxiom in;
     private OWLAxiom out;
@@ -79,9 +71,9 @@ public class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
     @Parameters
     public static List<OWLAxiom[]> getData() {
         List<OWLAxiom[]> list = new ArrayList<>();
-        list.add(new OWLAxiom[] { SubClassOf(clsA, ObjectIntersectionOf(d, d)), SubClassOf(clsA, d) });
-        list.add(new OWLAxiom[] { SubClassOf(clsA, ObjectUnionOf(e, e)), SubClassOf(clsA, e) });
-        list.add(new OWLAxiom[] { SubClassOf(clsA, ObjectIntersectionOf(du, du)), SubClassOf(clsA, du) });
+        list.add(new OWLAxiom[] { SubClassOf(A, ObjectIntersectionOf(d, d)), SubClassOf(A, d) });
+        list.add(new OWLAxiom[] { SubClassOf(A, ObjectUnionOf(e, e)), SubClassOf(A, e) });
+        list.add(new OWLAxiom[] { SubClassOf(A, ObjectIntersectionOf(du, du)), SubClassOf(A, du) });
         list.add(new OWLAxiom[] { DatatypeDefinition(dataD, DataUnionOf(eu, eu)), DatatypeDefinition(dataD, eu) });
         return list;
     }
@@ -90,7 +82,6 @@ public class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
     public void shouldRoundTripAReadableVersion() throws OWLOntologyStorageException {
         OWLOntology output = getOWLOntology();
         output.add(in);
-        System.out.println("NonSymmetricAxiomsRoundTrippingTestCase.shouldRoundTripAReadableVersion() " + in);
         OWLOntology o = roundTrip(output, new FunctionalSyntaxDocumentFormat());
         assertEquals(1, o.logicalAxioms().count());
         assertEquals(out, o.logicalAxioms().iterator().next());

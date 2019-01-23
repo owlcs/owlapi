@@ -1,0 +1,10 @@
+<!DOCTYPE rdf:RDF [
+   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:first="http://www.w3.org/2002/03owlt/oneOf/premises004#" xml:base="http://www.w3.org/2002/03owlt/oneOf/premises004" >
+ <owl:Ontology/>
+ <owl:DatatypeProperty rdf:ID="p">  <rdfs:range><owl:DataRange><owl:oneOf><rdf:List><rdf:first rdf:datatype="&xsd;integer">1</rdf:first><rdf:rest><rdf:List><rdf:first rdf:datatype="&xsd;integer">2</rdf:first><rdf:rest><rdf:List><rdf:first rdf:datatype="&xsd;integer">3</rdf:first><rdf:rest><rdf:List><rdf:first rdf:datatype="&xsd;integer">4</rdf:first><rdf:rest rdf:resource="&rdf;nil"/></rdf:List></rdf:rest></rdf:List></rdf:rest></rdf:List></rdf:rest></rdf:List></owl:oneOf></owl:DataRange></rdfs:range>
+  <rdfs:range><owl:DataRange><owl:oneOf><rdf:List><rdf:first rdf:datatype="&xsd;integer">4</rdf:first><rdf:rest><rdf:List><rdf:first rdf:datatype="&xsd;integer">5</rdf:first><rdf:rest><rdf:List><rdf:first rdf:datatype="&xsd;integer">6</rdf:first><rdf:rest rdf:resource="&rdf;nil"/></rdf:List></rdf:rest></rdf:List></rdf:rest></rdf:List></owl:oneOf></owl:DataRange></rdfs:range></owl:DatatypeProperty>
+ <owl:Thing rdf:ID="i"><rdf:type><owl:Restriction><owl:onProperty rdf:resource="#p"/><owl:minCardinality rdf:datatype="&xsd;int">1</owl:minCardinality></owl:Restriction></rdf:type></owl:Thing>
+</rdf:RDF>

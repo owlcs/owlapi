@@ -1,0 +1,1 @@
+[SubClassOf(owl:Thing ObjectComplementOf(<urn:test:test#c>)), SubClassOf(owl:Thing ObjectComplementOf(<urn:test:test#iri>))]

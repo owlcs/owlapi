@@ -12,12 +12,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.api.test.baseclasses;
 
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
+import static org.semanticweb.owlapi6.api.test.TestEntities.A;
+import static org.semanticweb.owlapi6.api.test.TestEntities.B;
+import static org.semanticweb.owlapi6.api.test.TestEntities.C;
+import static org.semanticweb.owlapi6.api.test.TestEntities.D;
+import static org.semanticweb.owlapi6.api.test.TestEntities.DP;
+import static org.semanticweb.owlapi6.api.test.TestEntities.DQ;
+import static org.semanticweb.owlapi6.api.test.TestEntities.DR;
+import static org.semanticweb.owlapi6.api.test.TestEntities.P;
+import static org.semanticweb.owlapi6.api.test.TestEntities.Q;
+import static org.semanticweb.owlapi6.api.test.TestEntities.R;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.EquivalentDataProperties;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,27 +38,21 @@ import org.semanticweb.owlapi6.model.OWLAnnotation;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.1.0
  */
 @RunWith(Parameterized.class)
-public class AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase
-                extends AnnotatedAxiomRoundTrippingTestCase {
+public class AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase extends AnnotatedAxiomRoundTrippingTestCase {
 
-    public AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase(
-        Function<List<OWLAnnotation>, OWLAxiom> f) {
+    public AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase(Function<List<OWLAnnotation>, OWLAxiom> f) {
         super(f);
     }
 
     @Parameters
     public static List<Function<List<OWLAnnotation>, OWLAxiom>> getData() {
-        return Arrays.asList(
-                        a -> EquivalentClasses(a, Class(iri("A")), Class(iri("B")), Class(iri("C")),
-                                        Class(iri("D"))),
-            a -> EquivalentDataProperties(a, DataProperty(iri("p")), DataProperty(iri("q")),
-                DataProperty(iri("r"))),
-            a -> EquivalentObjectProperties(a, ObjectProperty(iri("p")), ObjectProperty(iri("q")),
-                ObjectProperty(iri("r"))));
+        return Arrays.asList(a -> EquivalentClasses(a, A, B, C, D), a -> EquivalentDataProperties(a, DP, DQ, DR),
+            a -> EquivalentObjectProperties(a, P, Q, R));
     }
 
     @Override

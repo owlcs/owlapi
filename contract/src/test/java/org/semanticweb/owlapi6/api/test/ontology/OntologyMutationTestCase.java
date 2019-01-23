@@ -14,7 +14,7 @@ package org.semanticweb.owlapi6.api.test.ontology;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi6.api.test.TestEntities.A;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
@@ -29,15 +29,17 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyChange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group
  * @since 2.2.0
  */
 public class OntologyMutationTestCase extends TestBase {
 
+    private static OWLAxiom ax = SubClassOf(A, OWLThing());
+
     @Test
     public void testAddAxiom() {
         OWLOntology ont = getOWLOntology();
-        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
         ont.add(ax);
@@ -48,7 +50,6 @@ public class OntologyMutationTestCase extends TestBase {
     @Test
     public void testAddAxioms() {
         OWLOntology ont = getOWLOntology();
-        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
         ont.add(ax);
@@ -59,7 +60,6 @@ public class OntologyMutationTestCase extends TestBase {
     @Test
     public void testApplyChange() {
         OWLOntology ont = getOWLOntology();
-        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
         ont.applyChange(new AddAxiom(ont, ax));
@@ -70,7 +70,6 @@ public class OntologyMutationTestCase extends TestBase {
     @Test
     public void testApplyChanges() {
         OWLOntology ont = getOWLOntology();
-        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
         ont.applyChange(new AddAxiom(ont, ax));

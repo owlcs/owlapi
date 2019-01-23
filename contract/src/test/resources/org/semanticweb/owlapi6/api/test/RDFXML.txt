@@ -1,0 +1,82 @@
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY otherOnt "http://example.org/otherOntologies/families/" >
+]>
+
+ <rdf:RDF xml:base="http://example.com/owl/families/" xmlns="http://example.com/owl/families/" xmlns:otherOnt="http://example.org/otherOntologies/families/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+   <owl:Ontology rdf:about="http://example.com/owl/families"/>
+<owl:ObjectProperty rdf:about="hasUncle"/>
+<owl:ObjectProperty rdf:about="http://example.org/otherOntologies/families/child"/>
+<owl:DatatypeProperty rdf:about="http://example.org/otherOntologies/families/age"/>
+<owl:ObjectProperty rdf:about="hasDaughter"/>
+<owl:ObjectProperty rdf:about="hasGrandparent"/>
+<owl:ObjectProperty rdf:about="parentOf"/>
+<owl:ObjectProperty rdf:about="loves"/>
+<owl:ObjectProperty rdf:about="hasRelative"/>
+<owl:DatatypeProperty rdf:about="hasSSN"/>
+<owl:Class rdf:about="http://example.org/otherOntologies/families/Grownup"/>
+<owl:Class rdf:about="SocialRole"/>
+<owl:Class rdf:about="Dead"/>
+<owl:Class rdf:about="Human"/>
+<rdfs:Datatype rdf:about="http://example.com/owl/families/personAge"/>
+<rdfs:Datatype rdf:about="http://example.com/owl/families/minorAge"/>
+<rdfs:Datatype rdf:about="http://example.com/owl/families/majorAge"/>
+<rdfs:Datatype rdf:about="http://example.com/owl/families/toddlerAge"/>
+   <owl:ObjectProperty rdf:about="hasWife"><rdfs:subPropertyOf rdf:resource="hasSpouse"/><rdfs:domain rdf:resource="Man"/><rdfs:range rdf:resource="Woman"/></owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="hasParent"><owl:inverseOf rdf:resource="hasChild"/><owl:propertyDisjointWith rdf:resource="hasSpouse"/></owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="hasSon"><owl:propertyDisjointWith rdf:resource="hasDaughter"/></owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="hasFather"><rdfs:subPropertyOf rdf:resource="hasParent"/></owl:ObjectProperty>
+
+   <owl:SymmetricProperty rdf:about="hasSpouse"/>
+   <owl:AsymmetricProperty rdf:about="hasChild"/>
+   <owl:ReflexiveProperty rdf:about="hasRelative"/>
+   <owl:IrreflexiveProperty rdf:about="parentOf"/>
+   <owl:FunctionalProperty rdf:about="hasHusband"/>
+   <owl:InverseFunctionalProperty rdf:about="hasHusband"/>
+   <owl:TransitiveProperty rdf:about="hasAncestor"/>
+
+   <rdf:Description rdf:about="hasGrandparent"><owl:propertyChainAxiom rdf:parseType="Collection"><owl:ObjectProperty rdf:about="hasParent"/><owl:ObjectProperty rdf:about="hasParent"/></owl:propertyChainAxiom></rdf:Description>
+   <rdf:Description rdf:about="hasUncle"><owl:propertyChainAxiom rdf:parseType="Collection"><owl:ObjectProperty rdf:about="hasFather"/><owl:ObjectProperty rdf:about="hasBrother"/></owl:propertyChainAxiom></rdf:Description>
+   <owl:ObjectProperty rdf:about="hasChild"><owl:equivalentProperty rdf:resource="&otherOnt;child"/></owl:ObjectProperty>
+    <owl:DatatypeProperty rdf:about="hasAge"><rdfs:domain rdf:resource="Person"/><rdfs:range rdf:resource="&xsd;nonNegativeInteger"/><owl:equivalentProperty rdf:resource="&otherOnt;age"/></owl:DatatypeProperty>
+   <owl:FunctionalProperty rdf:about="hasAge"/>
+
+   <owl:Class rdf:about="Woman"><rdfs:subClassOf rdf:resource="Person"/></owl:Class>
+   <owl:Class rdf:about="Mother"><rdfs:subClassOf rdf:resource="Woman"/><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType="Collection"><owl:Class rdf:about="Woman"/><owl:Class rdf:about="Parent"/></owl:intersectionOf></owl:Class></owl:equivalentClass></owl:Class>
+   <owl:Class rdf:about="Person"><rdfs:comment>Represents the set of all people.</rdfs:comment><owl:equivalentClass rdf:resource="Human"/><owl:hasKey rdf:parseType="Collection"><owl:DatatypeProperty rdf:about="hasSSN"/></owl:hasKey></owl:Class>
+   <owl:Class rdf:about="Parent"><owl:equivalentClass><owl:Class><owl:unionOf rdf:parseType="Collection"><owl:Class rdf:about="Mother"/><owl:Class rdf:about="Father"/></owl:unionOf></owl:Class></owl:equivalentClass><owl:equivalentClass><owl:Restriction><owl:onProperty rdf:resource="hasChild"/><owl:someValuesFrom rdf:resource="Person"/></owl:Restriction></owl:equivalentClass></owl:Class>
+   <owl:Class rdf:about="ChildlessPerson"><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType="Collection"><owl:Class rdf:about="Person"/><owl:Class><owl:complementOf rdf:resource="Parent"/></owl:Class></owl:intersectionOf></owl:Class></owl:equivalentClass></owl:Class>
+   <owl:Class rdf:about="Grandfather"><rdfs:subClassOf><owl:Class><owl:intersectionOf rdf:parseType="Collection"><owl:Class rdf:about="Man"/><owl:Class rdf:about="Parent"/></owl:intersectionOf></owl:Class></rdfs:subClassOf></owl:Class>
+   <owl:Class rdf:about="HappyPerson"><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType="Collection"><owl:Restriction><owl:onProperty rdf:resource="hasChild"/><owl:allValuesFrom rdf:resource="HappyPerson"/></owl:Restriction><owl:Restriction><owl:onProperty rdf:resource="hasChild"/><owl:someValuesFrom rdf:resource="HappyPerson"/></owl:Restriction></owl:intersectionOf></owl:Class></owl:equivalentClass></owl:Class>
+   <owl:Class rdf:about="JohnsChildren"><owl:equivalentClass><owl:Restriction><owl:onProperty rdf:resource="hasParent"/><owl:hasValue rdf:resource="John"/></owl:Restriction></owl:equivalentClass></owl:Class>
+   <owl:Class rdf:about="NarcisticPerson"><owl:equivalentClass><owl:Restriction><owl:onProperty rdf:resource="loves"/><owl:hasSelf rdf:datatype="&xsd;boolean">true</owl:hasSelf></owl:Restriction></owl:equivalentClass></owl:Class>
+   <owl:Class rdf:about="MyBirthdayGuests"><owl:equivalentClass><owl:Class><owl:oneOf rdf:parseType="Collection"><rdf:Description rdf:about="Bill"/><rdf:Description rdf:about="John"/><rdf:Description rdf:about="Mary"/></owl:oneOf></owl:Class></owl:equivalentClass></owl:Class>
+   <owl:Class rdf:about="Orphan"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:ObjectProperty><owl:inverseOf rdf:resource="hasChild"/></owl:ObjectProperty></owl:onProperty><owl:allValuesFrom rdf:resource="Dead"/></owl:Restriction></owl:equivalentClass></owl:Class>
+   <owl:Class rdf:about="Teenager"><rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="hasAge"/><owl:someValuesFrom><rdfs:Datatype><owl:onDatatype rdf:resource="&xsd;integer"/><owl:withRestrictions rdf:parseType="Collection"><rdf:Description><xsd:minExclusive rdf:datatype="&xsd;integer">12</xsd:minExclusive></rdf:Description><rdf:Description><xsd:maxInclusive rdf:datatype="&xsd;integer">19</xsd:maxInclusive></rdf:Description></owl:withRestrictions></rdfs:Datatype></owl:someValuesFrom></owl:Restriction></rdfs:subClassOf></owl:Class>
+   <owl:Class rdf:about="Man"><rdfs:subClassOf rdf:resource="Person"/></owl:Class>
+   <owl:Axiom><owl:annotatedSource rdf:resource="Man"/><owl:annotatedProperty rdf:resource="&rdfs;subClassOf"/><owl:annotatedTarget rdf:resource="Person"/><rdfs:comment>States that every man is a person.</rdfs:comment></owl:Axiom>
+   <owl:Class rdf:about="Adult"><owl:equivalentClass rdf:resource="&otherOnt;Grownup"/></owl:Class>
+   <owl:Class rdf:about="Father"><rdfs:subClassOf><owl:Class><owl:intersectionOf rdf:parseType="Collection"><owl:Class rdf:about="Man"/><owl:Class rdf:about="Parent"/></owl:intersectionOf></owl:Class></rdfs:subClassOf></owl:Class>
+   <owl:Class rdf:about="ChildlessPerson"><rdfs:subClassOf><owl:Class><owl:intersectionOf rdf:parseType="Collection"><owl:Class rdf:about="Person"/><owl:Class><owl:complementOf><owl:Restriction><owl:onProperty><owl:ObjectProperty><owl:inverseOf rdf:resource="hasParent"/></owl:ObjectProperty></owl:onProperty><owl:someValuesFrom rdf:resource="&owl;Thing"/></owl:Restriction></owl:complementOf></owl:Class></owl:intersectionOf></owl:Class></rdfs:subClassOf></owl:Class>
+   <owl:Class><owl:intersectionOf rdf:parseType="Collection"><owl:Class><owl:oneOf rdf:parseType="Collection"><rdf:Description rdf:about="Mary"/><rdf:Description rdf:about="Bill"/><rdf:Description rdf:about="Meg"/></owl:oneOf></owl:Class><owl:Class rdf:about="Female"/></owl:intersectionOf><rdfs:subClassOf><owl:Class><owl:intersectionOf rdf:parseType="Collection"><owl:Class rdf:about="Parent"/><owl:Restriction><owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality><owl:onProperty rdf:resource="hasChild"/></owl:Restriction><owl:Restriction><owl:onProperty rdf:resource="hasChild"/><owl:allValuesFrom rdf:resource="Female"/></owl:Restriction></owl:intersectionOf></owl:Class></rdfs:subClassOf></owl:Class>
+   <owl:AllDisjointClasses><owl:members rdf:parseType="Collection"><owl:Class rdf:about="Woman"/><owl:Class rdf:about="Man"/></owl:members></owl:AllDisjointClasses>
+   <owl:AllDisjointClasses><owl:members rdf:parseType="Collection"><owl:Class rdf:about="Mother"/><owl:Class rdf:about="Father"/><owl:Class rdf:about="YoungChild"/></owl:members></owl:AllDisjointClasses>
+
+   <rdf:Description rdf:about="personAge"><owl:equivalentClass><rdfs:Datatype><owl:onDatatype rdf:resource="&xsd;integer"/><owl:withRestrictions rdf:parseType="Collection"><rdf:Description><xsd:minInclusive rdf:datatype="&xsd;integer">0</xsd:minInclusive></rdf:Description><rdf:Description><xsd:maxInclusive rdf:datatype="&xsd;integer">150</xsd:maxInclusive></rdf:Description></owl:withRestrictions></rdfs:Datatype></owl:equivalentClass></rdf:Description>
+   <rdf:Description rdf:about="minorAge"><owl:equivalentClass><rdfs:Datatype><owl:onDatatype rdf:resource="&xsd;integer"/><owl:withRestrictions rdf:parseType="Collection"><rdf:Description><xsd:minInclusive rdf:datatype="&xsd;integer">0</xsd:minInclusive></rdf:Description><rdf:Description><xsd:maxInclusive rdf:datatype="&xsd;integer">18</xsd:maxInclusive></rdf:Description></owl:withRestrictions></rdfs:Datatype></owl:equivalentClass></rdf:Description>
+   <rdf:Description rdf:about="majorAge"><owl:equivalentClass><rdfs:Datatype><owl:intersectionOf rdf:parseType="Collection"><rdf:Description rdf:about="personAge"/><rdfs:Datatype><owl:datatypeComplementOf rdf:resource="minorAge"/></rdfs:Datatype></owl:intersectionOf></rdfs:Datatype></owl:equivalentClass></rdf:Description>
+   <rdf:Description rdf:about="toddlerAge"><owl:equivalentClass><rdfs:Datatype><owl:oneOf><rdf:Description><rdf:first rdf:datatype="&xsd;integer">1</rdf:first><rdf:rest><rdf:Description><rdf:first rdf:datatype="&xsd;integer">2</rdf:first><rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/></rdf:Description></rdf:rest></rdf:Description></owl:oneOf></rdfs:Datatype></owl:equivalentClass></rdf:Description>
+
+   <Person rdf:about="Mary"><rdf:type rdf:resource="Woman"/><owl:sameAs rdf:resource="&otherOnt;MaryBrown"/></Person>
+   <owl:NamedIndividual rdf:about="James"><owl:sameAs rdf:resource="Jim"/></owl:NamedIndividual>
+   <rdf:Description rdf:about="Jack"><rdf:type><owl:Class><owl:intersectionOf  rdf:parseType="Collection"><owl:Class rdf:about="Person"/><owl:Class><owl:complementOf rdf:resource="Parent"/></owl:Class></owl:intersectionOf></owl:Class></rdf:type></rdf:Description>
+   <owl:NamedIndividual rdf:about="John"><hasWife rdf:resource="Mary"/><hasAge rdf:datatype="&xsd;integer">51</hasAge><owl:differentFrom rdf:resource="Bill"/><owl:sameAs rdf:resource="&otherOnt;JohnBrown"/><rdf:type rdf:resource="Father"/><rdf:type><owl:Restriction><owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">4</owl:maxQualifiedCardinality><owl:onProperty rdf:resource="hasChild"/><owl:onClass rdf:resource="Parent"/></owl:Restriction></rdf:type><rdf:type><owl:Restriction><owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minQualifiedCardinality><owl:onProperty rdf:resource="hasChild"/><owl:onClass rdf:resource="Parent"/></owl:Restriction></rdf:type><rdf:type><owl:Restriction><owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">3</owl:qualifiedCardinality><owl:onProperty rdf:resource="hasChild"/><owl:onClass rdf:resource="Parent"/></owl:Restriction></rdf:type><rdf:type><owl:Restriction><owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">5</owl:cardinality><owl:onProperty rdf:resource="hasChild"/></owl:Restriction></rdf:type></owl:NamedIndividual>
+
+   <SocialRole rdf:about="Father"/>
+
+   <owl:NegativePropertyAssertion><owl:sourceIndividual rdf:resource="Bill"/><owl:assertionProperty rdf:resource="hasWife"/><owl:targetIndividual rdf:resource="Mary"/></owl:NegativePropertyAssertion>
+   <owl:NegativePropertyAssertion><owl:sourceIndividual rdf:resource="Jack"/><owl:assertionProperty rdf:resource="hasAge"/><owl:targetValue rdf:datatype="&xsd;integer">53</owl:targetValue></owl:NegativePropertyAssertion>
+   <owl:NegativePropertyAssertion><owl:sourceIndividual rdf:resource="Bill"/><owl:assertionProperty rdf:resource="hasDaughter"/><owl:targetIndividual rdf:resource="Susan"/></owl:NegativePropertyAssertion>
+ </rdf:RDF>

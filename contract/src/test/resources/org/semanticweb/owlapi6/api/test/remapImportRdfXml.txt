@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="urn:test#"
+     xml:base="urn:test"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="urn:test">
+        <owl:imports rdf:resource="http://test.org/TestPizzaImport.owl"/>
+    </owl:Ontology>
+</rdf:RDF>

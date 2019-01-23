@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="urn:t:o#" xml:base="urn:t:o"
+ xmlns:ann="urn:n:a#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="urn:t:o"/>
+    <owl:ObjectProperty rdf:about="urn:n:a#r"/>
+    <owl:NamedIndividual rdf:about="urn:n:a#a"><ann:r rdf:resource="urn:n:a#b"/></owl:NamedIndividual>
+    <owl:Annotation>
+        <owl:annotatedSource>
+            <owl:Axiom rdf:nodeID="_:genid1">
+                <owl:annotatedSource rdf:resource="urn:n:a#a"/><owl:annotatedProperty rdf:resource="urn:n:a#r"/><owl:annotatedTarget rdf:resource="urn:n:a#b"/>
+                <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</rdfs:label><rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</rdfs:label>
+            </owl:Axiom>
+        </owl:annotatedSource>
+        <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#label"/><owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</owl:annotatedTarget>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</rdfs:comment></owl:Annotation>
+    <owl:Annotation>
+        <owl:annotatedSource>
+            <owl:Axiom rdf:nodeID="_:genid1">
+                <owl:annotatedSource rdf:resource="urn:n:a#a"/><owl:annotatedProperty rdf:resource="urn:n:a#r"/><owl:annotatedTarget rdf:resource="urn:n:a#b"/>
+                <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</rdfs:label><rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</rdfs:label>
+            </owl:Axiom>
+        </owl:annotatedSource>
+        <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#label"/><owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</owl:annotatedTarget>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</rdfs:comment></owl:Annotation>
+    <owl:NamedIndividual rdf:about="urn:n:a#b"/></rdf:RDF>

@@ -1,0 +1,1 @@
+DifferentIndividuals(<urn:test:test#i> <urn:test:test#iri>)

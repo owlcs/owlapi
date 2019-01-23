@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+xmlns:dc="http://purl.org/dc/elements/1.1#"
+>
+<skos:ConceptScheme rdf:about="http://www.thesaurus.gc.ca/#CoreSubjectThesaurus">
+<dc:title xml:lang="en">Government of Canada Core Subject Thesaurus</dc:title>
+<dc:creator xml:lang="en">Government of Canada</dc:creator>
+</skos:ConceptScheme>
+
+<skos:Concept rdf:about="http://www.thesaurus.gc.ca/concept/#Abbreviations">
+<skos:prefLabel>Abbreviations</skos:prefLabel>
+<skos:related rdf:resource="http://www.thesaurus.gc.ca/#Terminology"/>
+<skos:inScheme rdf:resource="http://www.thesaurus.gc.ca/#CoreSubjectThesaurus"/>
+<skos:prefLabel xml:lang="fr">Abr&#233;viation</skos:prefLabel>
+</skos:Concept>
+<skos:Concept rdf:about="http://www.thesaurus.gc.ca/concept/#Aboriginal%20affairs">
+<skos:prefLabel>Aboriginal affairs</skos:prefLabel>
+<skos:altLabel>Aboriginal issues</skos:altLabel>
+<skos:related rdf:resource="http://www.thesaurus.gc.ca/#Aboriginal%20rights"/>
+<skos:related rdf:resource="http://www.thesaurus.gc.ca/#Land claims"/>
+<skos:inScheme rdf:resource="http://www.thesaurus.gc.ca/#CoreSubjectThesaurus"/>
+<skos:prefLabel xml:lang="fr">Affaires autochtones</skos:prefLabel>
+</skos:Concept>
+
+</rdf:RDF>

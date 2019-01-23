@@ -1,0 +1,13 @@
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Ontology: <http://purl.obolibrary.org/obo/go.owl>
+ObjectProperty: <http://purl.obolibrary.org/obo/BFO_0000050>
+Class: <http://purl.obolibrary.org/obo/GO_0044464>
+    EquivalentTo: 
+        <http://purl.obolibrary.org/obo/GO_0005575>
+         and (<http://purl.obolibrary.org/obo/BFO_0000050> some <http://purl.obolibrary.org/obo/GO_0005623>)
+Class: <http://purl.obolibrary.org/obo/GO_0005623>
+Class: <http://purl.obolibrary.org/obo/GO_0005575>

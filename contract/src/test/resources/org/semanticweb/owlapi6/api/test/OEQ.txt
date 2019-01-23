@@ -1,0 +1,1 @@
+ObjectExactCardinality(1 <urn:test:test#op> <urn:test:test#c>)

@@ -1,0 +1,7 @@
+Prefix: : <http://example.com/owl/families/>
+Ontology: <http://example.com/owl/families>
+Class: Person
+ Annotations:  rdfs:comment "Represents the set of all people."
+Class: Man
+ Annotations: rdfs:comment "States that every man is a person."
+ SubClassOf:  Person

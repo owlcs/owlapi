@@ -1,0 +1,1 @@
+[ObjectPropertyAssertion(Annotation(<urn:test:test#ann> "test"^^xsd:string) <urn:test:test#op> <urn:test:test#i> <urn:test:test#i>)]

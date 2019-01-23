@@ -1,0 +1,1 @@
+NegativeDataPropertyAssertion(Annotation(<urn:test:test#ann> "test"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> "false"^^xsd:boolean)

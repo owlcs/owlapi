@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY b 'http://www.loa-cnr.it/ontologies/ExtendedDnS.owl#'>
+    <!ENTITY k 'http://www.loa-cnr.it/ontologies/Plans.owl#'>
+    <!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
+    <!ENTITY xsd 'http://www.w3.org/2001/XMLSchema#'>
+]>
+
+<rdf:RDF
+    xml:base="http://www.loa-cnr.it/ontologies/DLP_397.owl"
+    xmlns:b="http://www.loa-cnr.it/ontologies/ExtendedDnS.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+<owl:Ontology rdf:about=""/>
+
+<owl:Class rdf:about="&b;task">
+    <rdfs:comment rdf:datatype="&xsd;string">A course used to sequence activities or other controllable perdurants (some states, processes), usually within methods. They must be defined by a method, but can be *used* by other kinds of descriptions. They are desire targets of some role played by an agent. Tasks can be complex, and ordered according to an abstract succession relation. Tasks can relate to ground activities or decision making; the last kind deals with typical flowchart content. A task is different both from a flowchart node, and from an action or action type.Tasks can be considered shortcuts for plans, since at least one role played by an agent has a desire attitude towards them (possibly different from the one that puts the task into action). In principle, tasks could be transformed into explicit plans.</rdfs:comment>
+</owl:Class>
+
+<owl:DatatypeProperty rdf:about="&k;iteration-cardinality">
+    <rdfs:comment rdf:datatype="&xsd;string">iteration cardinality can be used to state in a task how many times an action should be repeated</rdfs:comment>
+    <rdfs:domain rdf:resource="&b;task"/>
+    <rdfs:range rdf:resource="&xsd;integer"/>
+</owl:DatatypeProperty>
+<owl:Datatype rdf:about="&xsd;decimal"/>
+<owl:Datatype rdf:about="&xsd;integer"/>
+<owl:Datatype rdf:about="&xsd;string"/>
+</rdf:RDF>

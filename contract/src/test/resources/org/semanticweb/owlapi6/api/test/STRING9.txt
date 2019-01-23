@@ -1,0 +1,13 @@
+Prefix(:=<http://www.semanticweb.org/owlapi/test224612089629142#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+Prefix(ontology:=<http://owlapi.sourceforge.net/ontology#>)
+Ontology(<http://www.semanticweb.org/owlapi/test224612089629142>
+Declaration(DataProperty(ontology:prop))
+Declaration(NamedIndividual(ontology:A))
+# Individual: ontology:A (ontology:A)
+ClassAssertion(owl:Thing ontology:A)
+DataPropertyAssertion(ontology:prop ontology:A "test url"))

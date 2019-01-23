@@ -1,0 +1,8 @@
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+Ontology(
+Declaration(Class(<http://E>))
+AnnotationAssertion(rdfs:comment <http://E> _:genid1)
+AnnotationAssertion(rdfs:comment _:genid1 "E"))

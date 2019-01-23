@@ -1,0 +1,1 @@
+ClassAssertion(ObjectSomeValuesFrom(<urn:test:test#op> ObjectOneOf(<urn:test:test#i>)) <urn:test:test#i>)

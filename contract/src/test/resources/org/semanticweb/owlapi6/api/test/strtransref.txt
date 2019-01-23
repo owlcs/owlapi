@@ -1,0 +1,1 @@
+[ReflexiveObjectProperty(Annotation(<urn:test:test#ann> "test"^^xsd:string) <urn:test:test#op>)]

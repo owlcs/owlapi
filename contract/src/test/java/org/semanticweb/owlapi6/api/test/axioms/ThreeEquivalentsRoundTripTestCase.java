@@ -13,17 +13,17 @@
 package org.semanticweb.owlapi6.api.test.axioms;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi6.api.test.TestEntities.A;
+import static org.semanticweb.owlapi6.api.test.TestEntities.B;
+import static org.semanticweb.owlapi6.api.test.TestEntities.C;
+import static org.semanticweb.owlapi6.api.test.TestEntities.P;
+import static org.semanticweb.owlapi6.api.test.TestEntities.Q;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
 
 import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLAxiom;
-import org.semanticweb.owlapi6.model.OWLClass;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
 /** test for 3178902 adapted from the report Thimoty provided. */
@@ -32,21 +32,15 @@ public class ThreeEquivalentsRoundTripTestCase extends TestBase {
     @Test
     public void shouldRoundTrip() throws Exception {
         // given
-        String ns = "http://protege.org/ontologies";
-        OWLClass b = Class(IRI(ns + "#", "B"));
-        OWLClass c = Class(IRI(ns + "#", "C"));
-        OWLObjectProperty p = ObjectProperty(IRI(ns + "#", "p"));
-        OWLObjectProperty q = ObjectProperty(IRI(ns + "#", "q"));
-        OWLAxiom axiomToAdd = EquivalentClasses(Class(IRI(ns + "#", "A")),
-            ObjectSomeValuesFrom(p, b), ObjectSomeValuesFrom(q, c));
+        OWLAxiom axiomToAdd = EquivalentClasses(A, ObjectSomeValuesFrom(P, B), ObjectSomeValuesFrom(Q, C));
         OWLOntology ontology = getOWLOntology();
         ontology.addAxiom(axiomToAdd);
         // when
         ontology = roundTrip(ontology);
         // then
-        assertTrue(ontology.containsObjectPropertyInSignature(p.getIRI()));
-        assertTrue(ontology.containsObjectPropertyInSignature(q.getIRI()));
-        assertTrue(ontology.containsClassInSignature(b.getIRI()));
-        assertTrue(ontology.containsClassInSignature(c.getIRI()));
+        assertTrue(ontology.containsObjectPropertyInSignature(P.getIRI()));
+        assertTrue(ontology.containsObjectPropertyInSignature(Q.getIRI()));
+        assertTrue(ontology.containsClassInSignature(B.getIRI()));
+        assertTrue(ontology.containsClassInSignature(C.getIRI()));
     }
 }
