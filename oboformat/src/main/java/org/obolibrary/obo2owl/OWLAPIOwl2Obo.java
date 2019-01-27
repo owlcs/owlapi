@@ -83,6 +83,7 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -123,7 +124,7 @@ public class OWLAPIOwl2Obo {
     /**
      * The fac.
      */
-    protected OWLDataFactory fac;
+    protected final OWLDataFactory fac;
     /**
      * The obodoc.
      */
@@ -167,7 +168,6 @@ public class OWLAPIOwl2Obo {
         // legacy:
         idSpaceMap.put("http://www.obofoundry.org/ro/ro.owl#", "OBO_REL");
         untranslatableAxioms = new HashSet<>();
-        fac = manager.getOWLDataFactory();
         apToDeclare = new HashSet<>();
     }
 
@@ -178,6 +178,7 @@ public class OWLAPIOwl2Obo {
      */
     public OWLAPIOwl2Obo(@Nonnull OWLOntologyManager translationManager) {
         manager = translationManager;
+        fac = manager.getOWLDataFactory();
         init();
     }
 
@@ -314,8 +315,7 @@ public class OWLAPIOwl2Obo {
         axioms.sort(null);
         axioms.forEach(this::consume);
         AxiomType.skipDeclarations().flatMap(t -> getOWLOntology().getAxioms(t).stream())
-        .map(x->(OWLAxiom)x)
-            .forEach(this::consume);
+            .map(x -> (OWLAxiom) x).forEach(this::consume);
         if (!untranslatableAxioms.isEmpty() && !discardUntranslatable) {
             try {
                 String axiomString = OwlStringTools.translate(untranslatableAxioms, manager);
@@ -432,8 +432,8 @@ public class OWLAPIOwl2Obo {
                     LOG.error("ECA did not fit expected pattern: {}", eca);
                 }
             }
-            manager.removeAxioms(getOWLOntology(), rmAxioms);
-            manager.addAxioms(getOWLOntology(), newAxioms);
+            getOWLOntology().getOWLOntologyManager().removeAxioms(getOWLOntology(), rmAxioms);
+            getOWLOntology().getOWLOntologyManager().addAxioms(getOWLOntology(), newAxioms);
         }
     }
 
@@ -1937,7 +1937,7 @@ public class OWLAPIOwl2Obo {
             return;
         }
         String clsIRI = ((OWLClass) cls).getIRI().toString();
-        OWLAnnotationProperty labelProperty = manager.getOWLDataFactory().getRDFSLabel();
+        IRI labelPropertyIRI = OWLRDFVocabulary.RDFS_LABEL.getIRI();
         if (IRI_CLASS_SYNONYMTYPEDEF.equals(clsIRI)) {
             Frame f = getObodoc().getHeaderFrame();
             Clause c = new Clause(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag());
@@ -1956,7 +1956,7 @@ public class OWLAPIOwl2Obo {
             String scopeValue = null;
             for (OWLAnnotation ann : getAnnotationObjects(indv, getOWLOntology(), null)) {
                 String value = ((OWLLiteral) ann.getValue()).getLiteral();
-                if (ann.getProperty().equals(labelProperty)) {
+                if (ann.getProperty().getIRI().equals(labelPropertyIRI)) {
                     nameValue = '"' + value + '"';
                 } else {
                     scopeValue = value;
@@ -1983,7 +1983,7 @@ public class OWLAPIOwl2Obo {
             String nameValue = "";
             for (OWLAnnotation ann : getAnnotationObjects(indv, getOWLOntology(), null)) {
                 String value = ((OWLLiteral) ann.getValue()).getLiteral();
-                if (ann.getProperty().equals(labelProperty)) {
+                if (ann.getProperty().getIRI().equals(labelPropertyIRI)) {
                     nameValue = '"' + value + '"';
                 }
             }
