@@ -405,8 +405,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         initialiseSection(new IndividualFactsItemParser(), individualFrameSections);
         initialiseSection(new IndividualSameAsItemParser(), individualFrameSections);
         initialiseSection(new IndividualDifferentFromItemParser(), individualFrameSections);
-        // Extensions
-        initialiseSection(new IndividualDifferentIndividualsItemParser(), individualFrameSections);
     }
 
     @Override
@@ -1889,9 +1887,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!SAME_INDIVIDUAL.matches(section)) {
             throw new ExceptionBuilder().withKeyword(SAME_INDIVIDUAL).build();
         }
-        Set<OWLIndividual> individuals = parseIndividualList();
         Set<OWLOntology> ontologies = getOntologies();
         Set<OWLAnnotation> annotations = parseAnnotations();
+        Set<OWLIndividual> individuals = parseIndividualList();
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             assert ont != null;
@@ -3448,29 +3446,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         @Override
         public ManchesterOWLSyntax getFrameSectionKeyword() {
             return DIFFERENT_FROM;
-        }
-    }
-
-    class IndividualDifferentIndividualsItemParser
-        implements AnnotatedListItemParser<OWLIndividual, Set<OWLIndividual>> {
-
-        @Override
-        public Set<OWLIndividual> parseItem(OWLIndividual s) {
-            return parseIndividualList();
-        }
-
-        @Override
-        public OWLAxiom createAxiom(OWLIndividual s, Set<OWLIndividual> o,
-            Set<OWLAnnotation> anns) {
-            Set<OWLIndividual> individuals = new HashSet<>();
-            individuals.add(s);
-            individuals.addAll(o);
-            return dataFactory.getOWLDifferentIndividualsAxiom(individuals, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return DIFFERENT_INDIVIDUALS;
         }
     }
 

@@ -46,6 +46,7 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.REFLEXIVE;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.RULE;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_AS;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_INDIVIDUAL;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUBCLASS_OF;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_CHAIN;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_OF;
@@ -424,10 +425,21 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         // Nary different individuals
         for (OWLDifferentIndividualsAxiom ax : sortedCollection(
             ontology.getAxioms(AxiomType.DIFFERENT_INDIVIDUALS))) {
-            if (ax.getIndividuals().size() > 2) {
+            if (ax.getIndividuals().size() > 2
+                || ax.getIndividuals().size() == 2 && !ax.getAnnotations().isEmpty()) {
                 SectionMap<Object, OWLAxiom> map = new SectionMap<>();
                 map.put(ax.getIndividuals(), ax);
                 writeSection(DIFFERENT_INDIVIDUALS, map, ",", false, ontology);
+            }
+        }
+        // Nary same individuals
+        for (OWLSameIndividualAxiom ax : sortedCollection(
+            ontology.getAxioms(AxiomType.SAME_INDIVIDUAL))) {
+            if (ax.getIndividuals().size() > 2
+                || ax.getIndividuals().size() == 2 && !ax.getAnnotations().isEmpty()) {
+                SectionMap<Object, OWLAxiom> map = new SectionMap<>();
+                map.put(ax.getIndividuals(), ax);
+                writeSection(SAME_INDIVIDUAL, map, ",", false, ontology);
             }
         }
         for (SWRLRule rule : sortedCollection(ontology.getAxioms(AxiomType.SWRL_RULE))) {
@@ -1097,8 +1109,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 Collection<OWLIndividual> inds = sortedCollection();
                 for (OWLSameIndividualAxiom ax : ontology.getSameIndividualAxioms(individual)) {
                     if (isDisplayed(ax)) {
-                        inds.addAll(ax.getIndividuals());
-                        axioms.add(ax);
+                        if (ax.getIndividuals().size() == 2 && ax.getAnnotations().isEmpty()) {
+                            inds.addAll(ax.getIndividuals());
+                            axioms.add(ax);
+                        }
                     }
                 }
                 inds.remove(individual);
@@ -1111,11 +1125,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 Collection<OWLDifferentIndividualsAxiom> nary = sortedCollection();
                 for (OWLDifferentIndividualsAxiom ax : ontology
                     .getDifferentIndividualAxioms(individual)) {
-                    if (ax.getIndividuals().size() == 2 && isDisplayed(ax)) {
-                        inds.addAll(ax.getIndividuals());
-                        axioms.add(ax);
-                    } else {
-                        nary.add(ax);
+                    if (isDisplayed(ax)) {
+                        if (ax.getIndividuals().size() == 2 && ax.getAnnotations().isEmpty()) {
+                            inds.addAll(ax.getIndividuals());
+                            axioms.add(ax);
+                        } else {
+                            nary.add(ax);
+                        }
                     }
                 }
                 inds.remove(individual);

@@ -712,7 +712,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
-        addPairwise(axiom, axiom.getIndividuals(), OWL_SAME_AS.getIRI());
+        axiom.splitToAnnotatedPairs()
+            .forEach(a -> addSingleTripleAxiom(a, a.getIndividualsAsList().get(0),
+                OWL_SAME_AS.getIRI(), a.getIndividualsAsList().get(1)));
         processIfAnonymous(axiom.getIndividuals(), axiom);
     }
 
@@ -721,6 +723,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         translateAnonymousNode(axiom);
         addTriple(axiom, RDF_TYPE.getIRI(), OWL_ALL_DIFFERENT.getIRI());
         addListTriples(axiom, OWL_DISTINCT_MEMBERS.getIRI(), axiom.getIndividuals());
+        translateAnnotations(axiom);
         processIfAnonymous(axiom.getIndividuals(), axiom);
     }
 

@@ -2321,6 +2321,7 @@ public class TripleHandlers {
             if (listNode != null) {
                 Set<OWLIndividual> inds =
                     consumer.translatorAccessor.translateToIndividualSet(listNode);
+                anns(subject);
                 addAxiom(df.getOWLDifferentIndividualsAxiom(inds, getPendingAnnotations()));
                 consumeTriple(subject, predicate, object);
             } else {
@@ -2328,6 +2329,7 @@ public class TripleHandlers {
                 if (listNode != null) {
                     Set<OWLIndividual> inds =
                         consumer.translatorAccessor.translateToIndividualSet(listNode);
+                    anns(subject);
                     addAxiom(df.getOWLDifferentIndividualsAxiom(inds, getPendingAnnotations()));
                     consumeTriple(subject, predicate, object);
                 }
