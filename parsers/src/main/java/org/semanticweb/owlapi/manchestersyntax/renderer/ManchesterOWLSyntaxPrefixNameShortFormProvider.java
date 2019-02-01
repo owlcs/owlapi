@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.manchestersyntax.renderer;
 
 import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.Nonnull;
 
@@ -25,13 +26,11 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * A special short form provider that delegates to a prefix manager to obtain
- * short forms. The only difference between this short form provider and a
- * prefix manager is that names with the default prefix do not have a colon with
- * this short form provider.
+ * A special short form provider that delegates to a prefix manager to obtain short forms. The only
+ * difference between this short form provider and a prefix manager is that names with the default
+ * prefix do not have a colon with this short form provider.
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortFormProvider {
@@ -39,23 +38,21 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
     private final DefaultPrefixManager prefixManager;
 
     /**
-     * Constructs a short form provider that reuses any prefix name mappings
-     * obtainable from the format of the specified ontology (the manager will be
-     * asked for the ontology format of the specified ontology).
+     * Constructs a short form provider that reuses any prefix name mappings obtainable from the
+     * format of the specified ontology (the manager will be asked for the ontology format of the
+     * specified ontology).
      * 
-     * @param ont
-     *        The ontology
+     * @param ont The ontology
      */
     public ManchesterOWLSyntaxPrefixNameShortFormProvider(@Nonnull OWLOntology ont) {
         this(ont.getOWLOntologyManager().getOntologyFormat(ont));
     }
 
     /**
-     * Constructs a short form provider that reuses any prefix name mappings
-     * from the specified ontology format.
+     * Constructs a short form provider that reuses any prefix name mappings from the specified
+     * ontology format.
      * 
-     * @param format
-     *        The format from which prefix name mappings will be reused
+     * @param format The format from which prefix name mappings will be reused
      */
     public ManchesterOWLSyntaxPrefixNameShortFormProvider(OWLDocumentFormat format) {
         prefixManager = new DefaultPrefixManager();
@@ -69,8 +66,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
     /**
      * Constructs a short form provider that uses the specified prefix mappings.
      * 
-     * @param prefixManager
-     *        A prefix manager which will be used to obtain prefix mappings
+     * @param prefixManager A prefix manager which will be used to obtain prefix mappings
      */
     public ManchesterOWLSyntaxPrefixNameShortFormProvider(DefaultPrefixManager prefixManager) {
         this.prefixManager = prefixManager;
@@ -85,7 +81,12 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
 
     @Override
     public String getShortForm(OWLEntity entity) {
-        String sf = prefixManager.getShortForm(entity);
+        IRI iri = entity.getIRI();
+        String sf = prefixManager.getPrefixIRIIgnoreQName(iri);
+        if (sf == null || Objects.equals(iri.toString(), sf)) {
+            // prefix creation failed
+            sf = iri.toQuotedString();
+        }
         if (sf.startsWith(":")) {
             return sf.substring(1);
         } else {
@@ -96,8 +97,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
     /**
      * Gets the short form for an IRI.
      * 
-     * @param iri
-     *        The IRI
+     * @param iri The IRI
      * @return The short form for the specified IRI
      */
     public static String getShortForm(@Nonnull IRI iri) {

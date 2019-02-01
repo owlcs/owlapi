@@ -351,7 +351,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void write(@Nonnull IRI iri) {
-        String qname = prefixManager.getPrefixIRI(iri);
+        String qname = prefixManager.getPrefixIRIIgnoreQName(iri);
         if (qname != null) {
             boolean lastCharIsColon = qname.charAt(qname.length() - 1) == ':';
             if (!lastCharIsColon) {

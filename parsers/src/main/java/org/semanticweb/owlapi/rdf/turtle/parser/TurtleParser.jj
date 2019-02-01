@@ -328,7 +328,7 @@ TOKEN:
 
 TOKEN:
 {
-    <PNAME_NS: (<PN_PREFIX>)? ":">
+    <PNAME_NS: (<PN_PREFIX> (":" <PN_PREFIX>)* )? ":">
 }
 
 

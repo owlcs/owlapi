@@ -9,7 +9,14 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat;
 import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.StringComparator;
@@ -26,10 +33,11 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology, @Nonnull Writer writer, OWLDocumentFormat format)
-        throws OWLOntologyStorageException {
+    protected void storeOntology(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
+        OWLDocumentFormat format) throws OWLOntologyStorageException {
         try {
-            FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(ontology, writer);
+            FunctionalSyntaxObjectRenderer renderer =
+                new FunctionalSyntaxObjectRenderer(ontology, writer);
             renderer.setPrefixManager(new LabelPrefixManager(ontology));
             ontology.accept(renderer);
             writer.flush();
@@ -48,7 +56,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
         LabelPrefixManager(@Nonnull OWLOntology ontology) {
             this.ontology = ontology;
-            OWLDocumentFormat ontologyFormat = ontology.getOWLOntologyManager().getOntologyFormat(ontology);
+            OWLDocumentFormat ontologyFormat =
+                ontology.getOWLOntologyManager().getOntologyFormat(ontology);
             if (ontologyFormat instanceof PrefixManager) {
                 delegate = (PrefixManager) ontologyFormat;
             } else {
@@ -58,7 +67,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
         @Override
         public String getPrefixIRI(IRI iri) {
-            for (OWLAnnotationAssertionAxiom annotation : ontology.getAnnotationAssertionAxioms(iri)) {
+            for (OWLAnnotationAssertionAxiom annotation : ontology
+                .getAnnotationAssertionAxioms(iri)) {
                 if (annotation.getProperty().isLabel()) {
                     OWLAnnotationValue value = annotation.getValue();
                     if (value instanceof OWLLiteral) {
@@ -67,6 +77,20 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
                 }
             }
             return delegate.getPrefixIRI(iri);
+        }
+
+        @Override
+        public String getPrefixIRIIgnoreQName(IRI iri) {
+            for (OWLAnnotationAssertionAxiom annotation : ontology
+                .getAnnotationAssertionAxioms(iri)) {
+                if (annotation.getProperty().isLabel()) {
+                    OWLAnnotationValue value = annotation.getValue();
+                    if (value instanceof OWLLiteral) {
+                        return '<' + ((OWLLiteral) value).getLiteral() + '>';
+                    }
+                }
+            }
+            return delegate.getPrefixIRIIgnoreQName(iri);
         }
 
         @Override

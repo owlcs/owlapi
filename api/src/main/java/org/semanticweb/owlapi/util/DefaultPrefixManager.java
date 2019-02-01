@@ -161,6 +161,28 @@ public class DefaultPrefixManager
     }
 
     @Override
+    public String getPrefixIRIIgnoreQName(IRI iri) {
+        String prefix = reverseprefix2NamespaceMap.get(iri.getNamespace());
+        if (prefix == null) {
+            String iriString = iri.toString();
+            String prefixed = null;
+            for (String s : reverseprefix2NamespaceMap.keySet()) {
+                if (iriString.startsWith(s) && XMLUtils.isQName(iriString, s.length())) {
+                    prefix = reverseprefix2NamespaceMap.get(s);
+                    prefixed = iriString.replace(s, prefix);
+                }
+            }
+            if (prefixed != null) {
+                return prefixed;
+            }
+        }
+        if (prefix == null) {
+            return null;
+        }
+        return iri.prefixedBy(prefix);
+    }
+
+    @Override
     public String getDefaultPrefix() {
         return prefix2NamespaceMap.get(":");
     }

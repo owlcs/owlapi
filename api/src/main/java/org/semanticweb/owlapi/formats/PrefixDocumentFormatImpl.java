@@ -26,15 +26,14 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.StringComparator;
 
 /**
- * A PrefixOWLOntologyFormat delegates all PrefixManager operations to a
- * PrefixManager implementation.
+ * A PrefixOWLOntologyFormat delegates all PrefixManager operations to a PrefixManager
+ * implementation.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
-        PrefixDocumentFormat {
+public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl
+    implements PrefixDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -46,8 +45,7 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
     }
 
     /**
-     * @param manager
-     *        prefix manager to use
+     * @param manager prefix manager to use
      */
     public PrefixDocumentFormatImpl(@Nonnull PrefixManager manager) {
         nsm = checkNotNull(manager, "manager cannot be null");
@@ -106,6 +104,11 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
     @Override
     public String getPrefixIRI(IRI iri) {
         return nsm.getPrefixIRI(iri);
+    }
+
+    @Override
+    public String getPrefixIRIIgnoreQName(IRI iri) {
+        return nsm.getPrefixIRIIgnoreQName(iri);
     }
 
     @Override
