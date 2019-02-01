@@ -1,3 +1,13 @@
+## 4.5.9 1 February 2019
+
+### Bug fixes:
+
+*    Jackson version to 2.9.8
+*    Fix compatibility with Guava 27 #814
+*    Fix OBO renderer stuck with untranslatable axioms on concurrent managers
+*    Fix Annotations on DifferentIndividualsAxioms lost #816
+*    Fix No roundtrip for IRIs with colons in the fragment or path #817
+
 ## 4.5.8 22 December 2018
 
 ### Features:
