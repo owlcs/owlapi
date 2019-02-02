@@ -2063,6 +2063,9 @@ public class OWLAPIOwl2Obo {
                     error(ax, true);
                     return;
                 }
+                if (r instanceof OWLObjectAllValuesFromAxiom) {
+                    qvs.add(new QualifierValue("all_only", Boolean.TRUE));
+                }
                 f.addClause(createRelationshipClauseWithRestrictions(r, fillerId, qvs, ax));
             } else if (sup instanceof OWLObjectIntersectionOf) {
                 OWLObjectIntersectionOf i = (OWLObjectIntersectionOf) sup;
