@@ -205,7 +205,11 @@ public class OWLAPIOwl2Obo {
      * @return The OBO ID of the ontology
      */
     public static String getOntologyId(OWLOntology ontology) {
-        return getOntologyId(ontology.getOntologyID().getOntologyIRI().get());
+        Optional<IRI> ontologyIRI = ontology.getOntologyID().getOntologyIRI();
+        if (!ontologyIRI.isPresent()) {
+            return "";
+        }
+        return getOntologyId(ontologyIRI.get());
     }
 
     /**

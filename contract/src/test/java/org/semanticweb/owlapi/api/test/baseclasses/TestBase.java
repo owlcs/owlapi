@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -74,8 +75,6 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.github.jsonldjava.shaded.com.google.common.base.Objects;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -220,7 +219,7 @@ public abstract class TestBase {
             assertEquals("Ontologies supposed to be the same", ont1.getOntologyID(),
                 ont2.getOntologyID());
         }
-        if (!Objects.equal(asSet(ont1.annotations()), asSet(ont2.annotations()))) {
+        if (!Objects.equals(asSet(ont1.annotations()), asSet(ont2.annotations()))) {
             assertEquals(str(ont1.annotations()), str(ont2.annotations()));
         }
         Set<OWLAxiom> axioms1;

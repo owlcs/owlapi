@@ -48,6 +48,53 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
         roundTripOntology(createOntology(), new RDFJsonDocumentFormat());
     }
 
+    // ongoing work to use OBO as one of the roundtripping formats
+    // @Test
+    // public void testOBO() throws Exception {
+    // OWLOntology createOntology = createOntology();
+    // createOntology.applyChange(new SetOntologyID(createOntology,
+    // IRI.create("http://purl.obolibrary.org/obo/test.owl")));
+    // StringDocumentTarget saveOntology =
+    // saveOntology(createOntology, new FunctionalSyntaxDocumentFormat());
+    // String s = saveOntology.toString()
+    // //
+    // .replace("http://www.semanticweb.org/owlapi/test#",
+    // "http://purl.obolibrary.org/obo/test#")
+    // //
+    // .replace("http://www.semanticweb.org/ontologies/declarations#",
+    // "http://purl.obolibrary.org/obo/test#")
+    // //
+    // .replace("http://www.semanticweb.org/ontologies/test/annotationont#",
+    // "http://purl.obolibrary.org/obo/test#");
+    // createOntology = loadOntologyFromString(s, new FunctionalSyntaxDocumentFormat());
+    // createOntology.removeAxioms(asList(createOntology.axioms(AxiomType.CLASS_ASSERTION)
+    // .filter(ax -> ax.getClassExpression().isOWLThing())));
+    // OBODocumentFormat format = new OBODocumentFormat();
+    // StringDocumentTarget target = saveOntology(createOntology, format);
+    // OWLOntology o1 = loadOntologyFromString(target, format);
+    // createOntology.removeAxioms(asList(createOntology.axioms(AxiomType.CLASS_ASSERTION).filter(
+    // ax -> ax.getClassExpression().isOWLThing() || ax.getIndividual().isAnonymous())));
+    // o1.removeAxioms(asList(o1.axioms(AxiomType.CLASS_ASSERTION).filter(
+    // ax -> ax.getClassExpression().isOWLThing() || ax.getIndividual().isAnonymous())));
+    // OWLAnnotationProperty version = df.getOWLAnnotationProperty(
+    // "http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion");
+    // OWLAnnotationProperty id =
+    // df.getOWLAnnotationProperty("http://www.geneontology.org/formats/oboInOwl#id");
+    // createOntology.remove(asList(createOntology.axioms(AxiomType.ANNOTATION_ASSERTION)));
+    // o1.remove(asList(o1.axioms(AxiomType.ANNOTATION_ASSERTION)));
+    // o1.applyChanges(asList(o1.annotations().filter(a -> a.getProperty().equals(version))
+    // .map(a -> new RemoveOntologyAnnotation(o1, a))));
+    // createOntology.remove(asList(createOntology.axioms(AxiomType.DECLARATION)));
+    // o1.remove(asList(o1.axioms(AxiomType.DECLARATION)));
+    // System.out.println("TestBase.roundTripOntology() ont1 " + createOntology.getOntologyID());
+    // createOntology.axioms().forEach(System.out::println);
+    // System.out.println("TestBase.roundTripOntology() \n" + target);
+    // System.out.println("TestBase.roundTripOntology() ont2 " + o1.getOntologyID());
+    // o1.axioms().forEach(System.out::println);
+    //
+    // equal(createOntology, o1);
+    // }
+
     @Test
     public void testOWLXML() throws Exception {
         roundTripOntology(createOntology(), new OWLXMLDocumentFormat());
