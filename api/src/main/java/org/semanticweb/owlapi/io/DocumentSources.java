@@ -221,7 +221,9 @@ public class DocumentSources {
             // redirect
             if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
                 || responseCode == HttpURLConnection.HTTP_MOVED_PERM
-                || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+                || responseCode == HttpURLConnection.HTTP_SEE_OTHER
+                // no constants for temporary and permanent redirect in HttpURLConnection
+                || responseCode == 307 || responseCode == 308) {
                 String location = con.getHeaderField("Location");
                 URL newURL = new URL(location);
                 String newProtocol = newURL.getProtocol();
