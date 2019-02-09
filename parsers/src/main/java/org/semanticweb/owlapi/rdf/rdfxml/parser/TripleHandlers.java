@@ -2187,6 +2187,7 @@ public class TripleHandlers {
             if (listNode != null) {
                 Set<OWLIndividual> inds =
                     consumer.translatorAccessor.translateToIndividualSet(listNode);
+                anns(s);
                 add(df.getOWLDifferentIndividualsAxiom(inds, anns()));
                 consume(s, p, o);
             } else {
@@ -2194,6 +2195,7 @@ public class TripleHandlers {
                 if (listNode != null) {
                     Set<OWLIndividual> inds =
                         consumer.translatorAccessor.translateToIndividualSet(listNode);
+                    anns(s);
                     add(df.getOWLDifferentIndividualsAxiom(inds, anns()));
                     consume(s, p, o);
                 }

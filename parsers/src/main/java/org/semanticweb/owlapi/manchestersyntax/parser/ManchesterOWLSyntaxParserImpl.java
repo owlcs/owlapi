@@ -416,8 +416,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         initialiseSection(new AnnAxiom<>(this::parseFact, FACTS, (s, o, anns) -> o.getAnnotatedAxiom(anns)), individualFrameSections);
         initialiseSection(new AnnAxiom<OWLIndividual, OWLIndividual>(x -> parseIndividual(), SAME_AS, (s, o, anns) -> df.getOWLSameIndividualAxiom(s, o, anns)), individualFrameSections);
         initialiseSection(new AnnAxiom<OWLIndividual, OWLIndividual>(x -> parseIndividual(), DIFFERENT_FROM, (s, o, anns) -> df.getOWLDifferentIndividualsAxiom(s, o, anns)), individualFrameSections);
-        // Extensions
-        initialiseSection(new AnnAxiom<OWLIndividual, Set<OWLIndividual>>(x -> parseIndividualList(), DIFFERENT_INDIVIDUALS, (s, o, anns) -> create(df, s, o, anns)), individualFrameSections);
         //@formatter:on
     }
 
@@ -1801,9 +1799,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!SAME_INDIVIDUAL.matches(section)) {
             throw new ExceptionBuilder().withKeyword(SAME_INDIVIDUAL).build();
         }
-        Set<OWLIndividual> individuals = parseIndividualList();
         Set<OWLOntology> ontologies = getOntologies();
         Set<OWLAnnotation> annotations = parseAnnotations();
+        Set<OWLIndividual> individuals = parseIndividualList();
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             pairs.add(

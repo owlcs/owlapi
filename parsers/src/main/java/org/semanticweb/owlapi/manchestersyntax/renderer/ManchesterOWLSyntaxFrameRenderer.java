@@ -47,6 +47,7 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.REFLEXIVE;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.RULE;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_AS;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_INDIVIDUAL;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUBCLASS_OF;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_CHAIN;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_OF;
@@ -58,7 +59,6 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import com.google.common.collect.Sets;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -73,7 +73,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -113,21 +115,23 @@ import org.semanticweb.owlapi.util.OWLObjectComparator;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
+import com.google.common.collect.Sets;
+
 /**
  * The Class ManchesterOWLSyntaxFrameRenderer.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectRenderer implements
-    OWLEntityVisitor {
+public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectRenderer
+    implements OWLEntityVisitor {
 
     protected final OWLObjectComparator ooc;
     private final OWLOntology o;
     private final Set<AxiomType<?>> filteredAxiomTypes = Sets.newHashSet(AxiomType.SWRL_RULE);
     private final List<RendererListener> listeners = new ArrayList<>();
-    private final Predicate<OWLAxiom> props = ax ->
-        ((OWLNaryPropertyAxiom<?>) ax).properties().count() == 2;
+    private final Predicate<OWLAxiom> props =
+        ax -> ((OWLNaryPropertyAxiom<?>) ax).properties().count() == 2;
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
     private boolean renderExtensions = false;
     private OWLAxiomFilter axiomFilter = axiom -> true;
@@ -137,6 +141,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      */
     @Nullable
     private RendererEvent event;
+
     /**
      * Instantiates a new manchester owl syntax frame renderer.
      *
@@ -265,36 +270,41 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         // Nary disjoint classes axioms
         event = new RendererEvent(this, o);
         o.axioms(AxiomType.DISJOINT_CLASSES).sorted(ooc)
-            .forEach(ax -> writeMoreThanTwo(ax, ax.classExpressions(),
-                DISJOINT_CLASSES));
+            .forEach(ax -> writeMoreThanTwo(ax, ax.classExpressions(), DISJOINT_CLASSES));
         // Nary equivalent classes axioms
         o.axioms(AxiomType.EQUIVALENT_CLASSES).sorted(ooc)
-            .forEach(ax -> writeMoreThanTwo(ax, ax.classExpressions(),
-                EQUIVALENT_CLASSES));
+            .forEach(ax -> writeMoreThanTwo(ax, ax.classExpressions(), EQUIVALENT_CLASSES));
         // Nary disjoint properties
         o.axioms(AxiomType.DISJOINT_OBJECT_PROPERTIES).sorted(ooc)
-            .forEach(ax -> writeMoreThanTwo(ax, ax.properties(),
-                DISJOINT_PROPERTIES));
+            .forEach(ax -> writeMoreThanTwo(ax, ax.properties(), DISJOINT_PROPERTIES));
         // Nary equivalent properties
         o.axioms(AxiomType.EQUIVALENT_OBJECT_PROPERTIES).sorted(ooc)
-            .forEach(ax -> writeMoreThanTwo(ax, ax.properties(),
-                EQUIVALENT_PROPERTIES));
+            .forEach(ax -> writeMoreThanTwo(ax, ax.properties(), EQUIVALENT_PROPERTIES));
         // Nary disjoint properties
         o.axioms(AxiomType.DISJOINT_DATA_PROPERTIES).sorted(ooc)
-            .forEach(ax -> writeMoreThanTwo(ax, ax.properties(),
-                DISJOINT_PROPERTIES));
+            .forEach(ax -> writeMoreThanTwo(ax, ax.properties(), DISJOINT_PROPERTIES));
         // Nary equivalent properties
         o.axioms(AxiomType.EQUIVALENT_DATA_PROPERTIES).sorted(ooc)
-            .forEach(ax -> writeMoreThanTwo(ax, ax.properties(),
-                EQUIVALENT_PROPERTIES));
+            .forEach(ax -> writeMoreThanTwo(ax, ax.properties(), EQUIVALENT_PROPERTIES));
         // Nary different individuals
         o.axioms(AxiomType.DIFFERENT_INDIVIDUALS).sorted(ooc)
-            .forEach(ax -> writeMoreThanTwo(ax, ax.individuals(),
-                DIFFERENT_INDIVIDUALS));
-        o.axioms(AxiomType.SWRL_RULE).sorted(ooc)
-            .forEach(rule -> writeSection(RULE, Collections.singleton(rule)
-                .iterator(), ", ", false));
+            .forEach(ax -> writeMoreThanTwo(ax, ax.individuals(), DIFFERENT_INDIVIDUALS, true));
+        o.axioms(AxiomType.SAME_INDIVIDUAL).sorted(ooc)
+            .forEach(ax -> writeMoreThanTwo(ax, ax.individuals(), SAME_INDIVIDUAL, true));
+        o.axioms(AxiomType.SWRL_RULE).sorted(ooc).forEach(
+            rule -> writeSection(RULE, Collections.singleton(rule).iterator(), ", ", false));
         flush();
+    }
+
+    protected <T> void writeMoreThanTwo(OWLAxiom ax, Stream<T> stream, ManchesterOWLSyntax section,
+        boolean writeTwoIfAnnotated) {
+        List<T> individuals = asList(stream);
+        if (individuals.size() > 2 || writeTwoIfAnnotated && individuals.size() == 2
+            && !ax.annotationsAsList().isEmpty()) {
+            SectionMap<Object, OWLAxiom> map = new SectionMap<>();
+            map.put(individuals, ax);
+            writeSection(section, map, ",", false);
+        }
     }
 
     protected <T> void writeMoreThanTwo(OWLAxiom ax, Stream<T> stream,
@@ -354,7 +364,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!(sfp instanceof ManchesterOWLSyntaxPrefixNameShortFormProvider)) {
             return;
         }
-        ManchesterOWLSyntaxPrefixNameShortFormProvider prov = (ManchesterOWLSyntaxPrefixNameShortFormProvider) sfp;
+        ManchesterOWLSyntaxPrefixNameShortFormProvider prov =
+            (ManchesterOWLSyntaxPrefixNameShortFormProvider) sfp;
         Map<String, String> prefixMap = prov.getPrefixName2PrefixMap();
         prefixMap.entrySet().stream().sorted((o1, o2) -> o1.getKey().compareTo(o2.getKey()))
             .forEach(value -> {
@@ -451,11 +462,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.EQUIVALENT_CLASSES)) {
             SectionMap<Object, OWLAxiom> equivalentClasses = new SectionMap<>();
             filtersort(o.equivalentClassesAxioms(cls),
-                ax -> ((OWLEquivalentClassesAxiom) ax).classExpressions()
-                    .count() == 2).forEach(ax -> {
-                ax.getClassExpressionsMinus(cls).forEach(c -> equivalentClasses.put(c, ax));
-                axioms.add(ax);
-            });
+                ax -> ((OWLEquivalentClassesAxiom) ax).classExpressions().count() == 2)
+                    .forEach(ax -> {
+                        ax.getClassExpressionsMinus(cls).forEach(c -> equivalentClasses.put(c, ax));
+                        axioms.add(ax);
+                    });
             equivalentClasses.remove(cls);
             writeSection(EQUIVALENT_TO, equivalentClasses, ",", true);
         }
@@ -486,8 +497,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             SectionMap<Object, OWLAxiom> disjointClasses = new SectionMap<>();
             filtersort(o.disjointClassesAxioms(cls)).forEach(ax -> {
                 if (ax.classExpressions().count() == 2) {
-                    OWLClassExpression disjointWith = ax.getClassExpressionsMinus(cls).iterator()
-                        .next();
+                    OWLClassExpression disjointWith =
+                        ax.getClassExpressionsMinus(cls).iterator().next();
                     disjointClasses.put(disjointWith, ax);
                 }
                 axioms.add(ax);
@@ -513,12 +524,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         if (!isFiltered(AxiomType.CLASS_ASSERTION)) {
             SectionMap<Object, OWLAxiom> individuals = new SectionMap<>();
-            filtersort(o.classAssertionAxioms(cls),
-                ax -> renderExtensions || ((OWLClassAssertionAxiom) ax)
-                    .getIndividual().isAnonymous()).forEach(ax -> {
-                individuals.put(ax.getIndividual(), ax);
-                axioms.add(ax);
-            });
+            filtersort(o.classAssertionAxioms(cls), ax -> renderExtensions
+                || ((OWLClassAssertionAxiom) ax).getIndividual().isAnonymous()).forEach(ax -> {
+                    individuals.put(ax.getIndividual(), ax);
+                    axioms.add(ax);
+                });
             writeSection(INDIVIDUALS, individuals, ",", true);
         }
         if (!isFiltered(AxiomType.SWRL_RULE)) {
@@ -589,13 +599,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         if (!isFiltered(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
             filtersort(o.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF),
-                ax -> ((OWLSubPropertyChainOfAxiom) ax)
-                    .getSuperProperty().equals(property)).forEach(ax -> {
-                SectionMap<Object, OWLAxiom> map = new SectionMap<>();
-                map.put(ax.getPropertyChain(), ax);
-                writeSection(SUB_PROPERTY_CHAIN, map, " o ", false);
-                axioms.add(ax);
-            });
+                ax -> ((OWLSubPropertyChainOfAxiom) ax).getSuperProperty().equals(property))
+                    .forEach(ax -> {
+                        SectionMap<Object, OWLAxiom> map = new SectionMap<>();
+                        map.put(ax.getPropertyChain(), ax);
+                        writeSection(SUB_PROPERTY_CHAIN, map, " o ", false);
+                        axioms.add(ax);
+                    });
         }
         SectionMap<Object, OWLAxiom> characteristics = new SectionMap<>();
         if (!isFiltered(AxiomType.FUNCTIONAL_OBJECT_PROPERTY)) {
@@ -773,19 +783,21 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             writeSection(TYPES, expressions, ",", true);
         }
         List<OWLPropertyAssertionAxiom<?, ?>> assertions = Stream
-            .of(o.objectPropertyAssertionAxioms(individual), o
-                    .negativeObjectPropertyAssertionAxioms(individual),
-                o.dataPropertyAssertionAxioms(individual), o
-                    .negativeDataPropertyAssertionAxioms(individual)).flatMap(x -> x).sorted(ooc)
-            .collect(toList());
+            .of(o.objectPropertyAssertionAxioms(individual),
+                o.negativeObjectPropertyAssertionAxioms(individual),
+                o.dataPropertyAssertionAxioms(individual),
+                o.negativeDataPropertyAssertionAxioms(individual))
+            .flatMap(x -> x).sorted(ooc).collect(toList());
         if (!assertions.isEmpty()) {
             handleAssertions(assertions);
         }
         if (!isFiltered(AxiomType.SAME_INDIVIDUAL)) {
             Collection<OWLIndividual> inds = sortedCollection();
             filtersort(o.sameIndividualAxioms(individual)).forEach(ax -> {
-                add(inds, ax.individuals());
-                axioms.add(ax);
+                if (ax.getIndividualsAsList().size() == 2 && ax.annotationsAsList().isEmpty()) {
+                    add(inds, ax.individuals());
+                    axioms.add(ax);
+                }
             });
             inds.remove(individual);
             writeSection(SAME_AS, inds.iterator(), ",", true);
@@ -794,7 +806,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             Collection<OWLIndividual> inds = sortedCollection();
             Collection<OWLDifferentIndividualsAxiom> nary = sortedCollection();
             filtersort(o.differentIndividualAxioms(individual)).forEach(ax -> {
-                if (ax.individuals().count() == 2) {
+                if (ax.getIndividualsAsList().size() == 2 && ax.annotationsAsList().isEmpty()) {
                     add(inds, ax.individuals());
                     axioms.add(ax);
                 } else {
@@ -804,9 +816,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             inds.remove(individual);
             writeSection(DIFFERENT_FROM, inds.iterator(), ",", true);
             if (renderExtensions) {
-                nary.forEach(
-                    ax -> writeSection(DIFFERENT_INDIVIDUALS, ax.individuals().iterator(), ", ",
-                        false));
+                nary.forEach(ax -> writeSection(DIFFERENT_INDIVIDUALS, ax.individuals().iterator(),
+                    ", ", false));
             }
         }
         writeEntitySectionEnd(INDIVIDUAL.toString());
@@ -821,7 +832,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         incrementTab(1);
         writeNewLine();
         fireSectionRenderingStarted(FACTS.toString());
-        for (Iterator<OWLPropertyAssertionAxiom<?, ?>> it = assertions.iterator(); it.hasNext(); ) {
+        for (Iterator<OWLPropertyAssertionAxiom<?, ?>> it = assertions.iterator(); it.hasNext();) {
             OWLPropertyAssertionAxiom<?, ?> ax = it.next();
             fireSectionItemPrepared(FACTS.toString());
             Iterator<OWLAnnotation> annos = ax.annotations().iterator();
@@ -895,15 +906,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
             Collection<OWLAnnotationProperty> properties = sortedCollection();
             o.subAnnotationPropertyOfAxioms(property).filter(this::isDisplayed)
-                .forEach(ax -> properties.add(ax
-                    .getSuperProperty()));
+                .forEach(ax -> properties.add(ax.getSuperProperty()));
             writeSection(SUB_PROPERTY_OF, properties.iterator(), ",", true);
         }
         if (!isFiltered(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
             Collection<IRI> iris = sortedCollection();
             o.annotationPropertyDomainAxioms(property).filter(this::isDisplayed)
-                .forEach(ax -> iris.add(ax
-                    .getDomain()));
+                .forEach(ax -> iris.add(ax.getDomain()));
             writeSection(DOMAIN, iris.iterator(), ",", true);
         }
         if (!isFiltered(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
@@ -973,8 +982,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     private void writeSection(ManchesterOWLSyntax keyword, SectionMap<Object, OWLAxiom> content,
-        String delimeter,
-        boolean newline) {
+        String delimeter, boolean newline) {
         String sec = keyword.toString();
         if (content.isNotEmpty() || renderingDirector.renderEmptyFrameSection(keyword, o)) {
             fireSectionRenderingPrepared(sec);
@@ -983,13 +991,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             incrementTab(4);
             writeNewLine();
             fireSectionRenderingStarted(sec);
-            for (Iterator<Object> it = content.getSectionObjects().iterator(); it.hasNext(); ) {
+            for (Iterator<Object> it = content.getSectionObjects().iterator(); it.hasNext();) {
                 Object obj = it.next();
-                Collection<Collection<OWLAnnotation>> annotationSets = content
-                    .getAnnotationsForSectionObject(obj);
-                for (Iterator<Collection<OWLAnnotation>> annosSetIt = annotationSets.iterator();
-                    annosSetIt
-                        .hasNext(); ) {
+                Collection<Collection<OWLAnnotation>> annotationSets =
+                    content.getAnnotationsForSectionObject(obj);
+                for (Iterator<Collection<OWLAnnotation>> annosSetIt =
+                    annotationSets.iterator(); annosSetIt.hasNext();) {
                     Collection<OWLAnnotation> annos = annosSetIt.next();
                     fireSectionItemPrepared(sec);
                     if (!annos.isEmpty()) {
@@ -998,8 +1005,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                         write(ManchesterOWLSyntax.ANNOTATIONS.toString());
                         write(": ");
                         pushTab(getIndent() + 1);
-                        for (Iterator<OWLAnnotation> annoIt = annos.iterator();
-                            annoIt.hasNext(); ) {
+                        for (Iterator<OWLAnnotation> annoIt = annos.iterator(); annoIt.hasNext();) {
                             annoIt.next().accept(this);
                             if (annoIt.hasNext()) {
                                 write(", ");
@@ -1014,8 +1020,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     if (obj instanceof OWLObject) {
                         ((OWLObject) obj).accept(this);
                     } else if (obj instanceof Collection) {
-                        for (Iterator<?> listIt = ((Collection<?>) obj).iterator();
-                            listIt.hasNext(); ) {
+                        for (Iterator<?> listIt = ((Collection<?>) obj).iterator(); listIt
+                            .hasNext();) {
                             Object object = listIt.next();
                             if (object instanceof OWLObject) {
                                 ((OWLObject) object).accept(this);
@@ -1253,8 +1259,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         /**
          * Instantiates a new default rendering director.
          */
-        DefaultRenderingDirector() {
-        }
+        DefaultRenderingDirector() {}
 
         @Override
         public boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword,
@@ -1267,8 +1272,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
         private final Map<O, Collection<V>> object2Axioms = new LinkedHashMap<>();
 
-        SectionMap() {
-        }
+        SectionMap() {}
 
         boolean isNotEmpty() {
             return !object2Axioms.isEmpty();
