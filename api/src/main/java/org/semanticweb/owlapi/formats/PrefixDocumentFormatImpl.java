@@ -110,6 +110,11 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
     }
 
     @Override
+    public String getPrefixIRIIgnoreQName(IRI iri) {
+        return nsm.getPrefixIRIIgnoreQName(iri);
+    }
+
+    @Override
     public void copyPrefixesFrom(PrefixManager from) {
         nsm.copyPrefixesFrom(from);
     }

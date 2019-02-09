@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.manchestersyntax.renderer;
 
 import java.util.Map;
+import java.util.Objects;
 import javax.annotation.Nullable;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
@@ -89,7 +90,12 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
 
     @Override
     public String getShortForm(OWLEntity entity) {
-        String sf = prefixManager.getShortForm(entity);
+        IRI iri = entity.getIRI();
+        String sf = prefixManager.getPrefixIRIIgnoreQName(iri);
+        if (sf == null || Objects.equals(iri.toString(), sf)) {
+            // prefix creation failed
+            sf = iri.toQuotedString();
+        }
         if (sf.startsWith(":")) {
             return sf.substring(1);
         } else {

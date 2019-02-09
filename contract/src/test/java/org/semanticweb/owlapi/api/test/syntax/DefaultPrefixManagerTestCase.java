@@ -40,6 +40,14 @@ public class DefaultPrefixManagerTestCase {
     }
 
     @Test
+    public void getPrefixIRIIgnoreQName() {
+        DefaultPrefixManager pm = new DefaultPrefixManager();
+        pm.setPrefix("foaf:", "http://xmlns.com/foaf/0.1/");
+        assertEquals("foaf:test:test",
+            pm.getPrefixIRIIgnoreQName(IRI("http://xmlns.com/foaf/0.1/test:test")));
+    }
+
+    @Test
     public void testContainsDefaultPrefixNames() {
         PrefixManager pm = new DefaultPrefixManager();
         assertTrue(pm.containsPrefixMapping("owl:"));

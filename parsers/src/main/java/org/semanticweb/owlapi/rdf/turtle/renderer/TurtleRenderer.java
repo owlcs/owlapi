@@ -153,7 +153,7 @@ public class TurtleRenderer extends RDFRendererBase {
         } else if (iri.equals(ontology.getOntologyID().getOntologyIRI().orElse(null))) {
             writeAsURI(iri.toString());
         } else {
-            String name = pm.getPrefixIRI(iri);
+            String name = pm.getPrefixIRIIgnoreQName(iri);
             if (name == null) {
                 // No QName!
                 // As this is not an XML output, qnames are not necessary; other

@@ -90,6 +90,20 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         }
 
         @Override
+        public String getPrefixIRIIgnoreQName(IRI iri) {
+            for (OWLAnnotationAssertionAxiom annotation : ontology
+                .getAnnotationAssertionAxioms(iri)) {
+                if (annotation.getProperty().isLabel()) {
+                    OWLAnnotationValue value = annotation.getValue();
+                    if (value instanceof OWLLiteral) {
+                        return '<' + ((OWLLiteral) value).getLiteral() + '>';
+                    }
+                }
+            }
+            return delegate.getPrefixIRIIgnoreQName(iri);
+        }
+
+        @Override
         public boolean containsPrefixMapping(String prefixName) {
             return delegate.containsPrefixMapping(prefixName);
         }

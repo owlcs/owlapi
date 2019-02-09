@@ -112,6 +112,15 @@ public interface PrefixManager extends Serializable {
     String getPrefixIRI(IRI iri);
 
     /**
+     * Gets the prefix IRI given a IRI (URI). Does not restrict the response to be a QName
+     * 
+     * @param iri The IRI whose prefix it to be retrieved
+     * @return The prefix IRI for this IRI, or {@code null} if a prefix IRI cannot be generated.
+     */
+    @Nullable
+    String getPrefixIRIIgnoreQName(IRI iri);
+
+    /**
      * Gets the prefix names that have a mapping in this prefix manager.
      *
      * @return The prefix names as a set of strings.
