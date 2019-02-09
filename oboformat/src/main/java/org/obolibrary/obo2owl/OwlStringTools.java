@@ -7,32 +7,42 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import javax.annotation.Nullable;
-import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
+
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.utilities.Injector;
 
 /**
- * Tools to read and write a set of owl axioms to/from a string. Used to
- * preserve untranslatable axioms in an owl2obo conversion.
+ * Tools to read and write a set of owl axioms to/from a string. Used to preserve untranslatable
+ * axioms in an owl2obo conversion.
  */
 public class OwlStringTools {
 
-    private OwlStringTools() {
-    }
+    private OwlStringTools() {}
+
+    private static final Injector injector = injector();
 
     /**
-     * Create a string for the given set of axioms. Return null for empty sets
-     * or if the set is null.
+     * Create a string for the given set of axioms. Return null for empty sets or if the set is
+     * null.
      *
      * @param axioms axioms
      * @param translationManager translationManager
@@ -45,7 +55,13 @@ public class OwlStringTools {
             return "";
         }
         try {
-            OWLOntology ontology = translationManager.createOntology();
+
+            OWLOntologyManager m =
+                injector.inject(injector.getImplementation(OWLOntologyManager.class));
+            Set<OWLOntologyFactory> set = new HashSet<>();
+            translationManager.getOntologyFactories().forEach(set::add);
+            m.setOntologyFactories(set);
+            OWLOntology ontology = m.createOntology();
             ontology.add(axioms);
             OWLFunctionalSyntaxRenderer r = new OWLFunctionalSyntaxRenderer();
             Writer writer = new StringWriter();
@@ -58,9 +74,14 @@ public class OwlStringTools {
         }
     }
 
+    private static Injector injector() {
+        Injector i = new Injector();
+        i.bindToOne(() -> new ReentrantReadWriteLock(), ReadWriteLock.class);
+        return i;
+    }
+
     /**
-     * Parse the axioms from the given axiom string. Returns null for empty and
-     * null strings.
+     * Parse the axioms from the given axiom string. Returns null for empty and null strings.
      *
      * @param axioms axioms
      * @param translationManager translationManager
@@ -73,19 +94,21 @@ public class OwlStringTools {
             return Collections.emptySet();
         }
         try {
-            OWLFunctionalSyntaxOWLParser p = new OWLFunctionalSyntaxOWLParser();
-            OWLOntologyDocumentSource documentSource = new StringDocumentSource(axioms);
-            OWLOntology ontology = translationManager.createOntology();
-            p.parse(documentSource, ontology, translationManager.getOntologyLoaderConfiguration());
-            return asList(ontology.axioms());
+            OWLOntologyDocumentSource documentSource = new StringDocumentSource(axioms,
+                IRI.generateDocumentIRI(), new FunctionalSyntaxDocumentFormat(), null);
+            OWLOntologyManager m =
+                injector.inject(injector.getImplementation(OWLOntologyManager.class));
+            Set<OWLOntologyFactory> set = new HashSet<>();
+            translationManager.getOntologyFactories().forEach(set::add);
+            m.setOntologyFactories(set);
+            return asList(m.loadOntologyFromOntologyDocument(documentSource).axioms());
         } catch (UnloadableImportException | OWLOntologyCreationException | OWLParserException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
     /**
-     * Exception indicating an un-recoverable error during the handling of axiom
-     * strings.
+     * Exception indicating an un-recoverable error during the handling of axiom strings.
      */
     public static class OwlStringException extends OWLRuntimeException {
 
