@@ -206,7 +206,11 @@ public class OWLAPIOwl2Obo {
      * @return The OBO ID of the ontology
      */
     public static String getOntologyId(OWLOntology ontology) {
-        return getOntologyId(ontology.getOntologyID().getOntologyIRI().orElse(null));
+        Optional<IRI> ontologyIRI = ontology.getOntologyID().getOntologyIRI();
+        if (!ontologyIRI.isPresent()) {
+            return "";
+        }
+        return getOntologyId(ontologyIRI.get());
     }
 
     /**
@@ -1577,6 +1581,9 @@ public class OWLAPIOwl2Obo {
                     if (fillerId == null) {
                         error(ax, true);
                         return;
+                    }
+                    if (r instanceof OWLObjectAllValuesFrom) {
+                        qvs.add(new QualifierValue("all_only", "true"));
                     }
                     f.addClause(createRelationshipClauseWithRestrictions(r, fillerId, qvs, ax));
                 } else if (sup instanceof OWLObjectIntersectionOf) {
