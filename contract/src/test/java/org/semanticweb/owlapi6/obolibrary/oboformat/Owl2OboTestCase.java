@@ -105,7 +105,7 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
         addAnnotation(classB, df.getRDFSComment(), df.getOWLLiteral("Comment"), simple);
         // translate to OBO
         OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(simple.getOWLOntologyManager());
-        OBODoc oboDoc = owl2obo.convert(simple, storerParameters);
+        OBODoc oboDoc = owl2obo.convert(simple);
         // check result: expect only one term frame for class TEST:0001 with
         // alt_id Test:0002
         Collection<Frame> termFrames = oboDoc.getTermFrames();
@@ -148,7 +148,7 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
         addAnnotation(p2, df.getRDFSComment(), df.getOWLLiteral("Comment"), simple);
         // translate to OBO
         OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(simple.getOWLOntologyManager());
-        OBODoc oboDoc = owl2obo.convert(simple, storerParameters);
+        OBODoc oboDoc = owl2obo.convert(simple);
         // check result: expect only one typdef frame for prop TEST:0001 with
         // alt_id Test:0002
         Collection<Frame> termFrames = oboDoc.getTypedefFrames();

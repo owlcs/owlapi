@@ -65,7 +65,7 @@ public class RoundTripTestBasics extends OboFormatTestBasics {
 
     public boolean roundTripOWLOOntology(OWLOntology oo, boolean isExpectRoundtrip) throws IOException {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(m1);
-        OBODoc obodoc = bridge.convert(oo, storerParameters);
+        OBODoc obodoc = bridge.convert(oo);
         writeOBO(obodoc);
         obodoc.check();
         OWLOntology oo2 = convert(obodoc);
