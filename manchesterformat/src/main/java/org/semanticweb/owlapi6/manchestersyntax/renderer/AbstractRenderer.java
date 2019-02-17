@@ -24,7 +24,6 @@ import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi6.model.OWLRuntimeException;
 import org.semanticweb.owlapi6.model.PrefixManager;
-import org.semanticweb.owlapi6.utilities.ShortFormProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -170,7 +169,7 @@ public class AbstractRenderer {
         return write(prefix).write(keyword.toString()).write(suffix);
     }
 
-    protected ShortFormProvider getShortFormProvider() {
+    protected PrefixManager getPrefixManager() {
         return prefixManager;
     }
 
