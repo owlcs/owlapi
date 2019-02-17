@@ -112,6 +112,10 @@ import org.semanticweb.owlapi6.builders.BuilderSubObjectProperty;
 import org.semanticweb.owlapi6.builders.BuilderSymmetricObjectProperty;
 import org.semanticweb.owlapi6.builders.BuilderTransitiveObjectProperty;
 import org.semanticweb.owlapi6.builders.BuilderUnionOf;
+import org.semanticweb.owlapi6.impl.OWLDataFactoryImpl;
+import org.semanticweb.owlapi6.impl.OWLOntologyFactoryImpl;
+import org.semanticweb.owlapi6.impl.OWLOntologyImpl;
+import org.semanticweb.owlapi6.impl.OWLOntologyManagerImpl;
 import org.semanticweb.owlapi6.model.EntityType;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
@@ -209,11 +213,6 @@ import org.semanticweb.owlapi6.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi6.model.SWRLVariable;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 import org.semanticweb.owlapi6.vocab.OWLFacet;
-
-import uk.ac.manchester.cs.owlapi6.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owlapi6.OWLOntologyFactoryImpl;
-import uk.ac.manchester.cs.owlapi6.OWLOntologyImpl;
-import uk.ac.manchester.cs.owlapi6.OWLOntologyManagerImpl;
 
 @RunWith(Parameterized.class)
 public class BuildersTestCase<Q> {

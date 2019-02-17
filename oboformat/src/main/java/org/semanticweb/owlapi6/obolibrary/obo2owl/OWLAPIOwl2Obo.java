@@ -107,10 +107,7 @@ public class OWLAPIOwl2Obo {
      */
     public static final Map<String, String> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
     private static final String TOP_BOTTOM_NONTRANSLATEABLE = "Assertions using owl:Thing or owl:Nothing are not translateable OBO";
-    /**
-     * The log.
-     */
-    private static final Logger LOG = LoggerFactory.getLogger(OWLAPIOwl2Obo.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(OWLAPIOwl2Obo.class);
     private static final String IRI_CLASS_SYNONYMTYPEDEF = Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_synonymtypedef";
     private static final String IRI_CLASS_SUBSETDEF = Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_subsetdef";
     private static final Set<String> SKIPPED_QUALIFIERS = new HashSet<>(Arrays.asList("gci_relation", "gci_filler",
@@ -119,7 +116,7 @@ public class OWLAPIOwl2Obo {
     protected final Set<OWLAxiom> untranslatableAxioms = new HashSet<>();
     protected final Map<String, String> idSpaceMap = new HashMap<>();
     protected final Set<OWLAnnotationProperty> apToDeclare = new HashSet<>();
-    private final OWLDataFactory df;
+    protected final OWLDataFactory df;
     protected OWLOntologyManager manager;
     protected OWLOntology owlOntology;
     protected OBODoc obodoc;
@@ -259,7 +256,8 @@ public class OWLAPIOwl2Obo {
      *        alt_id
      * @return alt id check result
      */
-    private static Optional<OboAltIdCheckResult> checkForOboAltId(Collection<OWLAnnotationAssertionAxiom> annotations) {
+    protected static Optional<OboAltIdCheckResult>
+        checkForOboAltId(Collection<OWLAnnotationAssertionAxiom> annotations) {
         String replacedBy = null;
         boolean isMerged = false;
         boolean isDeprecated = false;

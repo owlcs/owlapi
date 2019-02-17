@@ -18,6 +18,12 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Supplier;
 
+import org.semanticweb.owlapi6.impl.CompressionEnabled;
+import org.semanticweb.owlapi6.impl.OWLDataFactoryImpl;
+import org.semanticweb.owlapi6.impl.concurrent.ConcurrentOWLOntologyBuilder;
+import org.semanticweb.owlapi6.impl.concurrent.NoOpReadWriteLock;
+import org.semanticweb.owlapi6.impl.concurrent.NonConcurrentDelegate;
+import org.semanticweb.owlapi6.impl.concurrent.NonConcurrentOWLOntologyBuilder;
 import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi6.model.OWLDataFactory;
 import org.semanticweb.owlapi6.model.OWLOntologyBuilder;
@@ -25,13 +31,6 @@ import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
 import org.semanticweb.owlapi6.utilities.Injector;
-
-import uk.ac.manchester.cs.owlapi6.CompressionEnabled;
-import uk.ac.manchester.cs.owlapi6.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owlapi6.concurrent.ConcurrentOWLOntologyBuilder;
-import uk.ac.manchester.cs.owlapi6.concurrent.NoOpReadWriteLock;
-import uk.ac.manchester.cs.owlapi6.concurrent.NonConcurrentDelegate;
-import uk.ac.manchester.cs.owlapi6.concurrent.NonConcurrentOWLOntologyBuilder;
 
 /**
  * Provides a point of convenience for creating an {@code OWLOntologyManager} with commonly required

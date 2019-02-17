@@ -14,8 +14,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLEntity;
-
-import uk.ac.manchester.cs.owlapi6.modularity.ModuleType;
+import org.semanticweb.owlapi6.modularity.ModuleType;
 
 /**
  * atomical decomposer of the ontology

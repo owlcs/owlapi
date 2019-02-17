@@ -877,11 +877,6 @@ public class OBOFormatParser {
         return cl;
     }
 
-    private Clause parseTypedefIntersectionOf(Clause cl) {
-        // single values only
-        return parseIdRef(cl);
-    }
-
     // ----------------------------------------
     // Synonyms
     // ----------------------------------------

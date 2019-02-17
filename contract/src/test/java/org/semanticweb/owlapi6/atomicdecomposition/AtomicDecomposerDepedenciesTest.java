@@ -13,10 +13,6 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
 
-import uk.ac.manchester.cs.owlapi6.atomicdecomposition.Atom;
-import uk.ac.manchester.cs.owlapi6.atomicdecomposition.AtomicDecomposition;
-import uk.ac.manchester.cs.owlapi6.atomicdecomposition.AtomicDecompositionImpl;
-
 public class AtomicDecomposerDepedenciesTest {
 
     @Test
