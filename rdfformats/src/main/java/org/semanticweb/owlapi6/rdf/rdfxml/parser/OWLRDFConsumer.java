@@ -1339,6 +1339,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     protected boolean handleAllDifferentTriple(IRI s, IRI p, IRI o) {
         IRI listNode = object(s, OWL_MEMBERS, OWL_DISTINCT_MEMBERS);
         if (listNode != null) {
+            List<OWLAnnotation> annotations = pendingAnns(s);
+            pendingAnnotations.addAll(annotations);
             add(df.getOWLDifferentIndividualsAxiom(individuals(listNode), pendingAnns()));
             return tripleIndex.consumeTriple(s, p, o);
         }
