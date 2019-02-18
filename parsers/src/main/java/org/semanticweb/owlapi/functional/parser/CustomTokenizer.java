@@ -6,10 +6,14 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Created by ses on 6/9/14.
  */
 class CustomTokenizer implements TokenManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomTokenizer.class);
 
     private int unreadChar = -1;
     private final Reader in;
@@ -56,14 +60,19 @@ class CustomTokenizer implements TokenManager {
                     default:
                         return readTextualToken(c);
                 }
+            } catch (@SuppressWarnings("unused") EOFException e) {
+                return makeToken(EOF, "");
             } catch (IOException e) {
+                LOGGER.warn("IOException reading from functioanl stream", e);
                 return makeToken(EOF, "");
             }
         }
     }
 
     private void skipComment() throws IOException {
-        for (char c = readChar(); c != '\n'; c = readChar()) {}
+        for (char c = readChar(); c != '\n'; c = readChar()) {
+            // read to end of line
+        }
     }
 
     private Token readStringLiteralToken() throws IOException {
@@ -102,11 +111,13 @@ class CustomTokenizer implements TokenManager {
                 }
             }
         } catch (IOException e) {
+            LOGGER.warn("IOException reading from functioanl stream", e);
             return makeToken(ERROR, "<");
         }
     }
 
-    private Token readTextualToken(char c) throws IOException {
+    private Token readTextualToken(char input) throws IOException {
+        char c = input;
         if (c >= '0' && c <= '9') {
             return readNumber(c);
         }
@@ -140,14 +151,12 @@ class CustomTokenizer implements TokenManager {
                     default:
                         buf.append(c);
                 }
-            } catch (EOFException eof) {
+            } catch (@SuppressWarnings("unused") EOFException eof) {
                 break;
             }
         }
         String s = buf.toString();
         if (colonIndex >= 0) {
-            // System.out.println("colonIndex >=0 - so expect abbreviated IRI from "
-            // + buf);
             if (colonIndex == s.length() - 1) {
                 return makeToken(PNAME_NS, s);
             } else {
@@ -365,7 +374,8 @@ class CustomTokenizer implements TokenManager {
         }
     }
 
-    private Token readNumber(char c) throws IOException {
+    private Token readNumber(char input) throws IOException {
+        char c = input;
         buf.setLength(0);
         buf.append(c);
         while (true) {
