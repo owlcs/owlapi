@@ -60,8 +60,10 @@ class CustomTokenizer implements TokenManager {
                     default:
                         return readTextualToken(c);
                 }
+            } catch (@SuppressWarnings("unused") EOFException e) {
+                return makeToken(EOF, "");
             } catch (IOException e) {
-                LOGGER.warn("Error reading from functional stream", e);
+                LOGGER.warn("IOException reading from functioanl stream", e);
                 return makeToken(EOF, "");
             }
         }
@@ -69,6 +71,7 @@ class CustomTokenizer implements TokenManager {
 
     private void skipComment() throws IOException {
         for (char c = readChar(); c != '\n'; c = readChar()) {
+            // read to end of line
         }
     }
 
@@ -107,7 +110,7 @@ class CustomTokenizer implements TokenManager {
                 }
             }
         } catch (IOException e) {
-            LOGGER.warn("Error reading from functional stream", e);
+            LOGGER.warn("IOException reading from functioanl stream", e);
             return makeToken(ERROR, "<");
         }
     }
@@ -147,15 +150,12 @@ class CustomTokenizer implements TokenManager {
                     default:
                         buf.append(c);
                 }
-            } catch (EOFException e) {
-                LOGGER.trace("End of file reached", e);
+            } catch (@SuppressWarnings("unused") EOFException eof) {
                 break;
             }
         }
         String s = buf.toString();
         if (colonIndex >= 0) {
-            // System.out.println("colonIndex >=0 - so expect abbreviated IRI from "
-            // + buf);
             if (colonIndex == s.length() - 1) {
                 return makeToken(PNAME_NS, s);
             } else {
