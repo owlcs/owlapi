@@ -15,11 +15,15 @@ import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParser
 import java.io.EOFException;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Created by ses on 6/9/14.
  */
 class CustomTokenizer implements TokenManager {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomTokenizer.class);
     private int unreadChar = -1;
     private final Provider in;
     private boolean eofSeen = false;
@@ -73,7 +77,10 @@ class CustomTokenizer implements TokenManager {
                     default:
                         return readTextualToken(c);
                 }
-            } catch (@SuppressWarnings("unused") IOException e) {
+            } catch (@SuppressWarnings("unused") EOFException e) {
+                return makeToken(EOF, "");
+            } catch (IOException e) {
+                LOGGER.warn("IOException reading from functioanl stream", e);
                 return makeToken(EOF, "");
             }
         }
@@ -119,7 +126,8 @@ class CustomTokenizer implements TokenManager {
                     return makeToken(FULLIRI, buf.toString());
                 }
             }
-        } catch (@SuppressWarnings("unused") IOException e) {
+        } catch (IOException e) {
+            LOGGER.warn("IOException reading from functioanl stream", e);
             return makeToken(ERROR, "<");
         }
     }
