@@ -36,10 +36,10 @@ import javax.annotation.Nullable;
 
 import org.junit.Test;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
+import org.semanticweb.owlapi6.documents.StringDocumentTarget;
 import org.semanticweb.owlapi6.formats.OBODocumentFormat;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi6.io.StringDocumentTarget;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
 import org.semanticweb.owlapi6.model.OWLAnnotationAssertionAxiom;

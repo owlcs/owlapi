@@ -8,13 +8,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi6.documents.StreamDocumentSource;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi6.formats.RioRDFXMLDocumentFormat;
-import org.semanticweb.owlapi6.formats.RioRDFXMLDocumentFormatFactory;
-import org.semanticweb.owlapi6.io.StreamDocumentSource;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.rdf.rdfxml.parser.RDFXMLParser;
+import org.semanticweb.owlapi6.rioformats.RioRDFXMLDocumentFormat;
+import org.semanticweb.owlapi6.rioformats.RioRDFXMLDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

@@ -498,7 +498,7 @@ class HPPCSet<S> implements Collection<S> {
     @Override
     public Iterator<S> iterator() {
         final ObjectHashSet<S>.EntryIterator iterator = delegate.iterator();
-        return new Iterator<S>() {
+        return new Iterator<>() {
 
             @Override
             public boolean hasNext() {

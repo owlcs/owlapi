@@ -35,7 +35,7 @@
  */
 package org.semanticweb.owlapi6.rio;
 
-import org.semanticweb.owlapi6.formats.BinaryRDFDocumentFormatFactory;
+import org.semanticweb.owlapi6.rioformats.BinaryRDFDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

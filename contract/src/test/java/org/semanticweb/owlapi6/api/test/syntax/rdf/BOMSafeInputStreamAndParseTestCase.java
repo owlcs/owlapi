@@ -14,7 +14,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
-import org.semanticweb.owlapi6.io.ReaderDocumentSource;
+import org.semanticweb.owlapi6.documents.ReaderDocumentSource;
 import org.semanticweb.owlapi6.model.OWLDataFactory;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 

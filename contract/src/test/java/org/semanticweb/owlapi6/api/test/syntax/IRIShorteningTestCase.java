@@ -10,12 +10,12 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi6.documents.StringDocumentTarget;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi6.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi6.formats.TurtleDocumentFormatFactory;
-import org.semanticweb.owlapi6.io.StringDocumentTarget;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi6.model.OWLNamedIndividual;
@@ -31,7 +31,7 @@ import org.semanticweb.owlapi6.vocab.OWLRDFVocabulary;
 public class IRIShorteningTestCase extends TestBase {
 
     @Test
-    public void shouldAllowColonColon() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldAllowColonColon() throws OWLOntologyStorageException {
         OWLOntology o = ontForShortening();
         assertionOnShortening(o, new TurtleDocumentFormatFactory());
         assertionOnShortening(o, new FunctionalSyntaxDocumentFormatFactory());
@@ -39,7 +39,7 @@ public class IRIShorteningTestCase extends TestBase {
     }
 
     protected void assertionOnShortening(OWLOntology o, OWLDocumentFormatFactory f)
-        throws OWLOntologyStorageException, OWLOntologyCreationException {
+        throws OWLOntologyStorageException {
         OWLDocumentFormat turtle = f.createFormat();
         o.getPrefixManager().withPrefix("s", "urn:test:individual#");
         StringDocumentTarget saveOntology = saveOntology(o, turtle);
@@ -49,9 +49,10 @@ public class IRIShorteningTestCase extends TestBase {
         roundTrip(o, turtle);
     }
 
-    protected OWLOntology ontForShortening() throws OWLOntologyCreationException {
+    protected OWLOntology ontForShortening() {
         OWLOntology o = getOWLOntology(df.getIRI("urn:ontology:testcolons"));
-        o.addAxiom(df.getOWLDeclarationAxiom(df.getOWLNamedIndividual(df.getIRI("urn:test:individual#colona:colonb"))));
+        o.addAxiom(df.getOWLDeclarationAxiom(
+            df.getOWLNamedIndividual(df.getIRI("urn:test:individual#colona:colonb"))));
         return o;
     }
 
@@ -93,10 +94,12 @@ public class IRIShorteningTestCase extends TestBase {
     }
 
     @Test
-    public void shouldOutputURNsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldOutputURNsCorrectly()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = m.createOntology(df.getIRI("urn:ontology:", "test"));
         o.add(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty("urn:test#", "p"),
-            df.getOWLNamedIndividual("urn:test#", "test"), df.getOWLNamedIndividual("urn:other:", "test")));
+            df.getOWLNamedIndividual("urn:test#", "test"),
+            df.getOWLNamedIndividual("urn:other:", "test")));
         equal(o, roundTrip(o));
     }
 }

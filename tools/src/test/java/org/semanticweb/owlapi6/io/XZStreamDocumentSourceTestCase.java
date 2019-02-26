@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import java.io.StringWriter;
 
 import org.junit.Test;
+import org.semanticweb.owlapi6.documents.XZStreamDocumentSource;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
 

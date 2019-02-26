@@ -15,8 +15,8 @@ package org.semanticweb.owlapi6.api.test.anonymous;
 import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.TestFiles;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi6.documents.StringDocumentSource;
 import org.semanticweb.owlapi6.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi6.io.StringDocumentSource;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 
 /**

@@ -17,8 +17,8 @@ import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi6.documents.StreamDocumentSource;
 import org.semanticweb.owlapi6.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi6.io.StreamDocumentSource;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyAlreadyExistsException;

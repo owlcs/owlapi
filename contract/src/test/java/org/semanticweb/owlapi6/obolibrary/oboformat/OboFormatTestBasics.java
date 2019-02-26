@@ -22,9 +22,9 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi6.documents.StringDocumentTarget;
 import org.semanticweb.owlapi6.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi6.io.OWLStorerParameters;
-import org.semanticweb.owlapi6.io.StringDocumentTarget;
 import org.semanticweb.owlapi6.model.AxiomType;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLAnnotationAssertionAxiom;

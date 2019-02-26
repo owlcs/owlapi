@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi6.io.StringDocumentTarget;
+import org.semanticweb.owlapi6.documents.StringDocumentTarget;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;

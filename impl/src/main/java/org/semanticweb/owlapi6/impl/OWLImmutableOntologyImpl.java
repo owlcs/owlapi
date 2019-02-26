@@ -33,11 +33,11 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi6.io.IRIDocumentTarget;
+import org.semanticweb.owlapi6.documents.IRIDocumentTarget;
+import org.semanticweb.owlapi6.documents.StreamDocumentTarget;
 import org.semanticweb.owlapi6.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi6.io.OWLStorer;
 import org.semanticweb.owlapi6.io.OWLStorerFactory;
-import org.semanticweb.owlapi6.io.StreamDocumentTarget;
 import org.semanticweb.owlapi6.model.AxiomType;
 import org.semanticweb.owlapi6.model.EntityType;
 import org.semanticweb.owlapi6.model.HasSignature;

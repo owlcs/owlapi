@@ -23,6 +23,8 @@ import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.dlsyntax.parser.DLSyntaxOWLParserFactory;
 import org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntaxStorerFactory;
+import org.semanticweb.owlapi6.documents.StringDocumentSource;
+import org.semanticweb.owlapi6.documents.StringDocumentTarget;
 import org.semanticweb.owlapi6.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.KRSS2DocumentFormat;
@@ -37,8 +39,6 @@ import org.semanticweb.owlapi6.functional.renderer.FunctionalSyntaxStorerFactory
 import org.semanticweb.owlapi6.io.OWLParserException;
 import org.semanticweb.owlapi6.io.OWLParserFactory;
 import org.semanticweb.owlapi6.io.OWLStorerFactory;
-import org.semanticweb.owlapi6.io.StringDocumentSource;
-import org.semanticweb.owlapi6.io.StringDocumentTarget;
 import org.semanticweb.owlapi6.krss1.parser.KRSSOWLParserFactory;
 import org.semanticweb.owlapi6.krss2.parser.KRSS2OWLParserFactory;
 import org.semanticweb.owlapi6.krss2.renderer.KRSS2OWLSyntaxStorerFactory;

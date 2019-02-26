@@ -12,7 +12,8 @@ public class TestFiles {
 
     private static String string(String name) {
         try {
-            return IOUtils.toString(TestFiles.class.getResourceAsStream(name), StandardCharsets.UTF_8);
+            return IOUtils.toString(TestFiles.class.getResourceAsStream(name),
+                StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -20,9 +21,10 @@ public class TestFiles {
 
     private static String[] strings(String name) {
         try {
-            Iterator<String> readLines = IOUtils
-                .readLines(TestFiles.class.getResourceAsStream(name), StandardCharsets.UTF_8).iterator();
-            List<String> toReturn = new ArrayList<String>();
+            Iterator<String> readLines =
+                IOUtils.readLines(TestFiles.class.getResourceAsStream(name), StandardCharsets.UTF_8)
+                    .iterator();
+            List<String> toReturn = new ArrayList<>();
             StringBuilder b = new StringBuilder();
             while (readLines.hasNext()) {
                 String l = readLines.next();
@@ -336,7 +338,8 @@ public class TestFiles {
     public static final String resolveAgainstBase = string("resolveAgainstBase.txt");
     public static final String turtleWithShared = string("turtleWithShared.txt");
     public static final String scientificNotationPlus = string("scientificNotationPlus.txt");
-    public static final String scientificNotationWithMinus = string("scientificNotationWithMinus.txt");
+    public static final String scientificNotationWithMinus =
+        string("scientificNotationWithMinus.txt");
     public static final String scientificNotation = string("scientificNotation.txt");
     public static final String parseTwo = string("parseTwo.txt");
     public static final String parseOne = string("parseOne.txt");
@@ -450,7 +453,8 @@ public class TestFiles {
     public static String parseSWRL2 = string("parseSWRL2.txt");
     public static String individualSWRLTest = string("individualSWRLTest.txt");
     public static String parseDataProperty = string("parseDataProperty.txt");
-    public static String subPropertiesAsObjectProperties = string("subPropertiesAsObjectProperties.txt");
+    public static String subPropertiesAsObjectProperties =
+        string("subPropertiesAsObjectProperties.txt");
     public static String lhsSubsetofRhs = string("lhsSubsetofRhs.txt");
     public static String swrlParser = string("swrlParser.txt");
     public static final String cardMultipleDigits = string("cardMultipleDigits.txt");
@@ -461,15 +465,19 @@ public class TestFiles {
     public static final String manSyntaxInput = string("manSyntaxInput.txt");
     public static final String manSyntaxRule = string("manSyntaxRule.txt");
     public static final String manSyntaxParserTest = string("manSyntaxParserTest.txt");
-    public static final String annotatedAnnotationMansyntax = string("annotatedAnnotationMansyntax.txt");
+    public static final String annotatedAnnotationMansyntax =
+        string("annotatedAnnotationMansyntax.txt");
     public static final String parseSWRLVariable = string("parseSWRLVariable.txt");
     public static final String error1OnStrictParsing = string("error1OnStrictParsing.txt");
-    public static final String undeclaredAnnotationPropertyTurtle = string("undeclaredAnnotationPropertyTurtle.txt");
-    public static final String undeclaredAnnotationProperty = string("undeclaredAnnotationProperty.txt");
+    public static final String undeclaredAnnotationPropertyTurtle =
+        string("undeclaredAnnotationPropertyTurtle.txt");
+    public static final String undeclaredAnnotationProperty =
+        string("undeclaredAnnotationProperty.txt");
     public static final String largeInteger = string("largeInteger.txt");
     public static final String minusInf = string("minusInf.txt");
     public static final String webOnt = string("webOnt.txt");
-    public static String wrong = "rdf:datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral\"";
+    public static String wrong =
+        "rdf:datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral\"";
     public static String correct = "rdf:parseType=\"Literal\"";
     public static String preamble = string("preamble.txt");
     public static String closure = string("closure.txt");
@@ -485,7 +493,8 @@ public class TestFiles {
     public static final String latexExpectedOutput = string("latexExpectedOutput.txt");
     public static final String latexWithInverse = string("latexWithInverse.txt");
     public static final String latexWithUnderscores = string("latexWithUnderscores.txt");
-    public static final String doNotIncludeExternalEntities = string("doNotIncludeExternalEntities.txt");
+    public static final String doNotIncludeExternalEntities =
+        string("doNotIncludeExternalEntities.txt");
     public static final String roundtripEntities = string("roundtripEntities.txt");
     public static final String convertToFunctional = string("convertToFunctional.txt");
     public static final String roundtripRIWithQuery = string("roundtripRIWithQuery.txt");

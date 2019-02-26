@@ -28,7 +28,7 @@ import java.util.function.BiFunction;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi6.io.IRIDocumentSource;
+import org.semanticweb.owlapi6.documents.IRIDocumentSource;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
 import org.semanticweb.owlapi6.oboformat.OBOFormatOWLAPIParser;
 import org.semanticweb.owlapi6.obolibrary.oboformat.model.Clause;

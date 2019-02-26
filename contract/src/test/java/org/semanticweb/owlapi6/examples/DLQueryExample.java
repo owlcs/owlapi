@@ -26,10 +26,10 @@ import java.util.Set;
 
 import org.semanticweb.owlapi6.api.test.TestFiles;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
+import org.semanticweb.owlapi6.documents.StringDocumentSource;
 import org.semanticweb.owlapi6.expression.OWLEntityChecker;
 import org.semanticweb.owlapi6.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi6.io.StringDocumentSource;
 import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLClassExpression;

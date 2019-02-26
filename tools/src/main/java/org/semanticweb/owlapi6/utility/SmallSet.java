@@ -95,7 +95,7 @@ public class SmallSet<T> extends AbstractSet<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
 
             int cp = 1;
 

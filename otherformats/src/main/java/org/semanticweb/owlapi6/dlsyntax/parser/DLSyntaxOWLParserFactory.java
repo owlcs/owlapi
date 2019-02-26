@@ -36,9 +36,9 @@
 package org.semanticweb.owlapi6.dlsyntax.parser;
 
 import org.semanticweb.owlapi6.annotations.HasPriority;
+import org.semanticweb.owlapi6.documents.OWLParserFactoryImpl;
 import org.semanticweb.owlapi6.formats.DLSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi6.io.OWLParser;
-import org.semanticweb.owlapi6.io.OWLParserFactoryImpl;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

@@ -51,10 +51,10 @@ import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.vocabulary.XMLSchema;
-import org.semanticweb.owlapi6.io.RDFLiteral;
-import org.semanticweb.owlapi6.io.RDFNode;
-import org.semanticweb.owlapi6.io.RDFResourceIRI;
-import org.semanticweb.owlapi6.io.RDFTriple;
+import org.semanticweb.owlapi6.documents.RDFLiteral;
+import org.semanticweb.owlapi6.documents.RDFNode;
+import org.semanticweb.owlapi6.documents.RDFResourceIRI;
+import org.semanticweb.owlapi6.documents.RDFTriple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

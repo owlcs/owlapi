@@ -4,18 +4,16 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
 
 import org.junit.Test;
+import org.semanticweb.owlapi6.documents.StringDocumentTarget;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.OBODocumentFormat;
-import org.semanticweb.owlapi6.io.StringDocumentTarget;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 
-@SuppressWarnings("javadoc")
 public class RoundTripUniversalRestrictionTestCase extends RoundTripTestCase {
 
     @Test
-    public void shouldRoundtripAll() throws OWLOntologyStorageException, OWLOntologyCreationException {
+    public void shouldRoundtripAll() throws OWLOntologyStorageException {
         String in = "Prefix(:=<http://purl.obolibrary.org/obo/uni.obo#>)\n"
             + "Ontology(<http://purl.obolibrary.org/obo/uni.obo.owl>\n" + "Declaration(Class(:A))\n"
             + "Declaration(Class(:B))\n" + "Declaration(ObjectProperty(:part_of))\n"

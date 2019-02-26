@@ -46,14 +46,14 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import org.semanticweb.owlapi6.documents.FileDocumentSource;
+import org.semanticweb.owlapi6.documents.IRIDocumentSource;
+import org.semanticweb.owlapi6.documents.StreamDocumentSource;
 import org.semanticweb.owlapi6.impl.concurrent.ConcurrentPriorityCollection;
-import org.semanticweb.owlapi6.io.FileDocumentSource;
-import org.semanticweb.owlapi6.io.IRIDocumentSource;
 import org.semanticweb.owlapi6.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi6.io.OWLParserFactory;
 import org.semanticweb.owlapi6.io.OWLStorerFactory;
 import org.semanticweb.owlapi6.io.OntologyIRIMappingNotFoundException;
-import org.semanticweb.owlapi6.io.StreamDocumentSource;
 import org.semanticweb.owlapi6.model.AddAxiom;
 import org.semanticweb.owlapi6.model.AddImport;
 import org.semanticweb.owlapi6.model.AddOntologyAnnotation;

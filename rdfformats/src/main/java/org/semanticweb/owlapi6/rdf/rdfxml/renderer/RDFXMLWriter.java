@@ -14,7 +14,7 @@ package org.semanticweb.owlapi6.rdf.rdfxml.renderer;
 
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 
-import org.semanticweb.owlapi6.io.RDFResource;
+import org.semanticweb.owlapi6.documents.RDFResource;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLObject;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;

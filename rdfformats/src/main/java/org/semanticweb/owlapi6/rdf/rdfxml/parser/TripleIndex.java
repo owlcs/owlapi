@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.apache.commons.rdf.api.Triple;
-import org.semanticweb.owlapi6.io.RDFTriple;
+import org.semanticweb.owlapi6.documents.RDFTriple;
 import org.semanticweb.owlapi6.model.HasIRI;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLLiteral;

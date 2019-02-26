@@ -13,10 +13,10 @@ import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi6.io.RDFLiteral;
-import org.semanticweb.owlapi6.io.RDFResourceBlankNode;
-import org.semanticweb.owlapi6.io.RDFResourceIRI;
-import org.semanticweb.owlapi6.io.RDFTriple;
+import org.semanticweb.owlapi6.documents.RDFLiteral;
+import org.semanticweb.owlapi6.documents.RDFResourceBlankNode;
+import org.semanticweb.owlapi6.documents.RDFResourceIRI;
+import org.semanticweb.owlapi6.documents.RDFTriple;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

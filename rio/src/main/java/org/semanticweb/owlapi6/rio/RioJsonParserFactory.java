@@ -36,7 +36,7 @@
 package org.semanticweb.owlapi6.rio;
 
 import org.semanticweb.owlapi6.annotations.HasPriority;
-import org.semanticweb.owlapi6.formats.RDFJsonDocumentFormatFactory;
+import org.semanticweb.owlapi6.rioformats.RDFJsonDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

@@ -36,9 +36,9 @@
 package org.semanticweb.owlapi6.krss2.parser;
 
 import org.semanticweb.owlapi6.annotations.HasPriority;
+import org.semanticweb.owlapi6.documents.OWLParserFactoryImpl;
 import org.semanticweb.owlapi6.formats.KRSS2DocumentFormatFactory;
 import org.semanticweb.owlapi6.io.OWLParser;
-import org.semanticweb.owlapi6.io.OWLParserFactoryImpl;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

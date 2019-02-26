@@ -57,11 +57,11 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi6.io.RDFNode;
-import org.semanticweb.owlapi6.io.RDFResource;
-import org.semanticweb.owlapi6.io.RDFResourceBlankNode;
-import org.semanticweb.owlapi6.io.RDFResourceIRI;
-import org.semanticweb.owlapi6.io.RDFTriple;
+import org.semanticweb.owlapi6.documents.RDFNode;
+import org.semanticweb.owlapi6.documents.RDFResource;
+import org.semanticweb.owlapi6.documents.RDFResourceBlankNode;
+import org.semanticweb.owlapi6.documents.RDFResourceIRI;
+import org.semanticweb.owlapi6.documents.RDFTriple;
 import org.semanticweb.owlapi6.model.HasIRI;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;

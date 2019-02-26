@@ -24,6 +24,12 @@ import org.junit.Assume;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
+import org.semanticweb.owlapi6.documents.RDFLiteral;
+import org.semanticweb.owlapi6.documents.RDFNode;
+import org.semanticweb.owlapi6.documents.RDFResource;
+import org.semanticweb.owlapi6.documents.RDFResourceBlankNode;
+import org.semanticweb.owlapi6.documents.RDFResourceIRI;
+import org.semanticweb.owlapi6.documents.RDFTriple;
 import org.semanticweb.owlapi6.model.NodeID;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 

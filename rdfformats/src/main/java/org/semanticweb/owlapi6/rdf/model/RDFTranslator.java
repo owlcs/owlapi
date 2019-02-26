@@ -19,12 +19,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi6.io.RDFLiteral;
-import org.semanticweb.owlapi6.io.RDFNode;
-import org.semanticweb.owlapi6.io.RDFResource;
-import org.semanticweb.owlapi6.io.RDFResourceBlankNode;
-import org.semanticweb.owlapi6.io.RDFResourceIRI;
-import org.semanticweb.owlapi6.io.RDFTriple;
+import org.semanticweb.owlapi6.documents.RDFLiteral;
+import org.semanticweb.owlapi6.documents.RDFNode;
+import org.semanticweb.owlapi6.documents.RDFResource;
+import org.semanticweb.owlapi6.documents.RDFResourceBlankNode;
+import org.semanticweb.owlapi6.documents.RDFResourceIRI;
+import org.semanticweb.owlapi6.documents.RDFTriple;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.NodeID;
 import org.semanticweb.owlapi6.model.OWLAnonymousIndividual;

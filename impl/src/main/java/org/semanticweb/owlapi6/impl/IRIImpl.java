@@ -16,9 +16,9 @@ import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNul
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi6.documents.ToStringRenderer;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
-import org.semanticweb.owlapi6.io.ToStringRenderer;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLObject;
