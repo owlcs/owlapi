@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
@@ -80,6 +82,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLMutableOntology;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
@@ -865,12 +868,18 @@ public class OWLOntologyManagerImpl
             SetOntologyID setID = (SetOntologyID) change;
             OWLOntology existingOntology =
                 ontologiesByID.get(((SetOntologyID) change).getNewOntologyID());
-            if (existingOntology != null && !change.getOntology().equals(existingOntology)) {
-                if (!change.getOntology().getAxioms().equals(existingOntology.getAxioms())) {
-                    LOGGER.error("OWLOntologyManagerImpl.checkForOntologyIDChange() existing:{}",
-                        existingOntology);
-                    LOGGER.error("OWLOntologyManagerImpl.checkForOntologyIDChange() new:{}",
-                        change.getOntology());
+            OWLOntology o = change.getOntology();
+            if (existingOntology != null && !o.equals(existingOntology)) {
+                if (!o.getAxioms().equals(existingOntology.getAxioms())) {
+                    String location = "OWLOntologyManagerImpl.checkForOntologyIDChange()";
+                    LOGGER.error(location + " existing:{}", existingOntology);
+                    LOGGER.error(location + " new:{}", o);
+                    Set<OWLLogicalAxiom> diff1 = o.getLogicalAxioms();
+                    Set<OWLLogicalAxiom> diff2 = existingOntology.getLogicalAxioms();
+                    diff1.removeAll(existingOntology.getLogicalAxioms());
+                    diff2.removeAll(o.getLogicalAxioms());
+                    LOGGER.error(location + " only in existing:{}", diff2);
+                    LOGGER.error(location + " only in new:{}", diff1);
                     throw new OWLOntologyRenameException(change.getChangeData(),
                         ((SetOntologyID) change).getNewOntologyID());
                 }
@@ -1068,7 +1077,16 @@ public class OWLOntologyManagerImpl
 
     @Override
     public OWLOntology loadOntology(IRI ontologyIRI) throws OWLOntologyCreationException {
-        return loadOntology(ontologyIRI, false, getOntologyLoaderConfiguration());
+        // if an ontology cyclically imports itself, the manager should not try to download from the
+        // same URL twice.
+        Object value = new Object();
+        if (!importedIRIs.containsKey(ontologyIRI)) {
+            importedIRIs.put(ontologyIRI, value);
+        }
+        OWLOntology loadOntology =
+            loadOntology(ontologyIRI, false, getOntologyLoaderConfiguration());
+        importedIRIs.remove(ontologyIRI, value);
+        return loadOntology;
     }
 
     @Nonnull
@@ -1252,6 +1270,19 @@ public class OWLOntologyManagerImpl
 
     protected OWLOntology actualParse(OWLOntologyDocumentSource documentSource,
         OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
+        // Check if this is an IRI source and the IRI has already been loaded - this will stop
+        // ontologies
+        // that cyclically import themselves from being loaded twice.
+        if (documentSource instanceof IRIDocumentSource) {
+            IRIDocumentSource source = (IRIDocumentSource) documentSource;
+            java.util.Optional<Entry<OWLOntologyID, IRI>> findAny =
+                documentIRIsByID.entrySet().stream()
+                    .filter(v -> Objects.equals(source.getDocumentIRI(), v.getValue())).findAny();
+            if (findAny.isPresent()) {
+                return getOntology(findAny.get().getKey());
+            }
+        }
+
         for (OWLOntologyFactory factory : ontologyFactories) {
             if (factory.canLoad(documentSource)) {
                 // Note - there is no need to add the ontology here,
