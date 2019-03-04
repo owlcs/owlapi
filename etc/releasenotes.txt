@@ -1,3 +1,17 @@
+## 5.1.10 04 March 2019
+
+### Bug fixes:
+
+*    Fix DLExpressivity checker never computes anything #810
+*    Jackson version to 2.9.8
+*    Fix ensure allValuesFrom axioms are not lost #808
+*    Fix HTTP 307 and HTTP 308 redirects are not followed #821
+*    Fix OBO renderer stuck with untranslatable axioms on concurrent managers
+*    Fix Annotations on DifferentIndividualsAxioms lost #816
+*    Fix No roundtrip for IRIs with colons in the fragment or path #817
+*    Fix EOFException in CustomTokenizer #813
+*    Fix Cyclic imports and missing declarations cause parsing error #798
+
 ## 5.1.9 12 December 2018
 
 ### Bug fixes:
