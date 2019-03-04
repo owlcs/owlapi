@@ -22,6 +22,20 @@ The following components are included:
 
 ## Release notes
 
+## 5.1.10 04 March 2019
+
+### Bug fixes:
+
+*    Fix DLExpressivity checker never computes anything #810
+*    Jackson version to 2.9.8
+*    Fix ensure allValuesFrom axioms are not lost #808
+*    Fix HTTP 307 and HTTP 308 redirects are not followed #821
+*    Fix OBO renderer stuck with untranslatable axioms on concurrent managers
+*    Fix Annotations on DifferentIndividualsAxioms lost #816
+*    Fix No roundtrip for IRIs with colons in the fragment or path #817
+*    Fix EOFException in CustomTokenizer #813
+*    Fix Cyclic imports and missing declarations cause parsing error #798
+
 ## 5.1.9 12 December 2018
 
 ### Bug fixes:
@@ -278,6 +292,16 @@ Features:
 *    Enabled OWLOntologyManager to build and keep an OntologyConfigurator instance
 *    Declaration of save methods on OWLOntology
 *    OWLAPI 5 uses Java 8
+
+## 4.5.9 1 February 2019
+
+### Bug fixes:
+
+*    Jackson version to 2.9.8
+*    Fix compatibility with Guava 27 #814
+*    Fix OBO renderer stuck with untranslatable axioms on concurrent managers
+*    Fix Annotations on DifferentIndividualsAxioms lost #816
+*    Fix No roundtrip for IRIs with colons in the fragment or path #817
 
 ## 4.5.8 22 December 2018
 
