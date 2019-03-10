@@ -1266,7 +1266,7 @@ public class OBOFormatParser {
                 sb.append(' ');
                 break;
             case 't':// tab
-                sb.append('\n');
+                sb.append('\t');
                 break;
             default:
                 // assume that any char after a backlash is an escaped char.
