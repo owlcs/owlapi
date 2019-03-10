@@ -2,8 +2,6 @@ package org.obolibrary.oboformat.parser;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,6 +32,9 @@ import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
  * implements the OBO Format 1.4 specification.
@@ -70,8 +71,7 @@ public class OBOFormatParser {
         stream = s;
         importCache.putAll(importsMap);
         Caffeine<String, String> builder = Caffeine.newBuilder().maximumWeight(8388608)
-            .weigher((String key,
-                String value) -> key.length());
+            .weigher((String key, String value) -> key.length());
         if (LOG.isDebugEnabled()) {
             builder.recordStats();
         }
@@ -183,8 +183,8 @@ public class OBOFormatParser {
      */
     public OBODoc parse(URL url) throws IOException {
         location = url;
-        BufferedReader in = new BufferedReader(
-            new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+        BufferedReader in =
+            new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
         return parse(in);
     }
 
@@ -271,8 +271,8 @@ public class OBOFormatParser {
             parseZeroOrMoreWsOptCmtNl();
         }
         // set OBO namespace in frames
-        String defaultOboNamespace = h
-            .getTagValue(OboFormatTag.TAG_DEFAULT_NAMESPACE, String.class);
+        String defaultOboNamespace =
+            h.getTagValue(OboFormatTag.TAG_DEFAULT_NAMESPACE, String.class);
         if (defaultOboNamespace != null) {
             addOboNamespace(obodoc.getTermFrames(), defaultOboNamespace);
             addOboNamespace(obodoc.getTypedefFrames(), defaultOboNamespace);
@@ -360,8 +360,7 @@ public class OBOFormatParser {
     private String checkRelation(String relId, String tag, @Nullable String frameId, OBODoc doc) {
         if (doc.getTypedefFrame(relId, followImport) == null) {
             return "The relation '" + relId + "' reference in" + " the tag '" + tag
-                + " ' in the frame of id '"
-                + frameId + "' is not declared";
+                + " ' in the frame of id '" + frameId + "' is not declared";
         }
         return null;
     }
@@ -371,8 +370,7 @@ public class OBOFormatParser {
         OBODoc doc) {
         if (doc.getTermFrame(classId, followImport) == null) {
             return "The class '" + classId + "' reference in" + " the tag '" + tag
-                + " ' in the frame of id '" + frameId
-                + "'is not declared";
+                + " ' in the frame of id '" + frameId + "'is not declared";
         }
         return null;
     }
@@ -449,8 +447,7 @@ public class OBOFormatParser {
             parseTermFrame(obodoc);
         } else if (rest.startsWith("[Instance]")) {
             LOG.error("Error: Instance frames are not supported yet. Parsing stopped at line: {}",
-                Integer.valueOf(
-                    stream.getLineNo()));
+                Integer.valueOf(stream.getLineNo()));
             while (!stream.eof()) {
                 stream.advanceLine();
             }
@@ -460,8 +457,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * term-frame ::= nl* '[Term]' nl id-Tag Class-ID EOL { term-frame-clause
-     * EOL }.
+     * term-frame ::= nl* '[Term]' nl id-Tag Class-ID EOL { term-frame-clause EOL }.
      *
      * @param obodoc obodoc
      * @throws OBOFormatParserException parser exception
@@ -485,8 +481,9 @@ public class OBOFormatParser {
                 f.freeze();
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
-                throw new OBOFormatParserException("Could not add frame " + f
-                    + " to document, duplicate frame definition?", e, stream.lineNo, stream.line);
+                throw new OBOFormatParserException(
+                    "Could not add frame " + f + " to document, duplicate frame definition?", e,
+                    stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Term] frame, but found unknown stanza type.");
@@ -587,8 +584,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * Typedef-frame ::= nl* '[Typedef]' nl id-Tag Class-ID EOL {
-     * Typedef-frame-clause EOL }.
+     * Typedef-frame ::= nl* '[Typedef]' nl id-Tag Class-ID EOL { Typedef-frame-clause EOL }.
      *
      * @param obodoc obodoc
      * @throws OBOFormatParserException parser exception
@@ -612,8 +608,9 @@ public class OBOFormatParser {
                 f.freeze();
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
-                throw new OBOFormatParserException("Could not add frame " + f
-                    + " to document, duplicate frame definition?", e, stream.lineNo, stream.line);
+                throw new OBOFormatParserException(
+                    "Could not add frame " + f + " to document, duplicate frame definition?", e,
+                    stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Typedef] frame, but found unknown stanza type.");
@@ -1018,8 +1015,7 @@ public class OBOFormatParser {
             }
         } else if (!optional) {
             error("Clause: " + cl.getTag()
-                + "; expected an xref list, or at least an empty list '[]' at pos: "
-                + stream.pos);
+                + "; expected an xref list, or at least an empty list '[]' at pos: " + stream.pos);
         }
     }
 
@@ -1110,8 +1106,8 @@ public class OBOFormatParser {
             v = getParseUntilAdv("\"");
         } else {
             v = getParseUntil(" ,}");
-            warn("qualifier values should be enclosed in quotes. You have: " + q + '=' + stream
-                .rest());
+            warn("qualifier values should be enclosed in quotes. You have: " + q + '='
+                + stream.rest());
         }
         if (v.isEmpty()) {
             warn("Empty value for qualifier in trailing qualifier block.");
@@ -1322,7 +1318,7 @@ public class OBOFormatParser {
                 sb.append(' ');
                 break;
             case 't':// tab
-                sb.append('\n');
+                sb.append('\t');
                 break;
             default:
                 // assume that any char after a backlash is an escaped char.
