@@ -30,7 +30,6 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,10 +70,8 @@ public class OBOFormatParser {
     protected OBOFormatParser(MyStream s, Map<String, OBODoc> importsMap) {
         stream = s;
         importCache.putAll(importsMap);
-        Caffeine<String, String> builder = Caffeine.newBuilder()
-            .maximumSize(ConfigurationOptions.CACHE_SIZE
-                .getValue(Integer.class, Collections.emptyMap()).longValue())
-            .maximumWeight(8388608).weigher((String key, String value) -> key.length());
+        Caffeine<String, String> builder = Caffeine.newBuilder().maximumWeight(8388608)
+            .weigher((String key, String value) -> key.length());
         if (LOG.isDebugEnabled()) {
             builder.recordStats();
         }
