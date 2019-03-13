@@ -119,7 +119,9 @@ public enum ConfigurationOptions {
      * automatically be loaded, 
      * false otherwise. By default 
      * imports are always loaded. */
-    DISABLE_IMPORTS_LOADING             (Boolean.FALSE);
+    DISABLE_IMPORTS_LOADING             (Boolean.FALSE),
+    /**Max number of elements for caches.*/
+    CACHE_SIZE                        (Integer.valueOf(2048));
     //@formatter:on
     private static final String PREFIX =
         "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
