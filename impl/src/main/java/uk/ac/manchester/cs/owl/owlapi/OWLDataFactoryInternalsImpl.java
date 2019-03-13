@@ -13,8 +13,8 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.lang.ref.WeakReference;
+import java.util.Collections;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.util.WeakIndexCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,7 +114,8 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         annotationPropertiesByURI = buildCache();
         languageTagInterner = Interners.newWeakInterner();
         Caffeine<Object, Object> builder =
-            Caffeine.newBuilder().maximumSize(512).expireAfterAccess(2, TimeUnit.MINUTES);
+            Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
+                .getValue(Integer.class, Collections.emptyMap()).longValue());
         if (logger.isDebugEnabled()) {
             builder.recordStats();
         }

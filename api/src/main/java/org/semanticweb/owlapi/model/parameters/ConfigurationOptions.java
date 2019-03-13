@@ -16,10 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This enum handles default values and config file or system property
- * overrides. The config file name is {@code owlapi.properties}; to enable, make
- * sure the file is in the classpath. The property names are
- * {@code "org.semanticweb.owlapi.model.parameters.ConfigurationOptions."+name()}
+ * This enum handles default values and config file or system property overrides. The config file
+ * name is {@code owlapi.properties}; to enable, make sure the file is in the classpath. The
+ * property names are {@code "org.semanticweb.owlapi.model.parameters.ConfigurationOptions."+name()}
  * , both in the properties file and in the system properties.
  */
 public enum ConfigurationOptions {
@@ -105,9 +104,12 @@ public enum ConfigurationOptions {
      * be trimmed to size after load.
      * If set to false, trim will
      * only happen on explicit call.*/
-    TRIM_TO_SIZE                        (Boolean.TRUE);
+    TRIM_TO_SIZE                        (Boolean.TRUE),
+    /**Max number of elements for caches.*/
+    CACHE_SIZE                        (Integer.valueOf(2048));
     //@formatter:on
-    private static final String PREFIX = "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
+    private static final String PREFIX =
+        "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
     private Object defaultValue;
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationOptions.class);
     private static final EnumMap<ConfigurationOptions, Object> owlapiProperties = loadProperties();
@@ -119,7 +121,8 @@ public enum ConfigurationOptions {
     private static EnumMap<ConfigurationOptions, Object> loadProperties() {
         EnumMap<ConfigurationOptions, Object> map = new EnumMap<>(ConfigurationOptions.class);
         Properties props = new Properties();
-        try (InputStream stream = ConfigurationOptions.class.getResourceAsStream("/owlapi.properties")) {
+        try (InputStream stream =
+            ConfigurationOptions.class.getResourceAsStream("/owlapi.properties")) {
             if (stream != null) {
                 props.load(stream);
             }
@@ -136,9 +139,8 @@ public enum ConfigurationOptions {
     }
 
     /**
-     * @param parameterName
-     *        parameter name - by default the full name of this enumeration plus
-     *        the enum member name
+     * @param parameterName parameter name - by default the full name of this enumeration plus the
+     *        enum member name
      * @return ,atching ConfigurationOptions member, or null if none found
      */
     @Nullable
@@ -150,10 +152,8 @@ public enum ConfigurationOptions {
     }
 
     /**
-     * @param value
-     *        value to parse according to the enum default value
-     * @param type
-     *        type of the returned value
+     * @param value value to parse according to the enum default value
+     * @param type type of the returned value
      * @return parsed value
      */
     protected <T> T parse(Object value, Class<T> type) {
@@ -173,15 +173,12 @@ public enum ConfigurationOptions {
     }
 
     /**
-     * @param type
-     *        type for this value
-     * @param overrides
-     *        local overrides
-     * @return value for this configuration option. Values are evaluated as
-     *         follows: first, check overrides; if no overrides are present,
-     *         check if a system property with the expected name is set; if not,
-     *         check the config file; if no value is set in the config file, use
-     *         the default defined in this enumeration.
+     * @param type type for this value
+     * @param overrides local overrides
+     * @return value for this configuration option. Values are evaluated as follows: first, check
+     *         overrides; if no overrides are present, check if a system property with the expected
+     *         name is set; if not, check the config file; if no value is set in the config file,
+     *         use the default defined in this enumeration.
      */
     public <T> T getValue(Class<T> type, Map<ConfigurationOptions, Object> overrides) {
         Object override = overrides.get(this);
@@ -201,8 +198,7 @@ public enum ConfigurationOptions {
     }
 
     /**
-     * @param type
-     *        type to cast to
+     * @param type type to cast to
      * @return default value
      */
     public <T> T getDefaultValue(Class<T> type) {

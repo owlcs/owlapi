@@ -26,6 +26,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -79,6 +80,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -113,7 +115,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         key.ints.getOntologyAnnotations(false).stream().flatMap(a->a.getAnnotationPropertiesInSignature().stream()).collect(Collectors.toSet()))));
     // @formatter:on
     static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
-        return Caffeine.newBuilder().weakKeys().softValues().build(c);
+        return Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
+            .getValue(Integer.class, Collections.emptyMap()).longValue()).build(c);
     }
 
     protected static void invalidateOntologyCaches(OWLImmutableOntologyImpl o) {

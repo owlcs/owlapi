@@ -18,6 +18,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -25,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -299,7 +301,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     // public creation
     private static final long serialVersionUID = 40000L;
     private static final LoadingCache<String, String> PREFIX_CACHE =
-        Caffeine.newBuilder().weakKeys().softValues().build(k -> k);
+        Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
+            .getValue(Integer.class, Collections.emptyMap()).longValue()).build(k -> k);
 
     @Nonnull
     private final String remainder;
