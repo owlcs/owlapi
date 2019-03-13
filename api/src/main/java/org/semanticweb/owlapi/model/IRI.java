@@ -21,6 +21,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
@@ -28,6 +29,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -44,8 +46,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     OWLPrimitive, HasShortForm, org.apache.commons.rdf.api.IRI {
 
     // Cache prefixes for memory gains.
-    private static final LoadingCache<String, String> CACHE =
-        Caffeine.newBuilder().maximumSize(2048).build(k -> k);
+    private static final LoadingCache<String, String> CACHE = Caffeine.newBuilder().maximumSize(
+        ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue())
+        .build(k -> k);
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
     // Impl - All constructors are private - factory methods are used for
     // public creation

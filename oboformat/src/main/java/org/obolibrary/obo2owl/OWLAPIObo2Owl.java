@@ -68,6 +68,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -140,8 +141,10 @@ public class OWLAPIObo2Owl {
      * loading of keys is recursive, and a bug in ConcurrentHashMap implementation causes livelocks
      * for this particular situation.
      */
-    private final com.google.common.cache.LoadingCache<String, IRI> idToIRICache =
-        CacheBuilder.newBuilder().maximumSize(1024).build(new CacheLoader<String, IRI>() {
+    private final com.google.common.cache.LoadingCache<String, IRI> idToIRICache = CacheBuilder
+        .newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
+            .getValue(Integer.class, Collections.emptyMap()).longValue())
+        .build(new CacheLoader<String, IRI>() {
 
             @Override
             public IRI load(String key) {

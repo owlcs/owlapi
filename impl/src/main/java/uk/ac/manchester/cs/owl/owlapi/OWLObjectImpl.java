@@ -41,6 +41,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 
 import com.github.benmanes.caffeine.cache.CacheLoader;
@@ -70,7 +71,8 @@ public abstract class OWLObjectImpl
     protected static LoadingCache<OWLObjectImpl, List<OWLAnnotationProperty>> annotationPropertiesSignatures =  build(key -> cacheSig(key, OWLEntity::isOWLAnnotationProperty,  OWLEntity::asOWLAnnotationProperty));
     // @formatter:on
     static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
-        return Caffeine.newBuilder().weakKeys().softValues().build(c);
+        return Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
+            .getValue(Integer.class, Collections.emptyMap()).longValue()).build(c);
     }
 
     static <T> List<T> cacheSig(OWLObject o, Predicate<OWLEntity> p, Function<OWLEntity, T> f) {

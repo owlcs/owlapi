@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Collections;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -23,6 +24,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -61,7 +63,8 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
     }
 
     private static <F, T> LoadingCache<F, T> builder(CacheLoader<F, T> f) {
-        return Caffeine.newBuilder().maximumSize(2048).build(f);
+        return Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
+            .getValue(Integer.class, Collections.emptyMap()).longValue()).build(f);
     }
 
     @Override
