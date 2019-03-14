@@ -1,3 +1,14 @@
+## 4.5.10 14 March 2019
+
+### Bug fixes:
+
+*    Fix HTTP 307 and HTTP 308 redirects are not followed (in 4.x) #821
+*    Fix Ensure allValuesFrom axioms are not lost #808
+*    Fix EOFException in CustomTokenizer #813
+*    Fix Cyclic imports and missing declarations cause parsing error #798
+*    Fix Unescaping characters: OBOFormatParser#handleNextChar() #822
+*    Fix IRI PREFIX_CACHE instance uses too much memory #825
+
 ## 4.5.9 1 February 2019
 
 ### Bug fixes:
