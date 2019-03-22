@@ -558,13 +558,9 @@ public class OBOFormatWriter {
         while (it.hasNext()) {
             sb.append(' ');
             String val = it.next().toString(); // TODO replace toString() method
-            if (val.contains(" ") || !val.contains(":")) {
-                sb.append('"');
-                sb.append(escapeOboString(val, EscapeMode.quotes));
-                sb.append('"');
-            } else {
-                sb.append(escapeOboString(val, EscapeMode.simple));
-            }
+            sb.append('"');
+            sb.append(escapeOboString(val, EscapeMode.quotes));
+            sb.append('"');
         }
         appendQualifiers(sb, clause);
         writeLine(sb, writer);
