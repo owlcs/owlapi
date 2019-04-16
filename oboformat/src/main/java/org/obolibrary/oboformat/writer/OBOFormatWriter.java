@@ -724,14 +724,10 @@ public class OBOFormatWriter {
             } else if (c == '{' && (mode == EscapeMode.most || mode == EscapeMode.parenthesis)) {
                 modfied = true;
                 sb.append("\\{");
-            }
-            // removed for compatibility with OBO-Edit
-            // else if (c == '}' && (mode == EscapeMode.most || mode ==
-            // EscapeMode.parenthesis)) {
-            // modfied = true;
-            // sb.append("\\}");
-            // }
-            else if (c == ',' && (mode == EscapeMode.xref || mode == EscapeMode.xrefList)) {
+            } else if (c == '}' && (mode == EscapeMode.most || mode == EscapeMode.parenthesis)) {
+                modfied = true;
+                sb.append("\\}");
+            } else if (c == ',' && (mode == EscapeMode.xref || mode == EscapeMode.xrefList)) {
                 modfied = true;
                 sb.append("\\,");
             } else if (c == ':' && (mode == EscapeMode.xref || mode == EscapeMode.xrefList)) {
@@ -740,6 +736,9 @@ public class OBOFormatWriter {
             } else if (c == ']' && mode == EscapeMode.xrefList) {
                 modfied = true;
                 sb.append("\\]");
+            } else if (c == '[' && mode == EscapeMode.xrefList) {
+                modfied = true;
+                sb.append("\\[");
             } else {
                 sb.append(c);
             }
