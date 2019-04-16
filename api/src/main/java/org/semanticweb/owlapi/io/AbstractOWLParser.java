@@ -115,25 +115,19 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                 || responseCode == HttpURLConnection.HTTP_MOVED_PERM
                 || responseCode == HttpURLConnection.HTTP_SEE_OTHER
                 // no constants for temporary and permanent redirect in HttpURLConnection
-                || responseCode == 307
-                || responseCode == 308) {
+                || responseCode == 307 || responseCode == 308) {
                 String location = con.getHeaderField("Location");
                 URL newURL = new URL(location);
-                String newProtocol = newURL.getProtocol();
-                if (!originalProtocol.equals(newProtocol)) {
-                    // then different protocols: redirect won't follow
-                    // automatically
-                    conn = newURL.openConnection();
-                    conn.addRequestProperty("Accept", actualAcceptHeaders);
-                    if (config.getAuthorizationValue() != null
-                        && !config.getAuthorizationValue().isEmpty()) {
-                        conn.setRequestProperty("Authorization", config.getAuthorizationValue());
-                    }
-                    if (config.isAcceptingHTTPCompression()) {
-                        conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
-                    }
-                    conn.setConnectTimeout(connectionTimeout);
+                conn = newURL.openConnection();
+                conn.addRequestProperty("Accept", actualAcceptHeaders);
+                if (config.getAuthorizationValue() != null
+                    && !config.getAuthorizationValue().isEmpty()) {
+                    conn.setRequestProperty("Authorization", config.getAuthorizationValue());
                 }
+                if (config.isAcceptingHTTPCompression()) {
+                    conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
+                }
+                conn.setConnectTimeout(connectionTimeout);
             }
         }
         String contentEncoding = conn.getContentEncoding();
