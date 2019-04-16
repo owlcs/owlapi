@@ -1012,9 +1012,15 @@ public class OBOFormatParser {
         }
         // check if there is a third value to parse
         parseZeroOrMoreWs();
-        String s = getParseUntil(" !{");
-        if (!s.isEmpty()) {
-            cl.addValue(s);
+        if (stream.peekCharIs('\"')) {
+            stream.consume("\"");
+            String desc = getParseUntilAdv("\"");
+            cl.addValue(desc);
+        } else {
+            String s = getParseUntil(" !{");
+            if (!s.isEmpty()) {
+                cl.addValue(s);
+            }
         }
     }
 
