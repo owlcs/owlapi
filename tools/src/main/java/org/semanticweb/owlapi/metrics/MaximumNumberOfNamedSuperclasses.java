@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static org.semanticweb.owlapi.search.Searcher.equivalent;
+import static org.semanticweb.owlapi.search.Searcher.sup;
 
 import java.util.HashSet;
 import java.util.List;
@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
@@ -36,8 +35,7 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     /**
      * Instantiates a new maximum number of named superclasses.
      * 
-     * @param o
-     *        ontology to use
+     * @param o ontology to use
      */
     public MaximumNumberOfNamedSuperclasses(@Nonnull OWLOntology o) {
         super(o);
@@ -59,9 +57,8 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
                 if (!processedClasses.contains(cls)) {
                     processedClasses.add(cls);
                     int curCount = 0;
-                    for (OWLClassExpression desc : equivalent(
-                            ont.getEquivalentClassesAxioms(cls),
-                            OWLClassExpression.class)) {
+                    for (OWLClassExpression desc : sup(ont.getSubClassAxiomsForSubClass(cls),
+                        OWLClassExpression.class)) {
                         if (!desc.isAnonymous()) {
                             curCount++;
                         }
@@ -76,11 +73,9 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange chg : changes) {
-            if (chg.isAxiomChange()
-                    && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
+            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
             }
         }
