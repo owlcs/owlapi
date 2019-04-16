@@ -48,6 +48,11 @@ public final class XMLWriterPreferences {
     public synchronized XMLWriterPreferences copy() {
         XMLWriterPreferences p = new XMLWriterPreferences();
         p.overrides.putAll(overrides);
+        p.setIndentSize(getIndentSize());
+        p.setBannersEnabled(isBannersEnabled());
+        p.setIndenting(isIndenting());
+        p.setLabelsAsBanner(isLabelsAsBanner());
+        p.setUseNamespaceEntities(isUseNamespaceEntities());
         return p;
     }
 

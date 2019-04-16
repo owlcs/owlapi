@@ -103,6 +103,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     private static final long serialVersionUID = 40000L;
     // @formatter:off
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLClassAxiom>>          ontgenAxioms  =                    build(OWLImmutableOntologyImpl::buildGenAxioms);
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLEntity>>              ontsignatures =                    build(OWLImmutableOntologyImpl::build);
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLAnonymousIndividual>> ontanonCaches =                    build(key -> asCacheable(key.ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet()));
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLClass>>              ontclassesSignatures =              build(key -> asCacheable(key.ints.get(OWLClass.class,               OWLAxiom.class).get().keySet()));
@@ -120,6 +121,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     }
 
     protected static void invalidateOntologyCaches(OWLImmutableOntologyImpl o) {
+        ontgenAxioms.invalidate(o);
         ontsignatures.invalidate(o);
         ontanonCaches.invalidate(o);
         ontclassesSignatures.invalidate(o);
@@ -128,6 +130,10 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         ontdatatypeSignatures.invalidate(o);
         ontindividualSignatures.invalidate(o);
         ontannotationPropertiesSignatures.invalidate(o);
+    }
+
+    private static Set<OWLClassAxiom> buildGenAxioms(OWLImmutableOntologyImpl key) {
+        return new LinkedHashSet<>(key.ints.getGeneralClassAxioms());
     }
 
     private static Set<OWLEntity> build(OWLImmutableOntologyImpl key) {
@@ -413,7 +419,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Set<OWLClassAxiom> getGeneralClassAxioms() {
-        return ints.getGeneralClassAxioms();
+        return ontgenAxioms.get(this);
     }
 
     @Override
