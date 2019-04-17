@@ -1,3 +1,14 @@
+## 4.5.11 17 April 2019
+
+### Bug fixes:
+
+*    Fix HTTP 307 and HTTP 308 redirects are not followed (in 4.x) #821
+*    Fix Missing escape character in OBO output #828
+*    Fix OWLDataPropertyAxiom not a subinterface of OWLPropertyAxiom #831
+*    Fix MaximumNumberOfNamedSuperclasses should count super classes #836
+*    Fix OWLOntology::getGeneralClassAxioms slow #839
+*    Fix roundtrip of escaped values #833
+
 ## 4.5.10 14 March 2019
 
 ### Bug fixes:
