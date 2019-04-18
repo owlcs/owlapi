@@ -177,7 +177,6 @@ public class DocumentSources {
         throws OWLOntologyInputSourceException {
         try {
             URL originalURL = documentIRI.toURI().toURL();
-            String originalProtocol = originalURL.getProtocol();
             URLConnection conn = originalURL.openConnection();
             String actualAcceptHeaders = acceptHeaders;
             if (!acceptHeaders.contains("text/plain")) {
@@ -196,7 +195,7 @@ public class DocumentSources {
             }
             int connectionTimeout = config.getConnectionTimeout();
             conn.setConnectTimeout(connectionTimeout);
-            conn = connect(config, originalProtocol, conn, connectionTimeout, actualAcceptHeaders);
+            conn = connect(config, conn, connectionTimeout, actualAcceptHeaders);
             String contentEncoding = conn.getContentEncoding();
             InputStream is = connectWithFiveRetries(documentIRI, config, conn, connectionTimeout,
                 contentEncoding);
@@ -211,8 +210,7 @@ public class DocumentSources {
     }
 
     protected static URLConnection connect(OWLOntologyLoaderConfiguration config,
-        String originalProtocol, URLConnection conn, int connectionTimeout, String acceptHeaders)
-        throws IOException {
+        URLConnection conn, int connectionTimeout, String acceptHeaders) throws IOException {
         if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
             // follow redirects to HTTPS
             HttpURLConnection con = (HttpURLConnection) conn;
@@ -226,12 +224,7 @@ public class DocumentSources {
                 || responseCode == 307 || responseCode == 308) {
                 String location = con.getHeaderField("Location");
                 URL newURL = new URL(location);
-                String newProtocol = newURL.getProtocol();
-                if (!originalProtocol.equals(newProtocol)) {
-                    // then different protocols: redirect won't follow
-                    // automatically
-                    return rebuildConnection(config, connectionTimeout, newURL, acceptHeaders);
-                }
+                return rebuildConnection(config, connectionTimeout, newURL, acceptHeaders);
             }
         }
         return conn;
