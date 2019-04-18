@@ -28,7 +28,6 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi6.documents.ToStringRenderer;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
@@ -46,6 +45,7 @@ import org.semanticweb.owlapi6.model.OWLObject;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLObjectType;
 import org.semanticweb.owlapi6.model.PrefixManager;
+import org.semanticweb.owlapi6.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi6.utility.OWLClassExpressionCollector;
 
 import com.github.benmanes.caffeine.cache.CacheLoader;
@@ -76,7 +76,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     // @formatter:on
     static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
         return Caffeine.newBuilder()
-            .maximumSize(ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue()).build(c);
+            .maximumSize(ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue())
+            .build(c);
     }
 
     static <T> List<T> cacheSig(OWLObject o, Predicate<OWLEntity> p, Function<OWLEntity, T> f) {

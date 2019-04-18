@@ -52,7 +52,6 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
 
-import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi6.model.EntityType;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.NodeID;
@@ -155,6 +154,7 @@ import org.semanticweb.owlapi6.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi6.model.SWRLRule;
 import org.semanticweb.owlapi6.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi6.model.SWRLVariable;
+import org.semanticweb.owlapi6.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi6.model.providers.ClassProvider;
 import org.semanticweb.owlapi6.utilities.XMLUtils;
 import org.semanticweb.owlapi6.utility.VersionInfo;
@@ -1198,7 +1198,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     private static <F, T> LoadingCache<F, T> builder(CacheLoader<F, T> f) {
         return Caffeine.newBuilder()
-            .maximumSize(ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue()).build(f);
+            .maximumSize(ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue())
+            .build(f);
     }
 
     protected OWLLiteral parseSpecialCases(String lexicalValue, OWLDatatype datatype) {
