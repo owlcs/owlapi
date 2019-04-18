@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static org.semanticweb.owlapi.search.Searcher.equivalent;
+import static org.semanticweb.owlapi.search.Searcher.sup;
 
 import java.util.HashSet;
 import java.util.List;
@@ -50,7 +50,7 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
         OptionalLong max = getOntologies()
             .flatMapToLong(o -> o.classesInSignature().filter(processedClasses::add)
                 .mapToLong(
-                    cls -> equivalent(o.equivalentClassesAxioms(cls), OWLClassExpression.class)
+                    cls -> sup(o.subClassAxiomsForSubClass(cls), OWLClassExpression.class)
                         .filter(d -> !d.isAnonymous()).count()))
             .max();
         return Integer.valueOf((int) max.orElse(0L));
