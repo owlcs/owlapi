@@ -316,7 +316,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         t.addClause(new Clause(OboFormatTag.TAG_COMMENT, comment));
         doc.addFrame(t);
         String oboString = renderOboToString(doc);
-        assertTrue(oboString.contains("comment: Comment with a '\\{' curly braces '}'"));
+        assertTrue(oboString.contains("comment: Comment with a '\\{' curly braces '\\}'"));
         OBODoc doc2 = parseOboToString(oboString);
         assertNotNull(doc2);
         Frame termFrame = doc2.getTermFrame(id);

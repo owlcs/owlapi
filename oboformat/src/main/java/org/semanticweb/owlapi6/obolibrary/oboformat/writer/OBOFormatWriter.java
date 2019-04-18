@@ -445,13 +445,13 @@ public class OBOFormatWriter {
         }
         replace = replace.replace("\n", "\\n");
         if (mode == EscapeMode.MOST || mode == EscapeMode.PARENTHESIS) {
-            replace = replace.replace("{", "\\{");
+            replace = replace.replace("{", "\\{").replace("}", "\\}");
         }
         if (mode == EscapeMode.XREF || mode == EscapeMode.XREFLIST) {
             replace = replace.replace(",", "\\,").replace(":", "\\:");
         }
         if (mode == EscapeMode.XREFLIST) {
-            replace = replace.replace("]", "\\]");
+            replace = replace.replace("[", "\\[").replace("]", "\\]");
         }
         return replace;
     }
