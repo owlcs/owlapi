@@ -640,7 +640,7 @@ public class OWLAPIObo2Owl {
                 // in theory, there should only be one tag
                 // but we can silently collapse multiple tags
                 headerFrame.getTagValues(tag, String.class)
-                    .forEach(s -> getOwlOntology().add(OwlStringTools.translate(s, manager)));
+                    .forEach(s -> OwlStringTools.translate(s, getOwlOntology()));
             } else {
                 headerFrame.getClauses(t)
                     .forEach(c -> addOntologyAnnotation(trTagToAnnotationProp(t),

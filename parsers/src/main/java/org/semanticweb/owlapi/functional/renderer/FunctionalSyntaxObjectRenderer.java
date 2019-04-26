@@ -14,8 +14,8 @@ package org.semanticweb.owlapi.functional.renderer;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION_ASSERTION;
@@ -110,12 +110,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
-
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -156,7 +157,6 @@ import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
@@ -234,49 +234,74 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  */
 public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
-    protected final OWLOntology ont;
+    protected final Optional<OWLOntology> ont;
     private final Writer writer;
-    @Nullable
-    protected AnnotationValueShortFormProvider labelMaker = null;
     private DefaultPrefixManager defaultPrefixManager;
-    private PrefixManager prefixManager;
+    protected Optional<AnnotationValueShortFormProvider> labelMaker = Optional.empty();
+    private Optional<PrefixManager> prefixManager = Optional.empty();
     private boolean writeEntitiesAsURIs = true;
     private boolean addMissingDeclarations = true;
+
+    protected Stream<? extends OWLAxiom> retrieve(OWLEntity e, OWLOntology o) {
+        if (e.isOWLClass()) {
+            return o.axioms((OWLClass) e, EXCLUDED);
+        }
+        if (e.isOWLObjectProperty()) {
+            return o.axioms((OWLObjectProperty) e, EXCLUDED);
+        }
+        if (e.isOWLDataProperty()) {
+            return o.axioms((OWLDataProperty) e, EXCLUDED);
+        }
+        if (e.isOWLNamedIndividual()) {
+            return o.axioms((OWLNamedIndividual) e, EXCLUDED);
+        }
+        if (e.isOWLDatatype()) {
+            return o.axioms((OWLDatatype) e, EXCLUDED);
+        }
+        if (e.isOWLAnnotationProperty()) {
+            return o.axioms((OWLAnnotationProperty) e, EXCLUDED);
+        }
+        return Stream.empty();
+    }
+
+
 
     /**
      * @param ontology the ontology
      * @param writer the writer
      */
     public FunctionalSyntaxObjectRenderer(OWLOntology ontology, Writer writer) {
-        ont = ontology;
+        ont = Optional.ofNullable(ontology);
         this.writer = writer;
         defaultPrefixManager = new DefaultPrefixManager();
-        prefixManager = defaultPrefixManager;
-        OWLDocumentFormat ontologyFormat = ontology.getNonnullFormat();
-        // reuse the setting on the existing format
-        addMissingDeclarations = ontologyFormat.isAddMissingTypes();
-        if (ontologyFormat instanceof PrefixDocumentFormat) {
-            prefixManager.copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
-            prefixManager
-                .setPrefixComparator(((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());
-        }
-        if (!ontology.isAnonymous() && prefixManager.getDefaultPrefix() == null) {
-            String existingDefault = prefixManager.getDefaultPrefix();
-            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
-            if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {
-                String defaultPrefix = ontologyIRIString;
-                if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
-                    defaultPrefix = ontologyIRIString + '#';
-                }
-                prefixManager.setDefaultPrefix(defaultPrefix);
+        ont.ifPresent(o -> {
+            OWLDocumentFormat ontologyFormat = o.getNonnullFormat();
+            // reuse the setting on the existing format
+            addMissingDeclarations = ontologyFormat.isAddMissingTypes();
+            if (ontologyFormat instanceof PrefixDocumentFormat) {
+                prefixManager = Optional.of(new DefaultPrefixManager());
+                prefixManager.get().copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
+                prefixManager.get().setPrefixComparator(
+                    ((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());
             }
-        }
-        Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        OWLDataFactory df = manager.getOWLDataFactory();
-        OWLAnnotationProperty labelProp = df.getOWLAnnotationProperty(RDFS_LABEL.getIRI());
-        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp),
-            prefLangMap, manager, defaultPrefixManager);
+            if (!o.isAnonymous() && prefixManager.get().getDefaultPrefix() == null) {
+                String existingDefault = prefixManager.get().getDefaultPrefix();
+                String ontologyIRIString = o.getOntologyID().getOntologyIRI().get().toString();
+                if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {
+                    String defaultPrefix = ontologyIRIString;
+                    if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
+                        defaultPrefix = ontologyIRIString + '#';
+                    }
+                    prefixManager.get().setDefaultPrefix(defaultPrefix);
+                }
+            }
+            Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
+            OWLOntologyManager manager = o.getOWLOntologyManager();
+            OWLDataFactory df = manager.getOWLDataFactory();
+            OWLAnnotationProperty labelProp = df.getOWLAnnotationProperty(RDFS_LABEL.getIRI());
+            labelMaker = Optional.of(new AnnotationValueShortFormProvider(
+                Collections.singletonList(labelProp), prefLangMap, manager, defaultPrefixManager));
+        });
     }
 
     /**
@@ -292,7 +317,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param prefixManager the new prefix manager
      */
     public void setPrefixManager(PrefixManager prefixManager) {
-        this.prefixManager = prefixManager;
+        this.prefixManager = Optional.ofNullable(prefixManager);
         if (prefixManager instanceof DefaultPrefixManager) {
             defaultPrefixManager = (DefaultPrefixManager) prefixManager;
         }
@@ -311,7 +336,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     protected void writePrefixes() {
-        prefixManager.getPrefixName2PrefixMap().forEach(this::writePrefix);
+        prefixManager.ifPresent(p -> p.getPrefixName2PrefixMap().forEach(this::writePrefix));
     }
 
     private void write(OWLXMLVocabulary v) {
@@ -335,7 +360,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void write(IRI iri) {
-        String qname = prefixManager.getPrefixIRIIgnoreQName(iri);
+        String qname = prefixManager.map(p -> p.getPrefixIRIIgnoreQName(iri)).orElse(null);
         if (qname != null) {
             boolean lastCharIsColon = qname.charAt(qname.length() - 1) == ':';
             if (!lastCharIsColon) {
@@ -379,7 +404,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeReturn();
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         Collection<IRI> illegals = OWLDocumentFormat.determineIllegalPunnings(
-            addMissingDeclarations, ontology.unsortedSignature(), ont.getPunnedIRIs(INCLUDED));
+            addMissingDeclarations, ontology.unsortedSignature(), ontology.getPunnedIRIs(INCLUDED));
         ontology.signature().forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
         writeSortedEntities("Annotation Properties", "Annotation Property",
             ontology.annotationPropertiesInSignature(EXCLUDED), writtenAxioms);
@@ -400,6 +425,122 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         flush();
     }
 
+    /**
+     * @param axioms axioms to render
+     * @return Stirng containing the axioms, rendered as if they were the only content of a fresh
+     *         ontology
+     */
+    public String renderAxioms(Collection<OWLAxiom> axioms) {
+        writePrefixes();
+        writeReturn();
+        writeReturn();
+        write(ONTOLOGY);
+        writeOpenBracket();
+        writeReturn();
+        Set<OWLAxiom> writtenAxioms = new HashSet<>();
+        Set<OWLEntity> signature = asSet(axioms.stream().flatMap(OWLAxiom::signature));
+        Collection<IRI> illegals = illegalPunnings(addMissingDeclarations, signature);
+        signature.forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
+        Function<IRI, Stream<OWLAnnotationAssertionAxiom>> o = annotations(axioms);
+        writeSortedEntities(o, "Annotation Properties", "Annotation Property",
+            signature.stream().filter(OWLEntity::isOWLAnnotationProperty), writtenAxioms);
+        writeSortedEntities(o, "Object Properties", "Object Property",
+            signature.stream().filter(OWLEntity::isOWLObjectProperty), writtenAxioms);
+        writeSortedEntities(o, "Data Properties", "Data Property",
+            signature.stream().filter(OWLEntity::isOWLDataProperty), writtenAxioms);
+        writeSortedEntities(o, "Datatypes", "Datatype",
+            signature.stream().filter(OWLEntity::isOWLDatatype), writtenAxioms);
+        writeSortedEntities(o, "Classes", "Class", signature.stream().filter(OWLEntity::isOWLClass),
+            writtenAxioms);
+        writeSortedEntities(o, "Named Individuals", "Individual",
+            signature.stream().filter(OWLEntity::isIndividual), writtenAxioms);
+        signature.forEach(e -> writeAxioms(e, writtenAxioms));
+        axioms.stream().filter(ax -> !writtenAxioms.contains(ax)).sorted()
+            .forEach(this::acceptAndReturn);
+        writeCloseBracket();
+        try {
+            writer.flush();
+        } catch (IOException e1) {
+            throw new OWLRuntimeException(e1);
+        }
+        return writer.toString();
+    }
+
+    /**
+     * @param add true if missing declarations should be added. If false, no declarations will be
+     *        added.
+     * @param signature signature to explore.
+     * @return collection of IRIS used in illegal punnings
+     */
+    static Collection<IRI> illegalPunnings(boolean add, Collection<OWLEntity> signature) {
+        if (!add) {
+            return Collections.emptySet();
+        }
+        // determine what entities are illegally punned
+        Map<IRI, List<EntityType<?>>> punnings = new HashMap<>();
+        // disregard individuals as they do not give raise to illegal
+        // punnings; only keep track of punned entities, ignore the rest
+        Collection<IRI> punnedEntities = getPunnedIRIs(signature.stream().distinct());
+        signature.stream().distinct()
+            .filter(e -> !e.isOWLNamedIndividual() && punnedEntities.contains(e.getIRI()))
+            .forEach(e -> punnings.computeIfAbsent(e.getIRI(), x -> new ArrayList<>())
+                .add(e.getEntityType()));
+        return computeIllegals(punnings);
+    }
+
+    /**
+     * @param punnings input punnings
+     * @return illegal punnings
+     */
+    static Collection<IRI> computeIllegals(Map<IRI, List<EntityType<?>>> punnings) {
+        Collection<IRI> illegals = new HashSet<>();
+        punnings.forEach((i, puns) -> computeIllegal(illegals, i, puns));
+        return illegals;
+    }
+
+    /**
+     * @param illegals set of illegal punnings
+     * @param i iri to checl
+     * @param puns list of pun types
+     */
+    static void computeIllegal(Collection<IRI> illegals, IRI i, List<EntityType<?>> puns) {
+        boolean hasObject = puns.contains(EntityType.OBJECT_PROPERTY);
+        boolean hasAnnotation = puns.contains(EntityType.ANNOTATION_PROPERTY);
+        boolean hasData = puns.contains(EntityType.DATA_PROPERTY);
+        if (hasObject && hasAnnotation || hasData && hasAnnotation || hasData && hasObject
+            || puns.contains(EntityType.DATATYPE) && puns.contains(EntityType.CLASS)) {
+            illegals.add(i);
+        }
+    }
+
+    /**
+     * Calculates the set of IRIs that are used for more than one entity type.
+     *
+     * @param signature signature to explore.
+     * @return punned IRIs.
+     */
+    static Set<IRI> getPunnedIRIs(Stream<OWLEntity> signature) {
+        Set<IRI> punned = new HashSet<>();
+        Set<IRI> test = new HashSet<>();
+        Predicate<IRI> tested = e -> !test.add(e);
+        signature.map(OWLEntity::getIRI).filter(tested).forEach(punned::add);
+        if (punned.isEmpty()) {
+            return Collections.emptySet();
+        }
+        return punned;
+    }
+
+    protected Function<IRI, Stream<OWLAnnotationAssertionAxiom>> annotations(
+        Collection<OWLAxiom> axioms) {
+        return x -> axioms.stream().filter(ax -> annotations(ax, x))
+            .map(OWLAnnotationAssertionAxiom.class::cast);
+    }
+
+    boolean annotations(OWLAxiom ax, IRI i) {
+        return ax instanceof OWLAnnotationAssertionAxiom
+            && ((OWLAnnotationAssertionAxiom) ax).getSubject().equals(i);
+    }
+
     private void writeSortedEntities(String bannerComment, String entityTypeName,
         Stream<? extends OWLEntity> entities, Set<OWLAxiom> writtenAxioms) {
         List<? extends OWLEntity> sortOptionally = asList(entities.sorted());
@@ -418,11 +559,11 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         List<? extends OWLEntity> entities, Set<OWLAxiom> writtenAxioms) {
         boolean haveWrittenBanner = false;
         for (OWLEntity owlEntity : entities) {
-            List<? extends OWLAxiom> axiomsForEntity = asList(
-                getUnsortedAxiomsForEntity(owlEntity).filter(ax -> !writtenAxioms.contains(ax)));
+            List<? extends OWLAxiom> axiomsForEntity =
+                asList(retrieve(owlEntity).filter(ax -> !writtenAxioms.contains(ax)));
             List<OWLAnnotationAssertionAxiom> list =
-                asList(ont.annotationAssertionAxioms(owlEntity.getIRI())
-                    .filter(ax -> !writtenAxioms.contains(ax)));
+                asList(ont.map(o -> o.annotationAssertionAxioms(owlEntity.getIRI())
+                    .filter(ax -> !writtenAxioms.contains(ax))).orElse(Stream.empty()));
             if (axiomsForEntity.isEmpty() && list.isEmpty()) {
                 continue;
             }
@@ -437,6 +578,44 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             list.sort(null);
             writeEntity2(owlEntity, entityTypeName, axiomsForEntity, list, writtenAxioms);
         }
+    }
+
+    private void writeSortedEntities(Function<IRI, Stream<OWLAnnotationAssertionAxiom>> annotations,
+        String bannerComment, String entityTypeName, Stream<? extends OWLEntity> entities,
+        Set<OWLAxiom> writtenAxioms) {
+        List<? extends OWLEntity> sortOptionally = asList(entities.sorted());
+        if (!sortOptionally.isEmpty()) {
+            writeEntities(annotations, bannerComment, entityTypeName, sortOptionally,
+                writtenAxioms);
+            writeReturn();
+        }
+    }
+
+    private void writeEntities(Function<IRI, Stream<OWLAnnotationAssertionAxiom>> annotations,
+        String comment, String entityTypeName, List<? extends OWLEntity> entities,
+        Set<OWLAxiom> writtenAxioms) {
+        boolean haveWrittenBanner = false;
+        for (OWLEntity owlEntity : entities) {
+            List<? extends OWLAxiom> axiomsForEntity =
+                asList(retrieve(owlEntity).filter(ax -> !writtenAxioms.contains(ax)));
+            List<OWLAnnotationAssertionAxiom> list = asList(
+                annotations.apply(owlEntity.getIRI()).filter(ax -> !writtenAxioms.contains(ax)));
+            if (axiomsForEntity.isEmpty() && list.isEmpty()) {
+                continue;
+            }
+            if (!haveWrittenBanner) {
+                write("############################\n#   " + comment
+                    + "\n############################\n\n");
+                haveWrittenBanner = true;
+            }
+            axiomsForEntity.sort(null);
+            list.sort(null);
+            writeEntity2(owlEntity, entityTypeName, axiomsForEntity, list, writtenAxioms);
+        }
+    }
+
+    private Stream<? extends OWLAxiom> retrieve(OWLEntity entity) {
+        return ont.map(o -> retrieve(entity, o)).orElse(Stream.empty());
     }
 
     /**
@@ -464,8 +643,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     protected void writeEntity(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
-        writeEntity2(entity, "", asList(getUnsortedAxiomsForEntity(entity).sorted()),
-            asList(ont.annotationAssertionAxioms(entity.getIRI()).sorted()), alreadyWrittenAxioms);
+        writeEntity2(entity, "", asList(retrieve(entity).sorted()),
+            asList(ont.map(o -> o.annotationAssertionAxioms(entity.getIRI()).sorted())
+                .orElse(Stream.empty())),
+            alreadyWrittenAxioms);
     }
 
     protected void writeEntity2(OWLEntity entity, String entityTypeName,
@@ -493,27 +674,23 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         return true;
     }
 
-    private Stream<? extends OWLAxiom> getUnsortedAxiomsForEntity(OWLEntity entity) {
-        return entity.accept(new AxiomRetriever());
-    }
-
     private String getIRIString(OWLEntity entity) {
         return defaultPrefixManager.getShortForm(entity);
     }
 
     private String getEntityLabel(OWLEntity entity) {
-        return verifyNotNull(labelMaker, "labelMaker has not been set yet").getShortForm(entity).replace("\n", "\n# ");
+        return labelMaker.map(p -> p.getShortForm(entity).replace("\n", "\n# "))
+            .orElseThrow(() -> new IllegalStateException("labelMaker has not been set yet"));
     }
 
     private void writeAxioms(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
         writeAnnotations(entity, alreadyWrittenAxioms);
         List<OWLAxiom> writtenAxioms = new ArrayList<>();
-        Stream<? extends OWLAxiom> stream =
-            getUnsortedAxiomsForEntity(entity).filter(alreadyWrittenAxioms::contains)
-                .filter(ax -> ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS))
-                .filter(ax -> ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
-                    && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2)
-                .sorted();
+        Stream<? extends OWLAxiom> stream = retrieve(entity).filter(alreadyWrittenAxioms::contains)
+            .filter(ax -> ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS))
+            .filter(ax -> ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
+                && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2)
+            .sorted();
         stream.forEach(ax -> {
             ax.accept(this);
             writtenAxioms.add(ax);
@@ -530,7 +707,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      */
     protected Set<OWLAxiom> writeDeclarations(OWLEntity entity) {
         Set<OWLAxiom> axioms = new HashSet<>();
-        ont.declarationAxioms(entity).sorted().forEach(ax -> {
+        ont.map(o -> o.declarationAxioms(entity).sorted()).orElse(Stream.empty()).forEach(ax -> {
             ax.accept(this);
             axioms.add(ax);
             writeReturn();
@@ -540,18 +717,20 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private void writeDeclarations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms,
         Collection<IRI> illegals) {
-        Collection<OWLDeclarationAxiom> axioms = asList(ont.declarationAxioms(entity).sorted());
-        axioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
-        // if multiple illegal declarations already exist, they have already
-        // been outputted the renderer cannot take responsibility for removing
-        // them. It should not add declarations for illegally punned entities
-        // here, though
-        if (addMissingDeclarations && axioms.isEmpty() && !entity.isBuiltIn()
-            && !illegals.contains(entity.getIRI()) && !ont.isDeclared(entity, Imports.INCLUDED)) {
-            OWLDeclarationAxiom declaration =
-                ont.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity);
-            acceptAndReturn(declaration);
-        }
+        ont.ifPresent(o -> {
+            Collection<OWLDeclarationAxiom> axioms = asList(o.declarationAxioms(entity).sorted());
+            axioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
+            // if multiple illegal declarations already exist, they have already
+            // been outputted the renderer cannot take responsibility for removing
+            // them. It should not add declarations for illegally punned entities
+            // here, though
+            if (addMissingDeclarations && axioms.isEmpty() && !entity.isBuiltIn()
+                && !illegals.contains(entity.getIRI()) && !o.isDeclared(entity, Imports.INCLUDED)) {
+                OWLDeclarationAxiom declaration =
+                    o.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity);
+                acceptAndReturn(declaration);
+            }
+        });
     }
 
     protected void acceptAndReturn(OWLObject ax) {
@@ -577,8 +756,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      *        axioms
      */
     protected void writeAnnotations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
-        ont.annotationAssertionAxioms(entity.getIRI()).sorted().filter(alreadyWrittenAxioms::add)
-            .forEach(this::acceptAndReturn);
+        ont.ifPresent(o -> o.annotationAssertionAxioms(entity.getIRI()).sorted()
+            .filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn));
     }
 
     /**
@@ -1364,38 +1543,5 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         acceptAndSpace(node.getFirstArgument());
         node.getSecondArgument().accept(this);
         writeCloseBracket();
-    }
-
-    class AxiomRetriever implements OWLEntityVisitorEx<Stream<? extends OWLAxiom>> {
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLClass cls) {
-            return ont.axioms(cls, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLObjectProperty property) {
-            return ont.axioms(property, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLDataProperty property) {
-            return ont.axioms(property, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLNamedIndividual individual) {
-            return ont.axioms(individual, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLDatatype datatype) {
-            return ont.axioms(datatype, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLAnnotationProperty property) {
-            return ont.axioms(property, EXCLUDED);
-        }
     }
 }
