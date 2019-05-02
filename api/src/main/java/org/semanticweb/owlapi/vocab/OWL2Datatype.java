@@ -81,10 +81,11 @@ class DatatypeRegexp {
     static final String NO_LINES = "([^\\r\\n\\t])*";
     static final String INTNUMBER = "(\\+|-)?([0-9]+)";
     static final String INTNOSIGN = "(\\+)?([0-9]+)";
-    static final String NEGINT = "-([0-9]+)";
+    static final String NEGINT = "-(0*[1-9][0-9]*)";
+    static final String POSINT = "(\\+)?(0*[1-9][0-9]*)";
     static final String DECNUMBER = "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)";
     static final String NONNEG = "((\\+)?([0-9]+))|-(0+)";
-    static final String NONPOS = "-([0-9]+)|(\\+(0+))";
+    static final String NONPOS = "-([0-9]+)|(\\+?(0+))";
     static final String XSTRING = "([^\\s])(\\s([^\\s])|([^\\s]))*";
     static final String XLANG = "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*";
     static final String NAME1 =
@@ -130,7 +131,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     /** XSD_INTEGER. */              XSD_INTEGER              (INTEGER,              Category.CAT_NUMBER,  false, DatatypeRegexp.INTNUMBER),
     /** XSD_NON_NEGATIVE_INTEGER. */ XSD_NON_NEGATIVE_INTEGER (NON_NEGATIVE_INTEGER, Category.CAT_NUMBER,  false, DatatypeRegexp.NONNEG),
     /** XSD_NON_POSITIVE_INTEGER. */ XSD_NON_POSITIVE_INTEGER (NON_POSITIVE_INTEGER, Category.CAT_NUMBER,  false, DatatypeRegexp.NONPOS),
-    /** XSD_POSITIVE_INTEGER. */     XSD_POSITIVE_INTEGER     (POSITIVE_INTEGER,     Category.CAT_NUMBER,  false, DatatypeRegexp.INTNOSIGN),
+    /** XSD_POSITIVE_INTEGER. */     XSD_POSITIVE_INTEGER     (POSITIVE_INTEGER,     Category.CAT_NUMBER,  false, DatatypeRegexp.POSINT),
     /** XSD_NEGATIVE_INTEGER. */     XSD_NEGATIVE_INTEGER     (NEGATIVE_INTEGER,     Category.CAT_NUMBER,  false, DatatypeRegexp.NEGINT),
     /** XSD_LONG. */                 XSD_LONG                 (LONG,                 Category.CAT_NUMBER,  true,  DatatypeRegexp.INTNUMBER),
     /** XSD_INT. */                  XSD_INT                  (INT,                  Category.CAT_NUMBER,  true,  DatatypeRegexp.INTNUMBER),
