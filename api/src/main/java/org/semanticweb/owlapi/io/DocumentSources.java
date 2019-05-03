@@ -117,11 +117,19 @@ public class DocumentSources {
         Optional<InputStream> input = source.getInputStream();
         if (!input.isPresent() && !source.hasAlredyFailedOnIRIResolution()) {
             if (source.getDocumentIRI().getNamespace().startsWith("jar:")) {
-                try {
-                    return streamFromJar(source.getDocumentIRI()).getInputStream();
-                } catch (IOException e) {
-                    source.setIRIResolutionFailed(true);
-                    throw new OWLParserException(e);
+                if (source.getDocumentIRI().getNamespace().startsWith("jar:!")) {
+                    String name = source.getDocumentIRI().toString().substring(5);
+                    if (!name.startsWith("/")) {
+                        name = "/" + name;
+                    }
+                    return DocumentSources.class.getResourceAsStream(name);
+                } else {
+                    try {
+                        return streamFromJar(source.getDocumentIRI()).getInputStream();
+                    } catch (IOException e) {
+                        source.setIRIResolutionFailed(true);
+                        throw new OWLParserException(e);
+                    }
                 }
             }
 
