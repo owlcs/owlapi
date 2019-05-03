@@ -69,11 +69,20 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
                     new CustomTokenizer(new InputStreamReader(is, "UTF-8")));
             } else {
                 if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:")) {
-                    try {
-                        is = ((JarURLConnection) new URL(documentSource.getDocumentIRI().toString())
-                            .openConnection()).getInputStream();
-                    } catch (IOException e) {
-                        throw new OWLParserException(e);
+                    if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:!")) {
+                        String name = documentSource.getDocumentIRI().toString().substring(5);
+                        if (!name.startsWith("/")) {
+                            name = "/" + name;
+                        }
+                        is = getClass().getResourceAsStream(name);
+                    } else {
+                        try {
+                            is = ((JarURLConnection) new URL(
+                                documentSource.getDocumentIRI().toString()).openConnection())
+                                    .getInputStream();
+                        } catch (IOException e) {
+                            throw new OWLParserException(e);
+                        }
                     }
                 } else {
                     Optional<String> headers = documentSource.getAcceptHeaders();

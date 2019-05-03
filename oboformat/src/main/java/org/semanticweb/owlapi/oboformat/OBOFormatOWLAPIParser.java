@@ -29,7 +29,12 @@ import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /** oboformat parser */
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
@@ -38,7 +43,8 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @Nonnull
     @Override
-    public OWLDocumentFormat parse(IRI documentIRI, @Nonnull OWLOntology ontology) throws IOException {
+    public OWLDocumentFormat parse(IRI documentIRI, @Nonnull OWLOntology ontology)
+        throws IOException {
         try {
             parse(documentIRI, null, ontology);
         } catch (OBOFormatParserException e) {
@@ -51,8 +57,9 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @Nonnull
     @Override
-    public OWLDocumentFormat parse(@Nonnull OWLOntologyDocumentSource documentSource, @Nonnull OWLOntology ontology,
-        OWLOntologyLoaderConfiguration configuration) throws IOException {
+    public OWLDocumentFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
+        @Nonnull OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+        throws IOException {
         // XXX configuration is not used
         try {
             parse(null, documentSource, ontology);
@@ -73,12 +80,16 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = null;
         if (iri != null) {
+            if (iri.toString().startsWith("jar:!")) {
+                throw new OWLParserException("Jar IRIs are not supported by the OBO parser");
+            }
             obodoc = p.parse(iri.toURI().toURL());
         } else {
             if (source.isReaderAvailable()) {
                 obodoc = p.parse(new BufferedReader(source.getReader()));
             } else if (source.isInputStreamAvailable()) {
-                obodoc = p.parse(new BufferedReader(new InputStreamReader(source.getInputStream())));
+                obodoc =
+                    p.parse(new BufferedReader(new InputStreamReader(source.getInputStream())));
             } else {
                 return parse(source.getDocumentIRI(), null, in);
             }

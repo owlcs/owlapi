@@ -244,12 +244,24 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
             is = new InputSource(documentSource.getInputStream());
         } else {
             if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:")) {
-                try {
-                    return new InputSource(
-                        ((JarURLConnection) new URL(documentSource.getDocumentIRI().toString())
-                            .openConnection()).getInputStream());
-                } catch (IOException e) {
-                    throw new OWLParserException(e);
+                if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:!")) {
+                    String name = documentSource.getDocumentIRI().toString().substring(5);
+                    if (!name.startsWith("/")) {
+                        name = "/" + name;
+                    }
+                    is = new InputSource(getClass().getResourceAsStream(name));
+                    is.setSystemId(documentSource.getDocumentIRI().toString());
+                    return is;
+                } else {
+                    try {
+                        is = new InputSource(
+                            ((JarURLConnection) new URL(documentSource.getDocumentIRI().toString())
+                                .openConnection()).getInputStream());
+                        is.setSystemId(documentSource.getDocumentIRI().toString());
+                        return is;
+                    } catch (IOException e) {
+                        throw new OWLParserException(e);
+                    }
                 }
             }
             Optional<String> headers = documentSource.getAcceptHeaders();
