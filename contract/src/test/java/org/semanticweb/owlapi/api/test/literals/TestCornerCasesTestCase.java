@@ -46,6 +46,14 @@ public class TestCornerCasesTestCase extends TestBase {
     }
 
     @Test
+    public void testIntegerWithBlank() {
+        String expected = "";
+        OWLDatatype type = df.getIntegerOWLDatatype();
+        OWLLiteral lit = df.getOWLLiteral(expected, type);
+        assertEquals(expected, lit.getLiteral());
+    }
+
+    @Test
     public void testEnumInt() {
         OWLDatatype type = df.getIntegerOWLDatatype();
         df.getOWLLiteral("1000000000000000000000000000000000000000", type);
