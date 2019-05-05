@@ -100,6 +100,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -368,8 +369,7 @@ public class OWLRDFConsumer
      */
     @Nullable
     private IRI firstOntologyIRI;
-    @Nullable
-    private IRI ontologyVersion;
+    private Map<IRI, IRI> ontologyVersions = new HashMap<>();
     /**
      * The ontology format.
      */
@@ -1463,6 +1463,11 @@ public class OWLRDFConsumer
             }
         } else {
             // We have multiple to choose from
+            if (configuration.isStrict()) {
+                throw new OWLRDFXMLParserException(
+                    "Expected one ontology declaration, found multiple ones: " + ontologyIRIs);
+            }
+
             // Choose one that isn't the object of an annotation assertion
             Set<IRI> candidateIRIs = createSet(ontologyIRIs);
             ontology.annotations().forEach(a -> a.getValue().asIRI().ifPresent(iri -> {
@@ -1484,7 +1489,7 @@ public class OWLRDFConsumer
             // but it is existing behaviour and tested.
             Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
             if (!versionIRI.isPresent()) {
-                versionIRI = Optional.ofNullable(ontologyVersion);
+                versionIRI = Optional.ofNullable(ontologyVersions.get(ontologyIRIToSet.get()));
             }
             OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRIToSet, versionIRI);
             ontology.applyChange(new SetOntologyID(ontology, ontologyID));
@@ -2212,13 +2217,13 @@ public class OWLRDFConsumer
 
     /**
      * Adds the ontology version.
+     * 
+     * @param o ontology IRI
      *
      * @param version the version of the ontology
      */
-    protected void addVersionIRI(IRI version) {
-        if (ontologyVersion == null) {
-            ontologyVersion = version;
-        }
+    protected void addVersionIRI(IRI o, IRI version) {
+        ontologyVersions.put(o, version);
     }
 
     /**

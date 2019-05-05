@@ -2132,7 +2132,7 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI s, IRI p, IRI o) {
-            consumer.addVersionIRI(o);
+            consumer.addVersionIRI(s, o);
             consume(s, p, o);
         }
 
