@@ -1,0 +1,11 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<urn:test:Ontology1> rdf:type owl:Ontology ;
+  rdfs:label "Two ontologies each with versions."^^xsd:string ;
+  rdfs:comment "This file has two ontologies each with versions."^^xsd:string .
+
+<urn:test:Ontology2> rdf:type owl:Ontology ;
+  owl:versionIRI <urn:test:Ontology2Version1> .
+
+<urn:test:Ontology1> owl:versionIRI <urn:test:Ontology1Version1> .

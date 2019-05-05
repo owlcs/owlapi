@@ -170,6 +170,7 @@ public class TestFiles {
     public static final String AANN = string("AANN.txt");
     public static final String noDC = string("noDC.txt");
     public static final String lazyDC = string("lazyDC.txt");
+    public static final String doubleOntology = string("doubleOntology.txt");
     public static final String asymmetric = string("asymmetric.txt");
     public static final String APD = string("APD.txt");
     public static final String APR = string("APR.txt");
