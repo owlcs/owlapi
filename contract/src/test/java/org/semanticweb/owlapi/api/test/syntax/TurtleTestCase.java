@@ -318,7 +318,6 @@ public class TurtleTestCase extends TestBase {
             + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
         System.out.println(input);
         OWLOntology ontology = loadOntologyFromString(input);
-        ontology.getAxioms().forEach(System.out::println);
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
         Set<OWLSubClassOfAxiom> axioms = o.getAxioms(AxiomType.SUBCLASS_OF);
         assertEquals(1, axioms.size());
