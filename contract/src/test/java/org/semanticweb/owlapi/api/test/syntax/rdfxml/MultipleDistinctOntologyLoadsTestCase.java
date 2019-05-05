@@ -29,9 +29,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
 /**
- * Tests the loading of a single ontology multiple times, using a different
- * ontologyIRI in the OWLOntologyID as that used in the actual ontology that is
- * being imported.
+ * Tests the loading of a single ontology multiple times, using a different ontologyIRI in the
+ * OWLOntologyID as that used in the actual ontology that is being imported.
  *
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -105,8 +104,7 @@ public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
         OWLParser parser = new RDFXMLParser();
         parser.parse(documentSource, initialOntology, config);
         assertEquals(IRI("http://test.example.org/ontology/0139", ""),
-            initialOntology.getOntologyID().getOntologyIRI()
-                .get());
+            initialOntology.getOntologyID().getOntologyIRI().get());
         assertEquals(v1, initialOntology.getOntologyID().getVersionIRI().get());
         OWLOntologyDocumentSource secondDocumentSource = getDocument();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(optional(jb), optional(v2));
@@ -120,12 +118,13 @@ public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
     @Test
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
-        OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(optional(jb),
-            emptyOptional(IRI.class));
+        IRI iri = IRI.create("http://test.example.org/ontology/0139");
+        OWLOntologyID initialUniqueOWLOntologyID =
+            new OWLOntologyID(optional(iri), emptyOptional(IRI.class));
         OWLOntology initialOntology = m.createOntology(initialUniqueOWLOntologyID);
         OWLParser parser = new RDFXMLParser();
         parser.parse(documentSource, initialOntology, config);
-        assertEquals(jb, initialOntology.getOntologyID().getOntologyIRI().get());
+        assertEquals(iri, initialOntology.getOntologyID().getOntologyIRI().get());
         assertEquals(v1, initialOntology.getOntologyID().getVersionIRI().get());
         OWLOntologyDocumentSource secondDocumentSource = getDocument();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(optional(jb), optional(v2));
