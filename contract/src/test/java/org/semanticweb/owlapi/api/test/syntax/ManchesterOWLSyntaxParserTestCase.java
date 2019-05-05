@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -108,6 +109,49 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         ontology.add(axiom);
         StringDocumentTarget target = saveOntology(ontology, new ManchesterSyntaxDocumentFormat());
         assertFalse(target.toString().contains("((<urn:test#crt> or <urn:test#led>))"));
+    }
+
+    @Test
+    public void shouldNotAddDCToPrefixes() {
+        OWLOntology o = loadOntologyFromString("Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
+            + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+            + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+            + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
+            + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n" + "\n"
+            + "Ontology: <http://www.semanticweb.org/owlapi/test3580426871089099>\n" + "\n"
+            + "ObjectProperty: <http://www.semanticweb.org/owlapi/test#p>\n" + "\n"
+            + "Class: <http://www.semanticweb.org/owlapi/test#B>\n" + "\n"
+            + "Class: <http://www.semanticweb.org/owlapi/test#C>\n" + "\n"
+            + "Class: <http://www.semanticweb.org/owlapi/test#D>\n" + "\n" + "    SubClassOf: \n"
+            + "        <http://www.semanticweb.org/owlapi/test#p> some \n"
+            + "            (<http://www.semanticweb.org/owlapi/test#B>\n"
+            + "             or <http://www.semanticweb.org/owlapi/test#C>)",
+            new ManchesterSyntaxDocumentFormat());
+        OWLDocumentFormat f = o.getOWLOntologyManager().getOntologyFormat(o);
+        assertFalse(f.asPrefixOWLDocumentFormat().containsPrefixMapping("dc:"));
+    }
+
+    @Test
+    public void shouldAddDCToPrefixesWithoutDeclaration() {
+        // DC was added by default to the prefixes whether it was used or not.
+        // The behaviour was removed, but this would stop ontologies from
+        // loading if they relied on the prefix appearing by default
+        // Fix is to add it lazily if necessary
+        OWLOntology o = loadOntologyFromString("Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
+            + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+            + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+            + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
+            + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n" + "\n"
+            + "Ontology: <http://www.semanticweb.org/owlapi/test3580426871089099>\n" + "\n"
+            + "ObjectProperty: dc:p\n" + "\n"
+            + "Class: <http://www.semanticweb.org/owlapi/test#B>\n" + "\n"
+            + "Class: <http://www.semanticweb.org/owlapi/test#C>\n" + "\n"
+            + "Class: <http://www.semanticweb.org/owlapi/test#D>\n" + "\n" + "    SubClassOf: \n"
+            + "        dc:p some \n" + "            (<http://www.semanticweb.org/owlapi/test#B>\n"
+            + "             or <http://www.semanticweb.org/owlapi/test#C>)",
+            new ManchesterSyntaxDocumentFormat());
+        OWLDocumentFormat f = o.getOWLOntologyManager().getOntologyFormat(o);
+        assertTrue(f.asPrefixOWLDocumentFormat().containsPrefixMapping("dc:"));
     }
 
     @Test

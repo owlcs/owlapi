@@ -129,6 +129,7 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -253,7 +254,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         pm.setPrefix("rdf:", Namespaces.RDF.toString());
         pm.setPrefix("rdfs:", Namespaces.RDFS.toString());
         pm.setPrefix("owl:", Namespaces.OWL.toString());
-        pm.setPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
         NamespaceUtil u = new NamespaceUtil();
         initialiseClassFrameSections();
         initialiseObjectPropertyFrameSections();
@@ -2292,6 +2292,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             if (colonIndex == -1) {
                 name = ":" + name;
             }
+            if (name.startsWith("dc:") && !pm.containsPrefixMapping("dc:")) {
+                pm.setPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
+            }
             uri = pm.getIRI(name);
         }
         nameIRIMap.put(name, uri);
@@ -2601,34 +2604,41 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     class AddNames implements OWLEntityVisitor {
 
+        private String shortForm(HasIRI i) {
+            if (DublinCoreVocabulary.NAME_SPACE.equals(i.getIRI().getNamespace())) {
+                pm.setPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
+            }
+            return pm.getShortForm(i.getIRI());
+        }
+
         @Override
         public void visit(OWLAnnotationProperty property) {
-            annotationPropertyNames.add(pm.getShortForm(property.getIRI()));
+            annotationPropertyNames.add(shortForm(property));
         }
 
         @Override
         public void visit(OWLDatatype datatype) {
-            dataTypeNames.add(pm.getShortForm(datatype.getIRI()));
+            dataTypeNames.add(shortForm(datatype));
         }
 
         @Override
         public void visit(OWLNamedIndividual individual) {
-            individualNames.add(pm.getShortForm(individual.getIRI()));
+            individualNames.add(shortForm(individual));
         }
 
         @Override
         public void visit(OWLDataProperty property) {
-            dataPropertyNames.add(pm.getShortForm(property.getIRI()));
+            dataPropertyNames.add(shortForm(property));
         }
 
         @Override
         public void visit(OWLObjectProperty property) {
-            objectPropertyNames.add(pm.getShortForm(property.getIRI()));
+            objectPropertyNames.add(shortForm(property));
         }
 
         @Override
         public void visit(OWLClass cls) {
-            classNames.add(pm.getShortForm(cls.getIRI()));
+            classNames.add(shortForm(cls));
         }
     }
 
