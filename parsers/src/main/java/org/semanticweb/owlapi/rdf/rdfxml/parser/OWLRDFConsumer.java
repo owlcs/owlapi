@@ -188,8 +188,7 @@ public class OWLRDFConsumer
     private final Set<IRI> dataRangeIRIs;
     /** The IRI of the first reource that is typed as an ontology */
     private IRI firstOntologyIRI;
-    @Nullable
-    private IRI ontologyVersion;
+    private Map<IRI, IRI> ontologyVersions = new HashMap<>();
     /** IRIs that had a type triple to owl:Ontology */
     private final Set<IRI> ontologyIRIs;
     /** IRIs that had a type triple to owl:Restriction */
@@ -1449,6 +1448,11 @@ public class OWLRDFConsumer
             }
         } else {
             // We have multiple to choose from
+            if (configuration.isStrict()) {
+                throw new OWLRDFXMLParserException(
+                    "Expected one ontology declaration, found multiple ones: " + ontologyIRIs);
+            }
+
             // Choose one that isn't the object of an annotation assertion
             Set<IRI> candidateIRIs = new HashSet<>(ontologyIRIs);
             for (OWLAnnotation anno : ontology.getAnnotations()) {
@@ -1473,7 +1477,7 @@ public class OWLRDFConsumer
             // but it is existing behaviour and tested.
             Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
             if (!versionIRI.isPresent()) {
-                versionIRI = Optional.fromNullable(ontologyVersion);
+                versionIRI = Optional.fromNullable(ontologyVersions.get(ontologyIRIToSet.get()));
             }
             OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRIToSet, versionIRI);
             applyChange(new SetOntologyID(ontology, ontologyID));
@@ -2284,13 +2288,12 @@ public class OWLRDFConsumer
 
     /**
      * Adds the ontology version.
-     *
+     * 
+     * @param o ontology IRI
      * @param version the version of the ontology
      */
-    protected void addVersionIRI(IRI version) {
-        if (ontologyVersion == null) {
-            ontologyVersion = version;
-        }
+    protected void addVersionIRI(IRI o, IRI version) {
+        ontologyVersions.put(o, version);
     }
 
     /**

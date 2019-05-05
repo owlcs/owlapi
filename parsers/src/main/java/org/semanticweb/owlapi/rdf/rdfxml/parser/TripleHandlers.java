@@ -2265,7 +2265,7 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI subject, IRI predicate, IRI object) {
-            consumer.addVersionIRI(object);
+            consumer.addVersionIRI(subject, object);
             consumeTriple(subject, predicate, object);
         }
 
