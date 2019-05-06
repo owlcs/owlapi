@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -205,6 +206,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     private final OWLOntology ontology;
     /** Represents the manager for the associated ontology. */
     private final OWLOntologyManager manager;
+    private OWLOntologyLoaderConfiguration config;
 
     /**
      * Creates a new module extractor for a subset of a given ontology, its manager, and a specified
@@ -220,8 +222,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     @Deprecated
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man, OWLOntology ont,
         @Nonnull Set<OWLAxiom> axs, @Nonnull ModuleType moduleType) {
-        this(man, ont == null ? null : ont.getOntologyID().getOntologyIRI().orNull(), axs,
-            moduleType);
+        this(man, man.getOntologyLoaderConfiguration(),
+            ont == null ? null : ont.getOntologyID().getOntologyIRI().orNull(), axs, moduleType,
+            false);
     }
 
     /**
@@ -235,7 +238,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man, IRI ontIRI,
         @Nonnull Set<OWLAxiom> axs, @Nonnull ModuleType moduleType) {
-        this(man, ontIRI, axs, moduleType, false);
+        this(man, man.getOntologyLoaderConfiguration(), ontIRI, axs, moduleType, false);
     }
 
     /**
@@ -247,6 +250,21 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man, IRI ontIRI,
         @Nonnull Set<OWLAxiom> axs, @Nonnull ModuleType moduleType, boolean excludeAssertions) {
+        this(man, man.getOntologyLoaderConfiguration(), ontIRI, axs, moduleType, excludeAssertions);
+    }
+
+    /**
+     * @param man manager
+     * @param config config object to access configuration
+     * @param ontIRI ontology IRI
+     * @param axs axioms
+     * @param moduleType module type
+     * @param excludeAssertions exclude assertions
+     */
+    public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man,
+        OWLOntologyLoaderConfiguration config, IRI ontIRI, @Nonnull Set<OWLAxiom> axs,
+        @Nonnull ModuleType moduleType, boolean excludeAssertions) {
+        this.config = config;
         this.moduleType = checkNotNull(moduleType, "moduleType cannot be null");
         manager = checkNotNull(man, "man cannot be null");
         rootOntology = ontIRI;
@@ -279,7 +297,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man,
         @Nonnull OWLOntology ont, @Nonnull ModuleType moduleType) {
-        this(man, ont, asAxiomSet(ont), moduleType);
+        this(man, man.getOntologyLoaderConfiguration(),
+            ont.getOntologyID().getOntologyIRI().orNull(), asAxiomSet(ont), moduleType, false);
     }
 
     @Nonnull
@@ -438,6 +457,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     @Nonnull
     Set<OWLAxiom> enrich(@Nonnull Set<OWLAxiom> module, @Nonnull Set<OWLEntity> sig,
         boolean verbose) {
+        if (config.shouldSkipModuleAnnotations()) {
+            return module;
+        }
         Set<OWLAxiom> enrichedModule = new HashSet<>(module);
         if (verbose) {
             LOGGER.info(

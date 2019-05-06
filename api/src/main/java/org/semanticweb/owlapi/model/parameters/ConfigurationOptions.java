@@ -105,6 +105,11 @@ public enum ConfigurationOptions {
      * If set to false, trim will
      * only happen on explicit call.*/
     TRIM_TO_SIZE                        (Boolean.TRUE),
+    /** True if annotations on entities
+     * included in modules should be 
+     * skipped. By default annotations 
+     * are included.*/
+    SKIP_MODULE_ANNOTATIONS             (Boolean.FALSE),
     /**Max number of elements for caches.*/
     CACHE_SIZE                        (Integer.valueOf(2048));
     //@formatter:on
