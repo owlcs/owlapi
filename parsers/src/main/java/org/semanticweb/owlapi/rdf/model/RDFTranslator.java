@@ -48,6 +48,7 @@ public class RDFTranslator
      * @param occurrences multiple individuals appearance
      * @param axiomOccurrences axiom appearance
      * @param nextNode next blank id counter
+     * @param blankNodeMap blank node map
      */
     public RDFTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
         boolean useStrongTyping, IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,

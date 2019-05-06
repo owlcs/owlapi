@@ -266,6 +266,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * @param multiple multiple individuals appearance
      * @param appearance axiom appearance
      * @param nextNode next blank id counter
+     * @param blankNodeMap blank node map
      */
     public AbstractTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
         boolean useStrongTyping, IndividualAppearance multiple, AxiomAppearance appearance,

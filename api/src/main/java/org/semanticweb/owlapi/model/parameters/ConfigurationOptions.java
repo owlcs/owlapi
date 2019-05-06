@@ -157,6 +157,7 @@ public enum ConfigurationOptions {
     }
 
     /**
+     * @param <T> return type
      * @param value value to parse according to the enum default value
      * @param type type of the returned value
      * @return parsed value
@@ -178,6 +179,7 @@ public enum ConfigurationOptions {
     }
 
     /**
+     * @param <T> return type
      * @param type type for this value
      * @param overrides local overrides
      * @return value for this configuration option. Values are evaluated as follows: first, check
@@ -203,6 +205,7 @@ public enum ConfigurationOptions {
     }
 
     /**
+     * @param <T> return type
      * @param type type to cast to
      * @return default value
      */

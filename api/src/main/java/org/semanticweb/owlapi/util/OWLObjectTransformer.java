@@ -26,7 +26,103 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.change.AddAxiomData;
 import org.semanticweb.owlapi.change.AxiomChangeData;
 import org.semanticweb.owlapi.change.RemoveAxiomData;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.RemoveImport;
+import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 import com.google.common.base.Function;
@@ -37,8 +133,7 @@ import com.google.common.base.Predicate;
  * 
  * @author Ignazio
  * @since 4.1.4
- * @param <T>
- *        type to transform
+ * @param <T> type to transform
  */
 public class OWLObjectTransformer<T> {
 
@@ -48,17 +143,14 @@ public class OWLObjectTransformer<T> {
     private OWLDataFactory df;
 
     /**
-     * @param predicate
-     *        the predicate to match the axioms to rebuild
-     * @param transformer
-     *        the transformer to apply
-     * @param df
-     *        data factory to use for changes
-     * @param witness
-     *        witness class for the transformer
+     * @param predicate the predicate to match the axioms to rebuild
+     * @param transformer the transformer to apply
+     * @param df data factory to use for changes
+     * @param witness witness class for the transformer
      */
-    public OWLObjectTransformer(@Nonnull Predicate<Object> predicate, @Nonnull Function<T, T> transformer,
-        @Nonnull OWLDataFactory df, @Nonnull Class<T> witness) {
+    public OWLObjectTransformer(@Nonnull Predicate<Object> predicate,
+        @Nonnull Function<T, T> transformer, @Nonnull OWLDataFactory df,
+        @Nonnull Class<T> witness) {
         this.predicate = checkNotNull(predicate, "predicate cannot be null");
         this.transformer = checkNotNull(transformer, "transformer cannot be null");
         this.df = checkNotNull(df, "df cannot be null");
@@ -66,14 +158,12 @@ public class OWLObjectTransformer<T> {
     }
 
     /**
-     * Create the required changes for this transformation to be applied to the
-     * input. Note: these are AxiomChangeData changes, not ontology specific
-     * changes. There is no requirement for the input to be an ontology or
-     * included in an ontology.
+     * Create the required changes for this transformation to be applied to the input. Note: these
+     * are AxiomChangeData changes, not ontology specific changes. There is no requirement for the
+     * input to be an ontology or included in an ontology.
      * 
-     * @param o
-     *        object to transform. Must be an axiom or an ontology for the
-     *        change to be meaningful.
+     * @param o object to transform. Must be an axiom or an ontology for the change to be
+     *        meaningful.
      * @return A list of axiom changes that should be applied.
      */
     @Nonnull
@@ -81,17 +171,17 @@ public class OWLObjectTransformer<T> {
         checkNotNull(o, "o cannot be null");
         List<AxiomChangeData> changes = new ArrayList<>();
         // no ontology changes will be collected
-        Visitor<T> v = new Visitor<>(new ArrayList<OWLOntologyChange>(), changes, predicate, transformer, df, witness);
+        Visitor<T> v = new Visitor<>(new ArrayList<OWLOntologyChange>(), changes, predicate,
+            transformer, df, witness);
         o.accept(v);
         return changes;
     }
 
     /**
-     * Create the required changes for this transformation to be applied to the
-     * input. These changes are specific to the input ontology.
+     * Create the required changes for this transformation to be applied to the input. These changes
+     * are specific to the input ontology.
      * 
-     * @param ontology
-     *        ontology to transform.
+     * @param ontology ontology to transform.
      * @return A list of changes that should be applied.
      */
     @Nonnull
@@ -116,8 +206,9 @@ public class OWLObjectTransformer<T> {
         private Class<T> witness;
         private OWLDataFactory df;
 
-        Visitor(List<OWLOntologyChange> ontologyChanges, List<AxiomChangeData> changes, Predicate<Object> predicate,
-            Function<T, T> transformer, OWLDataFactory df, Class<T> witness) {
+        Visitor(List<OWLOntologyChange> ontologyChanges, List<AxiomChangeData> changes,
+            Predicate<Object> predicate, Function<T, T> transformer, OWLDataFactory df,
+            Class<T> witness) {
             this.changes = changes;
             this.ontologyChanges = ontologyChanges;
             this.predicate = predicate;
@@ -129,12 +220,10 @@ public class OWLObjectTransformer<T> {
         /**
          * Check and transform an axiom.
          * 
-         * @param axiom
-         *        axiom to check
-         * @return the transformed axiom, or null if the axiom was not
-         *         transformed
+         * @param axiom axiom to check
+         * @return the transformed axiom, or null if the axiom was not transformed
          */
-        @SuppressWarnings({ "unchecked" })
+        @SuppressWarnings({"unchecked"})
         @Nullable
         protected OWLAxiom checkAxiom(OWLAxiom axiom) {
             if (witness.isInstance(axiom)) {
@@ -158,12 +247,11 @@ public class OWLObjectTransformer<T> {
         /**
          * Check and transform an object.
          * 
-         * @param o
-         *        object to check
-         * @return the transformed object, or null if the axiom was not
-         *         transformed
+         * @param <Q> return type
+         * @param o object to check
+         * @return the transformed object, or null if the axiom was not transformed
          */
-        @SuppressWarnings({ "unchecked" })
+        @SuppressWarnings({"unchecked"})
         @Nullable
         protected <Q> Q check(Q o) {
             if (witness.isInstance(o)) {
@@ -210,7 +298,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLDeclarationAxiom(t(axiom.getEntity()), t(axiom.getAnnotations())), axiom);
+            return update(
+                df.getOWLDeclarationAxiom(t(axiom.getEntity()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -222,8 +311,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLDatatypeDefinitionAxiom(t(axiom.getDatatype()), t(axiom.getDataRange()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLDatatypeDefinitionAxiom(t(axiom.getDatatype()),
+                t(axiom.getDataRange()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -235,8 +324,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLAnnotationAssertionAxiom(t(axiom.getSubject()), t(axiom.getAnnotation()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLAnnotationAssertionAxiom(t(axiom.getSubject()),
+                t(axiom.getAnnotation()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -248,8 +337,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLSubAnnotationPropertyOfAxiom(t(axiom.getSubProperty()), t(axiom.getSuperProperty()),
-                t(axiom.getAnnotations())), axiom);
+            return update(df.getOWLSubAnnotationPropertyOfAxiom(t(axiom.getSubProperty()),
+                t(axiom.getSuperProperty()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -261,8 +350,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLAnnotationPropertyDomainAxiom(t(axiom.getProperty()), t(axiom.getDomain()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLAnnotationPropertyDomainAxiom(t(axiom.getProperty()),
+                t(axiom.getDomain()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -274,8 +363,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLAnnotationPropertyRangeAxiom(t(axiom.getProperty()), t(axiom.getRange()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLAnnotationPropertyRangeAxiom(t(axiom.getProperty()),
+                t(axiom.getRange()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -287,8 +376,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLSubClassOfAxiom(t(axiom.getSubClass()), t(axiom.getSuperClass()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLSubClassOfAxiom(t(axiom.getSubClass()), t(axiom.getSuperClass()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -300,8 +389,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLNegativeObjectPropertyAssertionAxiom(t(axiom.getProperty()), t(axiom.getSubject()),
-                t(axiom.getObject()), t(axiom.getAnnotations())), axiom);
+            return update(df.getOWLNegativeObjectPropertyAssertionAxiom(t(axiom.getProperty()),
+                t(axiom.getSubject()), t(axiom.getObject()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -313,8 +402,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLAsymmetricObjectPropertyAxiom(t(axiom.getProperty()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLAsymmetricObjectPropertyAxiom(t(axiom.getProperty()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -326,8 +415,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLReflexiveObjectPropertyAxiom(t(axiom.getProperty()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLReflexiveObjectPropertyAxiom(t(axiom.getProperty()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -339,8 +428,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLDisjointClassesAxiom(t(axiom.getClassExpressions()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLDisjointClassesAxiom(t(axiom.getClassExpressions()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -352,8 +441,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLDataPropertyDomainAxiom(t(axiom.getProperty()), t(axiom.getDomain()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLDataPropertyDomainAxiom(t(axiom.getProperty()),
+                t(axiom.getDomain()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -365,8 +454,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLObjectPropertyDomainAxiom(t(axiom.getProperty()), t(axiom.getDomain()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLObjectPropertyDomainAxiom(t(axiom.getProperty()),
+                t(axiom.getDomain()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -378,8 +467,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLEquivalentObjectPropertiesAxiom(t(axiom.getProperties()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLEquivalentObjectPropertiesAxiom(t(axiom.getProperties()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -391,8 +480,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLNegativeDataPropertyAssertionAxiom(t(axiom.getProperty()), t(axiom.getSubject()), t(
-                axiom.getObject()), t(axiom.getAnnotations())), axiom);
+            return update(df.getOWLNegativeDataPropertyAssertionAxiom(t(axiom.getProperty()),
+                t(axiom.getSubject()), t(axiom.getObject()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -404,8 +493,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLDifferentIndividualsAxiom(t(axiom.getIndividuals()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLDifferentIndividualsAxiom(t(axiom.getIndividuals()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -417,8 +506,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLDisjointDataPropertiesAxiom(t(axiom.getProperties()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLDisjointDataPropertiesAxiom(t(axiom.getProperties()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -430,8 +519,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLDisjointObjectPropertiesAxiom(t(axiom.getProperties()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLDisjointObjectPropertiesAxiom(t(axiom.getProperties()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -443,8 +532,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLObjectPropertyRangeAxiom(t(axiom.getProperty()), t(axiom.getRange()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLObjectPropertyRangeAxiom(t(axiom.getProperty()),
+                t(axiom.getRange()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -456,8 +545,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLObjectPropertyAssertionAxiom(t(axiom.getProperty()), t(axiom.getSubject()), t(axiom
-                .getObject()), t(axiom.getAnnotations())), axiom);
+            return update(df.getOWLObjectPropertyAssertionAxiom(t(axiom.getProperty()),
+                t(axiom.getSubject()), t(axiom.getObject()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -469,8 +558,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLFunctionalObjectPropertyAxiom(t(axiom.getProperty()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLFunctionalObjectPropertyAxiom(t(axiom.getProperty()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -482,8 +571,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLSubObjectPropertyOfAxiom(t(axiom.getSubProperty()), t(axiom.getSuperProperty()), t(
-                axiom.getAnnotations())), axiom);
+            return update(df.getOWLSubObjectPropertyOfAxiom(t(axiom.getSubProperty()),
+                t(axiom.getSuperProperty()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -495,8 +584,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLDisjointUnionAxiom(t(axiom.getOWLClass()), t(axiom.getClassExpressions()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLDisjointUnionAxiom(t(axiom.getOWLClass()),
+                t(axiom.getClassExpressions()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -508,8 +597,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLSymmetricObjectPropertyAxiom(t(axiom.getProperty()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLSymmetricObjectPropertyAxiom(t(axiom.getProperty()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -521,8 +610,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLDataPropertyRangeAxiom(t(axiom.getProperty()), t(axiom.getRange()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLDataPropertyRangeAxiom(t(axiom.getProperty()),
+                t(axiom.getRange()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -534,8 +623,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLFunctionalDataPropertyAxiom(t(axiom.getProperty()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLFunctionalDataPropertyAxiom(t(axiom.getProperty()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -547,8 +636,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLEquivalentDataPropertiesAxiom(t(axiom.getProperties()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLEquivalentDataPropertiesAxiom(t(axiom.getProperties()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -560,8 +649,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLClassAssertionAxiom(t(axiom.getClassExpression()), t(axiom.getIndividual()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLClassAssertionAxiom(t(axiom.getClassExpression()),
+                t(axiom.getIndividual()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -573,8 +662,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLEquivalentClassesAxiom(t(axiom.getClassExpressions()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLEquivalentClassesAxiom(t(axiom.getClassExpressions()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -586,8 +675,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLDataPropertyAssertionAxiom(t(axiom.getProperty()), t(axiom.getSubject()), t(axiom
-                .getObject()), t(axiom.getAnnotations())), axiom);
+            return update(df.getOWLDataPropertyAssertionAxiom(t(axiom.getProperty()),
+                t(axiom.getSubject()), t(axiom.getObject()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -599,8 +688,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLTransitiveObjectPropertyAxiom(t(axiom.getProperty()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLTransitiveObjectPropertyAxiom(t(axiom.getProperty()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -612,8 +701,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLIrreflexiveObjectPropertyAxiom(t(axiom.getProperty()), t(axiom.getAnnotations())),
-                axiom);
+            return update(df.getOWLIrreflexiveObjectPropertyAxiom(t(axiom.getProperty()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -625,8 +714,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLSubDataPropertyOfAxiom(t(axiom.getSubProperty()), t(axiom.getSuperProperty()), t(
-                axiom.getAnnotations())), axiom);
+            return update(df.getOWLSubDataPropertyOfAxiom(t(axiom.getSubProperty()),
+                t(axiom.getSuperProperty()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -638,8 +727,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLInverseFunctionalObjectPropertyAxiom(t(axiom.getProperty()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLInverseFunctionalObjectPropertyAxiom(t(axiom.getProperty()),
+                t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -651,7 +740,9 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLSameIndividualAxiom(t(axiom.getIndividuals()), t(axiom.getAnnotations())), axiom);
+            return update(
+                df.getOWLSameIndividualAxiom(t(axiom.getIndividuals()), t(axiom.getAnnotations())),
+                axiom);
         }
 
         @Override
@@ -663,8 +754,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLSubPropertyChainOfAxiom(t(axiom.getPropertyChain()), t(axiom.getSuperProperty()), t(
-                axiom.getAnnotations())), axiom);
+            return update(df.getOWLSubPropertyChainOfAxiom(t(axiom.getPropertyChain()),
+                t(axiom.getSuperProperty()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -676,8 +767,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLInverseObjectPropertiesAxiom(t(axiom.getFirstProperty()), t(axiom
-                .getSecondProperty()), t(axiom.getAnnotations())), axiom);
+            return update(df.getOWLInverseObjectPropertiesAxiom(t(axiom.getFirstProperty()),
+                t(axiom.getSecondProperty()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -689,8 +780,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(axiom)) {
                 return axiom;
             }
-            return update(df.getOWLHasKeyAxiom(t(axiom.getClassExpression()), t(axiom.getPropertyExpressions()), t(axiom
-                .getAnnotations())), axiom);
+            return update(df.getOWLHasKeyAxiom(t(axiom.getClassExpression()),
+                t(axiom.getPropertyExpressions()), t(axiom.getAnnotations())), axiom);
         }
 
         @Override
@@ -702,7 +793,9 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(rule)) {
                 return rule;
             }
-            return update(df.getSWRLRule(t(rule.getBody()), t(rule.getHead()), t(rule.getAnnotations())), rule);
+            return update(
+                df.getSWRLRule(t(rule.getBody()), t(rule.getHead()), t(rule.getAnnotations())),
+                rule);
         }
 
         @Override
@@ -798,7 +891,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(ce)) {
                 return ce;
             }
-            return df.getOWLObjectMinCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce.getFiller()));
+            return df.getOWLObjectMinCardinality(ce.getCardinality(), t(ce.getProperty()),
+                t(ce.getFiller()));
         }
 
         @Override
@@ -810,7 +904,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(ce)) {
                 return ce;
             }
-            return df.getOWLObjectExactCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce.getFiller()));
+            return df.getOWLObjectExactCardinality(ce.getCardinality(), t(ce.getProperty()),
+                t(ce.getFiller()));
         }
 
         @Override
@@ -822,7 +917,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(ce)) {
                 return ce;
             }
-            return df.getOWLObjectMaxCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce.getFiller()));
+            return df.getOWLObjectMaxCardinality(ce.getCardinality(), t(ce.getProperty()),
+                t(ce.getFiller()));
         }
 
         @Override
@@ -894,7 +990,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(ce)) {
                 return ce;
             }
-            return df.getOWLDataMinCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce.getFiller()));
+            return df.getOWLDataMinCardinality(ce.getCardinality(), t(ce.getProperty()),
+                t(ce.getFiller()));
         }
 
         @Override
@@ -906,7 +1003,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(ce)) {
                 return ce;
             }
-            return df.getOWLDataExactCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce.getFiller()));
+            return df.getOWLDataExactCardinality(ce.getCardinality(), t(ce.getProperty()),
+                t(ce.getFiller()));
         }
 
         @Override
@@ -918,7 +1016,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(ce)) {
                 return ce;
             }
-            return df.getOWLDataMaxCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce.getFiller()));
+            return df.getOWLDataMaxCardinality(ce.getCardinality(), t(ce.getProperty()),
+                t(ce.getFiller()));
         }
 
         @Override
@@ -990,7 +1089,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(node)) {
                 return node;
             }
-            return df.getOWLDatatypeRestriction(t(node.getDatatype()), t(node.getFacetRestrictions()));
+            return df.getOWLDatatypeRestriction(t(node.getDatatype()),
+                t(node.getFacetRestrictions()));
         }
 
         @Override
@@ -1091,7 +1191,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(node)) {
                 return node;
             }
-            return df.getOWLAnnotation(t(node.getProperty()), t(node.getValue()), t(node.getAnnotations()));
+            return df.getOWLAnnotation(t(node.getProperty()), t(node.getValue()),
+                t(node.getAnnotations()));
         }
 
         @Override
@@ -1149,8 +1250,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(node)) {
                 return node;
             }
-            return df.getSWRLObjectPropertyAtom(t(node.getPredicate()), t(node.getFirstArgument()), t(node
-                .getSecondArgument()));
+            return df.getSWRLObjectPropertyAtom(t(node.getPredicate()), t(node.getFirstArgument()),
+                t(node.getSecondArgument()));
         }
 
         @Override
@@ -1162,8 +1263,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(node)) {
                 return node;
             }
-            return df.getSWRLDataPropertyAtom(t(node.getPredicate()), t(node.getFirstArgument()), t(node
-                .getSecondArgument()));
+            return df.getSWRLDataPropertyAtom(t(node.getPredicate()), t(node.getFirstArgument()),
+                t(node.getSecondArgument()));
         }
 
         @Override
@@ -1223,7 +1324,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(node)) {
                 return node;
             }
-            return df.getSWRLSameIndividualAtom(t(node.getFirstArgument()), t(node.getSecondArgument()));
+            return df.getSWRLSameIndividualAtom(t(node.getFirstArgument()),
+                t(node.getSecondArgument()));
         }
 
         @Override
@@ -1235,7 +1337,8 @@ public class OWLObjectTransformer<T> {
             if (!predicate.apply(node)) {
                 return node;
             }
-            return df.getSWRLDifferentIndividualsAtom(t(node.getFirstArgument()), t(node.getSecondArgument()));
+            return df.getSWRLDifferentIndividualsAtom(t(node.getFirstArgument()),
+                t(node.getSecondArgument()));
         }
 
         @Override

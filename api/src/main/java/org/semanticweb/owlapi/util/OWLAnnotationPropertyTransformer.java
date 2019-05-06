@@ -14,48 +14,153 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLProperty;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIArgument;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLObjectVisitor;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLObjectVisitor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OWLAnnotationPropertyTransformer.class);
-    @Nonnull private final OWLDataFactory dataFactory;
+    private static final Logger LOGGER =
+        LoggerFactory.getLogger(OWLAnnotationPropertyTransformer.class);
+    @Nonnull
+    private final OWLDataFactory dataFactory;
     private Object obj;
-    @Nonnull private final Map<OWLEntity, OWLEntity> replacementMap;
+    @Nonnull
+    private final Map<OWLEntity, OWLEntity> replacementMap;
     protected RemappingIndividualProvider anonProvider;
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory.
+     * Creates an object duplicator that duplicates objects using the specified data factory.
      * 
-     * @param dataFactory
-     *        The data factory to be used for the duplication.
+     * @param dataFactory The data factory to be used for the duplication.
      */
     public OWLAnnotationPropertyTransformer(@Nonnull OWLDataFactory dataFactory) {
         this(new HashMap<OWLEntity, OWLEntity>(), dataFactory);
     }
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory and uri replacement map.
+     * Creates an object duplicator that duplicates objects using the specified data factory and uri
+     * replacement map.
      * 
-     * @param dataFactory
-     *        The data factory to be used for the duplication.
-     * @param iriReplacementMap
-     *        The map to use for the replacement of URIs. Any uris the appear in
-     *        the map will be replaced as objects are duplicated. This can be
-     *        used to "rename" entities.
+     * @param dataFactory The data factory to be used for the duplication.
+     * @param iriReplacementMap The map to use for the replacement of URIs. Any uris the appear in
+     *        the map will be replaced as objects are duplicated. This can be used to "rename"
+     *        entities.
      */
     public OWLAnnotationPropertyTransformer(@Nonnull OWLDataFactory dataFactory,
         @Nonnull Map<OWLEntity, OWLEntity> iriReplacementMap) {
@@ -65,29 +170,27 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
     }
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory and uri replacement map.
+     * Creates an object duplicator that duplicates objects using the specified data factory and uri
+     * replacement map.
      * 
-     * @param dataFactory
-     *        The data factory to be used for the duplication.
-     * @param entityIRIReplacementMap
-     *        The map to use for the replacement of URIs. Any uris the appear in
-     *        the map will be replaced as objects are duplicated. This can be
-     *        used to "rename" entities.
+     * @param dataFactory The data factory to be used for the duplication.
+     * @param entityIRIReplacementMap The map to use for the replacement of URIs. Any uris the
+     *        appear in the map will be replaced as objects are duplicated. This can be used to
+     *        "rename" entities.
      */
-    public OWLAnnotationPropertyTransformer(@Nonnull Map<OWLEntity, OWLEntity> entityIRIReplacementMap,
+    public OWLAnnotationPropertyTransformer(
+        @Nonnull Map<OWLEntity, OWLEntity> entityIRIReplacementMap,
         @Nonnull OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
         anonProvider = new RemappingIndividualProvider(this.dataFactory);
-        replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
+        replacementMap = new HashMap<>(
+            checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
     }
 
     /**
-     * @param object
-     *        the object to duplicate
+     * @param object the object to duplicate
      * @return the duplicate
-     * @param <O>
-     *        return type
+     * @param <O> return type
      */
     @Nonnull
     public <O extends OWLObject> O transformObject(@Nonnull O object) {
@@ -107,19 +210,17 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         this.obj = obj;
     }
 
-    @SuppressWarnings({ "unchecked", })
+    @SuppressWarnings({"unchecked",})
     @Nonnull
     protected <O> O getLastObject() {
         return (O) obj;
     }
 
     /**
-     * Given an IRI belonging to an entity, returns a IRI. This may be the same
-     * IRI that the entity has, or an alternative IRI if a replacement has been
-     * specified.
+     * Given an IRI belonging to an entity, returns a IRI. This may be the same IRI that the entity
+     * has, or an alternative IRI if a replacement has been specified.
      * 
-     * @param entity
-     *        The entity
+     * @param entity The entity
      * @return The IRI
      */
     @Nonnull
@@ -147,8 +248,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
     @Override
     public void visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
-        obj = dataFactory.getOWLAsymmetricObjectPropertyAxiom((OWLObjectPropertyExpression) getLastObject(),
-            duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLAsymmetricObjectPropertyAxiom(
+            (OWLObjectPropertyExpression) getLastObject(), duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -168,7 +269,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLDataPropertyExpression prop = getLastObject();
         axiom.getObject().accept(this);
         OWLLiteral con = getLastObject();
-        obj = dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, con, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, con,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -177,7 +279,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLDataPropertyExpression prop = getLastObject();
         axiom.getDomain().accept(this);
         OWLClassExpression domain = getLastObject();
-        obj = dataFactory.getOWLDataPropertyDomainAxiom(prop, domain, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLDataPropertyDomainAxiom(prop, domain,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -186,7 +289,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLDataPropertyExpression prop = getLastObject();
         axiom.getRange().accept(this);
         OWLDataRange range = getLastObject();
-        obj = dataFactory.getOWLDataPropertyRangeAxiom(prop, range, duplicateAxiomAnnotations(axiom));
+        obj =
+            dataFactory.getOWLDataPropertyRangeAxiom(prop, range, duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -195,7 +299,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLDataPropertyExpression subProp = getLastObject();
         axiom.getSuperProperty().accept(this);
         OWLDataPropertyExpression supProp = getLastObject();
-        obj = dataFactory.getOWLSubDataPropertyOfAxiom(subProp, supProp, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLSubDataPropertyOfAxiom(subProp, supProp,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -220,13 +325,15 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
     @Override
     public void visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
         Set<OWLDataPropertyExpression> props = duplicateSet(axiom.getProperties());
-        obj = dataFactory.getOWLDisjointDataPropertiesAxiom(props, duplicateAxiomAnnotations(axiom));
+        obj =
+            dataFactory.getOWLDisjointDataPropertiesAxiom(props, duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
         Set<OWLObjectPropertyExpression> props = duplicateSet(axiom.getProperties());
-        obj = dataFactory.getOWLDisjointObjectPropertiesAxiom(props, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLDisjointObjectPropertiesAxiom(props,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -259,8 +366,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             } else {
                 relatedIndividual = dataFactory.getOWLNamedIndividual((IRI) value);
             }
-            obj = dataFactory.getOWLObjectPropertyAssertionAxiom(prop.asOWLObjectProperty(), individual,
-                relatedIndividual, axiom.getAnnotations());
+            obj = dataFactory.getOWLObjectPropertyAssertionAxiom(prop.asOWLObjectProperty(),
+                individual, relatedIndividual, axiom.getAnnotations());
             return;
         } else if (prop.isDataPropertyExpression()) {
             // turn to data property assertion
@@ -270,12 +377,12 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             } else {
                 individual = dataFactory.getOWLNamedIndividual((IRI) subject);
             }
-            obj = dataFactory.getOWLDataPropertyAssertionAxiom(prop.asOWLDataProperty(), individual, (OWLLiteral) value,
-                axiom.getAnnotations());
+            obj = dataFactory.getOWLDataPropertyAssertionAxiom(prop.asOWLDataProperty(), individual,
+                (OWLLiteral) value, axiom.getAnnotations());
             return;
         }
-        obj = dataFactory.getOWLAnnotationAssertionAxiom(prop.asOWLAnnotationProperty(), subject, value,
-            duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLAnnotationAssertionAxiom(prop.asOWLAnnotationProperty(), subject,
+            value, duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -287,13 +394,15 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
     @Override
     public void visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
         Set<OWLDataPropertyExpression> props = duplicateSet(axiom.getProperties());
-        obj = dataFactory.getOWLEquivalentDataPropertiesAxiom(props, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLEquivalentDataPropertiesAxiom(props,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         Set<OWLObjectPropertyExpression> props = duplicateSet(axiom.getProperties());
-        obj = dataFactory.getOWLEquivalentObjectPropertiesAxiom(props, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLEquivalentObjectPropertiesAxiom(props,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -307,14 +416,16 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
     public void visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         OWLObjectPropertyExpression obj2 = getLastObject();
-        obj = dataFactory.getOWLFunctionalObjectPropertyAxiom(obj2, duplicateAxiomAnnotations(axiom));
+        obj =
+            dataFactory.getOWLFunctionalObjectPropertyAxiom(obj2, duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         OWLObjectPropertyExpression obj2 = getLastObject();
-        obj = dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(obj2, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(obj2,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -323,14 +434,16 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLObjectPropertyExpression propA = getLastObject();
         axiom.getSecondProperty().accept(this);
         OWLObjectPropertyExpression propB = getLastObject();
-        obj = dataFactory.getOWLInverseObjectPropertiesAxiom(propA, propB, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLInverseObjectPropertiesAxiom(propA, propB,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         OWLObjectPropertyExpression obj2 = getLastObject();
-        obj = dataFactory.getOWLIrreflexiveObjectPropertyAxiom(obj2, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLIrreflexiveObjectPropertyAxiom(obj2,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -341,7 +454,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLDataPropertyExpression prop = getLastObject();
         axiom.getObject().accept(this);
         OWLLiteral con = getLastObject();
-        obj = dataFactory.getOWLNegativeDataPropertyAssertionAxiom(prop, ind, con, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLNegativeDataPropertyAssertionAxiom(prop, ind, con,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -352,7 +466,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLObjectPropertyExpression prop = getLastObject();
         axiom.getObject().accept(this);
         OWLIndividual ind2 = getLastObject();
-        obj = dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(prop, ind, ind2, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(prop, ind, ind2,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -363,7 +478,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLObjectPropertyExpression prop = getLastObject();
         axiom.getObject().accept(this);
         OWLIndividual ind2 = getLastObject();
-        obj = dataFactory.getOWLObjectPropertyAssertionAxiom(prop, ind, ind2, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLObjectPropertyAssertionAxiom(prop, ind, ind2,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -375,7 +491,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             p.accept(this);
             chain.add((OWLObjectPropertyExpression) getLastObject());
         }
-        obj = dataFactory.getOWLSubPropertyChainOfAxiom(chain, prop, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLSubPropertyChainOfAxiom(chain, prop,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -384,7 +501,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLObjectPropertyExpression prop = getLastObject();
         axiom.getDomain().accept(this);
         OWLClassExpression domain = getLastObject();
-        obj = dataFactory.getOWLObjectPropertyDomainAxiom(prop, domain, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLObjectPropertyDomainAxiom(prop, domain,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -393,7 +511,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLObjectPropertyExpression prop = getLastObject();
         axiom.getRange().accept(this);
         OWLClassExpression range = getLastObject();
-        obj = dataFactory.getOWLObjectPropertyRangeAxiom(prop, range, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLObjectPropertyRangeAxiom(prop, range,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -402,14 +521,16 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLObjectPropertyExpression subProp = getLastObject();
         axiom.getSuperProperty().accept(this);
         OWLObjectPropertyExpression supProp = getLastObject();
-        obj = dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, supProp, duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, supProp,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         OWLObjectPropertyExpression prop = getLastObject();
-        obj = dataFactory.getOWLReflexiveObjectPropertyAxiom(prop, duplicateAxiomAnnotations(axiom));
+        obj =
+            dataFactory.getOWLReflexiveObjectPropertyAxiom(prop, duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -424,21 +545,24 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLClassExpression subClass = getLastObject();
         axiom.getSuperClass().accept(this);
         OWLClassExpression supClass = getLastObject();
-        obj = dataFactory.getOWLSubClassOfAxiom(subClass, supClass, duplicateAxiomAnnotations(axiom));
+        obj =
+            dataFactory.getOWLSubClassOfAxiom(subClass, supClass, duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         OWLObjectPropertyExpression prop = getLastObject();
-        obj = dataFactory.getOWLSymmetricObjectPropertyAxiom(prop, duplicateAxiomAnnotations(axiom));
+        obj =
+            dataFactory.getOWLSymmetricObjectPropertyAxiom(prop, duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         OWLObjectPropertyExpression prop = getLastObject();
-        obj = dataFactory.getOWLTransitiveObjectPropertyAxiom(prop, duplicateAxiomAnnotations(axiom));
+        obj =
+            dataFactory.getOWLTransitiveObjectPropertyAxiom(prop, duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -803,7 +927,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property domain axiom turned to object property domain after parsing. This could introduce errors if the original domain was an anonymous expression: {} is the new domain.",
                 domain);
-            obj = dataFactory.getOWLObjectPropertyDomainAxiom(prop.asOWLObjectProperty(), d, axiom.getAnnotations());
+            obj = dataFactory.getOWLObjectPropertyDomainAxiom(prop.asOWLObjectProperty(), d,
+                axiom.getAnnotations());
             return;
         } else if (prop.isDataPropertyExpression()) {
             // turn to data property domain
@@ -811,11 +936,12 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property domain axiom turned to data property domain after parsing. This could introduce errors if the original domain was an anonymous expression: {} is the new domain.",
                 domain);
-            obj = dataFactory.getOWLDataPropertyDomainAxiom(prop.asOWLDataProperty(), d, axiom.getAnnotations());
+            obj = dataFactory.getOWLDataPropertyDomainAxiom(prop.asOWLDataProperty(), d,
+                axiom.getAnnotations());
             return;
         }
-        obj = dataFactory.getOWLAnnotationPropertyDomainAxiom(prop.asOWLAnnotationProperty(), domain,
-            duplicateAxiomAnnotations(axiom));
+        obj = dataFactory.getOWLAnnotationPropertyDomainAxiom(prop.asOWLAnnotationProperty(),
+            domain, duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -830,7 +956,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property range axiom turned to object property range after parsing. This could introduce errors if the original range was an anonymous expression: {} is the new domain.",
                 range);
-            obj = dataFactory.getOWLObjectPropertyRangeAxiom(prop.asOWLObjectProperty(), d, axiom.getAnnotations());
+            obj = dataFactory.getOWLObjectPropertyRangeAxiom(prop.asOWLObjectProperty(), d,
+                axiom.getAnnotations());
             return;
         } else if (prop.isDataPropertyExpression()) {
             // turn to data property domain
@@ -838,7 +965,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property range axiom turned to data property range after parsing. This could introduce errors if the original range was an anonymous expression: {} is the new domain.",
                 range);
-            obj = dataFactory.getOWLDataPropertyRangeAxiom(prop.asOWLDataProperty(), d, axiom.getAnnotations());
+            obj = dataFactory.getOWLDataPropertyRangeAxiom(prop.asOWLDataProperty(), d,
+                axiom.getAnnotations());
             return;
         }
         obj = dataFactory.getOWLAnnotationPropertyRangeAxiom(prop.asOWLAnnotationProperty(), range,
@@ -855,8 +983,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             // check: it is possible that the properties represent an actual
             // illegal punning, where this fix cannot be applied
             if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
-                obj = dataFactory.getOWLSubObjectPropertyOfAxiom(sub.asOWLObjectProperty(), sup.asOWLObjectProperty(),
-                    axiom.getAnnotations());
+                obj = dataFactory.getOWLSubObjectPropertyOfAxiom(sub.asOWLObjectProperty(),
+                    sup.asOWLObjectProperty(), axiom.getAnnotations());
             } else {
                 // cannot repair: leave unchanged
                 obj = axiom;
@@ -864,8 +992,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             return;
         } else if (sub.isDataPropertyExpression() || sup.isDataPropertyExpression()) {
             if (sub.isOWLDataProperty() && sup.isOWLDataProperty()) {
-                obj = dataFactory.getOWLSubDataPropertyOfAxiom(sub.asOWLDataProperty(), sup.asOWLDataProperty(), axiom
-                    .getAnnotations());
+                obj = dataFactory.getOWLSubDataPropertyOfAxiom(sub.asOWLDataProperty(),
+                    sup.asOWLDataProperty(), axiom.getAnnotations());
             } else {
                 // cannot repair: leave unchanged
                 obj = axiom;
@@ -873,8 +1001,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             return;
         }
         if (sub.isOWLAnnotationProperty() && sup.isOWLAnnotationProperty()) {
-            obj = dataFactory.getOWLSubAnnotationPropertyOfAxiom(sub.asOWLAnnotationProperty(), sup
-                .asOWLAnnotationProperty(), duplicateAxiomAnnotations(axiom));
+            obj = dataFactory.getOWLSubAnnotationPropertyOfAxiom(sub.asOWLAnnotationProperty(),
+                sup.asOWLAnnotationProperty(), duplicateAxiomAnnotations(axiom));
         } else {
             // cannot repair: leave unchanged
             obj = axiom;
@@ -921,8 +1049,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
     /**
      * A utility function that duplicates a set of objects.
      * 
-     * @param objects
-     *        The set of object to be duplicated
+     * @param <O> return type
+     * @param objects The set of object to be duplicated
      * @return The set of duplicated objects
      */
     @Nonnull

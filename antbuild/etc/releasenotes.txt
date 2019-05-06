@@ -1,3 +1,17 @@
+## 4.5.12 06 May 2019
+
+### Features:
+
+*    Add support to load an ontology from classpath #837
+*    Implement Allow annotations to be skipped in module extraction #838
+
+### Bug fixes:
+
+*    Fix Multiple Ontology Definitions should obey strict parsing #840
+*    Fix Unnecessary dc prefix added by Manchester syntax parser #845
+*    Fix OWLDataFactory::getLiteral error with empty string and integer #846
+*    Fixed several incorrect XSD datatype matching patterns #844
+
 ## 4.5.11 17 April 2019
 
 ### Bug fixes:
