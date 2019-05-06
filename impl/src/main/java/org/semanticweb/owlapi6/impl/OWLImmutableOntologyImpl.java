@@ -177,7 +177,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
         df = manager.getOWLDataFactory();
         prefixManager = new PrefixManagerImpl();
-        this.config = config;
+        this.config = new OntologyConfigurator(config);
     }
 
     @Override
