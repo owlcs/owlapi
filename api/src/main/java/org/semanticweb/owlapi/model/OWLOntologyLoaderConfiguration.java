@@ -26,6 +26,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PRIOR
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPAIR_ILLEGAL_PUNNINGS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPORT_STACK_TRACES;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SKIP_MODULE_ANNOTATIONS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TREAT_DUBLINCORE_AS_BUILTIN;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TRIM_TO_SIZE;
 
@@ -498,6 +499,27 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.overrides.put(TRIM_TO_SIZE, Boolean.valueOf(value));
+        return configuration;
+    }
+
+    /**
+     * @return true if module extraction should not add annotation axioms to the module.
+     */
+    public boolean shouldSkipModuleAnnotations() {
+        return SKIP_MODULE_ANNOTATIONS.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @param value true if annotation axioms should not be added to modules
+     * @return A {@code OWLOntologyLoaderConfiguration} with the annotation axioms flag set to the
+     *         new value.
+     */
+    public OWLOntologyLoaderConfiguration withSkipModuleAnnotations(boolean value) {
+        if (shouldSkipModuleAnnotations() == value) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(SKIP_MODULE_ANNOTATIONS, Boolean.valueOf(value));
         return configuration;
     }
 }

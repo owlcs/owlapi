@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -72,6 +73,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * Type of module.
      */
     private ModuleType moduleType;
+    private OWLOntologyLoaderConfiguration config;
 
     /**
      * Creates a new module extractor for a subset of a given ontology, its manager, and a specified
@@ -83,7 +85,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     public SyntacticLocalityModuleExtractor(OWLOntologyManager man, Stream<OWLAxiom> axs,
         ModuleType moduleType) {
-        this(man, axs, moduleType, false);
+        this(man, man.getOntologyLoaderConfiguration(), axs, moduleType, false);
     }
 
     /**
@@ -97,6 +99,23 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     public SyntacticLocalityModuleExtractor(OWLOntologyManager man, Stream<OWLAxiom> axs,
         ModuleType moduleType, boolean excludeAssertions) {
+        this(man, man.getOntologyLoaderConfiguration(), axs, moduleType, excludeAssertions);
+    }
+
+    /**
+     * Creates a new module extractor for a subset of a given ontology, its manager, and a specified
+     * type of locality.
+     *
+     * @param man the manager for the associated ontology
+     * @param config access to configuration
+     * @param axs the subset of the ontology as a set of axioms
+     * @param moduleType the type of module this extractor will construct
+     * @param excludeAssertions true if assertions should be excluded
+     */
+    public SyntacticLocalityModuleExtractor(OWLOntologyManager man,
+        OWLOntologyLoaderConfiguration config, Stream<OWLAxiom> axs, ModuleType moduleType,
+        boolean excludeAssertions) {
+        this.config = config;
         this.moduleType = checkNotNull(moduleType, "moduleType cannot be null");
         manager = checkNotNull(man, "man cannot be null");
         Predicate<OWLAxiom> filter =
@@ -120,7 +139,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     public SyntacticLocalityModuleExtractor(OWLOntologyManager man, OWLOntology ont,
         ModuleType moduleType) {
-        this(man, asAxiomSet(ont), moduleType);
+        this(man, man.getOntologyLoaderConfiguration(), asAxiomSet(ont), moduleType, false);
     }
 
     private static Stream<OWLAxiom> asAxiomSet(OWLOntology ont) {
@@ -314,6 +333,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @return a set of axioms representing the enriched module
      */
     Set<OWLAxiom> enrich(Set<OWLAxiom> module, Set<OWLEntity> sig) {
+        if (config.shouldSkipModuleAnnotations()) {
+            return module;
+        }
         Set<OWLAxiom> enrichedModule = new HashSet<>(module);
         LOGGER.info(
             "\nEnriching with declaration axioms, annotation axioms, same/different individual axioms ...");
