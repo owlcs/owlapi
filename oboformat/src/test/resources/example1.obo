@@ -1,0 +1,178 @@
+format-version: 1.2
+data-version: releases/2018-09-25
+saved-by: cooperl
+subsetdef: Angiosperm "Term for angiosperms"
+subsetdef: Arabidopsis "Term used for Arabidopsis"
+subsetdef: Bryophytes "Term used for mosses, liverworts, and/or hornworts"
+subsetdef: Citrus "Term used for citrus"
+subsetdef: CL "plant cells"
+subsetdef: Gymnosperms "Term used for gymnosperms"
+subsetdef: Maize "Term used for maize"
+subsetdef: Musa "Terms used for banana"
+subsetdef: Poaceae "Term used for grasses"
+subsetdef: Potato "Term used for potato"
+subsetdef: Pteridophytes "Term used for ferns and allies"
+subsetdef: reference "reference plant structure term"
+subsetdef: Rice "Term used for rice"
+subsetdef: Tomato "Term used for tomato"
+subsetdef: TraitNet "Plant Functional Traits"
+synonymtypedef: German "German synonym (exact)" EXACT
+synonymtypedef: Japanese "Japanese synonym (exact)" EXACT
+synonymtypedef: Plural "Plural"
+synonymtypedef: Spanish "Spanish synonym (exact)" EXACT
+default-namespace: plant_ontology
+treat-xrefs-as-genus-differentia: CL part_of NCBITaxon:33090
+treat-xrefs-as-is_a: CARO
+import: http://purl.obolibrary.org/obo/po/imports/ncbitaxon_import.owl
+ontology: po
+
+[Term]
+id: PO:0000001
+name: plant embryo proper
+namespace: plant_anatomy
+def: "An embryonic plant structure (PO:0025099) that is the body of a developing plant embryo (PO:0009009) attached to the maternal tissue in an plant ovule (PO:0020003) by a suspensor (PO:0020108)." [POC:Laurel_Cooper, POC:Ramona_Walls]
+comment: The embryo proper is the entire embryo exclusive of the suspensor.
+synonym: "embri&#243foro (Spanish, exact)" EXACT Spanish [POC:Maria_Alejandra_Gandolfo]
+synonym: "胚本体 (Japanese, exact)" EXACT Japanese [NIG:Yukiko_Yamazaki]
+xref: PO_GIT:246
+customTag: custom value
+
+[Term]
+id: PO:0000002
+name: anther wall
+namespace: plant_anatomy
+alt_id: PO:0006445
+alt_id: PO:0006477
+def: "A microsporangium wall (PO:0025307) that is part of an anther (PO:0009066)." [ISBN:0471244554, ISBN:9780003686647]
+comment: Has an outer epidermis (exothecium) and an endothecium and may have additional layers. If you are annotating to this structure for Zea mays or other grasses, please also add an annotation to the corresponding floret type. Choose the most specific term possible from: spikelet floret (PO:0009082), tassel floret (PO:0006310), lower floret of pedicellate spikelet of tassel (PO:0006313), lower floret of sessile spikelet of tassel (PO:0006315), upper floret of pedicellate spikelet of tassel (PO:0006314), upper floret of sessile spikelet of tassel (PO:0006316).
+subset: Angiosperm
+subset: reference
+synonym: "pared de la antera (Spanish, exact)" EXACT Spanish [POC:Maria_Alejandra_Gandolfo]
+synonym: "Poaceae anther wall (narrow)" NARROW []
+synonym: "pollen sac wall (exact)" EXACT []
+synonym: "Zea anther wall (narrow)" NARROW []
+synonym: "葯壁 (Japanese, exact)" EXACT Japanese [NIG:Yukiko_Yamazaki]
+xref: PO_GIT:149
+xref: PO_GIT:298
+is_a: PO:0000001 ! plant embryo proper
+
+[Term]
+id: PO:0000003
+name: whole plant
+namespace: plant_anatomy
+def: "A plant structure (PO:0005679) which is a whole organism." [POC:curators]
+comment: Examples include plant embryo (PO:0009009), megagametophyte (PO:0025279) and microgametophyte (PO:0025280).
+subset: reference
+subset: TraitNet
+synonym: "bush (narrow)" NARROW []
+synonym: "clonal colony (related)" RELATED []
+synonym: "colony (related)" RELATED []
+synonym: "frutex (narrow)" NARROW [FNA:e4dde193-57f7-4ab9-9d25-96b4ca0088ba]
+synonym: "frutices (narrow)" NARROW Plural [FNA:ec8c2064-2a67-43d7-8e14-aecfef5cf33b]
+synonym: "gametophyte (narrow)" NARROW []
+synonym: "genet (broad)" BROAD []
+synonym: "herb (narrow)" NARROW []
+synonym: "liana (narrow)" NARROW []
+synonym: "planta entera (Spanish, exact)" EXACT Spanish [POC:Maria_Alejandra_Gandolfo]
+synonym: "prothalli (narrow)" NARROW Plural [FNA:4b610104-1bb0-4c6b-9bb9-e3cc61d11ac0]
+synonym: "prothallium (narrow)" NARROW []
+synonym: "prothallus (narrow)" NARROW [FNA:f8f31520-e4bc-4430-9274-8dd3cee7ffd8]
+synonym: "ramet (broad)" BROAD []
+synonym: "seedling (narrow)" NARROW []
+synonym: "shrub (narrow)" NARROW []
+synonym: "sporophyte (narrow)" NARROW []
+synonym: "suffrutex (narrow)" NARROW [FNA:99508f62-7116-4e2b-90c0-19ff55ebd967]
+synonym: "suffrutices (narrow)" NARROW Plural [FNA:ba1b1bd5-75bd-4195-b11c-3aba08da08c2]
+synonym: "tree (narrow)" NARROW []
+synonym: "vine (narrow)" NARROW []
+synonym: "woody clump (narrow)" NARROW [FNA:c1ccca7d-2a98-4a9d-8603-c34b551935e0]
+synonym: "植物体全体 (Japanese, exact)" EXACT Japanese [NIG:Yukiko_Yamazaki]
+xref: PO_GIT:538
+xref: PO_GIT:69
+is_a: PO:0000001 ! plant embryo proper
+
+[Typedef]
+id: adjacent_to
+name: adjacent_to
+xref: RO:0002220
+
+[Typedef]
+id: derives_by_manipulation_from
+name: derives_by_manipulation_from
+def: "A derives_by_manipulation_from B means: A is a type of in vitro plant structure, and every instance of A exists at a point in time later than some instance of B from which it was created through human manipulation, and every instance of A inherited a biologically significant portion of its matter from the instance of B from which it was derived." [POC:curators]
+comment: The derives_by_manipulation_from relation, is a special case of the RO relation derives_from.  Derives_from implies an instance level derivation that holds between two distinct material continuants when one succeeds the other across a temporal divide in such a way that at least a biologically significant portion of the matter of the earlier continuant is inherited by the later.  Likewise, derives_by_manipulation_from joins two plant structures before and after some manipulation.  Specifically, derives_by_manipulation_from is used to describe the relation between an in vitro plant structure and the in vivo plant structure that is its temporal precursor.
+created_by: rwalls
+creation_date: 2010-07-01T02:45:12Z
+
+[Typedef]
+id: developmentally_preceded_by
+name: developmentally_preceded_by
+def: "X developmentally related to y if and only if there exists some developmental process (GO:0032502) p such that x and y both participates in p, and x is the output of p and y is the input of p." [RO:0002258]
+xref: RO:0002258
+is_obsolete: true
+created_by: Laurel_Cooper
+creation_date: 2013-06-27T13:16:56Z
+
+[Typedef]
+id: develops_from
+name: develops_from
+xref: RO:0002202
+is_transitive: true
+
+[Typedef]
+id: has_part
+name: has_part
+xref: BFO:0000051
+is_transitive: true
+
+[Typedef]
+id: has_participant
+name: has_participant
+xref: BFO:0000057
+
+[Typedef]
+id: isolated_from_germplasm
+name: isolated from germplasm
+
+[Typedef]
+id: located_in
+name: located_in
+xref: RO:0001025
+created_by: rwalls
+creation_date: 2012-05-23T09:52:02Z
+
+[Typedef]
+id: only_in_taxon
+name: only_in_taxon
+xref: RO:0002160
+
+[Typedef]
+id: part_of
+name: part_of
+xref: BFO:0000050
+is_transitive: true
+
+[Typedef]
+id: participates_in
+name: participates_in
+xref: BFO:0000056
+holds_over_chain: part_of participates_in
+inverse_of: has_participant ! has_participant
+
+[Typedef]
+id: preceded_by
+name: preceded_by
+def: "The assertion P preceded_by P1 tells us something about Ps in general: that is, it tells us something about what happened earlier, given what we know about what happened later. Thus it does not provide information pointing in the opposite direction, concerning instances of P1 in general; that is, that each is such as to be succeeded by some instance of P." [POC:Laurel_Cooper]
+comment: Note that an assertion to the effect that P preceded_by P1 is rather weak; it tells us little about the relations between the underlying instances in virtue of which the preceded_by relation obtains. Typically we will be interested in stronger relations, for example in the relation immediately_preceded_by, or in relations which combine preceded_by with a condition to the effect that the corresponding instances of P and P1 share participants, or that their participants are connected by relations of derivation, or (as a first step along the road to a treatment of causality) that the one process in some way affects (for example, initiates or regulates) the other.
+xref: BFO:0000062
+is_transitive: true
+created_by: Laurel_Cooper
+creation_date: 2013-07-09T14:29:15Z
+
+[Typedef]
+id: precedes
+name: precedes
+xref: BFO:0000063
+created_by: Laurel_Cooper
+creation_date: 2015-06-04T17:18:40Z
+
