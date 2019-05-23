@@ -403,33 +403,39 @@ public class OBOFormatParser {
         return true;
     }
 
-    protected void parseHeaderClause(Frame h) {
+    protected Clause parseHeaderClause(Frame h) {
         String t = getParseTag();
         Clause cl = new Clause(t);
         OboFormatTag tag = OBOFormatConstants.getTag(t);
         h.addClause(cl);
-        if (tag == OboFormatTag.TAG_DATA_VERSION) {
-            parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_FORMAT_VERSION) {
-            parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_SYNONYMTYPEDEF) {
-            parseSynonymTypedef(cl);
-        } else if (tag == OboFormatTag.TAG_SUBSETDEF) {
-            parseSubsetdef(cl);
-        } else if (tag == OboFormatTag.TAG_DATE) {
-            parseHeaderDate(cl);
-        } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
-            parsePropertyValue(cl);
-            parseZeroOrMoreWs();
-            parseQualifierBlock(cl);
-            parseHiddenComment();
-        } else if (tag == OboFormatTag.TAG_IMPORT) {
-            parseImport(cl);
-        } else if (tag == OboFormatTag.TAG_IDSPACE) {
-            parseIdSpace(cl);
-        } else {
-            parseUnquotedString(cl);
+        if (tag == null) {
+            return parseUnquotedString(cl);
         }
+        switch (tag) {
+            case TAG_SYNONYMTYPEDEF:
+                return parseSynonymTypedef(cl);
+            case TAG_SUBSETDEF:
+                return parseSubsetdef(cl);
+            case TAG_DATE:
+                return parseHeaderDate(cl);
+            case TAG_PROPERTY_VALUE:
+                parsePropertyValue(cl);
+                return parseQualifierAndHiddenComment(cl);
+            case TAG_IMPORT:
+                return parseImport(cl);
+            case TAG_IDSPACE:
+                return parseIdSpace(cl);
+            // $CASES-OMITTED$
+            default:
+                return parseUnquotedString(cl);
+        }
+    }
+
+    protected Clause parseQualifierAndHiddenComment(Clause cl) {
+        parseZeroOrMoreWs();
+        parseQualifierBlock(cl);
+        parseHiddenComment();
+        return cl;
     }
 
     // ----------------------------------------
@@ -522,65 +528,57 @@ public class OBOFormatParser {
         }
         OboFormatTag tag = OBOFormatConstants.getTag(t);
         if (tag == null) {
-            error("Could not find tag for: " + t);
+            // Treat unexpected tags as custom tags
+            return parseCustomTag(cl);
         }
-        if (tag == OboFormatTag.TAG_IS_ANONYMOUS) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_NAME) {
-            parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_NAMESPACE) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_ALT_ID) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_DEF) {
-            parseDef(cl);
-        } else if (tag == OboFormatTag.TAG_COMMENT) {
-            parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_SUBSET) {
-            // in the obof1.4 spec, subsets may not contain spaces.
-            // unfortunately OE does not prohibit this, so subsets with spaces
-            // frequently escape. We should either allow spaces in the spec
-            // (with complicates parsing) or forbid them and reject all obo
-            // documents that do not conform. Unfortunately that would limit
-            // the utility of this parser, so for now we allow spaces. We may
-            // make it strict again when community is sufficiently forewarned.
-            // (alternatively we may add smarts to OE to translate the spaces to
-            // underscores, so it's a one-off translation)
-            parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_SYNONYM) {
-            parseSynonym(cl);
-        } else if (tag == OboFormatTag.TAG_XREF) {
-            parseDirectXref(cl);
-        } else if (tag == OboFormatTag.TAG_BUILTIN) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
-            parsePropertyValue(cl);
-        } else if (tag == OboFormatTag.TAG_IS_A) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_INTERSECTION_OF) {
-            parseTermIntersectionOf(cl);
-        } else if (tag == OboFormatTag.TAG_UNION_OF) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_EQUIVALENT_TO) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_DISJOINT_FROM) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_RELATIONSHIP) {
-            parseRelationship(cl);
-        } else if (tag == OboFormatTag.TAG_CREATED_BY) {
-            parsePerson(cl);
-        } else if (tag == OboFormatTag.TAG_CREATION_DATE) {
-            parseISODate(cl);
-        } else if (tag == OboFormatTag.TAG_IS_OBSELETE) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_REPLACED_BY) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_CONSIDER) {
-            parseIdRef(cl);
-        } else {
-            error("Unexpected tag " + tag + " in term frame.");
+        switch (tag) {
+            case TAG_IS_ANONYMOUS:
+            case TAG_BUILTIN:
+            case TAG_IS_OBSELETE:
+                return parseBoolean(cl);
+            case TAG_NAME:
+            case TAG_COMMENT:
+            case TAG_CREATED_BY:
+                return parseUnquotedString(cl);
+            case TAG_NAMESPACE:
+            case TAG_ALT_ID:
+            case TAG_IS_A:
+            case TAG_UNION_OF:
+            case TAG_EQUIVALENT_TO:
+            case TAG_DISJOINT_FROM:
+            case TAG_REPLACED_BY:
+            case TAG_CONSIDER:
+                return parseIdRef(cl);
+            case TAG_DEF:
+                return parseDef(cl);
+            case TAG_SUBSET:
+                // in the obof1.4 spec, subsets may not contain spaces.
+                // unfortunately OE does not prohibit this, so subsets with spaces
+                // frequently escape. We should either allow spaces in the spec
+                // (which complicates parsing) or forbid them and reject all obo
+                // documents that do not conform. Unfortunately that would limit
+                // the utility of this parser, so for now we allow spaces. We may
+                // make it strict again when community is sufficiently forewarned.
+                // (alternatively we may add smarts to OE to translate the spaces to
+                // underscores, so it's a one-off translation)
+                return parseUnquotedString(cl);
+            case TAG_SYNONYM:
+                return parseSynonym(cl);
+            case TAG_XREF:
+                return parseDirectXref(cl);
+            case TAG_PROPERTY_VALUE:
+                return parsePropertyValue(cl);
+            case TAG_INTERSECTION_OF:
+                return parseTermIntersectionOf(cl);
+            case TAG_RELATIONSHIP:
+                return parseRelationship(cl);
+            case TAG_CREATION_DATE:
+                return parseISODate(cl);
+            // $CASES-OMITTED$
+            default:
+                // Treat unexpected tags as custom tags
+                return parseCustomTag(cl);
         }
-        return cl;
     }
 
     /**
@@ -649,94 +647,68 @@ public class OBOFormatParser {
         }
         OboFormatTag tag = OBOFormatConstants.getTag(t);
         if (tag == null) {
-            error("Could not find tag for: " + t);
+            // Treat unexpected tags as custom tags
+            return parseCustomTag(cl);
         }
-        if (tag == OboFormatTag.TAG_IS_ANONYMOUS) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_NAME) {
-            parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_NAMESPACE) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_ALT_ID) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_DEF) {
-            parseDef(cl);
-        } else if (tag == OboFormatTag.TAG_COMMENT) {
-            parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_SUBSET) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_SYNONYM) {
-            parseSynonym(cl);
-        } else if (tag == OboFormatTag.TAG_XREF) {
-            parseDirectXref(cl);
-        } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
-            parsePropertyValue(cl);
-        } else if (tag == OboFormatTag.TAG_DOMAIN) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_RANGE) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_BUILTIN) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_ANTI_SYMMETRIC) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_CYCLIC) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_REFLEXIVE) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_SYMMETRIC) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_ASYMMETRIC) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_TRANSITIVE) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_FUNCTIONAL) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_A) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_INTERSECTION_OF) {
-            parseTypedefIntersectionOf(cl);
-        } else if (tag == OboFormatTag.TAG_UNION_OF) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_EQUIVALENT_TO) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_DISJOINT_FROM) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_INVERSE_OF) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_TRANSITIVE_OVER) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_HOLDS_OVER_CHAIN) {
-            parseIdRefPair(cl);
-        } else if (tag == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN) {
-            parseIdRefPair(cl);
-        } else if (tag == OboFormatTag.TAG_DISJOINT_OVER) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_RELATIONSHIP) {
-            parseRelationship(cl);
-        } else if (tag == OboFormatTag.TAG_CREATED_BY) {
-            parsePerson(cl);
-        } else if (tag == OboFormatTag.TAG_CREATION_DATE) {
-            parseISODate(cl);
-        } else if (tag == OboFormatTag.TAG_IS_OBSELETE) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_REPLACED_BY) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_CONSIDER) {
-            parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_IS_METADATA_TAG) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_CLASS_LEVEL_TAG) {
-            parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_EXPAND_ASSERTION_TO) {
-            parseOwlDef(cl);
-        } else if (tag == OboFormatTag.TAG_EXPAND_EXPRESSION_TO) {
-            parseOwlDef(cl);
-        } else {
-            error("Unexpected tag " + tag + " in type def frame.");
+        switch (tag) {
+            case TAG_IS_ANONYMOUS:
+            case TAG_BUILTIN:
+            case TAG_IS_OBSELETE:
+            case TAG_IS_ANTI_SYMMETRIC:
+            case TAG_IS_CYCLIC:
+            case TAG_IS_REFLEXIVE:
+            case TAG_IS_SYMMETRIC:
+            case TAG_IS_ASYMMETRIC:
+            case TAG_IS_TRANSITIVE:
+            case TAG_IS_FUNCTIONAL:
+            case TAG_IS_INVERSE_FUNCTIONAL:
+            case TAG_IS_METADATA_TAG:
+            case TAG_IS_CLASS_LEVEL_TAG:
+                return parseBoolean(cl);
+            case TAG_NAME:
+            case TAG_COMMENT:
+            case TAG_CREATED_BY:
+                return parseUnquotedString(cl);
+            case TAG_NAMESPACE:
+            case TAG_ALT_ID:
+            case TAG_SUBSET:
+            case TAG_IS_A:
+            case TAG_UNION_OF:
+            case TAG_EQUIVALENT_TO:
+            case TAG_DISJOINT_FROM:
+            case TAG_REPLACED_BY:
+            case TAG_CONSIDER:
+            case TAG_INVERSE_OF:
+            case TAG_TRANSITIVE_OVER:
+            case TAG_DISJOINT_OVER:
+            case TAG_DOMAIN:
+            case TAG_RANGE:
+                return parseIdRef(cl);
+            case TAG_DEF:
+                return parseDef(cl);
+            case TAG_SYNONYM:
+                return parseSynonym(cl);
+            case TAG_XREF:
+                return parseDirectXref(cl);
+            case TAG_PROPERTY_VALUE:
+                return parsePropertyValue(cl);
+            case TAG_INTERSECTION_OF:
+                return parseTypedefIntersectionOf(cl);
+            case TAG_RELATIONSHIP:
+                return parseRelationship(cl);
+            case TAG_CREATION_DATE:
+                return parseISODate(cl);
+            case TAG_HOLDS_OVER_CHAIN:
+            case TAG_EQUIVALENT_TO_CHAIN:
+                return parseIdRefPair(cl);
+            case TAG_EXPAND_ASSERTION_TO:
+            case TAG_EXPAND_EXPRESSION_TO:
+                return parseOwlDef(cl);
+            // $CASES-OMITTED$
+            default:
+                // Treat unexpected tags as custom tags
+                return parseCustomTag(cl);
         }
-        return cl;
     }
 
     // ----------------------------------------
@@ -769,35 +741,32 @@ public class OBOFormatParser {
         return mapDeprecatedTag(tag);
     }
 
-    private void parseIdRef(Clause cl) {
-        parseIdRef(cl, false);
+    private Clause parseIdRef(Clause cl) {
+        return parseIdRef(cl, false);
     }
 
-    private void parseIdRef(Clause cl, boolean optional) {
+    private Clause parseIdRef(Clause cl, boolean optional) {
         String id = getParseUntil(" !{");
         if (!optional && id.length() < 1) {
             error("");
         }
         cl.addValue(id);
+        return cl;
     }
 
-    private void parseIdRefPair(Clause cl) {
+    private Clause parseIdRefPair(Clause cl) {
         parseIdRef(cl);
         parseOneOrMoreWs();
-        parseIdRef(cl);
+        return parseIdRef(cl);
     }
 
-    private void parsePerson(Clause cl) {
-        parseUnquotedString(cl);
-    }
-
-    private boolean parseISODate(Clause cl) {
+    private Clause parseISODate(Clause cl) {
         String dateStr = getParseUntil(" !{");
         cl.setValue(dateStr);
-        return true;
+        return cl;
     }
 
-    private void parseSubsetdef(Clause cl) {
+    private Clause parseSubsetdef(Clause cl) {
         parseIdRef(cl);
         parseOneOrMoreWs();
         if (stream.consume("\"")) {
@@ -806,12 +775,10 @@ public class OBOFormatParser {
         } else {
             error("");
         }
-        parseZeroOrMoreWs();
-        parseQualifierBlock(cl);
-        parseHiddenComment();
+        return parseQualifierAndHiddenComment(cl);
     }
 
-    private void parseSynonymTypedef(Clause cl) {
+    private Clause parseSynonymTypedef(Clause cl) {
         parseIdRef(cl);
         parseOneOrMoreWs();
         if (stream.consume("\"")) {
@@ -825,25 +792,24 @@ public class OBOFormatParser {
                 // TODO - verify that this is a valid scope
             }
         }
-        parseZeroOrMoreWs();
-        parseQualifierBlock(cl);
-        parseHiddenComment();
+        return parseQualifierAndHiddenComment(cl);
     }
 
-    private void parseHeaderDate(Clause cl) {
+    private Clause parseHeaderDate(Clause cl) {
         parseZeroOrMoreWs();
         String v = getParseUntil("!");
         v = removeTrailingWS(v);
         try {
             Date date = OBOFormatConstants.headerDateFormat().parse(v);
             cl.addValue(date);
+            return cl;
         } catch (ParseException e) {
             throw new OBOFormatParserException("Could not parse date from string: " + v, e,
                 stream.lineNo, stream.line);
         }
     }
 
-    private boolean parseImport(Clause cl) {
+    private Clause parseImport(Clause cl) {
         parseZeroOrMoreWs();
         String v = getParseUntil("!{");
         v = removeTrailingWS(v);
@@ -855,10 +821,10 @@ public class OBOFormatParser {
             getParseUntilAdv("}");
         }
         parseHiddenComment();// ignore return value, as comments are optional
-        return true;
+        return cl;
     }
 
-    private void parseIdSpace(Clause cl) {
+    private Clause parseIdSpace(Clause cl) {
         parseZeroOrMoreWs();
         parseIdRefPair(cl);
         parseZeroOrMoreWs();
@@ -870,18 +836,16 @@ public class OBOFormatParser {
             String desc = getParseUntil(" !{");
             cl.addValue(desc);
         }
-        parseZeroOrMoreWs();
-        parseQualifierBlock(cl);
-        parseHiddenComment();
+        return parseQualifierAndHiddenComment(cl);
     }
 
-    private void parseRelationship(Clause cl) {
+    private Clause parseRelationship(Clause cl) {
         parseIdRef(cl);
         parseOneOrMoreWs();
-        parseIdRef(cl);
+        return parseIdRef(cl);
     }
 
-    private void parsePropertyValue(Clause cl) {
+    private Clause parsePropertyValue(Clause cl) {
         // parse a pair or triple
         // the first and second value, may be quoted strings
         if (stream.peekCharIs('\"')) {
@@ -911,6 +875,7 @@ public class OBOFormatParser {
                 cl.addValue(s);
             }
         }
+        return cl;
     }
 
     /**
@@ -919,7 +884,7 @@ public class OBOFormatParser {
      * @param cl cl
      * @throws OBOFormatParserException parser exception
      */
-    private void parseTermIntersectionOf(Clause cl) {
+    private Clause parseTermIntersectionOf(Clause cl) {
         parseIdRef(cl);
         // consumed the first ID
         parseZeroOrMoreWs();
@@ -930,11 +895,12 @@ public class OBOFormatParser {
                 parseIdRef(cl, true);
             }
         }
+        return cl;
     }
 
-    private void parseTypedefIntersectionOf(Clause cl) {
+    private Clause parseTypedefIntersectionOf(Clause cl) {
         // single values only
-        parseIdRef(cl);
+        return parseIdRef(cl);
     }
 
     // ----------------------------------------
@@ -965,7 +931,7 @@ public class OBOFormatParser {
         return false;
     }
 
-    private void parseSynonym(Clause cl) {
+    private Clause parseSynonym(Clause cl) {
         if (stream.consume("\"")) {
             String syn = getParseUntilAdv("\"");
             cl.setValue(syn);
@@ -982,12 +948,13 @@ public class OBOFormatParser {
         } else {
             error("The synonym is always a quoted string.");
         }
+        return cl;
     }
 
     // ----------------------------------------
     // Definitions
     // ----------------------------------------
-    private void parseDef(Clause cl) {
+    private Clause parseDef(Clause cl) {
         if (stream.consume("\"")) {
             String def = getParseUntilAdv("\"");
             cl.setValue(def);
@@ -996,9 +963,10 @@ public class OBOFormatParser {
         } else {
             error("Definitions should always be a quoted string.");
         }
+        return cl;
     }
 
-    private void parseOwlDef(Clause cl) {
+    private Clause parseOwlDef(Clause cl) {
         if (stream.consume("\"")) {
             String def = getParseUntilAdv("\"");
             cl.setValue(def);
@@ -1007,6 +975,7 @@ public class OBOFormatParser {
         } else {
             error("The " + cl.getTag() + " clause is always a quoted string.");
         }
+        return cl;
     }
 
     // ----------------------------------------
@@ -1056,7 +1025,7 @@ public class OBOFormatParser {
     }
 
     // an xref that is a direct value of a clause
-    private boolean parseDirectXref(Clause cl) {
+    private Clause parseDirectXref(Clause cl) {
         parseZeroOrMoreWs();
         String id = getParseUntil("\",]!{", true);
         id = id.trim();
@@ -1071,7 +1040,7 @@ public class OBOFormatParser {
             stream.consume("\"");
             xref.setAnnotation(getParseUntilAdv("\""));
         }
-        return true;
+        return cl;
     }
 
     /**
@@ -1128,7 +1097,7 @@ public class OBOFormatParser {
     // ----------------------------------------
     // Other
     // ----------------------------------------
-    private void parseBoolean(Clause cl) {
+    private Clause parseBoolean(Clause cl) {
         if (stream.consume("true")) {
             cl.setValue(Boolean.TRUE);
         } else if (stream.consume("false")) {
@@ -1136,6 +1105,7 @@ public class OBOFormatParser {
         } else {
             error("Could not parse boolean value.");
         }
+        return cl;
     }
 
     // ----------------------------------------
@@ -1164,9 +1134,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException parser exception
      */
     public void parseEOL(Clause cl) {
-        parseZeroOrMoreWs();
-        parseQualifierBlock(cl);
-        parseHiddenComment();
+        parseQualifierAndHiddenComment(cl);
         forceParseNlOrEof();
     }
 
@@ -1177,7 +1145,7 @@ public class OBOFormatParser {
         }
     }
 
-    protected void parseUnquotedString(Clause cl) {
+    protected Clause parseUnquotedString(Clause cl) {
         parseZeroOrMoreWs();
         String v = getParseUntil("!{");
         // strip whitespace from the end - TODO
@@ -1187,6 +1155,11 @@ public class OBOFormatParser {
             parseQualifierBlock(cl);
         }
         parseHiddenComment();
+        return cl;
+    }
+
+    protected Clause parseCustomTag(Clause cl) {
+        return parseUnquotedString(cl);
     }
 
     // Newlines, whitespace
