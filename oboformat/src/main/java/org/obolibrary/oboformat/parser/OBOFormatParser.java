@@ -521,22 +521,20 @@ public class OBOFormatParser {
             return cl;
         }
         OboFormatTag tag = OBOFormatConstants.getTag(t);
-        if (tag == null) {
-            error("Could not find tag for: " + t);
-        }
-        if (tag == OboFormatTag.TAG_IS_ANONYMOUS) {
+        
+        if (OboFormatTag.TAG_IS_ANONYMOUS.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_NAME) {
+        } else if (OboFormatTag.TAG_NAME.equals(tag)) {
             parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_NAMESPACE) {
+        } else if (OboFormatTag.TAG_NAMESPACE.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_ALT_ID) {
+        } else if (OboFormatTag.TAG_ALT_ID.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_DEF) {
+        } else if (OboFormatTag.TAG_DEF.equals(tag)) {
             parseDef(cl);
-        } else if (tag == OboFormatTag.TAG_COMMENT) {
+        } else if (OboFormatTag.TAG_COMMENT.equals(tag)) {
             parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_SUBSET) {
+        } else if (OboFormatTag.TAG_SUBSET.equals(tag)) {
             // in the obof1.4 spec, subsets may not contain spaces.
             // unfortunately OE does not prohibit this, so subsets with spaces
             // frequently escape. We should either allow spaces in the spec
@@ -547,43 +545,49 @@ public class OBOFormatParser {
             // (alternatively we may add smarts to OE to translate the spaces to
             // underscores, so it's a one-off translation)
             parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_SYNONYM) {
+        } else if (OboFormatTag.TAG_SYNONYM.equals(tag)) {
             parseSynonym(cl);
-        } else if (tag == OboFormatTag.TAG_XREF) {
+        } else if (OboFormatTag.TAG_XREF.equals(tag)) {
             parseDirectXref(cl);
-        } else if (tag == OboFormatTag.TAG_BUILTIN) {
+        } else if (OboFormatTag.TAG_BUILTIN.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
+        } else if (OboFormatTag.TAG_PROPERTY_VALUE.equals(tag)) {
             parsePropertyValue(cl);
-        } else if (tag == OboFormatTag.TAG_IS_A) {
+        } else if (OboFormatTag.TAG_IS_A.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_INTERSECTION_OF) {
+        } else if (OboFormatTag.TAG_INTERSECTION_OF.equals(tag)) {
             parseTermIntersectionOf(cl);
-        } else if (tag == OboFormatTag.TAG_UNION_OF) {
+        } else if (OboFormatTag.TAG_UNION_OF.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_EQUIVALENT_TO) {
+        } else if (OboFormatTag.TAG_EQUIVALENT_TO.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_DISJOINT_FROM) {
+        } else if (OboFormatTag.TAG_DISJOINT_FROM.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_RELATIONSHIP) {
+        } else if (OboFormatTag.TAG_RELATIONSHIP.equals(tag)) {
             parseRelationship(cl);
-        } else if (tag == OboFormatTag.TAG_CREATED_BY) {
+        } else if (OboFormatTag.TAG_CREATED_BY.equals(tag)) {
             parsePerson(cl);
-        } else if (tag == OboFormatTag.TAG_CREATION_DATE) {
+        } else if (OboFormatTag.TAG_CREATION_DATE.equals(tag)) {
             parseISODate(cl);
-        } else if (tag == OboFormatTag.TAG_IS_OBSELETE) {
+        } else if (OboFormatTag.TAG_IS_OBSELETE.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_REPLACED_BY) {
+        } else if (OboFormatTag.TAG_REPLACED_BY.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_CONSIDER) {
+        } else if (OboFormatTag.TAG_CONSIDER.equals(tag)) {
             parseIdRef(cl);
         } else {
-            error("Unexpected tag " + tag + " in term frame.");
+        	// Deal unexpected tags as custom tags instead of errors
+            // error("Unexpected tag " + tag + " in term frame.");
+        	
+        	// Deal with custom tag
+            parseCustomTag(cl);
         }
         return cl;
     }
 
-    /**
+    
+
+	/**
      * Typedef-frame ::= nl* '[Typedef]' nl id-Tag Class-ID EOL { Typedef-frame-clause EOL }.
      *
      * @param obodoc obodoc
@@ -648,95 +652,95 @@ public class OBOFormatParser {
             return cl;
         }
         OboFormatTag tag = OBOFormatConstants.getTag(t);
-        if (tag == null) {
-            error("Could not find tag for: " + t);
-        }
-        if (tag == OboFormatTag.TAG_IS_ANONYMOUS) {
+        if (OboFormatTag.TAG_IS_ANONYMOUS.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_NAME) {
+        } else if (OboFormatTag.TAG_NAME.equals(tag)) {
             parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_NAMESPACE) {
+        } else if (OboFormatTag.TAG_NAMESPACE.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_ALT_ID) {
+        } else if (OboFormatTag.TAG_ALT_ID.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_DEF) {
+        } else if (OboFormatTag.TAG_DEF.equals(tag)) {
             parseDef(cl);
-        } else if (tag == OboFormatTag.TAG_COMMENT) {
+        } else if (OboFormatTag.TAG_COMMENT.equals(tag)) {
             parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_SUBSET) {
+        } else if (OboFormatTag.TAG_SUBSET.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_SYNONYM) {
+        } else if (OboFormatTag.TAG_SYNONYM.equals(tag)) {
             parseSynonym(cl);
-        } else if (tag == OboFormatTag.TAG_XREF) {
+        } else if (OboFormatTag.TAG_XREF.equals(tag)) {
             parseDirectXref(cl);
-        } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
+        } else if (OboFormatTag.TAG_PROPERTY_VALUE.equals(tag)) {
             parsePropertyValue(cl);
-        } else if (tag == OboFormatTag.TAG_DOMAIN) {
+        } else if (OboFormatTag.TAG_DOMAIN.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_RANGE) {
+        } else if (OboFormatTag.TAG_RANGE.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_BUILTIN) {
+        } else if (OboFormatTag.TAG_BUILTIN.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_ANTI_SYMMETRIC) {
+        } else if (OboFormatTag.TAG_IS_ANTI_SYMMETRIC.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_CYCLIC) {
+        } else if (OboFormatTag.TAG_IS_CYCLIC.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_REFLEXIVE) {
+        } else if (OboFormatTag.TAG_IS_REFLEXIVE.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_SYMMETRIC) {
+        } else if (OboFormatTag.TAG_IS_SYMMETRIC.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_ASYMMETRIC) {
+        } else if (OboFormatTag.TAG_IS_ASYMMETRIC.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_TRANSITIVE) {
+        } else if (OboFormatTag.TAG_IS_TRANSITIVE.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_FUNCTIONAL) {
+        } else if (OboFormatTag.TAG_IS_FUNCTIONAL.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL) {
+        } else if (OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_A) {
+        } else if (OboFormatTag.TAG_IS_A.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_INTERSECTION_OF) {
+        } else if (OboFormatTag.TAG_INTERSECTION_OF.equals(tag)) {
             parseTypedefIntersectionOf(cl);
-        } else if (tag == OboFormatTag.TAG_UNION_OF) {
+        } else if (OboFormatTag.TAG_UNION_OF.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_EQUIVALENT_TO) {
+        } else if (OboFormatTag.TAG_EQUIVALENT_TO.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_DISJOINT_FROM) {
+        } else if (OboFormatTag.TAG_DISJOINT_FROM.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_INVERSE_OF) {
+        } else if (OboFormatTag.TAG_INVERSE_OF.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_TRANSITIVE_OVER) {
+        } else if (OboFormatTag.TAG_TRANSITIVE_OVER.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_HOLDS_OVER_CHAIN) {
+        } else if (OboFormatTag.TAG_HOLDS_OVER_CHAIN.equals(tag)) {
             parseIdRefPair(cl);
-        } else if (tag == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN) {
+        } else if (OboFormatTag.TAG_EQUIVALENT_TO_CHAIN.equals(tag)) {
             parseIdRefPair(cl);
-        } else if (tag == OboFormatTag.TAG_DISJOINT_OVER) {
+        } else if (OboFormatTag.TAG_DISJOINT_OVER.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_RELATIONSHIP) {
+        } else if (OboFormatTag.TAG_RELATIONSHIP.equals(tag)) {
             parseRelationship(cl);
-        } else if (tag == OboFormatTag.TAG_CREATED_BY) {
+        } else if (OboFormatTag.TAG_CREATED_BY.equals(tag)) {
             parsePerson(cl);
-        } else if (tag == OboFormatTag.TAG_CREATION_DATE) {
+        } else if (OboFormatTag.TAG_CREATION_DATE.equals(tag)) {
             parseISODate(cl);
-        } else if (tag == OboFormatTag.TAG_IS_OBSELETE) {
+        } else if (OboFormatTag.TAG_IS_OBSELETE.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_REPLACED_BY) {
+        } else if (OboFormatTag.TAG_REPLACED_BY.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_CONSIDER) {
+        } else if (OboFormatTag.TAG_CONSIDER.equals(tag)) {
             parseIdRef(cl);
-        } else if (tag == OboFormatTag.TAG_IS_METADATA_TAG) {
+        } else if (OboFormatTag.TAG_IS_METADATA_TAG.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_IS_CLASS_LEVEL_TAG) {
+        } else if (OboFormatTag.TAG_IS_CLASS_LEVEL_TAG.equals(tag)) {
             parseBoolean(cl);
-        } else if (tag == OboFormatTag.TAG_EXPAND_ASSERTION_TO) {
+        } else if (OboFormatTag.TAG_EXPAND_ASSERTION_TO.equals(tag)) {
             parseOwlDef(cl);
-        } else if (tag == OboFormatTag.TAG_EXPAND_EXPRESSION_TO) {
+        } else if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.equals(tag)) {
             parseOwlDef(cl);
         } else {
-            error("Unexpected tag " + tag + " in type def frame.");
+        	// Treat unexpected tags as custom tags
+            // error("Unexpected tag " + tag + " in type def frame.");
+        	this.parseCustomTag(cl);
         }
-        return cl;
+
+       return cl;
     }
 
     // ----------------------------------------
@@ -1188,6 +1192,11 @@ public class OBOFormatParser {
         }
         parseHiddenComment();
     }
+    
+    protected void parseCustomTag(Clause cl) {
+		parseUnquotedString(cl);
+		
+	}
 
     // Newlines, whitespace
     protected void forceParseNlOrEof() {
