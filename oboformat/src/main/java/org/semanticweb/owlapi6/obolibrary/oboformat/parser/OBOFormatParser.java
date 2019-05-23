@@ -458,33 +458,39 @@ public class OBOFormatParser {
         return true;
     }
 
-    protected void parseHeaderClause(Frame h) {
+    protected Clause parseHeaderClause(Frame h) {
         String t = getParseTag();
         Clause cl = new Clause(t);
         OboFormatTag tag = OBOFormatConstants.getTag(t);
         h.addClause(cl);
-        if (tag == OboFormatTag.TAG_DATA_VERSION) {
-            parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_FORMAT_VERSION) {
-            parseUnquotedString(cl);
-        } else if (tag == OboFormatTag.TAG_SYNONYMTYPEDEF) {
-            parseSynonymTypedef(cl);
-        } else if (tag == OboFormatTag.TAG_SUBSETDEF) {
-            parseSubsetdef(cl);
-        } else if (tag == OboFormatTag.TAG_DATE) {
-            parseHeaderDate(cl);
-        } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
-            parsePropertyValue(cl);
-            parseZeroOrMoreWs();
-            parseQualifierBlock(cl);
-            parseHiddenComment();
-        } else if (tag == OboFormatTag.TAG_IMPORT) {
-            parseImport(cl);
-        } else if (tag == OboFormatTag.TAG_IDSPACE) {
-            parseIdSpace(cl);
-        } else {
-            parseUnquotedString(cl);
+        if (tag == null) {
+            return parseUnquotedString(cl);
         }
+        switch (tag) {
+            case TAG_SYNONYMTYPEDEF:
+                return parseSynonymTypedef(cl);
+            case TAG_SUBSETDEF:
+                return parseSubsetdef(cl);
+            case TAG_DATE:
+                return parseHeaderDate(cl);
+            case TAG_PROPERTY_VALUE:
+                parsePropertyValue(cl);
+                return parseQualifierAndHiddenComment(cl);
+            case TAG_IMPORT:
+                return parseImport(cl);
+            case TAG_IDSPACE:
+                return parseIdSpace(cl);
+            // $CASES-OMITTED$
+            default:
+                return parseUnquotedString(cl);
+        }
+    }
+
+    protected Clause parseQualifierAndHiddenComment(Clause cl) {
+        parseZeroOrMoreWs();
+        parseQualifierBlock(cl);
+        parseHiddenComment();
+        return cl;
     }
 
     // ----------------------------------------
@@ -511,8 +517,8 @@ public class OBOFormatParser {
     }
 
     /**
-     * term-frame ::= nl* '[Term]' nl id-Tag Class-ID EOL { term-frame-clause
-     * EOL }.
+     * {@code term-frame ::= nl* '[Term]' nl id-Tag Class-ID EOL {
+     * term-frame-clause EOL }}.
      *
      * @param obodoc
      *        obodoc
@@ -575,13 +581,13 @@ public class OBOFormatParser {
         }
         OboFormatTag tag = OBOFormatConstants.getTag(t);
         if (tag == null) {
-            error("Could not find tag for: " + t);
-            return null;
+            // Treat unexpected tags as custom tags
+            return parseCustomTag(cl);
         }
         BiFunction<Clause, OBOFormatParser, Clause> handle = termFrameParsing.get(tag);
         if (handle == null) {
-            error("Unexpected tag " + tag + " in term frame.");
-            return null;
+            // Treat unexpected tags as custom tags
+            return parseCustomTag(cl);
         }
         return handle.apply(cl, this);
     }
@@ -603,13 +609,13 @@ public class OBOFormatParser {
         }
         OboFormatTag tag = OBOFormatConstants.getTag(t);
         if (tag == null) {
-            error("Could not find tag for: " + t);
-            return null;
+            // Treat unexpected tags as custom tags
+            return parseCustomTag(cl);
         }
         BiFunction<Clause, OBOFormatParser, Clause> handle = typedTermFrameParsing.get(tag);
         if (handle == null) {
-            error("Unexpected tag " + tag + " in term frame.");
-            return null;
+            // Treat unexpected tags as custom tags
+            return parseCustomTag(cl);
         }
         return handle.apply(cl, this);
     }
@@ -633,8 +639,8 @@ public class OBOFormatParser {
     }
 
     /**
-     * Typedef-frame ::= nl* '[Typedef]' nl id-Tag Class-ID EOL {
-     * Typedef-frame-clause EOL }.
+     * {@code Typedef-frame ::= nl* '[Typedef]' nl id-Tag Class-ID EOL {
+     * Typedef-frame-clause EOL }}
      *
      * @param obodoc
      *        obodoc
@@ -731,8 +737,7 @@ public class OBOFormatParser {
     private Clause parseIdRefPair(Clause cl) {
         parseIdRef(cl);
         parseOneOrMoreWs();
-        parseIdRef(cl);
-        return cl;
+        return parseIdRef(cl);
     }
 
     private Clause parsePerson(Clause cl) {
@@ -745,7 +750,7 @@ public class OBOFormatParser {
         return cl;
     }
 
-    private void parseSubsetdef(Clause cl) {
+    private Clause parseSubsetdef(Clause cl) {
         parseIdRef(cl);
         parseOneOrMoreWs();
         if (stream.consume("\"")) {
@@ -754,12 +759,10 @@ public class OBOFormatParser {
         } else {
             error("");
         }
-        parseZeroOrMoreWs();
-        parseQualifierBlock(cl);
-        parseHiddenComment();
+        return parseQualifierAndHiddenComment(cl);
     }
 
-    private void parseSynonymTypedef(Clause cl) {
+    private Clause parseSynonymTypedef(Clause cl) {
         parseIdRef(cl);
         parseOneOrMoreWs();
         if (stream.consume("\"")) {
@@ -773,24 +776,23 @@ public class OBOFormatParser {
                 // TODO - verify that this is a valid scope
             }
         }
-        parseZeroOrMoreWs();
-        parseQualifierBlock(cl);
-        parseHiddenComment();
+        return parseQualifierAndHiddenComment(cl);
     }
 
-    private void parseHeaderDate(Clause cl) {
+    private Clause parseHeaderDate(Clause cl) {
         parseZeroOrMoreWs();
         String v = getParseUntil("!");
         v = removeTrailingWS(v);
         try {
             Date date = OBOFormatConstants.headerDateFormat().parse(v);
             cl.addValue(date);
+            return cl;
         } catch (ParseException e) {
             throw new OBOFormatParserException("Could not parse date from string: " + v, e, stream.lineNo, stream.line);
         }
     }
 
-    private boolean parseImport(Clause cl) {
+    private Clause parseImport(Clause cl) {
         parseZeroOrMoreWs();
         String v = getParseUntil("!{");
         v = removeTrailingWS(v);
@@ -802,10 +804,10 @@ public class OBOFormatParser {
             getParseUntilAdv("}");
         }
         parseHiddenComment();// ignore return value, as comments are optional
-        return true;
+        return cl;
     }
 
-    private void parseIdSpace(Clause cl) {
+    private Clause parseIdSpace(Clause cl) {
         parseZeroOrMoreWs();
         parseIdRefPair(cl);
         parseZeroOrMoreWs();
@@ -817,9 +819,7 @@ public class OBOFormatParser {
             String desc = getParseUntil(" !{");
             cl.addValue(desc);
         }
-        parseZeroOrMoreWs();
-        parseQualifierBlock(cl);
-        parseHiddenComment();
+        return parseQualifierAndHiddenComment(cl);
     }
 
     private Clause parseRelationship(Clause cl) {
@@ -1020,7 +1020,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * Qualifier Value blocks - e.g. {a="1",b="foo", ...}
+     * Qualifier Value blocks - e.g. {@code {a="1",b="foo", ...}}
      *
      * @param cl
      *        clause
@@ -1111,9 +1111,7 @@ public class OBOFormatParser {
      *         parser exception
      */
     public void parseEOL(Clause cl) {
-        parseZeroOrMoreWs();
-        parseQualifierBlock(cl);
-        parseHiddenComment();
+        parseQualifierAndHiddenComment(cl);
         forceParseNlOrEof();
     }
 
@@ -1135,6 +1133,10 @@ public class OBOFormatParser {
         }
         parseHiddenComment();
         return cl;
+    }
+
+    protected Clause parseCustomTag(Clause cl) {
+        return parseUnquotedString(cl);
     }
 
     // Newlines, whitespace
