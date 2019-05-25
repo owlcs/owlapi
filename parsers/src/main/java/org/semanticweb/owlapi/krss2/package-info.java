@@ -13,5 +13,6 @@
 /**
  * Package structure renamed from de.uulm.ecs.ai.owlapi.krssrenderer.
  */
+@javax.annotation.ParametersAreNonnullByDefault
 package org.semanticweb.owlapi.krss2;
 

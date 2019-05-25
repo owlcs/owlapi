@@ -114,6 +114,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.EntityType;
@@ -270,7 +272,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param ontology the ontology
      * @param writer the writer
      */
-    public FunctionalSyntaxObjectRenderer(OWLOntology ontology, Writer writer) {
+    public FunctionalSyntaxObjectRenderer(@Nullable OWLOntology ontology, Writer writer) {
         ont = Optional.ofNullable(ontology);
         this.writer = writer;
         defaultPrefixManager = new DefaultPrefixManager();

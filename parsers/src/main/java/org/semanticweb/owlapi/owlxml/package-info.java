@@ -13,5 +13,6 @@
 /**
  * OWL/XML syntax parser and renderer.
  */
+@javax.annotation.ParametersAreNonnullByDefault
 package org.semanticweb.owlapi.owlxml;
 

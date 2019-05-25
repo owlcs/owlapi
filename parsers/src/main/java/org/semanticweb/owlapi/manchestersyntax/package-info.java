@@ -13,5 +13,6 @@
 /**
  * Manchester OWL syntax parser and renderer.
  */
+@javax.annotation.ParametersAreNonnullByDefault
 package org.semanticweb.owlapi.manchestersyntax;
 
