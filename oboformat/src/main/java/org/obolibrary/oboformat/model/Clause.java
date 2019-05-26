@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 /** Clause */
@@ -20,26 +22,22 @@ public class Clause {
     protected Collection<QualifierValue> qualifierValues = new ArrayList<>();
 
     /**
-     * @param tag
-     *        tag
+     * @param tag tag
      */
     public Clause(@Nonnull OboFormatTag tag) {
         this(tag.getTag());
     }
 
     /**
-     * @param tag
-     *        tag
+     * @param tag tag
      */
     public Clause(String tag) {
         this.tag = tag;
     }
 
     /**
-     * @param tag
-     *        tag
-     * @param value
-     *        value
+     * @param tag tag
+     * @param value value
      */
     public Clause(String tag, String value) {
         this(tag);
@@ -47,10 +45,8 @@ public class Clause {
     }
 
     /**
-     * @param tag
-     *        tag
-     * @param value
-     *        value
+     * @param tag tag
+     * @param value value
      */
     public Clause(@Nonnull OboFormatTag tag, String value) {
         this(tag.getTag(), value);
@@ -59,15 +55,14 @@ public class Clause {
     /**
      * default constructor
      * 
-     * @deprecated use Clause(String). Using this constructor makes the hashcode
-     *             variable.
+     * @deprecated use Clause(String). Using this constructor makes the hashcode variable.
      */
     @Deprecated
     public Clause() {}
 
     /**
-     * freezing a clause signals that the clause has become quiescent, and that data structures can be adjusted to
-     * increase performance, or reduce memory consumption.
+     * freezing a clause signals that the clause has become quiescent, and that data structures can
+     * be adjusted to increase performance, or reduce memory consumption.
      */
     void freeze() {
         freezeValues();
@@ -85,7 +80,7 @@ public class Clause {
                 values = Collections.singletonList(o);
                 break;
             default:
-                ((ArrayList) values).trimToSize();
+                ((ArrayList<?>) values).trimToSize();
         }
     }
 
@@ -99,9 +94,9 @@ public class Clause {
                 xrefs = Collections.singletonList(xref);
                 break;
             default:
-            if (xrefs instanceof ArrayList) {
-                ((ArrayList) xrefs).trimToSize();
-            }
+                if (xrefs instanceof ArrayList) {
+                    ((ArrayList<?>) xrefs).trimToSize();
+                }
         }
     }
 
@@ -116,7 +111,7 @@ public class Clause {
                 break;
             default:
                 if (qualifierValues instanceof ArrayList) {
-                    ((ArrayList) qualifierValues).trimToSize();
+                    ((ArrayList<?>) qualifierValues).trimToSize();
                 }
         }
     }
@@ -138,8 +133,7 @@ public class Clause {
     }
 
     /**
-     * @param tag
-     *        tag
+     * @param tag tag
      */
     public void setTag(String tag) {
         this.tag = tag;
@@ -154,8 +148,7 @@ public class Clause {
     }
 
     /**
-     * @param values
-     *        values
+     * @param values values
      */
     public void setValues(@Nonnull Collection<Object> values) {
         if (!(this.values instanceof ArrayList)) {
@@ -177,27 +170,25 @@ public class Clause {
     }
 
     /**
-     * @param v
-     *        v
+     * @param v v
      */
     public void setValue(Object v) {
-        if(values instanceof ArrayList) {
+        if (values instanceof ArrayList) {
             values.clear(); // TODO: Remove this line after profile gathering
             values.add(v);
-        }  else {
-            this.values = Collections.singletonList(v);
+        } else {
+            values = Collections.singletonList(v);
         }
     }
 
     /**
-     * @param v
-     *        v
+     * @param v v
      */
     public void addValue(Object v) {
-        if (!(this.values instanceof ArrayList)) {
+        if (!(values instanceof ArrayList)) {
             List<Object> newValues = new ArrayList<>(values.size() + 1);
-            newValues.addAll(this.values);
-            this.values = newValues;
+            newValues.addAll(values);
+            values = newValues;
         }
         values.add(v);
     }
@@ -215,10 +206,8 @@ public class Clause {
     }
 
     /**
-     * @param cls
-     *        cls
-     * @param <T>
-     *        value type
+     * @param cls cls
+     * @param <T> value type
      * @return value
      */
     @Nullable
@@ -243,10 +232,8 @@ public class Clause {
     }
 
     /**
-     * @param cls
-     *        cls
-     * @param <T>
-     *        value type
+     * @param cls cls
+     * @param <T> value type
      * @return value2
      */
     @Nullable
@@ -267,8 +254,7 @@ public class Clause {
     }
 
     /**
-     * @param xrefs
-     *        xrefs
+     * @param xrefs xrefs
      */
     public void setXrefs(@Nonnull Collection<Xref> xrefs) {
         if (!(this.xrefs instanceof ArrayList)) {
@@ -290,14 +276,13 @@ public class Clause {
     }
 
     /**
-     * @param xref
-     *        xref
+     * @param xref xref
      */
     public void addXref(Xref xref) {
         if (!(xrefs instanceof ArrayList)) {
             List<Xref> newXrefs = new ArrayList<>(xrefs.size() + 1);
             newXrefs.addAll(xrefs);
-            this.xrefs = newXrefs;
+            xrefs = newXrefs;
         }
         xrefs.add(xref);
     }
@@ -311,8 +296,7 @@ public class Clause {
     }
 
     /**
-     * @param qualifierValues
-     *        qualifierValues
+     * @param qualifierValues qualifierValues
      */
     public void setQualifierValues(@Nonnull Collection<QualifierValue> qualifierValues) {
         if (!(this.qualifierValues instanceof ArrayList)) {
@@ -335,14 +319,13 @@ public class Clause {
 
 
     /**
-     * @param qv
-     *        qv
+     * @param qv qv
      */
     public void addQualifierValue(QualifierValue qv) {
         if (!(qualifierValues instanceof ArrayList)) {
             List<QualifierValue> newQualifierValues = new ArrayList<>(qualifierValues.size() + 1);
             newQualifierValues.addAll(qualifierValues);
-            this.qualifierValues = newQualifierValues;
+            qualifierValues = newQualifierValues;
         }
 
         qualifierValues.add(qv);
@@ -377,7 +360,8 @@ public class Clause {
         return sb.toString();
     }
 
-    private static boolean collectionsEquals(@Nullable Collection<?> c1, @Nullable Collection<?> c2) {
+    private static boolean collectionsEquals(@Nullable Collection<?> c1,
+        @Nullable Collection<?> c2) {
         if (c1 == null || c1.isEmpty()) {
             return c2 == null || c2.isEmpty();
         }
@@ -399,8 +383,8 @@ public class Clause {
 
     @Override
     public int hashCode() {
-        return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode() + 31 * 31 * values.hashCode()
-            + (tag == null ? 0 : tag.hashCode());
+        return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode()
+            + 31 * 31 * values.hashCode() + (tag == null ? 0 : tag.hashCode());
     }
 
     @Override
@@ -448,9 +432,8 @@ public class Clause {
         }
         /*
          * if (xrefs != null) { if (other.getXrefs() == null) return false; if
-         * (!xrefs.equals(other.getXrefs())) return false; } else { if
-         * (other.getXrefs() != null && other.getXrefs().size() > 0) { return
-         * false; } }
+         * (!xrefs.equals(other.getXrefs())) return false; } else { if (other.getXrefs() != null &&
+         * other.getXrefs().size() > 0) { return false; } }
          */
         return collectionsEquals(qualifierValues, other.getQualifierValues());
     }
