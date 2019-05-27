@@ -80,6 +80,16 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     @Test
+    public void shouldAcceptOPClassPunning() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "Prefix: : <http://x.org/>\n" + "Ontology: <http://x.org>\n" + "Individual: x\n"
+            + "Class: creator_of\n" + "ObjectProperty: creator_of\n" + "Class: Test\n"
+            + "  EquivalentClasses: creator_of value x, creator_of";
+        OWLOntology o = loadOntologyFromString(input, new ManchesterSyntaxDocumentFormat());
+        OWLOntology o2 = roundTrip(o);
+        equal(o, o2);
+    }
+
+    @Test
     public void shouldRoundTrip() throws Exception {
         // given
         OWLOntology ontology = getOWLOntology();
