@@ -103,6 +103,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -553,6 +554,11 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     @Nonnull
+    private String peekToken(int ahead) {
+        return tokens.get(tokenIndex + ahead).getToken();
+    }
+
+    @Nonnull
     private String consumeToken() {
         String token = getToken().getToken();
         if (tokenIndex < tokens.size()) {
@@ -678,6 +684,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
     }
 
+    private static EnumSet<ManchesterOWLSyntax> TOKENS_FOR_CLASSEXPRESSONS =
+        EnumSet.of(SOME, ONLY, VALUE, MIN, MAX, EXACTLY, ONLYSOME, SELF);
+
     /**
      * Parses all class expressions except ObjectIntersectionOf and ObjectUnionOf.
      * 
@@ -686,16 +695,37 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
      */
     private OWLClassExpression parseNonNaryClassExpression() {
         String tok = peekToken();
-        if (NOT.matches(tok)) {
+        boolean isClassName = isClassName(tok);
+        boolean isDataPropertyName = isDataPropertyName(tok);
+        boolean isObjectPropertyName = isObjectPropertyName(tok);
+        if (isClassName && (isDataPropertyName || isObjectPropertyName)) {
+            if (isDataPropertyName && isObjectPropertyName) {
+                throw new ExceptionBuilder().withMessage(
+                    "Illegal punning: " + tok + " is a data property and an object property name.")
+                    .build();
+            }
+            // handle punning of classes and property names in nested class expressions where a
+            // property might have the same name as a class
+            String tokenAhead = peekToken(1);
+            if (TOKENS_FOR_CLASSEXPRESSONS.stream().anyMatch(x -> x.matches(tokenAhead))) {
+                if (isObjectPropertyName) {
+                    return parseObjectRestriction();
+                }
+                return parseDataRestriction();
+            } else {
+                consumeToken();
+                return getOWLClass(tok);
+            }
+        } else if (NOT.matches(tok)) {
             consumeToken();
             OWLClassExpression complemented = parseNestedClassExpression(false);
             return dataFactory.getOWLObjectComplementOf(complemented);
-        } else if (isClassName(tok)) {
+        } else if (isClassName) {
             consumeToken();
             return getOWLClass(tok);
-        } else if (isObjectPropertyName(tok) || INVERSE.matches(tok)) {
+        } else if (isObjectPropertyName || INVERSE.matches(tok)) {
             return parseObjectRestriction();
-        } else if (isDataPropertyName(tok)) {
+        } else if (isDataPropertyName) {
             // Data restriction
             return parseDataRestriction();
         } else if (OPENBRACE.matches(tok)) {
@@ -2403,7 +2433,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     protected class ExceptionBuilder {
-
+        String message;
         boolean ontologyNameExpected = false;
         boolean classNameExpected = false;
         boolean objectPropertyNameExpected = false;
@@ -2436,10 +2466,16 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             start = e.getStartPos();
             line = e.getLineNumber();
             column = e.getColumnNumber();
+            message = e.getMessage();
         }
 
         public ExceptionBuilder withOnto() {
             ontologyNameExpected = true;
+            return this;
+        }
+
+        public ExceptionBuilder withMessage(String message) {
+            this.message = message;
             return this;
         }
 
@@ -2523,10 +2559,10 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 line = lastToken.getRow();
                 column = lastToken.getCol();
             }
-            return new ParserException(tokenSequence, start, line, column, ontologyNameExpected,
-                classNameExpected, objectPropertyNameExpected, dataPropertyNameExpected,
-                individualNameExpected, datatypeNameExpected, annotationPropertyNameExpected,
-                integerExpected, keywords);
+            return new ParserException(message, tokenSequence, start, line, column,
+                ontologyNameExpected, classNameExpected, objectPropertyNameExpected,
+                dataPropertyNameExpected, individualNameExpected, datatypeNameExpected,
+                annotationPropertyNameExpected, integerExpected, keywords);
         }
     }
 
