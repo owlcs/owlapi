@@ -37,7 +37,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
- * implements the OBO Format 1.4 specification.
+ * Implements the OBO Format 1.4 specification.
  */
 public class OBOFormatParser {
 
@@ -209,15 +209,17 @@ public class OBOFormatParser {
         String path = inputPath;
         if (!(path.startsWith("http:") || path.startsWith("file:") || path.startsWith("https:"))) {
             // path is not absolue then guess it.
-            if (location instanceof URL) {
-                URL url = (URL) location;
-                String p = url.toString();
-                int index = p.lastIndexOf('/');
-                path = p.substring(0, index + 1) + path;
-            } else {
-                File f = new File(location.toString());
-                f = new File(f.getParent(), path);
-                path = f.toURI().toString();
+            if (location != null) {
+                if (location instanceof URL) {
+                    URL url = (URL) location;
+                    String p = url.toString();
+                    int index = p.lastIndexOf('/');
+                    path = p.substring(0, index + 1) + path;
+                } else {
+                    File f = new File(location.toString());
+                    f = new File(f.getParent(), path);
+                    path = f.toURI().toString();
+                }
             }
         }
         return path;
@@ -317,17 +319,17 @@ public class OBOFormatParser {
             } else if (tagConstant == OboFormatTag.TAG_HOLDS_OVER_CHAIN
                 || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN
                 || tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
-                String error = checkRelation(c.getValue().toString(), tag, f.getId(), doc);
+                String error = checkRelation(c.getValue(String.class), tag, f.getId(), doc);
                 if (error != null) {
                     danglingReferences.add(error);
                 }
-                error = checkRelation(c.getValue2().toString(), tag, f.getId(), doc);
+                error = checkRelation(c.getValue2(String.class), tag, f.getId(), doc);
                 if (error != null) {
                     danglingReferences.add(error);
                 }
             } else if (tagConstant == OboFormatTag.TAG_DOMAIN
                 || tagConstant == OboFormatTag.TAG_RANGE) {
-                String error = checkClassReference(c.getValue().toString(), tag, f.getId(), doc);
+                String error = checkClassReference(c.getValue(String.class), tag, f.getId(), doc);
                 if (error != null) {
                     danglingReferences.add(error);
                 }
