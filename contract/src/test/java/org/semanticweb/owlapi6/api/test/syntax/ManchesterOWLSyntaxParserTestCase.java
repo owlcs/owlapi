@@ -43,8 +43,8 @@ import org.semanticweb.owlapi6.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi6.io.OWLParserException;
 import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParser;
-import org.semanticweb.owlapi6.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLClass;
@@ -141,7 +141,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         assertEquals(asUnorderedSet(o.axioms()), asUnorderedSet(roundtripped.axioms()));
     }
 
-    @Test(expected = ParserException.class)
+    @Test(expected = OWLParserException.class)
     public void testManSyntaxEditorParser() {
         String expression = "yearValue some ";
         OWLOntology wine = loadOntologyFromString(TestFiles.manSyntaxParserTest, new RDFXMLDocumentFormat());

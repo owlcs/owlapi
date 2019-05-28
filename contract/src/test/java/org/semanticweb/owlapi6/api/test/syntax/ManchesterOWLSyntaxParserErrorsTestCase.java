@@ -16,7 +16,7 @@ import org.semanticweb.owlapi6.apibinding.OWLManager;
 import org.semanticweb.owlapi6.expression.OWLEntityChecker;
 import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer;
-import org.semanticweb.owlapi6.manchestersyntax.renderer.ParserException;
+import org.semanticweb.owlapi6.manchestersyntax.parser.ParserException;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLDataProperty;
@@ -24,17 +24,16 @@ import org.semanticweb.owlapi6.model.OWLNamedIndividual;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
 
 /**
- * Some tests that ensure the correct token and token position are returned when errors are
- * encountered.
+ * Some tests that ensure the correct token and token position are returned when
+ * errors are encountered.
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
- *         01/04/2014
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 01/04/2014
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
 
-    @Mock
-    protected OWLEntityChecker entityChecker;
+    @Mock protected OWLEntityChecker entityChecker;
     private ParserWrapper parser;
 
     @Before
@@ -46,10 +45,8 @@ public class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
         OWLObjectProperty oP = mock(OWLObjectProperty.class);
         when(entityChecker.getOWLObjectProperty("oP")).thenReturn(oP);
         when(entityChecker.getOWLDataProperty("dP")).thenReturn(mock(OWLDataProperty.class));
-        when(entityChecker.getOWLAnnotationProperty("aP"))
-            .thenReturn(mock(OWLAnnotationProperty.class));
-        when(entityChecker.getOWLAnnotationProperty("rdfs:comment"))
-            .thenReturn(df.getRDFSComment());
+        when(entityChecker.getOWLAnnotationProperty("aP")).thenReturn(mock(OWLAnnotationProperty.class));
+        when(entityChecker.getOWLAnnotationProperty("rdfs:comment")).thenReturn(df.getRDFSComment());
         OWLNamedIndividual ind = mock(OWLNamedIndividual.class);
         when(entityChecker.getOWLIndividual("ind")).thenReturn(ind);
         parser = new ParserWrapper();
@@ -485,8 +482,7 @@ public class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
     private void checkForExceptionAtEOF(String input) {
         checkForExceptionAt(input, input.length(), ManchesterOWLSyntaxTokenizer.EOFTOKEN);
         String trimmedInput = input.trim();
-        checkForExceptionAt(trimmedInput, trimmedInput.length(),
-            ManchesterOWLSyntaxTokenizer.EOFTOKEN);
+        checkForExceptionAt(trimmedInput, trimmedInput.length(), ManchesterOWLSyntaxTokenizer.EOFTOKEN);
     }
 
     private class ParserWrapper {

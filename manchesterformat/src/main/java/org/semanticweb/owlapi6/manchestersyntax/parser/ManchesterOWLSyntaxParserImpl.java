@@ -124,7 +124,6 @@ import org.semanticweb.owlapi6.expression.OWLEntityChecker;
 import org.semanticweb.owlapi6.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.Token;
-import org.semanticweb.owlapi6.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi6.model.AddAxiom;
 import org.semanticweb.owlapi6.model.AddImport;
 import org.semanticweb.owlapi6.model.AddOntologyAnnotation;

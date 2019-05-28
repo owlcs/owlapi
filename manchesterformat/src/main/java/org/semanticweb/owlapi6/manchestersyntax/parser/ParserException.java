@@ -10,7 +10,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi6.manchestersyntax.renderer;
+package org.semanticweb.owlapi6.manchestersyntax.parser;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -23,7 +23,8 @@ import org.semanticweb.owlapi6.io.OWLParserException;
 /**
  * The Class ParserException.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public class ParserException extends OWLParserException {
@@ -44,27 +45,39 @@ public class ParserException extends OWLParserException {
     private final boolean ontologyNameExpected;
 
     /**
-     * @param message the message
-     * @param tokenSequence the token sequence
-     * @param startPos the start pos
-     * @param lineNumber the line number
-     * @param columnNumber the column number
-     * @param ontologyNameExpected the ontology name expected
-     * @param classNameExpected the class name expected
-     * @param objectPropertyNameExpected the object property name expected
-     * @param dataPropertyNameExpected the data property name expected
-     * @param individualNameExpected the individual name expected
-     * @param datatypeNameExpected the datatype name expected
-     * @param annotationPropertyExpected the annotation property expected
-     * @param integerExpected the integer expected
-     * @param expectedKeywords the expected keywords
+     * @param message
+     *        the message
+     * @param tokenSequence
+     *        the token sequence
+     * @param startPos
+     *        the start pos
+     * @param lineNumber
+     *        the line number
+     * @param columnNumber
+     *        the column number
+     * @param ontologyNameExpected
+     *        the ontology name expected
+     * @param classNameExpected
+     *        the class name expected
+     * @param objectPropertyNameExpected
+     *        the object property name expected
+     * @param dataPropertyNameExpected
+     *        the data property name expected
+     * @param individualNameExpected
+     *        the individual name expected
+     * @param datatypeNameExpected
+     *        the datatype name expected
+     * @param annotationPropertyExpected
+     *        the annotation property expected
+     * @param integerExpected
+     *        the integer expected
+     * @param expectedKeywords
+     *        the expected keywords
      */
-    public ParserException(String message, List<String> tokenSequence, int startPos, int lineNumber,
-        int columnNumber, boolean ontologyNameExpected, boolean classNameExpected,
-        boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
-        boolean individualNameExpected, boolean datatypeNameExpected,
-        boolean annotationPropertyExpected, boolean integerExpected,
-        @Nullable Set<String> expectedKeywords) {
+    public ParserException(String message, List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
+        boolean ontologyNameExpected, boolean classNameExpected, boolean objectPropertyNameExpected,
+        boolean dataPropertyNameExpected, boolean individualNameExpected, boolean datatypeNameExpected,
+        boolean annotationPropertyExpected, boolean integerExpected, @Nullable Set<String> expectedKeywords) {
         super(message);
         currentToken = tokenSequence.iterator().next();
         this.tokenSequence = tokenSequence;

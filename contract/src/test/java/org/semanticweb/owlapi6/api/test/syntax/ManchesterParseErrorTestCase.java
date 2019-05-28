@@ -18,8 +18,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
 import org.semanticweb.owlapi6.expression.OWLEntityChecker;
+import org.semanticweb.owlapi6.io.OWLParserException;
 import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParser;
-import org.semanticweb.owlapi6.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
@@ -31,14 +31,14 @@ import org.semanticweb.owlapi6.model.OWLObjectProperty;
 
 public class ManchesterParseErrorTestCase extends TestBase {
 
-    @Test(expected = ParserException.class)
+    @Test(expected = OWLParserException.class)
     public void shouldNotParse() {
         parse("p some rdfs:Literal");
         String text1 = "p some Litera";
         parse(text1);
     }
 
-    @Test(expected = ParserException.class)
+    @Test(expected = OWLParserException.class)
     public void shouldNotParseToo() {
         parse("p some rdfs:Literal");
         String text1 = "p some Literal";
@@ -54,9 +54,10 @@ public class ManchesterParseErrorTestCase extends TestBase {
     }
 
     /**
-     * A very simple entity checker that only understands that "p" is a property and rdfs:Literal is
-     * a datatype. He is an extreme simplification of the entity checker that runs when Protege is
-     * set to render entities as qnames.
+     * A very simple entity checker that only understands that "p" is a property
+     * and rdfs:Literal is a datatype. He is an extreme simplification of the
+     * entity checker that runs when Protege is set to render entities as
+     * qnames.
      * 
      * @author tredmond
      */
