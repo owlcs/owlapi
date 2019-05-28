@@ -1021,6 +1021,8 @@ public class OBOFormatParser {
                 stream.consume("\"");
                 xref.setAnnotation(getParseUntilAdv("\""));
             }
+            parseZeroOrMoreWs();
+            parseQualifierBlock(cl);
             return true;
         }
         return false;
@@ -1042,6 +1044,8 @@ public class OBOFormatParser {
             stream.consume("\"");
             xref.setAnnotation(getParseUntilAdv("\""));
         }
+        parseZeroOrMoreWs();
+        parseQualifierBlock(cl);
         return cl;
     }
 
