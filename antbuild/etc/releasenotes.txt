@@ -1,3 +1,16 @@
+## 4.5.13 02 June 2019
+
+### Features:
+
+*    Add support for custom tags in obo files. #848
+
+### Bug fixes:
+
+*    Fix OWLLogicalEntity is not an OWLAnnotationProperty #847
+*    Security: Jackson to 2.9.9
+*    Fix Manchester syntax parser crashes on class/property punning #851
+*    Fix OBO parser does not support qualifier block #852
+
 ## 4.5.12 06 May 2019
 
 ### Features:
