@@ -1,3 +1,31 @@
+## 5.1.11 02 June 2019
+
+### Features:
+
+*    Add support to load an ontology from classpath #837
+*    Implement Allow annotations to be skipped in module extraction #838
+*    Add support for custom tags in obo files.
+
+### Bug fixes:
+
+*    Fix Unescaping characters: OBOFormatParser#handleNextChar() #822
+*    Fix IRI PREFIX_CACHE instance uses too much memory #825
+*    Fix roundtrip of escaped values #833
+*    Fix MaximumNumberOfNamedSuperclasses should count super classes #836
+*    Fix OWLDataPropertyAxiom not a subinterface of OWLPropertyAxiom #831
+*    Fix HTTP 307 and HTTP 308 redirects are not followed (in 4.x) #821
+*    Fix Missing escape character in OBO output #828
+*    Fix 5.1.10 Regression in OwlStringTools#translate(..) #829
+*    Fixed several incorrect XSD datatype matching patterns.
+*    Fix OWLDataFactory::getLiteral error with empty string and integer #846
+*    Fix Unnecessary dc prefix added by Manchester syntax parser #845
+*    Fix Multiple Ontology Definitions should obey strict parsing #840
+*    Fix OWLLogicalEntity is not an OWLAnnotationProperty #847
+*    Security: Jackson to 2.9.9
+*    Fix Manchester syntax parser crashes on class/property punning #851
+*    Fix OBO parser does not support qualifier block #852
+
+
 ## 5.1.10 04 March 2019
 
 ### Bug fixes:
