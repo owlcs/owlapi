@@ -25,6 +25,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Objec
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,6 +36,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
+import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -317,7 +319,7 @@ public class TurtleTestCase extends TestBase {
             + ":DM rdf:type owl:NamedIndividual , prov:Person .\n"
             + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
         System.out.println(input);
-        OWLOntology ontology = loadOntologyFromString(input);
+        OWLOntology ontology = loadOntologyFromString(input, new TurtleDocumentFormat());
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
         Set<OWLSubClassOfAxiom> axioms = o.getAxioms(AxiomType.SUBCLASS_OF);
         assertEquals(1, axioms.size());
@@ -343,7 +345,7 @@ public class TurtleTestCase extends TestBase {
             + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
             + "@base <urn:test#test.owl/> .\n" + "<urn:test#test.owl/> rdf:type owl:Ontology .\n"
             + ":q rdf:type owl:Class .\n" + ":t rdf:type owl:Class ; rdfs:subClassOf :q .";
-        OWLOntology in = loadOntologyFromString(input);
+        OWLOntology in = loadOntologyFromString(input, new TurtleDocumentFormat());
         String string = "urn:test#test.owl/";
         OWLOntology ontology = m.createOntology(IRI.create(string));
         m.addAxiom(ontology, df.getOWLSubClassOfAxiom(df.getOWLClass(IRI.create(string + 't')),
@@ -418,7 +420,7 @@ public class TurtleTestCase extends TestBase {
                 + "<http://www.derivo.de/ontologies/examples/anonymous-individuals> a owl:Ontology .\n"
                 + ":r a owl:ObjectProperty .\n" + ":C a owl:Class .\n"
                 + "_:genid1 a :C ; :r _:genid1 .";
-        OWLOntology o = loadOntologyFromString(input);
+        OWLOntology o = loadOntologyFromString(input, new TurtleDocumentFormat());
         // assertEquals(input, saveOntology(o, new
         // TurtleDocumentFormat()).toString().replaceAll("\\#.*\\n", ""));
         for (OWLClassAssertionAxiom ax : o.getAxioms(AxiomType.CLASS_ASSERTION)) {
@@ -499,5 +501,33 @@ public class TurtleTestCase extends TestBase {
         String string = out.toString();
         assertTrue(string,
             string.contains("<http://www.example.com#has%20space> rdf:type owl:ObjectProperty"));
+    }
+
+    @Test
+    public void sameFileShouldParseToSameOntology() throws OWLOntologyCreationException {
+        File file = new File(RESOURCES, "noBaseEscapedSlashes.ttl");
+        OWLOntology o1 = m1.loadOntologyFromOntologyDocument(
+            new FileDocumentSource(file, new TurtleDocumentFormat()));
+        OWLOntology o2 = m1.loadOntologyFromOntologyDocument(
+            new FileDocumentSource(file, new RioTurtleDocumentFormat()));
+        equal(o1, o2);
+    }
+
+    @Test
+    public void shouldParseEscapedCharacters()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = m1.loadOntologyFromOntologyDocument(new FileDocumentSource(
+            new File(RESOURCES, "noBaseEscapedSlashes.ttl"), new TurtleDocumentFormat()));
+        OWLOntology o1 = roundTrip(ont, new TurtleDocumentFormat());
+        equal(ont, o1);
+    }
+
+    @Test
+    public void shouldParseWithBase()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = m1.loadOntologyFromOntologyDocument(new FileDocumentSource(
+            new File(RESOURCES, "noBaseEscapedSlashes.ttl"), new RioTurtleDocumentFormat()));
+        OWLOntology o1 = roundTrip(ont, new RioTurtleDocumentFormat());
+        equal(ont, o1);
     }
 }
