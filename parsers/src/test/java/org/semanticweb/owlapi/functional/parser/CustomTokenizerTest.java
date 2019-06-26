@@ -1,6 +1,8 @@
 package org.semanticweb.owlapi.functional.parser;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,18 +23,18 @@ public class CustomTokenizerTest {
 
     @Test
     public void testParseStringLiteral() {
-        validateTokenizationOfString("\"hello world\"");
-        validateTokenizationOfString("\"hello \\\" world \"");
-        validateTokenizationOfString("\"hello \\\\ world\"");
-        validateTokenizationOfString("\"hello\\\\\"" + "\"world\"");
+        validateTokenizationOfString("\"hello world\"", false);
+        validateTokenizationOfString("\"hello \\\" world \"", false);
+        validateTokenizationOfString("\"hello \\\\ world\"", false);
+        validateTokenizationOfString("\"hello\\\\\"" + "\"world\"", false);
     }
 
     @Test
     public void testParseFullURI() {
         // Good
-        validateTokenizationOfString("<http://www.unc.edu/onto#foo>");
+        validateTokenizationOfString("<http://www.unc.edu/onto#foo>", false);
         // Bad
-        validateTokenizationOfString("<http://www.unc.edu/onto#foo");
+        validateTokenizationOfString("<http://www.unc.edu/onto#foo", true);
     }
 
     @Ignore
@@ -41,26 +43,26 @@ public class CustomTokenizerTest {
         String fileName = "/Users/ses/ontologies/GO/go.ofn";
         Reader in = new BufferedReader(new FileReader(fileName));
         Reader in2 = new BufferedReader(new FileReader(fileName));
-        validateTokenization(in, in2);
+        validateTokenization(in, in2, false);
     }
 
-    private static void validateTokenizationOfString(String text) {
+    private static void validateTokenizationOfString(String text, boolean errorExpected) {
         try (StringReader reader1 = new StringReader(text);
-                StringReader reader2 = new StringReader(text);) {
-            validateTokenization(reader1, reader2);
+            StringReader reader2 = new StringReader(text);) {
+            validateTokenization(reader1, reader2, errorExpected);
         }
     }
 
-    void validateTokenizationOfResource(String resourceName) throws IOException {
-        try (Reader reader1 = new InputStreamReader(getClass()
-                .getResourceAsStream(resourceName));
-                Reader reader2 = new InputStreamReader(getClass()
-                        .getResourceAsStream(resourceName))) {
-            validateTokenization(reader1, reader2);
+    void validateTokenizationOfResource(String resourceName, boolean errorExpected)
+        throws IOException {
+        try (Reader reader1 = new InputStreamReader(getClass().getResourceAsStream(resourceName));
+            Reader reader2 = new InputStreamReader(getClass().getResourceAsStream(resourceName))) {
+            validateTokenization(reader1, reader2, errorExpected);
         }
     }
 
-    private static void validateTokenization(Reader reader1, Reader reader2) {
+    private static void validateTokenization(Reader reader1, Reader reader2,
+        boolean errorExpected) {
         CustomTokenizer customTokenizer = createCustomTokenizer(reader1);
         OWLFunctionalSyntaxParserTokenManager tokenManager = createTokenManager(reader2);
         while (true) {
@@ -78,9 +80,14 @@ public class CustomTokenizerTest {
             // treated as exceptions, rather than can't
             // happen errors, however the generated code doesn't compile with a
             // custom lexer.
-            if (generatedToken.kind == OWLFunctionalSyntaxParserConstants.EOF
-                    || generatedToken.kind == OWLFunctionalSyntaxParserConstants.ERROR) {
-                return;
+            boolean eof = generatedToken.kind == OWLFunctionalSyntaxParserConstants.EOF;
+            boolean error = generatedToken.kind == OWLFunctionalSyntaxParserConstants.ERROR;
+            if (eof || error) {
+                if (eof && !errorExpected || errorExpected && error) {
+                    return;
+                }
+                fail("Error expected: " + errorExpected + " but " + (eof ? "end of input" : "error")
+                    + " found");
             }
         }
     }
@@ -99,10 +106,8 @@ public class CustomTokenizerTest {
         return createTokenManager(reader);
     }
 
-    private static OWLFunctionalSyntaxParserTokenManager createTokenManager(
-            Reader reader) {
-        return new OWLFunctionalSyntaxParserTokenManager(new SimpleCharStream(
-                reader));
+    private static OWLFunctionalSyntaxParserTokenManager createTokenManager(Reader reader) {
+        return new OWLFunctionalSyntaxParserTokenManager(new SimpleCharStream(reader));
     }
 
     private static void assertTokensMatch(Token expected, Token actual) {
@@ -115,8 +120,7 @@ public class CustomTokenizerTest {
         } catch (AssertionError e) {
             String expected1 = OWLFunctionalSyntaxParserConstants.tokenImage[expected.kind];
             String actual1 = OWLFunctionalSyntaxParserConstants.tokenImage[actual.kind];
-            logger.error("token match fail: expected " + expected1
-                    + ", actual " + actual1);
+            logger.error("token match fail: expected " + expected1 + ", actual " + actual1);
             throw e;
         }
     }
