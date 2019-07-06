@@ -2,11 +2,9 @@ package org.obolibrary.obo2owl;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -60,7 +58,6 @@ public class ImportsAndFailuresTestCase extends TestBase {
         OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input,
             IRI.create("urn:test:uberon"), new OBODocumentFormat(), null));
         equal(o, o1);
-        m1.saveOntology(o, new FunctionalSyntaxDocumentFormat(), new SystemOutDocumentTarget());
     }
 
     @Test
@@ -73,7 +70,6 @@ public class ImportsAndFailuresTestCase extends TestBase {
         OWLOntology o = m1.loadOntologyFromOntologyDocument(new StringDocumentSource(input,
             IRI.create("urn:test:uberon"), new OBODocumentFormat(), null));
         roundTrip(o, new OBODocumentFormat());
-        m1.saveOntology(o, new FunctionalSyntaxDocumentFormat(), new SystemOutDocumentTarget());
     }
 
 }
