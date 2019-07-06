@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION_ASSERTION;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION_PROPERTY;
@@ -225,6 +224,8 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
+import org.semanticweb.owlapi.util.ShortFormFromRDFSLabelAxiomListProvider;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
@@ -239,7 +240,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     protected final Optional<OWLOntology> ont;
     private final Writer writer;
     private DefaultPrefixManager defaultPrefixManager;
-    protected Optional<AnnotationValueShortFormProvider> labelMaker = Optional.empty();
+    protected Optional<ShortFormProvider> labelMaker = Optional.empty();
     private Optional<PrefixManager> prefixManager = Optional.empty();
     private boolean writeEntitiesAsURIs = true;
     private boolean addMissingDeclarations = true;
@@ -297,12 +298,11 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
                     prefixManager.get().setDefaultPrefix(defaultPrefix);
                 }
             }
-            Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
             OWLOntologyManager manager = o.getOWLOntologyManager();
             OWLDataFactory df = manager.getOWLDataFactory();
-            OWLAnnotationProperty labelProp = df.getOWLAnnotationProperty(RDFS_LABEL.getIRI());
-            labelMaker = Optional.of(new AnnotationValueShortFormProvider(
-                Collections.singletonList(labelProp), prefLangMap, manager, defaultPrefixManager));
+            labelMaker = Optional.of(
+                new AnnotationValueShortFormProvider(Collections.singletonList(df.getRDFSLabel()),
+                    Collections.emptyMap(), manager, defaultPrefixManager));
         });
     }
 
@@ -655,8 +655,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         List<? extends OWLAxiom> axiomsForEntity,
         List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms,
         Set<OWLAxiom> alreadyWrittenAxioms) {
-        writeln("# " + entityTypeName + ": " + getIRIString(entity) + " (" + getEntityLabel(entity)
-            + ")");
+        writeln("# " + entityTypeName + ": " + getIRIString(entity) + " ("
+            + getEntityLabel(entity, annotationAssertionAxioms) + ")");
         writeReturn();
         annotationAssertionAxioms.stream().filter(alreadyWrittenAxioms::add)
             .forEach(this::acceptAndReturn);
@@ -680,9 +680,13 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         return defaultPrefixManager.getShortForm(entity);
     }
 
-    private String getEntityLabel(OWLEntity entity) {
-        return labelMaker.map(p -> p.getShortForm(entity).replace("\n", "\n# "))
-            .orElseThrow(() -> new IllegalStateException("labelMaker has not been set yet"));
+    private String getEntityLabel(OWLEntity entity, List<OWLAnnotationAssertionAxiom> axioms) {
+        if (labelMaker.isPresent()) {
+            return labelMaker.get().getShortForm(entity).replace("\n", "\n# ");
+        }
+        labelMaker = Optional
+            .of(new ShortFormFromRDFSLabelAxiomListProvider(Collections.emptyList(), axioms));
+        return labelMaker.get().getShortForm(entity).replace("\n", "\n# ");
     }
 
     private void writeAxioms(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
