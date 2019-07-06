@@ -970,20 +970,25 @@ public class OBOFormatWriter {
         private final OWLOntology ont;
         @Nullable
         private final String defaultOboNamespace;
+        private OBODoc result;
 
         /**
          * @param ont ontology
          * @param defaultOboNamespace default OBO namespace
+         * @param result result
          */
-        public OWLOntologyNameProvider(@Nonnull OWLOntology ont, String defaultOboNamespace) {
+        public OWLOntologyNameProvider(@Nonnull OWLOntology ont, String defaultOboNamespace,
+            OBODoc result) {
             this.ont = ont;
             this.defaultOboNamespace = defaultOboNamespace;
+            this.result = result;
         }
 
         @Override
         public String getName(String id) {
             // convert OBO id to IRI
             OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(ont.getOWLOntologyManager());
+            obo2owl.setObodoc(result);
             IRI iri = obo2owl.oboIdToIRI(id);
             // look for label of entity
             Set<OWLAnnotationAssertionAxiom> axioms =

@@ -383,9 +383,13 @@ public abstract class TestBase {
     }
 
     public OWLOntology loadOntology(String fileName) {
+        return loadOntology(fileName, m);
+    }
+
+    public OWLOntology loadOntology(String fileName, OWLOntologyManager manager) {
         try {
             URL url = getClass().getResource('/' + fileName);
-            return m.loadOntologyFromOntologyDocument(
+            return manager.loadOntologyFromOntologyDocument(
                 new IRIDocumentSource(IRI.create(url), null, null),
                 new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
         } catch (OWLOntologyCreationException e) {
