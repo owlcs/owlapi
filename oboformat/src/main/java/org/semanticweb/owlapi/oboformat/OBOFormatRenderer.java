@@ -49,14 +49,14 @@ public class OBOFormatRenderer implements OWLRenderer {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
             final OBODoc result = translator.convert(ontology);
-            boolean hasImports = !asList(ontology.imports()).isEmpty();
+            boolean hasImports = ontology.imports().count()>0;
             NameProvider nameProvider;
             if (hasImports) {
                 // if the ontology has imports
                 // use it as secondary lookup for labels
                 final NameProvider primary = new OBODocNameProvider(result);
-                final NameProvider secondary = new OWLOntologyNameProvider(ontology,
-                    primary.getDefaultOboNamespace());
+                final NameProvider secondary =
+                    new OWLOntologyNameProvider(ontology, primary.getDefaultOboNamespace(), result);
                 // combine primary and secondary name provider
                 nameProvider = new NameProvider() {
 

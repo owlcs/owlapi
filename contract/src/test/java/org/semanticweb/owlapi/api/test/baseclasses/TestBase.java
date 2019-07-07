@@ -21,6 +21,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -47,6 +48,7 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -486,6 +488,22 @@ public abstract class TestBase {
     @SuppressWarnings("unused")
     protected void handleSaved(StringDocumentTarget target, OWLDocumentFormat format) {
         // System.out.println(target.toString());
+    }
+
+    public OWLOntology loadOntology(String fileName) {
+        return loadOntology(fileName, m);
+    }
+
+    public OWLOntology loadOntology(String fileName, OWLOntologyManager manager) {
+        try {
+            URL url = getClass().getResource('/' + fileName);
+            return manager.loadOntologyFromOntologyDocument(
+                new IRIDocumentSource(IRI.create(url), null, null),
+                new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
+        } catch (OWLOntologyCreationException e) {
+            fail(e.getMessage());
+            throw new OWLRuntimeException(e);
+        }
     }
 
     protected OWLOntology loadOntologyFromString(String input) throws OWLOntologyCreationException {
