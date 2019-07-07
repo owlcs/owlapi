@@ -26,12 +26,14 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -501,5 +503,33 @@ public class TurtleTestCase extends TestBase {
         String string = out.toString();
         assertTrue(string,
             string.contains("<http://www.example.com#has%20space> rdf:type owl:ObjectProperty"));
+    }
+
+    @Test
+    public void sameFileShouldParseToSameOntology() throws OWLOntologyCreationException {
+        File file = new File(RESOURCES, "noBaseEscapedSlashes.ttl");
+        OWLOntology o1 = m1.loadOntologyFromOntologyDocument(
+            new FileDocumentSource(file, new TurtleDocumentFormat()));
+        OWLOntology o2 = m1.loadOntologyFromOntologyDocument(
+            new FileDocumentSource(file, new RioTurtleDocumentFormat()));
+        equal(o1, o2);
+    }
+
+    @Test
+    public void shouldParseEscapedCharacters()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = m1.loadOntologyFromOntologyDocument(new FileDocumentSource(
+            new File(RESOURCES, "noBaseEscapedSlashes.ttl"), new TurtleDocumentFormat()));
+        OWLOntology o1 = roundTrip(ont, new TurtleDocumentFormat());
+        equal(ont, o1);
+    }
+
+    @Test
+    public void shouldParseWithBase()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = m1.loadOntologyFromOntologyDocument(new FileDocumentSource(
+            new File(RESOURCES, "noBaseEscapedSlashes.ttl"), new RioTurtleDocumentFormat()));
+        OWLOntology o1 = roundTrip(ont, new RioTurtleDocumentFormat());
+        equal(ont, o1);
     }
 }

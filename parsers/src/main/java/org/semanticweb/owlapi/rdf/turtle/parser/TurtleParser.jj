@@ -208,15 +208,15 @@ TOKEN: { <LETTER: ["a"-"z"] | ["A"-"Z"]> }
 ////////////////////////////////////////////////////////////////////////////////////////////
 //
 // IRIs
-TOKEN: { <FULLIRI: "<"(~[">", " "])*">"> }
-TOKEN: { <PNAME_NS: (<PN_PREFIX> (":" <PN_PREFIX>)* )? ":"> }
-TOKEN: { <PN_LOCAL: ( <PN_CHARS_U> | ["0"-"9"] ) ((<PN_CHARS>|".")* <PN_CHARS>)?> }
-TOKEN: { <PNAME_LN: <PNAME_NS> <PN_LOCAL>> }
-TOKEN: { <PN_PREFIX: <PN_CHARS_BASE>((<PN_CHARS>|".")* <PN_CHARS>)?> }
-TOKEN: { <PN_CHARS_BASE:   ["A"-"Z"] | ["a"-"z"] | ["\u00C0"-"\u00D6"] | ["\u00D8"-"\u00F6"] | ["\u00F8"-"\u02FF"] | ["\u0370"-"\u037D"] | ["\u037F"-"\u1FFF"] | ["\u200C"-"\u200D"] | ["\u2070"-"\u218F"] | ["\u2C00"-"\u2FEF"] | ["\u3001"-"\uD7FF"] | ["\uF900"-"\uFDCF"] | ["\uFDF0"-"\uFFFD"]> }
-TOKEN: { <PN_CHARS:<PN_CHARS_U>|"-"|["0"-"9"]|"\u00B7"|["\u0300"-"\u036F"]|["\u203F"-"\u2040"]> }
-TOKEN: { <PN_CHARS_U: <PN_CHARS_BASE> | "_"> }
-TOKEN: { <NODEID: "_:"<PN_LOCAL>> }
+TOKEN: { <FULLIRI:       "<"(~[">", " "])*">"> }
+TOKEN: { <PNAME_NS:      (<PN_PREFIX> (":" <PN_PREFIX>)* )? ":"> }
+TOKEN: { <PN_LOCAL:      (<PN_CHARS_U> | <DIGIT> ) ((<PN_CHARS>|"."|"\\/"|"\\~"|"\\."|"\\-"|"\\!"|"\\$"|"\\&"|"\\'"|"\\("|"\\)"|"\\*"|"\\+"|"\\,"|"\\;"|"\\="|"\\?"|"\\#"|"\\@"|"\\%"|"\\_")* <PN_CHARS>)?> }
+TOKEN: { <PNAME_LN:      <PNAME_NS> <PN_LOCAL>> }
+TOKEN: { <PN_PREFIX:     <PN_CHARS_BASE>((<PN_CHARS>|".")* <PN_CHARS>)?> }
+TOKEN: { <PN_CHARS_BASE: <LETTER> | ["\u00C0"-"\u00D6"] | ["\u00D8"-"\u00F6"] | ["\u00F8"-"\u02FF"] | ["\u0370"-"\u037D"] | ["\u037F"-"\u1FFF"] | ["\u200C"-"\u200D"] | ["\u2070"-"\u218F"] | ["\u2C00"-"\u2FEF"] | ["\u3001"-"\uD7FF"] | ["\uF900"-"\uFDCF"] | ["\uFDF0"-"\uFFFD"]> }
+TOKEN: { <PN_CHARS:      <PN_CHARS_U> | "-" | <DIGIT> | "\u00B7" | ["\u0300"-"\u036F"]|["\u203F"-"\u2040"]> }
+TOKEN: { <PN_CHARS_U:    <PN_CHARS_BASE> | "_"> }
+TOKEN: { <NODEID:        <NODE_ID_START><PN_LOCAL>> }
 TOKEN: { <ERROR: ~[]> }
 
 /////////////////////////////////////////////////////////////////////////////////////////////

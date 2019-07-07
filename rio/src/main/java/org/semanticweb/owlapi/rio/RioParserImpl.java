@@ -109,6 +109,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 .getDefaultDocumentIRI()
                 .isPresent()) {
                 baseUri = ontology.getOntologyID().getDefaultDocumentIRI().get().toString();
+            } else {
+                baseUri = documentSource.getDocumentIRI().toString();
             }
             RioParserRDFHandler handler = new RioParserRDFHandler(consumer);
             if (documentSource instanceof RioMemoryTripleSource) {
