@@ -286,16 +286,16 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
                 prefixManager.get().copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
                 prefixManager.get().setPrefixComparator(
                     ((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());
-            }
-            if (!o.isAnonymous() && prefixManager.get().getDefaultPrefix() == null) {
-                String existingDefault = prefixManager.get().getDefaultPrefix();
-                String ontologyIRIString = o.getOntologyID().getOntologyIRI().get().toString();
-                if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {
-                    String defaultPrefix = ontologyIRIString;
-                    if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
-                        defaultPrefix = ontologyIRIString + '#';
+                if (!o.isAnonymous() && prefixManager.get().getDefaultPrefix() == null) {
+                    String existingDefault = prefixManager.get().getDefaultPrefix();
+                    String ontologyIRIString = o.getOntologyID().getOntologyIRI().get().toString();
+                    if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {
+                        String defaultPrefix = ontologyIRIString;
+                        if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
+                            defaultPrefix = ontologyIRIString + '#';
+                        }
+                        prefixManager.get().setDefaultPrefix(defaultPrefix);
                     }
-                    prefixManager.get().setDefaultPrefix(defaultPrefix);
                 }
             }
             OWLOntologyManager manager = o.getOWLOntologyManager();
