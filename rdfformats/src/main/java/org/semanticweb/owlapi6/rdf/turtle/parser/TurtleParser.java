@@ -674,12 +674,6 @@ return EscapeUtils.unescapeString(rawString);
     finally { jj_save(2, xla); }
   }
 
-  private boolean jj_3R_10()
- {
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
   private boolean jj_3R_9()
  {
     if (jj_3R_10()) return true;
@@ -689,12 +683,6 @@ return EscapeUtils.unescapeString(rawString);
   private boolean jj_3_2()
  {
     if (jj_3R_6()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_13()
- {
-    if (jj_scan_token(FULLIRI)) return true;
     return false;
   }
 
@@ -715,9 +703,10 @@ return EscapeUtils.unescapeString(rawString);
     return false;
   }
 
-  private boolean jj_3R_6()
+  private boolean jj_3_1()
  {
-    if (jj_scan_token(PNAME_LN)) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
+    if (jj_3R_5()) return true;
     return false;
   }
 
@@ -727,22 +716,21 @@ return EscapeUtils.unescapeString(rawString);
     return false;
   }
 
-  private boolean jj_3R_7()
+  private boolean jj_3R_6()
  {
-    if (jj_scan_token(PNAME_NS)) return true;
-    return false;
-  }
-
-  private boolean jj_3_1()
- {
-    if (jj_scan_token(SEMICOLON)) return true;
-    if (jj_3R_5()) return true;
+    if (jj_scan_token(PNAME_LN)) return true;
     return false;
   }
 
   private boolean jj_3R_12()
  {
     if (jj_3R_13()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_13()
+ {
+    if (jj_scan_token(FULLIRI)) return true;
     return false;
   }
 
@@ -757,6 +745,18 @@ return EscapeUtils.unescapeString(rawString);
     if (jj_3_3()) return true;
     }
     }
+    return false;
+  }
+
+  private boolean jj_3R_10()
+ {
+    if (jj_3R_11()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_7()
+ {
+    if (jj_scan_token(PNAME_NS)) return true;
     return false;
   }
 
