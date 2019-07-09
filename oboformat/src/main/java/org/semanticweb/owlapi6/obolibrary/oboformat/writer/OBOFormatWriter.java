@@ -930,16 +930,20 @@ public class OBOFormatWriter {
 
         private final OWLOntology ont;
         @Nullable private final String defaultOboNamespace;
+        private final OBODoc result;
 
         /**
          * @param ont
          *        ontology
          * @param defaultOboNamespace
          *        default OBO namespace
+         * @param result
+         *        result doc
          */
-        public OWLOntologyNameProvider(OWLOntology ont, @Nullable String defaultOboNamespace) {
+        public OWLOntologyNameProvider(OWLOntology ont, @Nullable String defaultOboNamespace, OBODoc result) {
             this.ont = ont;
             this.defaultOboNamespace = defaultOboNamespace;
+            this.result = result;
         }
 
         @Override
@@ -947,6 +951,7 @@ public class OBOFormatWriter {
         public String getName(String id) {
             // convert OBO id to IRI
             OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(ont.getOWLOntologyManager());
+            obo2owl.setObodoc(result);
             IRI iri = obo2owl.oboIdToIRI(id);
             // look for label of entity
             return ont

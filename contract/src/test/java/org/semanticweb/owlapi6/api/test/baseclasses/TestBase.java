@@ -22,6 +22,7 @@ import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -45,6 +46,7 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.rules.Timeout;
 import org.semanticweb.owlapi6.api.test.anonymous.AnonymousIndividualsNormaliser;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
+import org.semanticweb.owlapi6.documents.IRIDocumentSource;
 import org.semanticweb.owlapi6.documents.StreamDocumentSource;
 import org.semanticweb.owlapi6.documents.StringDocumentSource;
 import org.semanticweb.owlapi6.documents.StringDocumentTarget;
@@ -469,6 +471,21 @@ public abstract class TestBase {
         ax2.add(df.getOWLDataPropertyAssertionAxiom(t, df.getOWLAnonymousIndividual(), df.getOWLLiteral("test2")));
         assertFalse(ax1.equals(ax2));
         assertTrue(verifyErrorIsDueToBlankNodesId(ax1, ax2));
+    }
+
+    public OWLOntology loadOntology(String fileName) {
+        return loadOntology(fileName, m);
+    }
+
+    public OWLOntology loadOntology(String fileName, OWLOntologyManager manager) {
+        try {
+            URL url = getClass().getResource('/' + fileName);
+            return manager.loadOntologyFromOntologyDocument(new IRIDocumentSource(df.getIRI(url).toString()),
+                new OntologyConfigurator().setReportStackTraces(true));
+        } catch (OWLOntologyCreationException e) {
+            fail(e.getMessage());
+            throw new OWLRuntimeException(e);
+        }
     }
 
     protected OWLOntology loadOntologyFromString(String input, IRI i, OWLDocumentFormat f) {
