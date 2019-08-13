@@ -6,8 +6,4 @@ cache:
 language: java
 script: "mvn verify"
 jdk:
-  - oraclejdk8
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
+  - openjdk8
