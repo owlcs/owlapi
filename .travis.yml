@@ -6,4 +6,4 @@ cache:
 language: java
 script: "mvn verify"
 jdk:
-  - oraclejdk8
+  - openjdk8
