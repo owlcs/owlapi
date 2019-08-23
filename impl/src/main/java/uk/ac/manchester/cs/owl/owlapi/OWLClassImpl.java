@@ -46,12 +46,10 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
-        Serializable {
+public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
@@ -66,8 +64,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     private final boolean isNothing;
 
     /**
-     * @param iri
-     *        class iri
+     * @param iri class iri
      */
     public OWLClassImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
@@ -119,11 +116,6 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     @Override
     public boolean isBuiltIn() {
         return isOWLThing() || isOWLNothing();
-    }
-
-    @Override
-    public boolean isAnonymous() {
-        return false;
     }
 
     @Override

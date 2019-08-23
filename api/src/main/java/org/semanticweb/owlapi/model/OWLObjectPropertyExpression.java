@@ -15,24 +15,20 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
-    SWRLPredicate {
+public interface OWLObjectPropertyExpression extends OWLPropertyExpression, SWRLPredicate {
 
     /**
-     * If the property is a named object property then this method will obtain
-     * the property as such. The general pattern of use is that the
-     * {@code isAnonymous} method should first be used to determine if the
-     * property is named (i.e. not an object property expression such as
-     * inv(p)). If the property is named then this method may be used to obtain
-     * the property as a named property without casting.
+     * If the property is a named object property then this method will obtain the property as such.
+     * The general pattern of use is that the {@code isAnonymous} or {@code isNamed} methods should
+     * first be used to determine if the property is named (i.e. not an object property expression
+     * such as inv(p)). If the property is named then this method may be used to obtain the property
+     * as a named property without casting.
      * 
      * @return The property as an {@code OWLObjectProperty} if possible.
-     * @throws OWLRuntimeException
-     *         if the property is not a named property.
+     * @throws OWLRuntimeException if the property is not a named property.
      */
     @Nonnull
     OWLObjectProperty asOWLObjectProperty();
@@ -47,9 +43,8 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
 
     /**
      * @return this property in its simplified form.
-     * @deprecated Since it is not legal to apply ObjectInverseOf to anything
-     *             other than an Object Property, all object properties are
-     *             always in the simpled form.
+     * @deprecated Since it is not legal to apply ObjectInverseOf to anything other than an Object
+     *             Property, all object properties are always in the simpled form.
      */
     @Deprecated
     @Nonnull

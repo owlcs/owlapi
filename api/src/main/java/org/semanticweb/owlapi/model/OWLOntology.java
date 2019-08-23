@@ -83,15 +83,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     OWLOntologyID getOntologyID();
 
     /**
-     * Determines whether or not this ontology is anonymous. An ontology is anonymous if it does not
-     * have an ontology IRI. In this case, getOntologyID().getOntologyIRI() will return an
-     * Optional.absent.
-     * 
-     * @return {@code true} if this ontology is anonymous, otherwise {@code false}
-     */
-    boolean isAnonymous();
-
-    /**
      * Gets the annotations on this ontology.
      * 
      * @return A set of annotations on this ontology. The set returned will be a copy - modifying

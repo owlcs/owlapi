@@ -15,12 +15,11 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /**
- * Represents <a href=
- * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
+ * Represents
+ * <a href= "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
  * >Entities</a> in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
@@ -36,26 +35,23 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     /**
      * Tests to see if this entity is of the specified type
      * 
-     * @param entityType
-     *        The entity type
-     * @return {@code true} if this entity is of the specified type, otherwise
-     *         {@code false}.
+     * @param entityType The entity type
+     * @return {@code true} if this entity is of the specified type, otherwise {@code false}.
      */
     boolean isType(@Nonnull EntityType<?> entityType);
 
     /**
-     * Determines if this entity is a built in entity. The entity is a built in
-     * entity if it is:
+     * Determines if this entity is a built in entity. The entity is a built in entity if it is:
      * <ul>
      * <li>a class and the URI corresponds to owl:Thing or owl:Nothing</li>
-     * <li>an object property and the URI corresponds to owl:topObjectProperty
-     * or owl:bottomObjectProperty</li>
+     * <li>an object property and the URI corresponds to owl:topObjectProperty or
+     * owl:bottomObjectProperty</li>
      * <li>a data property and the URI corresponds to owl:topDataProperty or
      * owl:bottomDataProperty</li>
-     * <li>a datatype and the IRI is rdfs:Literal or is in the OWL 2 datatype
-     * map or is rdf:PlainLiteral</li>
-     * <li>an annotation property and the URI is in the set of built in
-     * annotation property URIs, i.e. one of:
+     * <li>a datatype and the IRI is rdfs:Literal or is in the OWL 2 datatype map or is
+     * rdf:PlainLiteral</li>
+     * <li>an annotation property and the URI is in the set of built in annotation property URIs,
+     * i.e. one of:
      * <ul>
      * <li>rdfs:label</li>
      * <li>rdfs:comment</li>
@@ -69,47 +65,42 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
      * </li>
      * </ul>
      * 
-     * @return {@code true} if this entity is a built in entity, or
-     *         {@code false} if this entity is not a builtin entity.
+     * @return {@code true} if this entity is a built in entity, or {@code false} if this entity is
+     *         not a builtin entity.
      */
     boolean isBuiltIn();
 
     /**
      * A convenience method that determines if this entity is an OWLClass
      * 
-     * @return {@code true} if this entity is an OWLClass, otherwise
-     *         {@code false}
+     * @return {@code true} if this entity is an OWLClass, otherwise {@code false}
      */
     boolean isOWLClass();
 
     /**
-     * A convenience method that obtains this entity as an OWLClass (in order to
-     * avoid explicit casting).
+     * A convenience method that obtains this entity as an OWLClass (in order to avoid explicit
+     * casting).
      * 
      * @return The entity as an OWLClass.
-     * @throws OWLRuntimeException
-     *         if this entity is not an OWLClass (check with the isOWLClass
+     * @throws OWLRuntimeException if this entity is not an OWLClass (check with the isOWLClass
      *         method first).
      */
     @Nonnull
     OWLClass asOWLClass();
 
     /**
-     * A convenience method that determines if this entity is an
-     * OWLObjectProperty
+     * A convenience method that determines if this entity is an OWLObjectProperty
      * 
-     * @return {@code true} if this entity is an OWLObjectProperty, otherwise
-     *         {@code false}
+     * @return {@code true} if this entity is an OWLObjectProperty, otherwise {@code false}
      */
     boolean isOWLObjectProperty();
 
     /**
-     * A convenience method that obtains this entity as an OWLObjectProperty (in
-     * order to avoid explicit casting).
+     * A convenience method that obtains this entity as an OWLObjectProperty (in order to avoid
+     * explicit casting).
      * 
      * @return The entity as an OWLObjectProperty.
-     * @throws OWLRuntimeException
-     *         if this entity is not an OWLObjectProperty (check with the
+     * @throws OWLRuntimeException if this entity is not an OWLObjectProperty (check with the
      *         isOWLObjectProperty method first).
      */
     @Nonnull
@@ -118,39 +109,34 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     /**
      * A convenience method that determines if this entity is an OWLDataProperty
      * 
-     * @return {@code true} if this entity is an OWLDataProperty, otherwise
-     *         {@code false}
+     * @return {@code true} if this entity is an OWLDataProperty, otherwise {@code false}
      */
     boolean isOWLDataProperty();
 
     /**
-     * A convenience method that obtains this entity as an OWLDataProperty (in
-     * order to avoid explicit casting).
+     * A convenience method that obtains this entity as an OWLDataProperty (in order to avoid
+     * explicit casting).
      * 
      * @return The entity as an OWLDataProperty.
-     * @throws OWLRuntimeException
-     *         if this entity is not an OWLDataProperty (check with the
+     * @throws OWLRuntimeException if this entity is not an OWLDataProperty (check with the
      *         isOWLDataProperty method first).
      */
     @Nonnull
     OWLDataProperty asOWLDataProperty();
 
     /**
-     * A convenience method that determines if this entity is an
-     * OWLNamedIndividual
+     * A convenience method that determines if this entity is an OWLNamedIndividual
      * 
-     * @return {@code true} if this entity is an OWLNamedIndividual, otherwise
-     *         {@code false}
+     * @return {@code true} if this entity is an OWLNamedIndividual, otherwise {@code false}
      */
     boolean isOWLNamedIndividual();
 
     /**
-     * A convenience method that obtains this entity as an OWLNamedIndividual
-     * (in order to avoid explicit casting).
+     * A convenience method that obtains this entity as an OWLNamedIndividual (in order to avoid
+     * explicit casting).
      * 
      * @return The entity as an OWLNamedIndividual.
-     * @throws OWLRuntimeException
-     *         if this entity is not an OWLIndividual (check with the
+     * @throws OWLRuntimeException if this entity is not an OWLIndividual (check with the
      *         isOWLIndividual method first).
      */
     @Nonnull
@@ -159,46 +145,41 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     /**
      * A convenience method that determines if this entity is an OWLDatatype
      * 
-     * @return {@code true} if this entity is an OWLDatatype, otherwise
-     *         {@code false}
+     * @return {@code true} if this entity is an OWLDatatype, otherwise {@code false}
      */
     boolean isOWLDatatype();
 
     /**
-     * A convenience method that obtains this entity as an OWLDatatype (in order
-     * to avoid explicit casting).
+     * A convenience method that obtains this entity as an OWLDatatype (in order to avoid explicit
+     * casting).
      * 
      * @return The entity as an OWLDatatype.
-     * @throws OWLRuntimeException
-     *         if this entity is not an OWLDatatype (check with the
+     * @throws OWLRuntimeException if this entity is not an OWLDatatype (check with the
      *         isOWLDatatype method first).
      */
     @Nonnull
     OWLDatatype asOWLDatatype();
 
     /**
-     * A convenience method that determines if this entity is an
-     * OWLAnnotationProperty
+     * A convenience method that determines if this entity is an OWLAnnotationProperty
      * 
-     * @return {@code true} if this entity is an OWLAnnotationProperty,
-     *         otherwise {@code false}
+     * @return {@code true} if this entity is an OWLAnnotationProperty, otherwise {@code false}
      */
     boolean isOWLAnnotationProperty();
 
     /**
-     * A convenience method that obtains this entity as an OWLAnnotationProperty
-     * (in order to avoid explicit casting).
+     * A convenience method that obtains this entity as an OWLAnnotationProperty (in order to avoid
+     * explicit casting).
      * 
      * @return The entity as an OWLAnnotationProperty.
-     * @throws OWLRuntimeException
-     *         if this entity is not an OWLAnnotationProperty
+     * @throws OWLRuntimeException if this entity is not an OWLAnnotationProperty
      */
     @Nonnull
     OWLAnnotationProperty asOWLAnnotationProperty();
 
     /**
-     * Returns a string representation that can be used as the ID of this
-     * entity. This is the toString representation of the IRI
+     * Returns a string representation that can be used as the ID of this entity. This is the
+     * toString representation of the IRI
      * 
      * @return A string representing the toString of the IRI of this entity.
      */
@@ -206,18 +187,20 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     String toStringID();
 
     /**
-     * @param visitor
-     *        visitor
+     * @param visitor visitor
      */
     void accept(@Nonnull OWLEntityVisitor visitor);
 
     /**
-     * @param visitor
-     *        visitor
-     * @param <O>
-     *        visitor return type
+     * @param visitor visitor
+     * @param <O> visitor return type
      * @return visitor return value
      */
     @Nonnull
     <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor);
+
+    @Override
+    default boolean isAnonymous() {
+        return false;
+    }
 }

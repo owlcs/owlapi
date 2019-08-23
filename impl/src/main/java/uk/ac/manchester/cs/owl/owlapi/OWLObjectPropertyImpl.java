@@ -12,23 +12,42 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntityVisitor;
+import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
+import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
+import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl
-        implements OWLObjectProperty {
+    implements OWLObjectProperty {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -41,14 +60,12 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl
     }
 
     /**
-     * @param iri
-     *        property iri
+     * @param iri property iri
      */
     public OWLObjectPropertyImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI())
-                || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY
-                        .getIRI());
+            || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
     }
 
     @Nonnull
@@ -158,11 +175,6 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
-    }
-
-    @Override
-    public boolean isAnonymous() {
-        return false;
     }
 
     @Override

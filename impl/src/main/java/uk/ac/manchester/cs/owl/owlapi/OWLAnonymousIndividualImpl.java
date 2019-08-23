@@ -18,17 +18,32 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitor;
+import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLIndividualVisitor;
+import org.semanticweb.owlapi.model.OWLIndividualVisitorEx;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.google.common.base.Optional;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
+public class OWLAnonymousIndividualImpl extends OWLIndividualImpl
+    implements OWLAnonymousIndividual {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -40,8 +55,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
     }
 
     /**
-     * @param nodeID
-     *        node id
+     * @param nodeID node id
      */
     public OWLAnonymousIndividualImpl(@Nonnull NodeID nodeID) {
         nodeId = checkNotNull(nodeID, "nodeID cannot be null");
@@ -57,16 +71,6 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         return nodeId.getID();
     }
 
-    @Override
-    public boolean isNamed() {
-        return false;
-    }
-
-    @Override
-    public boolean isAnonymous() {
-        return true;
-    }
-
     @Nonnull
     @Override
     public OWLAnonymousIndividual asOWLAnonymousIndividual() {
@@ -75,7 +79,8 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
 
     @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
-        throw new OWLRuntimeException("Not a named individual! This method should only be called on named individuals");
+        throw new OWLRuntimeException(
+            "Not a named individual! This method should only be called on named individuals");
     }
 
     @Override
@@ -131,7 +136,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
 
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
-        return Optional.<OWLAnonymousIndividual> of(this);
+        return Optional.<OWLAnonymousIndividual>of(this);
     }
 
     @Override

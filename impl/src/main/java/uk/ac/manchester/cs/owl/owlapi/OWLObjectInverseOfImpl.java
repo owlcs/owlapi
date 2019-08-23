@@ -30,12 +30,11 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
-        implements OWLObjectInverseOf {
+    implements OWLObjectInverseOf {
 
     private static final long serialVersionUID = 40000L;
 
@@ -48,13 +47,12 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
     private final OWLObjectProperty inverseProperty;
 
     /**
-     * @param inverseProperty
-     *        property to invert
+     * @param inverseProperty property to invert
      */
-    public OWLObjectInverseOfImpl(
-            @Nonnull OWLObjectPropertyExpression inverseProperty) {
-        if(!(inverseProperty instanceof OWLObjectProperty)) {
-            throw new IllegalArgumentException("ObjectInverseOf can only be applied to Object Properties");
+    public OWLObjectInverseOfImpl(@Nonnull OWLObjectPropertyExpression inverseProperty) {
+        if (!(inverseProperty instanceof OWLObjectProperty)) {
+            throw new IllegalArgumentException(
+                "ObjectInverseOf can only be applied to Object Properties");
         }
 
         this.inverseProperty = inverseProperty.asOWLObjectProperty();
@@ -122,20 +120,14 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
     }
 
     @Override
-    public boolean isAnonymous() {
-        return true;
-    }
-
-    @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException(
-                "Property is not a named property.  Check using the isAnonymous method before calling this method!");
+            "Property is not a named property. Check using the isAnonymous method before calling this method!");
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return inverseProperty.compareTo(((OWLObjectInverseOf) object)
-                .getInverse());
+        return inverseProperty.compareTo(((OWLObjectInverseOf) object).getInverse());
     }
 
     @Override

@@ -42,12 +42,10 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
-        OWLDataProperty {
+public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements OWLDataProperty {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -60,14 +58,12 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     }
 
     /**
-     * @param iri
-     *        property iri
+     * @param iri property iri
      */
     public OWLDataPropertyImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI())
-                || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY
-                        .getIRI());
+            || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
     @Override
@@ -175,11 +171,6 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
-    }
-
-    @Override
-    public boolean isAnonymous() {
-        return false;
     }
 
     @Override
