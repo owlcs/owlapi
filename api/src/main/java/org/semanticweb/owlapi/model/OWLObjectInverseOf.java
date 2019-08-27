@@ -61,11 +61,6 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
     OWLObjectPropertyExpression getInverse();
 
     @Override
-    public default boolean isAnonymous() {
-        return true;
-    }
-
-    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

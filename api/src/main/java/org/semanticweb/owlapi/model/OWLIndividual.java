@@ -20,20 +20,6 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, AsOWLNamedIndividual {
 
-    /**
-     * Determines if this individual is an instance of
-     * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this method is the dual of
-     * {@link #isAnonymous()}.
-     *
-     * @return {@code true} if this individual is an instance of
-     *         {@link org.semanticweb.owlapi.model.OWLNamedIndividual} because it is a named
-     *         individuals, otherwise {@code false}
-     */
-    @Override
-    default boolean isNamed() {
-        return isOWLNamedIndividual();
-    }
-
     @Override
     default boolean isIndividual() {
         return true;

@@ -766,10 +766,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     protected void putLiteral(OWLLiteral i) {
-        if (nodeMap.containsKey(i)) {
+        if (expressionMap.containsKey(i)) {
             return;
         }
-        nodeMap.put(i, getLiteralNode(i));
+        expressionMap.put(i, getLiteralNode(i));
     }
 
     protected void putProperty(OWLProperty p) {
@@ -1087,10 +1087,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @SuppressWarnings("unchecked")
     @Nullable
     public <T> T getMappedNode(OWLObject object) {
-        if (object.isAnonymousExpression()) {
-            return (T) expressionMap.get(object);
-        }
-        return (T) nodeMap.get(object);
+        return (T) expressionMap.getOrDefault(object, nodeMap.get(object));
     }
 
     /**
@@ -1140,7 +1137,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             obj.accept(this);
             node = getMappedNode(obj);
             if (node == null) {
-                obj.accept(this);
                 throw new IllegalStateException("Node is null. Attempting to get node for " + obj);
             }
         }
