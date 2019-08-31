@@ -1036,6 +1036,16 @@ public class OWLRDFConsumer
             && annPropertyIRIs.contains(iri);
     }
 
+    protected boolean isApLax(IRI iri) {
+        return isAnnotationProperty(iri)
+            // IRIs that are not known to be annotation properties must not be known to be object or
+            // datatype properties, and must not be in the reserved vocabulary (the reserved
+            // vocabulary cannot be extended to add annotation properties in an ontology, and
+            // reserved entities do not need declarations; so, not having this condition here causes
+            // misidentification).
+            || !isObjectProperty(iri) && !isDataProperty(iri) && !iri.isReservedVocabulary();
+    }
+
     /**
      * Checks if is annotation property.
      *
@@ -1043,7 +1053,7 @@ public class OWLRDFConsumer
      * @return true, if is annotation property
      */
     protected boolean isAnnotationProperty(IRI iri) {
-        return annPropertyIRIs.contains(iri);
+        return annPropertyIRIs.contains(iri) || iri.isBuiltinAnnotationProperty();
     }
 
     /**
@@ -1744,7 +1754,7 @@ public class OWLRDFConsumer
         getAnnotatedSourceAnnotationMainNodes(n)
             .forEach(node -> anns.put(node, translateAnnotations(node)));
         Set<OWLAnnotation> nodeAnns = createLinkedSet();
-        getPredicatesBySubject(n).stream().filter(this::isAnnotationProperty)
+        getPredicatesBySubject(n).stream().filter(this::isApLax)
             .forEach(p -> mapAnnotation(n, anns, nodeAnns, p));
         return nodeAnns;
     }

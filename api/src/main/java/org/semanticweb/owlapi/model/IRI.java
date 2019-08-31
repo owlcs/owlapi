@@ -270,6 +270,18 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /**
+     * Built in annotation properties do not need declarations. Adding this method to IRIs so during
+     * parsing any undeclared properties can easily be disambiguated between builtin annotation
+     * properties and properties that are guessed to be annotation properties because of missing
+     * declarations.
+     * 
+     * @return true if this IRI equals one of the vocabulary annotation properties
+     */
+    public boolean isBuiltinAnnotationProperty() {
+        return OWLRDFVocabulary.BUILT_IN_AP_IRIS.contains(this);
+    }
+
+    /**
      * Determines if this IRI is equal to the IRI that {@code owl:Thing} is named with.
      *
      * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Thing&gt; and
