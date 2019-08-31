@@ -29,6 +29,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,6 +62,8 @@ import org.xml.sax.helpers.DefaultHandler;
 @HasPriority(1)
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
 
+    private static final String ONTOLOGY_ELEMENT_FOUND_PARSING_COMPLETE =
+        "Ontology element found, parsing complete.";
     private static final long serialVersionUID = 40000L;
     static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
     static final Pattern manPattern = Pattern.compile("Ontology:[\r\n ]*<([^>]+)>");
@@ -291,9 +294,15 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             // found before 64000 entities are expanded, the file is too
             // expensive to parse.
             SAXParsers.initParserWithOWLAPIStandards(null, "64000").parse(is, this);
-        } catch (SAXException | IOException e) {
+        } catch (SAXException e) {
+            // Exceptions thrown to halt parsing early when the ontology IRI is found
+            // should not be logged because they are not actual errors, only a performance hack.
+            if (!Objects.equals(ONTOLOGY_ELEMENT_FOUND_PARSING_COMPLETE, e.getMessage())) {
+                LOGGER.debug("SAX Exception reading file", e);
+            }
+        } catch (IOException e) {
             // if we can't parse a file, then we can't map it
-            LOGGER.debug("Exception reading file", e);
+            LOGGER.debug("IO Exception reading file", e);
         }
     }
 
@@ -338,7 +347,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             }
         }
         if (tag.equals("http://www.w3.org/2002/07/owl#Ontology")) {
-            throw new SAXException();
+            throw new SAXException(ONTOLOGY_ELEMENT_FOUND_PARSING_COMPLETE);
         }
     }
 
