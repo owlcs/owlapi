@@ -92,11 +92,6 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
     }
 
     @Override
-    default boolean isAnonymous() {
-        return true;
-    }
-
-    @Override
     default boolean isIndividual() {
         return false;
     }

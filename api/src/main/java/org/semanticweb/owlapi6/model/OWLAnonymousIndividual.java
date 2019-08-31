@@ -36,11 +36,6 @@ public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValu
     NodeID getID();
 
     @Override
-    public default boolean isAnonymous() {
-        return true;
-    }
-
-    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
