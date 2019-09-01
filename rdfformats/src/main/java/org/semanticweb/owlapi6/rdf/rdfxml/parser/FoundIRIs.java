@@ -383,7 +383,16 @@ class FoundIRIs {
     }
 
     protected boolean isApLax(IRI iri) {
-        return isAP(iri);
+        boolean b = isAP(iri)
+            // IRIs that are not known to be annotation properties must not be
+            // known to be object or datatype properties, and must not be in the
+            // reserved vocabulary (the reserved vocabulary cannot be extended
+            // to add annotation properties in an ontology, and reserved
+            // entities do not need declarations; so, not having this condition
+            // here causes misidentification).
+            || !strict && !isOP(iri) && !isDP(iri) && !iri.isReservedVocabulary();
+        System.out.println("FoundIRIs.isApLax() " + b + "\t" + iri);
+        return b;
     }
 
     protected void addOntology(IRI iri) {
@@ -423,13 +432,13 @@ class FoundIRIs {
             addObjectProperty(s, false);
         } else if (isDPLax(o)) {
             addDataProperty(o, false);
-        } else if (isApLax(o)) {
+        } else if (isAP(o)) {
             addAnnotationProperty(s, false);
         } else if (isOpLax(s)) {
             addObjectProperty(o, false);
         } else if (isDPLax(s)) {
             addDataProperty(o, false);
-        } else if (isApLax(s)) {
+        } else if (isAP(s)) {
             addAnnotationProperty(o, false);
         }
         return false;
