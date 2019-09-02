@@ -135,7 +135,37 @@ public class RDFGraph implements Serializable {
                 }
             }
         }
+        forceIdOutputForIndividualsInMultipleTriples();
         return toReturn;
+    }
+
+    protected void forceIdOutputForIndividualsInMultipleTriples() {
+        // Some individuals might need to appear in mutliple triples although they do not appear in
+        // multiple positions in the axioms.
+        // An example of such a situation is an anonymous individual as object of an annotated
+        // annotation - in the RDF graph, this individual will appear in two places because of
+        // reification.
+        Map<RDFResourceBlankNode, List<RDFResourceBlankNode>> anonIndividualsInMultipleTriples =
+            createMap();
+        for (RDFTriple t : triples) {
+            if (t.getObject().isAnonymous() && t.getObject().isIndividual()) {
+                List<RDFResourceBlankNode> list =
+                    anonIndividualsInMultipleTriples.get(t.getObject());
+                if (list == null) {
+                    list = new ArrayList<>(2);
+                    anonIndividualsInMultipleTriples.put((RDFResourceBlankNode) t.getObject(),
+                        list);
+                }
+                list.add((RDFResourceBlankNode) t.getObject());
+            }
+        }
+        for (Map.Entry<RDFResourceBlankNode, List<RDFResourceBlankNode>> e : anonIndividualsInMultipleTriples
+            .entrySet()) {
+            if (e.getValue().size() > 1) {
+                // individuals that need their id outputted
+                e.getValue().forEach(o -> o.setIdRequiredForIndividual(true));
+            }
+        }
     }
 
     /**
@@ -210,8 +240,8 @@ public class RDFGraph implements Serializable {
             change = false;
             for (RDFResource n : current) {
                 if (visited.add(n)) {
-                    List<RDFResource> l = asList(triples.stream().filter(p -> p.getObject().equals(n))
-                        .map(RDFTriple::getSubject));
+                    List<RDFResource> l = asList(triples.stream()
+                        .filter(p -> p.getObject().equals(n)).map(RDFTriple::getSubject));
                     if (l.size() > 0) {
                         change = true;
                         next.addAll(l);
