@@ -22,18 +22,23 @@ import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.Lite
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
 
+import java.util.Collections;
+
 import org.junit.Test;
-import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi6.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLClass;
+import org.semanticweb.owlapi6.model.OWLClassExpression;
+import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 
-public class AnonymousRoundTripTestCase extends TestBase {
+public class AnonymousRoundTripTestCase extends AbstractRoundTrippingTestCase {
 
     @Test
     public void shouldNotFailOnAnonymousOntologySearch() throws OWLOntologyCreationException {
@@ -52,10 +57,25 @@ public class AnonymousRoundTripTestCase extends TestBase {
         OWLOntology ontology = getOWLOntology();
         OWLAnnotation annotation1 = df.getOWLAnnotation(p, h);
         OWLAnnotation annotation2 = df.getRDFSLabel(Literal("Second", "en"));
-        ontology.add(df.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1),
-                        ClassAssertion(a, h), ObjectPropertyAssertion(q, h, i),
-                        df.getOWLAnnotationAssertionAxiom(h, annotation2));
+        ontology.add(df.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1), ClassAssertion(a, h),
+            ObjectPropertyAssertion(q, h, i), df.getOWLAnnotationAssertionAxiom(h, annotation2));
         OWLOntology o = roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
         equal(ontology, o);
+    }
+
+    @Override
+    protected OWLOntology createOntology() {
+        OWLDataProperty dp = df.getOWLDataProperty("urn:test:anon#D");
+        OWLObjectProperty op = df.getOWLObjectProperty("urn:test:anon#O");
+        OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:test:anon#A2");
+        OWLAnonymousIndividual i = df.getOWLAnonymousIndividual("_:b0");
+        OWLAnnotation sub1 = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral("z1"));
+        OWLAnnotation an1 = df.getOWLAnnotation(ap, i, Collections.singletonList(sub1));
+        OWLClassExpression c1 = df.getOWLDataAllValuesFrom(dp, df.getBooleanOWLDatatype());
+        OWLClassExpression c2 = df.getOWLObjectSomeValuesFrom(op, df.getOWLThing());
+        OWLAxiom ax1 = df.getOWLSubClassOfAxiom(c1, c2, Collections.singletonList(an1));
+        OWLOntology ont1 = getOWLOntology();
+        ont1.add(ax1);
+        return ont1;
     }
 }
