@@ -27,7 +27,7 @@ public class RDFResourceBlankNode extends RDFResource {
     private final IRI resource;
     private final boolean isIndividual;
     private final boolean isAxiom;
-    private final boolean forceIdOutput;
+    private boolean forceIdOutput;
 
     /**
      * Create an RDFResource that is anonymous
@@ -46,11 +46,11 @@ public class RDFResourceBlankNode extends RDFResource {
     }
 
     /**
-     * Create an RDFResource that is anonymous
+     * Create an RDFResource that is anonymous.
      * 
      * @param anonId the number at the end of the anon IRI
-     * @param isIndividual true if this is an individual
-     * @param forceId true if the id should be outputted
+     * @param isIndividual true if the node represents an individual
+     * @param forceId true if id should be outputted
      * @param isAxiom true if axiom
      */
     public RDFResourceBlankNode(Integer anonId, boolean isIndividual, boolean forceId,
@@ -82,6 +82,10 @@ public class RDFResourceBlankNode extends RDFResource {
     @Override
     public boolean shouldOutputId() {
         return forceIdOutput;
+    }
+
+    public void setIdRequiredForIndividual(boolean b) {
+        forceIdOutput = b;
     }
 
     @Override
