@@ -108,7 +108,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.DatatypeIRIAlsoUsedAsClassIRI;
@@ -189,11 +188,7 @@ public class OWLProfileTestCase extends TestBase {
     @Override
     public void setupManagersClean() {
         super.setupManagersClean();
-        try {
-            o = getOWLOntology(onto);
-        } catch (OWLOntologyCreationException e) {
-            throw new OWLRuntimeException(e);
-        }
+        o = getOWLOntology(onto);
     }
 
     public void declare(OWLOntology ont, OWLEntity... entities) {

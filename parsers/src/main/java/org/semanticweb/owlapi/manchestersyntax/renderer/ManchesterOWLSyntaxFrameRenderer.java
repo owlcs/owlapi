@@ -376,6 +376,14 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 writeFullURI(value.getValue());
                 writeNewLine();
             });
+        if (!prefixMap.containsKey(":")) {
+            write(PREFIX.toString());
+            write(": : ");
+            writeFullURI(o.getOntologyID().getOntologyIRI().map(IRI::toString)
+                .orElse(o.getOntologyID().getDefaultDocumentIRI().map(IRI::toString)
+                    .orElse("urn:absoluteiri:defaultvalue#")));
+            writeNewLine();
+        }
         if (!prefixMap.isEmpty()) {
             writeNewLine();
             writeNewLine();

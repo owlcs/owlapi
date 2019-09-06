@@ -20,6 +20,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Objec
 
 import java.util.HashSet;
 import java.util.Set;
+
+import org.eclipse.rdf4j.rio.RDFHandlerException;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AxiomsRoundTrippingBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -38,10 +40,10 @@ public class NoQNameTestCase extends AxiomsRoundTrippingBase {
     public NoQNameTestCase() {
         super(() -> {
             Set<OWLAxiom> axioms = new HashSet<>();
-            OWLNamedIndividual indA = NamedIndividual(IRI(
-                "http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A", ""));
-            OWLNamedIndividual indB = NamedIndividual(IRI(
-                "http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B", ""));
+            OWLNamedIndividual indA = NamedIndividual(
+                IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A", ""));
+            OWLNamedIndividual indB = NamedIndividual(
+                IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B", ""));
             OWLObjectProperty property = ObjectProperty(IRI("http://example.com/place/123", ""));
             axioms.add(ObjectPropertyAssertion(property, indA, indB));
             return axioms;
@@ -56,6 +58,23 @@ public class NoQNameTestCase extends AxiomsRoundTrippingBase {
             fail("Expected an exception specifying that a QName could not be generated");
         } catch (OWLOntologyStorageException e) {
             if (!(e.getCause() instanceof IllegalElementNameException)) {
+                throw e;
+            }
+        }
+    }
+
+    @Override
+    @Test
+    public void testRioRDFXML() throws Exception {
+        try {
+            super.testRioRDFXML();
+            fail("Expected an exception specifying that a QName could not be generated");
+        } catch (OWLOntologyStorageException e) {
+            Throwable ex = e.getCause();
+            while (ex != null && !(ex instanceof RDFHandlerException)) {
+                ex = ex.getCause();
+            }
+            if (ex == null || !ex.getMessage().contains("http://example.com/place/123")) {
                 throw e;
             }
         }

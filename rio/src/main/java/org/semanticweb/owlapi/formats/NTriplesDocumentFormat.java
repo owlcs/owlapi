@@ -49,4 +49,9 @@ public class NTriplesDocumentFormat extends RioRDFNonPrefixDocumentFormat {
     public NTriplesDocumentFormat() {
         super(RDFFormat.NTRIPLES);
     }
+
+    @Override
+    public boolean supportsRelativeIRIs() {
+        return false;
+    }
 }

@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.fileroundtrip;
 
 import java.util.Arrays;
 import java.util.List;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -78,8 +79,7 @@ public class FileRoundTripTestCase extends AbstractFileRoundTrippingTestCase {
             "annotatedpropertychain.ttl.rdf",
             "UntypedSubClassOf.rdf",
             "SubClassOfUntypedOWLClass.rdf",
-            "SubClassOfUntypedSomeValuesFrom.rdf",
-            "XMLLiteral.rdf");
+            "SubClassOfUntypedSomeValuesFrom.rdf");
         //@formatter:on
     }
 }

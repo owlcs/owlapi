@@ -17,4 +17,9 @@ public class NQuadsDocumentFormat extends RioRDFNonPrefixDocumentFormat {
     public NQuadsDocumentFormat() {
         super(RDFFormat.NQUADS);
     }
+
+    @Override
+    public boolean supportsRelativeIRIs() {
+        return false;
+    }
 }

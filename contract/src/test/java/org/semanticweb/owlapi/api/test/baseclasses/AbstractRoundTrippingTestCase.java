@@ -23,6 +23,8 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TrigDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -41,6 +43,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Test
     public void testRDFXML() throws Exception {
         roundTripOntology(createOntology());
+    }
+
+    @Test
+    public void testRioRDFXML() throws Exception {
+        roundTripOntology(createOntology(), new RioRDFXMLDocumentFormat());
     }
 
     @Test
@@ -108,6 +115,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Test
     public void testTurtle() throws Exception {
         roundTripOntology(createOntology(), new TurtleDocumentFormat());
+    }
+
+    @Test
+    public void testRioTurtle() throws Exception {
+        roundTripOntology(createOntology(), new RioTurtleDocumentFormat());
     }
 
     @Test

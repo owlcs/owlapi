@@ -42,8 +42,7 @@ public class OntologyURITestCase extends TestBase {
         OWLOntology ont = m.createOntology(ontIRI);
         String s = ont.toString();
         String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: " + ont.getAxiomCount()
-            + " Logical Axioms: "
-            + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
+            + " Logical Axioms: " + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
         assertEquals(expected, s);
     }
 
@@ -75,8 +74,13 @@ public class OntologyURITestCase extends TestBase {
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testDuplicateOntologyURI() throws OWLOntologyCreationException {
         IRI uri = IRI.getNextDocumentIRI("http://www.another.com/ont");
-        getOWLOntology(uri);
-        getOWLOntology(uri);
+        try {
+            getOWLOntology(uri);
+            getOWLOntology(uri);
+        } catch (RuntimeException e) {
+            throw (OWLOntologyAlreadyExistsException) e.getCause();
+        }
+
     }
 
     @Test
@@ -84,8 +88,8 @@ public class OntologyURITestCase extends TestBase {
         IRI iri = IRI.getNextDocumentIRI("http://www.another.com/ont");
         OWLOntology ont = getOWLOntology(iri);
         IRI newIRI = IRI.getNextDocumentIRI("http://www.another.com/newont");
-        SetOntologyID sou = new SetOntologyID(ont,
-            new OWLOntologyID(optional(newIRI), emptyOptional(IRI.class)));
+        SetOntologyID sou =
+            new SetOntologyID(ont, new OWLOntologyID(optional(newIRI), emptyOptional(IRI.class)));
         ont.applyChange(sou);
         assertFalse(m.contains(iri));
         assertTrue(m.contains(newIRI));

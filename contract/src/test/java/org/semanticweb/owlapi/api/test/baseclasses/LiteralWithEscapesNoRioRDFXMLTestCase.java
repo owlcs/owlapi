@@ -37,11 +37,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
-public class LiteralWithEscapesTestCase extends AbstractRoundTrippingTestCase {
+public class LiteralWithEscapesNoRioRDFXMLTestCase extends AbstractRoundTrippingTestCase {
 
     private final String escape;
 
-    public LiteralWithEscapesTestCase(String s) {
+    public LiteralWithEscapesNoRioRDFXMLTestCase(String s) {
         escape = s;
     }
 
@@ -54,8 +54,6 @@ public class LiteralWithEscapesTestCase extends AbstractRoundTrippingTestCase {
             "\"",
             // LiteralWithLeftAngle
             "<",
-            // LiteralWithNewLine
-            "\n",
             // LiteralWithSingleQuote
             "\'");
     }
@@ -76,10 +74,5 @@ public class LiteralWithEscapesTestCase extends AbstractRoundTrippingTestCase {
         OWLOntology o = getOWLOntology();
         o.add(ax1, ax2, ax3, ax4, Declaration(cls));
         return o;
-    }
-
-    @Override
-    public void testRioRDFXML() throws Exception {
-        // Rio normalizes literals differently, got its own test
     }
 }
