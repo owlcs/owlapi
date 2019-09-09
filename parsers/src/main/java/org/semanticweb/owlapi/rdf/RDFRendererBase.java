@@ -46,8 +46,10 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -135,10 +137,10 @@ public abstract class RDFRendererBase {
     private final Set<IRI> punned;
     @Nullable
     protected RDFGraph graph;
-    @Nullable
-    protected Map<RDFTriple, RDFResourceBlankNode> triplesWithRemappedNodes;
     private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
     private final Map<Object, Integer> blankNodeMap = new IdentityHashMap<>();
+    private final Deque<RDFResourceBlankNode> nodesToRenderSeparately = new LinkedList<>();
+    private final Set<RDFResourceBlankNode> renderedNodes = new HashSet<>();
 
     /**
      * @param ontology ontology
@@ -242,7 +244,7 @@ public abstract class RDFRendererBase {
      */
     public void render() {
         graph = new RDFGraph();
-        triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
+        getRDFGraph().forceIdOutputForNodesInMultipleTriples();
         beginDocument();
         renderOntologyHeader();
         renderOntologyComponents();
@@ -445,7 +447,7 @@ public abstract class RDFRendererBase {
                 render(node);
             }
         }
-        triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
+        getRDFGraph().forceIdOutputForNodesInMultipleTriples();
     }
 
     protected void render(RDFResource node) {
@@ -479,7 +481,7 @@ public abstract class RDFRendererBase {
             blankNodeMap);
         objects.sorted().forEach(obj -> deshare(obj).accept(translator));
         graph = translator.getGraph();
-        triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
+        getRDFGraph().forceIdOutputForNodesInMultipleTriples();
     }
 
     protected void createGraph(OWLObject o) {
@@ -488,7 +490,7 @@ public abstract class RDFRendererBase {
             blankNodeMap);
         deshare(o).accept(translator);
         graph = translator.getGraph();
-        triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
+        getRDFGraph().forceIdOutputForNodesInMultipleTriples();
     }
 
     protected OWLObject deshare(OWLObject o) {
@@ -555,23 +557,14 @@ public abstract class RDFRendererBase {
         }
     }
 
-    protected RDFTriple remapNodesIfNecessary(final RDFResource node, final RDFTriple triple) {
-        RDFTriple tripleToRender = triple;
-        RDFResourceBlankNode remappedNode =
-            verifyNotNull(triplesWithRemappedNodes, "triplesWithRemappedNodes not initialised yet")
-                .get(tripleToRender);
-        if (remappedNode != null) {
-            tripleToRender = new RDFTriple(tripleToRender.getSubject(),
-                tripleToRender.getPredicate(), remappedNode);
-        }
-        if (!node.equals(tripleToRender.getSubject())) {
+    protected RDFTriple remapNodesIfNecessary(RDFResource node, RDFTriple triple) {
+        if (!node.equals(triple.getSubject())) {
             // the node will not match the triple subject if the node itself
             // is a remapped blank node
             // in which case the triple subject needs remapping as well
-            tripleToRender =
-                new RDFTriple(node, tripleToRender.getPredicate(), tripleToRender.getObject());
+            return new RDFTriple(node, triple.getPredicate(), triple.getObject());
         }
-        return tripleToRender;
+        return triple;
     }
 
     static final class GraphVisitor implements OWLEntityVisitor {
@@ -661,6 +654,19 @@ public abstract class RDFRendererBase {
         boolean threewayDisjointObject(OWLAxiom ax) {
             return !(ax instanceof OWLDisjointObjectPropertiesAxiom
                 && ((OWLDisjointObjectPropertiesAxiom) ax).properties().count() > 2);
+        }
+    }
+
+    protected void defer(RDFNode object) {
+        nodesToRenderSeparately.add((RDFResourceBlankNode) object);
+    }
+
+    protected void deferredRendering() {
+        while (!nodesToRenderSeparately.isEmpty()) {
+            RDFResourceBlankNode polled = nodesToRenderSeparately.poll();
+            if (renderedNodes.add(polled)) {
+                render(polled, false);
+            }
         }
     }
 }

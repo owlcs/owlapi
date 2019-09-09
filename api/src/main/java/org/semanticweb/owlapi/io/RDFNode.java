@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
+
 import org.semanticweb.owlapi.model.HasIRI;
 
 /**
@@ -45,7 +46,7 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
      *
      * @return {@code true} if this is a resource node (i.e. {@code isLiteral} returns {@code
      * false}) and the node is anonymous, or {@code false} if this is a resource node and is not
-     * anonymous.
+     *         anonymous.
      */
     public boolean isAnonymous() {
         return false;
@@ -69,7 +70,7 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
      * @return true if an id is required for this node - only if this is an individual or an axiom
      *         and id is required
      */
-    public boolean idRequiredForIndividualOrAxiom() {
-        return isAnonymous() && (isIndividual() || isAxiom()) && shouldOutputId();
+    public boolean idRequired() {
+        return isAnonymous() && shouldOutputId();
     }
 }
