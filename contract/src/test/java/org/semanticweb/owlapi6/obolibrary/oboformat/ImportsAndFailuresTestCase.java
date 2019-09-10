@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.documents.StringDocumentSource;
 import org.semanticweb.owlapi6.documents.StringDocumentTarget;
-import org.semanticweb.owlapi6.documents.SystemOutDocumentTarget;
-import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.OBODocumentFormat;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
@@ -47,7 +45,6 @@ public class ImportsAndFailuresTestCase extends TestBase {
         o.saveOntology(new OBODocumentFormat(), target);
         OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input, new OBODocumentFormat()));
         equal(o, o1);
-        o.saveOntology(new FunctionalSyntaxDocumentFormat(), new SystemOutDocumentTarget());
     }
 
     @Test
@@ -57,6 +54,5 @@ public class ImportsAndFailuresTestCase extends TestBase {
             + "id: seeAlso\n" + "name: seeAlso\n" + "is_metadata_tag: true\n" + "is_class_level: true";
         OWLOntology o = m1.loadOntologyFromOntologyDocument(new StringDocumentSource(input, new OBODocumentFormat()));
         roundTrip(o, new OBODocumentFormat());
-        o.saveOntology(new FunctionalSyntaxDocumentFormat(), new SystemOutDocumentTarget());
     }
 }

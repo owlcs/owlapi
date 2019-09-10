@@ -38,12 +38,10 @@ public class IRIShorteningTestCase extends TestBase {
         assertionOnShortening(o, new ManchesterSyntaxDocumentFormatFactory());
     }
 
-    protected void assertionOnShortening(OWLOntology o, OWLDocumentFormatFactory f)
-        throws OWLOntologyStorageException {
+    protected void assertionOnShortening(OWLOntology o, OWLDocumentFormatFactory f) throws OWLOntologyStorageException {
         OWLDocumentFormat turtle = f.createFormat();
         o.getPrefixManager().withPrefix("s", "urn:test:individual#");
         StringDocumentTarget saveOntology = saveOntology(o, turtle);
-        System.out.println("IRIShorteningTestCase.assertionOnShortening() " + saveOntology);
         OWLOntology loadOntologyFromString = loadOntologyFromString(saveOntology, f.createFormat());
         assertEquals(asSet(o.axioms()), asSet(loadOntologyFromString.axioms()));
         roundTrip(o, turtle);
@@ -51,8 +49,7 @@ public class IRIShorteningTestCase extends TestBase {
 
     protected OWLOntology ontForShortening() {
         OWLOntology o = getOWLOntology(df.getIRI("urn:ontology:testcolons"));
-        o.addAxiom(df.getOWLDeclarationAxiom(
-            df.getOWLNamedIndividual(df.getIRI("urn:test:individual#colona:colonb"))));
+        o.addAxiom(df.getOWLDeclarationAxiom(df.getOWLNamedIndividual(df.getIRI("urn:test:individual#colona:colonb"))));
         return o;
     }
 
@@ -94,12 +91,10 @@ public class IRIShorteningTestCase extends TestBase {
     }
 
     @Test
-    public void shouldOutputURNsCorrectly()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldOutputURNsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = m.createOntology(df.getIRI("urn:ontology:", "test"));
         o.add(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty("urn:test#", "p"),
-            df.getOWLNamedIndividual("urn:test#", "test"),
-            df.getOWLNamedIndividual("urn:other:", "test")));
+            df.getOWLNamedIndividual("urn:test#", "test"), df.getOWLNamedIndividual("urn:other:", "test")));
         equal(o, roundTrip(o));
     }
 }
