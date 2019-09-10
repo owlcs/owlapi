@@ -24,62 +24,23 @@ import org.junit.runners.Parameterized.Parameters;
  *         Management Group
  * @since 2.2.0
  */
+@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
-public class FileRoundTripTestCase extends AbstractFileRoundTrippingTestCase {
+public class FileRoundTripNoRioRDFXMLTestCase extends AbstractFileRoundTrippingTestCase {
 
-    public FileRoundTripTestCase(String f) {
+    public FileRoundTripNoRioRDFXMLTestCase(String f) {
         super(f);
     }
 
     @Parameters(name = "{0}")
     public static List<String> getData() {
         //@formatter:off
-        return Arrays.asList(
-            "AnnotatedPropertyAssertions.rdf", 
-            "ComplexSubProperty.rdf", 
-            "DataAllValuesFrom.rdf",
-            "cardinalitywithwhitespace.owl", 
-            "DataComplementOf.rdf", 
-            "DataHasValue.rdf", 
-            "DataIntersectionOf.rdf",
-            "DataMaxCardinality.rdf", 
-            "DataMinCardinality.rdf", 
-            "DataOneOf.rdf", 
-            "DataSomeValuesFrom.rdf",
-            "DataUnionOf.rdf", 
-            "DatatypeRestriction.rdf", 
-            "TestDeclarations.rdf", 
-            "Deprecated.rdf",
-            "DisjointClasses.rdf", 
-            "HasKey.rdf", 
-            "InverseOf.rdf", 
-            "ObjectAllValuesFrom.rdf", 
-            "ObjectCardinality.rdf",
-            "ObjectComplementOf.rdf", 
-            "ObjectHasSelf.rdf", 
-            "ObjectHasValue.rdf", 
-            "ObjectIntersectionOf.rdf",
-            "ObjectMaxCardinality.rdf", 
-            "ObjectMaxQualifiedCardinality.rdf", 
-            "ObjectMinCardinality.rdf",
-            "ObjectMinQualifiedCardinality.rdf", 
-            "ObjectOneOf.rdf", 
-            "ObjectQualifiedCardinality.rdf",
-            "ObjectSomeValuesFrom.rdf", 
-            "ObjectUnionOf.rdf", 
-            "primer.functionalsyntax.txt", 
-            "primer.owlxml.xml",
-            "primer.rdfxml.xml", 
-            "RDFSClass.rdf", 
-            "koala.owl", 
-            "SubClassOf.rdf", 
-            "TestParser06.rdf", 
-            "TestParser07.rdf",
-            "TestParser10.rdf", 
-            "annotatedpropertychain.ttl.rdf", 
-            "UntypedSubClassOf.rdf",
-            "SubClassOfUntypedOWLClass.rdf", 
-            "SubClassOfUntypedSomeValuesFrom.rdf");
+        return Arrays.asList(            "XMLLiteral.rdf");
         //@formatter:on
+    }
+
+    @Override
+    public void testRioRDFXML() {
+        // XML literals managed differently in Rio
     }
 }

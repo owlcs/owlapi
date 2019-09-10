@@ -49,4 +49,9 @@ public class RioRDFXMLDocumentFormat extends RioRDFDocumentFormatImpl {
     public RioRDFXMLDocumentFormat() {
         super(RDFFormat.RDFXML);
     }
+
+    @Override
+    public boolean supportsRelativeIRIs() {
+        return false;
+    }
 }

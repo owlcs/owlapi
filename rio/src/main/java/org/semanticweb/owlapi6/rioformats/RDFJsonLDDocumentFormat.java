@@ -54,4 +54,9 @@ public class RDFJsonLDDocumentFormat extends RioRDFDocumentFormatImpl {
     public boolean hasPrefixes() {
         return false;
     }
+
+    @Override
+    public boolean supportsRelativeIRIs() {
+        return false;
+    }
 }

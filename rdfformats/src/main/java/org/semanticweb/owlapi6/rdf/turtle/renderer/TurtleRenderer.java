@@ -41,6 +41,7 @@ import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDatatype;
+import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLNamedIndividual;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
@@ -72,11 +73,13 @@ public class TurtleRenderer extends RDFRendererBase {
     /**
      * @param ontology
      *        ontology
+     * @param format
+     *        target format
      * @param writer
      *        writer
      */
-    public TurtleRenderer(OWLOntology ontology, Writer writer) {
-        super(ontology, ontology.getOWLOntologyManager().getOntologyConfigurator());
+    public TurtleRenderer(OWLOntology ontology, OWLDocumentFormat format, Writer writer) {
+        super(ontology, format, ontology.getOWLOntologyManager().getOntologyConfigurator());
         this.writer = new PrintWriter(writer);
         pm = ontology.getPrefixManager();
         if (ontology.isNamed()) {

@@ -26,10 +26,13 @@ import org.semanticweb.owlapi6.rioformats.NQuadsDocumentFormat;
 import org.semanticweb.owlapi6.rioformats.NTriplesDocumentFormat;
 import org.semanticweb.owlapi6.rioformats.RDFJsonDocumentFormat;
 import org.semanticweb.owlapi6.rioformats.RDFJsonLDDocumentFormat;
+import org.semanticweb.owlapi6.rioformats.RioRDFXMLDocumentFormat;
+import org.semanticweb.owlapi6.rioformats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi6.rioformats.TrigDocumentFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
@@ -39,6 +42,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Test
     public void testRDFXML() throws Exception {
         roundTripOntology(createOntology());
+    }
+
+    @Test
+    public void testRioRDFXML() throws Exception {
+        roundTripOntology(createOntology(), new RioRDFXMLDocumentFormat());
     }
 
     @Test
@@ -59,6 +67,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Test
     public void testTurtle() throws Exception {
         roundTripOntology(createOntology(), new TurtleDocumentFormat());
+    }
+
+    @Test
+    public void testRioTurtle() throws Exception {
+        roundTripOntology(createOntology(), new RioTurtleDocumentFormat());
     }
 
     @Test
