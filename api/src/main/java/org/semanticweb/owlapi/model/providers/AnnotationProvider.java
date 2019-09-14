@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model.providers;
 
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
@@ -44,6 +45,9 @@ public interface AnnotationProvider {
      */
     default OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
         Collection<OWLAnnotation> annotations) {
+        if (annotations.isEmpty()) {
+            return getOWLAnnotation(property, value);
+        }
         return getOWLAnnotation(property, value, annotations.stream());
     }
 

@@ -126,7 +126,7 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
         IRI create = IRI.create("urn:test:onto");
         OWLOntology o = m.createOntology(create);
         OWLAnnotation a2 = df.getOWLAnnotation(AnnotationProperty(iri("p2")), Literal("value2"),
-            Stream.of(df.getRDFSLabel("nested ontology annotation")));
+            df.getRDFSLabel("nested ontology annotation"));
         OWLAnnotation a1 =
             df.getOWLAnnotation(AnnotationProperty(iri("p1")), Literal("value1"), a2);
         o.applyChange(new AddOntologyAnnotation(o, a1));

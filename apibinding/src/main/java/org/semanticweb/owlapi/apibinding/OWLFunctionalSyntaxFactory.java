@@ -19,7 +19,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -754,11 +756,17 @@ public final class OWLFunctionalSyntaxFactory {
 
     public static OWLAnnotation Annotation(OWLAnnotationProperty property, OWLAnnotationValue value,
         Collection<OWLAnnotation> anns) {
+        if (anns.isEmpty()) {
+            return DF.getOWLAnnotation(property, value);
+        }
         return DF.getOWLAnnotation(property, value, anns.stream());
     }
 
     public static OWLAnnotation Annotation(OWLAnnotationProperty property, OWLAnnotationValue value,
         OWLAnnotation... anns) {
+        if (anns.length == 0) {
+            return DF.getOWLAnnotation(property, value);
+        }
         return DF.getOWLAnnotation(property, value, Stream.of(anns));
     }
 

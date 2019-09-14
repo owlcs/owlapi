@@ -58,7 +58,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
      * @param literals replacement literals
      */
     public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap,
-                    Map<OWLLiteral, OWLLiteral> literals, OWLOntologyManager m) {
+        Map<OWLLiteral, OWLLiteral> literals, OWLOntologyManager m) {
         df = checkNotNull(m, "ontology manager cannot be null").getOWLDataFactory();
         anonProvider = new RemappingIndividualProvider(m.getOntologyConfigurator(), df);
         replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap,
@@ -141,13 +141,13 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public OWLClassAssertionAxiom visit(OWLClassAssertionAxiom ax) {
         return df.getOWLClassAssertionAxiom(t(ax.getClassExpression()), t(ax.getIndividual()),
-                        a(ax));
+            a(ax));
     }
 
     @Override
     public OWLDataPropertyAssertionAxiom visit(OWLDataPropertyAssertionAxiom ax) {
         return df.getOWLDataPropertyAssertionAxiom(t(ax.getProperty()), t(ax.getSubject()),
-                        t(ax.getObject()), a(ax));
+            t(ax.getObject()), a(ax));
     }
 
     @Override
@@ -163,7 +163,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public OWLSubDataPropertyOfAxiom visit(OWLSubDataPropertyOfAxiom ax) {
         return df.getOWLSubDataPropertyOfAxiom(t(ax.getSubProperty()), t(ax.getSuperProperty()),
-                        a(ax));
+            a(ax));
     }
 
     @Override
@@ -199,7 +199,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public OWLAnnotationAssertionAxiom visit(OWLAnnotationAssertionAxiom ax) {
         return df.getOWLAnnotationAssertionAxiom(t(ax.getProperty()), t(ax.getSubject()),
-                        t(ax.getValue()), a(ax));
+            t(ax.getValue()), a(ax));
     }
 
     @Override
@@ -229,14 +229,14 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public OWLInverseFunctionalObjectPropertyAxiom visit(
-                    OWLInverseFunctionalObjectPropertyAxiom ax) {
+        OWLInverseFunctionalObjectPropertyAxiom ax) {
         return df.getOWLInverseFunctionalObjectPropertyAxiom(t(ax.getProperty()), a(ax));
     }
 
     @Override
     public OWLInverseObjectPropertiesAxiom visit(OWLInverseObjectPropertiesAxiom ax) {
         return df.getOWLInverseObjectPropertiesAxiom(t(ax.getFirstProperty()),
-                        t(ax.getSecondProperty()), a(ax));
+            t(ax.getSecondProperty()), a(ax));
     }
 
     @Override
@@ -247,26 +247,26 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public OWLNegativeDataPropertyAssertionAxiom visit(OWLNegativeDataPropertyAssertionAxiom ax) {
         return df.getOWLNegativeDataPropertyAssertionAxiom(t(ax.getProperty()), t(ax.getSubject()),
-                        t(ax.getObject()), a(ax));
+            t(ax.getObject()), a(ax));
     }
 
     @Override
     public OWLNegativeObjectPropertyAssertionAxiom visit(
-                    OWLNegativeObjectPropertyAssertionAxiom ax) {
+        OWLNegativeObjectPropertyAssertionAxiom ax) {
         return df.getOWLNegativeObjectPropertyAssertionAxiom(t(ax.getProperty()),
-                        t(ax.getSubject()), t(ax.getObject()), a(ax));
+            t(ax.getSubject()), t(ax.getObject()), a(ax));
     }
 
     @Override
     public OWLObjectPropertyAssertionAxiom visit(OWLObjectPropertyAssertionAxiom ax) {
         return df.getOWLObjectPropertyAssertionAxiom(t(ax.getProperty()), t(ax.getSubject()),
-                        t(ax.getObject()), a(ax));
+            t(ax.getObject()), a(ax));
     }
 
     @Override
     public OWLSubPropertyChainOfAxiom visit(OWLSubPropertyChainOfAxiom ax) {
         List<OWLObjectPropertyExpression> chain =
-                        asList(ax.getPropertyChain().stream().map(this::t));
+            asList(ax.getPropertyChain().stream().map(this::t));
         return df.getOWLSubPropertyChainOfAxiom(chain, t(ax.getSuperProperty()), a(ax));
     }
 
@@ -283,7 +283,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public OWLSubObjectPropertyOfAxiom visit(OWLSubObjectPropertyOfAxiom ax) {
         return df.getOWLSubObjectPropertyOfAxiom(t(ax.getSubProperty()), t(ax.getSuperProperty()),
-                        a(ax));
+            a(ax));
     }
 
     @Override
@@ -324,19 +324,19 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public OWLDataExactCardinality visit(OWLDataExactCardinality ce) {
         return df.getOWLDataExactCardinality(ce.getCardinality(), t(ce.getProperty()),
-                        t(ce.getFiller()));
+            t(ce.getFiller()));
     }
 
     @Override
     public OWLDataMaxCardinality visit(OWLDataMaxCardinality ce) {
         return df.getOWLDataMaxCardinality(ce.getCardinality(), t(ce.getProperty()),
-                        t(ce.getFiller()));
+            t(ce.getFiller()));
     }
 
     @Override
     public OWLDataMinCardinality visit(OWLDataMinCardinality ce) {
         return df.getOWLDataMinCardinality(ce.getCardinality(), t(ce.getProperty()),
-                        t(ce.getFiller()));
+            t(ce.getFiller()));
     }
 
     @Override
@@ -362,7 +362,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public OWLObjectExactCardinality visit(OWLObjectExactCardinality ce) {
         return df.getOWLObjectExactCardinality(ce.getCardinality(), t(ce.getProperty()),
-                        t(ce.getFiller()));
+            t(ce.getFiller()));
     }
 
     @Override
@@ -373,7 +373,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public OWLObjectMaxCardinality visit(OWLObjectMaxCardinality ce) {
         return df.getOWLObjectMaxCardinality(ce.getCardinality(), t(ce.getProperty()),
-                        t(ce.getFiller()));
+            t(ce.getFiller()));
     }
 
     @Override
@@ -492,13 +492,13 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public SWRLObjectPropertyAtom visit(SWRLObjectPropertyAtom node) {
         return df.getSWRLObjectPropertyAtom(t(node.getPredicate()), t(node.getFirstArgument()),
-                        t(node.getSecondArgument()));
+            t(node.getSecondArgument()));
     }
 
     @Override
     public SWRLDataPropertyAtom visit(SWRLDataPropertyAtom node) {
         return df.getSWRLDataPropertyAtom(t(node.getPredicate()), t(node.getFirstArgument()),
-                        t(node.getSecondArgument()));
+            t(node.getSecondArgument()));
     }
 
     @Override
@@ -509,13 +509,13 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public SWRLDifferentIndividualsAtom visit(SWRLDifferentIndividualsAtom node) {
         return df.getSWRLDifferentIndividualsAtom(t(node.getFirstArgument()),
-                        t(node.getSecondArgument()));
+            t(node.getSecondArgument()));
     }
 
     @Override
     public SWRLSameIndividualAtom visit(SWRLSameIndividualAtom node) {
         return df.getSWRLSameIndividualAtom(t(node.getFirstArgument()),
-                        t(node.getSecondArgument()));
+            t(node.getSecondArgument()));
     }
 
     @Override
@@ -536,7 +536,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public OWLHasKeyAxiom visit(OWLHasKeyAxiom ax) {
         return df.getOWLHasKeyAxiom(t(ax.getClassExpression()), list(ax.propertyExpressions()),
-                        a(ax));
+            a(ax));
     }
 
     @Override
@@ -557,7 +557,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public OWLAnnotationPropertyDomainAxiom visit(OWLAnnotationPropertyDomainAxiom ax) {
         return df.getOWLAnnotationPropertyDomainAxiom(t(ax.getProperty()), t(ax.getDomain()),
-                        a(ax));
+            a(ax));
     }
 
     @Override
@@ -568,13 +568,16 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
     @Override
     public OWLSubAnnotationPropertyOfAxiom visit(OWLSubAnnotationPropertyOfAxiom ax) {
         return df.getOWLSubAnnotationPropertyOfAxiom(t(ax.getSubProperty()),
-                        t(ax.getSuperProperty()), a(ax));
+            t(ax.getSuperProperty()), a(ax));
     }
 
     @Override
     public OWLAnnotation visit(OWLAnnotation node) {
+        if (node.annotationsAsList().isEmpty()) {
+            return df.getOWLAnnotation(t(node.getProperty()), t(node.getValue()));
+        }
         return df.getOWLAnnotation(t(node.getProperty()), t(node.getValue()),
-                        node.annotations().map(this::t));
+            node.annotations().map(this::t));
     }
 
     @Override
