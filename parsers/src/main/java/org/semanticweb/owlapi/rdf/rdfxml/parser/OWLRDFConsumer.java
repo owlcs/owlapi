@@ -1160,7 +1160,9 @@ public class OWLRDFConsumer
     protected void consumeTriple(IRI subject, IRI predicate, IRI object) {
         LOGGER.trace("consuming triple");
         tripleLogger.justLog(subject, predicate, object);
-        isTriplePresent(subject, predicate, object, true);
+        if (!isTriplePresent(subject, predicate, object, true)) {
+            LOGGER.trace("consuming triple failed");
+        }
     }
 
     /**
@@ -1173,7 +1175,9 @@ public class OWLRDFConsumer
     protected void consumeTriple(IRI subject, IRI predicate, OWLLiteral con) {
         LOGGER.trace("consuming triple");
         tripleLogger.justLog(subject, predicate, con);
-        isTriplePresent(subject, predicate, con, true);
+        if (!isTriplePresent(subject, predicate, con, true)) {
+            LOGGER.trace("consuming triple failed");
+        }
     }
 
     protected <T> boolean contains(Map<IRI, Map<IRI, Collection<T>>> map, IRI subject,
