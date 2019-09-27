@@ -30,10 +30,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -41,10 +45,14 @@ import org.semanticweb.owlapi.io.RDFTriple;
  */
 public class RDFGraph implements Serializable {
 
+    private static final Set<IRI> skippedPredicates =
+        Collections.singleton(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
     private final Set<RDFTriple> triples = createLinkedSet();
     private final Map<RDFNode, RDFNode> remappedNodes = createMap();
+    @Nullable
+    private RDFResource ontology;
 
     /**
      * Determines if this graph is empty (i.e. whether or not it contains any triples).
@@ -90,40 +98,37 @@ public class RDFGraph implements Serializable {
         return set;
     }
 
-    /**
-     * Check whether blank nodes need their id outputted because they are referred in more than one
-     * object and one subject position. Nodes referred only in one subject and one object position
-     * (unless they're toor nodes or are referenced in the same triple) can be inlined without an
-     * id.
-     */
-    public void forceIdOutputForNodesInMultipleTriples() {
-        // Some nodes might need to appear in multiple positions in the triples although
-        // they do not appear in multiple positions in the axioms.
+    /** Ensure ids are outputted for reused individuals and annotated expressions. */
+    public void forceIdOutput() {
+        // Some individuals might need to appear in mutliple triples although they do not appear in
+        // multiple positions in the axioms.
         // An example of such a situation is an anonymous individual as object of an annotated
         // annotation - in the RDF graph, this individual will appear in two places because of
         // reification.
-
-        // Nodes can appear 2+ times as subjects, or 2+ times as objects, or both.
-        // Nodes that appear only once as objects and once as subjects, or less, do not need their
-        // node ids outputted.
-        Map<RDFResourceBlankNode, List<RDFResourceBlankNode>> anons = createMap();
+        Map<RDFResourceBlankNode, List<RDFResourceBlankNode>> anonIndividualsInMultipleTriples =
+            createMap();
         for (RDFTriple t : triples) {
-            addToList(anons, t.getObject());
-        }
-        anons.values().stream().filter(l -> l.size() > 1).forEach(l -> l.forEach(
-            // nodes that need their id outputted because they appear twice as objects
-            o -> o.setIdRequired(true)));
-    }
-
-    protected void addToList(Map<RDFResourceBlankNode, List<RDFResourceBlankNode>> anons,
-        RDFNode o) {
-        if (o.isAnonymous() && !o.isAxiom()) {
-            List<RDFResourceBlankNode> list = anons.get(o);
-            if (list == null) {
-                list = new ArrayList<>(2);
-                anons.put((RDFResourceBlankNode) o, list);
+            if (t.getObject().isAnonymous() && t.getObject().isIndividual()) {
+                List<RDFResourceBlankNode> list =
+                    anonIndividualsInMultipleTriples.get(t.getObject());
+                if (list == null) {
+                    list = new ArrayList<>(2);
+                    anonIndividualsInMultipleTriples.put((RDFResourceBlankNode) t.getObject(),
+                        list);
+                }
+                list.add((RDFResourceBlankNode) t.getObject());
             }
-            list.add((RDFResourceBlankNode) o);
+            if (skippedPredicates.contains(t.getPredicate().getIRI())
+                && t.getObject().isAnonymous()) {
+                ((RDFResourceBlankNode) t.getObject()).setIdRequired(true);
+            }
+        }
+        for (Map.Entry<RDFResourceBlankNode, List<RDFResourceBlankNode>> e : anonIndividualsInMultipleTriples
+            .entrySet()) {
+            if (e.getValue().size() > 1) {
+                // individuals that need their id outputted
+                e.getValue().forEach(o -> o.setIdRequired(true));
+            }
         }
     }
 
@@ -213,5 +218,16 @@ public class RDFGraph implements Serializable {
             next = new ArrayList<>();
         }
         return current;
+    }
+
+    /** @param mappedNode ontology node */
+    public void setOntology(@Nullable RDFResource mappedNode) {
+        ontology = mappedNode;
+    }
+
+    /** @return ontology node */
+    @Nullable
+    public RDFResource getOntology() {
+        return ontology;
     }
 }
