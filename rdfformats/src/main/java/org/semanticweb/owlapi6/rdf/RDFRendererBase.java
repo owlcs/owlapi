@@ -525,7 +525,7 @@ public abstract class RDFRendererBase {
 
     protected OWLObject deshare(OWLObject o) {
         if (o.hasSharedStructure()) {
-            return o.accept(new OWLObjectDesharer(ontology.getOWLOntologyManager()));
+            return o.accept(new OWLObjectDesharer(df));
         }
         return o;
     }
