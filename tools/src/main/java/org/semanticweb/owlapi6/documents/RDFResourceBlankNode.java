@@ -69,7 +69,7 @@ public class RDFResourceBlankNode extends RDFResource
     }
 
     /** @param b change the value for id required. */
-    public void setIdRequiredForIndividual(boolean b) {
+    public void setIdRequired(boolean b) {
         forceIdOutput = b;
     }
 
