@@ -24,8 +24,8 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.*;
 import java.net.*;
 import java.util.*;
-import org.semanticweb.owlapi.util.EscapeUtils;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
+import org.semanticweb.owlapi.util.*;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import java.io.IOException;
 import org.semanticweb.owlapi.io.OWLParserException;
 
@@ -74,7 +74,17 @@ public class OWLFunctionalSyntaxParser {
         IRI iri = string2IRI.get(s);
         if(iri == null) {
             if(s.charAt(0) == '<') {
-                iri = IRI.create(s.substring(1, s.length() - 1));
+                String iriString = s.substring(1, s.length() - 1);
+                iri = IRI.create(iriString);
+                if (iri.isAbsolute()) {
+                  return iri;
+                }
+                // relative IRIs must be made absolute with the ontology default prefix, if one exists
+                String prefix = prefixMap.get(":");
+                if (prefix == null) {
+                  prefix = "";
+                }
+                return IRI.create(prefix + iriString);
             }
             else {
                 int colonIndex = s.indexOf(':');
@@ -258,10 +268,10 @@ TOKEN: { <PN_CHARS_U: <PN_CHARS_BASE> | "_"> }
 TOKEN: { <NODEID: "_:"<PN_LOCAL>> }
 TOKEN: { <ERROR: ~[]> }
 
-public OWLFunctionalSyntaxOntologyFormat parse() throws OWLParserException, UnloadableImportException : { }
+public FunctionalSyntaxDocumentFormat parse() throws OWLParserException, UnloadableImportException : { }
 {
     (Prefix())*Ontology()<EOF> {
-        OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
+        FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         for(String pn : prefixMap.keySet()) {
             format.setPrefix(pn, prefixMap.get(pn));
         }

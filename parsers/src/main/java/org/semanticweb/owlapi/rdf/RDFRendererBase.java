@@ -331,7 +331,7 @@ public abstract class RDFRendererBase {
     private void renderEntity(@Nonnull OWLEntity entity) throws IOException {
         beginObject();
         writeEntityComment(entity);
-        render(new RDFResourceIRI(entity.getIRI()), true);
+        render(new RDFResourceIRI(verifyAbsolute(entity.getIRI())), true);
         renderAnonRoots();
         endObject();
     }
@@ -375,7 +375,7 @@ public abstract class RDFRendererBase {
                 assert iri != null;
                 beginObject();
                 createGraph(ontology.getAnnotationAssertionAxioms(iri));
-                render(new RDFResourceIRI(iri), true);
+                render(new RDFResourceIRI(verifyAbsolute(iri)), true);
                 renderAnonRoots();
                 endObject();
             }
@@ -418,10 +418,14 @@ public abstract class RDFRendererBase {
                 rule.accept(variableExtractor);
             }
             for (SWRLVariable var : variableExtractor.getVariables()) {
-                render(new RDFResourceIRI(var.getIRI()), true);
+                render(new RDFResourceIRI(verifyAbsolute(var.getIRI())), true);
             }
             renderAnonRoots();
         }
+    }
+
+    protected IRI verifyAbsolute(IRI iri) {
+        return AbsoluteIRIHelper.verifyAbsolute(iri, format, ontology);
     }
 
     private void renderGeneralAxioms() throws IOException {
@@ -487,7 +491,7 @@ public abstract class RDFRendererBase {
 
     protected void renderOntologyHeader() throws IOException {
         RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
-            shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId,
+            format, shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId,
             blankNodeMap);
         graph = translator.getGraph();
         graph = translator.getGraph();
@@ -617,7 +621,7 @@ public abstract class RDFRendererBase {
 
     protected void createGraph(@Nonnull Set<? extends OWLObject> objects) {
         RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
-            shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId,
+            format, shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId,
             blankNodeMap);
         for (OWLObject obj : objects) {
             deshare(obj).accept(translator);

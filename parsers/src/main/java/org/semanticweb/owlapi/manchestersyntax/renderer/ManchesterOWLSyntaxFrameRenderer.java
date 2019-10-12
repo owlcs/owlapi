@@ -506,6 +506,21 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             writeFullURI(e.getValue());
             writeNewLine();
         }
+        if (!prefixMap.containsKey(":")) {
+            write(PREFIX.toString());
+            write(": : ");
+            OWLOntology o = ontologies.iterator().next();
+            Optional<IRI> ontologyIRI = o.getOntologyID().getOntologyIRI();
+            Optional<IRI> documentIRI = o.getOntologyID().getDefaultDocumentIRI();
+            if (ontologyIRI.isPresent()) {
+                writeFullURI(ontologyIRI.get().toString());
+            } else if (documentIRI.isPresent()) {
+                writeFullURI(documentIRI.get().toString());
+            } else {
+                writeFullURI("urn:absoluteiri:defaultvalue#");
+            }
+            writeNewLine();
+        }
         if (!prefixMap.isEmpty()) {
             writeNewLine();
             writeNewLine();

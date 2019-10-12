@@ -17,16 +17,19 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractLiteralWithEscapeTestCase;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.3.0
  */
-public class LiteralWithNewLineTestCase extends
-        AbstractLiteralWithEscapeTestCase {
+public class LiteralWithNewLineTestCase extends AbstractLiteralWithEscapeTestCase {
 
     @Nonnull
     @Override
     protected String getEscape() {
         return "\n";
+    }
+
+    @Override
+    public void testRioRDFXML() {
+        // not on rio xml
     }
 }

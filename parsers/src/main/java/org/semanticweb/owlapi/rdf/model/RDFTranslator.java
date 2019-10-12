@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
@@ -28,9 +29,11 @@ import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.rdf.AbsoluteIRIHelper;
 import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 
@@ -44,6 +47,7 @@ public class RDFTranslator
     /**
      * @param manager the manager
      * @param ontology the ontology
+     * @param format target format
      * @param useStrongTyping true if strong typing is required
      * @param occurrences multiple individuals appearance
      * @param axiomOccurrences axiom appearance
@@ -51,9 +55,9 @@ public class RDFTranslator
      * @param blankNodeMap blank node map
      */
     public RDFTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
-        boolean useStrongTyping, IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,
+        @Nullable OWLDocumentFormat format, boolean useStrongTyping, IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,
         AtomicInteger nextNode, Map<Object, Integer> blankNodeMap) {
-        super(manager, ontology, useStrongTyping, occurrences, axiomOccurrences, nextNode,
+        super(manager, ontology, format, useStrongTyping, occurrences, axiomOccurrences, nextNode,
             blankNodeMap);
     }
 
@@ -96,11 +100,11 @@ public class RDFTranslator
 
     @Override
     protected RDFResourceIRI getPredicateNode(@Nonnull IRI iri) {
-        return new RDFResourceIRI(iri);
+        return new RDFResourceIRI(AbsoluteIRIHelper.verifyAbsolute(iri, format, ont));
     }
 
     @Override
     protected RDFResourceIRI getResourceNode(@Nonnull IRI iri) {
-        return new RDFResourceIRI(iri);
+        return new RDFResourceIRI(AbsoluteIRIHelper.verifyAbsolute(iri, format, ont));
     }
 }

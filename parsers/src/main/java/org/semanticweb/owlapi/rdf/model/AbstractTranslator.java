@@ -158,6 +158,7 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
@@ -247,7 +248,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     implements OWLObjectVisitor, SWRLObjectVisitor {
 
     private final OWLOntologyManager manager;
-    private final OWLOntology ont;
+    protected final OWLOntology ont;
+    protected final OWLDocumentFormat format;
     private final boolean useStrongTyping;
     protected final IndividualAppearance multipleOccurrences;
     protected final AxiomAppearance axiomOccurrences;
@@ -262,6 +264,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     /**
      * @param manager the manager
      * @param ontology the ontology
+     * @param format target format
      * @param useStrongTyping true if strong typing should be used
      * @param multiple multiple individuals appearance
      * @param appearance axiom appearance
@@ -269,8 +272,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * @param blankNodeMap blank node map
      */
     public AbstractTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
-        boolean useStrongTyping, IndividualAppearance multiple, AxiomAppearance appearance,
-        AtomicInteger nextNode, Map<Object, Integer> blankNodeMap) {
+        @Nullable OWLDocumentFormat format, boolean useStrongTyping, IndividualAppearance multiple,
+        AxiomAppearance appearance, AtomicInteger nextNode, Map<Object, Integer> blankNodeMap) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.useStrongTyping = useStrongTyping;
@@ -278,6 +281,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         this.axiomOccurrences = appearance;
         this.nextBlankNodeId = nextNode;
         this.blankNodeMap = blankNodeMap;
+        this.format = format;
     }
 
     @Nonnull

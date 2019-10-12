@@ -51,4 +51,9 @@ public class TrigDocumentFormat extends RioRDFPrefixDocumentFormat {
     public TrigDocumentFormat() {
         super(RDFFormat.TRIG);
     }
+
+    @Override
+    public boolean supportsRelativeIRIs() {
+        return false;
+    }
 }

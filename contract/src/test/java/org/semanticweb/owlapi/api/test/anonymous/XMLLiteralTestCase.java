@@ -17,8 +17,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 public class XMLLiteralTestCase extends AbstractFileRoundTrippingTestCase {
@@ -27,5 +26,10 @@ public class XMLLiteralTestCase extends AbstractFileRoundTrippingTestCase {
     @Override
     protected String getFileName() {
         return "XMLLiteral.rdf";
+    }
+
+    @Override
+    public void testRioRDFXML() {
+        // not on rio xml
     }
 }

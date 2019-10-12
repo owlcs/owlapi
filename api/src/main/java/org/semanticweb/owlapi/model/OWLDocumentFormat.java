@@ -20,84 +20,71 @@ import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 
 /**
- * Represents the concrete representation format of an ontology. The equality of
- * an ontology format is defined by the equals and hashCode method (not its
- * identity).
+ * Represents the concrete representation format of an ontology. The equality of an ontology format
+ * is defined by the equals and hashCode method (not its identity).
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDocumentFormat extends Serializable {
 
     /**
-     * Determines if untyped entities should automatically be typed (declared)
-     * during rendering. (This is a hint to an RDF renderer - the reference
-     * implementation will respect this).
+     * Determines if untyped entities should automatically be typed (declared) during rendering.
+     * (This is a hint to an RDF renderer - the reference implementation will respect this).
      * 
-     * @return {@code true} if untyped entities should automatically be typed
-     *         during rendering, otherwise {@code false}.
+     * @return {@code true} if untyped entities should automatically be typed during rendering,
+     *         otherwise {@code false}.
      */
     boolean isAddMissingTypes();
 
     /**
-     * Determines if untyped entities should automatically be typed during
-     * rendering. By default this is true.
+     * Determines if untyped entities should automatically be typed during rendering. By default
+     * this is true.
      * 
-     * @param addMissingTypes
-     *        {@code true} if untyped entities should automatically be typed
-     *        during rendering, otherwise {@code false}.
+     * @param addMissingTypes {@code true} if untyped entities should automatically be typed during
+     *        rendering, otherwise {@code false}.
      */
     void setAddMissingTypes(boolean addMissingTypes);
 
     /**
-     * @param key
-     *        key for the new entry
-     * @param value
-     *        value for the new entry
+     * @param key key for the new entry
+     * @param value value for the new entry
      */
     void setParameter(Serializable key, Serializable value);
 
     /**
-     * @param key
-     *        key for the new entry
-     * @param defaultValue
-     *        value for the new entry
+     * @param key key for the new entry
+     * @param defaultValue value for the new entry
      * @return the value
      */
     Serializable getParameter(Serializable key, Serializable defaultValue);
 
     /**
-     * Determines if this format is an instance of a format that uses prefixes
-     * to shorted IRIs.
+     * Determines if this format is an instance of a format that uses prefixes to shorted IRIs.
      * 
      * @return {@code true} if this format is an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
-     *         wise {@code false}.
+     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other wise {@code false}.
      */
     boolean isPrefixOWLOntologyFormat();
 
     /**
-     * If this format is an instance of
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} then this
-     * method will obtain it as a
+     * If this format is an instance of {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
+     * then this method will obtain it as a
      * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
      * 
      * @return This format as a more specific
      *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     * @throws ClassCastException
-     *         if this format is not an instance of
+     * @throws ClassCastException if this format is not an instance of
      *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
      */
     @Nonnull
     PrefixDocumentFormat asPrefixOWLOntologyFormat();
 
     /**
-     * If this format describes an ontology that was loaded from some ontology
-     * document (rather than created programmatically) there may be some meta
-     * data about the loading process. Subclasses of {@code OWLOntologyFormat}
-     * will provide accessors etc. to details pertaining to the meta data about
-     * loading.
+     * If this format describes an ontology that was loaded from some ontology document (rather than
+     * created programmatically) there may be some meta data about the loading process. Subclasses
+     * of {@code OWLOntologyFormat} will provide accessors etc. to details pertaining to the meta
+     * data about loading.
      * 
      * @return An object containing the meta data about loading. .
      */
@@ -107,13 +94,10 @@ public interface OWLDocumentFormat extends Serializable {
     /**
      * Sets the meta data for the ontology loader.
      * 
-     * @param loaderMetaData
-     *        The metadata.
-     * @throws NullPointerException
-     *         if the {@code loaderMetaData} is {@code null}.
+     * @param loaderMetaData The metadata.
+     * @throws NullPointerException if the {@code loaderMetaData} is {@code null}.
      */
-    void setOntologyLoaderMetaData(
-            @Nonnull OWLOntologyLoaderMetaData loaderMetaData);
+    void setOntologyLoaderMetaData(@Nonnull OWLOntologyLoaderMetaData loaderMetaData);
 
     /**
      * @return A unique key for this format.
@@ -122,11 +106,23 @@ public interface OWLDocumentFormat extends Serializable {
     String getKey();
 
     /**
-     * Determines whether this format contains textual output, as opposed to
-     * binary output.
+     * Determines whether this format contains textual output, as opposed to binary output.
      * 
-     * @return True if this format represents a textual format, as opposed to a
-     *         binary format. Defaults to true if not overridden.
+     * @return True if this format represents a textual format, as opposed to a binary format.
+     *         Defaults to true if not overridden.
      */
     boolean isTextual();
+
+    /**
+     * Some formats support relative IRIs in output (all parsers must create axioms with absolute
+     * IRIs, but some formats allow relative IRIs, with the understanding that in parsing the base
+     * IRI will be used to convert them to absolute IRIs). If a format does not support relative
+     * IRIs, the renderer needs to know to output absolute IRIs. This defaults to true as this keeps
+     * the existing behaviour.
+     * 
+     * @return true if relative IRIs are supported.
+     */
+    default boolean supportsRelativeIRIs() {
+        return true;
+    }
 }

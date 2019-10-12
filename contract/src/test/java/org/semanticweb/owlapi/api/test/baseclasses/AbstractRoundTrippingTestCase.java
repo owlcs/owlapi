@@ -48,6 +48,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     @Test
+    public void testRioRDFXML() throws Exception {
+        roundTripOntology(createOntology(), new RioRDFXMLDocumentFormat());
+    }
+
+    @Test
     public void testRDFJSON() throws Exception {
         roundTripOntology(getOnt(), new RDFJsonDocumentFormat());
     }
@@ -65,6 +70,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Test
     public void testTurtle() throws Exception {
         roundTripOntology(getOnt(), new TurtleDocumentFormat());
+    }
+
+    @Test
+    public void testRioTurtle() throws Exception {
+        roundTripOntology(createOntology(), new RioTurtleDocumentFormat());
     }
 
     @Test

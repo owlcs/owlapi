@@ -10,7 +10,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.syntax;
+package org.semanticweb.owlapi.api.test.individuals;
 
 import static org.junit.Assert.fail;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
@@ -18,13 +18,11 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Named
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
+import org.openrdf.rio.RDFHandlerException;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -37,16 +35,14 @@ import org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException;
  * @since 3.0.0
  */
 public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
-    @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<>();
-        OWLNamedIndividual indA =
-            NamedIndividual(IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A"));
-        OWLNamedIndividual indB =
-            NamedIndividual(IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B"));
-        OWLObjectProperty property = ObjectProperty(IRI("http://example.com/place/123"));
+        OWLNamedIndividual indA = NamedIndividual(
+            IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A", ""));
+        OWLNamedIndividual indB = NamedIndividual(
+            IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B", ""));
+        OWLObjectProperty property = ObjectProperty(IRI("http://example.com/place/123", ""));
         axioms.add(ObjectPropertyAssertion(property, indA, indB));
         return axioms;
     }
@@ -65,12 +61,17 @@ public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
     }
 
     @Override
+    @Test
     public void testRioRDFXML() throws Exception {
         try {
             super.testRioRDFXML();
             fail("Expected an exception specifying that a QName could not be generated");
         } catch (OWLOntologyStorageException e) {
-            if (!(e.getCause() instanceof IOException)) {
+            Throwable ex = e.getCause();
+            while (ex != null && !(ex instanceof RDFHandlerException)) {
+                ex = ex.getCause();
+            }
+            if (ex == null || !ex.getMessage().contains("http://example.com/place/123")) {
                 throw e;
             }
         }

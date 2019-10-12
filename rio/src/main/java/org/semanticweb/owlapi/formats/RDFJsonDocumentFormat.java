@@ -51,4 +51,9 @@ public class RDFJsonDocumentFormat extends RioRDFNonPrefixDocumentFormat {
     public RDFJsonDocumentFormat() {
         super(RDFFormat.RDFJSON);
     }
+
+    @Override
+    public boolean supportsRelativeIRIs() {
+        return false;
+    }
 }

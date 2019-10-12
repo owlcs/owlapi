@@ -27,6 +27,8 @@ import org.semanticweb.owlapi.formats.NQuadsDocumentFormatFactory;
 import org.semanticweb.owlapi.formats.NTriplesDocumentFormatFactory;
 import org.semanticweb.owlapi.formats.RDFJsonDocumentFormatFactory;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.RioTurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.formats.TrigDocumentFormatFactory;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -57,6 +59,12 @@ public class SameIndividualsThreeElementsAxiomAnnotatedTestCase
     public void testRDFXML() throws Exception {
         // axioms with three or more elements cannot be represented as one axiom in this syntax
         sameIndividualAssertion(getOnt(), new RDFXMLDocumentFormatFactory());
+    }
+
+    @Override
+    public void testRioRDFXML() throws Exception {
+        // axioms with three or more elements cannot be represented as one axiom in this syntax
+        sameIndividualAssertion(createOntology(), new RioRDFXMLDocumentFormatFactory());
     }
 
     @Override
@@ -99,6 +107,12 @@ public class SameIndividualsThreeElementsAxiomAnnotatedTestCase
     public void testTurtle() throws Exception {
         // axioms with three or more elements cannot be represented as one axiom in this syntax
         sameIndividualAssertion(getOnt(), new TurtleDocumentFormatFactory());
+    }
+
+    @Override
+    public void testRioTurtle() throws Exception {
+        // axioms with three or more elements cannot be represented as one axiom in this syntax
+        sameIndividualAssertion(createOntology(), new RioTurtleDocumentFormatFactory());
     }
 
     protected void sameIndividualAssertion(OWLOntology ont, OWLDocumentFormatFactory f)
