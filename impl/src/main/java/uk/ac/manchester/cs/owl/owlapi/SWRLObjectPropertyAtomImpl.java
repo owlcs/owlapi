@@ -24,13 +24,11 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class SWRLObjectPropertyAtomImpl extends
-        SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
-        SWRLObjectPropertyAtom {
+public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument>
+    implements SWRLObjectPropertyAtom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -40,16 +38,12 @@ public class SWRLObjectPropertyAtomImpl extends
     }
 
     /**
-     * @param predicate
-     *        property
-     * @param arg0
-     *        subject
-     * @param arg1
-     *        object
+     * @param predicate property
+     * @param arg0 subject
+     * @param arg1 object
      */
-    public SWRLObjectPropertyAtomImpl(
-            @Nonnull OWLObjectPropertyExpression predicate,
-            @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
+    public SWRLObjectPropertyAtomImpl(@Nonnull OWLObjectPropertyExpression predicate,
+        @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
         super(predicate, arg0, arg1);
     }
 
@@ -61,18 +55,13 @@ public class SWRLObjectPropertyAtomImpl extends
 
     @Override
     public SWRLObjectPropertyAtom getSimplified() {
-        OWLObjectPropertyExpression prop = getPredicate().getSimplified();
-        if (prop.equals(getPredicate())) {
+        if (getPredicate().isNamed()) {
+            // named property means no inversion of arguments
             return this;
-        } else if (prop.isAnonymous()) {
-            // Flip
-            return new SWRLObjectPropertyAtomImpl(prop.getInverseProperty()
-                    .getSimplified(), getSecondArgument(), getFirstArgument());
-        } else {
-            // No need to flip
-            return new SWRLObjectPropertyAtomImpl(prop, getFirstArgument(),
-                    getSecondArgument());
         }
+        // Flip
+        return new SWRLObjectPropertyAtomImpl(getPredicate().getInverseProperty(),
+            getSecondArgument(), getFirstArgument());
     }
 
     @Override
@@ -105,7 +94,7 @@ public class SWRLObjectPropertyAtomImpl extends
         }
         SWRLObjectPropertyAtom other = (SWRLObjectPropertyAtom) obj;
         return other.getPredicate().equals(getPredicate())
-                && other.getFirstArgument().equals(getFirstArgument())
-                && other.getSecondArgument().equals(getSecondArgument());
+            && other.getFirstArgument().equals(getFirstArgument())
+            && other.getSecondArgument().equals(getSecondArgument());
     }
 }

@@ -33,36 +33,30 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLInverseObjectPropertiesAxiomImpl extends
-        OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements
-        OWLInverseObjectPropertiesAxiom {
+public class OWLInverseObjectPropertiesAxiomImpl
+    extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
+    implements OWLInverseObjectPropertiesAxiom {
 
     private static final long serialVersionUID = 40000L;
 
     /**
-     * @param first
-     *        first property
-     * @param second
-     *        second peoperty
-     * @param annotations
-     *        annotations
+     * @param first first property
+     * @param second second peoperty
+     * @param annotations annotations
      */
-    public OWLInverseObjectPropertiesAxiomImpl(
-            @Nonnull OWLObjectPropertyExpression first,
-            @Nonnull OWLObjectPropertyExpression second,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+    public OWLInverseObjectPropertiesAxiomImpl(@Nonnull OWLObjectPropertyExpression first,
+        @Nonnull OWLObjectPropertyExpression second,
+        @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations, checkNotNull(first, "first cannot be null"),
-                checkNotNull(second, "second cannot be null"));
+            checkNotNull(second, "second cannot be null"));
     }
 
     @Override
     public Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms() {
-        return CollectionFactory
-                .createSet((OWLInverseObjectPropertiesAxiom) this);
+        return CollectionFactory.createSet((OWLInverseObjectPropertiesAxiom) this);
     }
 
     @Override
@@ -75,15 +69,14 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(),
-                getSecondProperty(), NO_ANNOTATIONS);
+        return new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(), getSecondProperty(),
+            NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
-        return new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(),
-                getSecondProperty(), mergeAnnos(annotations));
+    public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(), getSecondProperty(),
+            mergeAnnos(annotations));
     }
 
     @Override
@@ -136,17 +129,15 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<>();
         axs.add(new OWLSubObjectPropertyOfAxiomImpl(getFirstProperty(),
-                getSecondProperty().getInverseProperty().getSimplified(),
-                NO_ANNOTATIONS));
+            getSecondProperty().getInverseProperty(), NO_ANNOTATIONS));
         axs.add(new OWLSubObjectPropertyOfAxiomImpl(getSecondProperty(),
-                getFirstProperty().getInverseProperty().getSimplified(),
-                NO_ANNOTATIONS));
+            getFirstProperty().getInverseProperty(), NO_ANNOTATIONS));
         return axs;
     }
 
     @Override
     public <T> Collection<T> walkPairwise(
-            OWLPairwiseVisitor<T, OWLObjectPropertyExpression> visitor) {
+        OWLPairwiseVisitor<T, OWLObjectPropertyExpression> visitor) {
         T t = visitor.visit(getFirstProperty(), getSecondProperty());
         if (t != null) {
             return CollectionFactory.createSet(t);

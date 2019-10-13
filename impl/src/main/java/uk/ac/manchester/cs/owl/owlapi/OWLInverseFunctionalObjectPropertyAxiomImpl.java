@@ -28,25 +28,21 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
-        OWLObjectPropertyCharacteristicAxiomImpl implements
-        OWLInverseFunctionalObjectPropertyAxiom {
+    OWLObjectPropertyCharacteristicAxiomImpl implements OWLInverseFunctionalObjectPropertyAxiom {
 
     private static final long serialVersionUID = 40000L;
 
     /**
-     * @param property
-     *        property
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param annotations annotations
      */
     public OWLInverseFunctionalObjectPropertyAxiomImpl(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+        @Nonnull OWLObjectPropertyExpression property,
+        @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -55,15 +51,14 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(),
-                NO_ANNOTATIONS);
+        return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLInverseFunctionalObjectPropertyAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+        Set<OWLAnnotation> annotations) {
         return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(annotations));
+            mergeAnnos(annotations));
     }
 
     @Override
@@ -105,8 +100,7 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(OWL_THING,
-                new OWLObjectMaxCardinalityImpl(getProperty()
-                        .getInverseProperty().getSimplified(), 1, OWL_THING),
-                NO_ANNOTATIONS);
+            new OWLObjectMaxCardinalityImpl(getProperty().getInverseProperty(), 1, OWL_THING),
+            NO_ANNOTATIONS);
     }
 }
