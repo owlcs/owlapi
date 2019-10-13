@@ -39,9 +39,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -75,13 +77,19 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPrimitive;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLRule;
@@ -140,9 +148,12 @@ public abstract class RDFRendererBase {
     private Set<IRI> punned;
     protected final IndividualAppearance occurrences;
     protected final AxiomAppearance axiomOccurrences;
-    protected Map<RDFTriple, RDFResourceBlankNode> triplesWithRemappedNodes;
+    protected final Set<OWLAxiom> translatedAxioms = new HashSet<>();
     protected final Set<RDFResource> pending = new HashSet<>();
     private final Map<Object, Integer> blankNodeMap = new IdentityHashMap<>();
+    private final Deque<RDFResourceBlankNode> nodesToRenderSeparately = new LinkedList<>();
+    private final Set<RDFResourceBlankNode> renderedNodes = new HashSet<>();
+    private final OWLObjectDesharer desharer;
 
     @Nonnull
     protected static Set<IRI> initPrettyTypes() {
@@ -163,6 +174,7 @@ public abstract class RDFRendererBase {
     protected RDFRendererBase(@Nonnull OWLOntology ontology, OWLDocumentFormat format) {
         this.ontology = ontology;
         this.format = format;
+        desharer = new OWLObjectDesharer(this.ontology.getOWLOntologyManager());
         if (AnonymousIndividualProperties.shouldSaveIdsForAllAnonymousIndividuals()) {
             occurrences = new AlwaysOutputId();
             axiomOccurrences = new AlwaysOutputId();
@@ -269,7 +281,6 @@ public abstract class RDFRendererBase {
      */
     public void render() throws IOException {
         graph = new RDFGraph();
-        triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
         punned = ontology.getPunnedIRIs(EXCLUDED);
         beginDocument();
         renderOntologyHeader();
@@ -410,8 +421,8 @@ public abstract class RDFRendererBase {
 
     private void renderSWRLRules() throws IOException {
         Set<SWRLRule> ruleAxioms = new TreeSet<>(ontology.getAxioms(AxiomType.SWRL_RULE));
-        createGraph(ruleAxioms);
         if (!ruleAxioms.isEmpty()) {
+            createGraph(ruleAxioms);
             writeBanner(RULES_BANNER_TEXT);
             SWRLVariableExtractor variableExtractor = new SWRLVariableExtractor();
             for (SWRLRule rule : ruleAxioms) {
@@ -490,17 +501,11 @@ public abstract class RDFRendererBase {
     }
 
     protected void renderOntologyHeader() throws IOException {
-        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
-            format, shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId,
-            blankNodeMap);
-        graph = translator.getGraph();
-        graph = translator.getGraph();
-        ontology.accept(translator);
-        if (!getRDFGraph().isEmpty()) {
-            RDFResource node = translator.getMappedNode(ontology);
+        createGraph(ontology);
+        RDFResource node = getRDFGraph().getOntology();
+        if (node != null) {
             render(node);
         }
-        triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
     }
 
     protected void render(RDFResource node) throws IOException {
@@ -513,93 +518,7 @@ public abstract class RDFRendererBase {
     private boolean createGraph(@Nonnull OWLEntity entity, Collection<IRI> illegalPuns) {
         final Set<OWLAxiom> axioms = new TreeSet<>();
         axioms.addAll(ontology.getDeclarationAxioms(entity));
-        entity.accept(new OWLEntityVisitor() {
-
-            @Override
-            public void visit(OWLClass cls) {
-                for (OWLAxiom ax : ontology.getAxioms(cls, EXCLUDED)) {
-                    if (ax instanceof OWLDisjointClassesAxiom) {
-                        OWLDisjointClassesAxiom disjAx = (OWLDisjointClassesAxiom) ax;
-                        if (disjAx.getClassExpressions().size() > 2) {
-                            continue;
-                        }
-                    }
-                    axioms.add(ax);
-                }
-                for (OWLHasKeyAxiom ax : ontology.getAxioms(AxiomType.HAS_KEY)) {
-                    if (ax.getClassExpression().equals(cls)) {
-                        axioms.add(ax);
-                    }
-                }
-            }
-
-            @Override
-            public void visit(OWLDatatype datatype) {
-                axioms.addAll(ontology.getDatatypeDefinitions(datatype));
-                createGraph(axioms);
-            }
-
-            @Override
-            public void visit(OWLNamedIndividual individual) {
-                for (OWLAxiom ax : sortOptionally(ontology.getAxioms(individual, EXCLUDED))) {
-                    if (ax instanceof OWLDifferentIndividualsAxiom) {
-                        continue;
-                    }
-                    axioms.add(ax);
-                }
-                // for object property assertion axioms where the property is
-                // anonymous and the individual is the object, the renderer will
-                // save the simplified version of the axiom.
-                // As they will have subject and object inverted, we need to
-                // collect them here, otherwise the triple will not be included
-                // because the subject will not match
-                for (OWLAxiom ax : ontology.getReferencingAxioms(individual)) {
-                    if (ax instanceof OWLObjectPropertyAssertionAxiom) {
-                        OWLObjectPropertyAssertionAxiom candidate =
-                            (OWLObjectPropertyAssertionAxiom) ax;
-                        if (candidate.getProperty().isAnonymous()
-                            && candidate.getObject().equals(individual)) {
-                            axioms.add(candidate);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void visit(OWLDataProperty property) {
-                for (OWLAxiom ax : ontology.getAxioms(property, EXCLUDED)) {
-                    if (ax instanceof OWLDisjointDataPropertiesAxiom
-                        && ((OWLDisjointDataPropertiesAxiom) ax).getProperties().size() > 2) {
-                        continue;
-                    }
-                    axioms.add(ax);
-                }
-            }
-
-            @Override
-            public void visit(OWLObjectProperty property) {
-                for (OWLAxiom ax : ontology.getAxioms(property, EXCLUDED)) {
-                    if (ax instanceof OWLDisjointObjectPropertiesAxiom
-                        && ((OWLDisjointObjectPropertiesAxiom) ax).getProperties().size() > 2) {
-                        continue;
-                    }
-                    axioms.add(ax);
-                }
-                for (OWLSubPropertyChainOfAxiom ax : ontology
-                    .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
-                    if (ax.getSuperProperty().equals(property)) {
-                        axioms.add(ax);
-                    }
-                }
-                axioms.addAll(ontology.getAxioms(ontology.getOWLOntologyManager()
-                    .getOWLDataFactory().getOWLObjectInverseOf(property), EXCLUDED));
-            }
-
-            @Override
-            public void visit(OWLAnnotationProperty property) {
-                axioms.addAll(ontology.getAxioms(property, EXCLUDED));
-            }
-        });
+        entity.accept(new GraphVisitor(axioms));
         if (axioms.isEmpty() && shouldInsertDeclarations() && !illegalPuns.contains(entity.getIRI())
             && OWLDocumentFormatImpl.isMissingType(entity, ontology)) {
             axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory()
@@ -619,20 +538,26 @@ public abstract class RDFRendererBase {
 
     private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
 
-    protected void createGraph(@Nonnull Set<? extends OWLObject> objects) {
+    protected void createGraph(@Nonnull Set<? extends OWLObject> o) {
+        List<? extends OWLObject> objects = new ArrayList<>(o);
+        objects.sort(null);
         RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
             format, shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId,
-            blankNodeMap);
+            blankNodeMap, translatedAxioms);
         for (OWLObject obj : objects) {
-            deshare(obj).accept(translator);
+            translator.translate(deshare(obj));
         }
         graph = translator.getGraph();
-        triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
+        getRDFGraph().forceIdOutput();
+    }
+
+    protected void createGraph(OWLObject o) {
+        createGraph(Collections.singleton(o));
     }
 
     protected OWLObject deshare(OWLObject o) {
         if (hasSharedStructure(o)) {
-            return o.accept(new OWLObjectDesharer(ontology.getOWLOntologyManager()));
+            return o.accept(desharer);
         }
         return o;
     }
@@ -721,7 +646,7 @@ public abstract class RDFRendererBase {
      * 
      * @param node The main node to be rendered
      * @param root true if root
-     * @throws IOException If there was a problem rendering the triples.
+     * @throws IOException io error
      */
     public abstract void render(@Nonnull RDFResource node, boolean root) throws IOException;
 
@@ -770,20 +695,227 @@ public abstract class RDFRendererBase {
         }
     }
 
-    protected RDFTriple remapNodesIfNecessary(final RDFResource node, final RDFTriple triple) {
-        RDFTriple tripleToRender = triple;
-        RDFResourceBlankNode remappedNode = triplesWithRemappedNodes.get(tripleToRender);
-        if (remappedNode != null) {
-            tripleToRender = new RDFTriple(tripleToRender.getSubject(),
-                tripleToRender.getPredicate(), remappedNode);
+    protected RDFTriple remapNodesIfNecessary(RDFResource node, RDFTriple triple) {
+        return triple;
+    }
+
+    private class GraphVisitor implements OWLEntityVisitor {
+        private final Set<OWLAxiom> axioms;
+
+        public GraphVisitor(Set<OWLAxiom> axioms) {
+            this.axioms = axioms;
         }
-        if (!node.equals(tripleToRender.getSubject())) {
-            // the node will not match the triple subject if the node itself
-            // is a remapped blank node
-            // in which case the triple subject needs remapping as well
-            tripleToRender =
-                new RDFTriple(node, tripleToRender.getPredicate(), tripleToRender.getObject());
+
+
+        boolean inverse(OWLAxiom ax, OWLNamedIndividual i) {
+            if (ax instanceof OWLObjectPropertyAssertionAxiom) {
+                OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
+                if (candidate.getProperty().isAnonymous() && candidate.getObject().equals(i)) {
+                    return true;
+                }
+            }
+            return false;
         }
-        return tripleToRender;
+
+        boolean inverseFirst(OWLAxiom ax, OWLNamedIndividual i) {
+            if (ax instanceof OWLObjectPropertyAssertionAxiom) {
+                OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
+                if (candidate.getProperty().isAnonymous() && candidate.getSubject().equals(i)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        @Override
+        public void visit(OWLClass cls) {
+            for (OWLAxiom ax : ontology.getAxioms(cls, EXCLUDED)) {
+                if (threewayDisjoint(ax) && disjoint(ax, cls) && equiv(ax, cls)) {
+                    axioms.add(ax);
+                }
+            }
+            for (OWLHasKeyAxiom ax : ontology.getAxioms(AxiomType.HAS_KEY)) {
+                if (ax.getClassExpression().equals(cls)) {
+                    axioms.add(ax);
+                }
+            }
+        }
+
+        boolean equiv(OWLAxiom ax, OWLClass cls) {
+            if (ax instanceof OWLEquivalentClassesAxiom) {
+                OWLEquivalentClassesAxiom invAxiom = (OWLEquivalentClassesAxiom) ax;
+                if (!invAxiom.getClassExpressionsAsList().get(0).equals(cls)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        boolean disjoint(OWLAxiom ax, OWLClass cls) {
+            if (ax instanceof OWLDisjointClassesAxiom) {
+                OWLDisjointClassesAxiom invAxiom = (OWLDisjointClassesAxiom) ax;
+                if (!invAxiom.getClassExpressionsAsList().get(0).equals(cls)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        boolean disjoint(OWLAxiom ax, OWLDataProperty cls) {
+            if (ax instanceof OWLDisjointDataPropertiesAxiom) {
+                OWLDisjointDataPropertiesAxiom invAxiom = (OWLDisjointDataPropertiesAxiom) ax;
+                if (!invAxiom.getProperties().iterator().next().equals(cls)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        boolean disjoint(OWLAxiom ax, OWLObjectProperty cls) {
+            if (ax instanceof OWLDisjointObjectPropertiesAxiom) {
+                OWLDisjointObjectPropertiesAxiom invAxiom = (OWLDisjointObjectPropertiesAxiom) ax;
+                if (!invAxiom.getProperties().iterator().next().equals(cls)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        boolean equiv(OWLAxiom ax, OWLDataProperty cls) {
+            if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
+                OWLEquivalentDataPropertiesAxiom invAxiom = (OWLEquivalentDataPropertiesAxiom) ax;
+                if (!invAxiom.getProperties().iterator().next().equals(cls)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        boolean equiv(OWLAxiom ax, OWLObjectProperty cls) {
+            if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
+                OWLEquivalentObjectPropertiesAxiom invAxiom =
+                    (OWLEquivalentObjectPropertiesAxiom) ax;
+                if (!invAxiom.getProperties().iterator().next().equals(cls)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        @Override
+        public void visit(OWLDatatype datatype) {
+            axioms.addAll(ontology.getDatatypeDefinitions(datatype));
+        }
+
+        @Override
+        public void visit(OWLNamedIndividual individual) {
+            for (OWLAxiom ax : sortOptionally(ontology.getAxioms(individual, EXCLUDED))) {
+                if (!(ax instanceof OWLDifferentIndividualsAxiom) && same(ax, individual)
+                    && inverseFirst(ax, individual)) {
+                    axioms.add(ax);
+                }
+            }
+            // for object property assertion axioms where the property is
+            // anonymous and the individual is the object, the renderer will
+            // save the simplified version of the axiom.
+            // As they will have subject and object inverted, we need to
+            // collect them here, otherwise the triple will not be included
+            // because the subject will not match
+            for (OWLAxiom ax : ontology.getReferencingAxioms(individual)) {
+                if (inverse(ax, individual)) {
+                    axioms.add(ax);
+                }
+            }
+        }
+
+        @Override
+        public void visit(OWLDataProperty property) {
+            for (OWLAxiom ax : ontology.getAxioms(property, EXCLUDED)) {
+                if (threewayDisjointData(ax) && equiv(ax, property) && disjoint(ax, property)) {
+                    axioms.add(ax);
+                }
+            }
+        }
+
+        @Override
+        public void visit(OWLObjectProperty property) {
+            for (OWLAxiom ax : ontology.getAxioms(property, EXCLUDED)) {
+                if (threewayDisjointObject(ax) && inverse(ax, property) && equiv(ax, property)
+                    && disjoint(ax, property)) {
+                    axioms.add(ax);
+                }
+            }
+            for (OWLSubPropertyChainOfAxiom ax : ontology
+                .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
+                if (ax.getSuperProperty().equals(property)) {
+                    axioms.add(ax);
+                }
+            }
+            axioms.addAll(ontology.getAxioms(ontology.getOWLOntologyManager().getOWLDataFactory()
+                .getOWLObjectInverseOf(property), EXCLUDED));
+        }
+
+        @Override
+        public void visit(OWLAnnotationProperty property) {
+            axioms.addAll(ontology.getAxioms(property, EXCLUDED));
+        }
+
+        boolean inverse(OWLAxiom ax, OWLObjectProperty p) {
+            if (ax instanceof OWLInverseObjectPropertiesAxiom) {
+                OWLInverseObjectPropertiesAxiom invAxiom = (OWLInverseObjectPropertiesAxiom) ax;
+                // inverse properties axioms where the first property is not the property being
+                // rendered will be rendered when the first property is rendered
+                if (!invAxiom.getFirstProperty().equals(p)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        boolean same(OWLAxiom ax, OWLIndividual i) {
+            if (ax instanceof OWLSameIndividualAxiom) {
+                OWLSameIndividualAxiom invAxiom = (OWLSameIndividualAxiom) ax;
+                // inverse properties axioms where the first property is not the property being
+                // rendered will be rendered when the first property is rendered
+                if (!invAxiom.getIndividualsAsList().get(0).equals(i)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        boolean threewayDisjoint(OWLAxiom ax) {
+            if (ax instanceof OWLDisjointClassesAxiom) {
+                OWLDisjointClassesAxiom disjAx = (OWLDisjointClassesAxiom) ax;
+                if (disjAx.getClassExpressionsAsList().size() > 2) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        boolean threewayDisjointData(OWLAxiom ax) {
+            return !(ax instanceof OWLDisjointDataPropertiesAxiom
+                && ((OWLDisjointDataPropertiesAxiom) ax).getProperties().size() > 2);
+        }
+
+        boolean threewayDisjointObject(OWLAxiom ax) {
+            return !(ax instanceof OWLDisjointObjectPropertiesAxiom
+                && ((OWLDisjointObjectPropertiesAxiom) ax).getProperties().size() > 2);
+        }
+    }
+
+    protected void defer(RDFNode object) {
+        nodesToRenderSeparately.add((RDFResourceBlankNode) object);
+    }
+
+    protected void deferredRendering() throws IOException {
+        while (!nodesToRenderSeparately.isEmpty()) {
+            RDFResourceBlankNode polled = nodesToRenderSeparately.poll();
+            if (renderedNodes.add(polled)) {
+                render(polled, false);
+            }
+        }
     }
 }

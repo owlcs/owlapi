@@ -12,8 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -49,51 +54,51 @@ import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.VersionInfo;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFXMLRenderer extends RDFRendererBase {
 
     private final RDFXMLWriter writer;
-    @Nonnull private final RDFXMLNamespaceManager qnameManager;
-    @Nonnull private final OWLDocumentFormat format;
+    @Nonnull
+    private final RDFXMLNamespaceManager qnameManager;
+    @Nonnull
+    private final OWLDocumentFormat format;
     ShortFormProvider labelMaker;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param w
-     *        writer
+     * @param ontology ontology
+     * @param w writer
      */
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w) {
-        this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w, "w cannot be null"), verifyNotNull(
-            ontology.getOWLOntologyManager().getOntologyFormat(ontology)));
+        this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w, "w cannot be null"),
+            verifyNotNull(ontology.getOWLOntologyManager().getOntologyFormat(ontology)));
     }
 
     /**
-     * @param ontology
-     *        ontology
-     * @param w
-     *        writer
-     * @param format
-     *        format
+     * @param ontology ontology
+     * @param w writer
+     * @param format format
      */
-    public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w, @Nonnull OWLDocumentFormat format) {
-        super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format, "format cannot be null"));
+    public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w,
+        @Nonnull OWLDocumentFormat format) {
+        super(checkNotNull(ontology, "ontology cannot be null"),
+            checkNotNull(format, "format cannot be null"));
         this.format = checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
-        writer = new RDFXMLWriter(XMLWriterFactory.createXMLWriter(checkNotNull(w, "w cannot be null"), qnameManager,
-            base));
+        writer = new RDFXMLWriter(XMLWriterFactory
+            .createXMLWriter(checkNotNull(w, "w cannot be null"), qnameManager, base));
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLDataFactory df = manager.getOWLDataFactory();
         OWLAnnotationProperty labelProp = df.getOWLAnnotationProperty(RDFS_LABEL.getIRI());
-        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp), prefLangMap, manager);
+        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp),
+            prefLangMap, manager);
     }
 
     @Nonnull
@@ -105,14 +110,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
             base = defaultNamespace;
         }
         return base;
-    }
-
-    /**
-     * @return unserializable entities
-     */
-    @Nonnull
-    public Set<OWLEntity> getUnserialisableEntities() {
-        return qnameManager.getEntitiesWithInvalidQNames();
     }
 
     @Override
@@ -152,7 +149,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeAnnotationPropertyComment(@Nonnull OWLAnnotationProperty prop) throws IOException {
+    protected void writeAnnotationPropertyComment(@Nonnull OWLAnnotationProperty prop)
+        throws IOException {
         writeCommentForEntity("prop", prop);
     }
 
@@ -199,8 +197,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
         Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
-            if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous() && BUILT_IN_VOCABULARY_IRIS
-                .contains(triple.getObject().getIRI()) && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
+            if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
+                && BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())
+                && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
                 candidatePrettyPrintTypeTriple = triple;
             }
         }
@@ -211,15 +210,16 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
-        } else if (node.idRequiredForIndividualOrAxiom()) {
+        } else if (node.idRequired()) {
             writer.writeNodeIDAttribute((RDFResourceBlankNode) node);
         }
         for (RDFTriple triple : triples) {
-            if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
+            if (candidatePrettyPrintTypeTriple != null
+                && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;
             }
-            triple = remapNodesIfNecessary(node, triple);
             writer.writeStartElement(triple.getPredicate().getIRI());
+            triple = remapNodesIfNecessary(node, triple);
             RDFNode objectNode = triple.getObject();
             if (!objectNode.isLiteral()) {
                 RDFResource objectRes = (RDFResource) objectNode;
@@ -230,47 +230,75 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         List<RDFNode> list = new ArrayList<>();
                         toJavaList(objectRes, list);
                         for (RDFNode n : list) {
-                            if (n.isAnonymous()) {
-                                render((RDFResourceBlankNode) n, false);
-                            } else {
-                                if (n.isLiteral()) {
-                                    RDFLiteral litNode = (RDFLiteral) n;
-                                    writer.writeStartElement(RDFS_LITERAL.getIRI());
-                                    if (!litNode.isPlainLiteral()) {
-                                        writer.writeDatatypeAttribute(litNode.getDatatype());
-                                    } else if (litNode.hasLang()) {
-                                        writer.writeLangAttribute(litNode.getLang());
-                                    }
-                                    writer.writeTextContent(litNode.getLexicalValue());
-                                    writer.writeEndElement();
-                                } else {
-                                    writer.writeStartElement(RDF_DESCRIPTION.getIRI());
-                                    writer.writeAboutAttribute(n.getIRI());
-                                    writer.writeEndElement();
-                                }
-                            }
+                            renderList(n);
                         }
                     } else if (objectRes.equals(node)) {
                         // special case for triples with same object and subject
                         writer.writeNodeIDAttribute((RDFResourceBlankNode) objectRes);
                     } else {
-                        render(objectRes, false);
+                        renderObject(objectRes);
                     }
                 } else {
                     writer.writeResourceAttribute(objectRes.getIRI());
                 }
             } else {
-                RDFLiteral rdfLiteralNode = (RDFLiteral) objectNode;
-                if (!rdfLiteralNode.isPlainLiteral()) {
-                    writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
-                } else if (rdfLiteralNode.hasLang()) {
-                    writer.writeLangAttribute(rdfLiteralNode.getLang());
-                }
-                writer.writeTextContent(rdfLiteralNode.getLexicalValue());
+                writew((RDFLiteral) objectNode);
             }
             writer.writeEndElement();
         }
         writer.writeEndElement();
+        if (root) {
+            deferredRendering();
+        }
         pending.remove(node);
+    }
+
+    protected void renderList(RDFNode n) throws IOException {
+        if (n.isAnonymous()) {
+            render((RDFResourceBlankNode) n, false);
+        } else {
+            if (n.isLiteral()) {
+                write((RDFLiteral) n);
+            } else {
+                writer.writeStartElement(RDF_DESCRIPTION.getIRI());
+                writer.writeAboutAttribute(n.getIRI());
+                writer.writeEndElement();
+            }
+        }
+    }
+
+    protected void renderObject(RDFResource object) throws IOException {
+        if (object.idRequired()) {
+            if (!pending.contains(object)) {
+                defer(object);
+            }
+            writer.writeNodeIDAttribute((RDFResourceBlankNode) object);
+        } else {
+            render(object, false);
+        }
+    }
+
+    protected void writew(RDFLiteral rdfLiteralNode) throws IOException {
+        if (rdfLiteralNode.hasLang()) {
+            writer.writeLangAttribute(rdfLiteralNode.getLang());
+        } else if (!rdfLiteralNode.isPlainLiteral()
+            && !OWL2Datatype.XSD_STRING.getIRI().equals(rdfLiteralNode.getDatatype())) {
+            writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
+        }
+        writer.writeTextContent(rdfLiteralNode.getLexicalValue());
+    }
+
+    protected void write(RDFLiteral litNode) throws IOException {
+        writer.writeStartElement(RDFS_LITERAL.getIRI());
+        writew(litNode);
+        writer.writeEndElement();
+    }
+
+    /**
+     * @return unserializable entities
+     */
+    @Nonnull
+    public Set<OWLEntity> getUnserialisableEntities() {
+        return qnameManager.getEntitiesWithInvalidQNames();
     }
 }

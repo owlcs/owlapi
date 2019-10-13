@@ -75,22 +75,20 @@ public class RioRenderer extends RDFRendererBase {
     private static final Logger logger = LoggerFactory.getLogger(RioRenderer.class);
     private final RDFHandler writer;
     private final DefaultPrefixManager pm;
-    @Nonnull private final Set<RDFResource> pending = new LinkedHashSet<>();
-    @Nonnull private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
+    @Nonnull
+    private final Set<RDFResource> pending = new LinkedHashSet<>();
+    @Nonnull
+    private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
     private final Resource[] contexts;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
-     * @param format
-     *        format
-     * @param contexts
-     *        contexts
+     * @param ontology ontology
+     * @param writer writer
+     * @param format format
+     * @param contexts contexts
      */
-    public RioRenderer(@Nonnull final OWLOntology ontology, final RDFHandler writer, final OWLDocumentFormat format,
-        final Resource... contexts) {
+    public RioRenderer(@Nonnull final OWLOntology ontology, final RDFHandler writer,
+        final OWLDocumentFormat format, final Resource... contexts) {
         super(ontology, format);
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;
@@ -151,13 +149,13 @@ public class RioRenderer extends RDFRendererBase {
     @Override
     protected void renderOntologyHeader() throws IOException {
         super.renderOntologyHeader();
-        triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
+        graph.forceIdOutput();
     }
 
     @Override
     protected void createGraph(Set<? extends OWLObject> objects) {
         super.createGraph(objects);
-        triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
+        graph.forceIdOutput();
     }
 
     @Override
@@ -180,14 +178,16 @@ public class RioRenderer extends RDFRendererBase {
                     renderedStatements.add(tripleToRender);
                     // then we go back and get context-sensitive statements and
                     // actually pass those to the RDFHandler
-                    for (Statement statement : RioUtils.tripleAsStatements(tripleToRender, contexts)) {
+                    for (Statement statement : RioUtils.tripleAsStatements(tripleToRender,
+                        contexts)) {
                         writer.handleStatement(statement);
                         if (tripleToRender.getObject() instanceof RDFResource) {
                             render((RDFResource) tripleToRender.getObject(), false);
                         }
                     }
                 } else if (logger.isTraceEnabled()) {
-                    logger.trace("not printing duplicate statement, or recursing on its object: {}", tripleToRender);
+                    logger.trace("not printing duplicate statement, or recursing on its object: {}",
+                        tripleToRender);
                 }
             } catch (RDFHandlerException e) {
                 throw new IOException(e);
@@ -197,7 +197,8 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeAnnotationPropertyComment(@Nonnull OWLAnnotationProperty prop) throws IOException {
+    protected void writeAnnotationPropertyComment(@Nonnull OWLAnnotationProperty prop)
+        throws IOException {
         writeComment(prop.getIRI().toString());
     }
 
@@ -263,7 +264,8 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeObjectPropertyComment(@Nonnull final OWLObjectProperty prop) throws IOException {
+    protected void writeObjectPropertyComment(@Nonnull final OWLObjectProperty prop)
+        throws IOException {
         writeComment(prop.getIRI().toString());
     }
 }

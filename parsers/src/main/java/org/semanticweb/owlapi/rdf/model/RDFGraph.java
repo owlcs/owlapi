@@ -29,17 +29,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
-import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
-import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -48,16 +45,14 @@ import com.google.common.collect.Sets;
 public class RDFGraph implements Serializable {
 
     private static final Set<IRI> skippedPredicates =
-        Sets.newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
+        Collections.singleton(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private static final long serialVersionUID = 40000L;
-    @Nonnull
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<>();
-    @Nonnull
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = new HashSet<>();
-    @Nonnull
     private final Set<RDFTriple> triples = new HashSet<>();
-    @Nonnull
     private final Map<RDFNode, RDFNode> remappedNodes = new HashMap<>();
+    @Nullable
+    private RDFResource ontology;
 
     /**
      * Determines if this graph is empty (i.e. whether or not it contains any triples).
@@ -103,41 +98,8 @@ public class RDFGraph implements Serializable {
         return set;
     }
 
-    /**
-     * @return for each triple with a blank node object that is shared with other triples, compute a
-     *         remapping of the node.
-     */
-    public Map<RDFTriple, RDFResourceBlankNode> computeRemappingForSharedNodes() {
-        Map<RDFTriple, RDFResourceBlankNode> toReturn = new HashMap<>();
-        Map<RDFNode, List<RDFTriple>> sharers = new HashMap<>();
-        for (RDFTriple t : triples) {
-            if (t.getObject().isAnonymous() && !t.getObject().isAxiom()
-                && !t.getObject().isIndividual() && notInSkippedPredicates(t.getPredicate())) {
-                List<RDFTriple> list = sharers.get(t.getObject());
-                if (list == null) {
-                    list = new ArrayList<>(2);
-                    sharers.put(t.getObject(), list);
-                }
-                list.add(t);
-            }
-        }
-        for (Map.Entry<RDFNode, List<RDFTriple>> e : sharers.entrySet()) {
-            if (e.getValue().size() > 1) {
-                // found reused blank nodes
-                for (RDFTriple t : e.getValue()) {
-                    RDFResourceBlankNode bnode =
-                        new RDFResourceBlankNode(IRI.create(NodeID.nextAnonymousIRI()),
-                            e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
-                    remappedNodes.put(bnode, e.getKey());
-                    toReturn.put(t, bnode);
-                }
-            }
-        }
-        forceIdOutputForIndividualsInMultipleTriples();
-        return toReturn;
-    }
-
-    protected void forceIdOutputForIndividualsInMultipleTriples() {
+    /** Ensure ids are outputted for reused individuals and annotated expressions. */
+    public void forceIdOutput() {
         // Some individuals might need to appear in mutliple triples although they do not appear in
         // multiple positions in the axioms.
         // An example of such a situation is an anonymous individual as object of an annotated
@@ -156,23 +118,18 @@ public class RDFGraph implements Serializable {
                 }
                 list.add((RDFResourceBlankNode) t.getObject());
             }
+            if (skippedPredicates.contains(t.getPredicate().getIRI())
+                && t.getObject().isAnonymous()) {
+                ((RDFResourceBlankNode) t.getObject()).setIdRequired(true);
+            }
         }
         for (Map.Entry<RDFResourceBlankNode, List<RDFResourceBlankNode>> e : anonIndividualsInMultipleTriples
             .entrySet()) {
             if (e.getValue().size() > 1) {
                 // individuals that need their id outputted
-                e.getValue().forEach(o -> o.setIdRequiredForIndividual(true));
+                e.getValue().forEach(o -> o.setIdRequired(true));
             }
         }
-    }
-
-    /**
-     * @param predicate predicate to check for inclusion
-     * @return true if the predicate IRI is not in the set of predicates that should be skipped from
-     *         blank node reuse analysis.
-     */
-    private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
-        return !skippedPredicates.contains(predicate.getIRI());
     }
 
     /**
@@ -235,8 +192,8 @@ public class RDFGraph implements Serializable {
     }
 
     /**
-     * @param node node
-     * @return subjects for resource
+     * @param node node to search
+     * @return list of subjects of triples that include the object
      */
     public List<RDFResource> getSubjectsForObject(RDFResource node) {
         List<RDFResource> current = triples.stream().filter(p -> p.getObject().equals(node))
@@ -262,5 +219,16 @@ public class RDFGraph implements Serializable {
             next = new ArrayList<>();
         }
         return current;
+    }
+
+    /** @param mappedNode ontology node */
+    public void setOntology(@Nullable RDFResource mappedNode) {
+        ontology = mappedNode;
+    }
+
+    /** @return ontology node */
+    @Nullable
+    public RDFResource getOntology() {
+        return ontology;
     }
 }

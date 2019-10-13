@@ -109,17 +109,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -228,8 +231,11 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
+import org.semanticweb.owlapi.util.OWLObjectDesharer;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 
@@ -246,7 +252,7 @@ import com.google.common.base.Optional;
  */
 public abstract class AbstractTranslator<N extends Serializable, R extends N, P extends N, L extends N>
     implements OWLObjectVisitor, SWRLObjectVisitor {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTranslator.class);
     private final OWLOntologyManager manager;
     protected final OWLOntology ont;
     protected final OWLDocumentFormat format;
@@ -258,8 +264,14 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final Map<Object, Integer> blankNodeMap;
     /** Maps Objects to nodes. */
     @Nonnull
-    private final Map<OWLObject, N> nodeMap = new HashMap<>();
+    private final Map<OWLObject, N> nodeMap = new ConcurrentHashMap<>(16, 0.75F, 1);
     private final Map<OWLObject, N> expressionMap = new IdentityHashMap<>();
+    private final Map<OWLObject, OWLObject[]> expressionContext =
+        new ConcurrentHashMap<>(16, 0.75F, 1);
+    private final OWLObjectDesharer desharer;
+    private Set<OWLAxiom> translatedAxioms;
+    @Nonnull
+    private final Set<OWLIndividual> currentIndividuals = new HashSet<>();
 
     /**
      * @param manager the manager
@@ -270,10 +282,12 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * @param appearance axiom appearance
      * @param nextNode next blank id counter
      * @param blankNodeMap blank node map
+     * @param translatedAxioms translated axioms
      */
     public AbstractTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
         @Nullable OWLDocumentFormat format, boolean useStrongTyping, IndividualAppearance multiple,
-        AxiomAppearance appearance, AtomicInteger nextNode, Map<Object, Integer> blankNodeMap) {
+        AxiomAppearance appearance, AtomicInteger nextNode, Map<Object, Integer> blankNodeMap,
+        Set<OWLAxiom> translatedAxioms) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.useStrongTyping = useStrongTyping;
@@ -282,6 +296,25 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         this.nextBlankNodeId = nextNode;
         this.blankNodeMap = blankNodeMap;
         this.format = format;
+        this.desharer = new OWLObjectDesharer(manager);
+        this.translatedAxioms = translatedAxioms;
+    }
+
+    /**
+     * Process the input only if it has not been seen before
+     * 
+     * @param input input to process
+     */
+    public void translate(OWLObject input) {
+        if (input instanceof OWLAxiom) {
+            if (translatedAxioms.add((OWLAxiom) input)) {
+                input.accept(this);
+            } else {
+                LOGGER.debug("Axiom {} is being rendered twice, second pass skipped.", input);
+            }
+        } else {
+            input.accept(this);
+        }
     }
 
     @Nonnull
@@ -437,7 +470,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     public void visit(@Nonnull OWLObjectHasValue ce) {
         addRestrictionCommonTriplePropertyExpression(ce, ce.getProperty());
         addTriple(ce, OWL_HAS_VALUE.getIRI(), ce.getFiller());
-        processIfAnonymous(ce.getFiller(), null);
+        processIfAnonymous(ce.getFiller());
     }
 
     @Override
@@ -870,6 +903,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         addVersionIRIToOntologyHeader(ontology);
         addImportsDeclarationsToOntologyHeader(ontology);
         addAnnotationsToOntologyHeader(ontology);
+        graph.setOntology((RDFResource) getMappedNode(ontology));
     }
 
     private void addVersionIRIToOntologyHeader(OWLOntology ontology) {
@@ -999,7 +1033,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     // Methods to add triples
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax, @Nonnull OWLObject subject,
         @Nonnull IRI pred, @Nonnull OWLObject obj) {
-        addSingleTripleAxiom(ax, getResourceNode(subject), getPredicateNode(pred), getNode(obj));
+        addSingleTripleAxiom(ax, getResourceNode(subject), getPredicateNode(pred),
+            getNode(obj, subject, pred));
     }
 
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax, @Nonnull OWLObject subject,
@@ -1232,6 +1267,35 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         return node;
     }
 
+    private boolean isAnonymousExpression(OWLObject o) {
+        return !(o instanceof OWLAxiom) && !(o instanceof OWLIndividual)
+            && !(o instanceof OWLOntology) && !o.isIRI() && !(this instanceof OWLLiteral)
+            && o.isAnonymous();
+    }
+
+    private <O> O getNode(OWLObject obj, OWLObject s, IRI p) {
+        if (isAnonymousExpression(obj)) {
+            OWLObject[] context = expressionContext.get(obj);
+            if (context == null) {
+                context = new OWLObject[] {s, p, obj};
+                expressionContext.put(obj, context);
+                return (O) getNode(obj);
+            }
+            if (context[0].equals(s) && context[1].equals(p)) {
+                // An identical axiom triple has been translated earlier, the same rdf node should
+                // be used.
+                // This happens only if two axioms are identical except for annotations and they
+                // both translate to one single triple.
+                return (O) getNode(context[2]);
+            } else {
+                context = new OWLObject[] {s, p, obj};
+                expressionContext.put(obj, context);
+                return (O) getNode(obj);
+            }
+        }
+        return (O) getNode(obj);
+    }
+
     @Nonnull
     private R translateList(@Nonnull List<? extends OWLObject> list) {
         return translateList(list, RDF_LIST.getIRI());
@@ -1291,21 +1355,24 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         }
     }
 
-    @Nonnull
-    private final Set<OWLIndividual> currentIndividuals = new HashSet<>();
-
     private void processIfAnonymous(@Nonnull OWLIndividual ind, @Nullable OWLAxiom root) {
+        process(ind, x -> !Objects.equals(x, root));
+    }
+
+    protected void process(OWLIndividual ind, Predicate<OWLAxiom> include) {
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
                 for (OWLAxiom ax : getSortedIndividualAxioms(ind)) {
-                    if (root == null || !root.equals(ax)) {
-                        ax.accept(this);
+                    if (include.test(ax)) {
+                        translate(desharer.deshareObject(ax));
                     }
                 }
                 for (OWLAnnotationAssertionAxiom ax : sort(
                     getAnnotationAssertionsForAnonymous(ind))) {
-                    ax.accept(this);
+                    if (include.test(ax)) {
+                        translate(desharer.deshareObject(ax));
+                    }
                 }
             }
             currentIndividuals.remove(ind);
@@ -1313,19 +1380,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     private void processIfAnonymous(@Nonnull OWLIndividual ind) {
-        if (!currentIndividuals.contains(ind)) {
-            currentIndividuals.add(ind);
-            if (ind.isAnonymous()) {
-                for (OWLAxiom ax : getSortedIndividualAxioms(ind)) {
-                    ax.accept(this);
-                }
-                for (OWLAnnotationAssertionAxiom ax : sort(
-                    getAnnotationAssertionsForAnonymous(ind))) {
-                    ax.accept(this);
-                }
-            }
-            currentIndividuals.remove(ind);
-        }
+        process(ind, x -> true);
     }
 
     @Nonnull

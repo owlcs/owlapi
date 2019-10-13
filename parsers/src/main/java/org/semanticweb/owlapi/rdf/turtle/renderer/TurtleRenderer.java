@@ -15,18 +15,17 @@ package org.semanticweb.owlapi.rdf.turtle.renderer;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -34,7 +33,6 @@ import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
@@ -61,16 +59,13 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  */
 public class TurtleRenderer extends RDFRendererBase {
 
+    protected final Deque<Integer> tabs = new LinkedList<>();
     private final PrintWriter writer;
     private final PrefixManager pm;
-    private final Deque<RDFResourceBlankNode> nodesToRenderSeparately = new LinkedList<>();
-    private final Set<RDFResourceBlankNode> renderedNodes = new HashSet<>();
     private final String base;
     private final OWLDocumentFormat format;
     int bufferLength = 0;
     int lastNewLineIndex = 0;
-    @Nonnull
-    protected final Deque<Integer> tabs = new LinkedList<>();
     int level = 0;
 
     /**
@@ -147,13 +142,6 @@ public class TurtleRenderer extends RDFRendererBase {
         write(">");
     }
 
-    private static String escapeDot(String iri) {
-        if (iri.endsWith(".")) {
-            return iri.substring(0, iri.length() - 1) + "\\u002E";
-        }
-        return iri;
-    }
-
     private void write(@Nonnull IRI iri) {
         if (NodeID.isAnonymousNodeIRI(iri)) {
             write(iri.toString());
@@ -228,7 +216,7 @@ public class TurtleRenderer extends RDFRendererBase {
         write(" ");
     }
 
-    private void write(@Nonnull RDFNode node) {
+    private void write(@Nonnull RDFNode node) throws IOException {
         if (node.isLiteral()) {
             write((RDFLiteral) node);
         } else {
@@ -269,7 +257,7 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-    private void write(@Nonnull RDFResource node) {
+    private void write(@Nonnull RDFResource node) throws IOException {
         if (!node.isAnonymous()) {
             write(node.getIRI());
         } else {
@@ -374,7 +362,7 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     @Override
-    public void render(@Nonnull RDFResource node, boolean root) {
+    public void render(@Nonnull RDFResource node, boolean root) throws IOException {
         level++;
         Collection<RDFTriple> triples;
         if (pending.contains(node)) {
@@ -420,7 +408,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 if (!node.isAnonymous()) {
                     write(subj);
                     writeSpace();
-                } else if (node.idRequiredForIndividualOrAxiom()) {
+                } else if (node.idRequired()) {
                     write(subj.getIRI());
                     writeSpace();
                 } else {
@@ -441,7 +429,7 @@ public class TurtleRenderer extends RDFRendererBase {
         if (node.isAnonymous()) {
             popTab();
             popTab();
-            if (!node.idRequiredForIndividualOrAxiom()) {
+            if (!node.idRequired()) {
                 if (triples.isEmpty()) {
                     write("[ ");
                 } else {
@@ -460,20 +448,15 @@ public class TurtleRenderer extends RDFRendererBase {
         writer.flush();
         level--;
         if (root) {
-            while (!nodesToRenderSeparately.isEmpty()) {
-                RDFResourceBlankNode polled = nodesToRenderSeparately.poll();
-                if (renderedNodes.add(polled)) {
-                    render(polled, false);
-                }
-            }
+            deferredRendering();
         }
         pending.remove(node);
     }
 
-    protected void renderObject(RDFNode object) {
-        if (object.idRequiredForIndividualOrAxiom()) {
+    protected void renderObject(RDFNode object) throws IOException {
+        if (object.idRequired()) {
             if (!pending.contains(object)) {
-                nodesToRenderSeparately.add((RDFResourceBlankNode) object);
+                defer(object);
             }
             write(object.getIRI());
         } else {

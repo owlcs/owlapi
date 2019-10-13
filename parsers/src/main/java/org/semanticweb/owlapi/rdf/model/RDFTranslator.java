@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.rdf.model;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
@@ -44,21 +45,29 @@ import org.semanticweb.owlapi.util.IndividualAppearance;
 public class RDFTranslator
     extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
+    protected final AxiomAppearance axiomOccurrences;
+    private final AtomicInteger nextBlankNodeId;
+    private final Map<Object, Integer> blankNodeMap;
+
     /**
      * @param manager the manager
      * @param ontology the ontology
      * @param format target format
      * @param useStrongTyping true if strong typing is required
-     * @param occurrences multiple individuals appearance
-     * @param axiomOccurrences axiom appearance
-     * @param nextNode next blank id counter
-     * @param blankNodeMap blank node map
+     * @param occurrences will tell whether anonymous individuals need an id or not
+     * @param axiomOccurrences axiom occurrences
+     * @param nextNode counter for blank nodes
+     * @param blankNodeMap base for remapping nodes
+     * @param translatedAxioms translated axioms
      */
     public RDFTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
         @Nullable OWLDocumentFormat format, boolean useStrongTyping, IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,
-        AtomicInteger nextNode, Map<Object, Integer> blankNodeMap) {
+        AtomicInteger nextNode, Map<Object, Integer> blankNodeMap, Set<OWLAxiom> translatedAxioms) {
         super(manager, ontology, format, useStrongTyping, occurrences, axiomOccurrences, nextNode,
-            blankNodeMap);
+            blankNodeMap, translatedAxioms);
+        this.axiomOccurrences = axiomOccurrences;
+        nextBlankNodeId = nextNode;
+        this.blankNodeMap = blankNodeMap;
     }
 
     @Override
@@ -78,7 +87,7 @@ public class RDFTranslator
         if (isIndividual) {
             OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
             needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
-            key = anonymousIndividual.getID().getID();
+            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual,                needId, isAxiom);
         } else if (key instanceof OWLAxiom) {
             isIndividual = false;
             isAxiom = true;

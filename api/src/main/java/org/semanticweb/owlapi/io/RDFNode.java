@@ -69,7 +69,7 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
      * @return true if an id is required for this node - only if this is an individual or an axiom
      *         and id is required
      */
-    public boolean idRequiredForIndividualOrAxiom() {
-        return isAnonymous() && (isIndividual() || isAxiom()) && shouldOutputId();
+    public boolean idRequired() {
+        return isAnonymous() && shouldOutputId();
     }
 }
