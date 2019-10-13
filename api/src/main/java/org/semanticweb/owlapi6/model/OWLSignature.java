@@ -387,22 +387,4 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @return punned IRIs.
      */
     Set<IRI> getPunnedIRIs(Imports includeImportsClosure);
-
-    /**
-     * @param entity
-     *        entyty to check
-     * @param imports
-     *        if INCLUDED, include imports closure.
-     * @return true if entity is referenced
-     */
-    default boolean containsReference(OWLEntity entity, Imports imports) {
-        return imports.stream(this).anyMatch(o -> o.containsReference(entity));
-    }
-
-    /**
-     * @param entity
-     *        entyty to check
-     * @return true if entity is referenced
-     */
-    boolean containsReference(OWLEntity entity);
 }

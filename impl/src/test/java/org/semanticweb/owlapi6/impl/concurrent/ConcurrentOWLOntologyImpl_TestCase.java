@@ -376,18 +376,6 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     }
 
     @Test
-    public void shouldDelegateTo_containsReference_withReadLock() {
-        ontology.containsReference(entity, INCLUDED);
-        readLock(i -> i.verify(delegate).containsReference(entity, INCLUDED));
-    }
-
-    @Test
-    public void shouldDelegateTo_containsReference_withReadLock_2() {
-        ontology.containsReference(entity);
-        readLock(i -> i.verify(delegate).containsReference(entity));
-    }
-
-    @Test
     public void shouldDelegateTo_contains_withReadLock() {
         Object arg1 = new Object();
         ontology.contains(searchFilter, arg1, INCLUDED);
