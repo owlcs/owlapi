@@ -43,9 +43,9 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     public Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<>(5);
         result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty(),
-            getProperty().getInverseProperty().getSimplified(), NO_ANNOTATIONS));
-        result.add(new OWLSubObjectPropertyOfAxiomImpl(
-            getProperty().getInverseProperty().getSimplified(), getProperty(), NO_ANNOTATIONS));
+            getProperty().getInverseProperty(), NO_ANNOTATIONS));
+        result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty().getInverseProperty(),
+            getProperty(), NO_ANNOTATIONS));
         return result;
     }
 

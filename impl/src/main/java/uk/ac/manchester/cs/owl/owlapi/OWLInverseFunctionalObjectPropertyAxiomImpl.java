@@ -56,7 +56,8 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectMaxCardinalityImpl(
-            getProperty().getInverseProperty().getSimplified(), 1, OWL_THING), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(OWL_THING,
+            new OWLObjectMaxCardinalityImpl(getProperty().getInverseProperty(), 1, OWL_THING),
+            NO_ANNOTATIONS);
     }
 }

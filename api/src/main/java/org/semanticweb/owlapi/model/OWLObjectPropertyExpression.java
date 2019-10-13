@@ -22,7 +22,7 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression, SWRL
      * Obtains the property that corresponds to the inverse of this property.
      *
      * @return The inverse of this property. Note that this property will not necessarily be in the
-     * simplest form.
+     *         simplest form.
      */
     OWLObjectPropertyExpression getInverseProperty();
 
@@ -30,9 +30,13 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression, SWRL
      * Returns this property in its simplified form.
      *
      * @return Let p be a property name and PE an object property expression. The simplification,
-     * 'simp', is defined as follows: simp(p) = p simp(inv(p)) = inv(p) simp(inv(inv(PE)) =
-     * simp(PE)
+     *         'simp', is defined as follows:<br>
+     *         {@code simp(p) = p}<br>
+     *         {@code simp(inv(p)) = inv(p)}<br>
+     * @deprecated Since it is not legal to apply ObjectInverseOf to anything other than an Object
+     *             Property, all object properties are always in the simpled form.
      */
+    @Deprecated
     default OWLObjectPropertyExpression getSimplified() {
         return this;
     }

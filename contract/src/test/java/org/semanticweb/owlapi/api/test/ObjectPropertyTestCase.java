@@ -21,7 +21,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Objec
 import static org.semanticweb.owlapi.search.Searcher.inverse;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
-import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -29,6 +28,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
@@ -38,27 +39,11 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 public class ObjectPropertyTestCase extends TestBase {
 
     @Test
-    public void testNamedSimplification() {
-        OWLObjectProperty p = ObjectProperty(iri("p"));
-        OWLObjectPropertyExpression exp = p.getSimplified();
-        assertEquals(p, exp);
-    }
-
-    @Test
-    public void testInverseSimplification() {
-        OWLObjectProperty p = ObjectProperty(iri("p"));
-        OWLObjectPropertyExpression inv = p.getInverseProperty();
-        OWLObjectPropertyExpression exp = inv.getSimplified();
-        assertEquals(inv, exp);
-    }
-
-    @Test
     public void testInverseInverseSimplification() {
         OWLObjectProperty p = ObjectProperty(iri("p"));
         OWLObjectPropertyExpression inv = p.getInverseProperty();
         OWLObjectPropertyExpression inv2 = inv.getInverseProperty();
-        OWLObjectPropertyExpression exp = inv2.getSimplified();
-        assertEquals(p, exp);
+        assertEquals(p, inv2);
     }
 
     @Test
@@ -67,8 +52,7 @@ public class ObjectPropertyTestCase extends TestBase {
         OWLObjectPropertyExpression inv = p.getInverseProperty();
         OWLObjectPropertyExpression inv2 = inv.getInverseProperty();
         OWLObjectPropertyExpression inv3 = inv2.getInverseProperty();
-        OWLObjectPropertyExpression exp = inv3.getSimplified();
-        assertEquals(inv, exp);
+        assertEquals(inv, inv3);
     }
 
     @Test
@@ -96,10 +80,10 @@ public class ObjectPropertyTestCase extends TestBase {
         OWLObjectPropertyExpression p = df.getOWLObjectProperty("_:", "p");
         OWLObjectPropertyExpression q = df.getOWLObjectProperty("_:", "q");
         OWLObjectPropertyExpression r = df.getOWLObjectProperty("_:", "r");
-        OWLSubPropertyChainOfAxiom ax1 = df
-            .getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, q), r);
-        OWLSubPropertyChainOfAxiom ax2 = df
-            .getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, p), r);
+        OWLSubPropertyChainOfAxiom ax1 =
+            df.getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, q), r);
+        OWLSubPropertyChainOfAxiom ax2 =
+            df.getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, p), r);
         assertNotEquals("role chains should not be equal", ax1, ax2);
         int comparisonResult = ax1.compareTo(ax2);
         assertNotEquals(
