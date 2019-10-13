@@ -19,40 +19,39 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 public interface HasApplyChanges {
 
     /**
-     * Applies a list ontology changes to a collection of ontologies. Note that
-     * the ontologies need to be managed by this manager, since import closures,
-     * ontology ids and configurations might be affected by the changes, and
-     * they are held by the manager.
+     * Applies a list ontology changes to a collection of ontologies. When this method is used
+     * through an {@code OWLOntologyManager} implementation, the instance used should be the one
+     * that the ontology returns through the {@code getOWLOntologyManager()} call. The reason is
+     * that some changes, e.g., change of ontology id and change of imports directives, affect data
+     * that only that manager instance knows about, such as the imports closure; changes of ontology
+     * id through the wrong manager will make the ontology unreachable through its new id in the
+     * manager associated with the ontology. Configuration for loading and saving parameters is also
+     * held by the manager, if not explicitly specified for the ontology. While the change might be
+     * successful, other bugs might be made apparent later.
      * 
-     * @param changes
-     *        The changes to be applied.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
-     * @throws OWLOntologyChangeException
-     *         If one or more of the changes could not be applied.
+     * @param changes The changes to be applied.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     *         otherwise.
+     * @throws OWLOntologyChangeException If one or more of the changes could not be applied.
      */
     @Nonnull
-        ChangeApplied applyChanges(
-            @Nonnull List<? extends OWLOntologyChange> changes);
+    ChangeApplied applyChanges(@Nonnull List<? extends OWLOntologyChange> changes);
+
     /**
-     * Applies a list ontology changes to a collection of ontologies. Note that
-     * the ontologies need to be managed by this manager, since import closures,
-     * ontology ids and configurations might be affected by the changes, and
-     * they are held by the manager.
+     * Applies a list ontology changes to a collection of ontologies. Note that the ontologies need
+     * to be managed by this manager, since import closures, ontology ids and configurations might
+     * be affected by the changes, and they are held by the manager.
      * 
-     * @param changes
-     *        The changes to be applied.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
-     * @throws OWLOntologyChangeException
-     *         If one or more of the changes could not be applied.
+     * @param changes The changes to be applied.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     *         otherwise.
+     * @throws OWLOntologyChangeException If one or more of the changes could not be applied.
      */
     @Nonnull
     ChangeDetails applyChangesAndGetDetails(@Nonnull List<? extends OWLOntologyChange> changes);
