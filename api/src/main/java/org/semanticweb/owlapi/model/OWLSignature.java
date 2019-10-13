@@ -320,12 +320,16 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param entity entyty to check
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if entity is referenced
+     * @deprecated use containsEntityInSignature
      */
+    @Deprecated
     boolean containsReference(@Nonnull OWLEntity entity, @Nonnull Imports includeImportsClosure);
 
     /**
      * @param entity entyty to check
      * @return true if entity is referenced
+     * @deprecated use containsEntityInSignature
      */
+    @Deprecated
     boolean containsReference(@Nonnull OWLEntity entity);
 }
