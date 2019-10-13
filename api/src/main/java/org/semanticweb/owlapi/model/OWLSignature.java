@@ -467,7 +467,9 @@ public interface OWLSignature
      * @param entity entyty to check
      * @param imports if INCLUDED, include imports closure.
      * @return true if entity is referenced
+     * @deprecated use containsEntityInSignature
      */
+    @Deprecated
     default boolean containsReference(OWLEntity entity, Imports imports) {
         return imports.stream(this).anyMatch(o -> o.containsReference(entity));
     }
@@ -475,6 +477,8 @@ public interface OWLSignature
     /**
      * @param entity entyty to check
      * @return true if entity is referenced
+     * @deprecated use containsEntityInSignature
      */
+    @Deprecated
     boolean containsReference(OWLEntity entity);
 }
