@@ -78,12 +78,17 @@ import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asUnorderedSet
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import org.junit.Test;
 import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.AxiomType;
+import org.semanticweb.owlapi6.model.IRI;
+import org.semanticweb.owlapi6.model.OWLAnnotation;
+import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.OWLAxiom;
+import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLDataPropertyDomainAxiom;
@@ -146,6 +151,22 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
                 assertTrue(contains(ont.signature(), e));
             });
         }
+    }
+
+    @Test
+    public void shouldFindExpectedIRIOccurrences() {
+        OWLOntology o = getOWLOntology();
+        IRI query = df.getIRI("urn:test:someIRI");
+        OWLAnnotationProperty ap1 = df.getOWLAnnotationProperty("urn:test:AP1");
+        OWLAnnotationProperty ap2 = df.getOWLAnnotationProperty("urn:test:AP2");
+        o.add(df.getOWLAnnotationPropertyDomainAxiom(ap1, query));
+        OWLAnnotation a = df.getOWLAnnotation(ap2, query);
+        OWLClass c = df.getOWLClass("urn:test:C");
+        o.add(df.getOWLSubClassOfAxiom(c, df.getOWLThing(), Collections.singletonList(a)));
+        o.add(df.getOWLAnnotationAssertionAxiom(df.getIRI("urn:test:otherIRI"), a));
+        long count = o.referencingAxioms(query).count();
+        assertEquals(3, o.getAxiomCount());
+        assertEquals(3, count);
     }
 
     @Test
