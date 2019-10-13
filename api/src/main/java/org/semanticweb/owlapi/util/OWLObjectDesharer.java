@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.HasAnnotations;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -120,7 +121,6 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
 
     private final OWLDataFactory df;
-    protected RemappingIndividualProvider anonProvider;
 
     /**
      * Creates an object duplicator that duplicates objects using the specified data factory and uri
@@ -130,7 +130,6 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
      */
     public OWLObjectDesharer(OWLOntologyManager m) {
         df = m.getOWLDataFactory();
-        anonProvider = new RemappingIndividualProvider(df);
     }
 
     /**
@@ -143,7 +142,7 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
         return get(object);
     }
 
-    private Set<OWLAnnotation> anns(OWLAxiom axiom) {
+    private Set<OWLAnnotation> anns(HasAnnotations axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         return list(axiom.getAnnotations());
     }
@@ -334,7 +333,7 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public OWLClass visit(OWLClass ce) {
-        return df.getOWLClass(ce.getIRI());
+        return ce;
     }
 
     @Override
@@ -440,7 +439,7 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public OWLDatatype visit(OWLDatatype node) {
-        return df.getOWLDatatype(node.getIRI());
+        return node;
     }
 
     @Override
@@ -456,20 +455,17 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public OWLLiteral visit(OWLLiteral node) {
-        if (node.hasLang()) {
-            return df.getOWLLiteral(node.getLiteral(), node.getLang());
-        }
-        return df.getOWLLiteral(node.getLiteral(), get(node.getDatatype()));
+        return node;
     }
 
     @Override
     public OWLDataProperty visit(OWLDataProperty property) {
-        return df.getOWLDataProperty(property.getIRI());
+        return property;
     }
 
     @Override
     public OWLObjectProperty visit(OWLObjectProperty property) {
-        return df.getOWLObjectProperty(property.getIRI());
+        return property;
     }
 
     @Override
@@ -483,7 +479,7 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public OWLNamedIndividual visit(OWLNamedIndividual individual) {
-        return df.getOWLNamedIndividual(individual.getIRI());
+        return individual;
     }
 
     @Override
@@ -569,7 +565,7 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public OWLAnnotationProperty visit(OWLAnnotationProperty property) {
-        return df.getOWLAnnotationProperty(property.getIRI());
+        return property;
     }
 
     @Override
@@ -592,12 +588,12 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public OWLAnnotation visit(OWLAnnotation node) {
-        return df.getOWLAnnotation(get(node.getProperty()), get(node.getValue()));
+        return df.getOWLAnnotation(get(node.getProperty()), get(node.getValue()), list(node.getAnnotations()));
     }
 
     @Override
     public OWLAnonymousIndividual visit(OWLAnonymousIndividual individual) {
-        return anonProvider.getOWLAnonymousIndividual(individual.getID().getID());
+        return individual;
     }
 
     @Override
