@@ -22,18 +22,25 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 public interface HasApplyChange {
 
     /**
-     * A convenience method that applies just one change to an ontology that is
-     * managed by this manager.
+     * A convenience method that applies just one change to an ontology. When this method is used
+     * through an {@code OWLOntologyManager} implementation, the instance used should be the one
+     * that the ontology returns through the {@code getOWLOntologyManager()} call. The reason is
+     * that some changes, e.g., change of ontology id and change of imports directives, affect data
+     * that only that manager instance knows about, such as the imports closure; changes of ontology
+     * id through the wrong manager will make the ontology unreachable through its new id in the
+     * manager associated with the ontology. Configuration for loading and saving parameters is also
+     * held by the manager, if not explicitly specified for the ontology. While the change might be
+     * successful, other bugs might be made apparent later.
      *
      * @param change The change to be applied
      * @return ChangeApplied.SUCCESSFULLY if the change is applied with success,
-     * ChangeApplied.UNSUCCESSFULLY otherwise.
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
      * @throws OWLOntologyChangeException If the change could not be applied. See subclasses of
-     * ontology change exception for more specific details.
-     * @throws OWLOntologyRenameException If one or more of the changes is an instance of {@link
-     * org.semanticweb.owlapi.model.SetOntologyID} where the new {@link
-     * org.semanticweb.owlapi.model.OWLOntologyID} already belongs to an ontology managed by this
-     * manager.
+     *         ontology change exception for more specific details.
+     * @throws OWLOntologyRenameException If one or more of the changes is an instance of
+     *         {@link org.semanticweb.owlapi.model.SetOntologyID} where the new
+     *         {@link org.semanticweb.owlapi.model.OWLOntologyID} already belongs to an ontology
+     *         managed by this manager.
      */
     ChangeApplied applyChange(OWLOntologyChange change);
 }
