@@ -33,8 +33,7 @@ public interface OWLNegativeObjectPropertyAssertionAxiom
     }
 
     /**
-     * Determines whether this axiom contains anonymous individuals. Anonymous individuals are not
-     * allowed in negative object property assertions.
+     * Determines whether this axiom contains anonymous individuals.
      *
      * @return {@code true} if this axioms contains anonymous individual axioms
      */

@@ -32,8 +32,7 @@ public interface OWLNegativeDataPropertyAssertionAxiom extends
     }
 
     /**
-     * Determines whether this axiom contains anonymous individuals. Anonymous individuals are not
-     * allowed in negative data property assertion axioms.
+     * Determines whether this axiom contains anonymous individuals.
      *
      * @return {@code true} if this axioms contains anonymous individual axioms
      */
