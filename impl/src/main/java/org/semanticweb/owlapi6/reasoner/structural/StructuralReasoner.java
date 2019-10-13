@@ -334,7 +334,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     @Override
     public Node<OWLObjectPropertyExpression> getInverseObjectProperties(OWLObjectPropertyExpression pe) {
         ensurePrepared();
-        OWLObjectPropertyExpression inv = pe.getInverseProperty().getSimplified();
+        OWLObjectPropertyExpression inv = pe.getInverseProperty();
         return getEquivalentObjectProperties(inv);
     }
 
@@ -488,7 +488,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         OWLNamedIndividualNodeSet result = new OWLNamedIndividualNodeSet();
         Node<OWLObjectPropertyExpression> inverses = getInverseObjectProperties(pe);
         getRootOntology().importsClosure().flatMap(o -> o.objectPropertyAssertionAxioms(ind)).forEach(axiom -> {
-            if (axiom.getObject().isNamed() && axiom.getProperty().getSimplified().equals(pe.getSimplified())) {
+            if (axiom.getObject().isNamed() && axiom.getProperty().equals(pe)) {
                 if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
                     result.addNode(getSameIndividuals(axiom.getObject().asOWLNamedIndividual()));
                 } else {
@@ -497,7 +497,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             }
             // Inverse of pe
             if (axiom.getObject().equals(ind) && axiom.getSubject().isNamed()) {
-                OWLObjectPropertyExpression invPe = axiom.getProperty().getInverseProperty().getSimplified();
+                OWLObjectPropertyExpression invPe = axiom.getProperty().getInverseProperty();
                 if (invPe.isNamed() && inverses.contains(invPe.asOWLObjectProperty())) {
                     if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
                         result.addNode(getSameIndividuals(axiom.getObject().asOWLNamedIndividual()));
