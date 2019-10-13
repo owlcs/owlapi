@@ -952,7 +952,11 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLAnnotationProperty prop = getLastObject();
         node.getValue().accept(this);
         OWLAnnotationValue val = getLastObject();
-        obj = dataFactory.getOWLAnnotation(prop, val, duplicateAnnotations(node));
+        if (node.getAnnotations().isEmpty()) {
+            obj = dataFactory.getOWLAnnotation(prop, val);
+        } else {
+            obj = dataFactory.getOWLAnnotation(prop, val, duplicateAnnotations(node));
+        }
     }
 
     @Override
