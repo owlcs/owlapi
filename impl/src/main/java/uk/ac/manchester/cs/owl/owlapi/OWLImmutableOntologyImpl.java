@@ -40,6 +40,9 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomCollection;
@@ -502,6 +505,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
                 .filter(ax -> ax.getObject().getLiteral().equals(iriString)).forEach(axioms::add);
             axioms(AxiomType.ANNOTATION_ASSERTION)
                 .forEach(ax -> examineAssertion(owlEntity, axioms, ax));
+            axioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN)
+                .forEach(ax -> examineDomain(owlEntity, axioms, ax));
+            axioms(AxiomType.ANNOTATION_PROPERTY_RANGE)
+                .forEach(ax -> examineRange(owlEntity, axioms, ax));
+            axioms().filter(OWLAxiom::isAnnotated)
+                .forEach(ax -> examineAnnotations(owlEntity, axioms, ax));
             return axioms.stream();
         } else if (owlEntity instanceof OWLLiteral) {
             Set<OWLAxiom> axioms = new HashSet<>();
@@ -526,13 +535,41 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         if (ax.getSubject().equals(owlEntity)) {
             axioms.add(ax);
         } else {
-            ax.getValue().asLiteral().ifPresent(lit -> {
-                if (OWL2Datatype.XSD_ANY_URI.matches(lit.getDatatype())
-                    && lit.getLiteral().equals(owlEntity.toString())) {
-                    axioms.add(ax);
-                }
-            });
+            if (ax.annotationValue().equals(owlEntity)) {
+                axioms.add(ax);
+            } else {
+                ax.getValue().asLiteral().ifPresent(lit -> {
+                    if (OWL2Datatype.XSD_ANY_URI.matches(lit.getDatatype())
+                        && lit.getLiteral().equals(owlEntity.toString())) {
+                        axioms.add(ax);
+                    }
+                });
+            }
         }
+    }
+
+    protected void examineDomain(OWLPrimitive owlEntity, Set<OWLAxiom> axioms,
+        OWLAnnotationPropertyDomainAxiom ax) {
+        if (ax.getDomain().equals(owlEntity)) {
+            axioms.add(ax);
+        }
+    }
+
+    protected void examineRange(OWLPrimitive owlEntity, Set<OWLAxiom> axioms,
+        OWLAnnotationPropertyRangeAxiom ax) {
+        if (ax.getRange().equals(owlEntity)) {
+            axioms.add(ax);
+        }
+    }
+
+    protected void examineAnnotations(OWLPrimitive owlEntity, Set<OWLAxiom> axioms, OWLAxiom ax) {
+        if (recurse(ax.annotations(), owlEntity::equals)) {
+            axioms.add(ax);
+        }
+    }
+
+    private boolean recurse(Stream<OWLAnnotation> s, Predicate<OWLAnnotationValue> p) {
+        return s.anyMatch(a -> p.test(a.annotationValue()) || recurse(a.annotations(), p));
     }
 
     // OWLAxiomIndex

@@ -71,9 +71,14 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
+import java.util.Collections;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -138,6 +143,23 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
                 assertTrue(contains(ont.signature(), e));
             });
         }
+    }
+
+    @Test
+    public void shouldFindExpectedIRIOccurrences() {
+        OWLOntology o = getOWLOntology();
+        IRI query = IRI.create("urn:test:someIRI");
+        OWLAnnotationProperty ap1 = df.getOWLAnnotationProperty("urn:test:AP1");
+        OWLAnnotationProperty ap2 = df.getOWLAnnotationProperty("urn:test:AP2");
+        o.add(df.getOWLAnnotationPropertyDomainAxiom(ap1, query));
+        OWLAnnotation a = df.getOWLAnnotation(ap2, query);
+        OWLClass c = df.getOWLClass("urn:test:C");
+        o.add(df.getOWLSubClassOfAxiom(c, df.getOWLThing(), Collections.singletonList(a)));
+        o.add(df.getOWLAnnotationAssertionAxiom(IRI.create("urn:test:otherIRI"), a));
+        long count = o.referencingAxioms(query).count();
+        assertEquals(3, o.getAxiomCount());
+        assertEquals(3, count);
+
     }
 
     @Test
@@ -498,8 +520,8 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         OWLNamedIndividual indA = NamedIndividual(iri("indA"));
         OWLNamedIndividual indB = NamedIndividual(iri("indB"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLNegativeObjectPropertyAssertionAxiom ax = NegativeObjectPropertyAssertion(prop, indA,
-            indB);
+        OWLNegativeObjectPropertyAssertionAxiom ax =
+            NegativeObjectPropertyAssertion(prop, indA, indB);
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.negativeObjectPropertyAssertionAxioms(indA), ax));
@@ -548,8 +570,8 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(contains(ont.sameIndividualAxioms(indB), ax));
         assertTrue(contains(ont.sameIndividualAxioms(indC), ax));
         assertTrue(contains(ont.axioms(indA), ax));
-        Collection<OWLObject> equivalent = asUnorderedSet(
-            equivalent(ont.sameIndividualAxioms(indA)));
+        Collection<OWLObject> equivalent =
+            asUnorderedSet(equivalent(ont.sameIndividualAxioms(indA)));
         assertTrue(equivalent.contains(indB));
         assertTrue(equivalent.contains(indC));
     }
@@ -568,8 +590,8 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(contains(ont.differentIndividualAxioms(indB), ax));
         assertTrue(contains(ont.differentIndividualAxioms(indC), ax));
         assertTrue(contains(ont.axioms(indA), ax));
-        Collection<OWLObject> different = asUnorderedSet(
-            different(ont.differentIndividualAxioms(indA)));
+        Collection<OWLObject> different =
+            asUnorderedSet(different(ont.differentIndividualAxioms(indA)));
         assertTrue(different.contains(indB));
         assertTrue(different.contains(indC));
     }
