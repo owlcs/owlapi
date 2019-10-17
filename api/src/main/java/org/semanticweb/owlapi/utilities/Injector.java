@@ -41,9 +41,10 @@ import org.slf4j.LoggerFactory;
  */
 public class Injector {
     private static final Logger LOGGER = LoggerFactory.getLogger(Injector.class);
-    private Map<Object, List<Supplier<?>>> supplierOverrides = new ConcurrentHashMap<>();
-    private Map<Object, Class<?>> typesOverrides = new ConcurrentHashMap<>();
-    private Map<Object, List<Class<?>>> typesCache = new ConcurrentHashMap<>();
+    private Map<Object, List<Supplier<?>>> supplierOverrides =
+        new ConcurrentHashMap<>(16, 0.75F, 1);
+    private Map<Object, Class<?>> typesOverrides = new ConcurrentHashMap<>(16, 0.75F, 1);
+    private Map<Object, List<Class<?>>> typesCache = new ConcurrentHashMap<>(16, 0.75F, 1);
 
     /**
      * Key class for caches
@@ -199,14 +200,13 @@ public class Injector {
             Object[] args = new Object[parameterTypes.length];
             for (int i = 0; i < parameterTypes.length; i++) {
                 Parameter arg = parameterTypes[i];
+                Annotation[] qualifiers = qualifiers(arg.getAnnotations());
                 if (Collection.class.isAssignableFrom(arg.getType())) {
                     Class<?> type = (Class<?>) ((ParameterizedType) arg.getParameterizedType())
                         .getActualTypeArguments()[0];
-                    args[i] =
-                        load(type, qualifiers(arg.getAnnotations())).collect(Collectors.toSet());
+                    args[i] = load(type, qualifiers).collect(Collectors.toSet());
                 } else {
-                    args[i] = load(arg.getType(), qualifiers(arg.getAnnotations())).findAny()
-                        .orElse(null);
+                    args[i] = load(arg.getType(), qualifiers).findAny().orElse(null);
                 }
             }
             try {
@@ -300,7 +300,7 @@ public class Injector {
         String name = "META-INF/services/" + type.getName();
         LOGGER.debug("Loading file {}", name);
         // J2EE compatible search
-        return urls(name).flatMap(this::entries).distinct().map(s -> prepareClass(s, key, type))
+        return prepareClass(urls(name).flatMap(this::entries).distinct(), key, type)
             .map(s -> instantiate(s, key));
     }
 
@@ -339,12 +339,21 @@ public class Injector {
     }
 
     @SuppressWarnings("unchecked")
-    private <T> Class<T> prepareClass(String s, Object key,
+    private <T> Stream<Class<T>> prepareClass(Stream<String> types, Object key,
         @SuppressWarnings("unused") Class<T> witness) {
+        List<Class<?>> l = typesCache.get(key);
+        if (l != null) {
+            return l.stream().map(x -> (Class<T>) x);
+        }
+        List<Class<T>> list = new ArrayList<>();
         try {
-            Class<?> forName = Class.forName(s);
-            typesCache.computeIfAbsent(key, x -> new ArrayList<>()).add(forName);
-            return (Class<T>) forName;
+            Iterator<String> iterator = types.iterator();
+            while (iterator.hasNext()) {
+                list.add((Class<T>) Class.forName(iterator.next()));
+            }
+            List<Class<?>> listToCache = new ArrayList<>(list);
+            typesCache.computeIfAbsent(key, x -> listToCache);
+            return list.stream();
         } catch (ClassNotFoundException | IllegalArgumentException | SecurityException e) {
             LOGGER.error("Instantiation failed", e);
             return null;
