@@ -1,3 +1,24 @@
+## 4.5.14 19 Oct 2019
+
+### Bug fixes:
+
+*    Implement Allow gzipped imports #887
+*    Fix Race condition in Injector #883
+*    Jackson update
+*    Fix containsReference(OWLEntity) should be deprecated #864
+*    Fix Javadoc on applyChange/applyChanges and using the wrong manager #868
+*    Fix OWLObjectPropertyExpression#getSimplified() used incorrectly #882
+*    Fix Incomplete javadoc on OWLNaryAxiom#asPairwiseAxioms #884
+*    Fix OWLNegative*AssertionAxiom#containsAnonymousIndividuals javadoc #885
+*    Fix Annotated axiom with anon expression saved incorrectly #881
+*    Fix Ontology with relative IRIs is serialized incorrectly #880
+*    Fix Ann. annotation with anon individual saved in RDF incorrectly #877
+*    Fix Annotations dropped if annotation property is undeclared #875
+*    Fix SAXException from AutoIRIMapper at debug logging level #878
+*    Ensure isAnonymous is implemented correctly #867
+*    Fix Null pointers with imports and relation declarations #859
+*    Amend base and escaped characters in Tutle parsing #857
+
 ## 4.5.13 02 June 2019
 
 ### Features:
