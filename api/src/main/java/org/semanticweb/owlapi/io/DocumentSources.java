@@ -212,7 +212,6 @@ public class DocumentSources {
             if (is == null) {
                 return emptyOptional();
             }
-            is = handleZips(documentIRI, conn, is);
             return optional(is);
         } catch (IOException e) {
             throw new OWLOntologyInputSourceException(e);
@@ -252,30 +251,6 @@ public class DocumentSources {
         return conn;
     }
 
-    protected static InputStream handleZips(IRI documentIRI, URLConnection conn, InputStream is)
-        throws IOException {
-        if (isZipName(documentIRI, conn)) {
-            ZipInputStream zis = new ZipInputStream(is);
-            ZipEntry entry = null;
-            ZipEntry nextEntry = zis.getNextEntry();
-            // XXX is this a bug?
-            while (entry != null && nextEntry != null) {
-                if (couldBeOntology(nextEntry)) {
-                    entry = nextEntry;
-                }
-                nextEntry = zis.getNextEntry();
-            }
-            return zis;
-        }
-        if (isGzName(documentIRI, conn)) {
-            return new BufferedInputStream(new GZIPInputStream(is));
-        }
-        if (isXzName(documentIRI, conn)) {
-            is = new BufferedInputStream(new XZInputStream(is));
-        }
-        return is;
-    }
-
     @Nullable
     protected static InputStream connectWithFiveRetries(IRI documentIRI,
         OWLOntologyLoaderConfiguration config, URLConnection conn, int connectionTimeout,
@@ -284,7 +259,7 @@ public class DocumentSources {
         int count = 0;
         while (count < config.getRetriesToAttempt() && is == null) {
             try {
-                is = getInputStreamFromContentEncoding(conn, contentEncoding);
+                is = getInputStreamFromContentEncoding(documentIRI, conn, contentEncoding);
             } catch (SocketTimeoutException e) {
                 count++;
                 if (count == 5) {
@@ -316,75 +291,64 @@ public class DocumentSources {
         return ZIP_ENTRY_ONTOLOGY_NAME_PATTERN.matcher(zipEntry.getName()).matches();
     }
 
-    private static InputStream getInputStreamFromContentEncoding(URLConnection conn,
-        @Nullable String contentEncoding) throws IOException {
+    private static InputStream getInputStreamFromContentEncoding(@Nullable IRI documentIRI,
+        URLConnection conn, @Nullable String contentEncoding) throws IOException {
+        String fileName = getFileNameFromContentDisposition(conn);
+        if (fileName == null) {
+            fileName = documentIRI == null ? "" : documentIRI.toString();
+        }
         InputStream in = conn.getInputStream();
         if (contentEncoding != null) {
-            InputStream toReturn = handleKnownContentEncodings(contentEncoding, in);
+            InputStream toReturn = handleKnownContentEncodings(contentEncoding, in, fileName);
             if (toReturn != null) {
                 return toReturn;
             }
         }
-        String fileName = getFileNameFromContentDisposition(conn);
-        if (fileName == null && conn.getURL() != null) {
-            fileName = conn.getURL().toString();
+        return wrap(checkFileName(in, fileName));
+    }
+
+    private static InputStream checkFileName(InputStream in, String fileName) throws IOException {
+        if (isGzFileName(fileName)) {
+            LOGGER.info("URL connection has no content encoding but name ends with .gz");
+            return new BufferedInputStream(new GZIPInputStream(in));
         }
-        if (fileName != null) {
-            if (isGzFileName(fileName)) {
-                LOGGER.info("URL connection has no content encoding but name ends with .gz");
-                return new BufferedInputStream(new GZIPInputStream(in));
-            }
-            if (isXzFileName(fileName)) {
-                LOGGER.info("URL connection has no content encoding but name ends with .xz");
-                return new BufferedInputStream(new XZInputStream(in));
-            }
+        if (isXzFileName(fileName)) {
+            LOGGER.info("URL connection has no content encoding but name ends with .xz");
+            return new BufferedInputStream(new XZInputStream(in));
         }
-        return wrap(in);
+        if (isZipFileName(fileName)) {
+            ZipInputStream zis = new ZipInputStream(in);
+            ZipEntry entry = null;
+            ZipEntry nextEntry = zis.getNextEntry();
+            // XXX is this a bug?
+            while (entry != null && nextEntry != null) {
+                if (couldBeOntology(nextEntry)) {
+                    entry = nextEntry;
+                }
+                nextEntry = zis.getNextEntry();
+            }
+            return zis;
+        }
+        return in;
+
     }
 
     @Nullable
-    protected static InputStream handleKnownContentEncodings(String contentEncoding, InputStream in)
-        throws IOException {
+    protected static InputStream handleKnownContentEncodings(String contentEncoding, InputStream in,
+        String fileName) throws IOException {
         if ("xz".equals(contentEncoding)) {
             LOGGER.info("URL connection input stream is compressed using xz");
-            return new BufferedInputStream(new XZInputStream(in));
+            return new BufferedInputStream(checkFileName(new XZInputStream(in), fileName));
         }
         if ("gzip".equals(contentEncoding)) {
             LOGGER.info("URL connection input stream is compressed using gzip");
-            return new BufferedInputStream(new GZIPInputStream(in));
+            return new BufferedInputStream(checkFileName(new GZIPInputStream(in), fileName));
         }
         if ("deflate".equals(contentEncoding)) {
             LOGGER.info("URL connection input stream is compressed using deflate");
-            return new InflaterInputStream(in, new Inflater(true));
+            return checkFileName(new InflaterInputStream(in, new Inflater(true)), fileName);
         }
         return null;
-    }
-
-    private static boolean isZipName(IRI documentIRI, URLConnection connection) {
-        if (isZipFileName(documentIRI.toString())) {
-            return true;
-        } else {
-            String fileName = getFileNameFromContentDisposition(connection);
-            return fileName != null && isZipFileName(fileName);
-        }
-    }
-
-    private static boolean isGzName(IRI documentIRI, URLConnection connection) {
-        if (isGzFileName(documentIRI.toString())) {
-            return true;
-        } else {
-            String fileName = getFileNameFromContentDisposition(connection);
-            return fileName != null && isGzFileName(fileName);
-        }
-    }
-
-    private static boolean isXzName(IRI documentIRI, URLConnection connection) {
-        if (isXzFileName(documentIRI.toString())) {
-            return true;
-        } else {
-            String fileName = getFileNameFromContentDisposition(connection);
-            return fileName != null && isXzFileName(fileName);
-        }
     }
 
     @Nullable
