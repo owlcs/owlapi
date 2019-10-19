@@ -19,13 +19,22 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import info.aduna.xml.SimpleSAXAdapter;
+import static org.openrdf.rio.trix.TriXConstants.BNODE_TAG;
+import static org.openrdf.rio.trix.TriXConstants.CONTEXT_TAG;
+import static org.openrdf.rio.trix.TriXConstants.DATATYPE_ATT;
+import static org.openrdf.rio.trix.TriXConstants.LANGUAGE_ATT;
+import static org.openrdf.rio.trix.TriXConstants.PLAIN_LITERAL_TAG;
+import static org.openrdf.rio.trix.TriXConstants.TRIPLE_TAG;
+import static org.openrdf.rio.trix.TriXConstants.TYPED_LITERAL_TAG;
+import static org.openrdf.rio.trix.TriXConstants.URI_TAG;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.io.input.BOMInputStream;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
@@ -38,67 +47,66 @@ import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.helpers.RDFParserBase;
 import org.openrdf.rio.helpers.TriXParserSettings;
-import static org.openrdf.rio.trix.TriXConstants.*;
 import org.semanticweb.owlapi.rio.utils.OWLAPISimpleSAXParser;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+import info.aduna.xml.SimpleSAXAdapter;
+
 /**
- * A parser that can parse RDF files that are in the <a
- * href="http://www.w3.org/2004/03/trix/">TriX format</a>.
- * Cloned from org.openrdf.rio.trix.TrixParser
- * @author Arjohn Kampman
- * Modified to install error handler by Simon Spero, because error handler.
+ * A parser that can parse RDF files that are in the <a href="http://www.w3.org/2004/03/trix/">TriX
+ * format</a>. Cloned from org.openrdf.rio.trix.TrixParser
+ * 
+ * @author Arjohn Kampman Modified to install error handler by Simon Spero, because error handler.
  */
 
-class OWLAPIRioTrixParser extends RDFParserBase{
+class OWLAPIRioTrixParser extends RDFParserBase {
 
-	/*--------------*
-	 * Constructors *
-	 *--------------*/
+    /*--------------*
+     * Constructors *
+     *--------------*/
 
     /**
-     * Creates a new TriXParser that will use a {@link ValueFactoryImpl} to
-     * create objects for resources, bNodes, literals and statements.
+     * Creates a new TriXParser that will use a {@link ValueFactoryImpl} to create objects for
+     * resources, bNodes, literals and statements.
      */
     public OWLAPIRioTrixParser() {
         super();
     }
 
     /**
-     * Creates a new TriXParser that will use the supplied ValueFactory to create
-     * objects for resources, bNodes, literals and statements.
+     * Creates a new TriXParser that will use the supplied ValueFactory to create objects for
+     * resources, bNodes, literals and statements.
      *
-     * @param valueFactory
-     *        A ValueFactory.
+     * @param valueFactory A ValueFactory.
      */
     public OWLAPIRioTrixParser(ValueFactory valueFactory) {
         super(valueFactory);
     }
 
-	/*---------*
-	 * Methods *
-	 *---------*/
+    /*---------*
+     * Methods *
+     *---------*/
 
+    @Override
     public final RDFFormat getRDFFormat() {
         return RDFFormat.TRIX;
     }
 
+    @Override
     public void parse(InputStream in, String baseURI)
-            throws IOException, RDFParseException, RDFHandlerException
-    {
+        throws IOException, RDFParseException, RDFHandlerException {
         parse(new BOMInputStream(in, false));
     }
 
+    @Override
     public void parse(Reader reader, String baseURI)
-            throws IOException, RDFParseException, RDFHandlerException
-    {
+        throws IOException, RDFParseException, RDFHandlerException {
         parse(reader);
     }
 
     private void parse(Object inputStreamOrReader)
-            throws IOException, RDFParseException, RDFHandlerException
-    {
+        throws IOException, RDFParseException, RDFHandlerException {
         if (rdfHandler != null) {
             rdfHandler.startRDF();
         }
@@ -110,39 +118,31 @@ class OWLAPIRioTrixParser extends RDFParserBase{
 
 
             if (inputStreamOrReader instanceof InputStream) {
-                saxParser.parse((InputStream)inputStreamOrReader);
+                saxParser.parse((InputStream) inputStreamOrReader);
+            } else {
+                saxParser.parse((Reader) inputStreamOrReader);
             }
-            else {
-                saxParser.parse((Reader)inputStreamOrReader);
-            }
-        }
-        catch (SAXParseException e) {
+        } catch (SAXParseException e) {
             Exception wrappedExc = e.getException();
 
             if (wrappedExc == null) {
                 reportFatalError(e, e.getLineNumber(), e.getColumnNumber());
-            }
-            else {
+            } else {
                 reportFatalError(wrappedExc, e.getLineNumber(), e.getColumnNumber());
             }
-        }
-        catch (SAXException e) {
+        } catch (SAXException e) {
             Exception wrappedExc = e.getException();
 
             if (wrappedExc == null) {
                 reportFatalError(e);
-            }
-            else if (wrappedExc instanceof RDFParseException) {
-                throw (RDFParseException)wrappedExc;
-            }
-            else if (wrappedExc instanceof RDFHandlerException) {
-                throw (RDFHandlerException)wrappedExc;
-            }
-            else {
+            } else if (wrappedExc instanceof RDFParseException) {
+                throw (RDFParseException) wrappedExc;
+            } else if (wrappedExc instanceof RDFHandlerException) {
+                throw (RDFHandlerException) wrappedExc;
+            } else {
                 reportFatalError(wrappedExc);
             }
-        }
-        finally {
+        } finally {
             clear();
         }
 
@@ -151,9 +151,9 @@ class OWLAPIRioTrixParser extends RDFParserBase{
         }
     }
 
-	/*----------------------------*
-	 * Inner class TriXSAXHandler *
-	 *----------------------------*/
+    /*----------------------------*
+     * Inner class TriXSAXHandler *
+     *----------------------------*/
 
     private class TriXSAXHandler extends SimpleSAXAdapter {
 
@@ -165,131 +165,102 @@ class OWLAPIRioTrixParser extends RDFParserBase{
 
         public TriXSAXHandler() {
             currentContext = null;
-            valueList = new ArrayList<Value>(3);
+            valueList = new ArrayList<>(3);
         }
 
         @Override
         public void startTag(String tagName, Map<String, String> atts, String text)
-                throws SAXException
-        {
+            throws SAXException {
             try {
                 if (tagName.equals(URI_TAG)) {
                     valueList.add(createURI(text));
-                }
-                else if (tagName.equals(BNODE_TAG)) {
+                } else if (tagName.equals(BNODE_TAG)) {
                     valueList.add(createBNode(text));
-                }
-                else if (tagName.equals(PLAIN_LITERAL_TAG)) {
+                } else if (tagName.equals(PLAIN_LITERAL_TAG)) {
                     String lang = atts.get(LANGUAGE_ATT);
                     valueList.add(createLiteral(text, lang, null));
-                }
-                else if (tagName.equals(TYPED_LITERAL_TAG)) {
+                } else if (tagName.equals(TYPED_LITERAL_TAG)) {
                     String datatype = atts.get(DATATYPE_ATT);
 
                     if (datatype == null) {
                         reportError(DATATYPE_ATT + " attribute missing for typed literal",
-                                TriXParserSettings.FAIL_ON_TRIX_MISSING_DATATYPE);
+                            TriXParserSettings.FAIL_ON_TRIX_MISSING_DATATYPE);
                         valueList.add(createLiteral(text, null, null));
-                    }
-                    else {
+                    } else {
                         URI dtURI = createURI(datatype);
                         valueList.add(createLiteral(text, null, dtURI));
                     }
-                }
-                else if (tagName.equals(TRIPLE_TAG)) {
+                } else if (tagName.equals(TRIPLE_TAG)) {
                     if (parsingContext) {
                         try {
                             // First triple in a context, valueList can contain
                             // context information
                             if (valueList.size() > 1) {
                                 reportError("At most 1 resource can be specified for the context",
-                                        TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
-                            }
-                            else if (valueList.size() == 1) {
-                                try {
-                                    currentContext = (Resource)valueList.get(0);
-                                }
-                                catch (ClassCastException e) {
+                                    TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
+                            } else if (valueList.size() == 1) {
+                                if (!(valueList.get(0) instanceof Resource)) {
                                     reportError("Context identifier should be a URI or blank node",
-                                            TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
+                                        TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
+                                } else {
+                                    currentContext = (Resource) valueList.get(0);
                                 }
                             }
-                        }
-                        finally {
+                        } finally {
                             parsingContext = false;
                             valueList.clear();
                         }
                     }
-                }
-                else if (tagName.equals(CONTEXT_TAG)) {
+                } else if (tagName.equals(CONTEXT_TAG)) {
                     parsingContext = true;
                 }
-            }
-            catch (RDFParseException e) {
+            } catch (RDFParseException e) {
                 throw new SAXException(e);
             }
         }
 
         @Override
-        public void endTag(String tagName)
-                throws SAXException
-        {
+        public void endTag(String tagName) throws SAXException {
             try {
                 if (tagName.equals(TRIPLE_TAG)) {
                     reportStatement();
-                }
-                else if (tagName.equals(CONTEXT_TAG)) {
+                } else if (tagName.equals(CONTEXT_TAG)) {
                     currentContext = null;
                 }
-            }
-            catch (RDFParseException e) {
+            } catch (RDFParseException e) {
                 throw new SAXException(e);
-            }
-            catch (RDFHandlerException e) {
+            } catch (RDFHandlerException e) {
                 throw new SAXException(e);
             }
         }
 
-        private void reportStatement()
-                throws RDFParseException, RDFHandlerException
-        {
+        private void reportStatement() throws RDFParseException, RDFHandlerException {
             try {
                 if (valueList.size() != 3) {
                     reportError("exactly 3 values are required for a triple",
-                            TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
+                        TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
                     return;
                 }
-
-                Resource subj;
-                URI pred;
-                Value obj;
-
-                try {
-                    subj = (Resource)valueList.get(0);
-                }
-                catch (ClassCastException e) {
+                if (!(valueList.get(0) instanceof Resource)) {
                     reportError("First value for a triple should be a URI or blank node",
-                            TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
+                        TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
                     return;
                 }
-
-                try {
-                    pred = (URI)valueList.get(1);
-                }
-                catch (ClassCastException e) {
+                if (!(valueList.get(1) instanceof URI)) {
                     reportError("Second value for a triple should be a URI",
-                            TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
+                        TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
                     return;
                 }
 
-                obj = valueList.get(2);
+                Resource subj = (Resource) valueList.get(0);
+                URI pred = (URI) valueList.get(1);
+                Value obj = valueList.get(2);
 
                 Statement st = createStatement(subj, pred, obj, currentContext);
                 if (rdfHandler != null) {
                     rdfHandler.handleStatement(st);
                 }
-            }
-            finally {
+            } finally {
                 valueList.clear();
             }
         }

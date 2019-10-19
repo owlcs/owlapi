@@ -1,6 +1,11 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.OutputStream;
 import java.util.List;
@@ -19,9 +24,28 @@ import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLMutableOntology;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
@@ -34,10 +58,14 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 @RunWith(MockitoJUnitRunner.class)
 public class ConcurrentOWLOntologyImpl_TestCase {
 
-    @Mock private ReentrantReadWriteLock readWriteLock;
-    @Mock private ReentrantReadWriteLock.ReadLock readLock;
-    @Mock private ReentrantReadWriteLock.WriteLock writeLock;
-    @Mock private OWLMutableOntology delegate;
+    @Mock
+    private ReentrantReadWriteLock readWriteLock;
+    @Mock
+    private ReentrantReadWriteLock.ReadLock readLock;
+    @Mock
+    private ReentrantReadWriteLock.WriteLock writeLock;
+    @Mock
+    private OWLMutableOntology delegate;
     private ConcurrentOWLOntologyImpl ontology;
 
     @Before
@@ -565,7 +593,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_8() {
-        AxiomType arg0 = AxiomType.SUBCLASS_OF;
+        AxiomType<?> arg0 = AxiomType.SUBCLASS_OF;
         Imports arg1 = Imports.INCLUDED;
         ontology.getAxioms(arg0, arg1);
         InOrder inOrder = Mockito.inOrder(readLock, delegate, readLock);
@@ -578,7 +606,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
 
     @Test
     public void shouldDelegateTo_getAxiomCount_withReadLock() {
-        AxiomType arg0 = AxiomType.SUBCLASS_OF;
+        AxiomType<?> arg0 = AxiomType.SUBCLASS_OF;
         Imports arg1 = Imports.INCLUDED;
         ontology.getAxiomCount(arg0, arg1);
         InOrder inOrder = Mockito.inOrder(readLock, delegate, readLock);
@@ -689,7 +717,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_10() {
-        AxiomType arg0 = AxiomType.SUBCLASS_OF;
+        AxiomType<?> arg0 = AxiomType.SUBCLASS_OF;
         ontology.getAxioms(arg0);
         InOrder inOrder = Mockito.inOrder(readLock, delegate, readLock);
         inOrder.verify(readLock, times(1)).lock();
@@ -791,7 +819,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_17() {
-        AxiomType arg0 = AxiomType.SUBCLASS_OF;
+        AxiomType<?> arg0 = AxiomType.SUBCLASS_OF;
         boolean arg1 = true;
         ontology.getAxioms(arg0, arg1);
         InOrder inOrder = Mockito.inOrder(readLock, delegate, readLock);
@@ -828,7 +856,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
 
     @Test
     public void shouldDelegateTo_getAxiomCount_withReadLock_4() {
-        AxiomType arg0 = AxiomType.SUBCLASS_OF;
+        AxiomType<?> arg0 = AxiomType.SUBCLASS_OF;
         boolean arg1 = true;
         ontology.getAxiomCount(arg0, arg1);
         InOrder inOrder = Mockito.inOrder(readLock, delegate, readLock);
@@ -1000,7 +1028,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
 
     @Test
     public void shouldDelegateTo_getAxiomCount_withReadLock_6() {
-        AxiomType arg0 = AxiomType.SUBCLASS_OF;
+        AxiomType<?> arg0 = AxiomType.SUBCLASS_OF;
         ontology.getAxiomCount(arg0);
         InOrder inOrder = Mockito.inOrder(readLock, delegate, readLock);
         inOrder.verify(readLock, times(1)).lock();

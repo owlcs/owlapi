@@ -231,7 +231,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             createParser.parse(conn.getInputStream(), baseUri);
         }
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("rioParse: timing={}", System.currentTimeMillis() - rioParseStart);
+            LOGGER.debug("rioParse: timing={}",
+                Long.valueOf(System.currentTimeMillis() - rioParseStart));
         }
     }
 
@@ -267,7 +268,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             try {
                 consumer.endRDF();
                 if (LOG.isDebugEnabled()) {
-                    LOG.debug("owlParse: timing={}", System.currentTimeMillis() - owlParseStart);
+                    LOG.debug("owlParse: timing={}",
+                        Long.valueOf(System.currentTimeMillis() - owlParseStart));
                 }
             } catch (RDFHandlerException e) {
                 throw new OWLParserException(e);

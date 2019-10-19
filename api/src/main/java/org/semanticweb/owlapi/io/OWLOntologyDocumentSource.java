@@ -23,42 +23,37 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
- * A document source provides a point for loading an ontology. A document source
- * may provide three ways of obtaining an ontology document:
+ * A document source provides a point for loading an ontology. A document source may provide three
+ * ways of obtaining an ontology document:
  * <ol>
  * <li>From a {@link java.io.Reader}
  * <li>From an {@link java.io.InputStream}
  * <li>From an ontology document {@link org.semanticweb.owlapi.model.IRI}
  * </ol>
- * Consumers that use a document source will attempt to obtain a concrete
- * representation of an ontology in the above order. <br>
- * Note that while an ontology document source may appear similar to a SAX input
- * source, an important difference is that the getReader and getInputStream
- * methods return new instances each time the method is called. This allows
- * multiple attempts at loading an ontology.
+ * Consumers that use a document source will attempt to obtain a concrete representation of an
+ * ontology in the above order. <br>
+ * Note that while an ontology document source may appear similar to a SAX input source, an
+ * important difference is that the getReader and getInputStream methods return new instances each
+ * time the method is called. This allows multiple attempts at loading an ontology.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLOntologyDocumentSource {
 
     /**
-     * Determines if a reader is available which an ontology document can be
-     * parsed from.
+     * Determines if a reader is available which an ontology document can be parsed from.
      * 
-     * @return {@code true} if a reader can be obtained from this document
-     *         source, or {@code false} if a reader cannot be obtained from this
-     *         document source.
+     * @return {@code true} if a reader can be obtained from this document source, or {@code false}
+     *         if a reader cannot be obtained from this document source.
      */
     boolean isReaderAvailable();
 
     /**
-     * Gets a reader which an ontology document can be read from. This method
-     * may be called multiple times. Each invocation will return a new
-     * {@code Reader}. This method should not be called if the
-     * {@code isReaderAvailable} method returns false. A {@code Runtime}
-     * execption will be thrown if this happens.
+     * Gets a reader which an ontology document can be read from. This method may be called multiple
+     * times. Each invocation will return a new {@code Reader}. This method should not be called if
+     * the {@code isReaderAvailable} method returns false. A {@code Runtime} execption will be
+     * thrown if this happens.
      * 
      * @return A new {@code Reader} which the ontology can be read from.
      */
@@ -66,20 +61,18 @@ public interface OWLOntologyDocumentSource {
     Reader getReader();
 
     /**
-     * Determines if an input stream is available which an ontology document can
-     * be parsed from.
+     * Determines if an input stream is available which an ontology document can be parsed from.
      * 
-     * @return {@code true} if an input stream can be obtained, {@code false} if
-     *         an input stream cannot be obtained from this document source.
+     * @return {@code true} if an input stream can be obtained, {@code false} if an input stream
+     *         cannot be obtained from this document source.
      */
     boolean isInputStreamAvailable();
 
     /**
-     * If an input stream can be obtained from this document source then this
-     * method creates it. This method may be called multiple times. Each
-     * invocation will return a new input stream. This method should not be
-     * called if the {@code isInputStreamAvailable} method returns {@code false}
-     * .
+     * If an input stream can be obtained from this document source then this method creates it.
+     * This method may be called multiple times. Each invocation will return a new input stream.
+     * This method should not be called if the {@code isInputStreamAvailable} method returns
+     * {@code false} .
      * 
      * @return A new input stream which the ontology can be read from.
      */
@@ -111,7 +104,7 @@ public interface OWLOntologyDocumentSource {
      * @param headers accept headers; if not set, the mime type will be used; if that is also
      *        missing, the available parsers will contribute the headers
      */
-    default void setAcceptHeaders(String headers) {}
+    default void setAcceptHeaders(@SuppressWarnings("unused") String headers) {}
 
     /** @return currently set accept headers */
     default Optional<String> getAcceptHeaders() {

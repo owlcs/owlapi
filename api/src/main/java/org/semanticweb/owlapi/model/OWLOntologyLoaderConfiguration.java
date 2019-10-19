@@ -298,7 +298,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.overrides.put(ACCEPT_HTTP_COMPRESSION, b);
+        copy.overrides.put(ACCEPT_HTTP_COMPRESSION, Boolean.valueOf(b));
         return copy;
     }
 
@@ -314,7 +314,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
             return this;
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.overrides.put(CONNECTION_TIMEOUT, l);
+        configuration.overrides.put(CONNECTION_TIMEOUT, Integer.valueOf(l));
         return configuration;
     }
 
@@ -330,7 +330,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.overrides.put(FOLLOW_REDIRECTS, value);
+        copy.overrides.put(FOLLOW_REDIRECTS, Boolean.valueOf(value));
         return copy;
     }
 
@@ -350,7 +350,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.overrides.put(LOAD_ANNOTATIONS, b);
+        copy.overrides.put(LOAD_ANNOTATIONS, Boolean.valueOf(b));
         return copy;
     }
 
@@ -403,7 +403,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
             return this;
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.overrides.put(REPORT_STACK_TRACES, b);
+        configuration.overrides.put(REPORT_STACK_TRACES, Boolean.valueOf(b));
         return configuration;
     }
 
@@ -418,7 +418,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.overrides.put(RETRIES_TO_ATTEMPT, retries);
+        copy.overrides.put(RETRIES_TO_ATTEMPT, Integer.valueOf(retries));
         return copy;
     }
 
@@ -433,7 +433,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.overrides.put(PARSE_WITH_STRICT_CONFIGURATION, strict);
+        copy.overrides.put(PARSE_WITH_STRICT_CONFIGURATION, Boolean.valueOf(strict));
         return copy;
     }
 
@@ -449,7 +449,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.overrides.put(TREAT_DUBLINCORE_AS_BUILTIN, value);
+        copy.overrides.put(TREAT_DUBLINCORE_AS_BUILTIN, Boolean.valueOf(value));
         return copy;
     }
 

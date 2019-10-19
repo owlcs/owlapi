@@ -36,16 +36,15 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     @Override
     public void startRendering(Writer writer) {
         checkNotNull(writer, "w cannot be null");
-        printWriter = writer instanceof PrintWriter ? (PrintWriter) writer
-                : new PrintWriter(writer);
+        printWriter =
+            writer instanceof PrintWriter ? (PrintWriter) writer : new PrintWriter(writer);
     }
 
     @Override
-    public void
-            render(OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations) {
-        printWriter.println("Axiom: "
-                + renderer.render(checkNotNull(axiom, "axiom cannot be null")));
-        int expSize = checkNotNull(explanations.size());
+    public void render(OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations) {
+        printWriter
+            .println("Axiom: " + renderer.render(checkNotNull(axiom, "axiom cannot be null")));
+        int expSize = checkNotNull(explanations).size();
         if (expSize == 0) {
             printWriter.println("Explanation: AXIOM IS NOT ENTAILED!");
             return;
@@ -69,8 +68,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         }
     }
 
-    private void renderSingleExplanation(String inputHeader,
-            Set<OWLAxiom> axioms) {
+    private void renderSingleExplanation(String inputHeader, Set<OWLAxiom> axioms) {
         String header = inputHeader;
         boolean first = true;
         for (OWLAxiom axiom : axioms) {

@@ -32,7 +32,7 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
 
     @Test
     public void shouldRoundtripMultipleNestedAnnotationsdebug()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException {
         String ns = "urn:n:a#";
         Set<OWLObjectPropertyAssertionAxiom> axioms = Sets.newHashSet(
             df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty(IRI.create(ns, "r")),

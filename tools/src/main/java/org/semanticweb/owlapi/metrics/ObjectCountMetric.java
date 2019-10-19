@@ -22,19 +22,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
- * @param <E>
- *        the entity type
+ * @param <E> the entity type
  */
 public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
 
     /**
      * Instantiates a new object count metric.
      * 
-     * @param o
-     *        ontology to use
+     * @param o ontology to use
      */
     public ObjectCountMetric(@Nonnull OWLOntology o) {
         super(o);
@@ -57,8 +54,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
     /**
      * Gets the objects.
      * 
-     * @param ont
-     *        the ont
+     * @param ont the ont
      * @return the objects
      */
     @Nonnull
@@ -66,7 +62,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
 
     @Override
     public Integer recomputeMetric() {
-        return getObjects().size();
+        return Integer.valueOf(getObjects().size());
     }
 
     /**

@@ -459,8 +459,8 @@ public class OWLObjectPropertyManager {
         checkNotNull(processed, "processed cannot be null");
         checkNotNull(stackProps, "stackProps cannot be null");
         processed.add(prop);
-        indexMap.put(prop, index);
-        lowlinkMap.put(prop, index);
+        indexMap.put(prop, Integer.valueOf(index));
+        lowlinkMap.put(prop, Integer.valueOf(index));
         stack.push(prop);
         stackProps.add(prop);
         for (OWLOntology ont : ontologies) {
@@ -472,9 +472,12 @@ public class OWLObjectPropertyManager {
                         tarjan(ontologies, supProp, index + 1, stack, indexMap, lowlinkMap, result,
                             processed, stackProps);
                         lowlinkMap.put(prop,
-                            Math.min(lowlinkMap.get(prop), lowlinkMap.get(supProp)));
+                            Integer.valueOf(Math.min(lowlinkMap.get(prop).intValue(),
+                                lowlinkMap.get(supProp).intValue())));
                     } else if (stackProps.contains(supProp)) {
-                        lowlinkMap.put(prop, Math.min(lowlinkMap.get(prop), indexMap.get(supProp)));
+                        lowlinkMap.put(prop,
+                            Integer.valueOf(Math.min(lowlinkMap.get(prop).intValue(),
+                                indexMap.get(supProp).intValue())));
                     }
                 }
             }

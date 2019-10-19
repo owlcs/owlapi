@@ -96,7 +96,6 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         }
 
         URL originalURL = documentIRI.toURI().toURL();
-        String originalProtocol = originalURL.getProtocol();
         URLConnection conn = originalURL.openConnection();
         conn.addRequestProperty("Accept", actualAcceptHeaders);
         if (config.getAuthorizationValue() != null && !config.getAuthorizationValue().isEmpty()) {

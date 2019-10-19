@@ -356,7 +356,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             change = false;
             loopNumber++;
             if (verbose) {
-                LOGGER.info("  Loop {}", loopNumber);
+                LOGGER.info("  Loop {}", Integer.valueOf(loopNumber));
             }
             for (int i = 0; i < q2.length; i += 1) {
                 if (q2[i]) {
@@ -413,7 +413,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             change = false;
             loopNumber++;
             if (verbose) {
-                LOGGER.info("  Loop {}", loopNumber);
+                LOGGER.info("  Loop {}", Integer.valueOf(loopNumber));
             }
             HashSet<OWLAxiom> q2remove = new HashSet<>();
             for (OWLAxiom ax : q2) {

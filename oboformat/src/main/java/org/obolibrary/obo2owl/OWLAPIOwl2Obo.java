@@ -1335,9 +1335,9 @@ public class OWLAPIOwl2Obo {
             for (OWLClassExpression ce : list2) {
                 String r = null;
                 cls2 = getIdentifier(ce);
-                Integer exact = null; // cardinality
-                Integer min = null; // minCardinality
-                Integer max = null; // maxCardinality
+                int exact = -1; // cardinality
+                int min = -1; // minCardinality
+                int max = -1; // maxCardinality
                 Boolean allSome = null; // all_some
                 Boolean allOnly = null; // all_only
                 if (ce instanceof OWLObjectSomeValuesFrom) {
@@ -1408,20 +1408,17 @@ public class OWLAPIOwl2Obo {
                     }
                     c.addValue(cls2);
                     equivalenceAxiomClauses.add(c);
-                    if (exact != null) {
-                        String string = exact.toString();
-                        assert string != null;
-                        c.addQualifierValue(new QualifierValue("cardinality", string));
+                    if (exact > -1) {
+                        c.addQualifierValue(
+                            new QualifierValue("cardinality", Integer.toString(exact)));
                     }
-                    if (min != null) {
-                        String string = min.toString();
-                        assert string != null;
-                        c.addQualifierValue(new QualifierValue("minCardinality", string));
+                    if (min > -1) {
+                        c.addQualifierValue(
+                            new QualifierValue("minCardinality", Integer.toString(min)));
                     }
-                    if (max != null) {
-                        String string = max.toString();
-                        assert string != null;
-                        c.addQualifierValue(new QualifierValue("maxCardinality", string));
+                    if (max > -1) {
+                        c.addQualifierValue(
+                            new QualifierValue("maxCardinality", Integer.toString(max)));
                     }
                     if (allSome != null) {
                         String string = allSome.toString();

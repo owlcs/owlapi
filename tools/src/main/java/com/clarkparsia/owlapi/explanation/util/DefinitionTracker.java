@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 
@@ -33,16 +34,14 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 public class DefinitionTracker implements OWLOntologyChangeListener {
 
     /** Mapping from entities to the number of axioms. */
-    private final Map<OWLEntity, Integer> referenceCounts = new HashMap<>();
+    private final Map<OWLEntity, AtomicInteger> referenceCounts = new HashMap<>();
     private final OWLOntology ontology;
     private final Set<OWLAxiom> axioms = new HashSet<>();
-    private final static Integer ONE = Integer.valueOf(1);
 
     /**
      * Instantiates a new definition tracker.
      * 
-     * @param ontology
-     *        ontology to track
+     * @param ontology ontology to track
      */
     public DefinitionTracker(@Nonnull OWLOntology ontology) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
@@ -58,13 +57,8 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     private void addAxiom(@Nonnull OWLAxiom axiom) {
         if (axioms.add(axiom)) {
             for (OWLEntity entity : axiom.getSignature()) {
-                Integer count = referenceCounts.get(entity);
-                if (count == null) {
-                    count = ONE;
-                } else {
-                    count += 1;
-                }
-                referenceCounts.put(entity, count);
+                referenceCounts.computeIfAbsent(entity, x -> new AtomicInteger(0))
+                    .incrementAndGet();
             }
         }
     }
@@ -72,45 +66,41 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     private void removeAxiom(@Nonnull OWLAxiom axiom) {
         if (axioms.remove(axiom)) {
             for (OWLEntity entity : axiom.getSignature()) {
-                Integer count = referenceCounts.get(entity);
-                if (count == 1) {
-                    referenceCounts.remove(entity);
-                } else {
-                    referenceCounts.put(entity, count - 1);
+                AtomicInteger count = referenceCounts.get(entity);
+                if (count != null) {
+                    count.decrementAndGet();
+                    if (count.get() < 1) {
+                        referenceCounts.remove(entity);
+                    }
                 }
             }
         }
     }
 
     /**
-     * Checks if this entity is referred by a logical axiom in the imports
-     * closure of the designated ontology.
+     * Checks if this entity is referred by a logical axiom in the imports closure of the designated
+     * ontology.
      * 
-     * @param entity
-     *        entity we are searching for
-     * @return {@code true} if there is at least one logical axiom in the
-     *         imports closure of the given ontology that refers the given
-     *         entity
+     * @param entity entity we are searching for
+     * @return {@code true} if there is at least one logical axiom in the imports closure of the
+     *         given ontology that refers the given entity
      */
     public boolean isDefined(@Nonnull OWLEntity entity) {
         return checkNotNull(entity, "entity cannot be null").isBuiltIn()
-                || referenceCounts.containsKey(entity);
+            || referenceCounts.containsKey(entity);
     }
 
     /**
-     * Checks if all the entities referred in the given concept are also
-     * referred by a logical axiom in the imports closure of the designated
-     * ontology.
+     * Checks if all the entities referred in the given concept are also referred by a logical axiom
+     * in the imports closure of the designated ontology.
      * 
-     * @param classExpression
-     *        description that contains the entities we are searching for
-     * @return {@code true} if all the entities in the given description are
-     *         referred by at least one logical axiom in the imports closure of
-     *         the given ontology
+     * @param classExpression description that contains the entities we are searching for
+     * @return {@code true} if all the entities in the given description are referred by at least
+     *         one logical axiom in the imports closure of the given ontology
      */
     public boolean isDefined(@Nonnull OWLClassExpression classExpression) {
-        for (OWLEntity entity : checkNotNull(classExpression,
-                "classExpression cannot be null").getSignature()) {
+        for (OWLEntity entity : checkNotNull(classExpression, "classExpression cannot be null")
+            .getSignature()) {
             assert entity != null;
             if (!isDefined(entity)) {
                 return false;
@@ -123,8 +113,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             if (!change.isAxiomChange()
-                    || !ontology.getImportsClosure().contains(
-                            change.getOntology())) {
+                || !ontology.getImportsClosure().contains(change.getOntology())) {
                 continue;
             }
             OWLAxiom axiom = change.getAxiom();
@@ -134,8 +123,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
             } else if (change.isRemoveAxiom()) {
                 removeAxiom(axiom);
             } else {
-                throw new UnsupportedOperationException(
-                        "Unrecognized axiom change: " + change);
+                throw new UnsupportedOperationException("Unrecognized axiom change: " + change);
             }
         }
     }

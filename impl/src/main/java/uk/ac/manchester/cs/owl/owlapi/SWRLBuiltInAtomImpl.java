@@ -21,13 +21,22 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLArgument;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.SWRLObjectVisitor;
+import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
@@ -42,10 +51,8 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     }
 
     /**
-     * @param predicate
-     *        predicate
-     * @param args
-     *        builtin argument
+     * @param predicate predicate
+     * @param args builtin argument
      */
     public SWRLBuiltInAtomImpl(@Nonnull IRI predicate, @Nonnull List<SWRLDArgument> args) {
         super(predicate);
@@ -83,7 +90,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
 
     @Override
     public Collection<SWRLArgument> getAllArguments() {
-        return new ArrayList<SWRLArgument>(args);
+        return new ArrayList<>(args);
     }
 
     @Override
@@ -115,7 +122,8 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
             return false;
         }
         SWRLBuiltInAtom other = (SWRLBuiltInAtom) obj;
-        return other.getPredicate().equals(getPredicate()) && other.getArguments().equals(getArguments());
+        return other.getPredicate().equals(getPredicate())
+            && other.getArguments().equals(getArguments());
     }
 
     @Override

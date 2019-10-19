@@ -13,19 +13,17 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectPropertyExpressionImpl extends
-        OWLPropertyExpressionImpl implements OWLObjectPropertyExpression {
+public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpressionImpl
+    implements OWLObjectPropertyExpression {
 
     private static final long serialVersionUID = 40000L;
-    private OWLObjectPropertyExpression simplestForm;
-    private OWLObjectPropertyExpression inverse;
 
     @Override
     public boolean isObjectPropertyExpression() {
@@ -53,5 +51,4 @@ public abstract class OWLObjectPropertyExpressionImpl extends
     public OWLObjectPropertyExpression getSimplified() {
         return this;
     }
-
 }

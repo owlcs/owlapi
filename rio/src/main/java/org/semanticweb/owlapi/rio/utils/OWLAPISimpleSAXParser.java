@@ -89,7 +89,7 @@ public class OWLAPISimpleSAXParser {
     /**
      * The listener to report the events to.
      */
-    private SimpleSAXListener listener;
+    protected SimpleSAXListener listener;
 
     /**
      * Flag indicating whether leading and trailing whitespace in text elements should be preserved.

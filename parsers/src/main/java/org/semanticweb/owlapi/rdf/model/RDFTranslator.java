@@ -45,10 +45,6 @@ import org.semanticweb.owlapi.util.IndividualAppearance;
 public class RDFTranslator
     extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
-    protected final AxiomAppearance axiomOccurrences;
-    private final AtomicInteger nextBlankNodeId;
-    private final Map<Object, Integer> blankNodeMap;
-
     /**
      * @param manager the manager
      * @param ontology the ontology
@@ -61,13 +57,11 @@ public class RDFTranslator
      * @param translatedAxioms translated axioms
      */
     public RDFTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
-        @Nullable OWLDocumentFormat format, boolean useStrongTyping, IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,
-        AtomicInteger nextNode, Map<Object, Integer> blankNodeMap, Set<OWLAxiom> translatedAxioms) {
+        @Nullable OWLDocumentFormat format, boolean useStrongTyping,
+        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger nextNode,
+        Map<Object, Integer> blankNodeMap, Set<OWLAxiom> translatedAxioms) {
         super(manager, ontology, format, useStrongTyping, occurrences, axiomOccurrences, nextNode,
             blankNodeMap, translatedAxioms);
-        this.axiomOccurrences = axiomOccurrences;
-        nextBlankNodeId = nextNode;
-        this.blankNodeMap = blankNodeMap;
     }
 
     @Override
@@ -87,7 +81,8 @@ public class RDFTranslator
         if (isIndividual) {
             OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
             needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
-            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual,                needId, isAxiom);
+            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, needId,
+                isAxiom);
         } else if (key instanceof OWLAxiom) {
             isIndividual = false;
             isAxiom = true;

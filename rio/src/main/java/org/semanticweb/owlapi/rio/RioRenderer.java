@@ -76,8 +76,6 @@ public class RioRenderer extends RDFRendererBase {
     private final RDFHandler writer;
     private final DefaultPrefixManager pm;
     @Nonnull
-    private final Set<RDFResource> pending = new LinkedHashSet<>();
-    @Nonnull
     private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
     private final Resource[] contexts;
 
@@ -134,8 +132,8 @@ public class RioRenderer extends RDFRendererBase {
             throw new IOException(e);
         }
         if (logger.isTraceEnabled()) {
-            logger.trace("pendingNodes={}", pending.size());
-            logger.trace("renderedStatements={}", renderedStatements.size());
+            logger.trace("pendingNodes={}", Integer.valueOf(pending.size()));
+            logger.trace("renderedStatements={}", Integer.valueOf(renderedStatements.size()));
         }
         pending.clear();
         renderedStatements.clear();
@@ -166,13 +164,12 @@ public class RioRenderer extends RDFRendererBase {
         pending.add(node);
         final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
         if (logger.isTraceEnabled()) {
-            logger.trace("triples.size()={}", triples.size());
+            logger.trace("triples.size()={}", Integer.valueOf(triples.size()));
             if (!triples.isEmpty()) {
                 logger.trace("triples={}", triples);
             }
         }
-        for (final RDFTriple triple : triples) {
-            RDFTriple tripleToRender = remapNodesIfNecessary(node, triple);
+        for (final RDFTriple tripleToRender : triples) {
             try {
                 if (!renderedStatements.contains(tripleToRender)) {
                     renderedStatements.add(tripleToRender);

@@ -70,7 +70,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
     @Override
     public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
         @Nonnull OWLOntologyID ontologyID, @Nonnull IRI documentIRI,
-        @Nonnull OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
+        @Nonnull OWLOntologyCreationHandler handler) {
         OWLOntology ont = ontologyBuilder.createOWLOntology(manager, ontologyID);
         handler.ontologyCreated(ont);
         handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());

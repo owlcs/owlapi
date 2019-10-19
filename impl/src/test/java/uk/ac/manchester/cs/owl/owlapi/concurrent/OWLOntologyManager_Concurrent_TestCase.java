@@ -94,8 +94,9 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     private void mockAndAddOntologyFactory() throws OWLOntologyCreationException {
         OWLOntologyFactory ontologyFactory = mock(OWLOntologyFactory.class);
-        when(ontologyFactory.canCreateFromDocumentIRI(any(IRI.class))).thenReturn(true);
-        when(ontologyFactory.canLoad(any(OWLOntologyDocumentSource.class))).thenReturn(true);
+        when(ontologyFactory.canCreateFromDocumentIRI(any(IRI.class))).thenReturn(Boolean.TRUE);
+        when(ontologyFactory.canLoad(any(OWLOntologyDocumentSource.class)))
+            .thenReturn(Boolean.TRUE);
         final OWLOntology owlOntology = new OWLOntologyImpl(manager, new OWLOntologyID());
         when(ontologyFactory.createOWLOntology(any(OWLOntologyManager.class),
             any(OWLOntologyID.class), any(IRI.class),
@@ -117,7 +118,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     private void mockAndAddOntologyStorer() {
         OWLStorer storer = mock(OWLStorer.class);
-        when(storer.canStoreOntology(any(OWLDocumentFormat.class))).thenReturn(true);
+        when(storer.canStoreOntology(any(OWLDocumentFormat.class))).thenReturn(Boolean.TRUE);
         OWLStorerFactory storerFactory = new OWLStorerFactory() {
 
             @Override
@@ -200,7 +201,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
         verifyReadLock_LockUnlock();
     }
 
-    private IRI mockIRI() {
+    private static IRI mockIRI() {
         return IRI.create("http://owlapi.sourceforge.net/stuff");
     }
 

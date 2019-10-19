@@ -28,8 +28,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.NamedConjunctChecker;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric {
@@ -37,8 +36,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
     /**
      * Instantiates a new number of classes with multiple inheritance.
      * 
-     * @param o
-     *        ontology to use
+     * @param o ontology to use
      */
     public NumberOfClassesWithMultipleInheritance(@Nonnull OWLOntology o) {
         super(o);
@@ -76,7 +74,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 }
             }
         }
-        return clses.size();
+        return Integer.valueOf(clses.size());
     }
 
     @Override

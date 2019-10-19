@@ -39,7 +39,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+
 import javax.annotation.Nonnull;
+
 import org.openrdf.rio.RDFHandler;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFParseException;
@@ -70,19 +72,21 @@ public class RioTrixParserFactory extends AbstractRioParserFactory {
     public OWLParser createParser() {
         return new TrixParserImpl(getRioFormatFactory());
     }
+
     private static class TrixParserImpl extends RioParserImpl {
         public TrixParserImpl(@Nonnull RioRDFDocumentFormatFactory formatFactory) {
             super(formatFactory);
         }
 
         @Override
-        protected void parseDocumentSource(OWLOntologyDocumentSource documentSource, String baseUri, RDFHandler handler) throws IOException, RDFParseException, RDFHandlerException {
+        protected void parseDocumentSource(OWLOntologyDocumentSource documentSource, String baseUri,
+            RDFHandler handler) throws IOException, RDFParseException, RDFHandlerException {
             RioRDFDocumentFormatFactory owlFormatFactory = getSupportedFormat();
             final RDFParser createParser = new OWLAPIRioTrixParser();
-            createParser.getParserConfig().addNonFatalError(
-                    BasicParserSettings.VERIFY_DATATYPE_VALUES);
-            createParser.getParserConfig().addNonFatalError(
-                    BasicParserSettings.VERIFY_LANGUAGE_TAGS);
+            createParser.getParserConfig()
+                .addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
+            createParser.getParserConfig()
+                .addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
             createParser.setRDFHandler(handler);
             long rioParseStart = System.currentTimeMillis();
             if (owlFormatFactory.isTextual() && documentSource.isReaderAvailable()) {
@@ -90,14 +94,13 @@ public class RioTrixParserFactory extends AbstractRioParserFactory {
             } else if (documentSource.isInputStreamAvailable()) {
                 createParser.parse(documentSource.getInputStream(), baseUri);
             } else {
-                URL url = URI.create(documentSource.getDocumentIRI().toString())
-                        .toURL();
+                URL url = URI.create(documentSource.getDocumentIRI().toString()).toURL();
                 URLConnection conn = url.openConnection();
                 createParser.parse(conn.getInputStream(), baseUri);
             }
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("rioParse: timing={}", System.currentTimeMillis()
-                        - rioParseStart);
+                LOGGER.debug("rioParse: timing={}",
+                    Long.valueOf(System.currentTimeMillis() - rioParseStart));
             }
         }
     }

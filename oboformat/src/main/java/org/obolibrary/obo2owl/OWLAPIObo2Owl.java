@@ -1360,9 +1360,12 @@ public class OWLAPIObo2Owl {
         OWLClassExpression ce = trClass(classId);
         assert pe != null;
         assert ce != null;
-        Integer exact = getQVInt("cardinality", quals);
-        Integer min = getQVInt("minCardinality", quals);
-        Integer max = getQVInt("maxCardinality", quals);
+        Integer exactValue = getQVInt("cardinality", quals);
+        Integer minValue = getQVInt("minCardinality", quals);
+        Integer maxValue = getQVInt("maxCardinality", quals);
+        int exact = exactValue == null ? -1 : exactValue.intValue();
+        int min = minValue == null ? -1 : minValue.intValue();
+        int max = maxValue == null ? -1 : maxValue.intValue();
         boolean allSome = getQVBoolean("all_some", quals);
         boolean allOnly = getQVBoolean("all_only", quals);
         // obo-format allows dangling references to classes in class
@@ -1372,17 +1375,17 @@ public class OWLAPIObo2Owl {
             add(fac.getOWLDeclarationAxiom((OWLClass) ce));
         }
         OWLClassExpression ex;
-        if (exact != null && exact > 0) {
+        if (exact > 0) {
             ex = fac.getOWLObjectExactCardinality(exact, pe, ce);
-        } else if (exact != null && exact == 0 || max != null && max == 0) {
+        } else if (exact == 0 || max == 0) {
             OWLObjectComplementOf ceCompl = fac.getOWLObjectComplementOf(ce);
             ex = fac.getOWLObjectAllValuesFrom(pe, ceCompl);
-        } else if (max != null && min != null) {
+        } else if (max > -1 && min > -1) {
             ex = fac.getOWLObjectIntersectionOf(fac.getOWLObjectMinCardinality(min, pe, ce),
                 fac.getOWLObjectMaxCardinality(max, pe, ce));
-        } else if (min != null) {
+        } else if (min > -1) {
             ex = fac.getOWLObjectMinCardinality(min, pe, ce);
-        } else if (max != null) {
+        } else if (max > -1) {
             ex = fac.getOWLObjectMaxCardinality(max, pe, ce);
         } else if (allSome && allOnly) {
             ex = fac.getOWLObjectIntersectionOf(fac.getOWLObjectSomeValuesFrom(pe, ce),
@@ -1619,7 +1622,7 @@ public class OWLAPIObo2Owl {
             String lexicalValue = Obo2OWLConstants.format((Date) value);
             return fac.getOWLLiteral(lexicalValue, OWL2Datatype.XSD_DATE_TIME);
         } else if (value instanceof Boolean) {
-            return fac.getOWLLiteral((Boolean) value);
+            return fac.getOWLLiteral(((Boolean) value).booleanValue());
         } else if (!(value instanceof String)) {
             // TODO
             // e.g. boolean

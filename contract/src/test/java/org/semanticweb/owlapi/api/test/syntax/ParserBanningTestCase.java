@@ -3,9 +3,7 @@ package org.semanticweb.owlapi.api.test.syntax;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
@@ -46,9 +44,10 @@ public class ParserBanningTestCase extends TestBase {
         // org.semanticweb.owlapi.rio.RioTrigParserFactory
         // org.semanticweb.owlapi.rio.RioTrixParserFactory
         // org.semanticweb.owlapi.rio.RioTurtleParserFactory
-        String name = "org.semanticweb.owlapi.rio.RioTrixParserFactory org.semanticweb.owlapi.rio.RioRDFaParserFactory";
-        OWLOntologyLoaderConfiguration config = manager.getOntologyLoaderConfiguration().setBannedParsers(name);
-        manager.setOntologyLoaderConfiguration(config);
-        OWLOntology o = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(in));
+        String name =
+            "org.semanticweb.owlapi.rio.RioTrixParserFactory org.semanticweb.owlapi.rio.RioRDFaParserFactory";
+        manager.setOntologyLoaderConfiguration(
+            manager.getOntologyLoaderConfiguration().setBannedParsers(name));
+        manager.loadOntologyFromOntologyDocument(new StringDocumentSource(in));
     }
 }

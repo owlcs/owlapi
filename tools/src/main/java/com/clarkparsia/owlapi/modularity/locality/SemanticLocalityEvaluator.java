@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.modularity.locality;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -57,8 +58,7 @@ import org.slf4j.LoggerFactory;
 /** Semantic locality evaluator. */
 public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
-    protected static final Logger LOGGER = LoggerFactory
-            .getLogger(SemanticLocalityEvaluator.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(SemanticLocalityEvaluator.class);
     protected final OWLDataFactory df;
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
     private final BottomReplacer bottomReplacer = new BottomReplacer();
@@ -67,26 +67,22 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     /**
      * Instantiates a new semantic locality evaluator.
      * 
-     * @param man
-     *        ontology manager
-     * @param reasonerFactory
-     *        reasoner factory
+     * @param man ontology manager
+     * @param reasonerFactory reasoner factory
      */
     public SemanticLocalityEvaluator(@Nonnull OWLOntologyManager man,
-            @Nonnull OWLReasonerFactory reasonerFactory) {
+        @Nonnull OWLReasonerFactory reasonerFactory) {
         df = checkNotNull(man, "man cannot be null").getOWLDataFactory();
         try {
-            reasoner = checkNotNull(reasonerFactory,
-                    "reasonerFactory cannot be null")
-                    .createNonBufferingReasoner(man.createOntology());
+            reasoner = checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
+                .createNonBufferingReasoner(man.createOntology());
         } catch (Exception e) {
             throw new OWLRuntimeException(e);
         }
     }
 
     /** The Class AxiomLocalityVisitor. */
-    private class AxiomLocalityVisitor extends OWLAxiomVisitorAdapter implements
-            OWLAxiomVisitor {
+    private class AxiomLocalityVisitor extends OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
 
         private boolean isLocal;
 
@@ -98,8 +94,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         /**
-         * @param axiom
-         *        the axiom
+         * @param axiom the axiom
          * @return true, if is local
          */
         public boolean isLocal(OWLAxiom axiom) {
@@ -127,20 +122,20 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             }
             LOGGER.info("Calling the Reasoner");
             isLocal = reasoner.isEntailed(axiom);
-            LOGGER.info("DONE Calling the Reasoner. isLocal = {}", isLocal);
+            LOGGER.info("DONE Calling the Reasoner. isLocal = {}", Boolean.valueOf(isLocal));
         }
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
             LOGGER.info("Calling the Reasoner");
             isLocal = reasoner.isEntailed(axiom);
-            LOGGER.info("DONE Calling the Reasoner. isLocal = {}", isLocal);
+            LOGGER.info("DONE Calling the Reasoner. isLocal = {}", Boolean.valueOf(isLocal));
         }
     }
 
     /** The Class BottomReplacer. */
-    private class BottomReplacer extends OWLAxiomVisitorAdapter implements
-            OWLAxiomVisitor, OWLClassExpressionVisitor {
+    private class BottomReplacer extends OWLAxiomVisitorAdapter
+        implements OWLAxiomVisitor, OWLClassExpressionVisitor {
 
         private OWLAxiom newAxiom;
         private OWLClassExpression newClassExpression;
@@ -157,51 +152,45 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         /**
          * Replace bottom.
          * 
-         * @param axiom
-         *        the axiom
-         * @param sig
-         *        the sig
+         * @param axiom the axiom
+         * @param sig the sig
          * @return the modified OWL axiom
          */
         @Nonnull
         public OWLAxiom replaceBottom(@Nonnull OWLAxiom axiom,
-                @Nonnull Set<? extends OWLEntity> sig) {
+            @Nonnull Set<? extends OWLEntity> sig) {
             reset(checkNotNull(sig, "sig cannot be null"));
             checkNotNull(axiom, "axiom cannot be null").accept(this);
             return getResult();
         }
 
         /**
-         * Takes an OWLClassExpression and a signature replaces by bottom the
-         * entities not in the signature
+         * Takes an OWLClassExpression and a signature replaces by bottom the entities not in the
+         * signature
          * 
-         * @param desc
-         *        the desc
+         * @param desc the desc
          * @return the modified OWL class expression
          */
         @Nonnull
-        public OWLClassExpression
-                replaceBottom(@Nonnull OWLClassExpression desc) {
+        public OWLClassExpression replaceBottom(@Nonnull OWLClassExpression desc) {
             newClassExpression = null;
             checkNotNull(desc, "desc cannot be null").accept(this);
             if (newClassExpression == null) {
-                throw new OWLRuntimeException("Unsupported class expression "
-                        + desc);
+                throw new OWLRuntimeException("Unsupported class expression " + desc);
             }
             return verifyNotNull(newClassExpression);
         }
 
         /**
-         * @param classExpressions
-         *        the class expressions
+         * @param classExpressions the class expressions
          * @return the set of modified OWL class expressions
          */
         @Nonnull
         public Set<OWLClassExpression> replaceBottom(
-                @Nonnull Set<OWLClassExpression> classExpressions) {
+            @Nonnull Set<OWLClassExpression> classExpressions) {
             Set<OWLClassExpression> result = new HashSet<>();
             for (OWLClassExpression desc : checkNotNull(classExpressions,
-                    "classExpressions cannot be null")) {
+                "classExpressions cannot be null")) {
                 assert desc != null;
                 result.add(replaceBottom(desc));
             }
@@ -211,8 +200,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         /**
          * Reset.
          * 
-         * @param s
-         *        the signature
+         * @param s the signature
          */
         public void reset(@Nonnull Set<? extends OWLEntity> s) {
             signature = checkNotNull(s, "s cannot be null");
@@ -280,23 +268,21 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            Set<OWLClassExpression> disjointclasses = replaceBottom(axiom
-                    .getClassExpressions());
+            Set<OWLClassExpression> disjointclasses = replaceBottom(axiom.getClassExpressions());
             newAxiom = df.getOWLDisjointClassesAxiom(disjointclasses);
         }
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            Set<OWLClassExpression> eqclasses = replaceBottom(axiom
-                    .getClassExpressions());
+            Set<OWLClassExpression> eqclasses = replaceBottom(axiom.getClassExpressions());
             newAxiom = df.getOWLEquivalentClassesAxiom(eqclasses);
         }
 
         @Override
         public void visit(OWLObjectAllValuesFrom ce) {
             if (signature.contains(ce.getProperty().getNamedProperty())) {
-                newClassExpression = df.getOWLObjectAllValuesFrom(
-                        ce.getProperty(), replaceBottom(ce.getFiller()));
+                newClassExpression =
+                    df.getOWLObjectAllValuesFrom(ce.getProperty(), replaceBottom(ce.getFiller()));
             } else {
                 newClassExpression = df.getOWLThing();
             }
@@ -304,8 +290,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectComplementOf ce) {
-            newClassExpression = df.getOWLObjectComplementOf(replaceBottom(ce
-                    .getOperand()));
+            newClassExpression = df.getOWLObjectComplementOf(replaceBottom(ce.getOperand()));
         }
 
         @Override
@@ -320,8 +305,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectIntersectionOf ce) {
             Set<OWLClassExpression> operands = ce.getOperands();
-            newClassExpression = df
-                    .getOWLObjectIntersectionOf(replaceBottom(operands));
+            newClassExpression = df.getOWLObjectIntersectionOf(replaceBottom(operands));
         }
 
         @Override
@@ -355,8 +339,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectSomeValuesFrom ce) {
             if (signature.contains(ce.getProperty().getNamedProperty())) {
-                newClassExpression = df.getOWLObjectSomeValuesFrom(
-                        ce.getProperty(), replaceBottom(ce.getFiller()));
+                newClassExpression =
+                    df.getOWLObjectSomeValuesFrom(ce.getProperty(), replaceBottom(ce.getFiller()));
             } else {
                 newClassExpression = df.getOWLNothing();
             }
@@ -365,8 +349,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectUnionOf ce) {
             Set<OWLClassExpression> operands = ce.getOperands();
-            newClassExpression = df
-                    .getOWLObjectUnionOf(replaceBottom(operands));
+            newClassExpression = df.getOWLObjectUnionOf(replaceBottom(operands));
         }
 
         @Override
@@ -383,11 +366,10 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     @Override
-    public boolean isLocal(@Nonnull OWLAxiom axiom,
-            @Nonnull Set<? extends OWLEntity> signature) {
+    public boolean isLocal(@Nonnull OWLAxiom axiom, @Nonnull Set<? extends OWLEntity> signature) {
         LOGGER.info("Replacing axiom by Bottom");
-        OWLAxiom newAxiom = bottomReplacer.replaceBottom(
-                checkNotNull(axiom, "axiom cannot be null"),
+        OWLAxiom newAxiom =
+            bottomReplacer.replaceBottom(checkNotNull(axiom, "axiom cannot be null"),
                 checkNotNull(signature, "signature cannot be null"));
         return axiomVisitor.isLocal(newAxiom);
     }

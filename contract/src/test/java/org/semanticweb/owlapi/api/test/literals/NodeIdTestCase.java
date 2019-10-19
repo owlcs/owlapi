@@ -29,7 +29,7 @@ public class NodeIdTestCase extends AbstractFileRoundTrippingTestCase {
     }
 
     @Override
-    public void testManchesterOWLSyntax() throws Exception {
+    public void testManchesterOWLSyntax() {
         // Not supported in manchester syntax
     }
 }

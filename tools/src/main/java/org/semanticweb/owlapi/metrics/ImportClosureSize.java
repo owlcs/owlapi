@@ -20,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ImportClosureSize extends IntegerValuedMetric {
@@ -29,8 +28,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
     /**
      * Instantiates a new import closure size.
      * 
-     * @param o
-     *        ontology to use
+     * @param o ontology to use
      */
     public ImportClosureSize(@Nonnull OWLOntology o) {
         super(o);
@@ -38,7 +36,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
 
     @Override
     protected Integer recomputeMetric() {
-        return getOntology().getImportsClosure().size();
+        return Integer.valueOf(getOntology().getImportsClosure().size());
     }
 
     @Override

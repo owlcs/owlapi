@@ -58,7 +58,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
@@ -1048,51 +1047,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     @Override
     public int hashCode() {
         return ontologyID.hashCode();
-    }
-
-    private class OWLEntityReferenceChecker implements OWLEntityVisitor, Serializable {
-
-        OWLEntityReferenceChecker() {}
-
-        private static final long serialVersionUID = 40000L;
-        private boolean ref;
-
-        public boolean containsReference(@Nonnull OWLEntity entity) {
-            ref = false;
-            entity.accept(this);
-            return ref;
-        }
-
-        @Override
-        public void visit(@Nonnull OWLClass cls) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsClassInSignature(cls);
-        }
-
-        @Override
-        public void visit(@Nonnull OWLDatatype datatype) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsDatatypeInSignature(datatype);
-        }
-
-        @Override
-        public void visit(@Nonnull OWLNamedIndividual individual) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsIndividualInSignature(individual);
-        }
-
-        @Override
-        public void visit(@Nonnull OWLDataProperty property) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsDataPropertyInSignature(property);
-        }
-
-        @Override
-        public void visit(@Nonnull OWLObjectProperty property) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsObjectPropertyInSignature(property);
-        }
-
-        @Override
-        public void visit(@Nonnull OWLAnnotationProperty property) {
-            ref =
-                OWLImmutableOntologyImpl.this.ints.containsAnnotationPropertyInSignature(property);
-        }
     }
 
     @Override

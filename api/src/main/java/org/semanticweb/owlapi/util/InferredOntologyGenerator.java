@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -78,8 +76,7 @@ public class InferredOntologyGenerator {
             new InferredEquivalentObjectPropertyAxiomGenerator(),
             new InferredInverseObjectPropertiesAxiomGenerator(),
             new InferredObjectPropertyCharacteristicAxiomGenerator(),
-            new InferredPropertyAssertionGenerator(),
-            new InferredSubClassAxiomGenerator(),
+            new InferredPropertyAssertionGenerator(), new InferredSubClassAxiomGenerator(),
             new InferredSubDataPropertyAxiomGenerator(),
             new InferredSubObjectPropertyAxiomGenerator());
     }
@@ -129,7 +126,8 @@ public class InferredOntologyGenerator {
             try {
                 for (OWLAxiom ax : axiomGenerator.createAxioms(df, reasoner)) {
                     assert ax != null;
-                    if (!ontology.containsAxiom(ax, Imports.INCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS)) {
+                    if (!ontology.containsAxiom(ax, Imports.INCLUDED,
+                        AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS)) {
                         changes.add(new AddAxiom(ontology, ax));
                     }
                 }

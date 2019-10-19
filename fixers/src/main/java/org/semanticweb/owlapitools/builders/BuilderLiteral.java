@@ -42,10 +42,8 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     /**
      * builder initialized from an existing object
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderLiteral(@Nonnull OWLLiteral expected, OWLDataFactory df) {
         this(df);
@@ -64,8 +62,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderLiteral(OWLDataFactory df) {
@@ -81,20 +78,18 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        int value
+     * @param arg int value
      * @return builder
      */
     @Nonnull
     public BuilderLiteral withValue(int arg) {
         clear();
-        intValue = arg;
+        intValue = Integer.valueOf(arg);
         return this;
     }
 
     /**
-     * @param arg
-     *        datatype
+     * @param arg datatype
      * @return builder
      */
     @Nonnull
@@ -103,8 +98,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        datatype
+     * @param arg datatype
      * @return builder
      */
     @Nonnull
@@ -115,44 +109,40 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        boolean value
+     * @param arg boolean value
      * @return builder
      */
     @Nonnull
     public BuilderLiteral withValue(boolean arg) {
         clear();
-        booleanValue = arg;
+        booleanValue = Boolean.valueOf(arg);
         return this;
     }
 
     /**
-     * @param arg
-     *        double value
+     * @param arg double value
      * @return builder
      */
     @Nonnull
     public BuilderLiteral withValue(double arg) {
         clear();
-        doubleValue = arg;
+        doubleValue = Double.valueOf(arg);
         return this;
     }
 
     /**
-     * @param arg
-     *        float value
+     * @param arg float value
      * @return builder
      */
     @Nonnull
     public BuilderLiteral withValue(float arg) {
         clear();
-        floatValue = arg;
+        floatValue = Float.valueOf(arg);
         return this;
     }
 
     /**
-     * @param arg
-     *        literal form
+     * @param arg literal form
      * @return builder
      */
     @Nonnull
@@ -163,8 +153,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        language
+     * @param arg language
      * @return builder
      */
     @Nonnull

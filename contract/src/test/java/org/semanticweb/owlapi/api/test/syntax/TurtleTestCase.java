@@ -318,7 +318,6 @@ public class TurtleTestCase extends TestBase {
             + ":ManagementType rdf:type owl:Class .\n"
             + ":DM rdf:type owl:NamedIndividual , prov:Person .\n"
             + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
-        System.out.println(input);
         OWLOntology ontology = loadOntologyFromString(input, new TurtleDocumentFormat());
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
         Set<OWLSubClassOfAxiom> axioms = o.getAxioms(AxiomType.SUBCLASS_OF);

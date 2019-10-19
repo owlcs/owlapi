@@ -69,7 +69,7 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
                 }
             }
         }
-        return count;
+        return Integer.valueOf(count);
     }
 
     @Override

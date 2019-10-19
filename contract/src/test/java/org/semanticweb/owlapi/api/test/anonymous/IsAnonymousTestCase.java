@@ -33,7 +33,6 @@ public class IsAnonymousTestCase extends TestBase {
     public void shouldCheckAnonymous() throws OWLOntologyCreationException {
         IRI i = IRI.create("urn:test:i");
         IRI j = IRI.create("urn:test:j");
-        IRI k = IRI.create("urn:test:k");
         OWLClass c = df.getOWLClass(i);
         OWLClass c1 = df.getOWLClass(IRI.create("urn:test:c1"));
         OWLClass c2 = df.getOWLClass(IRI.create("urn:test:c2"));

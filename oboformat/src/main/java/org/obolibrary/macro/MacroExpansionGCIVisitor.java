@@ -35,11 +35,11 @@ public class MacroExpansionGCIVisitor {
 
     protected static final Logger LOG =
         LoggerFactory.getLogger(MacroExpansionGCIVisitor.class.getName());
-    private final OWLOntology inputOntology;
+    protected final OWLOntology inputOntology;
     private final OWLOntologyManager outputManager;
     private final OWLOntology outputOntology;
     protected final ManchesterSyntaxTool manchesterSyntaxTool;
-    private final boolean shouldAddExpansionMarker;
+    protected final boolean shouldAddExpansionMarker;
     protected boolean preserveAnnotationsWhenExpanding = false;
 
     /**
@@ -97,12 +97,13 @@ public class MacroExpansionGCIVisitor {
 
     private class MacroExpansions {
 
-        private Set<OWLAxiom> newAxioms = new HashSet<>();
+        protected Set<OWLAxiom> newAxioms = new HashSet<>();
         private Set<OWLAxiom> rmAxioms = new HashSet<>();
         GCIVisitor visitor = new GCIVisitor(inputOntology);
 
         public MacroExpansions() {
             for (OWLSubClassOfAxiom axiom : inputOntology.getAxioms(AxiomType.SUBCLASS_OF)) {
+                // XXX suspected unnecessary variables
                 OWLAxiom newAxiom = visitor.visit(axiom);
                 // System.out.println("not adding " + newAxiom);
             }
@@ -121,13 +122,6 @@ public class MacroExpansionGCIVisitor {
                 if (expand(axiom)) {
                     // System.out.println("not removing " + axiom);
                 }
-            }
-        }
-
-        private void replaceIfDifferent(OWLAxiom ax, OWLAxiom exAx) {
-            if (!ax.equals(exAx)) {
-                newAxioms.add(exAx);
-                rmAxioms.add(ax);
             }
         }
 

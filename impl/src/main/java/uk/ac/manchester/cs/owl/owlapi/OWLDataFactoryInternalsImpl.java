@@ -229,11 +229,14 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
      */
     @Override
     public OWLLiteral getOWLLiteral(String literal, @Nullable String lang) {
+        return super.getOWLLiteral(literal, intern(lang));
+    }
+
+    protected String intern(String lang) {
         if (lang == null) {
-            lang = "";
+            return "";
         }
-        lang = languageTagInterner.intern(lang.trim().toLowerCase());
-        return super.getOWLLiteral(literal, lang);
+        return languageTagInterner.intern(lang.trim().toLowerCase());
     }
 
     private AtomicInteger annotationsCount = new AtomicInteger(0);
@@ -246,7 +249,8 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         if (logger.isDebugEnabled()) {
             int n = annotationsCount.incrementAndGet();
             if (n % 1000 == 0) {
-                logger.debug("{}: Annotations Cache stats: {}", n, annotationsCache.stats());
+                logger.debug("{}: Annotations Cache stats: {}", Integer.valueOf(n),
+                    annotationsCache.stats());
             }
         }
         return annotation;

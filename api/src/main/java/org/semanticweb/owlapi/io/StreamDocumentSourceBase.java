@@ -14,7 +14,13 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -28,13 +34,11 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 /**
  * Base class for common utilities among stream, reader and file input sources.
  * 
- * @since 4.0.0 TODO both stream and reader sources copy the input in memory in
- *        case reloading is needed. This can be bad for memory. Remote loading
- *        will download the ontologies multiple times too, until parsing fails.
- *        Both issues could be addressed with a local file copy.
+ * @since 4.0.0 TODO both stream and reader sources copy the input in memory in case reloading is
+ *        needed. This can be bad for memory. Remote loading will download the ontologies multiple
+ *        times too, until parsing fails. Both issues could be addressed with a local file copy.
  */
-public abstract class StreamDocumentSourceBase extends
-    OWLOntologyDocumentSourceBase {
+public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSourceBase {
 
     @Nonnull
     protected final IRI documentIRI;
@@ -44,45 +48,35 @@ public abstract class StreamDocumentSourceBase extends
     private Boolean readerAvailable = null;
 
     /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
+     * Constructs an input source which will read an ontology from a representation from the
+     * specified stream.
      * 
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param stream The stream that the ontology representation will be read from.
+     * @param documentIRI The document IRI
+     * @param format ontology format
+     * @param mime mime type
      */
-    public StreamDocumentSourceBase(@Nonnull InputStream stream,
-        @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
+    public StreamDocumentSourceBase(@Nonnull InputStream stream, @Nonnull IRI documentIRI,
+        OWLDocumentFormat format, String mime) {
         super(format, mime);
-        this.documentIRI = checkNotNull(documentIRI,
-            "document iri cannot be null");
+        this.documentIRI = checkNotNull(documentIRI, "document iri cannot be null");
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
-        readerAvailable = format == null || format.isTextual();
+        readerAvailable = Boolean.valueOf(format == null || format.isTextual());
     }
 
     /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
+     * Constructs an input source which will read an ontology from a representation from the
+     * specified stream.
      * 
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param stream The stream that the ontology representation will be read from.
+     * @param documentIRI The document IRI
+     * @param format ontology format
+     * @param mime mime type
      */
-    public StreamDocumentSourceBase(@Nonnull Reader stream,
-        @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
+    public StreamDocumentSourceBase(@Nonnull Reader stream, @Nonnull IRI documentIRI,
+        OWLDocumentFormat format, String mime) {
         super(format, mime);
-        this.documentIRI = checkNotNull(documentIRI,
-            "document iri cannot be null");
+        this.documentIRI = checkNotNull(documentIRI, "document iri cannot be null");
         checkNotNull(stream, "stream cannot be null");
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
@@ -90,16 +84,15 @@ public abstract class StreamDocumentSourceBase extends
             encoding = ((InputStreamReader) stream).getEncoding();
         }
         readIntoBuffer(stream);
-        readerAvailable = format == null || format.isTextual();
+        readerAvailable = Boolean.valueOf(format == null || format.isTextual());
     }
 
     /**
-     * Reads all the bytes from the specified stream into a temporary buffer,
-     * which is necessary because we may need to access the input stream more
-     * than once. In other words, this method caches the input stream.
+     * Reads all the bytes from the specified stream into a temporary buffer, which is necessary
+     * because we may need to access the input stream more than once. In other words, this method
+     * caches the input stream.
      * 
-     * @param reader
-     *        The stream to be "cached"
+     * @param reader The stream to be "cached"
      */
     private void readIntoBuffer(@Nonnull InputStream reader) {
         try {
@@ -162,8 +155,7 @@ public abstract class StreamDocumentSourceBase extends
                 "InputStream not available. Check with OWLOntologyDocumentSource.isInputStreamAvailable()");
         }
         try {
-            return new GZIPInputStream(
-                new ByteArrayInputStream(byteBuffer));
+            return new GZIPInputStream(new ByteArrayInputStream(byteBuffer));
         } catch (IOException e) {
             throw new OWLOntologyInputSourceException(e);
         }
@@ -176,8 +168,8 @@ public abstract class StreamDocumentSourceBase extends
                 "Reader not available.  Check with OWLOntologyDocumentSource.isReaderAvailable()");
         }
         try {
-            return new InputStreamReader(wrap(new GZIPInputStream(
-                new ByteArrayInputStream(byteBuffer))), encoding);
+            return new InputStreamReader(
+                wrap(new GZIPInputStream(new ByteArrayInputStream(byteBuffer))), encoding);
         } catch (IOException e) {
             throw new OWLOntologyInputSourceException(e);
         }

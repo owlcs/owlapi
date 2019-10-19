@@ -34,8 +34,8 @@ import org.tukaani.xz.XZOutputStream;
 import com.google.common.io.Closeables;
 
 /**
- * An ontology document target which can write to a XZ File. Notice that this
- * works best when the output stream is closed explicitly in the client code.
+ * An ontology document target which can write to a XZ File. Notice that this works best when the
+ * output stream is closed explicitly in the client code.
  *
  * @author ignazio
  * @since 3.4.8
@@ -48,7 +48,7 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     private OutputStream outputStream;
 
     /**
-     * @param os            the actual file
+     * @param os the actual file
      * @param filterOptions Settings for XZ compression
      */
     public XZFileDocumentTarget(@Nonnull File os, FilterOptions... filterOptions) {
@@ -59,21 +59,24 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     /**
      * Construct an XZ document target using the selected compression preset
      *
-     * @param os          target File
+     * @param os target File
      * @param presetLevel LZMA2 Compression preset level
      * @throws UnsupportedOptionsException if the options selected are not acceptable
      */
-    public XZFileDocumentTarget(@Nonnull File os, int presetLevel) throws UnsupportedOptionsException {
+    public XZFileDocumentTarget(@Nonnull File os, int presetLevel)
+        throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
     }
+
     /**
      * Construct an XZ document target
      *
-     * @param file          target File
+     * @param file target File
      */
     public XZFileDocumentTarget(@Nonnull File file) {
         this(file, new LZMA2Options());
     }
+
     @Override
     public boolean isWriterAvailable() {
         return isOutputStreamAvailable();
@@ -84,7 +87,7 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     public Writer getWriter() {
         if (!isWriterAvailable()) {
             throw new UnsupportedOperationException(
-                    "writer not available; check with isWriterAvailable() first.");
+                "writer not available; check with isWriterAvailable() first.");
         }
         return new OutputStreamWriter(getOutputStream());
     }
@@ -98,7 +101,8 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     public OutputStream getOutputStream() {
         if (outputStream == null) {
             try {
-                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(out));
+                BufferedOutputStream bufferedOutputStream =
+                    new BufferedOutputStream(new FileOutputStream(out));
                 outputStream = new XZOutputStream(bufferedOutputStream, filterOptions);
             } catch (IOException e) {
                 throw new OWLRuntimeException(e);
@@ -119,8 +123,8 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
 
     @Override
     public void close() throws Exception {
-        OutputStream outputStream = this.outputStream;
-        this.outputStream = null;
-        Closeables.close(outputStream, false);
+        OutputStream output = outputStream;
+        outputStream = null;
+        Closeables.close(output, false);
     }
 }

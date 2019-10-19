@@ -6,11 +6,10 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * This class provides a compact implementation of a very small sets - less than
- * or equal to three elements
+ * This class provides a compact implementation of a very small sets - less than or equal to three
+ * elements
  * 
- * @param <T>
- *        set element type
+ * @param <T> set element type
  */
 public class SmallSet<T> extends AbstractSet<T> {
 
@@ -24,14 +23,13 @@ public class SmallSet<T> extends AbstractSet<T> {
     public SmallSet() {}
 
     /**
-     * @param collection
-     *        collection to copy
+     * @param collection collection to copy
      */
     public SmallSet(Collection<T> collection) {
         if (collection.size() > 3) {
             throw new IllegalArgumentException(
-                    "Trying to create a small set with too many elements - max 3, requested: "
-                            + collection.size());
+                "Trying to create a small set with too many elements - max 3, requested: "
+                    + collection.size());
         }
         for (T t : collection) {
             add(t);
@@ -56,8 +54,7 @@ public class SmallSet<T> extends AbstractSet<T> {
             element3 = t;
             return true;
         } else {
-            throw new IllegalStateException(
-                    "cannot store more than 3 elements in a small set");
+            throw new IllegalStateException("cannot store more than 3 elements in a small set");
         }
     }
 
@@ -67,16 +64,13 @@ public class SmallSet<T> extends AbstractSet<T> {
             return false;
         }
         int oHash = o.hashCode();
-        if (element1 != null && oHash == element1.hashCode()
-                && o.equals(element1)) {
+        if (element1 != null && oHash == element1.hashCode() && o.equals(element1)) {
             element1 = null;
             return true;
-        } else if (element2 != null && oHash == element2.hashCode()
-                && o.equals(element2)) {
+        } else if (element2 != null && oHash == element2.hashCode() && o.equals(element2)) {
             element2 = null;
             return true;
-        } else if (element3 != null && oHash == element3.hashCode()
-                && o.equals(element3)) {
+        } else if (element3 != null && oHash == element3.hashCode() && o.equals(element3)) {
             element3 = null;
             return true;
         } else {
@@ -90,14 +84,11 @@ public class SmallSet<T> extends AbstractSet<T> {
             return false;
         }
         int oHash = o.hashCode();
-        if (element1 != null && oHash == element1.hashCode()
-                && o.equals(element1)) {
+        if (element1 != null && oHash == element1.hashCode() && o.equals(element1)) {
             return true;
-        } else if (element2 != null && oHash == element2.hashCode()
-                && o.equals(element2)) {
+        } else if (element2 != null && oHash == element2.hashCode() && o.equals(element2)) {
             return true;
-        } else if (element3 != null && oHash == element3.hashCode()
-                && o.equals(element3)) {
+        } else if (element3 != null && oHash == element3.hashCode() && o.equals(element3)) {
             return true;
         } else {
             return false;
@@ -124,18 +115,21 @@ public class SmallSet<T> extends AbstractSet<T> {
                         } else {
                             cp++;
                         }
+                        //$FALL-THROUGH$
                     case 2:
                         if (element2 != null) {
                             return true;
                         } else {
                             cp++;
                         }
+                        //$FALL-THROUGH$
                     case 3:
                         if (element3 != null) {
                             return true;
                         } else {
                             cp++;
                         }
+                        //$FALL-THROUGH$
                     default:
                         return false;
                 }
@@ -154,8 +148,7 @@ public class SmallSet<T> extends AbstractSet<T> {
                     case 3:
                         return element3;
                 }
-                throw new IllegalStateException(
-                        "Iterator pointing past end of virtual array");
+                throw new IllegalStateException("Iterator pointing past end of virtual array");
             }
         };
     }
@@ -177,7 +170,6 @@ public class SmallSet<T> extends AbstractSet<T> {
 
     @Override
     public String toString() {
-        return String.format("#<SmallSet: %s,%s,%s>", element1, element2,
-                element3);
+        return String.format("#<SmallSet: %s,%s,%s>", element1, element2, element3);
     }
 }

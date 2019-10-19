@@ -54,8 +54,6 @@ import uk.ac.manchester.cs.owl.owlapi.util.collections.SmallSet;
  */
 public class MapPointer<K, V extends OWLAxiom> {
 
-    private static final float DEFAULT_LOAD_FACTOR = 0.75F;
-    private static final int DEFAULT_INITIAL_CAPACITY = 5;
     @Nullable
     private final AxiomType<?> type;
     @Nullable
@@ -111,7 +109,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         map.keys().forEach(k);
         iris = new SoftReference<>(set);
         return set;
-            }
+    }
 
     protected void consumer(Set<IRI> set, ObjectCursor<K> k) {
         if (k.value instanceof OWLEntity) {
@@ -133,7 +131,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * 
      * @return the map pointer
      */
-    @SuppressWarnings({ "unchecked", "null" })
+    @SuppressWarnings({"unchecked", "null"})
     public synchronized MapPointer<K, V> init() {
         if (initialized) {
             return this;
@@ -444,22 +442,22 @@ class HPPCSet<S> implements Collection<S> {
         delegate = new ObjectHashSet<>(container.size() + 1);
         addAll(container);
         add(s);
-            }
+    }
 
     @Override
     public int size() {
         return delegate.size();
-        }
+    }
 
-        @Override
+    @Override
     public boolean isEmpty() {
         return delegate.isEmpty();
-            }
+    }
 
     @Override
     public boolean contains(@Nullable Object o) {
         return delegate.contains((S) o);
-        }
+    }
 
     @Override
     public Iterator<S> iterator() {
@@ -469,12 +467,12 @@ class HPPCSet<S> implements Collection<S> {
             @Override
             public boolean hasNext() {
                 return iterator.hasNext();
-    }
+            }
 
             @Override
             public S next() {
                 return iterator.next().value;
-        }
+            }
         };
     }
 
@@ -486,7 +484,7 @@ class HPPCSet<S> implements Collection<S> {
     @Override
     public <T> T[] toArray(@Nullable T[] a) {
         throw new UnsupportedOperationException("Not suppoerted for " + getClass());
-        }
+    }
 
     @Override
     public boolean add(@Nullable S e) {
@@ -506,7 +504,7 @@ class HPPCSet<S> implements Collection<S> {
             }
         }
         return true;
-                }
+    }
 
     @Override
     public boolean addAll(@Nullable Collection<? extends S> c) {

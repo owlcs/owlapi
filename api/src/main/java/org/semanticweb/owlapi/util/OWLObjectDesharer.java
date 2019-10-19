@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
@@ -588,7 +587,8 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public OWLAnnotation visit(OWLAnnotation node) {
-        return df.getOWLAnnotation(get(node.getProperty()), get(node.getValue()), list(node.getAnnotations()));
+        return df.getOWLAnnotation(get(node.getProperty()), get(node.getValue()),
+            list(node.getAnnotations()));
     }
 
     @Override

@@ -240,13 +240,14 @@ public class EntitySearcher {
      * 
      * @param e entity
      * @param ontologies The ontologies to examine for annotation axioms
-     * @param annotationProperty The annotation property
+     * @param annotationProperty The annotation property. If null, any annotation property will
+     *        match
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
     @Nonnull
     public static Collection<OWLAnnotation> getAnnotationObjects(@Nonnull OWLAnnotationSubject e,
         @Nonnull Iterable<OWLOntology> ontologies,
-        @Nonnull OWLAnnotationProperty annotationProperty) {
+        @Nullable OWLAnnotationProperty annotationProperty) {
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLOntology o : ontologies) {
             assert o != null;

@@ -18,17 +18,20 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * Counts the number of "hidden" GCIs in an ontology imports closure. A GCI is
- * regarded to be a "hidden" GCI if it is essentially introduce via an
- * equivalent class axiom and a subclass axioms where the LHS of the subclass
- * axiom is nameed. For example, A equivalentTo p some C, A subClassOf B results
- * in a "hidden" GCI.
+ * Counts the number of "hidden" GCIs in an ontology imports closure. A GCI is regarded to be a
+ * "hidden" GCI if it is essentially introduce via an equivalent class axiom and a subclass axioms
+ * where the LHS of the subclass axiom is nameed. For example, A equivalentTo p some C, A subClassOf
+ * B results in a "hidden" GCI.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
  */
 public class HiddenGCICount extends IntegerValuedMetric {
@@ -36,8 +39,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
     /**
      * Instantiates a new hidden gci count.
      * 
-     * @param o
-     *        ontology to use
+     * @param o ontology to use
      */
     public HiddenGCICount(@Nonnull OWLOntology o) {
         super(o);
@@ -87,7 +89,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
                 }
             }
         }
-        return result.size();
+        return Integer.valueOf(result.size());
     }
 
     @Override

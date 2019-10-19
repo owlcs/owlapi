@@ -941,8 +941,8 @@ public class StructuralReasoner extends OWLReasonerBase {
                 }
             }
             pm.reasonerTaskProgressChanged(processed.size(), classificationSize);
-            indexMap.put(entity, index);
-            lowlinkMap.put(entity, index);
+            indexMap.put(entity, Integer.valueOf(index));
+            lowlinkMap.put(entity, Integer.valueOf(index));
             index += 1;
             stack.push(entity);
             stackEntities.add(entity);
@@ -973,10 +973,12 @@ public class StructuralReasoner extends OWLReasonerBase {
                     tarjan(superEntity, index, stack, indexMap, lowlinkMap, result, processed,
                         stackEntities, cache, childrenOfTop, parentsOfBottom);
                     lowlinkMap.put(entity,
-                        Math.min(lowlinkMap.get(entity), lowlinkMap.get(superEntity)));
+                        Integer.valueOf(Math.min(lowlinkMap.get(entity).intValue(),
+                            lowlinkMap.get(superEntity).intValue())));
                 } else if (stackEntities.contains(superEntity)) {
                     lowlinkMap.put(entity,
-                        Math.min(lowlinkMap.get(entity), indexMap.get(superEntity)));
+                        Integer.valueOf(Math.min(lowlinkMap.get(entity).intValue(),
+                            indexMap.get(superEntity).intValue())));
                 }
             }
             if (lowlinkMap.get(entity).equals(indexMap.get(entity))) {

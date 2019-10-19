@@ -48,7 +48,7 @@ public abstract class InferredObjectPropertyAxiomGenerator<A extends OWLObjectPr
     }
 
     protected abstract void addAxioms(OWLObjectProperty entity, @Nonnull OWLReasoner reasoner,
-        OWLDataFactory dataFactory, Set<A> result,
+        @Nonnull OWLDataFactory dataFactory, Set<A> result,
         Set<OWLObjectPropertyExpression> nonSimpleProperties);
 
     protected boolean simple(Set<OWLObjectPropertyExpression> nonSimpleProperties, OWLObject e) {

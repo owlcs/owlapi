@@ -31,19 +31,18 @@ import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 
 /**
- * Represents the concrete representation format of an ontology. The equality of
- * an ontology format is defined by the equals and hashCode method (not its
- * identity).
+ * Represents the concrete representation format of an ontology. The equality of an ontology format
+ * is defined by the equals and hashCode method (not its identity).
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
     private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
-    @Nonnull private OWLOntologyLoaderMetaData loaderMetaData = new RDFParserMetaData();
+    @Nonnull
+    private OWLOntologyLoaderMetaData loaderMetaData = new RDFParserMetaData();
     private boolean addMissingTypes = true;
 
     @Override
@@ -52,20 +51,16 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     }
 
     /**
-     * Determines if a declaration axiom (type triple) needs to be added to the
-     * specified ontology for the given entity.
+     * Determines if a declaration axiom (type triple) needs to be added to the specified ontology
+     * for the given entity.
      * 
-     * @param entity
-     *        The entity
-     * @param ontology
-     *        The ontology.
-     * @return {@code false} if the entity is built in. {@code false} if the
-     *         ontology doesn't contain the entity in its signature.
-     *         {@code false} if the entity is already declared in the imports
-     *         closure of the ontology. {@code false} if the transitive imports
-     *         does not contain the ontology but the entity is contained in the
-     *         signature of one of the imported ontologies, {@code true} if none
-     *         of the previous conditions are met.
+     * @param entity The entity
+     * @param ontology The ontology.
+     * @return {@code false} if the entity is built in. {@code false} if the ontology doesn't
+     *         contain the entity in its signature. {@code false} if the entity is already declared
+     *         in the imports closure of the ontology. {@code false} if the transitive imports does
+     *         not contain the ontology but the entity is contained in the signature of one of the
+     *         imported ontologies, {@code true} if none of the previous conditions are met.
      */
     public static boolean isMissingType(@Nonnull OWLEntity entity, OWLOntology ontology) {
         // We don't need to declare built in entities
@@ -94,17 +89,14 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     }
 
     /**
-     * @param signature
-     *        signature for the ontology
-     * @param punnedEntities
-     *        the set of entities that are known already to be punned
-     * @param add
-     *        true if missing declarations should be added. If false, no
-     *        declarations will be added.
+     * @param signature signature for the ontology
+     * @param punnedEntities the set of entities that are known already to be punned
+     * @param add true if missing declarations should be added. If false, no declarations will be
+     *        added.
      * @return collection of IRIS used in illegal punnings
      */
-    public static Collection<IRI> determineIllegalPunnings(boolean add, Collection<OWLEntity> signature,
-        Collection<IRI> punnedEntities) {
+    public static Collection<IRI> determineIllegalPunnings(boolean add,
+        Collection<OWLEntity> signature, Collection<IRI> punnedEntities) {
         if (!add) {
             return CollectionFactory.emptySet();
         }
@@ -120,11 +112,14 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
         Collection<IRI> illegals = new HashSet<>();
         for (IRI i : punnings.keySet()) {
             Collection<EntityType<?>> puns = punnings.get(i);
-            if (puns.contains(EntityType.OBJECT_PROPERTY) && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
+            if (puns.contains(EntityType.OBJECT_PROPERTY)
+                && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
                 illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY) && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
+            } else if (puns.contains(EntityType.DATA_PROPERTY)
+                && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
                 illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY) && puns.contains(EntityType.OBJECT_PROPERTY)) {
+            } else if (puns.contains(EntityType.DATA_PROPERTY)
+                && puns.contains(EntityType.OBJECT_PROPERTY)) {
                 illegals.add(i);
             } else if (puns.contains(EntityType.DATATYPE) && puns.contains(EntityType.CLASS)) {
                 illegals.add(i);
@@ -190,12 +185,5 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     @Override
     public String toString() {
         return getKey();
-    }
-
-    private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData, Serializable {
-
-        private static final long serialVersionUID = 40000L;
-
-        NullLoaderMetaData() {}
     }
 }
