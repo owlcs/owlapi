@@ -46,6 +46,8 @@ public class DocumentSources {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DocumentSources.class);
     private static final String ZIP_FILE_EXTENSION = ".zip";
+    private static final String GZ_FILE_EXTENSION = ".gz";
+    private static final String XZ_FILE_EXTENSION = ".xz";
     private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
     private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN =
         Pattern.compile(".*filename=\"([^\\s;]*)\".*");
@@ -252,20 +254,26 @@ public class DocumentSources {
 
     protected static InputStream handleZips(IRI documentIRI, URLConnection conn, InputStream is)
         throws IOException {
-        if (!isZipName(documentIRI, conn)) {
-            return is;
-        }
-        ZipInputStream zis = new ZipInputStream(is);
-        ZipEntry entry = null;
-        ZipEntry nextEntry = zis.getNextEntry();
-        // XXX is this a bug?
-        while (entry != null && nextEntry != null) {
-            if (couldBeOntology(nextEntry)) {
-                entry = nextEntry;
+        if (isZipName(documentIRI, conn)) {
+            ZipInputStream zis = new ZipInputStream(is);
+            ZipEntry entry = null;
+            ZipEntry nextEntry = zis.getNextEntry();
+            // XXX is this a bug?
+            while (entry != null && nextEntry != null) {
+                if (couldBeOntology(nextEntry)) {
+                    entry = nextEntry;
+                }
+                nextEntry = zis.getNextEntry();
             }
-            nextEntry = zis.getNextEntry();
+            return zis;
         }
-        return zis;
+        if (isGzName(documentIRI, conn)) {
+            return new BufferedInputStream(new GZIPInputStream(is));
+        }
+        if (isXzName(documentIRI, conn)) {
+            is = new BufferedInputStream(new XZInputStream(is));
+        }
+        return is;
     }
 
     @Nullable
@@ -322,11 +330,11 @@ public class DocumentSources {
             fileName = conn.getURL().toString();
         }
         if (fileName != null) {
-            if (fileName.endsWith(".gz")) {
+            if (isGzFileName(fileName)) {
                 LOGGER.info("URL connection has no content encoding but name ends with .gz");
                 return new BufferedInputStream(new GZIPInputStream(in));
             }
-            if (fileName.endsWith(".xz")) {
+            if (isXzFileName(fileName)) {
                 LOGGER.info("URL connection has no content encoding but name ends with .xz");
                 return new BufferedInputStream(new XZInputStream(in));
             }
@@ -361,6 +369,24 @@ public class DocumentSources {
         }
     }
 
+    private static boolean isGzName(IRI documentIRI, URLConnection connection) {
+        if (isGzFileName(documentIRI.toString())) {
+            return true;
+        } else {
+            String fileName = getFileNameFromContentDisposition(connection);
+            return fileName != null && isGzFileName(fileName);
+        }
+    }
+
+    private static boolean isXzName(IRI documentIRI, URLConnection connection) {
+        if (isXzFileName(documentIRI.toString())) {
+            return true;
+        } else {
+            String fileName = getFileNameFromContentDisposition(connection);
+            return fileName != null && isXzFileName(fileName);
+        }
+    }
+
     @Nullable
     private static String getFileNameFromContentDisposition(URLConnection connection) {
         String contentDispositionHeaderValue =
@@ -377,5 +403,13 @@ public class DocumentSources {
 
     private static boolean isZipFileName(String fileName) {
         return fileName.toLowerCase(Locale.getDefault()).endsWith(ZIP_FILE_EXTENSION);
+    }
+
+    private static boolean isGzFileName(String fileName) {
+        return fileName.toLowerCase(Locale.getDefault()).endsWith(GZ_FILE_EXTENSION);
+    }
+
+    private static boolean isXzFileName(String fileName) {
+        return fileName.toLowerCase(Locale.getDefault()).endsWith(XZ_FILE_EXTENSION);
     }
 }
