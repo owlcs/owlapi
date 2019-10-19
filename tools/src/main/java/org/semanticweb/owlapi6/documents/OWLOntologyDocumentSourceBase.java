@@ -141,33 +141,36 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
                 throw new IOException("Response has no body");
             }
             try (InputStream in = body.byteStream()) {
-                if (encoding != null) {
-                    switch (encoding) {
-                        case "xz":
-                            return c.apply(new XZInputStream(in));
-                        case "gzip":
-                            return c.apply(new GZIPInputStream(in));
-                        case "deflate":
-                            return c.apply(new InflaterInputStream(in, new Inflater(true)));
-                        default:
-                            break;
-                    }
-                }
                 String fileName = getFileNameFromContentDisposition(response.header("Content-Disposition"));
                 if (fileName == null) {
                     fileName = iri;
                 }
-                if (fileName.endsWith(".gz")) {
-                    return c.apply(new GZIPInputStream(in));
-                }
-                if (fileName.endsWith(".xz")) {
-                    try (XZInputStream xz = new XZInputStream(in)) {
-                        return c.apply(xz);
+                if (encoding != null) {
+                    switch (encoding) {
+                        case "xz":
+                            return c.apply(checkRemoteFileName(new XZInputStream(in), fileName));
+                        case "gzip":
+                            return c.apply(checkRemoteFileName(new GZIPInputStream(in), fileName));
+                        case "deflate":
+                            return c
+                                .apply(checkRemoteFileName(new InflaterInputStream(in, new Inflater(true)), fileName));
+                        default:
+                            break;
                     }
                 }
-                return c.apply(handleZips(in, fileName));
+                return c.apply(checkRemoteFileName(in, fileName));
             }
         }
+    }
+
+    private static InputStream checkRemoteFileName(InputStream in, String fileName) throws IOException {
+        if (fileName.endsWith(".gz")) {
+            return new GZIPInputStream(in);
+        }
+        if (fileName.endsWith(".xz")) {
+            return new XZInputStream(in);
+        }
+        return handleZips(in, fileName);
     }
 
     private static Response getResponse(String documentIRI, OntologyConfigurator config, String acceptHeaders)
