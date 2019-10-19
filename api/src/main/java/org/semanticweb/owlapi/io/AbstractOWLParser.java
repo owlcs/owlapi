@@ -56,6 +56,8 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractOWLParser.class);
     private static final String ZIP_FILE_EXTENSION = ".zip";
+    private static final String GZ_FILE_EXTENSION = ".gz";
+    private static final String XZ_FILE_EXTENSION = ".xz";
     private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
     private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN =
         Pattern.compile(".*filename=\"([^\\s;]*)\".*");
@@ -131,11 +133,18 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
             }
         }
         String contentEncoding = conn.getContentEncoding();
+        String fileName = getFileNameFromContentDisposition(conn);
+        if (fileName == null && conn.getURL() != null) {
+            fileName = conn.getURL().toString();
+        }
         InputStream is = null;
         int count = 0;
         while (count < config.getRetriesToAttempt() && is == null) {
             try {
-                is = getInputStreamFromContentEncoding(conn, contentEncoding);
+                is = getInputStreamFromContentEncoding(fileName, conn, contentEncoding);
+                if (is != null) {
+                    return is;
+                }
             } catch (SocketTimeoutException e) {
                 count++;
                 if (count == 5) {
@@ -147,8 +156,12 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         if (is == null) {
             throw new IOException("cannot connect to " + documentIRI + "; retry limit exhausted");
         }
-        if (isZipName(documentIRI, conn)) {
-            ZipInputStream zis = new ZipInputStream(is);
+        return checkFileName(fileName, is);
+    }
+
+    private static InputStream checkFileName(String fileName, InputStream in) throws IOException {
+        if (isZipFileName(fileName)) {
+            ZipInputStream zis = new ZipInputStream(in);
             ZipEntry entry = null;
             ZipEntry nextEntry = zis.getNextEntry();
             while (entry != null && nextEntry != null) {
@@ -157,9 +170,15 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                 }
                 nextEntry = zis.getNextEntry();
             }
-            is = zis;
+            return zis;
         }
-        return is;
+        if (isGzFileName(fileName)) {
+            return new GZIPInputStream(in);
+        }
+        if (isXzFileName(fileName)) {
+            return new XZInputStream(in);
+        }
+        return in;
     }
 
     private static boolean couldBeOntology(@Nullable ZipEntry zipEntry) {
@@ -170,50 +189,29 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     }
 
     @Nonnull
-    private static InputStream getInputStreamFromContentEncoding(@Nonnull URLConnection conn,
-        @Nullable String contentEncoding) throws IOException {
+    private static InputStream getInputStreamFromContentEncoding(String fileName,
+        @Nonnull URLConnection conn, @Nullable String contentEncoding) throws IOException {
         InputStream is = null;
         InputStream connInputStream = conn.getInputStream();
         if (contentEncoding != null) {
             if ("xz".equals(contentEncoding)) {
                 LOGGER.info("URL connection input stream is compressed using xz");
-                is = new BufferedInputStream(new XZInputStream(connInputStream));
+                is = new BufferedInputStream(
+                    checkFileName(fileName, new XZInputStream(connInputStream)));
             } else if ("gzip".equals(contentEncoding)) {
                 LOGGER.info("URL connection input stream is compressed using gzip");
-                is = new BufferedInputStream(new GZIPInputStream(connInputStream));
+                is = new BufferedInputStream(
+                    checkFileName(fileName, new GZIPInputStream(connInputStream)));
             } else if ("deflate".equals(contentEncoding)) {
                 LOGGER.info("URL connection input stream is compressed using deflate");
-                is = OWLOntologyDocumentSourceBase
-                    .wrap(new InflaterInputStream(connInputStream, new Inflater(true)));
-            }
-        } else {
-            String fileName = getFileNameFromContentDisposition(conn);
-            if (fileName == null && conn.getURL() != null) {
-                fileName = conn.getURL().toString();
-            }
-            if (fileName != null) {
-                if (fileName.endsWith(".gz")) {
-                    LOGGER.info("URL connection has no content encoding but name ends with .gz");
-                    is = new BufferedInputStream(new GZIPInputStream(connInputStream));
-                } else if (fileName.endsWith(".xz")) {
-                    LOGGER.info("URL connection has no content encoding but name ends with .xz");
-                    is = new BufferedInputStream(new XZInputStream(connInputStream));
-                }
+                is = OWLOntologyDocumentSourceBase.wrap(checkFileName(fileName,
+                    new InflaterInputStream(connInputStream, new Inflater(true))));
             }
         }
         if (is == null) {
-            is = OWLOntologyDocumentSourceBase.wrap(connInputStream);
+            return OWLOntologyDocumentSourceBase.wrap(checkFileName(fileName, connInputStream));
         }
         return is;
-    }
-
-    private static boolean isZipName(@Nonnull IRI documentIRI, @Nonnull URLConnection connection) {
-        if (isZipFileName(documentIRI.toString())) {
-            return true;
-        } else {
-            String fileName = getFileNameFromContentDisposition(connection);
-            return fileName != null && isZipFileName(fileName);
-        }
     }
 
     @Nullable
@@ -232,6 +230,14 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     private static boolean isZipFileName(@Nonnull String fileName) {
         return fileName.toLowerCase(Locale.getDefault()).endsWith(ZIP_FILE_EXTENSION);
+    }
+
+    private static boolean isGzFileName(@Nonnull String fileName) {
+        return fileName.toLowerCase(Locale.getDefault()).endsWith(GZ_FILE_EXTENSION);
+    }
+
+    private static boolean isXzFileName(@Nonnull String fileName) {
+        return fileName.toLowerCase(Locale.getDefault()).endsWith(XZ_FILE_EXTENSION);
     }
 
     @Nonnull
