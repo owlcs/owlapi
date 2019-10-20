@@ -290,8 +290,8 @@ public class DLExpressivityCheckerTestCase extends TestBase {
     private List<Languages> within;
     private List<Languages> minimal;
 
-    public DLExpressivityCheckerTestCase(@SuppressWarnings("unused") String expected, String expectedStrict,
-        List<Construct> c, List<Languages> exp, List<Languages> within, List<Languages> min, List<OWLAxiom> objects) {
+    public DLExpressivityCheckerTestCase(String expected, String expectedStrict, List<Construct> c, List<Languages> exp,
+        List<Languages> within, List<Languages> min, List<OWLAxiom> objects) {
         this.objects = objects;
         this.expected = expectedStrict;
         constructs = c;

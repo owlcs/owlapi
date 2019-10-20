@@ -2658,8 +2658,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             return this;
         }
 
-        public ExceptionBuilder withMessage(String message) {
-            this.message = message;
+        public ExceptionBuilder withMessage(String m) {
+            message = m;
             return this;
         }
 

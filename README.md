@@ -22,39 +22,136 @@ The following components are included:
 
 ## Release notes
 
-5.1.7 02 Sep 2018
+## 5.1.12 20 October 2019
 
-Features:
+### Bug fixes:
+
+*    Implement Allow gzipped imports #887
+*    Fix Race condition in Injector #883
+*    Jackson update
+*    Fix containsReference(OWLEntity) should be deprecated #864
+*    Fix referencingAxioms(OWLPrimitive) misses IRI appearances #865
+*    Fix Javadoc on applyChange/applyChanges and using the wrong manager #868
+*    Fix OWLObjectPropertyExpression#getSimplified() used incorrectly #882
+*    Fix Incomplete javadoc on OWLNaryAxiom#asPairwiseAxioms #884
+*    Fix OWLNegative*AssertionAxiom#containsAnonymousIndividuals javadoc #885
+*    Fix Annotated axiom with anon expression saved incorrectly #881
+*    Fix Ontology with relative IRIs is serialized incorrectly #880
+*    Fix Ann. annotation with anon individual saved in RDF incorrectly #877
+*    Fix Annotations dropped if annotation property is undeclared #875
+*    Fix SAXException from AutoIRIMapper at debug logging level #878
+*    Ensure isAnonymous is implemented correctly #867
+*    Fix Null pointers with imports and relation declarations #859
+*    Amend base and escaped characters in Tutle parsing #857
+*    Fix Exception when converting obi to obo #860
+
+
+## 5.1.11 02 June 2019
+
+### Features:
+
+*    Add support to load an ontology from classpath #837
+*    Implement Allow annotations to be skipped in module extraction #838
+*    Add support for custom tags in obo files.
+
+### Bug fixes:
+
+*    Fix Unescaping characters: OBOFormatParser#handleNextChar() #822
+*    Fix IRI PREFIX_CACHE instance uses too much memory #825
+*    Fix roundtrip of escaped values #833
+*    Fix MaximumNumberOfNamedSuperclasses should count super classes #836
+*    Fix OWLDataPropertyAxiom not a subinterface of OWLPropertyAxiom #831
+*    Fix HTTP 307 and HTTP 308 redirects are not followed (in 4.x) #821
+*    Fix Missing escape character in OBO output #828
+*    Fix 5.1.10 Regression in OwlStringTools#translate(..) #829
+*    Fixed several incorrect XSD datatype matching patterns.
+*    Fix OWLDataFactory::getLiteral error with empty string and integer #846
+*    Fix Unnecessary dc prefix added by Manchester syntax parser #845
+*    Fix Multiple Ontology Definitions should obey strict parsing #840
+*    Fix OWLLogicalEntity is not an OWLAnnotationProperty #847
+*    Security: Jackson to 2.9.9
+*    Fix Manchester syntax parser crashes on class/property punning #851
+*    Fix OBO parser does not support qualifier block #852
+
+
+## 5.1.10 04 March 2019
+
+### Bug fixes:
+
+*    Fix DLExpressivity checker never computes anything #810
+*    Jackson version to 2.9.8
+*    Fix ensure allValuesFrom axioms are not lost #808
+*    Fix HTTP 307 and HTTP 308 redirects are not followed #821
+*    Fix OBO renderer stuck with untranslatable axioms on concurrent managers
+*    Fix Annotations on DifferentIndividualsAxioms lost #816
+*    Fix No roundtrip for IRIs with colons in the fragment or path #817
+*    Fix EOFException in CustomTokenizer #813
+*    Fix Cyclic imports and missing declarations cause parsing error #798
+
+## 5.1.9 12 December 2018
+
+### Bug fixes:
+
+*    Refactor OWLProfile implementations #638
+*    Fix Missing user defined datatype violation in literals #639
+*    Fix RDFGraph getSubjectsForObjects caught in infinite loop #809
+
+## 5.1.8 1 December 2018
+
+### Features:
+
+*    Add OWLClassExpression.isNamed method #790
+*    Fix injection problem under OSGi
+*    Implement Allow Atomic Decomposition to skip assertions #796
+*    Expressivity Checker for EL and FL #500
+
+### Bug fixes:
+
+*    Fix ReadWriteLock should be injector singleton #785
+*    Fix Cyclic import of versioned ontologies fails #788
+*    Fix Annotate ontology annotations #791
+*    Fix Incorrect documentation for OWLOntologyManager methods. #795
+*    DisjointClasses with OWL:Thing produces incorrect axiom #747
+*    Fix Concurrent managers with own lock shared with own ontologies #806
+
+## 5.1.7 2 September 2018
+
+### Features:
+
 *    PROV and TIME vocabularies
 
-Bug fixes:
+### Bug fixes:
+
 *    Add representativeInstances() to OWLReasoner #772
 *    SWRLRule hash code computed incorrectly
 *    Fix OWLOntology with shared structure causes incorrect RDF/XML #780
 
-5.1.6 24 Jul 2018
+## 5.1.6 24 July 2018
 
-Features:
+### Features:
+
 *    Remove Guice dependencies
 *    Upgrade to jsonld-java version 0.12.0 (performance) #763
 *    Allow building with Java 10
 
-Bug fixes:
+### Bug fixes:
+
 *    Move from Trove4j to HPPC-RT #774
 *    Fix incorrect sorting of OBO header tags
 *    Fix Line breaks in rdfs:label cause invalid FS output #758
 *    Fix AutoIriMapper chooses wrong IRIs. #755
 
+## 5.1.5 23 April 2018
 
-5.1.5 23 Apr 2018
+### Features:
 
-Features:
 *    Add an option to represent version build as strings
 *    Implement #375 OWLZip reader and writer
 *    Allow trimming to size after load to be disabled
 *    do not register deprecated oboparser by default #729
 
-Bug fixes:
+### Bug fixes:
+
 *    Fix SWRL variable IRIs violate URN spec #732
 *    default IRI for unnamed ontologies is not valid
 *    doubling of # at the end of default namespace
@@ -62,36 +159,34 @@ Bug fixes:
 *    Fix OWL/XML writes langString unnecessarily #748
 *    Fix importsDeclaration not returning imports for *.obo #727
 
+## 5.1.4 4 January 2018
 
-5.1.4 04 Jan 2018
-
-Features:
+### Features:
 
 *    Support Authorization header in remote loading
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix Problem saving ontologies in Turtle #719
 *    Fix Null pointer in OWLObjectPropertyManager #723
 *    Remove com.google.inject and add exclusion of javax.annotation. #720
 
-
-5.1.3 04 Nov 2017
+## 5.1.3 4 November 2017
 
 Features:
 
 * Performance improvements on parsing of large ontologies.
 
-5.1.2 13 Oct 2017
+## 5.1.2 13 October 2017
 
-Features:
+### Features:
 
 *    Accept Headers to include all MIME types with supporting parsers #705
 *    Add HasAnnotationValue interface with methods for mapping
 *    Optional methods for OWLOntologyChange
 *    Implement efficient way to test if an ontology refers entity type #698
 
-Bug fixes:
+### Bug fixes:
 
 *    Do not output xsd:string when unnecessary #640
 *    OWL/XML should reject XML files that are not valid OWL/XML #657
@@ -104,32 +199,23 @@ Bug fixes:
 *    Fix AtomicDecomposition throws Nullpointer #695
 *    Fix hashcode and equals on OWLOntology differ #694
 
-5.1.1 25 July 2017
+## 5.1.1 25 July 2017
 
-Features:
+### Features:
 
 *    Add REPAIR_ILLEGAL_PUNNINGS property to disable fix of illegal punnings
 *    Move punning log to warning
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix Profiles.OWL2_FULL returns Profiles.OWL2_DL #667
 *    Fix EntitySearcher.getEquivalentClasses incorrectly returns itself #663
 *    OWLEntityRenamer should rename annotation props in ontology annotations
 *    Fix blank node ids should be NCNames in the RDF/XML output #689
 
-5.1.0 30 Mar 2017
+## 5.1.0 30 March 2017
 
-Bug fixes:
-
-*    Fix Relating to inferred axiom generators #646
-*    Fix duplication and inverseOf properties in generators #646
-*    Fix SimpleRenderer writes InverseOf instead of ObjectInverseOf #647
-*    Fix nested annotation bug
-*    Fix Turtle parser failure on some bioportal ontology #610
-*    Fix Manchester expression parser bug with data cardinalities #609
-
-Features:
+### Features:
 
 *    Add stream support on reasoning interface.
 *    Allow SyntacticLocalityModuleExtractor to exclude assertions. #462
@@ -142,9 +228,18 @@ Features:
 *    Implement Zip with dependencies included for non Maven users #584
 *    Dependencies update, move to rdf4j
 
-5.0.5 4 Jan 2017
+### Bug fixes:
 
-Bug fixes:
+*    Fix Relating to inferred axiom generators #646
+*    Fix duplication and inverseOf properties in generators #646
+*    Fix SimpleRenderer writes InverseOf instead of ObjectInverseOf #647
+*    Fix nested annotation bug
+*    Fix Turtle parser failure on some bioportal ontology #610
+*    Fix Manchester expression parser bug with data cardinalities #609
+
+## 5.0.5 4 January 2017
+
+### Bug fixes:
 
 *    Allow supplier for null error messages
 *    IsAnonymous, isIndividual, isAxiom, isAnonymousExpression on OWLObject
@@ -162,16 +257,15 @@ Bug fixes:
 *    Fix IRIs with query string cause OFN unparseable output #570
 *    Fix Unqualified data restriction considered qualified #576
 
+## 5.0.4 16 October 2016
 
-5.0.4 16 October 2016
-
-Bug fixes:
+### Bug fixes:
 
 *    Serializability issues
 
-5.0.3 10 Sep 2016
+## 5.0.3 10 September 2016
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix OMN Parser mistakes punned class for object property #548
 *    Fix OWL/XML format does not support SWRL variable IRIs #535
@@ -189,9 +283,16 @@ Bug fixes:
 *    Fix Turtle Renderer doesn't escape periods #525
 *    Fix Import IRI not resolved correctly in OBO input #523
 
-5.0.2 7 May 2016
+## 5.0.2 7 May 2016
 
-Bug fixes:
+### Features:
+
+*    Allow banning of parsers #510
+*    Allow disabling banner comments
+*    Move builders to api to be able to use them in parsers
+*    Make AxiomType Comparable
+
+### Bug fixes:
 
 *    Fix performance regression in String.intern() and improve memory footprint
 *    Fix Default prefix overrides explicit prefixes #522
@@ -202,16 +303,9 @@ Bug fixes:
 *    Fix Annotated entities not declared in RDF/XML #511
 *    Fix XML literal is not self contained #509
 
-Features:
+## 5.0.1 19 March 2016
 
-*    Allow banning of parsers #510
-*    Allow disabling banner comments
-*    Move builders to api to be able to use them in parsers
-*    Make AxiomType Comparable
-
-5.0.1 19 March 2016
-
-Bug fixes:
+### Bug fixes:
 
 *    Fix Fixing punnings fails on dp subDataPropertyOf rdfs:label #505
 *    "Dumping remaining triples" displayed when no triples left #502
@@ -223,9 +317,9 @@ Bug fixes:
 *    Fix Saving fails for ontologies containing XMLLiteral #495
 *    Fix Anonymous individuals parsing problems #494
 
-5.0.0 28 February 2015
+## 5.0.0 28 February 2015
 
-Features:
+### Features:
 
 *    Allow overridable and defaultable properties
 *    FaCT++ AD implementation from OWLAPITOOLS
@@ -251,23 +345,143 @@ Features:
 *    Declaration of save methods on OWLOntology
 *    OWLAPI 5 uses Java 8
 
-4.5.5 02 Sep 2018
+## 4.5.14 19 October 2019
 
-Features:
+### Bug fixes:
+
+*    Implement Allow gzipped imports #887
+*    Fix Race condition in Injector #883
+*    Jackson update
+*    Fix containsReference(OWLEntity) should be deprecated #864
+*    Fix Javadoc on applyChange/applyChanges and using the wrong manager #868
+*    Fix OWLObjectPropertyExpression#getSimplified() used incorrectly #882
+*    Fix Incomplete javadoc on OWLNaryAxiom#asPairwiseAxioms #884
+*    Fix OWLNegative*AssertionAxiom#containsAnonymousIndividuals javadoc #885
+*    Fix Annotated axiom with anon expression saved incorrectly #881
+*    Fix Ontology with relative IRIs is serialized incorrectly #880
+*    Fix Ann. annotation with anon individual saved in RDF incorrectly #877
+*    Fix Annotations dropped if annotation property is undeclared #875
+*    Fix SAXException from AutoIRIMapper at debug logging level #878
+*    Ensure isAnonymous is implemented correctly #867
+*    Fix Null pointers with imports and relation declarations #859
+*    Amend base and escaped characters in Tutle parsing #857
+
+## 4.5.13 02 June 2019
+
+### Features:
+
+*    Add support for custom tags in obo files. #848
+
+### Bug fixes:
+
+*    Fix OWLLogicalEntity is not an OWLAnnotationProperty #847
+*    Security: Jackson to 2.9.9
+*    Fix Manchester syntax parser crashes on class/property punning #851
+*    Fix OBO parser does not support qualifier block #852
+
+## 4.5.12 06 May 2019
+
+### Features:
+
+*    Add support to load an ontology from classpath #837
+*    Implement Allow annotations to be skipped in module extraction #838
+
+### Bug fixes:
+
+*    Fix Multiple Ontology Definitions should obey strict parsing #840
+*    Fix Unnecessary dc prefix added by Manchester syntax parser #845
+*    Fix OWLDataFactory::getLiteral error with empty string and integer #846
+*    Fixed several incorrect XSD datatype matching patterns #844
+
+## 4.5.11 17 April 2019
+
+### Bug fixes:
+
+*    Fix HTTP 307 and HTTP 308 redirects are not followed (in 4.x) #821
+*    Fix Missing escape character in OBO output #828
+*    Fix OWLDataPropertyAxiom not a subinterface of OWLPropertyAxiom #831
+*    Fix MaximumNumberOfNamedSuperclasses should count super classes #836
+*    Fix OWLOntology::getGeneralClassAxioms slow #839
+*    Fix roundtrip of escaped values #833
+
+## 4.5.10 14 March 2019
+
+### Bug fixes:
+
+*    Fix HTTP 307 and HTTP 308 redirects are not followed (in 4.x) #821
+*    Fix Ensure allValuesFrom axioms are not lost #808
+*    Fix EOFException in CustomTokenizer #813
+*    Fix Cyclic imports and missing declarations cause parsing error #798
+*    Fix Unescaping characters: OBOFormatParser#handleNextChar() #822
+*    Fix IRI PREFIX_CACHE instance uses too much memory #825
+
+
+## 4.5.9 1 February 2019
+
+### Bug fixes:
+
+*    Jackson version to 2.9.8
+*    Fix compatibility with Guava 27 #814
+*    Fix OBO renderer stuck with untranslatable axioms on concurrent managers
+*    Fix Annotations on DifferentIndividualsAxioms lost #816
+*    Fix No roundtrip for IRIs with colons in the fragment or path #817
+
+## 4.5.8 22 December 2018
+
+### Features:
+
+*    Refactor OWLProfile implementations #638
+
+### Bug fixes:
+
+*    Fix Missing user defined datatype violation in literals #639
+*    Fix RDFGraph getSubjectsForObjects caught in infinite loop #809
+*    Fix DLExpressivity checker never computes anything #810
+
+## 4.5.7 1 December 2018
+
+### Features:
+
+*    Add OWLClassExpression.isNamed method #790
+*    Fix injection problem under OSGi
+*    Expressivity Checker for EL and FL #500
+
+### Bug fixes:
+
+*    Fix ReadWriteLock should be injector singleton #785
+*    Fix Cyclic import of versioned ontologies fails #788
+*    Fix Annotate ontology annotations #791
+*    Fix Incorrect documentation for OWLOntologyManager methods. #795
+*    DisjointClasses with OWL:Thing produces incorrect axiom #747
+*    Fix Concurrent managers with own lock shared with own ontologies #806
+
+## 4.5.6 6 September 2018
+
+### Bug fixes:
+
+*    OSGi issues fixed
+
+## 4.5.5 2 September 2018
+
+### Features:
+
 *    PROV and TIME vocabularies
 
-Bug fixes:
+### Bug fixes:
+
 *    Prefix splitting at wrong place with percent encoded IRI #737
 *    Fix OWLOntology with shared structure causes incorrect RDF/XML #780
 
-4.5.4 26 Jul 2018
+## 4.5.4 26 July 2018
 
-Features:
+### Features:
+
 *    Remove Guice dependencies
 *    Upgrade to jsonld-java version 0.12.0 (performance) #763
 *    Build with Java 10
 
-Bug fixes:
+### Bug fixes:
+
 *    Move from Trove4j to HPPC-RT #774
 *    Literals with no lang and string literals must equal each other
 *    Fix OWLLiteral.parseDouble should throw NumberFormatException #764
@@ -277,38 +491,40 @@ Bug fixes:
 *    Fix Line breaks in rdfs:label cause invalid FS output #758
 *    Fix AutoIriMapper chooses wrong IRIs. #755
 
+## 4.5.2 22 April 2018
 
-4.5.2 22 Apr 2018
+### Features:
 
-Features:
 *    Add an option to represent version build as strings
 *    Implement #375 OWLZip reader and writer
 *    Signature cache for ontologies
 *    Allow trimming to size after load to be disabled
 *    do not register deprecated oboparser by default #729
 
-Bug fixes:
+### Bug fixes:
+
 *    Fix SWRL variable IRIs violate URN spec #732
 *    default IRI for unnamed ontologies is not valid
 *    doubling of # at the end of default namespace
 *    IRI should return true for isIRI()
 *    Fix OWL/XML writes langString unnecessarily #748
 
-4.5.1 07 Dec 2017
+## 4.5.1 7 December 2017
 
-Features:
+### Features:
+
 *    Support Authorization header in remote loading
 
-4.5.0 13 Oct 2017
+## 4.5.0 13 October 2017
 
-Features:
+### Features:
 
 *    Accept Headers to include all MIME types with supporting parsers #705
 *    Add HasAnnotationValue interface with methods for mapping
 *    Optional methods for OWLOntologyChange
 *    Implement efficient way to test if an ontology refers entity type #698
 
-Bug fixes:
+### Bug fixes:
 
 *    OWL/XML should reject XML files that are not valid OWL/XML #657
 *    OWLObject immutable collections sorted #702
@@ -318,36 +534,42 @@ Bug fixes:
 *    getFragment advices an non existent replacement #684
 *    Fix Poor performance in OWLImmutableOntologyImpl.getImportsClosure #696
 
+## 4.3.2 25 July 2017
 
-4.3.2 25 July 2017
-
-Features:
+### Features:
 
 *    Add REPAIR_ILLEGAL_PUNNINGS property to disable fix of illegal punnings
 *    Move punning log to warning
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix Profiles.OWL2_FULL returns Profiles.OWL2_DL #667
 *    Fix EntitySearcher.getEquivalentClasses incorrectly returns itself #663
 *    Fix blank node ids should be NCNames in the RDF/XML output #689
 *    OWLEntityRenamer should rename annotation props in ontology annotations
 
-4.3.1 27 Mar 2017
+## 4.3.1 27 March 2017
 
-Bug fixes:
-
-*    Fix Relating to inferred axiom generators #646
-*    Fix duplication and inverseOf properties in generators #646
-
-Features:
+### Features:
 
 *    Allow SyntacticLocalityModuleExtractor to exclude assertions. #462
 *    Explanations: do not fail hard for profile violations
 
-4.3.0 22 Mar 2017
+### Bug fixes:
 
-Bug fixes:
+*    Fix Relating to inferred axiom generators #646
+*    Fix duplication and inverseOf properties in generators #646
+
+## 4.3.0 22 March 2017
+
+### Features:
+
+*    Implement HasApplyChanges.applyChanges returns ChangeApplied #544
+*    Implement Zip with dependencies included for non Maven users #584
+*    issue #612 : Add japicmp maven plugin to track API changes
+*    dependencies update
+
+### Bug fixes:
 
 *    Fix OWLLiteral produce different hash codes in version 4 #645
 *    Multiple nested annotations fail in RDF/XML #470
@@ -356,16 +578,9 @@ Bug fixes:
 *    Fix Turtle parser failure on some bioportal ontology #610
 *    Fix Manchester expression parser bug with data cardinalities #609
 
-Features:
+## 4.2.8 4 January 2017
 
-*    Implement HasApplyChanges.applyChanges returns ChangeApplied #544
-*    Implement Zip with dependencies included for non Maven users #584
-*    issue #612 : Add japicmp maven plugin to track API changes
-*    dependencies update
-
-4.2.8 4 Jan 2017
-
-Bug fixes:
+### Bug fixes:
 
 *    Fix Structural sharing in GCIs causes errors #564
 *    Fix Issue with serialization - OWLAPI version 3.5.5 #586
@@ -382,16 +597,16 @@ Bug fixes:
 *    Fix OWLOntologyManager in OWLImmutableOntologyImpl should be @Nullable #568
 
 
-4.2.7 16 October 2016
+## 4.2.7 16 October 2016
 
-Bug fixes:
+### Bug fixes:
 
 *    Serialization issues
 
 
-4.2.6 10 Sep 2016
+## 4.2.6 10 September 2016
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix OMN Parser mistakes punned class for object property #548
 *    Fix OWL/XML format does not support SWRL variable IRIs #535
@@ -406,17 +621,16 @@ Bug fixes:
 *    Fix Latex Renderer produces bad LaTeX for property inverses #526
 *    Fix ManchesterOWLSyntaxParser doesn't handle the OWL 2 datatypes #556
 
+## 4.2.5 17 May 2016
 
-4.2.5 17 May 2016
-
-Bug fixes:
+### Bug fixes:
 
 *    Fix Turtle Renderer doesn't escape periods #525
 *    Fix Import IRI not resolved correctly in OBO input #523
 
-4.2.4 7 May 2016
+## 4.2.4 7 May 2016
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix Default prefix overrides explicit prefixes #522
 *    Fix Anonymous individuals parsing problems #494
@@ -424,54 +638,54 @@ Bug fixes:
 *    Fix Annotated entities not declared in RDF/XML #511
 *    Fix XML literal is not self contained #509
 
-Features:
+### Features:
 
 *    Allow banning of parsers #510
 *    Allow disabling banner comments
 *    Fix Noisy print messages from logging framework #516
 
-4.2.3 19 March 2016
+## 4.2.3 19 March 2016
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix Fixing punnings fails on dp subDataPropertyOf rdfs:label #505
 
-4.2.2 15 March 2016
+## 4.2.2 15 March 2016
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix RDF/XML parser failing to load ontology containing XMLLiteral #496
 *    Fix Profile validation throws exception on ontology annotations #498
 *    Fix Annotations lost on entity renaming of SWRLRules #501
 *    Fix "Dumping remaining triples" displayed when no triples left #502
 
-4.2.1 5 March 2016
+## 4.2.1 5 March 2016
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix Anonymous individuals parsing problems #494
 *    Fix makeLoadImportRequest log should be a warning #489
 *    Fix Saving fails for ontologies containing XMLLiteral #495
 
-4.2.0 28 February 2016
+## 4.2.0 28 February 2016
 
-Features:
+### Features:
 
 *    Allow overridable and defaultable properties
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix EntitySearcher.getDomains(OWLAnnotationProperty, OWLOntology) returns the range axioms instead of the domain axioms #492
 
-4.1.4 3 February 2016
+## 4.1.4 3 February 2016
 
-Features:
+### Features:
 
 *    Add OWLObjectTransformer to replace any part of an ontology #487
 *    Add OWLLiteralReplacer to replace literals with different values #487
 *    Throw error on malformed ontologies when parsing is strict (avoid Error1 classes) #444
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix RBox axiom types #479
 *    Fix Parsing of nested anonymous nodes broken in 4.1.1 #478
@@ -487,9 +701,9 @@ Bug fixes:
 *    Fix ExplanationOrdererImpl.SeedExtractor throws exception #469
 *    Fix for Multiple nested annotations fail in RDF/XML #470
 
-4.1.0 25 October 2015
+## 4.1.0 25 October 2015
 
-Features:
+### Features:
 
 *    Port protege-owlapi concurrency support to the OWL API
 *    Enabled the creation of a concurrent manager
@@ -502,7 +716,7 @@ Features:
 *    Reduce space used by OBO Parser
 *    update jackson dependency to 2.5.1
 
-Bug fixes:
+### Bug fixes:
 
 *    OWLImmutableOntologyImpl.asSet() assumes input iterable is coming from a duplicate free collection #404
 *    OWLOntologyManagerImpl.getVersions() calls get() on Optional without checking if the contained value is present #401
@@ -527,9 +741,9 @@ Bug fixes:
 *    Annotation subproperty/domain/range disappear after save/load cycle (punning enhancement) #351
 
 
-4.0.2 17 April 2015
+## 4.0.2 17 April 2015
 
-Features:
+### Features:
 
 *    Simple OWL/FSS IRI sniffing for AutoIRIMapper.
 *    Fix #373 Individuals in SWRL rules get extra type
@@ -546,7 +760,7 @@ Features:
 *    Add benchmarking util to load ontology then dump to an hprof file for use with MAT
 *    Improve conversion from OWL to OBO, add test case
 
-Bug fixes:
+### Bug fixes:
 
 *    Fix PriorityCollectionSorting should be fixed at manager creation time #395
 *    Fix OWLOntologyManagerImpl.getVersions() calls get() on Optional without checking if the contained value is present #401
@@ -565,17 +779,17 @@ Bug fixes:
 *    Fixed bug when rendering anonymous individual in Manchester OWL syntax.
 *    Reverted incorrect setting of all packaging types to bundle
 
+## 4.0.1 22 November 2014
 
-4.0.1 22 November 2014
-
-Features:
+### Features:
 
 *    trimToSize available to cut ontology internals collections to minimal size after loading (Simon Spero)
 *    various memory optimizations and caching of rarely used values removed (Simon Spero)
 *    use of Trove collections for ontology internals
 *    OBOFormat: Configuration option to skip validation before writing OBO file #290
 
-Bugs:
+### Bug fixes:
+
 *    fix a multithread bug revealed by owlapitools tests
 *    fix #299 roundtrip errors on TriX and various other syntaxes
 *    fix #292 SWRL rules saved by older versions of OWLAPI/Protege lose annotations
@@ -585,11 +799,12 @@ Bugs:
 *    fix #281 OntologyIRIShortFormProvider does wrong shortform generation
 
 
-4.0.0 10 September 2014
+## 4.0.0 10 September 2014
 
 Supported Java versions: Java 7, Java 8
 
-Features:
+### Features:
+
 *    added HasAnnotationPropertiesInSignature to uniform treatment of annotation properties
 *    added missing EntitySearcher methods for negative property assertions
 *    Use Trove collections for ontology internals
@@ -660,7 +875,7 @@ Features:
 *    GZip read/write ability
 *    Manchester OWL syntax cleanup
 
-Bug fixes (ported to 3.5)
+### Bug fixes:
 
 *    Fix #278 AutoIRIMapper is not namespace aware
 *    Direct imports result not updated correctly after manual load #277
@@ -691,21 +906,9 @@ Bug fixes (ported to 3.5)
 *    Fixed #40 RDFGraph.getSortedTriplesForSubject throws exception in Java7
 *    Fixed infinite recursion on cyclic import structures when declaration does not match location.
 
+## 3.4.10 18 January 2014
 
-3.4.10 18 January 2014
-
-Bugs:
-
-*    Fixes #72 Manchester syntax roundtrip of doubles and SWRL rules fails
-*    Fixes #24 Manchester Syntax writer generates unparsable file
-*    simple renderer writes duplicate annotations
-*    Optimised functional renderer and prefix manager
-*    Fix #63 null pointer exception loading an ontology and fix #64 empty ontology returned
-*    Fixes #63 OBO Ontology Parsing throws NullPointer
-*    updated OSGi settings for oboformat, module name, dependencies
-*    fix bundle configuration for oboformat
-
-Features:
+### Features:
 
 *    Improved feature 32 implementation (simple SWRL variables rendering)
 *    javadoc warnings and errors removed to allow building with Java 8
@@ -717,39 +920,36 @@ Features:
 *    update oboformat class names to sync with oboformat project
 *    make OBOFormatException extend OWLParserException
 
-3.4.9 25 November 2013
+### Bug fixes:
 
-Features:
+*    Fixes #72 Manchester syntax roundtrip of doubles and SWRL rules fails
+*    Fixes #24 Manchester Syntax writer generates unparsable file
+*    simple renderer writes duplicate annotations
+*    Optimised functional renderer and prefix manager
+*    Fix #63 null pointer exception loading an ontology and fix #64 empty ontology returned
+*    Fixes #63 OBO Ontology Parsing throws NullPointer
+*    updated OSGi settings for oboformat, module name, dependencies
+*    fix bundle configuration for oboformat
+
+## 3.4.9 25 November 2013
+
+### Features:
 
 *    Added default methods and return values for a few visitor adapters
 *    #57 Reimplement NodeID so that it doesn't use an inner class
 *    #56 parse things like xsd:string easily
 *    OBO parser replaced with oboformat. Original code at: https://code.google.com/p/oboformat/
 
-Bug fixes:
+### Bug fixes:
 
 *    Fixed wrong naming of gzip file source and target and added stream only versions.
 *    Restore UnparseableOntologyException interface
 *    Added back deprecated parseConstant for compatibility with Pellet CLI code. Warning: it has bugs.
 
 
-3.4.8 02 November 2013
+## 3.4.8 02 November 2013
 
-Bug fixes:
-
-*    Fixes #40 Fixes #7 RDFGraph.getSortedTriplesForSubject throws exception in Java7 Refactored TripleComparator into RDFTriple and RDFNode as Comparable
-*    DLQueryExample did not print the StringBuilder with the answers
-*    Fixes #50 Null anonymous individual parsing ObjectHasValue from OWL/XML
-*    Fixes SF 313 Man Syntax Parser gives facets unexpected datatype
-*    Fixes SF 101 Manchester OWL Syntax Parser doesn't do precedence correctly
-*    Fixes #43 Functional Syntax Parser does not support comments
-*    Fixes #41 Parsing error of SWRL atom.
-*    Fixes #46 Round tripping error in functional syntax
-*    Fixes #37 setAddMissingTypes logging if disabled
-*    Missed serialization transients and tests, serialization bug fixes
-*    Patch IRI.create(String,String) to match IRI.create(String)
-
-Features:
+### Features:
 
 *    GZip read/write ability. Compressed gzip input and output streams, but make sure to close the stream in the calling code.
 *    OSGI dependency removed
@@ -764,9 +964,31 @@ Features:
 *    GITHUB-10 : Add RDFa Core Initial Context prefixes
 *    Extend Namespaces enum with common prefixes
 
-3.4.5 25 July 2013
+### Bug fixes:
 
-Bug fixes:
+*    Fixes #40 Fixes #7 RDFGraph.getSortedTriplesForSubject throws exception in Java7 Refactored TripleComparator into RDFTriple and RDFNode as Comparable
+*    DLQueryExample did not print the StringBuilder with the answers
+*    Fixes #50 Null anonymous individual parsing ObjectHasValue from OWL/XML
+*    Fixes SF 313 Man Syntax Parser gives facets unexpected datatype
+*    Fixes SF 101 Manchester OWL Syntax Parser doesn't do precedence correctly
+*    Fixes #43 Functional Syntax Parser does not support comments
+*    Fixes #41 Parsing error of SWRL atom.
+*    Fixes #46 Round tripping error in functional syntax
+*    Fixes #37 setAddMissingTypes logging if disabled
+*    Missed serialization transients and tests, serialization bug fixes
+*    Patch IRI.create(String,String) to match IRI.create(String)
+
+## 3.4.5 25 July 2013
+
+### Features:
+
+*    Refactored DefaultPrefixManager to expose addPrefixes
+*    Updated pom files for OSGI compatible artifacts.
+*    Allow override of DefaultPrefixManager in PrefixOWLOntologyFormat
+*    Add CollectionFactory.getExpectedThreads
+*    Reduce expected threads from 16 to 8 to improve general performance
+
+### Bug fixes:
 
 *    literal parsing error was stopping HermiT builds with 3.4.4.
 *    errors in OSGI support were stopping Protege from using the feature.
@@ -776,15 +998,7 @@ Bug fixes:
 *    Reverted the use of ThreadLocal as this causes memory leaks in webapps.
 *    Bug #343 SWRL roundtrip in manchester syntax
 
-Features:
-
-*    Refactored DefaultPrefixManager to expose addPrefixes
-*    Updated pom files for OSGI compatible artifacts.
-*    Allow override of DefaultPrefixManager in PrefixOWLOntologyFormat
-*    Add CollectionFactory.getExpectedThreads
-*    Reduce expected threads from 16 to 8 to improve general performance
-
-3.4.4 19 May 2013
+## 3.4.4 19 May 2013
 
 Features and updates implemented:
 
@@ -804,7 +1018,7 @@ Features and updates implemented:
 *    updates for javadoc.
 *    Update Mockito to 1.9.5.
 
-Bugs fixed:
+### Bug fixes:
 
 *    Bug #369 IRI.create(String) uses / and # to look for namespace and fragments. 
 *    Bug #348 ManchesterOWLSyntax round trip problem with disjoint classes.
@@ -823,7 +1037,7 @@ Bugs fixed:
 *    OntologyAlreadyExist bug when calls are made too fast.
 
 
-3.4.3 26 Jan 2013
+## 3.4.3 26 Jan 2013
 
 Features implemented:
 
@@ -832,7 +1046,7 @@ Features implemented:
 *    Test package broken up in smaller packages.
 *    Web site updated and added to version management.
 
-Bugs fixed:
+### Bug fixes:
 
 *    Changed VersionInfo message default to provide more information.
 *    Bug 354 fixed: There is AnnotationChange, but no AnnotationChangeData
@@ -841,7 +1055,7 @@ Bugs fixed:
 *    Bug 352 fixed: SimpleRenderer does not escape double quotes in literals.
 
 
-3.4.2 4 Dec 2012
+## 3.4.2 4 December 2012
 
 Features implemented:
 
@@ -859,7 +1073,7 @@ Features implemented:
 *    3566810 	Lack of support in OWLOntologyManager for version IRIs.
 *    3521809 	KRSS parser throws Error instead of RuntimeException.
 
-Bugs closed:
+### Bug fixes:
 
 *    Some OWLLiterals cannot be optimised: -0.0^^xsd:float, 01^^xsd:int (optimisation with primitive types makes reasoners queasy in combination with W3C tests).
 *    3590243 	hashCode for literals inconsistent.
@@ -869,14 +1083,14 @@ Bugs closed:
 *    3579862 	OWLDataFactory.getRDFPlainLiteral creates new objects.
 *    3579861 	rdf:PlainLiteral is not in the allowed OWL2EL datatypes.
 
-3.4.1 16 Sep 2012
+## 3.4.1 16 September 2012
 
-Features implemented:
+### Features:
 
 *    3578004    OWLRDFVocabulary Javadoc
 *    3575834    Improvements to OWLOntologyManager and related contrib
 
-Bugs closed:
+### Bug fixes:
 
 *    3463200    rdf/functional round trip problem (anonymous individuals)
 *    3341637    round trip problem with owl functional or rdf/xml syntax
@@ -898,9 +1112,7 @@ Bugs closed:
 *    3174734    ManSyntax fails to read ontology with single data property
 *    3440117    Turtle parser doesn't handle qnames with empty name part
 
-----------------------------------------------------------------------
-Release 3.4
-----------------------------------------------------------------------
+## 3.4 12 August 2012
 
 This version restructures the Maven modules into six modules: api, impl, parsers, 
 tools, apibinding and contract. Code is unchanged, only its organization in 
@@ -911,7 +1123,7 @@ contract and is only a shell for ExplanationOrdererImpl, which does not
 depend on OWLManager directly. This enables the tools module to be 
 used with a different apibinfing without recompilation.
 
-Main bugs fixed:
+### Bug fixes:
 
 *    3554073 	Manchester Syntax Parser won't parse DisjointUnionOf
 *    3552028 	DataFactory returns integer instead of double restrictions
@@ -922,14 +1134,16 @@ Main bugs fixed:
 *    3535046 	Use ArrayList instead of TreeSet in TurtleRenderer
 *    3532600 	Use AtomicInteger in OWLOntologyID for counter
 
-----------------------------------------------------------------------
-Release 3.3 (15 May 2012)
-----------------------------------------------------------------------
+### 3.3 15 May 2012
 
 This version wraps together some minor bug fixes and some performance improvements for loading time and memory footprint for large ontologies.
 Maven support has been much improved, thanks to Thomas Scharrenbach's efforts and Peter Ansell's feedback and suggestions.
 
-Main bugs fixed:
+### Features:
+
+*    Performance improvements at loading time
+
+### Bug fixes:
 
 *    OBO Parser updated to be more compliant with the latest draft of the OBO syntax and semantics spec.
 *    OBO Parser doesn't expand XREF values  (3515525)
@@ -954,27 +1168,24 @@ Main bugs fixed:
 *    Literal not a builtin  (3305113)
 *    OWL API throws NullPointerException loading ontology  (3302982)
 
-----------------------------------------------------------------------
-Release 3.2.4 (22 July 2011)
-----------------------------------------------------------------------
+## 3.2.1 22 July 2011
 
 This version of the API is released under both LGPL v3 and Apache license v2; developers are therefore free to choose which one to use.
 
-This version of the API includes minor bug fixes and a couple of new features;
+### Features:
+
 *    Tutorial code has been added following the OWLED 2011 tutorial (subpackage tutorialowled2011);
 *    A visitor to determine whether a set of axioms is a Horn-SHIQ ontology has been added (HornAxiomVisitorEx.java).
 
-Some test files and extra modules had not had their copyright notices updated to the new license; this has now been fixed.
+### Bug fixes:
 
+*    Some test files and extra modules had not had their copyright notices updated to the new license; this has now been fixed.
 
-
-----------------------------------------------------------------------
-Release 3.2.3
-----------------------------------------------------------------------
+## 3.2.3 27 May 2011
 
 This version of the API is released under both LGPL v3 and Apache license v2; developers are therefore free to choose which one to use.
 
-This version of the API includes various bug fixes:
+### Bug fixes:
 
 *    MAVEN support has been fixed (3296393).
 *    Some minor problems with rdfs:Literal have been fixed (3305113).
@@ -984,22 +1195,18 @@ This version of the API includes various bug fixes:
 *    Parsers no longer leave streams open when a parsing error is detected (3189947).
 
 
-----------------------------------------------------------------------
-Release 3.2.2
-----------------------------------------------------------------------
+## 3.2.2 17 February 2011
 
-This version of the API includes various bug fixes:
+### Bug fixes:
 
 *    In RDF based serialisations, type triples for entities that don't have "defining axioms" don't get added even if the renderer is instructed to type undeclared entities (related to 3184131). Fixed.
 *    The RDF parser would not recognise XSD datatypes that aren't OWL 2 Datatypes even in lax parsing mode (related to 3184131). Fixed.
 *    OWLOntologyManager.createOntology() methods don't set the document IRI of the created ontologies as adverstised if there aren't any ontology IRI mappers installed (3184878). Fixed.
 
 
-----------------------------------------------------------------------
-Release 3.2.1
-----------------------------------------------------------------------
+## 3.2.1 4 February 2011
 
-This version of the API includes various bug fixes
+### Bug fixes:
 
 *    Issues with -INF as serialisation for -infinity for floating point literals. Fixed.
 *    Null pointer exception can be thrown by OBO parser (3162800). Fixed.
@@ -1010,13 +1217,11 @@ This version of the API includes various bug fixes
 *    Anonymous ontologies do not get typed as owl:Ontology during saving in RDF. (3158177). Fixed.
 *    OWLOntology hashCode is not implemented properly. (3165583). Fixed.
 
-----------------------------------------------------------------------
-Release 3.2.0
-----------------------------------------------------------------------
+## 3.2.0 14 January 2011
 
 This version of the API includes various bug fixes and performance enhancements since version 3.1.0
 
-Main Bug Fixes:
+### Bug fixes:
 
 *    Various round tripping problems for various syntaxes (3155509, 3154524, 3149789, 3141366, 3140693, 3137303, 3121903)
 *    Plain Literals are rendered incorrectly. Fixed.
@@ -1030,12 +1235,11 @@ Main Bug Fixes:
 *    Dublin Core Vocabulary is built into OWL API parsers.  Fixed.
 *    Files are left open on parse errors.  Fixed.
 
-----------------------------------------------------------------------
-Release 3.1.0
-----------------------------------------------------------------------
-
+## 3.1.0 20 August 2010
 
 This version of the API includes various bug fixes and enhancements since version 3.0.0.
+
+### Features:
 
 Changes to the representation of literals:
 
@@ -1053,15 +1257,15 @@ API we believe that the handling of literals in 3.1.0 is much cleaner and follow
 Changes to the OWLReasoner interface:
 
 The OWLReasoner interface has been updated.  There are now methods which allow for fine-grained control over reasoning
-tasks.  For example, it is now possible to request that a reasoner just classifies the class hierarchy, when in version
-3.0.0 the prepare reasoner method caused realisation to occur as well.  The prepareReasoner method has been removed from
+tasks.  For example, it is now possible to request that a reasoner just classifies the class hierarchy, when in 
+version 3.0.0 the prepare reasoner method caused realisation to occur as well.  The prepareReasoner method has been removed from
 the interface due to the huge amount of confusion it caused (it was not necessary to call this method to get correct
 results, but the name suggested that it was necessary).  Clients should update their code to replace any calls to
 prepareReasoner with appropriate calls to precomputeInferences.
 
 JavaDoc for various methods has been cleaned up.
 
-Main Bug Fixes:
+### Bug fixes:
 
 *    Annotations on Declaration axioms were not save.  Fixed.
 *    OWLObjectMaxCardinality restrictions incorrectly resulted in a profile violation of the OWL2RL profile. Fixed.
@@ -1094,44 +1298,18 @@ Main Bug Fixes:
 *    RDF/XML rendering of unicode characters is ugly. Fixed.
 *    Turtle parser does parse shared blank nodes correctly. Fixed.
 
-----------------------------------------------------------------------
-Release 3.0.0
-----------------------------------------------------------------------
+## 3.0.0 28 January 2010
 
-Version 3.0.0 is incompatible with previous releases.  Many interface names have been changed in order to achieve a
+Version 3.0.0 is incompatible with previous releases.  Many interface names have been changed in order to acheive a
 close alignment with the names used in the OWL 2 Structural Specification and Functional Style Syntax.
 (See http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/)
 
 The opportunity to clean up method names was also taken.
 
 
-----------------------------------------------------------------------
-Release 2.2.0  (17th April 2008)
-----------------------------------------------------------------------
+## 2.2.0  17 April 2008
 
-Bug Fixes:
-
-*    The getOntologyURIs method on AutoURIMapper would return physical rather than logic URIs. Fixed.
-*    Namespaces for annotation URIs weren't generated. Fixed.
-*    Removing a subclass axiom from an ontology cause the axiom to be added to the ontology as a GCI. Fixed.
-*    When parsing an ontology, the accept types has been set to include RDF/XML.  This means that ontologies can be parsed correctly from servers that are configured to return RDF or HTML depending on the request type.
-*    OWL/XML writer has been modified to write the datatype URI attribute name correctly.  Previously the name was written as "Datatype", however it should be "datatypeURI".
-*    OWL/XML parser. Modified the literal handler to parse literals using the correct datatype URI attribute name (was "Datatype" and should have been "datatypeURI").
-*    The constructor that required a manager in BidirectionalShortFormProviderAdapter did not rebuild the cache. Fixed.
-*    Unqualified cardinality restrictions were rendered out as qualified cardinality restrictions. Fixed.
-*    Saving an ontology would fail if the necessary directories did not exist. Fixed.
-*    Rendering anonymous property inverses in OWL/XML was incorrect. Fixed.
-*    Label and Comment annotations in the functional syntax weren't parsed properly, they were parsed as regular annotations. Fixed.
-*    In the OWLXMLParserHandler, no handler for negative data property assertions was registered. Fixed.
-*    Annotations that have anonymous individuals as values weren't rendered correctly. Fixed.
-*    RDFXMLOntologyStorer and RDFXMLRenderer always used the ontology format that is obtainable from the manager, regardless of whether or not a custom ontology format was specified - fixed.
-*    Rules that contained individual or data value objects couldn't be rendered. Fixed.
-*    Declaration axioms were automatically added for data properties whether an ontology contained declaredAs triples or not. Fixed.
-*    Anonymous properties weren't rendered correcty. Fixed.
-*    RDF rendering for sub property axioms whose sub property is a property chain used an old rendering.  The rendering now complies with the latest OWL 2 specification.  Ontologies that use the old rendering can still be parsed.
-*    RDF lists were reordered on rendering. Fixed.
-
-Enhancements:
+### Features:
 
 *    Added support for building using ANT
 *    OWL 1.1 namespaces changed to OWL 2.  Old ontologies that are written using the owl11 namespace will still load, but will be converted to use the owl2 namespace.
@@ -1186,3 +1364,25 @@ Enhancements:
 *    Removed the fragments module and replaced it with the profiles module.  The EL++ profile is currently implemented.
 *    Added support for extended visitors that can return objects in the visit method.
 *    Turned off logging in the RDF parser classes by default.
+
+### Bug fixes:
+
+*    The getOntologyURIs method on AutoURIMapper would return physical rather than logic URIs. Fixed.
+*    Namespaces for annotation URIs weren't generated. Fixed.
+*    Removing a subclass axiom from an ontology cause the axiom to be added to the ontology as a GCI. Fixed.
+*    When parsing an ontology, the accept types has been set to include RDF/XML.  This means that ontologies can be parsed correctly from servers that are configured to return RDF or HTML depending on the request type.
+*    OWL/XML writer has been modified to write the datatype URI attribute name correctly.  Previously the name was written as "Datatype", however it should be "datatypeURI".
+*    OWL/XML parser. Modified the literal handler to parse literals using the correct datatype URI attribute name (was "Datatype" and should have been "datatypeURI").
+*    The constructor that required a manager in BidirectionalShortFormProviderAdapter did not rebuild the cache. Fixed.
+*    Unqualified cardinality restrictions were rendered out as qualified cardinality restrictions. Fixed.
+*    Saving an ontology would fail if the necessary directories did not exist. Fixed.
+*    Rendering anonymous property inverses in OWL/XML was incorrect. Fixed.
+*    Label and Comment annotations in the functional syntax weren't parsed properly, they were parsed as regular annotations. Fixed.
+*    In the OWLXMLParserHandler, no handler for negative data property assertions was registered. Fixed.
+*    Annotations that have anonymous individuals as values weren't rendered correctly. Fixed.
+*    RDFXMLOntologyStorer and RDFXMLRenderer always used the ontology format that is obtainable from the manager, regardless of whether or not a custom ontology format was specified - fixed.
+*    Rules that contained individual or data value objects couldn't be rendered. Fixed.
+*    Declaration axioms were automatically added for data properties whether an ontology contained declaredAs triples or not. Fixed.
+*    Anonymous properties weren't rendered correcty. Fixed.
+*    RDF rendering for sub property axioms whose sub property is a property chain used an old rendering.  The rendering now complies with the latest OWL 2 specification.  Ontologies that use the old rendering can still be parsed.
+*    RDF lists were reordered on rendering. Fixed.

@@ -287,7 +287,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * associated ontology for a given signature and locality type. The module
      * will contain only logical axioms, no annotation or declaration axioms.
      * The sub-ontology and module are represented as arrays of Booleans.
-     * <p/>
+     * <p>
      * This method is (if necessary, iteratively) called by the public method
      * extract.
      * 

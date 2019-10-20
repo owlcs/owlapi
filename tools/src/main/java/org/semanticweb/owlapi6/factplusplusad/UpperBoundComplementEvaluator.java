@@ -27,15 +27,16 @@ import org.semanticweb.owlapi6.model.OWLPropertyRange;
 import org.semanticweb.owlapi6.model.OWLSubPropertyChainOfAxiom;
 
 /**
- * Determine how many instances can a complement of expression have. All methods return minimal n
- * such that expr\in CC^{<= n}, n >= 0
+ * Determine how many instances can a complement of expression have. All methods
+ * return minimal n such that {@code expr\in CC^{<= n}, n >= 0}
  */
 class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
     /**
      * init c'tor
      *
-     * @param s signature
+     * @param s
+     *        signature
      */
     UpperBoundComplementEvaluator(Signature s) {
         super(s);
@@ -63,9 +64,6 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
         return getAllNoneUpper(isBotEquivalent(r) || isUpperLE(getUpperBoundComplement(c), 0));
     }
 
-    /**
-     * helper for things like >= m R.C
-     */
     @Override
     int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // m == 0 or...
@@ -80,9 +78,6 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
         return getAllNoneUpper(isLowerGE(getLowerBoundDirect(c), m));
     }
 
-    /**
-     * helper for things like <= m R.C
-     */
     @Override
     int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // R = \bot or...

@@ -150,6 +150,8 @@ public abstract class RDFRendererBase {
     /**
      * @param ontology
      *        ontology
+     * @param format
+     *        format
      */
     public RDFRendererBase(OWLOntology ontology, @Nullable OWLDocumentFormat format) {
         this(ontology, format, ontology.getOWLOntologyManager().getOntologyConfigurator());
@@ -296,7 +298,7 @@ public abstract class RDFRendererBase {
      * Render document.
      */
     public void render() {
-        graph = new RDFGraph(df);
+        graph = new RDFGraph();
         beginDocument();
         renderOntologyHeader();
         renderOntologyComponents();
@@ -590,10 +592,6 @@ public abstract class RDFRendererBase {
                 }
             }
         }
-    }
-
-    protected RDFTriple remapNodesIfNecessary(RDFResource node, RDFTriple triple) {
-        return triple;
     }
 
     static final class GraphVisitor implements OWLEntityVisitor {

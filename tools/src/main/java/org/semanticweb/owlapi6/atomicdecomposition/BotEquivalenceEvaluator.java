@@ -74,7 +74,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
      *        class
      * @param n
      *        cardinality
-     * @return true if #C^I > n
+     * @return true if {@code #C^I > n}
      */
     private boolean isCardLargerThan(OWLObject c, int n) {
         if (n == 0) {
@@ -94,7 +94,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
      *        property
      * @param c
      *        class
-     * @return true iff (<= n R.C) is botEq
+     * @return true iff {@code (<= n R.C)} is botEq
      */
     private boolean isMaxBotEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
         return isBotEquivalent(r) && isCardLargerThan(c, n);
@@ -109,7 +109,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
      *        property
      * @param c
      *        class
-     * @return true iff (>= n R.C) is botEq
+     * @return true iff {@code (>= n R.C)} is botEq
      */
     private boolean isMinBotEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
         return n > 0 && (isBotEquivalent(r) || isBotEquivalent(c));

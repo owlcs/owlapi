@@ -38,7 +38,8 @@ import org.semanticweb.owlapi6.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 
 /**
- * check whether class expressions are equivalent to top wrt given locality class
+ * check whether class expressions are equivalent to top wrt given locality
+ * class
  */
 class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
@@ -54,7 +55,8 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     /**
      * init c'tor
      *
-     * @param s signature
+     * @param s
+     *        signature
      */
     TopEquivalenceEvaluator(Signature s) {
         super(s);
@@ -65,9 +67,9 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     // non-empty Concept/Data expression
-
     /**
-     * @param c C
+     * @param c
+     *        C
      * @return true iff C^I is non-empty
      */
     private boolean isBotDistinct(OWLObject c) {
@@ -82,9 +84,11 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     // cardinality of a concept/data expression interpretation
 
     /**
-     * @param c C
-     * @param n cardinality
-     * @return true if #C^I > n
+     * @param c
+     *        C
+     * @param n
+     *        cardinality
+     * @return true if {@code #C^I > n}
      */
     private boolean isCardLargerThan(OWLObject c, int n) {
         if (n == 0) {
@@ -107,23 +111,28 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     /**
-     * @param n cardinality
-     * @param r role
-     * @param c filler
-     * @return true iff (>= n R.C) is topEq
+     * @param n
+     *        cardinality
+     * @param r
+     *        role
+     * @param c
+     *        filler
+     * @return true iff {@code (>= n R.C)} is topEq
      */
     private boolean isMinTopEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
         return n == 0 || isTopEquivalent(r) && isCardLargerThan(c, n - 1);
     }
 
     /**
-     * @param n cardinality
-     * @param r role
-     * @param c filler
-     * @return true iff (<= n R.C) is topEq
+     * @param n
+     *        cardinality
+     * @param r
+     *        role
+     * @param c
+     *        filler
+     * @return true iff {@code (<= n R.C)} is topEq
      */
-    private boolean isMaxTopEquivalent(@SuppressWarnings("unused") int n, OWLPropertyExpression r,
-        OWLPropertyRange c) {
+    private boolean isMaxTopEquivalent(@SuppressWarnings("unused") int n, OWLPropertyExpression r, OWLPropertyRange c) {
         return isBotEquivalent(r) || isBotEquivalent(c);
     }
 
@@ -132,7 +141,8 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     /**
-     * @param expr expression to check
+     * @param expr
+     *        expression to check
      * @return true iff an EXPRession is equivalent to top wrt defined policy
      */
     public boolean isTopEquivalent(OWLObject expr) {

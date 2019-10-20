@@ -585,6 +585,8 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
     /**
      * A utility function that duplicates a set of objects.
      *
+     * @param <O>
+     *        type
      * @param objects
      *        The set of object to be duplicated
      * @return The set of duplicated objects

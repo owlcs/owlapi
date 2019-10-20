@@ -36,10 +36,8 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi6.documents.RDFNode;
 import org.semanticweb.owlapi6.documents.RDFResource;
 import org.semanticweb.owlapi6.documents.RDFResourceBlankNode;
-import org.semanticweb.owlapi6.documents.RDFResourceIRI;
 import org.semanticweb.owlapi6.documents.RDFTriple;
 import org.semanticweb.owlapi6.model.IRI;
-import org.semanticweb.owlapi6.model.OWLDataFactory;
 import org.semanticweb.owlapi6.vocab.OWLRDFVocabulary;
 
 /**
@@ -54,26 +52,7 @@ public class RDFGraph implements Serializable {
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
     private final Set<RDFTriple> triples = createLinkedSet();
     private final Map<RDFNode, RDFNode> remappedNodes = createMap();
-    private OWLDataFactory df;
     @Nullable private RDFResource ontology;
-
-    /**
-     * @param df
-     *        data factory
-     */
-    public RDFGraph(OWLDataFactory df) {
-        this.df = df;
-    }
-
-    /**
-     * @param predicate
-     *        predicate to check for inclusion
-     * @return true if the predicate IRI is not in the set of predicates that
-     *         should be skipped from blank node reuse analysis.
-     */
-    private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
-        return !skippedPredicates.contains(predicate.getIRI());
-    }
 
     /**
      * Determines if this graph is empty (i.e. whether or not it contains any

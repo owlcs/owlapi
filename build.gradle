@@ -31,7 +31,7 @@ allprojects {
     group = 'net.sourceforge.owlapi'
     version = '6.0.0-SNAPSHOT'
     ext {
-        baselineVersion = '5.1.4'
+        baselineVersion = '5.1.11'
     }
 
 }
@@ -50,9 +50,7 @@ subprojects {
         options.encoding = 'UTF-8'
     }
     apply plugin: 'me.champeau.gradle.japicmp'
-    javadoc {
-        options.links += "https://docs.oracle.com/javase/8/docs/api/"
-    }
+
     task packageSources(type: Jar) {
 
         classifier = 'sources'
