@@ -461,7 +461,7 @@ interface ObjectPropertyEH {
     <T> T getOWLObject(Class<T> witness);
 }
 
-@SuppressWarnings({"unused", "null"})
+@SuppressWarnings({"unused"})
 abstract class OWLEH<O, B extends Builder<O>> {
 
     final StringBuilder sb = new StringBuilder();

@@ -29,6 +29,7 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -36,13 +37,14 @@ import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
+
 import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc", "null"})
+@SuppressWarnings({"javadoc"})
 public class OWL2DatatypeImplTestCase extends TestBase {
 
     private OWLDatatype plainLiteral;

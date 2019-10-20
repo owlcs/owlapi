@@ -17,7 +17,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import javax.annotation.Nullable;
+
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
@@ -45,7 +47,6 @@ public class PunRunner extends org.junit.runner.Runner {
     private final Map<Description, TestSetting> testSettings = new HashMap<>();
     private Description suiteDescription;
 
-    @SuppressWarnings("null")
     public PunRunner(Class<?> testClass) {
         this.testClass = testClass;
     }
@@ -57,9 +58,8 @@ public class PunRunner extends org.junit.runner.Runner {
         OWLDataFactory dataFactory = manager.getOWLDataFactory();
         axioms.add(dataFactory.getOWLDeclarationAxiom(annotationProperty));
         for (OWLEntity entity : entities) {
-            axioms.add(dataFactory
-                .getOWLAnnotationAssertionAxiom(annotationProperty, entity.getIRI(), dataFactory
-                    .getOWLAnonymousIndividual()));
+            axioms.add(dataFactory.getOWLAnnotationAssertionAxiom(annotationProperty,
+                entity.getIRI(), dataFactory.getOWLAnonymousIndividual()));
             axioms.add(dataFactory.getOWLDeclarationAxiom(entity));
         }
         return manager.createOntology(axioms);
@@ -83,11 +83,10 @@ public class PunRunner extends org.junit.runner.Runner {
         DefaultPrefixManager pm = new DefaultPrefixManager("http://localhost#");
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLDataFactory df = m.getOWLDataFactory();
-        List<? extends OWLEntity> entities = Arrays
-            .asList(df.getOWLClass("a", pm), df.getOWLDatatype("a", pm), df
-                    .getOWLAnnotationProperty("a", pm), df.getOWLDataProperty("a", pm),
-                df.getOWLObjectProperty("a", pm), df
-                    .getOWLNamedIndividual("a", pm));
+        List<? extends OWLEntity> entities =
+            Arrays.asList(df.getOWLClass("a", pm), df.getOWLDatatype("a", pm),
+                df.getOWLAnnotationProperty("a", pm), df.getOWLDataProperty("a", pm),
+                df.getOWLObjectProperty("a", pm), df.getOWLNamedIndividual("a", pm));
         List<Class<? extends PrefixDocumentFormat>> formats = new ArrayList<>();
         formats.add(RDFXMLDocumentFormat.class);
         formats.add(TurtleDocumentFormat.class);
@@ -109,11 +108,10 @@ public class PunRunner extends org.junit.runner.Runner {
             String name = "multiPun for " + formatClass.getName();
             Description testDescription = Description.createTestDescription(testClass, name);
             suiteDescription.addChild(testDescription);
-            TestSetting setting = new TestSetting(formatClass, m, df.getOWLClass("a", pm),
-                df.getOWLDatatype("a", pm),
-                df.getOWLAnnotationProperty("a", pm), df.getOWLDataProperty("a", pm),
-                df.getOWLObjectProperty("a", pm),
-                df.getOWLNamedIndividual("a", pm));
+            TestSetting setting =
+                new TestSetting(formatClass, m, df.getOWLClass("a", pm), df.getOWLDatatype("a", pm),
+                    df.getOWLAnnotationProperty("a", pm), df.getOWLDataProperty("a", pm),
+                    df.getOWLObjectProperty("a", pm), df.getOWLNamedIndividual("a", pm));
             testSettings.put(testDescription, setting);
         }
     }
@@ -122,7 +120,7 @@ public class PunRunner extends org.junit.runner.Runner {
      * Run the tests for this runner.
      *
      * @param notifier will be notified of events while tests are being run--tests being started,
-     * finishing, and failing
+     *        finishing, and failing
      */
     @Override
     public void run(@Nullable RunNotifier notifier) {
@@ -144,9 +142,8 @@ public class PunRunner extends org.junit.runner.Runner {
     }
 
     public void runTestForAnnotationsOnPunnedEntitiesForFormat(
-        Class<? extends PrefixDocumentFormat> formatClass,
-        OWLOntologyManager m, OWLEntity... entities)
-        throws OWLOntologyCreationException, OWLOntologyStorageException,
+        Class<? extends PrefixDocumentFormat> formatClass, OWLOntologyManager m,
+        OWLEntity... entities) throws OWLOntologyCreationException, OWLOntologyStorageException,
         IllegalAccessException, InstantiationException {
         OWLOntologyManager ontologyManager;
         OWLDataFactory df;
@@ -155,12 +152,10 @@ public class PunRunner extends org.junit.runner.Runner {
             ontologyManager.clearOntologies();
             df = ontologyManager.getOWLDataFactory();
         }
-        OWLAnnotationProperty annotationProperty = df
-            .getOWLAnnotationProperty(":ap", new DefaultPrefixManager(
-                "http://localhost#"));
+        OWLAnnotationProperty annotationProperty =
+            df.getOWLAnnotationProperty(":ap", new DefaultPrefixManager("http://localhost#"));
         OWLOntology o = makeOwlOntologyWithDeclarationsAndAnnotationAssertions(annotationProperty,
-            ontologyManager,
-            entities);
+            ontologyManager, entities);
         for (int i = 0; i < 10; i++) {
             PrefixDocumentFormat format = formatClass.newInstance();
             format.setPrefixManager(new DefaultPrefixManager("http://localhost#"));

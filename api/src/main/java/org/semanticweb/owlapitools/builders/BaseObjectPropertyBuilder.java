@@ -14,6 +14,7 @@ package org.semanticweb.owlapitools.builders;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -24,9 +25,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @param <T> type built
  * @param <B> builder type
  */
-public abstract class BaseObjectPropertyBuilder<T extends OWLObject, B> extends
-    BaseBuilder<T, B> implements
-    SettableProperty<OWLObjectPropertyExpression, B> {
+public abstract class BaseObjectPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B>
+    implements SettableProperty<OWLObjectPropertyExpression, B> {
 
     @Nullable
     private OWLObjectPropertyExpression property = null;
@@ -46,7 +46,6 @@ public abstract class BaseObjectPropertyBuilder<T extends OWLObject, B> extends
         return (B) this;
     }
 
-    @SuppressWarnings("null")
     @Override
     @Nullable
     public OWLObjectPropertyExpression getProperty() {

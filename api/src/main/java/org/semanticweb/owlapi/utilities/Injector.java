@@ -146,6 +146,7 @@ public class Injector {
      * Associate a key made of interface type and optional annotations with an instance, adding to
      * existing associations
      * 
+     * @param <T> type
      * @param t instance
      * @param c interface type
      * @param annotations annotations
@@ -160,6 +161,7 @@ public class Injector {
      * Associate a key made of interface type and optional annotations with a supplier of instances,
      * adding to existing associations
      * 
+     * @param <T> type
      * @param t supplier
      * @param c interface type
      * @param annotations annotations
@@ -179,6 +181,7 @@ public class Injector {
     }
 
     /**
+     * @param <T> type
      * @param t object to inject
      * @return input object with all methods annotated with @Inject having been set with instances.
      */
@@ -234,6 +237,7 @@ public class Injector {
     }
 
     /**
+     * @param <T> type
      * @param c class
      * @param qualifiers optional annotations
      * @return instance
@@ -243,6 +247,7 @@ public class Injector {
     }
 
     /**
+     * @param <T> type
      * @param c class
      * @param v configuration options
      * @param qualifiers optional annotations
@@ -254,6 +259,7 @@ public class Injector {
     }
 
     /**
+     * @param <T> type
      * @param c class
      * @param overrides local overrides of existing bindings
      * @param qualifiers optional annotations

@@ -86,7 +86,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
+    public void testMultipleVersionLoadsExplicitOntologyIDs() {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID initialUniqueOWLOntologyID =
@@ -107,7 +107,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsNoOntologyIDFirstTime() throws Exception {
+    public void testMultipleVersionLoadsNoOntologyIDFirstTime() {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
@@ -126,7 +126,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() throws Exception {
+    public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID initialUniqueOWLOntologyID =
@@ -147,7 +147,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadChangeIRI() throws Exception {
+    public void testSingleVersionLoadChangeIRI() {
         // given
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
         OWLOntologyID secondUniqueOWLOntologyID =
@@ -161,7 +161,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadNoChange() throws Exception {
+    public void testSingleVersionLoadNoChange() {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID initialUniqueOWLOntologyID =

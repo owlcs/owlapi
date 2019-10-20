@@ -38,6 +38,7 @@ public class OWLAPIStreamUtils {
     private OWLAPIStreamUtils() {}
 
     /**
+     * @param <T> type
      * @param type type of the returned array
      * @param s stream to turn to sorted, duplicate free, no null, list
      * @return sorted array containing all elements in the stream, minus nulls and duplicates. The
@@ -50,6 +51,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param type type of the returned array
      * @param c collection to turn to sorted, duplicate free, no null, list
      * @return sorted array containing all elements in the collection, minus nulls and duplicates.
@@ -69,6 +71,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param type type of the returned array
      * @param c collection to turn to sorted, duplicate free, no null, list
      * @return sorted array containing all elements in the collection, minus nulls and duplicates.
@@ -95,6 +98,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param type type of the returned array
      * @param c collection to turn to sorted, duplicate free, no null, list
      * @return sorted array containing all elements in the collection, minus nulls and duplicates.
@@ -114,6 +118,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param type type of the returned array
      * @param c array to sort
      * @return sorted list containing all elements in the collection, minus nulls and duplicates.
@@ -127,6 +132,7 @@ public class OWLAPIStreamUtils {
     /**
      * A method to be used on collections that are sorted, immutable and do not contain nulls.
      * 
+     * @param <T> type
      * @param c sorted collection of distinct, nonnull elements; the collection must be immutable
      * @return stream that won't cause sorted() calls to sort the collection again
      */
@@ -137,6 +143,7 @@ public class OWLAPIStreamUtils {
     /**
      * A method to be used on arrays that are sorted and do not contain nulls.
      * 
+     * @param <T> type
      * @param c sorted aray of distinct, nonnull elements
      * @return stream that won't cause sorted() calls to sort the array again
      */
@@ -145,6 +152,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param s stream to turn to set. The stream is consumed by this operation.
      * @return set including all elements in the stream
      */
@@ -165,6 +173,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param s stream to turn to set. The stream is consumed by this operation.
      * @return set including all elements in the stream
      */
@@ -183,6 +192,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param s stream to turn to list. The stream is consumed by this operation.
      * @return list including all elements in the stream
      */
@@ -191,6 +201,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param s stream to turn to list. The stream is consumed by this operation.
      * @return list including all elements in the stream
      */
@@ -243,6 +254,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param s stream of elements to add
      * @param c collection to add to
      * @return true if any element in the stream is added to the collection
@@ -370,6 +382,7 @@ public class OWLAPIStreamUtils {
     /**
      * Annotated wrapper for Stream.empty()
      *
+     * @param <T> type
      * @return empty stream
      */
     public static <T> Stream<T> empty() {
@@ -461,6 +474,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param input collection to partition
      * @return a stream of elements for a triangular matrix of size {@code l.size()}, where l is the
      *         list corresponding to the input collection. For input of length 3, the values are
@@ -484,6 +498,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param input collection to partition
      * @return a stream of coordinates for a symmetric matrix of size {@code l.size()}, where l is
      *         the list corresponding to the input collection, excluding main diagonal. For input 3,
@@ -510,6 +525,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param input collection to partition
      * @return a stream of elements for a triangular matrix of size {@code l.size()}, where l is the
      *         list corresponding to the input collection. For input of length 3, the values are
@@ -520,6 +536,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param input collection to partition
      * @return a stream of coordinates for a symmetric matrix of size {@code l.size()}, where l is
      *         the list corresponding to the input collection, excluding main diagonal. For input 3,
@@ -531,6 +548,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
+     * @param <T> type
      * @param i first
      * @param j second
      * @return pair of (i,j)

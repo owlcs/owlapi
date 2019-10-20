@@ -138,7 +138,6 @@ public class OWLAPIOwl2Obo {
      *
      * @param translationManager the translation manager
      */
-    @SuppressWarnings("null")
     public OWLAPIOwl2Obo(OWLOntologyManager translationManager) {
         manager = translationManager;
         df = manager.getOWLDataFactory();

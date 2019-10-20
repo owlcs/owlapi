@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({"javadoc", "null"})
+@SuppressWarnings({"javadoc"})
 public class ConcurrentOWLOntologyBuilder_TestCase {
 
     private ConcurrentOWLOntologyBuilder builder;

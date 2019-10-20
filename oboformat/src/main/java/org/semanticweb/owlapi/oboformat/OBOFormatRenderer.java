@@ -12,15 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.oboformat;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+
 import javax.annotation.Nullable;
+
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
@@ -49,7 +49,7 @@ public class OBOFormatRenderer implements OWLRenderer {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
             final OBODoc result = translator.convert(ontology);
-            boolean hasImports = ontology.imports().count()>0;
+            boolean hasImports = ontology.imports().count() > 0;
             NameProvider nameProvider;
             if (hasImports) {
                 // if the ontology has imports
@@ -80,11 +80,10 @@ public class OBOFormatRenderer implements OWLRenderer {
                 nameProvider = new OBODocNameProvider(result);
             }
             OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
-            oboFormatWriter
-                .setCheckStructure(format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE)
-                    .booleanValue());
-            oboFormatWriter
-                .write(result, new PrintWriter(new BufferedWriter(writer)), nameProvider);
+            oboFormatWriter.setCheckStructure(
+                format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE).booleanValue());
+            oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)),
+                nameProvider);
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }

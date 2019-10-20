@@ -159,7 +159,7 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings({"javadoc", "rawtypes", "null"})
+@SuppressWarnings({"javadoc", "rawtypes"})
 public class OWLProfileTestCase extends TestBase {
 
     protected static final Comparator<Class> comp =

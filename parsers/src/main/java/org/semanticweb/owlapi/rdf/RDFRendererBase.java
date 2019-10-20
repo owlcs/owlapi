@@ -554,10 +554,6 @@ public abstract class RDFRendererBase {
         }
     }
 
-    protected RDFTriple remapNodesIfNecessary(final RDFResource node, final RDFTriple triple) {
-        return triple;
-    }
-
     static final class GraphVisitor implements OWLEntityVisitor {
 
         private final List<OWLAxiom> axioms;

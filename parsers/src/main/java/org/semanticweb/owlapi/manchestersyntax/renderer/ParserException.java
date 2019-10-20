@@ -17,7 +17,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -204,8 +203,7 @@ public class ParserException extends OWLParserException {
     public ParserException(String message, List<String> tokenSeqence, int startPos, int lineNumber,
         int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected,
         boolean dataPropertyNameExpected, boolean individualNameExpected,
-        boolean datatypeNameExpected, boolean annotationPropertyExpected,
-        @Nonnull String... keywords) {
+        boolean datatypeNameExpected, boolean annotationPropertyExpected, String... keywords) {
         this(message, tokenSeqence, startPos, lineNumber, columnNumber, classNameExpected,
             objectPropertyNameExpected, dataPropertyNameExpected, individualNameExpected,
             datatypeNameExpected, annotationPropertyExpected,
@@ -230,8 +228,7 @@ public class ParserException extends OWLParserException {
     public ParserException(List<String> tokenSeqence, int startPos, int lineNumber,
         int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected,
         boolean dataPropertyNameExpected, boolean individualNameExpected,
-        boolean datatypeNameExpected, boolean annotationPropertyExpected,
-        @Nonnull String... keywords) {
+        boolean datatypeNameExpected, boolean annotationPropertyExpected, String... keywords) {
         this(tokenSeqence, startPos, lineNumber, columnNumber, classNameExpected,
             objectPropertyNameExpected, dataPropertyNameExpected, individualNameExpected,
             datatypeNameExpected, annotationPropertyExpected,
@@ -282,7 +279,7 @@ public class ParserException extends OWLParserException {
      * @param keywords the keywords
      */
     public ParserException(String message, List<String> tokenSequence, int startPos, int lineNumber,
-        int columnNumber, @Nonnull String... keywords) {
+        int columnNumber, String... keywords) {
         this(message, tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false,
             false, false, keywords);
     }
@@ -297,7 +294,7 @@ public class ParserException extends OWLParserException {
      * @param keywords the keywords
      */
     public ParserException(List<String> tokenSequence, int startPos, int lineNumber,
-        int columnNumber, @Nonnull String... keywords) {
+        int columnNumber, String... keywords) {
         this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false,
             false, keywords);
     }

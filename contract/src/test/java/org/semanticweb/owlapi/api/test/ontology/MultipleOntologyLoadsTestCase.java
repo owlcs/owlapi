@@ -52,7 +52,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         + "  </rdf:Description>  \n" + "</rdf:RDF>";
 
     @Test
-    public void testMultipleVersionLoadChangeIRI() throws Exception {
+    public void testMultipleVersionLoadChangeIRI() {
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(i139, v2);
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         OWLParser initialParser = new RDFXMLParser();
@@ -68,7 +68,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadNoChange() throws Exception {
+    public void testMultipleVersionLoadNoChange() {
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(i139, v1);
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         OWLParser parser = new RDFXMLParser();
@@ -84,7 +84,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
+    public void testMultipleVersionLoadsExplicitOntologyIDs() {
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(i139, v1);
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         OWLParser parser = new RDFXMLParser();
@@ -100,7 +100,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsNoOntologyIDFirstTime() throws Exception {
+    public void testMultipleVersionLoadsNoOntologyIDFirstTime() {
         OWLOntology initialOntology = getAnonymousOWLOntology();
         OWLParser parser = new RDFXMLParser();
         parser.parse(new StringDocumentSource(INPUT), initialOntology, config);
@@ -115,7 +115,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() throws Exception {
+    public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() {
         Optional<IRI> empty = emptyOptional(IRI.class);
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(i139, empty);
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
@@ -132,7 +132,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadChangeIRI() throws Exception {
+    public void testSingleVersionLoadChangeIRI() {
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(i139, v2);
         OWLOntology secondOntology = getOWLOntology(secondUniqueOWLOntologyID);
         OWLParser secondParser = new RDFXMLParser();
@@ -143,7 +143,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadNoChange() throws Exception {
+    public void testSingleVersionLoadNoChange() {
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(i139, v1);
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         OWLParser parser = new RDFXMLParser();

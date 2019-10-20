@@ -210,7 +210,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 continue;
             }
             writer.writeStartElement(triple.getPredicate().getIRI());
-            triple = remapNodesIfNecessary(node, triple);
             RDFNode objectNode = triple.getObject();
             if (!objectNode.isLiteral()) {
                 RDFResource objectRes = (RDFResource) objectNode;

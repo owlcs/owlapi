@@ -21,6 +21,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -31,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
@@ -40,15 +42,15 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({"javadoc", "null"})
+@SuppressWarnings({"javadoc"})
 public class OWLOntologyManagerImplTestCase extends TestBase {
 
     private OWLOntologyManager manager;
 
     @Before
     public void setUpManager() {
-        manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl(),
-            new ReentrantReadWriteLock());
+        manager =
+            new OWLOntologyManagerImpl(new OWLDataFactoryImpl(), new ReentrantReadWriteLock());
         manager.getOntologyFactories()
             .add(new OWLOntologyFactoryImpl((om, id) -> new OWLOntologyImpl(om, id)));
     }
@@ -69,8 +71,7 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
         OWLOntology ontA = manager.createOntology(IRI.getNextDocumentIRI("urn:testontology"));
         OWLOntology ontB = manager.createOntology(IRI.getNextDocumentIRI("urn:testontology"));
         OWLImportsDeclaration decl = manager.getOWLDataFactory()
-            .getOWLImportsDeclaration(get(ontB.getOntologyID()
-                .getOntologyIRI()));
+            .getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
         manager.applyChange(new AddImport(ontA, decl));
         assertTrue(contains(manager.directImports(ontA), ontB));
         manager.removeOntology(ontB);
@@ -84,11 +85,9 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
         OWLOntology ontB = manager.createOntology(IRI.getNextDocumentIRI("urn:testontology"));
         OWLOntology ontC = manager.createOntology(IRI.getNextDocumentIRI("urn:testontology"));
         OWLImportsDeclaration declA = manager.getOWLDataFactory()
-            .getOWLImportsDeclaration(get(ontB.getOntologyID()
-                .getOntologyIRI()));
+            .getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
         OWLImportsDeclaration declB = manager.getOWLDataFactory()
-            .getOWLImportsDeclaration(get(ontC.getOntologyID()
-                .getOntologyIRI()));
+            .getOWLImportsDeclaration(get(ontC.getOntologyID().getOntologyIRI()));
         manager.applyChanges(new AddImport(ontA, declA), new AddImport(ontB, declB));
         assertTrue(contains(manager.importsClosure(ontA), ontA));
         assertTrue(contains(manager.importsClosure(ontA), ontB));

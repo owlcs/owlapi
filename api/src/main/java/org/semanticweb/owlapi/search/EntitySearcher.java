@@ -246,6 +246,7 @@ public class EntitySearcher {
      * Gets the properties which are asserted to be sub-properties of this property in the specified
      * ontology.
      *
+     * @param <P> type
      * @param e entity
      * @param ontology The ontology to be examined for SubProperty axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
@@ -268,6 +269,7 @@ public class EntitySearcher {
      * Gets the properties which are asserted to be sub-properties of this property in the specified
      * ontology.
      *
+     * @param <P> type
      * @param e entity
      * @param ontologies The ontologies to be examined for SubProperty axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
@@ -284,6 +286,7 @@ public class EntitySearcher {
      * Gets the properties which are asserted to be sub-properties of this property in the specified
      * ontology.
      *
+     * @param <P> type
      * @param e entity
      * @param ontology The ontology to be examined for SubProperty axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
@@ -306,6 +309,7 @@ public class EntitySearcher {
      * Gets the properties which are asserted to be sub-properties of this property in the specified
      * ontology.
      *
+     * @param <P> type
      * @param e entity
      * @param ontologies The ontologies to be examined for SubPropertyOf axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
@@ -508,6 +512,7 @@ public class EntitySearcher {
      * Gets the classes which have been asserted to be disjoint with this class by axioms in the
      * specified ontology.
      *
+     * @param <P> type
      * @param e entity
      * @param ontology The ontology to search for disjoint class axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the disjoint classes of
@@ -530,6 +535,7 @@ public class EntitySearcher {
      * Gets the classes which have been asserted to be disjoint with this class by axioms in the
      * specified ontologies.
      *
+     * @param <P> type
      * @param e entity
      * @param ontologies The ontologies to search for disjoint class axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the disjoint classes of

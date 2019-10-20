@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -20,7 +21,7 @@ import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.search.EntitySearcher;
 
-@SuppressWarnings({"javadoc", "null"})
+@SuppressWarnings({"javadoc"})
 public class EntitySearcherTestCase extends TestBase {
 
     private OWLObjectProperty superProperty;
@@ -39,15 +40,15 @@ public class EntitySearcherTestCase extends TestBase {
 
     @Test
     public void shouldReturnSuperProperty() {
-        List<OWLProperty> supers = asList(
-            EntitySearcher.getSuperProperties(subProperty, ontologies.stream()));
+        List<OWLProperty> supers =
+            asList(EntitySearcher.getSuperProperties(subProperty, ontologies.stream()));
         assertTrue(supers.toString(), supers.contains(superProperty));
     }
 
     @Test
     public void shouldReturnSubProperty() {
-        Stream<OWLProperty> subs = EntitySearcher
-            .getSubProperties(superProperty, ontologies.stream());
+        Stream<OWLProperty> subs =
+            EntitySearcher.getSubProperties(superProperty, ontologies.stream());
         assertTrue(contains(subs, subProperty));
     }
 }

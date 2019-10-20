@@ -23,7 +23,7 @@ public class DeclareAnnotatedEntitiesTestCase extends TestBase {
 
     @Test
     public void shouldDeclareAllDatatypes() throws Exception {
-        String in = "<?xml version=\"1.0\"?>\n" + "<!DOCTYPE Ontology [\n"
+        String input = "<?xml version=\"1.0\"?>\n" + "<!DOCTYPE Ontology [\n"
             + "    <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n    <!ENTITY xml \"http://www.w3.org/XML/1998/namespace\" >\n    <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\n    <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >\n]>\n"
             + "<Ontology xmlns=\"http://www.w3.org/2002/07/owl#\"\n"
             + "     xml:base=\"http://www.semanticweb.org/owlapi-datatypes\"\n"
@@ -51,7 +51,7 @@ public class DeclareAnnotatedEntitiesTestCase extends TestBase {
             + "        <AbbreviatedIRI>owl:Thing</AbbreviatedIRI>\n"
             + "        <Literal datatypeIRI=\"http://www.semanticweb.org/owlapi-datatypes#myDatatype2\">comment with datatype myDatatype2</Literal>\n"
             + "    </AnnotationAssertion>\n</Ontology>";
-        OWLOntology ontology = loadOntologyFromString(in);
+        OWLOntology ontology = loadOntologyFromString(input);
         Set<OWLDeclarationAxiom> declarations = asSet(ontology.axioms(AxiomType.DECLARATION));
         Set<OWLAnnotationAssertionAxiom> annotationAssertionAxioms =
             asSet(ontology.axioms(AxiomType.ANNOTATION_ASSERTION));

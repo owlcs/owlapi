@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
 public class ImportsTestCase extends TestBase {
 
     @Test
-    public void testImportsClosureUpdate() throws OWLOntologyCreationException {
+    public void testImportsClosureUpdate() {
         IRI aIRI = IRI("http://a.com", "");
         OWLOntology ontA = getOWLOntology(aIRI);
         IRI bIRI = IRI("http://b.com", "");
@@ -132,7 +132,7 @@ public class ImportsTestCase extends TestBase {
     }
 
     @Test
-    public void testManualImports() throws OWLOntologyCreationException {
+    public void testManualImports() {
         OWLOntology baseOnt = getOWLOntology(IRI("http://semanticweb.org/ontologies/", "base"));
         IRI importedIRI = IRI("http://semanticweb.org/ontologies/", "imported");
         OWLOntology importedOnt = getOWLOntology(importedIRI);

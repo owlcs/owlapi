@@ -22,7 +22,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.change.AddAxiomData;
 import org.semanticweb.owlapi.change.AxiomChangeData;
 import org.semanticweb.owlapi.change.RemoveAxiomData;
@@ -146,8 +148,7 @@ public class OWLObjectTransformer<T> {
      * @param witness witness class for the transformer
      */
     public OWLObjectTransformer(Predicate<Object> predicate, Function<T, T> transformer,
-        OWLDataFactory df,
-        Class<T> witness) {
+        OWLDataFactory df, Class<T> witness) {
         this.predicate = checkNotNull(predicate, "predicate cannot be null");
         this.transformer = checkNotNull(transformer, "transformer cannot be null");
         this.df = checkNotNull(df, "df cannot be null");
@@ -155,13 +156,12 @@ public class OWLObjectTransformer<T> {
     }
 
     /**
-     * Create the required changes for this transformation to be applied to the
-     * input. Note: these are AxiomChangeData changes, not ontology specific
-     * changes. There is no requirement for the input to be an ontology or
-     * included in an ontology.
+     * Create the required changes for this transformation to be applied to the input. Note: these
+     * are AxiomChangeData changes, not ontology specific changes. There is no requirement for the
+     * input to be an ontology or included in an ontology.
      *
      * @param o object to transform. Must be an axiom or an ontology for the change to be
-     * meaningful.
+     *        meaningful.
      * @return A list of axiom changes that should be applied.
      */
     public List<AxiomChangeData> change(OWLObject o) {
@@ -175,8 +175,8 @@ public class OWLObjectTransformer<T> {
     }
 
     /**
-     * Create the required changes for this transformation to be applied to the
-     * input. These changes are specific to the input ontology.
+     * Create the required changes for this transformation to be applied to the input. These changes
+     * are specific to the input ontology.
      *
      * @param ontology ontology to transform.
      * @return A list of changes that should be applied.
@@ -203,8 +203,8 @@ public class OWLObjectTransformer<T> {
         private OWLDataFactory df;
 
         Visitor(List<OWLOntologyChange> ontologyChanges, List<AxiomChangeData> changes,
-            Predicate<Object> predicate,
-            Function<T, T> transformer, OWLDataFactory df, Class<T> witness) {
+            Predicate<Object> predicate, Function<T, T> transformer, OWLDataFactory df,
+            Class<T> witness) {
             this.changes = changes;
             this.ontologyChanges = ontologyChanges;
             this.predicate = predicate;
@@ -242,7 +242,8 @@ public class OWLObjectTransformer<T> {
 
         /**
          * Check and transform an object.
-         *
+         * 
+         * @param <Q> type
          * @param o object to check
          * @return the transformed object, or null if the axiom was not transformed
          */
@@ -288,261 +289,247 @@ public class OWLObjectTransformer<T> {
 
         @Override
         public Object visit(OWLDatatypeDefinitionAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLDatatypeDefinitionAxiom(t(axiom.getDatatype()), t(axiom
-                    .getDataRange()), t(axiom.annotations())));
+            return visitAxiom(axiom, () -> df.getOWLDatatypeDefinitionAxiom(t(axiom.getDatatype()),
+                t(axiom.getDataRange()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLAnnotationAssertionAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLAnnotationAssertionAxiom(t(axiom.getSubject()), t(axiom
-                    .getAnnotation()), t(axiom.annotations())));
+            return visitAxiom(axiom, () -> df.getOWLAnnotationAssertionAxiom(t(axiom.getSubject()),
+                t(axiom.getAnnotation()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLSubAnnotationPropertyOfAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLSubAnnotationPropertyOfAxiom(t(axiom.getSubProperty()), t(axiom
-                    .getSuperProperty()), t(axiom.annotations())));
+                () -> df.getOWLSubAnnotationPropertyOfAxiom(t(axiom.getSubProperty()),
+                    t(axiom.getSuperProperty()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLAnnotationPropertyDomainAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLAnnotationPropertyDomainAxiom(t(axiom.getProperty()), t(axiom
-                    .getDomain()), t(axiom.annotations())));
+                () -> df.getOWLAnnotationPropertyDomainAxiom(t(axiom.getProperty()),
+                    t(axiom.getDomain()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLAnnotationPropertyRangeAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLAnnotationPropertyRangeAxiom(t(axiom.getProperty()), t(axiom
-                    .getRange()), t(axiom.annotations())));
+                () -> df.getOWLAnnotationPropertyRangeAxiom(t(axiom.getProperty()),
+                    t(axiom.getRange()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLSubClassOfAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLSubClassOfAxiom(t(axiom.getSubClass()), t(axiom.getSuperClass()), t(
-                    axiom.annotations())));
+            return visitAxiom(axiom, () -> df.getOWLSubClassOfAxiom(t(axiom.getSubClass()),
+                t(axiom.getSuperClass()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLNegativeObjectPropertyAssertionAxiom(t(axiom.getProperty()), t(axiom
-                    .getSubject()), t(axiom.getObject()), t(axiom.annotations())));
+                () -> df.getOWLNegativeObjectPropertyAssertionAxiom(t(axiom.getProperty()),
+                    t(axiom.getSubject()), t(axiom.getObject()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLAsymmetricObjectPropertyAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLAsymmetricObjectPropertyAxiom(t(axiom.getProperty()), t(axiom
-                    .annotations())));
+                () -> df.getOWLAsymmetricObjectPropertyAxiom(t(axiom.getProperty()),
+                    t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLReflexiveObjectPropertyAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLReflexiveObjectPropertyAxiom(t(axiom.getProperty()), t(axiom
-                    .annotations())));
+                () -> df.getOWLReflexiveObjectPropertyAxiom(t(axiom.getProperty()),
+                    t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLDisjointClassesAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLDisjointClassesAxiom(t(axiom.classExpressions()), t(axiom
-                    .annotations())));
+            return visitAxiom(axiom, () -> df
+                .getOWLDisjointClassesAxiom(t(axiom.classExpressions()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLDataPropertyDomainAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLDataPropertyDomainAxiom(t(axiom.getProperty()), t(axiom
-                    .getDomain()), t(axiom.annotations())));
+            return visitAxiom(axiom, () -> df.getOWLDataPropertyDomainAxiom(t(axiom.getProperty()),
+                t(axiom.getDomain()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLObjectPropertyDomainAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLObjectPropertyDomainAxiom(t(axiom.getProperty()), t(axiom
-                    .getDomain()), t(axiom.annotations())));
+                () -> df.getOWLObjectPropertyDomainAxiom(t(axiom.getProperty()),
+                    t(axiom.getDomain()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLEquivalentObjectPropertiesAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLEquivalentObjectPropertiesAxiom(t(axiom.properties()), t(axiom
-                    .annotations())));
+                () -> df.getOWLEquivalentObjectPropertiesAxiom(t(axiom.properties()),
+                    t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLNegativeDataPropertyAssertionAxiom(t(axiom.getProperty()), t(axiom
-                    .getSubject()), t(axiom.getObject()), t(axiom.annotations())));
+                () -> df.getOWLNegativeDataPropertyAssertionAxiom(t(axiom.getProperty()),
+                    t(axiom.getSubject()), t(axiom.getObject()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLDifferentIndividualsAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLDifferentIndividualsAxiom(t(axiom.individuals()), t(axiom
-                    .annotations())));
+            return visitAxiom(axiom, () -> df
+                .getOWLDifferentIndividualsAxiom(t(axiom.individuals()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLDisjointDataPropertiesAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLDisjointDataPropertiesAxiom(t(axiom.properties()), t(axiom
-                    .annotations())));
+            return visitAxiom(axiom, () -> df
+                .getOWLDisjointDataPropertiesAxiom(t(axiom.properties()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLDisjointObjectPropertiesAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLDisjointObjectPropertiesAxiom(t(axiom.properties()), t(axiom
-                    .annotations())));
+                () -> df.getOWLDisjointObjectPropertiesAxiom(t(axiom.properties()),
+                    t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLObjectPropertyRangeAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLObjectPropertyRangeAxiom(t(axiom.getProperty()), t(axiom
-                    .getRange()), t(axiom.annotations())));
+            return visitAxiom(axiom, () -> df.getOWLObjectPropertyRangeAxiom(t(axiom.getProperty()),
+                t(axiom.getRange()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLObjectPropertyAssertionAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLObjectPropertyAssertionAxiom(t(axiom.getProperty()), t(axiom
-                    .getSubject()), t(axiom.getObject()), t(axiom.annotations())));
+                () -> df.getOWLObjectPropertyAssertionAxiom(t(axiom.getProperty()),
+                    t(axiom.getSubject()), t(axiom.getObject()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLFunctionalObjectPropertyAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLFunctionalObjectPropertyAxiom(t(axiom.getProperty()), t(axiom
-                    .annotations())));
+                () -> df.getOWLFunctionalObjectPropertyAxiom(t(axiom.getProperty()),
+                    t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLSubObjectPropertyOfAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLSubObjectPropertyOfAxiom(t(axiom.getSubProperty()), t(axiom
-                    .getSuperProperty()), t(axiom.annotations())));
+                () -> df.getOWLSubObjectPropertyOfAxiom(t(axiom.getSubProperty()),
+                    t(axiom.getSuperProperty()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLDisjointUnionAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLDisjointUnionAxiom(t(axiom.getOWLClass()), t(axiom
-                    .classExpressions()), t(axiom.annotations())));
+            return visitAxiom(axiom, () -> df.getOWLDisjointUnionAxiom(t(axiom.getOWLClass()),
+                t(axiom.classExpressions()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLSymmetricObjectPropertyAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLSymmetricObjectPropertyAxiom(t(axiom.getProperty()), t(axiom
-                    .annotations())));
-        }
-
-        @Override
-        public Object visit(OWLDataPropertyRangeAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLDataPropertyRangeAxiom(t(axiom.getProperty()), t(axiom.getRange()),
+                () -> df.getOWLSymmetricObjectPropertyAxiom(t(axiom.getProperty()),
                     t(axiom.annotations())));
         }
 
         @Override
+        public Object visit(OWLDataPropertyRangeAxiom axiom) {
+            return visitAxiom(axiom, () -> df.getOWLDataPropertyRangeAxiom(t(axiom.getProperty()),
+                t(axiom.getRange()), t(axiom.annotations())));
+        }
+
+        @Override
         public Object visit(OWLFunctionalDataPropertyAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLFunctionalDataPropertyAxiom(t(axiom.getProperty()), t(axiom
-                    .annotations())));
+            return visitAxiom(axiom, () -> df
+                .getOWLFunctionalDataPropertyAxiom(t(axiom.getProperty()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLEquivalentDataPropertiesAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLEquivalentDataPropertiesAxiom(t(axiom.properties()), t(axiom
-                    .annotations())));
+                () -> df.getOWLEquivalentDataPropertiesAxiom(t(axiom.properties()),
+                    t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLClassAssertionAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLClassAssertionAxiom(t(axiom.getClassExpression()), t(axiom
-                    .getIndividual()), t(axiom.annotations())));
+                () -> df.getOWLClassAssertionAxiom(t(axiom.getClassExpression()),
+                    t(axiom.getIndividual()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLEquivalentClassesAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLEquivalentClassesAxiom(t(axiom.classExpressions()), t(axiom
-                    .annotations())));
+            return visitAxiom(axiom, () -> df
+                .getOWLEquivalentClassesAxiom(t(axiom.classExpressions()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLDataPropertyAssertionAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLDataPropertyAssertionAxiom(t(axiom.getProperty()), t(axiom
-                    .getSubject()), t(axiom.getObject()), t(axiom.annotations())));
+                () -> df.getOWLDataPropertyAssertionAxiom(t(axiom.getProperty()),
+                    t(axiom.getSubject()), t(axiom.getObject()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLTransitiveObjectPropertyAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLTransitiveObjectPropertyAxiom(t(axiom.getProperty()), t(axiom
-                    .annotations())));
+                () -> df.getOWLTransitiveObjectPropertyAxiom(t(axiom.getProperty()),
+                    t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLIrreflexiveObjectPropertyAxiom(t(axiom.getProperty()), t(axiom
-                    .annotations())));
+                () -> df.getOWLIrreflexiveObjectPropertyAxiom(t(axiom.getProperty()),
+                    t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLSubDataPropertyOfAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLSubDataPropertyOfAxiom(t(axiom.getSubProperty()), t(axiom
-                    .getSuperProperty()), t(axiom.annotations())));
+                () -> df.getOWLSubDataPropertyOfAxiom(t(axiom.getSubProperty()),
+                    t(axiom.getSuperProperty()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLInverseFunctionalObjectPropertyAxiom(t(axiom.getProperty()), t(axiom
-                    .annotations())));
+                () -> df.getOWLInverseFunctionalObjectPropertyAxiom(t(axiom.getProperty()),
+                    t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLSameIndividualAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLSameIndividualAxiom(t(axiom.individuals()), t(axiom
-                    .annotations())));
+                () -> df.getOWLSameIndividualAxiom(t(axiom.individuals()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLSubPropertyChainOfAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLSubPropertyChainOfAxiom(t(axiom.getPropertyChain()), t(axiom
-                    .getSuperProperty()), t(axiom.annotations())));
+                () -> df.getOWLSubPropertyChainOfAxiom(t(axiom.getPropertyChain()),
+                    t(axiom.getSuperProperty()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLInverseObjectPropertiesAxiom axiom) {
             return visitAxiom(axiom,
-                () -> df.getOWLInverseObjectPropertiesAxiom(t(axiom.getFirstProperty()), t(axiom
-                    .getSecondProperty()), t(axiom.annotations())));
+                () -> df.getOWLInverseObjectPropertiesAxiom(t(axiom.getFirstProperty()),
+                    t(axiom.getSecondProperty()), t(axiom.annotations())));
         }
 
         @Override
         public Object visit(OWLHasKeyAxiom axiom) {
-            return visitAxiom(axiom,
-                () -> df.getOWLHasKeyAxiom(t(axiom.getClassExpression()), t(axiom
-                    .propertyExpressions()), t(axiom.annotations())));
+            return visitAxiom(axiom, () -> df.getOWLHasKeyAxiom(t(axiom.getClassExpression()),
+                t(axiom.propertyExpressions()), t(axiom.annotations())));
         }
 
         @Override
@@ -590,23 +577,20 @@ public class OWLObjectTransformer<T> {
 
         @Override
         public Object visit(OWLObjectMinCardinality ce) {
-            return visit(ce,
-                () -> df.getOWLObjectMinCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce
-                    .getFiller())));
+            return visit(ce, () -> df.getOWLObjectMinCardinality(ce.getCardinality(),
+                t(ce.getProperty()), t(ce.getFiller())));
         }
 
         @Override
         public Object visit(OWLObjectExactCardinality ce) {
-            return visit(ce,
-                () -> df.getOWLObjectExactCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce
-                    .getFiller())));
+            return visit(ce, () -> df.getOWLObjectExactCardinality(ce.getCardinality(),
+                t(ce.getProperty()), t(ce.getFiller())));
         }
 
         @Override
         public Object visit(OWLObjectMaxCardinality ce) {
-            return visit(ce,
-                () -> df.getOWLObjectMaxCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce
-                    .getFiller())));
+            return visit(ce, () -> df.getOWLObjectMaxCardinality(ce.getCardinality(),
+                t(ce.getProperty()), t(ce.getFiller())));
         }
 
         @Override
@@ -638,23 +622,20 @@ public class OWLObjectTransformer<T> {
 
         @Override
         public Object visit(OWLDataMinCardinality ce) {
-            return visit(ce,
-                () -> df.getOWLDataMinCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce
-                    .getFiller())));
+            return visit(ce, () -> df.getOWLDataMinCardinality(ce.getCardinality(),
+                t(ce.getProperty()), t(ce.getFiller())));
         }
 
         @Override
         public Object visit(OWLDataExactCardinality ce) {
-            return visit(ce,
-                () -> df.getOWLDataExactCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce
-                    .getFiller())));
+            return visit(ce, () -> df.getOWLDataExactCardinality(ce.getCardinality(),
+                t(ce.getProperty()), t(ce.getFiller())));
         }
 
         @Override
         public Object visit(OWLDataMaxCardinality ce) {
-            return visit(ce,
-                () -> df.getOWLDataMaxCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce
-                    .getFiller())));
+            return visit(ce, () -> df.getOWLDataMaxCardinality(ce.getCardinality(),
+                t(ce.getProperty()), t(ce.getFiller())));
         }
 
         @Override
@@ -684,8 +665,8 @@ public class OWLObjectTransformer<T> {
 
         @Override
         public Object visit(OWLDatatypeRestriction node) {
-            return visit(node, () -> df
-                .getOWLDatatypeRestriction(t(node.getDatatype()), t(node.facetRestrictions())));
+            return visit(node, () -> df.getOWLDatatypeRestriction(t(node.getDatatype()),
+                t(node.facetRestrictions())));
         }
 
         @Override
@@ -738,9 +719,8 @@ public class OWLObjectTransformer<T> {
 
         @Override
         public Object visit(OWLAnnotation node) {
-            return visit(node,
-                () -> df.getOWLAnnotation(t(node.getProperty()), t(node.getValue()), t(node
-                    .annotations())));
+            return visit(node, () -> df.getOWLAnnotation(t(node.getProperty()), t(node.getValue()),
+                t(node.annotations())));
         }
 
         @Override
@@ -779,16 +759,14 @@ public class OWLObjectTransformer<T> {
 
         @Override
         public Object visit(SWRLObjectPropertyAtom node) {
-            return visit(node, () -> df
-                .getSWRLObjectPropertyAtom(t(node.getPredicate()), t(node.getFirstArgument()), t(
-                    node.getSecondArgument())));
+            return visit(node, () -> df.getSWRLObjectPropertyAtom(t(node.getPredicate()),
+                t(node.getFirstArgument()), t(node.getSecondArgument())));
         }
 
         @Override
         public Object visit(SWRLDataPropertyAtom node) {
-            return visit(node, () -> df
-                .getSWRLDataPropertyAtom(t(node.getPredicate()), t(node.getFirstArgument()), t(
-                    node.getSecondArgument())));
+            return visit(node, () -> df.getSWRLDataPropertyAtom(t(node.getPredicate()),
+                t(node.getFirstArgument()), t(node.getSecondArgument())));
         }
 
         @Override
@@ -814,15 +792,14 @@ public class OWLObjectTransformer<T> {
 
         @Override
         public Object visit(SWRLSameIndividualAtom node) {
-            return visit(node, () -> df.getSWRLSameIndividualAtom(t(node.getFirstArgument()), t(node
-                .getSecondArgument())));
+            return visit(node, () -> df.getSWRLSameIndividualAtom(t(node.getFirstArgument()),
+                t(node.getSecondArgument())));
         }
 
         @Override
         public Object visit(SWRLDifferentIndividualsAtom node) {
-            return visit(node,
-                () -> df.getSWRLDifferentIndividualsAtom(t(node.getFirstArgument()), t(node
-                    .getSecondArgument())));
+            return visit(node, () -> df.getSWRLDifferentIndividualsAtom(t(node.getFirstArgument()),
+                t(node.getSecondArgument())));
         }
 
         protected Object visit(OWLObject node, Supplier<Object> rebuilder) {

@@ -188,8 +188,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     private static final String DISJOINT_CLASSES_REPLACED =
         "DisjointClasses(%s) replaced by DisjointClasses(%s %s)";
     private static final String PROPERTIES_CANNOT_BE_NULL = "properties cannot be null";
-    private static final String CLASS_EXPRESSIONS_CANNOT_BE_NULL_OR_CONTAIN_NULL =
-        "classExpressions cannot be null or contain null";
     private static final String INDIVIDUALS_CANNOT_BE_NULL = "individuals cannot be null";
     private static final String OWL_ENTITY_CANNOT_BE_NULL = "owlEntity cannot be null";
     private static final String SUPER_PROPERTY_CANNOT_BE_NULL = "superProperty cannot be null";

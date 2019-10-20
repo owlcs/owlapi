@@ -61,7 +61,7 @@ public class OntologyURITestCase extends TestBase {
     }
 
     @Test
-    public void testOntologyURI() throws OWLOntologyCreationException {
+    public void testOntologyURI() {
         IRI iri = IRI("http://www.another.com/", "ont");
         OWLOntology ont = getOWLOntology(iri);
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), iri);
@@ -84,7 +84,7 @@ public class OntologyURITestCase extends TestBase {
     }
 
     @Test
-    public void testSetOntologyURI() throws OWLOntologyCreationException {
+    public void testSetOntologyURI() {
         IRI iri = IRI.getNextDocumentIRI("http://www.another.com/ont");
         OWLOntology ont = getOWLOntology(iri);
         IRI newIRI = IRI.getNextDocumentIRI("http://www.another.com/newont");
@@ -97,7 +97,7 @@ public class OntologyURITestCase extends TestBase {
     }
 
     @Test
-    public void testVersionURI() throws OWLOntologyCreationException {
+    public void testVersionURI() {
         IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
         IRI verIRI = IRI.getNextDocumentIRI("http://www.another.com/ont/versions/1.0.0");
         OWLOntology ont = getOWLOntology(new OWLOntologyID(optional(ontIRI), optional(verIRI)));
@@ -106,7 +106,7 @@ public class OntologyURITestCase extends TestBase {
     }
 
     @Test
-    public void testNullVersionURI() throws OWLOntologyCreationException {
+    public void testNullVersionURI() {
         IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
         IRI verIRI = null;
         OWLOntology ont = getOWLOntology(new OWLOntologyID(optional(ontIRI), optional(verIRI)));

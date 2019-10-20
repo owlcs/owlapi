@@ -69,7 +69,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({"javadoc", "deprecation", "resource", "null"})
+@SuppressWarnings({"javadoc", "deprecation", "resource"})
 public class OWLOntologyManager_Concurrent_TestCase {
 
     private OWLOntologyManager manager;

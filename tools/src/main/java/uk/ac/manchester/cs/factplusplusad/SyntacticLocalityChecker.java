@@ -3,6 +3,7 @@ package uk.ac.manchester.cs.factplusplusad;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Iterator;
+
 import org.semanticweb.owlapi.model.HasOperands;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -84,7 +85,8 @@ class SyntacticLocalityChecker extends LocalityChecker {
 
     /**
      * Processing method for all Equivalent axioms.
-     *
+     * 
+     * @param <T> type
      * @param axiom axiom
      * @return true if axiom is local
      */
@@ -122,7 +124,8 @@ class SyntacticLocalityChecker extends LocalityChecker {
 
     /**
      * Processing method for all Disjoint axioms.
-     *
+     * 
+     * @param <T> type
      * @param axiom axiom
      * @return true if axiom is local
      */
@@ -236,9 +239,8 @@ class SyntacticLocalityChecker extends LocalityChecker {
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         OWLObjectPropertyExpression p1 = axiom.getFirstProperty();
         OWLObjectPropertyExpression p2 = axiom.getSecondProperty();
-        isLocal =
-            isBotEquivalent(p1) && isBotEquivalent(p2) || isTopEquivalent(p1) && isTopEquivalent(
-                p2);
+        isLocal = isBotEquivalent(p1) && isBotEquivalent(p2)
+            || isTopEquivalent(p1) && isTopEquivalent(p2);
     }
 
     @Override

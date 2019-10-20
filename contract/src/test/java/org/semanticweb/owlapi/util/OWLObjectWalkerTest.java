@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -23,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /**
  * Created by ses on 8/15/15.
  */
-@SuppressWarnings({"javadoc", "null"})
+@SuppressWarnings({"javadoc"})
 public class OWLObjectWalkerTest extends TestBase {
 
     private OWLAnnotation world;

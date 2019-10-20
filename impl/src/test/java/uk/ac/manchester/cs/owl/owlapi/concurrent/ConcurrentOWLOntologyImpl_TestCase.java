@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import static org.mockito.Matchers.anyListOf;
+import static org.mockito.ArgumentMatchers.anyListOf;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,7 +52,7 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 03/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({"javadoc", "deprecation", "null"})
+@SuppressWarnings({"javadoc", "deprecation"})
 public class ConcurrentOWLOntologyImpl_TestCase {
 
     @Mock
@@ -113,8 +114,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         when(delegate.applyChangesAndGetDetails(anyListOf(OWLOntologyChange.class)))
-            .thenReturn(new ChangeDetails(
-                ChangeApplied.NO_OPERATION, Collections.emptyList()));
+            .thenReturn(new ChangeDetails(ChangeApplied.NO_OPERATION, Collections.emptyList()));
         ontology = spy(new ConcurrentOWLOntologyImpl(delegate, readWriteLock));
     }
 
@@ -441,8 +441,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_containsAxiom_withReadLock() {
         ontology.containsAxiom(axiom, INCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
-        readLock(i -> i.verify(delegate)
-            .containsAxiom(axiom, INCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS));
+        readLock(i -> i.verify(delegate).containsAxiom(axiom, INCLUDED,
+            AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS));
     }
 
     @Test

@@ -4,13 +4,17 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+
 import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat;
 import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -18,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.search.Searcher;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.StringComparator;
@@ -25,7 +30,6 @@ import org.semanticweb.owlapi.util.StringComparator;
 /**
  * Implement the writer for {@link LabelFunctionalDocumentFormat}.
  */
-@ParametersAreNonnullByDefault
 public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
     @Override
@@ -37,8 +41,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
     protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
         throws OWLOntologyStorageException {
         try {
-            FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(ontology,
-                writer);
+            FunctionalSyntaxObjectRenderer renderer =
+                new FunctionalSyntaxObjectRenderer(ontology, writer);
             renderer.setPrefixManager(new LabelPrefixManager(ontology));
             ontology.accept(renderer);
             writer.flush();
@@ -51,6 +55,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
         private final OWLOntology ontology;
         private final PrefixManager delegate;
+        private final OWLAnnotationProperty rdfsLabel;
 
         LabelPrefixManager(OWLOntology ontology) {
             this.ontology = ontology;
@@ -60,6 +65,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
             } else {
                 delegate = new DefaultPrefixManager();
             }
+            rdfsLabel = ontology.getOWLOntologyManager().getOWLDataFactory().getRDFSLabel();
         }
 
         @Override
@@ -91,16 +97,14 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
         @Override
         public String getPrefixIRIIgnoreQName(IRI iri) {
-            for (OWLAnnotationAssertionAxiom annotation : ontology
-                .getAnnotationAssertionAxioms(iri)) {
-                if (annotation.getProperty().isLabel()) {
-                    OWLAnnotationValue value = annotation.getValue();
-                    if (value instanceof OWLLiteral) {
-                        return '<' + ((OWLLiteral) value).getLiteral() + '>';
-                    }
-                }
-            }
-            return delegate.getPrefixIRIIgnoreQName(iri);
+            Optional<OWLAnnotationValue> lit = labels(iri).map(OWLAnnotation::getValue)
+                .filter(OWLAnnotationValue::isLiteral).findFirst();
+            return lit.map(x -> "<" + x.asLiteral().get().getLiteral() + ">")
+                .orElse(delegate.getPrefixIRIIgnoreQName(iri));
+        }
+
+        protected Stream<OWLAnnotation> labels(IRI iri) {
+            return Searcher.annotationObjects(ontology.annotationAssertionAxioms(iri), rdfsLabel);
         }
 
         @Override

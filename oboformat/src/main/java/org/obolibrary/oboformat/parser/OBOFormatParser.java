@@ -66,7 +66,6 @@ public class OBOFormatParser {
      * @param s input stream
      * @param importsMap import map
      */
-    @SuppressWarnings("null")
     protected OBOFormatParser(MyStream s, Map<String, OBODoc> importsMap) {
         stream = s;
         importCache.putAll(importsMap);
@@ -881,10 +880,9 @@ public class OBOFormatParser {
     }
 
     /**
-     * intersection_of-Tag Class-ID | intersection_of-Tag Relation-ID Class-ID.
-     *
      * @param cl cl
      * @throws OBOFormatParserException parser exception
+     * @return {@code intersection_of-Tag Class-ID | intersection_of-Tag Relation-ID Class-ID}
      */
     private Clause parseTermIntersectionOf(Clause cl) {
         parseIdRef(cl);

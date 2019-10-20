@@ -46,7 +46,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
     }
 
     @Test
-    public void testCreateOntologyWithIRI() throws OWLOntologyCreationException {
+    public void testCreateOntologyWithIRI() {
         IRI ontologyIRI = IRI.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology");
         OWLOntology ontology = getOWLOntology(ontologyIRI);
         assertNotNull("ontology should not be null", ontology);
@@ -58,7 +58,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
     }
 
     @Test
-    public void testCreateOntologyWithIRIAndVersionIRI() throws OWLOntologyCreationException {
+    public void testCreateOntologyWithIRIAndVersionIRI() {
         IRI ontologyIRI = IRI.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology");
         IRI versionIRI =
             IRI.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology/version");
@@ -73,7 +73,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
     }
 
     @Test
-    public void testCreateOntologyWithIRIWithMapper() throws OWLOntologyCreationException {
+    public void testCreateOntologyWithIRIWithMapper() {
         IRI ontologyIRI = IRI.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology");
         IRI documentIRI = IRI.getNextDocumentIRI("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
@@ -88,8 +88,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
     }
 
     @Test
-    public void testCreateOntologyWithIRIAndVersionIRIWithMapper()
-        throws OWLOntologyCreationException {
+    public void testCreateOntologyWithIRIAndVersionIRIWithMapper() {
         IRI ontologyIRI = IRI.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology");
         IRI versionIRI =
             IRI.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology/version");

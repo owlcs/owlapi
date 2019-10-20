@@ -61,7 +61,7 @@ public class RelativeIRIsRoundTripTestCase extends AbstractRoundTrippingTestCase
         return super.equal(ont1, ont2);
     }
 
-    protected IRI relativise(HasIRI d) {
-        return IRI.create("http://www.semanticweb.org/owlapi/", d.getIRI().toString());
+    protected IRI relativise(HasIRI hasIRI) {
+        return IRI.create("http://www.semanticweb.org/owlapi/", hasIRI.getIRI().toString());
     }
 }

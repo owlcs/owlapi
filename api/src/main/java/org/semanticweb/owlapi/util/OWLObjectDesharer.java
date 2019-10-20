@@ -120,8 +120,8 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
     private final OWLDataFactory df;
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory and uri replacement map.
+     * Creates an object duplicator that duplicates objects using the specified data factory and uri
+     * replacement map.
      *
      * @param m The manager providing data factory and config to be used for the duplication.
      */
@@ -607,7 +607,8 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
 
     /**
      * A utility function that duplicates a set of objects.
-     *
+     * 
+     * @param <O> type
      * @param objects The set of object to be duplicated
      * @return The set of duplicated objects
      */

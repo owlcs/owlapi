@@ -5,6 +5,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
 import org.semanticweb.owlapi.model.HasOperands;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -149,7 +150,8 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
 
     /**
      * Processing method for all Disjoint axioms.
-     *
+     * 
+     * @param <T> type
      * @param axiom axiom
      * @return true if axiom is local
      */
@@ -263,9 +265,8 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         OWLObjectPropertyExpression p1 = axiom.getFirstProperty();
         OWLObjectPropertyExpression p2 = axiom.getSecondProperty();
-        isLocal =
-            isBotEquivalent(p1) && isBotEquivalent(p2) || isTopEquivalent(p1) && isTopEquivalent(
-                p2);
+        isLocal = isBotEquivalent(p1) && isBotEquivalent(p2)
+            || isTopEquivalent(p1) && isTopEquivalent(p2);
     }
 
     @Override

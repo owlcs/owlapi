@@ -79,7 +79,7 @@ public class LiteralWithEscapesTestCase extends AbstractRoundTrippingTestCase {
     }
 
     @Override
-    public void testRioRDFXML() throws Exception {
+    public void testRioRDFXML() {
         // Rio normalizes literals differently, got its own test
     }
 }

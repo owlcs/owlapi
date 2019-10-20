@@ -54,6 +54,7 @@ public interface HasAnnotationValue {
      * @param c consumer to apply
      * @param r runnable to execute if the predicate does not match or the annotation type does not
      *        match
+     * @param <T> type
      */
     default <T extends OWLAnnotationValue> void when(Class<T> witness, Predicate<T> p,
         Consumer<T> c, Runnable r) {

@@ -157,7 +157,6 @@ public class OWLAPIObo2Owl {
      *
      * @param manager the manager
      */
-    @SuppressWarnings("null")
     public OWLAPIObo2Owl(OWLOntologyManager manager) {
         idSpaceMap = new HashMap<>();
         apToDeclare = new HashSet<>();

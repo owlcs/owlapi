@@ -9,13 +9,13 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+
 import uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl;
 
 /**
- * Matthew Horridge Stanford Center for Biomedical Informatics Research 10 Jul
- * 16
+ * Matthew Horridge Stanford Center for Biomedical Informatics Research 10 Jul 16
  */
-@SuppressWarnings({"javadoc", "null"})
+@SuppressWarnings({"javadoc"})
 public class ImportsCacheTestCase extends TestBase {
 
     private OWLOntology ontA;
@@ -32,9 +32,8 @@ public class ImportsCacheTestCase extends TestBase {
     }
 
     /**
-     * Retrieves the imports closure of ontA, where ontA imports ontB via its
-     * documentIRI. The document IRI is set BEFORE adding the imports
-     * declaration.
+     * Retrieves the imports closure of ontA, where ontA imports ontB via its documentIRI. The
+     * document IRI is set BEFORE adding the imports declaration.
      */
     @Test
     public void shouldRetrieveImportsClosureByDocumentIri() {
@@ -47,9 +46,8 @@ public class ImportsCacheTestCase extends TestBase {
     }
 
     /**
-     * Retrieves the imports closure of ontA, where ontA imports ontB via its
-     * documentIRI. The document IRI is set AFTER adding the imports
-     * declaration.
+     * Retrieves the imports closure of ontA, where ontA imports ontB via its documentIRI. The
+     * document IRI is set AFTER adding the imports declaration.
      */
     @Test
     public void shouldRetrieveImportsClosureByDocumentIriAfterDocumentIriChange() {

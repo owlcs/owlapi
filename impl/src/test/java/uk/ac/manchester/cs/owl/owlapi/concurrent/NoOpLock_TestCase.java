@@ -7,13 +7,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeUnit;
+
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
-@SuppressWarnings({"javadoc", "null"})
+@SuppressWarnings({"javadoc"})
 public class NoOpLock_TestCase {
 
     private NoOpLock lock;

@@ -26,7 +26,7 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
  *         04/04/2014
  */
-@SuppressWarnings({"javadoc", "null"})
+@SuppressWarnings({"javadoc"})
 @RunWith(MockitoJUnitRunner.class)
 public class SWRLAtomOrderingTestCase extends TestBase {
 

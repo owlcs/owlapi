@@ -38,7 +38,7 @@ public class ModuleAnnotationsTestCase extends TestBase {
         IRI iri = IRI.create("urn:test:noanns");
         OWLOntology o = m.createOntology(iri);
         HashSet<OWLAxiom> axioms = new HashSet<>(Arrays.asList(dR, dA, dB, ax));
-        o.getOWLOntologyManager().addAxioms(o, axioms);
+        o.add(axioms);
         Set<OWLAxiom> module = new SyntacticLocalityModuleExtractor(m,
             m.getOntologyLoaderConfiguration().withSkipModuleAnnotations(true), axioms.stream(),
             uk.ac.manchester.cs.owlapi.modularity.ModuleType.STAR, false).extract(e);
@@ -53,7 +53,7 @@ public class ModuleAnnotationsTestCase extends TestBase {
         IRI iri = IRI.create("urn:test:anns");
         OWLOntology o = m.createOntology(iri);
         HashSet<OWLAxiom> axioms = new HashSet<>(Arrays.asList(dR, dA, dB, ax));
-        o.getOWLOntologyManager().addAxioms(o, axioms);
+        o.add(axioms);
         Set<OWLAxiom> module = new SyntacticLocalityModuleExtractor(m, axioms.stream(),
             uk.ac.manchester.cs.owlapi.modularity.ModuleType.STAR, false).extract(e);
         assertEquals(expected, module);

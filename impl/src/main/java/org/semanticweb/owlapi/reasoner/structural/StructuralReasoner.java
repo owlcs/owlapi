@@ -1254,7 +1254,6 @@ public class StructuralReasoner extends OWLReasonerBase {
         private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> sub2Super;
         private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> super2Sub;
 
-        @SuppressWarnings("null")
         RawObjectPropertyHierarchyProvider() {
             rebuild();
         }

@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.util;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Supplier;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 
@@ -23,13 +24,12 @@ import javax.annotation.Nullable;
  */
 public final class OWLAPIPreconditions {
 
-    private OWLAPIPreconditions() {
-    }
+    private OWLAPIPreconditions() {}
 
     /**
-     * Check that the argument is not null; if the argument is null, throw an
-     * IllegalStateException. This method is meant to be used to verify
-     * conditions on member variables rather than input parameters.
+     * Check that the argument is not null; if the argument is null, throw an IllegalStateException.
+     * This method is meant to be used to verify conditions on member variables rather than input
+     * parameters.
      *
      * @param object reference to check
      * @param <T> reference type
@@ -41,9 +41,9 @@ public final class OWLAPIPreconditions {
     }
 
     /**
-     * Check that the argument is not null; if the argument is null, throw an
-     * IllegalStateException. This method is meant to be used to verify
-     * conditions on member variables rather than input parameters.
+     * Check that the argument is not null; if the argument is null, throw an IllegalStateException.
+     * This method is meant to be used to verify conditions on member variables rather than input
+     * parameters.
      *
      * @param object reference to check
      * @param message message to use for the error
@@ -59,9 +59,9 @@ public final class OWLAPIPreconditions {
     }
 
     /**
-     * Check that the argument is not null; if the argument is null, throw an
-     * IllegalStateException. This method is meant to be used to verify
-     * conditions on member variables rather than input parameters.
+     * Check that the argument is not null; if the argument is null, throw an IllegalStateException.
+     * This method is meant to be used to verify conditions on member variables rather than input
+     * parameters.
      *
      * @param object reference to check
      * @param message message to use for the error
@@ -213,7 +213,8 @@ public final class OWLAPIPreconditions {
 
     /**
      * Wrapper to allow non null annotations.
-     *
+     * 
+     * @param <T> type
      * @return empty optional instance
      */
     public static <T> Optional<T> emptyOptional() {
@@ -222,7 +223,8 @@ public final class OWLAPIPreconditions {
 
     /**
      * Wrapper to allow non null annotations.
-     *
+     * 
+     * @param <T> type
      * @param t type for the returned optional
      * @return empty optional instance
      */
@@ -232,7 +234,8 @@ public final class OWLAPIPreconditions {
 
     /**
      * Wrapper to allow non null annotations.
-     *
+     * 
+     * @param <T> type
      * @param t instance to wrap. Can be null (the result will be Optional.empty())
      * @return optional instance (content can be absent)
      */
