@@ -28,8 +28,11 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -127,25 +130,39 @@ public class OWLEntityRenamer {
         Set<OWLAxiom> axioms = ont.getReferencingAxioms(entity, EXCLUDED);
         axioms.addAll(ont.getDeclarationAxioms(entity));
         axioms.addAll(ont.getAnnotationAssertionAxioms(entity.getIRI()));
+        addLinksByAnonymousIndividual(ont, axioms);
         return axioms;
     }
 
-    private Set<OWLAxiom> getAxioms(@Nonnull OWLOntology ont, @Nonnull IRI iri) {
+    private static Set<OWLAxiom> getAxioms(@Nonnull OWLOntology ont, @Nonnull IRI iri) {
         Set<OWLAxiom> axioms = new HashSet<>();
-        axioms.addAll(ont.getReferencingAxioms(
-            owlOntologyManager.getOWLDataFactory().getOWLClass(iri), EXCLUDED));
-        axioms.addAll(ont.getReferencingAxioms(
-            owlOntologyManager.getOWLDataFactory().getOWLObjectProperty(iri), EXCLUDED));
-        axioms.addAll(ont.getReferencingAxioms(
-            owlOntologyManager.getOWLDataFactory().getOWLDataProperty(iri), EXCLUDED));
-        axioms.addAll(ont.getReferencingAxioms(
-            owlOntologyManager.getOWLDataFactory().getOWLNamedIndividual(iri), EXCLUDED));
-        axioms.addAll(ont.getReferencingAxioms(
-            owlOntologyManager.getOWLDataFactory().getOWLDatatype(iri), EXCLUDED));
-        axioms.addAll(ont.getReferencingAxioms(
-            owlOntologyManager.getOWLDataFactory().getOWLAnnotationProperty(iri), EXCLUDED));
+        OWLDataFactory df = ont.getOWLOntologyManager().getOWLDataFactory();
+        axioms.addAll(ont.getReferencingAxioms(df.getOWLClass(iri), EXCLUDED));
+        axioms.addAll(ont.getReferencingAxioms(df.getOWLObjectProperty(iri), EXCLUDED));
+        axioms.addAll(ont.getReferencingAxioms(df.getOWLDataProperty(iri), EXCLUDED));
+        axioms.addAll(ont.getReferencingAxioms(df.getOWLNamedIndividual(iri), EXCLUDED));
+        axioms.addAll(ont.getReferencingAxioms(df.getOWLDatatype(iri), EXCLUDED));
+        axioms.addAll(ont.getReferencingAxioms(df.getOWLAnnotationProperty(iri), EXCLUDED));
         axioms.addAll(ont.getAnnotationAssertionAxioms(iri));
+        addLinksByAnonymousIndividual(ont, axioms);
         return axioms;
+    }
+
+    protected static void addLinksByAnonymousIndividual(OWLOntology ont, Set<OWLAxiom> axioms) {
+        Set<OWLAnonymousIndividual> visited = new HashSet<>();
+        Set<OWLAnonymousIndividual> toVisit = new HashSet<>();
+        axioms.stream().flatMap(x -> x.getAnonymousIndividuals().stream()).forEach(toVisit::add);
+        while (!toVisit.isEmpty()) {
+            visited.addAll(toVisit);
+            List<OWLAnonymousIndividual> nextRound = new ArrayList<>();
+            toVisit.forEach(x -> ont.getReferencingAxioms(x).stream().forEach(ax -> {
+                if (axioms.add(ax)) {
+                    ax.getAnonymousIndividuals().stream().filter(visited::add)
+                        .forEach(nextRound::add);
+                }
+            }));
+            toVisit = new HashSet<>(nextRound);
+        }
     }
 
     /**
