@@ -61,7 +61,7 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     }
 
     /**
-     * @return special value for concepts that are not in C[C}^{<= n}
+     * @return special value for concepts that are not in {@code C[C]^{<= n}}
      */
     int noUpperValue() {
         return -1;
