@@ -11,14 +11,13 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
 
 /**
- * A provider for anonymous individuals that remaps input ids consistently
- * across all requests. This class obeys the preferences set in
- * {@link OWLOntologyManager#getOntologyWriterConfiguration()}.
+ * A provider for anonymous individuals that remaps input ids consistently across all requests. This
+ * class obeys the preferences set in {@link OWLOntologyManager#getOntologyWriterConfiguration()}.
  */
 public class RemappingIndividualProvider implements AnonymousIndividualByIdProvider {
 
     private OWLDataFactory df;
-    private OWLOntologyWriterConfiguration cf;
+    private boolean shouldRemapAllAnonymousIndividualsIds;
     private Map<String, OWLAnonymousIndividual> map;
 
     /**
@@ -26,9 +25,17 @@ public class RemappingIndividualProvider implements AnonymousIndividualByIdProvi
      * @param df data factory
      */
     public RemappingIndividualProvider(OntologyConfigurator m, OWLDataFactory df) {
+        this(m.buildWriterConfiguration().shouldRemapAllAnonymousIndividualsIds(), df);
+    }
+
+    /**
+     * @param remap enable remap
+     * @param df data factory
+     */
+    public RemappingIndividualProvider(boolean remap, OWLDataFactory df) {
         this.df = df;
-        cf = m.buildWriterConfiguration();
-        if (cf.shouldRemapAllAnonymousIndividualsIds()) {
+        shouldRemapAllAnonymousIndividualsIds = remap;
+        if (shouldRemapAllAnonymousIndividualsIds) {
             map = new HashMap<>();
         } else {
             map = Collections.emptyMap();
@@ -37,7 +44,7 @@ public class RemappingIndividualProvider implements AnonymousIndividualByIdProvi
 
     @Override
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
-        if (!cf.shouldRemapAllAnonymousIndividualsIds()) {
+        if (!shouldRemapAllAnonymousIndividualsIds) {
             return df.getOWLAnonymousIndividual(nodeId);
         }
         OWLAnonymousIndividual toReturn = map.get(nodeId);

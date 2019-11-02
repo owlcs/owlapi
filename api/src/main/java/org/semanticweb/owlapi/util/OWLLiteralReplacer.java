@@ -50,8 +50,8 @@ public class OWLLiteralReplacer {
      * @param ontologies the ontologies to use
      */
     public OWLLiteralReplacer(OWLOntologyManager owlOntologyManager, Set<OWLOntology> ontologies) {
-        this.owlOntologyManager = checkNotNull(owlOntologyManager,
-            "owlOntologyManager cannot be null");
+        this.owlOntologyManager =
+            checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 
@@ -62,18 +62,18 @@ public class OWLLiteralReplacer {
     }
 
     /**
-     * Fills a list with ontology changes which will replace a set of axioms
-     * with duplicated/transformed axioms.
+     * Fills a list with ontology changes which will replace a set of axioms with
+     * duplicated/transformed axioms.
      *
      * @param changes A list that will be filled with ontology changes which will remove the
-     * specified axioms from the specified ontology, and add the duplicated/transformed version
+     *        specified axioms from the specified ontology, and add the duplicated/transformed
+     *        version
      * @param axioms The axioms to be duplicated/transformed
      * @param ont The ontology to which the changed should be applied
      * @param duplicator The duplicator that will do the duplicating
      */
     private static void fillListWithTransformChanges(List<OWLOntologyChange> changes,
-        Collection<OWLAxiom> axioms,
-        OWLOntology ont, OWLObjectDuplicator duplicator) {
+        Collection<OWLAxiom> axioms, OWLOntology ont, OWLObjectDuplicator duplicator) {
         for (OWLAxiom ax : axioms) {
             assert ax != null;
             changes.add(new RemoveAxiom(ont, ax));
@@ -83,8 +83,7 @@ public class OWLLiteralReplacer {
     }
 
     /**
-     * Changes a literal for another literal. This creates the appropriate
-     * changes to be applied.
+     * Changes a literal for another literal. This creates the appropriate changes to be applied.
      *
      * @param literal The literal to be changed
      * @param newLiteral The literal to use in replacements.
@@ -97,8 +96,8 @@ public class OWLLiteralReplacer {
         uriMap.put(literal, newLiteral);
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator dup = new OWLObjectDuplicator(Collections.<OWLEntity, IRI>emptyMap(),
-            uriMap,
-            owlOntologyManager);
+            uriMap, owlOntologyManager,
+            new RemappingIndividualProvider(false, owlOntologyManager.getOWLDataFactory()));
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             fillListWithTransformChanges(changes, getAxioms(ont, literal), ont, dup);
@@ -113,8 +112,8 @@ public class OWLLiteralReplacer {
     public List<OWLOntologyChange> changeLiterals(Map<OWLLiteral, OWLLiteral> literalToLiteralMap) {
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(
-            Collections.<OWLEntity, IRI>emptyMap(),
-            literalToLiteralMap, owlOntologyManager);
+            Collections.<OWLEntity, IRI>emptyMap(), literalToLiteralMap, owlOntologyManager,
+            new RemappingIndividualProvider(false, owlOntologyManager.getOWLDataFactory()));
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             for (OWLLiteral ent : literalToLiteralMap.keySet()) {

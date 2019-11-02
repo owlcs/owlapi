@@ -150,8 +150,26 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
      */
     public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap,
         Map<OWLLiteral, OWLLiteral> literals, OWLOntologyManager m) {
+        this(entityIRIReplacementMap, literals, m,
+            new RemappingIndividualProvider(m.getOntologyConfigurator(), m.getOWLDataFactory()));
+    }
+
+    /**
+     * Creates an object duplicator that duplicates objects using the specified data factory and uri
+     * replacement map.
+     *
+     * @param m The manager providing data factory and config to be used for the duplication.
+     * @param entityIRIReplacementMap The map to use for the replacement of URIs. Any uris the
+     *        appear in the map will be replaced as objects are duplicated. This can be used to
+     *        "rename" entities.
+     * @param literals replacement literals
+     * @param anonProvider anon provider
+     */
+    public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap,
+        Map<OWLLiteral, OWLLiteral> literals, OWLOntologyManager m,
+        RemappingIndividualProvider anonProvider) {
         df = checkNotNull(m, "ontology manager cannot be null").getOWLDataFactory();
-        anonProvider = new RemappingIndividualProvider(m.getOntologyConfigurator(), df);
+        this.anonProvider = anonProvider;
         replacementMap = new HashMap<>(
             checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
         checkNotNull(literals, "literals cannot be null");
@@ -178,6 +196,22 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
      */
     public OWLObjectDuplicator(OWLOntologyManager m, Map<IRI, IRI> iriReplacementMap) {
         this(remap(iriReplacementMap, m.getOWLDataFactory()), m);
+    }
+
+    /**
+     * Creates an object duplicator that duplicates objects using the specified data factory and uri
+     * replacement map.
+     *
+     * @param m The manager providing data factory and config to be used for the duplication.
+     * @param iriReplacementMap The map to use for the replacement of URIs. Any uris the appear in
+     *        the map will be replaced as objects are duplicated. This can be used to "rename"
+     *        entities.
+     * @param anonProvider anon provider
+     */
+    public OWLObjectDuplicator(OWLOntologyManager m, Map<IRI, IRI> iriReplacementMap,
+        RemappingIndividualProvider anonProvider) {
+        this(remap(iriReplacementMap, m.getOWLDataFactory()), Collections.emptyMap(), m,
+            anonProvider);
     }
 
     private static Map<OWLEntity, IRI> remap(Map<IRI, IRI> iriReplacementMap, OWLDataFactory df) {

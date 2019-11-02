@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,7 +119,8 @@ public class OWLEntityRenamer {
         Map<IRI, IRI> uriMap = new HashMap<>();
         uriMap.put(iri, newIRI);
         List<OWLOntologyChange> changes = new ArrayList<>();
-        OWLObjectDuplicator dup = new OWLObjectDuplicator(m, uriMap);
+        OWLObjectDuplicator dup = new OWLObjectDuplicator(m, uriMap,
+            new RemappingIndividualProvider(false, m.getOWLDataFactory()));
         ontologies
             .forEach(o -> fillListWithTransformChanges(changes, o.referencingAxioms(iri), o, dup));
         return changes;
@@ -135,7 +137,8 @@ public class OWLEntityRenamer {
         Map<OWLEntity, IRI> iriMap = new HashMap<>();
         iriMap.put(entity, newIRI);
         List<OWLOntologyChange> changes = new ArrayList<>();
-        OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap, m);
+        OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap, Collections.emptyMap(), m,
+            new RemappingIndividualProvider(false, m.getOWLDataFactory()));
         ontologies.forEach(
             o -> fillListWithTransformChanges(changes, getAxioms(o, entity), o, duplicator));
         return changes;
@@ -147,7 +150,9 @@ public class OWLEntityRenamer {
      */
     public List<OWLOntologyChange> changeIRI(Map<OWLEntity, IRI> entity2IRIMap) {
         List<OWLOntologyChange> changes = new ArrayList<>();
-        OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap, m);
+        OWLObjectDuplicator duplicator =
+            new OWLObjectDuplicator(entity2IRIMap, Collections.emptyMap(), m,
+                new RemappingIndividualProvider(false, m.getOWLDataFactory()));
         for (OWLOntology ont : ontologies) {
             entity2IRIMap.keySet().forEach(
                 e -> fillListWithTransformChanges(changes, getAxioms(ont, e), ont, duplicator));

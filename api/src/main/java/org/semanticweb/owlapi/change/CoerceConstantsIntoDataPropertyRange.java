@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asMap;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -39,11 +40,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 
 /**
- * Coerces constants to have the same type as the range of a property in axioms
- * where the two are used. For example, given, p value "xyz", the "xyz" constant
- * would be typed with the range of p.
+ * Coerces constants to have the same type as the range of a property in axioms where the two are
+ * used. For example, given, p value "xyz", the "xyz" constant would be typed with the range of p.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
@@ -61,8 +62,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         super(m.getOWLDataFactory());
         checkNotNull(ontologies, "ontologies cannot be null");
         Map<OWLDataPropertyExpression, OWLDatatype> map = asMap(datatypes(ontologies),
-            ax -> ax.getProperty(), ax -> ax
-                .getRange().asOWLDatatype());
+            ax -> ax.getProperty(), ax -> ax.getRange().asOWLDatatype());
         OWLConstantReplacer replacer = new OWLConstantReplacer(m, map);
         ontologies.forEach(o -> o.logicalAxioms().forEach(ax -> duplicate(replacer, o, ax)));
     }
@@ -73,8 +73,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
      */
     public Stream<OWLDataPropertyRangeAxiom> datatypes(Collection<OWLOntology> ontologies) {
         return ontologies.stream().flatMap(ont -> ont.axioms(AxiomType.DATA_PROPERTY_RANGE))
-            .filter(ax -> ax.getRange()
-                .isOWLDatatype());
+            .filter(ax -> ax.getRange().isOWLDatatype());
     }
 
     protected void duplicate(OWLConstantReplacer replacer, OWLOntology o, OWLLogicalAxiom ax) {
@@ -97,7 +96,8 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
          * @param map the map
          */
         OWLConstantReplacer(OWLOntologyManager m, Map<OWLDataPropertyExpression, OWLDatatype> map) {
-            super(m);
+            super(Collections.emptyMap(), Collections.emptyMap(), m,
+                new RemappingIndividualProvider(false, m.getOWLDataFactory()));
             this.map = map;
         }
 
@@ -115,16 +115,15 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
 
         @Override
         public OWLDataHasValue visit(OWLDataHasValue ce) {
-            return df
-                .getOWLDataHasValue(ce.getProperty(), process(ce.getProperty(), ce.getFiller()));
+            return df.getOWLDataHasValue(ce.getProperty(),
+                process(ce.getProperty(), ce.getFiller()));
         }
 
         @Override
         public OWLDataSomeValuesFrom visit(OWLDataSomeValuesFrom ce) {
             if (ce.getFiller() instanceof OWLDataOneOf) {
                 return df.getOWLDataSomeValuesFrom(ce.getProperty(),
-                    process(ce.getProperty(), (OWLDataOneOf) ce
-                        .getFiller()));
+                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller()));
             }
             return super.visit(ce);
         }
@@ -133,8 +132,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         public OWLDataMinCardinality visit(OWLDataMinCardinality ce) {
             if (ce.getFiller() instanceof OWLDataOneOf) {
                 return df.getOWLDataMinCardinality(ce.getCardinality(), ce.getProperty(),
-                    process(ce.getProperty(),
-                        (OWLDataOneOf) ce.getFiller()));
+                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller()));
             }
             return super.visit(ce);
         }
@@ -143,8 +141,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         public OWLDataMaxCardinality visit(OWLDataMaxCardinality ce) {
             if (ce.getFiller() instanceof OWLDataOneOf) {
                 return df.getOWLDataMaxCardinality(ce.getCardinality(), ce.getProperty(),
-                    process(ce.getProperty(),
-                        (OWLDataOneOf) ce.getFiller()));
+                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller()));
             }
             return super.visit(ce);
         }
@@ -153,8 +150,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         public OWLDataExactCardinality visit(OWLDataExactCardinality ce) {
             if (ce.getFiller() instanceof OWLDataOneOf) {
                 return df.getOWLDataExactCardinality(ce.getCardinality(), ce.getProperty(),
-                    process(ce.getProperty(),
-                        (OWLDataOneOf) ce.getFiller()));
+                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller()));
             }
             return super.visit(ce);
         }
@@ -163,8 +159,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         public OWLDataAllValuesFrom visit(OWLDataAllValuesFrom ce) {
             if (ce.getFiller() instanceof OWLDataOneOf) {
                 return df.getOWLDataAllValuesFrom(ce.getProperty(),
-                    process(ce.getProperty(), (OWLDataOneOf) ce
-                        .getFiller()));
+                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller()));
             }
             return super.visit(ce);
         }
@@ -172,17 +167,14 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         @Override
         public OWLDataPropertyAssertionAxiom visit(OWLDataPropertyAssertionAxiom axiom) {
             return df.getOWLDataPropertyAssertionAxiom(axiom.getProperty(), axiom.getSubject(),
-                process(axiom
-                    .getProperty(), axiom.getObject()));
+                process(axiom.getProperty(), axiom.getObject()));
         }
 
         @Override
         public OWLNegativeDataPropertyAssertionAxiom visit(
             OWLNegativeDataPropertyAssertionAxiom axiom) {
-            return df
-                .getOWLNegativeDataPropertyAssertionAxiom(axiom.getProperty(), axiom.getSubject(),
-                    process(axiom
-                        .getProperty(), axiom.getObject()));
+            return df.getOWLNegativeDataPropertyAssertionAxiom(axiom.getProperty(),
+                axiom.getSubject(), process(axiom.getProperty(), axiom.getObject()));
         }
     }
 }
