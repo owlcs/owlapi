@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -41,45 +42,37 @@ import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 
 /**
- * Coerces constants to have the same type as the range of a property in axioms
- * where the two are used. For example, given, p value "xyz", the "xyz" constant
- * would be typed with the range of p.
+ * Coerces constants to have the same type as the range of a property in axioms where the two are
+ * used. For example, given, p value "xyz", the "xyz" constant would be typed with the range of p.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
  */
-public class CoerceConstantsIntoDataPropertyRange extends
-        AbstractCompositeOntologyChange {
+public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntologyChange {
 
     private static final long serialVersionUID = 40000L;
 
     /**
      * Instantiates a new coerce constants into data property range.
      * 
-     * @param dataFactory
-     *        the data factory
-     * @param ontologies
-     *        the ontologies to use
+     * @param dataFactory the data factory
+     * @param ontologies the ontologies to use
      */
-    public CoerceConstantsIntoDataPropertyRange(
-            @Nonnull OWLDataFactory dataFactory,
-            @Nonnull Set<OWLOntology> ontologies) {
+    public CoerceConstantsIntoDataPropertyRange(@Nonnull OWLDataFactory dataFactory,
+        @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
         Map<OWLDataPropertyExpression, OWLDatatype> map = new HashMap<>();
-        for (OWLOntology ont : checkNotNull(ontologies,
-                "ontologies cannot be null")) {
-            for (OWLDataPropertyRangeAxiom ax : ont
-                    .getAxioms(AxiomType.DATA_PROPERTY_RANGE)) {
+        for (OWLOntology ont : checkNotNull(ontologies, "ontologies cannot be null")) {
+            for (OWLDataPropertyRangeAxiom ax : ont.getAxioms(AxiomType.DATA_PROPERTY_RANGE)) {
                 if (ax.getRange().isDatatype()) {
                     map.put(ax.getProperty(), (OWLDatatype) ax.getRange());
                 }
             }
         }
-        OWLConstantReplacer replacer = new OWLConstantReplacer(
-                getDataFactory(), map);
+        OWLConstantReplacer replacer = new OWLConstantReplacer(getDataFactory(), map);
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             for (OWLAxiom ax : ont.getLogicalAxioms()) {
@@ -99,20 +92,19 @@ public class CoerceConstantsIntoDataPropertyRange extends
         private final Map<OWLDataPropertyExpression, OWLDatatype> map;
 
         /**
-         * @param dataFactory
-         *        the data factory
-         * @param m
-         *        the m
+         * @param dataFactory the data factory
+         * @param m the m
          */
         OWLConstantReplacer(@Nonnull OWLDataFactory dataFactory,
-                @Nonnull Map<OWLDataPropertyExpression, OWLDatatype> m) {
-            super(dataFactory);
+            @Nonnull Map<OWLDataPropertyExpression, OWLDatatype> m) {
+            super(new HashMap<>(), dataFactory, Collections.emptyMap(),
+                new RemappingIndividualProvider(dataFactory, false));
             map = m;
         }
 
         @Nonnull
         private OWLDataOneOf process(@Nonnull OWLDataPropertyExpression prop,
-                @Nonnull OWLDataOneOf oneOf) {
+            @Nonnull OWLDataOneOf oneOf) {
             Set<OWLLiteral> vals = new HashSet<>();
             for (OWLLiteral con : oneOf.getValues()) {
                 assert con != null;
@@ -123,7 +115,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
 
         @Nonnull
         private OWLLiteral process(@Nonnull OWLDataPropertyExpression prop,
-                @Nonnull OWLLiteral con) {
+            @Nonnull OWLLiteral con) {
             OWLDatatype dt = map.get(prop);
             if (dt != null) {
                 return getDataFactory().getOWLLiteral(con.getLiteral(), dt);
@@ -136,18 +128,15 @@ public class CoerceConstantsIntoDataPropertyRange extends
         public void visit(@Nonnull OWLDataHasValue ce) {
             super.visit(ce);
             setLastObject(getDataFactory().getOWLDataHasValue(ce.getProperty(),
-                    process(ce.getProperty(), ce.getFiller())));
+                process(ce.getProperty(), ce.getFiller())));
         }
 
         @Override
         public void visit(OWLDataSomeValuesFrom ce) {
             super.visit(ce);
             if (ce instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory()
-                        .getOWLDataSomeValuesFrom(
-                                ce.getProperty(),
-                                process(ce.getProperty(),
-                                        (OWLDataOneOf) ce.getFiller())));
+                setLastObject(getDataFactory().getOWLDataSomeValuesFrom(ce.getProperty(),
+                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller())));
             }
         }
 
@@ -155,12 +144,8 @@ public class CoerceConstantsIntoDataPropertyRange extends
         public void visit(OWLDataMinCardinality ce) {
             super.visit(ce);
             if (ce instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory()
-                        .getOWLDataMinCardinality(
-                                ce.getCardinality(),
-                                ce.getProperty(),
-                                process(ce.getProperty(),
-                                        (OWLDataOneOf) ce.getFiller())));
+                setLastObject(getDataFactory().getOWLDataMinCardinality(ce.getCardinality(),
+                    ce.getProperty(), process(ce.getProperty(), (OWLDataOneOf) ce.getFiller())));
             }
         }
 
@@ -168,12 +153,8 @@ public class CoerceConstantsIntoDataPropertyRange extends
         public void visit(OWLDataMaxCardinality ce) {
             super.visit(ce);
             if (ce instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory()
-                        .getOWLDataMaxCardinality(
-                                ce.getCardinality(),
-                                ce.getProperty(),
-                                process(ce.getProperty(),
-                                        (OWLDataOneOf) ce.getFiller())));
+                setLastObject(getDataFactory().getOWLDataMaxCardinality(ce.getCardinality(),
+                    ce.getProperty(), process(ce.getProperty(), (OWLDataOneOf) ce.getFiller())));
             }
         }
 
@@ -181,12 +162,8 @@ public class CoerceConstantsIntoDataPropertyRange extends
         public void visit(OWLDataExactCardinality ce) {
             super.visit(ce);
             if (ce instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory()
-                        .getOWLDataExactCardinality(
-                                ce.getCardinality(),
-                                ce.getProperty(),
-                                process(ce.getProperty(),
-                                        (OWLDataOneOf) ce.getFiller())));
+                setLastObject(getDataFactory().getOWLDataExactCardinality(ce.getCardinality(),
+                    ce.getProperty(), process(ce.getProperty(), (OWLDataOneOf) ce.getFiller())));
             }
         }
 
@@ -194,29 +171,24 @@ public class CoerceConstantsIntoDataPropertyRange extends
         public void visit(OWLDataAllValuesFrom ce) {
             super.visit(ce);
             if (ce instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory()
-                        .getOWLDataAllValuesFrom(
-                                ce.getProperty(),
-                                process(ce.getProperty(),
-                                        (OWLDataOneOf) ce.getFiller())));
+                setLastObject(getDataFactory().getOWLDataAllValuesFrom(ce.getProperty(),
+                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller())));
             }
         }
 
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
             super.visit(axiom);
-            setLastObject(getDataFactory().getOWLDataPropertyAssertionAxiom(
-                    axiom.getProperty(), axiom.getSubject(),
-                    process(axiom.getProperty(), axiom.getObject())));
+            setLastObject(getDataFactory().getOWLDataPropertyAssertionAxiom(axiom.getProperty(),
+                axiom.getSubject(), process(axiom.getProperty(), axiom.getObject())));
         }
 
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             super.visit(axiom);
-            setLastObject(getDataFactory()
-                    .getOWLNegativeDataPropertyAssertionAxiom(
-                            axiom.getProperty(), axiom.getSubject(),
-                            process(axiom.getProperty(), axiom.getObject())));
+            setLastObject(
+                getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(axiom.getProperty(),
+                    axiom.getSubject(), process(axiom.getProperty(), axiom.getObject())));
         }
     }
 }

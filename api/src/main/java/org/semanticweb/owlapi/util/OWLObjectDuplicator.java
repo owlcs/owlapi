@@ -221,8 +221,26 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      */
     public OWLObjectDuplicator(@Nonnull Map<OWLEntity, IRI> entityIRIReplacementMap,
         @Nonnull OWLDataFactory dataFactory, @Nonnull Map<OWLLiteral, OWLLiteral> literals) {
+        this(entityIRIReplacementMap, dataFactory, literals,
+            new RemappingIndividualProvider(dataFactory));
+    }
+
+    /**
+     * Creates an object duplicator that duplicates objects using the specified data factory and uri
+     * replacement map.
+     * 
+     * @param dataFactory The data factory to be used for the duplication.
+     * @param entityIRIReplacementMap The map to use for the replacement of URIs. Any uris the
+     *        appear in the map will be replaced as objects are duplicated. This can be used to
+     *        "rename" entities.
+     * @param literals replacement literals
+     * @param anonProvider anon provider
+     */
+    public OWLObjectDuplicator(@Nonnull Map<OWLEntity, IRI> entityIRIReplacementMap,
+        @Nonnull OWLDataFactory dataFactory, @Nonnull Map<OWLLiteral, OWLLiteral> literals,
+        RemappingIndividualProvider anonProvider) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
-        anonProvider = new RemappingIndividualProvider(this.dataFactory);
+        this.anonProvider = anonProvider;
         replacementMap = new HashMap<>(
             checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
         checkNotNull(literals, "literals cannot be null");

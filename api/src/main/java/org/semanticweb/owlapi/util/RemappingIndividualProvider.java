@@ -9,11 +9,9 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividualByIdProvider;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /**
- * A provider for anonymous individuals that remaps input ids consistently
- * across all requests. This class obeys the preferences set in
- * {@link AnonymousIndividualProperties} at the time the instance is created;
- * changing the property while the instance is in use will not affect the
- * instance.
+ * A provider for anonymous individuals that remaps input ids consistently across all requests. This
+ * class obeys the preferences set in {@link AnonymousIndividualProperties} at the time the instance
+ * is created; changing the property while the instance is in use will not affect the instance.
  */
 public class RemappingIndividualProvider implements OWLAnonymousIndividualByIdProvider {
 
@@ -22,12 +20,19 @@ public class RemappingIndividualProvider implements OWLAnonymousIndividualByIdPr
     private Map<String, OWLAnonymousIndividual> map;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     public RemappingIndividualProvider(OWLDataFactory df) {
+        this(df, AnonymousIndividualProperties.shouldRemapAllAnonymousIndividualsIds());
+    }
+
+    /**
+     * @param df data factory
+     * @param remapEnabled true if remap is enabled
+     */
+    public RemappingIndividualProvider(OWLDataFactory df, boolean remapEnabled) {
         this.df = df;
-        remapEnabled = AnonymousIndividualProperties.shouldRemapAllAnonymousIndividualsIds();
+        this.remapEnabled = remapEnabled;
         if (remapEnabled) {
             map = new HashMap<>();
         }

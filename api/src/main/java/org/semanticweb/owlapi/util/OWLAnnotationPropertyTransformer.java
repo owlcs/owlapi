@@ -182,7 +182,7 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         @Nonnull Map<OWLEntity, OWLEntity> entityIRIReplacementMap,
         @Nonnull OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
-        anonProvider = new RemappingIndividualProvider(this.dataFactory);
+        anonProvider = new RemappingIndividualProvider(this.dataFactory, false);
         replacementMap = new HashMap<>(
             checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
     }
