@@ -1,9 +1,9 @@
 package org.semanticweb.owlapi6.util;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.Ontology;
-import static org.semanticweb.owlapi6.apibinding.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
+import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectProperty;
+import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Ontology;
+import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.contains;
 
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLProperty;

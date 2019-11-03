@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.model.providers;
 
-import javax.annotation.Nonnegative;
-
 import org.semanticweb.owlapi6.model.OWLClassExpression;
 import org.semanticweb.owlapi6.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi6.model.OWLDataMaxCardinality;
@@ -36,7 +34,7 @@ public interface CardinalityRestrictionProvider {
      * @param property The property that the restriction acts along.
      * @return an ExactCardinality on the specified property
      */
-    OWLDataExactCardinality getOWLDataExactCardinality(@Nonnegative int cardinality,
+    OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
         OWLDataPropertyExpression property);
 
     /**
@@ -44,7 +42,7 @@ public interface CardinalityRestrictionProvider {
      * @param property The property that the restriction acts along.
      * @return an ExactCardinality on the specified property
      */
-    OWLDataMaxCardinality getOWLDataMaxCardinality(@Nonnegative int cardinality,
+    OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality,
         OWLDataPropertyExpression property);
 
     /**
@@ -53,7 +51,7 @@ public interface CardinalityRestrictionProvider {
      * @param dataRange data range for restricition
      * @return an ExactCardinality on the specified property
      */
-    OWLDataExactCardinality getOWLDataExactCardinality(@Nonnegative int cardinality,
+    OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
         OWLDataPropertyExpression property, OWLDataRange dataRange);
 
     /**
@@ -62,7 +60,7 @@ public interface CardinalityRestrictionProvider {
      * @param dataRange data range for restriction
      * @return an ExactCardinality on the specified property
      */
-    OWLDataMaxCardinality getOWLDataMaxCardinality(@Nonnegative int cardinality,
+    OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality,
         OWLDataPropertyExpression property, OWLDataRange dataRange);
 
     /**
@@ -71,7 +69,7 @@ public interface CardinalityRestrictionProvider {
      * @param dataRange data range for restriction
      * @return an ExactCardinality on the specified property
      */
-    OWLDataMinCardinality getOWLDataMinCardinality(@Nonnegative int cardinality,
+    OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
         OWLDataPropertyExpression property, OWLDataRange dataRange);
 
     /**
@@ -80,7 +78,7 @@ public interface CardinalityRestrictionProvider {
      * @param dataRange data range for restricition
      * @return an ExactCardinality on the specified property
      */
-    OWLDataExactCardinality getOWLDataExactCardinality(@Nonnegative int cardinality,
+    OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
         OWLDataPropertyExpression property, OWL2Datatype dataRange);
 
     /**
@@ -89,7 +87,7 @@ public interface CardinalityRestrictionProvider {
      * @param dataRange data range for restriction
      * @return an ExactCardinality on the specified property
      */
-    OWLDataMaxCardinality getOWLDataMaxCardinality(@Nonnegative int cardinality,
+    OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality,
         OWLDataPropertyExpression property, OWL2Datatype dataRange);
 
     /**
@@ -98,7 +96,7 @@ public interface CardinalityRestrictionProvider {
      * @param dataRange data range for restriction
      * @return an ExactCardinality on the specified property
      */
-    OWLDataMinCardinality getOWLDataMinCardinality(@Nonnegative int cardinality,
+    OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
         OWLDataPropertyExpression property, OWL2Datatype dataRange);
 
     /**
@@ -106,7 +104,7 @@ public interface CardinalityRestrictionProvider {
      * @param property The property that the restriction acts along.
      * @return an ExactCardinality on the specified property
      */
-    OWLDataMinCardinality getOWLDataMinCardinality(@Nonnegative int cardinality,
+    OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
         OWLDataPropertyExpression property);
 
     /**
@@ -114,7 +112,7 @@ public interface CardinalityRestrictionProvider {
      * @param property The property that the restriction acts along.
      * @return an ExactCardinality on the specified property
      */
-    OWLObjectExactCardinality getOWLObjectExactCardinality(@Nonnegative int cardinality,
+    OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality,
         OWLObjectPropertyExpression property);
 
     /**
@@ -123,7 +121,7 @@ public interface CardinalityRestrictionProvider {
      * @param classExpression class expression for restriction
      * @return an ExactCardinality on the specified property
      */
-    OWLObjectExactCardinality getOWLObjectExactCardinality(@Nonnegative int cardinality,
+    OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality,
         OWLObjectPropertyExpression property, OWLClassExpression classExpression);
 
     /**
@@ -131,7 +129,7 @@ public interface CardinalityRestrictionProvider {
      * @param property The property that the restriction acts along.
      * @return an ExactCardinality on the specified property
      */
-    OWLObjectMinCardinality getOWLObjectMinCardinality(@Nonnegative int cardinality,
+    OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality,
         OWLObjectPropertyExpression property);
 
     /**
@@ -140,7 +138,7 @@ public interface CardinalityRestrictionProvider {
      * @param classExpression class expression for restriction
      * @return an ExactCardinality on the specified property
      */
-    OWLObjectMinCardinality getOWLObjectMinCardinality(@Nonnegative int cardinality,
+    OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality,
         OWLObjectPropertyExpression property, OWLClassExpression classExpression);
 
     /**
@@ -148,7 +146,7 @@ public interface CardinalityRestrictionProvider {
      * @param property The property that the restriction acts along.
      * @return an ExactCardinality on the specified property
      */
-    OWLObjectMaxCardinality getOWLObjectMaxCardinality(@Nonnegative int cardinality,
+    OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality,
         OWLObjectPropertyExpression property);
 
     /**
@@ -157,6 +155,6 @@ public interface CardinalityRestrictionProvider {
      * @param classExpression class expression for restriction
      * @return an ExactCardinality on the specified property
      */
-    OWLObjectMaxCardinality getOWLObjectMaxCardinality(@Nonnegative int cardinality,
+    OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality,
         OWLObjectPropertyExpression property, OWLClassExpression classExpression);
 }

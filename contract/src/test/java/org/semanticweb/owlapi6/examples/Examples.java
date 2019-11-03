@@ -32,13 +32,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Ignore;
 import org.junit.Test;
-import org.semanticweb.owlapi6.api.test.TestFiles;
-import org.semanticweb.owlapi6.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
+import org.semanticweb.owlapi6.apitest.TestFiles;
+import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.documents.StreamDocumentTarget;
 import org.semanticweb.owlapi6.documents.StringDocumentSource;
 import org.semanticweb.owlapi6.documents.StringDocumentTarget;
@@ -1328,7 +1326,7 @@ public class Examples extends TestBase {
         // folder and maps their IRIs to their locations in this folder We
         // specify a directory/folder where the ontologies are located. In this
         // case we've just specified the tmp directory.
-        @Nonnull File file = folder.newFolder();
+        File file = folder.newFolder();
         // We can also specify a flag to indicate whether the directory should
         // be searched recursively.
         OWLOntologyIRIMapper autoIRIMapper = new AutoIRIMapper(file, false, df);

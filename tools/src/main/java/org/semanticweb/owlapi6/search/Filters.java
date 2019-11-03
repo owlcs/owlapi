@@ -26,8 +26,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi6.model.AxiomType;
 import org.semanticweb.owlapi6.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi6.model.OWLAnnotationPropertyRangeAxiom;
@@ -123,7 +121,7 @@ public class Filters {
         new AxiomFilter<>(AXIOM_TYPES, a -> a) {
 
             @Override
-            public boolean pass(@Nonnull OWLAxiom axiom, Object key) {
+            public boolean pass(OWLAxiom axiom, Object key) {
                 // for this filter, only accept the axioms whose types are not in
                 // tbox or rbox
                 return !TBoxAndRBoxAxiomTypes.contains(axiom.getAxiomType());

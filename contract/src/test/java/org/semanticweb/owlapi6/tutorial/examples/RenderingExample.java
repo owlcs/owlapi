@@ -13,13 +13,12 @@
 package org.semanticweb.owlapi6.tutorial.examples;
 
 import org.semanticweb.owlapi6.apibinding.OWLManager;
+import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi6.tutorialowled2011.OWLTutorialSyntaxOntologyFormat;
-import org.semanticweb.owlapi6.tutorialowled2011.TutorialSyntaxStorerFactory;
 
 /**
  * Simple Rendering Example. Reads an ontology and then renders it.
@@ -49,11 +48,9 @@ public class RenderingExample {
         System.out.println("Document IRI: " + inputDocumentIRI);
         System.out.println("Logical IRI : " + ontology.getOntologyID());
         System.out.println("Format      : " + ontology.getFormat());
-        /* Register the ontology storer with the manager */
-        manager.getOntologyStorers().add(new TutorialSyntaxStorerFactory());
         /* Save using a different format */
         System.out.println("Storing     : " + outputDocumentIRI);
-        ontology.saveOntology(new OWLTutorialSyntaxOntologyFormat(), outputDocumentIRI);
+        ontology.saveOntology(new FunctionalSyntaxDocumentFormat(), outputDocumentIRI);
         /* Remove the ontology from the manager */
         manager.removeOntology(ontology);
         System.out.println("Done");

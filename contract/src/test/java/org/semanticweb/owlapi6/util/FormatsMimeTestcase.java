@@ -85,10 +85,14 @@ public class FormatsMimeTestcase {
         );
     }
 
-    @Parameter(0) public OWLParserFactory f;
-    @Parameter(1) public String key;
-    @Parameter(2) public String defaultmime;
-    @Parameter(3) public List<String> mimes;
+    @Parameter(0)
+    public OWLParserFactory f;
+    @Parameter(1)
+    public String key;
+    @Parameter(2)
+    public String defaultmime;
+    @Parameter(3)
+    public List<String> mimes;
 
     @Test
     public void shouldMatchExpectedValues() {

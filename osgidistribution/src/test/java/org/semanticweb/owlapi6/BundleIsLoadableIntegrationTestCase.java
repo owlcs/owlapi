@@ -17,8 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.apache.felix.framework.FrameworkFactory;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -110,7 +108,6 @@ public class BundleIsLoadableIntegrationTestCase {
         }
     }
 
-    @Nonnull
     private String getJarURL(String jarNameFragment) {
         ClassLoader classLoader = getClass().getClassLoader();
         if (classLoader instanceof URLClassLoader) {

@@ -92,12 +92,12 @@ public enum ConfigurationOptions {
     ENTITY_EXPANSION_LIMIT              ("100000000"),
     /**
      * Determines if untyped entities 
-	 * should automatically be typed 
-	 * (declared) during rendering.
+     * should automatically be typed 
+     * (declared) during rendering.
      * (This is a hint to an RDF 
-	 * renderer - the reference 
-	 * implementation will respect 
-	 * this).
+     * renderer - the reference 
+     * implementation will respect 
+     * this).
      */
     ADD_MISSING_TYPES                   (Boolean.TRUE),
     /** Repair illegal punnings 
