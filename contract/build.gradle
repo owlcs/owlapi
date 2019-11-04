@@ -9,11 +9,3 @@ dependencies {
   testImplementation 'org.slf4j:slf4j-simple:2.0.0-alpha1'
   testImplementation 'junit:junit:4.13-rc-1'
 }
-
-    test {
-        useJUnitPlatform()
-        testLogging.showStandardStreams = true
-        testLogging {
-            events 'PASSED', 'FAILED', 'SKIPPED'
-        }
-    }
