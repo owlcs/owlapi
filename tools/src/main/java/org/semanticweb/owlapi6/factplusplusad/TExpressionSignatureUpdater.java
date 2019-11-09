@@ -24,8 +24,7 @@ class TExpressionSignatureUpdater implements OWLObjectVisitor {
     /**
      * init c'tor
      *
-     * @param s
-     *        signature
+     * @param s signature
      */
     TExpressionSignatureUpdater(Signature s) {
         sig = s;
@@ -34,7 +33,8 @@ class TExpressionSignatureUpdater implements OWLObjectVisitor {
     @Override
     public void doDefault(OWLObject object) {
         if (object instanceof OWLAnnotation || object instanceof OWLAnnotationProperty
-            || object instanceof OWLAnnotationAssertionAxiom || object instanceof OWLAnnotationPropertyDomainAxiom
+            || object instanceof OWLAnnotationAssertionAxiom
+            || object instanceof OWLAnnotationPropertyDomainAxiom
             || object instanceof OWLAnnotationPropertyRangeAxiom) {
             return;
         }
@@ -44,6 +44,7 @@ class TExpressionSignatureUpdater implements OWLObjectVisitor {
         object.componentStream().forEach(this::accept);
     }
 
+    @SuppressWarnings("unchecked")
     private void accept(Object o) {
         if (o instanceof Collection) {
             ((Collection<OWLObject>) o).forEach(this::accept);
