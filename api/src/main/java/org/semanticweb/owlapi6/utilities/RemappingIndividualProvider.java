@@ -17,7 +17,7 @@ import org.semanticweb.owlapi6.model.providers.AnonymousIndividualByIdProvider;
 public class RemappingIndividualProvider implements AnonymousIndividualByIdProvider {
 
     private OWLDataFactory df;
-    private OntologyConfigurator cf;
+    private boolean shouldRemapIds;
     private Map<String, OWLAnonymousIndividual> map;
 
     /**
@@ -25,9 +25,17 @@ public class RemappingIndividualProvider implements AnonymousIndividualByIdProvi
      * @param df data factory
      */
     public RemappingIndividualProvider(OntologyConfigurator m, OWLDataFactory df) {
+        this(m.shouldRemapIds(), df);
+    }
+
+    /**
+     * @param shouldRemap true if anonymous individuals should be remapped
+     * @param df data factory
+     */
+    public RemappingIndividualProvider(boolean shouldRemap, OWLDataFactory df) {
         this.df = df;
-        cf = m;
-        if (cf.shouldRemapIds()) {
+        shouldRemapIds = shouldRemap;
+        if (shouldRemapIds) {
             map = new HashMap<>();
         } else {
             map = Collections.emptyMap();
@@ -36,7 +44,7 @@ public class RemappingIndividualProvider implements AnonymousIndividualByIdProvi
 
     @Override
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
-        if (!cf.shouldRemapIds()) {
+        if (!shouldRemapIds) {
             return df.getOWLAnonymousIndividual(nodeId);
         }
         return map.computeIfAbsent(nodeId, x -> df.getOWLAnonymousIndividual());

@@ -35,6 +35,7 @@ import org.semanticweb.owlapi6.model.OWLOntologyChange;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.model.RemoveAxiom;
 import org.semanticweb.owlapi6.utilities.OWLObjectDuplicator;
+import org.semanticweb.owlapi6.utilities.RemappingIndividualProvider;
 
 /**
  * Replaces a literal with another.
@@ -68,7 +69,8 @@ public class OWLLiteralReplacer {
      * duplicated/transformed axioms.
      *
      * @param changes A list that will be filled with ontology changes which will remove the
-     * specified axioms from the specified ontology, and add the duplicated/transformed version
+     *        specified axioms from the specified ontology, and add the duplicated/transformed
+     *        version
      * @param axioms The axioms to be duplicated/transformed
      * @param ont The ontology to which the changed should be applied
      * @param duplicator The duplicator that will do the duplicating
@@ -97,7 +99,8 @@ public class OWLLiteralReplacer {
         uriMap.put(literal, newLiteral);
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator dup = new OWLObjectDuplicator(Collections.<OWLEntity, IRI>emptyMap(),
-            uriMap, owlOntologyManager);
+            uriMap, owlOntologyManager,
+            new RemappingIndividualProvider(false, owlOntologyManager.getOWLDataFactory()));
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             fillListWithTransformChanges(changes, getAxioms(ont, literal), ont, dup);
@@ -111,9 +114,9 @@ public class OWLLiteralReplacer {
      */
     public List<OWLOntologyChange> changeLiterals(Map<OWLLiteral, OWLLiteral> literalToLiteralMap) {
         List<OWLOntologyChange> changes = new ArrayList<>();
-        OWLObjectDuplicator duplicator =
-            new OWLObjectDuplicator(Collections.<OWLEntity, IRI>emptyMap(),
-                literalToLiteralMap, owlOntologyManager);
+        OWLObjectDuplicator duplicator = new OWLObjectDuplicator(
+            Collections.<OWLEntity, IRI>emptyMap(), literalToLiteralMap, owlOntologyManager,
+            new RemappingIndividualProvider(false, owlOntologyManager.getOWLDataFactory()));
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             for (OWLLiteral ent : literalToLiteralMap.keySet()) {
