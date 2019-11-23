@@ -941,7 +941,7 @@ public class TripleHandlers {
 
         @Override
         public boolean canHandleStreaming(IRI s, IRI p, OWLLiteral o) {
-            return !isAnon(s) && !consumer.isAnnotation(s) && isApLax(p);
+            return false;
         }
 
         @Override
@@ -983,10 +983,7 @@ public class TripleHandlers {
 
         @Override
         public boolean canHandleStreaming(IRI s, IRI p, IRI o) {
-            if (isStrict()) {
-                return false;
-            }
-            return !isAnon(s) && !isAnon(o) && isApLax(p);
+            return false;
         }
 
         @Override
