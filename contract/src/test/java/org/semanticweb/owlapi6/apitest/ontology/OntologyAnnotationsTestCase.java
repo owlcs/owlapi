@@ -19,8 +19,6 @@ import static org.semanticweb.owlapi6.apitest.TestEntities.AP;
 
 import org.semanticweb.owlapi6.apitest.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi6.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi6.model.OWLAnnotation;
-import org.semanticweb.owlapi6.model.OWLLiteral;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
 /**
