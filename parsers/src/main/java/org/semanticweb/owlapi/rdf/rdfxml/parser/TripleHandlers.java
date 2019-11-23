@@ -974,8 +974,7 @@ public class TripleHandlers {
 
         @Override
         public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
-            return !isAnonymous(subject) && !consumer.isAnnotation(subject)
-                && consumer.isAnnotationProperty(predicate);
+            return false;
         }
 
         @Override
@@ -1045,12 +1044,7 @@ public class TripleHandlers {
 
         @Override
         public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-            if (isStrict()) {
-                return false;
-            } else {
-                return !isAnonymous(subject) && !isAnonymous(object)
-                    && consumer.isAnnotationProperty(predicate);
-            }
+            return false;
         }
 
         @Override
