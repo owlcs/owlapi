@@ -32,9 +32,9 @@ public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology();
-        OWLLiteral value = Literal(33);
-        OWLAnnotation annotation = Annotation(AP, value);
-        ont.applyChange(new AddOntologyAnnotation(ont, annotation));
+        ont.applyChange(new AddOntologyAnnotation(ont, Annotation(AP, Literal(33))));
+        ont.applyChange(
+            new AddOntologyAnnotation(ont, Annotation(df.getOWLVersionInfo(), Literal("test"))));
         ont.addAxiom(Declaration(AP));
         return ont;
     }
