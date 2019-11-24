@@ -23,8 +23,7 @@ import org.semanticweb.owlapi6.io.OWLParserException;
 /**
  * The Class ParserException.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ParserException extends OWLParserException {
@@ -45,39 +44,27 @@ public class ParserException extends OWLParserException {
     private final boolean ontologyNameExpected;
 
     /**
-     * @param message
-     *        the message
-     * @param tokenSequence
-     *        the token sequence
-     * @param startPos
-     *        the start pos
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
-     * @param ontologyNameExpected
-     *        the ontology name expected
-     * @param classNameExpected
-     *        the class name expected
-     * @param objectPropertyNameExpected
-     *        the object property name expected
-     * @param dataPropertyNameExpected
-     *        the data property name expected
-     * @param individualNameExpected
-     *        the individual name expected
-     * @param datatypeNameExpected
-     *        the datatype name expected
-     * @param annotationPropertyExpected
-     *        the annotation property expected
-     * @param integerExpected
-     *        the integer expected
-     * @param expectedKeywords
-     *        the expected keywords
+     * @param message the message
+     * @param tokenSequence the token sequence
+     * @param startPos the start pos
+     * @param lineNumber the line number
+     * @param columnNumber the column number
+     * @param ontologyNameExpected the ontology name expected
+     * @param classNameExpected the class name expected
+     * @param objectPropertyNameExpected the object property name expected
+     * @param dataPropertyNameExpected the data property name expected
+     * @param individualNameExpected the individual name expected
+     * @param datatypeNameExpected the datatype name expected
+     * @param annotationPropertyExpected the annotation property expected
+     * @param integerExpected the integer expected
+     * @param expectedKeywords the expected keywords
      */
-    public ParserException(String message, List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
-        boolean ontologyNameExpected, boolean classNameExpected, boolean objectPropertyNameExpected,
-        boolean dataPropertyNameExpected, boolean individualNameExpected, boolean datatypeNameExpected,
-        boolean annotationPropertyExpected, boolean integerExpected, @Nullable Set<String> expectedKeywords) {
+    public ParserException(String message, List<String> tokenSequence, int startPos, int lineNumber,
+        int columnNumber, boolean ontologyNameExpected, boolean classNameExpected,
+        boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
+        boolean individualNameExpected, boolean datatypeNameExpected,
+        boolean annotationPropertyExpected, boolean integerExpected,
+        @Nullable Set<String> expectedKeywords) {
         super(message);
         currentToken = tokenSequence.iterator().next();
         this.tokenSequence = tokenSequence;
@@ -193,7 +180,7 @@ public class ParserException extends OWLParserException {
 
     @Override
     public String getMessage() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(1000);
         sb.append("Encountered ");
         sb.append(currentToken);
         sb.append(" at line ");

@@ -37,11 +37,13 @@ public class NamespacesTestCase extends TestBase {
 
     @Test
     public void shouldFindInNamespace() {
-        EnumSet<Namespaces> reserved = EnumSet.of(Namespaces.OWL, Namespaces.RDF, Namespaces.RDFS, Namespaces.XSD);
+        EnumSet<Namespaces> reserved =
+            EnumSet.of(Namespaces.OWL, Namespaces.RDF, Namespaces.RDFS, Namespaces.XSD);
         for (Namespaces n : Namespaces.values()) {
             IRI iri = df.getIRI(n.getPrefixIRI(), "test");
             boolean reservedVocabulary = iri.isReservedVocabulary();
-            assertEquals(reserved.contains(n), reservedVocabulary);
+            assertEquals(Boolean.valueOf(reserved.contains(n)),
+                Boolean.valueOf(reservedVocabulary));
         }
     }
 

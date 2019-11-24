@@ -37,12 +37,13 @@ public final class Formatter {
             "../OWLAPI3/tutorial2011/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java")))) {
             String line = r.readLine();
             while (line != null) {
-                if (line.trim().isEmpty()) {
+                line = line.trim();
+                if (line.isEmpty()) {
                     System.out.println("\\end{beamerboxesrounded}\n\n");
                 } else {
                     line = line.replace("{", "\\{").replace("}", "\\}").replace("_", "\\_");
-                    if (line.trim().startsWith("//")) {
-                        System.out.println("\\codecomment{" + line.trim() + "}\\\\");
+                    if (line.startsWith("//")) {
+                        System.out.println("\\codecomment{" + line + "}\\\\");
                     } else {
                         // regular code
                         for (Map.Entry<String, String> e : specials.entrySet()) {
@@ -63,10 +64,10 @@ public final class Formatter {
                         }
                         if (!line.contains("beamerboxesrounded")) {
                             System.out.print("\\coderegular{");
-                            System.out.print(line.trim());
+                            System.out.print(line);
                             System.out.println("}\\\\");
                         } else {
-                            System.out.println(line.trim());
+                            System.out.println(line);
                         }
                     }
                 }

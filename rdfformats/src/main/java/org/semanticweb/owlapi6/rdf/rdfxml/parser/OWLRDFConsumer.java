@@ -717,6 +717,15 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         }
     }
 
+    protected static final boolean isBlank(CharSequence c) {
+        for (int i = 0; i < c.length(); i++) {
+            if (!Character.isWhitespace(c.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * A convenience method to obtain an {@code OWLLiteral}.
      *
@@ -726,7 +735,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      * @return The {@code OWLLiteral} (either typed or untyped depending on the params)
      */
     OWLLiteral getOWLLiteral(String literal, @Nullable IRI datatype, @Nullable String lang) {
-        if (lang != null && !lang.trim().isEmpty()) {
+        if (lang != null && !isBlank(lang)) {
             return df.getOWLLiteral(literal, lang);
         } else if (datatype != null) {
             return df.getOWLLiteral(literal, df.getOWLDatatype(datatype));
@@ -964,7 +973,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         return triples;
     }
 
-    private List<RDFResourceParseError> errors = new ArrayList<>();
+    private final List<RDFResourceParseError> errors = new ArrayList<>();
 
     private void logError(RDFResourceParseError error) {
         errors.add(error);

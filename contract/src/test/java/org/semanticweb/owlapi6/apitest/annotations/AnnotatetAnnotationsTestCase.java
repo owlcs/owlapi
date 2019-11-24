@@ -34,8 +34,8 @@ import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 
 public class AnnotatetAnnotationsTestCase extends TestBase {
 
-    private String ns = "urn:n:a#";
-    private OWLObjectProperty r = df.getOWLObjectProperty(ns, "r");
+    private final String ns = "urn:n:a#";
+    private final OWLObjectProperty r = df.getOWLObjectProperty(ns, "r");
 
     @Test
     public void shouldRoundtripMultipleNestedAnnotationsdebug() {

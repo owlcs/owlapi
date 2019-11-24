@@ -24,9 +24,10 @@ import org.semanticweb.owlapi6.profiles.OWL2DLProfile;
 
 public class PrimerTestCase extends TestBase {
 
+    private static final String URN_PRIMER = "urn:primer#";
     private static final String NS = "http://example.com/owl/families/";
     protected OWLOntology func = loadOntologyFromString(TestFiles.FUNCTIONAL,
-        df.getIRI("urn:primer#", "functional"), new FunctionalSyntaxDocumentFormat());
+        df.getIRI(URN_PRIMER, "functional"), new FunctionalSyntaxDocumentFormat());
     OWL2DLProfile profile = new OWL2DLProfile();
 
     @Before
@@ -37,7 +38,7 @@ public class PrimerTestCase extends TestBase {
     @Test
     public void shouldManchBeEquivalent() throws OWLOntologyCreationException {
         OWLOntology manch = loadOntologyFromString(TestFiles.MANCHESTER,
-            df.getIRI("urn:primer#", "manchester"), new ManchesterSyntaxDocumentFormat());
+            df.getIRI(URN_PRIMER, "manchester"), new ManchesterSyntaxDocumentFormat());
         assertTrue(profile.checkOntology(manch).getViolations().isEmpty());
         // XXX Manchester OWL Syntax does not support GCIs
         // the input adopts a trick to semantically get around this, by
@@ -67,7 +68,7 @@ public class PrimerTestCase extends TestBase {
     @Test
     public void shouldRDFXMLBeEquivalent() {
         OWLOntology rdf = loadOntologyFromString(TestFiles.RDFXML,
-            df.getIRI("urn:primer#", "rdfxml"), new RDFXMLDocumentFormat());
+            df.getIRI(URN_PRIMER, "rdfxml"), new RDFXMLDocumentFormat());
         assertTrue(profile.checkOntology(rdf).getViolations().isEmpty());
         equal(func, rdf);
     }
@@ -75,7 +76,7 @@ public class PrimerTestCase extends TestBase {
     @Test
     public void shouldOWLXMLBeEquivalent() {
         OWLOntology owl = loadOntologyFromString(TestFiles.OWLXML,
-            df.getIRI("urn:primer#", "owlxml"), new OWLXMLDocumentFormat());
+            df.getIRI(URN_PRIMER, "owlxml"), new OWLXMLDocumentFormat());
         assertTrue(profile.checkOntology(owl).getViolations().isEmpty());
         equal(func, owl);
     }
@@ -83,7 +84,7 @@ public class PrimerTestCase extends TestBase {
     @Test
     public void shouldTURTLEBeEquivalent() {
         OWLOntology turt = loadOntologyFromString(TestFiles.TURTLE,
-            df.getIRI("urn:primer#", "turtle"), new TurtleDocumentFormat());
+            df.getIRI(URN_PRIMER, "turtle"), new TurtleDocumentFormat());
         assertTrue(profile.checkOntology(turt).getViolations().isEmpty());
         // XXX somehow the Turtle parser introduces a tautology: the inverse of
         // inverse(hasParent) is hasParent

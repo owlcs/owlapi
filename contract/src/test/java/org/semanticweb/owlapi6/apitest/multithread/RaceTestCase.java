@@ -96,7 +96,7 @@ public class RaceTestCase {
         protected RaceCallback callback;
         final AtomicBoolean done = new AtomicBoolean(false);
         ExecutorService exec = Executors.newFixedThreadPool(5);
-        private Runnable writer = () -> {
+        private final Runnable writer = () -> {
             while (!done.get()) {
                 callback.add();
             }
@@ -117,7 +117,7 @@ public class RaceTestCase {
 
         public static class SubClassLHSCallback implements RaceCallback {
 
-            private AtomicInteger counter = new AtomicInteger();
+            private final AtomicInteger counter = new AtomicInteger();
             OWLDataFactory factory;
             OWLOntologyManager manager;
             OWLOntology ontology;

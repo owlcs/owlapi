@@ -31,9 +31,9 @@ import org.yaml.snakeyaml.Yaml;
  */
 public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
     private static final Pattern CATALOG_PATTERN = Pattern.compile("catalog[\\-v0-9]*\\.xml");
-    private List<IRI> physicalRoots = new ArrayList<>();
-    private Map<IRI, IRI> logicalToPhysicalIRI = new ConcurrentHashMap<>();
-    private OWLDataFactory df;
+    private final List<IRI> physicalRoots = new ArrayList<>();
+    private final Map<IRI, IRI> logicalToPhysicalIRI = new ConcurrentHashMap<>();
+    private final OWLDataFactory df;
 
     /**
      * @param f zip file
@@ -133,12 +133,12 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
         for (String s : roots) {
             String name = s.trim();
             if (!name.isEmpty()) {
-                physicalRoots.add(df.getIRI(basePhysicalIRI + name.trim()));
+                physicalRoots.add(df.getIRI(basePhysicalIRI + name));
             }
-            p.entrySet().stream().filter(e -> !e.getKey().equals("roots"))
-                .forEach(e -> logicalToPhysicalIRI.put(df.getIRI(e.getValue().toString()),
-                    df.getIRI(basePhysicalIRI + e.getKey())));
         }
+        p.entrySet().stream().filter(e -> !e.getKey().equals("roots"))
+            .forEach(e -> logicalToPhysicalIRI.put(df.getIRI(e.getValue().toString()),
+                df.getIRI(basePhysicalIRI + e.getKey())));
         return true;
     }
 

@@ -26,7 +26,7 @@ class TripleLogger {
     private final AtomicInteger count = new AtomicInteger();
     @Nullable
     private PrefixManager prefixManager;
-    private OWLDataFactory df;
+    private final OWLDataFactory df;
 
     public TripleLogger(OWLDataFactory df) {
         this.df = df;

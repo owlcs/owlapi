@@ -13,14 +13,13 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi6.model.IRI;
-import org.semanticweb.owlapi6.utility.CollectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class TripleMap<T> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TripleMap.class);
-    private Map<IRI, Map<IRI, T>> map = CollectionFactory.createMap();
+    private final Map<IRI, Map<IRI, T>> map = createMap();
 
     public Object put(IRI iri) {
         return map.put(iri, createMap());

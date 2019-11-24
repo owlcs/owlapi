@@ -20,9 +20,9 @@ import org.semanticweb.owlapi6.modularity.SyntacticLocalityModuleExtractor;
 
 public class ModuleAnnotationsTestCase extends TestBase {
 
-    private OWLAnnotationProperty a = df.getOWLAnnotationProperty("urn:test:a");
-    private OWLAnnotationProperty b = df.getOWLAnnotationProperty("urn:test:b");
-    private OWLAnnotationProperty replaced =
+    private final OWLAnnotationProperty a = df.getOWLAnnotationProperty("urn:test:a");
+    private final OWLAnnotationProperty b = df.getOWLAnnotationProperty("urn:test:b");
+    private final OWLAnnotationProperty replaced =
         df.getOWLAnnotationProperty("urn:test:term_replaced_by");
     OWLDeclarationAxiom dA = df.getOWLDeclarationAxiom(a);
     OWLDeclarationAxiom dR = df.getOWLDeclarationAxiom(replaced);

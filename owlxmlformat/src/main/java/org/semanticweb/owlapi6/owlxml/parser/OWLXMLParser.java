@@ -40,7 +40,6 @@ public class OWLXMLParser implements OWLParser {
     @Override
     public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
         try {
-            OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             InputSource isrc = new InputSource(r);
             isrc.setSystemId(p.getDocumentIRI());
             OWLXMLPH handler = new OWLXMLPH(p.getOntology(), p.getConfig());
@@ -56,7 +55,7 @@ public class OWLXMLParser implements OWLParser {
             if (p.getOntology().getPrefixManager().getDefaultPrefix() == null) {
                 p.getOntology().getPrefixManager().withDefaultPrefix(base);
             }
-            return format;
+            return new OWLXMLDocumentFormat();
         } catch (SAXException | IOException | IllegalStateException e) {
             // General exception
             throw new OWLParserException(e);

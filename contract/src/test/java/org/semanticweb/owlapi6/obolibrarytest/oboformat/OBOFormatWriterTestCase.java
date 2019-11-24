@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -108,17 +109,8 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     public void testWriteOpaqueIdsAsComments() throws Exception {
         OBODoc oboDoc = parseOBOFile("opaque_ids_test.obo");
         String oboString = renderOboToString(oboDoc);
-        String[] lines = oboString.split("\n");
-        boolean ok = false;
-        for (String line : lines) {
-            // System.out.println("LINE: "+line);
-            if (line.startsWith("relationship:")) {
-                if (line.contains("named relation y1")) {
-                    ok = true;
-                }
-            }
-        }
-        assertTrue(ok);
+        assertTrue(Arrays.stream(oboString.split("\n")).anyMatch(
+            line -> line.startsWith("relationship:") && line.contains("named relation y1")));
     }
 
     @Test

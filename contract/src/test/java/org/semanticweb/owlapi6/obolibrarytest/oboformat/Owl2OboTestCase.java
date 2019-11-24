@@ -27,6 +27,8 @@ import org.semanticweb.owlapi6.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
 
 public class Owl2OboTestCase extends OboFormatTestBasics {
 
+    private static final String COMMENT = "Comment";
+    private static final String TEST_0001 = "TEST:0001";
     private static final String OBO = "http://purl.obolibrary.org/obo/";
 
     private static void addLabelAndId(OWLNamedObject obj, String label, String id, OWLOntology o) {
@@ -40,7 +42,7 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
     private static void setAltId(OWLNamedObject obj, OWLOntology o) {
         OWLDataFactory f = o.getOWLOntologyManager().getOWLDataFactory();
         addAnnotation(obj, f.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0100001.getIRI()),
-            f.getOWLLiteral("TEST:0001"), o);
+            f.getOWLLiteral(TEST_0001), o);
         addAnnotation(obj, f.getOWLAnnotationProperty(Obo2OWLConstants.IRI_IAO_0000231),
             Obo2OWLConstants.IRI_IAO_0000227, o);
         addAnnotation(obj, f.getOWLDeprecated(), f.getOWLLiteral(true), o);
@@ -97,14 +99,14 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
             df.getOWLClass(df.getIRI(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001"));
         simple.add(df.getOWLDeclarationAxiom(classA));
         // add a label and OBO style ID
-        addLabelAndId(classA, "test1", "TEST:0001", simple);
+        addLabelAndId(classA, "test1", TEST_0001, simple);
         // add deprecated class B as an alternate ID for A
         OWLClass classB =
             df.getOWLClass(df.getIRI(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0002"));
         simple.add(df.getOWLDeclarationAxiom(classB));
         setAltId(classB, simple);
         // add comment to alt_id class, which is not expressible in OBO
-        addAnnotation(classB, df.getRDFSComment(), df.getOWLLiteral("Comment"), simple);
+        addAnnotation(classB, df.getRDFSComment(), df.getOWLLiteral(COMMENT), simple);
         // translate to OBO
         OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(simple.getOWLOntologyManager());
         OBODoc oboDoc = owl2obo.convert(simple);
@@ -113,7 +115,7 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
         Collection<Frame> termFrames = oboDoc.getTermFrames();
         assertEquals(1, termFrames.size());
         Frame frame = termFrames.iterator().next();
-        assertEquals("TEST:0001", frame.getId());
+        assertEquals(TEST_0001, frame.getId());
         Collection<Clause> altIdClauses = frame.getClauses(OboFormatTag.TAG_ALT_ID);
         assertEquals(1, altIdClauses.size());
         String altId = altIdClauses.iterator().next().getValue(String.class);
@@ -126,7 +128,7 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
         // for the comment
         Optional<OWLLiteral> comment = findComment(classB.getIRI(), roundTripped);
         assertTrue(comment.isPresent());
-        assertEquals("Comment", comment.get().getLiteral());
+        assertEquals(COMMENT, comment.get().getLiteral());
     }
 
     protected Optional<OWLLiteral> findComment(IRI i, OWLOntology roundTripped) {
@@ -143,14 +145,14 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
             df.getOWLObjectProperty(df.getIRI(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001"));
         simple.add(df.getOWLDeclarationAxiom(p1));
         // add label and OBO style id for
-        addLabelAndId(p1, "prop1", "TEST:0001", simple);
+        addLabelAndId(p1, "prop1", TEST_0001, simple);
         // add deprecated prop 2 as an alternate ID for prop 1
         OWLObjectProperty p2 =
             df.getOWLObjectProperty(df.getIRI(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0002"));
         simple.add(df.getOWLDeclarationAxiom(p2));
         setAltId(p2, simple);
         // add comment to alt_id class, which is not expressible in OBO
-        addAnnotation(p2, df.getRDFSComment(), df.getOWLLiteral("Comment"), simple);
+        addAnnotation(p2, df.getRDFSComment(), df.getOWLLiteral(COMMENT), simple);
         // translate to OBO
         OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(simple.getOWLOntologyManager());
         OBODoc oboDoc = owl2obo.convert(simple);
@@ -159,7 +161,7 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
         Collection<Frame> termFrames = oboDoc.getTypedefFrames();
         assertEquals(1, termFrames.size());
         Frame frame = termFrames.iterator().next();
-        assertEquals("TEST:0001", frame.getId());
+        assertEquals(TEST_0001, frame.getId());
         Collection<Clause> altIdClauses = frame.getClauses(OboFormatTag.TAG_ALT_ID);
         assertEquals(1, altIdClauses.size());
         String altId = altIdClauses.iterator().next().getValue(String.class);
@@ -172,6 +174,6 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
         // for the comment
         Optional<OWLLiteral> comment = findComment(p2.getIRI(), roundTripped);
         assertTrue(comment.isPresent());
-        assertEquals("Comment", comment.get().getLiteral());
+        assertEquals(COMMENT, comment.get().getLiteral());
     }
 }

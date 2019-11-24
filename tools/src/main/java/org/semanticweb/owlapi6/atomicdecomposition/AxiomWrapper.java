@@ -17,7 +17,7 @@ import org.semanticweb.owlapi6.model.OWLEntity;
  */
 public class AxiomWrapper implements Serializable {
 
-    private OWLAxiom axiom;
+    private final OWLAxiom axiom;
     private boolean used = true;
     private boolean searchspace;
     private boolean module;

@@ -37,6 +37,7 @@ import org.semanticweb.owlapi6.rioformats.RioRDFXMLDocumentFormat;
  */
 public class RioRendererTestCase extends TestBase {
 
+    private static final String DUPLICATE_STATEMENTS = "Duplicate statements were emitted";
     private final IRI testOntologyUri1 = df.getIRI("urn:test:ontology:uri:1", "");
     private SimpleValueFactory vf;
     private OWLOntology testOntologyEmpty;
@@ -49,7 +50,7 @@ public class RioRendererTestCase extends TestBase {
     private RDFWriter testTurtleRioWriter;
     private StringWriter testNTriplesStringWriter;
     private RDFWriter testNTriplesRioWriter;
-    private RioRDFXMLDocumentFormat format = new RioRDFXMLDocumentFormat();
+    private final RioRDFXMLDocumentFormat format = new RioRDFXMLDocumentFormat();
 
     @Before
     public void setUp() throws Exception {
@@ -126,7 +127,7 @@ public class RioRendererTestCase extends TestBase {
         // check for duplicate statements
         HashSet<Statement> resultStatements =
             new HashSet<>(testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
+        assertEquals(DUPLICATE_STATEMENTS, 171, resultStatements.size());
     }
 
     @Test
@@ -152,7 +153,7 @@ public class RioRendererTestCase extends TestBase {
         // check for duplicate statements
         HashSet<Statement> resultStatements =
             new HashSet<>(testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
+        assertEquals(DUPLICATE_STATEMENTS, 171, resultStatements.size());
     }
 
     @Test
@@ -174,7 +175,7 @@ public class RioRendererTestCase extends TestBase {
         // check for duplicate statements
         HashSet<Statement> resultStatements =
             new HashSet<>(testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
+        assertEquals(DUPLICATE_STATEMENTS, 171, resultStatements.size());
     }
 
     @Test
@@ -199,7 +200,7 @@ public class RioRendererTestCase extends TestBase {
         // check for duplicate statements
         HashSet<Statement> resultStatements =
             new HashSet<>(testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
+        assertEquals(DUPLICATE_STATEMENTS, 171, resultStatements.size());
     }
 
     @Test

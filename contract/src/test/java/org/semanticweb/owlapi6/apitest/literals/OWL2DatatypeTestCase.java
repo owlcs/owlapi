@@ -214,27 +214,27 @@ public class OWL2DatatypeTestCase extends TestBase {
 
     @Test
     public void getClassesInSignature() {
-        assertTrue(plainLiteral.classesInSignature().count() == 0);
+        assertEquals(0L, plainLiteral.classesInSignature().count());
     }
 
     @Test
     public void getObjectPropertiesInSignature() {
-        assertTrue(plainLiteral.objectPropertiesInSignature().count() == 0);
+        assertEquals(0L, plainLiteral.objectPropertiesInSignature().count());
     }
 
     @Test
     public void getDataPropertiesInSignature() {
-        assertTrue(plainLiteral.dataPropertiesInSignature().count() == 0);
+        assertEquals(0L, plainLiteral.dataPropertiesInSignature().count());
     }
 
     @Test
     public void getIndividualsInSignature() {
-        assertTrue(plainLiteral.individualsInSignature().count() == 0);
+        assertEquals(0L, plainLiteral.individualsInSignature().count());
     }
 
     @Test
     public void getNestedClassExpressions() {
-        assertTrue(plainLiteral.nestedClassExpressions().count() == 0);
+        assertEquals(0L, plainLiteral.nestedClassExpressions().count());
     }
 
     @Test

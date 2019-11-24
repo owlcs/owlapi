@@ -61,8 +61,8 @@ public class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
         DataSomeValuesFrom(DP, DataIntersectionOf(dataD, dataE));
     private static final OWLClassExpression du = ObjectUnionOf(B, C);
     private static final OWLDataUnionOf eu = DataUnionOf(dataD, dataE);
-    private OWLAxiom in;
-    private OWLAxiom out;
+    private final OWLAxiom in;
+    private final OWLAxiom out;
 
     public NonSymmetricAxiomsRoundTrippingTestCase(OWLAxiom in, OWLAxiom out) {
         this.in = in;

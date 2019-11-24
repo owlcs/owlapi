@@ -33,8 +33,7 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyManagerImplTestCase extends TestBase {
@@ -88,7 +87,7 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
     @Test
     public void testImportsLoad() throws OWLException {
         OWLOntology ontA = m.createOntology(df.getIRI("urn:test:", "a"));
-        assertTrue(ontA.directImports().count() == 0);
+        assertEquals(0L, ontA.directImports().count());
         IRI b = df.getIRI("urn:test:", "b");
         OWLImportsDeclaration declB = m.getOWLDataFactory().getOWLImportsDeclaration(b);
         ontA.applyChange(new AddImport(ontA, declB));

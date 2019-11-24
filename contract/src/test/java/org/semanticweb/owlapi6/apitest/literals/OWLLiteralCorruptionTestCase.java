@@ -40,6 +40,7 @@ import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 
 public class OWLLiteralCorruptionTestCase extends TestBase {
 
+    private static final String URN_TEST = "urn:test#";
     private static final OWLLiteral ONESHORT =
         df.getOWLLiteral("1", OWL2Datatype.XSD_SHORT.getDatatype(df));
     private static final OWLLiteral ZERO_ONE = df.getOWLLiteral("01", df.getIntegerOWLDatatype());
@@ -48,7 +49,7 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
     @Test
     public void shouldroundTripLiteral() {
         String testString;
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(1000);
         int count = 17;
         while (count-- > 0) {
             sb.append("200 \u00B5Liters + character above U+0FFFF = ");
@@ -63,9 +64,9 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
     @Test
     public void shouldRoundTripXMLLiteral() throws OWLOntologyStorageException {
         OWLOntology o = getOWLOntology();
-        OWLDataProperty p = df.getOWLDataProperty(df.getIRI("urn:test#", "p"));
+        OWLDataProperty p = df.getOWLDataProperty(df.getIRI(URN_TEST, "p"));
         OWLLiteral l = df.getOWLLiteral(literalXMl, OWL2Datatype.RDF_XML_LITERAL);
-        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI("urn:test#", "i"));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI(URN_TEST, "i"));
         o.add(df.getOWLDataPropertyAssertionAxiom(p, i, l));
         String string = saveOntology(o).toString();
         assertTrue(string.contains(literalXMl));
@@ -74,9 +75,9 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
     @Test
     public void shouldFailOnMalformedXMLLiteral() throws OWLOntologyCreationException {
         OWLOntology o = m.createOntology();
-        OWLDataProperty p = df.getOWLDataProperty(df.getIRI("urn:test#", "p"));
+        OWLDataProperty p = df.getOWLDataProperty(df.getIRI(URN_TEST, "p"));
         OWLLiteral l = df.getOWLLiteral(literalMalformedXML, OWL2Datatype.RDF_XML_LITERAL);
-        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI("urn:test#", "i"));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI(URN_TEST, "i"));
         o.add(df.getOWLDataPropertyAssertionAxiom(p, i, l));
         assertThrowsWithMessage("XML literal is not self contained",
             OWLOntologyStorageException.class, () -> saveOntology(o));

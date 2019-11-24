@@ -511,7 +511,7 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
 
     protected void undeclaredDatatype(OWLDatatype dt) {
         if (!dt.isTopDatatype() && !dt.isBuiltIn()
-            && !getCurrentOntology().isDeclared(dt, Imports.INCLUDED)) {
+            && !getCurrentOntology().isDeclared(dt, INCLUDED)) {
             violations
                 .add(new UseOfUndeclaredDatatype(getCurrentOntology(), getCurrentAxiom(), dt));
         }
@@ -669,8 +669,8 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     }
 
     protected void punningDatatypeAndClass(HasIRI ce) {
-        if (getCurrentOntology().containsClassInSignature(ce.getIRI(), Imports.INCLUDED)
-            && getCurrentOntology().containsDatatypeInSignature(ce.getIRI(), Imports.INCLUDED)) {
+        if (getCurrentOntology().containsClassInSignature(ce.getIRI(), INCLUDED)
+            && getCurrentOntology().containsDatatypeInSignature(ce.getIRI(), INCLUDED)) {
             violations.add(new DatatypeIRIAlsoUsedAsClassIRI(getCurrentOntology(),
                 getCurrentAxiom(), ce.getIRI()));
         }

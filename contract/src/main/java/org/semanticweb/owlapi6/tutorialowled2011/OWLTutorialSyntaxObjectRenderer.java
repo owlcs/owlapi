@@ -97,6 +97,7 @@ import org.semanticweb.owlapi6.model.OWLTransitiveObjectPropertyAxiom;
  */
 public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
+    private static final String ENDSPAN = "</span>";
     private final Writer writer;
     private int pos;
     int lastNewLinePos;
@@ -510,7 +511,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLClass ce) {
-        write("<span class='cl'>" + labelFor(ce) + "</span>");
+        write("<span class='cl'>" + labelFor(ce) + ENDSPAN);
     }
 
     private OWLTutorialSyntaxObjectRenderer writeRestriction(String str,
@@ -674,12 +675,12 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataProperty property) {
-        write("<span class='pr'>" + labelFor(property) + "</span>");
+        write("<span class='pr'>" + labelFor(property) + ENDSPAN);
     }
 
     @Override
     public void visit(OWLObjectProperty property) {
-        write("<span class='pr'>" + labelFor(property) + "</span>");
+        write("<span class='pr'>" + labelFor(property) + ENDSPAN);
     }
 
     @Override
@@ -691,14 +692,14 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLNamedIndividual individual) {
-        write("<span class='in'>" + labelFor(individual) + "</span>");
+        write("<span class='in'>" + labelFor(individual) + ENDSPAN);
     }
 
     public String keyword(String str) {
-        return "<span class='key'>" + str + "</span>";
+        return "<span class='key'>" + str + ENDSPAN;
     }
 
     public String operator(String str) {
-        return "<span class='op'>" + str + "</span>";
+        return "<span class='op'>" + str + ENDSPAN;
     }
 }

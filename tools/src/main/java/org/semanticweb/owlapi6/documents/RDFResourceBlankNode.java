@@ -25,8 +25,7 @@ import org.semanticweb.owlapi6.model.NodeID;
 /**
  * Anonymous node implementation.
  */
-public class RDFResourceBlankNode extends RDFResource
-    implements org.apache.commons.rdf.api.BlankNode {
+public class RDFResourceBlankNode extends RDFResource implements BlankNode {
 
     /**
      * Random UUID, used by {@link #uniqueReference()}

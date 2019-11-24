@@ -39,30 +39,32 @@ import org.semanticweb.owlapi6.rioformats.TrigDocumentFormat;
 
 public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTrippingTestCase {
 
-    private OWLAnnotation ann1 = df.getRDFSComment("test for anon class in object position");
-    private OWLAnnotation ann2 = df.getRDFSComment("test for named class in object position");
-    private OWLAnnotation ann3 = df.getRDFSComment("test for anon individual in object position");
-    private OWLAnnotation ann4 = df.getOWLAnnotation(df.getRDFSComment(),
+    private final OWLAnnotation ann1 = df.getRDFSComment("test for anon class in object position");
+    private final OWLAnnotation ann2 = df.getRDFSComment("test for named class in object position");
+    private final OWLAnnotation ann3 =
+        df.getRDFSComment("test for anon individual in object position");
+    private final OWLAnnotation ann4 = df.getOWLAnnotation(df.getRDFSComment(),
         df.getOWLLiteral("test for second anon class in object position"),
         df.getRDFSLabel("nested label"));
-    private OWLAnnotation ann5 =
+    private final OWLAnnotation ann5 =
         df.getRDFSComment("test for second named class in object position");
-    private OWLAnnotation ann6 = df.getRDFSComment("test for third anon class in object position");
-    private OWLClass c4 = df.getOWLClass("urn:test:c4");
-    private OWLClass c5 = df.getOWLClass("urn:test:c5");
-    private OWLObjectProperty op = df.getOWLObjectProperty("urn:test:op");
-    private OWLDataProperty dp = df.getOWLDataProperty("urn:test:dp");
-    private OWLAnonymousIndividual a = df.getOWLAnonymousIndividual();
-    private OWLAnonymousIndividual b = df.getOWLAnonymousIndividual();
-    private OWLAnonymousIndividual a1 = df.getOWLAnonymousIndividual();
-    private OWLAnonymousIndividual a2 = df.getOWLAnonymousIndividual();
-    private OWLClassExpression ce1 = df.getOWLObjectAllValuesFrom(op, c4);
-    private OWLClassExpression ce2 = df.getOWLObjectSomeValuesFrom(op, df.getOWLThing());
-    private OWLClassExpression ce3 = df.getOWLObjectExactCardinality(1, op);
-    private OWLClassExpression ce4 =
+    private final OWLAnnotation ann6 =
+        df.getRDFSComment("test for third anon class in object position");
+    private final OWLClass c4 = df.getOWLClass("urn:test:c4");
+    private final OWLClass c5 = df.getOWLClass("urn:test:c5");
+    private final OWLObjectProperty op = df.getOWLObjectProperty("urn:test:op");
+    private final OWLDataProperty dp = df.getOWLDataProperty("urn:test:dp");
+    private final OWLAnonymousIndividual a = df.getOWLAnonymousIndividual();
+    private final OWLAnonymousIndividual b = df.getOWLAnonymousIndividual();
+    private final OWLAnonymousIndividual a1 = df.getOWLAnonymousIndividual();
+    private final OWLAnonymousIndividual a2 = df.getOWLAnonymousIndividual();
+    private final OWLClassExpression ce1 = df.getOWLObjectAllValuesFrom(op, c4);
+    private final OWLClassExpression ce2 = df.getOWLObjectSomeValuesFrom(op, df.getOWLThing());
+    private final OWLClassExpression ce3 = df.getOWLObjectExactCardinality(1, op);
+    private final OWLClassExpression ce4 =
         df.getOWLObjectIntersectionOf(df.getOWLObjectExactCardinality(2, op),
             df.getOWLDataExactCardinality(3, dp), df.getOWLObjectComplementOf(ce3), ce3);
-    private Set<OWLDocumentFormat> singleAxiomsLost =
+    private final Set<OWLDocumentFormat> singleAxiomsLost =
         new HashSet<>(Arrays.asList(new TrigDocumentFormat(), new RDFJsonLDDocumentFormat(),
             new NTriplesDocumentFormat(), new RDFXMLDocumentFormat(), new RDFJsonDocumentFormat(),
             new NQuadsDocumentFormat(), new TurtleDocumentFormat(), new RioTurtleDocumentFormat(),

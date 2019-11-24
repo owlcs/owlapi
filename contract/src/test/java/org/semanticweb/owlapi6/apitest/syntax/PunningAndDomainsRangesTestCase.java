@@ -18,10 +18,12 @@ import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 
 public class PunningAndDomainsRangesTestCase extends TestBase {
 
+    private static final String URN_TEST = "urn:test#";
+
     @Test
     public void shouldKeepDomainsInFSS()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(df.getIRI("urn:test#", "ontology"));
+        OWLOntology o = m.createOntology(df.getIRI(URN_TEST, "ontology"));
         OWLAnnotationProperty p1 = df.getOWLAnnotationProperty(df.getIRI("urn:property#", "p"));
         OWLDataProperty p2 = df.getOWLDataProperty(df.getIRI("urn:property#", "p"));
         o.addAxiom(df.getOWLAnnotationPropertyRangeAxiom(p1, OWL2Datatype.RDFS_LITERAL.getIRI()));
@@ -33,15 +35,15 @@ public class PunningAndDomainsRangesTestCase extends TestBase {
     @Test
     public void shouldSupportPunningClassesAndPropertiesInManchesterSyntax()
         throws OWLOntologyCreationException {
-        OWLClass b = df.getOWLClass(df.getIRI("urn:test#", "B"));
-        OWLClass a = df.getOWLClass(df.getIRI("urn:test#", "A"));
+        OWLClass b = df.getOWLClass(df.getIRI(URN_TEST, "B"));
+        OWLClass a = df.getOWLClass(df.getIRI(URN_TEST, "A"));
         OWLOntology o = m.createOntology();
-        o.addAxiom(df.getOWLDeclarationAxiom(df.getOWLObjectProperty(df.getIRI("urn:test#", "B"))));
+        o.addAxiom(df.getOWLDeclarationAxiom(df.getOWLObjectProperty(df.getIRI(URN_TEST, "B"))));
         o.addAxiom(df.getOWLDeclarationAxiom(b));
         o.addAxiom(df.getOWLDeclarationAxiom(a));
         ManchesterOWLSyntaxParserImpl parser =
             (ManchesterOWLSyntaxParserImpl) OWLManager.createManchesterParser();
-        parser.getPrefixManager().withDefaultPrefix("urn:test#");
+        parser.getPrefixManager().withDefaultPrefix(URN_TEST);
         parser.setDefaultOntology(o);
         parser.setStringToParse(":A or :B");
         OWLClassExpression parseClassExpression = parser.parseClassExpression();

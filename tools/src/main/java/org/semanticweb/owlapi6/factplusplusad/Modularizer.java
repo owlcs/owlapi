@@ -31,15 +31,15 @@ public class Modularizer {
     /**
      * shared signature signature
      */
-    private Signature sig = new Signature();
+    private final Signature sig = new Signature();
     /**
      * internal syntactic locality checker
      */
-    private LocalityChecker checker;
+    private final LocalityChecker checker;
     /**
      * module as a list of axioms
      */
-    private List<AxiomWrapper> module = new ArrayList<>();
+    private final List<AxiomWrapper> module = new ArrayList<>();
     /**
      * queue of unprocessed entities
      */

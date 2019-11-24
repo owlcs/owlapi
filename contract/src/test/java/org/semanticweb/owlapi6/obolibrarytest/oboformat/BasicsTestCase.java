@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi6.obolibrarytest.oboformat;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -90,6 +91,12 @@ import org.semanticweb.owlapi6.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
  */
 public class BasicsTestCase extends OboFormatTestBasics {
 
+    private static final String GENE_ONTOLOGY = "gene_ontology";
+    private static final String CARO_OBO = "caro.obo";
+    private static final String HAS_PART = "has_part";
+    private static final String PART_OF = "part_of";
+    private static final String BFO_0000050 = "BFO:0000050";
+    private static final String X_1 = "X:1";
     private static final String OBO = "http://purl.obolibrary.org/obo/";
     private static final IRI SHORTHAND =
         df.getIRI("http://www.geneontology.org/formats/oboInOwl#", "shorthand");
@@ -172,7 +179,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         Frame tf = obodoc.getTermFrame("x1"); // TODO - may change
         assert tf != null;
         Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
-        assertTrue(cs.size() != 1);
+        assertNotEquals(1, cs.size());
         // there should NEVER be a situation with single intersection tags
         // TODO - add validation step prior to saving
     }
@@ -224,7 +231,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertEquals(4, owlOnt.objectPropertiesInSignature().count());
         Stream<OWLAnnotationAssertionAxiom> aaas = owlOnt.annotationAssertionAxioms(BFO51);
         boolean ok = aaas.filter(ax -> ax.getProperty().equals(ap))
-            .map(a -> (OWLLiteral) a.getValue()).anyMatch(v -> v.getLiteral().equals("has_part"));
+            .map(a -> (OWLLiteral) a.getValue()).anyMatch(v -> v.getLiteral().equals(HAS_PART));
         assertTrue(ok);
         aaas = owlOnt.annotationAssertionAxioms(BFO50);
         assertTrue(aaas.count() > 0);
@@ -234,14 +241,14 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertTrue(aaas.count() > 0);
         OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(m1);
         OBODoc d2 = revbridge.convert(owlOnt);
-        Frame partOf = d2.getTypedefFrame("part_of");
+        Frame partOf = d2.getTypedefFrame(PART_OF);
         assert partOf != null;
         Collection<Clause> xrcs = partOf.getClauses(OboFormatTag.TAG_XREF);
         boolean okBfo = false;
         boolean okOboRel = false;
         for (Clause c : xrcs) {
             Xref value = c.getValue(Xref.class);
-            if (value.getIdref().equals("BFO:0000050")) {
+            if (value.getIdref().equals(BFO_0000050)) {
                 okBfo = true;
             }
             if (value.getIdref().equals("OBO_REL:part_of")) {
@@ -254,13 +261,13 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assert a != null;
         Clause rc = a.getClause(OboFormatTag.TAG_RELATIONSHIP);
         assert rc != null;
-        assertEquals("part_of", rc.getValue());
+        assertEquals(PART_OF, rc.getValue());
         assertEquals("TEST:b", rc.getValue2());
     }
 
     @Test
     public void testParseCARO() {
-        OBODoc obodoc = parseOBOFile("caro.obo");
+        OBODoc obodoc = parseOBOFile(CARO_OBO);
         assertTrue(obodoc.getTermFrames().size() > 2);
         Frame cc = obodoc.getTermFrame("CARO:0000014");
         assertNotNull(cc);
@@ -433,7 +440,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void checkOBODoc(OBODoc obodoc) {
         // OBODoc tests
         // test ECA between named classes is persisted using correct tag
-        Frame tf = obodoc.getTermFrame("X:1");
+        Frame tf = obodoc.getTermFrame(X_1);
         assert tf != null;
         Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
         assertEquals(1, cs.size());
@@ -441,7 +448,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertEquals("X:2", v);
         // test ECA between named class and anon class is persisted as
         // genus-differentia intersection_of tags
-        tf = obodoc.getTermFrame("X:1");
+        tf = obodoc.getTermFrame(X_1);
         assert tf != null;
         cs = tf.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
         assertEquals(2, cs.size());
@@ -467,21 +474,13 @@ public class BasicsTestCase extends OboFormatTestBasics {
         Frame tf2 = obodoc.getTermFrame("X:2");
         assert tf2 != null;
         Collection<Clause> cs2 = tf2.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
-        Frame tf1 = obodoc.getTermFrame("X:1");
+        Frame tf1 = obodoc.getTermFrame(X_1);
         assert tf1 != null;
         Collection<Clause> cs1 = tf1.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
-        boolean ok = false;
-        if (cs2.size() == 1) {
-            if (cs2.iterator().next().getValue(String.class).equals("X:1")) {
-                ok = true;
-            }
-        }
-        if (cs1.size() == 1) {
-            if (cs1.iterator().next().getValue(String.class).equals("X:2")) {
-                ok = true;
-            }
-        }
-        assertTrue(ok);
+
+        assertTrue(cs1.size() == 1 || cs2.size() == 1);
+        assertTrue("X:2".equals(cs1.iterator().next().getValue(String.class))
+            || X_1.equals(cs2.iterator().next().getValue(String.class)));
     }
 
     @Test
@@ -588,7 +587,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         // CONVERT BACK TO OBO
         OBODoc obodoc = convert(ontology);
         // test that relation IDs are converted back to symbolic form
-        Frame tf = obodoc.getTermFrame("X:1");
+        Frame tf = obodoc.getTermFrame(X_1);
         assert tf != null;
         Collection<Clause> clauses = tf.getClauses(OboFormatTag.TAG_RELATIONSHIP);
         assertEquals(2, clauses.size());
@@ -664,7 +663,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertTrue(ok);
         // reverse translation
         OBODoc obodoc = convert(owlOntology);
-        Frame fr = obodoc.getTermFrame("X:1");
+        Frame fr = obodoc.getTermFrame(X_1);
         assert fr != null;
         Collection<Clause> clauses = fr.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
         assertEquals(2, clauses.size());
@@ -697,7 +696,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         ManchesterSyntaxTool parser = new ManchesterSyntaxTool(owlOntology);
         OWLClassExpression expression =
             parser.parseManchesterExpression("GO_0018901 AND BFO:0000050 some GO_0055124");
-        checkIntersection(expression, "GO:0018901", "BFO:0000050", "GO:0055124");
+        checkIntersection(expression, "GO:0018901", BFO_0000050, "GO:0055124");
     }
 
     @Test
@@ -706,7 +705,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         ManchesterSyntaxTool parser = new ManchesterSyntaxTool(owlOntology);
         OWLClassExpression expression = parser.parseManchesterExpression(
             "'2,4-dichlorophenoxyacetic acid metabolic process' AND 'part_of' some 'premature neural plate formation'");
-        checkIntersection(expression, "GO:0018901", "BFO:0000050", "GO:0055124");
+        checkIntersection(expression, "GO:0018901", BFO_0000050, "GO:0055124");
     }
 
     @Test(expected = FrameStructureException.class)
@@ -720,7 +719,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
 
     @Test
     public void testConvertCAROObo2Owl() {
-        OWLOntology owlOnt = convertOBOFile("caro.obo");
+        OWLOntology owlOnt = convertOBOFile(CARO_OBO);
         assertNotNull(owlOnt);
     }
 
@@ -732,15 +731,15 @@ public class BasicsTestCase extends OboFormatTestBasics {
 
     @Test
     public void testIdenticalOBODocDiffer() {
-        OBODoc obodoc1 = parseOBOFile("caro.obo");
-        OBODoc obodoc2 = parseOBOFile("caro.obo");
+        OBODoc obodoc1 = parseOBOFile(CARO_OBO);
+        OBODoc obodoc2 = parseOBOFile(CARO_OBO);
         List<Diff> diffs = OBODocDiffer.getDiffs(obodoc1, obodoc2);
         assertEquals(0, diffs.size());
     }
 
     @Test
     public void testDiffOBODocDiffer() {
-        OBODoc obodoc1 = parseOBOFile("caro.obo");
+        OBODoc obodoc1 = parseOBOFile(CARO_OBO);
         OBODoc obodoc2 = parseOBOFile("caro_modified.obo");
         List<Diff> diffs = OBODocDiffer.getDiffs(obodoc1, obodoc2);
         assertEquals(19, diffs.size());
@@ -817,11 +816,11 @@ public class BasicsTestCase extends OboFormatTestBasics {
             "biological_process");
         checkFrame(obodoc, "GO:0055124", "premature neural plate formation", "biological_process");
         checkFrame(obodoc, "GO:0055125", "Nic96 complex", "cellular_component");
-        checkFrame(obodoc, "has_part", "has_part", "gene_ontology");
-        checkFrame(obodoc, "negatively_regulates", "negatively_regulates", "gene_ontology");
-        checkFrame(obodoc, "part_of", "part_of", "gene_ontology");
-        checkFrame(obodoc, "positively_regulates", "positively_regulates", "gene_ontology");
-        checkFrame(obodoc, "regulates", "regulates", "gene_ontology");
+        checkFrame(obodoc, HAS_PART, HAS_PART, GENE_ONTOLOGY);
+        checkFrame(obodoc, "negatively_regulates", "negatively_regulates", GENE_ONTOLOGY);
+        checkFrame(obodoc, PART_OF, PART_OF, GENE_ONTOLOGY);
+        checkFrame(obodoc, "positively_regulates", "positively_regulates", GENE_ONTOLOGY);
+        checkFrame(obodoc, "regulates", "regulates", GENE_ONTOLOGY);
     }
 
     @Test(expected = FrameStructureException.class)
@@ -871,11 +870,11 @@ public class BasicsTestCase extends OboFormatTestBasics {
             .getIdentifier(df.getIRI("http://purl.obolibrary.org/obo/alternate#", "abcdef"));
         // todo - test this
         // System.out.println("== "+oboId);
-        iri = obo2owl.oboIdToIRI("part_of");
+        iri = obo2owl.oboIdToIRI(PART_OF);
         assertEquals("http://purl.obolibrary.org/obo/test#part_of", iri.toString());
         // OWL 2 obo
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertEquals("part_of", oboId);
+        assertEquals(PART_OF, oboId);
         iri = obo2owl.oboIdToIRI("OBO_REL:part_of");
         assertEquals("http://purl.obolibrary.org/obo/OBO_REL#_part_of", iri.toString());
         // OWL 2 obo
@@ -890,7 +889,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertEquals("http://purl.obolibrary.org/obo/BFO_0000050", iri.toString());
         // OWL 2 obo
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertEquals("BFO:0000050", oboId);
+        assertEquals(BFO_0000050, oboId);
         // MGI IDs are perverse - they have a double-separator
         iri = obo2owl.oboIdToIRI("MGI:MGI:1");
         assertEquals("http://purl.obolibrary.org/obo/MGI_MGI%3A1", iri.toString());
@@ -972,15 +971,15 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assert c != null;
         Object v = c.getValue();
         // should be converted back to symbolic form
-        assertEquals("has_part", v);
+        assertEquals(HAS_PART, v);
         tf = obodoc.getTermFrame("GO:0004055");
         assert tf != null;
         c = tf.getClause(OboFormatTag.TAG_RELATIONSHIP);
         assert c != null;
         v = c.getValue();
         // should be converted back to symbolic form
-        assertEquals("part_of", v);
-        tf = obodoc.getTypedefFrame("has_part");
+        assertEquals(PART_OF, v);
+        tf = obodoc.getTypedefFrame(HAS_PART);
         assert tf != null;
         Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_XREF);
         assertEquals(1, cs.size());
@@ -1123,11 +1122,11 @@ public class BasicsTestCase extends OboFormatTestBasics {
                 Frame termFrame = tdoc.getTermFrame("ZFA:0001689");
                 assertNotNull(termFrame);
                 assertEquals(2, termFrame.getClauses(OboFormatTag.TAG_INTERSECTION_OF).size());
-                Frame pf = tdoc.getTypedefFrame("part_of");
+                Frame pf = tdoc.getTypedefFrame(PART_OF);
                 assert pf != null;
                 Clause clause = pf.getClause(OboFormatTag.TAG_XREF);
                 assertNotNull(clause);
-                assertEquals("BFO:0000050", clause.getValue().toString());
+                assertEquals(BFO_0000050, clause.getValue().toString());
                 n++;
             }
             if (tid.equals("ehdaa")) {

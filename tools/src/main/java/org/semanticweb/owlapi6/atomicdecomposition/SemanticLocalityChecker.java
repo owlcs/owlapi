@@ -65,12 +65,12 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
      * Reasoner to detect the tautology
      */
     OWLReasoner kernel;
-    OWLDataFactory df;
+    final OWLDataFactory df;
     OWLReasonerFactory factory;
     /**
      * map between axioms and concept expressions
      */
-    Map<OWLAxiom, List<OWLClassExpression>> exprMap = new LinkedHashMap<>();
+    final Map<OWLAxiom, List<OWLClassExpression>> exprMap = new LinkedHashMap<>();
     /**
      * remember the axiom locality value here
      */
@@ -79,15 +79,13 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
      * signature to keep
      */
     private Signature sig = new Signature();
-    private OWLOntologyManager manager;
+    private final OWLOntologyManager manager;
 
     /**
      * init c'tor
      *
-     * @param f
-     *        reasoner factory
-     * @param m
-     *        manager
+     * @param f reasoner factory
+     * @param m manager
      */
     public SemanticLocalityChecker(OWLReasonerFactory f, OWLOntologyManager m) {
         factory = f;
@@ -99,8 +97,7 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
     /**
      * init c'tor
      *
-     * @param r
-     *        reasoner
+     * @param r reasoner
      */
     public SemanticLocalityChecker(OWLReasoner r) {
         kernel = r;
@@ -110,8 +107,7 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
     }
 
     /**
-     * @param axiom
-     *        axiom
+     * @param axiom axiom
      * @return expression necessary to build query for a given type of an axiom
      */
     protected Stream<OWLClassExpression> getExpr(OWLAxiom axiom) {
@@ -144,7 +140,8 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         Signature s = new Signature();
         for (AxiomWrapper q : axioms) {
             if (q.isUsed()) {
-                add(exprMap.computeIfAbsent(q.getAxiom(), x -> new ArrayList<>()), getExpr(q.getAxiom()));
+                add(exprMap.computeIfAbsent(q.getAxiom(), x -> new ArrayList<>()),
+                    getExpr(q.getAxiom()));
                 s.addAll(q.getAxiom().signature());
             }
         }
@@ -246,10 +243,11 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
     // R = inverse(S) is tautology iff R [= S- and S [= R-
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        isLocal = kernel.isEntailed(
-            df.getOWLSubObjectPropertyOfAxiom(axiom.getFirstProperty(), axiom.getSecondProperty().getInverseProperty()))
-            && kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(axiom.getFirstProperty().getInverseProperty(),
-                axiom.getSecondProperty()));
+        isLocal = kernel
+            .isEntailed(df.getOWLSubObjectPropertyOfAxiom(axiom.getFirstProperty(),
+                axiom.getSecondProperty().getInverseProperty()))
+            && kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(
+                axiom.getFirstProperty().getInverseProperty(), axiom.getSecondProperty()));
     }
 
     @Override

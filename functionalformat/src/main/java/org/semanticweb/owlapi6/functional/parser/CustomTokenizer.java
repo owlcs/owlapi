@@ -35,15 +35,15 @@ class CustomTokenizer implements TokenManager {
     // hack to adapt from Provider to CustomTokenizer. The Provider is already
     // buffered, so little
     // performance impact.
-    private char[] charReading = new char[1];
+    private final char[] charReading = new char[1];
 
     public CustomTokenizer(Provider reader) {
         in = reader;
     }
 
     /**
-     * This gets the next token from the input stream. A token of kind 0 (EOF)
-     * should be returned on EOF.
+     * This gets the next token from the input stream. A token of kind 0 (EOF) should be returned on
+     * EOF.
      */
     @Override
     public Token getNextToken() {

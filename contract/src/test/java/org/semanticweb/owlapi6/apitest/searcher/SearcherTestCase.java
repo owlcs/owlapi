@@ -52,6 +52,8 @@ import org.semanticweb.owlapi6.search.Filters;
 
 public class SearcherTestCase extends TestBase {
 
+    private static final String URN_TEST = "urn:test#";
+
     @Test
     public void shouldSearch() {
         // given
@@ -66,11 +68,11 @@ public class SearcherTestCase extends TestBase {
     public void shouldSearchObjectProperties() {
         // given
         OWLOntology o = getOWLOntology();
-        OWLObjectProperty c = ObjectProperty(IRI("urn:test#", "c"));
-        OWLObjectProperty d = ObjectProperty(IRI("urn:test#", "d"));
-        OWLObjectProperty e = ObjectProperty(IRI("urn:test#", "e"));
-        OWLClass x = Class(IRI("urn:test#", "x"));
-        OWLClass y = Class(IRI("urn:test#", "Y"));
+        OWLObjectProperty c = ObjectProperty(IRI(URN_TEST, "c"));
+        OWLObjectProperty d = ObjectProperty(IRI(URN_TEST, "d"));
+        OWLObjectProperty e = ObjectProperty(IRI(URN_TEST, "e"));
+        OWLClass x = Class(IRI(URN_TEST, "x"));
+        OWLClass y = Class(IRI(URN_TEST, "Y"));
         OWLAxiom ax = SubObjectPropertyOf(c, d);
         OWLAxiom ax2 = ObjectPropertyDomain(c, x);
         OWLAxiom ax3 = ObjectPropertyRange(c, y);
@@ -93,11 +95,11 @@ public class SearcherTestCase extends TestBase {
     public void shouldSearchDataProperties() {
         // given
         OWLOntology o = getOWLOntology();
-        OWLDataProperty c = DataProperty(IRI("urn:test#", "c"));
-        OWLDataProperty d = DataProperty(IRI("urn:test#", "d"));
-        OWLDataProperty e = DataProperty(IRI("urn:test#", "e"));
+        OWLDataProperty c = DataProperty(IRI(URN_TEST, "c"));
+        OWLDataProperty d = DataProperty(IRI(URN_TEST, "d"));
+        OWLDataProperty e = DataProperty(IRI(URN_TEST, "e"));
         OWLAxiom ax = SubDataPropertyOf(c, d);
-        OWLClass x = Class(IRI("urn:test#", "x"));
+        OWLClass x = Class(IRI(URN_TEST, "x"));
         OWLAxiom ax2 = DataPropertyDomain(c, x);
         OWLAxiom ax3 = DataPropertyRange(c, Boolean());
         OWLAxiom ax4 = EquivalentDataProperties(c, e);

@@ -44,6 +44,7 @@ import org.semanticweb.owlapi6.utility.StringAnnotationVisitor;
  */
 public class AnnotationShortFormProviderTestCase extends TestBase {
 
+    private static final String IND = "ind";
     protected PrefixManager pm =
         new PrefixManagerImpl().withDefaultPrefix("http://org.semanticweb.owlapi/ont#");
     protected OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
@@ -52,7 +53,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
 
     @Test
     public void testLiteralWithoutLanguageValue() {
-        OWLNamedIndividual root = NamedIndividual("ind", pm);
+        OWLNamedIndividual root = NamedIndividual(IND, pm);
         String shortForm = "MyLabel";
         Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
         AnnotationValueShortFormProvider sfp =
@@ -62,7 +63,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
 
     @Test
     public void testLiteralWithLanguageValue() {
-        OWLNamedIndividual root = NamedIndividual("ind", pm);
+        OWLNamedIndividual root = NamedIndividual(IND, pm);
         String label1 = "MyLabel";
         String label2 = "OtherLabel";
         Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(label1, "ab")),
@@ -80,7 +81,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
 
     @Test
     public void testIRIValue() {
-        OWLNamedIndividual root = NamedIndividual("ind", pm);
+        OWLNamedIndividual root = NamedIndividual(IND, pm);
         Ontology(m, AnnotationAssertion(prop, root.getIRI(),
             IRI("http://org.semanticweb.owlapi/ont#", "myIRI")));
         AnnotationValueShortFormProvider sfp =
@@ -90,7 +91,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
 
     @Test
     public void shouldWrapWithDoubleQuotes() {
-        OWLNamedIndividual root = NamedIndividual("ind", pm);
+        OWLNamedIndividual root = NamedIndividual(IND, pm);
         String shortForm = "MyLabel";
         Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(m,

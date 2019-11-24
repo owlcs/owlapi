@@ -60,6 +60,8 @@ import org.semanticweb.owlapi6.utility.SimpleIRIMapper;
  */
 public class ImportsTestCase extends TestBase {
 
+    private static final String IMPORTS = "imports";
+
     @Test
     public void testImportsClosureUpdate() {
         IRI aIRI = IRI("http://a.com", "");
@@ -140,7 +142,7 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void testImports() throws OWLOntologyCreationException {
-        m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, "imports"), true, df));
+        m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, IMPORTS), true, df));
         m.loadOntologyFromOntologyDocument(new File(RESOURCES, "/imports/D.owl"));
     }
 
@@ -268,7 +270,7 @@ public class ImportsTestCase extends TestBase {
     @Test
     public void testImportsWhenRemovingAndReloading() throws Exception {
         OWLOntologyManager man = setupManager();
-        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true, df);
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, IMPORTS), true, df);
         man.getIRIMappers().add(mapper);
         String name = "/imports/thesubont.omn";
         OWLOntology root =
@@ -282,14 +284,14 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void testAutoIRIMapperShouldNotBeConfusedByPrefixes() {
-        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true, df);
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, IMPORTS), true, df);
         assertTrue(mapper.getOntologyIRIs()
             .contains(df.getIRI("http://owlapitestontologies.com/thesubont")));
     }
 
     @Test
     public void testAutoIRIMapperShouldRecogniseRdfAboutInOwlOntology() {
-        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true, df);
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, IMPORTS), true, df);
         assertTrue(
             mapper.getOntologyIRIs().contains(df.getIRI("http://test.org/compleximports/A.owl")));
     }

@@ -12,10 +12,10 @@ import org.semanticweb.owlapi6.model.OWLRuntimeException;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 
 public class ThreeLayersOfAnnotationsTestCase extends AbstractRoundTrippingTestCase {
+    private static final String oboInOwl = "urn:obo:";
 
     @Override
     protected OWLOntology createOntology() {
-        String oboInOwl = "urn:obo:";
         OWLOntology o;
         try {
             o = m.createOntology(df.getIRI("urn:nested:", "ontology"));

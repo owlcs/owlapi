@@ -215,16 +215,18 @@ import org.semanticweb.owlapi6.vocab.OWLFacet;
 @RunWith(Parameterized.class)
 public class BuildersTestCase<Q> {
 
+    private static final String TEST = "test";
+    private static final String URN_TEST = "urn:test#";
     protected static OWLDataFactory df = new OWLDataFactoryImpl();
-    protected static OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:test#", "ann");
-    protected static OWLObjectProperty op = df.getOWLObjectProperty("urn:test#", "op");
-    protected static OWLDataProperty dp = df.getOWLDataProperty("urn:test#", "dp");
+    protected static OWLAnnotationProperty ap = df.getOWLAnnotationProperty(URN_TEST, "ann");
+    protected static OWLObjectProperty op = df.getOWLObjectProperty(URN_TEST, "op");
+    protected static OWLDataProperty dp = df.getOWLDataProperty(URN_TEST, "dp");
     protected static OWLLiteral lit = df.getOWLLiteral(false);
-    protected static IRI iri = df.getIRI("urn:test#", "iri");
+    protected static IRI iri = df.getIRI(URN_TEST, "iri");
     protected static Set<OWLAnnotation> anns =
-        new HashSet<>(Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral("test"))));
-    protected static OWLClass ce = df.getOWLClass("urn:test#", "c");
-    protected static OWLNamedIndividual i = df.getOWLNamedIndividual("urn:test#", "i");
+        new HashSet<>(Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral(TEST))));
+    protected static OWLClass ce = df.getOWLClass(URN_TEST, "c");
+    protected static OWLNamedIndividual i = df.getOWLNamedIndividual(URN_TEST, "i");
     protected static OWLDatatype d = df.getBooleanOWLDatatype();
     protected static Set<OWLDataProperty> dps =
         new HashSet<>(Arrays.asList(df.getOWLDataProperty(iri), dp));
@@ -233,20 +235,20 @@ public class BuildersTestCase<Q> {
     protected static Set<OWLClass> classes = new HashSet<>(Arrays.asList(df.getOWLClass(iri), ce));
     protected static Set<OWLNamedIndividual> inds =
         new HashSet<>(Arrays.asList(i, df.getOWLNamedIndividual(iri)));
-    protected static SWRLDArgument var1 = df.getSWRLVariable("urn:test#", "var1");
-    protected static SWRLIArgument var2 = df.getSWRLVariable("urn:test#", "var2");
-    protected static SWRLAtom v1 = df.getSWRLBuiltInAtom(df.getIRI("urn:test#", "v1"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:test#", "var3"),
-            df.getSWRLVariable("urn:test#", "var4")));
-    protected static SWRLAtom v2 = df.getSWRLBuiltInAtom(df.getIRI("urn:test#", "v2"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:test#", "var5"),
-            df.getSWRLVariable("urn:test#", "var6")));
+    protected static SWRLDArgument var1 = df.getSWRLVariable(URN_TEST, "var1");
+    protected static SWRLIArgument var2 = df.getSWRLVariable(URN_TEST, "var2");
+    protected static SWRLAtom v1 = df.getSWRLBuiltInAtom(df.getIRI(URN_TEST, "v1"),
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable(URN_TEST, "var3"),
+            df.getSWRLVariable(URN_TEST, "var4")));
+    protected static SWRLAtom v2 = df.getSWRLBuiltInAtom(df.getIRI(URN_TEST, "v2"),
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable(URN_TEST, "var5"),
+            df.getSWRLVariable(URN_TEST, "var6")));
     protected static Set<SWRLAtom> body = new HashSet<>(Arrays.asList(v1));
     protected static Set<SWRLAtom> head = new HashSet<>(Arrays.asList(v2));
     private final Builder<Q> b;
     private final Q expected;
     private final OWLOntologyManager m = getManager();
-    private Prepare<Q> p;
+    private final Prepare<Q> p;
 
     public BuildersTestCase(Prepare<Q> p, Builder<Q> b, Q o) {
         this.b = b;
@@ -307,9 +309,9 @@ public class BuildersTestCase<Q> {
         toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withValue(1).withAnnotations(anns),                                                              df.getOWLLiteral(1)});
         toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withValue(1.1D).withAnnotations(anns),                                                           df.getOWLLiteral(1.1D)});
         toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withValue(1.2F).withAnnotations(anns),                                                           df.getOWLLiteral(1.2F)});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withLiteralForm("test").withAnnotations(anns),                                                   df.getOWLLiteral("test")});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withLiteralForm("test").withLanguage("en").withAnnotations(anns),                                df.getOWLLiteral("test", "en")});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withLiteralForm("test").withDatatype(OWL2Datatype.XSD_STRING).withAnnotations(anns),             df.getOWLLiteral("test", OWL2Datatype.XSD_STRING)});
+        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withLiteralForm(TEST).withAnnotations(anns),                                                   df.getOWLLiteral(TEST)});
+        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withLiteralForm(TEST).withLanguage("en").withAnnotations(anns),                                df.getOWLLiteral(TEST, "en")});
+        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withLiteralForm(TEST).withDatatype(OWL2Datatype.XSD_STRING).withAnnotations(anns),             df.getOWLLiteral(TEST, OWL2Datatype.XSD_STRING)});
         toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withLiteralForm("3.14").withDatatype(OWL2Datatype.OWL_REAL).withAnnotations(anns),               df.getOWLLiteral("3.14", OWL2Datatype.OWL_REAL)});
         toReturn.add(new Object[] {(Prepare<OWLNamedIndividual>)                        x->new BuilderNamedIndividual(x,df),                 new BuilderNamedIndividual(df).withIRI(iri),                                                                                   df.getOWLNamedIndividual(iri)});
         toReturn.add(new Object[] {(Prepare<OWLNegativeDataPropertyAssertionAxiom>)     x->new BuilderNegativeDataPropertyAssertion(x,df),   new BuilderNegativeDataPropertyAssertion(df).withAnnotations(anns).withProperty(dp).withValue(lit).withSubject(i),      df.getOWLNegativeDataPropertyAssertionAxiom(dp, i, lit, anns)});

@@ -48,6 +48,9 @@ import org.semanticweb.owlapi6.model.SWRLVariable;
  * @since 3.2.0
  */
 public class OWLDataFactoryImplTestCase {
+    private static final String LANG = "LANG";
+    private static final String TEST = "TEST";
+
     private static void assertEqualsFromSupplier(Supplier<?> s) {
         Object s1 = s.get();
         Object s2 = s.get();
@@ -250,7 +253,7 @@ public class OWLDataFactoryImplTestCase {
             () -> testSubject.getOWLInverseFunctionalObjectPropertyAxiom(prop2));
         assertEqualsFromSupplier(() -> testSubject.getOWLIrreflexiveObjectPropertyAxiom(prop2));
         assertEqualsFromSupplier(() -> testSubject.getOWLLiteral("3", dt));
-        assertEqualsFromSupplier(() -> testSubject.getOWLLiteral("TEST", "LANG"));
+        assertEqualsFromSupplier(() -> testSubject.getOWLLiteral(TEST, LANG));
         assertEqualsFromSupplier(() -> testSubject.getOWLNamedIndividual(iri));
         assertEqualsFromSupplier(
             () -> testSubject.getOWLNegativeDataPropertyAssertionAxiom(prop, s1, o2));
@@ -427,10 +430,10 @@ public class OWLDataFactoryImplTestCase {
             () -> testSubject.getOWLEquivalentObjectPropertiesAxiom(a3, b3));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLLiteral("3", dt),
             () -> testSubject.getOWLLiteral("4", dt));
-        assertNotEqualsFromSuppliers(() -> testSubject.getOWLLiteral("TEST", "LANG"),
-            () -> testSubject.getOWLLiteral("OTHER", "LANG"));
-        assertNotEqualsFromSuppliers(() -> testSubject.getOWLLiteral("TEST", "LANG"),
-            () -> testSubject.getOWLLiteral("TEST", "OTHER_LANG"));
+        assertNotEqualsFromSuppliers(() -> testSubject.getOWLLiteral(TEST, LANG),
+            () -> testSubject.getOWLLiteral("OTHER", LANG));
+        assertNotEqualsFromSuppliers(() -> testSubject.getOWLLiteral(TEST, LANG),
+            () -> testSubject.getOWLLiteral(TEST, "OTHER_LANG"));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLObjectComplementOf(operandA),
             () -> testSubject.getOWLObjectComplementOf(operandB));
         assertNotEqualsFromSuppliers(

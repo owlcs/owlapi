@@ -46,10 +46,10 @@ import org.semanticweb.owlapi6.utilities.TransformerVisitorBase;
  */
 public class OWLObjectTransformer<T> {
 
-    private UnaryOperator<T> transformer;
-    private Predicate<Object> predicate;
-    private Class<T> witness;
-    private OWLDataFactory df;
+    private final UnaryOperator<T> transformer;
+    private final Predicate<Object> predicate;
+    private final Class<T> witness;
+    private final OWLDataFactory df;
 
     /**
      * @param predicate the predicate to match the axioms to rebuild
@@ -71,7 +71,7 @@ public class OWLObjectTransformer<T> {
      * input to be an ontology or included in an ontology.
      *
      * @param o object to transform. Must be an axiom or an ontology for the change to be
-     * meaningful.
+     *        meaningful.
      * @return A list of axiom changes that should be applied.
      */
     public List<AxiomChangeData> change(OWLObject o) {
@@ -105,12 +105,12 @@ public class OWLObjectTransformer<T> {
 
     private static class Visitor<T> extends TransformerVisitorBase<T> {
 
-        private List<AxiomChangeData> changes;
-        private List<OWLOntologyChange> ontologyChanges;
+        private final List<AxiomChangeData> changes;
+        private final List<OWLOntologyChange> ontologyChanges;
 
         Visitor(List<OWLOntologyChange> ontologyChanges, List<AxiomChangeData> changes,
-            Predicate<Object> predicate, UnaryOperator<T> transformer,
-            OWLDataFactory df, Class<T> witness) {
+            Predicate<Object> predicate, UnaryOperator<T> transformer, OWLDataFactory df,
+            Class<T> witness) {
             super(predicate, transformer, df, witness);
             this.changes = changes;
             this.ontologyChanges = ontologyChanges;

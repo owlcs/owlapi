@@ -88,6 +88,7 @@ import org.semanticweb.owlapi6.vocab.OWLFacet;
 
 public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
 
+    private static final String OWLAPI_TEST = "http://www.semanticweb.org/owlapi/test#";
     private static final OWLDatatype DATAB = Datatype(iri("B"));
 
     protected void assertEqualsSet(String ontology, OWLAxiom... axioms) {
@@ -202,10 +203,10 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     @Test
     public void testDeprecatedAnnotationAssertionsPresent() {
         OWLOntology ont = ontologyFromClasspathFile("Deprecated.rdf");
-        OWLClass cls = Class(IRI("http://www.semanticweb.org/owlapi/test#", "ClsA"));
+        OWLClass cls = Class(IRI(OWLAPI_TEST, "ClsA"));
         Searcher.annotationObjects(ont.annotationAssertionAxioms(cls.getIRI(), INCLUDED))
             .forEach(a -> a.isDeprecatedIRIAnnotation());
-        OWLDataProperty prop = DataProperty(IRI("http://www.semanticweb.org/owlapi/test#", "prop"));
+        OWLDataProperty prop = DataProperty(IRI(OWLAPI_TEST, "prop"));
         Searcher.annotationObjects(ont.annotationAssertionAxioms(prop.getIRI(), INCLUDED))
             .forEach(a -> assertTrue(a.isDeprecatedIRIAnnotation()));
     }
@@ -351,8 +352,8 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
         List<OWLSubClassOfAxiom> axioms = asList(ontology.axioms(AxiomType.SUBCLASS_OF));
         assertEquals(1, axioms.size());
         OWLSubClassOfAxiom ax = axioms.get(0);
-        OWLClass subCls = Class(IRI("http://www.semanticweb.org/owlapi/test#", "A"));
-        OWLClass supCls = Class(IRI("http://www.semanticweb.org/owlapi/test#", "B"));
+        OWLClass subCls = Class(IRI(OWLAPI_TEST, "A"));
+        OWLClass supCls = Class(IRI(OWLAPI_TEST, "B"));
         assertEquals(subCls, ax.getSubClass());
         assertEquals(supCls, ax.getSuperClass());
     }
@@ -363,14 +364,14 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
         List<OWLSubClassOfAxiom> axioms = asList(ontology.axioms(AxiomType.SUBCLASS_OF));
         assertEquals(1, axioms.size());
         OWLSubClassOfAxiom ax = axioms.get(0);
-        OWLClass subCls = Class(IRI("http://www.semanticweb.org/owlapi/test#", "A"));
+        OWLClass subCls = Class(IRI(OWLAPI_TEST, "A"));
         assertEquals(subCls, ax.getSubClass());
         OWLClassExpression supCls = ax.getSuperClass();
         assertTrue(supCls instanceof OWLObjectSomeValuesFrom);
         OWLObjectSomeValuesFrom someValuesFrom = (OWLObjectSomeValuesFrom) supCls;
         OWLObjectProperty property =
-            ObjectProperty(IRI("http://www.semanticweb.org/owlapi/test#", "P"));
-        OWLClass fillerCls = Class(IRI("http://www.semanticweb.org/owlapi/test#", "C"));
+            ObjectProperty(IRI(OWLAPI_TEST, "P"));
+        OWLClass fillerCls = Class(IRI(OWLAPI_TEST, "C"));
         assertEquals(property, someValuesFrom.getProperty());
         assertEquals(fillerCls, someValuesFrom.getFiller());
     }

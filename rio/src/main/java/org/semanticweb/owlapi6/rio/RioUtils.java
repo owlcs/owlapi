@@ -93,8 +93,6 @@ public final class RioUtils {
         OpenRDFUtil.verifyContextNotNull(contexts);
         final ValueFactory vf = SimpleValueFactory.getInstance();
         Resource subject;
-        org.eclipse.rdf4j.model.IRI predicate;
-        Value object;
         if (triple.getSubject() instanceof RDFResourceIRI) {
             try {
                 subject = vf.createIRI(triple.getSubject().getIRI().toString());
@@ -107,12 +105,14 @@ public final class RioUtils {
             // internally, need to fix this
             subject = node(triple.getSubject(), vf);
         }
+        org.eclipse.rdf4j.model.IRI predicate;
         try {
             predicate = vf.createIRI(triple.getPredicate().getIRI().toString());
         } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
             LOGGER.error("Predicate URI was invalid: {}", triple);
             return Collections.emptyList();
         }
+        Value object;
         if (triple.getObject() instanceof RDFResourceIRI) {
             try {
                 object = vf.createIRI(triple.getObject().getIRI().toString());
