@@ -2,6 +2,7 @@ package org.semanticweb.owlapi6.factplusplusad;
 
 import java.util.Iterator;
 
+import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.model.HasOperands;
 import org.semanticweb.owlapi6.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.OWLClassAssertionAxiom;
@@ -69,6 +70,7 @@ class SyntacticLocalityChecker extends LocalityChecker {
      * @param expr expression
      * @return true iff EXPR is top equivalent
      */
+    @Override
     public boolean isTopEquivalent(OWLObject expr) {
         return topEval.isTopEquivalent(expr);
     }
@@ -77,6 +79,7 @@ class SyntacticLocalityChecker extends LocalityChecker {
      * @param expr expression
      * @return true iff EXPR is bottom equivalent
      */
+    @Override
     public boolean isBotEquivalent(OWLObject expr) {
         return botEval.isBotEquivalent(expr);
     }

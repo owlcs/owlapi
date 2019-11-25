@@ -2,6 +2,7 @@ package org.semanticweb.owlapi6.factplusplusad;
 
 import java.util.Collection;
 
+import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
 import org.semanticweb.owlapi6.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;

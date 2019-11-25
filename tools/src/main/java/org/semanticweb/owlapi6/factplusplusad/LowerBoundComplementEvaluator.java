@@ -2,6 +2,7 @@ package org.semanticweb.owlapi6.factplusplusad;
 
 import java.util.Iterator;
 
+import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.model.HasOperands;
 import org.semanticweb.owlapi6.model.OWLDataComplementOf;
 import org.semanticweb.owlapi6.model.OWLDataHasValue;
@@ -24,8 +25,8 @@ import org.semanticweb.owlapi6.model.OWLPropertyRange;
 import org.semanticweb.owlapi6.model.OWLSubPropertyChainOfAxiom;
 
 /**
- * Determine how many instances can an expression have. All methods return
- * maximal n such that {@code expr\in CC^{>= n}, n >= 1}
+ * Determine how many instances can an expression have. All methods return maximal n such that
+ * {@code expr\in CC^{>= n}, n >= 1}
  */
 class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
 

@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi6.factplusplusad;
 
+import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi6.model.OWLObject;
 
@@ -16,8 +17,7 @@ class TSignatureUpdater implements OWLAxiomVisitor {
     /**
      * init c'tor
      *
-     * @param sig
-     *        signature
+     * @param sig signature
      */
     TSignatureUpdater(Signature sig) {
         updater = new TExpressionSignatureUpdater(sig);

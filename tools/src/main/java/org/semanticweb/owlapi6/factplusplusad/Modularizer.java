@@ -2,7 +2,6 @@ package org.semanticweb.owlapi6.factplusplusad;
 
 import static org.semanticweb.owlapi6.modularity.ModuleType.STAR;
 import static org.semanticweb.owlapi6.modularity.ModuleType.TOP;
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.add;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -15,6 +14,8 @@ import java.util.stream.Stream;
 import org.semanticweb.owlapi6.atomicdecomposition.AxiomWrapper;
 import org.semanticweb.owlapi6.atomicdecomposition.ModuleMethod;
 import org.semanticweb.owlapi6.atomicdecomposition.OntologyAtom;
+import org.semanticweb.owlapi6.atomicdecomposition.SigIndex;
+import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLEntity;
 import org.semanticweb.owlapi6.modularity.ModuleType;
@@ -143,7 +144,7 @@ public class Modularizer {
      */
     private void extractModuleQueue() {
         // init queue with a sig
-        add(workQueue, sig.getSignature());
+        workQueue.addAll(sig.getSignature());
         // add all the axioms that are non-local wrt given value of a
         // top-locality
         addNonLocal(sigIndex.getNonLocal(sig.topCLocal()), true);

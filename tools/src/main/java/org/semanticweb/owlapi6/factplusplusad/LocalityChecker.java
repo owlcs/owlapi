@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.semanticweb.owlapi6.atomicdecomposition.AxiomWrapper;
 import org.semanticweb.owlapi6.atomicdecomposition.ModuleMethod;
+import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi6.model.OWLRuntimeException;
@@ -11,7 +12,8 @@ import org.semanticweb.owlapi6.model.OWLRuntimeException;
 /**
  * base class for checking locality of a DL axiom
  */
-class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
+abstract class LocalityChecker extends SigAccessor
+    implements OWLAxiomVisitor, org.semanticweb.owlapi6.atomicdecomposition.LocalityChecker {
 
     /**
      * remember the axiom locality value here
@@ -45,23 +47,19 @@ class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
         }
     }
 
-    public void preprocessOntology(@SuppressWarnings("unused") Collection<AxiomWrapper> axioms) {
+    @Override
+    public void preprocessOntology(Collection<AxiomWrapper> axioms) {
         // nothing to do here
     }
 
-    /**
-     * @param axiom axiom to check
-     * @return true iff an AXIOM is local wrt signature
-     */
-    boolean local(OWLAxiom axiom) {
+    @Override
+    public boolean local(OWLAxiom axiom) {
         axiom.accept(this);
         return isLocal;
     }
 
-    /**
-     * @param sig new value of signature (without changing locality parameters)
-     */
-    void setSignatureValue(Signature sig) {
+    @Override
+    public void setSignatureValue(Signature sig) {
         this.sig.setSignature(sig);
     }
 }

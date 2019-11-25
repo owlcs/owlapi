@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.semanticweb.owlapi6.atomicdecomposition.AxiomWrapper;
 import org.semanticweb.owlapi6.atomicdecomposition.OntologyAtom;
+import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.modularity.ModuleType;
 
 /**

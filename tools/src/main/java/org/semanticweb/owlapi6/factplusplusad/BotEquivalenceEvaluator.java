@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi6.factplusplusad;
 
+import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi6.model.OWLDataComplementOf;
@@ -38,8 +39,7 @@ import org.semanticweb.owlapi6.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 
 /**
- * check whether class expressions are equivalent to bottom wrt given locality
- * class
+ * check whether class expressions are equivalent to bottom wrt given locality class
  */
 class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
@@ -59,8 +59,7 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     /**
      * check whether the expression is top-equivalent
      *
-     * @param expr
-     *        expression
+     * @param expr expression
      * @return true if top equivalent
      */
     boolean isTopEquivalent(OWLObject expr) {
@@ -70,8 +69,7 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     /**
      * non-empty Concept/Data expression
      *
-     * @param c
-     *        class
+     * @param c class
      * @return true iff C^I is non-empty
      */
     private boolean isBotDistinct(OWLObject c) {
@@ -87,10 +85,8 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     /**
      * cardinality of a concept/data expression interpretation
      *
-     * @param c
-     *        class
-     * @param n
-     *        cardinality
+     * @param c class
+     * @param n cardinality
      * @return true if {@code #C^I > n}
      */
     private boolean isCardLargerThan(OWLObject c, int n) {
@@ -114,12 +110,9 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     /**
-     * @param n
-     *        cardinality
-     * @param r
-     *        property
-     * @param c
-     *        class
+     * @param n cardinality
+     * @param r property
+     * @param c class
      * @return true iff {@code (<= n R.C)} is botEq
      */
     private boolean isMaxBotEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
@@ -130,12 +123,9 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     /**
      * QCRs
      *
-     * @param n
-     *        cardinality
-     * @param r
-     *        property
-     * @param c
-     *        class
+     * @param n cardinality
+     * @param r property
+     * @param c class
      * @return true iff {@code (>= n R.C)} is botEq
      */
     private boolean isMinBotEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
@@ -146,16 +136,14 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     /**
      * set the corresponding top evaluator
      *
-     * @param eval
-     *        top evaluator
+     * @param eval top evaluator
      */
     void setTopEval(TopEquivalenceEvaluator eval) {
         topEval = eval;
     }
 
     /**
-     * @param expr
-     *        expression
+     * @param expr expression
      * @return true iff an EXPRession is equivalent to bottom wrt defined policy
      */
     boolean isBotEquivalent(OWLObject expr) {

@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi6.factplusplusad;
 
+import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.model.OWLObject;
 
 /**

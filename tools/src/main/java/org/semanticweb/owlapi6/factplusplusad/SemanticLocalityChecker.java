@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi6.atomicdecomposition.AxiomWrapper;
+import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLAxiomVisitorEx;
@@ -37,6 +38,7 @@ import org.semanticweb.owlapi6.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi6.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi6.model.OWLObject;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyRangeAxiom;
@@ -111,7 +113,7 @@ class SemanticLocalityChecker extends LocalityChecker {
         }
         // register all the objects in the ontology signature
         Set<OWLAxiom> declarationAxioms = new HashSet<>();
-        s.getSignature().map(df::getOWLDeclarationAxiom).forEach(declarationAxioms::add);
+        s.getSignature().stream().map(df::getOWLDeclarationAxiom).forEach(declarationAxioms::add);
         try {
             kernel = factory.createReasoner(manager.createOntology(declarationAxioms));
         } catch (OWLOntologyCreationException e) {
@@ -347,6 +349,16 @@ class SemanticLocalityChecker extends LocalityChecker {
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         isLocal = kernel.isEntailed(axiom);
+    }
+
+    @Override
+    public boolean isTopEquivalent(OWLObject expr) {
+        return false;
+    }
+
+    @Override
+    public boolean isBotEquivalent(OWLObject expr) {
+        return false;
     }
 
     static class ExpressionManager implements OWLAxiomVisitorEx<OWLClassExpression> {

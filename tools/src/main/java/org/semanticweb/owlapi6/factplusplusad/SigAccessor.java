@@ -2,6 +2,7 @@ package org.semanticweb.owlapi6.factplusplusad;
 
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNull;
 
+import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.model.OWLEntity;
 
 /**
@@ -57,7 +58,7 @@ class SigAccessor {
     /**
      * @return the signature
      */
-    Signature getSignature() {
+    public Signature getSignature() {
         return sig;
     }
 

@@ -10,7 +10,7 @@ import java.util.Map;
 import org.semanticweb.owlapi6.model.OWLEntity;
 
 /**
- * signature index
+ * Signature index.
  */
 public class SigIndex {
 
@@ -82,10 +82,7 @@ public class SigIndex {
      */
     public Collection<AxiomWrapper> getAxioms(OWLEntity entity) {
         Collection<AxiomWrapper> collection = base.get(entity);
-        if (collection == null) {
-            return Collections.emptyList();
-        }
-        return collection;
+        return collection == null ? Collections.emptyList() : collection;
     }
 
     /**
