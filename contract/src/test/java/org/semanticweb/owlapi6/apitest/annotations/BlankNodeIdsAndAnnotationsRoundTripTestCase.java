@@ -89,13 +89,6 @@ public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTr
     }
 
     @Override
-    public void testTurtle() throws Exception {
-        System.out.println("BlankNodeIdsAndAnnotationsRoundTripTestCase.testTurtle() "
-            + saveOntology(createOntology(), new TurtleDocumentFormat()));
-        // super.testTurtle();
-    }
-
-    @Override
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         // Axioms without annotations are lost if identical axioms with
         // annotations exist.
