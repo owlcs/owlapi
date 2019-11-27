@@ -66,32 +66,17 @@ class SyntacticLocalityChecker extends LocalityChecker {
         botEval.setTopEval(topEval);
     }
 
-    /**
-     * @param expr expression
-     * @return true iff EXPR is top equivalent
-     */
     @Override
     public boolean isTopEquivalent(OWLObject expr) {
         return topEval.isTopEquivalent(expr);
     }
 
-    /**
-     * @param expr expression
-     * @return true iff EXPR is bottom equivalent
-     */
     @Override
     public boolean isBotEquivalent(OWLObject expr) {
         return botEval.isBotEquivalent(expr);
     }
 
-    /**
-     * Processing method for all Equivalent axioms.
-     *
-     * @param axiom axiom
-     * @param <T> generic type of input
-     * @return true if axiom is local
-     */
-    <T extends OWLObject> boolean processEquivalentAxiom(HasOperands<T> axiom) {
+    private <T extends OWLObject> boolean processEquivalentAxiom(HasOperands<T> axiom) {
         // 1 element => local
         if (axiom.getOperandsAsList().size() <= 1) {
             return true;
@@ -240,20 +225,17 @@ class SyntacticLocalityChecker extends LocalityChecker {
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         OWLObjectPropertyExpression p1 = axiom.getFirstProperty();
         OWLObjectPropertyExpression p2 = axiom.getSecondProperty();
-        isLocal = isBotEquivalent(p1) && isBotEquivalent(p2)
-            || isTopEquivalent(p1) && isTopEquivalent(p2);
+        isLocal = isBotEquivalent(p1) && isBotEquivalent(p2) || isTopEquivalent(p1) && isTopEquivalent(p2);
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        isLocal =
-            isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
+        isLocal = isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        isLocal =
-            isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
+        isLocal = isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override

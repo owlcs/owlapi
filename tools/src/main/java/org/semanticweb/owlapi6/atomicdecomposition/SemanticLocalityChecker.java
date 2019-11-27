@@ -1,20 +1,17 @@
 package org.semanticweb.owlapi6.atomicdecomposition;
 
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.pairs;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi6.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.OWLAxiom;
-import org.semanticweb.owlapi6.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi6.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
 import org.semanticweb.owlapi6.model.OWLDataFactory;
@@ -59,7 +56,7 @@ import org.semanticweb.owlapi6.reasoner.OWLReasonerFactory;
 /**
  * semantic locality checker for DL axioms
  */
-public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker {
+public class SemanticLocalityChecker implements LocalityChecker {
 
     /**
      * Reasoner to detect the tautology
@@ -70,7 +67,7 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
     /**
      * map between axioms and concept expressions
      */
-    final Map<OWLAxiom, List<OWLClassExpression>> exprMap = new LinkedHashMap<>();
+    final Map<OWLAxiom, Collection<OWLClassExpression>> exprMap = new LinkedHashMap<>();
     /**
      * remember the axiom locality value here
      */
@@ -106,14 +103,6 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         isLocal = true;
     }
 
-    /**
-     * @param axiom axiom
-     * @return expression necessary to build query for a given type of an axiom
-     */
-    protected Stream<OWLClassExpression> getExpr(OWLAxiom axiom) {
-        return axiom.nestedClassExpressions();
-    }
-
     @Override
     public Signature getSignature() {
         return sig;
@@ -133,6 +122,14 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         return isLocal;
     }
 
+    /**
+     * @param axiom axiom to convert
+     * @return expression necessary to build query for a given type of an axiom
+     */
+    protected Stream<OWLClassExpression> getExpr(OWLAxiom axiom) {
+        return axiom.nestedClassExpressions();
+    }
+
     /* init kernel with the ontology signature */
     @Override
     public void preprocessOntology(Collection<AxiomWrapper> axioms) {
@@ -140,8 +137,7 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         Signature s = new Signature();
         for (AxiomWrapper q : axioms) {
             if (q.isUsed()) {
-                add(exprMap.computeIfAbsent(q.getAxiom(), x -> new ArrayList<>()),
-                    getExpr(q.getAxiom()));
+                exprMap.put(q.getAxiom(), asList(getExpr(q.getAxiom())));
                 s.addAll(q.getAxiom().signature());
             }
         }

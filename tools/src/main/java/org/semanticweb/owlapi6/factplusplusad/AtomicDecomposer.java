@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
+import org.semanticweb.owlapi6.atomicdecomposition.AtomList;
 import org.semanticweb.owlapi6.atomicdecomposition.AxiomWrapper;
 import org.semanticweb.owlapi6.atomicdecomposition.OntologyAtom;
 import org.semanticweb.owlapi6.atomicdecomposition.Signature;
@@ -17,7 +18,7 @@ class AtomicDecomposer {
     /**
      * atomic structure to build
      */
-    AOStructure aos = null;
+    AtomList aos = null;
     /**
      * modularizer to build modules
      */
@@ -52,7 +53,7 @@ class AtomicDecomposer {
     /**
      * @return already created atomic structure
      */
-    AOStructure getAOS() {
+    AtomList getAOS() {
         return aos;
     }
 
@@ -143,11 +144,11 @@ class AtomicDecomposer {
      * @param t module type
      * @return atomic structure for given module type T
      */
-    AOStructure getAOS(Collection<AxiomWrapper> o, ModuleType t) {
+    AtomList getAOS(Collection<AxiomWrapper> o, ModuleType t) {
         // remember the type of the module
         type = t;
         // prepare a new AO structure
-        aos = new AOStructure();
+        aos = new AtomList();
         // init semantic locality checker
         modularizer.preprocessOntology(o);
         // we don't need tautologies here

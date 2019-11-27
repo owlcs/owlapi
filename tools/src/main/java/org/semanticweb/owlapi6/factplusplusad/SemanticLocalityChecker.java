@@ -4,8 +4,8 @@ import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.pairs;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -66,14 +66,14 @@ class SemanticLocalityChecker extends LocalityChecker {
      * Reasoner to detect the tautology
      */
     OWLReasoner kernel;
+    private final OWLDataFactory df;
+    private final OWLReasonerFactory factory;
     /**
      * map between axioms and concept expressions
      */
-    Map<OWLAxiom, Collection<OWLClassExpression>> exprMap = new HashMap<>();
-    private final OWLOntologyManager manager;
-    private final OWLDataFactory df;
-    private final OWLReasonerFactory factory;
+    final Map<OWLAxiom, Collection<OWLClassExpression>> exprMap = new LinkedHashMap<>();
     private final ExpressionManager expressionManager;
+    private final OWLOntologyManager manager;
 
     /**
      * init c'tor
@@ -92,8 +92,7 @@ class SemanticLocalityChecker extends LocalityChecker {
 
     /**
      * @param axiom axiom to convert
-     * @return expression necessary to build query for a given type of an axiom; null if none
-     *         necessary
+     * @return expression necessary to build query for a given type of an axiom
      */
     Stream<OWLClassExpression> getExpr(OWLAxiom axiom) {
         OWLClassExpression e = axiom.accept(expressionManager);

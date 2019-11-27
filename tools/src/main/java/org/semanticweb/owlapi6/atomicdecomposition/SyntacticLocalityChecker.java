@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi6.atomicdecomposition;
 
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -136,10 +134,8 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
     /**
      * Processing method for all Disjoint axioms.
      * 
-     * @param <T>
-     *        generic type of input
-     * @param axiom
-     *        axiom
+     * @param <T> generic type of input
+     * @param axiom axiom
      * @return true if axiom is local
      */
     private <T extends OWLObject> boolean processDisjointAxiom(HasOperands<T> axiom) {
@@ -195,7 +191,7 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
             return;
         }
         boolean topEqDesc = false;
-        for (OWLClassExpression p : asList(axiom.classExpressions())) {
+        for (OWLClassExpression p : axiom.getOperandsAsList()) {
             if (!isBotEquivalent(p)) {
                 if (lhsIsTopEq && isTopEquivalent(p)) {
                     if (topEqDesc) {

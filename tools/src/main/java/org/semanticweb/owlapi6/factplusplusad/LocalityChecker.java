@@ -6,14 +6,13 @@ import org.semanticweb.owlapi6.atomicdecomposition.AxiomWrapper;
 import org.semanticweb.owlapi6.atomicdecomposition.ModuleMethod;
 import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.model.OWLAxiom;
-import org.semanticweb.owlapi6.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi6.model.OWLRuntimeException;
 
 /**
  * base class for checking locality of a DL axiom
  */
 abstract class LocalityChecker extends SigAccessor
-    implements OWLAxiomVisitor, org.semanticweb.owlapi6.atomicdecomposition.LocalityChecker {
+    implements org.semanticweb.owlapi6.atomicdecomposition.LocalityChecker {
 
     /**
      * remember the axiom locality value here
