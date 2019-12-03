@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  */
 public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
 
-    private DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer();
+    private final DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer();
 
     @Override
     protected void storeOntology(OWLOntology o, PrintWriter printWriter, OWLDocumentFormat format) {

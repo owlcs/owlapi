@@ -63,7 +63,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     /**
      * Local override map.
      */
-    private EnumMap<ConfigurationOptions, Object> overrides =
+    private final EnumMap<ConfigurationOptions, Object> overrides =
         new EnumMap<>(ConfigurationOptions.class);
 
     /**
@@ -443,7 +443,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
             return this;
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.overrides.put(ConfigurationOptions.ENTITY_EXPANSION_LIMIT, limit);
+        configuration.overrides.put(ENTITY_EXPANSION_LIMIT, limit);
         return configuration;
     }
 

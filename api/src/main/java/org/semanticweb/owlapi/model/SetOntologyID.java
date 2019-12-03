@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.change.SetOntologyIDData;
  */
 public class SetOntologyID extends OWLOntologyChange {
 
+    private static final String ONTOLOGY_ID_CANNOT_BE_NULL = "ontology id cannot be null";
     private final OWLOntologyID ontologyID;
     private final OWLOntologyID newOntologyID;
 
@@ -37,14 +38,14 @@ public class SetOntologyID extends OWLOntologyChange {
      */
     public SetOntologyID(OWLOntology ont, OWLOntologyID ontologyID) {
         super(ont);
-        this.ontologyID = checkNotNull(ont.getOntologyID(), "ontology id cannot be null");
-        newOntologyID = checkNotNull(ontologyID, "ontology id cannot be null");
+        this.ontologyID = checkNotNull(ont.getOntologyID(), ONTOLOGY_ID_CANNOT_BE_NULL);
+        newOntologyID = checkNotNull(ontologyID, ONTOLOGY_ID_CANNOT_BE_NULL);
     }
 
     SetOntologyID(OWLOntology ont, OWLOntologyID ontologyID, OWLOntologyID newOntologyID) {
         super(ont);
-        this.ontologyID = checkNotNull(ontologyID, "ontology id cannot be null");
-        this.newOntologyID = checkNotNull(newOntologyID, "ontology id cannot be null");
+        this.ontologyID = checkNotNull(ontologyID, ONTOLOGY_ID_CANNOT_BE_NULL);
+        this.newOntologyID = checkNotNull(newOntologyID, ONTOLOGY_ID_CANNOT_BE_NULL);
     }
 
     /**

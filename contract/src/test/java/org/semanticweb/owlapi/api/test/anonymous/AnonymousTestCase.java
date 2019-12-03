@@ -37,12 +37,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class AnonymousTestCase extends TestBase {
 
+    private static final String URN_TEST = "urn:test#";
+
     @Test
     public void shouldRoundTrip() throws Exception {
-        OWLClass c = Class(IRI("urn:test#", "C"));
-        OWLClass d = Class(IRI("urn:test#", "D"));
-        OWLObjectProperty p = ObjectProperty(IRI("urn:test#", "p"));
-        OWLDataProperty q = DataProperty(IRI("urn:test#", "q"));
+        OWLClass c = Class(IRI(URN_TEST, "C"));
+        OWLClass d = Class(IRI(URN_TEST, "D"));
+        OWLObjectProperty p = ObjectProperty(IRI(URN_TEST, "p"));
+        OWLDataProperty q = DataProperty(IRI(URN_TEST, "q"));
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = getOWLOntology();
         ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i),

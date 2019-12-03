@@ -15,11 +15,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class DLSyntaxTestCase extends TestBase {
 
+    private static final String URN_TEST2 = "urn:test:";
+    private static final String URN_TEST = "urn:test#";
+
     @Test
     public void testCommasOnDisjointThree() {
-        OWLClass a = df.getOWLClass("urn:test#", "A");
-        OWLClass b = df.getOWLClass("urn:test#", "B");
-        OWLClass c = df.getOWLClass("urn:test#", "C");
+        OWLClass a = df.getOWLClass(URN_TEST, "A");
+        OWLClass b = df.getOWLClass(URN_TEST, "B");
+        OWLClass c = df.getOWLClass(URN_TEST, "C");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b, c);
         DLSyntaxObjectRenderer visitor = new DLSyntaxObjectRenderer();
         String render = visitor.render(ax);
@@ -28,8 +31,8 @@ public class DLSyntaxTestCase extends TestBase {
 
     @Test
     public void testCommasOnDisjointTwo() {
-        OWLClass a = df.getOWLClass("urn:test#", "A");
-        OWLClass b = df.getOWLClass("urn:test#", "B");
+        OWLClass a = df.getOWLClass(URN_TEST, "A");
+        OWLClass b = df.getOWLClass(URN_TEST, "B");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b);
         DLSyntaxObjectRenderer visitor = new DLSyntaxObjectRenderer();
         String render = visitor.render(ax);
@@ -38,10 +41,10 @@ public class DLSyntaxTestCase extends TestBase {
 
     @Test
     public void testCommasOnDisjointFour() {
-        OWLClass a = df.getOWLClass("urn:test#", "A");
-        OWLClass b = df.getOWLClass("urn:test#", "B");
-        OWLClass c = df.getOWLClass("urn:test#", "C");
-        OWLClass d = df.getOWLClass("urn:test#", "D");
+        OWLClass a = df.getOWLClass(URN_TEST, "A");
+        OWLClass b = df.getOWLClass(URN_TEST, "B");
+        OWLClass c = df.getOWLClass(URN_TEST, "C");
+        OWLClass d = df.getOWLClass(URN_TEST, "D");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b, c, d);
         DLSyntaxObjectRenderer visitor = new DLSyntaxObjectRenderer();
         String render = visitor.render(ax);
@@ -51,9 +54,9 @@ public class DLSyntaxTestCase extends TestBase {
     @Test
     public void testCommasOnDisjointThreeOntologyHTML() throws Exception {
         OWLOntology o = m.createOntology(IRI.create("urn:test:onto"));
-        OWLClass a = df.getOWLClass("urn:test:", "A");
-        OWLClass b = df.getOWLClass("urn:test:", "B");
-        OWLClass c = df.getOWLClass("urn:test:", "C");
+        OWLClass a = df.getOWLClass(URN_TEST2, "A");
+        OWLClass b = df.getOWLClass(URN_TEST2, "B");
+        OWLClass c = df.getOWLClass(URN_TEST2, "C");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b, c);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
@@ -76,8 +79,8 @@ public class DLSyntaxTestCase extends TestBase {
     @Test
     public void testCommasOnDisjointTwoOntologyHTML() throws Exception {
         OWLOntology o = m.createOntology(IRI.create("urn:test:onto"));
-        OWLClass a = df.getOWLClass("urn:test:", "A");
-        OWLClass b = df.getOWLClass("urn:test:", "B");
+        OWLClass a = df.getOWLClass(URN_TEST2, "A");
+        OWLClass b = df.getOWLClass(URN_TEST2, "B");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
@@ -97,10 +100,10 @@ public class DLSyntaxTestCase extends TestBase {
     @Test
     public void testCommasOnDisjointFourOntologyHTML() throws Exception {
         OWLOntology o = m.createOntology(IRI.create("urn:test:onto"));
-        OWLClass a = df.getOWLClass("urn:test:", "A");
-        OWLClass b = df.getOWLClass("urn:test:", "B");
-        OWLClass c = df.getOWLClass("urn:test:", "C");
-        OWLClass d = df.getOWLClass("urn:test:", "D");
+        OWLClass a = df.getOWLClass(URN_TEST2, "A");
+        OWLClass b = df.getOWLClass(URN_TEST2, "B");
+        OWLClass c = df.getOWLClass(URN_TEST2, "C");
+        OWLClass d = df.getOWLClass(URN_TEST2, "D");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b, c, d);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
@@ -126,9 +129,9 @@ public class DLSyntaxTestCase extends TestBase {
     @Test
     public void testCommasOnDisjointThreeOntology() throws Exception {
         OWLOntology o = m.createOntology();
-        OWLClass a = df.getOWLClass("urn:test:", "A");
-        OWLClass b = df.getOWLClass("urn:test:", "B");
-        OWLClass c = df.getOWLClass("urn:test:", "C");
+        OWLClass a = df.getOWLClass(URN_TEST2, "A");
+        OWLClass b = df.getOWLClass(URN_TEST2, "B");
+        OWLClass c = df.getOWLClass(URN_TEST2, "C");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b, c);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();
@@ -138,8 +141,8 @@ public class DLSyntaxTestCase extends TestBase {
     @Test
     public void testCommasOnDisjointTwoOntology() throws Exception {
         OWLOntology o = m.createOntology();
-        OWLClass a = df.getOWLClass("urn:test:", "A");
-        OWLClass b = df.getOWLClass("urn:test:", "B");
+        OWLClass a = df.getOWLClass(URN_TEST2, "A");
+        OWLClass b = df.getOWLClass(URN_TEST2, "B");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();
@@ -149,10 +152,10 @@ public class DLSyntaxTestCase extends TestBase {
     @Test
     public void testCommasOnDisjointFourOntology() throws Exception {
         OWLOntology o = m.createOntology();
-        OWLClass a = df.getOWLClass("urn:test:", "A");
-        OWLClass b = df.getOWLClass("urn:test:", "B");
-        OWLClass c = df.getOWLClass("urn:test:", "C");
-        OWLClass d = df.getOWLClass("urn:test:", "D");
+        OWLClass a = df.getOWLClass(URN_TEST2, "A");
+        OWLClass b = df.getOWLClass(URN_TEST2, "B");
+        OWLClass c = df.getOWLClass(URN_TEST2, "C");
+        OWLClass d = df.getOWLClass(URN_TEST2, "D");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b, c, d);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();

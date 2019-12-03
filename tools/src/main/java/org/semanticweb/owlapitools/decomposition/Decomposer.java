@@ -27,11 +27,11 @@ public class Decomposer {
     /**
      * modularizer to build modules
      */
-    private Modularizer modularizer;
+    private final Modularizer modularizer;
     /**
      * tautologies of the ontology
      */
-    private List<AxiomWrapper> tautologies = new ArrayList<>();
+    private final List<AxiomWrapper> tautologies = new ArrayList<>();
     /**
      * fake atom that represents the whole ontology
      */
@@ -41,7 +41,7 @@ public class Decomposer {
      * module type for current AOS creation
      */
     private ModuleType type;
-    private List<AxiomWrapper> axioms;
+    private final List<AxiomWrapper> axioms;
 
     /**
      * @param axioms axiom wrappers to decompose
@@ -80,8 +80,7 @@ public class Decomposer {
     }
 
     /**
-     * remove tautologies (axioms that are always local) from the ontology
-     * temporarily
+     * remove tautologies (axioms that are always local) from the ontology temporarily
      */
     private void removeTautologies() {
         // we might use it for another decomposition
@@ -134,7 +133,7 @@ public class Decomposer {
      * @param ax axiom
      * @param parent parent atom
      * @return create atom for given axiom AX; use parent atom's module as a base for the module
-     * search
+     *         search
      */
     private OntologyAtom createAtom(AxiomWrapper ax, OntologyAtom parent) {
         // check whether axiom already has an atom

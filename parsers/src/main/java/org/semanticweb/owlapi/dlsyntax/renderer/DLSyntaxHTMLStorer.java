@@ -62,13 +62,21 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
     @Override
     protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
-        checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null");
+        checkOntologyNotNull(ontology);
+        checkWriterNotNull(writer);
         writer.println("<html>");
         writer.println("<body>");
         writer.println("<h1>Ontology: ");
         writer.print(ontology.getOntologyID());
         writer.println("</h1>");
+    }
+
+    protected void checkOntologyNotNull(OWLOntology ontology) {
+        checkNotNull(ontology, "ontology cannot be null");
+    }
+
+    protected void checkWriterNotNull(PrintWriter writer) {
+        checkNotNull(writer, "writer cannot be null");
     }
 
     @SuppressWarnings("unused")
@@ -78,8 +86,8 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
     @Override
     protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
-        checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null");
+        checkOntologyNotNull(ontology);
+        checkWriterNotNull(writer);
         writer.println("</body>");
         writer.println("</html>");
     }
@@ -97,7 +105,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     @Override
     protected void beginWritingAxioms(OWLEntity subject, PrintWriter writer) {
         checkNotNull(subject, "subject cannot be null");
-        checkNotNull(writer, "writer cannot be null");
+        checkWriterNotNull(writer);
         writer.print("<h2><a name=\"");
         writer.print(sfp.getShortForm(subject));
         writer.print("\">");

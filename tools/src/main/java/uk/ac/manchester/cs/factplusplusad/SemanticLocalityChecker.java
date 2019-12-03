@@ -68,10 +68,10 @@ class SemanticLocalityChecker extends LocalityChecker {
      * map between axioms and concept expressions
      */
     Map<OWLAxiom, Collection<OWLClassExpression>> exprMap = new HashMap<>();
-    private OWLOntologyManager manager;
-    private OWLDataFactory df;
-    private OWLReasonerFactory factory;
-    private ExpressionManager expressionManager;
+    private final OWLOntologyManager manager;
+    private final OWLDataFactory df;
+    private final OWLReasonerFactory factory;
+    private final ExpressionManager expressionManager;
 
     /**
      * init c'tor
@@ -351,7 +351,7 @@ class SemanticLocalityChecker extends LocalityChecker {
 
     static class ExpressionManager implements OWLAxiomVisitorEx<OWLClassExpression> {
 
-        private OWLDataFactory df;
+        private final OWLDataFactory df;
 
         public ExpressionManager(OWLDataFactory df) {
             this.df = df;

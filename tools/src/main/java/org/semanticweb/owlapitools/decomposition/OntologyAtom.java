@@ -17,7 +17,7 @@ public class OntologyAtom {
     /**
      * set of axioms in the atom
      */
-    private List<AxiomWrapper> axioms = new ArrayList<>();
+    private final List<AxiomWrapper> axioms = new ArrayList<>();
     /**
      * set of axioms in the module (Atom's ideal)
      */
@@ -25,11 +25,11 @@ public class OntologyAtom {
     /**
      * set of atoms current one depends on
      */
-    private Set<OntologyAtom> dependencies = new HashSet<>();
+    private final Set<OntologyAtom> dependencies = new HashSet<>();
     /**
      * set of all atoms current one depends on
      */
-    private Set<OntologyAtom> allDependencies = new HashSet<>();
+    private final Set<OntologyAtom> allDependencies = new HashSet<>();
     /**
      * unique atom's identifier
      */

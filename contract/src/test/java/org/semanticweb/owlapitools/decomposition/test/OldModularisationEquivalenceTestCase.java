@@ -33,6 +33,15 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 @RunWith(Parameterized.class)
 public class OldModularisationEquivalenceTestCase extends TestBase {
 
+    private static final String DRY_EUCALYPT_FOREST = "DryEucalyptForest";
+    private static final String QUOKKA = "Quokka";
+    private static final String STUDENT = "Student";
+    private static final String KOALA2 = "Koala";
+    private static final String MALE_STUDENT_WITH3_DAUGHTERS = "MaleStudentWith3Daughters";
+    private static final String KOALA_WITH_PHD = "KoalaWithPhD";
+    private static final String TASMANIAN_DEVIL = "TasmanianDevil";
+    private static final String GRADUATE_STUDENT = "GraduateStudent";
+    private static final String RAINFOREST = "Rainforest";
     public static final String KOALA = "<?xml version=\"1.0\"?>\n"
         + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
         + "  <owl:Ontology rdf:about=\"\"/>\n"
@@ -62,7 +71,7 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>";
     private static String ns = "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#";
     private static OWLDataFactory f = OWLManager.getOWLDataFactory();
-    private Set<OWLEntity> signature;
+    private final Set<OWLEntity> signature;
 
     public OldModularisationEquivalenceTestCase(Set<OWLEntity> l) {
         signature = l;
@@ -80,46 +89,46 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         l.add(l("Forest"));
         l.add(l("Degree"));
         l.add(l("Parent"));
-        l.add(l("GraduateStudent"));
-        l.add(l("Rainforest"));
+        l.add(l(GRADUATE_STUDENT));
+        l.add(l(RAINFOREST));
         l.add(l("Marsupials"));
-        l.add(l("KoalaWithPhD"));
-        l.add(l("TasmanianDevil"));
+        l.add(l(KOALA_WITH_PHD));
+        l.add(l(TASMANIAN_DEVIL));
         l.add(l("University"));
         l.add(l("Animal"));
         l.add(l("Male"));
-        l.add(l("MaleStudentWith3Daughters"));
+        l.add(l(MALE_STUDENT_WITH3_DAUGHTERS));
         l.add(l("Female"));
-        l.add(l("Koala"));
-        l.add(l("Student"));
-        l.add(l("Quokka"));
+        l.add(l(KOALA2));
+        l.add(l(STUDENT));
+        l.add(l(QUOKKA));
         l.add(l("Gender"));
-        l.add(l("DryEucalyptForest"));
-        l.add(l("GraduateStudent", "Koala", "KoalaWithPhD", "MaleStudentWith3Daughters", "Person",
-            "Quokka", "Student"));
-        l.add(l("DryEucalyptForest", "Forest", "Habitat", "Koala", "KoalaWithPhD", "Quokka",
-            "Rainforest", "University"));
-        l.add(l("DryEucalyptForest", "Forest", "Koala", "KoalaWithPhD", "Quokka", "Rainforest"));
-        l.add(l("Degree", "Koala", "KoalaWithPhD", "Quokka"));
-        l.add(l("Koala", "KoalaWithPhD", "MaleStudentWith3Daughters", "Parent", "Quokka"));
-        l.add(l("GraduateStudent", "Koala", "KoalaWithPhD", "Quokka"));
-        l.add(l("Koala", "KoalaWithPhD", "Quokka", "Rainforest"));
-        l.add(l("Koala", "KoalaWithPhD", "Marsupials", "Quokka", "TasmanianDevil"));
-        l.add(l("Koala", "KoalaWithPhD", "Quokka"));
-        l.add(l("Koala", "KoalaWithPhD", "Quokka", "TasmanianDevil"));
-        l.add(l("Koala", "KoalaWithPhD", "Quokka", "University"));
-        l.add(l("Animal", "Female", "GraduateStudent", "Koala", "KoalaWithPhD", "Male",
-            "MaleStudentWith3Daughters", "Marsupials", "Parent", "Person", "Quokka", "Student",
-            "TasmanianDevil"));
-        l.add(l("Koala", "KoalaWithPhD", "Male", "MaleStudentWith3Daughters", "Quokka"));
-        l.add(l("Koala", "KoalaWithPhD", "MaleStudentWith3Daughters", "Quokka"));
-        l.add(l("Female", "Koala", "KoalaWithPhD", "Quokka"));
-        l.add(l("Koala", "KoalaWithPhD", "Quokka"));
-        l.add(l("GraduateStudent", "Koala", "KoalaWithPhD", "MaleStudentWith3Daughters", "Quokka",
-            "Student"));
-        l.add(l("Koala", "KoalaWithPhD", "Quokka"));
-        l.add(l("Gender", "Koala", "KoalaWithPhD", "Quokka"));
-        l.add(l("DryEucalyptForest", "Koala", "KoalaWithPhD", "Quokka"));
+        l.add(l(DRY_EUCALYPT_FOREST));
+        l.add(l(GRADUATE_STUDENT, KOALA2, KOALA_WITH_PHD, MALE_STUDENT_WITH3_DAUGHTERS, "Person",
+            QUOKKA, STUDENT));
+        l.add(l(DRY_EUCALYPT_FOREST, "Forest", "Habitat", KOALA2, KOALA_WITH_PHD, QUOKKA,
+            RAINFOREST, "University"));
+        l.add(l(DRY_EUCALYPT_FOREST, "Forest", KOALA2, KOALA_WITH_PHD, QUOKKA, RAINFOREST));
+        l.add(l("Degree", KOALA2, KOALA_WITH_PHD, QUOKKA));
+        l.add(l(KOALA2, KOALA_WITH_PHD, MALE_STUDENT_WITH3_DAUGHTERS, "Parent", QUOKKA));
+        l.add(l(GRADUATE_STUDENT, KOALA2, KOALA_WITH_PHD, QUOKKA));
+        l.add(l(KOALA2, KOALA_WITH_PHD, QUOKKA, RAINFOREST));
+        l.add(l(KOALA2, KOALA_WITH_PHD, "Marsupials", QUOKKA, TASMANIAN_DEVIL));
+        l.add(l(KOALA2, KOALA_WITH_PHD, QUOKKA));
+        l.add(l(KOALA2, KOALA_WITH_PHD, QUOKKA, TASMANIAN_DEVIL));
+        l.add(l(KOALA2, KOALA_WITH_PHD, QUOKKA, "University"));
+        l.add(l("Animal", "Female", GRADUATE_STUDENT, KOALA2, KOALA_WITH_PHD, "Male",
+            MALE_STUDENT_WITH3_DAUGHTERS, "Marsupials", "Parent", "Person", QUOKKA, STUDENT,
+            TASMANIAN_DEVIL));
+        l.add(l(KOALA2, KOALA_WITH_PHD, "Male", MALE_STUDENT_WITH3_DAUGHTERS, QUOKKA));
+        l.add(l(KOALA2, KOALA_WITH_PHD, MALE_STUDENT_WITH3_DAUGHTERS, QUOKKA));
+        l.add(l("Female", KOALA2, KOALA_WITH_PHD, QUOKKA));
+        l.add(l(KOALA2, KOALA_WITH_PHD, QUOKKA));
+        l.add(l(GRADUATE_STUDENT, KOALA2, KOALA_WITH_PHD, MALE_STUDENT_WITH3_DAUGHTERS, QUOKKA,
+            STUDENT));
+        l.add(l(KOALA2, KOALA_WITH_PHD, QUOKKA));
+        l.add(l("Gender", KOALA2, KOALA_WITH_PHD, QUOKKA));
+        l.add(l(DRY_EUCALYPT_FOREST, KOALA2, KOALA_WITH_PHD, QUOKKA));
         return l;
     }
 

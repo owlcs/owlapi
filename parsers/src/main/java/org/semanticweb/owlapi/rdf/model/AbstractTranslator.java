@@ -255,7 +255,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         new ConcurrentHashMap<>(16, 0.75F, 1);
     protected RDFGraph graph = new RDFGraph();
     private final OWLObjectDesharer desharer;
-    private Set<OWLAxiom> translatedAxioms;
+    private final Set<OWLAxiom> translatedAxioms;
 
     /**
      * @param manager the manager

@@ -401,7 +401,7 @@ public class OWLOntologyManagerImpl
             if (result != null) {
                 return result;
             }
-            java.util.Optional<Entry<OWLOntologyID, OWLOntology>> findAny =
+            Optional<Entry<OWLOntologyID, OWLOntology>> findAny =
                 ontologiesByID.entrySet().stream().filter(o -> o.getKey().match(iri)).findAny();
             return findAny.isPresent() ? findAny.get().getValue() : null;
         } finally {
@@ -416,7 +416,7 @@ public class OWLOntologyManagerImpl
         try {
             OWLOntology result = ontologiesByID.get(id);
             if (result == null && !id.isAnonymous()) {
-                java.util.Optional<OWLOntologyID> findAny =
+                Optional<OWLOntologyID> findAny =
                     ids().filter(o -> o.matchOntology(id.getOntologyIRI().get())).findAny();
                 if (findAny.isPresent()) {
                     result = ontologiesByID.get(findAny.get());
@@ -701,7 +701,7 @@ public class OWLOntologyManagerImpl
                 OWLImportsDeclaration addImportDeclaration =
                     ((AddImport) change).getImportDeclaration();
                 IRI iri = addImportDeclaration.getIRI();
-                java.util.Optional<OWLOntologyID> findFirst =
+                Optional<OWLOntologyID> findFirst =
                     ids().filter(o -> o.match(iri) || o.matchDocument(iri)).findFirst();
                 findFirst
                     .ifPresent(o -> ontologyIDsByImportsDeclaration.put(addImportDeclaration, o));
@@ -921,7 +921,7 @@ public class OWLOntologyManagerImpl
         try {
             OWLOntology ontByID = null;
             // Check for matches on the ontology IRI first
-            java.util.Optional<OWLOntologyID> findAny = ids().filter(o -> o.match(iri)).findAny();
+            Optional<OWLOntologyID> findAny = ids().filter(o -> o.match(iri)).findAny();
             if (findAny.isPresent()) {
                 ontByID = ontologiesByID.get(findAny.get());
             }
@@ -964,8 +964,8 @@ public class OWLOntologyManagerImpl
     private OWLOntology loadOntologyByDocumentIRI(IRI iri) {
         readLock.lock();
         try {
-            java.util.Optional<Entry<OWLOntologyID, IRI>> findAny = documentIRIsByID.entrySet()
-                .stream().filter(o -> iri.equals(o.getValue())).findAny();
+            Optional<Entry<OWLOntologyID, IRI>> findAny = documentIRIsByID.entrySet().stream()
+                .filter(o -> iri.equals(o.getValue())).findAny();
             if (findAny.isPresent()) {
                 return getOntology(findAny.get().getKey());
             }
@@ -979,8 +979,8 @@ public class OWLOntologyManagerImpl
     private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
         readLock.lock();
         try {
-            java.util.Optional<Entry<OWLOntologyID, IRI>> findAny = documentIRIsByID.entrySet()
-                .stream().filter(o -> documentIRI.equals(o.getValue())).findAny();
+            Optional<Entry<OWLOntologyID, IRI>> findAny = documentIRIsByID.entrySet().stream()
+                .filter(o -> documentIRI.equals(o.getValue())).findAny();
             if (findAny.isPresent()) {
                 return ontologiesByID.get(findAny.get().getKey());
             }

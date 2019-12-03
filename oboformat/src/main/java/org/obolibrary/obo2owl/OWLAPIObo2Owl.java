@@ -85,6 +85,7 @@ import com.google.common.collect.Sets;
  */
 public class OWLAPIObo2Owl {
 
+    private static final String TRUE = "true";
     /**
      * The Constant IRI_PROP_isReversiblePropertyChain.
      */
@@ -1098,7 +1099,7 @@ public class OWLAPIObo2Owl {
             || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN) {
             if (tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN) {
                 OWLAnnotation ann = fac.getOWLAnnotation(
-                    trAnnotationProp(IRI_PROP_ISREVERSIBLEPROPERTYCHAIN), trLiteral("true"));
+                    trAnnotationProp(IRI_PROP_ISREVERSIBLEPROPERTYCHAIN), trLiteral(TRUE));
                 annotations.add(ann);
             }
             List<OWLObjectPropertyExpression> chain = new ArrayList<>();
@@ -1107,22 +1108,22 @@ public class OWLAPIObo2Owl {
             ax = fac.getOWLSubPropertyChainOfAxiom(chain, p, annotations);
             // TODO - annotations for equivalent to
         } else if (tagConstant == OboFormatTag.TAG_IS_TRANSITIVE
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLTransitiveObjectPropertyAxiom(p, annotations);
         } else if (tagConstant == OboFormatTag.TAG_IS_REFLEXIVE
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLReflexiveObjectPropertyAxiom(p, annotations);
         } else if (tagConstant == OboFormatTag.TAG_IS_SYMMETRIC
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLSymmetricObjectPropertyAxiom(p, annotations);
         } else if (tagConstant == OboFormatTag.TAG_IS_ASYMMETRIC
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLAsymmetricObjectPropertyAxiom(p, annotations);
         } else if (tagConstant == OboFormatTag.TAG_IS_FUNCTIONAL
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLFunctionalObjectPropertyAxiom(p, annotations);
         } else if (tagConstant == OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLInverseFunctionalObjectPropertyAxiom(p, annotations);
         } else {
             return trGenericClause(p, tag, clause);

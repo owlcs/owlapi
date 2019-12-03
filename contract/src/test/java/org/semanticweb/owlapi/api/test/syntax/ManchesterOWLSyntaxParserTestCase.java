@@ -69,6 +69,8 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 @SuppressWarnings({"javadoc", "null"})
 public class ManchesterOWLSyntaxParserTestCase extends TestBase {
 
+    private static final String HTTP_IRI = "http://iri/#";
+    private static final String URN_TEST = "urn:test#";
     public static final @Nonnull String NS = "http://protege.org/ontologies/Test.owl";
     protected @Nonnull OWLDataProperty p;
     protected @Nonnull OWLDatatype dateTime;
@@ -109,10 +111,10 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     public void shouldRenderCorrectly() throws Exception {
         // given
-        OWLObjectProperty prop = ObjectProperty(IRI("urn:test#", "p"));
-        OWLClass led = Class(IRI("urn:test#", "led"));
-        OWLClass crt = Class(IRI("urn:test#", "crt"));
-        OWLClass display = Class(IRI("urn:test#", "display"));
+        OWLObjectProperty prop = ObjectProperty(IRI(URN_TEST, "p"));
+        OWLClass led = Class(IRI(URN_TEST, "led"));
+        OWLClass crt = Class(IRI(URN_TEST, "crt"));
+        OWLClass display = Class(IRI(URN_TEST, "display"));
         OWLOntology ontology = getOWLOntology();
         OWLObjectSomeValuesFrom r =
             df.getOWLObjectSomeValuesFrom(prop, df.getOWLObjectUnionOf(led, crt));
@@ -168,10 +170,10 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     public void shouldRoundtripDisjointUnion() throws Exception {
         OWLOntology o = getOWLOntology();
-        OWLClass a = Class(IRI("http://iri/#", "a"));
-        OWLClass b = Class(IRI("http://iri/#", "b"));
-        OWLClass c = Class(IRI("http://iri/#", "c"));
-        OWLClass d = Class(IRI("http://iri/#", "d"));
+        OWLClass a = Class(IRI(HTTP_IRI, "a"));
+        OWLClass b = Class(IRI(HTTP_IRI, "b"));
+        OWLClass c = Class(IRI(HTTP_IRI, "c"));
+        OWLClass d = Class(IRI(HTTP_IRI, "d"));
         OWLDisjointUnionAxiom axiom = DisjointUnion(a, b, c, d);
         o.add(axiom);
         o.add(Declaration(a));
@@ -338,9 +340,9 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     public void shouldDoPrecedenceWithParentheses() {
         // given
         String text1 = "(a and b) or c";
-        OWLClass a = Class(IRI("urn:test#", "a"));
-        OWLClass b = Class(IRI("urn:test#", "b"));
-        OWLClass c = Class(IRI("urn:test#", "c"));
+        OWLClass a = Class(IRI(URN_TEST, "a"));
+        OWLClass b = Class(IRI(URN_TEST, "b"));
+        OWLClass c = Class(IRI(URN_TEST, "c"));
         OWLClassExpression expected =
             df.getOWLObjectUnionOf(df.getOWLObjectIntersectionOf(a, b), c);
         ManchesterOWLSyntaxParser parser = setupPArser(text1, expected);
@@ -386,7 +388,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     public void shouldParseCorrectlydecimalNotSpecified() throws OWLOntologyCreationException {
         // given
-        OWLAxiom expected = df.getOWLDataPropertyRangeAxiom(df.getOWLDataProperty("urn:test#", "a"),
+        OWLAxiom expected = df.getOWLDataPropertyRangeAxiom(df.getOWLDataProperty(URN_TEST, "a"),
             df.getOWLDataOneOf(df.getOWLLiteral("1.2", OWL2Datatype.XSD_DECIMAL)));
         String input = "Ontology:\n DataProperty: <urn:test#a>\n Range: {1.2}";
         OWLOntology o = loadOntologyFromString(input);
@@ -397,9 +399,9 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     public void shouldDoPrecedenceWithoutParentheses() {
         // given
         String text1 = "a and b or c";
-        OWLClass a = Class(IRI("urn:test#", "a"));
-        OWLClass b = Class(IRI("urn:test#", "b"));
-        OWLClass c = Class(IRI("urn:test#", "c"));
+        OWLClass a = Class(IRI(URN_TEST, "a"));
+        OWLClass b = Class(IRI(URN_TEST, "b"));
+        OWLClass c = Class(IRI(URN_TEST, "c"));
         OWLClassExpression expected =
             df.getOWLObjectUnionOf(df.getOWLObjectIntersectionOf(a, b), c);
         ManchesterOWLSyntaxParser parser = setupPArser(text1, expected);
@@ -411,10 +413,10 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     protected ManchesterOWLSyntaxParser setupPArser(String text1, OWLClassExpression expected) {
-        OWLClass a = Class(IRI("urn:test#", "a"));
-        OWLClass b = Class(IRI("urn:test#", "b"));
-        OWLClass c = Class(IRI("urn:test#", "c"));
-        OWLClass d = Class(IRI("urn:test#", "all"));
+        OWLClass a = Class(IRI(URN_TEST, "a"));
+        OWLClass b = Class(IRI(URN_TEST, "b"));
+        OWLClass c = Class(IRI(URN_TEST, "c"));
+        OWLClass d = Class(IRI(URN_TEST, "all"));
         OWLOntology o = getOWLOntology();
         o.add(df.getOWLDeclarationAxiom(a), df.getOWLDeclarationAxiom(b),
             df.getOWLDeclarationAxiom(c), df.getOWLDeclarationAxiom(d),
@@ -447,8 +449,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     public void shouldNotFailSubclass() {
         // given
-        OWLClass a = Class(IRI("urn:test#", "A"));
-        OWLClass b = Class(IRI("urn:test#", "B"));
+        OWLClass a = Class(IRI(URN_TEST, "A"));
+        OWLClass b = Class(IRI(URN_TEST, "B"));
         String in = "A SubClassOf B";
         OWLOntology o = getOWLOntology();
         o.add(df.getOWLDeclarationAxiom(a), df.getOWLDeclarationAxiom(b));

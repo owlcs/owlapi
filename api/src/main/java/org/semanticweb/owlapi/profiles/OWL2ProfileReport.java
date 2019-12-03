@@ -58,8 +58,8 @@ public class OWL2ProfileReport extends OWLProfileReport {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(super.toString());
-        sb.append("\n[Simple properties]\n");
+        StringBuilder sb = new StringBuilder(1000);
+        sb.append(super.toString()).append("\n[Simple properties]\n");
         simpleRoles.forEach(p -> wrap(sb, p));
         sb.append("\n[Non-simple properties]\n");
         nonSimpleRoles.forEach(p -> wrap(sb, p));

@@ -36,6 +36,8 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 @SuppressWarnings("javadoc")
 public class OntologyURITestCase extends TestBase {
 
+    private static final String ANOTHER_COM_ONT = "http://www.another.com/ont";
+
     @Test
     public void testNamedOntologyToString() throws OWLOntologyCreationException {
         IRI ontIRI = IRI("http://owlapi.sourceforge.net/", "ont");
@@ -73,7 +75,7 @@ public class OntologyURITestCase extends TestBase {
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testDuplicateOntologyURI() throws OWLOntologyCreationException {
-        IRI uri = IRI.getNextDocumentIRI("http://www.another.com/ont");
+        IRI uri = IRI.getNextDocumentIRI(ANOTHER_COM_ONT);
         try {
             getOWLOntology(uri);
             getOWLOntology(uri);
@@ -85,7 +87,7 @@ public class OntologyURITestCase extends TestBase {
 
     @Test
     public void testSetOntologyURI() {
-        IRI iri = IRI.getNextDocumentIRI("http://www.another.com/ont");
+        IRI iri = IRI.getNextDocumentIRI(ANOTHER_COM_ONT);
         OWLOntology ont = getOWLOntology(iri);
         IRI newIRI = IRI.getNextDocumentIRI("http://www.another.com/newont");
         SetOntologyID sou =
@@ -98,7 +100,7 @@ public class OntologyURITestCase extends TestBase {
 
     @Test
     public void testVersionURI() {
-        IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
+        IRI ontIRI = IRI.getNextDocumentIRI(ANOTHER_COM_ONT);
         IRI verIRI = IRI.getNextDocumentIRI("http://www.another.com/ont/versions/1.0.0");
         OWLOntology ont = getOWLOntology(new OWLOntologyID(optional(ontIRI), optional(verIRI)));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
@@ -107,7 +109,7 @@ public class OntologyURITestCase extends TestBase {
 
     @Test
     public void testNullVersionURI() {
-        IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
+        IRI ontIRI = IRI.getNextDocumentIRI(ANOTHER_COM_ONT);
         IRI verIRI = null;
         OWLOntology ont = getOWLOntology(new OWLOntologyID(optional(ontIRI), optional(verIRI)));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);

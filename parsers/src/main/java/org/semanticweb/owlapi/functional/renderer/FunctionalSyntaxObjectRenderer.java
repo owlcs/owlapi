@@ -731,7 +731,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             // them. It should not add declarations for illegally punned entities
             // here, though
             if (addMissingDeclarations && axioms.isEmpty() && !entity.isBuiltIn()
-                && !illegals.contains(entity.getIRI()) && !o.isDeclared(entity, Imports.INCLUDED)) {
+                && !illegals.contains(entity.getIRI()) && !o.isDeclared(entity, INCLUDED)) {
                 OWLDeclarationAxiom declaration =
                     o.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity);
                 acceptAndReturn(declaration);

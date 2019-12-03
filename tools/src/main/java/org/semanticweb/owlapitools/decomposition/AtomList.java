@@ -13,7 +13,7 @@ public class AtomList {
     /**
      * all the atoms
      */
-    private List<OntologyAtom> atoms = new ArrayList<>();
+    private final List<OntologyAtom> atoms = new ArrayList<>();
 
     /**
      * @return a new atom

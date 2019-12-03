@@ -28,14 +28,14 @@ import org.semanticweb.owlapi.util.OWLEntityRenamer;
 
 @SuppressWarnings("javadoc")
 public class RelativeIRIsRoundTripTestCase extends AbstractRoundTrippingTestCase {
-    private String ns = "";
+    private final String ns = "";
     // "urn:test:ns#";
-    private OWLDataProperty d = df.getOWLDataProperty(ns + "d");
-    private OWLObjectProperty o = df.getOWLObjectProperty(ns + "o");
-    private OWLAnnotationProperty x = df.getOWLAnnotationProperty(ns + "X");
-    private OWLAnnotationProperty y = df.getOWLAnnotationProperty(ns + "Y");
-    private OWLAnnotation ann1 = df.getOWLAnnotation(x, df.getOWLLiteral("x"));
-    private OWLAnnotation ann2 = df.getOWLAnnotation(y, df.getOWLLiteral("y"));
+    private final OWLDataProperty d = df.getOWLDataProperty(ns + "d");
+    private final OWLObjectProperty o = df.getOWLObjectProperty(ns + "o");
+    private final OWLAnnotationProperty x = df.getOWLAnnotationProperty(ns + "X");
+    private final OWLAnnotationProperty y = df.getOWLAnnotationProperty(ns + "Y");
+    private final OWLAnnotation ann1 = df.getOWLAnnotation(x, df.getOWLLiteral("x"));
+    private final OWLAnnotation ann2 = df.getOWLAnnotation(y, df.getOWLLiteral("y"));
 
     @Override
     protected OWLOntology createOntology() {

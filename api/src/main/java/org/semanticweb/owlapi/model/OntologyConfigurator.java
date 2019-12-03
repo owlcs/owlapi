@@ -56,7 +56,7 @@ public class OntologyConfigurator implements Serializable {
     /**
      * Local override map.
      */
-    private EnumMap<ConfigurationOptions, Object> overrides =
+    private final EnumMap<ConfigurationOptions, Object> overrides =
         new EnumMap<>(ConfigurationOptions.class);
 
     /**

@@ -205,6 +205,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  */
 public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser {
 
+    private static final String DC = "dc:";
     private static final String INFINITY = "Infinity";
     private static final boolean ALLOWEMPTYFRAMESECTIONS = false;
     protected final Set<String> classNames = new HashSet<>();
@@ -1051,11 +1052,11 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private String unquoteLiteral(String tok) {
-        String lit = "";
         if (!tok.endsWith("\"")) {
             consumeToken();
             throw new ExceptionBuilder().withKeyword("\"").build();
         }
+        String lit = "";
         if (tok.length() > 2) {
             lit = tok.substring(1, tok.length() - 1);
         }
@@ -1577,7 +1578,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!RULE.matches(section)) {
             throw new ExceptionBuilder().withKeyword(RULE).build();
         }
-        Set<OWLOntology> ontologies = getOntologies();
         List<SWRLAtom> body = parseRuleAtoms();
         String tok = consumeToken();
         if (!DASH.matches(tok)) {
@@ -1587,7 +1587,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         List<SWRLAtom> head = parseRuleAtoms();
         SWRLRule rule = df.getSWRLRule(new LinkedHashSet<>(body), new LinkedHashSet<>(head));
         List<OntologyAxiomPair> pairs = new ArrayList<>();
-        for (OWLOntology ont : ontologies) {
+        for (OWLOntology ont : getOntologies()) {
             pairs.add(new OntologyAxiomPair(ont, rule));
         }
         return pairs;
@@ -2321,8 +2321,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             if (colonIndex == -1) {
                 name = ":" + name;
             }
-            if (name.startsWith("dc:") && !pm.containsPrefixMapping("dc:")) {
-                pm.setPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
+            if (name.startsWith(DC) && !pm.containsPrefixMapping(DC)) {
+                pm.setPrefix(DC, DublinCoreVocabulary.NAME_SPACE);
             }
             uri = pm.getIRI(name);
         }
@@ -2635,7 +2635,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
         private String shortForm(HasIRI i) {
             if (DublinCoreVocabulary.NAME_SPACE.equals(i.getIRI().getNamespace())) {
-                pm.setPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
+                pm.setPrefix(DC, DublinCoreVocabulary.NAME_SPACE);
             }
             return pm.getShortForm(i.getIRI());
         }

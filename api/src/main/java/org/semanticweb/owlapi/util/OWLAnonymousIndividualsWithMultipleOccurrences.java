@@ -24,19 +24,18 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * A utility class that visits axioms, class expressions etc. and accumulates
- * the anonymous individuals objects that are referred to in those axioms, class
- * expressions etc.
+ * A utility class that visits axioms, class expressions etc. and accumulates the anonymous
+ * individuals objects that are referred to in those axioms, class expressions etc.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
  *         13-Nov-2006
  */
-public class OWLAnonymousIndividualsWithMultipleOccurrences extends AbstractCollector implements
-    IndividualAppearance {
+public class OWLAnonymousIndividualsWithMultipleOccurrences extends AbstractCollector
+    implements IndividualAppearance {
 
-    private Set<OWLObject> singleAppearanceAsSubject = new HashSet<>();
-    private Set<OWLObject> singleAppearance = new HashSet<>();
-    private Set<OWLObject> multipleAppearances = new HashSet<>();
+    private final Set<OWLObject> singleAppearanceAsSubject = new HashSet<>();
+    private final Set<OWLObject> singleAppearance = new HashSet<>();
+    private final Set<OWLObject> multipleAppearances = new HashSet<>();
 
     @Override
     public boolean appearsMultipleTimes(OWLAnonymousIndividual i) {

@@ -41,10 +41,10 @@ import org.slf4j.LoggerFactory;
  */
 public class Injector {
     private static final Logger LOGGER = LoggerFactory.getLogger(Injector.class);
-    private Map<Object, List<Supplier<?>>> supplierOverrides =
+    private final Map<Object, List<Supplier<?>>> supplierOverrides =
         new ConcurrentHashMap<>(16, 0.75F, 1);
-    private Map<Object, Class<?>> typesOverrides = new ConcurrentHashMap<>(16, 0.75F, 1);
-    private Map<Object, List<Class<?>>> typesCache = new ConcurrentHashMap<>(16, 0.75F, 1);
+    private final Map<Object, Class<?>> typesOverrides = new ConcurrentHashMap<>(16, 0.75F, 1);
+    private final Map<Object, List<Class<?>>> typesCache = new ConcurrentHashMap<>(16, 0.75F, 1);
 
     /**
      * Key class for caches

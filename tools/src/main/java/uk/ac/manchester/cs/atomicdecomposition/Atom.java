@@ -21,7 +21,7 @@ public class Atom {
     private List<OWLEntity> signature;
     @Nullable
     private Collection<OWLEntity> label;
-    private int hashcode;
+    private final int hashcode;
 
     /**
      * @param axioms build an atom out of a set of axioms

@@ -25,10 +25,12 @@ import org.semanticweb.owlapi.model.IRI;
 @SuppressWarnings("javadoc")
 public class IRICharSequenceTestCase {
 
+    private static final String HTTP_OWLAPI = "http://owlapi.sourceforge.net#";
+
     @Test
     public void testCharAt() {
         String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
+        IRI iri = IRI(HTTP_OWLAPI, "ABC");
         for (int i = 0; i < str.length(); i++) {
             assertEquals(str.charAt(i), iri.charAt(i));
         }
@@ -55,7 +57,7 @@ public class IRICharSequenceTestCase {
     @Test
     public void testSubSequence() {
         String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
+        IRI iri = IRI(HTTP_OWLAPI, "ABC");
         for (int i = 0; i < str.length(); i++) {
             for (int j = i; j < str.length(); j++) {
                 assertEquals(str.subSequence(i, j), iri.subSequence(i, j));
@@ -65,7 +67,7 @@ public class IRICharSequenceTestCase {
 
     @Test
     public void testLength() {
-        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
+        IRI iri = IRI(HTTP_OWLAPI, "ABC");
         assertEquals(33, iri.length());
     }
 

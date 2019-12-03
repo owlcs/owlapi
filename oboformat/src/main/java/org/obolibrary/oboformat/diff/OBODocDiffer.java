@@ -14,15 +14,14 @@ import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 /**
- * Diffs two OBO Documents. Performs structural diffing only - does not use
- * reasoning (use OWLDiff or similar tools for this)
+ * Diffs two OBO Documents. Performs structural diffing only - does not use reasoning (use OWLDiff
+ * or similar tools for this)
  *
  * @author cjm
  */
 public class OBODocDiffer {
 
-    private OBODocDiffer() {
-    }
+    private OBODocDiffer() {}
 
     /**
      * @param doc1 doc1
@@ -41,8 +40,7 @@ public class OBODocDiffer {
 
     // FRAME LISTS
     private static List<Diff> getDiffsAsym(String ftype, Collection<Frame> fl1,
-        Collection<Frame> fl2, int n,
-        boolean isCheckFrame) {
+        Collection<Frame> fl2, int n, boolean isCheckFrame) {
         List<Diff> diffs = new ArrayList<>();
         Map<String, Frame> fm2 = new HashMap<>();
         fl2.forEach(f -> fm2.put(f.getId(), f));
@@ -72,16 +70,14 @@ public class OBODocDiffer {
         for (Clause c : f1.getClauses()) {
             boolean isMatched = false;
             for (Clause c2 : f2.getClauses()) {
-                if (sameTag(c, c2)) {
-                    if (c.equals(c2)) {
-                        isMatched = true;
-                        if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
-                            String a1 = c.getValue(Xref.class).getAnnotation();
-                            String a2 = c2.getValue(Xref.class).getAnnotation();
-                            isMatched = a1 == null && a2 == null || a1 != null && a1.equals(a2);
-                        }
-                        break;
+                if (sameTag(c, c2) && c.equals(c2)) {
+                    isMatched = true;
+                    if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
+                        String a1 = c.getValue(Xref.class).getAnnotation();
+                        String a2 = c2.getValue(Xref.class).getAnnotation();
+                        isMatched = a1 == null && a2 == null || a1 != null && a1.equals(a2);
                     }
+                    break;
                 }
             }
             if (!isMatched) {

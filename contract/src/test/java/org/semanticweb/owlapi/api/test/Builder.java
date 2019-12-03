@@ -71,34 +71,36 @@ import com.google.common.collect.Sets;
 @SuppressWarnings("javadoc")
 public class Builder {
 
+    private static final String VAR = "urn:swrl:var#";
+    private static final String URN_TEST = "urn:test:test#";
     private static OWLDataFactory df = OWLManager.getOWLDataFactory();
-    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:test:test#", "ann");
-    private final OWLObjectProperty op = df.getOWLObjectProperty("urn:test:test#", "op");
-    private final OWLDataProperty dp = df.getOWLDataProperty("urn:test:test#", "dp");
+    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(URN_TEST, "ann");
+    private final OWLObjectProperty op = df.getOWLObjectProperty(URN_TEST, "op");
+    private final OWLDataProperty dp = df.getOWLDataProperty(URN_TEST, "dp");
     private final OWLLiteral lit = df.getOWLLiteral(false);
     private final OWLLiteral plainlit = df.getOWLLiteral("string", "en");
-    private final IRI iri = IRI.create("urn:test:test#", "iri");
+    private final IRI iri = IRI.create(URN_TEST, "iri");
     private final Set<OWLAnnotation> as =
         Sets.newHashSet(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
-    private final OWLClass ce = df.getOWLClass("urn:test:test#", "c");
-    private final OWLNamedIndividual i = df.getOWLNamedIndividual("urn:test:test#", "i");
-    private final OWLNamedIndividual j = df.getOWLNamedIndividual("urn:test:test#", "j");
-    private final OWLDatatype d = df.getOWLDatatype("urn:test:test#", "datatype");
+    private final OWLClass ce = df.getOWLClass(URN_TEST, "c");
+    private final OWLNamedIndividual i = df.getOWLNamedIndividual(URN_TEST, "i");
+    private final OWLNamedIndividual j = df.getOWLNamedIndividual(URN_TEST, "j");
+    private final OWLDatatype d = df.getOWLDatatype(URN_TEST, "datatype");
     private final Set<OWLDataProperty> dps = Sets.newHashSet(df.getOWLDataProperty(iri), dp);
     private final List<OWLObjectProperty> ops = Arrays.asList(df.getOWLObjectProperty(iri), op);
     private final Set<OWLClass> classes = Sets.newHashSet(df.getOWLClass(iri), ce);
     private final Set<OWLNamedIndividual> inds = Sets.newHashSet(i, df.getOWLNamedIndividual(iri));
-    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create("urn:swrl:var#", "v1"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:swrl:var#", "var3"),
-            df.getSWRLVariable("urn:swrl:var#", "var4")));
-    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create("urn:swrl:var#", "v2"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:swrl:var#", "var5"),
-            df.getSWRLVariable("urn:swrl:var#", "var6")));
+    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create(VAR, "v1"),
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable(VAR, "var3"),
+            df.getSWRLVariable(VAR, "var4")));
+    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create(VAR, "v2"),
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable(VAR, "var5"),
+            df.getSWRLVariable(VAR, "var6")));
     private final Set<SWRLAtom> body = Sets.newHashSet(v1);
     private final Set<SWRLAtom> head = Sets.newHashSet(v2);
-    private final SWRLDArgument var1 = df.getSWRLVariable("urn:swrl:var#", "var1");
+    private final SWRLDArgument var1 = df.getSWRLVariable(VAR, "var1");
     private final List<SWRLDArgument> var1list = Arrays.asList(var1);
-    private final SWRLIArgument var2 = df.getSWRLVariable("urn:swrl:var#", "var2");
+    private final SWRLIArgument var2 = df.getSWRLVariable(VAR, "var2");
     private final LinkedHashSet<SWRLAtom> body2 =
         Sets.newLinkedHashSet(Arrays.asList(v1, df.getSWRLClassAtom(ce, var2),
             df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list),
@@ -419,7 +421,7 @@ public class Builder {
 
     public OWLOntology onto() {
         try {
-            return m.createOntology(IRI.create("urn:test:test#", "test"));
+            return m.createOntology(IRI.create(URN_TEST, "test"));
         } catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
         }

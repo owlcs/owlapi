@@ -116,6 +116,8 @@ import com.google.common.collect.Sets;
 @RunWith(Parameterized.class)
 public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
 
+    private static final String URN_SWRL_VAR = "urn:swrl:var#";
+    private static final String HTTP_WWW_OWLAPI = "http://www.owlapi#";
     private static final IRI iriA = iri("A");
     private static final OWLClass clsA = Class(iriA);
     private static final OWLClass clsB = Class(iri("B"));
@@ -171,17 +173,17 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             // SWRLRuleAlternateNS
             (AxiomBuilder) () -> {
                 Set<OWLAxiom> axioms = new HashSet<>();
-                SWRLVariable varX = df.getSWRLVariable("http://www.owlapi#", "x");
-                SWRLVariable varY = df.getSWRLVariable("http://www.owlapi#", "y");
-                SWRLVariable varZ = df.getSWRLVariable("http://www.owlapi#", "z");
+                SWRLVariable varX = df.getSWRLVariable(HTTP_WWW_OWLAPI, "x");
+                SWRLVariable varY = df.getSWRLVariable(HTTP_WWW_OWLAPI, "y");
+                SWRLVariable varZ = df.getSWRLVariable(HTTP_WWW_OWLAPI, "z");
                 Set<SWRLAtom> body = new HashSet<>();
                 body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
                 SWRLIndividualArgument indIArg = df.getSWRLIndividualArgument(ind);
                 SWRLIndividualArgument indJArg = df.getSWRLIndividualArgument(indj);
                 body.add(df.getSWRLClassAtom(Class(iri("D")), indIArg));
                 body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
-                SWRLVariable varQ = df.getSWRLVariable("http://www.owlapi#", "q");
-                SWRLVariable varR = df.getSWRLVariable("http://www.owlapi#", "r");
+                SWRLVariable varQ = df.getSWRLVariable(HTTP_WWW_OWLAPI, "q");
+                SWRLVariable varR = df.getSWRLVariable(HTTP_WWW_OWLAPI, "r");
                 body.add(df.getSWRLDataPropertyAtom(dp, varX, varQ));
                 OWLLiteral lit = Literal(33);
                 SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);
@@ -200,24 +202,24 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
                 args.add(varQ);
                 args.add(varR);
                 args.add(litArg);
-                head.add(df.getSWRLBuiltInAtom(IRI("http://www.owlapi#", "myBuiltIn"), args));
+                head.add(df.getSWRLBuiltInAtom(IRI(HTTP_WWW_OWLAPI, "myBuiltIn"), args));
                 axioms.add(df.getSWRLRule(body, head));
                 return axioms;
             },
             // SWRLRule
             () -> {
                 Set<OWLAxiom> axioms = new HashSet<>();
-                SWRLVariable varX = df.getSWRLVariable("urn:swrl:var#", "x");
-                SWRLVariable varY = df.getSWRLVariable("urn:swrl:var#", "y");
-                SWRLVariable varZ = df.getSWRLVariable("urn:swrl:var#", "z");
+                SWRLVariable varX = df.getSWRLVariable(URN_SWRL_VAR, "x");
+                SWRLVariable varY = df.getSWRLVariable(URN_SWRL_VAR, "y");
+                SWRLVariable varZ = df.getSWRLVariable(URN_SWRL_VAR, "z");
                 Set<SWRLAtom> body = new HashSet<>();
                 body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
                 SWRLIndividualArgument indIArg = df.getSWRLIndividualArgument(ind);
                 SWRLIndividualArgument indJArg = df.getSWRLIndividualArgument(indj);
                 body.add(df.getSWRLClassAtom(Class(iri("D")), indIArg));
                 body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
-                SWRLVariable varQ = df.getSWRLVariable("urn:swrl:var#", "q");
-                SWRLVariable varR = df.getSWRLVariable("urn:swrl:var#", "r");
+                SWRLVariable varQ = df.getSWRLVariable(URN_SWRL_VAR, "q");
+                SWRLVariable varR = df.getSWRLVariable(URN_SWRL_VAR, "r");
                 body.add(df.getSWRLDataPropertyAtom(dp, varX, varQ));
                 OWLLiteral lit = Literal(33);
                 SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);
@@ -236,7 +238,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
                 args.add(varQ);
                 args.add(varR);
                 args.add(litArg);
-                head.add(df.getSWRLBuiltInAtom(IRI("http://www.owlapi#", "myBuiltIn"), args));
+                head.add(df.getSWRLBuiltInAtom(IRI(HTTP_WWW_OWLAPI, "myBuiltIn"), args));
                 axioms.add(df.getSWRLRule(body, head));
                 return axioms;
             },

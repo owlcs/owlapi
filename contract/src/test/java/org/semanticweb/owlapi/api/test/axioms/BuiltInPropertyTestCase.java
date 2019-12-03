@@ -29,6 +29,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 @SuppressWarnings("javadoc")
 public class BuiltInPropertyTestCase extends TestBase {
 
+    private static final String PROP2 = "prop";
+
     @Test
     public void testTopObjectPropertyPositive() {
         OWLObjectPropertyExpression prop = df.getOWLTopObjectProperty();
@@ -43,13 +45,13 @@ public class BuiltInPropertyTestCase extends TestBase {
 
     @Test
     public void testTopObjectPropertyNegative() {
-        OWLObjectPropertyExpression prop = ObjectProperty(iri("prop"));
+        OWLObjectPropertyExpression prop = ObjectProperty(iri(PROP2));
         assertFalse(prop.isOWLTopObjectProperty());
     }
 
     @Test
     public void testBottomObjectPropertyNegative() {
-        OWLObjectPropertyExpression prop = ObjectProperty(iri("prop"));
+        OWLObjectPropertyExpression prop = ObjectProperty(iri(PROP2));
         assertFalse(prop.isOWLBottomObjectProperty());
     }
 
@@ -67,13 +69,13 @@ public class BuiltInPropertyTestCase extends TestBase {
 
     @Test
     public void testTopDataPropertyNegative() {
-        OWLDataPropertyExpression prop = DataProperty(iri("prop"));
+        OWLDataPropertyExpression prop = DataProperty(iri(PROP2));
         assertFalse(prop.isOWLTopDataProperty());
     }
 
     @Test
     public void testBottomDataPropertyNegative() {
-        OWLDataPropertyExpression prop = DataProperty(iri("prop"));
+        OWLDataPropertyExpression prop = DataProperty(iri(PROP2));
         assertFalse(prop.isOWLBottomDataProperty());
     }
 }

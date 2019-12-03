@@ -39,23 +39,25 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 @SuppressWarnings("javadoc")
 public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
 
+    private static final String HTTP_EXAMPLE_ORG = "http://example.org/";
+
     @Test
     public void testmain() throws Exception {
         OWLOntology ontology = getOWLOntology();
         OWLObjectProperty p = df.getOWLObjectProperty("http://example.org/A_#", "part_of");
-        OWLClass a = Class(IRI("http://example.org/", "A_A"));
-        OWLClass b = Class(IRI("http://example.org/", "A_B"));
+        OWLClass a = Class(IRI(HTTP_EXAMPLE_ORG, "A_A"));
+        OWLClass b = Class(IRI(HTTP_EXAMPLE_ORG, "A_B"));
         ontology.add(Declaration(p), Declaration(a), Declaration(b),
             SubClassOf(b, df.getOWLObjectSomeValuesFrom(p,
                 a)));
         OWLOntology loadOntology = roundTrip(ontology, new RDFXMLDocumentFormat());
         FunctionalSyntaxDocumentFormat functionalFormat = new FunctionalSyntaxDocumentFormat();
-        functionalFormat.asPrefixOWLDocumentFormat().setPrefix("example", "http://example.org/");
+        functionalFormat.asPrefixOWLDocumentFormat().setPrefix("example", HTTP_EXAMPLE_ORG);
         OWLOntology loadOntology2 = roundTrip(ontology, functionalFormat);
         // won't reach here if functional syntax fails - comment it out and
         // uncomment this to test Manchester
         ManchesterSyntaxDocumentFormat manchesterFormat = new ManchesterSyntaxDocumentFormat();
-        manchesterFormat.asPrefixOWLDocumentFormat().setPrefix("example", "http://example.org/");
+        manchesterFormat.asPrefixOWLDocumentFormat().setPrefix("example", HTTP_EXAMPLE_ORG);
         OWLOntology loadOntology3 = roundTrip(ontology, manchesterFormat);
         assertEquals(ontology, loadOntology);
         assertEquals(ontology, loadOntology2);

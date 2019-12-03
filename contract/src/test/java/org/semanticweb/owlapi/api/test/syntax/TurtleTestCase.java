@@ -60,6 +60,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @SuppressWarnings("javadoc")
 public class TurtleTestCase extends TestBase {
 
+    private static final IRI SOUTH_AFRICA = IRI("http://dbpedia.org/resource/", "South_Africa");
+    private static final OWLAnnotationProperty AREA_TOTAL = AnnotationProperty(IRI("http://dbpedia.org/ontology/", "areaTotal"));
     private final IRI iri = IRI.create("urn:test#", "literals");
     private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
     private final IRI s = IRI.create("urn:test#", "s");
@@ -233,12 +235,9 @@ public class TurtleTestCase extends TestBase {
         String input =
             "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1e+07 .";
         OWLOntology ontology = loadOntologyFromString(input);
-        OWLAnnotationProperty p =
-            AnnotationProperty(IRI("http://dbpedia.org/ontology/", "areaTotal"));
-        assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(p)));
-        IRI i = IRI("http://dbpedia.org/resource/", "South_Africa");
+        assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(AREA_TOTAL)));
         assertTrue(ontology
-            .containsAxiom(AnnotationAssertion(p, i, Literal("1.0E7", OWL2Datatype.XSD_DOUBLE))));
+            .containsAxiom(AnnotationAssertion(AREA_TOTAL, SOUTH_AFRICA, Literal("1.0E7", OWL2Datatype.XSD_DOUBLE))));
     }
 
     @Test
@@ -246,12 +245,9 @@ public class TurtleTestCase extends TestBase {
         String input =
             "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1e-07 .";
         OWLOntology ontology = loadOntologyFromString(input);
-        OWLAnnotationProperty p =
-            AnnotationProperty(IRI("http://dbpedia.org/ontology/", "areaTotal"));
-        assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(p)));
-        IRI i = IRI("http://dbpedia.org/resource/", "South_Africa");
+        assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(AREA_TOTAL)));
         assertTrue(ontology
-            .containsAxiom(AnnotationAssertion(p, i, Literal("1.0E-7", OWL2Datatype.XSD_DOUBLE))));
+            .containsAxiom(AnnotationAssertion(AREA_TOTAL, SOUTH_AFRICA, Literal("1.0E-7", OWL2Datatype.XSD_DOUBLE))));
     }
 
     @Test
@@ -271,11 +267,8 @@ public class TurtleTestCase extends TestBase {
         String input =
             "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1 .";
         OWLOntology ontology = loadOntologyFromString(input);
-        OWLAnnotationProperty p =
-            AnnotationProperty(IRI("http://dbpedia.org/ontology/", "areaTotal"));
-        assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(p)));
-        IRI i = IRI("http://dbpedia.org/resource/", "South_Africa");
-        assertTrue(ontology.containsAxiom(AnnotationAssertion(p, i, Literal(1))));
+        assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(AREA_TOTAL)));
+        assertTrue(ontology.containsAxiom(AnnotationAssertion(AREA_TOTAL, SOUTH_AFRICA, Literal(1))));
     }
 
     @Test
@@ -283,12 +276,9 @@ public class TurtleTestCase extends TestBase {
         String input =
             "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1.0.";
         OWLOntology ontology = loadOntologyFromString(input);
-        OWLAnnotationProperty p =
-            AnnotationProperty(IRI("http://dbpedia.org/ontology/", "areaTotal"));
-        assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(p)));
-        IRI i = IRI("http://dbpedia.org/resource/", "South_Africa");
+        assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(AREA_TOTAL)));
         assertTrue(ontology
-            .containsAxiom(AnnotationAssertion(p, i, Literal("1.0", OWL2Datatype.XSD_DECIMAL))));
+            .containsAxiom(AnnotationAssertion(AREA_TOTAL, SOUTH_AFRICA, Literal("1.0", OWL2Datatype.XSD_DECIMAL))));
     }
 
     @Test

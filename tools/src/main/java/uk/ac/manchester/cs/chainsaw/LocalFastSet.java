@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
  */
 public class LocalFastSet implements FastSet, Serializable {
 
-    private BitSet pos = new BitSet();
+    private final BitSet pos = new BitSet();
 
     private static int asPositive(int p) {
         return p >= 0 ? 2 * p : 1 - 2 * p;

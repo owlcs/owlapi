@@ -53,8 +53,7 @@ public interface IndividualAssertionProvider extends LiteralProvider {
      * @return a same individuals axiom with specified individuals and annotations
      */
     OWLSameIndividualAxiom getOWLSameIndividualAxiom(
-        Collection<? extends OWLIndividual> individuals,
-        Collection<OWLAnnotation> annotations);
+        Collection<? extends OWLIndividual> individuals, Collection<OWLAnnotation> annotations);
 
     /**
      * @param i same individual
@@ -83,7 +82,7 @@ public interface IndividualAssertionProvider extends LiteralProvider {
     default OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
         OWLIndividual... individuals) {
         checkIterableNotNull(individuals, "individuals cannot be null", true);
-        return getOWLDifferentIndividualsAxiom(CollectionFactory.createSet(individuals));
+        return getOWLDifferentIndividualsAxiom(createSet(individuals));
     }
 
     /**
@@ -92,8 +91,7 @@ public interface IndividualAssertionProvider extends LiteralProvider {
      * @return a different individuals axiom with specified individuals and annotations
      */
     OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
-        Collection<? extends OWLIndividual> individuals,
-        Collection<OWLAnnotation> annotations);
+        Collection<? extends OWLIndividual> individuals, Collection<OWLAnnotation> annotations);
 
     /**
      * @param i different individual
@@ -102,8 +100,7 @@ public interface IndividualAssertionProvider extends LiteralProvider {
      * @return a different individuals axiom with specified individuals and annotations
      */
     default OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(OWLIndividual i,
-        OWLIndividual j,
-        Collection<OWLAnnotation> annotations) {
+        OWLIndividual j, Collection<OWLAnnotation> annotations) {
         return getOWLDifferentIndividualsAxiom(Arrays.asList(i, j), annotations);
     }
 }

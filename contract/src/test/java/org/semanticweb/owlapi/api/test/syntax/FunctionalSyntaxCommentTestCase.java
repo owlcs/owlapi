@@ -49,6 +49,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @SuppressWarnings("javadoc")
 public class FunctionalSyntaxCommentTestCase extends TestBase {
 
+    private static final String URN_TEST_OWL = "urn:test.owl#";
+
     @Test
     public void shouldParseCommentAndSkipIt() throws OWLOntologyCreationException {
         String input =
@@ -59,11 +61,11 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
                 + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
                 + ')';
         OWLOntology o = loadOntologyFromString(input);
-        OWLAxiom ax1 = Declaration(DataProperty(IRI("urn:test.owl#", "city")));
-        OWLAxiom ax2 = SubClassOf(Class(IRI("urn:test.owl#", "ContactInformation")),
-            DataMaxCardinality(1, DataProperty(IRI("urn:test.owl#", "city")),
+        OWLAxiom ax1 = Declaration(DataProperty(IRI(URN_TEST_OWL, "city")));
+        OWLAxiom ax2 = SubClassOf(Class(IRI(URN_TEST_OWL, "ContactInformation")),
+            DataMaxCardinality(1, DataProperty(IRI(URN_TEST_OWL, "city")),
                 Datatype(OWL2Datatype.XSD_STRING.getIRI())));
-        OWLAxiom ax3 = Declaration(Class(IRI("urn:test.owl#", "ContactInformation")));
+        OWLAxiom ax3 = Declaration(Class(IRI(URN_TEST_OWL, "ContactInformation")));
         assertTrue(o.containsAxiom(ax1));
         assertTrue(o.containsAxiom(ax2));
         assertTrue(o.containsAxiom(ax3));

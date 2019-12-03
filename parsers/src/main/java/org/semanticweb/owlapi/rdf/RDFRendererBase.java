@@ -144,7 +144,7 @@ public abstract class RDFRendererBase {
     private final Set<IRI> punned;
     @Nullable
     protected RDFGraph graph;
-    private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
+    private final AtomicInteger nextBlankNodeId = new AtomicInteger(1);
     private final Deque<RDFResourceBlankNode> nodesToRenderSeparately = new LinkedList<>();
     private final Set<RDFResourceBlankNode> renderedNodes = new HashSet<>();
     private final Map<Object, Integer> blankNodeMap = new IdentityHashMap<>();
@@ -557,7 +557,7 @@ public abstract class RDFRendererBase {
     static final class GraphVisitor implements OWLEntityVisitor {
 
         private final List<OWLAxiom> axioms;
-        private OWLOntology ontology;
+        private final OWLOntology ontology;
 
         GraphVisitor(OWLOntology ontology, List<OWLAxiom> axioms) {
             this.axioms = axioms;

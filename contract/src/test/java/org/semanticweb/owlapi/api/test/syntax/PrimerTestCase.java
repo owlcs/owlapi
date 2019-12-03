@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 @SuppressWarnings("javadoc")
 public class PrimerTestCase extends TestBase {
 
+    private static final String URN_PRIMER = "urn:primer#";
     private static final String NS = "http://example.com/owl/families/";
     private static final String RDFXML = "<!DOCTYPE rdf:RDF [\n"
         + "    <!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >\n"
@@ -606,7 +607,7 @@ public class PrimerTestCase extends TestBase {
         + "                            [ rdf:type           owl:Restriction ; owl:onProperty     :hasChild ; owl:allValuesFrom  :Female ]\n"
         + "                          )\n" + "    ] .";
     protected OWLOntology func = loadOntologyFromString(FUNCTIONAL,
-        IRI.create("urn:primer#", "functional"),
+        IRI.create(URN_PRIMER, "functional"),
         new FunctionalSyntaxDocumentFormat());
     OWL2DLProfile profile = new OWL2DLProfile();
 
@@ -618,7 +619,7 @@ public class PrimerTestCase extends TestBase {
     @Test
     public void shouldManchBeEquivalent() throws OWLOntologyCreationException {
         OWLOntology manch = loadOntologyFromString(MANCHESTER,
-            IRI.create("urn:primer#", "manchester"),
+            IRI.create(URN_PRIMER, "manchester"),
             new ManchesterSyntaxDocumentFormat());
         assertTrue(profile.checkOntology(manch).getViolations().isEmpty());
         // XXX Manchester OWL Syntax does not support GCIs
@@ -650,7 +651,7 @@ public class PrimerTestCase extends TestBase {
 
     @Test
     public void shouldRDFXMLBeEquivalent() {
-        OWLOntology rdf = loadOntologyFromString(RDFXML, IRI.create("urn:primer#", "rdfxml"),
+        OWLOntology rdf = loadOntologyFromString(RDFXML, IRI.create(URN_PRIMER, "rdfxml"),
             new RDFXMLDocumentFormat());
         assertTrue(profile.checkOntology(rdf).getViolations().isEmpty());
         equal(func, rdf);
@@ -658,7 +659,7 @@ public class PrimerTestCase extends TestBase {
 
     @Test
     public void shouldOWLXMLBeEquivalent() {
-        OWLOntology owl = loadOntologyFromString(OWLXML, IRI.create("urn:primer#", "owlxml"),
+        OWLOntology owl = loadOntologyFromString(OWLXML, IRI.create(URN_PRIMER, "owlxml"),
             new OWLXMLDocumentFormat());
         assertTrue(profile.checkOntology(owl).getViolations().isEmpty());
         equal(func, owl);
@@ -666,7 +667,7 @@ public class PrimerTestCase extends TestBase {
 
     @Test
     public void shouldTURTLEBeEquivalent() {
-        OWLOntology turt = loadOntologyFromString(TURTLE, IRI.create("urn:primer#", "turtle"),
+        OWLOntology turt = loadOntologyFromString(TURTLE, IRI.create(URN_PRIMER, "turtle"),
             new TurtleDocumentFormat());
         assertTrue(profile.checkOntology(turt).getViolations().isEmpty());
         // XXX somehow the Turtle parser introduces a tautology: the inverse of

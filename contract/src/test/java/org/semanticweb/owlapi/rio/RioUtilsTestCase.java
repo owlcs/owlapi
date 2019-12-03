@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.rio.utils.RioUtils;
 @SuppressWarnings({"javadoc"})
 public class RioUtilsTestCase {
 
+    private static final String TEST_LITERAL = "Test literal";
     private static final ValueFactory VF = SimpleValueFactory.getInstance();
     private RDFTriple testOwlApiTripleAllIRI;
     private RDFTriple testOwlApiTriplePlainLiteral;
@@ -49,10 +50,10 @@ public class RioUtilsTestCase {
             new RDFResourceIRI(IRI.create("urn:test:predicate:uri:1", ""));
         RDFResourceIRI testOwlApiObjectUri1 =
             new RDFResourceIRI(IRI.create("urn:test:object:uri:1", ""));
-        RDFLiteral testOwlApiObjectPlainLiteral1 = new RDFLiteral("Test literal", "", null);
-        RDFLiteral testOwlApiObjectLangLiteral1 = new RDFLiteral("Test literal", "en", null);
+        RDFLiteral testOwlApiObjectPlainLiteral1 = new RDFLiteral(TEST_LITERAL, "", null);
+        RDFLiteral testOwlApiObjectLangLiteral1 = new RDFLiteral(TEST_LITERAL, "en", null);
         RDFLiteral testOwlApiObjectTypedLiteral1 =
-            new RDFLiteral("Test literal", null, IRI.create("urn:test:datatype:1", ""));
+            new RDFLiteral(TEST_LITERAL, null, IRI.create("urn:test:datatype:1", ""));
         RDFResourceBlankNode testOwlApiSubjectBNode1 =
             new RDFResourceBlankNode(IRI.create("subjectBnode1", ""), true, false, false);
         RDFResourceBlankNode testOwlApiObjectBNode1 =
@@ -75,10 +76,10 @@ public class RioUtilsTestCase {
         org.eclipse.rdf4j.model.IRI testSesamePredicateUri1 =
             VF.createIRI("urn:test:predicate:uri:1");
         org.eclipse.rdf4j.model.IRI testSesameObjectUri1 = VF.createIRI("urn:test:object:uri:1");
-        Literal testSesameObjectPlainLiteral1 = VF.createLiteral("Test literal");
-        Literal testSesameObjectLangLiteral1 = VF.createLiteral("Test literal", "en");
+        Literal testSesameObjectPlainLiteral1 = VF.createLiteral(TEST_LITERAL);
+        Literal testSesameObjectLangLiteral1 = VF.createLiteral(TEST_LITERAL, "en");
         Literal testSesameObjectTypedLiteral1 =
-            VF.createLiteral("Test literal", VF.createIRI("urn:test:datatype:1"));
+            VF.createLiteral(TEST_LITERAL, VF.createIRI("urn:test:datatype:1"));
         BNode testSesameSubjectBNode1 = VF.createBNode("subjectBnode1");
         BNode testSesameObjectBNode1 = VF.createBNode("objectBnode1");
         testSesameTripleAllIRI = VF.createStatement(testSesameSubjectUri1, testSesamePredicateUri1,

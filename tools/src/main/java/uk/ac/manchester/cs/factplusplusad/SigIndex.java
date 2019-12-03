@@ -14,20 +14,20 @@ class SigIndex {
     /**
      * map between entities and axioms that contains them in their signature
      */
-    private Map<OWLEntity, Collection<AxiomWrapper>> base = new HashMap<>();
+    private final Map<OWLEntity, Collection<AxiomWrapper>> base = new HashMap<>();
     /**
      * locality checker
      */
-    private LocalityChecker checker;
+    private final LocalityChecker checker;
     /**
      * empty signature to test the non-locality
      */
-    private Signature emptySig = new Signature();
+    private final Signature emptySig = new Signature();
     /**
      * sets of axioms non-local wrt the empty signature
      */
-    private Collection<AxiomWrapper> topNonLocal = new ArrayList<>();
-    private Collection<AxiomWrapper> bottomNonLocal = new ArrayList<>();
+    private final Collection<AxiomWrapper> topNonLocal = new ArrayList<>();
+    private final Collection<AxiomWrapper> bottomNonLocal = new ArrayList<>();
     /**
      * number of registered axioms
      */
@@ -72,8 +72,7 @@ class SigIndex {
     }
 
     /**
-     * given an entity, return a set of all axioms that contain this entity in a
-     * signature
+     * given an entity, return a set of all axioms that contain this entity in a signature
      *
      * @param entity the entity
      * @return collection of axioms referring the entity

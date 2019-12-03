@@ -162,7 +162,7 @@ class CustomTokenizer implements TokenManager {
                 if (s.startsWith("_:")) {
                     return makeToken(NODEID, s);
                 }
-                return makeToken(OWLFunctionalSyntaxParserConstants.PNAME_LN, s);
+                return makeToken(PNAME_LN, s);
             }
         }
         switch (s) {
@@ -355,7 +355,7 @@ class CustomTokenizer implements TokenManager {
             case "Variable":
                 return makeToken(VARIABLE, s);
             case "DescriptionGraphRule":
-                return makeToken(OWLFunctionalSyntaxParserConstants.DGRULE, s);
+                return makeToken(DGRULE, s);
             case "DescriptionGraph":
                 return makeToken(DESCRIPTIONGRAPH, s);
             case "Nodes":
@@ -381,7 +381,7 @@ class CustomTokenizer implements TokenManager {
             c = readChar();
             if (!Character.isDigit(c)) {
                 unread(c);
-                return makeToken(OWLFunctionalSyntaxParserConstants.INT, buf.toString());
+                return makeToken(INT, buf.toString());
             } else {
                 buf.append(c);
             }

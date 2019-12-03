@@ -385,11 +385,11 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         String normalisedAbbreviatedIRI = getNormalisedAbbreviatedIRI(abbreviatedIRI);
         int sepIndex = normalisedAbbreviatedIRI.indexOf(':');
         String prefixName = normalisedAbbreviatedIRI.substring(0, sepIndex + 1);
-        String localName = normalisedAbbreviatedIRI.substring(sepIndex + 1);
         String base = prefixName2PrefixMap.get(prefixName);
         if (base == null) {
             throw new OWLXMLParserException(this, "Prefix name not defined: " + prefixName);
         }
+        String localName = normalisedAbbreviatedIRI.substring(sepIndex + 1);
         return getIRI(base + localName);
     }
 

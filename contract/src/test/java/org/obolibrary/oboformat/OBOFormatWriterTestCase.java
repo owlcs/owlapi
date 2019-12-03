@@ -43,9 +43,8 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     }
 
     /**
-     * Test a special case of the specification. For intersections put the genus
-     * before the differentia, instead of the default case-insensitive
-     * alphabetical ordering.
+     * Test a special case of the specification. For intersections put the genus before the
+     * differentia, instead of the default case-insensitive alphabetical ordering.
      */
     @Test
     public void testSortTermClausesIntersectionOf() {
@@ -60,9 +59,8 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     }
 
     /**
-     * Test for sorting clauses according to alphabetical case-insensitive
-     * order. Prefer upper-case over lower case for equal strings. Prefer
-     * shorter strings over longer strings.
+     * Test for sorting clauses according to alphabetical case-insensitive order. Prefer upper-case
+     * over lower case for equal strings. Prefer shorter strings over longer strings.
      */
     @Test
     public void testSortTermClausesSynonyms() {
@@ -84,8 +82,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     }
 
     /**
-     * Test that the OBO format writer only writes one new-line at the end of
-     * the file.
+     * Test that the OBO format writer only writes one new-line at the end of the file.
      */
     @Test
     public void testWriteEndOfFile() throws Exception {
@@ -115,10 +112,8 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
         boolean ok = false;
         for (String line : lines) {
             // System.out.println("LINE: "+line);
-            if (line.startsWith("relationship:")) {
-                if (line.contains("named relation y1")) {
-                    ok = true;
-                }
+            if (line.startsWith("relationship:") && line.contains("named relation y1")) {
+                ok = true;
             }
         }
         assertTrue(ok);

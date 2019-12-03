@@ -21,9 +21,9 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
 public class ModuleAnnotationsTestCase extends TestBase {
 
-    private OWLAnnotationProperty a = df.getOWLAnnotationProperty(IRI.create("urn:test:a"));
-    private OWLAnnotationProperty b = df.getOWLAnnotationProperty(IRI.create("urn:test:b"));
-    private OWLAnnotationProperty replaced =
+    private final OWLAnnotationProperty a = df.getOWLAnnotationProperty(IRI.create("urn:test:a"));
+    private final OWLAnnotationProperty b = df.getOWLAnnotationProperty(IRI.create("urn:test:b"));
+    private final OWLAnnotationProperty replaced =
         df.getOWLAnnotationProperty(IRI.create("urn:test:term_replaced_by"));
     OWLDeclarationAxiom dA = df.getOWLDeclarationAxiom(a);
     OWLDeclarationAxiom dR = df.getOWLDeclarationAxiom(replaced);

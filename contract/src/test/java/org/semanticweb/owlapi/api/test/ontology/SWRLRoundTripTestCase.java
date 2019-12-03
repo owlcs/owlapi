@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 @SuppressWarnings("javadoc")
 public class SWRLRoundTripTestCase extends TestBase {
 
+    private static final String DATATYPE_DEFINITION = "datatype definition";
     private static final String NS = "urn:test";
 
     @Test
@@ -171,7 +172,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLDatatypeDefinitionAxiom def = df
             .getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"), df
                     .getOWLDatatypeMaxExclusiveRestriction(200D),
-                singleton(df.getRDFSLabel("datatype definition")));
+                singleton(df.getRDFSLabel(DATATYPE_DEFINITION)));
         ontology.getOWLOntologyManager().addAxiom(ontology, def);
         return ontology;
     }
@@ -181,7 +182,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLDatatypeDefinitionAxiom def = df
             .getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"), df
                     .getOWLDatatypeMaxExclusiveRestriction(200D),
-                singleton(df.getRDFSLabel("datatype definition")));
+                singleton(df.getRDFSLabel(DATATYPE_DEFINITION)));
         ontology.getOWLOntologyManager().addAxiom(ontology, def);
         return ontology;
     }
@@ -210,7 +211,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLOntology o = loadOntologyFromString(s);
         OWLDatatypeDefinitionAxiom def = df
             .getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"), df
-                .getDoubleOWLDatatype(), singleton(df.getRDFSLabel("datatype definition")));
+                .getDoubleOWLDatatype(), singleton(df.getRDFSLabel(DATATYPE_DEFINITION)));
         assertTrue(contains(o.axioms(), def));
     }
 
@@ -234,7 +235,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLOntology o = loadOntologyFromString(s);
         OWLSubClassOfAxiom def = df
             .getOWLSubClassOfAxiom(df.getOWLClass("urn:test#", "myClass"), df.getOWLClass(
-                "urn:test#", "test"), singleton(df.getRDFSLabel("datatype definition")));
+                "urn:test#", "test"), singleton(df.getRDFSLabel(DATATYPE_DEFINITION)));
         assertTrue(contains(o.axioms(), def));
     }
 }

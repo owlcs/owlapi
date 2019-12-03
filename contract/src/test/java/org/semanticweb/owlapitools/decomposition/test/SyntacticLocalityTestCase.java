@@ -34,31 +34,31 @@ public class SyntacticLocalityTestCase {
 
     private static final String NS = "urn:test#";
     private OWLAxiom axiom;
-    private OWLDataFactory df = OWLManager.getOWLDataFactory();
-    private OWLClass a = df.getOWLClass(IRI.create(NS, "a"));
-    private OWLClass b = df.getOWLClass(IRI.create(NS, "b"));
-    private OWLClass c = df.getOWLClass(IRI.create(NS, "c"));
-    private OWLClass d = df.getOWLClass(IRI.create(NS, "d"));
-    private OWLAnnotationProperty g = df.getOWLAnnotationProperty(IRI.create(NS, "g"));
-    private OWLAnnotationProperty h = df.getOWLAnnotationProperty(IRI.create(NS, "h"));
-    private OWLDatatype i = df.getOWLDatatype(IRI.create(NS, "i"));
-    private OWLLiteral j = df.getOWLLiteral(true);
-    private OWLLiteral l = df.getOWLLiteral(3.5D);
-    private OWLObjectProperty p = df.getOWLObjectProperty(IRI.create(NS, "p"));
-    private OWLObjectProperty q = df.getOWLObjectProperty(IRI.create(NS, "q"));
-    private OWLObjectProperty r = df.getOWLObjectProperty(IRI.create(NS, "r"));
-    private OWLDataProperty s = df.getOWLDataProperty(IRI.create(NS, "s"));
-    private OWLDataProperty t = df.getOWLDataProperty(IRI.create(NS, "t"));
-    private OWLDataProperty v = df.getOWLDataProperty(IRI.create(NS, "v"));
-    private OWLNamedIndividual x = df.getOWLNamedIndividual(IRI.create(NS, "x"));
-    private OWLNamedIndividual y = df.getOWLNamedIndividual(IRI.create(NS, "y"));
-    private OWLNamedIndividual z = df.getOWLNamedIndividual(IRI.create(NS, "z"));
-    private OWLClass owlNothing = df.getOWLNothing();
-    private OWLClass owlThing = df.getOWLThing();
-    private OWLDataProperty bottomData = df.getOWLBottomDataProperty();
-    private OWLDataProperty topData = df.getOWLTopDataProperty();
-    private OWLObjectProperty bottomObject = df.getOWLBottomObjectProperty();
-    private OWLObjectProperty topObject = df.getOWLTopObjectProperty();
+    private final OWLDataFactory df = OWLManager.getOWLDataFactory();
+    private final OWLClass a = df.getOWLClass(IRI.create(NS, "a"));
+    private final OWLClass b = df.getOWLClass(IRI.create(NS, "b"));
+    private final OWLClass c = df.getOWLClass(IRI.create(NS, "c"));
+    private final OWLClass d = df.getOWLClass(IRI.create(NS, "d"));
+    private final OWLAnnotationProperty g = df.getOWLAnnotationProperty(IRI.create(NS, "g"));
+    private final OWLAnnotationProperty h = df.getOWLAnnotationProperty(IRI.create(NS, "h"));
+    private final OWLDatatype i = df.getOWLDatatype(IRI.create(NS, "i"));
+    private final OWLLiteral j = df.getOWLLiteral(true);
+    private final OWLLiteral l = df.getOWLLiteral(3.5D);
+    private final OWLObjectProperty p = df.getOWLObjectProperty(IRI.create(NS, "p"));
+    private final OWLObjectProperty q = df.getOWLObjectProperty(IRI.create(NS, "q"));
+    private final OWLObjectProperty r = df.getOWLObjectProperty(IRI.create(NS, "r"));
+    private final OWLDataProperty s = df.getOWLDataProperty(IRI.create(NS, "s"));
+    private final OWLDataProperty t = df.getOWLDataProperty(IRI.create(NS, "t"));
+    private final OWLDataProperty v = df.getOWLDataProperty(IRI.create(NS, "v"));
+    private final OWLNamedIndividual x = df.getOWLNamedIndividual(IRI.create(NS, "x"));
+    private final OWLNamedIndividual y = df.getOWLNamedIndividual(IRI.create(NS, "y"));
+    private final OWLNamedIndividual z = df.getOWLNamedIndividual(IRI.create(NS, "z"));
+    private final OWLClass owlNothing = df.getOWLNothing();
+    private final OWLClass owlThing = df.getOWLThing();
+    private final OWLDataProperty bottomData = df.getOWLBottomDataProperty();
+    private final OWLDataProperty topData = df.getOWLTopDataProperty();
+    private final OWLObjectProperty bottomObject = df.getOWLBottomObjectProperty();
+    private final OWLObjectProperty topObject = df.getOWLTopObjectProperty();
     private SyntacticLocalityChecker testSubject;
 
     @Test
@@ -477,8 +477,8 @@ public class SyntacticLocalityTestCase {
 
     @Test
     public void shouldBeLocalowlDatatypeDefinitionAxiom() {
-        axiom = df
-            .getOWLDatatypeDefinitionAxiom(i, df.getOWLDatatypeMinMaxExclusiveRestriction(1, 3));
+        axiom =
+            df.getOWLDatatypeDefinitionAxiom(i, df.getOWLDatatypeMinMaxExclusiveRestriction(1, 3));
         // signature intersects
         test(axiom, true, i);
         // signature does not intersect
@@ -487,10 +487,10 @@ public class SyntacticLocalityTestCase {
 
     @Test
     public void shouldBeLocalswrlRule() {
-        Set<SWRLAtom> head = new HashSet<>(
-            Arrays.asList(df.getSWRLClassAtom(a, df.getSWRLIndividualArgument(x))));
-        Set<SWRLAtom> body = new HashSet<>(
-            Arrays.asList(df.getSWRLClassAtom(b, df.getSWRLIndividualArgument(y))));
+        Set<SWRLAtom> head =
+            new HashSet<>(Arrays.asList(df.getSWRLClassAtom(a, df.getSWRLIndividualArgument(x))));
+        Set<SWRLAtom> body =
+            new HashSet<>(Arrays.asList(df.getSWRLClassAtom(b, df.getSWRLIndividualArgument(y))));
         axiom = df.getSWRLRule(head, body);
         // signature intersects
         test(axiom, true, a);

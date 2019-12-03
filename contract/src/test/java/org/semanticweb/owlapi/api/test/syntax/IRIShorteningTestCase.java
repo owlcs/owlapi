@@ -67,7 +67,7 @@ public class IRIShorteningTestCase extends TestBase {
 
     public void matchExact(String output, String text, boolean expected) {
         String message = "should " + (expected ? "" : "not ") + "contain" + text + " - " + output;
-        assertTrue(message, expected == output.contains(text));
+        assertEquals(message, Boolean.valueOf(expected), Boolean.valueOf(output.contains(text)));
     }
 
     @Test

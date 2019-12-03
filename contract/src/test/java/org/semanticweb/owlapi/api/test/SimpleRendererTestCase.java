@@ -12,12 +12,13 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
 @SuppressWarnings("javadoc")
 public class SimpleRendererTestCase extends TestBase {
 
+    private static final String URN_TEST = "urn:test#";
     private final SimpleRenderer testSubject = new SimpleRenderer();
 
     @Test
     public void shouldSetPrefixes() {
-        testSubject.setPrefix("test", "urn:test#");
-        assertEquals("test:t", testSubject.getShortForm(IRI.create("urn:test#", "t")));
+        testSubject.setPrefix("test", URN_TEST);
+        assertEquals("test:t", testSubject.getShortForm(IRI.create(URN_TEST, "t")));
     }
 
     @Test
@@ -25,8 +26,8 @@ public class SimpleRendererTestCase extends TestBase {
         RDFXMLDocumentFormat f = new RDFXMLDocumentFormat();
         OWLOntology o = getOWLOntology();
         o.getOWLOntologyManager().setOntologyFormat(o, f);
-        f.setPrefix("test", "urn:test#");
+        f.setPrefix("test", URN_TEST);
         testSubject.setPrefixesFromOntologyFormat(o, true);
-        assertEquals("test:t", testSubject.getShortForm(IRI.create("urn:test#", "t")));
+        assertEquals("test:t", testSubject.getShortForm(IRI.create(URN_TEST, "t")));
     }
 }

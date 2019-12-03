@@ -64,6 +64,8 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
 @SuppressWarnings("javadoc")
 public class ImportsTestCase extends TestBase {
 
+    private static final String IMPORTS = "imports";
+
     @Test
     public void testImportsClosureUpdate() {
         IRI aIRI = IRI("http://a.com", "");
@@ -160,7 +162,7 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void testImports() throws OWLOntologyCreationException {
-        m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, "imports"), true));
+        m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, IMPORTS), true));
         m.loadOntologyFromOntologyDocument(new File(RESOURCES, "/imports/D.owl"));
     }
 
@@ -296,7 +298,7 @@ public class ImportsTestCase extends TestBase {
     @Test
     public void testImportsWhenRemovingAndReloading() throws Exception {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, IMPORTS), true);
         man.getIRIMappers().add(mapper);
         String name = "/imports/thesubont.omn";
         OWLOntology root =
@@ -312,14 +314,14 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void testAutoIRIMapperShouldNotBeConfusedByPrefixes() {
-        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, IMPORTS), true);
         assertTrue(mapper.getOntologyIRIs()
             .contains(IRI.create("http://owlapitestontologies.com/thesubont")));
     }
 
     @Test
     public void testAutoIRIMapperShouldRecogniseRdfAboutInOwlOntology() {
-        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, IMPORTS), true);
         assertTrue(
             mapper.getOntologyIRIs().contains(IRI.create("http://test.org/compleximports/A.owl")));
     }

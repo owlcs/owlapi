@@ -76,8 +76,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * Provides ordering and indenting of explanations based on various ordering
- * heuristics.
+ * Provides ordering and indenting of explanations based on various ordering heuristics.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
@@ -90,11 +89,11 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
      */
     private static final Comparator<Tree<OWLAxiom>> COMPARATOR = (o1, o2) -> {
         OWLAxiom ax1 = o1.getUserObject();
-        OWLAxiom ax2 = o2.getUserObject();
         // Equivalent classes axioms always come last
         if (ax1 instanceof OWLEquivalentClassesAxiom) {
             return 1;
         }
+        OWLAxiom ax2 = o2.getUserObject();
         if (ax2 instanceof OWLEquivalentClassesAxiom || ax1 instanceof OWLPropertyAxiom) {
             return -1;
         }
@@ -152,15 +151,14 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /**
-     * A utility method that obtains a set of axioms that are indexed by some
-     * object.
+     * A utility method that obtains a set of axioms that are indexed by some object.
      *
      * @param <K> the key type
      * @param <E> the element type
      * @param obj The object that indexed the axioms
      * @param map The map that provides the index structure
      * @param addIfEmpty A flag that indicates whether an empty set of axiom should be added to the
-     * index if there is not value present for the indexing object.
+     *        index if there is not value present for the indexing object.
      * @return A set of axioms (may be empty)
      */
     private static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
@@ -289,9 +287,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             if (ont != null) {
                 man.removeOntology(verifyNotNull(getOntology()));
             }
-            ont = man
-                .createOntology(IRI.create("http://www.semanticweb.org/", "ontology" + RANDOMSTART
-                    .incrementAndGet()));
+            ont = man.createOntology(IRI.create("http://www.semanticweb.org/",
+                "ontology" + RANDOMSTART.incrementAndGet()));
             List<AddAxiom> changes = new ArrayList<>();
             for (OWLAxiom ax : currentExplanation) {
                 changes.add(new AddAxiom(getOntology(), ax));
@@ -343,8 +340,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         @Nullable
         private OWLEntity target;
 
-        SeedExtractor() {
-        }
+        SeedExtractor() {}
 
         /**
          * @param axiom the axiom
@@ -431,8 +427,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
      */
     private class AxiomMapBuilder implements OWLAxiomVisitor {
 
-        AxiomMapBuilder() {
-        }
+        AxiomMapBuilder() {}
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {

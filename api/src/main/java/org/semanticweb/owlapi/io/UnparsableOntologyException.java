@@ -20,8 +20,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * A class that describes how ontology parsing failed. This class collects parse
- * errors and the parsers that generated the errors.
+ * A class that describes how ontology parsing failed. This class collects parse errors and the
+ * parsers that generated the errors.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
@@ -38,8 +38,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * @param config the configuration object
      */
     public UnparsableOntologyException(IRI documentIRI,
-        Map<OWLParser, OWLParserException> exceptions,
-        OWLOntologyLoaderConfiguration config) {
+        Map<OWLParser, OWLParserException> exceptions, OWLOntologyLoaderConfiguration config) {
         super("Could not parse ontology from document IRI: " + documentIRI.toQuotedString());
         includeStackTraceInMessage = config.isReportStackTrace();
         this.documentIRI = documentIRI;
@@ -48,9 +47,9 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
 
     @Override
     public String getMessage() {
-        StringBuilder msg = new StringBuilder();
-        msg.append("Problem parsing ").append(documentIRI).append(
-            "\nCould not parse ontology.  Either a suitable parser could not be found, or parsing failed.  See parser logs below for explanation.\nThe following parsers were tried:\n");
+        StringBuilder msg =
+            new StringBuilder(1000).append("Problem parsing ").append(documentIRI).append(
+                "\nCould not parse ontology.  Either a suitable parser could not be found, or parsing failed.  See parser logs below for explanation.\nThe following parsers were tried:\n");
         int counter = 1;
         for (OWLParser parser : exceptions.keySet()) {
             msg.append(counter).append(") ").append(parser).append('\n');
@@ -92,8 +91,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
     }
 
     /**
-     * Gets the ontology document IRI from which there was an attempt to parse
-     * an ontology.
+     * Gets the ontology document IRI from which there was an attempt to parse an ontology.
      *
      * @return The ontology document IRI
      */
@@ -102,8 +100,8 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
     }
 
     /**
-     * Gets a map that lists the parsers (that were used to parse an ontology)
-     * and the errors that they generated.
+     * Gets a map that lists the parsers (that were used to parse an ontology) and the errors that
+     * they generated.
      *
      * @return The map of parsers and their errors.
      */

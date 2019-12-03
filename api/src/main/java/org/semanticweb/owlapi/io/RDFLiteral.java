@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Literal {
+public class RDFLiteral extends RDFNode implements Literal {
 
     private final String lexicalValue;
     private final String lang;
@@ -107,7 +107,7 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
             // To ensure future compatibility, the Commons RDF getter
             // methods are also called on this rather than using the fields.
             Literal literal = (Literal) obj;
-            if (!getLexicalForm().equals(((Literal) obj).getLexicalForm())) {
+            if (!getLexicalForm().equals(literal.getLexicalForm())) {
                 return false;
             }
             if (!getLanguageTag()

@@ -98,7 +98,7 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
 
     private final class OWLAPIRDFTermFactory implements RDF {
 
-        private AtomicInteger bnodeCounter = new AtomicInteger();
+        private final AtomicInteger bnodeCounter = new AtomicInteger();
 
         public OWLAPIRDFTermFactory() {}
 
@@ -122,8 +122,7 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
         }
 
         @Override
-        public RDFLiteral createLiteral(@Nullable String lexicalForm,
-            @Nullable org.apache.commons.rdf.api.IRI dataType) {
+        public RDFLiteral createLiteral(@Nullable String lexicalForm, @Nullable IRI dataType) {
             return new RDFLiteral(verifyNotNull(lexicalForm), null,
                 createIRI(verifyNotNull(dataType).getIRIString()));
         }
@@ -136,16 +135,14 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
 
         @Override
         public org.semanticweb.owlapi.model.IRI createIRI(@Nullable String iriStr) {
-            org.semanticweb.owlapi.model.IRI innerIri =
-                org.semanticweb.owlapi.model.IRI.create(verifyNotNull(iriStr));
-            return innerIri;
+            return org.semanticweb.owlapi.model.IRI.create(verifyNotNull(iriStr));
             // TODO: What about RDFResourceIRI?
             // return new RDFResourceIRI(innerIri);
         }
 
         @Override
-        public Triple createTriple(@Nullable BlankNodeOrIRI subject,
-            @Nullable org.apache.commons.rdf.api.IRI predicate, @Nullable RDFTerm object) {
+        public Triple createTriple(@Nullable BlankNodeOrIRI subject, @Nullable IRI predicate,
+            @Nullable RDFTerm object) {
             RDFResource subject2 = (RDFResource) convert(subject);
             RDFResourceIRI predicate2 = (RDFResourceIRI) convert(predicate);
             RDFNode object2 = convert(object);
@@ -159,8 +156,8 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
                 // RDFResourceIRI etc
                 return (RDFNode) term;
             }
-            if (term instanceof org.apache.commons.rdf.api.IRI) {
-                org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) term;
+            if (term instanceof IRI) {
+                IRI iri = (IRI) term;
                 return new RDFResourceIRI(createIRI(iri.getIRIString()));
             }
             if (term instanceof BlankNode) {

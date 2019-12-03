@@ -76,7 +76,7 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends BaseBuil
      * @param arg items to add
      * @return builder
      */
-    @java.lang.SafeVarargs
+    @SafeVarargs
     @SuppressWarnings("unchecked")
     public final B withItems(I... arg) {
         for (I i : arg) {

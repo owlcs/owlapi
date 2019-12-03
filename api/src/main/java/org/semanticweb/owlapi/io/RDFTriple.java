@@ -53,8 +53,7 @@ import com.carrotsearch.hppcrt.maps.ObjectIntHashMap;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public class RDFTriple
-    implements Serializable, Comparable<RDFTriple>, org.apache.commons.rdf.api.Triple {
+public class RDFTriple implements Serializable, Comparable<RDFTriple>, Triple {
 
     static final ObjectIntHashMap<IRI> specialPredicateRanks = initMap();
     private final RDFResource subject;

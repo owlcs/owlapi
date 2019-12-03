@@ -8,14 +8,14 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
- * Wrapper around an OWLAxiom to hold attributes such as used, included in a
- * module, included in search space and atom which contains it.
+ * Wrapper around an OWLAxiom to hold attributes such as used, included in a module, included in
+ * search space and atom which contains it.
  *
  * @author ignazio
  */
 public class AxiomWrapper implements Serializable {
 
-    private OWLAxiom axiom;
+    private final OWLAxiom axiom;
     private boolean used = true;
     private boolean searchspace;
     private boolean module;

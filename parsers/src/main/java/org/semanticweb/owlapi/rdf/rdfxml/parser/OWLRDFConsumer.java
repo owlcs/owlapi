@@ -369,7 +369,7 @@ public class OWLRDFConsumer
      */
     @Nullable
     private IRI firstOntologyIRI;
-    private Map<IRI, IRI> ontologyVersions = new HashMap<>();
+    private final Map<IRI, IRI> ontologyVersions = new HashMap<>();
     /**
      * The ontology format.
      */
@@ -1596,13 +1596,22 @@ public class OWLRDFConsumer
      * @return The {@code OWLLiteral} (either typed or untyped depending on the params)
      */
     OWLLiteral getOWLLiteral(String literal, @Nullable IRI datatype, @Nullable String lang) {
-        if (lang != null && !lang.trim().isEmpty()) {
+        if (lang != null && !isBlank(lang)) {
             return df.getOWLLiteral(literal, lang);
         } else if (datatype != null) {
             return df.getOWLLiteral(literal, df.getOWLDatatype(datatype));
         } else {
             return df.getOWLLiteral(literal);
         }
+    }
+
+    protected static final boolean isBlank(CharSequence c) {
+        for (int i = 0; i < c.length(); i++) {
+            if (!Character.isWhitespace(c.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

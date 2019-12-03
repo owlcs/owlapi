@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.util.StringLengthComparator;
  */
 public class XMLWriterNamespaceManager {
 
+    private static final String NAMESPACE_CANNOT_BE_NULL = "namespace cannot be null";
     private final Map<String, String> prefixNamespaceMap =
         new TreeMap<>(new StringLengthComparator());
     private final Map<String, String> namespacePrefixMap =
@@ -51,7 +52,7 @@ public class XMLWriterNamespaceManager {
      */
     public void addWellKnownNamespace(String prefix, String namespace) {
         wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"),
-            checkNotNull(namespace, "namespace cannot be null"));
+            checkNotNull(namespace, NAMESPACE_CANNOT_BE_NULL));
     }
 
     /**
@@ -60,7 +61,7 @@ public class XMLWriterNamespaceManager {
      */
     public void setPrefix(String prefix, String namespace) {
         checkNotNull(prefix, "prefix cannot be null");
-        checkNotNull(namespace, "namespace cannot be null");
+        checkNotNull(namespace, NAMESPACE_CANNOT_BE_NULL);
         prefixNamespaceMap.put(prefix, namespace);
         namespacePrefixMap.put(namespace, prefix);
     }
@@ -71,7 +72,7 @@ public class XMLWriterNamespaceManager {
      */
     @Nullable
     public String getPrefixForNamespace(String namespace) {
-        return namespacePrefixMap.get(checkNotNull(namespace, "namespace cannot be null"));
+        return namespacePrefixMap.get(checkNotNull(namespace, NAMESPACE_CANNOT_BE_NULL));
     }
 
     /**
@@ -125,7 +126,7 @@ public class XMLWriterNamespaceManager {
      * @param namespace namespace
      */
     public void createPrefixForNamespace(String namespace) {
-        checkNotNull(namespace, "namespace cannot be null");
+        checkNotNull(namespace, NAMESPACE_CANNOT_BE_NULL);
         if (namespace.equals(defaultNamespace)) {
             return;
         }
@@ -153,7 +154,7 @@ public class XMLWriterNamespaceManager {
      * @param namespace namespace
      */
     public void setDefaultNamespace(String namespace) {
-        defaultNamespace = checkNotNull(namespace, "namespace cannot be null");
+        defaultNamespace = checkNotNull(namespace, NAMESPACE_CANNOT_BE_NULL);
     }
 
     /**

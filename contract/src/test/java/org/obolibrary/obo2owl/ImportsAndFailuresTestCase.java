@@ -11,6 +11,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 public class ImportsAndFailuresTestCase extends TestBase {
+    private static final IRI UBERON = IRI.create("urn:test:uberon");
+
     @Test
     public void shouldNotFailOnEmptyImport()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
@@ -20,12 +22,12 @@ public class ImportsAndFailuresTestCase extends TestBase {
             + "[Term]\nid: X:1\nname: x1\nrelationship: part_of X:2\n\n"
             + "[Typedef]\nid: part_of\nxref: BFO:0000050";
         OWLOntology o = m1.loadOntologyFromOntologyDocument(new StringDocumentSource(input,
-            IRI.create("urn:test:uberon"), new OBODocumentFormat(), null));
+            UBERON, new OBODocumentFormat(), null));
         StringDocumentTarget target = new StringDocumentTarget();
         m1.saveOntology(o, new OBODocumentFormat(), target);
         m.createOntology(IRI.create("http://purl.obolibrary.org/obo/uberon/test_import.owl"));
         OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input,
-            IRI.create("urn:test:uberon"), new OBODocumentFormat(), null));
+            UBERON, new OBODocumentFormat(), null));
         equal(o, o1);
     }
 
@@ -36,7 +38,7 @@ public class ImportsAndFailuresTestCase extends TestBase {
             "ontology: uberon\n" + "[Term]\nid: X:1\nname: x1\nrelationship: part_of X:2\n\n"
                 + "[Typedef]\nid: part_of\nxref: BFO:0000050";
         OWLOntology o = m1.loadOntologyFromOntologyDocument(new StringDocumentSource(input,
-            IRI.create("urn:test:uberon"), new OBODocumentFormat(), null));
+            UBERON, new OBODocumentFormat(), null));
         roundTrip(o, new OBODocumentFormat());
     }
 
@@ -51,12 +53,12 @@ public class ImportsAndFailuresTestCase extends TestBase {
             + "[Typedef]\n" + "id: seeAlso\n" + "name: seeAlso\n" + "is_metadata_tag: true\n"
             + "is_class_level: true";
         OWLOntology o = m1.loadOntologyFromOntologyDocument(new StringDocumentSource(input,
-            IRI.create("urn:test:uberon"), new OBODocumentFormat(), null));
+            UBERON, new OBODocumentFormat(), null));
         loadOntology("pato_import.owl", m);
         StringDocumentTarget target = new StringDocumentTarget();
         m1.saveOntology(o, new OBODocumentFormat(), target);
         OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input,
-            IRI.create("urn:test:uberon"), new OBODocumentFormat(), null));
+            UBERON, new OBODocumentFormat(), null));
         equal(o, o1);
     }
 
@@ -68,7 +70,7 @@ public class ImportsAndFailuresTestCase extends TestBase {
             + "property_value: seeAlso \"string\"\n" + "\n" + "[Typedef]\n" + "id: seeAlso\n"
             + "name: seeAlso\n" + "is_metadata_tag: true\n" + "is_class_level: true";
         OWLOntology o = m1.loadOntologyFromOntologyDocument(new StringDocumentSource(input,
-            IRI.create("urn:test:uberon"), new OBODocumentFormat(), null));
+            UBERON, new OBODocumentFormat(), null));
         roundTrip(o, new OBODocumentFormat());
     }
 }

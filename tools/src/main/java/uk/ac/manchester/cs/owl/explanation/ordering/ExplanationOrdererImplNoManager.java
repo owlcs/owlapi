@@ -82,11 +82,11 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
      */
     private static final Comparator<Tree<OWLAxiom>> COMPARATOR = (o1, o2) -> {
         OWLAxiom ax1 = o1.getUserObject();
-        OWLAxiom ax2 = o2.getUserObject();
         // Equivalent classes axioms always come last
         if (ax1 instanceof OWLEquivalentClassesAxiom) {
             return 1;
         }
+        OWLAxiom ax2 = o2.getUserObject();
         if (ax2 instanceof OWLEquivalentClassesAxiom || ax1 instanceof OWLPropertyAxiom) {
             return -1;
         }
@@ -122,7 +122,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     private final Set<OWLAxiom> consumedAxioms = createLinkedSet();
     private final Set<AxiomType<?>> passTypes = createLinkedSet();
     private Set<OWLAxiom> currentExplanation;
-    private Map<OWLEntity, Set<OWLAxiom>> axioms = new HashMap<>();
+    private final Map<OWLEntity, Set<OWLAxiom>> axioms = new HashMap<>();
 
     /**
      * Instantiates a new explanation orderer impl.

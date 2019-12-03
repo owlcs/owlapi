@@ -19,14 +19,16 @@ import uk.ac.manchester.cs.atomicdecomposition.AtomicDecompositionImpl;
 @SuppressWarnings("javadoc")
 public class AtomicDecomposerDepedenciesTest {
 
+    private static final String URN_TEST = "urn:test#";
+
     private static OWLOntology getOntology() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLOntology o = m.createOntology();
         OWLDataFactory f = m.getOWLDataFactory();
-        OWLClass powerYoga = f.getOWLClass(IRI.create("urn:test#", "PowerYoga"));
-        OWLClass yoga = f.getOWLClass(IRI.create("urn:test#", "Yoga"));
-        OWLClass relaxation = f.getOWLClass(IRI.create("urn:test#", "Relaxation"));
-        OWLClass activity = f.getOWLClass(IRI.create("urn:test#", "Activity"));
+        OWLClass powerYoga = f.getOWLClass(IRI.create(URN_TEST, "PowerYoga"));
+        OWLClass yoga = f.getOWLClass(IRI.create(URN_TEST, "Yoga"));
+        OWLClass relaxation = f.getOWLClass(IRI.create(URN_TEST, "Relaxation"));
+        OWLClass activity = f.getOWLClass(IRI.create(URN_TEST, "Activity"));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(powerYoga, yoga));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(yoga, relaxation));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(relaxation, activity));

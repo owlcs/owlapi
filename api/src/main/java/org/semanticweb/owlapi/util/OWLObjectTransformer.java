@@ -136,10 +136,10 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  */
 public class OWLObjectTransformer<T> {
 
-    private Function<T, T> transformer;
-    private Predicate<Object> predicate;
-    private Class<T> witness;
-    private OWLDataFactory df;
+    private final Function<T, T> transformer;
+    private final Predicate<Object> predicate;
+    private final Class<T> witness;
+    private final OWLDataFactory df;
 
     /**
      * @param predicate the predicate to match the axioms to rebuild
@@ -195,12 +195,12 @@ public class OWLObjectTransformer<T> {
 
     private static class Visitor<T> implements OWLObjectVisitorEx<Object> {
 
-        private List<AxiomChangeData> changes;
-        private List<OWLOntologyChange> ontologyChanges;
-        private Predicate<Object> predicate;
-        private Function<T, T> transformer;
-        private Class<T> witness;
-        private OWLDataFactory df;
+        private final List<AxiomChangeData> changes;
+        private final List<OWLOntologyChange> ontologyChanges;
+        private final Predicate<Object> predicate;
+        private final Function<T, T> transformer;
+        private final Class<T> witness;
+        private final OWLDataFactory df;
 
         Visitor(List<OWLOntologyChange> ontologyChanges, List<AxiomChangeData> changes,
             Predicate<Object> predicate, Function<T, T> transformer, OWLDataFactory df,

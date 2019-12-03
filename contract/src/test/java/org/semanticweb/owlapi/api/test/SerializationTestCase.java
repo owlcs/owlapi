@@ -55,18 +55,19 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 @SuppressWarnings({"javadoc", "null"})
 public class SerializationTestCase extends TestBase {
 
+    private static final String URN_TEST = "urn:test#";
     private final OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
-    private final OWLDataProperty dp = df.getOWLDataProperty("urn:test#", "dp");
-    private final OWLObjectProperty op = df.getOWLObjectProperty("urn:test#", "op");
-    private final IRI iri = IRI.create("urn:test#", "iri");
+    private final OWLDataProperty dp = df.getOWLDataProperty(URN_TEST, "dp");
+    private final OWLObjectProperty op = df.getOWLObjectProperty(URN_TEST, "op");
+    private final IRI iri = IRI.create(URN_TEST, "iri");
     private final OWLLiteral owlliteral = df.getOWLLiteral(true);
-    private final OWLAnnotationSubject as = IRI.create("urn:test#", "i");
+    private final OWLAnnotationSubject as = IRI.create(URN_TEST, "i");
     private final OWLDatatype owldatatype = df.getOWLDatatype(owl2datatype);
     private final OWLDataRange dr = df.getOWLDatatypeRestriction(owldatatype);
-    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:test#", "ap");
+    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(URN_TEST, "ap");
     private final OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
     private final String string = "testString";
-    private final OWLClassExpression c = df.getOWLClass("urn:test#", "classexpression");
+    private final OWLClassExpression c = df.getOWLClass(URN_TEST, "classexpression");
     private final PrefixManager prefixmanager = new DefaultPrefixManager();
     private final OWLIndividual ai = df.getOWLAnonymousIndividual();
     private final OWLAnnotationValue owlannotationvalue = owlliteral;

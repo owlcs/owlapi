@@ -50,6 +50,10 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  */
 @SuppressWarnings({"javadoc"})
 public class OWLDataFactoryImplTestCase {
+    private static final String LANG = "LANG";
+    private static final String TEST = "TEST";
+    private static final String URN_TEST = "urn:test#";
+
     private static void assertEqualsFromSupplier(Supplier<?> s) {
         Object s1 = s.get();
         Object s2 = s.get();
@@ -116,10 +120,10 @@ public class OWLDataFactoryImplTestCase {
     OWLLiteral filler1 = Literal();
     OWLIndividual filler = I();
     OWLLiteral facetValue = testSubject.getOWLLiteral("3", D(IRI()));
-    OWLClass clsA = testSubject.getOWLClass("urn:test#", "A");
-    OWLClass clsB = testSubject.getOWLClass("urn:test#", "B");
-    OWLClass clsC = testSubject.getOWLClass("urn:test#", "C");
-    OWLClass clsD = testSubject.getOWLClass("urn:test#", "D");
+    OWLClass clsA = testSubject.getOWLClass(URN_TEST, "A");
+    OWLClass clsB = testSubject.getOWLClass(URN_TEST, "B");
+    OWLClass clsC = testSubject.getOWLClass(URN_TEST, "C");
+    OWLClass clsD = testSubject.getOWLClass(URN_TEST, "D");
     OWLClassExpression operandA = C(IRI());
     OWLClassExpression operandB = C(IRI());
     
@@ -175,7 +179,7 @@ public class OWLDataFactoryImplTestCase {
 
     @Test
     public void shouldHaveSWRLRulesEqual() {
-        SWRLVariable var = testSubject.getSWRLVariable("urn:test#", "x");
+        SWRLVariable var = testSubject.getSWRLVariable(URN_TEST, "x");
         List<SWRLClassAtom> body1 = Arrays.asList(testSubject.getSWRLClassAtom(clsA, var), testSubject.getSWRLClassAtom(clsC, var));
         List<SWRLClassAtom> head1 = Arrays.asList(testSubject.getSWRLClassAtom(clsB, var), testSubject.getSWRLClassAtom(clsD, var));
         List<SWRLClassAtom> body2 = Arrays.asList(testSubject.getSWRLClassAtom(clsC, var), testSubject.getSWRLClassAtom(clsA, var));
@@ -187,7 +191,7 @@ public class OWLDataFactoryImplTestCase {
     public void shouldHaveSWRLRulesWithAnnotationsEqual() {
         Collection<OWLAnnotation> ann1 = Arrays.asList(testSubject.getRDFSComment("test1"), testSubject.getRDFSLabel("test2"));
         Collection<OWLAnnotation> ann2 = Arrays.asList(testSubject.getRDFSLabel("test2"), testSubject.getRDFSComment("test1"));
-        SWRLVariable var = testSubject.getSWRLVariable("urn:test#", "x");
+        SWRLVariable var = testSubject.getSWRLVariable(URN_TEST, "x");
         List<SWRLClassAtom> body1 = Arrays.asList(testSubject.getSWRLClassAtom(clsA, var), testSubject.getSWRLClassAtom(clsC, var));
         List<SWRLClassAtom> head1 = Arrays.asList(testSubject.getSWRLClassAtom(clsB, var), testSubject.getSWRLClassAtom(clsD, var));
         List<SWRLClassAtom> body2 = Arrays.asList(testSubject.getSWRLClassAtom(clsC, var), testSubject.getSWRLClassAtom(clsA, var));
@@ -233,7 +237,7 @@ public class OWLDataFactoryImplTestCase {
         assertEqualsFromSupplier(() -> testSubject.getOWLInverseFunctionalObjectPropertyAxiom(prop2));
         assertEqualsFromSupplier(() -> testSubject.getOWLIrreflexiveObjectPropertyAxiom(prop2));
         assertEqualsFromSupplier(() -> testSubject.getOWLLiteral("3", dt));
-        assertEqualsFromSupplier(() -> testSubject.getOWLLiteral("TEST", "LANG"));
+        assertEqualsFromSupplier(() -> testSubject.getOWLLiteral(TEST, LANG));
         assertEqualsFromSupplier(() -> testSubject.getOWLNamedIndividual(iri));
         assertEqualsFromSupplier(() -> testSubject.getOWLNegativeDataPropertyAssertionAxiom(prop, s1, o2));
         assertEqualsFromSupplier(() -> testSubject.getOWLNegativeObjectPropertyAssertionAxiom(p3, s1, o1));
@@ -340,8 +344,8 @@ public class OWLDataFactoryImplTestCase {
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLEquivalentDataPropertiesAxiom(a4, b4), () -> testSubject.getOWLEquivalentDataPropertiesAxiom(a4, b4, c4));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLEquivalentObjectPropertiesAxiom(a3, b3, c3), () -> testSubject.getOWLEquivalentObjectPropertiesAxiom(a3, b3));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLLiteral("3", dt), () -> testSubject.getOWLLiteral("4", dt));
-        assertNotEqualsFromSuppliers(() -> testSubject.getOWLLiteral("TEST", "LANG"), () -> testSubject.getOWLLiteral("OTHER", "LANG"));
-        assertNotEqualsFromSuppliers(() -> testSubject.getOWLLiteral("TEST", "LANG"), () -> testSubject.getOWLLiteral("TEST", "OTHER_LANG"));
+        assertNotEqualsFromSuppliers(() -> testSubject.getOWLLiteral(TEST, LANG), () -> testSubject.getOWLLiteral("OTHER", LANG));
+        assertNotEqualsFromSuppliers(() -> testSubject.getOWLLiteral(TEST, LANG), () -> testSubject.getOWLLiteral(TEST, "OTHER_LANG"));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLObjectComplementOf(operandA), () -> testSubject.getOWLObjectComplementOf(operandB));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLObjectExactCardinality(3, prop2, testSubject.getOWLThing()), () -> testSubject.getOWLObjectExactCardinality(4, prop2, testSubject.getOWLThing()));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLObjectIntersectionOf(a, b), () -> testSubject.getOWLObjectIntersectionOf(a, b, c));
