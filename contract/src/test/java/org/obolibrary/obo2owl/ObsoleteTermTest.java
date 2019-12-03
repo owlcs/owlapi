@@ -32,10 +32,8 @@ public class ObsoleteTermTest extends OboFormatTestBasics {
         for (OWLAnnotationAssertionAxiom aa : aas) {
             if (aa.getProperty().getIRI().equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI())) {
                 OWLLiteral v = (OWLLiteral) aa.getValue();
-                if (v.isBoolean()) {
-                    if (v.parseBoolean()) {
-                        okDeprecated = true;
-                    }
+                if (v.isBoolean() && v.parseBoolean()) {
+                    okDeprecated = true;
                 }
             }
         }

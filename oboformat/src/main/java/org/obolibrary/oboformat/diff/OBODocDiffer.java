@@ -15,18 +15,16 @@ import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 /**
- * Diffs two OBO Documents. Performs structural diffing only - does not use
- * reasoning (use OWLDiff or similar tools for this)
+ * Diffs two OBO Documents. Performs structural diffing only - does not use reasoning (use OWLDiff
+ * or similar tools for this)
  * 
  * @author cjm
  */
 public class OBODocDiffer {
 
     /**
-     * @param doc1
-     *        doc1
-     * @param doc2
-     *        doc2
+     * @param doc1 doc1
+     * @param doc2 doc2
      * @return list of diffs
      */
     @Nonnull
@@ -41,8 +39,8 @@ public class OBODocDiffer {
 
     // FRAME LISTS
     @Nonnull
-    private static List<Diff> getDiffsAsym(String ftype, @Nonnull Collection<Frame> fl1, @Nonnull Collection<Frame> fl2,
-        int n, boolean isCheckFrame) {
+    private static List<Diff> getDiffsAsym(String ftype, @Nonnull Collection<Frame> fl1,
+        @Nonnull Collection<Frame> fl2, int n, boolean isCheckFrame) {
         List<Diff> diffs = new ArrayList<>();
         Map<String, Frame> fm2 = new HashMap<>();
         for (Frame f : fl2) {
@@ -63,7 +61,8 @@ public class OBODocDiffer {
     }
 
     @Nonnull
-    private static List<Diff> getDiffs(String ftype, @Nonnull Collection<Frame> fl1, @Nonnull Collection<Frame> fl2) {
+    private static List<Diff> getDiffs(String ftype, @Nonnull Collection<Frame> fl1,
+        @Nonnull Collection<Frame> fl2) {
         List<Diff> diffs = getDiffsAsym(ftype, fl1, fl2, 1, true);
         diffs.addAll(getDiffsAsym(ftype, fl1, fl2, 2, false));
         return diffs;
@@ -72,21 +71,20 @@ public class OBODocDiffer {
     // FRAMES
     @SuppressWarnings("null")
     @Nonnull
-    private static List<Diff> getDiffsAsym(String ftype, @Nonnull Frame f1, @Nonnull Frame f2, int n) {
+    private static List<Diff> getDiffsAsym(String ftype, @Nonnull Frame f1, @Nonnull Frame f2,
+        int n) {
         List<Diff> diffs = new ArrayList<>();
         for (Clause c : f1.getClauses()) {
             boolean isMatched = false;
             for (Clause c2 : f2.getClauses()) {
-                if (c.getTag().equals(c2.getTag())) {
-                    if (c.equals(c2)) {
-                        isMatched = true;
-                        if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
-                            String a1 = c.getValue(Xref.class).getAnnotation();
-                            String a2 = c2.getValue(Xref.class).getAnnotation();
-                            isMatched = a1 == null && a2 == null || a1 != null && a1.equals(a2);
-                        }
-                        break;
+                if (c.getTag().equals(c2.getTag()) && c.equals(c2)) {
+                    isMatched = true;
+                    if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
+                        String a1 = c.getValue(Xref.class).getAnnotation();
+                        String a2 = c2.getValue(Xref.class).getAnnotation();
+                        isMatched = a1 == null && a2 == null || a1 != null && a1.equals(a2);
                     }
+                    break;
                 }
             }
             if (!isMatched) {

@@ -1122,6 +1122,7 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
+            // XXX
             if (isStrict()) {
             } else {
                 if (isAnnotationPropertyLax(predicate)) {

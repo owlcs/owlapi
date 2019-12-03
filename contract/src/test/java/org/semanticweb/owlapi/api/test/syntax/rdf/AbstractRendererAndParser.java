@@ -28,8 +28,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
@@ -37,15 +36,14 @@ public abstract class AbstractRendererAndParser extends TestBase {
 
     @Before
     public void setUpManager() {
-        m.getOntologyFactories().add(
-                new OWLOntologyFactoryImpl(new OWLOntologyBuilder() {
-                    @Nonnull
-                    @Override
-                    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-                                                         @Nonnull OWLOntologyID ontologyID) {
-                        return new OWLOntologyImpl(manager, ontologyID);
-                    }
-                }));
+        m.getOntologyFactories().add(new OWLOntologyFactoryImpl(new OWLOntologyBuilder() {
+            @Nonnull
+            @Override
+            public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
+                @Nonnull OWLOntologyID ontologyID) {
+                return new OWLOntologyImpl(manager, ontologyID);
+            }
+        }));
         m.getOntologyStorers().add(new RDFXMLStorerFactory());
     }
 
@@ -66,15 +64,13 @@ public abstract class AbstractRendererAndParser extends TestBase {
             msg.append("Ontology save/load roundtrip OK.\n");
         } else {
             msg.append("Ontology save/load roundtripping error.\n");
-            msg.append("=> ").append(aMinusB.size())
-                    .append(" axioms lost in roundtripping.\n");
+            msg.append("=> ").append(aMinusB.size()).append(" axioms lost in roundtripping.\n");
             for (OWLAxiom axiom : aMinusB) {
-                msg.append(axiom + "\n");
+                msg.append(axiom).append("\n");
             }
-            msg.append("=> ").append(bMinusA.size())
-                    .append(" axioms added after roundtripping.\n");
+            msg.append("=> ").append(bMinusA.size()).append(" axioms added after roundtripping.\n");
             for (OWLAxiom axiom : bMinusA) {
-                msg.append(axiom + "\n");
+                msg.append(axiom).append("\n");
             }
         }
         assertTrue(msg.toString(), aMinusB.isEmpty() && bMinusA.isEmpty());

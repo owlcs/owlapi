@@ -37,6 +37,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 @SuppressWarnings({ "javadoc", })
 public class OWLOntologyManagerImplTestCase {
 
+    private static final String URN_TESTONTOLOGY = "urn:testontology";
     private OWLOntologyManager manager;
 
     @Before
@@ -56,7 +57,7 @@ public class OWLOntologyManagerImplTestCase {
 
     @Test
     public void testContains() throws OWLOntologyCreationException {
-        OWLOntology ont = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ont = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
         assertTrue(manager.contains(ont.getOntologyID()));
         assertNotNull("ontology should not be null", manager.getOntology(ont.getOntologyID()));
         assertTrue(manager.getOntologies().contains(ont));
@@ -67,8 +68,8 @@ public class OWLOntologyManagerImplTestCase {
 
     @Test
     public void testImports() throws OWLOntologyCreationException {
-        OWLOntology ontA = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontB = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontA = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
+        OWLOntology ontB = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
         OWLImportsDeclaration decl = manager.getOWLDataFactory().getOWLImportsDeclaration(ontB.getOntologyID()
             .getOntologyIRI().get());
         manager.applyChange(new AddImport(ontA, decl));
@@ -80,9 +81,9 @@ public class OWLOntologyManagerImplTestCase {
     @Test
     public void testImportsClosure() throws OWLException {
         // OntA -> OntB -> OntC (-> means imports)
-        OWLOntology ontA = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontB = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontC = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontA = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
+        OWLOntology ontB = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
+        OWLOntology ontC = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
         OWLImportsDeclaration declA = manager.getOWLDataFactory().getOWLImportsDeclaration(ontB.getOntologyID()
             .getOntologyIRI().get());
         OWLImportsDeclaration declB = manager.getOWLDataFactory().getOWLImportsDeclaration(ontC.getOntologyID()

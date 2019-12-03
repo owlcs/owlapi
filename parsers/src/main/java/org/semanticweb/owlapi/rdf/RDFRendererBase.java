@@ -536,7 +536,7 @@ public abstract class RDFRendererBase {
         return format == null || format.isAddMissingTypes();
     }
 
-    private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
+    private final AtomicInteger nextBlankNodeId = new AtomicInteger(1);
 
     protected void createGraph(@Nonnull Set<? extends OWLObject> o) {
         List<? extends OWLObject> objects = new ArrayList<>(o);

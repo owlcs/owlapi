@@ -35,6 +35,8 @@ import com.google.common.collect.Sets;
  */
 public class CollectionFactory {
 
+    private static final String MISBEHAVING_TRIPLE_COMPARATOR = "Misbehaving triple comparator, leaving triples unsorted";
+    private static final String COMPARISON_METHOD = "Comparison method violates its general contract!";
     private static final Logger LOGGER = LoggerFactory.getLogger(CollectionFactory.class.getName());
     private static final AtomicInteger EXPECTEDTHREADS = new AtomicInteger(8);
 
@@ -54,11 +56,11 @@ public class CollectionFactory {
             Collections.sort(toReturn);
         } catch (IllegalArgumentException e) {
             // catch possible sorting misbehaviour
-            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
+            if (!e.getMessage().contains(COMPARISON_METHOD)) {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
+            LOGGER.warn(MISBEHAVING_TRIPLE_COMPARATOR, e);
         }
     }
 
@@ -76,11 +78,11 @@ public class CollectionFactory {
             Collections.sort(toReturn);
         } catch (IllegalArgumentException e) {
             // catch possible sorting misbehaviour
-            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
+            if (!e.getMessage().contains(COMPARISON_METHOD)) {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
+            LOGGER.warn(MISBEHAVING_TRIPLE_COMPARATOR, e);
         }
     }
 
@@ -104,11 +106,11 @@ public class CollectionFactory {
             Collections.sort(list);
         } catch (IllegalArgumentException e) {
             // catch possible sorting misbehaviour
-            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
+            if (!e.getMessage().contains(COMPARISON_METHOD)) {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
+            LOGGER.warn(MISBEHAVING_TRIPLE_COMPARATOR, e);
         }
         return list;
     }
@@ -133,11 +135,11 @@ public class CollectionFactory {
             Collections.sort(list);
         } catch (IllegalArgumentException e) {
             // catch possible sorting misbehaviour
-            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
+            if (!e.getMessage().contains(COMPARISON_METHOD)) {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
+            LOGGER.warn(MISBEHAVING_TRIPLE_COMPARATOR, e);
         }
         return list;
     }

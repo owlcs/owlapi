@@ -179,7 +179,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(1000);
         sb.append("Ontology(");
         sb.append(ontologyID);
         sb.append(") [Axioms: ");
@@ -540,8 +540,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     @Override
     public boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI,
         Imports includeImportsClosure) {
-        OWLAnnotationProperty p = getOWLOntologyManager().getOWLDataFactory()
-            .getOWLAnnotationProperty(owlAnnotationPropertyIRI);
         if (includeImportsClosure == INCLUDED) {
             for (OWLOntology o : getImportsClosure()) {
                 if (o.containsAnnotationPropertyInSignature(owlAnnotationPropertyIRI, EXCLUDED)) {
@@ -553,6 +551,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
                 return true;
             }
         }
+        OWLAnnotationProperty p = getOWLOntologyManager().getOWLDataFactory()
+            .getOWLAnnotationProperty(owlAnnotationPropertyIRI);
         return checkOntologyAnnotations(p);
     }
 
@@ -1206,23 +1206,19 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
                 axioms.addAll(getReferencingAxioms(e, includeImportsClosure));
             }
             for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
-                if (ax.getObject().getDatatype().getIRI()
-                    .equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
-                    if (ax.getObject().getLiteral().equals(owlEntity.toString())) {
-                        axioms.add(ax);
-                    }
+                if (ax.getObject().getDatatype().getIRI().equals(OWL2Datatype.XSD_ANY_URI.getIRI())
+                    && ax.getObject().getLiteral().equals(owlEntity.toString())) {
+                    axioms.add(ax);
                 }
             }
             for (OWLAnnotationAssertionAxiom ax : getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
                 if (ax.getSubject().equals(owlEntity)) {
                     axioms.add(ax);
                 } else if (ax.getValue().asLiteral().isPresent()) {
-                    Optional<OWLLiteral> lit = ax.getValue().asLiteral();
-                    if (lit.get().getDatatype().getIRI()
-                        .equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
-                        if (lit.get().getLiteral().equals(owlEntity.toString())) {
-                            axioms.add(ax);
-                        }
+                    OWLLiteral lit = ax.getValue().asLiteral().get();
+                    if (lit.getDatatype().getIRI().equals(OWL2Datatype.XSD_ANY_URI.getIRI())
+                        && lit.getLiteral().equals(owlEntity.toString())) {
+                        axioms.add(ax);
                     }
                 }
             }

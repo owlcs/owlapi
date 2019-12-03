@@ -239,7 +239,7 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         return languageTagInterner.intern(lang.trim().toLowerCase());
     }
 
-    private AtomicInteger annotationsCount = new AtomicInteger(0);
+    private final AtomicInteger annotationsCount = new AtomicInteger(0);
 
     @Override
     public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,

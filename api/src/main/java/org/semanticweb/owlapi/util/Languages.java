@@ -283,18 +283,18 @@ public enum Languages {
         this.s = s;
         this.components = EnumSet.of(c, components);
         this.components.addAll(ancestor.components());
-        if (this.components.containsAll(Construct.incompatibleRoleFetures)) {
+        if (this.components.containsAll(incompatibleRoleFetures)) {
             throw new IllegalArgumentException("Incompatible constructs: ["
-                + Construct.incompatibleRoleFetures + "] cannot appear together.");
+                + incompatibleRoleFetures + "] cannot appear together.");
         }
     }
 
     Languages(String s, Construct c, Construct... components) {
         this.s = s;
         this.components = EnumSet.of(c, components);
-        if (this.components.containsAll(Construct.incompatibleRoleFetures)) {
+        if (this.components.containsAll(incompatibleRoleFetures)) {
             throw new IllegalArgumentException("Incompatible constructs: ["
-                + Construct.incompatibleRoleFetures + "] cannot appear together.");
+                + incompatibleRoleFetures + "] cannot appear together.");
         }
     }
 

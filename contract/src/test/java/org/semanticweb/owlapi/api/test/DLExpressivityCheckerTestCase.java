@@ -286,10 +286,10 @@ public class DLExpressivityCheckerTestCase extends TestBase {
 
     private final List<OWLAxiom> objects;
     private final String expected;
-    private List<Construct> constructs;
-    private List<Languages> expressible;
-    private List<Languages> within;
-    private List<Languages> minimal;
+    private final List<Construct> constructs;
+    private final List<Languages> expressible;
+    private final List<Languages> within;
+    private final List<Languages> minimal;
 
     public DLExpressivityCheckerTestCase(String expected, String expectedStrict, List<Construct> c,
         List<Languages> exp, List<Languages> within, List<Languages> min, List<OWLAxiom> objects) {
@@ -767,7 +767,6 @@ public class DLExpressivityCheckerTestCase extends TestBase {
     public Set<OWLOntology> ont() {
         OWLOntology o = getOWLOntology("test");
         o.getOWLOntologyManager().addAxioms(o, new HashSet<>(objects));
-        Set<OWLOntology> singleton = Collections.singleton(o);
-        return singleton;
+        return Collections.singleton(o);
     }
 }

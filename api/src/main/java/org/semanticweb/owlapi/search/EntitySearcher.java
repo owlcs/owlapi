@@ -1783,7 +1783,7 @@ public class EntitySearcher {
      */
     public static boolean containsAxiom(@Nonnull OWLAxiom a, @Nonnull OWLOntology o,
         boolean imports) {
-        return o.containsAxiom(a, imports ? Imports.INCLUDED : Imports.EXCLUDED,
+        return o.containsAxiom(a, imports ? INCLUDED : EXCLUDED,
             AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS);
     }
 
@@ -1816,7 +1816,7 @@ public class EntitySearcher {
      */
     public static boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom a,
         @Nonnull OWLOntology o, boolean imports) {
-        return o.containsAxiom(a, imports == true ? Imports.INCLUDED : Imports.EXCLUDED,
+        return o.containsAxiom(a, imports == true ? INCLUDED : EXCLUDED,
             AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
     }
 
@@ -1849,8 +1849,7 @@ public class EntitySearcher {
      */
     public static Collection<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom a,
         @Nonnull OWLOntology o, boolean imports) {
-        return o.getAxiomsIgnoreAnnotations(a,
-            imports == true ? Imports.INCLUDED : Imports.EXCLUDED);
+        return o.getAxiomsIgnoreAnnotations(a, imports == true ? INCLUDED : EXCLUDED);
     }
 
     /**

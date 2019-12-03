@@ -32,9 +32,11 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 @SuppressWarnings("javadoc")
 public class OntologyURITestCase extends TestBase {
 
+    private static final String ANOTHER_COM_ONT = "http://www.another.com/ont";
+
     @Test
     public void testOntologyID() {
-        IRI iriA = IRI("http://www.another.com/ont");
+        IRI iriA = IRI(ANOTHER_COM_ONT);
         IRI iriB = IRI("http://www.another.com/ont/version");
         OWLOntologyID ontIDBoth = new OWLOntologyID(of(iriA), of(iriB));
         OWLOntologyID ontIDBoth2 = new OWLOntologyID(of(iriA), of(iriB));
@@ -48,7 +50,7 @@ public class OntologyURITestCase extends TestBase {
 
     @Test
     public void testOntologyURI() throws OWLOntologyCreationException {
-        IRI iri = IRI("http://www.another.com/ont");
+        IRI iri = IRI(ANOTHER_COM_ONT);
         OWLOntology ont = m.createOntology(iri);
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), iri);
         assertTrue(m.contains(iri));
@@ -59,14 +61,14 @@ public class OntologyURITestCase extends TestBase {
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testDuplicateOntologyURI() throws OWLOntologyCreationException {
-        IRI uri = IRI("http://www.another.com/ont");
+        IRI uri = IRI(ANOTHER_COM_ONT);
         m.createOntology(uri);
         m.createOntology(uri);
     }
 
     @Test
     public void testSetOntologyURI() throws OWLOntologyCreationException {
-        IRI iri = IRI("http://www.another.com/ont");
+        IRI iri = IRI(ANOTHER_COM_ONT);
         OWLOntology ont = m.createOntology(iri);
         IRI newIRI = IRI("http://www.another.com/newont");
         SetOntologyID sou = new SetOntologyID(ont, new OWLOntologyID(
@@ -79,7 +81,7 @@ public class OntologyURITestCase extends TestBase {
 
     @Test
     public void testVersionURI() throws OWLOntologyCreationException {
-        IRI ontIRI = IRI("http://www.another.com/ont");
+        IRI ontIRI = IRI(ANOTHER_COM_ONT);
         IRI verIRI = IRI("http://www.another.com/ont/versions/1.0.0");
         OWLOntology ont = m.createOntology(new OWLOntologyID(of(ontIRI),
                 of(verIRI)));
@@ -89,7 +91,7 @@ public class OntologyURITestCase extends TestBase {
 
     @Test
     public void testNullVersionURI() throws OWLOntologyCreationException {
-        IRI ontIRI = IRI("http://www.another.com/ont");
+        IRI ontIRI = IRI(ANOTHER_COM_ONT);
         IRI verIRI = null;
         OWLOntology ont = m.createOntology(new OWLOntologyID(of(ontIRI),
                 of(verIRI)));

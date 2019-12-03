@@ -52,10 +52,12 @@ import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplString;
 @SuppressWarnings("javadoc")
 public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
+    private static final String ABC = "abc";
+
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLLiteral literalWithLang = Literal("abc", "en");
+        OWLLiteral literalWithLang = Literal(ABC, "en");
         OWLClass cls = Class(iri("A"));
         OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
         OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, cls.getIRI(), literalWithLang);
@@ -79,30 +81,30 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Test
     public void testHasLangMethod() {
-        OWLLiteral literalWithLang = Literal("abc", "en");
+        OWLLiteral literalWithLang = Literal(ABC, "en");
         assertTrue(literalWithLang.hasLang());
-        OWLLiteral literalWithoutLang = Literal("abc", "");
+        OWLLiteral literalWithoutLang = Literal(ABC, "");
         assertFalse(literalWithoutLang.hasLang());
     }
 
     @Test
     public void testGetLangMethod() {
-        OWLLiteral literalWithLang = Literal("abc", "en");
+        OWLLiteral literalWithLang = Literal(ABC, "en");
         assertEquals("en", literalWithLang.getLang());
-        OWLLiteral literalWithoutLang = Literal("abc", "");
+        OWLLiteral literalWithoutLang = Literal(ABC, "");
         assertEquals("", literalWithoutLang.getLang());
     }
 
     @Test
     public void testNormalisation() {
-        OWLLiteral literalWithLang = Literal("abc", "EN");
+        OWLLiteral literalWithLang = Literal(ABC, "EN");
         assertEquals("en", literalWithLang.getLang());
         assertTrue(literalWithLang.hasLang("EN"));
     }
 
     @Test
     public void testPlainLiteralWithLang() {
-        OWLLiteral literalWithLang = Literal("abc", "en");
+        OWLLiteral literalWithLang = Literal(ABC, "en");
         assertTrue(literalWithLang.getDatatype().getIRI().isPlainLiteral());
         assertTrue(literalWithLang.isRDFPlainLiteral());
     }
@@ -112,7 +114,7 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
         OWLLiteral literal = Literal("abc@en", PlainLiteral());
         assertTrue(literal.hasLang());
         assertEquals("en", literal.getLang());
-        assertEquals("abc", literal.getLiteral());
+        assertEquals(ABC, literal.getLiteral());
         assertEquals(literal.getDatatype(), PlainLiteral());
     }
 
@@ -120,7 +122,7 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
         OWLLiteral literal = Literal("abc@", PlainLiteral());
         assertFalse(literal.hasLang());
         assertEquals("", literal.getLang());
-        assertEquals("abc", literal.getLiteral());
+        assertEquals(ABC, literal.getLiteral());
         assertEquals(literal.getDatatype(), PlainLiteral());
     }
 

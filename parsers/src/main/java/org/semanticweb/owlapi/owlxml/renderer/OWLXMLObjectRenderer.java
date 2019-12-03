@@ -271,7 +271,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
                 axioms.addAll(ontology.getAxioms(t));
             }
         }
-        for (OWLAxiom ax : CollectionFactory.sortOptionally(axioms)) {
+        for (OWLAxiom ax : sortOptionally(axioms)) {
             ax.accept(this);
         }
     }

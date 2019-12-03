@@ -188,7 +188,7 @@ public class OWLRDFConsumer
     private final Set<IRI> dataRangeIRIs;
     /** The IRI of the first reource that is typed as an ontology */
     private IRI firstOntologyIRI;
-    private Map<IRI, IRI> ontologyVersions = new HashMap<>();
+    private final Map<IRI, IRI> ontologyVersions = new HashMap<>();
     /** IRIs that had a type triple to owl:Ontology */
     private final Set<IRI> ontologyIRIs;
     /** IRIs that had a type triple to owl:Restriction */

@@ -23,8 +23,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author cjm see 5.9.3 and 8.2.2 of spec See
  *         http://code.google.com/p/oboformat/issues/detail?id=13
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class EquivalentToTest extends OboFormatTestBasics {
+
+    private static final String X_1 = "X:1";
 
     @Test
     public void testConvert() throws Exception {
@@ -46,14 +48,15 @@ public class EquivalentToTest extends OboFormatTestBasics {
         w.write(obodoc, bw);
         bw.close();
         OBOFormatParser p = new OBOFormatParser();
-        obodoc = p.parse(new BufferedReader(new InputStreamReader(new ByteArrayInputStream(os.toByteArray()))));
+        obodoc = p.parse(
+            new BufferedReader(new InputStreamReader(new ByteArrayInputStream(os.toByteArray()))));
         checkOBODoc(obodoc);
     }
 
     public void checkOBODoc(@Nonnull OBODoc obodoc) {
         // OBODoc tests
         // test ECA between named classes is persisted using correct tag
-        Frame tf = obodoc.getTermFrame("X:1");
+        Frame tf = obodoc.getTermFrame(X_1);
         assert tf != null;
         Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
         assertEquals(1, cs.size());
@@ -61,7 +64,7 @@ public class EquivalentToTest extends OboFormatTestBasics {
         assertEquals("X:2", v);
         // test ECA between named class and anon class is persisted as
         // genus-differentia intersection_of tags
-        tf = obodoc.getTermFrame("X:1");
+        tf = obodoc.getTermFrame(X_1);
         assert tf != null;
         cs = tf.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
         assertEquals(2, cs.size());
@@ -87,20 +90,11 @@ public class EquivalentToTest extends OboFormatTestBasics {
         Frame tf2 = obodoc.getTermFrame("X:2");
         assert tf2 != null;
         Collection<Clause> cs2 = tf2.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
-        Frame tf1 = obodoc.getTermFrame("X:1");
+        Frame tf1 = obodoc.getTermFrame(X_1);
         assert tf1 != null;
         Collection<Clause> cs1 = tf1.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
-        boolean ok = false;
-        if (cs2.size() == 1) {
-            if (cs2.iterator().next().getValue(String.class).equals("X:1")) {
-                ok = true;
-            }
-        }
-        if (cs1.size() == 1) {
-            if (cs1.iterator().next().getValue(String.class).equals("X:2")) {
-                ok = true;
-            }
-        }
-        assertTrue(ok);
+        assertTrue(cs1.size() == 1 || cs2.size() == 1);
+        assertTrue("X:2".equals(cs1.iterator().next().getValue(String.class))
+            || X_1.equals(cs2.iterator().next().getValue(String.class)));
     }
 }

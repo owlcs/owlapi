@@ -19,18 +19,17 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.*;
 
 /**
- * A utility class that visits axioms, class expressions etc. and accumulates
- * the anonymous individuals objects that are referred to in those axioms, class
- * expressions etc.
+ * A utility class that visits axioms, class expressions etc. and accumulates the anonymous
+ * individuals objects that are referred to in those axioms, class expressions etc.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Nov-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         13-Nov-2006
  */
-public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObjectVisitor, SWRLObjectVisitor,
-    IndividualAppearance {
+public class OWLAnonymousIndividualsWithMultipleOccurrences
+    implements OWLObjectVisitor, SWRLObjectVisitor, IndividualAppearance {
 
-    private Set<OWLObject> singleAppearance = new HashSet<>();
-    private Set<OWLObject> multipleAppearances = new HashSet<>();
+    private final Set<OWLObject> singleAppearance = new HashSet<>();
+    private final Set<OWLObject> multipleAppearances = new HashSet<>();
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -517,12 +516,10 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
     }
 
     protected void checkAppearance(OWLAnonymousIndividual a) {
-        if (!multipleAppearances.contains(a)) {
-            if (!singleAppearance.add(a)) {
-                // already seen, move it
-                singleAppearance.remove(a);
-                multipleAppearances.add(a);
-            }
+        if (!multipleAppearances.contains(a) && !singleAppearance.add(a)) {
+            // already seen, move it
+            singleAppearance.remove(a);
+            multipleAppearances.add(a);
         }
     }
 

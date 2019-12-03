@@ -53,7 +53,6 @@ public class KRSSOWLParser extends AbstractOWLParser {
     public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
         OWLOntologyLoaderConfiguration configuration) throws IOException {
         try {
-            KRSSDocumentFormat format = new KRSSDocumentFormat();
             KRSSParser parser;
             if (documentSource.isReaderAvailable()) {
                 parser = new KRSSParser(documentSource.getReader());
@@ -91,7 +90,7 @@ public class KRSSOWLParser extends AbstractOWLParser {
             }
             parser.setOntology(ontology, ontology.getOWLOntologyManager().getOWLDataFactory());
             parser.parse();
-            return format;
+            return new KRSSDocumentFormat();
         } catch (ParseException e) {
             throw new KRSSOWLParserException(e);
         }

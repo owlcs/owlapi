@@ -23,27 +23,29 @@ import org.semanticweb.owlapi.model.IRI;
  */
 class ConsoleTripleHandler implements TripleHandler {
 
+    private static final String ARC = " --> ";
+
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
-        System.out.println(subject + " --> " + predicate + " --> " + object);
+        System.out.println(subject + ARC + predicate + ARC + object);
     }
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object) {
-        System.out.println(subject + " --> " + predicate + " --> " + object);
+        System.out.println(subject + ARC + predicate + ARC + object);
     }
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object,
             String lang) {
-        System.out.println(subject + " --> " + predicate + " --> " + object
+        System.out.println(subject + ARC + predicate + ARC + object
                 + '@' + lang);
     }
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object,
             IRI datatype) {
-        System.out.println(subject + " --> " + predicate + " --> " + object
+        System.out.println(subject + ARC + predicate + ARC + object
                 + "^^" + datatype);
     }
 

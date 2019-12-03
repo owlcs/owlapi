@@ -53,7 +53,6 @@ public class OWLXMLParser extends AbstractOWLParser {
         OWLOntologyLoaderConfiguration configuration) throws IOException {
         InputSource isrc = null;
         try {
-            OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             isrc = getInputSource(documentSource, configuration);
             OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology, configuration);
             SAXParsers.initParserWithOWLAPIStandards(null, configuration.getEntityExpansionLimit())
@@ -62,6 +61,7 @@ public class OWLXMLParser extends AbstractOWLParser {
                 throw new OWLXMLParserException(handler,
                     "No known tags in the input: is the file an OWL/XML ontology?");
             }
+            OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             format.setDefaultPrefix(handler.getBase().toString());
             return format;

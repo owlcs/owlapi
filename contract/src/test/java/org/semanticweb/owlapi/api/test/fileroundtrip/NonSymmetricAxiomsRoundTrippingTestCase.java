@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.*;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @RunWith(Parameterized.class)
@@ -43,12 +42,14 @@ public class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
     private static final OWLDatatype dataE = Datatype(IRI.create("urn:test:E"));
     private static final OWLObjectProperty propA = ObjectProperty(IRI.create("urn:test:propA"));
     private static final OWLDataProperty propB = DataProperty(IRI.create("urn:test:propB"));
-    private static final OWLObjectSomeValuesFrom d = ObjectSomeValuesFrom(propA, ObjectIntersectionOf(clsB, clsC));
-    private static final OWLDataSomeValuesFrom e = DataSomeValuesFrom(propB, DataIntersectionOf(dataD, dataE));
+    private static final OWLObjectSomeValuesFrom d =
+        ObjectSomeValuesFrom(propA, ObjectIntersectionOf(clsB, clsC));
+    private static final OWLDataSomeValuesFrom e =
+        DataSomeValuesFrom(propB, DataIntersectionOf(dataD, dataE));
     private static final OWLClassExpression du = ObjectUnionOf(clsB, clsC);
     private static final OWLDataUnionOf eu = DataUnionOf(dataD, dataE);
-    private OWLAxiom in;
-    private OWLAxiom out;
+    private final OWLAxiom in;
+    private final OWLAxiom out;
 
     public NonSymmetricAxiomsRoundTrippingTestCase(OWLAxiom in, OWLAxiom out) {
         this.in = in;
@@ -58,15 +59,19 @@ public class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
     @Parameters
     public static List<OWLAxiom[]> getData() {
         List<OWLAxiom[]> list = new ArrayList<>();
-        list.add(new OWLAxiom[] { SubClassOf(clsA, ObjectIntersectionOf(d, d)), SubClassOf(clsA, d) });
-        list.add(new OWLAxiom[] { SubClassOf(clsA, ObjectUnionOf(e, e)), SubClassOf(clsA, e) });
-        list.add(new OWLAxiom[] { SubClassOf(clsA, ObjectIntersectionOf(du, du)), SubClassOf(clsA, du) });
-        list.add(new OWLAxiom[] { DatatypeDefinition(dataD, DataUnionOf(eu, eu)), DatatypeDefinition(dataD, eu) });
+        list.add(
+            new OWLAxiom[] {SubClassOf(clsA, ObjectIntersectionOf(d, d)), SubClassOf(clsA, d)});
+        list.add(new OWLAxiom[] {SubClassOf(clsA, ObjectUnionOf(e, e)), SubClassOf(clsA, e)});
+        list.add(
+            new OWLAxiom[] {SubClassOf(clsA, ObjectIntersectionOf(du, du)), SubClassOf(clsA, du)});
+        list.add(new OWLAxiom[] {DatatypeDefinition(dataD, DataUnionOf(eu, eu)),
+            DatatypeDefinition(dataD, eu)});
         return list;
     }
 
     @Test
-    public void shouldRoundTripAReadableVersion() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripAReadableVersion()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology output = m.createOntology();
         m.addAxiom(output, in);
         OWLOntology o = roundTrip(output, new FunctionalSyntaxDocumentFormat());

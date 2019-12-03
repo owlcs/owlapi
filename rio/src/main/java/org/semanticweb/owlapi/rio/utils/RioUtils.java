@@ -61,16 +61,14 @@ import org.slf4j.LoggerFactory;
  */
 public final class RioUtils {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(RioUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RioUtils.class);
 
     private RioUtils() {}
 
     /**
      * Create a Statement based on the given RDFTriple, with an empty context.
      * 
-     * @param triple
-     *        The OWLAPI {@link RDFTriple} to convert.
+     * @param triple The OWLAPI {@link RDFTriple} to convert.
      * @return An OpenRDF {@link Statement} representing the given RDFTriple.
      */
     @Nullable
@@ -86,20 +84,16 @@ public final class RioUtils {
     /**
      * Create a collection of Statements with the given contexts.
      * 
-     * @param triple
-     *        The OWLAPI {@link RDFTriple} to convert.
-     * @param contexts
-     *        If context is not null, it is used to create a context statement
-     * @return A collection of OpenRDF {@link Statement}s representing the given
-     *         RDFTriple in each of the given contexts.
+     * @param triple The OWLAPI {@link RDFTriple} to convert.
+     * @param contexts If context is not null, it is used to create a context statement
+     * @return A collection of OpenRDF {@link Statement}s representing the given RDFTriple in each
+     *         of the given contexts.
      */
-    public static Collection<Statement> tripleAsStatements(
-            final RDFTriple triple, final Resource... contexts) {
+    public static Collection<Statement> tripleAsStatements(final RDFTriple triple,
+        final Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
         final ValueFactoryImpl vf = ValueFactoryImpl.getInstance();
         Resource subject;
-        URI predicate;
-        Value object;
         if (triple.getSubject() instanceof RDFResourceIRI) {
             try {
                 subject = vf.createURI(triple.getSubject().getIRI().toString());
@@ -112,14 +106,13 @@ public final class RioUtils {
             // internally, need to fix
             // this
             if (triple.getSubject().getIRI().toString().startsWith("_:")) {
-                subject = vf.createBNode(triple.getSubject().getIRI()
-                        .toString().substring(2));
+                subject = vf.createBNode(triple.getSubject().getIRI().toString().substring(2));
             } else {
-                subject = vf.createBNode(triple.getSubject().getIRI()
-                        .toString());
+                subject = vf.createBNode(triple.getSubject().getIRI().toString());
             }
         }
-        predicate = vf.createURI(triple.getPredicate().getIRI().toString());
+        URI predicate = vf.createURI(triple.getPredicate().getIRI().toString());
+        Value object;
         if (triple.getObject() instanceof RDFResourceIRI) {
             try {
                 object = vf.createURI(triple.getObject().getIRI().toString());
@@ -133,35 +126,31 @@ public final class RioUtils {
             // rewritten
             if (literalObject.isPlainLiteral()) {
                 if (literalObject.hasLang()) {
-                    object = vf.createLiteral(literalObject.getLexicalValue(),
-                            literalObject.getLang());
+                    object =
+                        vf.createLiteral(literalObject.getLexicalValue(), literalObject.getLang());
                 } else {
                     object = vf.createLiteral(literalObject.getLexicalValue());
                 }
             } else {
                 object = vf.createLiteral(literalObject.getLexicalValue(),
-                        vf.createURI(literalObject.getDatatype().toString()));
+                    vf.createURI(literalObject.getDatatype().toString()));
             }
         } else {
             // FIXME: When blank nodes are no longer represented as IRIs
             // internally, need to fix
             // this
             if (triple.getObject().getIRI().toString().startsWith("_:")) {
-                object = vf.createBNode(triple.getObject().getIRI().toString()
-                        .substring(2));
+                object = vf.createBNode(triple.getObject().getIRI().toString().substring(2));
             } else {
                 object = vf.createBNode(triple.getObject().getIRI().toString());
             }
         }
         if (contexts == null || contexts.length == 0) {
-            return Collections.singletonList(vf.createStatement(subject,
-                    predicate, object));
+            return Collections.singletonList(vf.createStatement(subject, predicate, object));
         } else {
-            final ArrayList<Statement> results = new ArrayList<>(
-                    contexts.length);
+            final ArrayList<Statement> results = new ArrayList<>(contexts.length);
             for (final Resource nextContext : contexts) {
-                results.add(vf.createStatement(subject, predicate, object,
-                        nextContext));
+                results.add(vf.createStatement(subject, predicate, object, nextContext));
             }
             return results;
         }

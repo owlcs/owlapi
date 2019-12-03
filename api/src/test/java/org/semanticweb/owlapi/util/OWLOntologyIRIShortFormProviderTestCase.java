@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.IRI;
 @SuppressWarnings("javadoc")
 public class OWLOntologyIRIShortFormProviderTestCase {
 
+    private static final String ONT = "ont";
     @Nonnull
     public static final String SCHEME_DOMAIN = "http://www.semanticweb.org";
     private OntologyIRIShortFormProvider sfp;
@@ -32,7 +33,7 @@ public class OWLOntologyIRIShortFormProviderTestCase {
     public void shouldFindLastPathElement() {
         String input = SCHEME_DOMAIN + "/ontologies/ont";
         String shortForm = sfp.getShortForm(IRI.create(input));
-        assertThat(shortForm, is(equalTo("ont")));
+        assertThat(shortForm, is(equalTo(ONT)));
     }
 
     /*
@@ -44,14 +45,14 @@ public class OWLOntologyIRIShortFormProviderTestCase {
     public void shouldReturnLastNonNumericPathElement() {
         String input = SCHEME_DOMAIN + "/ontologies/ont/1.1.11";
         String shortForm = sfp.getShortForm(IRI.create(input));
-        assertThat(shortForm, is(equalTo("ont")));
+        assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test
     public void shouldReturnLastNonVersionPathElement() {
         String input = SCHEME_DOMAIN + "/ontologies/ont/v1.1.11";
         String shortForm = sfp.getShortForm(IRI.create(input));
-        assertThat(shortForm, is(equalTo("ont")));
+        assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test
@@ -65,28 +66,28 @@ public class OWLOntologyIRIShortFormProviderTestCase {
     public void shouldStripAwayOWLExtension() {
         String input = SCHEME_DOMAIN + "/ontologies/ont.owl";
         String shortForm = sfp.getShortForm(IRI.create(input));
-        assertThat(shortForm, is(equalTo("ont")));
+        assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test
     public void shouldStripAwayRDFExtension() {
         String input = SCHEME_DOMAIN + "/ontologies/ont.rdf";
         String shortForm = sfp.getShortForm(IRI.create(input));
-        assertThat(shortForm, is(equalTo("ont")));
+        assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test
     public void shouldStripAwayXMLExtension() {
         String input = SCHEME_DOMAIN + "/ontologies/ont.xml";
         String shortForm = sfp.getShortForm(IRI.create(input));
-        assertThat(shortForm, is(equalTo("ont")));
+        assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test
     public void shouldStripAwayOBOExtension() {
         String input = SCHEME_DOMAIN + "/ontologies/ont.obo";
         String shortForm = sfp.getShortForm(IRI.create(input));
-        assertThat(shortForm, is(equalTo("ont")));
+        assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test

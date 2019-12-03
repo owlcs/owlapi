@@ -1123,11 +1123,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             for (OWLOntology ontology : ontologies) {
                 Collection<OWLIndividual> inds = sortedCollection();
                 for (OWLSameIndividualAxiom ax : ontology.getSameIndividualAxioms(individual)) {
-                    if (isDisplayed(ax)) {
-                        if (ax.getIndividuals().size() == 2 && ax.getAnnotations().isEmpty()) {
-                            inds.addAll(ax.getIndividuals());
-                            axioms.add(ax);
-                        }
+                    if (isDisplayed(ax) && ax.getIndividuals().size() == 2
+                        && ax.getAnnotations().isEmpty()) {
+                        inds.addAll(ax.getIndividuals());
+                        axioms.add(ax);
                     }
                 }
                 inds.remove(individual);

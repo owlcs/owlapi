@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  */
 public class LatexRenderer extends AbstractOWLRenderer {
 
+    private static final String EMPTYLINE = "\n\n";
     @Nonnull
     private final ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
 
@@ -71,7 +72,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(cls, EXCLUDED))) {
                     renderer.setSubject(cls);
                     ax.accept(renderer);
-                    w.write("\n\n");
+                    w.write(EMPTYLINE);
                 }
             }
             w.write("\\section*{Object properties}");
@@ -80,7 +81,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 writeEntitySection(prop, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop, EXCLUDED))) {
                     ax.accept(renderer);
-                    w.write("\n\n");
+                    w.write(EMPTYLINE);
                 }
             }
             w.write("\\section*{Data properties}");
@@ -89,7 +90,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 writeEntitySection(prop, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop, EXCLUDED))) {
                     ax.accept(renderer);
-                    w.write("\n\n");
+                    w.write(EMPTYLINE);
                 }
             }
             w.write("\\section*{Individuals}");
@@ -98,7 +99,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 writeEntitySection(ind, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(ind, EXCLUDED))) {
                     ax.accept(renderer);
-                    w.write("\n\n");
+                    w.write(EMPTYLINE);
                 }
             }
             w.write("\\section*{Datatypes}");
@@ -107,7 +108,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 writeEntitySection(type, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(type, EXCLUDED))) {
                     ax.accept(renderer);
-                    w.write("\n\n");
+                    w.write(EMPTYLINE);
                 }
             }
             writer.write("\\end{document}\n");

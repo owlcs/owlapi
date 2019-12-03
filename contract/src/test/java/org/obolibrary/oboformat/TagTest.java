@@ -18,6 +18,8 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 @SuppressWarnings({ "javadoc", "null" })
 public class TagTest extends OboFormatTestBasics {
 
+    private static final String A_B_C = "a b c";
+
     @Test
     public void testParseOBOFile() {
         OBODoc obodoc = parseOBOFile("tag_test.obo");
@@ -55,7 +57,7 @@ public class TagTest extends OboFormatTestBasics {
     public void testParseDefTag() {
         Clause cl = parseLine("def: \"a b c\" [foo:1, bar:2]");
         assertEquals(OboFormatTag.TAG_DEF.getTag(), cl.getTag());
-        assertEquals("a b c", cl.getValue());
+        assertEquals(A_B_C, cl.getValue());
         assertEquals(1, cl.getValues().size());
     }
 
@@ -63,7 +65,7 @@ public class TagTest extends OboFormatTestBasics {
     public void testParseDefTag2() {
         Clause cl = parseLine("def: \"a b c\" [foo:1 \"blah blah\", bar:2]");
         assertEquals(OboFormatTag.TAG_DEF.getTag(), cl.getTag());
-        assertEquals("a b c", cl.getValue());
+        assertEquals(A_B_C, cl.getValue());
     }
 
     @Test
@@ -76,14 +78,14 @@ public class TagTest extends OboFormatTestBasics {
     public void testParseNameTag() {
         Clause cl = parseLine("name: a b c");
         assertEquals(cl.getTag(), OboFormatTag.TAG_NAME.getTag());
-        assertEquals("a b c", cl.getValue());
+        assertEquals(A_B_C, cl.getValue());
     }
 
     @Test
     public void testParseNameTag2() {
         Clause cl = parseLine("name:    a b c");
         assertEquals(OboFormatTag.TAG_NAME.getTag(), cl.getTag());
-        assertEquals("a b c", cl.getValue());
+        assertEquals(A_B_C, cl.getValue());
     }
 
     @Test

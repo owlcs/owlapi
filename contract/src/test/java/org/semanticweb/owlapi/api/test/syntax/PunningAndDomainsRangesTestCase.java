@@ -20,6 +20,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @SuppressWarnings("javadoc")
 public class PunningAndDomainsRangesTestCase extends TestBase {
 
+    private static final String URN_TEST = "urn:test#";
+
     @Test
     public void shouldKeepDomainsInFSS() throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = m.createOntology(IRI.create("urn:testontology"));
@@ -33,14 +35,14 @@ public class PunningAndDomainsRangesTestCase extends TestBase {
 
     @Test
     public void shouldSupportPunningClassesAndPropertiesInManchesterSyntax() throws OWLOntologyCreationException {
-        OWLClass b = df.getOWLClass(IRI.create("urn:test#", "B"));
-        OWLClass a = df.getOWLClass(IRI.create("urn:test#", "A"));
+        OWLClass b = df.getOWLClass(IRI.create(URN_TEST, "B"));
+        OWLClass a = df.getOWLClass(IRI.create(URN_TEST, "A"));
         OWLOntology o = m.createOntology();
-        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLObjectProperty(IRI.create("urn:test#", "B"))));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLObjectProperty(IRI.create(URN_TEST, "B"))));
         m.addAxiom(o, df.getOWLDeclarationAxiom(b));
         m.addAxiom(o, df.getOWLDeclarationAxiom(a));
         ManchesterOWLSyntaxParserImpl parser = (ManchesterOWLSyntaxParserImpl) OWLManager.createManchesterParser();
-        parser.getPrefixManager().setDefaultPrefix("urn:test#");
+        parser.getPrefixManager().setDefaultPrefix(URN_TEST);
         parser.setDefaultOntology(o);
         parser.setStringToParse(":A or :B");
         OWLClassExpression parseClassExpression = parser.parseClassExpression();

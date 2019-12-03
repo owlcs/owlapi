@@ -25,8 +25,8 @@ class CustomTokenizer implements TokenManager {
     }
 
     /**
-     * This gets the next token from the input stream. A token of kind 0 (EOF)
-     * should be returned on EOF.
+     * This gets the next token from the input stream. A token of kind 0 (EOF) should be returned on
+     * EOF.
      */
     @Override
     public Token getNextToken() {
@@ -88,11 +88,10 @@ class CustomTokenizer implements TokenManager {
                     buf.append(c);
                     c = readChar();
                     if (c != '\\' && c != '\"') {
-                        return makeToken(ERROR,
-                                "Bad escape sequence in StringLiteral");
+                        return makeToken(ERROR, "Bad escape sequence in StringLiteral");
                     }
                     // fallthrough
-                    //$FALL-THROUGH$
+                    // $FALL-THROUGH$
                 default:
                     buf.append(c);
             }
@@ -146,7 +145,7 @@ class CustomTokenizer implements TokenManager {
                         unread(c);
                         break loop;
                     case ':':
-                        colonIndex = buf.length();  // and fall through
+                        colonIndex = buf.length(); // and fall through
                         //$FALL-THROUGH$
                     default:
                         buf.append(c);
@@ -163,7 +162,7 @@ class CustomTokenizer implements TokenManager {
                 if (s.startsWith("_:")) {
                     return makeToken(NODEID, s);
                 }
-                return makeToken(OWLFunctionalSyntaxParserConstants.PNAME_LN, s);
+                return makeToken(PNAME_LN, s);
             }
         }
         switch (s) {
@@ -356,7 +355,7 @@ class CustomTokenizer implements TokenManager {
             case "Variable":
                 return makeToken(VARIABLE, s);
             case "DescriptionGraphRule":
-                return makeToken(OWLFunctionalSyntaxParserConstants.DGRULE, s);
+                return makeToken(DGRULE, s);
             case "DescriptionGraph":
                 return makeToken(DESCRIPTIONGRAPH, s);
             case "Nodes":
@@ -382,8 +381,7 @@ class CustomTokenizer implements TokenManager {
             c = readChar();
             if (!Character.isDigit(c)) {
                 unread(c);
-                return makeToken(OWLFunctionalSyntaxParserConstants.INT,
-                        buf.toString());
+                return makeToken(INT, buf.toString());
             } else {
                 buf.append(c);
             }

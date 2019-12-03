@@ -20,8 +20,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class OWL2ProfileReport extends OWLProfileReport {
 
@@ -30,19 +29,14 @@ public class OWL2ProfileReport extends OWLProfileReport {
     private final Set<OWLObjectPropertyExpression> simpleRoles;
 
     /**
-     * @param profile
-     *        the profile
-     * @param disallowedConstructs
-     *        the constructs not allowed
-     * @param nonSimpleRoles
-     *        the collection of non simple roles
-     * @param simpleRoles
-     *        the collection of simple roles
+     * @param profile the profile
+     * @param disallowedConstructs the constructs not allowed
+     * @param nonSimpleRoles the collection of non simple roles
+     * @param simpleRoles the collection of simple roles
      */
-    public OWL2ProfileReport(OWLProfile profile,
-            Set<OWLProfileViolation> disallowedConstructs,
-            Set<OWLObjectPropertyExpression> nonSimpleRoles,
-            Set<OWLObjectPropertyExpression> simpleRoles) {
+    public OWL2ProfileReport(OWLProfile profile, Set<OWLProfileViolation> disallowedConstructs,
+        Set<OWLObjectPropertyExpression> nonSimpleRoles,
+        Set<OWLObjectPropertyExpression> simpleRoles) {
         super(profile, disallowedConstructs);
         this.nonSimpleRoles = new TreeSet<>(nonSimpleRoles);
         this.simpleRoles = new TreeSet<>(simpleRoles);
@@ -60,18 +54,14 @@ public class OWL2ProfileReport extends OWLProfileReport {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(super.toString());
-        sb.append("\n[Simple properties]\n");
+        StringBuilder sb = new StringBuilder(1000);
+        sb.append(super.toString()).append("\n[Simple properties]\n");
         for (OWLObjectPropertyExpression prop : simpleRoles) {
-            sb.append('\t');
-            sb.append(prop);
-            sb.append('\n');
+            sb.append('\t').append(prop).append('\n');
         }
         sb.append("\n[Non-simple properties]\n");
         for (OWLObjectPropertyExpression prop : nonSimpleRoles) {
-            sb.append('\t');
-            sb.append(prop);
-            sb.append('\n');
+            sb.append('\t').append(prop).append('\n');
         }
         return sb.toString();
     }

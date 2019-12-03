@@ -865,9 +865,7 @@ public class Internals implements Serializable {
             if (mapPointerOptional.isPresent()) {
                 MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom> mapPointer =
                     mapPointerOptional.get();
-                Collection<OWLAnnotationAssertionAxiom> values =
-                    mapPointer.getValues((OWLAnnotationSubject) key);
-                return values;
+                return mapPointer.getValues((OWLAnnotationSubject) key);
             }
         }
         return getAxiomsByType().filterAxioms(filter, key);

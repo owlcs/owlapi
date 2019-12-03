@@ -2236,7 +2236,7 @@ class OWLInverseObjectPropertiesAxiomElementHandler
     @Override
     OWLAxiom createAxiom() {
         Set<OWLObjectPropertyExpression> props = getOperands();
-        if (props.size() > 2 || props.size() < 1) {
+        if (props.size() > 2 || props.isEmpty()) {
             ensureNotNull(null, "Expected 2 object property expression elements");
         }
         Iterator<OWLObjectPropertyExpression> it = props.iterator();
@@ -2516,7 +2516,7 @@ class OWLObjectOneOfElementHandler extends AbstractClassExpressionElementHandler
 
     @Override
     void endClassExpressionElement() {
-        if (individuals.size() < 1) {
+        if (individuals.isEmpty()) {
             ensureNotNull(null, "Expected at least one individual in object oneOf");
         }
         setClassExpression(df.getOWLObjectOneOf(individuals));

@@ -21,12 +21,14 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 @SuppressWarnings("javadoc")
 public class TransitiveOverTest extends RoundTripTest {
 
+    private static final String REGULATES = "regulates";
+
     @Test
     public void testConvert() {
         // PARSE TEST FILE, CONVERT TO OWL
         OWLOntology ontology = convert(parseOBOFile("relation_shorthand_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
-        IRI regulatesIRI = getIriByLabel(ontology, "regulates");
+        IRI regulatesIRI = getIriByLabel(ontology, REGULATES);
         assertNotNull(regulatesIRI);
         boolean ok = false;
         // test that transitive over is translated to a property chain
@@ -48,11 +50,11 @@ public class TransitiveOverTest extends RoundTripTest {
         // CONVERT BACK TO OBO
         OBODoc obodoc = convert(ontology);
         // test that transitive over is converted back
-        Frame tf = obodoc.getTypedefFrame("regulates");
+        Frame tf = obodoc.getTypedefFrame(REGULATES);
         assert tf != null;
         assertEquals(3, tf.getClauses().size());
-        assertEquals("regulates", tf.getTagValue(OboFormatTag.TAG_ID));
-        assertEquals("regulates", tf.getTagValue(OboFormatTag.TAG_NAME));
+        assertEquals(REGULATES, tf.getTagValue(OboFormatTag.TAG_ID));
+        assertEquals(REGULATES, tf.getTagValue(OboFormatTag.TAG_NAME));
         Clause clause = tf.getClause(OboFormatTag.TAG_TRANSITIVE_OVER);
         assert clause != null;
         assertEquals(1, clause.getValues().size());

@@ -254,7 +254,6 @@ public class KRSS2OWLParser extends AbstractOWLParser {
         Reader reader = null;
         InputStream is = null;
         try {
-            KRSS2DocumentFormat format = new KRSS2DocumentFormat();
             KRSS2Parser parser;
             if (documentSource.isReaderAvailable()) {
                 reader = documentSource.getReader();
@@ -293,7 +292,7 @@ public class KRSS2OWLParser extends AbstractOWLParser {
             }
             parser.setOntology(ontology, ontology.getOWLOntologyManager().getOWLDataFactory());
             parser.parse();
-            return format;
+            return new KRSS2DocumentFormat();
         } catch (ParseException e) {
             throw new KRSS2OWLParserException(e);
         } finally {

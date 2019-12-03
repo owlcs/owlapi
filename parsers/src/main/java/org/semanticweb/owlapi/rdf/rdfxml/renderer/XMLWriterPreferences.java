@@ -34,7 +34,7 @@ public final class XMLWriterPreferences {
 
     private static final @Nonnull XMLWriterPreferences INSTANCE = new XMLWriterPreferences();
     /** Local override map. */
-    private EnumMap<ConfigurationOptions, Object> overrides =
+    private final EnumMap<ConfigurationOptions, Object> overrides =
         new EnumMap<>(ConfigurationOptions.class);
 
     private XMLWriterPreferences() {}

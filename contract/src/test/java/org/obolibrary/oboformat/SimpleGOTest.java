@@ -13,6 +13,8 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 @SuppressWarnings("javadoc")
 public class SimpleGOTest extends OboFormatTestBasics {
 
+    private static final String GENE_ONTOLOGY = "gene_ontology";
+
     @Test
     public void testParseOBOFile() {
         OBODoc obodoc = parseOBOFile("simplego.obo");
@@ -24,13 +26,13 @@ public class SimpleGOTest extends OboFormatTestBasics {
         checkFrame(obodoc, "GO:0055124", "premature neural plate formation",
                 "biological_process");
         checkFrame(obodoc, "GO:0055125", "Nic96 complex", "cellular_component");
-        checkFrame(obodoc, "has_part", "has_part", "gene_ontology");
+        checkFrame(obodoc, "has_part", "has_part", GENE_ONTOLOGY);
         checkFrame(obodoc, "negatively_regulates", "negatively_regulates",
-                "gene_ontology");
-        checkFrame(obodoc, "part_of", "part_of", "gene_ontology");
+                GENE_ONTOLOGY);
+        checkFrame(obodoc, "part_of", "part_of", GENE_ONTOLOGY);
         checkFrame(obodoc, "positively_regulates", "positively_regulates",
-                "gene_ontology");
-        checkFrame(obodoc, "regulates", "regulates", "gene_ontology");
+                GENE_ONTOLOGY);
+        checkFrame(obodoc, "regulates", "regulates", GENE_ONTOLOGY);
     }
 
     private static void checkFrame(@Nonnull OBODoc doc, String id, String name,

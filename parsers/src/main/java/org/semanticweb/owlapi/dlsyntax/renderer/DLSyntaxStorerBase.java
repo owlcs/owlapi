@@ -36,17 +36,17 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;
-    private DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer();
+    private final DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer();
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer, OWLDocumentFormat format) {
+    protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
+        OWLDocumentFormat format) {
         checkNotNull(ontology, "ontology cannot be null");
         PrintWriter printWriter = new PrintWriter(checkNotNull(writer, "writer cannot be null"));
         beginWritingOntology(ontology, printWriter);
@@ -81,8 +81,9 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         printWriter.flush();
     }
 
-    private void write(@Nonnull OWLOntology ont, @Nonnull OWLEntity entity, @Nonnull Set<? extends OWLAxiom> axioms,
-        @Nonnull PrintWriter writer, Set<OWLAxiom> printed) {
+    private void write(@Nonnull OWLOntology ont, @Nonnull OWLEntity entity,
+        @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer,
+        Set<OWLAxiom> printed) {
         beginWritingAxioms(entity, axioms, writer);
         for (OWLAxiom ax : sortOptionally(axioms)) {
             assert ax != null;
@@ -107,7 +108,8 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         endWritingAxioms(entity, axioms, writer);
     }
 
-    protected void writeAxiom(@Nullable OWLEntity subject, @Nonnull OWLAxiom axiom, @Nonnull PrintWriter writer) {
+    protected void writeAxiom(@Nullable OWLEntity subject, @Nonnull OWLAxiom axiom,
+        @Nonnull PrintWriter writer) {
         writer.write(getRendering(subject, axiom));
     }
 
@@ -118,7 +120,8 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     }
 
     @SuppressWarnings("unused")
-    protected void beginWritingOntology(@Nonnull OWLOntology ontology, @Nonnull PrintWriter writer) {}
+    protected void beginWritingOntology(@Nonnull OWLOntology ontology,
+        @Nonnull PrintWriter writer) {}
 
     @SuppressWarnings("unused")
     protected void endWritingOntology(@Nonnull OWLOntology ontology, @Nonnull PrintWriter writer) {}
@@ -130,23 +133,25 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     protected void endWritingAxiom(@Nonnull OWLAxiom axiom, @Nonnull PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void beginWritingAxioms(@Nonnull OWLEntity subject, @Nonnull Set<? extends OWLAxiom> axioms,
-        @Nonnull PrintWriter writer) {}
+    protected void beginWritingAxioms(@Nonnull OWLEntity subject,
+        @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void endWritingAxioms(@Nonnull OWLEntity subject, @Nonnull Set<? extends OWLAxiom> axioms,
-        @Nonnull PrintWriter writer) {}
+    protected void endWritingAxioms(@Nonnull OWLEntity subject,
+        @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {}
 
     @SuppressWarnings("unused")
     protected void beginWritingUsage(int size, @Nonnull PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void endWritingUsage(@Nonnull OWLEntity subject, @Nonnull Set<? extends OWLAxiom> axioms,
+    protected void endWritingUsage(@Nonnull OWLEntity subject,
+        @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {}
+
+    @SuppressWarnings("unused")
+    protected void beginWritingGeneralAxioms(@Nonnull Set<? extends OWLAxiom> axioms,
         @Nonnull PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void beginWritingGeneralAxioms(@Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {}
-
-    @SuppressWarnings("unused")
-    protected void endWritingGeneralAxioms(@Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {}
+    protected void endWritingGeneralAxioms(@Nonnull Set<? extends OWLAxiom> axioms,
+        @Nonnull PrintWriter writer) {}
 }

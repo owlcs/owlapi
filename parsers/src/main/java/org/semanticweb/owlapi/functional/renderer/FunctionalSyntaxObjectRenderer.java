@@ -426,7 +426,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private void writeSortedEntities(String bannerComment, String entityTypeName,
         Set<? extends OWLEntity> entities, Set<OWLAxiom> writtenAxioms) {
-        if (entities.size() > 0) {
+        if (!entities.isEmpty()) {
             writeEntities(bannerComment, entityTypeName, sortOptionally(entities), writtenAxioms);
             writeln();
         }
@@ -462,7 +462,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
                     iterator.remove();
                 }
             }
-            if (axiomsForEntity.size() == 0 && annotationAssertionAxioms.size() == 0) {
+            if (axiomsForEntity.isEmpty() && annotationAssertionAxioms.isEmpty()) {
                 continue;
             }
             if (!haveWrittenBanner) {
@@ -479,7 +479,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Nonnull
     private static List<OWLAnnotation> getSortedAnnotations(HasAnnotations annotationBearer) {
-        return CollectionFactory.sortOptionally(annotationBearer.getAnnotations());
+        return sortOptionally(annotationBearer.getAnnotations());
     }
 
     /**
@@ -619,7 +619,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             // if declarations should be added, check if the IRI is illegally
             // punned
             if (!entity.isBuiltIn() && !illegals.contains(entity.getIRI())
-                && !ont.isDeclared(entity, Imports.INCLUDED)) {
+                && !ont.isDeclared(entity, INCLUDED)) {
                 OWLDeclarationAxiom declaration =
                     ont.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity);
                 declaration.accept(this);

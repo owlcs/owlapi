@@ -39,13 +39,15 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class DeclarationEntityReferencesTestCase extends TestBase {
 
+    private static final String URN_TESTONTOLOGY = "urn:testontology";
+
     @Test
     public void testOWLClassDeclarationAxiom()
             throws OWLOntologyCreationException {
         OWLClass cls = createClass();
         OWLAxiom ax = Declaration(cls);
         OWLOntology ont = m.createOntology(OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("urn:testontology"));
+                .getNextDocumentIRI(URN_TESTONTOLOGY));
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getClassesInSignature().contains(cls));
     }
@@ -56,7 +58,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
         OWLObjectProperty prop = createObjectProperty();
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont = m.createOntology(OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("urn:testontology"));
+                .getNextDocumentIRI(URN_TESTONTOLOGY));
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getObjectPropertiesInSignature().contains(prop));
     }
@@ -67,7 +69,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
         OWLDataProperty prop = createDataProperty();
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont = m.createOntology(OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("urn:testontology"));
+                .getNextDocumentIRI(URN_TESTONTOLOGY));
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getDataPropertiesInSignature().contains(prop));
     }
@@ -78,7 +80,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
         OWLNamedIndividual ind = createIndividual();
         OWLAxiom ax = Declaration(ind);
         OWLOntology ont = m.createOntology(OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("urn:testontology"));
+                .getNextDocumentIRI(URN_TESTONTOLOGY));
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getIndividualsInSignature().contains(ind));
     }

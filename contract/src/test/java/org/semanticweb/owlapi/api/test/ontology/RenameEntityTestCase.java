@@ -88,17 +88,22 @@ import org.semanticweb.owlapi.util.OWLEntityRenamer;
 @SuppressWarnings("javadoc")
 public class RenameEntityTestCase extends TestBase {
 
+    private static final String PROP_A = "propA";
+    private static final String ANNO_PROP = "annoProp";
+    private static final String IND_A = "indA";
+    private static final String TESTONT = "testont";
+
     @Test
     public void testRenameClass() {
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology(TESTONT);
         OWLClass clsAIRI1 = Class(iri("ClsA1"));
         OWLClass clsAIRI2 = Class(iri("ClsA2"));
         OWLClass clsB = Class(iri("ClsB"));
         OWLClass clsC = Class(iri("ClsC"));
-        OWLObjectPropertyExpression propA = ObjectProperty(iri("propA"));
-        OWLDataPropertyExpression propB = DataProperty(iri("propA"));
-        OWLIndividual indA = NamedIndividual(iri("indA"));
-        OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
+        OWLObjectPropertyExpression propA = ObjectProperty(iri(PROP_A));
+        OWLDataPropertyExpression propB = DataProperty(iri(PROP_A));
+        OWLIndividual indA = NamedIndividual(iri(IND_A));
+        OWLAnnotationProperty annoProp = AnnotationProperty(iri(ANNO_PROP));
         Set<OWLAxiom> axioms1 = new HashSet<>();
         axioms1.add(SubClassOf(clsAIRI1, clsB));
         axioms1.add(EquivalentClasses(clsAIRI1, clsC));
@@ -131,14 +136,14 @@ public class RenameEntityTestCase extends TestBase {
 
     @Test
     public void testRenameObjectProperty() {
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology(TESTONT);
         OWLClass clsA = Class(iri("ClsA"));
-        OWLObjectProperty propA = ObjectProperty(iri("propA"));
+        OWLObjectProperty propA = ObjectProperty(iri(PROP_A));
         OWLObjectProperty propA2 = ObjectProperty(iri("propA2"));
         OWLObjectPropertyExpression propB = ObjectProperty(iri("propB")).getInverseProperty();
-        OWLIndividual indA = NamedIndividual(iri("indA"));
+        OWLIndividual indA = NamedIndividual(iri(IND_A));
         OWLIndividual indB = NamedIndividual(iri("indB"));
-        OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
+        OWLAnnotationProperty annoProp = AnnotationProperty(iri(ANNO_PROP));
         Set<OWLAxiom> axioms1 = new HashSet<>();
         axioms1.add(SubObjectPropertyOf(propA, propB));
         axioms1.add(EquivalentObjectProperties(propA, propB));
@@ -184,13 +189,13 @@ public class RenameEntityTestCase extends TestBase {
 
     @Test
     public void testRenameDataProperty() {
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology(TESTONT);
         OWLClass clsA = Class(iri("ClsA"));
-        OWLDataProperty propA = DataProperty(iri("propA"));
+        OWLDataProperty propA = DataProperty(iri(PROP_A));
         OWLDataProperty propA2 = DataProperty(iri("propA2"));
         OWLDataPropertyExpression propB = DataProperty(iri("propB"));
-        OWLIndividual indA = NamedIndividual(iri("indA"));
-        OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
+        OWLIndividual indA = NamedIndividual(iri(IND_A));
+        OWLAnnotationProperty annoProp = AnnotationProperty(iri(ANNO_PROP));
         Set<OWLAxiom> axioms1 = new HashSet<>();
         axioms1.add(SubDataPropertyOf(propA, propB));
         axioms1.add(EquivalentDataProperties(propA, propB));
@@ -224,13 +229,13 @@ public class RenameEntityTestCase extends TestBase {
 
     @Test
     public void testRenameIndividual() {
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology(TESTONT);
         OWLClass clsA = Class(iri("ClsA"));
-        OWLDataProperty propA = DataProperty(iri("propA"));
+        OWLDataProperty propA = DataProperty(iri(PROP_A));
         OWLObjectProperty propB = ObjectProperty(iri("propB"));
-        OWLNamedIndividual indA = NamedIndividual(iri("indA"));
-        OWLNamedIndividual indB = NamedIndividual(iri("indA"));
-        OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
+        OWLNamedIndividual indA = NamedIndividual(iri(IND_A));
+        OWLNamedIndividual indB = NamedIndividual(iri(IND_A));
+        OWLAnnotationProperty annoProp = AnnotationProperty(iri(ANNO_PROP));
         Set<OWLAxiom> axioms1 = new HashSet<>();
         axioms1.add(ClassAssertion(clsA, indA));
         axioms1.add(DataPropertyAssertion(propA, indA, Literal(33)));
@@ -258,7 +263,7 @@ public class RenameEntityTestCase extends TestBase {
 
     @Test
     public void testRenameDatatype() {
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology(TESTONT);
         OWLDatatype dtA = Datatype(iri("DtA"));
         OWLDatatype dtB = Datatype(iri("DtB"));
         OWLDatatype dtC = Datatype(iri("DtC"));
@@ -268,7 +273,7 @@ public class RenameEntityTestCase extends TestBase {
         OWLDataRange rng2R = DataUnionOf(dtC, dtB);
         OWLDataRange rng3 = DataComplementOf(dtA);
         OWLDataRange rng3R = DataComplementOf(dtC);
-        OWLDataPropertyExpression propB = DataProperty(iri("propA"));
+        OWLDataPropertyExpression propB = DataProperty(iri(PROP_A));
         Set<OWLAxiom> axioms1 = new HashSet<>();
         axioms1.add(DataPropertyRange(propB, rng1));
         axioms1.add(DataPropertyRange(propB, rng2));
@@ -290,10 +295,10 @@ public class RenameEntityTestCase extends TestBase {
 
     @Test
     public void testRenameAnnotationProperty() {
-        OWLOntology ont = getOWLOntology("testont");
-        OWLNamedIndividual indA = NamedIndividual(iri("indA"));
+        OWLOntology ont = getOWLOntology(TESTONT);
+        OWLNamedIndividual indA = NamedIndividual(iri(IND_A));
         OWLNamedIndividual indB = NamedIndividual(iri("indB"));
-        OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
+        OWLAnnotationProperty annoProp = AnnotationProperty(iri(ANNO_PROP));
         OWLAnnotationProperty annoPropR = AnnotationProperty(iri("annoPropR"));
         OWLAnnotationProperty annoProp2 = AnnotationProperty(iri("annoProp2"));
         Set<OWLAxiom> axioms1 = new HashSet<>();

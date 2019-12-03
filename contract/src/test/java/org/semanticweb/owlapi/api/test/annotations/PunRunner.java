@@ -59,7 +59,7 @@ public class PunRunner extends org.junit.runner.Runner {
     }
 
     private Description suiteDescription;
-    private Map<Description, TestSetting> testSettings = new HashMap<>();
+    private final Map<Description, TestSetting> testSettings = new HashMap<>();
 
     @Override
     public Description getDescription() {

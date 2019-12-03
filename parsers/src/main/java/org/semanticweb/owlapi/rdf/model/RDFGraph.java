@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class RDFGraph implements Serializable {
 
+    private static final String LINE = ",\n                     ";
     private static final Set<IRI> skippedPredicates =
         Collections.singleton(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private static final long serialVersionUID = 40000L;
@@ -182,13 +183,13 @@ public class RDFGraph implements Serializable {
     @Override
     public String toString() {
         return triples.stream().map(Object::toString)
-            .collect(Collectors.joining(",\n                     ", "triples            : ", "\n"))
-            + triplesBySubject.entrySet().stream().map(Object::toString).collect(
-                Collectors.joining(",\n                     ", "triplesBySubject   : ", "\n"))
-            + rootAnonymousNodes.stream().map(Object::toString).collect(
-                Collectors.joining(",\n                     ", "rootAnonymousNodes : ", "\n"))
-            + remappedNodes.entrySet().stream().map(Object::toString).collect(
-                Collectors.joining(",\n                     ", "remappedNodes      : ", ""));
+            .collect(Collectors.joining(LINE, "triples            : ", "\n"))
+            + triplesBySubject.entrySet().stream().map(Object::toString)
+                .collect(Collectors.joining(LINE, "triplesBySubject   : ", "\n"))
+            + rootAnonymousNodes.stream().map(Object::toString)
+                .collect(Collectors.joining(LINE, "rootAnonymousNodes : ", "\n"))
+            + remappedNodes.entrySet().stream().map(Object::toString)
+                .collect(Collectors.joining(LINE, "remappedNodes      : ", ""));
     }
 
     /**
@@ -207,7 +208,7 @@ public class RDFGraph implements Serializable {
                 if (visited.add(n)) {
                     List<RDFResource> l = triples.stream().filter(p -> p.getObject().equals(n))
                         .map(RDFTriple::getSubject).collect(Collectors.toList());
-                    if (l.size() > 0) {
+                    if (!l.isEmpty()) {
                         change = true;
                         next.addAll(l);
                     } else {

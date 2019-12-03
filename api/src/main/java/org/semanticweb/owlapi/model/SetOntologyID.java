@@ -24,12 +24,12 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import com.google.common.base.Optional;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class SetOntologyID extends OWLOntologyChange {
 
+    private static final String ONTOLOGY_ID_CANNOT_BE_NULL = "ontology id cannot be null";
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLOntologyID ontologyID;
@@ -37,37 +37,33 @@ public class SetOntologyID extends OWLOntologyChange {
     private final OWLOntologyID newOntologyID;
 
     /**
-     * Creates a set ontology id change, which will set the ontology id to the
-     * new one.
+     * Creates a set ontology id change, which will set the ontology id to the new one.
      * 
-     * @param ont
-     *        The ontology whose id is to be changed
-     * @param ontologyID
-     *        The ontology ID
+     * @param ont The ontology whose id is to be changed
+     * @param ontologyID The ontology ID
      */
     public SetOntologyID(@Nonnull OWLOntology ont, @Nonnull OWLOntologyID ontologyID) {
         super(ont);
-        this.ontologyID = checkNotNull(ont.getOntologyID(), "ontology id cannot be null");
-        newOntologyID = checkNotNull(ontologyID, "ontology id cannot be null");
+        this.ontologyID = checkNotNull(ont.getOntologyID(), ONTOLOGY_ID_CANNOT_BE_NULL);
+        newOntologyID = checkNotNull(ontologyID, ONTOLOGY_ID_CANNOT_BE_NULL);
     }
 
-    SetOntologyID(@Nonnull OWLOntology ont, @Nonnull OWLOntologyID ontologyID, @Nonnull OWLOntologyID newOntologyID) {
+    SetOntologyID(@Nonnull OWLOntology ont, @Nonnull OWLOntologyID ontologyID,
+        @Nonnull OWLOntologyID newOntologyID) {
         super(ont);
-        this.ontologyID = checkNotNull(ontologyID, "ontology id cannot be null");
-        this.newOntologyID = checkNotNull(newOntologyID, "ontology id cannot be null");
+        this.ontologyID = checkNotNull(ontologyID, ONTOLOGY_ID_CANNOT_BE_NULL);
+        this.newOntologyID = checkNotNull(newOntologyID, ONTOLOGY_ID_CANNOT_BE_NULL);
     }
 
     /**
-     * Creates a set ontology id change using the ontologyIRI, which will set
-     * the ontology id to the new one.
+     * Creates a set ontology id change using the ontologyIRI, which will set the ontology id to the
+     * new one.
      * 
-     * @param ont
-     *        The ontology whose id is to be changed
-     * @param ontologyIRI
-     *        The ontology iri
+     * @param ont The ontology whose id is to be changed
+     * @param ontologyIRI The ontology iri
      */
     public SetOntologyID(@Nonnull OWLOntology ont, @Nonnull IRI ontologyIRI) {
-        this(ont, new OWLOntologyID(Optional.of(ontologyIRI), Optional.<IRI> absent()));
+        this(ont, new OWLOntologyID(Optional.of(ontologyIRI), Optional.<IRI>absent()));
     }
 
     @Override
@@ -77,7 +73,8 @@ public class SetOntologyID extends OWLOntologyChange {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(CollectionFactory.<OWLEntity> emptySet());
+        return CollectionFactory
+            .getCopyOnRequestSetFromImmutableCollection(CollectionFactory.<OWLEntity>emptySet());
     }
 
     @Override
@@ -97,7 +94,8 @@ public class SetOntologyID extends OWLOntologyChange {
 
     @Override
     public OWLAxiom getAxiom() {
-        throw new UnsupportedOperationException("This is an ontology id change, not an axiom change: " + this);
+        throw new UnsupportedOperationException(
+            "This is an ontology id change, not an axiom change: " + this);
     }
 
     /**
@@ -111,8 +109,7 @@ public class SetOntologyID extends OWLOntologyChange {
     }
 
     /**
-     * @return the new URI - i.e. the URI of the ontology after the change was
-     *         applied.
+     * @return the new URI - i.e. the URI of the ontology after the change was applied.
      */
     @Nonnull
     public OWLOntologyID getNewOntologyID() {
@@ -153,7 +150,6 @@ public class SetOntologyID extends OWLOntologyChange {
 
     @Override
     public OWLOntologyChange reverseChange() {
-        SetOntologyID setOntologyID = new SetOntologyID(getOntology(), newOntologyID, getOntology().getOntologyID());
-        return setOntologyID;
+        return new SetOntologyID(getOntology(), newOntologyID, getOntology().getOntologyID());
     }
 }

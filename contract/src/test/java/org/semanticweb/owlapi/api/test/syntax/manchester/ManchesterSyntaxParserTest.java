@@ -35,7 +35,7 @@ public class ManchesterSyntaxParserTest extends TestBase {
         OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
         OWLDatatype xsd_int = OWL2Datatype.XSD_INT.getDatatype(df);
         return Arrays.asList(
-            //@formatter:off
+        //@formatter:off
             new Object[] { "hasAge exactly 1 xsd:int",  df.getOWLDataExactCardinality(1, hasAge, xsd_int) },
             new Object[] { "hasAge exactly 1",          df.getOWLDataExactCardinality(1, hasAge) }, 
             new Object[] { "hasAge min 1 xsd:int",      df.getOWLDataMinCardinality(1, hasAge, xsd_int) }, 
@@ -45,8 +45,8 @@ public class ManchesterSyntaxParserTest extends TestBase {
             //@formatter:on
     }
 
-    private String input;
-    private Object expected;
+    private final String input;
+    private final Object expected;
 
     public ManchesterSyntaxParserTest(String input, Object expected) {
         this.input = input;
@@ -58,14 +58,14 @@ public class ManchesterSyntaxParserTest extends TestBase {
         OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
         OWLOntology ont = m.createOntology();
         m.addAxiom(ont, df.getOWLDeclarationAxiom(hasAge));
-        ManchesterOWLSyntaxClassExpressionParser parser = new ManchesterOWLSyntaxClassExpressionParser(df, checker(m));
+        ManchesterOWLSyntaxClassExpressionParser parser =
+            new ManchesterOWLSyntaxClassExpressionParser(df, checker(m));
         assertEquals(expected, parser.parse(input));
     }
 
     protected OWLEntityChecker checker(OWLOntologyManager manager) {
-        BidirectionalShortFormProviderAdapter adapter = new BidirectionalShortFormProviderAdapter(manager
-            .getOntologies(), new SimpleShortFormProvider());
-        OWLEntityChecker checker = new ShortFormEntityChecker(adapter);
-        return checker;
+        BidirectionalShortFormProviderAdapter adapter = new BidirectionalShortFormProviderAdapter(
+            manager.getOntologies(), new SimpleShortFormProvider());
+        return new ShortFormEntityChecker(adapter);
     }
 }

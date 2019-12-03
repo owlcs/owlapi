@@ -970,7 +970,7 @@ public class OBOFormatWriter {
         private final OWLOntology ont;
         @Nullable
         private final String defaultOboNamespace;
-        private OBODoc result;
+        private final OBODoc result;
 
         /**
          * @param ont ontology

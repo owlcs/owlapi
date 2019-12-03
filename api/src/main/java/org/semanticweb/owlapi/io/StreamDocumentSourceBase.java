@@ -45,7 +45,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
     protected byte[] byteBuffer;
     private String encoding = "UTF-8";
     @Nullable
-    private Boolean readerAvailable = null;
+    private final Boolean readerAvailable;
 
     /**
      * Constructs an input source which will read an ontology from a representation from the

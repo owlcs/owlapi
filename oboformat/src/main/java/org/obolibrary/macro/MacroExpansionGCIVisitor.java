@@ -98,7 +98,7 @@ public class MacroExpansionGCIVisitor {
     private class MacroExpansions {
 
         protected Set<OWLAxiom> newAxioms = new HashSet<>();
-        private Set<OWLAxiom> rmAxioms = new HashSet<>();
+        private final Set<OWLAxiom> rmAxioms = new HashSet<>();
         GCIVisitor visitor = new GCIVisitor(inputOntology);
 
         public MacroExpansions() {

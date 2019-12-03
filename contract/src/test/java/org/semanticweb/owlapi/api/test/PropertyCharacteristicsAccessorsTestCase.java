@@ -31,10 +31,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
+    private static final String ONT2 = "Ont";
+    private static final String PROP2 = "prop";
+
     @Test
     public void testTransitive() {
-        OWLOntology ont = getOWLOntology("Ont");
-        OWLObjectProperty prop = ObjectProperty(iri("prop"));
+        OWLOntology ont = getOWLOntology(ONT2);
+        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
         assertFalse(isTransitive(prop, ont));
         OWLAxiom ax = TransitiveObjectProperty(prop);
         m.addAxiom(ont, ax);
@@ -43,8 +46,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testSymmetric() {
-        OWLOntology ont = getOWLOntology("Ont");
-        OWLObjectProperty prop = ObjectProperty(iri("prop"));
+        OWLOntology ont = getOWLOntology(ONT2);
+        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
         assertFalse(isSymmetric(prop, ont));
         OWLAxiom ax = SymmetricObjectProperty(prop);
         m.addAxiom(ont, ax);
@@ -53,8 +56,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testAsymmetric() {
-        OWLOntology ont = getOWLOntology("Ont");
-        OWLObjectProperty prop = ObjectProperty(iri("prop"));
+        OWLOntology ont = getOWLOntology(ONT2);
+        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
         assertFalse(isAsymmetric(prop, ont));
         OWLAxiom ax = AsymmetricObjectProperty(prop);
         m.addAxiom(ont, ax);
@@ -63,8 +66,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testReflexive() {
-        OWLOntology ont = getOWLOntology("Ont");
-        OWLObjectProperty prop = ObjectProperty(iri("prop"));
+        OWLOntology ont = getOWLOntology(ONT2);
+        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
         assertFalse(isReflexive(prop, ont));
         OWLAxiom ax = ReflexiveObjectProperty(prop);
         m.addAxiom(ont, ax);
@@ -73,8 +76,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testIrreflexive() {
-        OWLOntology ont = getOWLOntology("Ont");
-        OWLObjectProperty prop = ObjectProperty(iri("prop"));
+        OWLOntology ont = getOWLOntology(ONT2);
+        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
         assertFalse(isIrreflexive(prop, ont));
         OWLAxiom ax = IrreflexiveObjectProperty(prop);
         m.addAxiom(ont, ax);
@@ -83,8 +86,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testFunctional() {
-        OWLOntology ont = getOWLOntology("Ont");
-        OWLObjectProperty prop = ObjectProperty(iri("prop"));
+        OWLOntology ont = getOWLOntology(ONT2);
+        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
         assertFalse(isFunctional(prop, ont));
         OWLAxiom ax = FunctionalObjectProperty(prop);
         m.addAxiom(ont, ax);
@@ -93,8 +96,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testInverseFunctional() {
-        OWLOntology ont = getOWLOntology("Ont");
-        OWLObjectProperty prop = ObjectProperty(iri("prop"));
+        OWLOntology ont = getOWLOntology(ONT2);
+        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
         assertFalse(isInverseFunctional(prop, ont));
         OWLAxiom ax = InverseFunctionalObjectProperty(prop);
         m.addAxiom(ont, ax);
@@ -103,8 +106,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testFunctionalDataProperty() {
-        OWLOntology ont = getOWLOntology("Ont");
-        OWLDataProperty prop = DataProperty(iri("prop"));
+        OWLOntology ont = getOWLOntology(ONT2);
+        OWLDataProperty prop = DataProperty(iri(PROP2));
         assertFalse(isFunctional(prop, ont));
         OWLAxiom ax = FunctionalDataProperty(prop);
         m.addAxiom(ont, ax);

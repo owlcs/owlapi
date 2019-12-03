@@ -15,7 +15,7 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 
-@SuppressWarnings({ "javadoc", })
+@SuppressWarnings({"javadoc",})
 public class OboFormatTestBasics extends TestBase {
 
     @Nonnull
@@ -143,7 +143,8 @@ public class OboFormatTestBasics extends TestBase {
     }
 
     @Nonnull
-    protected StringDocumentTarget writeOWL(@Nonnull OWLOntology ontology, @Nonnull OWLDocumentFormat format) {
+    protected StringDocumentTarget writeOWL(@Nonnull OWLOntology ontology,
+        @Nonnull OWLDocumentFormat format) {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         try {
@@ -183,13 +184,14 @@ public class OboFormatTestBasics extends TestBase {
         stream.close();
     }
 
-    protected static void renderOWL(@Nonnull OWLOntology owlOntology) throws OWLOntologyStorageException {
+    protected static void renderOWL(@Nonnull OWLOntology owlOntology)
+        throws OWLOntologyStorageException {
         OWLOntologyManager manager = owlOntology.getOWLOntologyManager();
         manager.saveOntology(owlOntology, new OWLXMLDocumentFormat(), new StringDocumentTarget());
     }
 
-    protected static String renderOWL(@Nonnull OWLOntology owlOntology, @Nonnull OWLDocumentFormat ontologyFormat)
-        throws OWLOntologyStorageException, IOException {
+    protected static String renderOWL(@Nonnull OWLOntology owlOntology,
+        @Nonnull OWLDocumentFormat ontologyFormat) throws OWLOntologyStorageException, IOException {
         OWLOntologyManager manager = owlOntology.getOWLOntologyManager();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         manager.saveOntology(owlOntology, ontologyFormat, out);
@@ -202,12 +204,11 @@ public class OboFormatTestBasics extends TestBase {
         for (OWLAnnotationAssertionAxiom aa : ontology.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
             OWLAnnotationValue v = aa.getValue();
             OWLAnnotationProperty property = aa.getProperty();
-            if (property.isLabel() && v instanceof OWLLiteral) {
-                if (label.equals(((OWLLiteral) v).getLiteral())) {
-                    OWLAnnotationSubject subject = aa.getSubject();
-                    if (subject instanceof IRI) {
-                        return (IRI) subject;
-                    }
+            if (property.isLabel() && v instanceof OWLLiteral
+                && label.equals(((OWLLiteral) v).getLiteral())) {
+                OWLAnnotationSubject subject = aa.getSubject();
+                if (subject instanceof IRI) {
+                    return (IRI) subject;
                 }
             }
         }

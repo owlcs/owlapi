@@ -15,25 +15,25 @@ public class SmallSetTest {
     @Test(expected = IllegalStateException.class)
     public void testAddRemoveContains() {
         SmallSet<String> set = new SmallSet<>();
-        assertEquals("size", 0, set.size());
-        assertFalse("contains a", set.contains("a"));
+        assertEquals(0, set.size());
+        assertFalse(set.contains("a"));
         set.add("a");
-        assertTrue("contains a", set.contains("a"));
-        assertFalse("contains b", set.contains("b"));
+        assertTrue(set.contains("a"));
+        assertFalse(set.contains("b"));
         set.add("b");
-        assertTrue("contains a", set.contains("a"));
-        assertTrue("contains b", set.contains("b"));
-        assertEquals("set size", 2, set.size());
+        assertTrue(set.contains("a"));
+        assertTrue(set.contains("b"));
+        assertEquals(2, set.size());
         set.remove("a");
-        assertFalse("contains a", set.contains("a"));
-        assertTrue("contains b", set.contains("b"));
-        assertEquals("set size", 1, set.size());
+        assertFalse(set.contains("a"));
+        assertTrue(set.contains("b"));
+        assertEquals(1, set.size());
         set.add("a");
         set.add("c");
-        assertTrue("contains a", set.contains("a"));
-        assertTrue("contains b", set.contains("b"));
-        assertTrue("contains c", set.contains("c"));
-        assertEquals("set size", 3, set.size());
+        assertTrue(set.contains("a"));
+        assertTrue(set.contains("b"));
+        assertTrue(set.contains("c"));
+        assertEquals(3, set.size());
         set.add("d");
         fail("should not be able to add fourth elephant");
     }
@@ -43,20 +43,20 @@ public class SmallSetTest {
         List<String> stringList = Arrays.asList("a", "c", "b");
         SmallSet<String> set = new SmallSet<>(stringList);
         HashSet<String> validationSet = new HashSet<>(stringList);
-        assertEquals("size", 3, set.size());
+        assertEquals(3, set.size());
         String v;
         Iterator<String> it = set.iterator();
-        assertTrue("hasNext", it.hasNext());
+        assertTrue(it.hasNext());
         v = it.next();
-        assertTrue("element was in validationSet", validationSet.remove(v));
-        assertTrue("hasNext", it.hasNext());
+        assertTrue(validationSet.remove(v));
+        assertTrue(it.hasNext());
         v = it.next();
-        assertTrue("element was in validationSet", validationSet.remove(v));
-        assertTrue("hasNext", it.hasNext());
+        assertTrue(validationSet.remove(v));
+        assertTrue(it.hasNext());
         v = it.next();
-        assertTrue("element was in validationSet", validationSet.remove(v));
-        assertFalse("no more", it.hasNext());
-        assertTrue("validation set should be empty", validationSet.isEmpty());
+        assertTrue(validationSet.remove(v));
+        assertFalse(it.hasNext());
+        assertTrue(validationSet.isEmpty());
     }
 
     @Test
@@ -66,16 +66,16 @@ public class SmallSetTest {
         HashSet<String> validationSet = new HashSet<>(stringList);
         set.remove("c");
         validationSet.remove("c");
-        assertEquals("size", 2, set.size());
+        assertEquals(2, set.size());
         String v;
         Iterator<String> it = set.iterator();
-        assertTrue("hasNext", it.hasNext());
+        assertTrue(it.hasNext());
         v = it.next();
-        assertTrue("element was in validationSet", validationSet.remove(v));
-        assertTrue("hasNext", it.hasNext());
+        assertTrue(validationSet.remove(v));
+        assertTrue(it.hasNext());
         v = it.next();
-        assertTrue("element was in validationSet", validationSet.remove(v));
-        assertFalse("no more", it.hasNext());
-        assertTrue("validation set should be empty", validationSet.isEmpty());
+        assertTrue(validationSet.remove(v));
+        assertFalse(it.hasNext());
+        assertTrue(validationSet.isEmpty());
     }
 }

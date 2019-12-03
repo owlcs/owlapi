@@ -17,7 +17,8 @@ import org.slf4j.LoggerFactory;
  */
 public class MacroExpansionVisitor {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(MacroExpansionVisitor.class.getName());
+    protected static final Logger LOG =
+        LoggerFactory.getLogger(MacroExpansionVisitor.class.getName());
     @Nonnull
     protected final OWLOntology inputOntology;
     protected final OWLOntologyManager manager;
@@ -28,30 +29,25 @@ public class MacroExpansionVisitor {
     protected Set<OWLAnnotation> extraAnnotations;
 
     /**
-     * @param ontology
-     *        ontology to visit
+     * @param ontology ontology to visit
      */
     public MacroExpansionVisitor(@Nonnull OWLOntology ontology) {
         this(ontology, AbstractMacroExpansionVisitor.EMPTY_ANNOTATIONS, false, false);
     }
 
     /**
-     * @param ontology
-     *        ontology to visit
-     * @param shouldAddExpansionMarker
-     *        true if expansion should be added
+     * @param ontology ontology to visit
+     * @param shouldAddExpansionMarker true if expansion should be added
      */
     public MacroExpansionVisitor(@Nonnull OWLOntology ontology, boolean shouldAddExpansionMarker) {
-        this(ontology, AbstractMacroExpansionVisitor.EMPTY_ANNOTATIONS, false, shouldAddExpansionMarker);
+        this(ontology, AbstractMacroExpansionVisitor.EMPTY_ANNOTATIONS, false,
+            shouldAddExpansionMarker);
     }
 
     /**
-     * @param ontology
-     *        ontology to visit
-     * @param shouldTransferAnnotations
-     *        true if annotations should be transferred
-     * @param shouldAddExpansionMarker
-     *        true if expansion should be added
+     * @param ontology ontology to visit
+     * @param shouldTransferAnnotations true if annotations should be transferred
+     * @param shouldAddExpansionMarker true if expansion should be added
      */
     public MacroExpansionVisitor(@Nonnull OWLOntology ontology, boolean shouldTransferAnnotations,
         boolean shouldAddExpansionMarker) {
@@ -60,17 +56,14 @@ public class MacroExpansionVisitor {
     }
 
     /**
-     * @param inputOntology
-     *        inputOntology
-     * @param extraAnnotations
-     *        extra annotations to add
-     * @param shouldTransferAnnotations
-     *        true if annotations should be transferred
-     * @param shouldAddExpansionMarker
-     *        true if expansion should be added
+     * @param inputOntology inputOntology
+     * @param extraAnnotations extra annotations to add
+     * @param shouldTransferAnnotations true if annotations should be transferred
+     * @param shouldAddExpansionMarker true if expansion should be added
      */
-    public MacroExpansionVisitor(@Nonnull OWLOntology inputOntology, Set<OWLAnnotation> extraAnnotations,
-        boolean shouldTransferAnnotations, boolean shouldAddExpansionMarker) {
+    public MacroExpansionVisitor(@Nonnull OWLOntology inputOntology,
+        Set<OWLAnnotation> extraAnnotations, boolean shouldTransferAnnotations,
+        boolean shouldAddExpansionMarker) {
         this.inputOntology = inputOntology;
         this.extraAnnotations = extraAnnotations;
         this.shouldTransferAnnotations = shouldTransferAnnotations;
@@ -102,23 +95,26 @@ public class MacroExpansionVisitor {
 
     private class MacroExpansions {
 
-        private Set<OWLAxiom> newAxioms = new HashSet<>();
-        private Set<OWLAxiom> rmAxioms = new HashSet<>();
+        private final Set<OWLAxiom> newAxioms = new HashSet<>();
+        private final Set<OWLAxiom> rmAxioms = new HashSet<>();
 
         public MacroExpansions() {
             for (OWLSubClassOfAxiom axiom : inputOntology.getAxioms(AxiomType.SUBCLASS_OF)) {
                 OWLAxiom newAxiom = visitor.visit(axiom);
                 replaceIfDifferent(axiom, newAxiom);
             }
-            for (OWLEquivalentClassesAxiom axiom : inputOntology.getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
+            for (OWLEquivalentClassesAxiom axiom : inputOntology
+                .getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
                 OWLAxiom newAxiom = visitor.visit(axiom);
                 replaceIfDifferent(axiom, newAxiom);
             }
-            for (OWLClassAssertionAxiom axiom : inputOntology.getAxioms(AxiomType.CLASS_ASSERTION)) {
+            for (OWLClassAssertionAxiom axiom : inputOntology
+                .getAxioms(AxiomType.CLASS_ASSERTION)) {
                 OWLAxiom newAxiom = visitor.visit(axiom);
                 replaceIfDifferent(axiom, newAxiom);
             }
-            for (OWLAnnotationAssertionAxiom axiom : inputOntology.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            for (OWLAnnotationAssertionAxiom axiom : inputOntology
+                .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
                 if (expand(axiom)) {
                     rmAxioms.add(axiom);
                 }
@@ -162,8 +158,8 @@ public class MacroExpansionVisitor {
                     IRI axValIRI = (IRI) axiom.getValue();
                     OWLClass axValClass = visitor.dataFactory.getOWLClass(axValIRI);
                     if (inputOntology.getDeclarationAxioms(axValClass).isEmpty()) {
-                        OWLDeclarationAxiom declarationAxiom = visitor.dataFactory.getOWLDeclarationAxiom(axValClass,
-                            annotations);
+                        OWLDeclarationAxiom declarationAxiom =
+                            visitor.dataFactory.getOWLDeclarationAxiom(axValClass, annotations);
                         declarations.add(declarationAxiom);
                         newAxioms.add(declarationAxiom);
                         manager.addAxiom(inputOntology, declarationAxiom);
@@ -180,11 +176,13 @@ public class MacroExpansionVisitor {
                         manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
                     }
                     LOG.info("Template to Expand {}", expandTo);
-                    expandTo = expandTo.replaceAll("\\?X", manchesterSyntaxTool.getId((IRI) axiom.getSubject()));
+                    expandTo = expandTo.replaceAll("\\?X",
+                        manchesterSyntaxTool.getId((IRI) axiom.getSubject()));
                     expandTo = expandTo.replaceAll("\\?Y", manchesterSyntaxTool.getId(axValIRI));
                     LOG.info("Expanding {}", expandTo);
                     try {
-                        Set<OntologyAxiomPair> setAxp = manchesterSyntaxTool.parseManchesterExpressionFrames(expandTo);
+                        Set<OntologyAxiomPair> setAxp =
+                            manchesterSyntaxTool.parseManchesterExpressionFrames(expandTo);
                         for (OntologyAxiomPair axp : setAxp) {
                             OWLAxiom expandedAxiom = axp.getAxiom();
                             if (shouldTransferAnnotations()) {
@@ -212,13 +210,14 @@ public class MacroExpansionVisitor {
         }
 
         @Override
-        protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler, OWLObjectPropertyExpression p) {
+        protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
+            OWLObjectPropertyExpression p) {
             return expandObject(filler, p);
         }
 
         @Override
-        protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
-            OWLObjectPropertyExpression p) {
+        protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
+            OWLIndividual filler, OWLObjectPropertyExpression p) {
             OWLClassExpression result = expandObject(filler, p);
             if (result != null) {
                 result = dataFactory.getOWLObjectSomeValuesFrom(desc.getProperty(), result);
@@ -266,8 +265,7 @@ public class MacroExpansionVisitor {
     }
 
     /**
-     * @param shouldTransferAnnotations
-     *        new value
+     * @param shouldTransferAnnotations new value
      */
     public void setShouldTransferAnnotations(boolean shouldTransferAnnotations) {
         this.shouldTransferAnnotations = shouldTransferAnnotations;

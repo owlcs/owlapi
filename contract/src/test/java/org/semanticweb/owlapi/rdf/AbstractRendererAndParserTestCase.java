@@ -33,16 +33,15 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc", })
+@SuppressWarnings({"javadoc",})
 public abstract class AbstractRendererAndParserTestCase extends TestBase {
 
     @Nonnull
-    private final OWLOntologyManager man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl(),
-        new ReentrantReadWriteLock());
+    private final OWLOntologyManager man =
+        new OWLOntologyManagerImpl(new OWLDataFactoryImpl(), new ReentrantReadWriteLock());
 
     @Before
     public void setUp() {
@@ -95,11 +94,11 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
             msg.append("Ontology save/load roundtripping error.\n");
             msg.append("=> ").append(aMinusB.size()).append(" axioms lost in roundtripping.\n");
             for (OWLAxiom axiom : aMinusB) {
-                msg.append(axiom + "\n");
+                msg.append(axiom).append("\n");
             }
             msg.append("=> ").append(bMinusA.size()).append(" axioms added after roundtripping.\n");
             for (OWLAxiom axiom : bMinusA) {
-                msg.append(axiom + "\n");
+                msg.append(axiom).append("\n");
             }
         }
         assertTrue(msg.toString(), aMinusB.isEmpty() && bMinusA.isEmpty());

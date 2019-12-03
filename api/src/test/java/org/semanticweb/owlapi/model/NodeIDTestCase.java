@@ -10,6 +10,8 @@ import org.junit.Test;
 @SuppressWarnings("javadoc")
 public class NodeIDTestCase {
 
+    private static final String SOMESTRING = "somestring";
+
     @Test
     public void shouldCreateNodeString() {
         assertEquals("_:genid30", NodeID.nodeString(30));
@@ -64,12 +66,12 @@ public class NodeIDTestCase {
         assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(null).getID()));
         NodeID id = NodeID.getNodeID(null);
         assertEquals(id.getID(), id.toString());
-        assertEquals(NodeID.getNodeID("somestring"),
-                NodeID.getNodeID("somestring"));
+        assertEquals(NodeID.getNodeID(SOMESTRING),
+                NodeID.getNodeID(SOMESTRING));
         assertEquals(
-                NodeID.getNodeID("somestring").compareTo(
+                NodeID.getNodeID(SOMESTRING).compareTo(
                         NodeID.getNodeID("someotherstring")),
-                "somestring".compareTo("someotherstring"));
+                SOMESTRING.compareTo("someotherstring"));
         assertEquals(id.hashCode(), id.toString().hashCode());
     }
 }

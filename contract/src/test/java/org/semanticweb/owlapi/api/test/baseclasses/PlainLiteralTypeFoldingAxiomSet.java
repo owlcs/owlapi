@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
 
-    private Set<OWLAxiom> delegate = createPlainLiteralTypeFoldingSet();
+    private final Set<OWLAxiom> delegate = createPlainLiteralTypeFoldingSet();
 
     /**
      * @param axioms set of axioms

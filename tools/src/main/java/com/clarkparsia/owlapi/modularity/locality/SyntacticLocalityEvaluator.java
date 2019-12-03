@@ -743,6 +743,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      */
     private static class BottomEquivalenceEvaluator implements OWLClassExpressionVisitor {
 
+        private static final String DESC_CANNOT_BE_NULL = "desc cannot be null";
         private boolean isBottomEquivalent;
         private LocalityClass localityCls;
         private Collection<? extends OWLEntity> signature;
@@ -759,7 +760,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
          * @return true, if is bottom equivalent
          */
         private boolean isBottomEquivalent(@Nonnull OWLClassExpression desc) {
-            checkNotNull(desc, "desc cannot be null").accept(this);
+            checkNotNull(desc, DESC_CANNOT_BE_NULL).accept(this);
             return isBottomEquivalent;
         }
 
@@ -778,7 +779,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             @Nonnull Collection<? extends OWLEntity> sig, @Nonnull LocalityClass locality) {
             localityCls = checkNotNull(locality, "locality cannot be null");
             signature = checkNotNull(sig, "sig cannot be null");
-            checkNotNull(desc, "desc cannot be null").accept(this);
+            checkNotNull(desc, DESC_CANNOT_BE_NULL).accept(this);
             return isBottomEquivalent;
         }
 

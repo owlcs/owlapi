@@ -22,8 +22,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
@@ -31,14 +30,12 @@ public class BuiltInDatatypesTestCase extends TestBase {
 
     @Test
     public void testBuiltInDatatypes() {
-        OWL2Datatype dt = OWL2Datatype
-                .getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
-        assertNotNull("object should not be null", dt);
+        OWL2Datatype dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
+        assertNotNull(dt);
         dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
-        assertNotNull("object should not be null", dt);
-        OWLDatatype datatype = df.getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL
-                .getIRI());
-        assertNotNull("object should not be null", datatype);
+        assertNotNull(dt);
+        OWLDatatype datatype = df.getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
+        assertNotNull(datatype);
         OWL2Datatype test = datatype.getBuiltInDatatype();
         assertEquals(test, dt);
     }
@@ -50,7 +47,7 @@ public class BuiltInDatatypesTestCase extends TestBase {
             OWLDatatype datatype = df.getOWLDatatype(type);
             if (datatype.isBuiltIn()) {
                 OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();
-                assertNotNull("object should not be null", builtInDatatype);
+                assertNotNull(builtInDatatype);
             }
         }
     }

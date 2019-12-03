@@ -83,6 +83,7 @@ import com.google.common.base.Optional;
 @SuppressWarnings({"javadoc", "null"})
 public abstract class TestBase {
 
+    private static final String BLANK = "blank";
     @Nonnull
     protected static final File RESOURCES = resources();
 
@@ -124,8 +125,7 @@ public abstract class TestBase {
     }
 
     protected static OWLOntologyManager setupManager() {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        return manager;
+        return OWLManager.createOWLOntologyManager();
     }
 
     @Nonnull
@@ -187,8 +187,8 @@ public abstract class TestBase {
             while (it.hasNext()) {
                 OWLAxiom next = it.next();
                 if (next instanceof OWLSubClassOfAxiom) {
-                    if (((OWLSubClassOfAxiom) next).getSubClass().isAnonymous()
-                        && ((OWLSubClassOfAxiom) next).getSuperClass().isAnonymous()) {
+                    OWLSubClassOfAxiom n = (OWLSubClassOfAxiom) next;
+                    if (n.getSubClass().isAnonymous() && n.getSuperClass().isAnonymous()) {
                         it.remove();
                     }
                 }
@@ -202,25 +202,21 @@ public abstract class TestBase {
             Set<OWLAxiom> leftOnly = new HashSet<>();
             Set<OWLAxiom> rightOnly = new HashSet<>();
             for (OWLAxiom ax : a) {
-                if (!b.contains(ax)) {
-                    if (!isIgnorableAxiom(ax, false)) {
-                        leftOnly.add(ax);
-                        sb.append("Rem axiom: ");
-                        sb.append(ax);
-                        sb.append('\n');
-                        counter++;
-                    }
+                if (!b.contains(ax) && !isIgnorableAxiom(ax, false)) {
+                    leftOnly.add(ax);
+                    sb.append("Rem axiom: ");
+                    sb.append(ax);
+                    sb.append('\n');
+                    counter++;
                 }
             }
             for (OWLAxiom ax : b) {
-                if (!a.contains(ax)) {
-                    if (!isIgnorableAxiom(ax, true)) {
-                        rightOnly.add(ax);
-                        sb.append("Add axiom: ");
-                        sb.append(ax);
-                        sb.append('\n');
-                        counter++;
-                    }
+                if (!a.contains(ax) && !isIgnorableAxiom(ax, true)) {
+                    rightOnly.add(ax);
+                    sb.append("Add axiom: ");
+                    sb.append(ax);
+                    sb.append('\n');
+                    counter++;
                 }
             }
             if (counter > 0) {
@@ -335,12 +331,12 @@ public abstract class TestBase {
         Set<String> leftOnlyStrings = new HashSet<>();
         Set<String> rightOnlyStrings = new HashSet<>();
         for (OWLAxiom ax : leftOnly) {
-            leftOnlyStrings.add(ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank")
-                .replaceAll("_:genid[0-9]+", "blank"));
+            leftOnlyStrings.add(ax.toString().replaceAll("_:anon-ind-[0-9]+", BLANK)
+                .replaceAll("_:genid[0-9]+", BLANK));
         }
         for (OWLAxiom ax : rightOnly) {
-            rightOnlyStrings.add(ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank")
-                .replaceAll("_:genid[0-9]+", "blank"));
+            rightOnlyStrings.add(ax.toString().replaceAll("_:anon-ind-[0-9]+", BLANK)
+                .replaceAll("_:genid[0-9]+", BLANK));
         }
         return rightOnlyStrings.equals(leftOnlyStrings);
     }
@@ -354,11 +350,11 @@ public abstract class TestBase {
      */
     public boolean isIgnorableAxiom(OWLAxiom ax, boolean parse) {
         if (ax instanceof OWLDeclarationAxiom) {
-            OWLDeclarationAxiom d = (OWLDeclarationAxiom) ax;
             if (parse) {
                 // all extra declarations in the parsed ontology are fine
                 return true;
             }
+            OWLDeclarationAxiom d = (OWLDeclarationAxiom) ax;
             // declarations of builtin and named individuals can be ignored
             return d.getEntity().isBuiltIn() || d.getEntity().isOWLNamedIndividual();
         }

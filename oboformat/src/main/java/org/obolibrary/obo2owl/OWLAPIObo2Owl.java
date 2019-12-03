@@ -81,6 +81,8 @@ import com.google.common.collect.Sets;
 /** The Class OWLAPIObo2Owl. */
 public class OWLAPIObo2Owl {
 
+    private static final String TRUE = "true";
+    private static final String CANNOT_TRANSLATE = "Cannot translate: {}";
     /** The log. */
     private static final Logger LOG = LoggerFactory.getLogger(OWLAPIObo2Owl.class);
     /** The Constant IRI_PROP_isReversiblePropertyChain. */
@@ -121,7 +123,7 @@ public class OWLAPIObo2Owl {
      */
     private final Map<String, IRI> idToIRICache = new LinkedHashMap<String, IRI>() {
         @Override
-        protected boolean removeEldestEntry(@Nullable java.util.Map.Entry<String, IRI> eldest) {
+        protected boolean removeEldestEntry(@Nullable Map.Entry<String, IRI> eldest) {
             return size() > 1024;
         }
     };
@@ -538,7 +540,7 @@ public class OWLAPIObo2Owl {
                     // TODO: Throw Exceptions
                     OBOFormatException e =
                         new OBOFormatException("Cannot translate clause «" + clause + '»');
-                    LOG.error("Cannot translate: {}", clause, e);
+                    LOG.error(CANNOT_TRANSLATE, clause, e);
                 }
             } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
                 addPropertyValueHeaders(headerFrame.getClauses(OboFormatTag.TAG_PROPERTY_VALUE));
@@ -599,7 +601,7 @@ public class OWLAPIObo2Owl {
             Object v2 = clause.getValue2();
             if (v == null) {
                 // TODO: Throw Exceptions
-                LOG.error("Cannot translate: {}", clause);
+                LOG.error(CANNOT_TRANSLATE, clause);
             } else if (values.size() == 2) {
                 // property_value(Rel-ID Entity-ID Qualifiers)
                 OWLAnnotationProperty prop = trAnnotationProp((String) v);
@@ -626,7 +628,7 @@ public class OWLAPIObo2Owl {
                 AddOntologyAnnotation addAnn = new AddOntologyAnnotation(getOwlOntology(), ontAnn);
                 apply(addAnn);
             } else {
-                LOG.error("Cannot translate: {}", clause);
+                LOG.error(CANNOT_TRANSLATE, clause);
                 // TODO
             }
         }
@@ -1105,7 +1107,7 @@ public class OWLAPIObo2Owl {
             || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN) {
             if (tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN) {
                 OWLAnnotation ann = fac.getOWLAnnotation(
-                    trAnnotationProp(IRI_PROP_ISREVERSIBLEPROPERTYCHAIN), trLiteral("true"));
+                    trAnnotationProp(IRI_PROP_ISREVERSIBLEPROPERTYCHAIN), trLiteral(TRUE));
                 annotations.add(ann);
                 // isReversiblePropertyChain
             }
@@ -1116,22 +1118,22 @@ public class OWLAPIObo2Owl {
             // System.out.println("chain:"+ax);
             // TODO - annotations for equivalent to
         } else if (tagConstant == OboFormatTag.TAG_IS_TRANSITIVE
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLTransitiveObjectPropertyAxiom(p, annotations);
         } else if (tagConstant == OboFormatTag.TAG_IS_REFLEXIVE
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLReflexiveObjectPropertyAxiom(p, annotations);
         } else if (tagConstant == OboFormatTag.TAG_IS_SYMMETRIC
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLSymmetricObjectPropertyAxiom(p, annotations);
         } else if (tagConstant == OboFormatTag.TAG_IS_ASYMMETRIC
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLAsymmetricObjectPropertyAxiom(p, annotations);
         } else if (tagConstant == OboFormatTag.TAG_IS_FUNCTIONAL
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLFunctionalObjectPropertyAxiom(p, annotations);
         } else if (tagConstant == OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL
-            && "true".equals(clause.getValue().toString())) {
+            && TRUE.equals(clause.getValue().toString())) {
             ax = fac.getOWLInverseFunctionalObjectPropertyAxiom(p, annotations);
         } else {
             return trGenericClause(p, tag, clause);
@@ -1195,7 +1197,7 @@ public class OWLAPIObo2Owl {
             Object v = clause.getValue();
             if (v == null) {
                 // TODO: Throw Exceptions
-                LOG.error("Cannot translate: {}", clause);
+                LOG.error(CANNOT_TRANSLATE, clause);
             } else {
                 ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub,
                     trAnnotationProp(v.toString()).getIRI(), annotations);
@@ -1206,7 +1208,7 @@ public class OWLAPIObo2Owl {
             Object v2 = clause.getValue2();
             if (v == null) {
                 // TODO: Throw Exceptions
-                LOG.error("Cannot translate: {}", clause);
+                LOG.error(CANNOT_TRANSLATE, clause);
             } else if (values.size() == 2) {
                 // property_value(Rel-ID Entity-ID Qualifiers)
                 ax = fac.getOWLAnnotationAssertionAxiom(trAnnotationProp((String) v), sub,
@@ -1228,7 +1230,7 @@ public class OWLAPIObo2Owl {
                 ax = fac.getOWLAnnotationAssertionAxiom(trAnnotationProp((String) v), sub, value,
                     annotations);
             } else {
-                LOG.error("Cannot translate: {}", clause);
+                LOG.error(CANNOT_TRANSLATE, clause);
                 // TODO
             }
         } else if (tagConstant == OboFormatTag.TAG_SYNONYM) {

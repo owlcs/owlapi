@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 @SuppressWarnings("javadoc")
 public class SWRLRoundTripTestCase extends TestBase {
 
+    private static final String DATATYPE_DEFINITION = "datatype definition";
     @Nonnull
     private static final String NS = "urn:test";
 
@@ -205,7 +206,7 @@ public class SWRLRoundTripTestCase extends TestBase {
                 df.getOWLDatatype(IRI.create("urn:mydatatype")),
                 df.getOWLDatatypeMaxExclusiveRestriction(200D),
                 singleton(df.getOWLAnnotation(df.getRDFSLabel(),
-                        df.getOWLLiteral("datatype definition"))));
+                        df.getOWLLiteral(DATATYPE_DEFINITION))));
         ontology.getOWLOntologyManager().addAxiom(ontology, def);
         return ontology;
     }
@@ -217,7 +218,7 @@ public class SWRLRoundTripTestCase extends TestBase {
                 df.getOWLDatatype(IRI.create("urn:mydatatype")),
                 df.getOWLDatatypeMaxExclusiveRestriction(200D),
                 singleton(df.getOWLAnnotation(df.getRDFSLabel(),
-                        df.getOWLLiteral("datatype definition"))));
+                        df.getOWLLiteral(DATATYPE_DEFINITION))));
         ontology.getOWLOntologyManager().addAxiom(ontology, def);
         return ontology;
     }
@@ -252,7 +253,7 @@ public class SWRLRoundTripTestCase extends TestBase {
                 df.getOWLDatatype(IRI.create("urn:mydatatype")),
                 df.getDoubleOWLDatatype(),
                 singleton(df.getOWLAnnotation(df.getRDFSLabel(),
-                        df.getOWLLiteral("datatype definition", ""))));
+                        df.getOWLLiteral(DATATYPE_DEFINITION, ""))));
         assertTrue(o.getAxioms().contains(def));
     }
 
@@ -280,7 +281,7 @@ public class SWRLRoundTripTestCase extends TestBase {
                 df.getOWLClass(IRI.create("urn:myClass")),
                 df.getOWLClass(IRI.create("urn:test")),
                 singleton(df.getOWLAnnotation(df.getRDFSLabel(),
-                        df.getOWLLiteral("datatype definition", ""))));
+                        df.getOWLLiteral(DATATYPE_DEFINITION, ""))));
         assertTrue(o.getAxioms().contains(def));
     }
 }

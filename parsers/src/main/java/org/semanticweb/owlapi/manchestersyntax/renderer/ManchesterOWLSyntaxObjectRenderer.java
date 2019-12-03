@@ -191,7 +191,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     @Nonnull
     protected static <T extends OWLObject> List<T> sort(@Nonnull Collection<T> objects) {
-        return CollectionFactory.sortOptionally(objects);
+        return sortOptionally(objects);
     }
 
     protected void write(@Nonnull Set<? extends OWLObject> objects,

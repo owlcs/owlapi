@@ -29,8 +29,8 @@ import org.xml.sax.SAXException;
  */
 public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
     private static final Pattern CATALOG_PATTERN = Pattern.compile("catalog[\\-v0-9]*\\.xml");
-    private List<IRI> physicalRoots = new ArrayList<>();
-    private Map<IRI, IRI> logicalToPhysicalIRI = new ConcurrentHashMap<>();
+    private final List<IRI> physicalRoots = new ArrayList<>();
+    private final Map<IRI, IRI> logicalToPhysicalIRI = new ConcurrentHashMap<>();
 
     /**
      * @param f zip file

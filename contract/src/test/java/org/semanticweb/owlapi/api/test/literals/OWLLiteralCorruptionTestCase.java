@@ -29,7 +29,7 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
     @Test
     public void shouldroundTripLiteral() {
         String testString;
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(1000);
         int count = 17;
         while (count-- > 0) {
             sb.append("200 \u00B5Liters + character above U+0FFFF = ");
@@ -42,8 +42,10 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripXMLLiteral() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        String literal = "<div xmlns='http://www.w3.org/1999/xhtml'><h3>[unknown]</h3><p>(describe NameGroup \"[unknown]\")</p></div>";
+    public void shouldRoundTripXMLLiteral()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String literal =
+            "<div xmlns='http://www.w3.org/1999/xhtml'><h3>[unknown]</h3><p>(describe NameGroup \"[unknown]\")</p></div>";
         OWLOntology o = m.createOntology();
         OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:test#p"));
         OWLLiteral l = df.getOWLLiteral(literal, OWL2Datatype.RDF_XML_LITERAL);
@@ -54,8 +56,10 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
     }
 
     @Test
-    public void shouldFailOnMalformedXMLLiteral() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        String literal = "<ncicp:ComplexDefinition><ncicp:def-definition>A form of cancer that begins in melanocytes (cells that make the pigment melanin). It may begin in a mole (skin melanoma), but can also begin in other pigmented tissues, such as in the eye or in the intestines.</ncicp:def-definition><ncicp:def-source>NCI-GLOSS</ncicp:def-source></ncicp:ComplexDefinition>";
+    public void shouldFailOnMalformedXMLLiteral()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String literal =
+            "<ncicp:ComplexDefinition><ncicp:def-definition>A form of cancer that begins in melanocytes (cells that make the pigment melanin). It may begin in a mole (skin melanoma), but can also begin in other pigmented tissues, such as in the eye or in the intestines.</ncicp:def-definition><ncicp:def-source>NCI-GLOSS</ncicp:def-source></ncicp:ComplexDefinition>";
         OWLOntology o = m.createOntology();
         OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:test#p"));
         OWLLiteral l = df.getOWLLiteral(literal, OWL2Datatype.RDF_XML_LITERAL);
@@ -74,7 +78,8 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
         // They should be understood in input and saved correctly on roundtrip
         String wrong = "rdf:datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral\"";
         String correct = "rdf:parseType=\"Literal\"";
-        String preamble = "<?xml version=\"1.0\"?>\n<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\n"
+        String preamble =
+            "<?xml version=\"1.0\"?>\n<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\n"
                 + "     xml:base=\"http://www.w3.org/2002/07/owl\"\n     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
                 + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n     xmlns:xml=\"http://www.w3.org/XML/1998/namespace\"\n"
                 + "     xmlns:protege=\"http://protege.stanford.edu/\"\n     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
@@ -84,21 +89,25 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
                 + "        <protege:code ";
         String closure = "><test>xxx</test></protege:code>\n    </Class>\n" + "</rdf:RDF>";
         String input = preamble + wrong + closure;
-        OWLOntology o = loadOntologyFromString(input, IRI.generateDocumentIRI(), new RDFXMLDocumentFormat());
-        OWLOntology o1 = loadOntologyFromString(preamble + correct + closure, IRI.generateDocumentIRI(),
-            new RDFXMLDocumentFormat());
+        OWLOntology o =
+            loadOntologyFromString(input, IRI.generateDocumentIRI(), new RDFXMLDocumentFormat());
+        OWLOntology o1 = loadOntologyFromString(preamble + correct + closure,
+            IRI.generateDocumentIRI(), new RDFXMLDocumentFormat());
         equal(o, o1);
         assertTrue(saveOntology(o, new RDFXMLDocumentFormat()).toString().contains(correct));
     }
 
     @Test
-    public void shouldRoundtripPaddedLiterals() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundtripPaddedLiterals()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         String in = "Prefix(:=<urn:test#>)\n" + "Prefix(a:=<urn:test#>)\n"
             + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n"
-            + "Prefix(owl2xml:=<http://www.w3.org/2006/12/owl2-xml#>)\n" + "Prefix(test:=<urn:test#>)\n"
-            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n" + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n" + "Ontology(<urn:test>\n"
-            + "DataPropertyAssertion(:dp :c \"1\"^^xsd:integer) " + "DataPropertyAssertion(:dp :c \"01\"^^xsd:integer) "
+            + "Prefix(owl2xml:=<http://www.w3.org/2006/12/owl2-xml#>)\n"
+            + "Prefix(test:=<urn:test#>)\n" + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+            + "Ontology(<urn:test>\n" + "DataPropertyAssertion(:dp :c \"1\"^^xsd:integer) "
+            + "DataPropertyAssertion(:dp :c \"01\"^^xsd:integer) "
             + "DataPropertyAssertion(:dp :c \"1\"^^xsd:short))";
         OWLOntology o = loadOntologyFromString(new StringDocumentSource(in, IRI.create("urn:test"),
             new FunctionalSyntaxDocumentFormat(), null));
@@ -106,19 +115,19 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
         equal(o, o2);
         OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:test#dp"));
         OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create("urn:test#c"));
-        assertTrue(o.getAxioms().contains(df.getOWLDataPropertyAssertionAxiom(p, i, df.getOWLLiteral("01", df
-            .getIntegerOWLDatatype()))));
-        assertTrue(o.getAxioms().contains(df.getOWLDataPropertyAssertionAxiom(p, i, df.getOWLLiteral("1", df
-            .getIntegerOWLDatatype()))));
-        assertTrue(o.getAxioms().contains(df.getOWLDataPropertyAssertionAxiom(p, i, df.getOWLLiteral("1",
-            OWL2Datatype.XSD_SHORT.getDatatype(df)))));
+        assertTrue(o.getAxioms().contains(df.getOWLDataPropertyAssertionAxiom(p, i,
+            df.getOWLLiteral("01", df.getIntegerOWLDatatype()))));
+        assertTrue(o.getAxioms().contains(df.getOWLDataPropertyAssertionAxiom(p, i,
+            df.getOWLLiteral("1", df.getIntegerOWLDatatype()))));
+        assertTrue(o.getAxioms().contains(df.getOWLDataPropertyAssertionAxiom(p, i,
+            df.getOWLLiteral("1", OWL2Datatype.XSD_SHORT.getDatatype(df)))));
     }
 
     @Test
     public void shouldNotFindPaddedLiteralsEqualToNonPadded() {
-        assertNotEquals(df.getOWLLiteral("01", df.getIntegerOWLDatatype()), df.getOWLLiteral("1", df
-            .getIntegerOWLDatatype()));
-        assertNotEquals(df.getOWLLiteral("1", df.getIntegerOWLDatatype()), df.getOWLLiteral("01", df
-            .getIntegerOWLDatatype()));
+        assertNotEquals(df.getOWLLiteral("01", df.getIntegerOWLDatatype()),
+            df.getOWLLiteral("1", df.getIntegerOWLDatatype()));
+        assertNotEquals(df.getOWLLiteral("1", df.getIntegerOWLDatatype()),
+            df.getOWLLiteral("01", df.getIntegerOWLDatatype()));
     }
 }

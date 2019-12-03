@@ -269,7 +269,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final Map<OWLObject, OWLObject[]> expressionContext =
         new ConcurrentHashMap<>(16, 0.75F, 1);
     private final OWLObjectDesharer desharer;
-    private Set<OWLAxiom> translatedAxioms;
+    private final Set<OWLAxiom> translatedAxioms;
     @Nonnull
     private final Set<OWLIndividual> currentIndividuals = new HashSet<>();
 

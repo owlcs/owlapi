@@ -45,6 +45,9 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @SuppressWarnings("javadoc")
 public class FunctionalSyntaxCommentTestCase extends TestBase {
 
+    private static final String CONTACT_INFORMATION = "urn:test.owl#ContactInformation";
+    private static final String URN_TEST_OWL_CITY = "urn:test.owl#city";
+
     @Test
     public void shouldParseCommentAndSkipIt() throws OWLOntologyCreationException {
         String input =
@@ -55,10 +58,10 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
                 + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
                 + ')';
         OWLOntology o = loadOntologyFromString(input);
-        OWLAxiom ax1 = Declaration(DataProperty(IRI("urn:test.owl#city")));
-        OWLAxiom ax2 = SubClassOf(Class(IRI("urn:test.owl#ContactInformation")), DataMaxCardinality(
-            1, DataProperty(IRI("urn:test.owl#city")), Datatype(OWL2Datatype.XSD_STRING.getIRI())));
-        OWLAxiom ax3 = Declaration(Class(IRI("urn:test.owl#ContactInformation")));
+        OWLAxiom ax1 = Declaration(DataProperty(IRI(URN_TEST_OWL_CITY)));
+        OWLAxiom ax2 = SubClassOf(Class(IRI(CONTACT_INFORMATION)), DataMaxCardinality(
+            1, DataProperty(IRI(URN_TEST_OWL_CITY)), Datatype(OWL2Datatype.XSD_STRING.getIRI())));
+        OWLAxiom ax3 = Declaration(Class(IRI(CONTACT_INFORMATION)));
         assertTrue(o.containsAxiom(ax1));
         assertTrue(o.containsAxiom(ax2));
         assertTrue(o.containsAxiom(ax3));
@@ -82,15 +85,15 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
             + "blah\"^^xsd:string)\n"
             + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n\n\n)";
         OWLOntology o = m.createOntology(IRI.create("file:test.owl"));
-        m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(IRI("urn:test.owl#ContactInformation"),
+        m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(IRI(CONTACT_INFORMATION),
             Annotation(RDFSLabel(), Literal("blah \nblah"))));
-        m.addAxiom(o, Declaration(DataProperty(IRI("urn:test.owl#city"))));
+        m.addAxiom(o, Declaration(DataProperty(IRI(URN_TEST_OWL_CITY))));
         m.addAxiom(o,
-            SubClassOf(Class(IRI("urn:test.owl#ContactInformation")),
-                DataMaxCardinality(1, DataProperty(IRI("urn:test.owl#city")),
+            SubClassOf(Class(IRI(CONTACT_INFORMATION)),
+                DataMaxCardinality(1, DataProperty(IRI(URN_TEST_OWL_CITY)),
                     Datatype(OWL2Datatype.XSD_STRING.getIRI()))));
         m.addAxiom(o,
-            Declaration(Class(IRI("urn:test.owl#ContactInformation")), new HashSet<>(Arrays
+            Declaration(Class(IRI(CONTACT_INFORMATION)), new HashSet<>(Arrays
                 .asList(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("blah \nblah"))))));
         StringDocumentTarget saveOntology = saveOntology(o, new FunctionalSyntaxDocumentFormat());
         assertEquals(output, saveOntology.toString());

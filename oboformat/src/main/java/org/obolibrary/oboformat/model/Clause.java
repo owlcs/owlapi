@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -405,21 +406,17 @@ public class Clause {
             // types
             Object v1 = getValue();
             Object v2 = other.getValue();
-            if (v1 != v2) {
-                if (v1 != null) {
-                    if (!v1.equals(v2)) {
-                        if (Boolean.TRUE.equals(v1) && "true".equals(v2)) {
-                            // special case - OK
-                        } else if (Boolean.TRUE.equals(v2) && "true".equals(v1)) {
-                            // special case - OK
-                        } else if (Boolean.FALSE.equals(v1) && "false".equals(v2)) {
-                            // special case - OK
-                        } else if (Boolean.FALSE.equals(v2) && "false".equals(v1)) {
-                            // special case - OK
-                        } else {
-                            return false;
-                        }
-                    }
+            if (v1 != v2 && !Objects.equals(v1, v2)) {
+                if (Boolean.TRUE.equals(v1) && "true".equals(v2)) {
+                    // special case - OK
+                } else if (Boolean.TRUE.equals(v2) && "true".equals(v1)) {
+                    // special case - OK
+                } else if (Boolean.FALSE.equals(v1) && "false".equals(v2)) {
+                    // special case - OK
+                } else if (Boolean.FALSE.equals(v2) && "false".equals(v1)) {
+                    // special case - OK
+                } else {
+                    return false;
                 }
             }
         } else {

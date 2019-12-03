@@ -203,6 +203,7 @@ import com.google.common.base.Optional;
  */
 public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser {
 
+    private static final String DC = "dc:";
     // This parser was built by hand! After struggling with terrible
     // error messages produced by ANTLR (or JavaCC) I decides to construct
     // this parser by hand. The error messages that this parser generates
@@ -1069,11 +1070,11 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     @Nonnull
     private String unquoteLiteral(String tok) {
-        String lit = "";
         if (!tok.endsWith("\"")) {
             consumeToken();
             throw new ExceptionBuilder().withKeyword("\"").build();
         }
+        String lit = "";
         if (tok.length() > 2) {
             lit = tok.substring(1, tok.length() - 1);
         }
@@ -1223,12 +1224,12 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Override
     public Set<OntologyAxiomPair> parseDatatypeFrame() {
         String tok = consumeToken();
-        Set<OntologyAxiomPair> axioms = new HashSet<>();
         if (!DATATYPE.matches(tok)) {
             throw new ExceptionBuilder().withKeyword(DATATYPE).build();
         }
         String subj = consumeToken();
         OWLDatatype datatype = getOWLDatatype(subj);
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         axioms.add(
             new OntologyAxiomPair(defaultOntology, dataFactory.getOWLDeclarationAxiom(datatype)));
         while (true) {
@@ -1405,12 +1406,12 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Nonnull
     private Set<OntologyAxiomPair> parseClassFrame(boolean eof) {
         String tok = consumeToken();
-        Set<OntologyAxiomPair> axioms = new HashSet<>();
         if (!CLASS.matches(tok)) {
             throw new ExceptionBuilder().withKeyword(CLASS).build();
         }
         String subj = consumeToken();
         OWLClass cls = getOWLClass(subj);
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         axioms.add(new OntologyAxiomPair(defaultOntology, dataFactory.getOWLDeclarationAxiom(cls)));
         parseFrameSections(eof, axioms, cls, classFrameSections);
         return axioms;
@@ -1516,13 +1517,13 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     @Override
     public Set<OntologyAxiomPair> parseDataPropertyFrame() {
-        Set<OntologyAxiomPair> axioms = new HashSet<>();
         String tok = consumeToken();
         if (!DATA_PROPERTY.matches(tok)) {
             throw new ExceptionBuilder().withKeyword(DATA_PROPERTY).build();
         }
         String subj = consumeToken();
         OWLDataProperty prop = getOWLDataProperty(subj);
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         axioms
             .add(new OntologyAxiomPair(defaultOntology, dataFactory.getOWLDeclarationAxiom(prop)));
         parseFrameSections(false, axioms, prop, dataPropertyFrameSections);
@@ -1531,13 +1532,13 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     @Override
     public Set<OntologyAxiomPair> parseAnnotationPropertyFrame() {
-        Set<OntologyAxiomPair> axioms = new HashSet<>();
         String tok = consumeToken();
         if (!ANNOTATION_PROPERTY.matches(tok)) {
             throw new ExceptionBuilder().withKeyword(ANNOTATION_PROPERTY).build();
         }
         String subj = consumeToken();
         OWLAnnotationProperty prop = getOWLAnnotationProperty(subj);
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         for (OWLOntology ont : getOntologies()) {
             axioms.add(new OntologyAxiomPair(ont, dataFactory.getOWLDeclarationAxiom(prop)));
         }
@@ -1548,12 +1549,12 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Override
     public Set<OntologyAxiomPair> parseIndividualFrame() {
         String tok = consumeToken();
-        Set<OntologyAxiomPair> axioms = new HashSet<>();
         if (!INDIVIDUAL.matches(tok)) {
             throw new ExceptionBuilder().withKeyword(INDIVIDUAL).build();
         }
         String subj = consumeToken();
         OWLIndividual ind = getOWLIndividual(subj);
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         if (!ind.isAnonymous()) {
             axioms.add(new OntologyAxiomPair(getOntology(null),
                 dataFactory.getOWLDeclarationAxiom(ind.asOWLNamedIndividual())));
@@ -1598,7 +1599,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!VALUE_PARTITION.matches(section)) {
             throw new ExceptionBuilder().withKeyword(VALUE_PARTITION).build();
         }
-        Set<OWLOntology> onts = getOntologies();
         OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
         String clsName = consumeToken();
         if (eof(clsName)) {
@@ -1606,6 +1606,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
         OWLClass cls = getOWLClass(clsName);
         Set<OntologyAxiomPair> axioms = new HashSet<>();
+        Set<OWLOntology> onts = getOntologies();
         axioms.addAll(parseValuePartitionValues(onts, cls));
         for (OWLOntology ont : onts) {
             assert ont != null;
@@ -1656,7 +1657,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!RULE.matches(section)) {
             throw new ExceptionBuilder().withKeyword(RULE).build();
         }
-        Set<OWLOntology> ontologies = getOntologies();
         List<SWRLAtom> body = parseRuleAtoms();
         String tok = consumeToken();
         if (!DASH.matches(tok)) {
@@ -1667,7 +1667,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         SWRLRule rule =
             dataFactory.getSWRLRule(new LinkedHashSet<>(body), new LinkedHashSet<>(head));
         List<OntologyAxiomPair> pairs = new ArrayList<>();
-        for (OWLOntology ont : ontologies) {
+        for (OWLOntology ont : getOntologies()) {
             assert ont != null;
             pairs.add(new OntologyAxiomPair(ont, rule));
         }
@@ -2030,11 +2030,11 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     private Set<OWLClassExpression> parseClassExpressionList(ManchesterOWLSyntax expectedOpen,
         ManchesterOWLSyntax expectedClose) {
         String open = consumeToken();
-        Set<OWLClassExpression> descs = new HashSet<>();
         if (!expectedOpen.matches(open)) {
             throw new ExceptionBuilder().withKeyword(expectedOpen).build();
         }
         String sep = COMMA.keyword();
+        Set<OWLClassExpression> descs = new HashSet<>();
         while (COMMA.matches(sep)) {
             potentialKeywords.remove(COMMA);
             OWLClassExpression desc = parseUnion();
@@ -2245,7 +2245,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
             private String shortForm(HasIRI i) {
                 if (DublinCoreVocabulary.NAME_SPACE.equals(i.getIRI().getNamespace())) {
-                    pm.setPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
+                    pm.setPrefix(DC, DublinCoreVocabulary.NAME_SPACE);
                 }
                 return pm.getShortForm(i.getIRI());
             }
@@ -2658,8 +2658,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             if (colonIndex == -1) {
                 name = ":" + name;
             }
-            if (name.startsWith("dc:") && !pm.containsPrefixMapping("dc:")) {
-                pm.setPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
+            if (name.startsWith(DC) && !pm.containsPrefixMapping(DC)) {
+                pm.setPrefix(DC, DublinCoreVocabulary.NAME_SPACE);
             }
             uri = pm.getIRI(name);
         }

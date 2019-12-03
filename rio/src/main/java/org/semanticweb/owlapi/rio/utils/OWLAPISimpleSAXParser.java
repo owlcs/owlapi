@@ -232,7 +232,7 @@ public class OWLAPISimpleSAXParser {
         /**
          * StringBuilder used to collect text during parsing.
          */
-        private StringBuilder charBuf = new StringBuilder(512);
+        private final StringBuilder charBuf = new StringBuilder(512);
 
         /**
          * The tag name of a deferred start tag.

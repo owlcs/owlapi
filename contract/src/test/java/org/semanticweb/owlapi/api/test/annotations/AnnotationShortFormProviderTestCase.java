@@ -43,6 +43,7 @@ import org.semanticweb.owlapi.util.StringAnnotationVisitor;
 @SuppressWarnings("javadoc")
 public class AnnotationShortFormProviderTestCase extends TestBase {
 
+    private static final String IND = "ind";
     @Nonnull
     PrefixManager pm = new DefaultPrefixManager(null, null,
             "http://org.semanticweb.owlapi/ont#");
@@ -55,7 +56,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
 
     @Test
     public void testLiteralWithoutLanguageValue() {
-        OWLNamedIndividual root = NamedIndividual("ind", pm);
+        OWLNamedIndividual root = NamedIndividual(IND, pm);
         String shortForm = "MyLabel";
         Ontology(m,
                 AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
@@ -66,7 +67,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
 
     @Test
     public void testLiteralWithLanguageValue() {
-        OWLNamedIndividual root = NamedIndividual("ind", pm);
+        OWLNamedIndividual root = NamedIndividual(IND, pm);
         String label1 = "MyLabel";
         String label2 = "OtherLabel";
         Ontology(
@@ -86,7 +87,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
 
     @Test
     public void testIRIValue() {
-        OWLNamedIndividual root = NamedIndividual("ind", pm);
+        OWLNamedIndividual root = NamedIndividual(IND, pm);
         Ontology(
                 m,
                 AnnotationAssertion(prop, root.getIRI(),
@@ -98,7 +99,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
 
     @Test
     public void shouldWrapWithDoubleQuotes() {
-        OWLNamedIndividual root = NamedIndividual("ind", pm);
+        OWLNamedIndividual root = NamedIndividual(IND, pm);
         String shortForm = "MyLabel";
         Ontology(m,
                 AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));

@@ -313,8 +313,9 @@ public final class Searcher {
     public static Set<OWLAnnotation> annotations(@Nonnull OWLAxiom axiom, @Nullable OWLAnnotationProperty p) {
         Set<OWLAnnotation> set = new HashSet<>();
         if (axiom instanceof OWLAnnotationAssertionAxiom) {
-            if (p == null || ((OWLAnnotationAssertionAxiom) axiom).getProperty().equals(p)) {
-                set.add(((OWLAnnotationAssertionAxiom) axiom).getAnnotation());
+            OWLAnnotationAssertionAxiom ax = (OWLAnnotationAssertionAxiom) axiom;
+            if (p == null || ax.getProperty().equals(p)) {
+                set.add(ax.getAnnotation());
             }
         }
         if (p != null) {

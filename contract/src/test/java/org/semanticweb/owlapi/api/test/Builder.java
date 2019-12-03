@@ -17,29 +17,31 @@ import com.google.common.collect.Sets;
 @SuppressWarnings("javadoc")
 public class Builder {
 
+    private static final String URN_SWRL = "urn:swrl#";
+    private static final String URN_TEST = "urn:test#";
     private static @Nonnull OWLDataFactory df = OWLManager.getOWLDataFactory();
-    private final @Nonnull OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI.create("urn:test#", "ann"));
-    private final @Nonnull OWLObjectProperty op = df.getOWLObjectProperty(IRI.create("urn:test#", "op"));
-    private final @Nonnull OWLDataProperty dp = df.getOWLDataProperty(IRI.create("urn:test#", "dp"));
+    private final @Nonnull OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI.create(URN_TEST, "ann"));
+    private final @Nonnull OWLObjectProperty op = df.getOWLObjectProperty(IRI.create(URN_TEST, "op"));
+    private final @Nonnull OWLDataProperty dp = df.getOWLDataProperty(IRI.create(URN_TEST, "dp"));
     private final @Nonnull OWLLiteral lit = df.getOWLLiteral(false);
     private final @Nonnull OWLLiteral plainlit = df.getOWLLiteral("string", "en");
-    private final @Nonnull IRI iri = IRI.create("urn:test#", "iri");
+    private final @Nonnull IRI iri = IRI.create(URN_TEST, "iri");
     private final @Nonnull Set<OWLAnnotation> as = Sets.newHashSet(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
-    private final @Nonnull OWLClass ce = df.getOWLClass(IRI.create("urn:test#", "c"));
-    private final @Nonnull OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create("urn:test#", "i"));
-    private final @Nonnull OWLNamedIndividual j = df.getOWLNamedIndividual(IRI.create("urn:test#", "j"));
-    private final @Nonnull OWLDatatype d = df.getOWLDatatype(IRI.create("urn:test#", "datatype"));
+    private final @Nonnull OWLClass ce = df.getOWLClass(IRI.create(URN_TEST, "c"));
+    private final @Nonnull OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create(URN_TEST, "i"));
+    private final @Nonnull OWLNamedIndividual j = df.getOWLNamedIndividual(IRI.create(URN_TEST, "j"));
+    private final @Nonnull OWLDatatype d = df.getOWLDatatype(IRI.create(URN_TEST, "datatype"));
     private final @Nonnull Set<OWLDataProperty> dps = Sets.newHashSet(df.getOWLDataProperty(iri), dp);
     private final @Nonnull Set<OWLObjectProperty> ops = Sets.newHashSet(df.getOWLObjectProperty(iri), op);
     private final @Nonnull Set<OWLClass> classes = Sets.newHashSet(df.getOWLClass(iri), ce);
     private final @Nonnull Set<OWLNamedIndividual> inds = Sets.newHashSet(i, df.getOWLNamedIndividual(iri));
-    private final @Nonnull SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create("urn:swrl#", "v1"), Arrays.asList((SWRLDArgument) df.getSWRLVariable(IRI.create("urn:swrl#", "var3")), df.getSWRLVariable(IRI.create("urn:swrl#", "var4"))));
-    private final @Nonnull SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create("urn:swrl#", "v2"), Arrays.asList((SWRLDArgument) df.getSWRLVariable(IRI.create("urn:swrl#", "var5")), df.getSWRLVariable(IRI.create("urn:swrl#", "var6"))));
+    private final @Nonnull SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create(URN_SWRL, "v1"), Arrays.asList((SWRLDArgument) df.getSWRLVariable(IRI.create(URN_SWRL, "var3")), df.getSWRLVariable(IRI.create(URN_SWRL, "var4"))));
+    private final @Nonnull SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create(URN_SWRL, "v2"), Arrays.asList((SWRLDArgument) df.getSWRLVariable(IRI.create(URN_SWRL, "var5")), df.getSWRLVariable(IRI.create(URN_SWRL, "var6"))));
     private final @Nonnull Set<SWRLAtom> body = Sets.newHashSet(v1);
     private final @Nonnull Set<SWRLAtom> head = Sets.newHashSet(v2);
-    private final @Nonnull SWRLDArgument var1 = df.getSWRLVariable(IRI.create("urn:swrl#", "var1"));
+    private final @Nonnull SWRLDArgument var1 = df.getSWRLVariable(IRI.create(URN_SWRL, "var1"));
     private final @Nonnull List<SWRLDArgument> var1list = Arrays.asList(var1);
-    private final @Nonnull SWRLIArgument var2 = df.getSWRLVariable(IRI.create("urn:swrl#", "var2"));
+    private final @Nonnull SWRLIArgument var2 = df.getSWRLVariable(IRI.create(URN_SWRL, "var2"));
     private final @Nonnull LinkedHashSet<SWRLAtom> body2 = Sets.newLinkedHashSet(Arrays.asList(v1, 
         df.getSWRLClassAtom(ce, var2), 
         df.getSWRLDataRangeAtom(d, var1), 
@@ -354,7 +356,7 @@ public class Builder {
 
     public OWLOntology onto() {
         try {
-            return m.createOntology(IRI.create("urn:test#", "test"));
+            return m.createOntology(IRI.create(URN_TEST, "test"));
         } catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
         }

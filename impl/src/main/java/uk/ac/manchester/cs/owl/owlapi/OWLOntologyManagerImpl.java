@@ -134,6 +134,7 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentPriorityCollection;
 public class OWLOntologyManagerImpl
     implements OWLOntologyManager, OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
 
+    private static final String BADLY_BEHAVING_LISTENER_HAS_BEEN_REMOVED = "BADLY BEHAVING LISTENER: {} has been removed";
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyManagerImpl.class);
     @Nonnull
@@ -1741,7 +1742,7 @@ public class OWLOntologyManagerImpl
                     // to prevent the other listeners from receiving events.
                     strategy.broadcastChanges(listener, changes);
                 } catch (Exception e) {
-                    LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed", e.getMessage(), e);
+                    LOGGER.warn(BADLY_BEHAVING_LISTENER_HAS_BEEN_REMOVED, e.getMessage(), e);
                     listenerMap.remove(listener);
                 }
             }
@@ -2022,7 +2023,7 @@ public class OWLOntologyManagerImpl
                 try {
                     listener.begin(size);
                 } catch (Exception e) {
-                    LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed", e.getMessage(), e);
+                    LOGGER.warn(BADLY_BEHAVING_LISTENER_HAS_BEEN_REMOVED, e.getMessage(), e);
                     progressListeners.remove(listener);
                 }
             }
@@ -2041,7 +2042,7 @@ public class OWLOntologyManagerImpl
                 try {
                     listener.end();
                 } catch (Exception e) {
-                    LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed", e.getMessage(), e);
+                    LOGGER.warn(BADLY_BEHAVING_LISTENER_HAS_BEEN_REMOVED, e.getMessage(), e);
                     progressListeners.remove(listener);
                 }
             }
@@ -2063,7 +2064,7 @@ public class OWLOntologyManagerImpl
                 try {
                     listener.appliedChange(change);
                 } catch (Exception e) {
-                    LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed", e.getMessage(), e);
+                    LOGGER.warn(BADLY_BEHAVING_LISTENER_HAS_BEEN_REMOVED, e.getMessage(), e);
                     progressListeners.remove(listener);
                 }
             }

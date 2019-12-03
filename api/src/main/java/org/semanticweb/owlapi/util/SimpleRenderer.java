@@ -227,8 +227,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     protected void render(Set<? extends OWLObject> objects) {
-        for (Iterator<? extends OWLObject> it =
-            CollectionFactory.sortOptionally(objects).iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLObject> it = sortOptionally(objects).iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 sb.append(' ');

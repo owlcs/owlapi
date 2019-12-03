@@ -36,6 +36,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
 @SuppressWarnings("javadoc")
 public class HashCodeTestCase {
 
+    private static final String THREE = "3.0";
+
     @Test
     public void testSetContainsInt() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(
@@ -56,9 +58,9 @@ public class HashCodeTestCase {
     public void testSetContainsDouble() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(
                 OWL2Datatype.XSD_DOUBLE.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3.0", null,
+        OWLLiteral litNoComp = new OWLLiteralImplNoCompression(THREE, null,
                 datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3.0", null,
+        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression(THREE, null,
                 datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplDouble(3.0D, datatype);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
@@ -72,9 +74,9 @@ public class HashCodeTestCase {
     public void testSetContainsFloat() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(
                 OWL2Datatype.XSD_FLOAT.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3.0", null,
+        OWLLiteral litNoComp = new OWLLiteralImplNoCompression(THREE, null,
                 datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3.0", null,
+        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression(THREE, null,
                 datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplFloat(3.0F, datatype);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());

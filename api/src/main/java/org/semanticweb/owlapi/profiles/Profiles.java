@@ -64,6 +64,7 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     /** http://www.w3.org/ns/owl-profile/EL **/     OWL2_EL     ("EL",   Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2ELProfile();} },
     /** http://www.w3.org/ns/owl-profile/RL **/     OWL2_RL     ("RL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2RLProfile();} },
     /** http://www.w3.org/ns/owl-profile/Full **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2Profile();  } };
+    private static final String CANNOT_BE_INSTANTIATED = "Reasoner factory cannot be instantiated: ";
     //@formatter:on
     @Nonnull
     private final IRI iri;
@@ -123,16 +124,16 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
                 return (OWLReasonerFactory) c.newInstance();
             }
             throw new OWLRuntimeException(
-                "Reasoner factory cannot be instantiated: " + factoryClassName);
+                CANNOT_BE_INSTANTIATED + factoryClassName);
         } catch (ClassNotFoundException e) {
             throw new OWLRuntimeException(
-                "Reasoner factory cannot be instantiated: " + factoryClassName, e);
+                CANNOT_BE_INSTANTIATED + factoryClassName, e);
         } catch (InstantiationException e) {
             throw new OWLRuntimeException(
-                "Reasoner factory cannot be instantiated: " + factoryClassName, e);
+                CANNOT_BE_INSTANTIATED + factoryClassName, e);
         } catch (IllegalAccessException e) {
             throw new OWLRuntimeException(
-                "Reasoner factory cannot be instantiated: " + factoryClassName, e);
+                CANNOT_BE_INSTANTIATED + factoryClassName, e);
         }
     }
 

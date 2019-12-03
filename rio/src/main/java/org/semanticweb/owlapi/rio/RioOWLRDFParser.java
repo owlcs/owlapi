@@ -123,11 +123,9 @@ public class RioOWLRDFParser extends RDFParserBase {
         // OWLOntologyManagerFactory will be available, but if there is more
         // than one, no harm done
         try {
-            for (OWLOntologyManagerFactory f : ontologyManagerFactories) {
-                OWLOntology ontology = f.get().loadOntologyFromOntologyDocument(source);
-                new RioRenderer(ontology, getRDFHandler(), getRDFFormat().getOWLFormat()).render();
-                return;
-            }
+            OWLOntologyManagerFactory f = ontologyManagerFactories.iterator().next();
+            OWLOntology ontology = f.get().loadOntologyFromOntologyDocument(source);
+            new RioRenderer(ontology, getRDFHandler(), getRDFFormat().getOWLFormat()).render();
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }

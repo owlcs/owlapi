@@ -166,7 +166,7 @@ public class OWLZipSaver {
      * @return content of a catalog index for the input ontologies
      */
     public String catalogIndex(Collection<OWLOntology> roots, Collection<OWLOntology> ontologies) {
-        StringBuilder b = new StringBuilder(
+        StringBuilder b = new StringBuilder(1000).append(
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<catalog prefer=\"public\" xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n    <group id=\"Folder Repository, directory=, recursive=true, Auto-Update=true, version=2\" prefer=\"public\" xml:base=\"\">\n");
         int id = 1;
         if (roots.size() + ontologies.size() > 0) {
@@ -222,7 +222,7 @@ public class OWLZipSaver {
     public String propertiesIndex(Collection<OWLOntology> roots,
         Collection<OWLOntology> ontologies) {
         StringBuilder b = new StringBuilder();
-        if (roots.size() > 0) {
+        if (!roots.isEmpty()) {
             String rootsEntry = roots.stream().map(OWLOntology::getOntologyID).map(entryPath)
                 .collect(Collectors.joining(", "));
             b.append("roots=").append(rootsEntry).append("\n");

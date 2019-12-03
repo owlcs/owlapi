@@ -34,7 +34,7 @@ public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
     private Lock readLock, writeLock;
     @Mock
     private T element;
-    private PriorityCollectionSorting hasOntologyLoaderConfiguration =
+    private final PriorityCollectionSorting hasOntologyLoaderConfiguration =
         PriorityCollectionSorting.NEVER;
     private Iterable<T> iterable;
 

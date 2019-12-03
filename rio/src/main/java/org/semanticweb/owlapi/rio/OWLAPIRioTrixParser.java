@@ -157,16 +157,13 @@ class OWLAPIRioTrixParser extends RDFParserBase {
 
     private class TriXSAXHandler extends SimpleSAXAdapter {
 
-        private Resource currentContext;
+        private Resource currentContext = null;
 
         private boolean parsingContext;
 
-        private List<Value> valueList;
+        private final List<Value> valueList = new ArrayList<>(3);
 
-        public TriXSAXHandler() {
-            currentContext = null;
-            valueList = new ArrayList<>(3);
-        }
+        public TriXSAXHandler() {}
 
         @Override
         public void startTag(String tagName, Map<String, String> atts, String text)
