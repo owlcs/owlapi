@@ -51,6 +51,7 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  */
 public class OBOFormatParser {
 
+    private static final String BRACE = " !{";
     static final Logger LOG = LoggerFactory.getLogger(OBOFormatParser.class);
     protected final MyStream stream;
     private final LoadingCache<String, String> stringCache;
@@ -723,7 +724,7 @@ public class OBOFormatParser {
     }
 
     private Clause parseIdRef(Clause cl, boolean optional) {
-        String id = getParseUntil(" !{");
+        String id = getParseUntil(BRACE);
         if (!optional && id.length() < 1) {
             error("");
         }
@@ -742,7 +743,7 @@ public class OBOFormatParser {
     }
 
     private Clause parseISODate(Clause cl) {
-        String dateStr = getParseUntil(" !{");
+        String dateStr = getParseUntil(BRACE);
         cl.setValue(dateStr);
         return cl;
     }
@@ -814,7 +815,7 @@ public class OBOFormatParser {
             String desc = getParseUntilAdv("\"");
             cl.addValue(desc);
         } else {
-            String desc = getParseUntil(" !{");
+            String desc = getParseUntil(BRACE);
             cl.addValue(desc);
         }
         return parseQualifierAndHiddenComment(cl);
@@ -852,7 +853,7 @@ public class OBOFormatParser {
             String desc = getParseUntilAdv("\"");
             cl.addValue(desc);
         } else {
-            String s = getParseUntil(" !{");
+            String s = getParseUntil(BRACE);
             if (!s.isEmpty()) {
                 cl.addValue(s);
             }
@@ -1095,7 +1096,7 @@ public class OBOFormatParser {
         }
         Clause cl = new Clause(t);
         f.addClause(cl);
-        String id = getParseUntil(" !{");
+        String id = getParseUntil(BRACE);
         if (id.isEmpty()) {
             error("Could not find an valid id, id is empty.");
         }
