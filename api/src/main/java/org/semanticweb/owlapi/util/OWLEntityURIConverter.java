@@ -81,6 +81,7 @@ public class OWLEntityURIConverter {
             ont.objectPropertiesInSignature().forEach(this::processEntity);
             ont.dataPropertiesInSignature().forEach(this::processEntity);
             ont.individualsInSignature().forEach(this::processEntity);
+            ont.annotationPropertiesInSignature().forEach(this::processEntity);
         }
         OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap, Collections.emptyMap(),
             manager, new RemappingIndividualProvider(false, manager.getOWLDataFactory()));
