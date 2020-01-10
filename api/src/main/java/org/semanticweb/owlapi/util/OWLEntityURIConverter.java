@@ -27,9 +27,11 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -65,9 +67,9 @@ public class OWLEntityURIConverter {
      * Creates a converter that will convert the URIs of entities in the specified ontologies using
      * the specified conversion strategy.
      * 
-     * @param manager The manager which managers the specified ontologies.
+     * @param manager    The manager which managers the specified ontologies.
      * @param ontologies The ontologies whose entity URIs will be converted
-     * @param strategy The conversion strategy to be used.
+     * @param strategy   The conversion strategy to be used.
      */
     public OWLEntityURIConverter(@Nonnull OWLOntologyManager manager,
         @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLEntityURIConverterStrategy strategy) {
@@ -103,6 +105,14 @@ public class OWLEntityURIConverter {
             for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
                 assert ind != null;
                 processEntity(ind);
+            }
+            for (OWLAnnotationProperty prop : ont.getAnnotationPropertiesInSignature()) {
+                assert prop != null;
+                processEntity(prop);
+            }
+            for (OWLDatatype d : ont.getDatatypesInSignature()) {
+                assert d != null;
+                processEntity(d);
             }
         }
         OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap,
