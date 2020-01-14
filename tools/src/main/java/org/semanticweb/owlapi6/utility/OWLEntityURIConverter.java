@@ -57,9 +57,9 @@ public class OWLEntityURIConverter {
      * Creates a converter that will convert the URIs of entities in the specified ontologies using
      * the specified conversion strategy.
      *
-     * @param manager The manager which managers the specified ontologies.
+     * @param manager    The manager which managers the specified ontologies.
      * @param ontologies The ontologies whose entity URIs will be converted
-     * @param strategy The conversion strategy to be used.
+     * @param strategy   The conversion strategy to be used.
      */
     public OWLEntityURIConverter(OWLOntologyManager manager, Collection<OWLOntology> ontologies,
         OWLEntityURIConverterStrategy strategy) {
@@ -79,11 +79,7 @@ public class OWLEntityURIConverter {
         processedEntities.clear();
         List<OWLOntologyChange> changes = new ArrayList<>();
         for (OWLOntology ont : ontologies) {
-            ont.classesInSignature().filter(c -> !c.isOWLThing() && !c.isOWLNothing())
-                .forEach(this::processEntity);
-            ont.objectPropertiesInSignature().forEach(this::processEntity);
-            ont.dataPropertiesInSignature().forEach(this::processEntity);
-            ont.individualsInSignature().forEach(this::processEntity);
+            ont.signature().filter(this::skipBuiltins).forEach(this::processEntity);
         }
         OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap, Collections.emptyMap(),
             manager, new RemappingIndividualProvider(false, manager.getOWLDataFactory()));
@@ -97,6 +93,10 @@ public class OWLEntityURIConverter {
             });
         }
         return changes;
+    }
+
+    protected boolean skipBuiltins(OWLEntity x) {
+        return !x.getIRI().isReservedVocabulary();
     }
 
     private void processEntity(OWLEntity ent) {
