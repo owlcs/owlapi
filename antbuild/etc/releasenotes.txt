@@ -1,3 +1,12 @@
+## 4.5.15 28 January 2020
+
+### Bug fixes:
+
+*    Fix OWLEntityRenamer and anonymous individuals #892
+*    Fix Builtin annotation properties lost during parsing #895
+*    Deal with OWLAnnotationProperty entities in OWLEntityURIConverter class #896
+
+
 ## 4.5.14 19 October 2019
 
 ### Bug fixes:

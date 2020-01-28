@@ -253,6 +253,130 @@ Features:
 *    Declaration of save methods on OWLOntology
 *    OWLAPI 5 uses Java 8
 
+## 4.5.15 28 January 2020
+
+### Bug fixes:
+
+*    Fix OWLEntityRenamer and anonymous individuals #892
+*    Fix Builtin annotation properties lost during parsing #895
+*    Deal with OWLAnnotationProperty entities in OWLEntityURIConverter class #896
+
+
+## 4.5.14 19 October 2019
+
+### Bug fixes:
+
+*    Implement Allow gzipped imports #887
+*    Fix Race condition in Injector #883
+*    Jackson update
+*    Fix containsReference(OWLEntity) should be deprecated #864
+*    Fix Javadoc on applyChange/applyChanges and using the wrong manager #868
+*    Fix OWLObjectPropertyExpression#getSimplified() used incorrectly #882
+*    Fix Incomplete javadoc on OWLNaryAxiom#asPairwiseAxioms #884
+*    Fix OWLNegative*AssertionAxiom#containsAnonymousIndividuals javadoc #885
+*    Fix Annotated axiom with anon expression saved incorrectly #881
+*    Fix Ontology with relative IRIs is serialized incorrectly #880
+*    Fix Ann. annotation with anon individual saved in RDF incorrectly #877
+*    Fix Annotations dropped if annotation property is undeclared #875
+*    Fix SAXException from AutoIRIMapper at debug logging level #878
+*    Ensure isAnonymous is implemented correctly #867
+*    Fix Null pointers with imports and relation declarations #859
+*    Amend base and escaped characters in Tutle parsing #857
+
+## 4.5.13 02 June 2019
+
+### Features:
+
+*    Add support for custom tags in obo files. #848
+
+### Bug fixes:
+
+*    Fix OWLLogicalEntity is not an OWLAnnotationProperty #847
+*    Security: Jackson to 2.9.9
+*    Fix Manchester syntax parser crashes on class/property punning #851
+*    Fix OBO parser does not support qualifier block #852
+
+## 4.5.12 06 May 2019
+
+### Features:
+
+*    Add support to load an ontology from classpath #837
+*    Implement Allow annotations to be skipped in module extraction #838
+
+### Bug fixes:
+
+*    Fix Multiple Ontology Definitions should obey strict parsing #840
+*    Fix Unnecessary dc prefix added by Manchester syntax parser #845
+*    Fix OWLDataFactory::getLiteral error with empty string and integer #846
+*    Fixed several incorrect XSD datatype matching patterns #844
+
+## 4.5.11 17 April 2019
+
+### Bug fixes:
+
+*    Fix HTTP 307 and HTTP 308 redirects are not followed (in 4.x) #821
+*    Fix Missing escape character in OBO output #828
+*    Fix OWLDataPropertyAxiom not a subinterface of OWLPropertyAxiom #831
+*    Fix MaximumNumberOfNamedSuperclasses should count super classes #836
+*    Fix OWLOntology::getGeneralClassAxioms slow #839
+*    Fix roundtrip of escaped values #833
+
+## 4.5.10 14 March 2019
+
+### Bug fixes:
+
+*    Fix HTTP 307 and HTTP 308 redirects are not followed (in 4.x) #821
+*    Fix Ensure allValuesFrom axioms are not lost #808
+*    Fix EOFException in CustomTokenizer #813
+*    Fix Cyclic imports and missing declarations cause parsing error #798
+*    Fix Unescaping characters: OBOFormatParser#handleNextChar() #822
+*    Fix IRI PREFIX_CACHE instance uses too much memory #825
+
+## 4.5.9 1 February 2019
+
+### Bug fixes:
+
+*    Jackson version to 2.9.8
+*    Fix compatibility with Guava 27 #814
+*    Fix OBO renderer stuck with untranslatable axioms on concurrent managers
+*    Fix Annotations on DifferentIndividualsAxioms lost #816
+*    Fix No roundtrip for IRIs with colons in the fragment or path #817
+
+## 4.5.8 22 December 2018
+
+### Features:
+
+*    Refactor OWLProfile implementations #638
+
+### Bug fixes:
+
+*    Fix Missing user defined datatype violation in literals #639
+*    Fix RDFGraph getSubjectsForObjects caught in infinite loop #809
+*    Fix DLExpressivity checker never computes anything #810
+
+## 4.5.7 1 December 2018
+
+### Features:
+
+*    Add OWLClassExpression.isNamed method #790
+*    Fix injection problem under OSGi
+*    Expressivity Checker for EL and FL #500
+
+### Bug fixes:
+
+*    Fix ReadWriteLock should be injector singleton #785
+*    Fix Cyclic import of versioned ontologies fails #788
+*    Fix Annotate ontology annotations #791
+*    Fix Incorrect documentation for OWLOntologyManager methods. #795
+*    DisjointClasses with OWL:Thing produces incorrect axiom #747
+*    Fix Concurrent managers with own lock shared with own ontologies #806
+
+## 4.5.6 6 September 2018
+
+### Bug fixes:
+
+*    OSGi issues fixed
+
 4.5.5 02 Sep 2018
 
 Features:
