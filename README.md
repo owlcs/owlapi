@@ -22,6 +22,15 @@ The following components are included:
 
 ## Release notes
 
+## 5.1.13 27 January 2020
+
+### Bug fixes:
+
+*    Fix OWLEntityRenamer and anonymous individuals #892
+*    Fix Builtin annotation properties lost during parsing #895
+*    Deal with OWLAnnotationProperty entities in OWLEntityURIConverter class #896
+
+
 ## 5.1.12 20 October 2019
 
 ### Bug fixes:
