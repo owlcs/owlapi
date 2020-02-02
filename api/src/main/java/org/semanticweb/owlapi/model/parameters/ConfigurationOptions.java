@@ -59,7 +59,7 @@ public enum ConfigurationOptions {
     /** True if rdfs:label values are to be used as banners in text output. */
     LABELS_AS_BANNER(Boolean.FALSE),
     /** True if banners for ontology sections and entity comments should be outputted. */
-    BANNERS_ENABLED(Boolean.FALSE),
+    BANNERS_ENABLED(Boolean.TRUE),
     /** List of banned parsers keys. */
     BANNED_PARSERS(""),
     /** Entity expansion limit for XML parsing. */
@@ -115,7 +115,7 @@ public enum ConfigurationOptions {
 
     /**
      * @param parameterName parameter name - by default the full name of this enumeration plus the
-     *        enum member name
+     *                      enum member name
      * @return , atching ConfigurationOptions member, or null if none found
      */
     @Nullable
@@ -128,8 +128,8 @@ public enum ConfigurationOptions {
 
     /**
      * @param value value to parse according to the enum default value
-     * @param type type of the returned value
-     * @param <T> type
+     * @param type  type of the returned value
+     * @param <T>   type
      * @return parsed value
      */
     protected <T> T parse(Object value, Class<T> type) {
@@ -149,9 +149,9 @@ public enum ConfigurationOptions {
     }
 
     /**
-     * @param type type for this value
+     * @param type      type for this value
      * @param overrides local overrides
-     * @param <T> type
+     * @param <T>       type
      * @return value for this configuration option. Values are evaluated as follows: first, check
      *         overrides; if no overrides are present, check if a system property with the expected
      *         name is set; if not, check the config file; if no value is set in the config file,
@@ -176,7 +176,7 @@ public enum ConfigurationOptions {
 
     /**
      * @param type type to cast to
-     * @param <T> type
+     * @param <T>  type
      * @return default value
      */
     public <T> T getDefaultValue(Class<T> type) {
