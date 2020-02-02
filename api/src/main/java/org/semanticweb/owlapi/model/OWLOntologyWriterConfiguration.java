@@ -90,15 +90,15 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     }
 
     /**
-     * @param label True if banner comments should be enabled.
+     * @param banners True if banner comments should be enabled.
      * @return new config object
      */
-    public OWLOntologyWriterConfiguration withBannersEnabled(boolean label) {
-        if (labelsAsBanner == label) {
+    public OWLOntologyWriterConfiguration withBannersEnabled(boolean banners) {
+        if (bannersEnabled == banners) {
             return this;
         }
         OWLOntologyWriterConfiguration copy = copy();
-        copy.labelsAsBanner = label;
+        copy.bannersEnabled = banners;
         return copy;
     }
 
