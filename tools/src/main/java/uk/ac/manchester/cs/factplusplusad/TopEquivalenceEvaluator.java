@@ -38,8 +38,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * check whether class expressions are equivalent to top wrt given locality
- * class
+ * check whether class expressions are equivalent to top wrt given locality class
  */
 class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
@@ -57,7 +56,6 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
      *
      * @param s signature
      */
-    @SuppressWarnings("null")
     TopEquivalenceEvaluator(Signature s) {
         super(s);
     }
@@ -208,10 +206,8 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectExactCardinality expr) {
         int n = expr.getCardinality();
-        isTopEq =
-            isMinTopEquivalent(n, expr.getProperty(), expr.getFiller()) && isMaxTopEquivalent(n,
-                expr
-                    .getProperty(), expr.getFiller());
+        isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller())
+            && isMaxTopEquivalent(n, expr.getProperty(), expr.getFiller());
     }
 
     @Override
@@ -242,10 +238,8 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     @Override
     public void visit(OWLDataExactCardinality expr) {
         int n = expr.getCardinality();
-        isTopEq =
-            isMinTopEquivalent(n, expr.getProperty(), expr.getFiller()) && isMaxTopEquivalent(n,
-                expr
-                    .getProperty(), expr.getFiller());
+        isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller())
+            && isMaxTopEquivalent(n, expr.getProperty(), expr.getFiller());
     }
 
     @Override
