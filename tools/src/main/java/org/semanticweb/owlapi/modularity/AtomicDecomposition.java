@@ -16,7 +16,9 @@ import org.semanticweb.owlapi.model.HasAxioms;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.modularity.SyntacticLocalityModuleExtractor.SyntacticLocalityClass;
+import org.semanticweb.owlapi.modularity.locality.LocalityClass;
+import org.semanticweb.owlapi.modularity.locality.LocalityModuleExtractor;
+import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityModuleExtractor;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
@@ -29,13 +31,16 @@ import com.google.common.collect.SetMultimap;
  */
 public final class AtomicDecomposition implements HasAxioms {
 
+	// TODO dependecy relation
+	// TODO Deprecate all other classes
+
 	/**
 	 * Class to represent atoms.
 	 *
 	 * @author Marc Robin Nolte
 	 *
 	 */
-	public final class Atom {
+	public final class Atom implements HasAxioms {
 
 		/**
 		 * The {@link OWLAxiom}s of this {@link Atom}.
@@ -58,6 +63,7 @@ public final class AtomicDecomposition implements HasAxioms {
 		 *
 		 * @return The {@link OWLAxiom}s of this {@link Atom}
 		 */
+		@Override
 		public @Nonnull Stream<OWLAxiom> axioms() {
 			return axioms.stream();
 		}
@@ -97,8 +103,8 @@ public final class AtomicDecomposition implements HasAxioms {
 	/**
 	 * Constructs the {@link AtomicDecomposition} for the given axiom base based on
 	 * the module extraction an {@link SyntacticLocalityModuleExtractor} provides by
-	 * using {@link SyntacticLocalityClass#STAR}. This operation may take some time
-	 * based on the ontology size and the used module extraction algorithm.
+	 * using {@link LocalityClass#STAR}. This operation may take some time based on
+	 * the ontology size and the used module extraction algorithm.
 	 *
 	 * @param ontology The {@link OWLOntology} that is to be decomposed. Changes of
 	 *                 the ontology will not be considered
@@ -127,19 +133,13 @@ public final class AtomicDecomposition implements HasAxioms {
 	/**
 	 * Constructs the {@link AtomicDecomposition} for the given axiom base based on
 	 * the module extraction an {@link SyntacticLocalityModuleExtractor} provides by
-	 * using {@link SyntacticLocalityClass#STAR}. This operation may take some time
-	 * based on the ontology size and the used module extraction algorithm.
+	 * using {@link LocalityClass#STAR}. This operation may take some time based on
+	 * the ontology size and the used module extraction algorithm.
 	 *
 	 * @param ontology The axiom base that is to be decomposed
 	 */
 	public AtomicDecomposition(final Stream<OWLAxiom> axioms) {
-		this(axioms, stream -> {
-			final SyntacticLocalityModuleExtractor extractor = new SyntacticLocalityModuleExtractor(stream,
-					SyntacticLocalityClass.STAR);
-			extractor.precomputeTautologies();
-			extractor.precomputeGlobals();
-			return extractor;
-		});
+		this(axioms, stream -> new SyntacticLocalityModuleExtractor(LocalityClass.STAR, stream));
 	}
 
 	/**
@@ -218,7 +218,7 @@ public final class AtomicDecomposition implements HasAxioms {
 
 		moduleToSignatureOf(alpha).filter(gamma -> !gamma.equals(alpha)).forEach(gamma -> {
 			final OWLAxiom axiom = buildAtomsInModule(gamma, Optional.of(alpha));
-			dependenciesOf.put(atomOf.get(axiom), atomOf.get(axiom));
+			dependenciesOf.put(atomOf.get(axiom), atomOf.get(alpha));
 		});
 
 		return alpha;
@@ -259,16 +259,12 @@ public final class AtomicDecomposition implements HasAxioms {
 		final Set<OWLAxiom> moduleOfBeta;
 		if (beta.isPresent()) {
 			moduleOfBeta = moduleToSignatureOf.get(beta.get());
+			moduleExtractor.extract(alpha.signature(), Optional.of(moduleOfBeta))
+					.forEach(moduleAxiom -> moduleToSignatureOf.put(alpha, moduleAxiom));
 		} else {
 			moduleOfBeta = axioms;
-		}
-
-		moduleExtractor.extract(alpha.signature(), Optional.of(moduleOfBeta))
-				.forEach(moduleAxiom -> moduleToSignatureOf.put(alpha, moduleAxiom));
-
-		// modules are equal if size are equal
-		if (moduleOfBeta.size() == axioms.size()) {
-			return alpha;
+			moduleExtractor.extract(alpha.signature())
+					.forEach(moduleAxiom -> moduleToSignatureOf.put(alpha, moduleAxiom));
 		}
 
 		// modules are equal if size are equal

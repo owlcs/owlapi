@@ -1,13 +1,8 @@
-package org.semanticweb.owlapi.modularity;
+package org.semanticweb.owlapi.modularity.locality;
 
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
@@ -21,13 +16,20 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 public final class SemanticLocalityModuleExtractor extends LocalityModuleExtractor {
 
 	/**
-	 * The used {@link SemanticLocalityEvaluator}.
+	 * The manager to instantiate an {@link OWLReasoner}.
 	 */
-	private @Nonnull final SemanticLocalityEvaluator localityEvaluator;
+	private final OWLReasonerFactory reasonerFactory;
+
+	/**
+	 * The factory to instantiate an {@link OWLReasoner}.
+	 */
+	private final OWLOntologyManager ontologyManager;
 
 	/**
 	 * Instantiates a new {@link SemanticLocalityEvaluator}.
 	 *
+	 *
+	 * @param localityClass   The {@link LocalityClass} to use
 	 * @param axiomBase       The axiom base of the new
 	 *                        {@link SemanticLocalityModuleExtractor}
 	 * @param ontologyManager The manager that should be used to instantiate an
@@ -35,16 +37,21 @@ public final class SemanticLocalityModuleExtractor extends LocalityModuleExtract
 	 * @param reasonerFactory The factory that should be used to instantiate an
 	 *                        {@link OWLReasoner}
 	 */
-	public SemanticLocalityModuleExtractor(final Stream<OWLAxiom> owlAxiomBase,
+	public SemanticLocalityModuleExtractor(final LocalityClass localityClass, final Stream<OWLAxiom> owlAxiomBase,
 			final OWLOntologyManager ontologyManager, final OWLReasonerFactory reasonerFactory) {
-		super(owlAxiomBase);
-		localityEvaluator = new SemanticLocalityEvaluator(ontologyManager, reasonerFactory);
+		super(localityClass, owlAxiomBase);
+		this.ontologyManager = ontologyManager;
+		this.reasonerFactory = reasonerFactory;
 	}
 
 	@Override
-	protected Stream<OWLAxiom> extractModule(final Stream<OWLEntity> signature,
-			final Optional<Set<OWLAxiom>> subAxiomBase) {
-		return extractLocalityBasedModule(signature, subAxiomBase, localityEvaluator).stream();
+	protected LocalityEvaluator bottomEvaluator() {
+		return new SemanticLocalityEvaluator(LocalityClass.BOTTOM, ontologyManager, reasonerFactory);
+	}
+
+	@Override
+	protected LocalityEvaluator topEvaluator() {
+		return new SemanticLocalityEvaluator(LocalityClass.TOP, ontologyManager, reasonerFactory);
 	}
 
 }

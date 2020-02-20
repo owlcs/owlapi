@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.modularity;
+package org.semanticweb.owlapi.modularity.locality;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -97,8 +97,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 		 *
 		 * @param collection The signature that should not be replaced with \bottom.
 		 */
-		private BottomReplacer(final Collection<OWLEntity> collection) {
-			signature = collection;
+		private BottomReplacer(final Collection<OWLEntity> signature) {
+			this.signature = signature;
 		}
 
 		/**
@@ -303,6 +303,242 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 	}
 
 	/**
+	 * Class to replace certain {@link OWLClassExpression}s within an
+	 * {@link OWLAxiom} with \top.
+	 */
+	private class TopReplacer implements OWLAxiomVisitor, OWLClassExpressionVisitor {
+
+		/**
+		 * The {@link OWLAxiom} with replaced {@link OWLClassExpression}s. May be
+		 * manipulated during evaluation.
+		 */
+		@Nullable
+		private OWLAxiom newAxiom;
+
+		/**
+		 * The {@link OWLClassExpression} with replaced {@link OWLClassExpression}s. May
+		 * be manipulated during evaluation.
+		 */
+		@Nullable
+		private OWLClassExpression newClassExpression;
+
+		/**
+		 * The signature that should not be replaced.
+		 */
+		@Nonnull
+		private final Collection<OWLEntity> signature;
+
+		/**
+		 * Instantiates a new {@link BottomReplacer}.
+		 *
+		 * @param collection The signature that should not be replaced with \bottom.
+		 */
+		private TopReplacer(final Collection<OWLEntity> signature) {
+			this.signature = signature;
+		}
+
+		/**
+		 * Returns a new {@link OWLAxiom} resulting by replacing all entities not
+		 * present in this {@link BottomReplacer}'s signature with \top.
+		 *
+		 * @param axiom The {@link OWLAxiom}, which entities should be replaced
+		 * @return The new {@link OWLAxiom} as specified above
+		 */
+		public @Nonnull OWLAxiom replaceTop(final OWLAxiom axiom) {
+			newAxiom = null;
+			axiom.accept(this);
+			if (newAxiom == null) {
+				throw new OWLRuntimeException("Unsupported axiom: " + axiom);
+			}
+			return newAxiom;
+		}
+
+		/**
+		 * Returns a new {@link OWLClassExpression} resulting by replacing all entities
+		 * of the given {@link OWLClassExpression} not present in this
+		 * {@link BottomReplacer}'s signature with \top.
+		 *
+		 * @param classExpression The {@link OWLClassExpression}, which entities should
+		 *                        be replaced
+		 * @return The new {@link OWLClassExpression} as specified above
+		 */
+		public @Nonnull OWLClassExpression replaceTop(final OWLClassExpression classExpression) {
+			newClassExpression = null;
+			classExpression.accept(this);
+			if (newClassExpression == null) {
+				throw new OWLRuntimeException("Unsupported class expression: " + classExpression);
+			}
+			return newClassExpression;
+		}
+
+		/**
+		 * Returns a {@link Stream} of new {@link OWLClassExpression} resulting by
+		 * replacing all entities of the given {@link OWLClassExpression}s not present
+		 * in this {@link BottomReplacer}'s signature with \top.
+		 *
+		 * @param classExpressions The {@link OWLClassExpression}s, which entities
+		 *                         should be replaced
+		 * @return A {@link Stream} as specified above
+		 */
+		public @Nonnull Stream<OWLClassExpression> replaceTop(
+				final Stream<? extends OWLClassExpression> classExpressions) {
+			return classExpressions.map(this::replaceTop);
+		}
+
+		@Override
+		public void visit(@Nonnull final OWLClass ce) {
+			if (signature.contains(ce)) {
+				newClassExpression = ce;
+			} else {
+				newClassExpression = dataFactory.getOWLThing();
+			}
+		}
+
+		@Override
+		public void visit(final OWLDataAllValuesFrom ce) {
+			if (signature.contains(ce.getProperty().asOWLDataProperty())) {
+				newClassExpression = ce;
+			} else {
+				newClassExpression = dataFactory.getOWLNothing();
+			}
+		}
+
+		@Override
+		public void visit(final OWLDataExactCardinality ce) {
+			if (signature.contains(ce.getProperty().asOWLDataProperty())) {
+				newClassExpression = ce;
+			} else {
+				newClassExpression = dataFactory.getOWLThing();
+			}
+		}
+
+		@Override
+		public void visit(final OWLDataHasValue ce) {
+			newClassExpression = dataFactory.getOWLThing();
+		}
+
+		@Override
+		public void visit(final OWLDataMaxCardinality ce) {
+			if (signature.contains(ce.getProperty().asOWLDataProperty())) {
+				newClassExpression = ce;
+			} else {
+				newClassExpression = dataFactory.getOWLNothing();
+			}
+		}
+
+		@Override
+		public void visit(final OWLDataMinCardinality ce) {
+			if (signature.contains(ce.getProperty().asOWLDataProperty())) {
+				newClassExpression = ce;
+			} else {
+				newClassExpression = dataFactory.getOWLThing();
+			}
+		}
+
+		@Override
+		public void visit(final OWLDataSomeValuesFrom ce) {
+			if (signature.contains(ce.getProperty().asOWLDataProperty())) {
+				newClassExpression = ce;
+			} else {
+				newClassExpression = dataFactory.getOWLThing();
+			}
+		}
+
+		@Override
+		public void visit(final OWLDisjointClassesAxiom axiom) {
+			newAxiom = dataFactory.getOWLDisjointClassesAxiom(replaceTop(axiom.classExpressions()));
+		}
+
+		@Override
+		public void visit(final OWLEquivalentClassesAxiom axiom) {
+			newAxiom = dataFactory.getOWLEquivalentClassesAxiom(replaceTop(axiom.classExpressions()));
+		}
+
+		@Override
+		public void visit(final OWLObjectAllValuesFrom ce) {
+			if (signature.contains(ce.getProperty().getNamedProperty())) {
+				newClassExpression = dataFactory.getOWLObjectAllValuesFrom(ce.getProperty(),
+						replaceTop(ce.getFiller()));
+			} else {
+				newClassExpression = dataFactory.getOWLNothing();
+			}
+		}
+
+		@Override
+		public void visit(final OWLObjectComplementOf ce) {
+			newClassExpression = dataFactory.getOWLObjectComplementOf(replaceTop(ce.getOperand()));
+		}
+
+		@Override
+		public void visit(final OWLObjectExactCardinality ce) {
+			if (signature.contains(ce.getProperty().getNamedProperty())) {
+				newClassExpression = ce;
+			} else {
+				newClassExpression = dataFactory.getOWLThing();
+			}
+		}
+
+		@Override
+		public void visit(final OWLObjectHasSelf ce) {
+			newClassExpression = dataFactory.getOWLThing();
+		}
+
+		@Override
+		public void visit(final OWLObjectHasValue ce) {
+			newClassExpression = dataFactory.getOWLThing();
+		}
+
+		@Override
+		public void visit(final OWLObjectIntersectionOf ce) {
+			newClassExpression = dataFactory.getOWLObjectIntersectionOf(replaceTop(ce.operands()));
+		}
+
+		@Override
+		public void visit(final OWLObjectMaxCardinality ce) {
+			if (signature.contains(ce.getProperty().getNamedProperty())) {
+				newClassExpression = ce;
+			} else {
+				newClassExpression = dataFactory.getOWLNothing();
+			}
+		}
+
+		@Override
+		public void visit(final OWLObjectMinCardinality ce) {
+			if (signature.contains(ce.getProperty().getNamedProperty())) {
+				newClassExpression = ce;
+			} else {
+				newClassExpression = dataFactory.getOWLThing();
+			}
+		}
+
+		@Override
+		public void visit(final OWLObjectOneOf ce) {
+			newClassExpression = dataFactory.getOWLThing();
+		}
+
+		@Override
+		public void visit(final OWLObjectSomeValuesFrom ce) {
+			if (signature.contains(ce.getProperty().getNamedProperty())) {
+				newClassExpression = dataFactory.getOWLObjectSomeValuesFrom(ce.getProperty(),
+						replaceTop(ce.getFiller()));
+			} else {
+				newClassExpression = dataFactory.getOWLThing();
+			}
+		}
+
+		@Override
+		public void visit(final OWLObjectUnionOf ce) {
+			newClassExpression = dataFactory.getOWLObjectUnionOf(replaceTop(ce.operands()));
+		}
+
+		@Override
+		public void visit(final OWLSubClassOfAxiom axiom) {
+			newAxiom = dataFactory.getOWLSubClassOfAxiom(replaceTop(axiom.getSuperClass()),
+					replaceTop(axiom.getSubClass()));
+		}
+	}
+
+	/**
 	 * The used {@link OWLDataFactory}.
 	 */
 	private final @Nonnull OWLDataFactory dataFactory;
@@ -313,15 +549,27 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 	private final @Nonnull OWLReasoner reasoner;
 
 	/**
+	 * The {@link LocalityClass} to use.
+	 */
+	private final LocalityClass localityClass;
+
+	/**
 	 * Instantiates a new {@link SemanticLocalityEvaluator}
 	 *
+	 * @param localityClass   The {@link LocalityClass} to use. Must be one of
+	 *                        BOTTOM or TOP
 	 * @param ontologyManager The {@link OWLOntologyManager} to create a reasoner
 	 *                        with
 	 * @param reasonerFactory The {@link OWLReasonerFactory} to create a reasoner
 	 *                        with
 	 */
-	public SemanticLocalityEvaluator(final OWLOntologyManager ontologyManager,
+	public SemanticLocalityEvaluator(final LocalityClass localityClass, final OWLOntologyManager ontologyManager,
 			final OWLReasonerFactory reasonerFactory) {
+
+		this.localityClass = Objects.requireNonNull(localityClass, "The given  locality class may not be null.");
+		if (localityClass != LocalityClass.BOTTOM || localityClass != LocalityClass.TOP) {
+			throw new IllegalArgumentException("The given locality class must be one of BOTTOM or TOP");
+		}
 		dataFactory = Objects.requireNonNull(ontologyManager, "The given ontologyManager may not be null")
 				.getOWLDataFactory();
 		try {
@@ -330,14 +578,15 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 		} catch (final OWLOntologyCreationException e) {
 			throw new OWLRuntimeException(e);
 		}
-
 	}
 
 	@Override
 	public boolean isLocal(final OWLAxiom axiom, final Collection<OWLEntity> signature) {
-		return !axiom.isLogicalAxiom()
-				|| reasoner.isEntailed(new BottomReplacer(Objects.requireNonNull(signature, "signature cannot be null"))
-						.replaceBottom(Objects.requireNonNull(axiom, "The given axiom may not be null")));
+		return !axiom.isLogicalAxiom() || reasoner.isEntailed(localityClass == LocalityClass.BOTTOM
+				? new BottomReplacer(Objects.requireNonNull(signature, "signature cannot be null"))
+						.replaceBottom(Objects.requireNonNull(axiom, "The given axiom may not be null"))
+				: new TopReplacer(Objects.requireNonNull(signature, "signature cannot be null"))
+						.replaceTop(Objects.requireNonNull(axiom, "The given axiom may not be null")));
 	}
 
 }

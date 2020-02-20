@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.modularity;
+package org.semanticweb.owlapi.modularity.locality;
 /*
  * Following com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator, and
  * modified for a more modern, thread safe and maintainable implementation. Original Copyright is:

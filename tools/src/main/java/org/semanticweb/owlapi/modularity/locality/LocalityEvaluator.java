@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.modularity;
+package org.semanticweb.owlapi.modularity.locality;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
