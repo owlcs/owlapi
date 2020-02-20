@@ -1,10 +1,8 @@
 package org.semanticweb.owlapi.modularity;
 
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -15,6 +13,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.modularity.locality.LocalityClass;
+import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 
 /**
  * Interface for classes that extract modules based on fixed axiom bases.
@@ -63,7 +63,7 @@ public interface ModuleExtractor {
 	 * @return A boolean value as specified above
 	 */
 	default boolean everyModuleContains(final OWLAxiom axiom) {
-		return extract(Stream.empty(), Optional.of(Collections.singleton(axiom))).count() == 1;
+		return extract(Stream.empty(), axiom::equals).count() == 1;
 	}
 
 	/**
@@ -79,58 +79,45 @@ public interface ModuleExtractor {
 	}
 
 	/**
-	 * Extracts a module with respect to the given signature against the eventually
-	 * given subset of the axiom base of this {@link ModuleExtractor}. If the given
-	 * {@link OWLAxiom}s are not a subset of the axiom base of this
-	 * {@link ModuleExtractor}, this method's behavior is not specified.
+	 * Extracts a module with respect to the given signature against the subset of
+	 * the axiom base this {@link ModuleExtractor}s axiom base that matches the
+	 * given {@link Predicate}, if any.
 	 *
-	 * @param signature    The signature the module should be extracted against.
-	 * @param subAxiomBase The subset of this {@link ModuleExtractor}'s axiom base
-	 *                     which the module should be calculated against. If not
-	 *                     present, the {@link ModuleExtractor#axiomBase()} is
-	 *                     considered as the axiom base the module should be
-	 *                     calculated against. Will not be modified
+	 * @param signature   The signature the module should be extracted against.
+	 * @param axiomFilter An {@link Optional} {@link Predicate} that filters a
+	 *                    subset of the axiom base to extract the module against.
+	 *                    Note that ignoring some axiom may lead to other axioms not
+	 *                    be contained in the module either. For example, consider
+	 *                    the Ontology O:= {A⊑B, B⊑C, C⊑D} and the signature {A}.
+	 *                    {@link SyntacticLocalityEvaluator} with
+	 *                    {@link LocalityClass#BOTTOM} returns O as a whole, but
+	 *                    when ignoring the axiom B⊑C it only returns {A⊑B}.
 	 *
 	 * @return The axioms of the module with respect to the given signature
 	 */
 	@Nonnull
-	Stream<OWLAxiom> extract(final Stream<OWLEntity> signature, final Optional<Set<OWLAxiom>> subAxiomBase);
+	Stream<OWLAxiom> extract(final Stream<OWLEntity> signature, final Optional<Predicate<OWLAxiom>> axiomFilter);
 
 	/**
-	 * Extracts a module with respect to the given signature against the given
-	 * subset of the axiom base of this {@link ModuleExtractor}. If the given
-	 * {@link OWLAxiom}s are not a subset of the axiom base of this
-	 * {@link ModuleExtractor}, this method's behavior is not specified.
+	 * Extracts a module with respect to the given signature against the subset of
+	 * the axiom base this {@link ModuleExtractor}s axiom base that matches the
+	 * given {@link Predicate}.
 	 *
-	 * @param signature    The signature the module should be extracted against.
-	 *                     Will not be modified
-	 * @param subAxiomBase The subset of this {@link ModuleExtractor}'s axiom base
-	 *                     which the module should be calculated against. May not be
-	 *                     null. Will not be modified
+	 * @param signature   The signature the module should be extracted against.
+	 * @param axiomFilter An {@link Predicate} that filters a subset of the axiom
+	 *                    base to extract the module against. Note that ignoring
+	 *                    some axiom may lead to other axioms not be contained in
+	 *                    the module either. For example, consider the Ontologie O:=
+	 *                    {A⊑B, B⊑C, C⊑D} and the signature {A,E}.
+	 *                    {@link SyntacticLocalityEvaluator} with
+	 *                    {@link LocalityClass#BOTTOM} returns O as a whole, but
+	 *                    when ignoring the axiom B⊑C, it will only return {A⊑B}.
 	 *
 	 * @return The axioms of the module with respect to the given signature
 	 */
-	default @Nonnull Stream<OWLAxiom> extract(final Stream<OWLEntity> signature, final Set<OWLAxiom> subAxiomBase) {
-		return extract(signature, Optional.of(subAxiomBase));
-	}
-
-	/**
-	 * Extracts a module with respect to the given signature against the given
-	 * subset of the axiom base of this {@link ModuleExtractor}. If the given
-	 * {@link OWLAxiom}s are not a subset of the axiom base of this
-	 * {@link ModuleExtractor}, this method's behavior is not specified.
-	 *
-	 * @param signature    The signature the module should be extracted against
-	 * @param subAxiomBase The subset of this {@link ModuleExtractor}'s axiom base
-	 *                     which the module should be calculated against. May not be
-	 *                     null
-	 *
-	 * @return The axioms of the module with respect to the given signature
-	 */
-	default @Nonnull Stream<OWLAxiom> extract(final Stream<OWLEntity> signature, final Stream<OWLAxiom> subAxiomBase) {
-		final Optional<Set<OWLAxiom>> subAxiomBaseAsSet = Optional.of(Objects
-				.requireNonNull(subAxiomBase, "The given subAxiomBase may not be null.").collect(Collectors.toSet()));
-		return extract(signature, subAxiomBaseAsSet);
+	default @Nonnull Stream<OWLAxiom> extract(final Stream<OWLEntity> signature,
+			final Predicate<OWLAxiom> axiomFilter) {
+		return extract(signature, Optional.ofNullable(axiomFilter));
 	}
 
 	/**
@@ -183,7 +170,7 @@ public interface ModuleExtractor {
 	 * @return A boolean value as specified above
 	 */
 	default boolean noModuleContains(final OWLAxiom axiom) {
-		return extract(axiom.signature(), Collections.singleton(axiom)).count() == 0;
+		return extract(axiom.signature(), axiom::equals).count() == 0;
 	}
 
 	/**

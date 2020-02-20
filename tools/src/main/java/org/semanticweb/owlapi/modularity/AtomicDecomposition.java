@@ -24,15 +24,12 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
 
 /**
- * Class to represent the atomic decomposition.
+ * Class to represent the atomic decomposition of a set of axioms.
  *
  * @author Marc Robin Nolte
  *
  */
 public final class AtomicDecomposition implements HasAxioms {
-
-	// TODO dependecy relation
-	// TODO Deprecate all other classes
 
 	/**
 	 * Class to represent atoms.
@@ -46,6 +43,16 @@ public final class AtomicDecomposition implements HasAxioms {
 		 * The {@link OWLAxiom}s of this {@link Atom}.
 		 */
 		private final @Nonnull Set<OWLAxiom> axioms;
+
+		/**
+		 * The {@link Atom}s this Atom is dependent on.
+		 */
+		private final @Nonnull Set<Atom> dependencies = new HashSet<>();
+
+		/**
+		 * The {@link Atom}s that are dependent on this {@link Atom}.
+		 */
+		private final @Nonnull Set<Atom> dependents = new HashSet<>();
 
 		/**
 		 * Instantiates a new {@link Atom}. The {@link OWLAxiom}s of this {@link Atom}
@@ -68,6 +75,50 @@ public final class AtomicDecomposition implements HasAxioms {
 			return axioms.stream();
 		}
 
+		/**
+		 * Returns the {@link Atom}s this {@link Atom} depends on. In the literature,
+		 * this {@link Atom} <= returned atoms.
+		 *
+		 * @return The {@link Atom}s this {@link Atom} depends on
+		 */
+		public @Nonnull Stream<Atom> dependencies() {
+			return dependencies.stream();
+		}
+
+		/**
+		 * Returns the {@link Atom}s that depend on this {@link Atom}. In the
+		 * literature, returned atoms <= this {@link Atom}.
+		 *
+		 * @return The {@link Atom}s that depend on this {@link Atom}
+		 */
+		public @Nonnull Stream<Atom> dependents() {
+			return dependents.stream();
+		}
+
+		/**
+		 * Checks if this {@link Atom} depends on the given {@link Atom}.
+		 *
+		 * @param atom The {@link Atom} to check if this {@link Atom} depends on it
+		 * @return If this {@link Atom} depends on the given {@link Atom}
+		 * @throws {@link NullPointerException} If the given {@link Atom} was
+		 *                <code>null</code>
+		 */
+		public boolean dependsOn(final Atom atom) {
+			return dependencies.contains(Objects.requireNonNull(atom));
+		}
+
+		/**
+		 * Checks if the given {@link Atom} depends on this {@link Atom}.
+		 *
+		 * @param atom The {@link Atom} to check if it depends on this {@link Atom}
+		 * @return If the given {@link Atom} depends on the this {@link Atom}
+		 * @throws {@link NullPointerException} If the given {@link Atom} was
+		 *                <code>null</code>
+		 */
+		public boolean isDependencyOf(final Atom atom) {
+			return dependents.contains(Objects.requireNonNull(atom));
+		}
+
 	}
 
 	/**
@@ -80,12 +131,6 @@ public final class AtomicDecomposition implements HasAxioms {
 	 * The axiom base of this {@link AtomicDecomposition}.
 	 */
 	private final @Nonnull Set<OWLAxiom> axioms;
-
-	/**
-	 * A mapping from {@link Atom}s to their dependencies. Gets computed within
-	 * {@link AtomicDecomposition#decompose()} already closed transitively.
-	 */
-	private final @Nonnull SetMultimap<Atom, Atom> dependenciesOf;
 
 	/**
 	 * The {@link ModuleExtractor} used by this {@link AtomicDecomposition} to
@@ -166,7 +211,6 @@ public final class AtomicDecomposition implements HasAxioms {
 		Objects.requireNonNull(axioms, "The given function may not retrieve null");
 		moduleToSignatureOf = HashMultimap.create();
 		atomOf = new HashMap<>();
-		dependenciesOf = HashMultimap.create();
 		decompose();
 	}
 
@@ -186,6 +230,16 @@ public final class AtomicDecomposition implements HasAxioms {
 					"The given axiom must be contained in the axiom base of this atomic decomposition");
 		}
 		return atomOf.get(axiom);
+	}
+
+	/**
+	 * Returns a {@link Stream} of the {@link Atom}s computed by this
+	 * {@link AtomicDecomposition}.
+	 *
+	 * @return The {@link Atom}s computed by this {@link AtomicDecomposition}
+	 */
+	public Stream<Atom> atoms() {
+		return atomOf.values().stream();
 	}
 
 	@Override
@@ -218,7 +272,10 @@ public final class AtomicDecomposition implements HasAxioms {
 
 		moduleToSignatureOf(alpha).filter(gamma -> !gamma.equals(alpha)).forEach(gamma -> {
 			final OWLAxiom axiom = buildAtomsInModule(gamma, Optional.of(alpha));
-			dependenciesOf.put(atomOf.get(axiom), atomOf.get(alpha));
+			final Atom first = atomOf.get(axiom);
+			final Atom second = atomOf.get(alpha);
+			first.dependencies.add(second); // first <= second
+			second.dependents.add(first);
 		});
 
 		return alpha;
@@ -259,7 +316,7 @@ public final class AtomicDecomposition implements HasAxioms {
 		final Set<OWLAxiom> moduleOfBeta;
 		if (beta.isPresent()) {
 			moduleOfBeta = moduleToSignatureOf.get(beta.get());
-			moduleExtractor.extract(alpha.signature(), Optional.of(moduleOfBeta))
+			moduleExtractor.extract(alpha.signature(), moduleOfBeta::contains)
 					.forEach(moduleAxiom -> moduleToSignatureOf.put(alpha, moduleAxiom));
 		} else {
 			moduleOfBeta = axioms;

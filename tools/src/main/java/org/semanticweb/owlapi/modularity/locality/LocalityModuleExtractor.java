@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -79,18 +80,18 @@ public abstract class LocalityModuleExtractor extends AbstractModuleExtractor {
 
 	@Override
 	public final Stream<OWLAxiom> extract(final Stream<OWLEntity> signature,
-			final Optional<Set<OWLAxiom>> subAxiomBase) {
+			final Optional<Predicate<OWLAxiom>> axiomFilter) {
 
 		final Set<OWLEntity> signatureWithGlobals = Stream.concat(signature, globals().flatMap(OWLAxiom::signature))
 				.collect(Collectors.toSet());
 
 		Set<OWLAxiom> moduleWithoutGlobals;
 		if (localityClass == LocalityClass.STAR) {
-			moduleWithoutGlobals = extractStarModule(signatureWithGlobals, subAxiomBase);
+			moduleWithoutGlobals = extractStarModule(signatureWithGlobals, axiomFilter);
 		} else {
 			final LocalityEvaluator evaluator = localityClass == LocalityClass.BOTTOM ? bottomEvaluator()
 					: topEvaluator();
-			moduleWithoutGlobals = extractLocalityBasedModule(signatureWithGlobals, subAxiomBase, evaluator);
+			moduleWithoutGlobals = extractLocalityBasedModule(signatureWithGlobals, axiomFilter, evaluator);
 		}
 		return Stream.concat(globals(), moduleWithoutGlobals.stream());
 	}
@@ -104,13 +105,12 @@ public abstract class LocalityModuleExtractor extends AbstractModuleExtractor {
 	 * STAR-module extraction.
 	 */
 	protected final @Nonnull Set<OWLAxiom> extractLocalityBasedModule(final Set<OWLEntity> signature,
-			final Optional<Set<OWLAxiom>> subAxiomBase, final LocalityEvaluator evaluator) {
+			final Optional<Predicate<OWLAxiom>> axiomFilter, final LocalityEvaluator evaluator) {
 
 		// Sub axiom base requires to filter the axioms
 		Function<OWLEntity, Stream<OWLAxiom>> axiomsOfEntity = entity -> axiomsContainingEntity.get(entity).stream();
-		if (subAxiomBase.isPresent()) {
-			axiomsOfEntity = axiomsOfEntity
-					.andThen(stream -> stream.filter(axiom -> subAxiomBase.get().contains(axiom)));
+		if (axiomFilter.isPresent()) {
+			axiomsOfEntity = axiomsOfEntity.andThen(stream -> stream.filter(axiomFilter.get()));
 		}
 
 		// Signature needs to be copied such that the original won't be changed.
@@ -128,7 +128,7 @@ public abstract class LocalityModuleExtractor extends AbstractModuleExtractor {
 					.forEach(alpha -> addNonLocal(alpha, signatureCopy, module, workingSignature, evaluator));
 		}
 
-		assert !subAxiomBase.isPresent() || subAxiomBase.get().containsAll(module);
+		assert !axiomFilter.isPresent() || module.stream().allMatch(axiomFilter.get());
 
 		return module;
 	}
@@ -138,20 +138,20 @@ public abstract class LocalityModuleExtractor extends AbstractModuleExtractor {
 	 * w.r.t. the given signature.
 	 */
 	protected final @Nonnull Set<OWLAxiom> extractStarModule(final Set<OWLEntity> signature,
-			final Optional<Set<OWLAxiom>> subAxiomBase) {
+			final Optional<Predicate<OWLAxiom>> axiomFilter) {
 
 		final LocalityEvaluator bottom = bottomEvaluator(); // bot or empty_set
 		final LocalityEvaluator top = topEvaluator(); // top or delta
 
 		// Calculating the initial module
-		Set<OWLAxiom> module = extractLocalityBasedModule(signature, subAxiomBase, bottom);
+		Set<OWLAxiom> module = extractLocalityBasedModule(signature, axiomFilter, bottom);
 
 		LocalityEvaluator nextExtractionType = top;
 		int previousSize;
 		// nesting modules until stabilization
 		do {
 			previousSize = module.size();
-			module = extractLocalityBasedModule(signature, Optional.of(module), nextExtractionType);
+			module = extractLocalityBasedModule(signature, Optional.of(module::contains), nextExtractionType);
 			nextExtractionType = nextExtractionType == bottom ? top : bottom;
 		} while (previousSize != module.size());
 		return module;
