@@ -5,13 +5,13 @@ import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * Class to extract modules based on semantic locality.
+ * Class to extract modules based on syntactic locality.
  *
  * @author Marc Robin Nolte (modified version)
  *
  */
 public class SyntacticLocalityModuleExtractor extends LocalityModuleExtractor {
-	
+
 	/**
 	 * Instantiates a new {@link SyntacticLocalityModuleExtractor}.
 	 *
@@ -24,15 +24,15 @@ public class SyntacticLocalityModuleExtractor extends LocalityModuleExtractor {
 	public SyntacticLocalityModuleExtractor(final LocalityClass localityClass, final Stream<OWLAxiom> axiomBase) {
 		super(localityClass, axiomBase);
 	}
-
+	
 	@Override
 	protected LocalityEvaluator bottomEvaluator() {
 		return SyntacticLocalityEvaluator.BOTTOM;
 	}
-
+	
 	@Override
 	protected LocalityEvaluator topEvaluator() {
 		return SyntacticLocalityEvaluator.TOP;
 	}
-	
+
 }
