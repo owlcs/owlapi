@@ -17,26 +17,26 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  *
  */
 public abstract class AbstractModuleExtractor implements ModuleExtractor {
-	
+
 	/**
 	 * The axiom base of this {@link AbstractModuleExtractor}.
 	 */
 	private final @Nonnull Set<OWLAxiom> axiomBase;
-	
+
 	/**
 	 * The axioms that are guaranteed to be contained in every module calculated by
 	 * this {@link AbstractModuleExtractor}. Will be calculated when first calling
 	 * {@link AbstractModuleExtractor#globals()}.
 	 */
 	private @Nonnull Optional<Set<OWLAxiom>> globals = Optional.empty();
-	
+
 	/**
 	 * The axioms that are guaranteed to be contained in no module calculated by
 	 * this {@link AbstractModuleExtractor}. Will be calculated when first calling
 	 * {@link AbstractModuleExtractor#tautologies()}.
 	 */
 	private @Nonnull Optional<Set<OWLAxiom>> tautologies = Optional.empty();
-	
+
 	/**
 	 * Creates a new {@link AbstractModuleExtractor}.
 	 *
@@ -45,19 +45,17 @@ public abstract class AbstractModuleExtractor implements ModuleExtractor {
 	protected AbstractModuleExtractor(final Stream<OWLAxiom> axiomBase) {
 		this.axiomBase = axiomBase.filter(OWLAxiom::isLogicalAxiom).collect(Collectors.toSet());
 	}
-	
+
 	@Override
 	public final @Nonnull Stream<OWLAxiom> axiomBase() {
-		Stream<OWLAxiom> toReturn = axiomBase.stream();
-		toReturn = Stream.concat(tautologies.stream().flatMap(Set::stream), toReturn);
 		return axiomBase.stream();
 	}
-	
+
 	@Override
 	public boolean containsAxiom(final OWLAxiom axiom) {
 		return axiomBase.contains(axiom);
 	}
-	
+
 	@Override
 	public final boolean everyModuleContains(final OWLAxiom axiom) {
 		if (globals.isPresent()) {
@@ -65,7 +63,7 @@ public abstract class AbstractModuleExtractor implements ModuleExtractor {
 		}
 		return ModuleExtractor.super.everyModuleContains(axiom);
 	}
-	
+
 	@Override
 	public final @Nonnull Stream<OWLAxiom> globals() {
 		if (!globals.isPresent()) {
@@ -73,7 +71,7 @@ public abstract class AbstractModuleExtractor implements ModuleExtractor {
 		}
 		return globals.get().stream();
 	}
-	
+
 	@Override
 	public final boolean noModuleContains(final OWLAxiom axiom) {
 		if (tautologies.isPresent()) {
@@ -81,7 +79,7 @@ public abstract class AbstractModuleExtractor implements ModuleExtractor {
 		}
 		return ModuleExtractor.super.noModuleContains(axiom);
 	}
-	
+
 	@Override
 	public final @Nonnull Stream<OWLAxiom> tautologies() {
 		if (!tautologies.isPresent()) {
@@ -89,5 +87,5 @@ public abstract class AbstractModuleExtractor implements ModuleExtractor {
 		}
 		return tautologies.get().stream();
 	}
-	
+
 }
