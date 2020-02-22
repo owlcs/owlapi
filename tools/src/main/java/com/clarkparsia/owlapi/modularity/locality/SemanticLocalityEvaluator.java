@@ -160,7 +160,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         private OWLClassExpression newClassExpression;
         private Collection<OWLEntity> signature;
 
-        @SuppressWarnings("null")
         BottomReplacer() {
         }
 

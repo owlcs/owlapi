@@ -80,7 +80,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     /**
      * The comparator.
      */
-    private static final Comparator<Tree<OWLAxiom>> COMPARATOR = (o1, o2) -> {
+    protected static final Comparator<Tree<OWLAxiom>> COMPARATOR = (o1, o2) -> {
         OWLAxiom ax1 = o1.getUserObject();
         // Equivalent classes axioms always come last
         if (ax1 instanceof OWLEquivalentClassesAxiom) {
@@ -103,7 +103,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     /**
      * The properties first comparator.
      */
-    private static final Comparator<OWLObject> PROPERTIESFIRST = (o1, o2) -> {
+    protected static final Comparator<OWLObject> PROPERTIESFIRST = (o1, o2) -> {
         if (o1.equals(o2)) {
             return 0;
         }
@@ -121,7 +121,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = createMap();
     private final Set<OWLAxiom> consumedAxioms = createLinkedSet();
     private final Set<AxiomType<?>> passTypes = createLinkedSet();
-    private Set<OWLAxiom> currentExplanation;
+    protected Set<OWLAxiom> currentExplanation;
     private final Map<OWLEntity, Set<OWLAxiom>> axioms = new HashMap<>();
 
     /**
@@ -134,22 +134,22 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
         passTypes.add(AxiomType.DISJOINT_CLASSES);
     }
 
-    private static void sortChildrenAxioms(ExplanationTree tree) {
+    protected static void sortChildrenAxioms(ExplanationTree tree) {
         tree.sortChildren(COMPARATOR);
     }
 
     /**
      * A utility method that obtains a set of axioms that are indexed by some object.
      *
-     * @param <K> the key type
-     * @param <E> the element type
-     * @param obj The object that indexed the axioms
-     * @param map The map that provides the index structure
+     * @param <K>        the key type
+     * @param <E>        the element type
+     * @param obj        The object that indexed the axioms
+     * @param map        The map that provides the index structure
      * @param addIfEmpty A flag that indicates whether an empty set of axiom should be added to the
-     *        index if there is not value present for the indexing object.
+     *                   index if there is not value present for the indexing object.
      * @return A set of axioms (may be empty)
      */
-    private static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
+    protected static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
         if (addIfEmpty) {
             return map.computeIfAbsent(obj, x -> CollectionFactory.<E>createLinkedSet());
         }
@@ -160,7 +160,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
         return set;
     }
 
-    private static int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
+    protected static int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
         int childCount1 = o1.getChildCount();
         childCount1 = childCount1 > 0 ? 0 : 1;
         int childCount2 = o2.getChildCount();
@@ -168,7 +168,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
         return childCount1 - childCount2;
     }
 
-    private void reset() {
+    protected void reset() {
         lhs2AxiomMap.clear();
         entitiesByAxiomRHS.clear();
         consumedAxioms.clear();
@@ -208,7 +208,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
      * @param target the current target
      * @return the target axioms
      */
-    private Set<OWLAxiom> getTargetAxioms(OWLEntity target) {
+    protected Set<OWLAxiom> getTargetAxioms(OWLEntity target) {
         return axioms.getOrDefault(target, Collections.emptySet());
     }
 
@@ -238,7 +238,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
         return getTargetAxioms(entity).stream();
     }
 
-    private void buildIndices() {
+    protected void buildIndices() {
         reset();
         AxiomMapBuilder builder = new AxiomMapBuilder();
         currentExplanation.forEach(ax -> ax.accept(builder));
@@ -269,7 +269,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     /**
      * Index axioms by rhs entities.
      *
-     * @param rhs the rhs
+     * @param rhs   the rhs
      * @param axiom the axiom
      */
     protected void indexAxiomsByRHSEntities(OWLObject rhs, OWLAxiom axiom) {
@@ -371,7 +371,7 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     /**
      * A visitor that indexes axioms by their left and right hand sides.
      */
-    private class AxiomMapBuilder implements OWLAxiomVisitor {
+    protected class AxiomMapBuilder implements OWLAxiomVisitor {
 
         AxiomMapBuilder() {}
 
