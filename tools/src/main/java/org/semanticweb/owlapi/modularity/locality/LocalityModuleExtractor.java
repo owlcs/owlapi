@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2020, Marc Robin Nolte
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -25,38 +25,46 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.modularity.AbstractModuleExtractor;
 import org.semanticweb.owlapi.modularity.ModuleExtractor;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
 
 /**
- * Abstract class for convenience implementation of locality-based {@link ModuleExtractor}s. Offers
- * protected methods for the improved algorithm for module extraction.
+ * Abstract class for convenience implementation of locality-based
+ * {@link ModuleExtractor}s. Offers protected methods for the improved algorithm
+ * for module extraction.
  *
  * @author Marc Robin Nolte
- *
  */
-public abstract class LocalityModuleExtractor extends AbstractModuleExtractor {
+public abstract class LocalityModuleExtractor implements ModuleExtractor {
 
     /**
-     * Part of the implementation of the improved algorithm for module extraction. See "Improved
-     * Algorithms for Module Extraction and Atomic Decomposition" by Dmitry Tsarkov, 2012
-     * 
-     * @param axiom            current axiom
-     * @param signature        current signature
-     * @param module           current module
-     * @param workingSignature working signature
-     * @param evaluator        evaluator to use
+     * Part of the implementation of the improved algorithm for module
+     * extraction. See "Improved Algorithms for Module Extraction and Atomic
+     * Decomposition" by Dmitry Tsarkov, 2012
+     *
+     * @param axiom
+     *        current axiom
+     * @param signature
+     *        current signature
+     * @param module
+     *        current module
+     * @param workingSignature
+     *        working signature
+     * @param evaluator
+     *        evaluator to use
      */
-    private static void addNonLocal(OWLAxiom axiom, Set<OWLEntity> signature, Set<OWLAxiom> module,
-        Set<OWLEntity> workingSignature, LocalityEvaluator evaluator) {
+    private static void addNonLocal(final OWLAxiom axiom,
+            final Set<OWLEntity> signature, final Set<OWLAxiom> module,
+            final Set<OWLEntity> workingSignature,
+            final LocalityEvaluator evaluator) {
         if (!module.contains(axiom) && !evaluator.isLocal(axiom, signature)) {
             // M ← M ∪ α
             module.add(axiom);
             // S ← S ∪ (̃α \ Σ)
-            Set<OWLEntity> axiomSignature = axiom.signature().collect(Collectors.toSet());
+            final Set<OWLEntity> axiomSignature = axiom.signature()
+                    .collect(Collectors.toSet());
             axiomSignature.removeAll(signature);
             workingSignature.addAll(axiomSignature);
             // Σ ← Σ ∪ ̃α
@@ -65,119 +73,134 @@ public abstract class LocalityModuleExtractor extends AbstractModuleExtractor {
     }
 
     /**
+     * The axiom base of this {@link LocalityModuleExtractor}.
+     */
+    private final @Nonnull Set<OWLAxiom> axiomBase;
+    /**
      * The locality class used by this {@link SyntacticLocalityModuleExtractor}.
      */
-    private @Nonnull LocalityClass localityClass;
-
+    private @Nonnull final LocalityClass localityClass;
     /**
      * Map associating each entity with the axioms that contains it.
      */
-    private @Nonnull SetMultimap<OWLEntity, OWLAxiom> axiomsContainingEntity =
-        HashMultimap.create();
+    private @Nonnull final SetMultimap<OWLEntity, OWLAxiom> axiomsContainingEntity = HashMultimap
+            .create();
 
     /**
      * Creates a new {@link LocalityModuleExtractor}.
      *
-     * @param localityClass The {@link LocalityClass} to use
-     * @param axiomBase     the axiom base of the new {@link LocalityModuleExtractor}
+     * @param localityClass
+     *        The {@link LocalityClass} to use
+     * @param axiomBase
+     *        the axiom base of the new {@link LocalityModuleExtractor}
      */
-    protected LocalityModuleExtractor(LocalityClass localityClass, Stream<OWLAxiom> axiomBase) {
-        super(axiomBase);
-        this.localityClass =
-            Objects.requireNonNull(localityClass, "The given locality class may not be null.");
+    protected LocalityModuleExtractor(final LocalityClass localityClass,
+            final Stream<OWLAxiom> axiomBase) {
+        this.axiomBase = axiomBase.collect(Collectors.toSet());
+        this.localityClass = Objects.requireNonNull(localityClass,
+                "The given locality class may not be null.");
         initialize();
     }
 
+    @Override
+    public final @Nonnull Stream<OWLAxiom> axiomBase() {
+        return axiomBase.stream();
+    }
+
     /**
-     * @return The {@link LocalityEvaluator} corresponding to {@link LocalityClass#BOTTOM}.
+     * @return The {@link LocalityEvaluator} corresponding to
+     *         {@link LocalityClass#BOTTOM}.
      */
     protected abstract LocalityEvaluator bottomEvaluator();
 
     @Override
-    public final Stream<OWLAxiom> extract(Stream<OWLEntity> signature,
-        Optional<Predicate<OWLAxiom>> axiomFilter) {
+    public boolean containsAxiom(final OWLAxiom axiom) {
+        return axiomBase.contains(axiom);
+    }
 
-        Set<OWLEntity> signatureWithGlobals = Stream
-            .concat(signature, globals().flatMap(OWLAxiom::signature)).collect(Collectors.toSet());
-
-        Set<OWLAxiom> moduleWithoutGlobals;
+    @Override
+    public final Stream<OWLAxiom> extract(final Stream<OWLEntity> signature,
+            final Optional<Predicate<OWLAxiom>> axiomFilter) {
+        final Set<OWLEntity> signatureSet = signature
+                .collect(Collectors.toSet());
         if (localityClass == LocalityClass.STAR) {
-            moduleWithoutGlobals = extractStarModule(signatureWithGlobals, axiomFilter);
+            return extractStarModule(signatureSet, axiomFilter).stream();
         } else {
-            LocalityEvaluator evaluator =
-                localityClass == LocalityClass.BOTTOM ? bottomEvaluator() : topEvaluator();
-            moduleWithoutGlobals =
-                extractLocalityBasedModule(signatureWithGlobals, axiomFilter, evaluator);
+            final LocalityEvaluator evaluator = localityClass == LocalityClass.BOTTOM
+                    ? bottomEvaluator()
+                    : topEvaluator();
+            return extractLocalityBasedModule(signatureSet, axiomFilter,
+                    evaluator).stream();
         }
-        return Stream.concat(globals(), moduleWithoutGlobals.stream());
     }
 
     /**
-     * Implementation of the improved algorithm for module extraction. See "Improved Algorithms for
-     * Module Extraction and Atomic Decomposition" by Dmitry Tsarkov, 2012.
+     * Implementation of the improved algorithm for module extraction. See
+     * "Improved Algorithms for Module Extraction and Atomic Decomposition" by
+     * Dmitry Tsarkov, 2012. Uses a {@link Set} instead of a Stream for the sub
+     * axiom base in favor of STAR-module extraction.
      *
-     * Uses a {@link Set} instead of a Stream for the sub axiom base in favor of STAR-module
-     * extraction.
-     * 
-     * @param signature   signature to use in the extraction
-     * @param axiomFilter optional filter to apply to the axioms
-     * @param evaluator   locality evaluator
+     * @param signature
+     *        signature to use in the extraction
+     * @param axiomFilter
+     *        optional filter to apply to the axioms
+     * @param evaluator
+     *        locality evaluator
      * @return module as a set of axioms
      */
-    protected final @Nonnull Set<OWLAxiom> extractLocalityBasedModule(Set<OWLEntity> signature,
-        Optional<Predicate<OWLAxiom>> axiomFilter, LocalityEvaluator evaluator) {
-
+    protected final @Nonnull Set<OWLAxiom> extractLocalityBasedModule(
+            final Set<OWLEntity> signature,
+            final Optional<Predicate<OWLAxiom>> axiomFilter,
+            final LocalityEvaluator evaluator) {
         // Sub axiom base requires to filter the axioms
-        Function<OWLEntity, Stream<OWLAxiom>> axiomsOfEntity =
-            entity -> axiomsContainingEntity.get(entity).stream();
+        Function<OWLEntity, Stream<OWLAxiom>> axiomsOfEntity = entity -> axiomsContainingEntity
+                .get(entity).stream();
         if (axiomFilter.isPresent()) {
-            axiomsOfEntity = axiomsOfEntity.andThen(stream -> stream.filter(axiomFilter.get()));
+            axiomsOfEntity = axiomsOfEntity
+                    .andThen(stream -> stream.filter(axiomFilter.get()));
         }
-
         // Signature needs to be copied such that the original won't be changed.
         // STAR Modules would be wrong etc.
-        Set<OWLEntity> signatureCopy = new HashSet<>(signature);
-
-        Set<OWLAxiom> module = new HashSet<>();
-        Set<OWLEntity> workingSignature = new HashSet<>(signatureCopy);
-
+        final Set<OWLEntity> signatureCopy = new HashSet<>(signature);
+        final Set<OWLAxiom> module = new HashSet<>();
+        final Set<OWLEntity> workingSignature = new HashSet<>(signatureCopy);
         // actually extracting the module
         while (!workingSignature.isEmpty()) {
-            OWLEntity omega = workingSignature.stream().findAny().get();
+            final OWLEntity omega = workingSignature.stream().findAny().get();
             workingSignature.remove(omega);
-            axiomsOfEntity.apply(omega).forEach(
-                alpha -> addNonLocal(alpha, signatureCopy, module, workingSignature, evaluator));
+            axiomsOfEntity.apply(omega).forEach(alpha -> addNonLocal(alpha,
+                    signatureCopy, module, workingSignature, evaluator));
         }
-
-        assert !axiomFilter.isPresent() || module.stream().allMatch(axiomFilter.get());
-
+        assert !axiomFilter.isPresent()
+                || module.stream().allMatch(axiomFilter.get());
         return module;
     }
 
     /**
-     * Extracts the {@link LocalityClass#STAR}-Module of the given axioms w.r.t. the given
-     * signature.
-     * 
-     * @param signature   signature to use in the extraction
-     * @param axiomFilter optional filter to apply to the axioms
+     * Extracts the {@link LocalityClass#STAR}-Module of the given axioms w.r.t.
+     * the given signature.
+     *
+     * @param signature
+     *        signature to use in the extraction
+     * @param axiomFilter
+     *        optional filter to apply to the axioms
      * @return module as a set of axioms
      */
-    protected final @Nonnull Set<OWLAxiom> extractStarModule(Set<OWLEntity> signature,
-        Optional<Predicate<OWLAxiom>> axiomFilter) {
-
-        LocalityEvaluator bottom = bottomEvaluator(); // bot or empty_set
-        LocalityEvaluator top = topEvaluator(); // top or delta
-
+    protected final @Nonnull Set<OWLAxiom> extractStarModule(
+            final Set<OWLEntity> signature,
+            final Optional<Predicate<OWLAxiom>> axiomFilter) {
+        final LocalityEvaluator bottom = bottomEvaluator(); // bot or empty_set
+        final LocalityEvaluator top = topEvaluator(); // top or delta
         // Calculating the initial module
-        Set<OWLAxiom> module = extractLocalityBasedModule(signature, axiomFilter, bottom);
-
+        Set<OWLAxiom> module = extractLocalityBasedModule(signature,
+                axiomFilter, bottom);
         LocalityEvaluator nextExtractionType = top;
         int previousSize;
         // nesting modules until stabilization
         do {
             previousSize = module.size();
-            module = extractLocalityBasedModule(signature, Optional.of(module::contains),
-                nextExtractionType);
+            module = extractLocalityBasedModule(signature,
+                    Optional.of(module::contains), nextExtractionType);
             nextExtractionType = nextExtractionType == bottom ? top : bottom;
         } while (previousSize != module.size());
         return module;
@@ -193,23 +216,17 @@ public abstract class LocalityModuleExtractor extends AbstractModuleExtractor {
     }
 
     /**
-     * Initializes this {@link LocalityModuleExtractor}. Precomputes the globals and fills
-     * {@link LocalityModuleExtractor#axiomsContainingEntity}.
+     * Initializes this {@link LocalityModuleExtractor}. Precomputes the globals
+     * and fills {@link LocalityModuleExtractor#axiomsContainingEntity}.
      */
     private void initialize() {
-        // initialize axiomsContainingEntity
-        globals(); // precomputes globals
-        axiomBase().filter(axiom -> !noModuleContains(axiom) && !everyModuleContains(axiom))
-            .forEach(axiom -> {
-                axiom.signature().forEach(entity -> {
-                    axiomsContainingEntity.put(entity, axiom);
-                });
-            });
+        axiomBase().forEach(axiom -> axiom.signature()
+                .forEach(entity -> axiomsContainingEntity.put(entity, axiom)));
     }
 
     /**
-     * @return The {@link LocalityEvaluator} corresponding to {@link LocalityClass#TOP}.
+     * @return The {@link LocalityEvaluator} corresponding to
+     *         {@link LocalityClass#TOP}.
      */
     protected abstract LocalityEvaluator topEvaluator();
-
 }
