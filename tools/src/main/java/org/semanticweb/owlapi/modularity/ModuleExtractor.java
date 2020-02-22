@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator;
  *
  */
 public interface ModuleExtractor {
-
+	
 	/**
 	 * Return the axioms all modules of this {@link ModuleExtractor} are computed
 	 * against, including global axioms and tautologies.
@@ -35,7 +35,7 @@ public interface ModuleExtractor {
 	 */
 	@Nonnull
 	Stream<OWLAxiom> axiomBase();
-
+	
 	/**
 	 * Returns whether or not the axiom base of this {@link ModuleExtractor}
 	 * contains the given {@link OWLAxiom}.
@@ -46,7 +46,7 @@ public interface ModuleExtractor {
 	default boolean containsAxiom(final OWLAxiom axiom) {
 		return axiomBase().anyMatch(axiom::equals);
 	}
-
+	
 	/**
 	 * Returns <code>true</code> if it is guaranteed that the given {@link OWLAxiom}
 	 * is contained in every module calculated by the module extraction method this
@@ -65,7 +65,7 @@ public interface ModuleExtractor {
 	default boolean everyModuleContains(final OWLAxiom axiom) {
 		return extract(Stream.empty(), axiom::equals).count() == 1;
 	}
-
+	
 	/**
 	 * Extracts a module with respect to the given signature against the axiom base
 	 * of this {@link ModuleExtractor}.
@@ -77,7 +77,7 @@ public interface ModuleExtractor {
 	default @Nonnull Stream<OWLAxiom> extract(final Stream<OWLEntity> signature) {
 		return extract(signature, Optional.empty());
 	}
-
+	
 	/**
 	 * Extracts a module with respect to the given signature against the subset of
 	 * the axiom base this {@link ModuleExtractor}s axiom base that matches the
@@ -97,7 +97,7 @@ public interface ModuleExtractor {
 	 */
 	@Nonnull
 	Stream<OWLAxiom> extract(final Stream<OWLEntity> signature, final Optional<Predicate<OWLAxiom>> axiomFilter);
-
+	
 	/**
 	 * Extracts a module with respect to the given signature against the subset of
 	 * the axiom base this {@link ModuleExtractor}s axiom base that matches the
@@ -119,7 +119,7 @@ public interface ModuleExtractor {
 			final Predicate<OWLAxiom> axiomFilter) {
 		return extract(signature, Optional.ofNullable(axiomFilter));
 	}
-
+	
 	/**
 	 *
 	 * Extracts a module as an {@link OWLOntology} with respect to the given
@@ -141,7 +141,7 @@ public interface ModuleExtractor {
 		ontology.addAxioms(extract(Objects.requireNonNull(signature, "The given signature may not be null")));
 		return ontology;
 	}
-
+	
 	/**
 	 * Returns from the axiom base of this extractor exactly those that are
 	 * guaranteed to be contained in every module calculated by this
@@ -152,9 +152,9 @@ public interface ModuleExtractor {
 	 * @return The axioms as specified above
 	 */
 	default @Nonnull Stream<OWLAxiom> globals() {
-		return extract(axiomBase().parallel().filter(this::everyModuleContains).flatMap(OWLAxiom::signature));
+		return axiomBase().parallel().filter(this::everyModuleContains);
 	}
-
+	
 	/**
 	 * Returns <code>true</code> if it is guaranteed that the given {@link OWLAxiom}
 	 * is not contained in any module (regardless of other axioms or the signature)
@@ -172,7 +172,7 @@ public interface ModuleExtractor {
 	default boolean noModuleContains(final OWLAxiom axiom) {
 		return extract(axiom.signature(), axiom::equals).count() == 0;
 	}
-
+	
 	/**
 	 * Returns from the axiom base of this extractor exactly those that are
 	 * guaranteed not to be contained in any module calculated by this
@@ -185,5 +185,5 @@ public interface ModuleExtractor {
 	default @Nonnull Stream<OWLAxiom> tautologies() {
 		return axiomBase().parallel().filter(this::noModuleContains);
 	}
-
+	
 }
