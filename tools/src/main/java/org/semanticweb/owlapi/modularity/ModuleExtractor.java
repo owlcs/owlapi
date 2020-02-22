@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2020, Marc Robin Nolte
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -34,7 +34,6 @@ import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator;
  * but for differing signatures.
  *
  * @author Marc Robin Nolte
- *
  */
 public interface ModuleExtractor {
 
@@ -63,9 +62,7 @@ public interface ModuleExtractor {
      * every module calculated by the module extraction method this {@link ModuleExtractor} is based
      * on; <code>false</code> when no such guarantee can be made (Note: This does not mean that
      * there is some module regardless of other axioms or the signature that does not contain the
-     * given axiom).
-     *
-     * This methods returning <code>true</code> implies that
+     * given axiom). This methods returning <code>true</code> implies that
      * {@link ModuleExtractor#noModuleContains(OWLAxiom)} returns <code>false</code> for the same
      * axiom.
      *
@@ -73,7 +70,7 @@ public interface ModuleExtractor {
      * @return A boolean value as specified above
      */
     default boolean everyModuleContains(OWLAxiom axiom) {
-        return extract(Stream.empty(), axiom::equals).count() == 1;
+        return globals().anyMatch(axiom::equals);
     }
 
     /**
@@ -81,7 +78,6 @@ public interface ModuleExtractor {
      * {@link ModuleExtractor}.
      *
      * @param signature The signature the module should be extracted against
-     *
      * @return The axioms of the module with respect to the given signature
      */
     default @Nonnull Stream<OWLAxiom> extract(Stream<OWLEntity> signature) {
@@ -100,7 +96,6 @@ public interface ModuleExtractor {
      *                    {@link SyntacticLocalityEvaluator} with {@link LocalityClass#BOTTOM}
      *                    returns O as a whole, but when ignoring the axiom B⊑C it only returns
      *                    {A⊑B}.
-     *
      * @return The axioms of the module with respect to the given signature
      */
     @Nonnull
@@ -119,7 +114,6 @@ public interface ModuleExtractor {
      *                    {@link SyntacticLocalityEvaluator} with {@link LocalityClass#BOTTOM}
      *                    returns O as a whole, but when ignoring the axiom B⊑C, it will only return
      *                    {A⊑B}.
-     *
      * @return The axioms of the module with respect to the given signature
      */
     default @Nonnull Stream<OWLAxiom> extract(Stream<OWLEntity> signature,
@@ -128,7 +122,6 @@ public interface ModuleExtractor {
     }
 
     /**
-     *
      * Extracts a module as an {@link OWLOntology} with respect to the given signature over the
      * given axiom base.
      *
@@ -152,15 +145,13 @@ public interface ModuleExtractor {
 
     /**
      * Returns from the axiom base of this extractor exactly those that are guaranteed to be
-     * contained in every module calculated by this {@link ModuleExtractor}.
-     *
-     * These axioms may be precomputed or calculated on every call of this method.
+     * contained in every module calculated by this {@link ModuleExtractor}. These axioms may be
+     * precomputed or calculated on every call of this method.
      *
      * @return The axioms as specified above
      */
     default @Nonnull Stream<OWLAxiom> globals() {
-        return extract(
-            axiomBase().parallel().filter(this::everyModuleContains).flatMap(OWLAxiom::signature));
+        return extract(Stream.empty());
     }
 
     /**
@@ -168,9 +159,7 @@ public interface ModuleExtractor {
      * contained in any module (regardless of other axioms or the signature) calculated by the
      * module extraction method this {@link ModuleExtractor} is based on; <code>false</code> when no
      * such guarantee can be made (Note: This does not mean that there is some module that contains
-     * the given axiom).
-     *
-     * This methods returning <code>true</code> implies that
+     * the given axiom). This methods returning <code>true</code> implies that
      * {@link ModuleExtractor#everyModuleContains(OWLAxiom)} returns <code>false</code> for the same
      * axiom.
      *
@@ -183,14 +172,12 @@ public interface ModuleExtractor {
 
     /**
      * Returns from the axiom base of this extractor exactly those that are guaranteed not to be
-     * contained in any module calculated by this {@link ModuleExtractor}.
-     *
-     * These axioms may be precomputed or calculated on every call of this method.
+     * contained in any module calculated by this {@link ModuleExtractor}. These axioms may be
+     * precomputed or calculated on every call of this method.
      *
      * @return The axioms as specified above
      */
     default @Nonnull Stream<OWLAxiom> tautologies() {
         return axiomBase().parallel().filter(this::noModuleContains);
     }
-
 }
