@@ -96,9 +96,9 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param fn the file name to read in
+     * @param fn     the file name to read in
      * @param writer the writer
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException              Signals that an I/O exception has occurred.
      * @throws OBOFormatParserException the oBO format parser exception
      */
     public void write(@Nonnull String fn, @Nonnull BufferedWriter writer) throws IOException {
@@ -117,9 +117,9 @@ public class OBOFormatWriter {
     /**
      * Write.
      * 
-     * @param url the url
+     * @param url    the url
      * @param writer the writer
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException              Signals that an I/O exception has occurred.
      * @throws OBOFormatParserException the oBO format parser exception
      */
     public void write(@Nonnull URL url, @Nonnull BufferedWriter writer) throws IOException {
@@ -130,7 +130,7 @@ public class OBOFormatWriter {
     /**
      * @param reader the reader
      * @param writer the writer
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException              Signals that an I/O exception has occurred.
      * @throws OBOFormatParserException the oBO format parser exception
      */
     public void write(BufferedReader reader, @Nonnull BufferedWriter writer) throws IOException {
@@ -140,7 +140,7 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param doc the doc
+     * @param doc         the doc
      * @param outFilename the out file name
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -149,7 +149,7 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param doc the doc
+     * @param doc     the doc
      * @param outFile the out file
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -162,7 +162,7 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param doc the doc
+     * @param doc    the doc
      * @param writer the writer
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -172,8 +172,8 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param doc the doc
-     * @param writer the writer
+     * @param doc          the doc
+     * @param writer       the writer
      * @param nameProvider the name provider
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -232,8 +232,8 @@ public class OBOFormatWriter {
     /**
      * Write header.
      * 
-     * @param frame the frame
-     * @param writer the writer
+     * @param frame        the frame
+     * @param writer       the writer
      * @param nameProvider the name provider
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -280,8 +280,8 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param frame the frame
-     * @param writer the writer
+     * @param frame        the frame
+     * @param writer       the writer
      * @param nameProvider the name provider
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -555,12 +555,19 @@ public class OBOFormatWriter {
         assert property != null;
         sb.append(escapeOboString(property, EscapeMode.simple));
         // write value and optional type
-        while (it.hasNext()) {
+        if (it.hasNext()) {
+            // value
             sb.append(' ');
             String val = it.next().toString(); // TODO replace toString() method
             sb.append('"');
             sb.append(escapeOboString(val, EscapeMode.quotes));
             sb.append('"');
+        }
+        while (it.hasNext()) {
+            // optional type; there should be only one value left in the iterator
+            sb.append(' ');
+            String val = it.next().toString(); // TODO replace toString() method
+            sb.append(escapeOboString(val, EscapeMode.simple));
         }
         appendQualifiers(sb, clause);
         writeLine(sb, writer);
@@ -581,8 +588,8 @@ public class OBOFormatWriter {
     /**
      * Write.
      * 
-     * @param clause the clause
-     * @param writer the writer
+     * @param clause       the clause
+     * @param writer       the writer
      * @param nameProvider the name provider
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -973,9 +980,9 @@ public class OBOFormatWriter {
         private final OBODoc result;
 
         /**
-         * @param ont ontology
+         * @param ont                 ontology
          * @param defaultOboNamespace default OBO namespace
-         * @param result result
+         * @param result              result
          */
         public OWLOntologyNameProvider(@Nonnull OWLOntology ont, String defaultOboNamespace,
             OBODoc result) {
