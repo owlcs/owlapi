@@ -23,6 +23,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Liter
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.PlainLiteral;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,6 +32,7 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -163,5 +165,28 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         assertTrue(o1.containsAxiom(ax));
         equal(o, o1);
+    }
+
+    @Test
+    public void shouldFindReferencingAxiomsForIntLiteral() throws OWLOntologyCreationException {
+        OWLLiteral x = df.getOWLLiteral(32);
+        OWLClass c = df.getOWLClass(IRI.create("C"));
+        OWLAxiom a = df.getOWLSubClassOfAxiom(c, df.getOWLThing(),
+            Collections.singleton(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("x"),
+                Collections.singleton(df.getOWLAnnotation(df.getRDFSComment(), x)))));
+        OWLOntology o = m.createOntology();
+        o.getOWLOntologyManager().addAxiom(o, a);
+        assertEquals(1, o.getReferencingAxioms(x).size());
+    }
+
+    @Test
+    public void shouldFindReferencingAxiomsForBooleanLiteral() throws OWLOntologyCreationException {
+        OWLLiteral x = df.getOWLLiteral(true);
+        OWLClass c = df.getOWLClass(IRI.create("C"));
+        OWLAxiom a = df.getOWLSubClassOfAxiom(c,
+            df.getOWLDataHasValue(df.getOWLDataProperty(IRI.create("P")), x));
+        OWLOntology o = m.createOntology();
+        o.getOWLOntologyManager().addAxiom(o, a);
+        assertEquals(1, o.getReferencingAxioms(x).size());
     }
 }
