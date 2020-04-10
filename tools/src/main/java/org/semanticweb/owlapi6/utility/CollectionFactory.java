@@ -37,7 +37,7 @@ public class CollectionFactory {
     private CollectionFactory() {}
 
     /**
-     * @return The current number of expected threads.
+     * @return The current number of updating threads.
      */
     public static int getExpectedThreads() {
         return EXPECTEDTHREADS.get();
