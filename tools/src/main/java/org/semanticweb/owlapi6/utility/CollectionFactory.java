@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.utility;
 
-import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,7 +20,6 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -29,8 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nullable;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class CollectionFactory {
@@ -47,18 +44,15 @@ public class CollectionFactory {
     }
 
     /**
-     * @param value
-     *        the number of expected threads that will access threadsafe
-     *        collections; useful for increasing the concurrency in
-     *        ConcurrentHashMaps
+     * @param value the number of expected threads that will access threadsafe collections; useful
+     *              for increasing the concurrency in ConcurrentHashMaps
      */
     public static void setExpectedThreads(int value) {
         EXPECTEDTHREADS.set(value);
     }
 
     /**
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      * @return fresh non threadsafe set
      */
     public static <T> Set<T> createSet() {
@@ -66,8 +60,7 @@ public class CollectionFactory {
     }
 
     /**
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      * @return fresh non threadsafe set
      */
     public static <T> Set<T> createLinkedSet() {
@@ -75,10 +68,8 @@ public class CollectionFactory {
     }
 
     /**
-     * @param c
-     *        values to add to the set
-     * @param <T>
-     *        axiom type
+     * @param c   values to add to the set
+     * @param <T> axiom type
      * @return fresh non threadsafe set
      */
     public static <T> Set<T> createSet(Collection<T> c) {
@@ -86,10 +77,8 @@ public class CollectionFactory {
     }
 
     /**
-     * @param initialCapacity
-     *        initial capacity for the new set
-     * @param <T>
-     *        axiom type
+     * @param initialCapacity initial capacity for the new set
+     * @param <T>             axiom type
      * @return fresh non threadsafe set
      */
     public static <T> Set<T> createSet(int initialCapacity) {
@@ -97,10 +86,8 @@ public class CollectionFactory {
     }
 
     /**
-     * @param <K>
-     *        key type
-     * @param <V>
-     *        value type
+     * @param <K> key type
+     * @param <V> value type
      * @return fresh map
      */
     public static <K, V> Map<K, V> createMap() {
@@ -108,21 +95,8 @@ public class CollectionFactory {
     }
 
     /**
-     * @param <K>
-     *        key type
-     * @param <V>
-     *        value type
-     * @return a new weak hashmap wrapped as a synchronized map
-     */
-    public static <K, V> Map<K, WeakReference<V>> createSyncWeakMap() {
-        return Collections.synchronizedMap(new WeakHashMap<K, WeakReference<V>>());
-    }
-
-    /**
-     * @param elements
-     *        values to add to the set
-     * @param <T>
-     *        axiom type
+     * @param elements values to add to the set
+     * @param <T>      axiom type
      * @return fresh non threadsafe set
      */
     @SafeVarargs
@@ -131,10 +105,8 @@ public class CollectionFactory {
     }
 
     /**
-     * @param element
-     *        value to add to the set
-     * @param <T>
-     *        axiom type
+     * @param element value to add to the set
+     * @param <T>     axiom type
      * @return fresh non threadsafe set
      */
     public static <T> Set<T> createSet(@Nullable T element) {
@@ -146,8 +118,7 @@ public class CollectionFactory {
     }
 
     /**
-     * @param <T>
-     *        set type
+     * @param <T> set type
      * @return fresh threadsafe set
      */
     public static <T> Set<T> createSyncSet() {
@@ -155,10 +126,8 @@ public class CollectionFactory {
     }
 
     /**
-     * @param <K>
-     *        key type
-     * @param <V>
-     *        value type
+     * @param <K> key type
+     * @param <V> value type
      * @return fresh threadsafe hashmap
      */
     public static <K, V> ConcurrentMap<K, V> createSyncMap() {
