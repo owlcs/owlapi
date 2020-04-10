@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
  */
 public class CollectionFactory {
 
-    private static final AtomicInteger EXPECTEDTHREADS = new AtomicInteger(8);
+    private static final AtomicInteger EXPECTEDTHREADS = new AtomicInteger(1);
 
     private CollectionFactory() {}
 
@@ -44,7 +44,7 @@ public class CollectionFactory {
     }
 
     /**
-     * @param value the number of expected threads that will access threadsafe collections; useful
+     * @param value the number of expected threads that will update threadsafe collections; useful
      *              for increasing the concurrency in ConcurrentHashMaps
      */
     public static void setExpectedThreads(int value) {
