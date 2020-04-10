@@ -38,7 +38,7 @@ public class CollectionFactory {
     private static final String MISBEHAVING_TRIPLE_COMPARATOR = "Misbehaving triple comparator, leaving triples unsorted";
     private static final String COMPARISON_METHOD = "Comparison method violates its general contract!";
     private static final Logger LOGGER = LoggerFactory.getLogger(CollectionFactory.class.getName());
-    private static final AtomicInteger EXPECTEDTHREADS = new AtomicInteger(8);
+    private static final AtomicInteger EXPECTEDTHREADS = new AtomicInteger(1);
 
     /**
      * Sort the input collection; if the ordering is unstable and an error is
@@ -158,7 +158,7 @@ public class CollectionFactory {
 
     /**
      * @param value
-     *        the number of expected threads that will access threadsafe
+     *        the number of expected threads that will update threadsafe
      *        collections; useful for increasing the concurrency in
      *        ConcurrentHashMaps
      */
@@ -167,7 +167,7 @@ public class CollectionFactory {
     }
 
     /**
-     * @return The current number of expected threads.
+     * @return The current number of expected updating threads.
      */
     public static int getExpectedThreads() {
         return EXPECTEDTHREADS.get();
