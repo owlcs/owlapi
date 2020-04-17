@@ -69,7 +69,7 @@ public class Injector {
 
         /**
          * @param cl class
-         * @param a annotations
+         * @param a  annotations
          * @return modified key
          */
         public Key with(Class<?> cl, Annotation[] a) {
@@ -103,8 +103,8 @@ public class Injector {
     /**
      * Associate a key made of interface type and optional annotations with an implementation type
      * 
-     * @param t implementation type
-     * @param c interface type
+     * @param t           implementation type
+     * @param c           interface type
      * @param annotations annotations
      * @return modified injector
      */
@@ -117,8 +117,8 @@ public class Injector {
      * Associate a key made of interface type and optional annotations with an instance, replacing
      * existing associations
      * 
-     * @param t instance
-     * @param c interface type
+     * @param t           instance
+     * @param c           interface type
      * @param annotations annotations
      * @return modified injector
      */
@@ -131,8 +131,8 @@ public class Injector {
      * Associate a key made of interface type and optional annotations with a supplier of instances,
      * replacing existing associations
      * 
-     * @param t supplier
-     * @param c interface type
+     * @param t           supplier
+     * @param c           interface type
      * @param annotations annotations
      * @return modified injector
      */
@@ -145,9 +145,9 @@ public class Injector {
      * Associate a key made of interface type and optional annotations with an instance, adding to
      * existing associations
      *
-     * @param <T> return type
-     * @param t instance
-     * @param c interface type
+     * @param <T>         return type
+     * @param t           instance
+     * @param c           interface type
      * @param annotations annotations
      * @return modified injector
      */
@@ -160,9 +160,9 @@ public class Injector {
      * Associate a key made of interface type and optional annotations with a supplier of instances,
      * adding to existing associations
      *
-     * @param <T> return type
-     * @param t supplier
-     * @param c interface type
+     * @param <T>         return type
+     * @param t           supplier
+     * @param c           interface type
      * @param annotations annotations
      * @return modified injector
      */
@@ -181,7 +181,7 @@ public class Injector {
 
     /**
      * @param <T> return type
-     * @param t object to inject
+     * @param t   object to inject
      * @return input object with all methods annotated with @Inject having been set with instances.
      */
     public <T> T inject(T t) {
@@ -236,8 +236,8 @@ public class Injector {
     }
 
     /**
-     * @param <T> return type
-     * @param c class
+     * @param <T>        return type
+     * @param c          class
      * @param qualifiers optional annotations
      * @return instance
      */
@@ -246,9 +246,9 @@ public class Injector {
     }
 
     /**
-     * @param <T> return type
-     * @param c class
-     * @param overrides local overrides of existing bindings
+     * @param <T>        return type
+     * @param c          class
+     * @param overrides  local overrides of existing bindings
      * @param qualifiers optional annotations
      * @return instance
      */
@@ -270,9 +270,9 @@ public class Injector {
     }
 
     /**
-     * @param type type to load
+     * @param type       type to load
      * @param qualifiers qualifying annotations
-     * @param <T> return type
+     * @param <T>        return type
      * @return iterable over T implementations
      */
     protected <T> Stream<T> load(Class<T> type, Annotation... qualifiers) {
@@ -400,11 +400,15 @@ public class Injector {
         try (InputStream in = c.openStream();
             InputStreamReader in2 = new InputStreamReader(in, StandardCharsets.UTF_8);
             BufferedReader r = new BufferedReader(in2)) {
-            return r.lines().collect(Collectors.toList()).stream();
+            return r.lines().map(String::trim).filter(Injector::notBlankAndNotCmoment)
+                .collect(Collectors.toList()).stream();
         } catch (IOException e) {
             LOGGER.error("Error reading services files: " + c, e);
         }
         return Stream.empty();
     }
 
+    private static boolean notBlankAndNotCmoment(String s) {
+        return !s.isEmpty() && !s.startsWith("#");
+    }
 }
