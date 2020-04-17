@@ -414,11 +414,15 @@ public class Injector {
         try (InputStream in = c.openStream();
             InputStreamReader in2 = new InputStreamReader(in, StandardCharsets.UTF_8);
             BufferedReader r = new BufferedReader(in2)) {
-            return r.lines().collect(Collectors.toList()).stream();
+            return r.lines().map(String::trim).filter(Injector::notBlankAndNotCmoment)
+                .collect(Collectors.toList()).stream();
         } catch (IOException e) {
             LOGGER.error("Error reading services files: " + c, e);
         }
         return Stream.empty();
     }
 
+    private static boolean notBlankAndNotCmoment(String s) {
+        return !s.isEmpty() && !s.startsWith("#");
+    }
 }
