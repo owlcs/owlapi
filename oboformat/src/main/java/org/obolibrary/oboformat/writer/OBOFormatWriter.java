@@ -295,12 +295,19 @@ public class OBOFormatWriter {
         String property = it.next().toString();
         sb.append(escapeOboString(property, EscapeMode.SIMPLE));
         // write value and optional type
-        while (it.hasNext()) {
+        if (it.hasNext()) {
+            // value
             sb.append(' ');
             String val = it.next().toString(); // TODO replace toString() method
             sb.append('"');
             sb.append(escapeOboString(val, EscapeMode.QUOTES));
             sb.append('"');
+        }
+        while (it.hasNext()) {
+            // optional type; there should be only one value left in the iterator
+            sb.append(' ');
+            String val = it.next().toString(); // TODO replace toString() method
+            sb.append(escapeOboString(val, EscapeMode.SIMPLE));
         }
         appendQualifiers(sb, clause);
         writeLine(sb, writer);
