@@ -88,7 +88,7 @@ public final class AtomicDecomposition implements HasAxioms {
 
         /**
          * Returns the {@link Atom}s this {@link Atom} depends on. In the literature, this
-         * {@link Atom} <= returned atoms.
+         * {@link Atom} &lt;= returned atoms.
          *
          * @return The {@link Atom}s this {@link Atom} depends on
          */
@@ -98,7 +98,7 @@ public final class AtomicDecomposition implements HasAxioms {
 
         /**
          * Returns the {@link Atom}s that depend on this {@link Atom}. In the literature, returned
-         * atoms <= this {@link Atom}.
+         * atoms = this {@link Atom}.
          *
          * @return The {@link Atom}s that depend on this {@link Atom}
          */
@@ -111,7 +111,7 @@ public final class AtomicDecomposition implements HasAxioms {
          *
          * @param atom The {@link Atom} to check if this {@link Atom} depends on it. Cannot be null.
          * @return If this {@link Atom} depends on the given {@link Atom}
-         * @throws NullPointerException If the given {@link Atom} was <code>null</code>
+         * @throws NullPointerException If the given {@link Atom} was {@code null}
          */
         public boolean dependsOn(Atom atom) {
             return dependencies.contains(Objects.requireNonNull(atom));
@@ -122,7 +122,7 @@ public final class AtomicDecomposition implements HasAxioms {
          *
          * @param atom The {@link Atom} to check if it depends on this {@link Atom}. Cannot be null.
          * @return If the given {@link Atom} depends on the this {@link Atom}
-         * @throws NullPointerException If the given {@link Atom} was <code>null</code>
+         * @throws NullPointerException If the given {@link Atom} was {@code null}
          */
         public boolean isDependencyOf(Atom atom) {
             return dependents.contains(Objects.requireNonNull(atom));

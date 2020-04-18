@@ -1,3 +1,16 @@
+## 5.1.14 18 April 2020
+
+### Features:
+*    General modularity classes contributed by Robn Nolte
+
+### Bug fixes:
+
+*    Fix XSD datatypes are erroneously quoted in OBO writer #918
+*    Fix referencingAxioms(OWLPrimitive) misses nested literals #912
+*    Fix Empty line in META-INF/services/ files causes exceptions #924
+*    Fix OWLOntologyWriterConfiguration does not disable banner comments #904
+
+
 ## 5.1.13 27 January 2020
 
 ### Bug fixes:
@@ -329,6 +342,25 @@ Features:
 *    Enabled OWLOntologyManager to build and keep an OntologyConfigurator instance
 *    Declaration of save methods on OWLOntology
 *    OWLAPI 5 uses Java 8
+
+
+## 4.5.16 18 April 2020
+
+### Bug fixes:
+
+*    Fix XSD datatypes are erroneously quoted in OBO writer #918
+*    Fix referencingAxioms(OWLPrimitive) misses nested literals #912
+*    Fix Empty line in META-INF/services/ files causes exceptions #924
+
+
+## 4.5.15 28 January 2020
+
+### Bug fixes:
+
+*    Fix OWLEntityRenamer and anonymous individuals #892
+*    Fix Builtin annotation properties lost during parsing #895
+*    Deal with OWLAnnotationProperty entities in OWLEntityURIConverter class #896
+
 
 ## 4.5.14 19 October 2019
 
