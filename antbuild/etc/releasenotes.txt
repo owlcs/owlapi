@@ -1,3 +1,12 @@
+## 4.5.16 18 April 2020
+
+### Bug fixes:
+
+*    Fix XSD datatypes are erroneously quoted in OBO writer #918
+*    Fix referencingAxioms(OWLPrimitive) misses nested literals #912
+*    Fix Empty line in META-INF/services/ files causes exceptions #924
+
+
 ## 4.5.15 28 January 2020
 
 ### Bug fixes:
