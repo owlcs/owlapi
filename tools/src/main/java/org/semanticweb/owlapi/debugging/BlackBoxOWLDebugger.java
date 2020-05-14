@@ -45,9 +45,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is an implementation of a blackbox debugger. The implementation is based
- * on the description of a black box debugger as described in Aditya Kalyanpur's
- * PhD Thesis : "Debugging and Repair of OWL Ontologies".
+ * This is an implementation of a blackbox debugger. The implementation is based on the description
+ * of a black box debugger as described in Aditya Kalyanpur's PhD Thesis : "Debugging and Repair of
+ * OWL Ontologies".
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -69,7 +69,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     @Nullable
     private OWLOntology debuggingOntology;
     private int expansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
-    private int fastPruningWindowSize = 0;
+    private final int fastPruningWindowSize;
     // Creation of debugging ontology and satisfiability testing
     private int satTestCount = 0;
 
@@ -77,23 +77,39 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * Instantiates a new black box owl debugger.
      *
      * @param owlOntologyManager manager to use
-     * @param ontology ontology to debug
-     * @param reasonerFactory factory to use
+     * @param ontology           ontology to debug
+     * @param reasonerFactory    factory to use
      */
     public BlackBoxOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
         OWLReasonerFactory reasonerFactory) {
-        super(owlOntologyManager, ontology);
-        this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
+        this(owlOntologyManager, ontology, reasonerFactory,
+            Math.max(ontology.getLogicalAxiomCount() / 100, DEFAULT_FAST_PRUNING_WINDOW_SIZE));
     }
 
     /**
-     * A utility method. Adds axioms from one set to another set upto a
-     * specified limit. Annotation axioms are stripped out
+     * Instantiates a new black box owl debugger.
      *
-     * @param <N> the number type
+     * @param owlOntologyManager    manager to use
+     * @param ontology              ontology to debug
+     * @param reasonerFactory       factory to use
+     * @param fastPruningWindowSize size of the pruning window, defaults to 1% of axiom number or
+     *                              10, whichever is larger
+     */
+    public BlackBoxOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
+        OWLReasonerFactory reasonerFactory, int fastPruningWindowSize) {
+        super(owlOntologyManager, ontology);
+        this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
+        this.fastPruningWindowSize = fastPruningWindowSize;
+    }
+
+    /**
+     * A utility method. Adds axioms from one set to another set upto a specified limit. Annotation
+     * axioms are stripped out
+     *
+     * @param <N>    the number type
      * @param source The source set. Objects from this set will be added to the destination set
-     * @param dest The destination set. Objects will be added to this set
-     * @param limit The maximum number of objects to be added.
+     * @param dest   The destination set. Objects will be added to this set
+     * @param limit  The maximum number of objects to be added.
      * @return The number of objects that were actuall added.
      */
     private static <N extends OWLAxiom> int addMax(Set<N> source, Set<N> dest, int limit) {
@@ -229,10 +245,10 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
     /**
-     * Creates a set of axioms to expands the debugging axiom set by adding the
-     * defining axioms for the specified entity.
+     * Creates a set of axioms to expands the debugging axiom set by adding the defining axioms for
+     * the specified entity.
      *
-     * @param obj the obj
+     * @param obj   the obj
      * @param limit the limit
      * @return the int
      */
@@ -252,18 +268,17 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
     /**
-     * Expands the axiom set by adding the referencing axioms for the specified
-     * entity.
+     * Expands the axiom set by adding the referencing axioms for the specified entity.
      *
-     * @param obj the obj
+     * @param obj   the obj
      * @param limit the limit
      * @return the int
      */
     private int expandWithReferencingAxioms(OWLEntity obj, int limit) {
         // First expand by getting the defining axioms - if this doesn't
         // return any axioms, then get the axioms that reference the entity
-        Set<OWLAxiom> expansionAxioms = asUnorderedSet(
-            getOWLOntology().referencingAxioms(obj, INCLUDED));
+        Set<OWLAxiom> expansionAxioms =
+            asUnorderedSet(getOWLOntology().referencingAxioms(obj, INCLUDED));
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }
@@ -327,8 +342,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
     /**
-     * Tests the satisfiability of the test class. The ontology is recreated
-     * before the test is performed.
+     * Tests the satisfiability of the test class. The ontology is recreated before the test is
+     * performed.
      *
      * @return true, if is satisfiable
      */
@@ -393,7 +408,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         LOGGER.info("FOUND CLASH! Pruning {} axioms...", Integer.valueOf(debuggingAxioms.size()));
         resetSatisfiabilityTestCounter();
         LOGGER.info("Fast pruning...");
-        fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
         performFastPruning();
         LOGGER.info("... end of fast pruning. Axioms remaining: {}",
             Integer.valueOf(debuggingAxioms.size()));
