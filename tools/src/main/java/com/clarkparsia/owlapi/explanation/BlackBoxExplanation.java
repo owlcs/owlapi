@@ -130,8 +130,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      */
     public BlackBoxExplanation(OWLOntology ontology, OWLReasonerFactory reasonerFactory,
         OWLReasoner reasoner, Integer fastPruningWindowSize) {
+        this(ontology, reasonerFactory, reasoner);
         this.fastPruningWindowSize = fastPruningWindowSize;
-        BlackBoxExplanation(ontology, reasonerFactory, reasoner);
     }
 
     /**
