@@ -102,7 +102,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /**
      * The fast pruning window size.
      */
-    private int fastPruningWindowSize;
+    private int fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
+
     // Creation of debugging ontology and satisfiability testing
     private int satTestCount;
 
@@ -117,6 +118,20 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         OWLReasoner reasoner) {
         super(ontology, reasonerFactory, reasoner);
         man = ontology.getOWLOntologyManager();
+    }
+    
+   /**
+     * Instantiates a new black box explanation.
+     *
+     * @param ontology the ontology
+     * @param reasonerFactory the reasoner factory
+     * @param reasoner the reasoner
+     * @param fastPruningWindowSize the window size for fast pruning (default 10)
+     */
+    public BlackBoxExplanation(OWLOntology ontology, OWLReasonerFactory reasonerFactory,
+        OWLReasoner reasoner, Integer fastPruningWindowSize) {
+        this.fastPruningWindowSize = fastPruningWindowSize;
+        BlackBoxExplanation(ontology, reasonerFactory, reasoner);
     }
 
     /**
@@ -420,7 +435,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         LOGGER.info("FOUND CLASH! Pruning {} axioms...", Integer.valueOf(debuggingAxioms.size()));
         resetSatisfiabilityTestCounter();
         LOGGER.info("Fast pruning...");
-        fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
         performFastPruning(unsatClass);
         LOGGER.info("... end of fast pruning. Axioms remaining: {}",
             Integer.valueOf(debuggingAxioms.size()));
