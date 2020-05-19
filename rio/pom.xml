@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>owlapi-parent</artifactId>
 		<groupId>net.sourceforge.owlapi</groupId>
-		<version>5.1.14</version>
+		<version>5.1.15-SNAPSHOT</version>
 	</parent>
 	<artifactId>owlapi-rio</artifactId>
 	<name>OWLAPI :: RDF4J Rio</name>
@@ -45,6 +45,11 @@
 		<dependency>
 			<groupId>org.eclipse.rdf4j</groupId>
 			<artifactId>rdf4j-rio-binary</artifactId>
+			<version>${inherited.rdf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-hdt</artifactId>
 			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
