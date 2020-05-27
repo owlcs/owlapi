@@ -50,7 +50,7 @@ public class XZStreamDocumentSourceTestCase {
             + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>\n\n"
             + "<!-- Created with Protege (with OWL Plugin, Build 60)  http://protege.stanford.edu -->\n";
         StringWriter w = new StringWriter();
-        OWLParser mockParser = new ParserForTest(w);
+        OWLParser mockParser = new ParserForTestOperations(w);
         source.acceptParser(mockParser, mock(OWLOntology.class), mock(OntologyConfigurator.class));
         assertEquals(input, w.toString());
     }

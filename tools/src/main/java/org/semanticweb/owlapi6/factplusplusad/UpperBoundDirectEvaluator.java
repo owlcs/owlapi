@@ -43,10 +43,10 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
     @Override
     int getEntityValue(OWLEntity entity) {
         if (entity.isTopEntity()) {
-            return noUpperValue();
+            return noUpperValue;
         }
         if (entity.isBottomEntity()) {
-            return anyUpperValue();
+            return anyUpperValue;
         }
         return getAllNoneUpper(botCLocal() && nc(entity));
     }
@@ -60,13 +60,13 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
     int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // m > 0 and...
         if (m <= 0) {
-            return getNoneValue();
+            return getNoneValue;
         }
         // R = \bot or...
         if (isBotEquivalent(r)) {
-            return anyUpperValue();
+            return anyUpperValue;
         }
-        // C \in C^{<= m-1}
+        /** {@code C \in C^{<= m-1}} */
         return getAllNoneUpper(isUpperLT(getUpperBoundDirect(c), m));
     }
 
@@ -74,9 +74,9 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
     int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // R = \top and...
         if (!isTopEquivalent(r)) {
-            return noUpperValue();
+            return noUpperValue;
         }
-        // C\in C^{>= m+1}
+        /** {@code C\in C^{>= m+1}} */
         return getAllNoneUpper(isLowerGT(getLowerBoundDirect(c), m));
     }
 
@@ -88,7 +88,7 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
     <C extends OWLObject> int getAndValue(HasOperands<C> expr) {
         // noUpperValue is a maximal element
-        AtomicInteger min = new AtomicInteger(noUpperValue());
+        AtomicInteger min = new AtomicInteger(noUpperValue);
         // we are looking for the minimal value here, use an appropriate helper
         expr.operands().forEach(p -> min.set(minUpperValue(min.get(), getUpperBoundDirect(p))));
         return min.get();
@@ -101,8 +101,8 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
         while (it.hasNext()) {
             C p = it.next();
             n = getUpperBoundDirect(p);
-            if (n == noUpperValue()) {
-                return noUpperValue();
+            if (n == noUpperValue) {
+                return noUpperValue;
             }
             sum += n;
         }
@@ -155,11 +155,11 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
     public void visit(OWLSubPropertyChainOfAxiom expr) {
         for (OWLObjectPropertyExpression p : expr.getPropertyChain()) {
             if (isBotEquivalent(p)) {
-                value = anyUpperValue();
+                value = anyUpperValue;
                 return;
             }
         }
-        value = noUpperValue();
+        value = noUpperValue;
     }
 
     @Override

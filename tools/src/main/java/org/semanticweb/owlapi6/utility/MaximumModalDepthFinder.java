@@ -45,12 +45,12 @@ import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
  */
 public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
-    private static final Integer _1 = Integer.valueOf(1);
-    private static final Integer _0 = Integer.valueOf(0);
+    private static final Integer ONE = Integer.valueOf(1);
+    private static final Integer ZERO = Integer.valueOf(0);
 
     @Override
     public Integer doDefault(OWLObject o) {
-        return _0;
+        return ZERO;
     }
 
     Integer counter(Stream<? extends OWLObject> stream) {
@@ -126,37 +126,37 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLObjectHasSelf ce) {
-        return _1;
+        return ONE;
     }
 
     @Override
     public Integer visit(OWLDataSomeValuesFrom ce) {
-        return _1;
+        return ONE;
     }
 
     @Override
     public Integer visit(OWLDataAllValuesFrom ce) {
-        return _1;
+        return ONE;
     }
 
     @Override
     public Integer visit(OWLDataHasValue ce) {
-        return _1;
+        return ONE;
     }
 
     @Override
     public Integer visit(OWLDataMinCardinality ce) {
-        return _1;
+        return ONE;
     }
 
     @Override
     public Integer visit(OWLDataExactCardinality ce) {
-        return _1;
+        return ONE;
     }
 
     @Override
     public Integer visit(OWLDataMaxCardinality ce) {
-        return _1;
+        return ONE;
     }
 
     @Override

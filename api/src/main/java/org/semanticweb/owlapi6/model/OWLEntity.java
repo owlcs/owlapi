@@ -12,19 +12,21 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.model;
 
+import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.builtInAPIris;
+
 import org.semanticweb.owlapi6.vocab.OWLRDFVocabulary;
 
 /**
- * Represents <a href=
- * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
+ * Represents
+ * <a href= "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
  * >Entities</a> in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive, AsOWLClass, AsOWLDataProperty,
-    AsOWLDatatype, AsOWLAnnotationProperty, AsOWLNamedIndividual, AsOWLObjectProperty {
+public interface OWLEntity
+    extends OWLObject, OWLNamedObject, OWLPrimitive, AsOWLClass, AsOWLDataProperty, AsOWLDatatype,
+    AsOWLAnnotationProperty, AsOWLNamedIndividual, AsOWLObjectProperty {
 
     /**
      * Gets the entity type for this entity.
@@ -36,28 +38,25 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive, AsOW
     /**
      * Tests to see if this entity is of the specified type.
      *
-     * @param entityType
-     *        The entity type
-     * @return {@code true} if this entity is of the specified type, otherwise
-     *         {@code false}.
+     * @param entityType The entity type
+     * @return {@code true} if this entity is of the specified type, otherwise {@code false}.
      */
     default boolean isType(EntityType<?> entityType) {
         return getEntityType().equals(entityType);
     }
 
     /**
-     * Determines if this entity is a built in entity. The entity is a built in
-     * entity if it is:
+     * Determines if this entity is a built in entity. The entity is a built in entity if it is:
      * <ul>
      * <li>a class and the URI corresponds to owl:Thing or owl:Nothing</li>
-     * <li>an object property and the URI corresponds to owl:topObjectProperty
-     * or owl:bottomObjectProperty</li>
+     * <li>an object property and the URI corresponds to owl:topObjectProperty or
+     * owl:bottomObjectProperty</li>
      * <li>a data property and the URI corresponds to owl:topDataProperty or
      * owl:bottomDataProperty</li>
-     * <li>a datatype and the IRI is rdfs:Literal or is in the OWL 2 datatype
-     * map or is rdf:PlainLiteral</li>
-     * <li>an annotation property and the URI is in the set of built in
-     * annotation property URIs, i.e. one of:
+     * <li>a datatype and the IRI is rdfs:Literal or is in the OWL 2 datatype map or is
+     * rdf:PlainLiteral</li>
+     * <li>an annotation property and the URI is in the set of built in annotation property URIs,
+     * i.e. one of:
      * <ul>
      * <li>rdfs:label</li>
      * <li>rdfs:comment</li>
@@ -71,16 +70,16 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive, AsOW
      * </li>
      * </ul>
      *
-     * @return {@code true} if this entity is a built in entity, or
-     *         {@code false} if this entity is not a builtin entity.
+     * @return {@code true} if this entity is a built in entity, or {@code false} if this entity is
+     *         not a builtin entity.
      */
     default boolean isBuiltIn() {
-        return OWLRDFVocabulary.BUILT_IN_AP_IRIS.contains(getIRI());
+        return OWLRDFVocabulary.builtInAPIris().contains(getIRI());
     }
 
     /**
-     * Returns a string representation that can be used as the ID of this
-     * entity. This is the toString representation of the IRI
+     * Returns a string representation that can be used as the ID of this entity. This is the
+     * toString representation of the IRI
      *
      * @return A string representing the toString of the IRI of this entity.
      */

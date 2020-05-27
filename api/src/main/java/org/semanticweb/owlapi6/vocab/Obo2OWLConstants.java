@@ -22,6 +22,11 @@ public class Obo2OWLConstants {
      * Default iri.
      */
     public static final String DEFAULT_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
+
+    /**
+     * Short hand abbreviation.
+     */
+    public static final String SHORTHAND = "shorthand";
     /**
      * OIO vocabulary prefix.
      */
@@ -39,7 +44,7 @@ public class Obo2OWLConstants {
         VocabFactory.df.getIRI(DEFAULT_IRI_PREFIX, "IAO_0000227");
     private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB =
         Stream.of(Obo2OWLVocabulary.values()).collect(
-            Collectors.toConcurrentMap(Obo2OWLVocabulary::getMappedTag, Function.identity()));
+            Collectors.toUnmodifiableMap(Obo2OWLVocabulary::getMappedTag, Function.identity()));
 
     /**
      * @param tag tag
@@ -61,7 +66,7 @@ public class Obo2OWLConstants {
         // IRI_IAO_0000118(DEFAULT_IRI_PREFIX, "IAO_0000118", "alternative term", OboFormatTag.TAG_SYNONYM.getTag()),
         /**IRI_IAO_0000427. */    IRI_IAO_0000427(DEFAULT_IRI_PREFIX, "IAO_0000427", "antisymmetric property", OboFormatTag.TAG_IS_ANTI_SYMMETRIC.getTag()),
         /**IRI_IAO_0100001. */    IRI_IAO_0100001(DEFAULT_IRI_PREFIX, "IAO_0100001", "term replaced by", OboFormatTag.TAG_REPLACED_BY.getTag()),
-        /**IRI_OIO_shorthand. */  IRI_OIO_shorthand(OIOVOCAB_IRI_PREFIX, "shorthand", "shorthand", "shorthand"),
+        /**IRI_OIO_shorthand. */  IRI_OIO_shorthand(OIOVOCAB_IRI_PREFIX, SHORTHAND, SHORTHAND, SHORTHAND),
         /**IRI_OIO_consider. */   IRI_OIO_consider(OIOVOCAB_IRI_PREFIX, "consider", "consider", OboFormatTag.TAG_CONSIDER.getTag()),
         /**IRI_OIO_hasOBOFormatVersion. */        IRI_OIO_hasOBOFormatVersion(OIOVOCAB_IRI_PREFIX, "hasOBOFormatVersion", "has_obo_format_version", OboFormatTag.TAG_FORMAT_VERSION.getTag()),
         /**IRI_OIO_treatXrefsAsIsA. */            IRI_OIO_treatXrefsAsIsA(OIOVOCAB_IRI_PREFIX, "treat-xrefs-as-is_a", "treat-xrefs-as-is_a", OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag()),

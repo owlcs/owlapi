@@ -200,7 +200,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     //@formatter:on
 
     private static final Map<IRI, OWLRDFVocabulary> map = Stream.of(values())
-        .collect(Collectors.toConcurrentMap(HasIRI::getIRI, Function.identity()));
+        .collect(Collectors.toUnmodifiableMap(HasIRI::getIRI, Function.identity()));
     /** Comparator to compare by IRI taking into account special predicates. */
     public static final Comparator<IRI> compareByIRI = (a, b) -> {
         OWLRDFVocabulary v1 = map.get(a);
@@ -220,31 +220,64 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /**
      * Set of all IRIs for this enum values.
      */
-    public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS =
+    private static final Set<IRI> BUILT_IN_VOCABULARY_IRIS =
         asSet(Stream.of(values()).map(HasIRI::getIRI));
+
+    /**
+     * @return Set of all IRIs for this enum values.
+     */
+    public static Set<IRI> builtInVocabularyIris() {
+        return BUILT_IN_VOCABULARY_IRIS;
+    }
+
     /**
      * Set of members with DAML+OIL compatibility.
      */
-    public static final Set<OWLRDFVocabulary> DAML_COMPATIBILITY = EnumSet.of(OWL_ALL_VALUES_FROM,
+    private static final Set<OWLRDFVocabulary> DAML_COMPATIBILITY = EnumSet.of(OWL_ALL_VALUES_FROM,
         OWL_SOME_VALUES_FROM, OWL_EQUIVALENT_PROPERTY, OWL_ON_CLASS, OWL_CARDINALITY,
         OWL_MAX_CARDINALITY, OWL_MIN_CARDINALITY, RDFS_SUBCLASS_OF, OWL_IMPORTS, RDFS_RANGE,
         OWL_HAS_VALUE, RDF_TYPE, RDFS_DOMAIN, OWL_VERSION_INFO, RDFS_COMMENT, OWL_ON_PROPERTY,
         OWL_RESTRICTION, OWL_CLASS, OWL_THING, OWL_NOTHING, OWL_MIN_CARDINALITY, OWL_CARDINALITY,
         OWL_MAX_CARDINALITY, OWL_INVERSE_OF, OWL_COMPLEMENT_OF, OWL_UNION_OF, OWL_INTERSECTION_OF,
         RDFS_LABEL, OWL_OBJECT_PROPERTY, OWL_DATA_PROPERTY);
+
+    /**
+     * @return Set of members with DAML+OIL compatibility.
+     */
+    public static Set<OWLRDFVocabulary> damlCompatibility() {
+        return DAML_COMPATIBILITY;
+    }
+
     /**
      * Entity types.
      */
-    public static final Set<IRI> entityTypes =
+    private static final Set<IRI> ENTITY_TYPES =
         asSet(Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY, OWL_DATA_PROPERTY, OWL_ANNOTATION_PROPERTY,
             RDFS_DATATYPE, OWL_NAMED_INDIVIDUAL).map(HasIRI::getIRI));
+
     /**
-     * label , comment , versionInfo , backwardCompatibleWith , priorVersion , seeAlso , isDefinedBy
-     * , incompatibleWith , deprecated.
+     * @return Entity types.
      */
-    public static final Set<IRI> BUILT_IN_AP_IRIS = asSet(Stream.of(RDFS_LABEL, RDFS_COMMENT,
+    public static Set<IRI> entityTypes() {
+        return ENTITY_TYPES;
+    }
+
+    /**
+     * label, comment, versionInfo, backwardCompatibleWith, priorVersion, seeAlso, isDefinedBy,
+     * incompatibleWith, deprecated.
+     */
+    private static final Set<IRI> BUILT_IN_AP_IRIS = asSet(Stream.of(RDFS_LABEL, RDFS_COMMENT,
         OWL_VERSION_INFO, OWL_BACKWARD_COMPATIBLE_WITH, OWL_PRIOR_VERSION, RDFS_SEE_ALSO,
         RDFS_IS_DEFINED_BY, OWL_INCOMPATIBLE_WITH, OWL_DEPRECATED).map(OWLRDFVocabulary::getIRI));
+
+    /**
+     * @return label, comment, versionInfo, backwardCompatibleWith, priorVersion, seeAlso,
+     *         isDefinedBy, incompatibleWith, deprecated.
+     */
+    public static final Set<IRI> builtInAPIris() {
+        return BUILT_IN_AP_IRIS;
+    }
+
     private static final String DAML_NAMESPACE = "http://www.daml.org/2001/03/daml+oil#";
     private final IRI iri;
     private final Namespaces namespace;
@@ -284,7 +317,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      * false}.
      */
     public static boolean isEntityTypeIRI(IRI iri) {
-        return entityTypes.contains(iri);
+        return ENTITY_TYPES.contains(iri);
     }
 
     /**

@@ -76,7 +76,7 @@ public class RDFParser extends DefaultHandler {
     /**
      * Registered error handler.
      */
-    protected static ErrorHandler errorHandler = new ErrorHandler() {
+    protected ErrorHandler errorHandler = new ErrorHandler() {
 
         @Override
         public void warning(@Nullable SAXParseException exception) {
@@ -146,10 +146,10 @@ public class RDFParser extends DefaultHandler {
     /**
      * Parses RDF from given input source.
      *
-     * @param source specifies where RDF comes from
+     * @param source        specifies where RDF comes from
      * @param inputConsumer receives notifications about RDF parsing events
      * @throws SAXException SAXException
-     * @throws IOException IOException
+     * @throws IOException  IOException
      */
     public void parse(InputSource source, RDFConsumer inputConsumer)
         throws SAXException, IOException {
@@ -184,7 +184,7 @@ public class RDFParser extends DefaultHandler {
      * @param errorHandler the error handler
      */
     public void setErrorHandler(ErrorHandler errorHandler) {
-        RDFParser.errorHandler = checkNotNull(errorHandler, "errorHandler cannot be null");
+        this.errorHandler = checkNotNull(errorHandler, "errorHandler cannot be null");
     }
 
     @Override
@@ -375,11 +375,11 @@ public class RDFParser extends DefaultHandler {
     /**
      * Called when a statement with resource value is added to the model.
      *
-     * @param subject IRI of the subject resource
-     * @param predicate IRI of the predicate resource
-     * @param object IRI of the object resource
+     * @param subject       IRI of the subject resource
+     * @param predicate     IRI of the predicate resource
+     * @param object        IRI of the object resource
      * @param reificationID if not {@code null}, contains IRI of the resource that will wold the
-     *        reified statement
+     *                      reified statement
      */
     public void statementWithResourceValue(String subject, String predicate, String object,
         @Nullable String reificationID) {
@@ -397,12 +397,12 @@ public class RDFParser extends DefaultHandler {
     /**
      * Called when a statement with literal value is added to the model.
      *
-     * @param subject IRI of the subject resource
-     * @param predicate IRI of the predicate resource
-     * @param object literal object value
-     * @param dataType the IRI of the literal's datatype (may be {@code null})
+     * @param subject       IRI of the subject resource
+     * @param predicate     IRI of the predicate resource
+     * @param object        literal object value
+     * @param dataType      the IRI of the literal's datatype (may be {@code null})
      * @param reificationID if not {@code null}, contains IRI of the resource that will wold the
-     *        reified statement
+     *                      reified statement
      */
     public void statementWithLiteralValue(String subject, String predicate, String object,
         @Nullable String dataType, @Nullable String reificationID) {
@@ -448,7 +448,7 @@ public class RDFParser extends DefaultHandler {
     /**
      * If conditon b is true, throw an exception with provided message.
      *
-     * @param b condition to verify
+     * @param b       condition to verify
      * @param message message for the exception
      * @throws RDFParserException exception thrown
      */

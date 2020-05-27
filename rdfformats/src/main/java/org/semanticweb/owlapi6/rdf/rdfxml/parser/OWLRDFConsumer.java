@@ -27,8 +27,8 @@ import static org.semanticweb.owlapi6.utility.CollectionFactory.createSet;
 import static org.semanticweb.owlapi6.utility.CollectionFactory.createSyncMap;
 import static org.semanticweb.owlapi6.vocab.Namespaces.SWRL;
 import static org.semanticweb.owlapi6.vocab.Namespaces.SWRLB;
-import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.BUILT_IN_AP_IRIS;
-import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS;
+import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.builtInAPIris;
+import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.builtInVocabularyIris;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_ANNOTATED_SOURCE;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_ANNOTATED_TARGET;
@@ -65,6 +65,7 @@ import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.RDF_PREDICATE;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.RDF_REST;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.RDF_SUBJECT;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.RDF_TYPE;
+import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.builtInAPIris;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.isEntityTypeIRI;
 
 import java.util.ArrayList;
@@ -263,7 +264,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     /**
-     * @param p parser parameters
+     * @param p       parser parameters
      * @param checker anonymous node checker
      */
     public OWLRDFConsumer(OWLParserParameters p, AnonymousNodeChecker checker) {
@@ -302,7 +303,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected static boolean isGeneralPredicate(IRI predicate) {
-        return !predicate.isReservedVocabulary() || BUILT_IN_AP_IRIS.contains(predicate)
+        return !predicate.isReservedVocabulary() || builtInAPIris().contains(predicate)
             || SWRL.inNamespace(predicate) || SWRLB.inNamespace(predicate);
     }
 
@@ -365,7 +366,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     /**
      * Adds the shared anonymous node.
      *
-     * @param iri the iri
+     * @param iri         the iri
      * @param translation the translation
      */
     protected void addSharedAnonymousNode(IRI iri, Object translation) {
@@ -570,43 +571,55 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             // for OWL 2 now.
         } else if (iris.ontologyIRIs.size() == 1) {
             // Exactly one ontologyIRI
-            IRI ontologyIRI = iris.ontologyIRIs.iterator().next();
-            if (!anon.isAnonymousNode(ontologyIRI)) {
-                ontologyIRIToSet = Optional.ofNullable(ontologyIRI);
-            }
+            ontologyIRIToSet = getOntologyIRI(ontologyIRIToSet);
         } else {
-            if (parseParameters.getConfig().shouldParseWithStrictConfiguration()) {
-                throw new OWLRDFXMLParserException(
-                    "Expected one ontology declaration, found multiple ones: " + iris.ontologyIRIs);
-            }
-            // We have multiple to choose from
-            // Choose one that isn't the object of an annotation assertion
-            Set<IRI> candidateIRIs = createSet(iris.ontologyIRIs);
-            ont().annotations().forEach(a -> a.getValue().asIRI().ifPresent(iri -> {
-                if (iris.ontologyIRIs.contains(iri)) {
-                    candidateIRIs.remove(iri);
-                }
-            }));
-            // Choose the first one parsed
-            if (candidateIRIs.contains(iris.firstOntologyIRI)) {
-                ontologyIRIToSet = Optional.ofNullable(iris.firstOntologyIRI);
-            } else if (!candidateIRIs.isEmpty()) {
-                // Just pick any
-                ontologyIRIToSet = Optional.ofNullable(candidateIRIs.iterator().next());
-            }
+            ontologyIRIToSet = getOntologyIRIFromCandidates(ontologyIRIToSet);
         }
         if (ontologyIRIToSet.isPresent() && !NodeID.isAnonymousNodeIRI(ontologyIRIToSet.get())) {
             // It is possible for an ontology to have already had a version set.
             // Only if the parser is being used by itself, so not a common
             // occurrence,
             // but it is existing behaviour and tested.
-            Optional<IRI> versionIRI = ont().getOntologyID().getVersionIRI();
-            if (!versionIRI.isPresent()) {
-                versionIRI = Optional.ofNullable(iris.getOntologyVersion(ontologyIRIToSet.get()));
-            }
-            OWLOntologyID ontologyID = df.getOWLOntologyID(ontologyIRIToSet, versionIRI);
-            ont().applyChange(new SetOntologyID(ont(), ontologyID));
+            setOntologyVersionIRI(ontologyIRIToSet);
         }
+    }
+
+    protected Optional<IRI> getOntologyIRIFromCandidates(Optional<IRI> ontologyIRIToSet) {
+        if (parseParameters.getConfig().shouldParseWithStrictConfiguration()) {
+            throw new OWLRDFXMLParserException(
+                "Expected one ontology declaration, found multiple ones: " + iris.ontologyIRIs);
+        }
+        // We have multiple to choose from
+        // Choose one that isn't the object of an annotation assertion
+        Set<IRI> candidateIRIs = createSet(iris.ontologyIRIs);
+        ont().annotations().forEach(a -> a.getValue().asIRI().filter(iris.ontologyIRIs::contains)
+            .ifPresent(candidateIRIs::remove));
+        // Choose the first one parsed
+        if (candidateIRIs.contains(iris.firstOntologyIRI)) {
+            ontologyIRIToSet = Optional.ofNullable(iris.firstOntologyIRI);
+        } else if (!candidateIRIs.isEmpty()) {
+            // Just pick any
+            ontologyIRIToSet = Optional.ofNullable(candidateIRIs.iterator().next());
+        }
+        return ontologyIRIToSet;
+    }
+
+    protected Optional<IRI> getOntologyIRI(Optional<IRI> ontologyIRIToSet) {
+        IRI ontologyIRI = iris.ontologyIRIs.iterator().next();
+        if (!anon.isAnonymousNode(ontologyIRI)) {
+            ontologyIRIToSet = Optional.ofNullable(ontologyIRI);
+        }
+        return ontologyIRIToSet;
+    }
+
+    protected void setOntologyVersionIRI(Optional<IRI> ontologyIRIToSet) {
+        Optional<IRI> versionIRI = ont().getOntologyID().getVersionIRI();
+        if (!versionIRI.isPresent()) {
+            versionIRI =
+                Optional.ofNullable(iris.getOntologyVersion(ontologyIRIToSet.orElse(null)));
+        }
+        OWLOntologyID ontologyID = df.getOWLOntologyID(ontologyIRIToSet, versionIRI);
+        ont().applyChange(new SetOntologyID(ont(), ontologyID));
     }
 
     protected void removeUnnecessaryAxioms() {
@@ -729,9 +742,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     /**
      * A convenience method to obtain an {@code OWLLiteral}.
      *
-     * @param literal The literal
+     * @param literal  The literal
      * @param datatype The data type
-     * @param lang The lang
+     * @param lang     The lang
      * @return The {@code OWLLiteral} (either typed or untyped depending on the params)
      */
     OWLLiteral getOWLLiteral(String literal, @Nullable IRI datatype, @Nullable String lang) {
@@ -798,16 +811,20 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
                 return df.getOWLDatatypeRestriction(dt,
                     translatorAccessor.translateToFacetRestrictionSet(facets));
             } else if (!strict()) {
-                Collection<OWLFacetRestriction> restrictions = createLinkedSet();
-                // Try the legacy encoding
-                Stream.of(OWLFacet.values())
-                    .forEach(f -> consume(() -> tripleIndex.literal(n, f.getIRI(), true),
-                        val -> restrictions.add(df.getOWLFacetRestriction(f, val))));
-                return df.getOWLDatatypeRestriction(dt, restrictions);
+                return facetLegacyEncoding(n, dt);
             }
         }
         // Could not translated ANYTHING!
         return generateAndLogParseError(EntityType.DATATYPE, n);
+    }
+
+    protected OWLDataRange facetLegacyEncoding(IRI n, OWLDatatype dt) {
+        Collection<OWLFacetRestriction> restrictions = createLinkedSet();
+        // Try the legacy encoding
+        Stream.of(OWLFacet.values())
+            .forEach(f -> consume(() -> tripleIndex.literal(n, f.getIRI(), true),
+                val -> restrictions.add(df.getOWLFacetRestriction(f, val))));
+        return df.getOWLDatatypeRestriction(dt, restrictions);
     }
 
     // Basic node translation - translation of entities
@@ -981,8 +998,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     /**
      * @param entityType entity type
-     * @param mainNode main node
-     * @param <E> entity type
+     * @param mainNode   main node
+     * @param <E>        entity type
      * @return error entity
      */
     public <E extends OWLEntity> E generateAndLogParseError(EntityType<E> entityType,
@@ -1238,7 +1255,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected boolean canHandleAnnotationResource(IRI s, IRI p) {
         return !isAxiom(s) && !iris.isAnnotation(s)
-            && (BUILT_IN_AP_IRIS.contains(p) || !p.isReservedVocabulary());
+            && (builtInAPIris().contains(p) || !p.isReservedVocabulary());
     }
 
     protected boolean handleAnnotationResourceTriple(IRI s, IRI p, IRI o) {
@@ -1267,7 +1284,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleLiteralStreaming(IRI p) {
-        return isStrict() ? false : iris.isAP(p);
+        return isStrict() && iris.isAP(p);
     }
 
     protected boolean canHandleObjectAssertion(IRI p) {
@@ -1375,7 +1392,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean handleTypeAssertionTriple(IRI s, IRI p, IRI o) {
-        if (BUILT_IN_VOCABULARY_IRIS.contains(o) && !o.isThing()) {
+        if (builtInVocabularyIris().contains(o) && !o.isThing()) {
             // Can't have instance of built in vocabulary!
             // Shall we throw an exception here?
             LOGGER.info("Individual of builtin type {}", o);
@@ -1533,8 +1550,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleOnPropertyStreaming(IRI s) {
-        iris.addOWLRestriction(s, false);
-        return false;
+        return restrictionNoStreaming(s);
     }
 
     protected boolean canHandleOnDataStreaming(IRI o) {
@@ -1543,8 +1559,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleOnClassStreamng(IRI o) {
-        iris.addClassExpression(o, false);
-        return false;
+        return classExpressionNoStreaming(o);
     }
 
     protected boolean canHandleInverseOfStreaming(IRI s, IRI o) {
@@ -1574,13 +1589,16 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleHasValueStreaming(IRI s) {
+        return restrictionNoStreaming(s);
+    }
+
+    protected boolean restrictionNoStreaming(IRI s) {
         iris.addOWLRestriction(s, false);
         return false;
     }
 
     protected boolean canHandleHasKeyStreaming(IRI s) {
-        iris.addClassExpression(s, false);
-        return false;
+        return classExpressionNoStreaming(s);
     }
 
     protected boolean handleHasKeyTriple(IRI s, IRI p, IRI o,
@@ -1636,6 +1654,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleDisjointUnionStreaming(IRI s) {
+        return classExpressionNoStreaming(s);
+    }
+
+    protected boolean classExpressionNoStreaming(IRI s) {
         iris.addClassExpression(s, false);
         return false;
     }
@@ -1690,26 +1712,19 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleAnnotatedTargetStreaming(IRI s, IRI o) {
-        anonWithAnnotations.addAnnotatedSource(o, s);
-        checkForAndProcessAnnotatedDeclaration(s);
-        return false;
+        return cannotHandleStreaming(s, o);
     }
 
     protected boolean canHandleannotatedSourceStreaming(IRI s, IRI o) {
-        anonWithAnnotations.addAnnotatedSource(o, s);
-        checkForAndProcessAnnotatedDeclaration(s);
-        return false;
+        return cannotHandleStreaming(s, o);
     }
 
     protected boolean canHandleAnnotatedPropertyStreaming(IRI s, IRI o) {
-        anonWithAnnotations.addAnnotatedSource(o, s);
-        checkForAndProcessAnnotatedDeclaration(s);
-        return false;
+        return cannotHandleStreaming(s, o);
     }
 
     protected boolean canHandleTransitiveStreaming(IRI s, IRI p) {
-        handleNonStream(s, p, OWL_OBJECT_PROPERTY.getIRI());
-        return !anon.isAnonymousNode(s);
+        return canHandleTransitiveOrInverseFunctionalStreaming(s, p);
     }
 
     protected boolean handleTransitiveTriple(IRI s, IRI p, IRI o) {
@@ -1761,8 +1776,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleReflexiveStream(IRI s) {
-        iris.addObjectProperty(s, false);
-        return !anon.isAnonymousNode(s);
+        return canHandleReflexiveIrreflexiveAsymmetricStreaming(s);
     }
 
     protected boolean handleReflexiveTriple(IRI s, IRI p, IRI o) {
@@ -1860,8 +1874,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleIrreflexiveStreaming(IRI s) {
-        iris.addObjectProperty(s, false);
-        return !anon.isAnonymousNode(s);
+        return canHandleReflexiveIrreflexiveAsymmetricStreaming(s);
     }
 
     protected boolean handleIrreflexiveTriple(IRI s, IRI p, IRI o) {
@@ -1873,6 +1886,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleInverseFunctionalStreaming(IRI s, IRI p) {
+        return canHandleTransitiveOrInverseFunctionalStreaming(s, p);
+    }
+
+    protected boolean canHandleTransitiveOrInverseFunctionalStreaming(IRI s, IRI p) {
         handleNonStream(s, p, OWL_OBJECT_PROPERTY.getIRI());
         return !anon.isAnonymousNode(s);
     }
@@ -1932,6 +1949,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleAsymmetricStreaming(IRI s) {
+        return canHandleReflexiveIrreflexiveAsymmetricStreaming(s);
+    }
+
+    protected boolean canHandleReflexiveIrreflexiveAsymmetricStreaming(IRI s) {
         iris.addObjectProperty(s, false);
         return !anon.isAnonymousNode(s);
     }
@@ -2077,8 +2098,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected boolean canHandleComplementOfStreaming(IRI s, IRI o) {
         iris.addClassExpression(s, false);
-        iris.addClassExpression(o, false);
-        return false;
+        return classExpressionNoStreaming(o);
     }
 
     protected boolean handleNamedEquivalentUnionTriple(IRI s, IRI p, IRI o) {

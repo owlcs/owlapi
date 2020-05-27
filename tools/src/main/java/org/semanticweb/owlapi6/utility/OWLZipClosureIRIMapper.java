@@ -13,7 +13,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import javax.annotation.Nullable;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.semanticweb.owlapi6.model.IRI;
@@ -36,7 +35,7 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
     private final OWLDataFactory df;
 
     /**
-     * @param f zip file
+     * @param f  zip file
      * @param df data factory
      * @throws IOException thrown if access to the file is impossible
      */
@@ -98,8 +97,8 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
             return false;
         }
         try {
-            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                .parse(z.getInputStream(yaml));
+            Document doc =
+                SAXParsers.initDOMFactory().newDocumentBuilder().parse(z.getInputStream(yaml));
             NodeList uris = doc.getElementsByTagName("uri");
             for (int i = 0; i < uris.getLength(); i++) {
                 // Catalogs do not have a way to indicate root ontologies; all ontologies will be

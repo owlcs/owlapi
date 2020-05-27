@@ -21,8 +21,7 @@ import org.semanticweb.owlapi6.vocab.Namespaces;
 /**
  * Copied from DefaultPrefixManager.
  * 
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 6.0.0
  */
 public class PrefixManagerImpl implements PrefixManager {
@@ -90,8 +89,7 @@ public class PrefixManagerImpl implements PrefixManager {
     /**
      * Copy constructor.
      * 
-     * @param copy
-     *        prefix manager to copy
+     * @param copy prefix manager to copy
      */
     public PrefixManagerImpl(PrefixManager copy) {
         this();
@@ -146,7 +144,8 @@ public class PrefixManagerImpl implements PrefixManager {
             String iriString = iri.toString();
             String prefixed = null;
             for (Map.Entry<String, String> s : reverseprefix2NamespaceMap.entrySet()) {
-                if (iriString.startsWith(s.getKey()) && XMLUtils.isQName(iriString, s.getKey().length())) {
+                if (iriString.startsWith(s.getKey())
+                    && XMLUtils.isQName(iriString, s.getKey().length())) {
                     prefix = s.getValue();
                     prefixed = iriString.replace(s.getKey(), s.getValue());
                 }
@@ -187,10 +186,11 @@ public class PrefixManagerImpl implements PrefixManager {
         if (prefix == null) {
             String iriString = iri.toString();
             String prefixed = null;
-            for (String s : reverseprefix2NamespaceMap.keySet()) {
-                if (iriString.startsWith(s) && XMLUtils.isQName(iriString, s.length())) {
-                    prefix = reverseprefix2NamespaceMap.get(s);
-                    prefixed = iriString.replace(s, prefix);
+            for (Map.Entry<String, String> e : reverseprefix2NamespaceMap.entrySet()) {
+                if (iriString.startsWith(e.getKey())
+                    && XMLUtils.isQName(iriString, e.getKey().length())) {
+                    prefix = e.getValue();
+                    prefixed = iriString.replace(e.getKey(), prefix);
                 }
             }
             if (prefixed != null) {
@@ -257,7 +257,8 @@ public class PrefixManagerImpl implements PrefixManager {
         } else {
             String prefixName = prefixIRI.substring(0, sep + 1);
             if (!containsPrefixMapping(prefixName)) {
-                throw new OWLRuntimeException("Prefix not registered for prefix name: " + prefixName);
+                throw new OWLRuntimeException(
+                    "Prefix not registered for prefix name: " + prefixName);
             }
             String prefix = getPrefix(prefixName);
             String localName = prefixIRI.substring(sep + 1);

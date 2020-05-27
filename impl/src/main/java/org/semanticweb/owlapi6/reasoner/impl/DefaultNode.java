@@ -12,12 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.reasoner.impl;
 
-import static org.semanticweb.owlapi6.impl.InternalizedEntities.OWL_BOTTOM_DATA_PROPERTY;
-import static org.semanticweb.owlapi6.impl.InternalizedEntities.OWL_BOTTOM_OBJECT_PROPERTY;
-import static org.semanticweb.owlapi6.impl.InternalizedEntities.OWL_NOTHING;
-import static org.semanticweb.owlapi6.impl.InternalizedEntities.OWL_THING;
-import static org.semanticweb.owlapi6.impl.InternalizedEntities.OWL_TOP_DATA_PROPERTY;
-import static org.semanticweb.owlapi6.impl.InternalizedEntities.OWL_TOP_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asUnorderedSet;
@@ -42,16 +36,6 @@ import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils;
  */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
-    protected static final OWLClassNode TOP_NODE = new OWLClassNode(OWL_THING);
-    protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(OWL_NOTHING);
-    protected static final OWLDataPropertyNode TOP_DATA_NODE =
-        new OWLDataPropertyNode(OWL_TOP_DATA_PROPERTY);
-    protected static final OWLDataPropertyNode BOTTOM_DATA_NODE =
-        new OWLDataPropertyNode(OWL_BOTTOM_DATA_PROPERTY);
-    protected static final OWLObjectPropertyNode TOP_OBJECT_NODE =
-        new OWLObjectPropertyNode(OWL_TOP_OBJECT_PROPERTY);
-    protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE =
-        new OWLObjectPropertyNode(OWL_BOTTOM_OBJECT_PROPERTY);
     private final Set<E> entities = new HashSet<>(4);
 
     /**

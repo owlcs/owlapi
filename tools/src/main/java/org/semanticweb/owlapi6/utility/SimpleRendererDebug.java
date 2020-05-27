@@ -55,14 +55,14 @@ import org.semanticweb.owlapi6.vocab.OWL2Datatype;
  */
 public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer {
 
-    private StringBuilder _sb = new StringBuilder();
+    private StringBuilder sb = new StringBuilder();
     private PrefixManager shortFormProvider = new PrefixManagerImpl();
 
     /**
      * reset the renderer.
      */
     public void reset() {
-        _sb = new StringBuilder();
+        sb = new StringBuilder();
     }
 
     /**
@@ -70,9 +70,10 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
      * ontology's format (if it is a prefix format) and possibly the ontologies in the imports
      * closure.
      *
-     * @param ontology The ontology whose format will be used to obtain prefix mappings
+     * @param ontology                  The ontology whose format will be used to obtain prefix
+     *                                  mappings
      * @param processImportedOntologies Specifies whether or not the prefix mapping should be
-     *        obtained from imported ontologies.
+     *                                  obtained from imported ontologies.
      */
     public void setPrefixesFromOntologyFormat(OWLOntology ontology,
         boolean processImportedOntologies) {
@@ -85,7 +86,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
      * Sets a prefix name for a given prefix. Note that prefix names MUST end with a colon.
      *
      * @param prefixName The prefix name (ending with a colon)
-     * @param prefix The prefix that the prefix name maps to
+     * @param prefix     The prefix that the prefix name maps to
      */
     public void setPrefix(String prefixName, String prefix) {
         shortFormProvider.withPrefix(prefixName, prefix);
@@ -105,7 +106,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     public String render(OWLObject object) {
         reset();
         accept(object);
-        return _sb.toString();
+        return sb.toString();
     }
 
     protected SimpleRendererDebug accept(OWLObject object) {
@@ -125,7 +126,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     }
 
     private SimpleRendererDebug insertSpace() {
-        _sb.append(' ');
+        sb.append(' ');
         return this;
     }
 
@@ -139,7 +140,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
 
     @Override
     public String toString() {
-        return _sb.toString();
+        return sb.toString();
     }
 
     @Override
@@ -153,7 +154,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     }
 
     protected SimpleRendererDebug name(OWLObject object) {
-        _sb.append(System.identityHashCode(object)).append(object.type().getName());
+        sb.append(System.identityHashCode(object)).append(object.type().getName());
         return this;
     }
 
@@ -167,7 +168,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
             } else if (o instanceof OWLObject) {
                 accept((OWLObject) o);
             } else {
-                _sb.append(System.identityHashCode(o)).append(o);
+                sb.append(System.identityHashCode(o)).append(o);
             }
             if (it.hasNext()) {
                 insertSpace();
@@ -178,7 +179,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
 
     @Override
     public void visit(OWLOntology ontology) {
-        _sb.append(ontology.type().getName()).append('(').append(ontology.getOntologyID())
+        sb.append(ontology.type().getName()).append('(').append(ontology.getOntologyID())
             .append(" [Axioms: ").append(ontology.getAxiomCount()).append("] [Logical axioms: ")
             .append(ontology.getLogicalAxiomCount()).append("])");
     }
@@ -192,7 +193,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         name(axiom).left().writeAnnotations(axiom);
-        _sb.append("ObjectPropertyChain");
+        sb.append("ObjectPropertyChain");
         left().render(axiom.getPropertyChain()).right().insertSpace()
             .accept(axiom.getSuperProperty()).right();
     }
@@ -208,12 +209,12 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     }
 
     protected SimpleRendererDebug right() {
-        _sb.append(')');
+        sb.append(')');
         return this;
     }
 
     protected SimpleRendererDebug left() {
-        _sb.append('(');
+        sb.append('(');
         return this;
     }
 
@@ -223,12 +224,12 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
         if (node.isRDFPlainLiteral()
             || node.getDatatype().getIRI().equals(OWL2Datatype.RDF_LANG_STRING.getIRI())) {
             // We can use a syntactic shortcut
-            _sb.append('"').append(literal).append('"');
+            sb.append('"').append(literal).append('"');
             if (node.hasLang()) {
-                _sb.append('@').append(node.getLang());
+                sb.append('@').append(node.getLang());
             }
         } else {
-            _sb.append('"').append(literal).append("\"^^");
+            sb.append('"').append(literal).append("\"^^");
             node.getDatatype().accept(this);
         }
     }
@@ -249,7 +250,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     }
 
     protected SimpleRendererDebug shortIRI(HasIRI i) {
-        _sb.append(System.identityHashCode(i)).append(shortFormProvider.getShortForm(i.getIRI()));
+        sb.append(System.identityHashCode(i)).append(shortFormProvider.getShortForm(i.getIRI()));
         return this;
     }
 
@@ -267,20 +268,20 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
 
     @Override
     public void visit(OWLAnonymousIndividual individual) {
-        _sb.append(System.identityHashCode(individual)).append(individual.getID());
+        sb.append(System.identityHashCode(individual)).append(individual.getID());
     }
 
     @Override
     public void visit(IRI iri) {
-        _sb.append(System.identityHashCode(iri)).append('<').append(iri).append('>');
+        sb.append(System.identityHashCode(iri)).append('<').append(iri).append('>');
     }
 
     @Override
     public void visit(SWRLRule rule) {
         name(rule).left().writeAnnotations(rule);
-        _sb.append("Body");
+        sb.append("Body");
         left().render(rule.bodyList()).right().insertSpace();
-        _sb.append("Head");
+        sb.append("Head");
         left().render(rule.headList()).right().right();
     }
 

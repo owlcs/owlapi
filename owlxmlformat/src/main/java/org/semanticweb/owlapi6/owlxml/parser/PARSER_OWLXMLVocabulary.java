@@ -608,22 +608,22 @@ abstract class OWLEH<O, B extends Builder<O>> {
 
     enum HandleChild {
         //@formatter:off
-        /** AbstractOWLAxiomEH            */ ABSTRACTOWLAXIOMEH              ((parent, child) -> parent.handleChild((AxiomEH<?, ?>)     child)), 
-        /** AbstractClassExpressionEH     */ ABSTRACTCLASSEXPRESSIONEH       ((parent, child) -> parent.handleChild((ClassEH<?, ?>)     child)), 
-        /** AbstractOWLDataRangeHandler   */ ABSTRACTOWLDATARANGEHANDLER     ((parent, child) -> parent.handleChild((DataRangeEH<?, ?>) child)), 
-        /** ObjectPropertyEH              */ OBJECTPROPERTYEH                ((parent, child) -> parent.handleChild((ObjectPropertyEH)  child)), 
-        /** OWLDataPropertyEH             */ OWLDATAPROPERTYEH               ((parent, child) -> parent.handleChild((DataPropertyEH)    child)), 
-        /** OWLIndividualEH               */ OWLINDIVIDUALEH                 ((parent, child) -> parent.handleChild((IndividualEH)      child)), 
-        /** OWLLiteralEH                  */ OWLLITERALEH                    ((parent, child) -> parent.handleChild((LiteralEH)         child)), 
-        /** OWLAnnotationEH               */ OWLANNOTATIONEH                 ((parent, child) -> parent.handleChild((AnnEH)             child)), 
-        /** OWLSubObjectPropertyChainEH   */ OWLSUBOBJECTPROPERTYCHAINEH     ((parent, child) -> parent.handleChild((ChainEH)           child)),
-        /** OWLDatatypeFacetRestrictionEH */ OWLDATATYPEFACETRESTRICTIONEH   ((parent, child) -> parent.handleChild((DatatypeFacetEH)   child)),
-        /** OWLAnnotationPropertyEH       */ OWLANNOTATIONPROPERTYEH         ((parent, child) -> parent.handleChild((AnnotationPropEH)  child)),
-        /** OWLAnonymousIndividualEH      */ OWLANONYMOUSINDIVIDUALEH        ((parent, child) -> parent.handleChild((AnonEH)            child)),
-        /** AbstractIRIEH                 */ ABSTRACTIRIEH                   ((parent, child) -> parent.handleChild((IRIEH)             child)), 
-        /** SWRLVariableEH                */ SWRLVARIABLEEH                  ((parent, child) -> parent.handleChild((VariableEH)        child)),
-        /** SWRLAtomEH                    */ SWRLATOMEH                      ((parent, child) -> parent.handleChild((AtomEH<?, ?>)      child)), 
-        /** SWRLAtomListEH                */ SWRLATOMLISTEH                  ((parent, child) -> parent.handleChild((AtomListEH)        child));
+        /** AbstractOWLAxiomEH            */ ABSTRACTOWLAXIOMEH              ((parent, descendant) -> parent.handleChild((AxiomEH<?, ?>)     descendant)), 
+        /** AbstractClassExpressionEH     */ ABSTRACTCLASSEXPRESSIONEH       ((parent, descendant) -> parent.handleChild((ClassEH<?, ?>)     descendant)), 
+        /** AbstractOWLDataRangeHandler   */ ABSTRACTOWLDATARANGEHANDLER     ((parent, descendant) -> parent.handleChild((DataRangeEH<?, ?>) descendant)), 
+        /** ObjectPropertyEH              */ OBJECTPROPERTYEH                ((parent, descendant) -> parent.handleChild((ObjectPropertyEH)  descendant)), 
+        /** OWLDataPropertyEH             */ OWLDATAPROPERTYEH               ((parent, descendant) -> parent.handleChild((DataPropertyEH)    descendant)), 
+        /** OWLIndividualEH               */ OWLINDIVIDUALEH                 ((parent, descendant) -> parent.handleChild((IndividualEH)      descendant)), 
+        /** OWLLiteralEH                  */ OWLLITERALEH                    ((parent, descendant) -> parent.handleChild((LiteralEH)         descendant)), 
+        /** OWLAnnotationEH               */ OWLANNOTATIONEH                 ((parent, descendant) -> parent.handleChild((AnnEH)             descendant)), 
+        /** OWLSubObjectPropertyChainEH   */ OWLSUBOBJECTPROPERTYCHAINEH     ((parent, descendant) -> parent.handleChild((ChainEH)           descendant)),
+        /** OWLDatatypeFacetRestrictionEH */ OWLDATATYPEFACETRESTRICTIONEH   ((parent, descendant) -> parent.handleChild((DatatypeFacetEH)   descendant)),
+        /** OWLAnnotationPropertyEH       */ OWLANNOTATIONPROPERTYEH         ((parent, descendant) -> parent.handleChild((AnnotationPropEH)  descendant)),
+        /** OWLAnonymousIndividualEH      */ OWLANONYMOUSINDIVIDUALEH        ((parent, descendant) -> parent.handleChild((AnonEH)            descendant)),
+        /** AbstractIRIEH                 */ ABSTRACTIRIEH                   ((parent, descendant) -> parent.handleChild((IRIEH)             descendant)), 
+        /** SWRLVariableEH                */ SWRLVARIABLEEH                  ((parent, descendant) -> parent.handleChild((VariableEH)        descendant)),
+        /** SWRLAtomEH                    */ SWRLATOMEH                      ((parent, descendant) -> parent.handleChild((AtomEH<?, ?>)      descendant)), 
+        /** SWRLAtomListEH                */ SWRLATOMLISTEH                  ((parent, descendant) -> parent.handleChild((AtomListEH)        descendant));
         //@formatter:on
         private BiConsumer<OWLEH<?, ?>, OWLEH<?, ?>> consumer;
 

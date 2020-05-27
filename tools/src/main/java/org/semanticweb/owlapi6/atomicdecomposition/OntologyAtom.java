@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi6.atomicdecomposition;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -12,9 +13,8 @@ import javax.annotation.Nullable;
 /**
  * An ontology atom including module and dependencies information.
  */
-public class OntologyAtom {
+public class OntologyAtom implements Serializable {
 
-    static Comparator<OntologyAtom> comparator = (arg0, arg1) -> arg0.getId() - arg1.getId();
     /**
      * set of axioms in the atom
      */

@@ -34,6 +34,7 @@ import com.clarkparsia.owlapi6.explanation.util.ExplanationProgressMonitor;
  */
 public class DefaultExplanationGenerator implements ExplanationGenerator {
 
+    private static final String AXIOM_CANNOT_BE_NULL = "axiom cannot be null";
     private final OWLDataFactory dataFactory;
     private final MultipleExplanationGenerator gen;
 
@@ -88,7 +89,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      * @return the explanation
      */
     public Set<OWLAxiom> getExplanation(OWLAxiom axiom) {
-        checkNotNull(axiom, "axiom cannot be null");
+        checkNotNull(axiom, AXIOM_CANNOT_BE_NULL);
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
         return getExplanation(converter.convert(axiom));
     }
@@ -105,7 +106,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      * @return the set of explanations
      */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom) {
-        checkNotNull(axiom, "axiom cannot be null");
+        checkNotNull(axiom, AXIOM_CANNOT_BE_NULL);
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
         return getExplanations(converter.convert(axiom));
     }
@@ -123,7 +124,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      * @return the set of explanations
      */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) {
-        checkNotNull(axiom, "axiom cannot be null");
+        checkNotNull(axiom, AXIOM_CANNOT_BE_NULL);
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
         return getExplanations(converter.convert(axiom), maxExplanations);
     }

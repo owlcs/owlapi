@@ -9,5 +9,4 @@ interface ResourceTripleHandler {
     boolean canHandleStreaming(OWLRDFConsumer c, IRI subject, IRI predicate, IRI object);
 
     boolean canHandle(OWLRDFConsumer c, IRI subject, IRI predicate, IRI object);
-    // { return false; }
 }

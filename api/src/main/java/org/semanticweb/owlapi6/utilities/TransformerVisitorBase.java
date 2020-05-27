@@ -202,7 +202,7 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
 
     @Override
     public OWLObject visit(OWLOntology ontology) {
-        AxiomType.AXIOM_TYPES.stream().flatMap(ontology::axioms).forEach(ax -> ax.accept(this));
+        AxiomType.axiomTypes().stream().flatMap(ontology::axioms).forEach(ax -> ax.accept(this));
         ontology.annotations().forEach(a -> visitAnnotation(ontology, a));
         ontology.importsDeclarations().forEach(id -> visitImports(ontology, id));
         visitId(ontology);

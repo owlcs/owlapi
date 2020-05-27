@@ -29,6 +29,7 @@ import org.semanticweb.owlapi6.model.OWLDataFactory;
 import org.semanticweb.owlapi6.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.model.OWLOntologyManagerFactory;
+import org.semanticweb.owlapi6.model.OWLRuntimeException;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
 import org.semanticweb.owlapi6.utilities.Injector;
 
@@ -54,9 +55,10 @@ public class OWLManager implements OWLOntologyManagerFactory {
         // but they should actually share the one lock. Ontologies moving managers should rely on
         // the manager for locks. Now they rely on the fact that the locks are injector level
         // singletons.
-        REENTRANT(ReadWriteLock.class, () -> new ReentrantReadWriteLock()),
+        REENTRANT(ReadWriteLock.class, ReentrantReadWriteLock::new),
         //
         NOOP(ReadWriteLock.class, new NoOpReadWriteLock());
+
         private Class<?> c;
         private Supplier<?> s;
         private Class<?> type;
@@ -81,7 +83,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
             try {
                 return InjectorConstants.class.getField(name()).getAnnotations();
             } catch (NoSuchFieldException | SecurityException e) {
-                throw new RuntimeException(e);
+                throw new OWLRuntimeException(e);
             }
         }
 

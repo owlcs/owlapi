@@ -146,12 +146,12 @@ public class ReasonerTestCase extends TestBase {
         assertNotNull(nC);
         assertEquals(1, nC.getSize());
         assertTrue(nC.contains(C));
-        assertEquals(nC.getRepresentativeElement(), C);
+        assertEquals(C, nC.getRepresentativeElement());
         Node<OWLClass> nE = reasoner.getEquivalentClasses(E);
         assertNotNull(nE);
         assertEquals(1, nE.getSize());
         assertTrue(nE.contains(E));
-        assertEquals(nE.getRepresentativeElement(), E);
+        assertEquals(E, nE.getRepresentativeElement());
         Node<OWLClass> nD = reasoner.getEquivalentClasses(D);
         assertNotNull(nD);
         assertEquals(2, nD.getSize());

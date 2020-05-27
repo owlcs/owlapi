@@ -83,7 +83,8 @@ import org.semanticweb.owlapi6.search.Filters;
  * {@code KRSS2ObjectRenderer} is an extension of {@link KRSSObjectRenderer KRSSObjectRenderer}
  * which uses the extended vocabulary. <br>
  * <b>Abbreviations</b>
- * <table><caption>Abbreviations</caption>
+ * <table>
+ * <caption>Abbreviations</caption>
  * <tr>
  * <td>CN</td>
  * <td>concept name</td>
@@ -103,7 +104,8 @@ import org.semanticweb.owlapi6.search.Filters;
  * </table>
  * <br>
  * <b>KRSS concept language</b>
- * <table><caption>KRSS concept language</caption>
+ * <table>
+ * <caption>KRSS concept language</caption>
  * <tr>
  * <td>KRSS</td>
  * <td>OWLClassExpression</td>
@@ -143,7 +145,8 @@ import org.semanticweb.owlapi6.search.Filters;
  * </table>
  * <br>
  * <b>KRSS role language</b>
- * <table><caption>KRSS role language</caption>
+ * <table>
+ * <caption>KRSS role language</caption>
  * <tr>
  * <td>KRSS</td>
  * <td>OWLObjectPropertyExpression</td>
@@ -157,7 +160,8 @@ import org.semanticweb.owlapi6.search.Filters;
  * Each referenced class, object property as well as individual is defined using
  * <i>define-concept</i> resp. <i>define-primitive-concept</i>, <i>define-role</i> and
  * <i>define-individual</i>. In addition, axioms are translated as follows. <br>
- * <table><caption>remarks</caption>
+ * <table>
+ * <caption>remarks</caption>
  * <tr>
  * <td>KRSS2</td>
  * <td>OWLAxiom</td>
@@ -305,7 +309,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     /**
      * @param ontology ontology to render
-     * @param writer writer to render to
+     * @param writer   writer to render to
      */
     public KRSS2ObjectRenderer(OWLOntology ontology, Writer writer) {
         super(ontology, writer);
@@ -359,45 +363,9 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             boolean primitive = !isDefined(eachClass, ontology);
             writeOpenBracket();
             if (primitive) { // there is no equivalentclasses axiom!
-                write(DEFINE_PRIMITIVE_CONCEPT);
-                write(eachClass);
-                writeSpace();
-                Stream<OWLClassExpression> sup =
-                    sup(ontology.axioms(Filters.subClassWithSub, eachClass, INCLUDED),
-                        OWLClassExpression.class);
-                flatten(asList(sup.sorted()));
-                writeCloseBracket();
-                writeln();
-                Collection<OWLClassExpression> classes =
-                    asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class));
-                for (OWLClassExpression description : classes) {
-                    writeOpenBracket();
-                    write(eachClass);
-                    write(EQUIVALENT);
-                    write(description);
-                    writeCloseBracket();
-                    writeln();
-                }
+                writePrimitive(ontology, eachClass);
             } else {
-                writeOpenBracket();
-                write(DEFINE_CONCEPT);
-                write(eachClass);
-                Stream<OWLClassExpression> equivalent = equivalent(
-                    ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class);
-                flatten(asList(equivalent.sorted()));
-                writeCloseBracket();
-                writeln();
-                Collection<OWLClassExpression> supclasses = asList(
-                    sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class));
-                for (OWLClassExpression description : supclasses) {
-                    writeOpenBracket();
-                    write(eachClass);
-                    write(IMPLIES);
-                    write(description);
-                    writeCloseBracket();
-                    writeln();
-                }
+                writeDefined(ontology, eachClass);
             }
         }
         for (OWLObjectProperty property : asList(ontology.objectPropertiesInSignature())) {
@@ -406,122 +374,31 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 continue;
             }
             writeOpenBracket();
-            Stream<OWLObjectPropertyExpression> streamp =
-                equivalent(ontology.equivalentObjectPropertiesAxioms(property));
-            Collection<OWLObjectPropertyExpression> properties = asList(streamp);
+            Collection<OWLObjectPropertyExpression> properties =
+                asList(equivalent(ontology.equivalentObjectPropertiesAxioms(property)));
             boolean isPrimitive = properties.isEmpty();
             if (isPrimitive) {
-                write(DEFINE_PRIMITIVE_ROLE);
-                write(property);
-                List<OWLObjectPropertyExpression> superProperties = asList(
-                    sup(ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
-                        OWLObjectPropertyExpression.class).sorted());
-                int superSize = superProperties.size();
-                if (superSize == 1) {
-                    writeSpace();
-                    write(PARENT_ATTR);
-                    writeSpace();
-                    write(superProperties.iterator().next());
-                } else if (superSize > 1) {
-                    writeSpace();
-                    write(PARENTS_ATTR);
-                    writeSpace();
-                    flattenProperties(superProperties, null);
-                } else {
-                    // right/left identity?
-                    // we only allow for either right or left identity axiom,
-                    // otherwise it is
-                    // expressed via role-inclusion axioms
-                    Collection<OWLSubPropertyChainOfAxiom> chainAxioms =
-                        getPropertyChainSubPropertyAxiomsFor(property);
-                    if (chainAxioms.size() == 1) {
-                        OWLSubPropertyChainOfAxiom axiom = chainAxioms.iterator().next();
-                        if (isLeftIdentityAxiom(axiom, property)) {
-                            leftRightIdentityUsed.add(axiom);
-                            writeSpace();
-                            write(LEFTIDENTITY_ATTR);
-                            write(axiom.getPropertyChain().get(0));
-                        } else if (isRightIdentityAxiom(axiom, property)) {
-                            leftRightIdentityUsed.add(axiom);
-                            writeSpace();
-                            write(RIGHTIDENTITY_ATTR);
-                            write(axiom.getPropertyChain().get(1));
-                        }
-                    }
-                }
+                writePrimitiveObjectProperty(ontology, property);
             } else {
-                if (properties.isEmpty()) {
-                    write(DEFINE_PRIMITIVE_ROLE);
-                    write(property);
-                    writeSpace();
-                } else {
-                    write(DEFINE_ROLE);
-                    write(property);
-                    OWLObjectPropertyExpression expr = properties.iterator().next();
-                    write(expr);
-                    properties.remove(expr);
-                    writeSpace();
-                }
+                writeRole(property, properties);
             }
-            if (isTransitive(property, ontology)) {
-                writeSpace();
-                write(TRANSITIVE_ATTR);
-                writeSpace();
-                write(TRUE);
-            }
-            if (isSymmetric(property, ontology)) {
-                writeSpace();
-                write(SYMMETRIC_ATTR);
-                writeSpace();
-                write(TRUE);
-            }
-            if (isReflexive(property, ontology)) {
-                writeSpace();
-                write(REFLEXIVE_ATTR);
-                writeSpace();
-                write(TRUE);
-            }
-            Iterator<OWLObjectPropertyExpression> inverses =
-                inverse(ontology.inverseObjectPropertyAxioms(property), property).iterator();
-            if (!inverses.hasNext()) {
-                writeSpace();
-                write(INVERSE_ATTR);
-                write(inverses.next());
-            }
-            Stream<OWLClassExpression> domain =
-                domain(ontology.objectPropertyDomainAxioms(property));
-            List<OWLClassExpression> stream = asList(domain.sorted());
-            if (!stream.isEmpty()) {
-                writeSpace();
-                write(DOMAIN_ATTR);
-                flatten(stream);
-            }
-            Stream<OWLClassExpression> range = range(ontology.objectPropertyRangeAxioms(property));
-            stream = asList(range.sorted());
-            if (!stream.isEmpty()) {
-                writeSpace();
-                write(RANGE_ATTR);
-                flatten(stream);
-            }
+            writeTransitive(ontology, property);
+            writeSymmetric(ontology, property);
+            writeReflexive(ontology, property);
+            Iterator<OWLObjectPropertyExpression> inverses = writeInverse(ontology, property);
+            writeDomain(ontology, property);
+            writeRange(ontology, property);
             writeCloseBracket();
             writeln();
-            while (inverses.hasNext()) {
-                writeOpenBracket();
-                write(INVERSE);
-                write(property);
-                write(inverses.next());
-                writeOpenBracket();
-                writeln();
-            }
-            for (OWLObjectPropertyExpression expr : properties) {
-                writeOpenBracket();
-                write(ROLES_EQUIVALENT);
-                write(property);
-                write(expr);
-                writeCloseBracket();
-                writeln();
-            }
+            wrteRestOfInverse(property, inverses);
+            writeRolesEquivalent(property, properties);
         }
+        writeIndividuals(ontology);
+        ontology.axioms().forEach(a -> a.accept(this));
+        writer.flush();
+    }
+
+    protected void writeIndividuals(OWLOntology ontology) {
         List<OWLNamedIndividual> individuals = asList(ontology.individualsInSignature());
         for (OWLNamedIndividual individual : individuals) {
             if (ignoreDeclarations && ontology.axioms(individual, EXCLUDED).count() == 1
@@ -534,8 +411,204 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             writeCloseBracket();
             writeln();
         }
-        ontology.axioms().forEach(a -> a.accept(this));
-        writer.flush();
+    }
+
+    protected void writeRolesEquivalent(OWLObjectProperty property,
+        Collection<OWLObjectPropertyExpression> properties) {
+        for (OWLObjectPropertyExpression expr : properties) {
+            writeOpenBracket();
+            write(ROLES_EQUIVALENT);
+            write(property);
+            write(expr);
+            writeCloseBracket();
+            writeln();
+        }
+    }
+
+    protected void wrteRestOfInverse(OWLObjectProperty property,
+        Iterator<OWLObjectPropertyExpression> inverses) {
+        while (inverses.hasNext()) {
+            writeOpenBracket();
+            write(INVERSE);
+            write(property);
+            write(inverses.next());
+            writeOpenBracket();
+            writeln();
+        }
+    }
+
+    protected void writeRange(OWLOntology ontology, OWLObjectProperty property) {
+        List<OWLClassExpression> stream = asList(
+            range(ontology.objectPropertyRangeAxioms(property), OWLClassExpression.class).sorted());
+        if (!stream.isEmpty()) {
+            writeSpace();
+            write(RANGE_ATTR);
+            flatten(stream);
+        }
+    }
+
+    protected void writeDomain(OWLOntology ontology, OWLObjectProperty property) {
+        List<OWLClassExpression> stream =
+            asList(domain(ontology.objectPropertyDomainAxioms(property).sorted()));
+        if (!stream.isEmpty()) {
+            writeSpace();
+            write(DOMAIN_ATTR);
+            flatten(stream);
+        }
+    }
+
+    protected Iterator<OWLObjectPropertyExpression> writeInverse(OWLOntology ontology,
+        OWLObjectProperty property) {
+        Iterator<OWLObjectPropertyExpression> inverses =
+            inverse(ontology.inverseObjectPropertyAxioms(property), property).iterator();
+        if (!inverses.hasNext()) {
+            writeSpace();
+            write(INVERSE_ATTR);
+            write(inverses.next());
+        }
+        return inverses;
+    }
+
+    protected void writeReflexive(OWLOntology ontology, OWLObjectProperty property) {
+        if (isReflexive(property, ontology)) {
+            writeSpace();
+            write(REFLEXIVE_ATTR);
+            writeSpace();
+            write(TRUE);
+        }
+    }
+
+    protected void writeSymmetric(OWLOntology ontology, OWLObjectProperty property) {
+        if (isSymmetric(property, ontology)) {
+            writeSpace();
+            write(SYMMETRIC_ATTR);
+            writeSpace();
+            write(TRUE);
+        }
+    }
+
+    protected void writeTransitive(OWLOntology ontology, OWLObjectProperty property) {
+        if (isTransitive(property, ontology)) {
+            writeSpace();
+            write(TRANSITIVE_ATTR);
+            writeSpace();
+            write(TRUE);
+        }
+    }
+
+    protected void writeRole(OWLObjectProperty property,
+        Collection<OWLObjectPropertyExpression> properties) {
+        if (properties.isEmpty()) {
+            write(DEFINE_PRIMITIVE_ROLE);
+            write(property);
+            writeSpace();
+        } else {
+            write(DEFINE_ROLE);
+            write(property);
+            OWLObjectPropertyExpression expr = properties.iterator().next();
+            write(expr);
+            properties.remove(expr);
+            writeSpace();
+        }
+    }
+
+    protected void writePrimitiveObjectProperty(OWLOntology ontology, OWLObjectProperty property) {
+        write(DEFINE_PRIMITIVE_ROLE);
+        write(property);
+        List<OWLObjectPropertyExpression> superProperties =
+            asList(sup(ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
+                OWLObjectPropertyExpression.class).sorted());
+        int superSize = superProperties.size();
+        if (superSize == 1) {
+            writeSpace();
+            write(PARENT_ATTR);
+            writeSpace();
+            write(superProperties.iterator().next());
+        } else if (superSize > 1) {
+            writeSpace();
+            write(PARENTS_ATTR);
+            writeSpace();
+            flattenProperties(superProperties, null);
+        } else {
+            // right/left identity?
+            // we only allow for either right or left identity axiom,
+            // otherwise it is
+            // expressed via role-inclusion axioms
+            writeChainIfOneProperty(property);
+        }
+    }
+
+    protected void writeChainIfOneProperty(OWLObjectProperty property) {
+        Collection<OWLSubPropertyChainOfAxiom> chainAxioms =
+            getPropertyChainSubPropertyAxiomsFor(property);
+        if (chainAxioms.size() == 1) {
+            OWLSubPropertyChainOfAxiom axiom = chainAxioms.iterator().next();
+            if (isLeftIdentityAxiom(axiom, property)) {
+                leftRightIdentityUsed.add(axiom);
+                writeSpace();
+                write(LEFTIDENTITY_ATTR);
+                write(axiom.getPropertyChain().get(0));
+            } else if (isRightIdentityAxiom(axiom, property)) {
+                leftRightIdentityUsed.add(axiom);
+                writeSpace();
+                write(RIGHTIDENTITY_ATTR);
+                write(axiom.getPropertyChain().get(1));
+            }
+        }
+    }
+
+    protected void writeDefined(OWLOntology ontology, OWLClass eachClass) {
+        writeOpenBracket();
+        write(DEFINE_CONCEPT);
+        write(eachClass);
+        flattenEquivalentClasses(ontology, eachClass);
+        writeCloseBracket();
+        writeln();
+
+        sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)
+            .forEach(description -> writeImplies(eachClass, description));
+    }
+
+    protected void writePrimitive(OWLOntology ontology, OWLClass eachClass) {
+        write(DEFINE_PRIMITIVE_CONCEPT);
+        write(eachClass);
+        writeSpace();
+        flattenSuperclasses(ontology, eachClass);
+        writeCloseBracket();
+        writeln();
+        equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class)
+            .forEach(description -> writeEquivalent(eachClass, description));
+    }
+
+    protected void writeImplies(OWLClass eachClass, OWLClassExpression description) {
+        writeOpenBracket();
+        write(eachClass);
+        write(IMPLIES);
+        write(description);
+        writeCloseBracket();
+        writeln();
+    }
+
+    protected void flattenEquivalentClasses(OWLOntology ontology, OWLClass eachClass) {
+        Stream<OWLClassExpression> equivalent =
+            equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class);
+        flatten(asList(equivalent.sorted()));
+    }
+
+    protected void flattenSuperclasses(OWLOntology ontology, OWLClass eachClass) {
+        List<OWLClassExpression> sups =
+            asList(sup(ontology.axioms(Filters.subClassWithSub, eachClass, INCLUDED),
+                OWLClassExpression.class).sorted());
+        flatten(sups);
+    }
+
+    protected void writeEquivalent(OWLClass eachClass, OWLClassExpression description) {
+        writeOpenBracket();
+        write(eachClass);
+        write(EQUIVALENT);
+        write(description);
+        writeCloseBracket();
+        writeln();
     }
 
     @Override

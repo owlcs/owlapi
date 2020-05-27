@@ -345,7 +345,8 @@ public class OBOFormatWriter {
                 }
             } else {
                 // also check for a String representation of Boolean.TRUE
-                if (!(Boolean.TRUE.equals(value) || "true".equals(value.toString()))) {
+                if (!(Boolean.TRUE.equals(value)
+                    || value != null && "true".equals(value.toString()))) {
                     return;
                 }
             }
@@ -359,27 +360,7 @@ public class OBOFormatWriter {
             idsLabel = new StringBuilder();
         }
         while (valuesIterator.hasNext()) {
-            String value = valuesIterator.next().toString();
-            if (idsLabel != null && nameProvider != null) {
-                String label = nameProvider.getName(value);
-                if (label != null && (isOpaqueIdentifier(value) || !valuesIterator.hasNext())) {
-                    // only print label if the label exists
-                    // and the label is different from the id
-                    // relationships: ID part_of LABEL part_of
-                    if (idsLabel.length() > 0) {
-                        idsLabel.append(' ');
-                    }
-                    idsLabel.append(label);
-                }
-            }
-            EscapeMode mode = EscapeMode.MOST;
-            if (OboFormatTag.TAG_COMMENT.getTag().equals(clause.getTag())) {
-                mode = EscapeMode.PARENTHESIS;
-            }
-            sb.append(escapeOboString(value, mode));
-            if (valuesIterator.hasNext()) {
-                sb.append(' ');
-            }
+            renderValues(clause, nameProvider, sb, valuesIterator, idsLabel);
         }
         Collection<Xref> xrefs = clause.getXrefs();
         if (!xrefs.isEmpty()) {
@@ -394,6 +375,36 @@ public class OBOFormatWriter {
             }
         }
         writeLine(sb, writer);
+    }
+
+    protected static void renderValues(Clause clause, @Nullable NameProvider nameProvider,
+        StringBuilder sb, Iterator<Object> valuesIterator, @Nullable StringBuilder idsLabel) {
+        String value = valuesIterator.next().toString();
+        assert value != null;
+        if (idsLabel != null && nameProvider != null) {
+            String label = nameProvider.getName(value);
+            if (label != null && (isOpaqueIdentifier(value) || !valuesIterator.hasNext())) {
+                // only print label if the label exists
+                // and the label is different from the id
+                // relationships: ID part_of LABEL part_of
+                if (idsLabel.length() > 0) {
+                    idsLabel.append(' ');
+                }
+                idsLabel.append(label);
+            }
+        }
+        sb.append(escapeOboString(value, selectEscapeMode(clause)));
+        if (valuesIterator.hasNext()) {
+            sb.append(' ');
+        }
+    }
+
+    protected static EscapeMode selectEscapeMode(Clause clause) {
+        EscapeMode mode = EscapeMode.MOST;
+        if (OboFormatTag.TAG_COMMENT.getTag().equals(clause.getTag())) {
+            mode = EscapeMode.PARENTHESIS;
+        }
+        return mode;
     }
 
     private static boolean isOpaqueIdentifier(@Nullable String value) {
@@ -555,7 +566,8 @@ public class OBOFormatWriter {
     public void write(String fn, Writer writer) throws IOException {
         AtomicReference<OBODoc> doc = new AtomicReference<>();
         OWLParser parser = new OBOFormatOWLAPIParser((o, d) -> doc.set(d));
-        // Ontology can be null here - it is ignored in the parser object
+        // Ontology can be null here - it is ignored in the parser object (the argument o in the
+        // above lambda is unused)
         new IRIDocumentSource(fn).acceptParser(parser, null, new OntologyConfigurator());
         write(doc.get(), writer);
     }
@@ -721,21 +733,7 @@ public class OBOFormatWriter {
         }
         String id = frame.getId();
         if (id != null) {
-            Object label = frame.getTagValue(OboFormatTag.TAG_NAME);
-            String extra = "";
-            if (label == null && nameProvider != null) {
-                // the name clause may not be present in this OBODoc - however,
-                // the name provider may be able to provide one, in which case,
-                // we
-                // write it as a parser-invisible comment, thus preserving the
-                // document structure but providing useful information for any
-                // person that inspects the obo file
-                label = nameProvider.getName(id);
-                if (label != null) {
-                    extra = " ! " + label;
-                }
-            }
-            writeLine(OboFormatTag.TAG_ID.getTag() + ": " + id + extra, writer);
+            renderTagName(frame, writer, nameProvider, id);
         }
         List<String> tags = duplicateTags(frame.getTags());
         Collections.sort(tags, comparator);
@@ -744,36 +742,58 @@ public class OBOFormatWriter {
             defaultOboNamespace = nameProvider.getDefaultOboNamespace();
         }
         for (String tag : tags) {
-            List<Clause> clauses = new ArrayList<>(frame.getClauses(tag));
-            Collections.sort(clauses, clauseComparator);
-            for (Clause clause : clauses) {
-                String clauseTag = clause.getTag();
-                if (OboFormatTag.TAG_ID.getTag().equals(clauseTag)) {
-                    continue;
-                } else if (OboFormatTag.TAG_DEF.getTag().equals(clauseTag)) {
-                    writeDef(clause, writer);
-                } else if (OboFormatTag.TAG_SYNONYM.getTag().equals(clauseTag)) {
-                    writeSynonym(clause, writer);
-                } else if (OboFormatTag.TAG_PROPERTY_VALUE.getTag().equals(clauseTag)) {
-                    writePropertyValue(clause, writer);
-                } else if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clauseTag)
-                    || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(clauseTag)) {
-                    writeClauseWithQuotedString(clause, writer);
-                } else if (OboFormatTag.TAG_XREF.getTag().equals(clauseTag)) {
-                    writeXRefClause(clause, writer);
-                } else if (OboFormatTag.TAG_NAMESPACE.getTag().equals(clauseTag)) {
-                    // only write OBO namespace,
-                    // if it is different from the default OBO namespace
-                    if (defaultOboNamespace == null
-                        || !clause.getValue().equals(defaultOboNamespace)) {
-                        write(clause, writer, nameProvider);
-                    }
-                } else {
-                    write(clause, writer, nameProvider);
-                }
-            }
+            renderTags(frame, writer, nameProvider, defaultOboNamespace, tag);
         }
         writeEmptyLine(writer);
+    }
+
+    protected void renderTagName(Frame frame, Writer writer, @Nullable NameProvider nameProvider,
+        String id) throws IOException {
+        Object label = frame.getTagValue(OboFormatTag.TAG_NAME);
+        String extra = "";
+        if (label == null && nameProvider != null) {
+            // the name clause may not be present in this OBODoc - however,
+            // the name provider may be able to provide one, in which case,
+            // we write it as a parser-invisible comment, thus preserving the
+            // document structure but providing useful information for any
+            // person that inspects the obo file
+            label = nameProvider.getName(id);
+            if (label != null) {
+                extra = " ! " + label;
+            }
+        }
+        writeLine(OboFormatTag.TAG_ID.getTag() + ": " + id + extra, writer);
+    }
+
+    protected void renderTags(Frame frame, Writer writer, @Nullable NameProvider nameProvider,
+        @Nullable String defaultOboNamespace, String tag) throws IOException {
+        List<Clause> clauses = new ArrayList<>(frame.getClauses(tag));
+        Collections.sort(clauses, clauseComparator);
+        for (Clause clause : clauses) {
+            String clauseTag = clause.getTag();
+            if (OboFormatTag.TAG_ID.getTag().equals(clauseTag)) {
+                // no operation
+            } else if (OboFormatTag.TAG_DEF.getTag().equals(clauseTag)) {
+                writeDef(clause, writer);
+            } else if (OboFormatTag.TAG_SYNONYM.getTag().equals(clauseTag)) {
+                writeSynonym(clause, writer);
+            } else if (OboFormatTag.TAG_PROPERTY_VALUE.getTag().equals(clauseTag)) {
+                writePropertyValue(clause, writer);
+            } else if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clauseTag)
+                || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(clauseTag)) {
+                writeClauseWithQuotedString(clause, writer);
+            } else if (OboFormatTag.TAG_XREF.getTag().equals(clauseTag)) {
+                writeXRefClause(clause, writer);
+            } else if (OboFormatTag.TAG_NAMESPACE.getTag().equals(clauseTag)) {
+                // only write OBO namespace,
+                // if it is different from the default OBO namespace
+                if (defaultOboNamespace == null || !clause.getValue().equals(defaultOboNamespace)) {
+                    write(clause, writer, nameProvider);
+                }
+            } else {
+                write(clause, writer, nameProvider);
+            }
+        }
     }
 
     /** The Enum EscapeMode. */

@@ -14,6 +14,7 @@ import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyID;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
+import org.semanticweb.owlapi6.model.OWLRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +37,9 @@ public class ImportsCompatibilityVerifier {
 
     /**
      * @param supplier This class needs to create a separate ontology manager for each ontology in
-     *        the imports closure. This parameter allows the caller to specify how the managers
-     *        should be created; for example, the manager can be set up to resolve ontologies from
-     *        local files or zipped files.
+     *                 the imports closure. This parameter allows the caller to specify how the
+     *                 managers should be created; for example, the manager can be set up to resolve
+     *                 ontologies from local files or zipped files.
      */
     public ImportsCompatibilityVerifier(Supplier<OWLOntologyManager> supplier) {
         this.supplier = supplier;
@@ -105,7 +106,7 @@ public class ImportsCompatibilityVerifier {
             list.put(ontologyIRI, o);
             return o;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 

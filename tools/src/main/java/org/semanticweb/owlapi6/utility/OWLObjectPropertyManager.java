@@ -25,10 +25,8 @@ import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,19 +42,21 @@ import org.semanticweb.owlapi6.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi6.model.parameters.Imports;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class OWLObjectPropertyManager {
 
     private final OWLDataFactory df;
     private final OWLOntology ontology;
-    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = new HashMap<>();
-    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure = new HashMap<>();
+    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy =
+        new HashMap<>();
+    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure =
+        new HashMap<>();
     private final Set<OWLObjectPropertyExpression> compositeProperties = new HashSet<>();
     private final Set<OWLObjectPropertyExpression> nonSimpleProperties = new HashSet<>();
-    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> partialOrdering = new HashMap<>();
+    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> partialOrdering =
+        new HashMap<>();
     private boolean compositeDirty;
     private boolean hierarchyDirty;
     private boolean reflexiveTransitiveClosureDirty;
@@ -64,8 +64,7 @@ public class OWLObjectPropertyManager {
     private boolean partialOrderingDirty;
 
     /**
-     * @param ont
-     *        the ontology to use
+     * @param ont the ontology to use
      */
     public OWLObjectPropertyManager(OWLOntology ont) {
         ontology = checkNotNull(ont, "ontology cannot be null");
@@ -74,22 +73,19 @@ public class OWLObjectPropertyManager {
     }
 
     /**
-     * @param ontologies
-     *        ontologies to search
+     * @param ontologies ontologies to search
      * @return sets of equivalent properties
      */
-    public static Collection<Set<OWLObjectPropertyExpression>>
-        getEquivalentObjectProperties(Stream<OWLOntology> ontologies) {
+    public static Collection<Set<OWLObjectPropertyExpression>> getEquivalentObjectProperties(
+        Stream<OWLOntology> ontologies) {
         checkNotNull(ontologies, "ontologies cannot be null");
         Set<Set<OWLObjectPropertyExpression>> result = new HashSet<>();
         Set<OWLObjectPropertyExpression> processed = new HashSet<>();
-        Stream<OWLObjectPropertyExpression> properties = ontologies.flatMap(OWLOntology::objectPropertiesInSignature);
+        Stream<OWLObjectPropertyExpression> properties =
+            ontologies.flatMap(OWLOntology::objectPropertiesInSignature);
         properties.forEach(p -> {
             if (!processed.contains(p)) {
-                tarjan(ontologies, p, 0, new LinkedList<OWLObjectPropertyExpression>(),
-                    new HashMap<OWLObjectPropertyExpression, Integer>(),
-                    new HashMap<OWLObjectPropertyExpression, Integer>(), result, processed,
-                    new HashSet<OWLObjectPropertyExpression>());
+                tarjan(ontologies, p, 0, new TarjanStructure<>(result, processed));
             }
         });
         // Get maximal
@@ -107,90 +103,70 @@ public class OWLObjectPropertyManager {
     }
 
     /**
-     * @param ontologies
-     *        The ontologies
-     * @param prop
-     *        the property
-     * @param index
-     *        index
-     * @param stack
-     *        stack
-     * @param indexMap
-     *        index map
-     * @param lowlinkMap
-     *        low link map
-     * @param result
-     *        result
-     * @param processed
-     *        processed
-     * @param stackProps
-     *        stack entities
+     * @param <T>        type
+     * @param ontologies The ontologies
+     * @param prop       the property
+     * @param index      index
+     * @param structure  structure
      */
-    public static void tarjan(Stream<OWLOntology> ontologies, OWLObjectPropertyExpression prop, int index,
-        Deque<OWLObjectPropertyExpression> stack, Map<OWLObjectPropertyExpression, Integer> indexMap,
-        Map<OWLObjectPropertyExpression, Integer> lowlinkMap, Set<Set<OWLObjectPropertyExpression>> result,
-        Set<OWLObjectPropertyExpression> processed, Set<OWLObjectPropertyExpression> stackProps) {
+    public static <T extends OWLObjectPropertyExpression> void tarjan(
+        Stream<OWLOntology> ontologies, T prop, int index, TarjanStructure<T> structure) {
         checkNotNull(ontologies, "ontologies cannot be null");
         checkNotNull(prop, "prop cannot be null");
-        checkNotNull(stack, "stack cannot be null");
-        checkNotNull(indexMap, "indexMap cannot be null");
-        checkNotNull(lowlinkMap, "lowlinkMap cannot be null");
-        checkNotNull(result, "result cannot be null");
-        checkNotNull(processed, "processed cannot be null");
-        checkNotNull(stackProps, "stackProps cannot be null");
-        processed.add(prop);
-        indexMap.put(prop, Integer.valueOf(index));
-        lowlinkMap.put(prop, Integer.valueOf(index));
-        stack.push(prop);
-        stackProps.add(prop);
+        checkNotNull(structure.getResult(), "result cannot be null");
+        checkNotNull(structure.getProcessed(), "processed cannot be null");
+        structure.getProcessed().add(prop);
+        structure.getIndexMap().put(prop, Integer.valueOf(index));
+        structure.getLowlinkMap().put(prop, Integer.valueOf(index));
+        structure.getStack().push(prop);
+        structure.getStackEntities().add(prop);
         ontologies.flatMap(ont -> ont.objectSubPropertyAxiomsForSubProperty(prop))
-            .filter(ax -> ax.getSubProperty().equals(prop)).forEach(ax -> callTarjanAndPut(ontologies, prop, index,
-                stack, indexMap, lowlinkMap, result, processed, stackProps, ax.getSuperProperty()));
-        if (lowlinkMap.get(prop).equals(indexMap.get(prop))) {
-            Set<OWLObjectPropertyExpression> scc = new HashSet<>();
-            OWLObjectPropertyExpression propPrime;
+            .filter(ax -> ax.getSubProperty().equals(prop))
+            .forEach(ax -> callTarjanAndPut(ontologies, prop, index, structure,
+                (T) ax.getSuperProperty()));
+        if (structure.getLowlinkMap().get(prop).equals(structure.getIndexMap().get(prop))) {
+            Set<T> scc = new HashSet<>();
+            T propPrime;
             while (true) {
-                propPrime = stack.pop();
-                stackProps.remove(propPrime);
+                propPrime = structure.getStack().pop();
+                structure.getStackEntities().remove(propPrime);
                 scc.add(propPrime);
                 if (propPrime.equals(prop)) {
                     break;
                 }
             }
             if (scc.size() > 1) {
-                result.add(scc);
+                structure.getResult().add(scc);
             }
         }
     }
 
-    protected static void callTarjanAndPut(Stream<OWLOntology> ontologies, OWLObjectPropertyExpression prop, int index,
-        Deque<OWLObjectPropertyExpression> stack, Map<OWLObjectPropertyExpression, Integer> indexMap,
-        Map<OWLObjectPropertyExpression, Integer> lowlinkMap, Set<Set<OWLObjectPropertyExpression>> result,
-        Set<OWLObjectPropertyExpression> processed, Set<OWLObjectPropertyExpression> stackProps,
-        OWLObjectPropertyExpression supProp) {
-        if (!indexMap.containsKey(supProp)) {
-            tarjan(ontologies, supProp, index + 1, stack, indexMap, lowlinkMap, result, processed, stackProps);
-            put(prop, lowlinkMap, supProp);
-        } else if (stackProps.contains(supProp)) {
-            putIndex(prop, indexMap, lowlinkMap, supProp);
+    protected static <T extends OWLObjectPropertyExpression> void callTarjanAndPut(
+        Stream<OWLOntology> ontologies, T prop, int index, TarjanStructure<T> structure,
+        T supProp) {
+        if (!structure.getIndexMap().containsKey(supProp)) {
+            tarjan(ontologies, supProp, index + 1, structure);
+            put(prop, structure.getLowlinkMap(), supProp);
+        } else if (structure.getStackEntities().contains(supProp)) {
+            putIndex(prop, structure.getIndexMap(), structure.getLowlinkMap(), supProp);
         }
     }
 
-    protected static void putIndex(OWLObjectPropertyExpression prop, Map<OWLObjectPropertyExpression, Integer> indexMap,
-        Map<OWLObjectPropertyExpression, Integer> lowlinkMap, OWLObjectPropertyExpression supProp) {
-        lowlinkMap.put(prop,
-            Integer.valueOf(Math.min(lowlinkMap.get(prop).intValue(), indexMap.get(supProp).intValue())));
+    protected static <T> void putIndex(T prop, Map<T, Integer> indexMap, Map<T, Integer> lowlinkMap,
+        T supProp) {
+        lowlinkMap.put(prop, Integer
+            .valueOf(Math.min(lowlinkMap.get(prop).intValue(), indexMap.get(supProp).intValue())));
     }
 
-    protected static void put(OWLObjectPropertyExpression prop, Map<OWLObjectPropertyExpression, Integer> lowlinkMap,
-        OWLObjectPropertyExpression supProp) {
+    protected static <T> void put(T prop, Map<T, Integer> lowlinkMap, T supProp) {
         putIndex(prop, lowlinkMap, lowlinkMap, supProp);
     }
 
     // Util methods
-    private static Set<OWLObjectPropertyExpression> getReflexiveTransitiveClosure(OWLObjectPropertyExpression prop,
-        Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map, Set<OWLObjectPropertyExpression> rtc,
-        Set<OWLObjectPropertyExpression> processed) {
+    private static Set<OWLObjectPropertyExpression> getReflexiveTransitiveClosure(
+        OWLObjectPropertyExpression prop,
+        Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
+        Set<OWLObjectPropertyExpression> rtc, Set<OWLObjectPropertyExpression> processed) {
         checkNotNull(prop, "prop cannot be null");
         checkNotNull(map, "map cannot be null");
         checkNotNull(rtc, "rtc cannot be null");
@@ -222,25 +198,22 @@ public class OWLObjectPropertyManager {
     }
 
     /**
-     * An object property expression PE is composite in Ax if Ax contains an
-     * axiom of the form SubObjectPropertyOf(SubObjectPropertyChain(PE1 ... PEn)
-     * PE) with n greater than 1, or
-     * SubObjectPropertyOf(SubObjectPropertyChain(PE1 ... PEn) INV(PE)) with n
-     * greater than 1, or TransitiveObjectProperty(PE), or
-     * TransitiveObjectProperty(INV(PE)).
+     * An object property expression PE is composite in Ax if Ax contains an axiom of the form
+     * SubObjectPropertyOf(SubObjectPropertyChain(PE1 ... PEn) PE) with n greater than 1, or
+     * SubObjectPropertyOf(SubObjectPropertyChain(PE1 ... PEn) INV(PE)) with n greater than 1, or
+     * TransitiveObjectProperty(PE), or TransitiveObjectProperty(INV(PE)).
      *
-     * @param expression
-     *        The object property expression to be tested
-     * @return {@code true} if the object property is composite (according to
-     *         the above definition) or {@code false} if the object property is
-     *         not composite.
+     * @param expression The object property expression to be tested
+     * @return {@code true} if the object property is composite (according to the above definition)
+     *         or {@code false} if the object property is not composite.
      */
     public boolean isComposite(OWLObjectPropertyExpression expression) {
         checkNotNull(expression, "expression cannot be null");
         return getCompositeProperties().contains(expression);
     }
 
-    protected Stream<OWLObjectPropertyExpression> inverseProperties(OWLObjectPropertyExpression p1) {
+    protected Stream<OWLObjectPropertyExpression> inverseProperties(
+        OWLObjectPropertyExpression p1) {
         return inverse(ontology.inverseObjectPropertyAxioms(p1), p1);
     }
 
@@ -280,28 +253,27 @@ public class OWLObjectPropertyManager {
     }
 
     /**
-     * The object property hierarchy relation -&gt; is the smallest relation on
-     * object property expressions for which the following conditions hold (A
-     * -&gt; B means that -&gt; holds for A and B): if Ax contains an axiom
-     * SubObjectPropertyOf(PE1 PE2), then PE1 -&gt; PE2 holds; and if Ax
-     * contains an axiom EquivalentObjectProperties(PE1 PE2), then PE1 -&gt; PE2
-     * and PE2 -&gt; PE1 hold; and if Ax contains an axiom
-     * InverseObjectProperties(PE1 PE2), then PE1 -&gt; INV(PE2) and INV(PE2)
-     * -&gt; PE1 hold; and if Ax contains an axiom SymmetricObjectProperty(PE),
-     * then PE -&gt; INV(PE) holds; and if PE1 -&gt; PE2 holds, then INV(PE1)
-     * -&gt; INV(PE2) holds as well.
+     * The object property hierarchy relation -&gt; is the smallest relation on object property
+     * expressions for which the following conditions hold (A -&gt; B means that -&gt; holds for A
+     * and B): if Ax contains an axiom SubObjectPropertyOf(PE1 PE2), then PE1 -&gt; PE2 holds; and
+     * if Ax contains an axiom EquivalentObjectProperties(PE1 PE2), then PE1 -&gt; PE2 and PE2 -&gt;
+     * PE1 hold; and if Ax contains an axiom InverseObjectProperties(PE1 PE2), then PE1 -&gt;
+     * INV(PE2) and INV(PE2) -&gt; PE1 hold; and if Ax contains an axiom
+     * SymmetricObjectProperty(PE), then PE -&gt; INV(PE) holds; and if PE1 -&gt; PE2 holds, then
+     * INV(PE1) -&gt; INV(PE2) holds as well.
      *
      * @return A Map that maps sub properties to sets of super properties.
      */
     public Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> getPropertyHierarchy() {
         if (hierarchyDirty) {
-            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map = new HashMap<>();
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map =
+                new HashMap<>();
             // Examine: SubObjectPropertyOf
             // EquivalentObjectProperties
             // InverseObjectProperties
             // SymmetricObjectProperty
-            axioms(SUB_OBJECT_PROPERTY)
-                .forEach(ax -> getKeyValueSymmetric(map, ax.getSubProperty(), ax.getSuperProperty()));
+            axioms(SUB_OBJECT_PROPERTY).forEach(
+                ax -> getKeyValueSymmetric(map, ax.getSubProperty(), ax.getSuperProperty()));
             axioms(EQUIVALENT_OBJECT_PROPERTIES).forEach(ax -> pairwise(map, ax));
             axioms(INVERSE_OBJECT_PROPERTIES).forEach(ax -> {
                 getKeyValueASymmetric(map, ax.getFirstProperty(), ax.getSecondProperty());
@@ -328,13 +300,15 @@ public class OWLObjectPropertyManager {
         });
     }
 
-    protected void getKeyValueSymmetric(Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
-        OWLObjectPropertyExpression p1, OWLObjectPropertyExpression p2) {
-        getKeyValue(p1, map).add(p2);
-        getKeyValue(p1.getInverseProperty(), map).add(p2.getInverseProperty());
+    protected void getKeyValueSymmetric(
+        Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
+        OWLObjectPropertyExpression first, OWLObjectPropertyExpression second) {
+        getKeyValue(first, map).add(second);
+        getKeyValue(first.getInverseProperty(), map).add(second.getInverseProperty());
     }
 
-    protected void getKeyValueASymmetric(Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
+    protected void getKeyValueASymmetric(
+        Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
         OWLObjectPropertyExpression p1, OWLObjectPropertyExpression p2) {
         getKeyValue(p1, map).add(p2.getInverseProperty());
         getKeyValue(p1.getInverseProperty(), map).add(p2);
@@ -346,10 +320,13 @@ public class OWLObjectPropertyManager {
     public Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> getHierarchyReflexiveTransitiveClosure() {
         if (reflexiveTransitiveClosureDirty) {
             // Produce a map of the transitive reflexive closure of this
-            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> rtcMap = new HashMap<>();
-            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> propertyHierarchy = getPropertyHierarchy();
-            getReferencedProperties().forEach(prop -> rtcMap.put(prop,
-                getReflexiveTransitiveClosure(prop, propertyHierarchy, new HashSet<>(), new HashSet<>())));
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> rtcMap =
+                new HashMap<>();
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> propertyHierarchy =
+                getPropertyHierarchy();
+            getReferencedProperties()
+                .forEach(prop -> rtcMap.put(prop, getReflexiveTransitiveClosure(prop,
+                    propertyHierarchy, new HashSet<>(), new HashSet<>())));
             reflexiveTransitiveClosure.clear();
             reflexiveTransitiveClosure.putAll(rtcMap);
             reflexiveTransitiveClosureDirty = false;
@@ -358,32 +335,27 @@ public class OWLObjectPropertyManager {
     }
 
     /**
-     * Tests to see if one property is a sub property of another property in the
-     * reflexive transitive closure of the property hierarchy.
+     * Tests to see if one property is a sub property of another property in the reflexive
+     * transitive closure of the property hierarchy.
      *
-     * @param sub
-     *        The sub property
-     * @param sup
-     *        The super property
-     * @return {@code true} if sub is the sub-property of sup, otherwise
-     *         {@code false}
+     * @param sub The sub property
+     * @param sup The super property
+     * @return {@code true} if sub is the sub-property of sup, otherwise {@code false}
      */
-    public boolean isSubPropertyOf(OWLObjectPropertyExpression sub, OWLObjectPropertyExpression sup) {
+    public boolean isSubPropertyOf(OWLObjectPropertyExpression sub,
+        OWLObjectPropertyExpression sup) {
         checkNotNull(sub, "sub cannot be null");
         checkNotNull(sup, "sup cannot be null");
         return getHierarchyReflexiveTransitiveClosure().get(sub).contains(sup);
     }
 
     /**
-     * The relation -&gt;* is the reflexive-transitive closure of -&gt;. An
-     * object property expression PE is simple in Ax if, for each object
-     * property expression PE' such that PE' -&gt;* PE holds, PE' is not
-     * composite.
+     * The relation -&gt;* is the reflexive-transitive closure of -&gt;. An object property
+     * expression PE is simple in Ax if, for each object property expression PE' such that PE'
+     * -&gt;* PE holds, PE' is not composite.
      *
-     * @param expression
-     *        The expression to be tested.
-     * @return {@code true} if the object property expression is simple,
-     *         otherwise false.
+     * @param expression The expression to be tested.
+     * @return {@code true} if the object property expression is simple, otherwise false.
      */
     public boolean isNonSimple(OWLObjectPropertyExpression expression) {
         checkNotNull(expression, "expression cannot be null");
@@ -396,13 +368,15 @@ public class OWLObjectPropertyManager {
     public Set<OWLObjectPropertyExpression> getNonSimpleProperties() {
         if (simpleDirty) {
             nonSimpleProperties.clear();
-            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosureMap = getHierarchyReflexiveTransitiveClosure();
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosureMap =
+                getHierarchyReflexiveTransitiveClosure();
             getReferencedProperties().filter(this::isComposite).forEach(prop -> {
                 // Supers are not simple
                 nonSimpleProperties.add(prop);
                 nonSimpleProperties.addAll(reflexiveTransitiveClosureMap.get(prop));
             });
-            nonSimpleProperties.addAll(asList(nonSimpleProperties.stream().map(p -> p.getInverseProperty())));
+            nonSimpleProperties.addAll(asList(
+                nonSimpleProperties.stream().map(OWLObjectPropertyExpression::getInverseProperty)));
             simpleDirty = false;
         }
         return nonSimpleProperties;
@@ -414,12 +388,14 @@ public class OWLObjectPropertyManager {
     public Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> getPropertyPartialOrdering() {
         if (partialOrderingDirty) {
             partialOrdering.clear();
-            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map = new HashMap<>(
-                getPropertyHierarchy());
-            axioms(SUB_PROPERTY_CHAIN_OF).forEach(ax -> ax.getPropertyChain().forEach(p -> map(map, ax, p)));
-            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> ordering = new HashMap<>();
-            getReferencedProperties().forEach(
-                prop -> ordering.put(prop, getReflexiveTransitiveClosure(prop, map, new HashSet<>(), new HashSet<>())));
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map =
+                new HashMap<>(getPropertyHierarchy());
+            axioms(SUB_PROPERTY_CHAIN_OF)
+                .forEach(ax -> ax.getPropertyChain().forEach(p -> map(map, ax, p)));
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> ordering =
+                new HashMap<>();
+            getReferencedProperties().forEach(prop -> ordering.put(prop,
+                getReflexiveTransitiveClosure(prop, map, new HashSet<>(), new HashSet<>())));
             partialOrdering.putAll(ordering);
             partialOrderingDirty = false;
         }
@@ -434,13 +410,12 @@ public class OWLObjectPropertyManager {
     }
 
     /**
-     * @param propA
-     *        first property
-     * @param propB
-     *        second property
+     * @param propA first property
+     * @param propB second property
      * @return true if first property comes first in the default ordering
      */
-    public boolean isLessThan(OWLObjectPropertyExpression propA, OWLObjectPropertyExpression propB) {
+    public boolean isLessThan(OWLObjectPropertyExpression propA,
+        OWLObjectPropertyExpression propB) {
         checkNotNull(propA, "propA cannot be null");
         checkNotNull(propB, "propB cannot be null");
         Set<OWLObjectPropertyExpression> set = getPropertyPartialOrdering().get(propA);

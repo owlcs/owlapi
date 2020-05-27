@@ -19,8 +19,8 @@ import org.semanticweb.owlapi6.model.OWLOntologyChange;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
 
 /**
- * A parser to extract only axioms from an ontology (for use by OBO for
- * functional representation of untranslatable axioms).
+ * A parser to extract only axioms from an ontology (for use by OBO for functional representation of
+ * untranslatable axioms).
  * 
  * @author Ignazio Palmisano
  * @since 6.0.0
@@ -28,27 +28,24 @@ import org.semanticweb.owlapi6.model.OntologyConfigurator;
 public class FunctionalSyntaxForAxiomsOnlyParser {
 
     /**
-     * @param o
-     *        ontology to add axioms to
-     * @param config
-     *        configuration
-     * @param content
-     *        content
+     * @param o       ontology to add axioms to
+     * @param config  configuration
+     * @param content content
      */
     public void parse(OWLOntology o, OntologyConfigurator config, String content) {
-        OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(
-            new CustomTokenizer(new StringProvider(content))) {
+        OWLFunctionalSyntaxParser parser =
+            new OWLFunctionalSyntaxParser(new CustomTokenizer(new StringProvider(content))) {
 
-            @Override
-            protected void copyPrefixesFrom(Map<String, String> map) {
-                // ignore
-            }
+                @Override
+                protected void copyPrefixesFrom(Map<String, String> map) {
+                    // ignore
+                }
 
-            @Override
-            protected void applyChange(OWLOntologyChange chg) {
-                // ignore;
-            }
-        };
+                @Override
+                protected void applyChange(OWLOntologyChange chg) {
+                    // ignore
+                }
+            };
         parser.setUp(o, config);
         parser.parse();
     }

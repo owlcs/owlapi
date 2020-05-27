@@ -54,27 +54,30 @@ import org.xml.sax.helpers.DefaultHandler;
  * Syntax, Functional Syntax and OBO (other serialisations are not supported). Zip and jar files
  * containing ontologies are supported, either as main argument to the constructor or as content of
  * the root folder.
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
-up
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group up
  * @since 2.0.0
  */
 @HasPriority(1)
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
 
-    private static final String ONTOLOGY_ELEMENT_FOUND_PARSING_COMPLETE = "Ontology element found, parsing complete.";
+    private static final String ONTOLOGY_ELEMENT_FOUND_PARSING_COMPLETE =
+        "Ontology element found, parsing complete.";
     private static final String EXCEPTION_READING_FILE = "IO Exception reading file";
     private static final String SAX_EXCEPTION_READING_FILE = "SAX Exception reading file";
     static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
     static final Pattern manPattern = Pattern.compile("Ontology:[\r\n ]*<([^>]+)>");
     private static final Logger LOGGER = LoggerFactory.getLogger(AutoIRIMapper.class);
-    private final Set<String> fileExtensions = new HashSet<>(Arrays.asList(".owl", ".xml", ".rdf", ".omn", ".ofn"));
+    private final Set<String> fileExtensions =
+        new HashSet<>(Arrays.asList(".owl", ".xml", ".rdf", ".omn", ".ofn"));
     private final boolean recursive;
     private final Map<String, OntologyRootElementHandler> handlerMap = createMap();
     private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = createMap();
     private final Map<String, IRI> oboFileMap = createMap();
     private final String directoryPath;
     private boolean mapped;
-    @Nullable private transient File currentFile;
+    @Nullable
+    private transient File currentFile;
     private final OWLDataFactory df;
 
     /**
@@ -82,15 +85,16 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * (and possibly sub-folders).
      *
      * @param rootDirectory The root directory which should be searched for ontologies; this can
-     *        also be a zip/jar file containing ontologies. If root is actually a folder, zip/jar
-     *        files included in the folder are parsed for ontologies. The zip parsing is delegated
-     *        to ZipIRIMapper.
-     * @param recursive Sub directories will be searched recursively if {@code true}.
-     * @param df data factory
+     *                      also be a zip/jar file containing ontologies. If root is actually a
+     *                      folder, zip/jar files included in the folder are parsed for ontologies.
+     *                      The zip parsing is delegated to ZipIRIMapper.
+     * @param recursive     Sub directories will be searched recursively if {@code true}.
+     * @param df            data factory
      */
     public AutoIRIMapper(File rootDirectory, boolean recursive, OWLDataFactory df) {
         this.df = df;
-        directoryPath = checkNotNull(rootDirectory, "rootDirectory cannot be null").getAbsolutePath();
+        directoryPath =
+            checkNotNull(rootDirectory, "rootDirectory cannot be null").getAbsolutePath();
         this.recursive = recursive;
         mapped = false;
         /**
@@ -231,7 +235,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             try {
                 ZipIRIMapper mapper = new ZipIRIMapper(file, "jar:" + file.toURI() + "!/", df);
                 mapper.oboMappings().forEach(e -> oboFileMap.put(e.getKey(), e.getValue()));
-                mapper.iriMappings().forEach(e -> ontologyIRI2PhysicalURIMap.put(e.getKey(), e.getValue()));
+                mapper.iriMappings()
+                    .forEach(e -> ontologyIRI2PhysicalURIMap.put(e.getKey(), e.getValue()));
             } catch (IOException e) {
                 // if we can't parse a file, then we can't map it
                 LOGGER.debug(EXCEPTION_READING_FILE, e);
@@ -254,7 +259,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      */
     private void parseFSSFile(File file) {
         try (InputStream input = new FileInputStream(file);
-            Reader reader = new InputStreamReader(input, "UTF-8");
+            Reader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(reader)) {
             String line = "";
             Matcher m = pattern.matcher(line);
@@ -325,8 +330,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     }
 
     @Override
-    public void startElement(@Nullable String uri, @Nullable String localName, @Nullable String qName,
-        @Nullable Attributes attributes) throws SAXException {
+    public void startElement(@Nullable String uri, @Nullable String localName,
+        @Nullable String qName, @Nullable Attributes attributes) throws SAXException {
         String tag = uri + localName;
         OntologyRootElementHandler handler = handlerMap.get(tag);
         if (handler != null) {
@@ -342,7 +347,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     /**
      * @param ontologyIRI ontology
-     * @param file file
+     * @param file        file
      */
     protected void addMapping(IRI ontologyIRI, File file) {
         ontologyIRI2PhysicalURIMap.put(ontologyIRI, df.getIRI(file));
@@ -352,13 +357,13 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     public String toString() {
         StringBuilder sb = new StringBuilder("AutoIRIMapper: (");
         sb.append(ontologyIRI2PhysicalURIMap.size()).append(" ontologies)\n");
-        ontologyIRI2PhysicalURIMap
-            .forEach((k, v) -> sb.append("    ").append(k.toQuotedString()).append(" -> ").append(v).append('\n'));
+        ontologyIRI2PhysicalURIMap.forEach((k, v) -> sb.append("    ").append(k.toQuotedString())
+            .append(" -> ").append(v).append('\n'));
         return sb.toString();
     }
 
     /**
-      * A simple interface which extracts an ontology IRI from a set of element attributes.
+     * A simple interface which extracts an ontology IRI from a set of element attributes.
      */
     @FunctionalInterface
     private interface OntologyRootElementHandler extends Serializable {

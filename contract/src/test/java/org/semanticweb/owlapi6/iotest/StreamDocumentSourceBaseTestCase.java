@@ -29,7 +29,7 @@ public class StreamDocumentSourceBaseTestCase {
                 StandardCharsets.UTF_8),
             "urn:test:test", null, null) {};
         StringWriter w = new StringWriter();
-        OWLParser mockParser = new ParserForTest(w);
+        OWLParser mockParser = new ParserForTestOperations(w);
         source.acceptParser(mockParser, mock(OWLOntology.class), mock(OntologyConfigurator.class));
         assertEquals(input, w.toString());
     }

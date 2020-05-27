@@ -64,7 +64,7 @@ class SynonymMap {
         // Legacy protege-owlapi representation of QCRs
         synonyms.put(df.getIRI(OWL.getPrefixIRI(), "valuesFrom"), OWL_ON_CLASS.getIRI());
         if (!strict) {
-            OWLRDFVocabulary.DAML_COMPATIBILITY
+            OWLRDFVocabulary.damlCompatibility()
                 .forEach(x -> synonyms.put(x.getDAMLIRI(), x.getIRI()));
             addIntermediateOWLSpecVocabulary();
         }

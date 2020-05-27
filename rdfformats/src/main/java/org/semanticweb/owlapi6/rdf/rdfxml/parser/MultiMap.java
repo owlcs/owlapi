@@ -2,18 +2,13 @@ package org.semanticweb.owlapi6.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi6.utility.CollectionFactory.createMap;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi6.model.IRI;
 
 class MultiMap<K, V> {
 

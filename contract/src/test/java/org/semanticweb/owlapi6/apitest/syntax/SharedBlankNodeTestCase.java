@@ -155,7 +155,7 @@ public class SharedBlankNodeTestCase extends TestBase {
         o1 = loadOntologyFromString(TestFiles.noRemapOnRead, new RDFXMLDocumentFormat());
         add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue())
             .filter(a -> a instanceof OWLAnonymousIndividual));
-        assertEquals(values1.toString(), values1.size(), 1);
+        assertEquals(values1.toString(), 1, values1.size());
         m.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(true);
     }
 

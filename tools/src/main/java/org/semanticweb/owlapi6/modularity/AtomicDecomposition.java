@@ -259,8 +259,6 @@ public final class AtomicDecomposition implements HasAxioms {
      */
     private @Nonnull OWLAxiom buildAtomsInModule(OWLAxiom alpha, Optional<OWLAxiom> beta) {
 
-        assert alpha != null && beta != null;
-
         // The atom for alpha is already known
         if (atomOf.containsKey(alpha)) {
             return alpha;
@@ -318,8 +316,6 @@ public final class AtomicDecomposition implements HasAxioms {
      */
     private @Nonnull OWLAxiom getAtomSeed(OWLAxiom alpha, Optional<OWLAxiom> beta) {
 
-        assert alpha != null && beta != null;
-
         Set<OWLAxiom> moduleOfBeta;
         if (beta.isPresent()) {
             moduleOfBeta = moduleToSignatureOf.get(beta.get());
@@ -333,7 +329,7 @@ public final class AtomicDecomposition implements HasAxioms {
         }
 
         // modules are equal if size are equal
-        if (moduleToSignatureOf.get(alpha).size() == moduleOfBeta.size()) {
+        if (moduleToSignatureOf.get(alpha).size() == moduleOfBeta.size() && beta.isPresent()) {
             return beta.get();
         }
 

@@ -2,7 +2,7 @@ package org.semanticweb.owlapi6.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi6.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi6.utility.CollectionFactory.createSet;
-import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.BUILT_IN_AP_IRIS;
+import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.builtInAPIris;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_NOTHING;
@@ -81,7 +81,7 @@ class FoundIRIs {
 
     public FoundIRIs(boolean strict) {
         this.strict = strict;
-        BUILT_IN_AP_IRIS.forEach(annPropertyIRIs::add);
+        builtInAPIris().forEach(annPropertyIRIs::add);
         dataRangeIRIs.add(RDFS_LITERAL.getIRI());
         Stream.of(OWL2Datatype.values()).forEach(v -> dataRangeIRIs.add(v.getIRI()));
         if (!strict) {
@@ -125,7 +125,7 @@ class FoundIRIs {
     /**
      * Adds the class expression.
      *
-     * @param iri the iri
+     * @param iri             the iri
      * @param explicitlyTyped the explicitly typed
      */
     public void addClassExpression(IRI iri, boolean explicitlyTyped) {
@@ -138,7 +138,7 @@ class FoundIRIs {
             // if an explicitly typed declaration has been added and there was a
             // guess for its type, replace it
             // Do not replace all guesses, as these might be due to punning
-            guessedDeclarations.remove(iri, class1);
+            guessedDeclarations.get(iri).remove(class1);
         }
         if (!explicitlyTyped) {
             guessedDeclarations.computeIfAbsent(iri, x -> new ArrayList<>()).add(class1);
@@ -152,7 +152,7 @@ class FoundIRIs {
     /**
      * Adds the object property.
      *
-     * @param iri the iri
+     * @param iri             the iri
      * @param explicitlyTyped the explicitly typed
      */
     public void addObjectProperty(IRI iri, boolean explicitlyTyped) {
@@ -163,7 +163,7 @@ class FoundIRIs {
     /**
      * Adds the data property.
      *
-     * @param iri the iri
+     * @param iri             the iri
      * @param explicitlyTyped the explicitly typed
      */
     public void addDataProperty(IRI iri, boolean explicitlyTyped) {
@@ -174,7 +174,7 @@ class FoundIRIs {
     /**
      * Adds the annotation property.
      *
-     * @param iri the iri
+     * @param iri             the iri
      * @param explicitlyTyped the explicitly typed
      */
     protected void addAnnotationProperty(IRI iri, boolean explicitlyTyped) {
@@ -185,7 +185,7 @@ class FoundIRIs {
     /**
      * Adds the data range.
      *
-     * @param iri the iri
+     * @param iri             the iri
      * @param explicitlyTyped the explicitly typed
      */
     public void addDataRange(IRI iri, boolean explicitlyTyped) {
@@ -196,7 +196,7 @@ class FoundIRIs {
     /**
      * Adds the owl named individual.
      *
-     * @param iri the iri
+     * @param iri             the iri
      * @param explicitlyTyped the explicitly type
      */
     protected void addOWLNamedIndividual(IRI iri, boolean explicitlyTyped) {
@@ -207,7 +207,7 @@ class FoundIRIs {
     /**
      * Adds the owl restriction.
      *
-     * @param iri the iri
+     * @param iri             the iri
      * @param explicitlyTyped the explicitly typed
      */
     protected void addOWLRestriction(IRI iri, boolean explicitlyTyped) {
@@ -380,7 +380,7 @@ class FoundIRIs {
      * Adds the ontology version for an ontology IRI.
      * 
      * @param ontology ontology IRI
-     * @param version the version of the ontology
+     * @param version  the version of the ontology
      */
     protected void addVersionIRI(IRI ontology, IRI version) {
         ontologyVersions.put(ontology, version);

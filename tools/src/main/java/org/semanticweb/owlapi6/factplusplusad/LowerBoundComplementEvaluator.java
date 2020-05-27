@@ -32,32 +32,24 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
     LowerBoundComplementEvaluator(Signature s) {
         super(s);
-    }
-
-    @Override
-    int getNoneValue() {
-        return 0;
-    }
-
-    @Override
-    int getAllValue() {
-        return -1;
+        getNoneValue = 0;
+        getAllValue = -1;
     }
 
     @Override
     int getOneNoneLower(boolean v) {
-        return v ? 1 : getNoneValue();
+        return v ? 1 : getNoneValue;
     }
 
     // TODO: checks only C top-locality, not R */
     @Override
     int getEntityValue(OWLEntity entity) {
         if (entity.isTopEntity()) {
-            return noLowerValue();
+            return noLowerValue;
         }
         if ((entity.isOWLObjectProperty() || entity.isOWLDataProperty() || entity.isOWLDatatype())
             && entity.isBottomEntity()) {
-            return anyLowerValue();
+            return anyLowerValue;
         }
         if (entity.isBottomEntity()) {
             return 1;
@@ -74,27 +66,27 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
     int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // m > 0 and...
         if (m <= 0) {
-            return noLowerValue();
+            return noLowerValue;
         }
         // R = \bot or...
         if (isBotEquivalent(r)) {
             return 1;
         }
-        // C \in C^{<= m-1}
+        /** {@code C \in C^{<= m-1}} */
         return getOneNoneLower(isUpperLT(getUpperBoundDirect(c), m));
     }
 
     @Override
     int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
-        // R = \top and...
+        /** {@code R = \top and...} */
         if (!isTopEquivalent(r)) {
-            return noLowerValue();
+            return noLowerValue;
         }
-        // C\in C^{>= m+1}
+        /** {@code C\in C^{>= m+1}} */
         if (isLowerGT(getLowerBoundDirect(c), m)) {
             return m + 1;
         } else {
-            return noLowerValue();
+            return noLowerValue;
         }
     }
 
@@ -107,15 +99,15 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
     }
 
     <C extends OWLObject> int getAndValue(HasOperands<C> expr) {
-        int max = getNoneValue();
+        int max = getNoneValue;
         // we are looking for the maximal value here; ANY need to be
         // special-cased
         Iterator<C> it = expr.operands().iterator();
         while (it.hasNext()) {
             C p = it.next();
             int n = getLowerBoundComplement(p);
-            if (n == anyLowerValue()) {
-                return anyLowerValue();
+            if (n == anyLowerValue) {
+                return anyLowerValue;
             }
             max = Math.max(max, n);
         }
@@ -123,8 +115,7 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
     }
 
     <C extends OWLObject> int getOrValue(HasOperands<C> expr) {
-        // return m - sumK, where
-        // true if found a conjunct that is in C^{>=}
+        /** {@code return m - sumK, where true if found a conjunct that is in C^{>=}} */
         boolean foundC = false;
         int foundM = 0;
         // the m- and k- values for the C_j with max m+k
@@ -136,48 +127,49 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
         Iterator<C> it = expr.operands().iterator();
         while (it.hasNext()) {
             C p = it.next();
-            // C_j \in CC^{>= m}
+            /** {@code C_j \in CC^{>= m}} */
             int m = getLowerBoundComplement(p);
-            // C_j \in C^{<= k}
+            /** {@code C_j \in C^{<= k}} */
             int k = getUpperBoundDirect(p);
             // note bound flip for K
             // case 0: if both aren't known then we don't know
-            if (m == noLowerValue() && k == noUpperValue()) {
-                return noLowerValue();
-            }
-            // if only k exists then add it to k
-            if (m == noLowerValue()) {
+            if (m == noLowerValue && k == noUpperValue) {
+                return noLowerValue;
+            } else if (m == noLowerValue) {
+                // if only k exists then add it to k
                 sumK += k;
-                continue;
-            }
-            // if only m exists then set it to m
-            if (k == noUpperValue()) {
+            } else if (k == noUpperValue) {
+                // if only m exists then set it to m
                 if (foundC) {
                     // should not have 2 elements in C
-                    return noLowerValue();
+                    return noLowerValue;
                 }
                 foundC = true;
                 foundM = m;
-                continue;
-            }
-            // here both k and m are values
-            sumK += k;
-            // count k for the
-            if (k + m > kMax + mMax) {
-                kMax = k;
-                mMax = m;
+            } else {
+                // here both k and m are values
+                sumK += k;
+                // count k for the
+                if (k + m > kMax + mMax) {
+                    kMax = k;
+                    mMax = m;
+                }
             }
         }
         // here we know the best candidate for M, and only need to set it up
+        return reportCandidate(foundC, foundM, mMax, kMax, sumK);
+    }
+
+    protected int reportCandidate(boolean foundC, int foundM, int mMax, int kMax, int sumK) {
         if (foundC) {
             // found during the deterministic case
             foundM -= sumK;
-            return foundM > 0 ? foundM : noLowerValue();
+            return foundM > 0 ? foundM : noLowerValue;
         } else {
             // no deterministic option; choose the best one
             sumK -= kMax;
             mMax -= sumK;
-            return mMax > 0 ? mMax : noLowerValue();
+            return mMax > 0 ? mMax : noLowerValue;
         }
     }
 
@@ -199,7 +191,7 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
     @Override
     public void visit(OWLObjectOneOf o) {
-        value = noLowerValue();
+        value = noLowerValue;
     }
 
     @Override
@@ -227,11 +219,11 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
     public void visit(OWLSubPropertyChainOfAxiom expr) {
         for (OWLObjectPropertyExpression p : expr.getPropertyChain()) {
             if (isBotEquivalent(p)) {
-                value = anyLowerValue();
+                value = anyLowerValue;
                 return;
             }
         }
-        value = noLowerValue();
+        value = noLowerValue;
     }
 
     @Override
@@ -256,6 +248,6 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
     @Override
     public void visit(OWLDataOneOf o) {
-        value = noLowerValue();
+        value = noLowerValue;
     }
 }

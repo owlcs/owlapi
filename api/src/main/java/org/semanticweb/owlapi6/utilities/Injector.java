@@ -30,6 +30,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Qualifier;
@@ -203,30 +204,34 @@ public class Injector {
             c = c.getSuperclass();
         }
         for (Method m : methodsToInject) {
-            Parameter[] parameterTypes = m.getParameters();
-            Object[] args = new Object[parameterTypes.length];
-            for (int i = 0; i < parameterTypes.length; i++) {
-                Parameter arg = parameterTypes[i];
-                Annotation[] qualifiers = qualifiers(arg.getAnnotations());
-                if (Collection.class.isAssignableFrom(arg.getType())) {
-                    Class<?> type = (Class<?>) ((ParameterizedType) arg.getParameterizedType())
-                        .getActualTypeArguments()[0];
-                    args[i] = load(type, qualifiers).collect(Collectors.toSet());
-                } else {
-                    args[i] = load(arg.getType(), qualifiers).findAny().orElse(null);
-                }
-            }
-            try {
-                if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("Injecting values {} on method {}.", Arrays.toString(args), m);
-                }
-                m.invoke(t, args);
-            } catch (IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException e) {
-                LOGGER.error("Injection failed", e);
-            }
+            injectMethod(t, m);
         }
         return t;
+    }
+
+    protected <T> void injectMethod(T t, Method m) {
+        Parameter[] parameterTypes = m.getParameters();
+        Object[] args = new Object[parameterTypes.length];
+        for (int i = 0; i < parameterTypes.length; i++) {
+            Parameter arg = parameterTypes[i];
+            Annotation[] qualifiers = qualifiers(arg.getAnnotations());
+            if (Collection.class.isAssignableFrom(arg.getType())) {
+                Class<?> type = (Class<?>) ((ParameterizedType) arg.getParameterizedType())
+                    .getActualTypeArguments()[0];
+                args[i] = load(type, qualifiers).collect(Collectors.toSet());
+            } else {
+                args[i] = load(arg.getType(), qualifiers).findAny().orElse(null);
+            }
+        }
+        try {
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Injecting values {} on method {}.", Arrays.toString(args), m);
+            }
+            m.invoke(t, args);
+        } catch (IllegalAccessException | IllegalArgumentException
+            | InvocationTargetException e) {
+            LOGGER.error("Injection failed", e);
+        }
     }
 
     private static Annotation[] qualifiers(Annotation[] anns) {
@@ -282,7 +287,7 @@ public class Injector {
     public <T> T getImplementation(Class<T> c, Map<Object, List<Supplier<?>>> overrides,
         Annotation... qualifiers) {
         Injector i = new Injector(this);
-        overrides.forEach((a, b) -> i.supplierOverrides.put(a, b));
+        overrides.forEach(i.supplierOverrides::put);
         return i.getImplementation(c, qualifiers);
     }
 
@@ -359,6 +364,7 @@ public class Injector {
     }
 
     @SuppressWarnings("unchecked")
+    @Nonnull
     private <T> Stream<Class<T>> prepareClass(Stream<String> types, Object key,
         @SuppressWarnings("unused") Class<T> witness) {
         List<Class<?>> l = typesCache.get(key);
@@ -376,7 +382,7 @@ public class Injector {
             return list.stream();
         } catch (ClassNotFoundException | IllegalArgumentException | SecurityException e) {
             LOGGER.error("Instantiation failed", e);
-            return null;
+            return Stream.empty();
         }
     }
 
@@ -437,7 +443,8 @@ public class Injector {
             return r.lines().map(String::trim).filter(Injector::notBlankAndNotCmoment)
                 .collect(Collectors.toList());
         } catch (IOException e) {
-            LOGGER.error("Error reading services files: " + c, e);
+            String msg = "Error reading services files: " + c;
+            LOGGER.error(msg, e);
             return Collections.emptyList();
         }
     }

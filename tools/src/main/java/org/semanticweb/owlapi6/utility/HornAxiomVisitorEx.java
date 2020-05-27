@@ -181,7 +181,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return Boolean.valueOf(ce.operands().noneMatch(c -> c.accept(this) == Boolean.FALSE));
+            return Boolean.valueOf(ce.operands().noneMatch(c -> !c.accept(this).booleanValue()));
         }
 
         @Override
@@ -232,12 +232,12 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return Boolean.valueOf(ce.operands().noneMatch(c -> c.accept(this) == Boolean.FALSE));
+            return Boolean.valueOf(ce.operands().noneMatch(c -> !c.accept(this).booleanValue()));
         }
 
         @Override
         public Boolean visit(OWLObjectUnionOf ce) {
-            return Boolean.valueOf(ce.operands().noneMatch(c -> c.accept(this) == Boolean.FALSE));
+            return Boolean.valueOf(ce.operands().noneMatch(c -> !c.accept(this).booleanValue()));
         }
 
         @Override

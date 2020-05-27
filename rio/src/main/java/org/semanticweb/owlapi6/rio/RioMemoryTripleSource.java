@@ -92,7 +92,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *
      * @param statements An {@link Iterator} of {@link Statement} objects that make up this source.
      * @param namespaces A Map of namespaces from prefix to full URI which are to be used by this
-     *        source.
+     *                   source.
      */
     public RioMemoryTripleSource(Iterator<Statement> statements, Map<String, String> namespaces) {
         this(statements);
@@ -104,7 +104,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      * If the Iterable is an instance of {@link Model}, the namespaces from the model are also used.
      *
      * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
-     *        source.
+     *                   source.
      */
     public RioMemoryTripleSource(Iterable<Statement> statements) {
         documentIRI = RIO_MEMORY_TRIPLES + IRICounter.incrementAndGet();
@@ -120,7 +120,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      * closed automatically.
      *
      * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
-     *        source.
+     *                   source.
      */
     public RioMemoryTripleSource(
         final CloseableIteration<Statement, ? extends RDF4JException> statements) {
@@ -134,9 +134,9 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      * closed automatically.
      *
      * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
-     *        source.
+     *                   source.
      * @param namespaces A Map of namespaces from prefix to full URI which are to be used by this
-     *        source.
+     *                   source.
      */
     public RioMemoryTripleSource(CloseableIteration<Statement, ? extends RDF4JException> statements,
         Map<String, String> namespaces) {
@@ -210,7 +210,10 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
         }
 
         @Override
-        public Statement next() throws NoSuchElementException {
+        public Statement next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             return statements.next();
         }
 

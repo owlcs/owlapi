@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 public class OBOFormatConstants {
 
     private static final Map<String, OboFormatTag> TAGSTABLE = Stream.of(OboFormatTag.values())
-        .collect(Collectors.toConcurrentMap(OboFormatTag::getTag, Function.identity()));
+        .collect(Collectors.toUnmodifiableMap(OboFormatTag::getTag, Function.identity()));
 
     private static int map(String s, ToIntFunction<OboFormatTag> f) {
         OboFormatTag t = TAGSTABLE.get(s);
@@ -47,7 +47,14 @@ public class OBOFormatConstants {
     /**
      * tags
      */
-    public static final Set<String> TAGS = TAGSTABLE.keySet();
+    private static final Set<String> TAGS = TAGSTABLE.keySet();
+
+    /**
+     * @return tags
+     */
+    public static Set<String> tags() {
+        return TAGS;
+    }
 
     /**
      * @param tag tag
@@ -138,8 +145,7 @@ public class OBOFormatConstants {
         /**TAG_LOGICAL_DEFINITION_VIEW_RELATION. */ TAG_LOGICAL_DEFINITION_VIEW_RELATION            ("logical-definition-view-relation"),
         // these are keywords, not tags, but we keep them here for convenience
         /** Scope.                          */        TAG_SCOPE("scope"),
-        /** Implicit, in synonymtypedef.    */        TAG_HAS_SYNONYM_TYPE("has_synonym_type"),
-        /** implicit, in synonym.           */
+        /** Implicit, in synonym       .    */        TAG_HAS_SYNONYM_TYPE("has_synonym_type"),
         /** Broad.                          */        TAG_BROAD("BROAD"),
         /** Narrow.                         */        TAG_NARROW("NARROW"),
         /** Exact.                          */        TAG_EXACT("EXACT"),
@@ -149,14 +155,30 @@ public class OBOFormatConstants {
         /**
          * Term frames.
          */
-        public static final Set<OboFormatTag> TERM_FRAMES = EnumSet.of(TAG_INTERSECTION_OF,
+        private static final Set<OboFormatTag> TERM_FRAMES = EnumSet.of(TAG_INTERSECTION_OF,
             TAG_UNION_OF, TAG_EQUIVALENT_TO, TAG_DISJOINT_FROM, TAG_RELATIONSHIP, TAG_IS_A);
+
+        /**
+         * @return Term frames.
+         */
+        public static Set<OboFormatTag> termFrames() {
+            return TERM_FRAMES;
+        }
+
         /**
          * Typedef frames.
          */
-        public static final Set<OboFormatTag> TYPEDEF_FRAMES =
+        private static final Set<OboFormatTag> TYPEDEF_FRAMES =
             EnumSet.of(TAG_INTERSECTION_OF, TAG_UNION_OF, TAG_EQUIVALENT_TO, TAG_DISJOINT_FROM,
                 TAG_INVERSE_OF, TAG_TRANSITIVE_OVER, TAG_DISJOINT_OVER, TAG_IS_A);
+
+        /**
+         * @return Typedef frames.
+         */
+        public static Set<OboFormatTag> typedefFrames() {
+            return TYPEDEF_FRAMES;
+        }
+
         private final String tag;
         private final int headerTagsPriority;
         private final int tagsPriority;

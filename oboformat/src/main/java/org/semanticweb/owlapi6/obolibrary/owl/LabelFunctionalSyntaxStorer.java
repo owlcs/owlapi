@@ -42,7 +42,8 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
-            FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(ontology, writer);
+            FunctionalSyntaxObjectRenderer renderer =
+                new FunctionalSyntaxObjectRenderer(ontology, writer);
             renderer.setPrefixManager(new LabelPrefixManager(ontology));
             ontology.accept(renderer);
             writer.flush();
@@ -101,7 +102,8 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
         @Override
         @Nullable
         public String getPrefixIRI(IRI iri) {
-            for (OWLAnnotationAssertionAxiom annotation : asList(ontology.annotationAssertionAxioms(iri))) {
+            for (OWLAnnotationAssertionAxiom annotation : asList(
+                ontology.annotationAssertionAxioms(iri))) {
                 if (annotation.getProperty().isLabel()) {
                     OWLAnnotationValue value = annotation.getValue();
                     if (value instanceof OWLLiteral) {
@@ -130,7 +132,7 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
             return ontology.annotationAssertionAxioms(iri).filter(a -> a.getProperty().isLabel())
                 .map(OWLAnnotationAssertionAxiom::getValue)
                 // pick rdfs:label literal values
-                .filter(OWLLiteral.class::isInstance).findAny().map(v -> OWLLiteral.class.cast(v))
+                .filter(OWLLiteral.class::isInstance).findAny().map(OWLLiteral.class::cast)
                 // if there is at least one literal label, use it
                 .map(v -> '<' + v.getLiteral() + '>')
                 // else delegate

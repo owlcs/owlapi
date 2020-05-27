@@ -22,7 +22,7 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl
 
     @Override
     public void trimToSize() {
-        ints.trimToSize();
+        // XXX no operation
     }
 
     @Override

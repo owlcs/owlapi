@@ -28,16 +28,16 @@ import org.semanticweb.owlapi6.utility.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLDisjointObjectPropertiesAxiomImpl
-                extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
-                implements OWLDisjointObjectPropertiesAxiom {
+    extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
+    implements OWLDisjointObjectPropertiesAxiom {
 
     /**
-     * @param properties disjoint properties
+     * @param properties  disjoint properties
      * @param annotations annotations
      */
     public OWLDisjointObjectPropertiesAxiomImpl(
-                    Collection<? extends OWLObjectPropertyExpression> properties,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<? extends OWLObjectPropertyExpression> properties,
+        Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 
@@ -45,18 +45,18 @@ public class OWLDisjointObjectPropertiesAxiomImpl
     @SuppressWarnings("unchecked")
     public OWLDisjointObjectPropertiesAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-                        : new OWLDisjointObjectPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
+            : new OWLDisjointObjectPropertiesAxiomImpl(getOperandsAsList(), NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLDisjointObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
+        return (T) new OWLDisjointObjectPropertiesAxiomImpl(getOperandsAsList(), mergeAnnos(anns));
     }
 
     @Override
     public Collection<OWLDisjointObjectPropertiesAxiom> asPairwiseAxioms() {
-        if (properties.size() == 2) {
+        if (getOperandsAsList().size() == 2) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLDisjointObjectPropertiesAxiomImpl(
@@ -65,10 +65,10 @@ public class OWLDisjointObjectPropertiesAxiomImpl
 
     @Override
     public Collection<OWLDisjointObjectPropertiesAxiom> splitToAnnotatedPairs() {
-        if (properties.size() == 2) {
+        if (getOperandsAsList().size() == 2) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLDisjointObjectPropertiesAxiomImpl(
-            sorted(OWLObjectPropertyExpression.class, a, b), annotations));
+            sorted(OWLObjectPropertyExpression.class, a, b), annotationsAsList()));
     }
 }

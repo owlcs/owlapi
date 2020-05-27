@@ -116,13 +116,13 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     protected final Optional<OWLOntology> ont;
     private final PrintWriter writer;
     private final Writer w;
-    protected Optional<AnnotationValueShortFormProvider> labelMaker = Optional.empty();
+    protected Optional<AnnotationValueShortFormProvider> optionalLabelMaker = Optional.empty();
     private Optional<PrefixManager> prefixManager = Optional.empty();
     private boolean writeEntitiesAsURIs = true;
     private boolean addMissingDeclarations = true;
     private boolean prettyPrint = false;
     private int tabIndex = 0;
-    static EnumMap<OWLObjectType, BiFunction<OWLOntology, OWLEntity, Stream<? extends OWLAxiom>>> retrieve =
+    static EnumMap<OWLObjectType, BiFunction<OWLOntology, OWLEntity, Stream<? extends OWLAxiom>>> retrievers =
         retrieve();
 
     /** Empty constructor, for use from ToStringRenderer */
@@ -133,7 +133,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
 
     /**
      * @param ontology the ontology
-     * @param writer the writer
+     * @param writer   the writer
      */
     public FunctionalSyntaxObjectRenderer(@Nullable OWLOntology ontology, Writer writer) {
         ont = Optional.ofNullable(ontology);
@@ -173,7 +173,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
                 prefixManager.get().withDefaultPrefix(defaultPrefix);
             }
         }
-        labelMaker = labelMaker(o);
+        optionalLabelMaker = labelMaker(o);
     }
 
     protected Optional<AnnotationValueShortFormProvider> labelMaker(OWLOntology o) {
@@ -181,8 +181,12 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         OWLOntologyManager manager = o.getOWLOntologyManager();
         OWLDataFactory df = manager.getOWLDataFactory();
         List<OWLAnnotationProperty> labels = Collections.singletonList(df.getRDFSLabel());
-        return Optional.of(new AnnotationValueShortFormProvider(labels, prefLangMap, manager,
-            prefixManager.get()));
+        if (prefixManager.isPresent()) {
+            return Optional.of(new AnnotationValueShortFormProvider(labels, prefLangMap, manager,
+                prefixManager.get()));
+        } else {
+            throw new IllegalStateException("prefix manager not set");
+        }
     }
 
     private FunctionalSyntaxObjectRenderer accept(OWLObject o) {
@@ -322,7 +326,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
             return false;
         }
         return !ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
-            || !(((OWLDisjointClassesAxiom) ax).getOperandsAsList().size() > 2);
+            || ((OWLDisjointClassesAxiom) ax).getOperandsAsList().size() <= 2;
     }
 
     private Stream<? extends OWLAxiom> retrieve(OWLEntity entity) {
@@ -330,7 +334,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     }
 
     protected Stream<? extends OWLAxiom> retrieve(OWLEntity entity, OWLOntology o) {
-        return retrieve.get(entity.type()).apply(o, entity);
+        return retrievers.get(entity.type()).apply(o, entity);
     }
 
     private String getIRIString(OWLEntity entity) {
@@ -339,7 +343,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     }
 
     private String getEntityLabel(OWLEntity entity) {
-        return labelMaker.map(l -> l.getShortForm(entity).replace("\n", "\n# "))
+        return optionalLabelMaker.map(l -> l.getShortForm(entity).replace("\n", "\n# "))
             .orElse(entity.getIRI().toQuotedString());
     }
 
@@ -388,9 +392,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     /**
      * Writes of the annotation for the specified entity.
      *
-     * @param entity The entity
+     * @param entity               The entity
      * @param alreadyWrittenAxioms already written axioms, to be updated with the newly written
-     *        axioms
+     *                             axioms
      */
     private void writeAnnotations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
         ont.ifPresent(o -> o.annotationAssertionAxioms(entity.getIRI()).sorted()
@@ -562,19 +566,17 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         Collection<IRI> illegals = o.determineIllegalPunnings(addMissingDeclarations);
         o.signature().forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
-        Function<IRI, Stream<OWLAnnotationAssertionAxiom>> annotations =
-            x -> o.annotationAssertionAxioms(x);
-        writeSortedEntities(annotations, "Annotation Properties", "Annotation Property",
-            o.annotationPropertiesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(annotations, "Object Properties", "Object Property",
+        writeSortedEntities(o::annotationAssertionAxioms, "Annotation Properties",
+            "Annotation Property", o.annotationPropertiesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(o::annotationAssertionAxioms, "Object Properties", "Object Property",
             o.objectPropertiesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(annotations, "Data Properties", "Data Property",
+        writeSortedEntities(o::annotationAssertionAxioms, "Data Properties", "Data Property",
             o.dataPropertiesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(annotations, "Datatypes", "Datatype", o.datatypesInSignature(EXCLUDED),
-            writtenAxioms);
-        writeSortedEntities(annotations, "Classes", "Class", o.classesInSignature(EXCLUDED),
-            writtenAxioms);
-        writeSortedEntities(annotations, "Named Individuals", "Individual",
+        writeSortedEntities(o::annotationAssertionAxioms, "Datatypes", "Datatype",
+            o.datatypesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(o::annotationAssertionAxioms, "Classes", "Class",
+            o.classesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(o::annotationAssertionAxioms, "Named Individuals", "Individual",
             o.individualsInSignature(EXCLUDED), writtenAxioms);
         o.signature().forEach(e -> writeAxioms(e, writtenAxioms));
         o.axioms().filter(ax -> !writtenAxioms.contains(ax)).sorted()

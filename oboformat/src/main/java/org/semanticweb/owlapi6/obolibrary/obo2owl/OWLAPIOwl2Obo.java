@@ -98,6 +98,7 @@ import org.slf4j.LoggerFactory;
  */
 public class OWLAPIOwl2Obo {
 
+    private static final String ALL_ONLY = "all_only";
     private static final String PURL_OBO = "http://purl.obolibrary.org/obo/";
     private static final String MAX_CARDINALITY = "maxCardinality";
     private static final String CARDINALITY = "cardinality";
@@ -105,7 +106,15 @@ public class OWLAPIOwl2Obo {
     /**
      * The annotation property map.
      */
-    public static final Map<String, String> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
+    private static final Map<String, String> ANNOTATION_PROPERTY_MAP = initAnnotationPropertyMap();
+
+    /**
+     * @return The annotation property map.
+     */
+    public static Map<String, String> annotationPropertyMap() {
+        return ANNOTATION_PROPERTY_MAP;
+    }
+
     private static final String TOP_BOTTOM_NONTRANSLATEABLE =
         "Assertions using owl:Thing or owl:Nothing are not translateable OBO";
     protected static final Logger LOG = LoggerFactory.getLogger(OWLAPIOwl2Obo.class);
@@ -115,7 +124,7 @@ public class OWLAPIOwl2Obo {
         Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_subsetdef";
     private static final Set<String> SKIPPED_QUALIFIERS =
         new HashSet<>(Arrays.asList("gci_relation", "gci_filler", CARDINALITY, MIN_CARDINALITY,
-            MAX_CARDINALITY, "all_some", "all_only"));
+            MAX_CARDINALITY, "all_some", ALL_ONLY));
     protected final Pattern absoluteURLPattern = Pattern.compile("<\\s*http.*?>");
     protected final Set<OWLAxiom> untranslatableAxioms = new HashSet<>();
     protected final Map<String, String> idSpaceMap = new HashMap<>();
@@ -161,7 +170,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Adds the qualifiers.
      *
-     * @param c the c
+     * @param c          the c
      * @param qualifiers the qualifiers
      */
     protected static void addQualifiers(Clause c, Stream<OWLAnnotation> qualifiers) {
@@ -171,7 +180,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Adds the qualifiers.
      *
-     * @param c the c
+     * @param c         the c
      * @param qualifier the qualifier
      */
     protected static void addQualifiers(Clause c, OWLAnnotation qualifier) {
@@ -310,8 +319,8 @@ public class OWLAPIOwl2Obo {
      * to resolve the identifier. Should the translation process encounter a problem or not find an
      * identifier the defaultValue is returned.
      *
-     * @param obj the {@link OWLObject} to resolve
-     * @param ont the target ontology
+     * @param obj          the {@link OWLObject} to resolve
+     * @param ont          the target ontology
      * @param defaultValue the value to return in case of an error or no id
      * @return identifier or the default value
      */
@@ -337,7 +346,7 @@ public class OWLAPIOwl2Obo {
      * @param ont the target ontology
      * @return identifier or null
      * @throws UntranslatableAxiomException the untranslatable axiom exception
-     *         {@link UntranslatableAxiomException} is thrown.
+     *                                      {@link UntranslatableAxiomException} is thrown.
      */
     @Nullable
     public static String getIdentifierFromObject(OWLObject obj, OWLOntology ont)
@@ -447,8 +456,11 @@ public class OWLAPIOwl2Obo {
         if (iriObj == null) {
             return null;
         }
-        String iri = iriObj.toString();
-        String tag = ANNOTATIONPROPERTYMAP.get(iri);
+        return tagFromPrefix(iriObj.toString(), ANNOTATION_PROPERTY_MAP.get(iriObj.toString()));
+    }
+
+    @Nullable
+    protected static String tagFromPrefix(String iri, @Nullable String tag) {
         if (tag == null) {
             // hardcoded values for legacy annotation properties: (TEMPORARY)
             if (iri.startsWith(Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_")) {
@@ -463,9 +475,8 @@ public class OWLAPIOwl2Obo {
                     return OboFormatTag.TAG_NAMESPACE.getTag();
                 }
             }
-            String prefix = Obo2OWLConstants.OIOVOCAB_IRI_PREFIX;
-            if (iri.startsWith(prefix)) {
-                tag = iri.substring(prefix.length());
+            if (iri.startsWith(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX)) {
+                return iri.substring(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX.length());
             }
         }
         return tag;
@@ -495,7 +506,7 @@ public class OWLAPIOwl2Obo {
      * Find similar clauses.
      *
      * @param clauses the clauses
-     * @param target the target
+     * @param target  the target
      * @return the list
      */
     static List<Clause> findSimilarClauses(List<Clause> clauses, Clause target) {
@@ -531,7 +542,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Merge similar into target.
      *
-     * @param target the target
+     * @param target  the target
      * @param similar the similar
      */
     static void mergeSimilarIntoTarget(Clause target, List<Clause> similar) {
@@ -562,7 +573,7 @@ public class OWLAPIOwl2Obo {
      * Find matching qualifier value.
      *
      * @param query the query
-     * @param list the list
+     * @param list  the list
      * @return the qualifier value
      */
     @Nullable
@@ -581,7 +592,7 @@ public class OWLAPIOwl2Obo {
      * Merge qualifier values.
      *
      * @param target the target
-     * @param newQV the new qv
+     * @param newQV  the new qv
      */
     static void mergeQualifierValues(QualifierValue target, QualifierValue newQV) {
         // do nothing, if they are equal
@@ -812,9 +823,9 @@ public class OWLAPIOwl2Obo {
     /**
      * Tr object property.
      *
-     * @param prop the prop
-     * @param tag the tag
-     * @param value the value
+     * @param prop        the prop
+     * @param tag         the tag
+     * @param value       the value
      * @param annotations the annotations
      * @return true, if successful
      */
@@ -844,9 +855,9 @@ public class OWLAPIOwl2Obo {
     /**
      * Tr object property.
      *
-     * @param prop the prop
-     * @param tag the tag
-     * @param value the value
+     * @param prop        the prop
+     * @param tag         the tag
+     * @param value       the value
      * @param annotations the annotations
      * @return true, if successful
      */
@@ -866,22 +877,25 @@ public class OWLAPIOwl2Obo {
     /**
      * Tr nary property axiom.
      *
-     * @param ax the ax
+     * @param ax  the ax
      * @param tag the tag
      */
     protected void trNaryPropertyAxiom(OWLNaryPropertyAxiom<OWLObjectPropertyExpression> ax,
         String tag) {
         List<OWLObjectPropertyExpression> set = ax.getOperandsAsList();
         if (set.size() > 1) {
-            boolean first = true;
-            OWLObjectProperty prop = null;
-            String disjointFrom = null;
             for (OWLObjectPropertyExpression ex : set) {
                 if (ex.isBottomEntity() || ex.isTopEntity()) {
                     error(tag + " using Top or Bottom entities are not supported in OBO.", ax,
                         false);
                     return;
                 }
+            }
+            boolean first = true;
+            OWLObjectProperty prop = null;
+            String disjointFrom = null;
+            // XXX actually only two elements are allowed. More elements would be lost.
+            for (OWLObjectPropertyExpression ex : set) {
                 if (first) {
                     first = false;
                     if (ex.isOWLObjectProperty()) {
@@ -901,10 +915,10 @@ public class OWLAPIOwl2Obo {
     /**
      * Tr.
      *
-     * @param prop the prop
-     * @param annVal the ann val
+     * @param prop       the prop
+     * @param annVal     the ann val
      * @param qualifiers the qualifiers
-     * @param frame the frame
+     * @param frame      the frame
      * @return true, if successful
      */
     protected boolean tr(OWLAnnotationProperty prop, OWLAnnotationValue annVal,
@@ -1021,9 +1035,9 @@ public class OWLAPIOwl2Obo {
     /**
      * Handle synonym.
      *
-     * @param qualifiers the qualifiers
-     * @param scope the scope
-     * @param clause the clause
+     * @param qualifiers            the qualifiers
+     * @param scope                 the scope
+     * @param clause                the clause
      * @param unprocessedQualifiers the unprocessed qualifiers
      */
     protected void handleSynonym(Collection<OWLAnnotation> qualifiers, @Nullable String scope,
@@ -1060,7 +1074,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Handle a duplicate clause in a frame during translation.
      *
-     * @param frame the frame
+     * @param frame  the frame
      * @param clause the clause
      * @return true if the clause is to be marked as redundant and will not be added to the
      */
@@ -1073,10 +1087,10 @@ public class OWLAPIOwl2Obo {
     /**
      * Tr generic property value.
      *
-     * @param prop the prop
-     * @param annVal the ann val
+     * @param prop       the prop
+     * @param annVal     the ann val
      * @param qualifiers the qualifiers
-     * @param frame the frame
+     * @param frame      the frame
      * @return true, if successful
      */
     protected boolean trGenericPropertyValue(OWLAnnotationProperty prop, OWLAnnotationValue annVal,
@@ -1115,7 +1129,7 @@ public class OWLAPIOwl2Obo {
      * Gets the value.
      *
      * @param annVal the ann val
-     * @param tag the tag
+     * @param tag    the tag
      * @return the value
      */
     protected Object getValue(OWLAnnotationValue annVal, @Nullable String tag) {
@@ -1271,10 +1285,10 @@ public class OWLAPIOwl2Obo {
     /**
      * Creates the relationship clause with restrictions.
      *
-     * @param r the r
+     * @param r        the r
      * @param fillerId the filler id
-     * @param qvs the qvs
-     * @param ax the ax
+     * @param qvs      the qvs
+     * @param ax       the ax
      * @return the clause
      */
     protected Clause createRelationshipClauseWithRestrictions(OWLQuantifiedObjectRestriction r,
@@ -1291,9 +1305,9 @@ public class OWLAPIOwl2Obo {
      * Creates the relationship clause with cardinality.
      *
      * @param restriction the restriction
-     * @param fillerId the filler id
-     * @param qvs the qvs
-     * @param ax the ax
+     * @param fillerId    the filler id
+     * @param qvs         the qvs
+     * @param ax          the ax
      * @return the clause
      */
     protected Clause createRelationshipClauseWithCardinality(
@@ -1371,7 +1385,7 @@ public class OWLAPIOwl2Obo {
          * Instantiates a new untranslatable axiom exception.
          *
          * @param message the message
-         * @param cause the cause
+         * @param cause   the cause
          */
         public UntranslatableAxiomException(String message, Throwable cause) {
             super(message, cause);
@@ -1520,7 +1534,7 @@ public class OWLAPIOwl2Obo {
                         return;
                     }
                     if (r instanceof OWLObjectAllValuesFrom) {
-                        qvs.add(new QualifierValue("all_only", "true"));
+                        qvs.add(new QualifierValue(ALL_ONLY, "true"));
                     }
                     f.addClause(createRelationshipClauseWithRestrictions(r, fillerId, qvs, ax));
                 } else if (sup instanceof OWLObjectIntersectionOf) {
@@ -1765,7 +1779,7 @@ public class OWLAPIOwl2Obo {
                         }
                         if (allOnly != null) {
                             String string = allOnly.toString();
-                            c.addQualifierValue(new QualifierValue("all_only", string));
+                            c.addQualifierValue(new QualifierValue(ALL_ONLY, string));
                         }
                         addQualifiers(c, ax.annotations());
                     } else if (!f.getClauses(OboFormatTag.TAG_INTERSECTION_OF).isEmpty()) {
@@ -2034,10 +2048,9 @@ public class OWLAPIOwl2Obo {
             }
             String range = getIdentifier(domain);
             if (range != null) {
-                if (trObjectProperty(prop, OboFormatTag.TAG_DOMAIN.getTag(), range,
-                    ax.annotations())) {
-                    return;
-                } else {
+                boolean trObjectProperty = trObjectProperty(prop, OboFormatTag.TAG_DOMAIN.getTag(),
+                    range, ax.annotations());
+                if (!trObjectProperty) {
                     error("trObjectProperty failed for " + prop, ax, true);
                 }
             } else {

@@ -52,7 +52,15 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     /**
      * All facet iris.
      */
-    public static final Map<IRI, OWLFacet> FACET_IRIS = asMap(stream(), HasIRI::getIRI);
+    private static final Map<IRI, OWLFacet> FACET_IRIS = asMap(stream(), HasIRI::getIRI);
+
+    /**
+     * @return All facet iris.
+     */
+    public static Map<IRI, OWLFacet> facetIRIs() {
+        return FACET_IRIS;
+    }
+
     private final IRI iri;
     private final String shortForm;
     private final String symbolicForm;

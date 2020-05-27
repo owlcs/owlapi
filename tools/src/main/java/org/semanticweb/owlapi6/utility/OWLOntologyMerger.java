@@ -35,6 +35,7 @@ import org.semanticweb.owlapi6.utilities.OWLAxiomFilter;
  */
 public class OWLOntologyMerger implements OWLAxiomFilter {
 
+    private static final String SET_PROVIDER_CANNOT_BE_NULL = "setProvider cannot be null";
     private final OWLOntologySetProvider setProvider;
     private final OWLAxiomFilter axiomFilter;
     private final boolean mergeOnlyLogicalAxioms;
@@ -43,7 +44,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      * @param setProvider the ontology provider
      */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider) {
-        this.setProvider = checkNotNull(setProvider, "setProvider cannot be null");
+        this.setProvider = checkNotNull(setProvider, SET_PROVIDER_CANNOT_BE_NULL);
         axiomFilter = this;
         mergeOnlyLogicalAxioms = false;
     }
@@ -53,7 +54,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      * @param mergeOnlyLogicalAxioms true if only logical axioms should be included
      */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider, boolean mergeOnlyLogicalAxioms) {
-        this.setProvider = checkNotNull(setProvider, "setProvider cannot be null");
+        this.setProvider = checkNotNull(setProvider, SET_PROVIDER_CANNOT_BE_NULL);
         this.mergeOnlyLogicalAxioms = mergeOnlyLogicalAxioms;
         axiomFilter = this;
     }
@@ -63,7 +64,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      * @param axiomFilter the filter to use
      */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider, OWLAxiomFilter axiomFilter) {
-        this.setProvider = checkNotNull(setProvider, "setProvider cannot be null");
+        this.setProvider = checkNotNull(setProvider, SET_PROVIDER_CANNOT_BE_NULL);
         this.axiomFilter = axiomFilter;
         mergeOnlyLogicalAxioms = false;
     }

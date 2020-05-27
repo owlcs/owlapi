@@ -32,56 +32,45 @@ public class ParserException extends OWLParserException {
     private final int lineNumber;
     private final int columnNumber;
     private final List<String> tokenSequence;
+    private final Set<String> expectedKeywords = new LinkedHashSet<>();
+    private final int startPos;
     private final boolean classNameExpected;
     private final boolean objectPropertyNameExpected;
     private final boolean dataPropertyNameExpected;
     private final boolean individualNameExpected;
     private final boolean datatypeNameExpected;
     private final boolean annotationPropertyExpected;
-    private final Set<String> expectedKeywords = new LinkedHashSet<>();
-    private final int startPos;
     private final boolean integerExpected;
     private final boolean ontologyNameExpected;
 
     /**
-     * @param message the message
-     * @param tokenSequence the token sequence
-     * @param startPos the start pos
-     * @param lineNumber the line number
-     * @param columnNumber the column number
-     * @param ontologyNameExpected the ontology name expected
-     * @param classNameExpected the class name expected
-     * @param objectPropertyNameExpected the object property name expected
-     * @param dataPropertyNameExpected the data property name expected
-     * @param individualNameExpected the individual name expected
-     * @param datatypeNameExpected the datatype name expected
-     * @param annotationPropertyExpected the annotation property expected
-     * @param integerExpected the integer expected
+     * @param message          the message
+     * @param tokenSequence    the token sequence
+     * @param startPos         the start pos
+     * @param lineNumber       the line number
+     * @param columnNumber     the column number
      * @param expectedKeywords the expected keywords
+     * @param flags            error flags
      */
     public ParserException(String message, List<String> tokenSequence, int startPos, int lineNumber,
-        int columnNumber, boolean ontologyNameExpected, boolean classNameExpected,
-        boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
-        boolean individualNameExpected, boolean datatypeNameExpected,
-        boolean annotationPropertyExpected, boolean integerExpected,
-        @Nullable Set<String> expectedKeywords) {
+        int columnNumber, @Nullable Set<String> expectedKeywords, boolean... flags) {
         super(message);
         currentToken = tokenSequence.iterator().next();
         this.tokenSequence = tokenSequence;
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber;
-        this.classNameExpected = classNameExpected;
-        this.objectPropertyNameExpected = objectPropertyNameExpected;
-        this.dataPropertyNameExpected = dataPropertyNameExpected;
-        this.individualNameExpected = individualNameExpected;
-        this.datatypeNameExpected = datatypeNameExpected;
-        this.annotationPropertyExpected = annotationPropertyExpected;
         if (expectedKeywords != null) {
             this.expectedKeywords.addAll(expectedKeywords);
         }
         this.startPos = startPos;
-        this.ontologyNameExpected = ontologyNameExpected;
-        this.integerExpected = integerExpected;
+        classNameExpected = flags[0];
+        objectPropertyNameExpected = flags[1];
+        dataPropertyNameExpected = flags[2];
+        individualNameExpected = flags[3];
+        datatypeNameExpected = flags[4];
+        annotationPropertyExpected = flags[5];
+        ontologyNameExpected = flags[6];
+        integerExpected = flags[7];
     }
 
     /**

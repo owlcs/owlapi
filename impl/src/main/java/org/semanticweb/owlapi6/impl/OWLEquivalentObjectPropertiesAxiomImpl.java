@@ -29,16 +29,16 @@ import org.semanticweb.owlapi6.utility.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLEquivalentObjectPropertiesAxiomImpl
-                extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
-                implements OWLEquivalentObjectPropertiesAxiom {
+    extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
+    implements OWLEquivalentObjectPropertiesAxiom {
 
     /**
-     * @param properties properties
+     * @param properties  properties
      * @param annotations annotations
      */
     public OWLEquivalentObjectPropertiesAxiomImpl(
-                    Collection<? extends OWLObjectPropertyExpression> properties,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<? extends OWLObjectPropertyExpression> properties,
+        Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 
@@ -46,18 +46,19 @@ public class OWLEquivalentObjectPropertiesAxiomImpl
     @SuppressWarnings("unchecked")
     public OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-                        : new OWLEquivalentObjectPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
+            : new OWLEquivalentObjectPropertiesAxiomImpl(getOperandsAsList(), NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLEquivalentObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
+        return (T) new OWLEquivalentObjectPropertiesAxiomImpl(getOperandsAsList(),
+            mergeAnnos(anns));
     }
 
     @Override
     public Collection<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms() {
-        if (properties.size() == 2) {
+        if (getOperandsAsList().size() == 2) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLEquivalentObjectPropertiesAxiomImpl(
@@ -66,11 +67,11 @@ public class OWLEquivalentObjectPropertiesAxiomImpl
 
     @Override
     public Collection<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs() {
-        if (properties.size() == 2) {
+        if (getOperandsAsList().size() == 2) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLEquivalentObjectPropertiesAxiomImpl(
-            sorted(OWLObjectPropertyExpression.class, a, b), annotations));
+            sorted(OWLObjectPropertyExpression.class, a, b), annotationsAsList()));
     }
 
     @Override

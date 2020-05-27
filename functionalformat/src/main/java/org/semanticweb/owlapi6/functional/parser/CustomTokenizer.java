@@ -137,12 +137,34 @@ class CustomTokenizer implements TokenManager {
         if (c >= '0' && c <= '9') {
             return readNumber(c);
         }
+        int colonIndex = determineColonIndex(c);
+        String s = buf.toString();
+        if (colonIndex >= 0) {
+            if (colonIndex == s.length() - 1) {
+                return makeToken(PNAME_NS, s);
+            } else {
+                if (s.startsWith("_:")) {
+                    return makeToken(NODEID, s);
+                }
+                return makeToken(OWLFunctionalSyntaxParserConstants.PNAME_LN, s);
+            }
+        }
+        return makeToken(TokenMap.tokenIndex(s), s);
+    }
+
+    protected int determineColonIndex(char c) throws IOException {
         buf.setLength(0);
         buf.append(c);
         int colonIndex = -1;
         if (c == ':') {
             colonIndex = 0;
         }
+        colonIndex = advanceColonIndex(colonIndex);
+        return colonIndex;
+    }
+
+    protected int advanceColonIndex(int colonIndex) throws IOException {
+        char c;
         loop: while (true) {
             try {
                 c = readChar();
@@ -171,18 +193,7 @@ class CustomTokenizer implements TokenManager {
                 break;
             }
         }
-        String s = buf.toString();
-        if (colonIndex >= 0) {
-            if (colonIndex == s.length() - 1) {
-                return makeToken(PNAME_NS, s);
-            } else {
-                if (s.startsWith("_:")) {
-                    return makeToken(NODEID, s);
-                }
-                return makeToken(OWLFunctionalSyntaxParserConstants.PNAME_LN, s);
-            }
-        }
-        return makeToken(TokenMap.tokenIndex(s), s);
+        return colonIndex;
     }
 
     private Token readNumber(char input) throws IOException {

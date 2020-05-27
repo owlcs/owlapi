@@ -47,12 +47,12 @@ public class NNFTestCase extends TestBase {
 
     @Test
     public void testPosOWLClass() {
-        assertEquals(A.getNNF(), A);
+        assertEquals(A, A.getNNF());
     }
 
     @Test
     public void testNegOWLClass() {
-        assertEquals(notA.getNNF(), notA);
+        assertEquals(notA, notA.getNNF());
     }
 
     @Test

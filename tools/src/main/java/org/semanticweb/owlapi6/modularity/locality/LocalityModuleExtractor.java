@@ -68,12 +68,14 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
     /**
      * The locality class used by this {@link SyntacticLocalityModuleExtractor}.
      */
-    private @Nonnull final LocalityClass localityClass;
+    @Nonnull
+    private final LocalityClass localityClass;
 
     /**
      * Map associating each entity with the axioms that contains it.
      */
-    private @Nonnull final Map<OWLEntity, Set<OWLAxiom>> axiomsContainingEntity = new HashMap<>();
+    @Nonnull
+    private final Map<OWLEntity, Set<OWLAxiom>> axiomsContainingEntity = new HashMap<>();
 
     /**
      * Creates a new {@link LocalityModuleExtractor}.
@@ -141,7 +143,7 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
         Set<OWLEntity> workingSignature = new HashSet<>(signatureCopy);
         // actually extracting the module
         while (!workingSignature.isEmpty()) {
-            OWLEntity omega = workingSignature.stream().findAny().get();
+            OWLEntity omega = workingSignature.iterator().next();
             workingSignature.remove(omega);
             axiomsOfEntity.apply(omega).forEach(
                 alpha -> addNonLocal(alpha, signatureCopy, module, workingSignature, evaluator));

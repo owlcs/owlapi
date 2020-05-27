@@ -96,9 +96,6 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
     }
 
     @Override
-    public abstract T buildObject();
-
-    @Override
     public List<OWLOntologyChange> applyChanges(OWLOntology o) {
         T object = buildObject();
         if (!(object instanceof OWLAxiom)) {

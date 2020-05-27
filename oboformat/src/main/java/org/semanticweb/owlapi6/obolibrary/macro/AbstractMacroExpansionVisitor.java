@@ -68,16 +68,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Empty abstract visitor for macro expansion. This class allows to minimize the
- * code in the actual visitors, as they only need to overwrite the relevant
- * methods.
+ * Empty abstract visitor for macro expansion. This class allows to minimize the code in the actual
+ * visitors, as they only need to overwrite the relevant methods.
  */
 public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx<OWLAxiom> {
 
     static final Logger LOG = LoggerFactory.getLogger(AbstractMacroExpansionVisitor.class);
     static final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections.emptySet();
     protected final Map<IRI, String> expandExpressionMap;
-    protected final OWLAnnotationProperty oio_isexpansion;
+    protected final OWLAnnotationProperty oioIsexpansion;
     protected final OWLAnnotation expansionMarkerAnnotation;
     final OWLDataFactory df;
     final Map<IRI, String> expandAssertionToMap;
@@ -86,7 +85,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     protected ManchesterSyntaxTool manchesterSyntaxTool;
     private boolean shouldAddExpansionMarker = false;
 
-    protected AbstractMacroExpansionVisitor(OWLOntology ontology, boolean shouldAddExpansionMarker) {
+    protected AbstractMacroExpansionVisitor(OWLOntology ontology,
+        boolean shouldAddExpansionMarker) {
         this(ontology);
         this.shouldAddExpansionMarker = shouldAddExpansionMarker;
     }
@@ -97,10 +97,12 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         expandAssertionToMap = new HashMap<>();
         OWLAnnotationProperty ap424 = df.getOWLAnnotationProperty(IRI_IAO_0000424.getIRI());
         o.objectPropertiesInSignature()
-            .forEach(p -> getAnnotationObjects(p, o.importsClosure(), ap424).forEach(a -> mapToExpand(p, a)));
+            .forEach(p -> getAnnotationObjects(p, o.importsClosure(), ap424)
+                .forEach(a -> mapToExpand(p, a)));
         o.annotationPropertiesInSignature().forEach(p -> expandAssertions(o, p));
-        oio_isexpansion = df.getOWLAnnotationProperty(df.getIRI(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
-        expansionMarkerAnnotation = df.getOWLAnnotation(oio_isexpansion, df.getOWLLiteral(true));
+        oioIsexpansion = df.getOWLAnnotationProperty(
+            df.getIRI(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
+        expansionMarkerAnnotation = df.getOWLAnnotation(oioIsexpansion, df.getOWLLiteral(true));
     }
 
     protected void mapToExpand(OWLObjectProperty p, OWLAnnotation a) {
@@ -128,12 +130,11 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
      * @return value for OIO isexpansion
      */
     public OWLAnnotationProperty getOIOISEXPANSION() {
-        return oio_isexpansion;
+        return oioIsexpansion;
     }
 
     /**
-     * @param input
-     *        ontology
+     * @param input ontology
      */
     public void rebuild(OWLOntology input) {
         manchesterSyntaxTool = new ManchesterSyntaxTool(input);
@@ -217,8 +218,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     }
 
     /**
-     * @param axiom
-     *        annotation source
+     * @param axiom annotation source
      * @return new set of annotations
      */
     public Set<OWLAnnotation> getAnnotationsWithOptionalExpansionMarker(OWLAxiom axiom) {
@@ -335,13 +335,15 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         if (!sawChange.get()) {
             return axiom;
         }
-        return df.getOWLEquivalentClassesAxiom(newExpressions, getAnnotationsWithOptionalExpansionMarker(axiom));
+        return df.getOWLEquivalentClassesAxiom(newExpressions,
+            getAnnotationsWithOptionalExpansionMarker(axiom));
     }
 
     /**
      * class expression visitor
      */
-    public abstract class AbstractClassExpressionVisitorEx implements OWLClassExpressionVisitorEx<OWLClassExpression> {
+    public abstract class AbstractClassExpressionVisitorEx
+        implements OWLClassExpressionVisitorEx<OWLClassExpression> {
 
         protected AbstractClassExpressionVisitorEx() {}
 
@@ -393,8 +395,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         }
 
         @Nullable
-        protected abstract OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
-            OWLObjectPropertyExpression p);
+        protected abstract OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
+            OWLIndividual filler, OWLObjectPropertyExpression p);
 
         @Override
         public OWLClassExpression visit(OWLObjectAllValuesFrom ce) {

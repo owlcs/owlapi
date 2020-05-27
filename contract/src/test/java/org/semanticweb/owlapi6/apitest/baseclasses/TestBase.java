@@ -120,7 +120,8 @@ public abstract class TestBase {
         }
     }
 
-    public static void assertThrowsWithMessage(String message, Class<? extends Throwable> c, ThrowingRunnable r) {
+    public static void assertThrowsWithMessage(String message, Class<? extends Throwable> c,
+        ThrowingRunnable r) {
         assertTrue(assertThrows(c, r).getMessage().contains(message));
     }
 
@@ -444,7 +445,7 @@ public abstract class TestBase {
      * reloaded, or was reloaded and the reloaded version is not equal (in terms of ontology URI and
      * axioms) with the original.
      * 
-     * @param ont The ontology to be round tripped.
+     * @param ont    The ontology to be round tripped.
      * @param format The format to use when doing the round trip.
      */
     public OWLOntology roundTripOntology(OWLOntology ont, OWLDocumentFormat format)

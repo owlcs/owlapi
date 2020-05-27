@@ -34,14 +34,14 @@ import org.semanticweb.owlapi6.utility.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
-                implements OWLSameIndividualAxiom {
+    implements OWLSameIndividualAxiom {
 
     /**
      * @param individuals individuals
      * @param annotations annotations on the axiom
      */
     public OWLSameIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
 
@@ -71,8 +71,8 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
         if (individuals.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a,
-            b) -> new OWLSameIndividualAxiomImpl(sorted(OWLIndividual.class, a, b), annotations));
+        return walkPairwise((a, b) -> new OWLSameIndividualAxiomImpl(
+            sorted(OWLIndividual.class, a, b), annotationsAsList()));
     }
 
     @Override

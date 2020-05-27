@@ -36,15 +36,15 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
 
     /**
      * @param documentIRI the document IRI
-     * @param exceptions the map parser-&gt;exceptions
-     * @param config the configuration object
+     * @param exceptions  the map parser-&gt;exceptions
+     * @param config      the configuration object
      */
     public UnparsableOntologyException(IRI documentIRI,
         Map<OWLParser, OWLParserException> exceptions, OntologyConfigurator config) {
         super("Could not parse ontology from document IRI: " + documentIRI.toQuotedString());
         includeStackTraceInMessage = config.shouldReportStackTraces();
         this.documentIRI = documentIRI;
-        this.exceptions = exceptions;
+        this.exceptions = Collections.unmodifiableMap(exceptions);
     }
 
     @Override
@@ -108,6 +108,6 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * @return The map of parsers and their errors.
      */
     public Map<OWLParser, OWLParserException> getExceptions() {
-        return Collections.unmodifiableMap(exceptions);
+        return exceptions;
     }
 }

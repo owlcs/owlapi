@@ -37,7 +37,7 @@ import java.util.Objects;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi6.model.AxiomType;
+import org.semanticweb.owlapi6.model.HasOperands;
 import org.semanticweb.owlapi6.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLAxiomVisitor;
@@ -508,12 +508,16 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
 
             @Override
             public final void visit(OWLObjectIntersectionOf ce) {
-                isEquivalent = !ce.operands().anyMatch(this::isEquivalent);
+                isEquivalent = !anyEquivalent(ce);
             }
 
             @Override
             public final void visit(OWLObjectUnionOf ce) {
-                isEquivalent = ce.operands().anyMatch(this::isEquivalent);
+                isEquivalent = anyEquivalent(ce);
+            }
+
+            protected boolean anyEquivalent(HasOperands<OWLClassExpression> ce) {
+                return ce.operands().anyMatch(this::isEquivalent);
             }
         }
 
@@ -1094,15 +1098,6 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
 
     @Override
     public final boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
-        // if (axiom.isOfType(AxiomType.SUBCLASS_OF) &&
-        // axiom.classesInSignature().map(Object::toString)
-        // .allMatch(string -> string.contains("http://mouse.brain-map.org/atlas/index.html#MY-mot")
-        // || string.contains("http://mouse.brain-map.org/atlas/index.html#MY"))) {
-        // System.out.println("new");
-        // }
-        if (this == TOP && axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
-            System.out.println("new");
-        }
         return !axiom.isLogicalAxiom() || createLocalityAxiomVisitor(
             Objects.requireNonNull(axiom, "The given axiom may not be null"),
             Objects.requireNonNull(signature, "The given signature may not be null")).isLocal();

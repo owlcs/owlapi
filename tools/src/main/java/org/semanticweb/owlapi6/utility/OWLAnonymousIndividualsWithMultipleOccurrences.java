@@ -70,7 +70,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences extends AbstractColl
     @Override
     public void visit(OWLOntology ontology) {
         ontology.annotations().forEach(a1 -> a1.accept(this));
-        AxiomType.AXIOM_TYPES.forEach(t -> ontology.axioms(t).forEach(ax -> ax.accept(this)));
+        AxiomType.axiomTypes().forEach(t -> ontology.axioms(t).forEach(ax -> ax.accept(this)));
         singleAppearance.clear();
         singleAppearanceAsSubject.clear();
     }

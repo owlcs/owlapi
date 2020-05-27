@@ -29,14 +29,14 @@ import org.semanticweb.owlapi6.utility.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
-                implements OWLDisjointClassesAxiom {
+    implements OWLDisjointClassesAxiom {
 
     /**
      * @param classExpressions disjoint classes
-     * @param annotations annotations
+     * @param annotations      annotations
      */
     public OWLDisjointClassesAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 
@@ -44,18 +44,18 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
     @SuppressWarnings("unchecked")
     public OWLDisjointClassesAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-                        : new OWLDisjointClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
+            : new OWLDisjointClassesAxiomImpl(getOperandsAsList(), NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLDisjointClassesAxiomImpl(classExpressions, mergeAnnos(anns));
+        return (T) new OWLDisjointClassesAxiomImpl(getOperandsAsList(), mergeAnnos(anns));
     }
 
     @Override
     public Collection<OWLDisjointClassesAxiom> asPairwiseAxioms() {
-        if (classExpressions.size() == 2) {
+        if (getOperandsAsList().size() == 2) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLDisjointClassesAxiomImpl(
@@ -64,16 +64,16 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public Collection<OWLDisjointClassesAxiom> splitToAnnotatedPairs() {
-        if (classExpressions.size() == 2) {
+        if (getOperandsAsList().size() == 2) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLDisjointClassesAxiomImpl(
-            sorted(OWLClassExpression.class, a, b), annotations));
+            sorted(OWLClassExpression.class, a, b), annotationsAsList()));
     }
 
     @Override
     public Collection<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-        return walkAllPairwise((a, b) -> new OWLSubClassOfAxiomImpl(a, b.getObjectComplementOf(),
-                        NO_ANNOTATIONS));
+        return walkAllPairwise(
+            (a, b) -> new OWLSubClassOfAxiomImpl(a, b.getObjectComplementOf(), NO_ANNOTATIONS));
     }
 }

@@ -51,8 +51,7 @@ import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 import org.semanticweb.owlapi6.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class TurtleRenderer extends RDFRendererBase {
@@ -66,19 +65,17 @@ public class TurtleRenderer extends RDFRendererBase {
     int level = 0;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param format
-     *        target format
-     * @param writer
-     *        writer
+     * @param ontology ontology
+     * @param format   target format
+     * @param writer   writer
      */
     public TurtleRenderer(OWLOntology ontology, OWLDocumentFormat format, Writer writer) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyConfigurator());
         this.writer = new PrintWriter(writer);
         pm = ontology.getPrefixManager();
         if (ontology.isNamed()) {
-            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
+            String ontologyIRIString =
+                ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
             String defaultPrefix = ontologyIRIString;
             if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
                 defaultPrefix = ontologyIRIString + '#';
@@ -168,7 +165,8 @@ public class TurtleRenderer extends RDFRendererBase {
     // TODO move to PrefixManager
     @Nullable
     private String forceSplitIfPrefixExists(IRI iri) {
-        List<Map.Entry<String, String>> prefixName2PrefixMap = new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
+        List<Map.Entry<String, String>> prefixName2PrefixMap =
+            new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
         // sort the entries in reverse lexicographic order by value (longest
         // prefix first)
         Collections.sort(prefixName2PrefixMap, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
@@ -182,8 +180,8 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     private static boolean noSplits(String s) {
-        char[] reservedChars = new char[] { '~', '.', '-', '!', '$', '&', '(', ')', '*', '+', ',', ';', '=', '/', '?',
-            '#', '@', '%', '_' };
+        char[] reservedChars = new char[] {'~', '.', '-', '!', '$', '&', '(', ')', '*', '+', ',',
+            ';', '=', '/', '?', '#', '@', '%', '_'};
         for (char c : reservedChars) {
             if (s.indexOf(c) >= 0) {
                 return false;
@@ -381,63 +379,16 @@ public class TurtleRenderer extends RDFRendererBase {
             RDFResourceIRI pred = triple.getPredicate();
             RDFNode object = triple.getObject();
             if (lastSubject != null && (subj.equals(lastSubject) || subj.isAnonymous())) {
-                if (lastPredicate != null && pred.equals(lastPredicate)) {
-                    // Only the object differs from previous triple
-                    // Just write the object
-                    write(" ,");
-                    writeNewLine();
-                    renderObject(object);
-                } else {
-                    // The predicate, object differ from previous triple
-                    // Just write the predicate and object
-                    write(" ;");
-                    popTab();
-                    writeNewLine();
-                    write(triple.getPredicate());
-                    writeSpace();
-                    pushTab();
-                    renderObject(object);
-                }
+                renderWithSameSubject(lastPredicate, triple, pred, object);
             } else {
-                if (!first) {
-                    popTab();
-                    popTab();
-                    writeNewLine();
-                }
-                // Subject, predicate and object are different from last triple
-                if (!node.isAnonymous()) {
-                    write(subj);
-                    writeSpace();
-                } else if (node.idRequired()) {
-                    write(subj.getIRI());
-                    writeSpace();
-                } else {
-                    pushTab();
-                    write("[");
-                    writeSpace();
-                }
-                pushTab();
-                write(triple.getPredicate());
-                writeSpace();
-                pushTab();
-                renderObject(object);
+                renderWithNewSubject(node, first, triple, subj, object);
             }
             lastSubject = subj;
             lastPredicate = pred;
             first = false;
         }
         if (node.isAnonymous()) {
-            popTab();
-            popTab();
-            if (!node.idRequired()) {
-                if (triples.isEmpty()) {
-                    write("[ ");
-                } else {
-                    writeNewLine();
-                }
-                write("]");
-            }
-            popTab();
+            renderAnonymous(node, triples);
         } else {
             popTab();
             popTab();
@@ -451,6 +402,67 @@ public class TurtleRenderer extends RDFRendererBase {
             deferredRendering();
         }
         pending.remove(node);
+    }
+
+    protected void renderAnonymous(RDFResource node, Collection<RDFTriple> triples) {
+        popTab();
+        popTab();
+        if (!node.idRequired()) {
+            if (triples.isEmpty()) {
+                write("[ ");
+            } else {
+                writeNewLine();
+            }
+            write("]");
+        }
+        popTab();
+    }
+
+    protected void renderWithNewSubject(RDFResource node, boolean first, RDFTriple triple,
+        RDFResource subj, RDFNode object) {
+        if (!first) {
+            popTab();
+            popTab();
+            writeNewLine();
+        }
+        // Subject, predicate and object are different from last triple
+        if (!node.isAnonymous()) {
+            write(subj);
+            writeSpace();
+        } else if (node.idRequired()) {
+            write(subj.getIRI());
+            writeSpace();
+        } else {
+            pushTab();
+            write("[");
+            writeSpace();
+        }
+        pushTab();
+        write(triple.getPredicate());
+        writeSpace();
+        pushTab();
+        renderObject(object);
+    }
+
+    protected void renderWithSameSubject(@Nullable RDFResourceIRI lastPredicate, RDFTriple triple,
+        RDFResourceIRI pred, RDFNode object) {
+        if (lastPredicate != null && pred.equals(lastPredicate)) {
+            // Only the object differs from previous triple
+            // Just write the object
+            write(" ,");
+            writeNewLine();
+            renderObject(object);
+        } else {
+            // The predicate, object differ from previous triple
+            // Just write the predicate and object
+            write(" ;");
+            popTab();
+            writeNewLine();
+            write(triple.getPredicate());
+            writeSpace();
+            pushTab();
+            renderObject(object);
+        }
     }
 
     protected void renderObject(RDFNode object) {

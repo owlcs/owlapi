@@ -48,10 +48,10 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
     @Override
     int getEntityValue(OWLEntity entity) {
         if (entity.isTopEntity()) {
-            return anyUpperValue();
+            return anyUpperValue;
         }
         if (entity.isBottomEntity()) {
-            return noUpperValue();
+            return noUpperValue;
         }
         return getAllNoneUpper(topCLocal() && nc(entity));
     }
@@ -68,13 +68,13 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
     int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // m == 0 or...
         if (m == 0) {
-            return anyUpperValue();
+            return anyUpperValue;
         }
         // R = \top and...
         if (!isTopEquivalent(r)) {
-            return noUpperValue();
+            return noUpperValue;
         }
-        // C \in C^{>= m}
+        /** {@code C \in C^{>= m}} */
         return getAllNoneUpper(isLowerGE(getLowerBoundDirect(c), m));
     }
 
@@ -82,9 +82,9 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
     int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // R = \bot or...
         if (isBotEquivalent(r)) {
-            return anyUpperValue();
+            return anyUpperValue;
         }
-        // C\in C^{<= m}
+        /** {@code C\in C^{<= m}} */
         return getAllNoneUpper(isUpperLE(getUpperBoundDirect(c), m));
     }
 
@@ -104,8 +104,8 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
         while (it.hasNext()) {
             C p = it.next();
             int n = getUpperBoundComplement(p);
-            if (n == noUpperValue()) {
-                return noUpperValue();
+            if (n == noUpperValue) {
+                return noUpperValue;
             }
             sum += n;
         }
@@ -114,7 +114,7 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
     <C extends OWLObject> int getOrValue(HasOperands<C> expr) {
         // noUpperValue is a maximal element
-        AtomicInteger min = new AtomicInteger(noUpperValue());
+        AtomicInteger min = new AtomicInteger(noUpperValue);
         // we are looking for the minimal value here, use an appropriate helper
         expr.operands().forEach(p -> min.set(minUpperValue(min.get(), getUpperBoundDirect(p))));
         return min.get();
@@ -138,7 +138,7 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
     @Override
     public void visit(OWLObjectOneOf o) {
-        value = noUpperValue();
+        value = noUpperValue;
     }
 
     @Override
@@ -166,28 +166,28 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
     public void visit(OWLSubPropertyChainOfAxiom expr) {
         for (OWLObjectPropertyExpression p : expr.getPropertyChain()) {
             if (!isTopEquivalent(p)) {
-                value = noUpperValue();
+                value = noUpperValue;
                 return;
             }
         }
-        value = anyUpperValue();
+        value = anyUpperValue;
     }
 
     // negated datatype is a union of all other DTs that are infinite
     @Override
     public void visit(OWLDatatype o) {
-        value = noUpperValue();
+        value = noUpperValue;
     }
 
     // negated restriction include negated DT
     @Override
     public void visit(OWLDatatypeRestriction o) {
-        value = noUpperValue();
+        value = noUpperValue;
     }
 
     @Override
     public void visit(OWLLiteral o) {
-        value = noUpperValue();
+        value = noUpperValue;
     }
 
     @Override
@@ -207,6 +207,6 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
     @Override
     public void visit(OWLDataOneOf o) {
-        value = noUpperValue();
+        value = noUpperValue;
     }
 }

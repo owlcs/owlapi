@@ -12,6 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.reasoner.impl;
 
+import static org.semanticweb.owlapi6.impl.InternalizedEntities.OWL_BOTTOM_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi6.impl.InternalizedEntities.OWL_TOP_OBJECT_PROPERTY;
+
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -24,6 +27,10 @@ import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
  * @since 3.0.0
  */
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
+    protected static final OWLObjectPropertyNode TOP_OBJECT_NODE =
+        new OWLObjectPropertyNode(OWL_TOP_OBJECT_PROPERTY);
+    protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE =
+        new OWLObjectPropertyNode(OWL_BOTTOM_OBJECT_PROPERTY);
 
     /**
      * Default constructor.

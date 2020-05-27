@@ -60,7 +60,7 @@ public class OntologyURITestCase extends TestBase {
     @Test
     public void testOntologyURI() {
         OWLOntology ont = getOWLOntology(onto);
-        assertEquals(ont.getOntologyID().getOntologyIRI().get(), onto);
+        assertEquals(onto, ont.getOntologyID().getOntologyIRI().get());
         assertTrue(m.contains(onto));
         assertTrue(contains(m.ontologies(), ont));
         OWLOntologyID ontID = df.getOWLOntologyID(onto);

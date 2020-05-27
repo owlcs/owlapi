@@ -117,13 +117,11 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     /**
-     * @param n cardinality
      * @param r role
      * @param c filler
      * @return true iff {@code (<= n R.C)} is topEq
      */
-    private boolean isMaxTopEquivalent(@SuppressWarnings("unused") int n, OWLPropertyExpression r,
-        OWLPropertyRange c) {
+    private boolean isMaxTopEquivalent(OWLPropertyExpression r, OWLPropertyRange c) {
         return isBotEquivalent(r) || isBotEquivalent(c);
     }
 
@@ -160,7 +158,7 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectIntersectionOf expr) {
-        isTopEq = expr.operands().allMatch(p -> isTopEquivalent(p));
+        isTopEq = expr.operands().allMatch(this::isTopEquivalent);
     }
 
     @Override
@@ -200,14 +198,13 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectMaxCardinality expr) {
-        isTopEq = isMaxTopEquivalent(expr.getCardinality(), expr.getProperty(), expr.getFiller());
+        isTopEq = isMaxTopEquivalent(expr.getProperty(), expr.getFiller());
     }
 
     @Override
     public void visit(OWLObjectExactCardinality expr) {
-        int n = expr.getCardinality();
-        isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller())
-            && isMaxTopEquivalent(n, expr.getProperty(), expr.getFiller());
+        isTopEq = isMinTopEquivalent(expr.getCardinality(), expr.getProperty(), expr.getFiller())
+            && isMaxTopEquivalent(expr.getProperty(), expr.getFiller());
     }
 
     @Override
@@ -232,14 +229,13 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataMaxCardinality expr) {
-        isTopEq = isMaxTopEquivalent(expr.getCardinality(), expr.getProperty(), expr.getFiller());
+        isTopEq = isMaxTopEquivalent(expr.getProperty(), expr.getFiller());
     }
 
     @Override
     public void visit(OWLDataExactCardinality expr) {
-        int n = expr.getCardinality();
-        isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller())
-            && isMaxTopEquivalent(n, expr.getProperty(), expr.getFiller());
+        isTopEq = isMinTopEquivalent(expr.getCardinality(), expr.getProperty(), expr.getFiller())
+            && isMaxTopEquivalent(expr.getProperty(), expr.getFiller());
     }
 
     @Override

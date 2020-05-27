@@ -7,19 +7,18 @@ import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
 /** Helper class for absolute and relative IRIs on rendering. */
-public class AbsoluteIRIHelper {
+public final class AbsoluteIRIHelper {
+    private AbsoluteIRIHelper() {
+        // no instances
+    }
 
     /**
-     * @param iri
-     *        iri to check
-     * @param f
-     *        format used in rendering
-     * @param o
-     *        ontology being rendered
-     * @return absolute version of iri; same as input if the input is absolute,
-     *         else the prefix is taken from the prefix mappings or from the
-     *         ontology id. If none of thee are available, a hardcoded prefix is
-     *         used.
+     * @param iri iri to check
+     * @param f   format used in rendering
+     * @param o   ontology being rendered
+     * @return absolute version of iri; same as input if the input is absolute, else the prefix is
+     *         taken from the prefix mappings or from the ontology id. If none of them are
+     *         available, a hard coded prefix is used.
      */
     public static IRI verifyAbsolute(IRI iri, @Nullable OWLDocumentFormat f, OWLOntology o) {
         if (iri.isAbsolute()) {
@@ -33,11 +32,13 @@ public class AbsoluteIRIHelper {
             defaultPrefix = o.getOntologyID().getOntologyIRI().map(IRI::toString).orElse(null);
         }
         if (defaultPrefix == null) {
-            defaultPrefix = o.getOntologyID().getDefaultDocumentIRI().map(IRI::toString).orElse(null);
+            defaultPrefix =
+                o.getOntologyID().getDefaultDocumentIRI().map(IRI::toString).orElse(null);
         }
         if (defaultPrefix == null) {
             // no reliable information on the base IRI
-            return o.getOWLOntologyManager().getOWLDataFactory().getIRI("urn:absoluteiri:defaultvalue#" + iri);
+            return o.getOWLOntologyManager().getOWLDataFactory()
+                .getIRI("urn:absoluteiri:defaultvalue#" + iri);
         }
         return o.getOWLOntologyManager().getOWLDataFactory().getIRI(defaultPrefix + iri);
     }

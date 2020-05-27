@@ -14,13 +14,11 @@ package org.semanticweb.owlapi6.search;
 
 import static org.semanticweb.owlapi6.model.AxiomType.ANNOTATION_PROPERTY_DOMAIN;
 import static org.semanticweb.owlapi6.model.AxiomType.ANNOTATION_PROPERTY_RANGE;
-import static org.semanticweb.owlapi6.model.AxiomType.AXIOM_TYPES;
 import static org.semanticweb.owlapi6.model.AxiomType.DATATYPE_DEFINITION;
 import static org.semanticweb.owlapi6.model.AxiomType.SUBCLASS_OF;
 import static org.semanticweb.owlapi6.model.AxiomType.SUB_ANNOTATION_PROPERTY_OF;
 import static org.semanticweb.owlapi6.model.AxiomType.SUB_DATA_PROPERTY;
 import static org.semanticweb.owlapi6.model.AxiomType.SUB_OBJECT_PROPERTY;
-import static org.semanticweb.owlapi6.model.AxiomType.TBoxAndRBoxAxiomTypes;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -105,7 +103,7 @@ public class Filters {
      * SWRL rules.
      */
     public static final OWLAxiomSearchFilter axiomsFromTBoxAndRBox =
-        new AxiomFilter<>(TBoxAndRBoxAxiomTypes, a -> a) {
+        new AxiomFilter<>(AxiomType.tboxAndRboxAxiomTypes(), a -> a) {
 
             @Override
             public boolean pass(OWLAxiom axiom, Object key) {
@@ -118,13 +116,13 @@ public class Filters {
      * and SWRL rules.
      */
     public static final OWLAxiomSearchFilter axiomsNotInTBoxOrRBox =
-        new AxiomFilter<>(AXIOM_TYPES, a -> a) {
+        new AxiomFilter<>(AxiomType.axiomTypes(), a -> a) {
 
             @Override
             public boolean pass(OWLAxiom axiom, Object key) {
                 // for this filter, only accept the axioms whose types are not in
                 // tbox or rbox
-                return !TBoxAndRBoxAxiomTypes.contains(axiom.getAxiomType());
+                return !AxiomType.tboxAndRboxAxiomTypes().contains(axiom.getAxiomType());
             }
         };
 
@@ -147,7 +145,7 @@ public class Filters {
 
         /**
          * @param type axiom type to filter on
-         * @param f filter lambda
+         * @param f    filter lambda
          */
         public AxiomFilter(AxiomType<?> type, Filter<A> f) {
             types = Collections.singletonList(type);
@@ -156,7 +154,7 @@ public class Filters {
 
         /**
          * @param types axiom types to filter on
-         * @param f filter lambda
+         * @param f     filter lambda
          */
         public AxiomFilter(Collection<AxiomType<?>> types, Filter<A> f) {
             this.types = types;
@@ -164,7 +162,7 @@ public class Filters {
         }
 
         /**
-         * @param f filter lambda
+         * @param f     filter lambda
          * @param types axiom types to filter on
          */
         public AxiomFilter(Filter<A> f, AxiomType<?>... types) {

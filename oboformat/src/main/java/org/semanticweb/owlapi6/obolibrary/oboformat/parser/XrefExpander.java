@@ -3,8 +3,10 @@ package org.semanticweb.owlapi6.obolibrary.oboformat.parser;
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -52,7 +54,7 @@ public class XrefExpander {
     }
 
     /**
-     * @param src src
+     * @param src        src
      * @param targetBase targetBase
      * @throws InvalidXrefMapException InvalidXrefMapException
      */
@@ -78,6 +80,14 @@ public class XrefExpander {
         return parts[0];
     }
 
+    private static final List<String> XREF_EXPANDABLE =
+        Arrays.asList(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT.getTag(),
+            OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag(),
+            OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA.getTag(),
+            OboFormatTag.TAG_TREAT_XREFS_AS_HAS_SUBCLASS.getTag(),
+            OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag(),
+            OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag());
+
     /**
      * @throws InvalidXrefMapException InvalidXrefMapException
      */
@@ -87,60 +97,64 @@ public class XrefExpander {
         Frame headerFrame = sourceOBODoc.getHeaderFrame();
         if (headerFrame != null) {
             for (Clause c : headerFrame.getClauses()) {
-                String[] parts;
-                String v = c.getValue().toString();
-                parts = v.split("\\s");
-                String relation = null;
-                String idSpace = parts[0];
-                String tag = c.getTag();
-                if (tag == null) {
-                    continue;
+                if (XREF_EXPANDABLE.contains(c.getTag())) {
+                    expand(relationsUseByIdSpace, c, c.getTag());
                 }
-                if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT.getTag())) {
-                    addRule(parts[0], new EquivalenceExpansion());
-                } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag())) {
-                    addRule(idSpace, new GenusDifferentiaExpansion(parts[1], parts[2]));
-                    relationsUseByIdSpace.put(idSpace, parts[1]);
-                    relation = parts[1];
-                } else if (tag
-                    .equals(OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA.getTag())) {
-                    addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1], parts[2]));
-                    relationsUseByIdSpace.put(idSpace, parts[1]);
-                    relation = parts[1];
-                } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_HAS_SUBCLASS.getTag())) {
-                    addRule(idSpace, new HasSubClassExpansion());
-                } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag())) {
-                    addRule(idSpace, new IsaExpansion());
-                } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag())) {
-                    addRule(idSpace, new RelationshipExpansion(parts[1]));
-                    relationsUseByIdSpace.put(idSpace, parts[1]);
-                    relation = parts[1];
-                } else {
-                    continue;
-                }
-                if (targetBase != null) {
-                    // create a new bridge ontology for every expansion macro
-                    OBODoc tgt = new OBODoc();
-                    Frame thf = new Frame(FrameType.HEADER);
-                    thf.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY,
-                        targetBase + "-" + idSpace.toLowerCase()));
-                    tgt.setHeaderFrame(thf);
-                    targetDocMap.put(idSpace, tgt);
-                    sourceOBODoc.addImportedOBODoc(tgt);
-                    if (relation != null) {
-                        // See 4.4.2
-                        // "In addition, any Typedef frames for relations used
-                        // in a header macro are also copied into the
-                        // corresponding bridge ontology
-                        Frame tdf = sourceOBODoc.getTypedefFrame(relation);
-                        if (tdf != null) {
-                            try {
-                                tgt.addTypedefFrame(tdf);
-                            } catch (FrameMergeException e) {
-                                LOG.debug("frame merge failed", e);
-                            }
-                        }
-                    }
+            }
+        }
+    }
+
+    protected void expand(Map<String, String> relationsUseByIdSpace, Clause c,
+        @Nullable String tag) {
+        String v = c.getValue().toString();
+        String[] parts = v.split("\\s");
+        String idSpace = parts[0];
+        assert tag != null;
+        String relation = null;
+        if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT.getTag())) {
+            addRule(parts[0], new EquivalenceExpansion());
+        } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag())) {
+            addRule(idSpace, new GenusDifferentiaExpansion(parts[1], parts[2]));
+            relationsUseByIdSpace.put(idSpace, parts[1]);
+            relation = parts[1];
+        } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA.getTag())) {
+            addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1], parts[2]));
+            relationsUseByIdSpace.put(idSpace, parts[1]);
+            relation = parts[1];
+        } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_HAS_SUBCLASS.getTag())) {
+            addRule(idSpace, new HasSubClassExpansion());
+        } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag())) {
+            addRule(idSpace, new IsaExpansion());
+        } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag())) {
+            addRule(idSpace, new RelationshipExpansion(parts[1]));
+            relationsUseByIdSpace.put(idSpace, parts[1]);
+            relation = parts[1];
+        }
+        if (targetBase != null) {
+            bridgeOntology(idSpace, relation);
+        }
+    }
+
+    protected void bridgeOntology(String idSpace, @Nullable String relation) {
+        // create a new bridge ontology for every expansion macro
+        OBODoc tgt = new OBODoc();
+        Frame thf = new Frame(FrameType.HEADER);
+        thf.addClause(
+            new Clause(OboFormatTag.TAG_ONTOLOGY, targetBase + "-" + idSpace.toLowerCase()));
+        tgt.setHeaderFrame(thf);
+        targetDocMap.put(idSpace, tgt);
+        sourceOBODoc.addImportedOBODoc(tgt);
+        if (relation != null) {
+            // See 4.4.2
+            // "In addition, any Typedef frames for relations used
+            // in a header macro are also copied into the
+            // corresponding bridge ontology
+            Frame tdf = sourceOBODoc.getTypedefFrame(relation);
+            if (tdf != null) {
+                try {
+                    tgt.addTypedefFrame(tdf);
+                } catch (FrameMergeException e) {
+                    LOG.debug("frame merge failed", e);
                 }
             }
         }
@@ -197,8 +211,8 @@ public class XrefExpander {
         protected String idSpace;
 
         /**
-         * @param sf sf
-         * @param id id
+         * @param sf   sf
+         * @param id   id
          * @param xRef xref
          */
         public abstract void expand(Frame sf, String id, String xRef);

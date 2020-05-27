@@ -45,7 +45,7 @@ import static org.semanticweb.owlapi6.model.AxiomType.HAS_KEY;
 import static org.semanticweb.owlapi6.model.AxiomType.INVERSE_FUNCTIONAL_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi6.model.AxiomType.INVERSE_OBJECT_PROPERTIES;
 import static org.semanticweb.owlapi6.model.AxiomType.IRREFLEXIVE_OBJECT_PROPERTY;
-import static org.semanticweb.owlapi6.model.AxiomType.LOGICAL_AXIOM_TYPES;
+import static org.semanticweb.owlapi6.model.AxiomType.logicalAxiomTypes;
 import static org.semanticweb.owlapi6.model.AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION;
 import static org.semanticweb.owlapi6.model.AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION;
 import static org.semanticweb.owlapi6.model.AxiomType.OBJECT_PROPERTY_ASSERTION;
@@ -209,7 +209,8 @@ protected transient MapPointer<OWLAnnotationProperty, OWLAxiom>     owlAnnotatio
 protected transient MapPointer<OWLEntity, OWLDeclarationAxiom>      declarationsByEntity                = build(OWLDeclarationAxiom.class);
 protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>> pointers              = map();
 //@formatter:on
-    @Nullable private List<OWLAxiom> axiomsForSerialization;
+    @Nullable
+    private List<OWLAxiom> axiomsForSerialization;
     private final AddAxiomVisitor addChangeVisitor = new AddAxiomVisitor();
     private final RemoveAxiomVisitor removeChangeVisitor = new RemoveAxiomVisitor();
     private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiomsCollector();
@@ -257,69 +258,80 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         owlDatatypeReferences = build(OWLAxiom.class);
         owlAnnotationPropertyReferences = build(OWLAxiom.class);
         declarationsByEntity = build(OWLDeclarationAxiom.class);
-        classAssertionAxiomsByClass = buildLazy(CLASS_ASSERTION, CLASSEXPRESSIONS, OWLClassAssertionAxiom.class);
-        annotationAssertionAxiomsBySubject = buildLazy(ANNOTATION_ASSERTION, ANNOTSUPERNAMED,
-            OWLAnnotationAssertionAxiom.class);
-        subClassAxiomsBySubPosition = buildLazy(SUBCLASS_OF, CLASSSUBNAMED, OWLSubClassOfAxiom.class);
-        subClassAxiomsBySuperPosition = buildLazy(SUBCLASS_OF, CLASSSUPERNAMED, OWLSubClassOfAxiom.class);
-        objectSubPropertyAxiomsBySubPosition = buildLazy(SUB_OBJECT_PROPERTY, OPSUBNAMED,
-            OWLSubObjectPropertyOfAxiom.class);
-        objectSubPropertyAxiomsBySuperPosition = buildLazy(SUB_OBJECT_PROPERTY, OPSUPERNAMED,
-            OWLSubObjectPropertyOfAxiom.class);
-        dataSubPropertyAxiomsBySubPosition = buildLazy(SUB_DATA_PROPERTY, DPSUBNAMED, OWLSubDataPropertyOfAxiom.class);
-        dataSubPropertyAxiomsBySuperPosition = buildLazy(SUB_DATA_PROPERTY, DPSUPERNAMED,
-            OWLSubDataPropertyOfAxiom.class);
+        classAssertionAxiomsByClass =
+            buildLazy(CLASS_ASSERTION, CLASSEXPRESSIONS, OWLClassAssertionAxiom.class);
+        annotationAssertionAxiomsBySubject =
+            buildLazy(ANNOTATION_ASSERTION, ANNOTSUPERNAMED, OWLAnnotationAssertionAxiom.class);
+        subClassAxiomsBySubPosition =
+            buildLazy(SUBCLASS_OF, CLASSSUBNAMED, OWLSubClassOfAxiom.class);
+        subClassAxiomsBySuperPosition =
+            buildLazy(SUBCLASS_OF, CLASSSUPERNAMED, OWLSubClassOfAxiom.class);
+        objectSubPropertyAxiomsBySubPosition =
+            buildLazy(SUB_OBJECT_PROPERTY, OPSUBNAMED, OWLSubObjectPropertyOfAxiom.class);
+        objectSubPropertyAxiomsBySuperPosition =
+            buildLazy(SUB_OBJECT_PROPERTY, OPSUPERNAMED, OWLSubObjectPropertyOfAxiom.class);
+        dataSubPropertyAxiomsBySubPosition =
+            buildLazy(SUB_DATA_PROPERTY, DPSUBNAMED, OWLSubDataPropertyOfAxiom.class);
+        dataSubPropertyAxiomsBySuperPosition =
+            buildLazy(SUB_DATA_PROPERTY, DPSUPERNAMED, OWLSubDataPropertyOfAxiom.class);
         classAxiomsByClass = buildClassAxiomByClass();
-        equivalentClassesAxiomsByClass = buildLazy(EQUIVALENT_CLASSES, CLASSCOLLECTIONS,
-            OWLEquivalentClassesAxiom.class);
-        disjointClassesAxiomsByClass = buildLazy(DISJOINT_CLASSES, CLASSCOLLECTIONS, OWLDisjointClassesAxiom.class);
-        disjointUnionAxiomsByClass = buildLazy(DISJOINT_UNION, CLASSCOLLECTIONS, OWLDisjointUnionAxiom.class);
+        equivalentClassesAxiomsByClass =
+            buildLazy(EQUIVALENT_CLASSES, CLASSCOLLECTIONS, OWLEquivalentClassesAxiom.class);
+        disjointClassesAxiomsByClass =
+            buildLazy(DISJOINT_CLASSES, CLASSCOLLECTIONS, OWLDisjointClassesAxiom.class);
+        disjointUnionAxiomsByClass =
+            buildLazy(DISJOINT_UNION, CLASSCOLLECTIONS, OWLDisjointUnionAxiom.class);
         hasKeyAxiomsByClass = buildLazy(HAS_KEY, CLASSSUPERNAMED, OWLHasKeyAxiom.class);
-        equivalentObjectPropertyAxiomsByProperty = buildLazy(EQUIVALENT_OBJECT_PROPERTIES, OPCOLLECTIONS,
-            OWLEquivalentObjectPropertiesAxiom.class);
-        disjointObjectPropertyAxiomsByProperty = buildLazy(DISJOINT_OBJECT_PROPERTIES, OPCOLLECTIONS,
-            OWLDisjointObjectPropertiesAxiom.class);
-        objectPropertyDomainAxiomsByProperty = buildLazy(OBJECT_PROPERTY_DOMAIN, OPSUBNAMED,
-            OWLObjectPropertyDomainAxiom.class);
-        objectPropertyRangeAxiomsByProperty = buildLazy(OBJECT_PROPERTY_RANGE, OPSUBNAMED,
-            OWLObjectPropertyRangeAxiom.class);
+        equivalentObjectPropertyAxiomsByProperty = buildLazy(EQUIVALENT_OBJECT_PROPERTIES,
+            OPCOLLECTIONS, OWLEquivalentObjectPropertiesAxiom.class);
+        disjointObjectPropertyAxiomsByProperty = buildLazy(DISJOINT_OBJECT_PROPERTIES,
+            OPCOLLECTIONS, OWLDisjointObjectPropertiesAxiom.class);
+        objectPropertyDomainAxiomsByProperty =
+            buildLazy(OBJECT_PROPERTY_DOMAIN, OPSUBNAMED, OWLObjectPropertyDomainAxiom.class);
+        objectPropertyRangeAxiomsByProperty =
+            buildLazy(OBJECT_PROPERTY_RANGE, OPSUBNAMED, OWLObjectPropertyRangeAxiom.class);
         functionalObjectPropertyAxiomsByProperty = buildLazy(FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED,
             OWLFunctionalObjectPropertyAxiom.class);
-        inverseFunctionalPropertyAxiomsByProperty = buildLazy(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED,
-            OWLInverseFunctionalObjectPropertyAxiom.class);
-        symmetricPropertyAxiomsByProperty = buildLazy(SYMMETRIC_OBJECT_PROPERTY, OPSUBNAMED,
-            OWLSymmetricObjectPropertyAxiom.class);
+        inverseFunctionalPropertyAxiomsByProperty = buildLazy(INVERSE_FUNCTIONAL_OBJECT_PROPERTY,
+            OPSUBNAMED, OWLInverseFunctionalObjectPropertyAxiom.class);
+        symmetricPropertyAxiomsByProperty =
+            buildLazy(SYMMETRIC_OBJECT_PROPERTY, OPSUBNAMED, OWLSymmetricObjectPropertyAxiom.class);
         asymmetricPropertyAxiomsByProperty = buildLazy(ASYMMETRIC_OBJECT_PROPERTY, OPSUBNAMED,
             OWLAsymmetricObjectPropertyAxiom.class);
-        reflexivePropertyAxiomsByProperty = buildLazy(REFLEXIVE_OBJECT_PROPERTY, OPSUBNAMED,
-            OWLReflexiveObjectPropertyAxiom.class);
+        reflexivePropertyAxiomsByProperty =
+            buildLazy(REFLEXIVE_OBJECT_PROPERTY, OPSUBNAMED, OWLReflexiveObjectPropertyAxiom.class);
         irreflexivePropertyAxiomsByProperty = buildLazy(IRREFLEXIVE_OBJECT_PROPERTY, OPSUBNAMED,
             OWLIrreflexiveObjectPropertyAxiom.class);
         transitivePropertyAxiomsByProperty = buildLazy(TRANSITIVE_OBJECT_PROPERTY, OPSUBNAMED,
             OWLTransitiveObjectPropertyAxiom.class);
         inversePropertyAxiomsByProperty = buildLazy(INVERSE_OBJECT_PROPERTIES, OPCOLLECTIONS,
             OWLInverseObjectPropertiesAxiom.class);
-        equivalentDataPropertyAxiomsByProperty = buildLazy(EQUIVALENT_DATA_PROPERTIES, DPCOLLECTIONS,
-            OWLEquivalentDataPropertiesAxiom.class);
+        equivalentDataPropertyAxiomsByProperty = buildLazy(EQUIVALENT_DATA_PROPERTIES,
+            DPCOLLECTIONS, OWLEquivalentDataPropertiesAxiom.class);
         disjointDataPropertyAxiomsByProperty = buildLazy(DISJOINT_DATA_PROPERTIES, DPCOLLECTIONS,
             OWLDisjointDataPropertiesAxiom.class);
-        dataPropertyDomainAxiomsByProperty = buildLazy(DATA_PROPERTY_DOMAIN, DPSUBNAMED,
-            OWLDataPropertyDomainAxiom.class);
-        dataPropertyRangeAxiomsByProperty = buildLazy(DATA_PROPERTY_RANGE, DPSUBNAMED, OWLDataPropertyRangeAxiom.class);
-        functionalDataPropertyAxiomsByProperty = buildLazy(FUNCTIONAL_DATA_PROPERTY, DPSUBNAMED,
-            OWLFunctionalDataPropertyAxiom.class);
-        classAssertionAxiomsByIndividual = buildLazy(CLASS_ASSERTION, INDIVIDUALSUBNAMED, OWLClassAssertionAxiom.class);
-        objectPropertyAssertionsByIndividual = buildLazy(OBJECT_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED,
-            OWLObjectPropertyAssertionAxiom.class);
+        dataPropertyDomainAxiomsByProperty =
+            buildLazy(DATA_PROPERTY_DOMAIN, DPSUBNAMED, OWLDataPropertyDomainAxiom.class);
+        dataPropertyRangeAxiomsByProperty =
+            buildLazy(DATA_PROPERTY_RANGE, DPSUBNAMED, OWLDataPropertyRangeAxiom.class);
+        functionalDataPropertyAxiomsByProperty =
+            buildLazy(FUNCTIONAL_DATA_PROPERTY, DPSUBNAMED, OWLFunctionalDataPropertyAxiom.class);
+        classAssertionAxiomsByIndividual =
+            buildLazy(CLASS_ASSERTION, INDIVIDUALSUBNAMED, OWLClassAssertionAxiom.class);
+        objectPropertyAssertionsByIndividual = buildLazy(OBJECT_PROPERTY_ASSERTION,
+            INDIVIDUALSUBNAMED, OWLObjectPropertyAssertionAxiom.class);
         dataPropertyAssertionsByIndividual = buildLazy(DATA_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED,
             OWLDataPropertyAssertionAxiom.class);
-        negativeObjectPropertyAssertionAxiomsByIndividual = buildLazy(NEGATIVE_OBJECT_PROPERTY_ASSERTION,
-            INDIVIDUALSUBNAMED, OWLNegativeObjectPropertyAssertionAxiom.class);
-        negativeDataPropertyAssertionAxiomsByIndividual = buildLazy(NEGATIVE_DATA_PROPERTY_ASSERTION,
-            INDIVIDUALSUBNAMED, OWLNegativeDataPropertyAssertionAxiom.class);
-        differentIndividualsAxiomsByIndividual = buildLazy(DIFFERENT_INDIVIDUALS, ICOLLECTIONS,
-            OWLDifferentIndividualsAxiom.class);
-        sameIndividualsAxiomsByIndividual = buildLazy(SAME_INDIVIDUAL, ICOLLECTIONS, OWLSameIndividualAxiom.class);
+        negativeObjectPropertyAssertionAxiomsByIndividual =
+            buildLazy(NEGATIVE_OBJECT_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED,
+                OWLNegativeObjectPropertyAssertionAxiom.class);
+        negativeDataPropertyAssertionAxiomsByIndividual =
+            buildLazy(NEGATIVE_DATA_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED,
+                OWLNegativeDataPropertyAssertionAxiom.class);
+        differentIndividualsAxiomsByIndividual =
+            buildLazy(DIFFERENT_INDIVIDUALS, ICOLLECTIONS, OWLDifferentIndividualsAxiom.class);
+        sameIndividualsAxiomsByIndividual =
+            buildLazy(SAME_INDIVIDUAL, ICOLLECTIONS, OWLSameIndividualAxiom.class);
         axiomsForSerialization.forEach(this::addAxiom);
         axiomsForSerialization = null;
         pointers = map();
@@ -331,8 +343,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param type
-     *        entity type
+     * @param type entity type
      * @return true if there are entities of the specified type referred
      */
     public boolean anyEntities(EntityType<?> type) {
@@ -358,7 +369,8 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     private EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>> map() {
-        EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>> m = new EnumMap<>(InternalsPointers.class);
+        EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>> m =
+            new EnumMap<>(InternalsPointers.class);
         m.put(InternalsPointers.AXIOMSBYTYPE, axiomsByType);
         m.put(InternalsPointers.OWLCLASSREFERENCES, owlClassReferences);
         m.put(InternalsPointers.OWLOBJECTPROPERTYREFERENCES, owlObjectPropertyReferences);
@@ -369,53 +381,70 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         m.put(InternalsPointers.OWLANNOTATIONPROPERTYREFERENCES, owlAnnotationPropertyReferences);
         m.put(InternalsPointers.DECLARATIONSBYENTITY, declarationsByEntity);
         m.put(InternalsPointers.CLASSASSERTIONAXIOMSBYCLASS, classAssertionAxiomsByClass);
-        m.put(InternalsPointers.ANNOTATIONASSERTIONAXIOMSBYSUBJECT, annotationAssertionAxiomsBySubject);
+        m.put(InternalsPointers.ANNOTATIONASSERTIONAXIOMSBYSUBJECT,
+            annotationAssertionAxiomsBySubject);
         m.put(InternalsPointers.SUBCLASSAXIOMSBYSUBPOSITION, subClassAxiomsBySubPosition);
         m.put(InternalsPointers.SUBCLASSAXIOMSBYSUPERPOSITION, subClassAxiomsBySuperPosition);
-        m.put(InternalsPointers.OBJECTSUBPROPERTYAXIOMSBYSUBPOSITION, objectSubPropertyAxiomsBySubPosition);
-        m.put(InternalsPointers.OBJECTSUBPROPERTYAXIOMSBYSUPERPOSITION, objectSubPropertyAxiomsBySuperPosition);
-        m.put(InternalsPointers.DATASUBPROPERTYAXIOMSBYSUBPOSITION, dataSubPropertyAxiomsBySubPosition);
-        m.put(InternalsPointers.DATASUBPROPERTYAXIOMSBYSUPERPOSITION, dataSubPropertyAxiomsBySuperPosition);
+        m.put(InternalsPointers.OBJECTSUBPROPERTYAXIOMSBYSUBPOSITION,
+            objectSubPropertyAxiomsBySubPosition);
+        m.put(InternalsPointers.OBJECTSUBPROPERTYAXIOMSBYSUPERPOSITION,
+            objectSubPropertyAxiomsBySuperPosition);
+        m.put(InternalsPointers.DATASUBPROPERTYAXIOMSBYSUBPOSITION,
+            dataSubPropertyAxiomsBySubPosition);
+        m.put(InternalsPointers.DATASUBPROPERTYAXIOMSBYSUPERPOSITION,
+            dataSubPropertyAxiomsBySuperPosition);
         m.put(InternalsPointers.CLASSAXIOMSBYCLASS, classAxiomsByClass);
         m.put(InternalsPointers.EQUIVALENTCLASSESAXIOMSBYCLASS, equivalentClassesAxiomsByClass);
         m.put(InternalsPointers.DISJOINTCLASSESAXIOMSBYCLASS, disjointClassesAxiomsByClass);
         m.put(InternalsPointers.DISJOINTUNIONAXIOMSBYCLASS, disjointUnionAxiomsByClass);
         m.put(InternalsPointers.HASKEYAXIOMSBYCLASS, hasKeyAxiomsByClass);
-        m.put(InternalsPointers.EQUIVALENTOBJECTPROPERTYAXIOMSBYPROPERTY, equivalentObjectPropertyAxiomsByProperty);
-        m.put(InternalsPointers.DISJOINTOBJECTPROPERTYAXIOMSBYPROPERTY, disjointObjectPropertyAxiomsByProperty);
-        m.put(InternalsPointers.OBJECTPROPERTYDOMAINAXIOMSBYPROPERTY, objectPropertyDomainAxiomsByProperty);
-        m.put(InternalsPointers.OBJECTPROPERTYRANGEAXIOMSBYPROPERTY, objectPropertyRangeAxiomsByProperty);
-        m.put(InternalsPointers.FUNCTIONALOBJECTPROPERTYAXIOMSBYPROPERTY, functionalObjectPropertyAxiomsByProperty);
-        m.put(InternalsPointers.INVERSEFUNCTIONALPROPERTYAXIOMSBYPROPERTY, inverseFunctionalPropertyAxiomsByProperty);
-        m.put(InternalsPointers.SYMMETRICPROPERTYAXIOMSBYPROPERTY, symmetricPropertyAxiomsByProperty);
-        m.put(InternalsPointers.ASYMMETRICPROPERTYAXIOMSBYPROPERTY, asymmetricPropertyAxiomsByProperty);
-        m.put(InternalsPointers.REFLEXIVEPROPERTYAXIOMSBYPROPERTY, reflexivePropertyAxiomsByProperty);
-        m.put(InternalsPointers.IRREFLEXIVEPROPERTYAXIOMSBYPROPERTY, irreflexivePropertyAxiomsByProperty);
-        m.put(InternalsPointers.TRANSITIVEPROPERTYAXIOMSBYPROPERTY, transitivePropertyAxiomsByProperty);
+        m.put(InternalsPointers.EQUIVALENTOBJECTPROPERTYAXIOMSBYPROPERTY,
+            equivalentObjectPropertyAxiomsByProperty);
+        m.put(InternalsPointers.DISJOINTOBJECTPROPERTYAXIOMSBYPROPERTY,
+            disjointObjectPropertyAxiomsByProperty);
+        m.put(InternalsPointers.OBJECTPROPERTYDOMAINAXIOMSBYPROPERTY,
+            objectPropertyDomainAxiomsByProperty);
+        m.put(InternalsPointers.OBJECTPROPERTYRANGEAXIOMSBYPROPERTY,
+            objectPropertyRangeAxiomsByProperty);
+        m.put(InternalsPointers.FUNCTIONALOBJECTPROPERTYAXIOMSBYPROPERTY,
+            functionalObjectPropertyAxiomsByProperty);
+        m.put(InternalsPointers.INVERSEFUNCTIONALPROPERTYAXIOMSBYPROPERTY,
+            inverseFunctionalPropertyAxiomsByProperty);
+        m.put(InternalsPointers.SYMMETRICPROPERTYAXIOMSBYPROPERTY,
+            symmetricPropertyAxiomsByProperty);
+        m.put(InternalsPointers.ASYMMETRICPROPERTYAXIOMSBYPROPERTY,
+            asymmetricPropertyAxiomsByProperty);
+        m.put(InternalsPointers.REFLEXIVEPROPERTYAXIOMSBYPROPERTY,
+            reflexivePropertyAxiomsByProperty);
+        m.put(InternalsPointers.IRREFLEXIVEPROPERTYAXIOMSBYPROPERTY,
+            irreflexivePropertyAxiomsByProperty);
+        m.put(InternalsPointers.TRANSITIVEPROPERTYAXIOMSBYPROPERTY,
+            transitivePropertyAxiomsByProperty);
         m.put(InternalsPointers.INVERSEPROPERTYAXIOMSBYPROPERTY, inversePropertyAxiomsByProperty);
-        m.put(InternalsPointers.EQUIVALENTDATAPROPERTYAXIOMSBYPROPERTY, equivalentDataPropertyAxiomsByProperty);
-        m.put(InternalsPointers.DISJOINTDATAPROPERTYAXIOMSBYPROPERTY, disjointDataPropertyAxiomsByProperty);
-        m.put(InternalsPointers.DATAPROPERTYDOMAINAXIOMSBYPROPERTY, dataPropertyDomainAxiomsByProperty);
-        m.put(InternalsPointers.DATAPROPERTYRANGEAXIOMSBYPROPERTY, dataPropertyRangeAxiomsByProperty);
-        m.put(InternalsPointers.FUNCTIONALDATAPROPERTYAXIOMSBYPROPERTY, functionalDataPropertyAxiomsByProperty);
+        m.put(InternalsPointers.EQUIVALENTDATAPROPERTYAXIOMSBYPROPERTY,
+            equivalentDataPropertyAxiomsByProperty);
+        m.put(InternalsPointers.DISJOINTDATAPROPERTYAXIOMSBYPROPERTY,
+            disjointDataPropertyAxiomsByProperty);
+        m.put(InternalsPointers.DATAPROPERTYDOMAINAXIOMSBYPROPERTY,
+            dataPropertyDomainAxiomsByProperty);
+        m.put(InternalsPointers.DATAPROPERTYRANGEAXIOMSBYPROPERTY,
+            dataPropertyRangeAxiomsByProperty);
+        m.put(InternalsPointers.FUNCTIONALDATAPROPERTYAXIOMSBYPROPERTY,
+            functionalDataPropertyAxiomsByProperty);
         m.put(InternalsPointers.CLASSASSERTIONAXIOMSBYINDIVIDUAL, classAssertionAxiomsByIndividual);
-        m.put(InternalsPointers.OBJECTPROPERTYASSERTIONSBYINDIVIDUAL, objectPropertyAssertionsByIndividual);
-        m.put(InternalsPointers.DATAPROPERTYASSERTIONSBYINDIVIDUAL, dataPropertyAssertionsByIndividual);
+        m.put(InternalsPointers.OBJECTPROPERTYASSERTIONSBYINDIVIDUAL,
+            objectPropertyAssertionsByIndividual);
+        m.put(InternalsPointers.DATAPROPERTYASSERTIONSBYINDIVIDUAL,
+            dataPropertyAssertionsByIndividual);
         m.put(InternalsPointers.NEGATIVEOBJECTPROPERTYASSERTIONAXIOMSBYINDIVIDUAL,
             negativeObjectPropertyAssertionAxiomsByIndividual);
         m.put(InternalsPointers.NEGATIVEDATAPROPERTYASSERTIONAXIOMSBYINDIVIDUAL,
             negativeDataPropertyAssertionAxiomsByIndividual);
-        m.put(InternalsPointers.DIFFERENTINDIVIDUALSAXIOMSBYINDIVIDUAL, differentIndividualsAxiomsByIndividual);
-        m.put(InternalsPointers.SAMEINDIVIDUALSAXIOMSBYINDIVIDUAL, sameIndividualsAxiomsByIndividual);
+        m.put(InternalsPointers.DIFFERENTINDIVIDUALSAXIOMSBYINDIVIDUAL,
+            differentIndividualsAxiomsByIndividual);
+        m.put(InternalsPointers.SAMEINDIVIDUALSAXIOMSBYINDIVIDUAL,
+            sameIndividualsAxiomsByIndividual);
         return m;
-    }
-
-    /**
-     * Trims the capacity of the axiom indexes . An application can use this
-     * operation to minimize the storage of the internals instance.
-     */
-    public void trimToSize() {
-        // pointers.values().forEach(MapPointer::trimToSize);
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -424,8 +453,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a class with this iri exists
      */
     public boolean containsClassInSignature(IRI i) {
@@ -433,8 +461,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an object property with this iri exists
      */
     public boolean containsObjectPropertyInSignature(IRI i) {
@@ -442,8 +469,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a data property with this iri exists
      */
     public boolean containsDataPropertyInSignature(IRI i) {
@@ -451,8 +477,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an annotation property with this iri exists
      */
     public boolean containsAnnotationPropertyInSignature(IRI i) {
@@ -460,8 +485,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a individual with this iri exists
      */
     public boolean containsIndividualInSignature(IRI i) {
@@ -469,8 +493,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a datatype with this iri exists
      */
     public boolean containsDatatypeInSignature(IRI i) {
@@ -478,8 +501,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a class with this iri exists
      */
     public boolean containsClassInSignature(OWLClass i) {
@@ -487,8 +509,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an object property with this iri exists
      */
     public boolean containsObjectPropertyInSignature(OWLObjectProperty i) {
@@ -496,8 +517,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a data property with this iri exists
      */
     public boolean containsDataPropertyInSignature(OWLDataProperty i) {
@@ -505,8 +525,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an annotation property with this iri exists
      */
     public boolean containsAnnotationPropertyInSignature(OWLAnnotationProperty i) {
@@ -514,8 +533,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a individual with this iri exists
      */
     public boolean containsIndividualInSignature(OWLNamedIndividual i) {
@@ -523,8 +541,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a datatype with this iri exists
      */
     public boolean containsDatatypeInSignature(OWLDatatype i) {
@@ -532,23 +549,17 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param type
-     *        type of map key
-     * @param axiom
-     *        class of axiom indexed
-     * @param position
-     *        for axioms with a left/right distinction, IN_SUPER_POSITION means
-     *        right index
-     * @param <T>
-     *        key type
-     * @param <A>
-     *        value type
+     * @param type     type of map key
+     * @param axiom    class of axiom indexed
+     * @param position for axioms with a left/right distinction, IN_SUPER_POSITION means right index
+     * @param <T>      key type
+     * @param <A>      value type
      * @return map pointer matching the search, or null if there is not one
      */
     // not always not null, but supposed to be
-    @SuppressWarnings({ "unchecked" })
-    <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(Class<T> type, Class<A> axiom,
-        Navigation position) {
+    @SuppressWarnings({"unchecked"})
+    <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(Class<T> type,
+        Class<A> axiom, Navigation position) {
         if (OWLEntity.class.isAssignableFrom(type) && axiom.equals(OWLDeclarationAxiom.class)) {
             return Optional.ofNullable((MapPointer<T, A>) declarationsByEntity);
         }
@@ -579,16 +590,20 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         if (type.equals(OWLObjectPropertyExpression.class)) {
             if (axiom.equals(OWLSubObjectPropertyOfAxiom.class)) {
                 if (position == Navigation.IN_SUPER_POSITION) {
-                    return Optional.ofNullable((MapPointer<T, A>) objectSubPropertyAxiomsBySuperPosition);
+                    return Optional
+                        .ofNullable((MapPointer<T, A>) objectSubPropertyAxiomsBySuperPosition);
                 } else {
-                    return Optional.ofNullable((MapPointer<T, A>) objectSubPropertyAxiomsBySubPosition);
+                    return Optional
+                        .ofNullable((MapPointer<T, A>) objectSubPropertyAxiomsBySubPosition);
                 }
             }
             if (axiom.equals(OWLEquivalentObjectPropertiesAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) equivalentObjectPropertyAxiomsByProperty);
+                return Optional
+                    .ofNullable((MapPointer<T, A>) equivalentObjectPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLDisjointObjectPropertiesAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) disjointObjectPropertyAxiomsByProperty);
+                return Optional
+                    .ofNullable((MapPointer<T, A>) disjointObjectPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLObjectPropertyDomainAxiom.class)) {
                 return Optional.ofNullable((MapPointer<T, A>) objectPropertyDomainAxiomsByProperty);
@@ -597,10 +612,12 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
                 return Optional.ofNullable((MapPointer<T, A>) objectPropertyRangeAxiomsByProperty);
             }
             if (axiom.equals(OWLFunctionalObjectPropertyAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) functionalObjectPropertyAxiomsByProperty);
+                return Optional
+                    .ofNullable((MapPointer<T, A>) functionalObjectPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLInverseFunctionalObjectPropertyAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) inverseFunctionalPropertyAxiomsByProperty);
+                return Optional
+                    .ofNullable((MapPointer<T, A>) inverseFunctionalPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLSymmetricObjectPropertyAxiom.class)) {
                 return Optional.ofNullable((MapPointer<T, A>) symmetricPropertyAxiomsByProperty);
@@ -624,13 +641,16 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         if (type.equals(OWLDataPropertyExpression.class)) {
             if (axiom.equals(OWLSubDataPropertyOfAxiom.class)) {
                 if (position == Navigation.IN_SUPER_POSITION) {
-                    return Optional.ofNullable((MapPointer<T, A>) dataSubPropertyAxiomsBySuperPosition);
+                    return Optional
+                        .ofNullable((MapPointer<T, A>) dataSubPropertyAxiomsBySuperPosition);
                 } else {
-                    return Optional.ofNullable((MapPointer<T, A>) dataSubPropertyAxiomsBySubPosition);
+                    return Optional
+                        .ofNullable((MapPointer<T, A>) dataSubPropertyAxiomsBySubPosition);
                 }
             }
             if (axiom.equals(OWLEquivalentDataPropertiesAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) equivalentDataPropertyAxiomsByProperty);
+                return Optional
+                    .ofNullable((MapPointer<T, A>) equivalentDataPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLDisjointDataPropertiesAxiom.class)) {
                 return Optional.ofNullable((MapPointer<T, A>) disjointDataPropertyAxiomsByProperty);
@@ -642,7 +662,8 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
                 return Optional.ofNullable((MapPointer<T, A>) dataPropertyRangeAxiomsByProperty);
             }
             if (axiom.equals(OWLFunctionalDataPropertyAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) functionalDataPropertyAxiomsByProperty);
+                return Optional
+                    .ofNullable((MapPointer<T, A>) functionalDataPropertyAxiomsByProperty);
             }
         }
         if (type.equals(OWLAnnotationSubject.class) || type.equals(IRI.class)) {
@@ -659,13 +680,16 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
                 return Optional.ofNullable((MapPointer<T, A>) dataPropertyAssertionsByIndividual);
             }
             if (axiom.equals(OWLNegativeObjectPropertyAssertionAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) negativeObjectPropertyAssertionAxiomsByIndividual);
+                return Optional.ofNullable(
+                    (MapPointer<T, A>) negativeObjectPropertyAssertionAxiomsByIndividual);
             }
             if (axiom.equals(OWLNegativeDataPropertyAssertionAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) negativeDataPropertyAssertionAxiomsByIndividual);
+                return Optional
+                    .ofNullable((MapPointer<T, A>) negativeDataPropertyAssertionAxiomsByIndividual);
             }
             if (axiom.equals(OWLDifferentIndividualsAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) differentIndividualsAxiomsByIndividual);
+                return Optional
+                    .ofNullable((MapPointer<T, A>) differentIndividualsAxiomsByIndividual);
             }
             if (axiom.equals(OWLSameIndividualAxiom.class)) {
                 return Optional.ofNullable((MapPointer<T, A>) sameIndividualsAxiomsByIndividual);
@@ -702,8 +726,8 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         return build(null, null, valueWithness);
     }
 
-    protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t, OWLAxiomVisitorEx<?> v,
-        Class<V> valueWithness) {
+    protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t,
+        OWLAxiomVisitorEx<?> v, Class<V> valueWithness) {
         return new MapPointer<>(t, v, false, this, valueWithness);
     }
 
@@ -711,14 +735,13 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         return new ClassAxiomByClassPointer(null, null, false, this);
     }
 
-    protected <K, V extends OWLAxiom> MapPointer<K, V> build(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
-        Class<V> valueWithness) {
+    protected <K, V extends OWLAxiom> MapPointer<K, V> build(@Nullable AxiomType<?> t,
+        @Nullable OWLAxiomVisitorEx<?> v, Class<V> valueWithness) {
         return new MapPointer<>(t, v, true, this, valueWithness);
     }
 
     /**
-     * @param axiom
-     *        axiom to add
+     * @param axiom axiom to add
      * @return true if the axiom was not already included
      */
     public boolean addAxiom(final OWLAxiom axiom) {
@@ -769,8 +792,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param axiom
-     *        axiom to remove
+     * @param axiom axiom to remove
      * @return true if removed
      */
     public boolean removeAxiom(final OWLAxiom axiom) {
@@ -821,8 +843,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param e
-     *        entity to check
+     * @param e entity to check
      * @return true if the entity is declared in the ontology
      */
     public boolean isDeclared(OWLEntity e) {
@@ -837,12 +858,9 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param filter
-     *        filter to satisfy
-     * @param <K>
-     *        key type
-     * @param key
-     *        key
+     * @param filter filter to satisfy
+     * @param <K>    key type
+     * @param key    key
      * @return set of values
      */
     public <K> Collection<? extends OWLAxiom> filterAxioms(OWLAxiomSearchFilter filter, K key) {
@@ -850,12 +868,9 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param <K>
-     *        key type
-     * @param filter
-     *        filter to satisfy
-     * @param key
-     *        key to match
+     * @param <K>    key type
+     * @param filter filter to satisfy
+     * @param key    key to match
      * @return true if the filter is matched at least once
      */
     public <K> boolean contains(OWLAxiomSearchFilter filter, K key) {
@@ -876,8 +891,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param importDeclaration
-     *        import declaration to remove
+     * @param importDeclaration import declaration to remove
      * @return true if added
      */
     public boolean addImportsDeclaration(OWLImportsDeclaration importDeclaration) {
@@ -885,8 +899,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param importDeclaration
-     *        import declaration to remove
+     * @param importDeclaration import declaration to remove
      * @return true if removed
      */
     public boolean removeImportsDeclaration(OWLImportsDeclaration importDeclaration) {
@@ -901,8 +914,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param ann
-     *        annotation to add
+     * @param ann annotation to add
      * @return true if annotation added
      */
     public boolean addOntologyAnnotation(OWLAnnotation ann) {
@@ -910,8 +922,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param ann
-     *        annotation to remove
+     * @param ann annotation to remove
      * @return true if annotation removed
      */
     public boolean removeOntologyAnnotation(OWLAnnotation ann) {
@@ -919,16 +930,11 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param p
-     *        pointer
-     * @param <K>
-     *        key type
-     * @param <V>
-     *        value type
-     * @param k
-     *        key
-     * @param v
-     *        value
+     * @param p   pointer
+     * @param <K> key type
+     * @param <V> value type
+     * @param k   key
+     * @param v   value
      * @return true if the pair (key, value) is contained
      */
     public static <K, V extends OWLAxiom> boolean contains(MapPointer<K, V> p, K k, V v) {
@@ -952,10 +958,8 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param <T>
-     *        axiom type
-     * @param axiomType
-     *        axiom type to count
+     * @param <T>       axiom type
+     * @param axiomType axiom type to count
      * @return axiom count
      */
     public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType) {
@@ -969,8 +973,8 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
      * @return logical axioms
      */
     public Stream<OWLLogicalAxiom> getLogicalAxioms() {
-        return LOGICAL_AXIOM_TYPES.stream().map(type -> axiomsByType.values(type, OWLLogicalAxiom.class))
-            .flatMap(x -> x);
+        return logicalAxiomTypes().stream()
+            .map(type -> axiomsByType.values(type, OWLLogicalAxiom.class)).flatMap(x -> x);
     }
 
     /**
@@ -978,7 +982,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
      */
     public int getLogicalAxiomCount() {
         int count = 0;
-        for (AxiomType<?> type : LOGICAL_AXIOM_TYPES) {
+        for (AxiomType<?> type : logicalAxiomTypes()) {
             count += axiomsByType.countValues(type);
         }
         return count;
@@ -993,8 +997,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param ax
-     *        GCI axiom to add
+     * @param ax GCI axiom to add
      * @return true if axiom added
      */
     public boolean addGeneralClassAxioms(OWLClassAxiom ax) {
@@ -1002,8 +1005,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param ax
-     *        axiom to remove
+     * @param ax axiom to remove
      * @return true if removed
      */
     public boolean removeGeneralClassAxioms(OWLClassAxiom ax) {
@@ -1011,8 +1013,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param ax
-     *        axiom to add
+     * @param ax axiom to add
      * @return true if added
      */
     public boolean addPropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
@@ -1020,8 +1021,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param ax
-     *        axiom to remove
+     * @param ax axiom to remove
      * @return true if removed
      */
     public boolean removePropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
@@ -1070,13 +1070,15 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         public void visit(OWLDisjointClassesAxiom axiom) {
             AtomicBoolean allAnon = new AtomicBoolean(true);
             // Index against each named class in the axiom
-            axiom.classExpressions().filter(IsAnonymous::isNamed).forEach(desc -> visitDisjoint(axiom, allAnon, desc));
+            axiom.classExpressions().filter(IsAnonymous::isNamed)
+                .forEach(desc -> visitDisjoint(axiom, allAnon, desc));
             if (allAnon.get()) {
                 addGeneralClassAxioms(axiom);
             }
         }
 
-        protected void visitDisjoint(OWLDisjointClassesAxiom axiom, AtomicBoolean allAnon, OWLClassExpression desc) {
+        protected void visitDisjoint(OWLDisjointClassesAxiom axiom, AtomicBoolean allAnon,
+            OWLClassExpression desc) {
             OWLClass cls = (OWLClass) desc;
             disjointClassesAxiomsByClass.put(cls, axiom);
             classAxiomsByClass.put(cls, axiom);
@@ -1113,7 +1115,8 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
 
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
-            axiom.individuals().forEach(ind -> differentIndividualsAxiomsByIndividual.put(ind, axiom));
+            axiom.individuals()
+                .forEach(ind -> differentIndividualsAxiomsByIndividual.put(ind, axiom));
         }
 
         @Override
@@ -1282,11 +1285,12 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
             AtomicBoolean allAnon = new AtomicBoolean(true);
-            axiom.classExpressions().filter(IsAnonymous::isNamed).map(OWLClassExpression::asOWLClass).forEach(c -> {
-                disjointClassesAxiomsByClass.remove(c, axiom);
-                classAxiomsByClass.remove(c, axiom);
-                allAnon.set(false);
-            });
+            axiom.classExpressions().filter(IsAnonymous::isNamed)
+                .map(OWLClassExpression::asOWLClass).forEach(c -> {
+                    disjointClassesAxiomsByClass.remove(c, axiom);
+                    classAxiomsByClass.remove(c, axiom);
+                    allAnon.set(false);
+                });
             if (allAnon.get()) {
                 removeGeneralClassAxioms(axiom);
             }
@@ -1306,7 +1310,8 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            axiom.properties().forEach(p -> equivalentObjectPropertyAxiomsByProperty.remove(p, axiom));
+            axiom.properties()
+                .forEach(p -> equivalentObjectPropertyAxiomsByProperty.remove(p, axiom));
         }
 
         @Override
@@ -1322,7 +1327,8 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
 
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
-            axiom.individuals().forEach(i -> differentIndividualsAxiomsByIndividual.remove(i, axiom));
+            axiom.individuals()
+                .forEach(i -> differentIndividualsAxiomsByIndividual.remove(i, axiom));
         }
 
         @Override
@@ -1332,7 +1338,8 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
 
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            axiom.properties().forEach(p -> disjointObjectPropertyAxiomsByProperty.remove(p, axiom));
+            axiom.properties()
+                .forEach(p -> disjointObjectPropertyAxiomsByProperty.remove(p, axiom));
         }
 
         @Override
@@ -1396,7 +1403,8 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
 
         @Override
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            axiom.properties().forEach(p -> equivalentDataPropertyAxiomsByProperty.remove(p, axiom));
+            axiom.properties()
+                .forEach(p -> equivalentDataPropertyAxiomsByProperty.remove(p, axiom));
         }
 
         @Override
@@ -1410,11 +1418,12 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
             AtomicBoolean allAnon = new AtomicBoolean(true);
-            axiom.classExpressions().filter(IsAnonymous::isNamed).map(OWLClassExpression::asOWLClass).forEach(c -> {
-                equivalentClassesAxiomsByClass.remove(c, axiom);
-                classAxiomsByClass.remove(c, axiom);
-                allAnon.set(false);
-            });
+            axiom.classExpressions().filter(IsAnonymous::isNamed)
+                .map(OWLClassExpression::asOWLClass).forEach(c -> {
+                    equivalentClassesAxiomsByClass.remove(c, axiom);
+                    classAxiomsByClass.remove(c, axiom);
+                    allAnon.set(false);
+                });
             if (allAnon.get()) {
                 removeGeneralClassAxioms(axiom);
             }
@@ -1466,15 +1475,15 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param owlEntity
-     *        entity to describe
+     * @param owlEntity entity to describe
      * @return referencing axioms
      */
     public Stream<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
         return owlEntity.accept(refAxiomsCollector);
     }
 
-    private class ReferencedAxiomsCollector implements OWLEntityVisitorEx<Stream<OWLAxiom>>, Serializable {
+    private class ReferencedAxiomsCollector
+        implements OWLEntityVisitorEx<Stream<OWLAxiom>>, Serializable {
 
         ReferencedAxiomsCollector() {}
 

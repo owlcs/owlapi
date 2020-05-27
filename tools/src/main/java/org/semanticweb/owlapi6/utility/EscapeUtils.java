@@ -59,7 +59,8 @@ public final class EscapeUtils {
             return s;
         }
         StringBuilder sb = new StringBuilder(s.length());
-        for (int i = 0; i < s.length(); i++) {
+        int i = 0;
+        for (; i < s.length(); i++) {
             char ch = s.charAt(i);
             if (ch == '\\') {
                 int j = i + 1;

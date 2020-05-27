@@ -67,7 +67,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Orders the axioms in a single MUPS by the frequency of which they appear in all MUPS.
      *
-     * @param mups The MUPS containing the axioms to be ordered
+     * @param mups    The MUPS containing the axioms to be ordered
      * @param allMups The set of all MUPS which is used to calculate the ordering
      * @return the ordered mups
      */
@@ -86,7 +86,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Given an axiom and a set of axioms this method determines how many sets contain the axiom.
      *
-     * @param ax The axiom that will be counted.
+     * @param ax        The axiom that will be counted.
      * @param axiomSets The sets to count from
      * @return the occurrences
      */
@@ -119,7 +119,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Check early termination.
      *
-     * @param satPaths the sat paths
+     * @param satPaths            the sat paths
      * @param currentPathContents the current path contents
      * @return true, if successful
      */
@@ -224,16 +224,16 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * This is a recursive method that builds a hitting set tree to obtain all justifications for an
      * unsatisfiable class.
      *
-     * @param unsatClass the unsat class
-     * @param mups The current justification for the current class. This corresponds to a node in
-     *        the hitting set tree.
-     * @param allMups All of the MUPS that have been found - this set gets populated over the course
-     *        of the tree building process. Initially this should just contain the first
-     *        justification
-     * @param satPaths Paths that have been completed.
+     * @param unsatClass          the unsat class
+     * @param mups                The current justification for the current class. This corresponds
+     *                            to a node in the hitting set tree.
+     * @param allMups             All of the MUPS that have been found - this set gets populated
+     *                            over the course of the tree building process. Initially this
+     *                            should just contain the first justification
+     * @param satPaths            Paths that have been completed.
      * @param currentPathContents The contents of the current path. Initially this should be an
-     *        empty set.
-     * @param maxExplanations the max explanations
+     *                            empty set.
+     * @param maxExplanations     the max explanations
      * @throws OWLException the oWL exception
      */
     private void constructHittingSetTree(OWLClassExpression unsatClass, Set<OWLAxiom> mups,
@@ -266,8 +266,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             currentPathContents.add(axiom);
             boolean earlyTermination = checkEarlyTermination(satPaths, currentPathContents);
             if (!earlyTermination) {
-                orderedMups = recurse(unsatClass, allMups, satPaths, currentPathContents,
-                    maxExplanations, orderedMups, axiom);
+                recurse(unsatClass, allMups, satPaths, currentPathContents, maxExplanations,
+                    orderedMups, axiom);
             }
             backtrack(currentPathContents, axiom, temporaryDeclarations, ontologies);
         }
@@ -276,17 +276,16 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Recurse.
      *
-     * @param unsatClass the unsat class
-     * @param allMups the all mups
-     * @param satPaths the sat paths
+     * @param unsatClass          the unsat class
+     * @param allMups             the all mups
+     * @param satPaths            the sat paths
      * @param currentPathContents the current path contents
-     * @param maxExplanations the max explanations
-     * @param orderedMups the ordered mups
-     * @param axiom the axiom
-     * @return the list
+     * @param maxExplanations     the max explanations
+     * @param orderedMups         the ordered mups
+     * @param axiom               the axiom
      * @throws OWLException the oWL exception
      */
-    private List<OWLAxiom> recurse(OWLClassExpression unsatClass, Set<Set<OWLAxiom>> allMups,
+    private void recurse(OWLClassExpression unsatClass, Set<Set<OWLAxiom>> allMups,
         Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations,
         List<OWLAxiom> orderedMups, OWLAxiom axiom) throws OWLException {
         Set<OWLAxiom> newMUPS = getNewMUPS(unsatClass, allMups, currentPathContents);
@@ -310,9 +309,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                 maxExplanations);
             // We have found a new MUPS, so recalculate the ordering
             // axioms in the MUPS at the current level
-            return getOrderedMUPS(orderedMups, allMups);
+            getOrderedMUPS(orderedMups, allMups);
         }
-        return orderedMups;
     }
 
     private void backtrack(Set<OWLAxiom> currentPathContents, OWLAxiom axiom,
@@ -331,8 +329,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Gets the new mups.
      *
-     * @param unsatClass the unsat class
-     * @param allMups the all mups
+     * @param unsatClass          the unsat class
+     * @param allMups             the all mups
      * @param currentPathContents the current path contents
      * @return the new mups
      */
@@ -356,7 +354,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Removes the axiom and add declarations.
      *
-     * @param axiom the axiom
+     * @param axiom                 the axiom
      * @param temporaryDeclarations the temporary declarations
      * @return the sets the
      */

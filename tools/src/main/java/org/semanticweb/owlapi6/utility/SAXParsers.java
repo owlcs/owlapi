@@ -13,6 +13,8 @@
 package org.semanticweb.owlapi6.utility;
 
 import javax.annotation.Nullable;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -56,10 +58,28 @@ public final class SAXParsers {
     public static SAXParserFactory initFactory() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setValidating(false);
+        disableFeature(XMLConstants.FEATURE_SECURE_PROCESSING, factory);
         disableFeature(LOAD_EXTERNAL_DTD, factory);
         disableFeature(VALIDATION, factory);
         disableFeature(GENERAL_ENTITIES, factory);
         disableFeature(PARAMETER_ENTITIES, factory);
+        factory.setNamespaceAware(true);
+        return factory;
+    }
+
+    /**
+     * @return a new factory, set up to be namespace aware, non validating and not loading external
+     *         dtds.
+     */
+    public static DocumentBuilderFactory initDOMFactory() {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setValidating(false);
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        disableDOMFeature(LOAD_EXTERNAL_DTD, factory);
+        disableDOMFeature(VALIDATION, factory);
+        disableDOMFeature(GENERAL_ENTITIES, factory);
+        disableDOMFeature(PARAMETER_ENTITIES, factory);
         factory.setNamespaceAware(true);
         return factory;
     }
@@ -72,13 +92,21 @@ public final class SAXParsers {
         }
     }
 
+    private static void disableDOMFeature(String feature, DocumentBuilderFactory factory) {
+        try {
+            factory.setFeature(feature, false);
+        } catch (ParserConfigurationException e) {
+            LOGGER.warn(factory.getClass().getName() + " does not support " + feature, e);
+        }
+    }
+
     /**
-     * @param handler declaration handler, optional. Used for entity detection for reuse in parser
-     *        output.
+     * @param handler   declaration handler, optional. Used for entity detection for reuse in parser
+     *                  output.
      * @param expansion entity expansion limit. See
-     *        {@link org.semanticweb.owlapi6.model.parameters.ConfigurationOptions} for instructions
-     *        on how to set the value.
-     * @return new SaxParser, intialized with optional declaration handler and larger entity
+     *                  {@link org.semanticweb.owlapi6.model.parameters.ConfigurationOptions} for
+     *                  instructions on how to set the value.
+     * @return new SaxParser, initialized with optional declaration handler and larger entity
      *         expansion limit
      */
     public static SAXParser initParserWithOWLAPIStandards(@Nullable DeclHandler handler,

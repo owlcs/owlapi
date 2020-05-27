@@ -12,11 +12,11 @@ import org.semanticweb.owlapi6.io.OWLParserParameters;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLDocumentFormatFactory;
 
-class ParserForTest implements OWLParser {
+class ParserForTestOperations implements OWLParser {
 
     private final StringWriter w;
 
-    ParserForTest(StringWriter w) {
+    ParserForTestOperations(StringWriter w) {
         this.w = w;
     }
 

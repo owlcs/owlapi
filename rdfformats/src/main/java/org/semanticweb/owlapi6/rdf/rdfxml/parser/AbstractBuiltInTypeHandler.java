@@ -60,6 +60,7 @@ import static org.semanticweb.owlapi6.vocab.SWRLVocabulary.VARIABLE;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -112,17 +113,17 @@ enum AbstractBuiltInTypeHandler
     TYPETRANSITIVEPROPERTYHANDLER           (OWL_TRANSITIVE_PROPERTY,               (c, s, p, o) -> defaultCanHandle( c, OWL_TRANSITIVE_PROPERTY, s, p, o),     (c, s, p, o) -> c .canHandleTransitiveStreaming( s, p), (c, s, p, o) -> c .handleTransitiveTriple( s, p, o));
     //@formatter:on
 
-    public static Set<AbstractBuiltInTypeHandler> strict = EnumSet.of(TYPEONTOLOGYPROPERTYHANDLER,
-        TYPEASYMMETRICPROPERTYHANDLER, TYPECLASSHANDLER, TYPEOBJECTPROPERTYHANDLER,
-        TYPEDATAPROPERTYHANDLER, TYPEDATATYPEHANDLER, TYPEFUNCTIONALPROPERTYHANDLER,
-        TYPEINVERSEFUNCTIONALPROPERTYHANDLER, TYPEIRREFLEXIVEPROPERTYHANDLER,
-        TYPEREFLEXIVEPROPERTYHANDLER, TYPESYMMETRICPROPERTYHANDLER, TYPETRANSITIVEPROPERTYHANDLER,
-        TYPERESTRICTIONHANDLER, TYPELISTHANDLER, TYPEANNOTATIONPROPERTYHANDLER,
-        TYPEDEPRECATEDCLASSHANDLER, TYPEDEPRECATEDPROPERTYHANDLER, TYPEDATARANGEHANDLER,
-        TYPEONTOLOGYHANDLER, TYPENEGATIVEDATAPROPERTYASSERTIONHANDLER, TYPERDFSCLASSHANDLER,
-        TYPESELFRESTRICTIONHANDLER, TYPEPROPERTYHANDLER, TYPENAMEDINDIVIDUALHANDLER,
-        TYPEANNOTATIONHANDLER);
-    public static final Set<AbstractBuiltInTypeHandler> nonStrict =
+    private static final Set<AbstractBuiltInTypeHandler> STRICT = EnumSet.of(
+        TYPEONTOLOGYPROPERTYHANDLER, TYPEASYMMETRICPROPERTYHANDLER, TYPECLASSHANDLER,
+        TYPEOBJECTPROPERTYHANDLER, TYPEDATAPROPERTYHANDLER, TYPEDATATYPEHANDLER,
+        TYPEFUNCTIONALPROPERTYHANDLER, TYPEINVERSEFUNCTIONALPROPERTYHANDLER,
+        TYPEIRREFLEXIVEPROPERTYHANDLER, TYPEREFLEXIVEPROPERTYHANDLER, TYPESYMMETRICPROPERTYHANDLER,
+        TYPETRANSITIVEPROPERTYHANDLER, TYPERESTRICTIONHANDLER, TYPELISTHANDLER,
+        TYPEANNOTATIONPROPERTYHANDLER, TYPEDEPRECATEDCLASSHANDLER, TYPEDEPRECATEDPROPERTYHANDLER,
+        TYPEDATARANGEHANDLER, TYPEONTOLOGYHANDLER, TYPENEGATIVEDATAPROPERTYASSERTIONHANDLER,
+        TYPERDFSCLASSHANDLER, TYPESELFRESTRICTIONHANDLER, TYPEPROPERTYHANDLER,
+        TYPENAMEDINDIVIDUALHANDLER, TYPEANNOTATIONHANDLER);
+    private static final Set<AbstractBuiltInTypeHandler> NON_STRICT =
         EnumSet.of(TYPESWRLATOMLISTHANDLER, TYPESWRLBUILTINATOMHANDLER, TYPESWRLBUILTINHANDLER,
             TYPESWRLCLASSATOMHANDLER, TYPESWRLDATARANGEATOMHANDLER,
             TYPESWRLDATAVALUEDPROPERTYATOMHANDLER, TYPESWRLDIFFERENTINDIVIDUALSATOMHANDLER,
@@ -145,10 +146,15 @@ enum AbstractBuiltInTypeHandler
         this.handle = handle;
     }
 
-    // XXX performance: these maps can be precomputed
+    private static final Map<IRI, BuiltInTypeHandler> STRICT_HANDLERS = toMap(STRICT.stream());
+    private static final Map<IRI, BuiltInTypeHandler> NON_STRICT_HANDLERS =
+        toMap(Stream.concat(STRICT.stream(), NON_STRICT.stream()));
+
     public static Map<IRI, BuiltInTypeHandler> handlers(boolean strictConfig) {
-        return toMap(
-            strictConfig ? strict.stream() : Stream.concat(strict.stream(), nonStrict.stream()));
+        if (strictConfig) {
+            return STRICT_HANDLERS;
+        }
+        return NON_STRICT_HANDLERS;
     }
 
     public static Map<IRI, BuiltInTypeHandler> axioms() {
@@ -158,7 +164,8 @@ enum AbstractBuiltInTypeHandler
 
     protected static Map<IRI, BuiltInTypeHandler> toMap(
         Stream<? extends BuiltInTypeHandler> stream) {
-        return stream.collect(Collectors.toConcurrentMap(BuiltInTypeHandler::getTypeIRI, x -> x));
+        return stream.collect(
+            Collectors.toUnmodifiableMap(BuiltInTypeHandler::getTypeIRI, Function.identity()));
     }
 
     public static boolean defaultCanHandle(OWLRDFConsumer c, HasIRI type, IRI s, IRI p, IRI o) {
