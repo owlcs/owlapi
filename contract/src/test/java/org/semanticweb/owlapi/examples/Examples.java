@@ -1798,6 +1798,29 @@ public class Examples extends TestBase {
         manager.saveOntology(ont, new TurtleDocumentFormat(), new StringDocumentTarget());
     }
 
+    @Test
+    public void shouldKeepDuplicatesIfAsked() throws Exception {
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        IRI ontologyIRI = IRI.create("http://example.com/owlapi/", "families");
+        OWLOntology ont = manager.createOntology(ontologyIRI);
+        OWLDataFactory factory = manager.getOWLDataFactory();
+
+        // Equivalence Tautology
+        OWLClass person = factory.getOWLClass(ontologyIRI + "#", "Person");
+        OWLEquivalentClassesAxiom equivalenceTautology = factory
+                .getOWLEquivalentClassesAxiom(person, person);
+        manager.addAxiom(ont, equivalenceTautology);
+        assertEquals(2, equivalenceTautology.classExpressions().count());
+        // System.out.println(equivalenceTautology);
+
+        // SubClass Tautology
+        OWLSubClassOfAxiom subclassTautology = factory
+                .getOWLSubClassOfAxiom(person, person);
+        manager.addAxiom(ont, subclassTautology);
+        assertEquals(3, subclassTautology.components().count());
+        // System.out.println(subclassTautology);
+    }
+
     /**
      * Visits existential restrictions and collects the properties which are
      * restricted.
