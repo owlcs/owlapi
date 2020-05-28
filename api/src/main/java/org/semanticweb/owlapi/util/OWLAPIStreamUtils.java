@@ -53,6 +53,27 @@ public class OWLAPIStreamUtils {
     /**
      * @param <T> type
      * @param type type of the returned array
+     * @param s stream to turn to sorted, duplicate free, no null, list
+     * @param keepDuplicates whether to keep the duplicates in the stream
+     * @return sorted array containing all elements in the stream, without nulls.
+     * Duplicates are also removed if {@code keepDuplicates} is false. The list is immutable.
+     */
+    public static <T> List<T> sorted(Class<T> type, Stream<? extends T> s, boolean keepDuplicates) {
+        // skip nulls, ensure sorted
+        if (keepDuplicates){
+            return Collections
+                    .unmodifiableList(asList(s.filter(Objects::nonNull).sorted(), type));
+        }
+        else{
+            // skip duplicates as well
+            return Collections
+                    .unmodifiableList(asList(s.filter(Objects::nonNull).distinct().sorted(), type));
+        }
+    }
+
+    /**
+     * @param <T> type
+     * @param type type of the returned array
      * @param c collection to turn to sorted, duplicate free, no null, list
      * @return sorted array containing all elements in the collection, minus nulls and duplicates.
      *         The list is immutable.
@@ -68,6 +89,27 @@ public class OWLAPIStreamUtils {
             return sorted(type, (Set<? extends T>) c);
         }
         return sorted(type, c.stream());
+    }
+
+    /**
+     * @param <T> type
+     * @param type type of the returned array
+     * @param c collection to turn to sorted, duplicate free, no null, list
+     * @param keepDuplicates whether to keep duplicate classes. Not applicable if {@code c} is a set
+     * @return sorted array containing all elements in the collection, minus nulls and duplicates.
+     *         The list is immutable.
+     */
+    public static <T> List<T> sorted(Class<T> type, Collection<? extends T> c, boolean keepDuplicates) {
+        if (c.isEmpty()) {
+            return Collections.emptyList();
+        }
+        if (c instanceof List) {
+            return sorted(type, (List<? extends T>) c, keepDuplicates);
+        }
+        if (c instanceof Set) {
+            return sorted(type, (Set<? extends T>) c);
+        }
+        return sorted(type, c.stream(), keepDuplicates);
     }
 
     /**
@@ -92,6 +134,36 @@ public class OWLAPIStreamUtils {
                 list.remove(i);
             } else {
                 i++;
+            }
+        }
+        return Collections.unmodifiableList(list);
+    }
+
+    /**
+     * @param <T> type
+     * @param type type of the returned array
+     * @param c collection to turn to sorted, duplicate free, no null, list
+     * @param keepDuplicates whether to keep the duplicates in the stream
+     * @return sorted array containing all elements in the collection, without nulls.
+     * Duplicates are also removed if {@code keepDuplicates} is false. The list is immutable.
+     */
+    public static <T> List<T> sorted(Class<T> type, List<? extends T> c, boolean keepDuplicates) {
+        List<T> list = new ArrayList<>(c);
+        for (int i = 0; i < list.size();) {
+            if (list.get(i) == null) {
+                list.remove(i);
+            } else {
+                i++;
+            }
+        }
+        if (!keepDuplicates) {
+            list.sort(null);
+            for (int i = 1; i < list.size(); ) {
+                if (list.get(i).equals(list.get(i - 1))) {
+                    list.remove(i);
+                } else {
+                    i++;
+                }
             }
         }
         return Collections.unmodifiableList(list);

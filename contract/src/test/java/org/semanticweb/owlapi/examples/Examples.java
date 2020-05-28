@@ -1808,7 +1808,7 @@ public class Examples extends TestBase {
         // Equivalence Tautology
         OWLClass person = factory.getOWLClass(ontologyIRI + "#", "Person");
         OWLEquivalentClassesAxiom equivalenceTautology = factory
-                .getOWLEquivalentClassesAxiom(person, person);
+                .getOWLEquivalentClassesAxiom(person, person, true);
         manager.addAxiom(ont, equivalenceTautology);
         assertEquals(2, equivalenceTautology.classExpressions().count());
         // System.out.println(equivalenceTautology);

@@ -756,6 +756,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
+    public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
+            Collection<? extends OWLClassExpression> classExpressions,
+            Collection<OWLAnnotation> annotations, boolean keepDuplicates) {
+        checkIterableNotNull(classExpressions, CLASS_EXPRESSIONS_CANNOT_BE_NULL, true);
+        checkAnnotations(annotations);
+        return new OWLEquivalentClassesAxiomImpl(classExpressions, annotations, keepDuplicates);
+    }
+
+    @Override
     public OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
         Collection<? extends OWLDataPropertyExpression> properties,
         Collection<OWLAnnotation> annotations) {

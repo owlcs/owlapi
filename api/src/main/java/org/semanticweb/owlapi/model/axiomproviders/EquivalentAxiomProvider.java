@@ -43,6 +43,17 @@ public interface EquivalentAxiomProvider {
 
     /**
      * @param classExpressions equivalent classes. Cannot be null or contain nulls.
+     * @param keepDuplicates whether to keep duplicate items
+     * @return an equivalent classes axiom with specified operands and no annotations
+     */
+    default OWLEquivalentClassesAxiom
+    getOWLEquivalentClassesAxiom(Collection<? extends OWLClassExpression> classExpressions,
+                                 boolean keepDuplicates) {
+        return getOWLEquivalentClassesAxiom(classExpressions, Collections.emptySet(), keepDuplicates);
+    }
+
+    /**
+     * @param classExpressions equivalent classes. Cannot be null or contain nulls.
      * @return an equivalent classes axiom with specified operands and no annotations
      */
     default OWLEquivalentClassesAxiom
@@ -58,6 +69,16 @@ public interface EquivalentAxiomProvider {
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
         Collection<? extends OWLClassExpression> classExpressions,
         Collection<OWLAnnotation> annotations);
+
+    /**
+     * @param classExpressions equivalent classes. Cannot be null or contain nulls.
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @param keepDuplicates whether to keep duplicate items
+     * @return an equivalent classes axiom with specified operands and annotations
+     */
+    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
+            Collection<? extends OWLClassExpression> classExpressions,
+            Collection<OWLAnnotation> annotations, boolean keepDuplicates);
 
     /**
      * @param classExpressions equivalent classes. Cannot be null or contain nulls.
@@ -83,6 +104,19 @@ public interface EquivalentAxiomProvider {
     /**
      * @param clsA one class for equivalence
      * @param clsB one class for equivalence
+     * @param keepDuplicates whether to keep duplicate items
+     * @return an equivalent classes axiom with specified operands and no annotations (special case
+     * with only two operands)
+     */
+    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA,
+                                                                   OWLClassExpression clsB,
+                                                                   boolean keepDuplicates) {
+        return getOWLEquivalentClassesAxiom(clsA, clsB, Collections.emptySet(), keepDuplicates);
+    }
+
+    /**
+     * @param clsA one class for equivalence
+     * @param clsB one class for equivalence
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent classes axiom with specified operands and annotations (special case
      * with only two operands)
@@ -91,6 +125,26 @@ public interface EquivalentAxiomProvider {
         OWLClassExpression clsB,
         Collection<OWLAnnotation> annotations) {
         return getOWLEquivalentClassesAxiom(CollectionFactory.createSet(clsA, clsB), annotations);
+    }
+
+    /**
+     * @param clsA one class for equivalence
+     * @param clsB one class for equivalence
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @param keepDuplicates whether to keep duplicate items
+     * @return an equivalent classes axiom with specified operands and annotations (special case
+     * with only two operands)
+     */
+    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA,
+                                                                   OWLClassExpression clsB,
+                                                                   Collection<OWLAnnotation> annotations,
+                                                                   boolean keepDuplicates) {
+        if (keepDuplicates){
+            return getOWLEquivalentClassesAxiom(CollectionFactory.createList(clsA, clsB), annotations, keepDuplicates);
+        }
+        else{
+            return getOWLEquivalentClassesAxiom(CollectionFactory.createSet(clsA, clsB), annotations);
+        }
     }
 
     /**

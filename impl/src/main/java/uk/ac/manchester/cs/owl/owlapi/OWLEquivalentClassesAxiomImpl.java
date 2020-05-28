@@ -41,6 +41,17 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         super(classExpressions, annotations);
     }
 
+    /**
+     * @param classExpressions equivalent classes
+     * @param annotations annotations
+     * @param keepDuplicates whether to keep duplicate classes
+     */
+    public OWLEquivalentClassesAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
+                                         Collection<OWLAnnotation> annotations,
+                                         boolean keepDuplicates) {
+        super(classExpressions, annotations, keepDuplicates);
+    }
+
     private static boolean named(OWLClassExpression d) {
         return !d.isAnonymous() && !d.isOWLNothing() && !d.isOWLThing();
     }

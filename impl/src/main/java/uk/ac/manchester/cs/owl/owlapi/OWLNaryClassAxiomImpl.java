@@ -45,6 +45,17 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         this.classExpressions = sorted(OWLClassExpression.class, classExpressions);
     }
 
+    /**
+     * @param classExpressions classes
+     * @param annotations annotations
+     */
+    public OWLNaryClassAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
+                                 Collection<OWLAnnotation> annotations, boolean keepDuplicates) {
+        super(annotations);
+        checkNotNull(classExpressions, "classExpressions cannot be null");
+        this.classExpressions = sorted(OWLClassExpression.class, classExpressions, keepDuplicates);
+    }
+
     @Override
     public Stream<OWLClassExpression> classExpressions() {
         return streamFromSorted(classExpressions);
