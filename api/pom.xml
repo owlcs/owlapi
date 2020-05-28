@@ -19,6 +19,17 @@
 			<artifactId>commons-rdf-api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlexplanation</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>org.semanticweb.hermit</artifactId>
+			<version>1.4.3.456</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-rdf-api</artifactId>
 			<classifier>tests</classifier>
