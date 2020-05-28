@@ -18,12 +18,14 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -81,6 +83,18 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return The IRI that has the specified string representation.
      */
     public static IRI create(String str) {
+
+        try {
+            URL url = new URL(str);
+            if (str.contains(" ")) {
+                throw new MalformedURLException();
+            }
+        } catch (MalformedURLException e) {
+            System.err.println("Invalid IRI: " + str);
+            System.exit(1);
+        }
+
+
         checkNotNull(str, "str cannot be null");
         int index = XMLUtils.getNCNameSuffixIndex(str);
         if (index < 0) {
