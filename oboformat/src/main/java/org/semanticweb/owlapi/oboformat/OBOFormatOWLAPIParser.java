@@ -14,11 +14,15 @@ package org.semanticweb.owlapi.oboformat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.Serializable;
+import java.net.JarURLConnection;
+import java.net.URL;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
@@ -26,34 +30,18 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
+import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /** oboformat parser */
-public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
+public class OBOFormatOWLAPIParser extends AbstractOWLParser implements Serializable {
 
     private static final long serialVersionUID = 40000L;
-
-    @Nonnull
-    @Override
-    public OWLDocumentFormat parse(IRI documentIRI, @Nonnull OWLOntology ontology)
-        throws IOException {
-        try {
-            parse(documentIRI, null, ontology);
-        } catch (OBOFormatParserException e) {
-            throw new OWLParserException(e);
-        } catch (OWLOntologyCreationException e) {
-            throw new OWLParserException(e);
-        }
-        return new OBODocumentFormat();
-    }
 
     @Nonnull
     @Override
@@ -61,46 +49,63 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         @Nonnull OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
         throws IOException {
         // XXX configuration is not used
+        OBOFormatParser p = new OBOFormatParser();
+        OBODoc obodoc = null;
         try {
-            parse(null, documentSource, ontology);
+            Reader reader = null;
+            InputStream is = null;
+            try {
+                if (documentSource.isReaderAvailable()) {
+                    reader = documentSource.getReader();
+                    obodoc = p.parse(new BufferedReader(reader));
+                } else if (documentSource.isInputStreamAvailable()) {
+                    is = documentSource.getInputStream();
+                    obodoc = p.parse(new BufferedReader(new InputStreamReader(is)));
+                } else {
+                    if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:")) {
+                        if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:!")) {
+                            String name = documentSource.getDocumentIRI().toString().substring(5);
+                            if (!name.startsWith("/")) {
+                                name = "/" + name;
+                            }
+                            is = getClass().getResourceAsStream(name);
+                        } else {
+                            try {
+                                is = ((JarURLConnection) new URL(
+                                    documentSource.getDocumentIRI().toString()).openConnection())
+                                        .getInputStream();
+                            } catch (IOException e) {
+                                throw new OWLParserException(e);
+                            }
+                        }
+                    } else {
+                        Optional<String> headers = documentSource.getAcceptHeaders();
+                        if (headers.isPresent()) {
+                            is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                                headers.get());
+                        } else {
+                            is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                                DEFAULT_REQUEST);
+                        }
+                    }
+                    obodoc = p.parse(new BufferedReader(new InputStreamReader(is)));
+                }
+                // create a translator object and feed it the OBO Document
+                OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(ontology.getOWLOntologyManager());
+                bridge.convert(obodoc, ontology);
+            } finally {
+                if (is != null) {
+                    is.close();
+                }
+                if (reader != null) {
+                    reader.close();
+                }
+            }
+
         } catch (OBOFormatParserException e) {
-            throw new OWLParserException(e);
-        } catch (OWLOntologyCreationException e) {
             throw new OWLParserException(e);
         }
         return new OBODocumentFormat();
-    }
-
-    @SuppressWarnings("null")
-    private static OWLOntology parse(@Nullable IRI iri, @Nullable OWLOntologyDocumentSource source,
-        @Nonnull OWLOntology in) throws IOException, OWLOntologyCreationException {
-        if (iri == null && source == null) {
-            throw new IllegalArgumentException("iri and source annot both be null");
-        }
-        OBOFormatParser p = new OBOFormatParser();
-        OBODoc obodoc = null;
-        if (iri != null) {
-            if (iri.toString().startsWith("jar:!")) {
-                throw new OWLParserException("Jar IRIs are not supported by the OBO parser");
-            }
-            obodoc = p.parse(iri.toURI().toURL());
-        } else {
-            if (source.isReaderAvailable()) {
-                obodoc = p.parse(new BufferedReader(source.getReader()));
-            } else if (source.isInputStreamAvailable()) {
-                obodoc =
-                    p.parse(new BufferedReader(new InputStreamReader(source.getInputStream())));
-            } else {
-                return parse(source.getDocumentIRI(), null, in);
-            }
-        }
-        // create a translator object and feed it the OBO Document
-        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(in.getOWLOntologyManager());
-        OWLOntology ontology = bridge.convert(obodoc, in);
-        if (ontology == in) {
-            return in;
-        }
-        return ontology;
     }
 
     @Nonnull
