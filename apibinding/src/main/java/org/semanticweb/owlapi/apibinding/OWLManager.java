@@ -20,6 +20,7 @@ import java.util.function.Supplier;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
@@ -55,6 +56,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
         REENTRANT(ReadWriteLock.class, () -> new ReentrantReadWriteLock()),
         //
         NOOP(ReadWriteLock.class, new NoOpReadWriteLock());
+
         private Class<?> c;
         private Supplier<?> s;
         private Class<?> type;
@@ -106,7 +108,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
     }
 
     /**
-     * Creates an OWL ontology manager that is configured with standard parsers, storeres etc.
+     * Creates an OWL ontology manager that is configured with standard parsers, storers etc.
      *
      * @return The new manager.
      */
@@ -127,11 +129,24 @@ public class OWLManager implements OWLOntologyManagerFactory {
 
     /**
      * Gets a global data factory that can be used to create OWL API objects.
+     * 
+     * @param config configuration object allowing a data factory behaviour to be tweaked. Currently
+     *               this only affects the creation of OWL constructs where collections are not
+     *               allowed to have duplicates.
+     *
+     * @return An OWLDataFactory that can be used for creating OWL API objects.
+     */
+    public static OWLDataFactory getOWLDataFactory(OWLOntologyLoaderConfiguration config) {
+        return new OWLDataFactoryImpl(config);
+    }
+
+    /**
+     * Gets a global data factory that can be used to create OWL API objects.
      *
      * @return An OWLDataFactory that can be used for creating OWL API objects.
      */
     public static OWLDataFactory getOWLDataFactory() {
-        return new OWLDataFactoryImpl();
+        return getOWLDataFactory(new OWLOntologyLoaderConfiguration());
     }
 
     /**

@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.semanticweb.owlapi.model.EntityType;
@@ -104,6 +105,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -182,6 +184,16 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, OWLClas
     //@formatter:on
     private final OWLDataFactoryInternals dataFactoryInternals =
         new OWLDataFactoryInternalsImpl(false);
+    private OWLOntologyLoaderConfiguration config;
+
+    @Inject
+    public OWLDataFactoryImpl() {
+        this(new OWLOntologyLoaderConfiguration());
+    }
+
+    public OWLDataFactoryImpl(OWLOntologyLoaderConfiguration config) {
+        this.config = config;
+    }
 
     @Override
     public void purge() {
@@ -940,7 +952,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, OWLClas
         checkAnnotations(annotations);
         // Hack to handle the case where classExpressions has only a single
         // member which will usually be the result of :x owl:disjointWith :x .
-        if (classExpressions.size() == 1) {
+        if (classExpressions.size() == 1 && !config.shouldAllowDuplicatesInConstructSets()) {
             OWLClassExpression classExpression = classExpressions.iterator().next();
             if (classExpression.isOWLThing()) {
                 throw new OWLRuntimeException(

@@ -26,7 +26,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PRIOR
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPAIR_ILLEGAL_PUNNINGS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPORT_STACK_TRACES;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
-import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SKIP_MODULE_ANNOTATIONS;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.*;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TREAT_DUBLINCORE_AS_BUILTIN;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TRIM_TO_SIZE;
 
@@ -86,7 +86,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * ontology loading.
      * 
      * @param ontologyDocumentIRI The ontology document IRI that will be ignored if it is
-     *        encountered as an imported ontology during loading.
+     *                            encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI set.
      */
     public OWLOntologyLoaderConfiguration addIgnoredImport(IRI ontologyDocumentIRI) {
@@ -112,7 +112,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * during ontology loading.
      * 
      * @param ontologyDocumentIRI The ontology document IRI that would be ignored if it is
-     *        encountered as an imported ontology during loading.
+     *                            encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI
      *         removed.
      */
@@ -304,7 +304,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
 
     /**
      * @param l new timeout Note: the timeout is an int and represents milliseconds. This is
-     *        necessary for use in {@code URLConnection}
+     *          necessary for use in {@code URLConnection}
      * @return A {@code OWLOntologyLoaderConfiguration} with the connection timeout set to the new
      *         value.
      */
@@ -340,7 +340,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * annotation axioms is enabled.
      * 
      * @param b {@code true} if annotation axioms should be loaded, or {@code false} if annotation
-     *        axioms should not be loaded and should be discarded on loading.
+     *          axioms should not be loaded and should be discarded on loading.
      * @return An {@code OWLOntologyLoaderConfiguration} object with the option set.
      */
     @Nonnull
@@ -455,7 +455,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
 
     /**
      * @param ban list of parser factory class names that should be skipped when attempting ontology
-     *        parsing. The list is space separated.
+     *            parsing. The list is space separated.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
     public OWLOntologyLoaderConfiguration setBannedParsers(String ban) {
@@ -537,6 +537,30 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.overrides.put(SKIP_MODULE_ANNOTATIONS, Boolean.valueOf(value));
+        return configuration;
+    }
+
+    /**
+     * @return false if collections used in constructs such as equivalent classes and properties
+     *         should be duplicate free. Some systems might need to allow this, e.g., reasoners
+     *         which require the creation of a tautology like {@code Equivalent(A, A)}.
+     */
+    public boolean shouldAllowDuplicatesInConstructSets() {
+        return ALLOW_DUPLICATES_IN_CONSTRUCT_SETS.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @param value false if collections used in constructs such as equivalent classes and
+     *              properties should be duplicate free.
+     * @return A {@code OWLOntologyLoaderConfiguration} with the allow duplicates flag set to the
+     *         new value.
+     */
+    public OWLOntologyLoaderConfiguration withAllowDuplicatesInConstructSets(boolean value) {
+        if (shouldAllowDuplicatesInConstructSets() == value) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(ALLOW_DUPLICATES_IN_CONSTRUCT_SETS, Boolean.valueOf(value));
         return configuration;
     }
 }
