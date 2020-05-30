@@ -58,8 +58,8 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
         OWLClass clsD = Class("D", pm);
         OWLClass clsE = Class("E", pm);
         SWRLVariable varA = df.getSWRLVariable("http://other.com/A/", "VarA");
-        SWRLVariable varB = df.getSWRLVariable("http://other.com/A/", "VarA");
-        SWRLVariable varC = df.getSWRLVariable("http://other.com/A/", "VarA");
+        SWRLVariable varB = df.getSWRLVariable("http://other.com/A/", "VarB");
+        SWRLVariable varC = df.getSWRLVariable("http://other.com/A/", "VarC");
         body.add(df.getSWRLClassAtom(clsC, varA));
         body.add(df.getSWRLClassAtom(clsB, varB));
         body.add(df.getSWRLClassAtom(clsA, varC));
