@@ -44,6 +44,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.semanticweb.owlapi.model.EntityType;
@@ -121,6 +122,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -211,6 +213,23 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     private final boolean useCompression = false;
     private transient OWLDataFactoryInternals dataFactoryInternals =
         new OWLDataFactoryInternalsImpl(useCompression);
+
+    private OWLOntologyLoaderConfiguration config;
+
+    /**
+     * Constructor for injection
+     */
+    @Inject
+    public OWLDataFactoryImpl() {
+        this(new OWLOntologyLoaderConfiguration());
+    }
+
+    /**
+     * @param config configuration object
+     */
+    public OWLDataFactoryImpl(OWLOntologyLoaderConfiguration config) {
+        this.config = config;
+    }
 
     private static void checkAnnotations(Collection<OWLAnnotation> o) {
         checkIterableNotNull(o, ANNOTATIONS_CANNOT_BE_NULL, true);
@@ -690,7 +709,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         checkIterableNotNull(annotations, "annotations cannot be null", true);
         // Hack to handle the case where classExpressions has only a single
         // member which will usually be the result of :x owl:disjointWith :x .
-        if (classExpressions.size() == 1) {
+        if (classExpressions.size() == 1 && !config.shouldAllowDuplicatesInConstructSets()) {
             OWLClassExpression classExpression = classExpressions.iterator().next();
             if (classExpression.isOWLThing()) {
                 throw new OWLRuntimeException(

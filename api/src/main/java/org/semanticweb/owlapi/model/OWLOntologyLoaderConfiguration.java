@@ -26,7 +26,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PRIOR
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPAIR_ILLEGAL_PUNNINGS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPORT_STACK_TRACES;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
-import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SKIP_MODULE_ANNOTATIONS;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.*;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TREAT_DUBLINCORE_AS_BUILTIN;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TRIM_TO_SIZE;
 
@@ -520,6 +520,30 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.overrides.put(SKIP_MODULE_ANNOTATIONS, Boolean.valueOf(value));
+        return configuration;
+    }
+
+    /**
+     * @return false if collections used in constructs such as equivalent classes and properties
+     *         should be duplicate free. Some systems might need to allow this, e.g., reasoners
+     *         which require the creation of a tautology like {@code Equivalent(A, A)}.
+     */
+    public boolean shouldAllowDuplicatesInConstructSets() {
+        return ALLOW_DUPLICATES_IN_CONSTRUCT_SETS.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @param value false if collections used in constructs such as equivalent classes and
+     *              properties should be duplicate free.
+     * @return A {@code OWLOntologyLoaderConfiguration} with the allow duplicates flag set to the
+     *         new value.
+     */
+    public OWLOntologyLoaderConfiguration withAllowDuplicatesInConstructSets(boolean value) {
+        if (shouldAllowDuplicatesInConstructSets() == value) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(ALLOW_DUPLICATES_IN_CONSTRUCT_SETS, Boolean.valueOf(value));
         return configuration;
     }
 }
