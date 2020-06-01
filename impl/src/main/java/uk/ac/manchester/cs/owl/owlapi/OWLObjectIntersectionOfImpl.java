@@ -14,8 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -30,24 +29,10 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
     implements OWLObjectIntersectionOf {
 
     /**
-     * @param operands operands
+     * @param operands operands (list must be sorted in the factory)
      */
-    public OWLObjectIntersectionOfImpl(Stream<OWLClassExpression> operands) {
+    public OWLObjectIntersectionOfImpl(List<OWLClassExpression> operands) {
         super(operands);
-    }
-
-    /**
-     * @param operands operands
-     */
-    public OWLObjectIntersectionOfImpl(Collection<? extends OWLClassExpression> operands) {
-        super(operands);
-    }
-
-    /**
-     * @param operands operands
-     */
-    public OWLObjectIntersectionOfImpl(OWLClassExpression... operands) {
-        super(Arrays.asList(operands));
     }
 
     @Override

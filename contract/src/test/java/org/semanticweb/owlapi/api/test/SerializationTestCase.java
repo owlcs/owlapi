@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -58,7 +59,11 @@ public class SerializationTestCase extends TestBase {
     private static final String URN_TEST = "urn:test#";
     private final OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
     private final OWLDataProperty dp = df.getOWLDataProperty(URN_TEST, "dp");
+    private final OWLDataProperty dp1 = df.getOWLDataProperty(URN_TEST, "dp1");
+    private final OWLDataProperty dp2 = df.getOWLDataProperty(URN_TEST, "dp2");
     private final OWLObjectProperty op = df.getOWLObjectProperty(URN_TEST, "op");
+    private final OWLObjectProperty op1 = df.getOWLObjectProperty(URN_TEST, "op1");
+    private final OWLObjectProperty op2 = df.getOWLObjectProperty(URN_TEST, "op2");
     private final IRI iri = IRI.create(URN_TEST, "iri");
     private final OWLLiteral owlliteral = df.getOWLLiteral(true);
     private final OWLAnnotationSubject as = IRI.create(URN_TEST, "i");
@@ -70,11 +75,13 @@ public class SerializationTestCase extends TestBase {
     private final OWLClassExpression c = df.getOWLClass(URN_TEST, "classexpression");
     private final PrefixManager prefixmanager = new DefaultPrefixManager();
     private final OWLIndividual ai = df.getOWLAnonymousIndividual();
+    private final OWLIndividual i1 = df.getOWLNamedIndividual(URN_TEST, "i1");
+    private final OWLIndividual i2 = df.getOWLNamedIndividual(URN_TEST, "i2");
     private final OWLAnnotationValue owlannotationvalue = owlliteral;
-    private final Set<OWLObjectPropertyExpression> setop = new HashSet<>();
-    private final Set<OWLDataPropertyExpression> setdp = new HashSet<>();
+    private final List<OWLObjectPropertyExpression> setop = Arrays.asList(op1, op2);
+    private final List<OWLDataPropertyExpression> setdp = Arrays.asList(dp1, dp2);
     private final List<OWLObjectPropertyExpression> listowlobjectproperties = new ArrayList<>();
-    private final Set<OWLIndividual> setowlindividual = new HashSet<>();
+    private final List<OWLIndividual> setowlindividual = Arrays.asList(i1, i2);
     private final Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<>();
     protected OWLOntology o;
     IRI ontologyIRI;
@@ -141,8 +148,7 @@ public class SerializationTestCase extends TestBase {
         o.add(df.getOWLDataPropertyRangeAxiom(dp,
             df.getOWLDatatypeRestriction(owldatatype, owlfacet, owlliteral)));
         o.add(df.getOWLDataPropertyRangeAxiom(dp,
-            df.getOWLDatatypeRestriction(owldatatype, df.getOWLFacetRestriction(
-                owlfacet, 1))));
+            df.getOWLDatatypeRestriction(owldatatype, df.getOWLFacetRestriction(owlfacet, 1))));
         o.add(sub(c, df.getOWLObjectIntersectionOf(c, df.getOWLClass(string, prefixmanager))));
         o.add(sub(c, df.getOWLDataSomeValuesFrom(dp, dr)));
         o.add(sub(c, df.getOWLDataAllValuesFrom(dp, dr)));
@@ -155,8 +161,7 @@ public class SerializationTestCase extends TestBase {
         o.add(sub(c, df.getOWLObjectUnionOf(df.getOWLClass(iri))));
         o.add(df.getOWLAnnotationAssertionAxiom(iri, df.getOWLAnnotation(ap, owlannotationvalue)));
         o.add(df.getOWLAnnotationAssertionAxiom(df.getOWLNamedIndividual(iri).getIRI(),
-            df.getOWLAnnotation(ap,
-                owlannotationvalue)));
+            df.getOWLAnnotation(ap, owlannotationvalue)));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ObjectOutputStream stream = new ObjectOutputStream(out);
         stream.writeObject(m);

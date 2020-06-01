@@ -12,10 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ALLOW_DUPLICATES_IN_CONSTRUCT_SETS;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNegative;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_BACKWARD_COMPATIBLE_WITH;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_BOTTOM_DATA_PROPERTY;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_BOTTOM_OBJECT_PROPERTY;
@@ -40,7 +42,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -384,15 +388,22 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         return getOWLDataComplementOf(dataRange.getDatatype(this));
     }
 
+    private <T> List<T> sortedList(Class<T> witness, Stream<? extends T> stream) {
+        if (config.shouldAllowDuplicatesInConstructSets()) {
+            return stream.filter(Objects::nonNull).sorted().collect(Collectors.toList());
+        }
+        return sorted(witness, stream);
+    }
+
     @Override
     public OWLDataIntersectionOf getOWLDataIntersectionOf(
         Stream<? extends OWLDataRange> dataRanges) {
-        return new OWLDataIntersectionOfImpl(dataRanges.map(x -> x));
+        return new OWLDataIntersectionOfImpl(sortedList(OWLDataRange.class, dataRanges));
     }
 
     @Override
     public OWLDataUnionOf getOWLDataUnionOf(Stream<? extends OWLDataRange> dataRanges) {
-        return new OWLDataUnionOfImpl(dataRanges.map(x -> x));
+        return new OWLDataUnionOfImpl(sortedList(OWLDataRange.class, dataRanges));
     }
 
     @Override
@@ -423,13 +434,14 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     @Override
     public OWLObjectIntersectionOf getOWLObjectIntersectionOf(
         Stream<? extends OWLClassExpression> operands) {
-        return new OWLObjectIntersectionOfImpl(operands.map(x -> x));
+        return new OWLObjectIntersectionOfImpl(sortedList(OWLClassExpression.class, operands));
     }
 
     @Override
     public OWLObjectIntersectionOf getOWLObjectIntersectionOf(
         Collection<? extends OWLClassExpression> operands) {
-        return new OWLObjectIntersectionOfImpl(operands);
+        return new OWLObjectIntersectionOfImpl(
+            sortedList(OWLClassExpression.class, operands.stream()));
     }
 
     @Override
@@ -631,12 +643,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLObjectUnionOf getOWLObjectUnionOf(Stream<? extends OWLClassExpression> operands) {
-        return new OWLObjectUnionOfImpl(operands.map(x -> x));
+        return new OWLObjectUnionOfImpl(sortedList(OWLClassExpression.class, operands));
     }
 
     @Override
     public OWLObjectUnionOf getOWLObjectUnionOf(Collection<? extends OWLClassExpression> operands) {
-        return new OWLObjectUnionOfImpl(operands);
+        return new OWLObjectUnionOfImpl(sortedList(OWLClassExpression.class, operands.stream()));
     }
 
     @Override
@@ -697,7 +709,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         Collection<? extends OWLIndividual> individuals, Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(individuals, INDIVIDUALS_CANNOT_BE_NULL, true);
         checkAnnotations(annotations);
-        return new OWLDifferentIndividualsAxiomImpl(individuals, annotations);
+        return new OWLDifferentIndividualsAxiomImpl(
+            sortedList(OWLIndividual.class, individuals.stream()), annotations);
     }
 
     @Override
@@ -706,18 +719,20 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(classExpressions, "classExpressions cannot be null or contain null",
             true);
-        checkIterableNotNull(annotations, "annotations cannot be null", true);
+        checkIterableNotNull(annotations, ANNOTATIONS_CANNOT_BE_NULL, true);
         // Hack to handle the case where classExpressions has only a single
         // member which will usually be the result of :x owl:disjointWith :x .
-        if (classExpressions.size() == 1 && !config.shouldAllowDuplicatesInConstructSets()) {
+        List<OWLClassExpression> sortedList =
+            sortedList(OWLClassExpression.class, classExpressions.stream());
+        if (sortedList.size() == 1 && !config.shouldAllowDuplicatesInConstructSets()) {
             OWLClassExpression classExpression = classExpressions.iterator().next();
             if (classExpression.isOWLThing()) {
                 throw new OWLRuntimeException(
-                    "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing).");
+                    "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing). To disable this check, see ConfigurationOptions.ALLOW_DUPLICATES_IN_CONSTRUCT_SETS");
             }
             if (classExpression.isOWLNothing()) {
                 throw new OWLRuntimeException(
-                    "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.");
+                    "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom. To disable this check, see ConfigurationOptions.ALLOW_DUPLICATES_IN_CONSTRUCT_SET");
             }
             Set<OWLClassExpression> modifiedClassExpressions = new HashSet<>(2);
             modifiedClassExpressions.add(OWL_THING);
@@ -726,7 +741,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
                 makeSingletonDisjoinClassWarningAnnotation(annotations, classExpression,
                     OWL_THING));
         }
-        return new OWLDisjointClassesAxiomImpl(classExpressions, annotations);
+        return new OWLDisjointClassesAxiomImpl(sortedList, annotations);
     }
 
     protected Set<OWLAnnotation> makeSingletonDisjoinClassWarningAnnotation(
@@ -753,7 +768,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(properties, PROPERTIES_CANNOT_BE_NULL, true);
         checkAnnotations(annotations);
-        return new OWLDisjointDataPropertiesAxiomImpl(properties, annotations);
+        return new OWLDisjointDataPropertiesAxiomImpl(
+            sortedList(OWLDataPropertyExpression.class, properties.stream()), annotations);
     }
 
     @Override
@@ -762,7 +778,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(properties, PROPERTIES_CANNOT_BE_NULL, true);
         checkAnnotations(annotations);
-        return new OWLDisjointObjectPropertiesAxiomImpl(properties, annotations);
+        return new OWLDisjointObjectPropertiesAxiomImpl(
+            sortedList(OWLObjectPropertyExpression.class, properties.stream()), annotations);
     }
 
     @Override
@@ -771,7 +788,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(classExpressions, CLASS_EXPRESSIONS_CANNOT_BE_NULL, true);
         checkAnnotations(annotations);
-        return new OWLEquivalentClassesAxiomImpl(classExpressions, annotations);
+        return new OWLEquivalentClassesAxiomImpl(
+            sortedList(OWLClassExpression.class, classExpressions.stream()), annotations);
     }
 
     @Override
@@ -780,7 +798,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(properties, PROPERTIES_CANNOT_BE_NULL, true);
         checkAnnotations(annotations);
-        return new OWLEquivalentDataPropertiesAxiomImpl(properties, annotations);
+        return new OWLEquivalentDataPropertiesAxiomImpl(
+            sortedList(OWLDataPropertyExpression.class, properties.stream()), annotations);
     }
 
     @Override
@@ -908,7 +927,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         Collection<? extends OWLIndividual> individuals, Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(individuals, INDIVIDUALS_CANNOT_BE_NULL, true);
         checkAnnotations(annotations);
-        return new OWLSameIndividualAxiomImpl(individuals, annotations);
+        return new OWLSameIndividualAxiomImpl(sortedList(OWLIndividual.class, individuals.stream()),
+            annotations);
     }
 
     @Override
@@ -979,7 +999,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         Collection<OWLAnnotation> annotations) {
         checkNotNull(owlClass, OWL_CLASS_CANNOT_BE_NULL);
         checkAnnotations(annotations);
-        return new OWLDisjointUnionAxiomImpl(owlClass, classExpressions.map(x -> x), annotations);
+        return new OWLDisjointUnionAxiomImpl(owlClass,
+            sortedList(OWLClassExpression.class, classExpressions), annotations);
     }
 
     @Override
@@ -988,7 +1009,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(properties, PROPERTIES_CANNOT_BE_NULL, true);
         checkAnnotations(annotations);
-        return new OWLEquivalentObjectPropertiesAxiomImpl(properties, annotations);
+        return new OWLEquivalentObjectPropertiesAxiomImpl(
+            sortedList(OWLObjectPropertyExpression.class, properties.stream()), annotations);
     }
 
     @Override

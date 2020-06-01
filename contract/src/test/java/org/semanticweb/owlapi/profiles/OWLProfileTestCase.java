@@ -108,6 +108,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.DatatypeIRIAlsoUsedAsClassIRI;
@@ -368,7 +369,8 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLDataUnionOf node)")
     public void shouldCreateViolationForOWLDataUnionOfInOWL2DLProfile() {
         declare(o, DATAP);
-        o.add(DataPropertyRange(DATAP, DataUnionOf()));
+        o.add(DataPropertyRange(DATAP, DataUnionOf(
+            DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.MAX_EXCLUSIVE, Literal(1))))));
         int expected = 1;
         Class[] expectedViolations = {InsufficientOperands.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
@@ -378,7 +380,8 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLDataIntersectionOf node)")
     public void shouldCreateViolationForOWLDataIntersectionOfInOWL2DLProfile() {
         declare(o, DATAP);
-        o.add(DataPropertyRange(DATAP, DataIntersectionOf()));
+        o.add(DataPropertyRange(DATAP, DataIntersectionOf(
+            DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.MAX_EXCLUSIVE, Literal(1))))));
         int expected = 1;
         Class[] expectedViolations = {InsufficientOperands.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
@@ -387,8 +390,8 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectIntersectionOf node)")
     public void shouldCreateViolationForOWLObjectIntersectionOfInOWL2DLProfile() {
-        declare(o, OP);
-        o.add(ObjectPropertyRange(OP, ObjectIntersectionOf()));
+        declare(o, OP, CL);
+        o.add(ObjectPropertyRange(OP, ObjectIntersectionOf(CL)));
         int expected = 1;
         Class[] expectedViolations = {InsufficientOperands.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
@@ -407,8 +410,8 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectUnionOf node)")
     public void shouldCreateViolationForOWLObjectUnionOfInOWL2DLProfile() {
-        declare(o, OP);
-        o.add(ObjectPropertyRange(OP, ObjectUnionOf()));
+        declare(o, OP, CL);
+        o.add(ObjectPropertyRange(OP, ObjectUnionOf(CL)));
         int expected = 1;
         Class[] expectedViolations = {InsufficientOperands.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
@@ -417,8 +420,8 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLEquivalentClassesAxiom node)")
     public void shouldCreateViolationForOWLEquivalentClassesAxiomInOWL2DLProfile() {
-        declare(o, OP);
-        o.add(EquivalentClasses());
+        declare(o, OP, CL);
+        o.add(EquivalentClasses(CL));
         int expected = 1;
         Class[] expectedViolations = {InsufficientOperands.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
@@ -427,8 +430,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDisjointClassesAxiom node)")
     public void shouldCreateViolationForOWLDisjointClassesAxiomInOWL2DLProfile() {
-        declare(o, OP);
-        o.add(DisjointClasses());
+        declare(o, OP, CL);
+        OWLDataFactory df2 = OWLManager.getOWLDataFactory(
+            new OWLOntologyLoaderConfiguration().withAllowDuplicatesInConstructSets(true));
+        o.add(df2.getOWLDisjointClassesAxiom(CL));
         int expected = 1;
         Class[] expectedViolations = {InsufficientOperands.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
@@ -450,7 +455,8 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLEquivalentObjectPropertiesAxiom node)")
     public void shouldCreateViolationForOWLEquivalentObjectPropertiesAxiomInOWL2DLProfile() {
-        o.add(EquivalentObjectProperties());
+        declare(o, P);
+        o.add(EquivalentObjectProperties(P));
         int expected = 1;
         Class[] expectedViolations = {InsufficientPropertyExpressions.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
@@ -459,7 +465,8 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDisjointDataPropertiesAxiom node)")
     public void shouldCreateViolationForOWLDisjointDataPropertiesAxiomInOWL2DLProfile() {
-        o.add(DisjointDataProperties());
+        declare(o, DATAP);
+        o.add(DisjointDataProperties(DATAP));
         int expected = 1;
         Class[] expectedViolations = {InsufficientPropertyExpressions.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
@@ -468,7 +475,8 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLEquivalentDataPropertiesAxiom node)")
     public void shouldCreateViolationForOWLEquivalentDataPropertiesAxiomInOWL2DLProfile() {
-        o.add(EquivalentDataProperties());
+        declare(o, DATAP);
+        o.add(EquivalentDataProperties(DATAP));
         int expected = 1;
         Class[] expectedViolations = {InsufficientPropertyExpressions.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
@@ -487,7 +495,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLSameIndividualAxiom node)")
     public void shouldCreateViolationForOWLSameIndividualAxiomInOWL2DLProfile() {
-        o.add(SameIndividual());
+        o.add(SameIndividual(NamedIndividual(IRI(URN_TEST, "i"))));
         int expected = 1;
         Class[] expectedViolations = {InsufficientIndividuals.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
@@ -496,7 +504,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDifferentIndividualsAxiom node)")
     public void shouldCreateViolationForOWLDifferentIndividualsAxiomInOWL2DLProfile() {
-        o.add(DifferentIndividuals());
+        o.add(DifferentIndividuals(NamedIndividual(IRI(URN_TEST, "i"))));
         int expected = 1;
         Class[] expectedViolations = {InsufficientIndividuals.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
@@ -635,8 +643,8 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLOntology ont)")
     public void shouldCreateViolationForOWLOntologyInOWL2Profile()
         throws OWLOntologyCreationException {
-        o = m.createOntology(
-            new OWLOntologyID(optional(IRI(TEST, "")), optional(IRI("test1", ""))));
+        o = m
+            .createOntology(new OWLOntologyID(optional(IRI(TEST, "")), optional(IRI("test1", ""))));
         int expected = 2;
         Class[] expectedViolations =
             {OntologyIRINotAbsolute.class, OntologyVersionIRINotAbsolute.class};

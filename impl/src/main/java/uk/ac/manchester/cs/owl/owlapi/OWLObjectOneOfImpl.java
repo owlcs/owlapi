@@ -67,8 +67,8 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     public OWLClassExpression asObjectUnionOf() {
         if (values.size() == 1) {
             return this;
-        } else {
-            return new OWLObjectUnionOfImpl(individuals().map(OWLObjectOneOfImpl::new));
         }
+        return new OWLObjectUnionOfImpl(
+            sorted(OWLClassExpression.class, individuals().map(OWLObjectOneOfImpl::new)));
     }
 }

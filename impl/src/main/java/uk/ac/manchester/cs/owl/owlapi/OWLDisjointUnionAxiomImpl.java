@@ -13,10 +13,12 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkValidForNAryExpressions;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -38,16 +40,17 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     private final List<OWLClassExpression> classExpressions;
 
     /**
-     * @param owlClass union
-     * @param classExpressions disjoint classes
-     * @param annotations annotations
+     * @param owlClass         union
+     * @param classExpressions disjoint classes (list must be sorted in the factory)
+     * @param annotations      annotations
      */
-    public OWLDisjointUnionAxiomImpl(OWLClass owlClass, Stream<OWLClassExpression> classExpressions,
+    public OWLDisjointUnionAxiomImpl(OWLClass owlClass, List<OWLClassExpression> classExpressions,
         Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = checkNotNull(owlClass, "owlClass cannot be null");
-        checkNotNull(classExpressions, "classExpressions cannot be null");
-        this.classExpressions = sorted(OWLClassExpression.class, classExpressions);
+        this.classExpressions =
+            Collections.unmodifiableList(checkValidForNAryExpressions(classExpressions,
+                "classExpressions cannot be null or empty"));
     }
 
 
@@ -72,15 +75,13 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(),
-            NO_ANNOTATIONS);
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions, NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions(),
-            mergeAnnos(anns));
+        return (T) new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions, mergeAnnos(anns));
     }
 
     @Override

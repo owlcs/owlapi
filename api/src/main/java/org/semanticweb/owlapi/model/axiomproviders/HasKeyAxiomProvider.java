@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model.axiomproviders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -29,7 +30,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public interface HasKeyAxiomProvider {
 
     /**
-     * @param ce class expression
+     * @param ce         class expression
      * @param properties Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments
      */
@@ -39,20 +40,20 @@ public interface HasKeyAxiomProvider {
     }
 
     /**
-     * @param ce class expression
+     * @param ce         class expression
      * @param properties Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments
      */
     default OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
         OWLPropertyExpression... properties) {
         checkIterableNotNull(properties, "properties cannot be null", true);
-        return getOWLHasKeyAxiom(ce, CollectionFactory.createSet(properties));
+        return getOWLHasKeyAxiom(ce, Arrays.asList(properties));
     }
 
     /**
-     * @param ce class expression
+     * @param ce               class expression
      * @param objectProperties Cannot be null or contain nulls.
-     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @param annotations      A set of annotations. Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments and annotations
      */
     OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,

@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -33,11 +34,10 @@ public class OWLEquivalentObjectPropertiesAxiomImpl
     implements OWLEquivalentObjectPropertiesAxiom {
 
     /**
-     * @param properties properties
+     * @param properties  properties (list must be sorted in the factory)
      * @param annotations annotations
      */
-    public OWLEquivalentObjectPropertiesAxiomImpl(
-        Collection<? extends OWLObjectPropertyExpression> properties,
+    public OWLEquivalentObjectPropertiesAxiomImpl(List<OWLObjectPropertyExpression> properties,
         Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }

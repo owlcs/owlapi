@@ -37,10 +37,10 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
     implements OWLSameIndividualAxiom {
 
     /**
-     * @param individuals individuals
+     * @param individuals individuals (list must be sorted in the factory)
      * @param annotations annotations on the axiom
      */
-    public OWLSameIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
+    public OWLSameIndividualAxiomImpl(List<OWLIndividual> individuals,
         Collection<OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
@@ -62,7 +62,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public Collection<OWLSameIndividualAxiom> asPairwiseAxioms() {
-        if (individuals.size() == 2) {
+        if (individuals.size() < 3) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLSameIndividualAxiomImpl(
@@ -71,7 +71,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public Collection<OWLSameIndividualAxiom> splitToAnnotatedPairs() {
-        if (individuals.size() == 2) {
+        if (individuals.size() < 3) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a,

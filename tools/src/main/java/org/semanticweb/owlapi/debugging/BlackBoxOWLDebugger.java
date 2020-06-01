@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.debugging;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
@@ -21,6 +20,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -164,7 +164,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         } else {
             // The class is anonymous, so we need to assign it a name
             OWLClass curCls = df.getOWLClass(createIRI());
-            temporaryAxioms.add(df.getOWLEquivalentClassesAxiom(createSet(curCls, cls)));
+            temporaryAxioms.add(df.getOWLEquivalentClassesAxiom(Arrays.asList(curCls, cls)));
             temporaryAxioms.forEach(ax -> man.addAxiom(getOWLOntology(), ax));
             return curCls;
         }

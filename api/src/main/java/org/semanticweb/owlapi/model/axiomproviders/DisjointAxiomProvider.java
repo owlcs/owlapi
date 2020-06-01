@@ -49,12 +49,12 @@ public interface DisjointAxiomProvider {
     default OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
         OWLClassExpression... classExpressions) {
         checkIterableNotNull(classExpressions, "classExpressions cannot be null", true);
-        return getOWLDisjointClassesAxiom(CollectionFactory.createSet(classExpressions));
+        return getOWLDisjointClassesAxiom(Arrays.asList(classExpressions));
     }
 
     /**
      * @param classExpressions Disjoint classes. Cannot be null or contain nulls.
-     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @param annotations      A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint class axiom with annotations
      */
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
@@ -62,20 +62,19 @@ public interface DisjointAxiomProvider {
         Collection<OWLAnnotation> annotations);
 
     /**
-     * @param classA Disjoint class.
-     * @param classB Disjoint class.
+     * @param classA      Disjoint class.
+     * @param classB      Disjoint class.
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint class axiom with annotations
      */
     default OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(OWLClassExpression classA,
-        OWLClassExpression classB,
-        Collection<OWLAnnotation> annotations) {
+        OWLClassExpression classB, Collection<OWLAnnotation> annotations) {
         return getOWLDisjointClassesAxiom(Arrays.asList(classA, classB), annotations);
     }
 
     /**
      * @param classExpressions Disjoint classes. Cannot be null or contain nulls.
-     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @param annotations      A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint class axiom with annotations
      */
     default OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
@@ -109,11 +108,11 @@ public interface DisjointAxiomProvider {
     default OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(
         OWLObjectPropertyExpression... properties) {
         checkIterableNotNull(properties, "properties cannot be null", true);
-        return getOWLDisjointObjectPropertiesAxiom(CollectionFactory.createSet(properties));
+        return getOWLDisjointObjectPropertiesAxiom(Arrays.asList(properties));
     }
 
     /**
-     * @param properties Cannot be null or contain nulls.
+     * @param properties  Cannot be null or contain nulls.
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint object properties axiom with specified properties and annotations
      */
@@ -122,14 +121,14 @@ public interface DisjointAxiomProvider {
         Collection<OWLAnnotation> annotations);
 
     /**
-     * @param p Disjoint property
-     * @param q Disjoint property
+     * @param p           Disjoint property
+     * @param q           Disjoint property
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint object properties axiom with specified properties and annotations
      */
     default OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(
-        OWLObjectPropertyExpression p,
-        OWLObjectPropertyExpression q, Collection<OWLAnnotation> annotations) {
+        OWLObjectPropertyExpression p, OWLObjectPropertyExpression q,
+        Collection<OWLAnnotation> annotations) {
         return getOWLDisjointObjectPropertiesAxiom(Arrays.asList(p, q), annotations);
     }
 
@@ -140,7 +139,7 @@ public interface DisjointAxiomProvider {
     default OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
         OWLDataPropertyExpression... dataProperties) {
         checkIterableNotNull(dataProperties, "properties cannot be null", true);
-        return getOWLDisjointDataPropertiesAxiom(CollectionFactory.createSet(dataProperties));
+        return getOWLDisjointDataPropertiesAxiom(Arrays.asList(dataProperties));
     }
 
     /**
@@ -153,7 +152,7 @@ public interface DisjointAxiomProvider {
     }
 
     /**
-     * @param properties Cannot be null or contain nulls.
+     * @param properties  Cannot be null or contain nulls.
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint data properties axiom with specified properties and annotations
      */
@@ -162,14 +161,14 @@ public interface DisjointAxiomProvider {
         Collection<OWLAnnotation> annotations);
 
     /**
-     * @param p Disjoint property
-     * @param q Disjoint property
+     * @param p           Disjoint property
+     * @param q           Disjoint property
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint data properties axiom with specified properties and annotations
      */
     default OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
-        OWLDataPropertyExpression p,
-        OWLDataPropertyExpression q, Collection<OWLAnnotation> annotations) {
+        OWLDataPropertyExpression p, OWLDataPropertyExpression q,
+        Collection<OWLAnnotation> annotations) {
         return getOWLDisjointDataPropertiesAxiom(Arrays.asList(p, q), annotations);
     }
 }

@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -33,10 +34,10 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
     implements OWLEquivalentClassesAxiom {
 
     /**
-     * @param classExpressions equivalent classes
-     * @param annotations annotations
+     * @param classExpressions equivalent classes (list must be sorted in the factory)
+     * @param annotations      annotations
      */
-    public OWLEquivalentClassesAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
+    public OWLEquivalentClassesAxiomImpl(List<OWLClassExpression> classExpressions,
         Collection<OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
@@ -62,7 +63,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public Collection<OWLEquivalentClassesAxiom> asPairwiseAxioms() {
-        if (classExpressions.size() == 2) {
+        if (classExpressions.size() < 3) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLEquivalentClassesAxiomImpl(
@@ -71,7 +72,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public Collection<OWLEquivalentClassesAxiom> splitToAnnotatedPairs() {
-        if (classExpressions.size() == 2) {
+        if (classExpressions.size() < 3) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLEquivalentClassesAxiomImpl(

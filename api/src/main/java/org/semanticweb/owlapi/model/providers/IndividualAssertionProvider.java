@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 
 import java.util.Arrays;
@@ -22,7 +21,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Individual (sameAs and differentFrom) assertion provider.
@@ -44,7 +42,7 @@ public interface IndividualAssertionProvider extends LiteralProvider {
      */
     default OWLSameIndividualAxiom getOWLSameIndividualAxiom(OWLIndividual... individual) {
         checkIterableNotNull(individual, "individuals cannot be null", true);
-        return getOWLSameIndividualAxiom(createSet(individual));
+        return getOWLSameIndividualAxiom(Arrays.asList(individual));
     }
 
     /**
@@ -56,8 +54,8 @@ public interface IndividualAssertionProvider extends LiteralProvider {
         Collection<? extends OWLIndividual> individuals, Collection<OWLAnnotation> annotations);
 
     /**
-     * @param i same individual
-     * @param j same individual
+     * @param i           same individual
+     * @param j           same individual
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a same individuals axiom with specified individuals and annotations
      */
@@ -82,7 +80,7 @@ public interface IndividualAssertionProvider extends LiteralProvider {
     default OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
         OWLIndividual... individuals) {
         checkIterableNotNull(individuals, "individuals cannot be null", true);
-        return getOWLDifferentIndividualsAxiom(createSet(individuals));
+        return getOWLDifferentIndividualsAxiom(Arrays.asList(individuals));
     }
 
     /**
@@ -94,8 +92,8 @@ public interface IndividualAssertionProvider extends LiteralProvider {
         Collection<? extends OWLIndividual> individuals, Collection<OWLAnnotation> annotations);
 
     /**
-     * @param i different individual
-     * @param j different individual
+     * @param i           different individual
+     * @param j           different individual
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a different individuals axiom with specified individuals and annotations
      */

@@ -12,11 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkValidForNAryExpressions;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,14 +35,14 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     protected final List<OWLClassExpression> classExpressions;
 
     /**
-     * @param classExpressions classes
-     * @param annotations annotations
+     * @param classExpressions classes (list must be sorted in the factory)
+     * @param annotations      annotations
      */
-    public OWLNaryClassAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
+    public OWLNaryClassAxiomImpl(List<OWLClassExpression> classExpressions,
         Collection<OWLAnnotation> annotations) {
         super(annotations);
-        checkNotNull(classExpressions, "classExpressions cannot be null");
-        this.classExpressions = sorted(OWLClassExpression.class, classExpressions);
+        this.classExpressions = Collections.unmodifiableList(
+            checkValidForNAryExpressions(classExpressions, "classExpressions cannot be null or empty"));
     }
 
     @Override

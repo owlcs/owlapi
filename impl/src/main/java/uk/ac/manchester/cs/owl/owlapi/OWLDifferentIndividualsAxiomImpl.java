@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -35,7 +36,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
      * @param individuals individuals
      * @param annotations annotations on the axiom
      */
-    public OWLDifferentIndividualsAxiomImpl(Collection<? extends OWLIndividual> individuals,
+    public OWLDifferentIndividualsAxiomImpl(List<OWLIndividual> individuals,
         Collection<OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
@@ -57,7 +58,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public Collection<OWLDifferentIndividualsAxiom> asPairwiseAxioms() {
-        if (individuals.size() == 2) {
+        if (individuals.size() < 3) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLDifferentIndividualsAxiomImpl(
@@ -66,7 +67,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public Collection<OWLDifferentIndividualsAxiom> splitToAnnotatedPairs() {
-        if (individuals.size() == 2) {
+        if (individuals.size() < 3) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLDifferentIndividualsAxiomImpl(
