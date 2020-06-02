@@ -335,7 +335,7 @@ public final class AtomicDecomposition implements HasAxioms {
             return Optional.of(alpha);
         }
         Optional<OWLAxiom> delta = getAtomSeed(alpha, beta);
-        Atom atomOfDelta = new Atom();
+        Atom atomOfDelta = atomOf.computeIfAbsent(delta.orElse(null), d -> new Atom());
         atomOfDelta.axiomSet.add(alpha);
         atomOf.put(alpha, atomOfDelta);
         if (delta.equals(beta)) {
