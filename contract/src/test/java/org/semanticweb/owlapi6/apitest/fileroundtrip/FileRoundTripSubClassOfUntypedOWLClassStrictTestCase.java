@@ -15,11 +15,13 @@ package org.semanticweb.owlapi6.apitest.fileroundtrip;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.util.stream.Stream;
 
 import org.apache.commons.rdf.api.Triple;
 import org.junit.Test;
-import org.semanticweb.owlapi6.documents.StreamDocumentSource;
+import org.semanticweb.owlapi6.documents.FileDocumentSource;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.model.AxiomType;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
@@ -38,10 +40,10 @@ public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase
     }
 
     @Test
-    public void testAxioms() throws OWLOntologyCreationException {
+    public void testAxioms() throws OWLOntologyCreationException, URISyntaxException {
         config = config.setStrict(true);
-        StreamDocumentSource documentSource =
-            new StreamDocumentSource(getClass().getResourceAsStream('/' + fileName));
+        FileDocumentSource documentSource =
+            new FileDocumentSource(new File(getClass().getResource('/' + fileName).toURI()));
         OWLOntology ont = m1.loadOntologyFromOntologyDocument(documentSource, config);
         assertEquals(0, ont.axioms(AxiomType.SUBCLASS_OF).count());
         OWLDocumentFormat format = ont.getFormat();

@@ -130,6 +130,9 @@ import org.semanticweb.owlapi6.vocab.OWLFacet;
  */
 public class Examples extends TestBase {
 
+    private static final String QUOKKA_IRI =
+        "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#Quokka";
+
     private static void print(Node<OWLClass> parent, OWLReasoner reasoner, int depth) {
         // We don't want to print out the bottom node (containing owl:Nothing
         // and unsatisfiable classes) because this would appear as a leaf node
@@ -274,11 +277,10 @@ public class Examples extends TestBase {
     }
 
     /**
-     * This example shows how an ontology can be saved in various formats to
-     * various locations and streams.
+     * This example shows how an ontology can be saved in various formats to various locations and
+     * streams.
      *
-     * @throws Exception
-     *         exception
+     * @throws Exception exception
      */
     @Test
     public void shouldSaveOntologies() throws Exception {
@@ -1053,7 +1055,7 @@ public class Examples extends TestBase {
         // This isn't always the case. A class may have a IRI that bears no
         // resemblance to the ontology IRI which contains axioms about the
         // class.
-        IRI quokkaIRI = df.getIRI(ont.getOntologyID().getOntologyIRI().get() + "#", "Quokka");
+        IRI quokkaIRI = df.getIRI(QUOKKA_IRI);
         OWLClass quokka = man.getOWLDataFactory().getOWLClass(quokkaIRI);
         // Now we want to collect the properties which are used in existential
         // restrictions on the class. To do this, we will create a utility class
@@ -1067,7 +1069,7 @@ public class Examples extends TestBase {
         // subclass axioms for quokka.
         ont.subClassAxiomsForSubClass(quokka).forEach(ax -> ax.getSuperClass().accept(restrictionVisitor));
         // Ask our superclass to accept a visit from the RestrictionVisitor
-        // - if it is an existential restiction then our restriction visitor
+        // - if it is an existential restriction then our restriction visitor
         // will answer it - if not our visitor will ignore it
         // Our RestrictionVisitor has now collected all of the properties that
         // have been restricted in existential restrictions - print them out.
@@ -1094,7 +1096,7 @@ public class Examples extends TestBase {
         // We want to add a comment to the Quokka class. First, we need to
         // obtain
         // a reference to the class
-        OWLClass quokka = df.getOWLClass(ont.getOntologyID().getOntologyIRI().get() + "#", "Quokka");
+        OWLClass quokka = df.getOWLClass(QUOKKA_IRI);
         // Now we create the content of our comment. In this case we simply want
         // a plain string literal. We'll attach a language to the comment to
         // specify that our comment is written in English (en).
@@ -1262,8 +1264,8 @@ public class Examples extends TestBase {
         // the latest version of the Pellet libraries are on the runtime class
         // path
         OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
-        // Uncomment the line below reasonerFactory = new
-        // PelletReasonerFactory();
+        // Uncomment the line below
+        // reasonerFactory = new PelletReasonerFactory()
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ont);
         // Now we can query the reasoner, suppose we want to determine the
         // properties that instances of Quokka must have
@@ -1273,8 +1275,7 @@ public class Examples extends TestBase {
         OWLClass koala = man.getOWLDataFactory().getOWLClass(prefix, "KoalaWithPhD");
         OWLObjectProperty hasDegree = man.getOWLDataFactory().getOWLObjectProperty(prefix, "hasDegree");
         if (hasProperty(man, reasoner, koala, hasDegree)) {
-            // System.out.println("Instances of " + koala
-            // + " have a degree");
+            // System.out.println("Instances of " + koala + " have a degree");
         }
     }
 
@@ -1353,7 +1354,7 @@ public class Examples extends TestBase {
         // generate a seed signature that contains "Quokka" and its
         // subclasses. We start by creating a signature that consists of
         // "Quokka".
-        OWLClass toppingCls = dataFactory.getOWLClass(ont.getOntologyID().getOntologyIRI().get() + "#", "Quokka");
+        OWLClass toppingCls = dataFactory.getOWLClass(QUOKKA_IRI);
         Set<OWLEntity> sig = new HashSet<>();
         sig.add(toppingCls);
         // We now add all subclasses (direct and indirect) of the chosen

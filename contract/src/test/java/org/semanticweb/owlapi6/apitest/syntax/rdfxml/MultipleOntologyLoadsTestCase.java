@@ -15,14 +15,18 @@ package org.semanticweb.owlapi6.apitest.syntax.rdfxml;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IRI;
 
+import java.io.File;
+import java.net.URISyntaxException;
+
 import org.junit.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
-import org.semanticweb.owlapi6.documents.StreamDocumentSource;
+import org.semanticweb.owlapi6.documents.FileDocumentSource;
 import org.semanticweb.owlapi6.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi6.model.OWLOntologyID;
+import org.semanticweb.owlapi6.model.OWLRuntimeException;
 import org.semanticweb.owlapi6.rdf.rdfxml.parser.RDFXMLParser;
 
 /**
@@ -163,7 +167,11 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     private OWLOntologyDocumentSource getDocumentSource() {
-        return new StreamDocumentSource(
-            getClass().getResourceAsStream("/owlapi/multipleOntologyLoadsTest.rdf"));
+        try {
+            return new FileDocumentSource(
+                new File(getClass().getResource("/owlapi/multipleOntologyLoadsTest.rdf").toURI()));
+        } catch (URISyntaxException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 }

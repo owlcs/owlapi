@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -82,9 +83,10 @@ public class SerializationTestCase extends TestBase {
     protected OWLOntology o;
 
     @Before
-    public void setUp() throws OWLOntologyCreationException {
+    public void setUp() throws OWLOntologyCreationException, URISyntaxException {
         m.getIRIMappers().add(new AutoIRIMapper(new File("."), false, df));
-        o = m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/pizza.owl"));
+        o = m.loadOntologyFromOntologyDocument(
+            new File(getClass().getResource("/pizza.owl").toURI()));
         ontologyIRI = o.getOntologyID().getOntologyIRI().get();
     }
 

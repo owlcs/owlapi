@@ -5,13 +5,17 @@ package org.semanticweb.owlapi6.riotest;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.net.URISyntaxException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
-import org.semanticweb.owlapi6.documents.StreamDocumentSource;
+import org.semanticweb.owlapi6.documents.FileDocumentSource;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLOntology;
+import org.semanticweb.owlapi6.model.OWLRuntimeException;
 import org.semanticweb.owlapi6.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi6.rio.RioParserImpl;
 import org.semanticweb.owlapi6.rio.RioRDFXMLParserFactory;
@@ -89,8 +93,12 @@ public class RioParserTestCase extends TestBase {
     /**
      * @return stream
      */
-    StreamDocumentSource getStream(String name) {
-        return new StreamDocumentSource(getClass().getResourceAsStream(name));
+    FileDocumentSource getStream(String name) {
+        try {
+            return new FileDocumentSource(new File(getClass().getResource(name).toURI()));
+        } catch (URISyntaxException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     /*

@@ -2,23 +2,16 @@ package org.semanticweb.owlapi6.util;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.util.Collection;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.IRI;
-import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLEntity;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils;
 import org.semanticweb.owlapi6.utility.OWLEntityURIConverter;
-import org.semanticweb.owlapi6.utility.OWLEntityURIConverterStrategy;
 
 public class OWLEntityURIConverterTest extends TestBase {
 
