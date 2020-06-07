@@ -32,13 +32,14 @@ public interface OWLObject
     HasDatatypesInSignature, HasAnnotationPropertiesInSignature, HasIndex, HasHashIndex, IsAnonymous {
 
     /**
-     * Gets all of the nested (includes top level) class expressions that are
-     * used in this object. The default implementation of this method returns an
-     * empty, modifiable set.
+     * Gets all of the nested (includes top level) class expressions (anonymous and named) that are
+     * used in this object. For an ontology, this method visits the logical axioms, so entities that
+     * are only declared (and possibly annotated) but do not appear in any logical axiom are not
+     * returned as part of the stream. The default implementation of this method returns an empty
+     * stream.
      *
-     * @return A set of
-     *         {@link org.semanticweb.owlapi6.model.OWLClassExpression}s that
-     *         represent the nested class expressions used in this object.
+     * @return A stream of {@link org.semanticweb.owlapi6.model.OWLClassExpression}s that represent
+     *         the nested class expressions used in this object.
      */
     default Stream<OWLClassExpression> nestedClassExpressions() {
         return empty();
