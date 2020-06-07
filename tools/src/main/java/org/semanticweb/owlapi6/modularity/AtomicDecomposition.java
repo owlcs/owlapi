@@ -84,8 +84,8 @@ public final class AtomicDecomposition implements HasAxioms {
         }
 
         /**
-         * Returns the {@link Atom}s this {@link Atom} depends on. In the literature, this
-         * {@link Atom} <= returned atoms.
+         * Returns the {@link Atom}s this {@link Atom} depends on. In the literature,
+         * {@code this Atom <= returned atoms}.
          *
          * @return The {@link Atom}s this {@link Atom} depends on
          */
@@ -94,8 +94,9 @@ public final class AtomicDecomposition implements HasAxioms {
         }
 
         /**
-         * Returns the {@link Atom}s that depend on this {@link Atom}. In the literature, returned
-         * atoms <= this {@link Atom}.
+         * Returns the {@link Atom}s that depend on this {@link Atom}. In the literature,
+         * {@code returned
+         * atoms <= this Atom}.
          *
          * @return The {@link Atom}s that depend on this {@link Atom}
          */
@@ -277,7 +278,8 @@ public final class AtomicDecomposition implements HasAxioms {
             OWLAxiom axiom = buildAtomsInModule(gamma, Optional.of(alpha));
             Atom first = atomOf.get(axiom);
             Atom second = atomOf.get(alpha);
-            first.dependencies.add(second); // first <= second
+            // first <= second
+            first.dependencies.add(second);
             second.dependents.add(first);
         });
 

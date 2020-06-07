@@ -92,9 +92,9 @@ public interface ModuleExtractor {
      *                    base to extract the module against. Note that ignoring some axiom may lead
      *                    to other axioms not be contained in the module either. For example,
      *                    consider the Ontology O:= {A⊑B, B⊑C, C⊑D} and the signature {A}.
-     *                    {@link SyntacticLocalityEvaluator} with {@link LocalityClass#BOTTOM}
-     *                    returns O as a whole, but when ignoring the axiom B⊑C it only returns
-     *                    {A⊑B}.
+     *                    {@link org.semanticweb.owlapi6.modularity.locality.SyntacticLocalityEvaluator}
+     *                    with {@link LocalityClass#BOTTOM} returns O as a whole, but when ignoring
+     *                    the axiom B⊑C it only returns {A⊑B}.
      * @return The axioms of the module with respect to the given signature
      */
     @Nonnull
@@ -110,9 +110,9 @@ public interface ModuleExtractor {
      *                    the module against. Note that ignoring some axiom may lead to other axioms
      *                    not be contained in the module either. For example, consider the Ontology
      *                    O:= {A⊑B, B⊑C, C⊑D} and the signature {A,E}.
-     *                    {@link SyntacticLocalityEvaluator} with {@link LocalityClass#BOTTOM}
-     *                    returns O as a whole, but when ignoring the axiom B⊑C, it will only return
-     *                    {A⊑B}.
+     *                    {@link org.semanticweb.owlapi6.modularity.locality.SyntacticLocalityEvaluator}
+     *                    with {@link LocalityClass#BOTTOM} returns O as a whole, but when ignoring
+     *                    the axiom B⊑C, it will only return {A⊑B}.
      * @return The axioms of the module with respect to the given signature
      */
     default @Nonnull Stream<OWLAxiom> extract(Stream<OWLEntity> signature,

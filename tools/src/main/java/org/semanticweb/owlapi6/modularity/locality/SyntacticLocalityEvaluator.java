@@ -1051,8 +1051,10 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
     /**
      * This is a convenience method for determining whether a given data range expression is the top
      * datatype or a built-in datatype. This is used in the
-     * {@link BottomLocalityBottomEquivalenceEvaluator} and
-     * {@link TopLocalityTopEquivalenceEvaluator} for treating cardinality restrictions.
+     * {@link org.semanticweb.owlapi6.modularity.locality.SyntacticLocalityEvaluator.BottomLocalityAxiomVisitor.BottomLocalityBottomEquivalenceEvaluator}
+     * and
+     * {@link org.semanticweb.owlapi6.modularity.locality.SyntacticLocalityEvaluator.TopLocalityAxiomVisitor.TopLocalityTopEquivalenceEvaluator}
+     * for treating cardinality restrictions.
      *
      * @param dataRange a data range expression
      * @return <code>true</code> if the specified data range expression is the top datatype or a
@@ -1069,8 +1071,10 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
     /**
      * This is a convenience method for determining whether a given data range expression is the top
      * datatype or a built-in infinite datatype. This is used in the
-     * {@link BottomLocalityBottomEquivalenceEvaluator} and
-     * {@link TopLocalityTopEquivalenceEvaluator} for treating cardinality restrictions.
+     * {@link org.semanticweb.owlapi6.modularity.locality.SyntacticLocalityEvaluator.BottomLocalityAxiomVisitor.BottomLocalityBottomEquivalenceEvaluator}
+     * and
+     * {@link org.semanticweb.owlapi6.modularity.locality.SyntacticLocalityEvaluator.TopLocalityAxiomVisitor.TopLocalityTopEquivalenceEvaluator}
+     * for treating cardinality restrictions.
      *
      * @param dataRange a data range expression
      * @return <code>true</code> if the specified data range expression is the top datatype or a
