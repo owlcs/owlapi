@@ -41,7 +41,10 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
 
 
     /**
-     * Gets all of the nested (includes top level) class expressions that are used in this object
+     * Gets all of the nested (includes top level) class expressions (anonymous and named) that are
+     * used in this object. For an ontology, this method visits the logical axioms, so entities that
+     * are only declared (and possibly annotated) but do not appear in any logical axiom are not
+     * returned as part of the set.
      * 
      * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s that represent the
      *         nested class expressions used in this object.
