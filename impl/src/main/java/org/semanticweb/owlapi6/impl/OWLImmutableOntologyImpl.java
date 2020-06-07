@@ -51,7 +51,7 @@ import org.semanticweb.owlapi6.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi6.model.OWLAnnotationValue;
 import org.semanticweb.owlapi6.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi6.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.*;
+import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLAxiomCollection;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLClassAssertionAxiom;
@@ -98,6 +98,7 @@ import org.semanticweb.owlapi6.model.OWLObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi6.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyChange;
 import org.semanticweb.owlapi6.model.OWLOntologyID;
@@ -680,7 +681,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLClassAssertionAxiom> classAssertionAxioms(OWLClassExpression ce) {
-        return ints.classAssertionAxiomsByClass.getValues(ce);
+        if (ce.isNamed()) {
+            return ints.classAssertionAxiomsByClass.getValues(ce);
+        }
+        return ints.axiomsByType.getValues(AxiomType.CLASS_ASSERTION)
+            .map(OWLClassAssertionAxiom.class::cast).filter(x -> x.getClassExpression().equals(ce));
     }
 
     @Override
