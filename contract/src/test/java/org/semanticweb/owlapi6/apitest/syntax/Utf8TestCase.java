@@ -45,14 +45,16 @@ public class Utf8TestCase extends TestBase {
     }
 
     @Test(expected = Exception.class)
-    public void testInvalidUTF8roundTripOWLXML() {
+    public void testInvalidUTF8roundTripOWLXML() throws Exception {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should fail parsing but is read
         // in as an owl/xml file
         ByteArrayInputStream in =
             new ByteArrayInputStream(TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
-        new StreamDocumentSource(in).acceptParser(parser, getOWLOntology(), config);
+        try (StreamDocumentSource n = new StreamDocumentSource(in)) {
+            n.acceptParser(parser, getOWLOntology(), config);
+        }
     }
 
     @Test

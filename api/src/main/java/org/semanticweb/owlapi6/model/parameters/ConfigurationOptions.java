@@ -26,6 +26,12 @@ public enum ConfigurationOptions {
     //@formatter:off
     /** Timeout for connections. */
     CONNECTION_TIMEOUT                  (Integer.valueOf(20000)),
+    /** Size of cached data in 
+     * StreamDocumentSource. This 
+     * might need to be increased if 
+     * more bytes are required to 
+     * disambiguate between languages.*/
+    STREAM_MARK_LIMIT                   (Integer.valueOf(10_000_000)),
     /** True if annotations should 
      * be loaded, false if skipped. */
     LOAD_ANNOTATIONS                    (Boolean.TRUE),

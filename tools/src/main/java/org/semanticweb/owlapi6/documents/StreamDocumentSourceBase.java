@@ -12,23 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.documents;
 
-import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.STREAM_MARK_LIMIT;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
+import java.util.Collections;
 
 import javax.annotation.Nullable;
 
-import org.apache.commons.io.IOUtils;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
-import org.semanticweb.owlapi6.model.OWLRuntimeException;
 
 /**
  * Base class for common utilities among stream, reader and file input sources.
@@ -37,41 +30,26 @@ import org.semanticweb.owlapi6.model.OWLRuntimeException;
  *        needed. This can be bad for memory. Remote loading will download the ontologies multiple
  *        times too, until parsing fails. Both issues could be addressed with a local file copy.
  */
-public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSourceBase {
+public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSourceBase
+    implements AutoCloseable {
 
     /**
      * Constructs an input source which will read an ontology from a representation from the
      * specified stream.
      *
-     * @param stream The stream that the ontology representation will be read from.
+     * @param stream      The stream that the ontology representation will be read from.
      * @param documentIRI The document IRI
-     * @param format ontology format
-     * @param mime mime type
+     * @param format      ontology format
+     * @param mime        mime type
      */
     public StreamDocumentSourceBase(InputStream stream, String documentIRI,
         @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        super(documentIRI, readIntoBuffer(checkNotNull(stream, "stream cannot be null")), format,
-            mime);
+        super(documentIRI, readIntoBuffer(stream), format, mime);
     }
 
-    /**
-     * Constructs an input source which will read an ontology from a representation from the
-     * specified stream.
-     *
-     * @param stream The stream that the ontology representation will be read from.
-     * @param documentIRI The document IRI
-     * @param format ontology format
-     * @param mime mime type
-     */
-    public StreamDocumentSourceBase(Reader stream, String documentIRI,
-        @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        super(documentIRI, readIntoBuffer(checkNotNull(stream, "stream cannot be null")), format,
-            mime);
-        // if the input stream carries encoding information, use it; else leave
-        // the default as UTF-8
-        if (stream instanceof InputStreamReader) {
-            encoding = Charset.forName(((InputStreamReader) stream).getEncoding());
-        }
+    @Override
+    public void close() throws Exception {
+        closeStream();
     }
 
     /**
@@ -82,36 +60,37 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      * @param in The stream to be "cached"
      * @return streamer
      */
-    private static Streamer<InputStream> readIntoBuffer(InputStream in) {
-        try (BufferByteArray bos = new BufferByteArray();
-            GZIPOutputStream out = new GZIPOutputStream(bos)) {
-            IOUtils.copy(in, out);
-            out.finish();
-            out.flush();
-            return () -> new GZIPInputStream(new BufferByteArrayInput(bos));
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+    private static Streamer<InputStream> readIntoBuffer(@Nullable InputStream in) {
+        if (in == null) {
+            throw new NullPointerException("stream cannot be null");
         }
+        return new StreamerImpl(in);
     }
 
-    private static Streamer<InputStream> readIntoBuffer(Reader in) {
-        // if the input stream carries encoding information, use it; else leave
-        // the default as UTF-8
-        Charset enc = StandardCharsets.UTF_8;
-        if (in instanceof InputStreamReader) {
-            enc = Charset.forName(((InputStreamReader) in).getEncoding());
+    private static class StreamerImpl implements Streamer<InputStream> {
+        private InputStream wrapper;
+
+        public StreamerImpl(InputStream in) {
+            wrapper = new BufferedInputStream(in) {
+                @Override
+                public void close() {
+                    // delegate closure to the data source
+                }
+            };
+            // XXX might be useful to have an Ontologyconfigurator instance for local overrides.
+            wrapper
+                .mark(STREAM_MARK_LIMIT.getValue(Integer.class, Collections.emptyMap()).intValue());
         }
 
-        try (BufferByteArray bos = new BufferByteArray();
-            GZIPOutputStream out = new GZIPOutputStream(bos)) {
-            OutputStreamWriter writer = new OutputStreamWriter(out, enc);
-            IOUtils.copy(in, writer);
-            writer.flush();
-            out.finish();
-            out.flush();
-            return () -> new GZIPInputStream(new BufferByteArrayInput(bos));
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+        @Override
+        public InputStream get() throws IOException {
+            wrapper.reset();
+            return wrapper;
+        }
+
+        @Override
+        public void close() throws IOException {
+            wrapper.close();
         }
     }
 }

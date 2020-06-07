@@ -9,6 +9,7 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
+import org.semanticweb.owlapi6.documents.ReaderDocumentSource;
 import org.semanticweb.owlapi6.documents.StreamDocumentSourceBase;
 import org.semanticweb.owlapi6.io.OWLParser;
 import org.semanticweb.owlapi6.model.OWLOntology;
@@ -24,10 +25,10 @@ public class StreamDocumentSourceBaseTestCase {
                 + "    <owl:Class rdf:about=\"http://example.com/Person\">\n        <owl:hasKey rdf:parseType=\"Collection\">\n            <owl:ObjectProperty rdf:about=\"http://example.com/objectPoperty\"/>\n            <owl:DatatypeProperty rdf:about=\"http://example.com/dataProperty\"/>\n        </owl:hasKey>\n    </owl:Class>\n"
                 + "    <owl:ObjectProperty rdf:about=\"http://example.com/objectProperty\"/>\n"
                 + "</rdf:RDF>";
-        StreamDocumentSourceBase source = new StreamDocumentSourceBase(
+        StreamDocumentSourceBase source = new ReaderDocumentSource(
             new InputStreamReader(new ByteArrayInputStream(input.getBytes()),
                 StandardCharsets.UTF_8),
-            "urn:test:test", null, null) {};
+            "urn:test:test", null, null);
         StringWriter w = new StringWriter();
         OWLParser mockParser = new ParserForTestOperations(w);
         source.acceptParser(mockParser, mock(OWLOntology.class), mock(OntologyConfigurator.class));

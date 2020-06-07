@@ -747,7 +747,6 @@ public class OWLOntologyManagerImpl
     @Override
     public OWLOntology loadOntologyFromOntologyDocument(IRI documentIRI)
         throws OWLOntologyCreationException {
-        // XXX check default
         // Ontology URI not known in advance
         return loadOntology(null, new IRIDocumentSource(documentIRI.toString(), null, null),
             configProvider);
@@ -756,7 +755,6 @@ public class OWLOntologyManagerImpl
     @Override
     public OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource)
         throws OWLOntologyCreationException {
-        // XXX check default
         // Ontology URI not known in advance
         return loadOntology(null, documentSource, configProvider);
     }
@@ -770,15 +768,19 @@ public class OWLOntologyManagerImpl
     @Override
     public OWLOntology loadOntologyFromOntologyDocument(File file)
         throws OWLOntologyCreationException {
-        // XXX check default
         return loadOntologyFromOntologyDocument(new FileDocumentSource(file));
     }
 
     @Override
     public OWLOntology loadOntologyFromOntologyDocument(InputStream inputStream)
         throws OWLOntologyCreationException {
-        // XXX check default
-        return loadOntologyFromOntologyDocument(new StreamDocumentSource(inputStream));
+        try (StreamDocumentSource in = new StreamDocumentSource(inputStream)) {
+            return loadOntologyFromOntologyDocument(in);
+        } catch (OWLOntologyCreationException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     /**

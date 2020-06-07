@@ -12,10 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.documents;
 
+import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.io.input.ReaderInputStream;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 
 /**
@@ -39,8 +43,8 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * Constructs and ontology input source which will read an ontology from a reader.
      *
      * @param reader The reader that will be used to read an ontology.
-     * @param iri The ontology document IRI which will be used as the base of the document if
-     * needed.
+     * @param iri    The ontology document IRI which will be used as the base of the document if
+     *               needed.
      */
     public ReaderDocumentSource(Reader reader, String iri) {
         this(reader, iri, null, null);
@@ -50,13 +54,28 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * Constructs and ontology input source which will read an ontology from a reader.
      *
      * @param reader The reader that will be used to read an ontology.
-     * @param iri The ontology document IRI which will be used as the base of the document if
-     * needed.
-     * @param f ontology format
-     * @param mime mime type
+     * @param iri    The ontology document IRI which will be used as the base of the document if
+     *               needed.
+     * @param f      ontology format
+     * @param mime   mime type
      */
     public ReaderDocumentSource(Reader reader, String iri, @Nullable OWLDocumentFormat f,
         @Nullable String mime) {
-        super(reader, iri, f, mime);
+        super(new ReaderInputStream(reader, selectEncoding(reader)), iri, f, mime);
+        // if the input stream carries encoding information, use it; else leave
+        // the default as UTF-8
+        if (reader instanceof InputStreamReader) {
+            encoding = Charset.forName(((InputStreamReader) reader).getEncoding());
+        }
+    }
+
+    private static Charset selectEncoding(Reader in) {
+        // if the input stream carries encoding information, use it; else leave
+        // the default as UTF-8
+        Charset enc = StandardCharsets.UTF_8;
+        if (in instanceof InputStreamReader) {
+            enc = Charset.forName(((InputStreamReader) in).getEncoding());
+        }
+        return enc;
     }
 }
