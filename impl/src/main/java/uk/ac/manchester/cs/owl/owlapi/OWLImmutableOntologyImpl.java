@@ -32,6 +32,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.HasAnnotationPropertiesInSignature;
@@ -47,7 +48,9 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomCollection;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
@@ -521,6 +524,14 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
             return axioms.stream();
         }
         return empty();
+    }
+
+    @Override
+    public Stream<OWLClassAssertionAxiom> classAssertionAxioms(OWLClassExpression ce) {
+        if (ce.isAnonymous()) {
+            axioms(AxiomType.CLASS_ASSERTION).filter(x -> x.getClassExpression().equals(ce));
+        }
+        return super.classAssertionAxioms(ce);
     }
 
     private static class FindLiterals implements OWLObjectVisitorEx<Boolean> {
