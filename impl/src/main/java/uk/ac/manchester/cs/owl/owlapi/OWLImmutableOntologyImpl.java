@@ -145,6 +145,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         Iterables.addAll(stream, key.individualsInSignature());
         Iterables.addAll(stream, key.datatypesInSignature());
         Iterables.addAll(stream, key.annotationPropertiesInSignature());
+        Iterables.addAll(stream, key.getAnnotations().stream()
+            .flatMap(x -> x.getSignature().stream()).collect(Collectors.toSet()));
         stream.sort(null);
         return new LinkedHashSet<>(stream);
     }
