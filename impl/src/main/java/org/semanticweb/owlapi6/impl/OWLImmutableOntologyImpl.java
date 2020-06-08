@@ -155,11 +155,10 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     private static Set<OWLEntity> build(OWLImmutableOntologyImpl key) {
         Stream<OWLEntity> stream =
-            Stream
-                .of(key.classesInSignature(), key.objectPropertiesInSignature(),
-                    key.dataPropertiesInSignature(), key.individualsInSignature(),
-                    key.datatypesInSignature(), key.annotationPropertiesInSignature())
-                .flatMap(x -> x);
+            Stream.of(key.classesInSignature(), key.objectPropertiesInSignature(),
+                key.dataPropertiesInSignature(), key.individualsInSignature(),
+                key.datatypesInSignature(), key.annotationPropertiesInSignature(),
+                key.annotations().flatMap(OWLAnnotation::signature)).flatMap(x -> x);
         return asSet(stream.distinct().sorted());
     }
 
