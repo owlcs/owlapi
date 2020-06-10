@@ -107,6 +107,57 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
+    public void shouldSaveBaseIRINotOntologyInTurtle()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String base = "urn:test:base#";
+        OWLOntology o = m.createOntology(df.getIRI(TestFiles.NS));
+        OWLNamedIndividual individual = df.getOWLNamedIndividual(base, "i");
+        OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
+        o.add(axiom);
+        StringDocumentTarget t = new StringDocumentTarget();
+        o.getPrefixManager().withDefaultPrefix(base);
+        o.saveOntology(new TurtleDocumentFormat(), t);
+        String string = t.toString().replaceAll("\\n#.*", "").replaceAll("\\n\\n*", "\n").trim();
+        assertEquals(
+            "@prefix : <urn:test:base#> .\n" + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+                + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+                + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+                + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                + "@base <urn:test:base#> .\n"
+                + "<http://example.com/ontology> rdf:type owl:Ontology .\n"
+                + ":i rdf:type owl:NamedIndividual .",
+            string);
+        OWLOntology o1 = loadOntologyFromString(string, new TurtleDocumentFormat());
+        equal(o, o1);
+    }
+
+    @Test
+    public void shouldSaveBaseIRINotOntologyInRioTurtle()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String base = "urn:test:base#";
+        OWLOntology o = m.createOntology(df.getIRI(TestFiles.NS));
+        OWLNamedIndividual individual = df.getOWLNamedIndividual(base, "i");
+        OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
+        o.add(axiom);
+        StringDocumentTarget t = new StringDocumentTarget();
+        o.getPrefixManager().withDefaultPrefix(base);
+        o.saveOntology(new RioTurtleDocumentFormat(), t);
+        String string = t.toString().replaceAll("\\n#.*", "").replaceAll("\\n\\n*", "\n").trim();
+        assertEquals(
+            "@base <urn:test:base#> .\n" + "@prefix : <urn:test:base#> .\n"
+                + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+                + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+                + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+                + "<http://example.com/ontology> a owl:Ontology .\n" + ":i a owl:NamedIndividual .",
+            string);
+        OWLOntology o1 = loadOntologyFromString(string, new RioTurtleDocumentFormat());
+        equal(o, o1);
+    }
+
+    @Test
     public void testLoadingUTF8BOM() throws Exception {
         IRI uri = df.getIRI(getClass().getResource("/ttl-with-bom.ttl").toURI());
         m.loadOntologyFromOntologyDocument(uri);

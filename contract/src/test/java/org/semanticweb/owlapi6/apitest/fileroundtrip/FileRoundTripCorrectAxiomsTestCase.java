@@ -369,8 +369,7 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
         OWLClassExpression supCls = ax.getSuperClass();
         assertTrue(supCls instanceof OWLObjectSomeValuesFrom);
         OWLObjectSomeValuesFrom someValuesFrom = (OWLObjectSomeValuesFrom) supCls;
-        OWLObjectProperty property =
-            ObjectProperty(IRI(OWLAPI_TEST, "P"));
+        OWLObjectProperty property = ObjectProperty(IRI(OWLAPI_TEST, "P"));
         OWLClass fillerCls = Class(IRI(OWLAPI_TEST, "C"));
         assertEquals(property, someValuesFrom.getProperty());
         assertEquals(fillerCls, someValuesFrom.getFiller());

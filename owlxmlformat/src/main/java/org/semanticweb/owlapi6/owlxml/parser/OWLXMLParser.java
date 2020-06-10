@@ -22,6 +22,7 @@ import org.semanticweb.owlapi6.io.OWLParserException;
 import org.semanticweb.owlapi6.io.OWLParserParameters;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi6.utilities.XMLUtils;
 import org.semanticweb.owlapi6.utility.SAXParsers;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -52,8 +53,9 @@ public class OWLXMLParser implements OWLParser {
             p.getOntology().getPrefixManager().copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             String base = handler.getBase().toString();
             // do not override existing default prefix
-            if (p.getOntology().getPrefixManager().getDefaultPrefix() == null) {
-                p.getOntology().getPrefixManager().withDefaultPrefix(base);
+            if (base != null && p.getOntology().getPrefixManager().getDefaultPrefix() == null) {
+                p.getOntology().getPrefixManager()
+                    .withDefaultPrefix(XMLUtils.iriWithTerminatingHash(base));
             }
             return new OWLXMLDocumentFormat();
         } catch (SAXException | IOException | IllegalStateException e) {

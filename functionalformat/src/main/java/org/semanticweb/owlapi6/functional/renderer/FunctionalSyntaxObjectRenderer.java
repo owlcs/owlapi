@@ -96,6 +96,7 @@ import org.semanticweb.owlapi6.model.SWRLVariable;
 import org.semanticweb.owlapi6.model.parameters.Imports;
 import org.semanticweb.owlapi6.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi6.utilities.ShortFormProvider;
+import org.semanticweb.owlapi6.utilities.XMLUtils;
 import org.semanticweb.owlapi6.utility.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi6.utility.EscapeUtils;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
@@ -161,17 +162,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         OntologyConfigurator config = o.getOWLOntologyManager().getOntologyConfigurator();
         addMissingDeclarations = config.shouldAddMissingTypes();
         prettyPrint = config.shouldPrettyPrintFunctionalSyntax();
-        if (o.isNamed() && prefixManager.get().getDefaultPrefix() == null) {
-            String existingDefault = prefixManager.get().getDefaultPrefix();
-            String ontologyIRIString =
-                o.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
-            if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {
-                String defaultPrefix = ontologyIRIString;
-                if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
-                    defaultPrefix = ontologyIRIString + '#';
-                }
-                prefixManager.get().withDefaultPrefix(defaultPrefix);
-            }
+        if (prefixManager.get().getDefaultPrefix() == null && o.isNamed()) {
+            o.getOntologyID().getOntologyIRI().map(Object::toString).ifPresent(
+                s -> prefixManager.get().withDefaultPrefix(XMLUtils.iriWithTerminatingHash(s)));
         }
         optionalLabelMaker = labelMaker(o);
     }
