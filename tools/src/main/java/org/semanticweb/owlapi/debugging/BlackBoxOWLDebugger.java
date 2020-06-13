@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.debugging;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -77,19 +78,35 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private final int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     private int expansionLimit = initialExpansionLimit;
     private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
-    private int fastPruningWindowSize = 0;
+    private final int fastPruningWindowSize;
 
     /**
      * Instantiates a new black box owl debugger.
-     * 
+     *
      * @param owlOntologyManager manager to use
-     * @param ontology ontology to debug
-     * @param reasonerFactory factory to use
+     * @param ontology           ontology to debug
+     * @param reasonerFactory    factory to use
      */
-    public BlackBoxOWLDebugger(@Nonnull OWLOntologyManager owlOntologyManager,
-        @Nonnull OWLOntology ontology, @Nonnull OWLReasonerFactory reasonerFactory) {
+    public BlackBoxOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
+        OWLReasonerFactory reasonerFactory) {
+        this(owlOntologyManager, ontology, reasonerFactory,
+            Math.max(ontology.getLogicalAxiomCount() / 100, DEFAULT_FAST_PRUNING_WINDOW_SIZE));
+    }
+
+    /**
+     * Instantiates a new black box owl debugger.
+     *
+     * @param owlOntologyManager    manager to use
+     * @param ontology              ontology to debug
+     * @param reasonerFactory       factory to use
+     * @param fastPruningWindowSize size of the pruning window, defaults to 1% of axiom number or
+     *                              10, whichever is larger
+     */
+    public BlackBoxOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
+        OWLReasonerFactory reasonerFactory, int fastPruningWindowSize) {
         super(owlOntologyManager, ontology);
         this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
+        this.fastPruningWindowSize = fastPruningWindowSize;
     }
 
     @Override
