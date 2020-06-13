@@ -380,4 +380,24 @@ public final class XMLUtils {
     public static boolean isNullOrEmpty(CharSequence s) {
         return s == null || s.length() == 0;
     }
+
+    /**
+     * @param iri input to check and terminate with a hash
+     * @return input plus a hash if the input does not terminate with hash or slash; if the input
+     *         contains a hash in a position aside from the last character, it is returned
+     *         unchanged. If null is received, return {@code "#"}.
+     */
+    public static String iriWithTerminatingHash(@Nullable String iri) {
+        if (iri == null) {
+            return "#";
+        }
+        char c = iri.charAt(iri.length() - 1);
+        if (c == '/' || c == '#') {
+            return iri;
+        }
+        if (iri.indexOf('#') > -1) {
+            return iri;
+        }
+        return iri + '#';
+    }
 }

@@ -30,14 +30,13 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.eclipse.rdf4j.common.xml.SimpleSAXListener;
+import org.eclipse.rdf4j.common.xml.XMLReaderFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
-
-import info.aduna.xml.SimpleSAXListener;
-import info.aduna.xml.XMLReaderFactory;
 
 /**
  *
@@ -175,7 +174,7 @@ public class OWLAPISimpleSAXParser {
      * 
      * @param file The file containing the XML to parse.
      * @throws SAXException parse exception
-     * @throws IOException parse exception
+     * @throws IOException  parse exception
      */
     public void parse(File file) throws SAXException, IOException {
         try (InputStream in = new FileInputStream(file)) {
@@ -188,7 +187,7 @@ public class OWLAPISimpleSAXParser {
      * 
      * @param in An <tt>InputStream</tt> containing XML data.
      * @throws SAXException parse exception
-     * @throws IOException parse exception
+     * @throws IOException  parse exception
      */
     public void parse(InputStream in) throws SAXException, IOException {
         parse(new InputSource(in));
@@ -199,7 +198,7 @@ public class OWLAPISimpleSAXParser {
      * 
      * @param reader A <tt>Reader</tt> containing XML data.
      * @throws SAXException parse exception
-     * @throws IOException parse exception
+     * @throws IOException  parse exception
      */
     public void parse(Reader reader) throws SAXException, IOException {
         parse(new InputSource(reader));
@@ -210,7 +209,7 @@ public class OWLAPISimpleSAXParser {
      * 
      * @param inputSource An <tt>InputSource</tt> containing XML data.
      * @throws SAXException parse exception
-     * @throws IOException parse exception
+     * @throws IOException  parse exception
      */
     private synchronized void parse(InputSource inputSource) throws SAXException, IOException {
         SimpleSAXDefaultHandler handler = new SimpleSAXDefaultHandler();

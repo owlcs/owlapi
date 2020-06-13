@@ -39,26 +39,25 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 
-import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFParserRegistry;
+import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.model.MIMETypeAware;
 
 /**
- * This format is designed to encapsulate any Sesame Rio RDFFormat within
- * RDFOntologyFormat, and more generally OWLOntologyFormat. <br>
+ * This format is designed to encapsulate any Sesame Rio RDFFormat within RDFOntologyFormat, and
+ * more generally OWLOntologyFormat. <br>
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
 public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat
-        implements MIMETypeAware, RioRDFDocumentFormat {
+    implements MIMETypeAware, RioRDFDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
     private transient RDFFormat format;
     private final String formatName;
 
-    private void readObject(ObjectInputStream in) throws IOException,
-            ClassNotFoundException {
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
             if (f.getName().equals(formatName)) {
@@ -69,11 +68,9 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat
     }
 
     /**
-     * Constructor for super-classes to specify which {@link RDFFormat} they
-     * support.
+     * Constructor for super-classes to specify which {@link RDFFormat} they support.
      * 
-     * @param format
-     *        The {@link RDFFormat} that this instance supports.
+     * @param format The {@link RDFFormat} that this instance supports.
      */
     public RioRDFPrefixDocumentFormat(RDFFormat format) {
         this.format = format;

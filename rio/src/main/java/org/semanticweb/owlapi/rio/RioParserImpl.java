@@ -50,19 +50,19 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.openrdf.model.Resource;
-import org.openrdf.model.Statement;
-import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.ValueFactoryImpl;
-import org.openrdf.model.vocabulary.RDF;
-import org.openrdf.rio.RDFHandler;
-import org.openrdf.rio.RDFHandlerException;
-import org.openrdf.rio.RDFParseException;
-import org.openrdf.rio.RDFParser;
-import org.openrdf.rio.Rio;
-import org.openrdf.rio.UnsupportedRDFormatException;
-import org.openrdf.rio.helpers.BasicParserSettings;
-import org.openrdf.rio.helpers.StatementCollector;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.model.impl.ValueFactoryImpl;
+import org.eclipse.rdf4j.model.vocabulary.RDF;
+import org.eclipse.rdf4j.rio.RDFHandler;
+import org.eclipse.rdf4j.rio.RDFHandlerException;
+import org.eclipse.rdf4j.rio.RDFParseException;
+import org.eclipse.rdf4j.rio.RDFParser;
+import org.eclipse.rdf4j.rio.Rio;
+import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
+import org.eclipse.rdf4j.rio.helpers.BasicParserSettings;
+import org.eclipse.rdf4j.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -202,16 +202,17 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      * statements found in the source.
      * 
      * @param documentSource An {@link OWLOntologyDocumentSource} containing RDF statements.
-     * @param baseUri The base URI to use when parsing the document source.
-     * @param handler rdf handler
+     * @param baseUri        The base URI to use when parsing the document source.
+     * @param handler        rdf handler
      * @throws UnsupportedRDFormatException If the document contains a format which is currently
-     *         unsupported, based on the parsers that are currently available.
-     * @throws IOException If there is an input/output exception while accessing the document
-     *         source.
-     * @throws RDFParseException If there is an error while parsing the document source.
-     * @throws RDFHandlerException If there is an error related to the processing of the RDF
-     *         statements after parsing.
-     * @throws MalformedURLException If there are malformed URLs.
+     *                                      unsupported, based on the parsers that are currently
+     *                                      available.
+     * @throws IOException                  If there is an input/output exception while accessing
+     *                                      the document source.
+     * @throws RDFParseException            If there is an error while parsing the document source.
+     * @throws RDFHandlerException          If there is an error related to the processing of the
+     *                                      RDF statements after parsing.
+     * @throws MalformedURLException        If there are malformed URLs.
      */
     protected void parseDocumentSource(final OWLOntologyDocumentSource documentSource,
         final String baseUri, final RDFHandler handler)

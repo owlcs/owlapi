@@ -41,12 +41,12 @@ import java.util.Collections;
 
 import javax.annotation.Nullable;
 
-import org.openrdf.OpenRDFUtil;
-import org.openrdf.model.Resource;
-import org.openrdf.model.Statement;
-import org.openrdf.model.URI;
-import org.openrdf.model.Value;
-import org.openrdf.model.impl.ValueFactoryImpl;
+import org.eclipse.rdf4j.OpenRDFUtil;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.URI;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.model.impl.ValueFactoryImpl;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
@@ -84,7 +84,7 @@ public final class RioUtils {
     /**
      * Create a collection of Statements with the given contexts.
      * 
-     * @param triple The OWLAPI {@link RDFTriple} to convert.
+     * @param triple   The OWLAPI {@link RDFTriple} to convert.
      * @param contexts If context is not null, it is used to create a context statement
      * @return A collection of OpenRDF {@link Statement}s representing the given RDFTriple in each
      *         of the given contexts.

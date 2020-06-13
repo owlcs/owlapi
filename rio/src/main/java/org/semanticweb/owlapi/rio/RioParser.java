@@ -35,7 +35,7 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.openrdf.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFFormat;
 import org.semanticweb.owlapi.io.OWLParser;
 
 /**
@@ -44,4 +44,5 @@ import org.semanticweb.owlapi.io.OWLParser;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public interface RioParser extends OWLParser {}
+public interface RioParser extends OWLParser {
+}

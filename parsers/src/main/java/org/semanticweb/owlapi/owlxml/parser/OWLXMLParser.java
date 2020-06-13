@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -63,7 +64,11 @@ public class OWLXMLParser extends AbstractOWLParser {
             }
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
-            format.setDefaultPrefix(handler.getBase().toString());
+            String base = handler.getBase().toString();
+            // do not override existing default prefix
+            if (base != null && format.getDefaultPrefix() == null) {
+                format.setDefaultPrefix(XMLUtils.iriWithTerminatingHash(base));
+            }
             return format;
         } catch (SAXException e) {
             // General exception

@@ -35,13 +35,13 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.openrdf.rio.RDFParser;
-import org.openrdf.rio.RDFParserFactory;
+import org.eclipse.rdf4j.rio.RDFParser;
+import org.eclipse.rdf4j.rio.RDFParserFactory;
 import org.semanticweb.owlapi.utilities.Injector;
 
 /**
- * {@link RDFParserFactory} that creates RDF statements from OWL Ontologies. It
- * is used to access OWLAPI parsers from Sesame Rio APIs.
+ * {@link RDFParserFactory} that creates RDF statements from OWL Ontologies. It is used to access
+ * OWLAPI parsers from Sesame Rio APIs.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0

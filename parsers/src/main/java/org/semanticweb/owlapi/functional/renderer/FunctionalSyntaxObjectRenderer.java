@@ -112,6 +112,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.HasAnnotations;
 import org.semanticweb.owlapi.model.IRI;
@@ -220,9 +221,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
@@ -249,7 +248,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     /**
      * @param ontology the ontology
-     * @param writer the writer
+     * @param writer   the writer
      */
     public FunctionalSyntaxObjectRenderer(@Nonnull OWLOntology ontology, Writer writer) {
         ont = ontology;
@@ -267,15 +266,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
                 .setPrefixComparator(((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());
         }
         if (!ontology.isAnonymous() && prefixManager.getDefaultPrefix() == null) {
-            String existingDefault = prefixManager.getDefaultPrefix();
-            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
-            if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {
-                String defaultPrefix = ontologyIRIString;
-                if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
-                    defaultPrefix = ontologyIRIString + '#';
-                }
-                prefixManager.setDefaultPrefix(defaultPrefix);
-            }
+            prefixManager.setDefaultPrefix(XMLUtils.iriWithTerminatingHash(
+                ontology.getOntologyID().getOntologyIRI().get().toString()));
         }
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
@@ -632,9 +624,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     /**
      * Writes of the annotation for the specified entity.
      * 
-     * @param entity The entity
+     * @param entity               The entity
      * @param alreadyWrittenAxioms already written axioms, to be updated with the newly written
-     *        axioms
+     *                             axioms
      */
     protected void writeAnnotations(@Nonnull OWLEntity entity,
         @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {

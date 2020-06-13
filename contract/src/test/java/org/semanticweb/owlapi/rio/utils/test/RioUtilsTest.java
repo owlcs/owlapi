@@ -5,14 +5,14 @@ package org.semanticweb.owlapi.rio.utils.test;
 
 import static org.junit.Assert.assertEquals;
 
+import org.eclipse.rdf4j.model.BNode;
+import org.eclipse.rdf4j.model.Literal;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.URI;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.model.impl.ValueFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
-import org.openrdf.model.BNode;
-import org.openrdf.model.Literal;
-import org.openrdf.model.Statement;
-import org.openrdf.model.URI;
-import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.ValueFactoryImpl;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.rio.utils.RioUtils;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class RioUtilsTest {
 
     private static final String TEST_LITERAL = "Test literal";
@@ -45,130 +45,119 @@ public class RioUtilsTest {
 
     @Before
     public void setUp() {
-        RDFResourceIRI testOwlApiSubjectUri1 = new RDFResourceIRI(
-            IRI.create("urn:test:subject:uri:1"));
-        RDFResourceIRI testOwlApiPredicateUri1 = new RDFResourceIRI(
-            IRI.create("urn:test:predicate:uri:1"));
-        RDFResourceIRI testOwlApiObjectUri1 = new RDFResourceIRI(
-            IRI.create("urn:test:object:uri:1"));
-        RDFLiteral testOwlApiObjectPlainLiteral1 = new RDFLiteral(
-            TEST_LITERAL, "", null);
-        RDFLiteral testOwlApiObjectLangLiteral1 = new RDFLiteral(
-            TEST_LITERAL, "en", null);
-        RDFLiteral testOwlApiObjectTypedLiteral1 = new RDFLiteral(
-            TEST_LITERAL, null, IRI.create("urn:test:datatype:1"));
-        RDFResourceBlankNode testOwlApiSubjectBNode1 = new RDFResourceBlankNode(
-            IRI.create("subjectBnode1"), true, true, false);
-        RDFResourceBlankNode testOwlApiObjectBNode1 = new RDFResourceBlankNode(
-            IRI.create("objectBnode1"), true, true, false);
-        testOwlApiTripleAllIRI = new RDFTriple(testOwlApiSubjectUri1,
-            testOwlApiPredicateUri1, testOwlApiObjectUri1);
-        testOwlApiTriplePlainLiteral = new RDFTriple(testOwlApiSubjectUri1,
-            testOwlApiPredicateUri1, testOwlApiObjectPlainLiteral1);
-        testOwlApiTripleLangLiteral = new RDFTriple(testOwlApiSubjectUri1,
-            testOwlApiPredicateUri1, testOwlApiObjectLangLiteral1);
-        testOwlApiTripleTypedLiteral = new RDFTriple(testOwlApiSubjectUri1,
-            testOwlApiPredicateUri1, testOwlApiObjectTypedLiteral1);
-        testOwlApiTripleSubjectBNode = new RDFTriple(testOwlApiSubjectBNode1,
-            testOwlApiPredicateUri1, testOwlApiObjectUri1);
-        testOwlApiTripleObjectBNode = new RDFTriple(testOwlApiSubjectUri1,
-            testOwlApiPredicateUri1, testOwlApiObjectBNode1);
-        testOwlApiTripleSubjectObjectBNode = new RDFTriple(
-            testOwlApiSubjectBNode1, testOwlApiPredicateUri1,
-            testOwlApiObjectBNode1);
+        RDFResourceIRI testOwlApiSubjectUri1 =
+            new RDFResourceIRI(IRI.create("urn:test:subject:uri:1"));
+        RDFResourceIRI testOwlApiPredicateUri1 =
+            new RDFResourceIRI(IRI.create("urn:test:predicate:uri:1"));
+        RDFResourceIRI testOwlApiObjectUri1 =
+            new RDFResourceIRI(IRI.create("urn:test:object:uri:1"));
+        RDFLiteral testOwlApiObjectPlainLiteral1 = new RDFLiteral(TEST_LITERAL, "", null);
+        RDFLiteral testOwlApiObjectLangLiteral1 = new RDFLiteral(TEST_LITERAL, "en", null);
+        RDFLiteral testOwlApiObjectTypedLiteral1 =
+            new RDFLiteral(TEST_LITERAL, null, IRI.create("urn:test:datatype:1"));
+        RDFResourceBlankNode testOwlApiSubjectBNode1 =
+            new RDFResourceBlankNode(IRI.create("subjectBnode1"), true, true, false);
+        RDFResourceBlankNode testOwlApiObjectBNode1 =
+            new RDFResourceBlankNode(IRI.create("objectBnode1"), true, true, false);
+        testOwlApiTripleAllIRI =
+            new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1, testOwlApiObjectUri1);
+        testOwlApiTriplePlainLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,
+            testOwlApiObjectPlainLiteral1);
+        testOwlApiTripleLangLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,
+            testOwlApiObjectLangLiteral1);
+        testOwlApiTripleTypedLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,
+            testOwlApiObjectTypedLiteral1);
+        testOwlApiTripleSubjectBNode =
+            new RDFTriple(testOwlApiSubjectBNode1, testOwlApiPredicateUri1, testOwlApiObjectUri1);
+        testOwlApiTripleObjectBNode =
+            new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1, testOwlApiObjectBNode1);
+        testOwlApiTripleSubjectObjectBNode =
+            new RDFTriple(testOwlApiSubjectBNode1, testOwlApiPredicateUri1, testOwlApiObjectBNode1);
         URI testSesameSubjectUri1 = VF.createURI("urn:test:subject:uri:1");
         URI testSesamePredicateUri1 = VF.createURI("urn:test:predicate:uri:1");
         URI testSesameObjectUri1 = VF.createURI("urn:test:object:uri:1");
-        Literal testSesameObjectPlainLiteral1 = VF
-            .createLiteral(TEST_LITERAL);
-        Literal testSesameObjectLangLiteral1 = VF.createLiteral(TEST_LITERAL,
-            "en");
-        Literal testSesameObjectTypedLiteral1 = VF.createLiteral(
-            TEST_LITERAL, VF.createURI("urn:test:datatype:1"));
+        Literal testSesameObjectPlainLiteral1 = VF.createLiteral(TEST_LITERAL);
+        Literal testSesameObjectLangLiteral1 = VF.createLiteral(TEST_LITERAL, "en");
+        Literal testSesameObjectTypedLiteral1 =
+            VF.createLiteral(TEST_LITERAL, VF.createURI("urn:test:datatype:1"));
         BNode testSesameSubjectBNode1 = VF.createBNode("subjectBnode1");
         BNode testSesameObjectBNode1 = VF.createBNode("objectBnode1");
-        testSesameTripleAllIRI = VF.createStatement(testSesameSubjectUri1,
-            testSesamePredicateUri1, testSesameObjectUri1);
-        testSesameTriplePlainLiteral = VF.createStatement(
-            testSesameSubjectUri1, testSesamePredicateUri1,
-            testSesameObjectPlainLiteral1);
+        testSesameTripleAllIRI = VF.createStatement(testSesameSubjectUri1, testSesamePredicateUri1,
+            testSesameObjectUri1);
+        testSesameTriplePlainLiteral = VF.createStatement(testSesameSubjectUri1,
+            testSesamePredicateUri1, testSesameObjectPlainLiteral1);
         testSesameTripleLangLiteral = VF.createStatement(testSesameSubjectUri1,
             testSesamePredicateUri1, testSesameObjectLangLiteral1);
-        testSesameTripleTypedLiteral = VF.createStatement(
-            testSesameSubjectUri1, testSesamePredicateUri1,
-            testSesameObjectTypedLiteral1);
-        testSesameTripleSubjectBNode = VF.createStatement(
-            testSesameSubjectBNode1, testSesamePredicateUri1,
-            testSesameObjectUri1);
+        testSesameTripleTypedLiteral = VF.createStatement(testSesameSubjectUri1,
+            testSesamePredicateUri1, testSesameObjectTypedLiteral1);
+        testSesameTripleSubjectBNode = VF.createStatement(testSesameSubjectBNode1,
+            testSesamePredicateUri1, testSesameObjectUri1);
         testSesameTripleObjectBNode = VF.createStatement(testSesameSubjectUri1,
             testSesamePredicateUri1, testSesameObjectBNode1);
-        testSesameTripleSubjectObjectBNode = VF.createStatement(
-            testSesameSubjectBNode1, testSesamePredicateUri1,
-            testSesameObjectBNode1);
+        testSesameTripleSubjectObjectBNode = VF.createStatement(testSesameSubjectBNode1,
+            testSesamePredicateUri1, testSesameObjectBNode1);
     }
 
     /*
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.RDFTriple)}
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.
+     * RDFTriple)}
      */
     @Test
     public void testTripleAllIRI() {
-        Statement tripleAsStatement = RioUtils
-            .tripleAsStatement(testOwlApiTripleAllIRI);
+        Statement tripleAsStatement = RioUtils.tripleAsStatement(testOwlApiTripleAllIRI);
         assertEquals(testSesameTripleAllIRI, tripleAsStatement);
     }
 
     @Test
     public void testTripleBNodeComparisonObject() {
-        Statement tripleAsStatement = RioUtils
-            .tripleAsStatement(testOwlApiTripleObjectBNode);
+        Statement tripleAsStatement = RioUtils.tripleAsStatement(testOwlApiTripleObjectBNode);
         assertEquals(testSesameTripleObjectBNode, tripleAsStatement);
     }
 
     @Test
     public void testTripleBNodeComparisonSubject() {
-        Statement tripleAsStatement = RioUtils
-            .tripleAsStatement(testOwlApiTripleSubjectBNode);
+        Statement tripleAsStatement = RioUtils.tripleAsStatement(testOwlApiTripleSubjectBNode);
         assertEquals(testSesameTripleSubjectBNode, tripleAsStatement);
     }
 
     @Test
     public void testTripleBNodeComparisonSubjectAndObject() {
-        Statement tripleAsStatement = RioUtils
-            .tripleAsStatement(testOwlApiTripleSubjectObjectBNode);
+        Statement tripleAsStatement =
+            RioUtils.tripleAsStatement(testOwlApiTripleSubjectObjectBNode);
         assertEquals(testSesameTripleSubjectObjectBNode, tripleAsStatement);
     }
 
     /*
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.RDFTriple)}
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.
+     * RDFTriple)}
      */
     @Test
     public void testTripleLangLiteral() {
-        Statement tripleAsStatement = RioUtils
-            .tripleAsStatement(testOwlApiTripleLangLiteral);
+        Statement tripleAsStatement = RioUtils.tripleAsStatement(testOwlApiTripleLangLiteral);
         assertEquals(testSesameTripleLangLiteral, tripleAsStatement);
     }
 
     /*
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.RDFTriple)}
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.
+     * RDFTriple)}
      */
     @Test
     public void testTriplePlainLiteral() {
-        Statement tripleAsStatement = RioUtils
-            .tripleAsStatement(testOwlApiTriplePlainLiteral);
+        Statement tripleAsStatement = RioUtils.tripleAsStatement(testOwlApiTriplePlainLiteral);
         assertEquals(testSesameTriplePlainLiteral, tripleAsStatement);
     }
 
     /*
-     * Test method for
-     * {@link org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.RDFTriple)}
+     * Test method for {@link
+     * org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.
+     * RDFTriple)}
      */
     @Test
     public void testTripleTypedLiteral() {
-        Statement tripleAsStatement = RioUtils
-            .tripleAsStatement(testOwlApiTripleTypedLiteral);
+        Statement tripleAsStatement = RioUtils.tripleAsStatement(testOwlApiTripleTypedLiteral);
         assertEquals(testSesameTripleTypedLiteral, tripleAsStatement);
     }
 }

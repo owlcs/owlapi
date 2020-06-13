@@ -47,24 +47,22 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.openrdf.OpenRDFException;
-import org.openrdf.model.Model;
-import org.openrdf.model.Namespace;
-import org.openrdf.model.Statement;
-import org.openrdf.model.util.Namespaces;
+import org.eclipse.rdf4j.OpenRDFException;
+import org.eclipse.rdf4j.common.iteration.CloseableIteration;
+import org.eclipse.rdf4j.model.Model;
+import org.eclipse.rdf4j.model.Namespace;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.util.Namespaces;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-import info.aduna.iteration.CloseableIteration;
-
 /**
- * An implementation of the OWLOntologyDocumentSource interface that does not
- * implement any of the InputStream, Reader, or IRI source retrieval methods.
- * Instead it holds a reference to an iterator that will generate bare triples
- * to be interpreted by a Sesame Rio based OWLParser implementation.
+ * An implementation of the OWLOntologyDocumentSource interface that does not implement any of the
+ * InputStream, Reader, or IRI source retrieval methods. Instead it holds a reference to an iterator
+ * that will generate bare triples to be interpreted by a Sesame Rio based OWLParser implementation.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
@@ -78,12 +76,9 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     private final IRI documentIRI;
 
     /**
-     * Creates a RioMemoryTripleSource using an {@link Iterable} of
-     * {@link Statement} objects.
+     * Creates a RioMemoryTripleSource using an {@link Iterable} of {@link Statement} objects.
      * 
-     * @param statements
-     *        An {@link Iterator} of {@link Statement} objects that make up this
-     *        source.
+     * @param statements An {@link Iterator} of {@link Statement} objects that make up this source.
      */
     public RioMemoryTripleSource(@Nonnull Iterator<Statement> statements) {
         documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
@@ -91,30 +86,24 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     /**
-     * Creates a RioMemoryTripleSource using an {@link Iterable} of
-     * {@link Statement} objects.
+     * Creates a RioMemoryTripleSource using an {@link Iterable} of {@link Statement} objects.
      * 
-     * @param statements
-     *        An {@link Iterator} of {@link Statement} objects that make up this
-     *        source.
-     * @param namespaces
-     *        A Map of namespaces from prefix to full URI which are to be used
-     *        by this source.
+     * @param statements An {@link Iterator} of {@link Statement} objects that make up this source.
+     * @param namespaces A Map of namespaces from prefix to full URI which are to be used by this
+     *                   source.
      */
-    public RioMemoryTripleSource(@Nonnull Iterator<Statement> statements, @Nonnull Map<String, String> namespaces) {
+    public RioMemoryTripleSource(@Nonnull Iterator<Statement> statements,
+        @Nonnull Map<String, String> namespaces) {
         this(statements);
         this.namespaces.putAll(namespaces);
     }
 
     /**
-     * Creates a RioMemoryTripleSource using an {@link Iterable} of
-     * {@link Statement} objects. <br>
-     * If the Iterable is an instance of {@link Model}, the namespaces from the
-     * model are also used.
+     * Creates a RioMemoryTripleSource using an {@link Iterable} of {@link Statement} objects. <br>
+     * If the Iterable is an instance of {@link Model}, the namespaces from the model are also used.
      * 
-     * @param statements
-     *        A {@link CloseableIteration} of {@link Statement} objects that
-     *        make up this source.
+     * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
+     *                   source.
      */
     public RioMemoryTripleSource(@Nonnull Iterable<Statement> statements) {
         documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
@@ -125,21 +114,22 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     /**
-     * Creates a RioMemoryTripleSource using a closeable iteration. Internally
-     * this wraps the statements as an Iterator, and hence all statements must
-     * be read for the iterator to be closed automatically.
+     * Creates a RioMemoryTripleSource using a closeable iteration. Internally this wraps the
+     * statements as an Iterator, and hence all statements must be read for the iterator to be
+     * closed automatically.
      * 
-     * @param statements
-     *        A {@link CloseableIteration} of {@link Statement} objects that
-     *        make up this source.
+     * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
+     *                   source.
      */
-    public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
+    public RioMemoryTripleSource(
+        final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
         documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
         statementIterator = new Iterator<Statement>() {
 
             @Override
             public void remove() {
-                throw new UnsupportedOperationException("Cannot remove statements using this iterator");
+                throw new UnsupportedOperationException(
+                    "Cannot remove statements using this iterator");
             }
 
             @Override
@@ -187,18 +177,17 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     /**
-     * Creates a RioMemoryTripleSource using a closeable iteration. Internally
-     * this wraps the statements as an Iterator, and hence all statements must
-     * be read for the iterator to be closed automatically.
+     * Creates a RioMemoryTripleSource using a closeable iteration. Internally this wraps the
+     * statements as an Iterator, and hence all statements must be read for the iterator to be
+     * closed automatically.
      * 
-     * @param statements
-     *        A {@link CloseableIteration} of {@link Statement} objects that
-     *        make up this source.
-     * @param namespaces
-     *        A Map of namespaces from prefix to full URI which are to be used
-     *        by this source.
+     * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
+     *                   source.
+     * @param namespaces A Map of namespaces from prefix to full URI which are to be used by this
+     *                   source.
      */
-    public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends OpenRDFException> statements,
+    public RioMemoryTripleSource(
+        final CloseableIteration<Statement, ? extends OpenRDFException> statements,
         final Map<String, String> namespaces) {
         this(statements);
         this.namespaces.putAll(namespaces);
@@ -256,8 +245,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     /**
-     * @param nextNamespaces
-     *        set of namespaces to set
+     * @param nextNamespaces set of namespaces to set
      */
     public void setNamespaces(Set<Namespace> nextNamespaces) {
         namespaces.clear();
@@ -265,8 +253,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     /**
-     * @param nextNamespaces
-     *        map of namespaces to set
+     * @param nextNamespaces map of namespaces to set
      */
     public void setNamespaces(Map<String, String> nextNamespaces) {
         namespaces.clear();

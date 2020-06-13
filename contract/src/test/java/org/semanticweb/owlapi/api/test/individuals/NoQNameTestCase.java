@@ -21,8 +21,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Objec
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.rdf4j.rio.RDFHandlerException;
 import org.junit.Test;
-import org.openrdf.rio.RDFHandlerException;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;

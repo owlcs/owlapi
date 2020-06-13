@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -81,6 +82,60 @@ public class TurtleTestCase extends TestBase {
     private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
     @Nonnull
     private final IRI s = IRI.create("urn:test#s");
+
+    @Test
+    public void shouldSaveBaseIRINotOntologyInTurtle()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String base = "urn:test:base#";
+        String ns = "http://example.com/ontology";
+        OWLOntology o = m.createOntology(IRI.create(ns));
+        OWLNamedIndividual individual = df.getOWLNamedIndividual(IRI.create(base, "i"));
+        OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
+        o.getOWLOntologyManager().addAxiom(o, axiom);
+        StringDocumentTarget t = new StringDocumentTarget();
+        RioTurtleDocumentFormat format = new RioTurtleDocumentFormat();
+        format.setDefaultPrefix(base);
+        o.saveOntology(format, t);
+        String string = t.toString().replaceAll("\\n#.*", "").replaceAll("\\n\\n*", "\n").trim();
+        assertEquals(
+            "@base <urn:test:base#> .\n" + "@prefix : <urn:test:base#> .\n"
+                + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+                + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+                + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+                + "<http://example.com/ontology> a owl:Ontology .\n" + ":i a owl:NamedIndividual .",
+            string);
+        OWLOntology o1 = loadOntologyFromString(string, new TurtleDocumentFormat());
+        equal(o, o1);
+    }
+
+    @Test
+    public void shouldSaveBaseIRINotOntologyInRioTurtle()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String base = "urn:test:base#";
+        String ns = "http://example.com/ontology";
+        OWLOntology o = m.createOntology(IRI.create(ns));
+        OWLNamedIndividual individual = df.getOWLNamedIndividual(IRI.create(base, "i"));
+        OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
+        o.getOWLOntologyManager().addAxiom(o, axiom);
+        StringDocumentTarget t = new StringDocumentTarget();
+        RioTurtleDocumentFormat format = new RioTurtleDocumentFormat();
+        format.setDefaultPrefix(base);
+        o.saveOntology(format, t);
+        String string = t.toString().replaceAll("\\n#.*", "").replaceAll("\\n\\n*", "\n").trim();
+        assertEquals(
+            "@base <urn:test:base#> .\n" + "@prefix : <urn:test:base#> .\n"
+                + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+                + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+                + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+                + "<http://example.com/ontology> a owl:Ontology .\n" + ":i a owl:NamedIndividual .",
+            string);
+        OWLOntology o1 = loadOntologyFromString(string, format);
+        equal(o, o1);
+    }
 
     @Test
     public void irisWithQuotesInTurtle()

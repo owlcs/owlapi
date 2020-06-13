@@ -46,9 +46,9 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import org.openrdf.model.ValueFactory;
-import org.openrdf.rio.RDFHandler;
-import org.openrdf.rio.helpers.RDFParserBase;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.rio.RDFHandler;
+import org.eclipse.rdf4j.rio.helpers.RDFParserBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
@@ -78,7 +78,7 @@ public class RioOWLRDFParser extends RDFParserBase {
     }
 
     /**
-     * @param owlFormat OWL format
+     * @param owlFormat    OWL format
      * @param valueFactory value factory
      */
     public RioOWLRDFParser(OWLAPIRDFFormat owlFormat, ValueFactory valueFactory) {

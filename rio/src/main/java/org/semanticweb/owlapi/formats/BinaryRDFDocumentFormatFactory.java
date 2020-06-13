@@ -37,14 +37,13 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.openrdf.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFFormat;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class BinaryRDFDocumentFormatFactory extends
-        AbstractRioRDFDocumentFormatFactory {
+public class BinaryRDFDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
 

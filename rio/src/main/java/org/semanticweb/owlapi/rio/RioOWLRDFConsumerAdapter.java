@@ -37,11 +37,11 @@ package org.semanticweb.owlapi.rio;
 
 import javax.annotation.Nonnull;
 
-import org.openrdf.model.BNode;
-import org.openrdf.model.Literal;
-import org.openrdf.model.Resource;
-import org.openrdf.model.Statement;
-import org.openrdf.rio.RDFHandler;
+import org.eclipse.rdf4j.model.BNode;
+import org.eclipse.rdf4j.model.Literal;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.rio.RDFHandler;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
@@ -53,8 +53,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * An {@link OWLRDFConsumer} implementation that implements the Sesame
- * {@link RDFHandler} interface.
+ * An {@link OWLRDFConsumer} implementation that implements the Sesame {@link RDFHandler} interface.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
@@ -64,14 +63,12 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
     private static final Logger logger = LoggerFactory.getLogger(RioOWLRDFConsumerAdapter.class);
 
     /**
-     * @param ontology
-     *        ontology to update
-     * @param checker
-     *        node checker
-     * @param configuration
-     *        loading configuration
+     * @param ontology      ontology to update
+     * @param checker       node checker
+     * @param configuration loading configuration
      */
-    public RioOWLRDFConsumerAdapter(@Nonnull OWLOntology ontology, @Nonnull AnonymousNodeChecker checker,
+    public RioOWLRDFConsumerAdapter(@Nonnull OWLOntology ontology,
+        @Nonnull AnonymousNodeChecker checker,
         @Nonnull OWLOntologyLoaderConfiguration configuration) {
         super(ontology, checker, configuration);
     }
@@ -119,19 +116,20 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
         }
         if (st.getObject() instanceof Resource) {
             logger.trace("statement with resource value");
-            statementWithResourceValue(subjectString, st.getPredicate().stringValue(), objectString);
+            statementWithResourceValue(subjectString, st.getPredicate().stringValue(),
+                objectString);
         } else {
             final Literal literalObject = (Literal) st.getObject();
             String literalDatatype = null;
-            final String literalLanguage = literalObject.getLanguage();
+            final String literalLanguage = literalObject.getLanguage().orElse(null);
             // TODO: When updating to Sesame-2.8 with RDF-1.1 support, the
             // following if condition will always be true
-            if (literalObject.getDatatype() != null) {
+            if (literalObject.getDatatype() != null && literalLanguage == null) {
                 literalDatatype = literalObject.getDatatype().stringValue();
             }
             logger.trace("statement with literal value");
-            statementWithLiteralValue(subjectString, st.getPredicate().stringValue(), objectString, literalLanguage,
-                literalDatatype);
+            statementWithLiteralValue(subjectString, st.getPredicate().stringValue(), objectString,
+                literalLanguage, literalDatatype);
         }
     }
 

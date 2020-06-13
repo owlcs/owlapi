@@ -19,14 +19,14 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import static org.openrdf.rio.trix.TriXConstants.BNODE_TAG;
-import static org.openrdf.rio.trix.TriXConstants.CONTEXT_TAG;
-import static org.openrdf.rio.trix.TriXConstants.DATATYPE_ATT;
-import static org.openrdf.rio.trix.TriXConstants.LANGUAGE_ATT;
-import static org.openrdf.rio.trix.TriXConstants.PLAIN_LITERAL_TAG;
-import static org.openrdf.rio.trix.TriXConstants.TRIPLE_TAG;
-import static org.openrdf.rio.trix.TriXConstants.TYPED_LITERAL_TAG;
-import static org.openrdf.rio.trix.TriXConstants.URI_TAG;
+import static org.eclipse.rdf4j.rio.trix.TriXConstants.BNODE_TAG;
+import static org.eclipse.rdf4j.rio.trix.TriXConstants.CONTEXT_TAG;
+import static org.eclipse.rdf4j.rio.trix.TriXConstants.DATATYPE_ATT;
+import static org.eclipse.rdf4j.rio.trix.TriXConstants.LANGUAGE_ATT;
+import static org.eclipse.rdf4j.rio.trix.TriXConstants.PLAIN_LITERAL_TAG;
+import static org.eclipse.rdf4j.rio.trix.TriXConstants.TRIPLE_TAG;
+import static org.eclipse.rdf4j.rio.trix.TriXConstants.TYPED_LITERAL_TAG;
+import static org.eclipse.rdf4j.rio.trix.TriXConstants.URI_TAG;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,22 +36,21 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.input.BOMInputStream;
-import org.openrdf.model.Resource;
-import org.openrdf.model.Statement;
-import org.openrdf.model.URI;
-import org.openrdf.model.Value;
-import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.ValueFactoryImpl;
-import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFHandlerException;
-import org.openrdf.rio.RDFParseException;
-import org.openrdf.rio.helpers.RDFParserBase;
-import org.openrdf.rio.helpers.TriXParserSettings;
+import org.eclipse.rdf4j.common.xml.SimpleSAXAdapter;
+import org.eclipse.rdf4j.model.IRI;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.model.impl.ValueFactoryImpl;
+import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFHandlerException;
+import org.eclipse.rdf4j.rio.RDFParseException;
+import org.eclipse.rdf4j.rio.helpers.RDFParserBase;
+import org.eclipse.rdf4j.rio.helpers.TriXParserSettings;
 import org.semanticweb.owlapi.rio.utils.OWLAPISimpleSAXParser;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-import info.aduna.xml.SimpleSAXAdapter;
 
 /**
  * A parser that can parse RDF files that are in the <a href="http://www.w3.org/2004/03/trix/">TriX
@@ -184,7 +183,7 @@ class OWLAPIRioTrixParser extends RDFParserBase {
                             TriXParserSettings.FAIL_ON_TRIX_MISSING_DATATYPE);
                         valueList.add(createLiteral(text, null, null));
                     } else {
-                        URI dtURI = createURI(datatype);
+                        IRI dtURI = createURI(datatype);
                         valueList.add(createLiteral(text, null, dtURI));
                     }
                 } else if (tagName.equals(TRIPLE_TAG)) {
@@ -243,14 +242,14 @@ class OWLAPIRioTrixParser extends RDFParserBase {
                         TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
                     return;
                 }
-                if (!(valueList.get(1) instanceof URI)) {
+                if (!(valueList.get(1) instanceof IRI)) {
                     reportError("Second value for a triple should be a URI",
                         TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
                     return;
                 }
 
                 Resource subj = (Resource) valueList.get(0);
-                URI pred = (URI) valueList.get(1);
+                IRI pred = (IRI) valueList.get(1);
                 Value obj = valueList.get(2);
 
                 Statement st = createStatement(subj, pred, obj, currentContext);

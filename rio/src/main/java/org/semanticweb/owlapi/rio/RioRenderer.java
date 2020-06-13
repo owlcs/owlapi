@@ -42,14 +42,15 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.openrdf.OpenRDFUtil;
-import org.openrdf.model.Resource;
-import org.openrdf.model.Statement;
-import org.openrdf.rio.RDFHandler;
-import org.openrdf.rio.RDFHandlerException;
+import org.eclipse.rdf4j.OpenRDFUtil;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.rio.RDFHandler;
+import org.eclipse.rdf4j.rio.RDFHandlerException;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -81,8 +82,8 @@ public class RioRenderer extends RDFRendererBase {
 
     /**
      * @param ontology ontology
-     * @param writer writer
-     * @param format format
+     * @param writer   writer
+     * @param format   format
      * @param contexts contexts
      */
     public RioRenderer(@Nonnull final OWLOntology ontology, final RDFHandler writer,
@@ -92,13 +93,9 @@ public class RioRenderer extends RDFRendererBase {
         this.contexts = contexts;
         this.writer = writer;
         pm = new DefaultPrefixManager();
-        if (!ontology.isAnonymous()) {
-            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
-            String defaultPrefix = ontologyIRIString;
-            if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
-                defaultPrefix = ontologyIRIString + '#';
-            }
-            pm.setDefaultPrefix(defaultPrefix);
+        if (!ontology.isAnonymous() && pm.getDefaultPrefix() == null) {
+            pm.setDefaultPrefix(XMLUtils.iriWithTerminatingHash(
+                ontology.getOntologyID().getOntologyIRI().get().toString()));
         }
         // copy prefixes out of the given format if it is a
         // PrefixOWLOntologyFormat

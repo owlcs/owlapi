@@ -41,27 +41,25 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFParserRegistry;
+import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.model.MIMETypeAware;
 
 /**
- * This format is designed to encapsulate any Sesame Rio RDFFormat within
- * RDFOntologyFormat, and more generally OWLOntologyFormat. <br>
+ * This format is designed to encapsulate any Sesame Rio RDFFormat within RDFOntologyFormat, and
+ * more generally OWLOntologyFormat. <br>
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioRDFNonPrefixDocumentFormat extends
-        AbstractRDFNonPrefixDocumentFormat implements MIMETypeAware,
-        RioRDFDocumentFormat {
+public class RioRDFNonPrefixDocumentFormat extends AbstractRDFNonPrefixDocumentFormat
+    implements MIMETypeAware, RioRDFDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
     private transient RDFFormat format;
     private final String formatName;
 
-    private void readObject(ObjectInputStream in) throws IOException,
-            ClassNotFoundException {
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
             if (f.getName().equals(formatName)) {
@@ -72,11 +70,10 @@ public class RioRDFNonPrefixDocumentFormat extends
     }
 
     /**
-     * Constructor for super-classes to specify which
-     * {@link org.openrdf.rio.RDFFormat} they support.
+     * Constructor for super-classes to specify which {@link org.eclipse.rdf4j.rio.RDFFormat} they
+     * support.
      *
-     * @param format
-     *        The {@link org.openrdf.rio.RDFFormat} that this instance supports.
+     * @param format The {@link org.eclipse.rdf4j.rio.RDFFormat} that this instance supports.
      */
     public RioRDFNonPrefixDocumentFormat(RDFFormat format) {
         this.format = format;
@@ -84,12 +81,10 @@ public class RioRDFNonPrefixDocumentFormat extends
     }
 
     /**
-     * Determines if this format is an instance of a format that uses prefixes
-     * to shorted IRIs.
+     * Determines if this format is an instance of a format that uses prefixes to shorted IRIs.
      *
      * @return {@code true} if this format is an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
-     *         wise {@code false}.
+     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other wise {@code false}.
      */
     @Override
     public boolean isPrefixOWLOntologyFormat() {
@@ -97,16 +92,14 @@ public class RioRDFNonPrefixDocumentFormat extends
     }
 
     /**
-     * If this format is an instance of
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} then this
-     * method will obtain it as a
+     * If this format is an instance of {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
+     * then this method will obtain it as a
      * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
      *
      * @return This format as a more specific
      *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     * @throws ClassCastException
-     *         if this format is not an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
+     * @throws ClassCastException if this format is not an instance of
+     *                            {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
      */
     @Nonnull
     @Override

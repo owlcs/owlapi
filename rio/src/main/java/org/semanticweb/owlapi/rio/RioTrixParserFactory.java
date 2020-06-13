@@ -42,11 +42,11 @@ import java.net.URLConnection;
 
 import javax.annotation.Nonnull;
 
-import org.openrdf.rio.RDFHandler;
-import org.openrdf.rio.RDFHandlerException;
-import org.openrdf.rio.RDFParseException;
-import org.openrdf.rio.RDFParser;
-import org.openrdf.rio.helpers.BasicParserSettings;
+import org.eclipse.rdf4j.rio.RDFHandler;
+import org.eclipse.rdf4j.rio.RDFHandlerException;
+import org.eclipse.rdf4j.rio.RDFParseException;
+import org.eclipse.rdf4j.rio.RDFParser;
+import org.eclipse.rdf4j.rio.helpers.BasicParserSettings;
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.formats.TrixDocumentFormatFactory;
