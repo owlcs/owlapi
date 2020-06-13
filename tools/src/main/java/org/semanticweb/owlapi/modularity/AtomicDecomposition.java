@@ -25,6 +25,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.HasAxioms;
+import org.semanticweb.owlapi.model.HasContainsAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.parameters.Imports;
@@ -36,7 +37,6 @@ import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityModuleExtract
  * Class to represent the atomic decomposition of a set of axioms.
  *
  * @author Marc Robin Nolte
- *
  */
 public final class AtomicDecomposition implements HasAxioms {
 
@@ -44,9 +44,8 @@ public final class AtomicDecomposition implements HasAxioms {
      * Class to represent atoms.
      *
      * @author Marc Robin Nolte
-     *
      */
-    public final class Atom implements HasAxioms {
+    public final class Atom implements HasAxioms, HasContainsAxiom {
 
         /**
          * The {@link OWLAxiom}s of this {@link Atom}.
@@ -54,78 +53,145 @@ public final class AtomicDecomposition implements HasAxioms {
         protected final @Nonnull Set<OWLAxiom> axiomSet = new HashSet<>();
 
         /**
-         * The {@link Atom}s this Atom is dependent on.
+         * The {@link Atom}s this Atom depends on (excluding this atom), that is, 
+         * {@code all atoms (A) with (this) &gt; (A)}.
          */
         protected final @Nonnull Set<Atom> dependencies = new HashSet<>();
 
         /**
-         * The {@link Atom}s that are dependent on this {@link Atom}.
+         * The {@link Atom}s that depend on this {@link Atom} (excluding this atom), that is, all
+         * atoms (A) with (A) &gt; (this).
          */
         protected final @Nonnull Set<Atom> dependents = new HashSet<>();
 
         /**
          * Instantiates a new {@link Atom}. The {@link OWLAxiom}s of this {@link Atom} are directly
          * manipulated within {@link AtomicDecomposition#decompose()}.
-         *
-         * @param axiom The initial axiom of this atom
          */
-        protected Atom(OWLAxiom axiom) {
-            axiomSet.add(axiom);
-        }
+        protected Atom() {}
 
-        /**
-         * Returns the {@link OWLAxiom}s of this {@link Atom}.
-         *
-         * @return The {@link OWLAxiom}s of this {@link Atom}
-         */
         @Override
         public @Nonnull Stream<OWLAxiom> axioms() {
             return axiomSet.stream();
         }
 
+        @Override
+        public boolean containsAxiom(OWLAxiom axiom) {
+            return axiomSet.contains(axiom);
+        }
+
         /**
-         * Returns the {@link Atom}s this {@link Atom} depends on. In the literature,
-         * {@code this Atom <= returned atoms}.
+         * Returns the {@link Atom}s this {@link Atom} (directly or indirectly) depends on,
+         * excluding this atom. In the literature, {@code all atoms (A) with (this) &gt; (A)}.
          *
-         * @return The {@link Atom}s this {@link Atom} depends on
+         * @return The {@link Atom}s this {@link Atom} depends on, excluding this atom
          */
         public @Nonnull Stream<Atom> dependencies() {
             return dependencies.stream();
         }
 
         /**
-         * Returns the {@link Atom}s that depend on this {@link Atom}. In the literature,
-         * {@code returned
-         * atoms <= this Atom}.
+         * Returns the {@link Atom}s that (directly or indirectly) depend on this {@link Atom},
+         * excluding this atom. In the literature, {@code all atoms (A) with (A) &gt; (this)}.
          *
-         * @return The {@link Atom}s that depend on this {@link Atom}
+         * @return The {@link Atom}s that depend on this {@link Atom}, excluding this atom
          */
         public @Nonnull Stream<Atom> dependents() {
             return dependents.stream();
         }
 
         /**
-         * Checks if this {@link Atom} depends on the given {@link Atom}.
+         * Checks if this {@link Atom} (directly or indirectly) depends on the given {@link Atom}.
+         * In the literature, {@code if (this) &gt; (given)}. Note that this returns false, if the
+         * given atom is @{code ==} to this atom.
          *
          * @param atom The {@link Atom} to check if this {@link Atom} depends on it. Cannot be null.
          * @return If this {@link Atom} depends on the given {@link Atom}
-         * @throws NullPointerException If the given {@link Atom} was <code>null</code>
+         * @throws NullPointerException If the given {@link Atom} was {@code null}
          */
         public boolean dependsOn(Atom atom) {
             return dependencies.contains(Objects.requireNonNull(atom));
         }
 
         /**
-         * Checks if the given {@link Atom} depends on this {@link Atom}.
+         * Returns the {@link Atom}s this {@link Atom} DIRECTLY depends on, excluding this atom. In
+         * the literature,
+         * {@code all atoms (A) with (this) &gt; (A), such there is no other atom (B) with
+         * (this) &gt; (B) &gt; (A)}. This method is equal to calling
+         * {@code thisAtom.dependencies(thisAtom::directlyDependsOn)} and on each call is in
+         * O(this.getAxiomCount()^2) .
+         *
+         * @return The {@link Atom}s this {@link Atom} DIRECTLY depends on, excluding this atom
+         */
+        public @Nonnull Stream<Atom> directDependencies() {
+            return dependencies().filter(this::directlyDependsOn);
+        }
+
+        /**
+         * Returns the {@link Atom}s that DIRECTLY depend on this {@link Atom}, excluding this atom.
+         * In the literature,
+         * {@code all atoms (A) with (A) &gt; (this), such there is no other atom (B)
+         * with (A) &gt; (B) &gt; (this)}. This method is equal to calling
+         * {@code thisAtom.dependencies(thisAtom::isDirectDependencyOf)} and on each call is in
+         * O(this.getAxiomCount()^2) .
+         *
+         * @return The {@link Atom}s this {@link Atom} DIRECTLY depends on, excluding this atom
+         */
+        public @Nonnull Stream<Atom> directDependents() {
+            return dependents().filter(this::isDirectDependencyOf);
+        }
+
+        /**
+         * Checks if this {@link Atom} DIRECTLY depends on the given one. In the literature,
+         * {@code if
+         * (this) &gt; (given) and there is no other atom (B) with (this) &gt; (B) &gt; (given)}. On
+         * each call this method is in O(this.getAxiomCount()). Note that this returns false, if the
+         * given atom is @{code ==} to this atom.
+         *
+         * @param atom The {@link Atom} to check if this one directly depends on it
+         * @return If this {@link Atom} DIRECTLY depends on the given one
+         * @throws NullPointerException if the given {@link Atom} was {@code null}
+         */
+        public boolean directlyDependsOn(Atom atom) {
+            return dependsOn(atom) && dependencies().noneMatch(next -> dependsOn(atom));
+        }
+
+        /**
+         * Returns the number of axioms within this {@link Atom}.
+         *
+         * @return The number of axioms within this {@link Atom}
+         */
+        public int getAxiomCount() {
+            return axiomSet.size();
+        }
+
+        /**
+         * Checks if the given {@link Atom} (directly or indirectly) depends on this {@link Atom}.
+         * In the literature, {@code if (given) &gt; (this)}. Note that this returns false, if the
+         * given atom is @{code ==} to this atom.
          *
          * @param atom The {@link Atom} to check if it depends on this {@link Atom}. Cannot be null.
          * @return If the given {@link Atom} depends on the this {@link Atom}
-         * @throws NullPointerException If the given {@link Atom} was <code>null</code>
+         * @throws NullPointerException If the given {@link Atom} was {@code null}
          */
         public boolean isDependencyOf(Atom atom) {
             return dependents.contains(Objects.requireNonNull(atom));
         }
 
+        /**
+         * Checks if the given {@link Atom} DIRECTLY depends on this {@link Atom}. In the
+         * literature,
+         * {@code if (given) &gt; (this) and there is no other atom (B) with (given) &gt; (B)
+         * &gt; (this)}. On each call this method is in O(this.getAxiomCount()). Note that this
+         * returns false, if the given atom is @{code ==} to this atom.
+         *
+         * @param atom The atom to check if it directly depends on this one
+         * @return If the given {@link Atom} DIRECTLY depends on this one
+         * @throws NullPointerException if the given {@link Atom} was {@code null}
+         */
+        public boolean isDirectDependencyOf(Atom atom) {
+            return isDependencyOf(atom) && dependents().noneMatch(next -> isDependencyOf(atom));
+        }
     }
 
     /**
@@ -199,7 +265,7 @@ public final class AtomicDecomposition implements HasAxioms {
      * "Modular Structures and Atomic Decomposition in Ontologies" by Del Vescovo et al, 2019. For
      * example, one such module extraction algorithm is provided by the subclasses of
      * {@link LocalityModuleExtractor}s.
-     *
+     * 
      * This operation may take some time based on the ontology size and the used module extraction
      * algorithm.
      *
@@ -242,7 +308,7 @@ public final class AtomicDecomposition implements HasAxioms {
      * @return The {@link Atom}s computed by this {@link AtomicDecomposition}
      */
     public Stream<Atom> atoms() {
-        return atomOf.values().stream();
+        return atomOf.values().stream().distinct();
     }
 
     @Override
@@ -258,32 +324,34 @@ public final class AtomicDecomposition implements HasAxioms {
      * @param beta  beta axiom
      * @return seed for alpha
      */
-    private @Nonnull OWLAxiom buildAtomsInModule(OWLAxiom alpha, Optional<OWLAxiom> beta) {
+    private @Nonnull Optional<OWLAxiom> buildAtomsInModule(OWLAxiom alpha,
+        Optional<OWLAxiom> beta) {
 
         // The atom for alpha is already known
         if (atomOf.containsKey(alpha)) {
-            return alpha;
+            return Optional.of(alpha);
         }
-
-        OWLAxiom delta = getAtomSeed(alpha, beta);
-        Atom atomOfDelta = atomOf.computeIfAbsent(delta, Atom::new);
+        Optional<OWLAxiom> delta = getAtomSeed(alpha, beta);
+        Atom atomOfDelta = atomOf.computeIfAbsent(delta.orElse(null), d -> new Atom());
         atomOfDelta.axiomSet.add(alpha);
         atomOf.put(alpha, atomOfDelta);
-
-        if (beta.isPresent() && delta.equals(beta.get())) {
-            return beta.get();
+        if (delta.equals(beta)) {
+            return beta;
         }
 
-        moduleToSignatureOf(alpha).filter(gamma -> !gamma.equals(alpha)).forEach(gamma -> {
-            OWLAxiom axiom = buildAtomsInModule(gamma, Optional.of(alpha));
-            Atom first = atomOf.get(axiom);
-            Atom second = atomOf.get(alpha);
-            // first <= second
-            first.dependencies.add(second);
-            second.dependents.add(first);
-        });
+        moduleToSignatureOf(alpha).filter(gamma -> !gamma.equals(alpha))
+            .forEach(gamma -> updateDependencies(alpha, gamma));
+        return Optional.of(alpha);
+    }
 
-        return alpha;
+    protected void updateDependencies(OWLAxiom alpha, OWLAxiom gamma) {
+        Optional<OWLAxiom> axiom = buildAtomsInModule(gamma, Optional.of(alpha));
+        Atom first = atomOf.get(axiom.get());
+        Atom second = atomOf.get(alpha);
+        if (first != second) {
+            second.dependencies.add(first); // second > first
+            first.dependents.add(second);
+        }
     }
 
     /**
@@ -316,7 +384,7 @@ public final class AtomicDecomposition implements HasAxioms {
      * @param beta  beta axiom
      * @return seed for alpha
      */
-    private @Nonnull OWLAxiom getAtomSeed(OWLAxiom alpha, Optional<OWLAxiom> beta) {
+    private @Nonnull Optional<OWLAxiom> getAtomSeed(OWLAxiom alpha, Optional<OWLAxiom> beta) {
 
         Set<OWLAxiom> moduleOfBeta;
         if (beta.isPresent()) {
@@ -331,11 +399,10 @@ public final class AtomicDecomposition implements HasAxioms {
         }
 
         // modules are equal if size are equal
-        if (moduleToSignatureOf.get(alpha).size() == moduleOfBeta.size() && beta.isPresent()) {
-            return beta.get();
+        if (moduleToSignatureOf.get(alpha).size() == moduleOfBeta.size()) {
+            return beta;
         }
-
-        return alpha;
+        return Optional.of(alpha);
     }
 
     /**
