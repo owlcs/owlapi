@@ -71,7 +71,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     @Nullable
     private OWLOntology debuggingOntology;
     private int expansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
-    private int fastPruningWindowSize = 0;
+    private final int fastPruningWindowSize;
     // Creation of debugging ontology and satisfiability testing
     private int satTestCount = 0;
 
@@ -84,8 +84,24 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      */
     public BlackBoxOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
         OWLReasonerFactory reasonerFactory) {
+        this(owlOntologyManager, ontology, reasonerFactory,
+            Math.max(ontology.getLogicalAxiomCount() / 100, DEFAULT_FAST_PRUNING_WINDOW_SIZE));
+    }
+
+    /**
+     * Instantiates a new black box owl debugger.
+     *
+     * @param owlOntologyManager    manager to use
+     * @param ontology              ontology to debug
+     * @param reasonerFactory       factory to use
+     * @param fastPruningWindowSize size of the pruning window, defaults to 1% of axiom number or
+     *                              10, whichever is larger
+     */
+    public BlackBoxOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
+        OWLReasonerFactory reasonerFactory, int fastPruningWindowSize) {
         super(owlOntologyManager, ontology);
         this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
+        this.fastPruningWindowSize = fastPruningWindowSize;
     }
 
     /**
@@ -391,7 +407,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         LOGGER.info("FOUND CLASH! Pruning {} axioms...", Integer.valueOf(debuggingAxioms.size()));
         resetSatisfiabilityTestCounter();
         LOGGER.info("Fast pruning...");
-        fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
         performFastPruning();
         LOGGER.info("... end of fast pruning. Axioms remaining: {}",
             Integer.valueOf(debuggingAxioms.size()));

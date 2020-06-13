@@ -111,8 +111,24 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      */
     public BlackBoxExplanation(OWLOntology ontology, OWLReasonerFactory reasonerFactory,
         OWLReasoner reasoner) {
+        this(ontology, reasonerFactory, reasoner,
+            Math.max(ontology.getLogicalAxiomCount() / 100, DEFAULT_FAST_PRUNING_WINDOW_SIZE));
+    }
+
+    /**
+     * Instantiates a new black box explanation.
+     *
+     * @param ontology              the ontology
+     * @param reasonerFactory       the reasoner factory
+     * @param reasoner              the reasoner
+     * @param fastPruningWindowSize the window size for fast pruning (default to 1% of axioms, or 10
+     *                              - whichever is larger)
+     */
+    public BlackBoxExplanation(OWLOntology ontology, OWLReasonerFactory reasonerFactory,
+        OWLReasoner reasoner, int fastPruningWindowSize) {
         super(ontology, reasonerFactory, reasoner);
         man = ontology.getOWLOntologyManager();
+        this.fastPruningWindowSize = fastPruningWindowSize;
     }
 
     /**
