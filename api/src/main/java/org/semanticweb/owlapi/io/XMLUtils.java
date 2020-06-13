@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 /**
  * This class contains various methods for checking QNames, NCNames etc. The implementation is based
  * on the <a href="http://www.w3.org/TR/xml-names/">W3C namespaces in XML specification</a>.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.3.0
  */
@@ -56,8 +56,8 @@ public final class XMLUtils {
      *
      * @param codePoint The code point of the character to be tested. For UTF-16 characters the code
      *        point corresponds to the value of the char that represents the character.
-     * @return {@code true} if {@code codePoint} is an XML name start character, otherwise {@code
-     * false}
+     * @return {@code true} if {@code codePoint} is an XML name start character, otherwise
+     *         {@code false}
      */
     public static boolean isXMLNameStartCharacter(int codePoint) {
         return codePoint == ':' || codePoint >= 'A' && codePoint <= 'Z' || codePoint == '_'
@@ -79,8 +79,8 @@ public final class XMLUtils {
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
      *        characters the code point corresponds to the value of the char that represents the
      *        character.
-     * @return {@code true} if {@code codePoint} is an XML name start character, otherwise {@code
-     * false}
+     * @return {@code true} if {@code codePoint} is an XML name start character, otherwise
+     *         {@code false}
      */
     public static boolean isXMLNameChar(int codePoint) {
         return isXMLNameStartCharacter(codePoint) || codePoint == '-' || codePoint == '.'
@@ -95,8 +95,8 @@ public final class XMLUtils {
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
      *        characters the code point corresponds to the value of the char that represents the
      *        character.
-     * @return {@code true} if {@code codePoint} is a NCName start character, otherwise {@code
-     * false}.
+     * @return {@code true} if {@code codePoint} is a NCName start character, otherwise
+     *         {@code false}.
      */
     public static boolean isNCNameStartChar(int codePoint) {
         return codePoint != ':' && isXMLNameStartCharacter(codePoint);
@@ -389,5 +389,25 @@ public final class XMLUtils {
      */
     public static boolean isNullOrEmpty(@Nullable CharSequence s) {
         return s == null || s.length() == 0;
+    }
+
+    /**
+     * @param iri input to check and terminate with a hash
+     * @return input plus a hash if the input does not terminate with hash or slash; if the input
+     *         contains a hash in a position aside from the last character, it is returned
+     *         unchanged. If null is received, return {@code "#"}.
+     */
+    public static String iriWithTerminatingHash(@Nullable String iri) {
+        if (iri == null) {
+            return "#";
+        }
+        char c = iri.charAt(iri.length() - 1);
+        if (c == '/' || c == '#') {
+            return iri;
+        }
+        if (iri.indexOf('#') > -1) {
+            return iri;
+        }
+        return iri + '#';
     }
 }

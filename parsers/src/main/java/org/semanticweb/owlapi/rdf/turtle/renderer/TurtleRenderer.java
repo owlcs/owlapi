@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -70,21 +71,17 @@ public class TurtleRenderer extends RDFRendererBase {
 
     /**
      * @param ontology ontology
-     * @param writer writer
-     * @param format format
+     * @param writer   writer
+     * @param format   format
      */
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLDocumentFormat format) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         this.format = checkNotNull(format, "format cannot be null");
         this.writer = new PrintWriter(writer);
         pm = new DefaultPrefixManager();
-        if (!ontology.isAnonymous()) {
-            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
-            String defaultPrefix = ontologyIRIString;
-            if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
-                defaultPrefix = ontologyIRIString + '#';
-            }
-            pm.setDefaultPrefix(defaultPrefix);
+        if (!ontology.isAnonymous() && pm.getDefaultPrefix() == null) {
+            pm.setDefaultPrefix(XMLUtils.iriWithTerminatingHash(
+                ontology.getOntologyID().getOntologyIRI().get().toString()));
         }
         if (format instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
@@ -301,11 +298,15 @@ public class TurtleRenderer extends RDFRendererBase {
         writeNamespaces();
         write("@base ");
         write("<");
+        String b = Namespaces.OWL.toString();
         if (!ontology.isAnonymous()) {
-            write(ontology.getOntologyID().getOntologyIRI().get().toString());
-        } else {
-            write(Namespaces.OWL.toString());
+            b = ontology.getOntologyID().getOntologyIRI().get().toString();
         }
+        String prefix = pm.getDefaultPrefix();
+        if (prefix != null) {
+            b = prefix;
+        }
+        write(b);
         write("> .\n\n");
         // Ontology URI
     }
