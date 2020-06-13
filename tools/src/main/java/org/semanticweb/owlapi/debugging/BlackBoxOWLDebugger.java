@@ -71,7 +71,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     @Nullable
     private OWLOntology debuggingOntology;
     private int expansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
-    private int fastPruningWindowSize = 0;
+    private final int fastPruningWindowSize;
     // Creation of debugging ontology and satisfiability testing
     private int satTestCount = 0;
 
@@ -79,23 +79,39 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * Instantiates a new black box owl debugger.
      *
      * @param owlOntologyManager manager to use
-     * @param ontology ontology to debug
-     * @param reasonerFactory factory to use
+     * @param ontology           ontology to debug
+     * @param reasonerFactory    factory to use
      */
     public BlackBoxOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
         OWLReasonerFactory reasonerFactory) {
+        this(owlOntologyManager, ontology, reasonerFactory,
+            Math.max(ontology.getLogicalAxiomCount() / 100, DEFAULT_FAST_PRUNING_WINDOW_SIZE));
+    }
+
+    /**
+     * Instantiates a new black box owl debugger.
+     *
+     * @param owlOntologyManager    manager to use
+     * @param ontology              ontology to debug
+     * @param reasonerFactory       factory to use
+     * @param fastPruningWindowSize size of the pruning window, defaults to 1% of axiom number or
+     *                              10, whichever is larger
+     */
+    public BlackBoxOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
+        OWLReasonerFactory reasonerFactory, int fastPruningWindowSize) {
         super(owlOntologyManager, ontology);
         this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
+        this.fastPruningWindowSize = fastPruningWindowSize;
     }
 
     /**
      * A utility method. Adds axioms from one set to another set upto a specified limit. Annotation
      * axioms are stripped out
      *
-     * @param <N> the number type
+     * @param <N>    the number type
      * @param source The source set. Objects from this set will be added to the destination set
-     * @param dest The destination set. Objects will be added to this set
-     * @param limit The maximum number of objects to be added.
+     * @param dest   The destination set. Objects will be added to this set
+     * @param limit  The maximum number of objects to be added.
      * @return The number of objects that were actuall added.
      */
     private static <N extends OWLAxiom> int addMax(Set<N> source, Set<N> dest, int limit) {
@@ -169,12 +185,9 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     // Expansion
     private int expandAxioms() {
         // We expand the axiom set using axioms that define entities that are
-        // already
-        // referenced in the existing set of axioms. If this fails to expand the
-        // axiom
-        // set we expand using axioms that reference the entities in the axioms
-        // that have
-        // already been expanded.
+        // already referenced in the existing set of axioms. If this fails to
+        // expand the axiom set we expand using axioms that reference the
+        // entities in the axioms that have already been expanded.
         // Keep track of the number of axioms that have been added
         int axiomsAdded = 0;
         int remainingSpace = expansionLimit;
@@ -234,7 +247,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * Creates a set of axioms to expands the debugging axiom set by adding the defining axioms for
      * the specified entity.
      *
-     * @param obj the obj
+     * @param obj   the obj
      * @param limit the limit
      * @return the int
      */
@@ -256,7 +269,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     /**
      * Expands the axiom set by adding the referencing axioms for the specified entity.
      *
-     * @param obj the obj
+     * @param obj   the obj
      * @param limit the limit
      * @return the int
      */
@@ -394,7 +407,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         LOGGER.info("FOUND CLASH! Pruning {} axioms...", Integer.valueOf(debuggingAxioms.size()));
         resetSatisfiabilityTestCounter();
         LOGGER.info("Fast pruning...");
-        fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
         performFastPruning();
         LOGGER.info("... end of fast pruning. Axioms remaining: {}",
             Integer.valueOf(debuggingAxioms.size()));
