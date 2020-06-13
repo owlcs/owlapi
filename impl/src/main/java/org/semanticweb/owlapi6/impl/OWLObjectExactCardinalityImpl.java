@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.impl;
 
-import java.util.stream.Stream;
+import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.sorted;
 
 import org.semanticweb.owlapi6.model.OWLClassExpression;
 import org.semanticweb.owlapi6.model.OWLObjectExactCardinality;
@@ -23,24 +23,22 @@ import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
  * @since 2.0.0
  */
 public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
-                implements OWLObjectExactCardinality {
+    implements OWLObjectExactCardinality {
 
     /**
-     * @param property property
+     * @param property    property
      * @param cardinality cardinality
-     * @param filler filler
+     * @param filler      filler
      */
     public OWLObjectExactCardinalityImpl(OWLObjectPropertyExpression property, int cardinality,
-                    OWLClassExpression filler) {
+        OWLClassExpression filler) {
         super(property, cardinality, filler);
     }
 
     @Override
     public OWLClassExpression asIntersectionOfMinMax() {
-        return new OWLObjectIntersectionOfImpl(Stream.of(
-                        new OWLObjectMinCardinalityImpl(getProperty(), getCardinality(),
-                                        getFiller()),
-                        new OWLObjectMaxCardinalityImpl(getProperty(), getCardinality(),
-                                        getFiller())));
+        return new OWLObjectIntersectionOfImpl(sorted(OWLClassExpression.class,
+            new OWLObjectMinCardinalityImpl(getProperty(), getCardinality(), getFiller()),
+            new OWLObjectMaxCardinalityImpl(getProperty(), getCardinality(), getFiller())));
     }
 }

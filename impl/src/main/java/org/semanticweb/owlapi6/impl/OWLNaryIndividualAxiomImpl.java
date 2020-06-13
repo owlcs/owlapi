@@ -12,11 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.impl;
 
-import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.sorted;
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkValidForNAryExpressions;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -34,14 +34,14 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
     protected final List<OWLIndividual> individuals;
 
     /**
-     * @param individuals individuals
+     * @param individuals individuals (list must be sorted in the factory)
      * @param annotations annotations on the axiom
      */
-    public OWLNaryIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
+    public OWLNaryIndividualAxiomImpl(List<OWLIndividual> individuals,
         Collection<OWLAnnotation> annotations) {
         super(annotations);
-        checkNotNull(individuals, "individuals cannot be null");
-        this.individuals = sorted(OWLIndividual.class, individuals);
+        this.individuals = Collections.unmodifiableList(
+            checkValidForNAryExpressions(individuals, "individuals cannot be null or empty"));
     }
 
     @Override

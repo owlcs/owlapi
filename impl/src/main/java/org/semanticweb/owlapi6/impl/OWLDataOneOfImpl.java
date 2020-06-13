@@ -13,10 +13,8 @@
 package org.semanticweb.owlapi6.impl;
 
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.streamFromSorted;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
@@ -25,8 +23,7 @@ import org.semanticweb.owlapi6.model.OWLDataOneOf;
 import org.semanticweb.owlapi6.model.OWLLiteral;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
@@ -34,25 +31,14 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     private final List<OWLLiteral> values;
 
     /**
-     * @param values
-     *        lierals
+     * @param values literals (list must be sorted in caller method)
      */
-    public OWLDataOneOfImpl(Stream<? extends OWLLiteral> values) {
-        checkNotNull(values, "values cannot be null");
-        this.values = sorted(OWLLiteral.class, values);
+    public OWLDataOneOfImpl(List<OWLLiteral> values) {
+        this.values = Collections.unmodifiableList(checkNotNull(values, "values cannot be null"));
     }
 
     /**
-     * @param values
-     *        lierals
-     */
-    public OWLDataOneOfImpl(Collection<? extends OWLLiteral> values) {
-        this(checkNotNull(values, "values cannot be null").stream());
-    }
-
-    /**
-     * @param value
-     *        lieral
+     * @param value literal
      */
     public OWLDataOneOfImpl(OWLLiteral value) {
         checkNotNull(value, "value cannot be null");

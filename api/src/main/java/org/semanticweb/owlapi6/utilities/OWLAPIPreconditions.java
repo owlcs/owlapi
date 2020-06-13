@@ -30,7 +30,7 @@ public final class OWLAPIPreconditions {
      * parameters.
      *
      * @param object reference to check
-     * @param <T> reference type
+     * @param <T>    reference type
      * @return the input reference if not null
      * @throws IllegalStateException if object is null
      */
@@ -43,9 +43,9 @@ public final class OWLAPIPreconditions {
      * This method is meant to be used to verify conditions on member variables rather than input
      * parameters.
      *
-     * @param object reference to check
+     * @param object  reference to check
      * @param message message to use for the error
-     * @param <T> reference type
+     * @param <T>     reference type
      * @return the input reference if not null
      * @throws IllegalStateException if object is null
      */
@@ -61,9 +61,9 @@ public final class OWLAPIPreconditions {
      * This method is meant to be used to verify conditions on member variables rather than input
      * parameters.
      *
-     * @param object reference to check
+     * @param object  reference to check
      * @param message message to use for the error
-     * @param <T> reference type
+     * @param <T>     reference type
      * @return the input reference if not null
      * @throws IllegalStateException if object is null
      */
@@ -78,7 +78,7 @@ public final class OWLAPIPreconditions {
      * Check for null and throw NullPointerException if null.
      *
      * @param object reference to check
-     * @param <T> reference type
+     * @param <T>    reference type
      * @return the input reference if not null
      * @throws NullPointerException if object is null
      */
@@ -89,9 +89,9 @@ public final class OWLAPIPreconditions {
     /**
      * Check for null and throw NullPointerException if null.
      *
-     * @param object reference to check
+     * @param object  reference to check
      * @param message message for the illegal argument exception
-     * @param <T> reference type
+     * @param <T>     reference type
      * @return the input reference if not null
      * @throws NullPointerException if object is null
      */
@@ -103,11 +103,29 @@ public final class OWLAPIPreconditions {
     }
 
     /**
+     * Check for null or empty and throw NullPointerException if null or empty.
+     *
+     * @param object  reference to check
+     * @param message message for the illegal argument exception
+     * @param <T>     collection type
+     * @param <Q>     reference type
+     * @return the input reference if not null
+     * @throws NullPointerException if object is null
+     */
+    public static <Q, T extends Collection<Q>> T checkValidForNAryExpressions(@Nullable T object,
+        String message) {
+        if (object == null || object.isEmpty()) {
+            throw new NullPointerException(message);
+        }
+        return object;
+    }
+
+    /**
      * Check for null and throw NullPointerException if null.
      *
-     * @param object reference to check
+     * @param object  reference to check
      * @param message message for the illegal argument exception
-     * @param <T> reference type
+     * @param <T>     reference type
      * @return the input reference if not null
      * @throws NullPointerException if object is null
      */
@@ -131,7 +149,7 @@ public final class OWLAPIPreconditions {
     /**
      * Check for negative value and throw IllegalArgumentException if negative.
      *
-     * @param object value to check
+     * @param object  value to check
      * @param message message for the illegal argument exception
      * @throws IllegalArgumentException if object is negative
      */
@@ -142,7 +160,7 @@ public final class OWLAPIPreconditions {
     /**
      * Check for negative value and throw IllegalArgumentException if negative.
      *
-     * @param object value to check
+     * @param object  value to check
      * @param message message for the illegal argument exception
      * @throws IllegalArgumentException if object is negative
      */
@@ -153,9 +171,10 @@ public final class OWLAPIPreconditions {
     }
 
     /**
-     * @param <T> type of the returned collection
-     * @param o collection to check for nullness and null elements, and optionally for emptiness
-     * @param name message for error
+     * @param <T>          type of the returned collection
+     * @param o            collection to check for nullness and null elements, and optionally for
+     *                     emptiness
+     * @param name         message for error
      * @param emptyAllowed true if the input can be empty
      * @return validated input
      */
@@ -168,9 +187,10 @@ public final class OWLAPIPreconditions {
     }
 
     /**
-     * @param <T> type of the returned array
-     * @param o array to check for nullness and null elements, and optionally for emptiness
-     * @param name message for error
+     * @param <T>          type of the returned array
+     * @param o            array to check for nullness and null elements, and optionally for
+     *                     emptiness
+     * @param name         message for error
      * @param emptyAllowed true if the input can be empty
      * @return validated input
      */

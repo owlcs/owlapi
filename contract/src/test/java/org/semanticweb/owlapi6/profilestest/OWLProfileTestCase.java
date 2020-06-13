@@ -123,6 +123,7 @@ import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLRuntimeException;
+import org.semanticweb.owlapi6.model.OntologyConfigurator;
 import org.semanticweb.owlapi6.model.SWRLRule;
 import org.semanticweb.owlapi6.profiles.OWLProfile;
 import org.semanticweb.owlapi6.profiles.OWLProfileViolation;
@@ -374,6 +375,10 @@ public class OWLProfileTestCase extends TestBase {
     static Supplier<OWLOntology> o1 = OWLProfileTestCase::os1;
     static Supplier<OWLOntology> o2 = OWLProfileTestCase::os2;
 
+
+    private static OWLDataFactory DFLIST= OWLManager
+            .getOWLDataFactory(new OntologyConfigurator().withAllowDuplicatesInConstructSets(true));
+
     @Parameters
     public static Collection<Object[]> getData() {
         List<Object[]> toReturn = new ArrayList<>();
@@ -403,7 +408,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, DATANOT,  l(DATAP), l(DataPropertyRange(DATAP, DataComplementOf(Double()))), OWL2_EL, l(UseOfIllegalDataRange.class, UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATANOT,  l(DATAP), l(ILLEGAL_DATAP_RANGE_2), OWL2_QL, l(UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATANOT,  l(DATAP), l(ILLEGAL_DATAP_RANGE_2), OWL2_RL, l(UseOfIllegalDataRange.class)));
-        toReturn.add(arg(os, DATAAND,  l(DATAP), l(DataPropertyRange(DATAP, DataIntersectionOf())), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, DATAAND,  l(DATAP), l(DataPropertyRange(DATAP, DataIntersectionOf(DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.MAX_EXCLUSIVE, Literal(1)))))), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, DATAAND,  l(DATAP), l(DataPropertyRange(DATAP, DataIntersectionOf(Integer(), Boolean()))), OWL2_RL, l()));
         toReturn.add(arg(os, DATAONE,  l(DATAP), l(ONEOF_DATAP_RANGE), OWL2_EL, l(UseOfDataOneOfWithMultipleLiterals.class)));
         toReturn.add(arg(os, DATAONE,  l(DATAP), l(ONEOF_DATAP_RANGE), OWL2_QL, l(UseOfIllegalDataRange.class)));
@@ -413,7 +418,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, DATAREST, l(DATAP), l(ILLEGAL_DATAP_RANGE), OWL2_QL, l(UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATAREST, l(DATAP), l(ILLEGAL_DATAP_RANGE), OWL2_RL, l(UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATAREST, l(DATAP), l(DatatypeDefinition(Integer(), Boolean()), DT_BOOL_DEF, DataPropertyRange(DATAP, DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.LANG_RANGE, _1)))), OWL2_FULL, l(UseOfDefinedDatatypeInDatatypeRestriction.class, UseOfIllegalFacetRestriction.class, UseOfUndeclaredDatatype.class)));
-        toReturn.add(arg(os, DATAOR,   l(DATAP), l(DataPropertyRange(DATAP, DataUnionOf())), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, DATAOR,   l(DATAP), l(DataPropertyRange(DATAP, DataUnionOf(Double()))), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, DATAOR,   l(DATAP), l(DataPropertyRange(DATAP, DataUnionOf(Double(), Integer()))), OWL2_EL, l(UseOfIllegalDataRange.class, UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATAOR,   l(DATAP), l(DataPropertyRange(DATAP, DataUnionOf(Double(), Integer()))), OWL2_RL, l(UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATAOR,   l(DATAP), l(DataPropertyRange(DATAP, DataUnionOf(Integer(), Boolean()))), OWL2_QL, l(UseOfIllegalDataRange.class, UseOfIllegalDataRange.class)));
@@ -440,7 +445,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, ANNP,   l(OWLTEST_OP, OWLTEST_DP, OWLTEST_AP),  l(SubAnnotationPropertyOf(APT, OWLTEST_AP)), OWL2_DL, l(UseOfReservedVocabularyForAnnotationPropertyIRI.class, UseOfUndeclaredAnnotationProperty.class, IllegalPunning.class, IllegalPunning.class)));
         toReturn.add(arg(os, CLA,    l(Class(OWL_TEST), FAKEDT),             l(ClassAssertion(Class(FAKEDT.getIRI()), AnonymousIndividual())), OWL2_DL, l(UseOfUndeclaredClass.class, DatatypeIRIAlsoUsedAsClassIRI.class)));
         toReturn.add(arg(os, DATADEF,l(OWLTEST_DT, Integer(), Boolean(), FAKEDT), l(DatatypeDefinition(OWLTEST_DT, Boolean()), DatatypeDefinition(Boolean(), OWLTEST_DT), DatatypeDefinition(FAKEDT, Integer()), DatatypeDefinition(Integer(), FAKEDT)), OWL2_DL, l(CycleInDatatypeDefinition.class, CycleInDatatypeDefinition.class, CycleInDatatypeDefinition.class, CycleInDatatypeDefinition.class, UseOfBuiltInDatatypeInDatatypeDefinition.class, UseOfBuiltInDatatypeInDatatypeDefinition.class, UseOfBuiltInDatatypeInDatatypeDefinition.class, UseOfUnknownDatatype.class, UseOfUnknownDatatype.class)));
-        toReturn.add(arg(os, DISJ,  l(OP), l(DisjointClasses()), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, DISJ,  l(OP, CL), l(DFLIST.getOWLDisjointClassesAxiom(CL)), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, DDISJ, l(DATAP, DATA_PROPERTY), l(DisjointDataProperties(DATAP, DATA_PROPERTY)), OWL2_RL, l()));
         toReturn.add(arg(os, DDISJ, l(DATAP, OTHER_DP), l(DisjointDataProperties(DATAP, OTHER_DP)), OWL2_EL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, DUN,   l(CL), l(DisjointUnion(CL, OWLThing(), OWLNothing())), OWL2_EL, l(UseOfIllegalAxiom.class)));
@@ -450,7 +455,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, ASYMM, l(OP), l(AsymmetricObjectProperty(OP)), OWL2_EL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, ASYMM, l(OP), l(TransitiveObjectProperty(OP), AsymmetricObjectProperty(OP)), OWL2_DL, l(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom.class)));
         toReturn.add(arg(os, CLASS, l(OP), l(ClassAssertion(ObjectMinCardinality(1, OP, OWLThing()), NamedIndividual(IRI(t, "i")))), OWL2_RL, l(UseOfNonSuperClassExpression.class)));
-        toReturn.add(arg(os, EQUIV, l(OP), l(EquivalentClasses()), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, EQUIV, l(OP, CL), l(DFLIST.getOWLEquivalentClassesAxiom(CL)), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, OFUNC, l(OP), l(FunctionalObjectProperty(OP)), OWL2_EL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, OFUNC, l(OP), l(FunctionalObjectProperty(OP)), OWL2_QL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, OFUNC, l(OP), l(TransitiveObjectProperty(OP), FunctionalObjectProperty(OP)), OWL2_DL, l(UseOfNonSimplePropertyInFunctionalPropertyAxiom.class)));
@@ -461,7 +466,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, IRR,   l(OP), l(TransitiveObjectProperty(OP), IrreflexiveObjectProperty(OP)), OWL2_DL, l(UseOfNonSimplePropertyInIrreflexivePropertyAxiom.class)));
         toReturn.add(arg(os, NOT,   l(OP), l(ObjectPropertyRange(OP, ObjectComplementOf(OWLNothing()))), OWL2_EL, l(UseOfIllegalClassExpression.class)));
         toReturn.add(arg(os, SELF,  l(OP), l(TransitiveObjectProperty(OP), ObjectPropertyRange(OP, ObjectHasSelf(OP))), OWL2_DL, l(UseOfNonSimplePropertyInObjectHasSelf.class)));
-        toReturn.add(arg(os, AND,   l(OP), l(ObjectPropertyRange(OP, ObjectIntersectionOf())), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, AND,   l(OP, CL), l(ObjectPropertyRange(OP, ObjectIntersectionOf(CL))), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, INV,   l(OP), l(SubObjectPropertyOf(OP, ObjectInverseOf(OP))), OWL2_EL, l(UseOfObjectPropertyInverse.class)));
         toReturn.add(arg(os, ONE,   l(OP), l(ObjectPropertyRange(OP, ObjectOneOf())), OWL2_DL, l(EmptyOneOfAxiom.class)));
         toReturn.add(arg(os, ONE,   l(OP), l(ObjectPropertyRange(OP, ObjectOneOf(I1, I2))), OWL2_EL, l(UseOfObjectOneOfWithMultipleIndividuals.class)));
@@ -469,7 +474,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, ODOM,  l(OP), l(ObjectPropertyDomain(OP, ObjectUnionOf(OWLNothing(), OWLThing()))), OWL2_QL, l(UseOfNonSuperClassExpression.class)));
         toReturn.add(arg(os, ORANGE,l(OP), l(ObjectPropertyRange(OP, ObjectMinCardinality(1, OP, OWLThing()))), OWL2_RL, l(UseOfNonSuperClassExpression.class)));
         toReturn.add(arg(os, ORANGE,l(OP), l(ObjectPropertyRange(OP, ObjectUnionOf(OWLNothing(), OWLThing()))), OWL2_QL, l(UseOfNonSuperClassExpression.class)));
-        toReturn.add(arg(os, OR,    l(OP), l(ObjectPropertyRange(OP, ObjectUnionOf())), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, OR,    l(OP, CL), l(ObjectPropertyRange(OP, ObjectUnionOf(CL))), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, OR,    l(OP), l(ObjectPropertyRange(OP, ObjectUnionOf(OWLThing(), OWLNothing()))), OWL2_EL, l(UseOfIllegalClassExpression.class)));
         toReturn.add(arg(os, SUB,   l(OP), l(SubClassOf(ObjectComplementOf(OWLNothing()), ObjectUnionOf(OWLThing(), OWLNothing()))), OWL2_QL, l(UseOfNonSubClassExpression.class, UseOfNonSuperClassExpression.class)));
         toReturn.add(arg(os, TRAN,  l(OP), l(TransitiveObjectProperty(OP)), OWL2_QL, l(UseOfIllegalAxiom.class)));

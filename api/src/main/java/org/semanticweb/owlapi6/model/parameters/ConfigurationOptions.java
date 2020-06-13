@@ -131,6 +131,15 @@ public enum ConfigurationOptions {
      * skipped. By default annotations 
      * are included.*/
     SKIP_MODULE_ANNOTATIONS             (Boolean.FALSE),
+    /** False if collections used in 
+     * constructs such as equivalent 
+     * classes and properties should be 
+     * duplicate free. Some systems 
+     * might need to allow this, e.g.,
+     * reasoners which require the creation 
+     * of a tautology like 
+     * {@code Equivalent(A, A)}.*/
+    ALLOW_DUPLICATES_IN_CONSTRUCT_SETS  (Boolean.FALSE),
     /**Max number of elements for caches.*/
     CACHE_SIZE                        (Integer.valueOf(2048));
     //@formatter:on

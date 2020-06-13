@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.impl;
 
-import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.sorted;
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkValidForNAryExpressions;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.streamFromSorted;
 
-import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -28,24 +27,16 @@ import org.semanticweb.owlapi6.model.OWLNaryBooleanClassExpression;
  * @since 2.0.0
  */
 public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl
-                implements OWLNaryBooleanClassExpression {
+    implements OWLNaryBooleanClassExpression {
 
     private final List<OWLClassExpression> operands;
 
     /**
-     * @param operands operands
+     * @param operands operands (list must be sorted in the factory)
      */
-    public OWLNaryBooleanClassExpressionImpl(Stream<OWLClassExpression> operands) {
-        checkNotNull(operands, "operands cannot be null");
-        this.operands = sorted(OWLClassExpression.class, operands);
-    }
-
-    /**
-     * @param operands operands
-     */
-    public OWLNaryBooleanClassExpressionImpl(Collection<? extends OWLClassExpression> operands) {
-        checkNotNull(operands, "operands cannot be null");
-        this.operands = sorted(OWLClassExpression.class, operands);
+    public OWLNaryBooleanClassExpressionImpl(List<OWLClassExpression> operands) {
+        this.operands = Collections.unmodifiableList(
+            checkValidForNAryExpressions(operands, "operands cannot be null or empty"));
     }
 
     @Override
