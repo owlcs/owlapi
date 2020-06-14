@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.debugging;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -244,7 +243,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * Creates a set of axioms to expands the debugging axiom set by adding the defining axioms for
      * the specified entity.
      * 
-     * @param obj the obj
+     * @param obj   the obj
      * @param limit the limit
      * @return the int
      */
@@ -266,7 +265,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     /**
      * Expands the axiom set by adding the referencing axioms for the specified entity.
      * 
-     * @param obj the obj
+     * @param obj   the obj
      * @param limit the limit
      * @return the int
      */
@@ -283,10 +282,10 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * A utility method. Adds axioms from one set to another set upto a specified limit. Annotation
      * axioms are stripped out
      * 
-     * @param <N> the number type
+     * @param <N>    the number type
      * @param source The source set. Objects from this set will be added to the destination set
-     * @param dest The destination set. Objects will be added to this set
-     * @param limit The maximum number of objects to be added.
+     * @param dest   The destination set. Objects will be added to this set
+     * @param limit  The maximum number of objects to be added.
      * @return The number of objects that were actuall added.
      */
     private static <N extends OWLAxiom> int addMax(@Nonnull Set<N> source, @Nonnull Set<N> dest,
