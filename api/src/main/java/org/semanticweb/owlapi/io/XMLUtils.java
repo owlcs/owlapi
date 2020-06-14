@@ -44,7 +44,7 @@ public final class XMLUtils {
      * Determines if a character is an XML name start character.
      * 
      * @param codePoint The code point of the character to be tested. For UTF-16 characters the code
-     *        point corresponds to the value of the char that represents the character.
+     *                  point corresponds to the value of the char that represents the character.
      * @return {@code true} if {@code codePoint} is an XML name start character, otherwise
      *         {@code false}
      */
@@ -66,8 +66,8 @@ public final class XMLUtils {
      * Determines if a character is an XML name character.
      * 
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     *        characters the code point corresponds to the value of the char that represents the
-     *        character.
+     *                  characters the code point corresponds to the value of the char that
+     *                  represents the character.
      * @return {@code true} if {@code codePoint} is an XML name start character, otherwise
      *         {@code false}
      */
@@ -82,8 +82,8 @@ public final class XMLUtils {
      * Deterimines if a character is an NCName (Non-Colonised Name) start character.
      * 
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     *        characters the code point corresponds to the value of the char that represents the
-     *        character.
+     *                  characters the code point corresponds to the value of the char that
+     *                  represents the character.
      * @return {@code true} if {@code codePoint} is a NCName start character, otherwise
      *         {@code false}.
      */
@@ -95,8 +95,8 @@ public final class XMLUtils {
      * Deterimines if a character is an NCName (Non-Colonised Name) character.
      * 
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     *        characters the code point corresponds to the value of the char that represents the
-     *        character.
+     *                  characters the code point corresponds to the value of the char that
+     *                  represents the character.
      * @return {@code true} if {@code codePoint} is a NCName character, otherwise {@code false}.
      */
     public static boolean isNCNameChar(int codePoint) {
@@ -148,7 +148,7 @@ public final class XMLUtils {
      * as the 'Prefix Name' and the second NCName is referred to as the 'Local Name' - i.e.
      * PrefixName:LocalName).
      *
-     * @param s The character sequence to be tested.
+     * @param s     The character sequence to be tested.
      * @param start start index to check
      * @return {@code true} if {@code s} is a QName, otherwise {@code false}.
      */
@@ -246,6 +246,18 @@ public final class XMLUtils {
     }
 
     /**
+     * @param s string
+     * @return true if the input is null, empty or blank, i.e., only containing whitespace
+     *         characters
+     */
+    public static boolean isEmpty(@Nullable CharSequence s) {
+        if (s == null || s.length() == 0) {
+            return true;
+        }
+        return s.chars().allMatch(Character::isWhitespace);
+    }
+
+    /**
      * utility to get the part of a charsequence that is not the NCName fragment.
      * 
      * @param s the charsequence to split
@@ -254,14 +266,21 @@ public final class XMLUtils {
      */
     @Nonnull
     public static String getNCNamePrefix(CharSequence s) {
+        if (isEmpty(s)) {
+            return "";
+        }
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
             return s.toString();
         }
         int localPartStartIndex = getNCNameSuffixIndex(s);
+        int firstNonBlank = 0;
+        while (Character.isWhitespace(s.charAt(firstNonBlank))) {
+            firstNonBlank++;
+        }
         if (localPartStartIndex > -1) {
-            return s.toString().substring(0, localPartStartIndex);
+            return s.toString().substring(firstNonBlank, localPartStartIndex);
         } else {
-            return s.toString();
+            return s.toString().substring(firstNonBlank);
         }
     }
 
@@ -303,9 +322,9 @@ public final class XMLUtils {
      * Escapes a subset of a char sequence so that it is valid XML. Escaped or unchanged characters
      * are added to destination.
      * 
-     * @param chars chars to check
-     * @param start start index (inclusive)
-     * @param count number of characters
+     * @param chars       chars to check
+     * @param start       start index (inclusive)
+     * @param count       number of characters
      * @param destination destination for escaped chars
      * @return The modified destination.
      */

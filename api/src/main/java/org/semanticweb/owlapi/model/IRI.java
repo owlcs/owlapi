@@ -328,7 +328,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @param suffix The suffix.
      */
     protected IRI(@Nonnull String prefix, @Nullable String suffix) {
-        namespace = PREFIX_CACHE.get(prefix);
+        namespace = PREFIX_CACHE.get(XMLUtils.getNCNamePrefix(prefix));
         remainder = suffix == null ? "" : suffix;
     }
 
