@@ -258,21 +258,40 @@ public final class XMLUtils {
     }
 
     /**
+     * @param s string
+     * @return true if the input is null, empty or blank, i.e., only containing whitespace
+     *         characters
+     */
+    public static boolean isEmpty(@Nullable CharSequence s) {
+        if (s == null || s.length() == 0) {
+            return true;
+        }
+        return s.chars().allMatch(Character::isWhitespace);
+    }
+
+    /**
      * utility to get the part of a charsequence that is not the NCName fragment.
-     *
+     * 
      * @param s the charsequence to split
      * @return the prefix split at the last non-ncname character, or the whole input if no ncname is
      *         found
      */
     public static String getNCNamePrefix(CharSequence s) {
+        if (isEmpty(s)) {
+            return "";
+        }
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
             return s.toString();
         }
         int localPartStartIndex = getNCNameSuffixIndex(s);
+        int firstNonBlank = 0;
+        while (Character.isWhitespace(s.charAt(firstNonBlank))) {
+            firstNonBlank++;
+        }
         if (localPartStartIndex > -1) {
-            return s.toString().substring(0, localPartStartIndex);
+            return s.toString().substring(firstNonBlank, localPartStartIndex);
         } else {
-            return s.toString();
+            return s.toString().substring(firstNonBlank);
         }
     }
 

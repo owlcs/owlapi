@@ -44,7 +44,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
 import javax.annotation.Nullable;
+
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.ValueFactory;
@@ -58,6 +60,7 @@ import org.eclipse.rdf4j.rio.Rio;
 import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
 import org.eclipse.rdf4j.rio.helpers.BasicParserSettings;
 import org.eclipse.rdf4j.rio.helpers.StatementCollector;
+import org.eclipse.rdf4j.rio.helpers.XMLParserSettings;
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -97,17 +100,15 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     @Override
     public OWLDocumentFormat parse(final OWLOntologyDocumentSource documentSource,
-        final OWLOntology ontology,
-        final OWLOntologyLoaderConfiguration configuration) {
+        final OWLOntology ontology, final OWLOntologyLoaderConfiguration configuration) {
         try {
-            RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(ontology, CHECKER,
-                configuration);
+            RioOWLRDFConsumerAdapter consumer =
+                new RioOWLRDFConsumerAdapter(ontology, CHECKER, configuration);
             consumer.setOntologyFormat(owlFormatFactory.createFormat());
             String baseUri = "urn:default:baseUri:";
             // Override the default baseUri for non-anonymous ontologies
-            if (!ontology.getOntologyID().isAnonymous() && ontology.getOntologyID()
-                .getDefaultDocumentIRI()
-                .isPresent()) {
+            if (!ontology.getOntologyID().isAnonymous()
+                && ontology.getOntologyID().getDefaultDocumentIRI().isPresent()) {
                 baseUri = ontology.getOntologyID().getDefaultDocumentIRI().get().toString();
             } else {
                 baseUri = documentSource.getDocumentIRI().toString();
@@ -130,43 +131,47 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         } catch (final RDFHandlerException e) {
             // See sourceforge bug 3566820 for more information about this
             // branch
-            if (e.getCause() != null && e.getCause().getCause() != null && e.getCause()
-                .getCause() instanceof UnloadableImportException) {
+            if (e.getCause() != null && e.getCause().getCause() != null
+                && e.getCause().getCause() instanceof UnloadableImportException) {
                 throw (UnloadableImportException) e.getCause().getCause();
             } else {
                 throw new OWLParserException(e);
             }
-        } catch (RDFParseException | UnsupportedRDFormatException | OWLOntologyInputSourceException | IOException e) {
+        } catch (RDFParseException | UnsupportedRDFormatException | OWLOntologyInputSourceException
+            | IOException e) {
             throw new OWLParserException(e);
         }
     }
 
     /**
-     * Parse the given document source and return a {@link StatementCollector}
-     * containing the RDF statements found in the source.
+     * Parse the given document source and return a {@link StatementCollector} containing the RDF
+     * statements found in the source.
      *
-     * @param source An {@link OWLOntologyDocumentSource} containing RDF statements.
+     * @param source  An {@link OWLOntologyDocumentSource} containing RDF statements.
      * @param baseUri The base URI to use when parsing the document source.
      * @param handler rdf handler
-     * @param config loading configuration
+     * @param config  loading configuration
      * @throws OWLOntologyInputSourceException if the source cannot be accessed
-     * @throws UnsupportedRDFormatException If the document contains a format which is currently
-     * unsupported, based on the parsers that are currently available.
-     * @throws IOException If there is an input/output exception while accessing the document
-     * source.
-     * @throws RDFParseException If there is an error while parsing the document source.
-     * @throws RDFHandlerException If there is an error related to the processing of the RDF
-     * statements after parsing.
-     * @throws MalformedURLException If there are malformed URLs.
+     * @throws UnsupportedRDFormatException    If the document contains a format which is currently
+     *                                         unsupported, based on the parsers that are currently
+     *                                         available.
+     * @throws IOException                     If there is an input/output exception while accessing
+     *                                         the document source.
+     * @throws RDFParseException               If there is an error while parsing the document
+     *                                         source.
+     * @throws RDFHandlerException             If there is an error related to the processing of the
+     *                                         RDF statements after parsing.
+     * @throws MalformedURLException           If there are malformed URLs.
      */
     protected void parseDocumentSource(final OWLOntologyDocumentSource source, final String baseUri,
         final RDFHandler handler, OWLOntologyLoaderConfiguration config)
-        throws OWLOntologyInputSourceException,
-        IOException {
+        throws OWLOntologyInputSourceException, IOException {
         final RDFParser createParser = Rio.createParser(owlFormatFactory.getRioFormat());
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_URI_SYNTAX);
+        createParser.getParserConfig().addNonFatalError(XMLParserSettings.DISALLOW_DOCTYPE_DECL);
+        createParser.getParserConfig().set(XMLParserSettings.DISALLOW_DOCTYPE_DECL, Boolean.FALSE);
         createParser.setRDFHandler(handler);
         long rioParseStart = System.currentTimeMillis();
         try {
@@ -174,12 +179,12 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 createParser.parse(wrapInputAsReader(source, config), baseUri);
                 return;
             } // if the format is not textual, but the source is a String based
-            // source,
-            // the following call can fail with an OWLOntologyInputSource
-            // exception without
-            // there being an actual I/O error. This should be considered a
-            // parser error
-            // and further parsing attempted.
+              // source,
+              // the following call can fail with an OWLOntologyInputSource
+              // exception without
+              // there being an actual I/O error. This should be considered a
+              // parser error
+              // and further parsing attempted.
             try {
                 createParser.parse(DocumentSources.wrapInput(source, config), baseUri);
             } catch (OWLOntologyInputSourceException e) {
@@ -200,8 +205,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static class RIOAnonymousNodeChecker implements AnonymousNodeChecker {
 
-        RIOAnonymousNodeChecker() {
-        }
+        RIOAnonymousNodeChecker() {}
 
         @Override
         public boolean isAnonymousNode(final IRI iri) {
@@ -301,8 +305,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         public void handleStatement(@Nullable Statement nextStatement) {
             checkNotNull(nextStatement);
             assert nextStatement != null;
-            if (nextStatement.getPredicate().equals(RDF.FIRST) || nextStatement.getPredicate()
-                .equals(RDF.REST)) {
+            if (nextStatement.getPredicate().equals(RDF.FIRST)
+                || nextStatement.getPredicate().equals(RDF.REST)) {
                 if (!typedLists.contains(nextStatement.getSubject())) {
                     typedLists.add(nextStatement.getSubject());
                     try {
@@ -313,8 +317,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                     }
                     LOG.debug("Implicitly typing list={}", nextStatement);
                 }
-            } else if (nextStatement.getPredicate().equals(RDF.TYPE) && nextStatement.getObject()
-                .equals(RDF.LIST)) {
+            } else if (nextStatement.getPredicate().equals(RDF.TYPE)
+                && nextStatement.getObject().equals(RDF.LIST)) {
                 if (!typedLists.contains(nextStatement.getSubject())) {
                     LOG.debug("Explicit list type found={}", nextStatement);
                     typedLists.add(nextStatement.getSubject());
