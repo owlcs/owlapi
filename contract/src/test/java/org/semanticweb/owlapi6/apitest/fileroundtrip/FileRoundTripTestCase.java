@@ -18,8 +18,6 @@ import java.util.List;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.rioformats.RioRDFXMLDocumentFormat;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
@@ -82,13 +80,5 @@ public class FileRoundTripTestCase extends AbstractFileRoundTrippingTestCase {
             "SubClassOfUntypedOWLClass.rdf", 
             "SubClassOfUntypedSomeValuesFrom.rdf");
         //@formatter:on
-    }
-
-    @Override
-    public void testRioRDFXML() throws Exception {
-        OWLOntology o = createOntology();
-        System.out.println("FileRoundTripTestCase.testRioRDFXML() "
-            + saveOntology(o, new RioRDFXMLDocumentFormat()));
-        roundTripOntology(o, new RioRDFXMLDocumentFormat());
     }
 }
