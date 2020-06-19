@@ -919,10 +919,20 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("DLSafeRule(");
         writeAnnotations(rule);
         sb.append(" Body(");
-        render(rule.getBody());
+        for (Iterator<? extends OWLObject> it = rule.getBody().iterator(); it.hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                sb.append(' ');
+            }
+        }
         sb.append(')');
         sb.append(" Head(");
-        render(rule.getHead());
+        for (Iterator<? extends OWLObject> it = rule.getHead().iterator(); it.hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                sb.append(' ');
+            }
+        }
         sb.append(')');
         sb.append(" )");
     }

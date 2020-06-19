@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -489,7 +490,8 @@ public class OWLObjectDesharer implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public SWRLRule visit(SWRLRule rule) {
-        return df.getSWRLRule(list(rule.getBody()), list(rule.getHead()), anns(rule));
+        return df.getSWRLRule(new LinkedHashSet<>(asList(rule.getBody())),
+            new LinkedHashSet<>(asList(rule.getHead())), anns(rule));
     }
 
     @Override

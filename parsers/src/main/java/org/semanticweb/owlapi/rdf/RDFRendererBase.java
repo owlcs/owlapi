@@ -687,7 +687,6 @@ public abstract class RDFRendererBase {
                         if (triple.getObject() instanceof RDFResource) {
                             // Should be another list
                             currentNode = triple.getObject();
-                            // toJavaList(triple.getObject(), list);
                         }
                     }
                 }
