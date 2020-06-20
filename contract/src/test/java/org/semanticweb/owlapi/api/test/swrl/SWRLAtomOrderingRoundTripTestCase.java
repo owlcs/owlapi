@@ -31,6 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -60,11 +61,13 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
         SWRLVariable varA = df.getSWRLVariable("http://other.com/A/", "VarA");
         SWRLVariable varB = df.getSWRLVariable("http://other.com/A/", "VarB");
         SWRLVariable varC = df.getSWRLVariable("http://other.com/A/", "VarC");
-        body.add(df.getSWRLClassAtom(clsC, varA));
+        SWRLClassAtom t = df.getSWRLClassAtom(clsC, varA);
+        body.add(t);
         body.add(df.getSWRLClassAtom(clsB, varB));
         body.add(df.getSWRLClassAtom(clsA, varC));
         head.add(df.getSWRLClassAtom(clsE, varA));
         head.add(df.getSWRLClassAtom(clsD, varA));
+        head.add(t);
         rule = df.getSWRLRule(body, head);
     }
 
