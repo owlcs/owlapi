@@ -73,6 +73,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1529,6 +1530,23 @@ public class OWLAPIObo2Owl {
         } else if (id.startsWith("urn:")) {
             // TODO - roundtrip from other schemes
             return IRI.create(id);
+        } else if (id.startsWith("owl:") || id.startsWith("xsd:") || id.startsWith("rdf:")
+            || id.startsWith("rdfs:")) {
+            for (OWL2Datatype d : OWL2Datatype.values()) {
+                if (d.getPrefixedName().equals(id)) {
+                    return d.getIRI();
+                }
+            }
+            for (OWLRDFVocabulary d : OWLRDFVocabulary.values()) {
+                if (d.getPrefixedName().equals(id)) {
+                    return d.getIRI();
+                }
+            }
+            for (OWLXMLVocabulary d : OWLXMLVocabulary.values()) {
+                if (d.getPrefixedName().equals(id)) {
+                    return d.getIRI();
+                }
+            }
         }
         // TODO - treat_xrefs_as_equivalent
         // special case rule for relation xrefs:
