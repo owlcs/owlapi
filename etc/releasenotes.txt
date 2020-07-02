@@ -1,3 +1,22 @@
+## 5.1.15 02 July 2020
+
+### Features:
+
+*    Allow creation of tautologies for n-ary axioms #776
+*    Configurable fast pruning window size
+
+### Bug fixes:
+
+*    Fix javadoc for OWLObject::nestedClassExpressions #937
+*    Fix classAssertionAxioms with OWLClassExpression fails #930
+*    Fix Include ontology annotations in signature #928
+*    Fix Unable to set base directive for turtle writers #938
+*    Fix OWLAPI accepts IRIs with leading spaces #940
+*    Fix SWRL body reordered when structure shared #936
+*    Fix roundtrip through OBO changes IRI of owl:versionInfo #947
+
+
+
 ## 5.1.14 18 April 2020
 
 ### Features:
@@ -342,6 +361,25 @@ Features:
 *    Enabled OWLOntologyManager to build and keep an OntologyConfigurator instance
 *    Declaration of save methods on OWLOntology
 *    OWLAPI 5 uses Java 8
+
+
+## 4.5.17 02 July 2020
+
+### Features:
+
+*    Let OBO parser follow redirects
+*    Allow creation of tautologies for n-ary axioms #776
+*    Configurable fast pruning window size
+
+### Bug fixes:
+
+*    Fix javadoc for OWLObject::nestedClassExpressions #937
+*    Fix classAssertionAxioms with OWLClassExpression fails #930
+*    Fix Include ontology annotations in signature #928
+*    Fix Unable to set base directive for turtle writers #938
+*    Fix OWLAPI accepts IRIs with leading spaces #940
+*    Fix SWRL body reordered when structure shared #936
+*    Fix roundtrip through OBO changes IRI of owl:versionInfo #947
 
 
 ## 4.5.16 18 April 2020
