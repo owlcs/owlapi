@@ -22,19 +22,16 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-import com.google.common.base.Optional;
-
 /**
- * Converts the entity URI fragment or last path element if the fragment is not
- * present to Camel Case. For example, if the URI is
- * http://another.com/pathA/pathB#has_part then this will be converted to
- * http://another.com/pathA/pathB#hasPart
+ * Converts the entity URI fragment or last path element if the fragment is not present to Camel
+ * Case. For example, if the URI is http://another.com/pathA/pathB#has_part then this will be
+ * converted to http://another.com/pathA/pathB#hasPart
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
-public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEntityURIConverterStrategy {
+public class OWLEntityURIUnderscores2CamelBackConverterStrategy
+    implements OWLEntityURIConverterStrategy {
 
     private final Map<IRI, IRI> iriMap = new HashMap<>();
 
@@ -51,10 +48,9 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEn
     @Nonnull
     private static IRI convert(@Nonnull IRI iri) {
         checkNotNull(iri, "iri cannot be null");
-        Optional<String> fragment = iri.getRemainder();
-        if (fragment.isPresent()) {
+        if (iri.getRemainder().isPresent()) {
             String base = iri.getNamespace();
-            String camelCaseFragment = toCamelCase(fragment.get());
+            String camelCaseFragment = toCamelCase(iri.getRemainder().get());
             return IRI.create(base, camelCaseFragment);
         }
         // for an IRI without fragment, the part to modify is the previous

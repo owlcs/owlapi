@@ -14,25 +14,22 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 
-import com.google.common.collect.Iterators;
-
 /**
  * A collection that is sorted by HasPriority annotation on its members
  * 
  * @author ignazio
- * @param <T>
- *        type of the collection
+ * @param <T> type of the collection
  * @since 4.0.0
  */
 public class PriorityCollection<T extends Serializable> implements Iterable<T>, Serializable {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull private final List<T> delegate = Collections.synchronizedList(new ArrayList<T>());
+    @Nonnull
+    private final List<T> delegate = Collections.synchronizedList(new ArrayList<T>());
     private final PriorityCollectionSorting sorting;
 
     /**
-     * @param sorting
-     *        the sort settings.
+     * @param sorting the sort settings.
      */
     public PriorityCollection(PriorityCollectionSorting sorting) {
         this.sorting = sorting;
@@ -61,10 +58,9 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * @param c
-     *        collection of elements to set. Existing elements will be removed,
-     *        and the priority collection will be sorted according to the
-     *        PriorityCollectionSorting value for the manager configuration.
+     * @param c collection of elements to set. Existing elements will be removed, and the priority
+     *          collection will be sorted according to the PriorityCollectionSorting value for the
+     *          manager configuration.
      */
     public void set(Iterable<T> c) {
         clear();
@@ -72,10 +68,9 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * @param c
-     *        collection of elements to set. Existing elements will be removed,
-     *        and the priority collection will be sorted according to the
-     *        PriorityCollectionSorting value for the manager configuration.
+     * @param c collection of elements to set. Existing elements will be removed, and the priority
+     *          collection will be sorted according to the PriorityCollectionSorting value for the
+     *          manager configuration.
      */
     public void set(Set<T> c) {
         clear();
@@ -86,11 +81,9 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * Remove all elements, replace with the arguments and sort according to
-     * priority
+     * Remove all elements, replace with the arguments and sort according to priority
      * 
-     * @param c
-     *        list of elements to set
+     * @param c list of elements to set
      */
     public void set(T... c) {
         clear();
@@ -98,11 +91,10 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * add the arguments and sort according to the PriorityCollectionSorting
-     * value for the manager configuration
+     * add the arguments and sort according to the PriorityCollectionSorting value for the manager
+     * configuration
      * 
-     * @param c
-     *        list of elements to add
+     * @param c list of elements to add
      */
     public void add(T... c) {
         int i = 0;
@@ -113,11 +105,10 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * add the arguments and sort according to the PriorityCollectionSorting
-     * value for the manager configuration
+     * add the arguments and sort according to the PriorityCollectionSorting value for the manager
+     * configuration
      * 
-     * @param t
-     *        element to add
+     * @param t element to add
      */
     public void add(T t) {
         delegate.add(0, t);
@@ -125,11 +116,10 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * add the arguments and sort according to the PriorityCollectionSorting
-     * value for the manager configuration
+     * add the arguments and sort according to the PriorityCollectionSorting value for the manager
+     * configuration
      * 
-     * @param c
-     *        list of elements to add
+     * @param c list of elements to add
      */
     public void add(Iterable<T> c) {
         int i = 0;
@@ -142,8 +132,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     /**
      * remove the arguments
      * 
-     * @param c
-     *        list of elements to remove
+     * @param c list of elements to remove
      */
     public void remove(T... c) {
         for (T t : c) {
@@ -154,8 +143,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     /**
      * remove the arguments
      * 
-     * @param t
-     *        element to remove
+     * @param t element to remove
      */
     public void remove(T t) {
         delegate.remove(t);
@@ -170,18 +158,16 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
 
     @Override
     public Iterator<T> iterator() {
-        return Iterators.unmodifiableIterator(delegate.iterator());
+        return Collections.unmodifiableList(delegate).iterator();
     }
 
     /**
      * Returns the first item matching the mime type<br>
-     * NOTE: The order in which the services are loaded an examined is not
-     * deterministic so this method may return different results if the
-     * MIME-Type matches more than one item. However, if the default MIME-Types
-     * are always unique, the correct item will always be chosen
+     * NOTE: The order in which the services are loaded an examined is not deterministic so this
+     * method may return different results if the MIME-Type matches more than one item. However, if
+     * the default MIME-Types are always unique, the correct item will always be chosen
      * 
-     * @param mimeType
-     *        A MIME type to use for choosing an item
+     * @param mimeType A MIME type to use for choosing an item
      * @return An item matching the given mime type or null if none were found.
      */
     public PriorityCollection<T> getByMIMEType(@Nonnull String mimeType) {

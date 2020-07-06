@@ -66,10 +66,10 @@ public class MapPointer<K, V extends OWLAxiom> {
     private final ObjectObjectHashMap<K, Collection<V>> map = new ObjectObjectHashMap<>(17, 0.75F);
 
     /**
-     * @param t type of axioms contained
-     * @param v visitor
+     * @param t           type of axioms contained
+     * @param v           visitor
      * @param initialized true if initialized
-     * @param i internals containing this pointer
+     * @param i           internals containing this pointer
      */
     public MapPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
         boolean initialized, @Nonnull Internals i) {
@@ -169,7 +169,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @return keyset
      */
     @Nonnull
-    public synchronized Iterable<K> keySet() {
+    public synchronized List<K> keySet() {
         init();
         List<K> keySet = new ArrayList<>();
         ObjectProcedure<K> predicate = keySet::add;
@@ -189,9 +189,9 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param <T> type of key
+     * @param <T>    type of key
      * @param filter filter to satisfy
-     * @param key key
+     * @param key    key
      * @return set of values
      */
     @Nonnull
@@ -223,7 +223,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key key to add
+     * @param key   key to add
      * @param value value to add
      * @return true if addition happens
      */
@@ -237,7 +237,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key key to look up
+     * @param key   key to look up
      * @param value value to remove
      * @return true if removal happens
      */
@@ -259,7 +259,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key key to look up
+     * @param key   key to look up
      * @param value value to look up
      * @return true if key and value are contained
      */
@@ -272,7 +272,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @return all values contained
      */
     @Nonnull
-    public synchronized Iterable<V> getAllValues() {
+    public synchronized List<V> getAllValues() {
         init();
         return values();
     }
@@ -361,7 +361,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     @Nonnull
-    private Iterable<V> values() {
+    private List<V> values() {
         List<V> values = new ArrayList<>();
         ObjectProcedure<? super Collection<V>> p = values::addAll;
         map.values().forEach(p);

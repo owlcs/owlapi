@@ -19,16 +19,21 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
-
-import com.google.common.base.Optional;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.RemoveImport;
+import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
- * Changes the URI of an ontology and ensures that ontologies which import the
- * ontology have their imports statements updated
+ * Changes the URI of an ontology and ensures that ontologies which import the ontology have their
+ * imports statements updated
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyIRIChanger {
@@ -37,36 +42,34 @@ public class OWLOntologyIRIChanger {
     private final OWLOntologyManager owlOntologyManager;
 
     /**
-     * @param owlOntologyManager
-     *        the ontology manager to use
+     * @param owlOntologyManager the ontology manager to use
      */
     public OWLOntologyIRIChanger(@Nonnull OWLOntologyManager owlOntologyManager) {
-        this.owlOntologyManager = checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
+        this.owlOntologyManager =
+            checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
     }
 
     /**
      * Changes the URI of the specified ontology to the new URI.
      * 
-     * @param ontology
-     *        The ontology whose URI is to be changed.
-     * @param newIRI
-     *        the new IRI
-     * @return A list of changes, which when applied will change the URI of the
-     *         specified ontology, and also update the imports declarations in
-     *         any ontologies which import the specified ontology.
+     * @param ontology The ontology whose URI is to be changed.
+     * @param newIRI   the new IRI
+     * @return A list of changes, which when applied will change the URI of the specified ontology,
+     *         and also update the imports declarations in any ontologies which import the specified
+     *         ontology.
      */
     @Nonnull
     public List<OWLOntologyChange> getChanges(@Nonnull OWLOntology ontology, @Nonnull IRI newIRI) {
         List<OWLOntologyChange> changes = new ArrayList<>();
-        changes.add(new SetOntologyID(ontology, new OWLOntologyID(Optional.of(newIRI), ontology.getOntologyID()
-            .getVersionIRI())));
+        changes.add(new SetOntologyID(ontology,
+            new OWLOntologyID(newIRI, ontology.getOntologyID().getVersionIRI().orNull())));
         for (OWLOntology ont : owlOntologyManager.getOntologies()) {
             assert ont != null;
             for (OWLImportsDeclaration decl : ont.getImportsDeclarations()) {
                 if (decl.getIRI().equals(ontology.getOntologyID().getOntologyIRI().get())) {
                     changes.add(new RemoveImport(ont, decl));
-                    changes.add(new AddImport(ont, owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(
-                        newIRI)));
+                    changes.add(new AddImport(ont,
+                        owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(newIRI)));
                 }
             }
         }

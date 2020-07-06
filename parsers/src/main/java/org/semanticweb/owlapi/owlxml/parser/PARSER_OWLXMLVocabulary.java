@@ -167,8 +167,6 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-import com.google.common.base.Optional;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -378,7 +376,7 @@ abstract class OWLElementHandler<O> {
 
     /**
      * @param localName local attribute name
-     * @param value attribute value
+     * @param value     attribute value
      */
     @SuppressWarnings("unused")
     void attribute(@Nonnull String localName, @Nonnull String value) {}
@@ -503,8 +501,8 @@ abstract class OWLElementHandler<O> {
     }
 
     /**
-     * @param chars chars to handle
-     * @param start start index
+     * @param chars  chars to handle
+     * @param start  start index
      * @param length end index
      */
     void handleChars(char[] chars, int start, int length) {
@@ -3228,15 +3226,14 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     @Override
     void attribute(@Nonnull String localName, String value) {
         if (localName.equals("ontologyIRI")) {
-            OWLOntologyID newID = new OWLOntologyID(Optional.of(IRI.create(value)),
-                handler.getOntology().getOntologyID().getVersionIRI());
+            OWLOntologyID newID = new OWLOntologyID(IRI.create(value),
+                handler.getOntology().getOntologyID().getVersionIRI().orNull());
             handler.getOWLOntologyManager()
                 .applyChange(new SetOntologyID(handler.getOntology(), newID));
         }
         if (localName.equals("versionIRI")) {
-            OWLOntologyID newID =
-                new OWLOntologyID(handler.getOntology().getOntologyID().getOntologyIRI(),
-                    Optional.of(IRI.create(value)));
+            OWLOntologyID newID = new OWLOntologyID(
+                handler.getOntology().getOntologyID().getOntologyIRI().orNull(), IRI.create(value));
             handler.getOWLOntologyManager()
                 .applyChange(new SetOntologyID(handler.getOntology(), newID));
         }

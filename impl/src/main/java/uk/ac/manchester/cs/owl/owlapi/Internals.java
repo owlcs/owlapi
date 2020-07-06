@@ -69,6 +69,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -138,7 +139,6 @@ import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
 /**
@@ -424,7 +424,7 @@ public class Internals implements Serializable {
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
         axiomsForSerialization = new ArrayList<>();
-        Iterables.addAll(axiomsForSerialization, axiomsByType.getAllValues());
+        axiomsByType.getAllValues().forEach(axiomsForSerialization::add);
         stream.defaultWriteObject();
     }
 
@@ -534,10 +534,10 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param type type of map key
+     * @param type  type of map key
      * @param axiom class of axiom indexed
-     * @param <T> key type
-     * @param <A> value type
+     * @param <T>   key type
+     * @param <A>   value type
      * @return map pointer matching the search, or null if there is not one
      */
     // not always not null, but supposed to
@@ -548,11 +548,11 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param type type of map key
-     * @param axiom class of axiom indexed
+     * @param type     type of map key
+     * @param axiom    class of axiom indexed
      * @param position for axioms with a left/right distinction, IN_SUPER_POSITION means right index
-     * @param <T> key type
-     * @param <A> value type
+     * @param <T>      key type
+     * @param <A>      value type
      * @return map pointer matching the search, or null if there is not one
      */
     // not always not null, but supposed to be
@@ -708,7 +708,7 @@ public class Internals implements Serializable {
                 return Optional.of((MapPointer<T, A>) hasKeyAxiomsByClass);
             }
         }
-        return Optional.absent();
+        return Optional.empty();
     }
 
     @Nonnull
@@ -852,8 +852,8 @@ public class Internals implements Serializable {
 
     /**
      * @param filter filter to satisfy
-     * @param <K> key type
-     * @param key key
+     * @param <K>    key type
+     * @param key    key
      * @return set of values
      */
     @Nonnull
@@ -872,9 +872,9 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param <K> key type
+     * @param <K>    key type
      * @param filter filter to satisfy
-     * @param key key to match
+     * @param key    key to match
      * @return true if the filter is matched at least once
      */
     public <K> boolean contains(@Nonnull OWLAxiomSearchFilter filter, @Nonnull K key) {
@@ -891,7 +891,7 @@ public class Internals implements Serializable {
 
     /**
      * @param copy true if a copy of the set should be returned, false for a non defensive copy (to
-     *        be used only by OWLImmutableOntologyImpl for iteration)
+     *             be used only by OWLImmutableOntologyImpl for iteration)
      * @return iterable of imports declaration
      */
     @Nonnull
@@ -920,7 +920,7 @@ public class Internals implements Serializable {
 
     /**
      * @param copy true if a copy of the set should be returned, false for a non defensive copy (to
-     *        be used only by OWLImmutableOntologyImpl for iteration)
+     *             be used only by OWLImmutableOntologyImpl for iteration)
      * @return iterable of annotations
      */
     @Nonnull
@@ -948,11 +948,11 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param p pointer
+     * @param p   pointer
      * @param <K> key type
      * @param <V> value type
-     * @param k key
-     * @param v value
+     * @param k   key
+     * @param v   value
      * @return true if the pair (key, value) is contained
      */
     public static <K, V extends OWLAxiom> boolean contains(@Nonnull MapPointer<K, V> p, K k, V v) {
@@ -972,12 +972,12 @@ public class Internals implements Serializable {
      * @return the axioms by type
      */
     @Nonnull
-    public Iterable<OWLAxiom> getAxioms() {
+    public List<OWLAxiom> getAxioms() {
         return axiomsByType.getAllValues();
     }
 
     /**
-     * @param <T> axiom type
+     * @param <T>       axiom type
      * @param axiomType axiom type to count
      * @return axiom count
      */
@@ -985,7 +985,7 @@ public class Internals implements Serializable {
         if (!axiomsByType.isInitialized()) {
             return 0;
         }
-        return Iterables.size(axiomsByType.getValues(axiomType));
+        return axiomsByType.getValues(axiomType).size();
     }
 
     /**
@@ -1011,7 +1011,7 @@ public class Internals implements Serializable {
         int count = 0;
         for (AxiomType<?> type : AXIOM_TYPES) {
             if (type.isLogical()) {
-                count += Iterables.size(axiomsByType.getValues(type));
+                count += axiomsByType.getValues(type).size();
             }
         }
         return count;

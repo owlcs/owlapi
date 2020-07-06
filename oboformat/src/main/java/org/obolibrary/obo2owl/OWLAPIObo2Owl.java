@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -76,9 +77,6 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
-
 /** The Class OWLAPIObo2Owl. */
 public class OWLAPIObo2Owl {
 
@@ -115,8 +113,9 @@ public class OWLAPIObo2Owl {
     /** The typedef to annotation property. */
     @Nonnull
     protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
-    private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation",
-        "gci_filler", "cardinality", "minCardinality", "maxCardinality", "all_some", "all_only");
+    private static final Set<String> SKIPPED_QUALIFIERS =
+        new HashSet<>(Arrays.asList("gci_relation", "gci_filler", "cardinality", "minCardinality",
+            "maxCardinality", "all_some", "all_only"));
     /**
      * Cache for the id to IRI conversion. This cannot be replaced with a Caffeine cache - the
      * loading of keys is recursive, and a bug in ConcurrentHashMap implementation causes livelocks
@@ -162,13 +161,13 @@ public class OWLAPIObo2Owl {
      * Static convenience method which: (1) creates an Obo2Owl bridge object (2) parses an obo file
      * from a URL (3) converts that to an OWL ontology (4) saves the OWL ontology as RDF/XML.
      * 
-     * @param iri the iri
+     * @param iri     the iri
      * @param outFile the out file
      * @param manager manager to use
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException                  Signals that an I/O exception has occurred.
      * @throws OWLOntologyCreationException the oWL ontology creation exception
-     * @throws OWLOntologyStorageException the oWL ontology storage exception
-     * @throws OBOFormatParserException the oBO format parser exception
+     * @throws OWLOntologyStorageException  the oWL ontology storage exception
+     * @throws OBOFormatParserException     the oBO format parser exception
      */
     public static void convertURL(@Nonnull String iri, @Nonnull String outFile,
         @Nonnull OWLOntologyManager manager)
@@ -186,16 +185,16 @@ public class OWLAPIObo2Owl {
     /**
      * See.
      * 
-     * @param iri the iri
-     * @param outFile the out file
+     * @param iri        the iri
+     * @param outFile    the out file
      * @param defaultOnt -- e.g. "go". If the obo file contains no "ontology:" header tag, this is
-     *        added
-     * @param manager the manager to be used
-     * @throws IOException Signals that an I/O exception has occurred.
+     *                   added
+     * @param manager    the manager to be used
+     * @throws IOException                  Signals that an I/O exception has occurred.
      * @throws OWLOntologyCreationException the oWL ontology creation exception
-     * @throws OWLOntologyStorageException the oWL ontology storage exception
-     * @throws OBOFormatParserException the oBO format parser exception
-     *         {@link #convertURL(String iri, String outFile, OWLOntologyManager manager)}
+     * @throws OWLOntologyStorageException  the oWL ontology storage exception
+     * @throws OBOFormatParserException     the oBO format parser exception
+     *                                      {@link #convertURL(String iri, String outFile, OWLOntologyManager manager)}
      */
     public static void convertURL(String iri, @Nonnull String outFile, String defaultOnt,
         @Nonnull OWLOntologyManager manager)
@@ -322,7 +321,7 @@ public class OWLAPIObo2Owl {
      * Convert.
      * 
      * @param doc the obodoc
-     * @param in the in
+     * @param in  the in
      * @return the oWL ontology
      */
     public OWLOntology convert(OBODoc doc, @Nonnull OWLOntology in) {
@@ -357,7 +356,7 @@ public class OWLAPIObo2Owl {
                 String dv = dvclause.getValue().toString();
                 IRI vIRI =
                     IRI.create(DEFAULT_IRI_PREFIX + ontOboId + '/' + dv + '/' + ontOboId + ".owl");
-                OWLOntologyID oid = new OWLOntologyID(Optional.of(ontIRI), Optional.of(vIRI));
+                OWLOntologyID oid = new OWLOntologyID(ontIRI, vIRI);
                 // if the ontology being read has a differet id from the one
                 // that was passed in, update it
                 // when parsing, the original ontology is likely an anonymous,
@@ -371,15 +370,13 @@ public class OWLAPIObo2Owl {
                 // when parsing, the original ontology is likely an anonymous,
                 // empty one
                 if (!ontIRI.equals(in.getOntologyID().getOntologyIRI().orNull())) {
-                    manager.applyChange(new SetOntologyID(in,
-                        new OWLOntologyID(Optional.of(ontIRI), Optional.<IRI>absent())));
+                    manager.applyChange(new SetOntologyID(in, new OWLOntologyID(ontIRI, null)));
                 }
             }
         } else {
             defaultIDSpace = "TEMP";
             manager.applyChange(new SetOntologyID(in,
-                new OWLOntologyID(Optional.of(IRI.create(DEFAULT_IRI_PREFIX + defaultIDSpace)),
-                    Optional.<IRI>absent())));
+                new OWLOntologyID(IRI.create(DEFAULT_IRI_PREFIX + defaultIDSpace), null)));
             // TODO - warn
         }
         trHeaderFrame(hf);
@@ -638,8 +635,8 @@ public class OWLAPIObo2Owl {
     /**
      * Adds the ontology annotation.
      * 
-     * @param ap the ap
-     * @param v the v
+     * @param ap          the ap
+     * @param v           the v
      * @param annotations the annotations
      */
     protected void addOntologyAnnotation(@Nonnull OWLAnnotationProperty ap,
@@ -681,9 +678,10 @@ public class OWLAPIObo2Owl {
      * Generate axioms for the alternate identifiers of an {@link OWLClass} or
      * {@link OWLObjectProperty}.
      * 
-     * @param clauses collection of alt_id clauses
+     * @param clauses    collection of alt_id clauses
      * @param replacedBy IRI of the entity
-     * @param isClass set to true if the alt_id is represents a class, false in case of an property
+     * @param isClass    set to true if the alt_id is represents a class, false in case of an
+     *                   property
      * @return set of axioms generated for the alt_id clauses
      */
     @Nonnull
@@ -724,9 +722,9 @@ public class OWLAPIObo2Owl {
     /**
      * Tr term frame clauses.
      * 
-     * @param cls the cls
+     * @param cls     the cls
      * @param clauses the clauses
-     * @param t the t
+     * @param t       the t
      * @return the sets the
      */
     @Nonnull
@@ -851,8 +849,8 @@ public class OWLAPIObo2Owl {
     /**
      * Tr relation union of.
      * 
-     * @param id the id
-     * @param p the p
+     * @param id      the id
+     * @param p       the p
      * @param clauses the clauses
      * @return the oWL axiom
      */
@@ -870,8 +868,8 @@ public class OWLAPIObo2Owl {
     /**
      * Tr relation intersection of.
      * 
-     * @param id the id
-     * @param p the p
+     * @param id      the id
+     * @param p       the p
      * @param clauses the clauses
      * @return the oWL axiom
      */
@@ -889,7 +887,7 @@ public class OWLAPIObo2Owl {
     /**
      * Tr union of.
      * 
-     * @param cls the cls
+     * @param cls     the cls
      * @param clauses the clauses
      * @return the oWL axiom
      */
@@ -925,7 +923,7 @@ public class OWLAPIObo2Owl {
     /**
      * Tr intersection of.
      * 
-     * @param cls the cls
+     * @param cls     the cls
      * @param clauses the clauses
      * @return the oWL axiom
      */
@@ -1004,8 +1002,8 @@ public class OWLAPIObo2Owl {
     /**
      * #5.2
      * 
-     * @param cls the cls
-     * @param tag the tag
+     * @param cls    the cls
+     * @param tag    the tag
      * @param clause the clause
      * @return axiom
      */
@@ -1058,8 +1056,8 @@ public class OWLAPIObo2Owl {
     /**
      * Tr typedef clause.
      * 
-     * @param p the p
-     * @param tag the tag
+     * @param p      the p
+     * @param tag    the tag
      * @param clause the clause
      * @return the oWL axiom
      */
@@ -1146,8 +1144,8 @@ public class OWLAPIObo2Owl {
     /**
      * Tr generic clause.
      * 
-     * @param e the e
-     * @param tag the tag
+     * @param e      the e
+     * @param tag    the tag
      * @param clause the clause
      * @return the oWL axiom
      */
@@ -1172,8 +1170,8 @@ public class OWLAPIObo2Owl {
     /**
      * Tr generic clause.
      * 
-     * @param sub the sub
-     * @param tag the tag
+     * @param sub    the sub
+     * @param tag    the tag
      * @param clause the clause
      * @return the oWL axiom
      */
@@ -1308,7 +1306,7 @@ public class OWLAPIObo2Owl {
      * Tr annotations.
      * 
      * @param clause the clause
-     * @param anns the anns
+     * @param anns   the anns
      */
     @SuppressWarnings("null")
     protected void trAnnotations(@Nonnull Clause clause, @Nonnull Set<OWLAnnotation> anns) {
@@ -1351,9 +1349,9 @@ public class OWLAPIObo2Owl {
     /**
      * Tr rel.
      * 
-     * @param relId the rel id
+     * @param relId   the rel id
      * @param classId the class id
-     * @param quals the quals
+     * @param quals   the quals
      * @return the oWL class expression
      */
     public OWLClassExpression trRel(@Nonnull String relId, @Nonnull String classId,
@@ -1409,7 +1407,7 @@ public class OWLAPIObo2Owl {
     /**
      * Gets the qV string.
      * 
-     * @param q the q
+     * @param q     the q
      * @param quals the quals
      * @return the qV string
      */
@@ -1426,7 +1424,7 @@ public class OWLAPIObo2Owl {
     /**
      * Gets the qV boolean.
      * 
-     * @param q the q
+     * @param q     the q
      * @param quals the quals
      * @return the qV boolean
      */
@@ -1443,7 +1441,7 @@ public class OWLAPIObo2Owl {
     /**
      * Gets the qV int.
      * 
-     * @param q the q
+     * @param q     the q
      * @param quals the quals
      * @return the qV int
      */

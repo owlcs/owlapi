@@ -1,0 +1,50 @@
+@prefix : <http://sweetontology.net/reprMathGraph/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sorepm: <http://sweetontology.net/reprMath/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sorepmg: <http://sweetontology.net/reprMathGraph/> .
+@prefix sorelm: <http://sweetontology.net/relaMath/> .
+@base <http://sweetontology.net/reprMathGraph> .
+<http://sweetontology.net/reprMathGraph> rdf:type owl:Ontology ;
+                                          owl:imports <http://sweetontology.net/relaMath> ,
+                                                      <http://sweetontology.net/reprMath> ;
+                                          rdfs:label "SWEET Ontology Representation Mathematics Graph" ;
+                                          owl:versionInfo "3.3.0" .
+sorepmg:Arc rdf:type owl:Class ;
+          rdfs:subClassOf sorepmg:StructuralComponent ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty sorelm:hasOrderedVertexPair ;
+                            owl:cardinality "1"^^xsd:nonNegativeInteger
+                          ] .
+sorepmg:Edge rdf:type owl:Class ;
+           rdfs:subClassOf sorepmg:StructuralComponent ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty sorelm:hasUnorderedVertexPair ;
+                             owl:cardinality "1"^^xsd:nonNegativeInteger
+                           ] .
+sorepmg:Graph rdf:type owl:Class ;
+            rdfs:subClassOf sorepmg:StructuralModel ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty sorelm:hasEdge ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty sorelm:hasVertex ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] .
+sorepmg:Network rdf:type owl:Class ;
+              rdfs:subClassOf sorepmg:Graph ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty sorelm:hasWeightedEdge ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] .
+sorepmg:StructuralModel rdf:type owl:Class .
+sorepmg:WeightedEdge rdf:type owl:Class ;
+                   rdfs:subClassOf sorepmg:Edge ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty sorelm:hasWeight ;
+                                     owl:cardinality "1"^^xsd:nonNegativeInteger
+                                   ] .

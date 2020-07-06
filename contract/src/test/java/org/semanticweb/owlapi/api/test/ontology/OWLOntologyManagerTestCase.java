@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
@@ -61,7 +63,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
     public void testCreateOntologyWithIRIAndVersionIRI() throws OWLOntologyCreationException {
         IRI ontologyIRI = IRI(ONTOLOGY);
         IRI versionIRI = IRI("http://www.semanticweb.org/ontologies/ontology/version");
-        OWLOntology ontology = m.createOntology(new OWLOntologyID(of(ontologyIRI), of(versionIRI)));
+        OWLOntology ontology = m.createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertEquals(versionIRI, ontology.getOntologyID().getDefaultDocumentIRI().get());
@@ -93,7 +95,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
         IRI documentIRI = IRI("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(versionIRI, documentIRI);
         m.getIRIMappers().add(mapper);
-        OWLOntology ontology = m.createOntology(new OWLOntologyID(of(ontologyIRI), of(versionIRI)));
+        OWLOntology ontology = m.createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertEquals(versionIRI, ontology.getOntologyID().getDefaultDocumentIRI().get());
@@ -114,8 +116,8 @@ public class OWLOntologyManagerTestCase extends TestBase {
         throws OWLOntologyCreationException {
         IRI ontologyIRI = IRI(ONTOLOGY);
         IRI versionIRI = IRI(ONTOLOGY);
-        m.createOntology(new OWLOntologyID(of(ontologyIRI), of(versionIRI)));
-        m.createOntology(new OWLOntologyID(of(ontologyIRI), of(versionIRI)));
+        m.createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
+        m.createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
     }
 
     @Test(expected = OWLOntologyDocumentAlreadyExistsException.class)
@@ -125,7 +127,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
         IRI documentIRI = IRI("file:documentIRI");
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI, documentIRI));
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI2, documentIRI));
-        m.createOntology(new OWLOntologyID(of(ontologyIRI), of((IRI) null)));
-        m.createOntology(new OWLOntologyID(of(ontologyIRI2), of((IRI) null)));
+        m.createOntology(new OWLOntologyID(ontologyIRI, null));
+        m.createOntology(new OWLOntologyID(ontologyIRI2, null));
     }
 }

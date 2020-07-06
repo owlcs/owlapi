@@ -6,7 +6,9 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annot
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSLabel;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -25,8 +27,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-import com.google.common.collect.Sets;
-
 @SuppressWarnings("javadoc")
 public class AnnotatetAnnotationsTestCase extends TestBase {
 
@@ -34,17 +34,17 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
     public void shouldRoundtripMultipleNestedAnnotationsdebug()
         throws OWLOntologyCreationException {
         String ns = "urn:n:a#";
-        Set<OWLObjectPropertyAssertionAxiom> axioms = Sets.newHashSet(
+        Set<OWLObjectPropertyAssertionAxiom> axioms = Collections.singleton(
             df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty(IRI.create(ns, "r")),
                 df.getOWLNamedIndividual(IRI.create(ns, "a")),
                 df.getOWLNamedIndividual(IRI.create(ns, "b")),
-                Sets.newHashSet(
+                new HashSet<>(Arrays.asList(
                     df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(1),
                         Collections.singleton(
                             df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(3)))),
                     df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(2),
                         Collections.singleton(
-                            df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(4)))))));
+                            df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(4))))))));
         String input = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"urn:t:o#\" xml:base=\"urn:t:o\"\n xmlns:ann=\"urn:n:a#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
             + "    <owl:Ontology rdf:about=\"urn:t:o\"/>\n"

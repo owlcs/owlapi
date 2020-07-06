@@ -1,0 +1,62 @@
+@prefix : <http://sweetontology.net/reprMath/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sorepm: <http://sweetontology.net/reprMath/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sorelm: <http://sweetontology.net/relaMath/> .
+@base <http://sweetontology.net/reprMath> .
+<http://sweetontology.net/reprMath> rdf:type owl:Ontology ;
+                                     owl:imports <http://sweetontology.net/relaMath> ;
+                                     rdfs:label "SWEET Ontology Representation Mathematics" ;
+                                     owl:versionInfo "3.3.0" .
+
+sorepm:Interval rdf:type owl:Class ;
+              rdfs:subClassOf sorepm:NumericalEntity ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty sorelm:hasDimension ;
+                                owl:hasValue 1
+                              ] ;
+              owl:disjointWith sorepm:Point .
+sorepm:Matrix rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty sorelm:eachElementHasType ;
+                              owl:allValuesFrom sorepm:Array
+                            ] .
+sorepm:NumericalEntity rdf:type owl:Class .
+sorepm:Array rdf:type owl:Class  .
+sorepm:OrderedPair rdf:type owl:Class ;
+                 rdfs:subClassOf sorepm:Array ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty sorelm:hasFirstOperand ;
+                                   owl:cardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty sorelm:hasSecondOperand ;
+                                   owl:cardinality "1"^^xsd:nonNegativeInteger
+                                 ] .
+sorepm:OrderedTriple rdf:type owl:Class ;
+                   rdfs:subClassOf sorepm:Array ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty sorelm:hasFirstOperand ;
+                                     owl:cardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty sorelm:hasSecondOperand ;
+                                     owl:cardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty sorelm:hasThirdOperand ;
+                                     owl:cardinality "1"^^xsd:nonNegativeInteger
+                                   ] .
+sorepm:Point rdf:type owl:Class ;
+           rdfs:subClassOf sorepm:NumericalEntity ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty sorelm:hasDimension ;
+                             owl:hasValue 0
+                           ] .
+sorepm:NormalizedRange rdf:type owl:NamedIndividual ,
+                              sorepm:Interval ;
+                     sorelm:hasLowerBound "0.0"^^xsd:double ;
+                     sorelm:hasUpperBound "1.0"^^xsd:double .

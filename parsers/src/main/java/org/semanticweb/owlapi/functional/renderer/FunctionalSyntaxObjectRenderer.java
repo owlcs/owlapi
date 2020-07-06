@@ -226,8 +226,6 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-import com.google.common.base.Optional;
-
 /**
  * The Class OWLObjectRenderer.
  * 
@@ -369,10 +367,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeOpenBracket();
         if (!ontology.isAnonymous()) {
             writeFullIRI(ontology.getOntologyID().getOntologyIRI().get());
-            Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
-            if (versionIRI.isPresent()) {
+            if (ontology.getOntologyID().getVersionIRI().isPresent()) {
                 writeReturn();
-                writeFullIRI(versionIRI.get());
+                writeFullIRI(ontology.getOntologyID().getVersionIRI().get());
             }
             writeReturn();
         }

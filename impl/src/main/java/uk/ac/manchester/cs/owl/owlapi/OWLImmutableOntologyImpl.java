@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -92,8 +93,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-import com.google.common.base.Optional;
-import com.google.common.collect.Iterables;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -112,9 +111,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asCacheable(key.ints.get(OWLObjectProperty.class,      OWLAxiom.class).get().keySet()));
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asCacheable(key.ints.get(OWLDatatype.class,            OWLAxiom.class).get().keySet()));
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asCacheable(key.ints.get(OWLNamedIndividual.class,     OWLAxiom.class).get().keySet()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asCacheable(Iterables.concat(
-        key.ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION).get().keySet(),
-        key.ints.getOntologyAnnotations(false).stream().flatMap(a->a.getAnnotationPropertiesInSignature().stream()).collect(Collectors.toSet()))));
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asCacheable(Stream.concat(
+        key.ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION).get().keySet().stream(),
+        key.ints.getOntologyAnnotations(false).stream().flatMap(a->a.getAnnotationPropertiesInSignature().stream())).collect(Collectors.toSet())));
     // @formatter:on
     static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
         return Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
@@ -139,14 +138,13 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     private static Set<OWLEntity> build(OWLImmutableOntologyImpl key) {
         List<OWLEntity> stream = new ArrayList<>();
-        Iterables.addAll(stream, key.classesInSignature());
-        Iterables.addAll(stream, key.objectPropertiesInSignature());
-        Iterables.addAll(stream, key.dataPropertiesInSignature());
-        Iterables.addAll(stream, key.individualsInSignature());
-        Iterables.addAll(stream, key.datatypesInSignature());
-        Iterables.addAll(stream, key.annotationPropertiesInSignature());
-        Iterables.addAll(stream, key.getAnnotations().stream()
-            .flatMap(x -> x.getSignature().stream()).collect(Collectors.toSet()));
+        key.classesInSignature().forEach(stream::add);
+        key.objectPropertiesInSignature().forEach(stream::add);
+        key.dataPropertiesInSignature().forEach(stream::add);
+        key.individualsInSignature().forEach(stream::add);
+        key.datatypesInSignature().forEach(stream::add);
+        key.annotationPropertiesInSignature().forEach(stream::add);
+        key.getAnnotations().stream().flatMap(x -> x.getSignature().stream()).forEach(stream::add);
         stream.sort(null);
         return new LinkedHashSet<>(stream);
     }
@@ -192,9 +190,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         sb.append(" Logical Axioms: ");
         sb.append(ints.getLogicalAxiomCount());
         sb.append("] First 20 axioms: {");
-        for (OWLAxiom ax : Iterables.limit(ints.getAxioms(), 20)) {
-            sb.append(ax).append(' ');
-        }
+        sb.append(ints.getAxioms().stream().limit(20).map(Object::toString)
+            .collect(Collectors.joining(" ")));
         sb.append('}');
         return sb.toString();
     }
@@ -806,20 +803,25 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         if (i instanceof Set) {
             // in this case we can use a list for the defensive copy
             List<T> list = new ArrayList<>();
-            Iterables.addAll(list, i);
+            i.forEach(list::add);
             return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(list);
         }
         // if the input is not a set, we need to make sure there are no
         // duplicates
         Set<T> set = new HashSet<>();
-        Iterables.addAll(set, i);
+        i.forEach(set::add);
         return set;
     }
 
     @Nonnull
     private static <T> Set<T> asCacheable(Iterable<T> i) {
+        if (i instanceof List) {
+            List<T> list = (List<T>) i;
+            list.sort(null);
+            return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(list);
+        }
         List<T> list = new ArrayList<>();
-        Iterables.addAll(list, i);
+        i.forEach(list::add);
         list.sort(null);
         if (i instanceof Set) {
             // in this case we can use a list for the defensive copy
@@ -828,7 +830,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         // if the input is not a set, we need to make sure there are no
         // duplicates
         Set<T> set = new LinkedHashSet<>();
-        Iterables.addAll(set, list);
+        list.forEach(set::add);
         return set;
     }
 
@@ -1257,7 +1259,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         @Nonnull Class<? extends OWLObject> explicitClass, @Nonnull OWLObject entity,
         @Nonnull Imports includeImports, @Nonnull Navigation forSubPosition) {
         if (includeImports == EXCLUDED) {
-            Optional<MapPointer<OWLObject, A>> optional =
+            java.util.Optional<MapPointer<OWLObject, A>> optional =
                 ints.get((Class<OWLObject>) explicitClass, type, forSubPosition);
             if (optional.isPresent()) {
                 return asSet(optional.get().getValues(entity));

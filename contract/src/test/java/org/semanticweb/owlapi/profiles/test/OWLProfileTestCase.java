@@ -166,8 +166,6 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-import com.google.common.base.Optional;
-
 @SuppressWarnings({"javadoc", "rawtypes",})
 public class OWLProfileTestCase extends TestBase {
 
@@ -374,8 +372,8 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLOntology ontology)")
     public void shouldCreateViolationForOWLOntologyInOWL2DLProfile() throws Exception {
-        OWLOntology o = m.createOntology(
-            new OWLOntologyID(Optional.of(IRI(START + TEST2)), Optional.of(IRI(START + "test1"))));
+        OWLOntology o =
+            m.createOntology(new OWLOntologyID(IRI(START + TEST2), IRI(START + "test1")));
         OWL2DLProfile profile = new OWL2DLProfile();
         int expected = 2;
         Class[] expectedViolations = {UseOfReservedVocabularyForOntologyIRI.class,
@@ -751,8 +749,7 @@ public class OWLProfileTestCase extends TestBase {
     // @Test
     @Tests(method = "public Object visit(OWLOntology ont)")
     public void shouldCreateViolationForOWLOntologyInOWL2Profile() throws Exception {
-        OWLOntology o = m
-            .createOntology(new OWLOntologyID(Optional.of(IRI(TEST2)), Optional.of(IRI("test1"))));
+        OWLOntology o = m.createOntology(new OWLOntologyID(IRI(TEST2), IRI("test1")));
         OWL2Profile profile = new OWL2Profile();
         int expected = 2;
         Class[] expectedViolations =
@@ -790,7 +787,7 @@ public class OWLProfileTestCase extends TestBase {
         OWLOntology o = createOnto();
         declare(o, DATAP);
         m.addAxiom(o, DataPropertyAssertion(DATAP, AnonymousIndividual(),
-            Literal("wrong", df.getOWLDatatype(IRI.create("urn:test:","defineddatatype")))));
+            Literal("wrong", df.getOWLDatatype(IRI.create("urn:test:", "defineddatatype")))));
         OWL2Profile profile = new OWL2Profile();
         int expected = 1;
         Class[] expectedViolations = {UseOfDefinedDatatypeInLiteral.class};
@@ -1522,8 +1519,8 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLClassAssertionAxiomInOWL2RLProfile() throws Exception {
         OWLOntology o = createOnto();
         declare(o, OP);
-        m.addAxiom(o, ClassAssertion(ObjectMinCardinality(1, OP, OWLThing()),
-            NamedIndividual(IRI(I))));
+        m.addAxiom(o,
+            ClassAssertion(ObjectMinCardinality(1, OP, OWLThing()), NamedIndividual(IRI(I))));
         OWL2RLProfile profile = new OWL2RLProfile();
         int expected = 1;
         Class[] expectedViolations = {UseOfNonSuperClassExpression.class};
@@ -1662,8 +1659,8 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLSubClassOfAxiom axiom)")
     public void shouldCreateViolationForOWLSubClassOfAxiomInOWL2RLProfile() throws Exception {
         OWLOntology o = createOnto();
-        m.addAxiom(o, SubClassOf(ObjectComplementOf(OWLThing()),
-            ObjectOneOf(NamedIndividual(IRI(TEST)))));
+        m.addAxiom(o,
+            SubClassOf(ObjectComplementOf(OWLThing()), ObjectOneOf(NamedIndividual(IRI(TEST)))));
         OWL2RLProfile profile = new OWL2RLProfile();
         int expected = 2;
         Class[] expectedViolations =

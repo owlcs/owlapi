@@ -109,6 +109,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -187,8 +188,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-import com.google.common.base.Optional;
-
 /**
  * A parser for the Manchester OWL Syntax. All properties must be defined before they are used. For
  * example, consider the restriction hasPart some Leg. The parser must know in advance whether or
@@ -212,7 +211,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Nonnull
     private Supplier<OWLOntologyLoaderConfiguration> configProvider;
     @Nonnull
-    private Optional<OWLOntologyLoaderConfiguration> config = Optional.absent();
+    private Optional<OWLOntologyLoaderConfiguration> config = Optional.empty();
     protected OWLDataFactory dataFactory;
     private List<Token> tokens;
     private int tokenIndex;
@@ -319,7 +318,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     @Override
     public void setOntologyLoaderConfiguration(OWLOntologyLoaderConfiguration config) {
-        this.config = Optional.fromNullable(config);
+        this.config = Optional.ofNullable(config);
     }
 
     @Override
@@ -2398,24 +2397,23 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             if (IMPORT.matches(section)) {
                 consumeToken();
                 tok = peekToken();
-                Optional<IRI> importedIRI = Optional.absent();
+                IRI importedOntologyIRI = null;
                 if (tok.startsWith("<")) {
-                    importedIRI = Optional.of(parseIRI());
+                    importedOntologyIRI = parseIRI();
                 } else if (isOntologyName(tok)) {
                     consumeToken();
                     OWLOntology ont = getOntology(tok);
                     if (ont != null) {
-                        importedIRI = ont.getOntologyID().getOntologyIRI();
+                        importedOntologyIRI = ont.getOntologyID().getOntologyIRI().orNull();
                     }
                 } else {
                     consumeToken();
                     throw new ExceptionBuilder().withOnto().withKeyword("<$ONTOLOGYYURI$>").build();
                 }
-                if (!importedIRI.isPresent()) {
+                if (importedOntologyIRI == null) {
                     throw new ExceptionBuilder().withOnto().withKeyword("Imported IRI is null")
                         .build();
                 }
-                IRI importedOntologyIRI = importedIRI.get();
                 assert importedOntologyIRI != null;
                 imports.add(dataFactory.getOWLImportsDeclaration(importedOntologyIRI));
             } else if (ANNOTATIONS.matches(section)) {

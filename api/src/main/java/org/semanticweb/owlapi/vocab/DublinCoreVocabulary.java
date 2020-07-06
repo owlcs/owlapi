@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -24,20 +24,11 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
-
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public enum DublinCoreVocabulary
-        implements
-        HasShortForm,
-        HasIRI,
-        HasPrefixedName {
+public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
     /** http://purl.org/dc/elements/1.1/contributor */ CONTRIBUTOR("contributor"),
     /** http://purl.org/dc/elements/1.1/coverage */    COVERAGE   ("coverage"   ),
@@ -87,15 +78,8 @@ public enum DublinCoreVocabulary
     }
 
     /** all IRIs */
-    public static final Set<IRI> ALL_URIS = Sets.newHashSet(Iterables
-            .transform(Arrays.asList(values()),
-                    new Function<DublinCoreVocabulary, IRI>() {
-
-                        @Override
-                        public IRI apply(DublinCoreVocabulary arg0) {
-                            return verifyNotNull(arg0).getIRI();
-                        }
-                    }));
+    public static final Set<IRI> ALL_URIS = Collections
+        .unmodifiableSet(Stream.of(values()).map(HasIRI::getIRI).collect(Collectors.toSet()));
 
     @Override
     public String toString() {

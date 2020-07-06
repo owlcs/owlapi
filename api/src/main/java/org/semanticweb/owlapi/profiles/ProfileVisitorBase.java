@@ -78,7 +78,6 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.DatatypeIRIAlsoUsedAsClassIRI;
 import org.semanticweb.owlapi.profiles.violations.EmptyOneOfAxiom;
@@ -134,8 +133,6 @@ import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
-import com.google.common.base.Optional;
 
 /**
  * Base class for profile violation visitors.
@@ -348,10 +345,10 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     protected OWLObjectPropertyManager propertyManager = null;
 
     /**
-     * @param walker onotlogy walker to use
+     * @param walker     onotlogy walker to use
      * @param violations collection of violations; the collection is modified during the visit
-     * @param profiles the profiles to check. An empty collection means OWL 2 FULL will be the
-     *        pofile used.
+     * @param profiles   the profiles to check. An empty collection means OWL 2 FULL will be the
+     *                   pofile used.
      */
     protected ProfileVisitorBase(OWLOntologyWalker walker,
         Collection<OWLProfileViolation> violations, Collection<Profiles> profiles) {
@@ -858,8 +855,7 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
         if (id.isAnonymous()) {
             return;
         }
-        Optional<IRI> vIRI = id.getVersionIRI();
-        if (vIRI.isPresent() && vIRI.get().isReservedVocabulary()) {
+        if (id.getVersionIRI().isPresent() && id.getVersionIRI().get().isReservedVocabulary()) {
             violations.add(new UseOfReservedVocabularyForVersionIRI(getCurrentOntology()));
         }
     }
@@ -868,8 +864,7 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
         if (id.isAnonymous()) {
             return;
         }
-        Optional<IRI> oIRI = id.getOntologyIRI();
-        if (oIRI.isPresent() && oIRI.get().isReservedVocabulary()) {
+        if (id.getOntologyIRI().isPresent() && id.getOntologyIRI().get().isReservedVocabulary()) {
             violations.add(new UseOfReservedVocabularyForOntologyIRI(getCurrentOntology()));
         }
     }

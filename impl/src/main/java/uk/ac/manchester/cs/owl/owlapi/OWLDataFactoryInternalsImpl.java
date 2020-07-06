@@ -39,8 +39,6 @@ import org.slf4j.LoggerFactory;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-import com.google.common.collect.Interner;
-import com.google.common.collect.Interners;
 
 /**
  * @author ignazio
@@ -84,7 +82,7 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
     @Nonnull
     private final BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
     @Nonnull
-    transient final private Interner<String> languageTagInterner;
+    transient private final LoadingCache<String, String> languageTagInterner;
 
     @Nonnull
     protected final <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache() {
@@ -98,7 +96,7 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
      * reused extremely frequently. for ontologies in the OBO family, a few annotations will be
      * reused extremely frequently.
      */
-    private transient final LoadingCache<OWLAnnotation, OWLAnnotation> annotationsCache;
+    transient private final LoadingCache<OWLAnnotation, OWLAnnotation> annotationsCache;
 
     /**
      * @param useCompression true if literals should be compressed
@@ -112,7 +110,6 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         datatypesByURI = buildCache();
         individualsByURI = buildCache();
         annotationPropertiesByURI = buildCache();
-        languageTagInterner = Interners.newWeakInterner();
         Caffeine<Object, Object> builder =
             Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
                 .getValue(Integer.class, Collections.emptyMap()).longValue());
@@ -120,6 +117,7 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
             builder.recordStats();
         }
         annotationsCache = builder.build(k -> k);
+        languageTagInterner = builder.build(k -> k);
     }
 
     @SuppressWarnings("unchecked")
@@ -236,7 +234,7 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         if (lang == null) {
             return "";
         }
-        return languageTagInterner.intern(lang.trim().toLowerCase());
+        return languageTagInterner.get(lang.trim().toLowerCase());
     }
 
     private final AtomicInteger annotationsCount = new AtomicInteger(0);

@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
@@ -25,8 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
@@ -38,10 +39,10 @@ public class OntologyURITestCase extends TestBase {
     public void testOntologyID() {
         IRI iriA = IRI(ANOTHER_COM_ONT);
         IRI iriB = IRI("http://www.another.com/ont/version");
-        OWLOntologyID ontIDBoth = new OWLOntologyID(of(iriA), of(iriB));
-        OWLOntologyID ontIDBoth2 = new OWLOntologyID(of(iriA), of(iriB));
+        OWLOntologyID ontIDBoth = new OWLOntologyID(iriA, iriB);
+        OWLOntologyID ontIDBoth2 = new OWLOntologyID(iriA, iriB);
         assertEquals(ontIDBoth, ontIDBoth2);
-        OWLOntologyID ontIDURIOnly = new OWLOntologyID(of(iriA), absent());
+        OWLOntologyID ontIDURIOnly = new OWLOntologyID(iriA, null);
         assertFalse(ontIDBoth.equals(ontIDURIOnly));
         OWLOntologyID ontIDNoneA = new OWLOntologyID();
         OWLOntologyID ontIDNoneB = new OWLOntologyID();
@@ -55,7 +56,7 @@ public class OntologyURITestCase extends TestBase {
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), iri);
         assertTrue(m.contains(iri));
         assertTrue(m.getOntologies().contains(ont));
-        OWLOntologyID ontID = new OWLOntologyID(of(iri), absent());
+        OWLOntologyID ontID = new OWLOntologyID(iri, null);
         assertEquals(ont.getOntologyID(), ontID);
     }
 
@@ -71,8 +72,7 @@ public class OntologyURITestCase extends TestBase {
         IRI iri = IRI(ANOTHER_COM_ONT);
         OWLOntology ont = m.createOntology(iri);
         IRI newIRI = IRI("http://www.another.com/newont");
-        SetOntologyID sou = new SetOntologyID(ont, new OWLOntologyID(
-                of(newIRI), absent()));
+        SetOntologyID sou = new SetOntologyID(ont, new OWLOntologyID(newIRI, null));
         m.applyChange(sou);
         assertFalse(m.contains(iri));
         assertTrue(m.contains(newIRI));
@@ -83,8 +83,7 @@ public class OntologyURITestCase extends TestBase {
     public void testVersionURI() throws OWLOntologyCreationException {
         IRI ontIRI = IRI(ANOTHER_COM_ONT);
         IRI verIRI = IRI("http://www.another.com/ont/versions/1.0.0");
-        OWLOntology ont = m.createOntology(new OWLOntologyID(of(ontIRI),
-                of(verIRI)));
+        OWLOntology ont = m.createOntology(new OWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
         assertEquals(ont.getOntologyID().getVersionIRI().get(), verIRI);
     }
@@ -93,8 +92,7 @@ public class OntologyURITestCase extends TestBase {
     public void testNullVersionURI() throws OWLOntologyCreationException {
         IRI ontIRI = IRI(ANOTHER_COM_ONT);
         IRI verIRI = null;
-        OWLOntology ont = m.createOntology(new OWLOntologyID(of(ontIRI),
-                of(verIRI)));
+        OWLOntology ont = m.createOntology(new OWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
         assertFalse(ont.getOntologyID().getVersionIRI().isPresent());
     }

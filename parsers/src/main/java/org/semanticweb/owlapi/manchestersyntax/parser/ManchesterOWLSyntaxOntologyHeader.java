@@ -23,11 +23,8 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
-import com.google.common.base.Optional;
-
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class ManchesterOWLSyntaxOntologyHeader {
@@ -40,18 +37,14 @@ public class ManchesterOWLSyntaxOntologyHeader {
     private final Collection<OWLImportsDeclaration> importsDeclarations;
 
     /**
-     * @param ontologyIRI
-     *        the ontology IRI
-     * @param versionIRI
-     *        the version IRI
-     * @param annotations
-     *        the ontology annotations
-     * @param importsDeclarations
-     *        the imports declarations
+     * @param ontologyIRI         the ontology IRI
+     * @param versionIRI          the version IRI
+     * @param annotations         the ontology annotations
+     * @param importsDeclarations the imports declarations
      */
-    public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI, @Nonnull Set<OWLAnnotation> annotations,
-        Set<OWLImportsDeclaration> importsDeclarations) {
-        ontologyID = new OWLOntologyID(Optional.fromNullable(ontologyIRI), Optional.fromNullable(versionIRI));
+    public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI,
+        @Nonnull Set<OWLAnnotation> annotations, Set<OWLImportsDeclaration> importsDeclarations) {
+        ontologyID = new OWLOntologyID(ontologyIRI, versionIRI);
         this.annotations = new ArrayList<>(annotations);
         this.importsDeclarations = new ArrayList<>(importsDeclarations);
     }

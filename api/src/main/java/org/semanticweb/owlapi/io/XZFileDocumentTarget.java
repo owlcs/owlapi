@@ -31,8 +31,6 @@ import org.tukaani.xz.LZMA2Options;
 import org.tukaani.xz.UnsupportedOptionsException;
 import org.tukaani.xz.XZOutputStream;
 
-import com.google.common.io.Closeables;
-
 /**
  * An ontology document target which can write to a XZ File. Notice that this works best when the
  * output stream is closed explicitly in the client code.
@@ -48,7 +46,7 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     private OutputStream outputStream;
 
     /**
-     * @param os the actual file
+     * @param os            the actual file
      * @param filterOptions Settings for XZ compression
      */
     public XZFileDocumentTarget(@Nonnull File os, FilterOptions... filterOptions) {
@@ -59,7 +57,7 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     /**
      * Construct an XZ document target using the selected compression preset
      *
-     * @param os target File
+     * @param os          target File
      * @param presetLevel LZMA2 Compression preset level
      * @throws UnsupportedOptionsException if the options selected are not acceptable
      */
@@ -125,6 +123,8 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     public void close() throws Exception {
         OutputStream output = outputStream;
         outputStream = null;
-        Closeables.close(output, false);
+        if (output != null) {
+            output.close();
+        }
     }
 }

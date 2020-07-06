@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -25,16 +24,11 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Sets;
-
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public enum OWLRDFVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
+public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     //@formatter:off
     // OWL Vocab
     /** http://www.w3.org/2002/07/owl#Thing                 **/    OWL_THING(Namespaces.OWL, "Thing"),
@@ -210,35 +204,27 @@ public enum OWLRDFVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
         return shortName;
     }
 
-    private static final Function<HasIRI, IRI> AS_IRI = new Function<HasIRI, IRI>() {
-
-        @Override
-        public IRI apply(HasIRI input) {
-            return checkNotNull(input).getIRI();
-        }
-    };
-
     /**
-     * @param i
-     *        collection of HasIRI to convert to IRI
+     * @param i collection of HasIRI to convert to IRI
      * @return unmodifiable set of IRIs
      */
     @Nonnull
     public static Set<IRI> asIRISet(HasIRI... i) {
-        return Collections.unmodifiableSet(new HashSet<>(Collections2.transform(Sets.newHashSet(i), AS_IRI)));
+        return Collections
+            .unmodifiableSet(Stream.of(i).map(HasIRI::getIRI).collect(Collectors.toSet()));
     }
 
     /** Set of all IRIs for this enum values */
     @Nonnull
     public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS = asIRISet(values());
     /**
-     * label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
-     * seeAlso , isDefinedBy , incompatibleWith , deprecated
+     * label , comment , versionInfo , backwardCompatibleWith , priorVersion , seeAlso , isDefinedBy
+     * , incompatibleWith , deprecated
      */
     @Nonnull
-    public static final Set<IRI> BUILT_IN_ANNOTATION_PROPERTY_IRIS = asIRISet(RDFS_LABEL, RDFS_COMMENT,
-        OWL_VERSION_INFO, OWL_BACKWARD_COMPATIBLE_WITH, OWL_PRIOR_VERSION, RDFS_SEE_ALSO, RDFS_IS_DEFINED_BY,
-        OWL_INCOMPATIBLE_WITH, OWL_DEPRECATED);
+    public static final Set<IRI> BUILT_IN_ANNOTATION_PROPERTY_IRIS = asIRISet(RDFS_LABEL,
+        RDFS_COMMENT, OWL_VERSION_INFO, OWL_BACKWARD_COMPATIBLE_WITH, OWL_PRIOR_VERSION,
+        RDFS_SEE_ALSO, RDFS_IS_DEFINED_BY, OWL_INCOMPATIBLE_WITH, OWL_DEPRECATED);
 
     @Nonnull
     @Override

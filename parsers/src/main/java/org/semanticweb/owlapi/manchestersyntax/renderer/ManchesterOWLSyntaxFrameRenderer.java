@@ -133,8 +133,6 @@ import org.semanticweb.owlapi.util.OWLObjectComparator;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-import com.google.common.base.Optional;
-
 /**
  * The Class ManchesterOWLSyntaxFrameRenderer.
  * 
@@ -157,7 +155,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
 
         /**
-         * @param o key
+         * @param o        key
          * @param forAxiom axiom to add
          */
         public void put(O o, V forAxiom) {
@@ -230,8 +228,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Instantiates a new manchester owl syntax frame renderer.
      * 
-     * @param ontology the ontology
-     * @param writer the writer
+     * @param ontology                the ontology
+     * @param writer                  the writer
      * @param entityShortFormProvider the entity short form provider
      */
     public ManchesterOWLSyntaxFrameRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
@@ -242,8 +240,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Instantiates a new manchester owl syntax frame renderer.
      * 
-     * @param ontologies the ontologies
-     * @param writer the writer
+     * @param ontologies              the ontologies
+     * @param writer                  the writer
      * @param entityShortFormProvider the entity short form provider
      */
     public ManchesterOWLSyntaxFrameRenderer(@Nonnull Set<OWLOntology> ontologies, Writer writer,
@@ -466,9 +464,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             writeFullURI(ontology.getOntologyID().getOntologyIRI().get().toString());
             writeNewLine();
             pushTab(indent);
-            Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
-            if (versionIRI.isPresent()) {
-                writeFullURI(versionIRI.get().toString());
+            if (ontology.getOntologyID().getVersionIRI().isPresent()) {
+                writeFullURI(ontology.getOntologyID().getVersionIRI().get().toString());
             }
             popTab();
         }
@@ -510,12 +507,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             write(PREFIX.toString());
             write(": : ");
             OWLOntology o = ontologies.iterator().next();
-            Optional<IRI> ontologyIRI = o.getOntologyID().getOntologyIRI();
-            Optional<IRI> documentIRI = o.getOntologyID().getDefaultDocumentIRI();
-            if (ontologyIRI.isPresent()) {
-                writeFullURI(ontologyIRI.get().toString());
-            } else if (documentIRI.isPresent()) {
-                writeFullURI(documentIRI.get().toString());
+            if (o.getOntologyID().getOntologyIRI().isPresent()) {
+                writeFullURI(o.getOntologyID().getOntologyIRI().get().toString());
+            } else if (o.getOntologyID().getDefaultDocumentIRI().isPresent()) {
+                writeFullURI(o.getOntologyID().getDefaultDocumentIRI().get().toString());
             } else {
                 writeFullURI("urn:absoluteiri:defaultvalue#");
             }
@@ -1254,7 +1249,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      * Write entity start.
      * 
      * @param keyword the keyword
-     * @param entity the entity
+     * @param entity  the entity
      * @return written axioms
      */
     private Collection<OWLAnnotationAssertionAxiom> writeEntityStart(
@@ -1395,10 +1390,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Write section.
      * 
-     * @param keyword the keyword
-     * @param content the content
-     * @param delimiter the delimiter
-     * @param newline the newline
+     * @param keyword        the keyword
+     * @param content        the content
+     * @param delimiter      the delimiter
+     * @param newline        the newline
      * @param ontologiesList the ontologies list
      */
     public void writeSection(@Nonnull ManchesterOWLSyntax keyword, @Nonnull Collection<?> content,
@@ -1440,7 +1435,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Write comment.
      * 
-     * @param comment the comment
+     * @param comment        the comment
      * @param placeOnNewline the place on newline
      */
     public void writeComment(String comment, boolean placeOnNewline) {
@@ -1448,8 +1443,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     /**
-     * @param commentDelim the comment delim
-     * @param comment the comment
+     * @param commentDelim   the comment delim
+     * @param comment        the comment
      * @param placeOnNewline the place on newline
      */
     public void writeComment(String commentDelim, String comment, boolean placeOnNewline) {

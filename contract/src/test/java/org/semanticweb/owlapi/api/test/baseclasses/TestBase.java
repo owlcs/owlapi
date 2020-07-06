@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -62,7 +63,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -73,8 +73,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -130,12 +128,12 @@ public abstract class TestBase {
 
     @Nonnull
     protected <T> Optional<T> of(T t) {
-        return Optional.fromNullable(t);
+        return Optional.ofNullable(t);
     }
 
     @Nonnull
     protected Optional<IRI> absent() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     @Nonnull
@@ -309,10 +307,10 @@ public abstract class TestBase {
         OWLDatatype stringType = df.getOWLDatatype(OWL2Datatype.XSD_STRING.getIRI());
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLAnnotation a : anns) {
-            Optional<OWLLiteral> asLiteral = a.getValue().asLiteral();
-            if (asLiteral.isPresent() && asLiteral.get().isRDFPlainLiteral()) {
+            if (a.getValue().asLiteral().isPresent()
+                && a.getValue().asLiteral().get().isRDFPlainLiteral()) {
                 OWLAnnotation replacement = df.getOWLAnnotation(a.getProperty(),
-                    df.getOWLLiteral(asLiteral.get().getLiteral(), stringType));
+                    df.getOWLLiteral(a.getValue().asLiteral().get().getLiteral(), stringType));
                 toReturn.add(replacement);
             } else {
                 toReturn.add(a);
@@ -414,7 +412,7 @@ public abstract class TestBase {
      * reloaded, or was reloaded and the reloaded version is not equal (in terms of ontology URI and
      * axioms) with the original.
      * 
-     * @param ont The ontology to be round tripped.
+     * @param ont    The ontology to be round tripped.
      * @param format The format to use when doing the round trip.
      */
     public OWLOntology roundTripOntology(@Nonnull OWLOntology ont,

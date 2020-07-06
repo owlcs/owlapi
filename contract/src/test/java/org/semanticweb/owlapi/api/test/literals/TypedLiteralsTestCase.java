@@ -12,25 +12,37 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.literals;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.OWLLiteralReplacer;
 import org.semanticweb.owlapi.util.OWLObjectTransformer;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -58,15 +70,19 @@ public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Test
     public void shouldReplaceLiterals() {
         OWLOntology o = getOnt();
-        OWLLiteralReplacer replacer = new OWLLiteralReplacer(o.getOWLOntologyManager(), Collections.singleton(o));
+        OWLLiteralReplacer replacer =
+            new OWLLiteralReplacer(o.getOWLOntologyManager(), Collections.singleton(o));
         Map<OWLLiteral, OWLLiteral> replacements = new HashMap<>();
         replacements.put(Literal(true), Literal(false));
         replacements.put(Literal(3), Literal(4));
         List<OWLOntologyChange> results = replacer.changeLiterals(replacements);
         assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(4)))));
-        assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(false)))));
-        assertTrue(results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(3)))));
-        assertTrue(results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(true)))));
+        assertTrue(
+            results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(false)))));
+        assertTrue(
+            results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(3)))));
+        assertTrue(
+            results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(true)))));
         assertEquals(4, results.size());
     }
 
@@ -76,28 +92,21 @@ public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
         final Map<OWLLiteral, OWLLiteral> replacements = new HashMap<>();
         replacements.put(Literal(true), Literal(false));
         replacements.put(Literal(3), Literal(4));
-        OWLObjectTransformer<OWLLiteral> replacer = new OWLObjectTransformer<>(new Predicate<Object>() {
-
-            @Override
-            public boolean apply(Object input) {
-                return true;
+        OWLObjectTransformer<OWLLiteral> replacer = new OWLObjectTransformer<>(x -> true, input -> {
+            OWLLiteral l = replacements.get(input);
+            if (l == null) {
+                return input;
             }
-        }, new Function<OWLLiteral, OWLLiteral>() {
-
-            @Override
-            public OWLLiteral apply(OWLLiteral input) {
-                OWLLiteral l = replacements.get(input);
-                if (l == null) {
-                    return input;
-                }
-                return l;
-            }
+            return l;
         }, df, OWLLiteral.class);
         List<OWLOntologyChange> results = replacer.change(o);
         assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(4)))));
-        assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(false)))));
-        assertTrue(results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(3)))));
-        assertTrue(results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(true)))));
+        assertTrue(
+            results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(false)))));
+        assertTrue(
+            results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(3)))));
+        assertTrue(
+            results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(true)))));
         assertEquals(4, results.size());
     }
 }

@@ -6,6 +6,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -87,9 +89,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
-
 /**
  * The Class OWLAPIOwl2Obo.
  */
@@ -112,8 +111,9 @@ public class OWLAPIOwl2Obo {
      * The absoulte url pattern.
      */
     protected final Pattern absoulteURLPattern = Pattern.compile("<\\s*http.*?>");
-    private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation",
-        "gci_filler", "cardinality", MIN_CARDINALITY, MAX_CARDINALITY, "all_some", "all_only");
+    private static final Set<String> SKIPPED_QUALIFIERS =
+        new HashSet<>(Arrays.asList("gci_relation", "gci_filler", "cardinality", MIN_CARDINALITY,
+            MAX_CARDINALITY, "all_some", "all_only"));
     /**
      * The manager.
      */
@@ -452,9 +452,9 @@ public class OWLAPIOwl2Obo {
     /**
      * Tr object property.
      * 
-     * @param prop the prop
-     * @param tag the tag
-     * @param value the value
+     * @param prop        the prop
+     * @param tag         the tag
+     * @param value       the value
      * @param annotations the annotations
      * @return true, if successful
      */
@@ -485,9 +485,9 @@ public class OWLAPIOwl2Obo {
     /**
      * Tr object property.
      * 
-     * @param prop the prop
-     * @param tag the tag
-     * @param value the value
+     * @param prop        the prop
+     * @param tag         the tag
+     * @param value       the value
      * @param annotations the annotations
      * @return true, if successful
      */
@@ -507,7 +507,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Tr nary property axiom.
      * 
-     * @param ax the ax
+     * @param ax  the ax
      * @param tag the tag
      */
     protected void trNaryPropertyAxiom(
@@ -890,10 +890,10 @@ public class OWLAPIOwl2Obo {
     /**
      * Tr.
      * 
-     * @param prop the prop
-     * @param annVal the ann val
+     * @param prop       the prop
+     * @param annVal     the ann val
      * @param qualifiers the qualifiers
-     * @param frame the frame
+     * @param frame      the frame
      * @return true, if successful
      */
     @SuppressWarnings("null")
@@ -1018,9 +1018,9 @@ public class OWLAPIOwl2Obo {
     /**
      * Handle synonym.
      * 
-     * @param qualifiers the qualifiers
-     * @param scope the scope
-     * @param clause the clause
+     * @param qualifiers            the qualifiers
+     * @param scope                 the scope
+     * @param clause                the clause
      * @param unprocessedQualifiers the unprocessed qualifiers
      */
     protected void handleSynonym(@Nonnull Set<OWLAnnotation> qualifiers, @Nullable String scope,
@@ -1057,7 +1057,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Handle a duplicate clause in a frame during translation.
      * 
-     * @param frame the frame
+     * @param frame  the frame
      * @param clause the clause
      * @return true if the clause is to be marked as redundant and will not be added to the
      */
@@ -1070,10 +1070,10 @@ public class OWLAPIOwl2Obo {
     /**
      * Tr generic property value.
      * 
-     * @param prop the prop
-     * @param annVal the ann val
+     * @param prop       the prop
+     * @param annVal     the ann val
      * @param qualifiers the qualifiers
-     * @param frame the frame
+     * @param frame      the frame
      * @return true, if successful
      */
     @SuppressWarnings("null")
@@ -1113,7 +1113,7 @@ public class OWLAPIOwl2Obo {
      * Gets the value.
      * 
      * @param annVal the ann val
-     * @param tag the tag
+     * @param tag    the tag
      * @return the value
      */
     @SuppressWarnings("null")
@@ -1145,7 +1145,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Adds the qualifiers.
      * 
-     * @param c the c
+     * @param c          the c
      * @param qualifiers the qualifiers
      */
     protected static void addQualifiers(@Nonnull Clause c, @Nonnull Set<OWLAnnotation> qualifiers) {
@@ -1177,11 +1177,10 @@ public class OWLAPIOwl2Obo {
      * @return The OBO ID of the ontology
      */
     public static String getOntologyId(OWLOntology ontology) {
-        Optional<IRI> ontologyIRI = ontology.getOntologyID().getOntologyIRI();
-        if (!ontologyIRI.isPresent()) {
+        if (!ontology.getOntologyID().getOntologyIRI().isPresent()) {
             return "";
         }
-        return getOntologyId(ontologyIRI.get());
+        return getOntologyId(ontology.getOntologyID().getOntologyIRI().get());
     }
 
     /**
@@ -1191,7 +1190,6 @@ public class OWLAPIOwl2Obo {
      * @return the ontology id
      */
     public static String getOntologyId(@Nonnull IRI iriObj) {
-        // String id = getIdentifier(ontology.getOntologyID().getOntologyIRI());
         String iri = iriObj.toString();
         String id;
         if (iri.startsWith("http://purl.obolibrary.org/obo/")) {
@@ -1202,12 +1200,6 @@ public class OWLAPIOwl2Obo {
         } else {
             id = iri;
         }
-        // int index = iri.lastIndexOf("/");
-        // id = iri.substring(index+1);
-        // index = id.lastIndexOf(".owl");
-        // if(index>0){
-        // id = id.substring(0, index);
-        // }
         return id;
     }
 
@@ -1220,9 +1212,9 @@ public class OWLAPIOwl2Obo {
     @Nullable
     public static String getDataVersion(@Nonnull OWLOntology ontology) {
         String oid = getOntologyId(ontology);
-        Optional<IRI> v = ontology.getOntologyID().getVersionIRI();
-        if (v.isPresent()) {
-            String vs = v.get().toString().replace("http://purl.obolibrary.org/obo/", "");
+        if (ontology.getOntologyID().getVersionIRI().isPresent()) {
+            String vs = ontology.getOntologyID().getVersionIRI().get().toString()
+                .replace("http://purl.obolibrary.org/obo/", "");
             vs = vs.replaceFirst(oid + '/', "");
             vs = vs.replace('/' + oid + ".owl", "");
             return vs;
@@ -1603,23 +1595,20 @@ public class OWLAPIOwl2Obo {
                 isDeprecated = true;
             } else if (Obo2OWLConstants.IRI_IAO_0000231.equals(prop.getIRI())) {
                 OWLAnnotationValue value = axiom.getValue();
-                Optional<IRI> asIRI = value.asIRI();
-                if (asIRI.isPresent()) {
-                    isMerged = Obo2OWLConstants.IRI_IAO_0000227.equals(asIRI.get());
+                if (value.asIRI().isPresent()) {
+                    isMerged = Obo2OWLConstants.IRI_IAO_0000227.equals(value.asIRI().get());
                 } else {
                     unrelatedAxioms.add(axiom);
                 }
             } else if (Obo2OWLVocabulary.IRI_IAO_0100001.iri.equals(prop.getIRI())) {
                 OWLAnnotationValue value = axiom.getValue();
-                Optional<OWLLiteral> asLiteral = value.asLiteral();
-                if (asLiteral.isPresent()) {
-                    replacedBy = asLiteral.get().getLiteral();
+                if (value.asLiteral().isPresent()) {
+                    replacedBy = value.asLiteral().get().getLiteral();
                 } else {
                     // fallback: also check for an IRI
-                    Optional<IRI> asIRI = value.asIRI();
-                    if (asIRI.isPresent()) {
+                    if (value.asIRI().isPresent()) {
                         // translate IRI to OBO style ID
-                        replacedBy = getIdentifier(asIRI.get());
+                        replacedBy = getIdentifier(value.asIRI().get());
                     } else {
                         unrelatedAxioms.add(axiom);
                     }
@@ -1632,7 +1621,7 @@ public class OWLAPIOwl2Obo {
         if (replacedBy != null && isMerged && isDeprecated) {
             result = Optional.of(new OboAltIdCheckResult(replacedBy, unrelatedAxioms));
         } else {
-            result = Optional.absent();
+            result = Optional.empty();
         }
         return result;
     }
@@ -1679,7 +1668,7 @@ public class OWLAPIOwl2Obo {
          * Instantiates a new untranslatable axiom exception.
          * 
          * @param message the message
-         * @param cause the cause
+         * @param cause   the cause
          */
         public UntranslatableAxiomException(String message, Throwable cause) {
             super(message, cause);
@@ -1700,8 +1689,8 @@ public class OWLAPIOwl2Obo {
      * to resolve the identifier. Should the translation process encounter a problem or not find an
      * identifier the defaultValue is returned.
      * 
-     * @param obj the {@link OWLObject} to resolve
-     * @param ont the target ontology
+     * @param obj          the {@link OWLObject} to resolve
+     * @param ont          the target ontology
      * @param defaultValue the value to return in case of an error or no id
      * @return identifier or the default value
      */
@@ -1728,7 +1717,7 @@ public class OWLAPIOwl2Obo {
      * @param ont the target ontology
      * @return identifier or null
      * @throws UntranslatableAxiomException the untranslatable axiom exception
-     *         {@link UntranslatableAxiomException} is thrown.
+     *                                      {@link UntranslatableAxiomException} is thrown.
      */
     @SuppressWarnings("null")
     @Nullable
@@ -2145,10 +2134,10 @@ public class OWLAPIOwl2Obo {
     /**
      * Creates the relationship clause with restrictions.
      * 
-     * @param r the r
+     * @param r        the r
      * @param fillerId the filler id
-     * @param qvs the qvs
-     * @param ax the ax
+     * @param qvs      the qvs
+     * @param ax       the ax
      * @return the clause
      */
     @Nonnull
@@ -2167,9 +2156,9 @@ public class OWLAPIOwl2Obo {
      * Creates the relationship clause with cardinality.
      * 
      * @param restriction the restriction
-     * @param fillerId the filler id
-     * @param qvs the qvs
-     * @param ax the ax
+     * @param fillerId    the filler id
+     * @param qvs         the qvs
+     * @param ax          the ax
      * @return the clause
      */
     @Nonnull
@@ -2217,7 +2206,7 @@ public class OWLAPIOwl2Obo {
      * Find similar clauses.
      * 
      * @param clauses the clauses
-     * @param target the target
+     * @param target  the target
      * @return the list
      */
     @SuppressWarnings("null")
@@ -2244,7 +2233,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Merge similar into target.
      * 
-     * @param target the target
+     * @param target  the target
      * @param similar the similar
      */
     static void mergeSimilarIntoTarget(@Nonnull Clause target, @Nonnull List<Clause> similar) {
@@ -2275,7 +2264,7 @@ public class OWLAPIOwl2Obo {
      * Find matching qualifier value.
      * 
      * @param query the query
-     * @param list the list
+     * @param list  the list
      * @return the qualifier value
      */
     @Nullable
@@ -2294,7 +2283,7 @@ public class OWLAPIOwl2Obo {
      * Merge qualifier values.
      * 
      * @param target the target
-     * @param newQV the new qv
+     * @param newQV  the new qv
      */
     static void mergeQualifierValues(@Nonnull QualifierValue target,
         @Nonnull QualifierValue newQV) {

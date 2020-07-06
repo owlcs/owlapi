@@ -12,7 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.owlxml.renderer;
 
-import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION_URI;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.CARDINALITY_ATTRIBUTE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATATYPE_FACET;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATATYPE_IRI;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.IRI_ATTRIBUTE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.IRI_ELEMENT;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.NAME_ATTRIBUTE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.NODE_ID;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ONTOLOGY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.PREFIX;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -39,17 +50,13 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-import com.google.common.base.Optional;
-
 /**
- * Writes OWL/XML. In an OWL/XML documents written by this writer, the base is
- * always the ontology URI, and the default namespace is always the OWL
- * namespace (http://www.w3.org/2002/07/owl#). Unlike RDF/XML, entity URIs
- * aren't abbreviated using the XML namespace mechanism, instead they are
- * encoded using 'prefix' elements.
+ * Writes OWL/XML. In an OWL/XML documents written by this writer, the base is always the ontology
+ * URI, and the default namespace is always the OWL namespace (http://www.w3.org/2002/07/owl#).
+ * Unlike RDF/XML, entity URIs aren't abbreviated using the XML namespace mechanism, instead they
+ * are encoded using 'prefix' elements.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLWriter {
@@ -59,16 +66,15 @@ public class OWLXMLWriter {
     @Nonnull
     private static final IRI VERSION_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "versionIRI");
     @Nonnull
-    private static final IRI ONTOLOGY_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
+    private static final IRI ONTOLOGY_IRI =
+        IRI.create(Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
     private final XMLWriter writer;
     @Nonnull
     private final Map<String, String> iriPrefixMap = new TreeMap<>(new StringLengthComparator());
 
     /**
-     * @param writer
-     *        writer
-     * @param ontology
-     *        ontology
+     * @param writer   writer
+     * @param ontology ontology
      */
     public OWLXMLWriter(@Nonnull Writer writer, @Nullable OWLOntology ontology) {
         XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(Namespaces.OWL.toString());
@@ -100,13 +106,9 @@ public class OWLXMLWriter {
     /**
      * A convenience method to write a prefix.
      * 
-     * @param prefixName
-     *        The name of the prefix (e.g. owl: is the prefix name for the OWL
-     *        prefix)
-     * @param iri
-     *        The prefix iri
-     * @throws IOException
-     *         io error
+     * @param prefixName The name of the prefix (e.g. owl: is the prefix name for the OWL prefix)
+     * @param iri        The prefix iri
+     * @throws IOException io error
      */
     public void writePrefix(String prefixName, String iri) throws IOException {
         writer.writeStartElement(PREFIX.getIRI());
@@ -122,12 +124,11 @@ public class OWLXMLWriter {
     }
 
     /**
-     * Gets an IRI attribute value for a full IRI. If the IRI has a prefix that
-     * coincides with a written prefix then the compact IRI will be returned,
-     * otherwise the full IRI will be returned.
+     * Gets an IRI attribute value for a full IRI. If the IRI has a prefix that coincides with a
+     * written prefix then the compact IRI will be returned, otherwise the full IRI will be
+     * returned.
      * 
-     * @param iri
-     *        The IRI
+     * @param iri The IRI
      * @return Either the compact version of the IRI or the full IRI.
      */
     public String getIRIString(IRI iri) {
@@ -139,19 +140,18 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param ontology
-     *        ontology
-     * @throws OWLRendererException
-     *         renderer error
+     * @param ontology ontology
+     * @throws OWLRendererException renderer error
      */
     public void startDocument(OWLOntology ontology) throws OWLRendererException {
         try {
             writer.startDocument(ONTOLOGY.getIRI());
             if (!ontology.isAnonymous()) {
-                writer.writeAttribute(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI().get().toString());
-                Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
-                if (versionIRI.isPresent()) {
-                    writer.writeAttribute(VERSION_IRI, versionIRI.get().toString());
+                writer.writeAttribute(ONTOLOGY_IRI,
+                    ontology.getOntologyID().getOntologyIRI().get().toString());
+                if (ontology.getOntologyID().getVersionIRI().isPresent()) {
+                    writer.writeAttribute(VERSION_IRI,
+                        ontology.getOntologyID().getVersionIRI().get().toString());
                 }
             }
         } catch (IOException e) {
@@ -172,8 +172,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param name
-     *        name
+     * @param name name
      */
     public void writeStartElement(OWLXMLVocabulary name) {
         try {
@@ -193,11 +192,9 @@ public class OWLXMLWriter {
     }
 
     /**
-     * Writes a datatype attributed (used on Literal elements). The full
-     * datatype IRI is written out
+     * Writes a datatype attributed (used on Literal elements). The full datatype IRI is written out
      * 
-     * @param datatype
-     *        The datatype
+     * @param datatype The datatype
      */
     public void writeDatatypeAttribute(OWLDatatype datatype) {
         try {
@@ -208,8 +205,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param nodeID
-     *        nodeID
+     * @param nodeID nodeID
      */
     public void writeNodeIDAttribute(NodeID nodeID) {
         try {
@@ -220,8 +216,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param iri
-     *        iri
+     * @param iri iri
      */
     public void writeIRIAttribute(IRI iri) {
         try {
@@ -245,9 +240,8 @@ public class OWLXMLWriter {
     /**
      * Writes an IRI element for a given IRI.
      * 
-     * @param iri
-     *        The IRI to be written as an element. If the IRI can be abbreviated
-     *        then an AbbreviatedIRI element will be written
+     * @param iri The IRI to be written as an element. If the IRI can be abbreviated then an
+     *            AbbreviatedIRI element will be written
      */
     public void writeIRIElement(IRI iri) {
         try {
@@ -279,8 +273,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param lang
-     *        lang
+     * @param lang lang
      */
     public void writeLangAttribute(@Nonnull String lang) {
         try {
@@ -291,8 +284,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param cardinality
-     *        cardinality
+     * @param cardinality cardinality
      */
     public void writeCardinalityAttribute(int cardinality) {
         try {
@@ -303,8 +295,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param text
-     *        text
+     * @param text text
      */
     public void writeTextContent(@Nonnull String text) {
         try {
@@ -315,8 +306,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param facet
-     *        facet
+     * @param facet facet
      */
     public void writeFacetAttribute(OWLFacet facet) {
         try {
@@ -327,8 +317,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param uri
-     *        uri
+     * @param uri uri
      */
     public void writeAnnotationURIAttribute(URI uri) {
         try {

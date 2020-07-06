@@ -48,8 +48,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.google.common.base.Splitter;
-
 /**
  * A mapper which given a root folder attempts to automatically discover and map files to
  * ontologies. The mapper is only capable of mapping ontologies in RDF/XML and OWL/XML (other
@@ -74,7 +72,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
     /**
      * Creates an auto-mapper which examines ontologies that reside in the specified zip file.
      *
-     * @param zip The zip file to map.
+     * @param zip     The zip file to map.
      * @param baseIRI base iri for physical IRIs
      * @throws IOException if an exception reading from input is raised
      */
@@ -85,7 +83,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
     /**
      * Creates an auto-mapper which examines ontologies that reside in the specified zip file.
      *
-     * @param zip The zip file to map.
+     * @param zip     The zip file to map.
      * @param baseIRI base iri for physical IRIs
      * @throws IOException if an exception reading from input is raised
      */
@@ -300,7 +298,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
 
     @Nullable
     private static IRI parseManLine(String line) {
-        for (String tok : Splitter.on(" ").split(line)) {
+        for (String tok : line.split(" ")) {
             if (tok.startsWith("<") && tok.endsWith(">")) {
                 return unquote(tok);
             }
@@ -323,7 +321,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
 
     /**
      * @param ontologyIRI ontology
-     * @param file file
+     * @param file        file
      */
     protected void addMapping(IRI ontologyIRI, File file) {
         ontologyIRI2PhysicalURIMap.put(ontologyIRI, IRI.create(file));

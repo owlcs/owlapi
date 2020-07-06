@@ -38,8 +38,6 @@ import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.Sets;
-
 import uk.ac.manchester.cs.AcceptHeaderBuilder;
 
 /**
@@ -82,7 +80,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
      * are not known or not matched by any parser, return all known parsers.
      * 
      * @param documentSource document source
-     * @param parsers parsers
+     * @param parsers        parsers
      * @return selected parsers
      */
     private static PriorityCollection<OWLParserFactory> getParsers(
@@ -113,7 +111,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
     /**
      * Use the format to select a sublist of parsers.
      * 
-     * @param format document format
+     * @param format  document format
      * @param parsers parsers
      * @return candidate parsers
      */
@@ -133,7 +131,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
      * Use the MIME type it to select a sublist of parsers.
      * 
      * @param mimeType MIME type
-     * @param parsers parsers
+     * @param parsers  parsers
      * @return candidate parsers
      */
     private static PriorityCollection<OWLParserFactory> getParserCandidatesByMIME(
@@ -201,7 +199,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
-        Set<String> bannedParsers = Sets.newHashSet(configuration.getBannedParsers().split(" "));
+        Set<String> bannedParsers =
+            new HashSet<>(Arrays.asList(configuration.getBannedParsers().split(" ")));
         PriorityCollection<OWLParserFactory> parsers =
             getParsers(documentSource, manager.getOntologyParsers());
         // use the selection of parsers to set the accept headers explicitly, including weights

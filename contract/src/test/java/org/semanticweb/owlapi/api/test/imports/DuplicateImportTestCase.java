@@ -22,11 +22,14 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-import com.google.common.base.Optional;
-
-@SuppressWarnings({ "javadoc", })
+@SuppressWarnings({"javadoc",})
 public class DuplicateImportTestCase extends TestBase {
 
     @Test
@@ -42,8 +45,8 @@ public class DuplicateImportTestCase extends TestBase {
         @Nonnull
         File ontologyByOtherPath = folder.newFile("tempother.owl");
         OWLOntologyManager manager = m;
-        OWLOntology ontology = manager.createOntology(new OWLOntologyID(Optional.of(IRI.create(ontologyByName)),
-            Optional.of(IRI.create(ontologyByVersion))));
+        OWLOntology ontology = manager.createOntology(
+            new OWLOntologyID(IRI.create(ontologyByName), IRI.create(ontologyByVersion)));
         manager.saveOntology(ontology, IRI.create(ontologyByName));
         manager.saveOntology(ontology, IRI.create(ontologyByVersion));
         manager.saveOntology(ontology, IRI.create(ontologyByOtherPath));
@@ -52,10 +55,14 @@ public class DuplicateImportTestCase extends TestBase {
         OWLOntology ontology1 = manager.createOntology(IRI.create(importsBothNameAndVersion));
         OWLOntology ontology2 = manager.createOntology(IRI.create(importsBothNameAndOther));
         List<AddImport> changes = new ArrayList<>();
-        changes.add(new AddImport(ontology1, factory.getOWLImportsDeclaration(IRI.create(ontologyByName))));
-        changes.add(new AddImport(ontology1, factory.getOWLImportsDeclaration(IRI.create(ontologyByVersion))));
-        changes.add(new AddImport(ontology2, factory.getOWLImportsDeclaration(IRI.create(ontologyByName))));
-        changes.add(new AddImport(ontology2, factory.getOWLImportsDeclaration(IRI.create(ontologyByOtherPath))));
+        changes.add(
+            new AddImport(ontology1, factory.getOWLImportsDeclaration(IRI.create(ontologyByName))));
+        changes.add(new AddImport(ontology1,
+            factory.getOWLImportsDeclaration(IRI.create(ontologyByVersion))));
+        changes.add(
+            new AddImport(ontology2, factory.getOWLImportsDeclaration(IRI.create(ontologyByName))));
+        changes.add(new AddImport(ontology2,
+            factory.getOWLImportsDeclaration(IRI.create(ontologyByOtherPath))));
         manager.applyChanges(changes);
         manager.saveOntology(ontology1, IRI.create(importsBothNameAndVersion));
         manager.saveOntology(ontology2, IRI.create(importsBothNameAndOther));

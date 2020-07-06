@@ -132,7 +132,6 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ArrayListMultimap;
 
 /**
@@ -1418,7 +1417,7 @@ public class OWLRDFConsumer
      * parsed ontology does not have an IRI
      */
     private void chooseAndSetOntologyIRI() {
-        Optional<IRI> ontologyIRIToSet = Optional.absent();
+        IRI ontologyIRIToSet = null;
         if (firstOntologyIRI != null) {
             Collection<OWLAnnotationAssertionAxiom> annotationsForOntology =
                 ontology.getAnnotationAssertionAxioms(firstOntologyIRI);
@@ -1458,7 +1457,7 @@ public class OWLRDFConsumer
             IRI ontologyIRI = ontologyIRIs.iterator().next();
             assert ontologyIRI != null;
             if (!isAnonymousNode(ontologyIRI)) {
-                ontologyIRIToSet = Optional.of(ontologyIRI);
+                ontologyIRIToSet = ontologyIRI;
             }
         } else {
             // We have multiple to choose from
@@ -1479,19 +1478,19 @@ public class OWLRDFConsumer
             }
             // Choose the first one parsed
             if (candidateIRIs.contains(firstOntologyIRI)) {
-                ontologyIRIToSet = Optional.of(firstOntologyIRI);
+                ontologyIRIToSet = firstOntologyIRI;
             } else if (!candidateIRIs.isEmpty()) {
                 // Just pick any
-                ontologyIRIToSet = Optional.of(candidateIRIs.iterator().next());
+                ontologyIRIToSet = candidateIRIs.iterator().next();
             }
         }
-        if (ontologyIRIToSet.isPresent() && !NodeID.isAnonymousNodeIRI(ontologyIRIToSet.get())) {
+        if (ontologyIRIToSet != null && !NodeID.isAnonymousNodeIRI(ontologyIRIToSet)) {
             // It is possible for an ontology to have already had a version set.
             // Only if the parser is being used by itself, so not a common occurrence,
             // but it is existing behaviour and tested.
-            Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
-            if (!versionIRI.isPresent()) {
-                versionIRI = Optional.fromNullable(ontologyVersions.get(ontologyIRIToSet.get()));
+            IRI versionIRI = ontology.getOntologyID().getVersionIRI().orNull();
+            if (versionIRI == null) {
+                versionIRI = ontologyVersions.get(ontologyIRIToSet);
             }
             OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRIToSet, versionIRI);
             applyChange(new SetOntologyID(ontology, ontologyID));
@@ -1912,7 +1911,7 @@ public class OWLRDFConsumer
     /**
      * @param entityType entity type
      * @param mainNode main node
-     * @param <E> entity type
+     * @param <E>        entity type
      * @return error entity
      */
     @Nonnull

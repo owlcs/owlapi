@@ -25,17 +25,13 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
-import com.google.common.base.Optional;
-
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
+     * @param ontology ontology
      */
     public UseOfReservedVocabularyForVersionIRI(@Nonnull OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID().getVersionIRI().get());
@@ -64,7 +60,7 @@ public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation {
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary replacement
-        return list(new SetOntologyID(ontology, new OWLOntologyID(Optional.of(IRI.create("urn:ontology#renamed")),
-            Optional.of(IRI.create("urn:ontology#renamed1")))));
+        return list(new SetOntologyID(ontology, new OWLOntologyID(
+            IRI.create("urn:ontology#renamed"), IRI.create("urn:ontology#renamed1"))));
     }
 }
