@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
+import static org.semanticweb.owlapi.api.test.baseclasses.TestBase.set;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -66,8 +68,6 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-import com.google.common.collect.Sets;
-
 @SuppressWarnings("javadoc")
 public class Builder {
 
@@ -80,35 +80,32 @@ public class Builder {
     private final OWLLiteral lit = df.getOWLLiteral(false);
     private final OWLLiteral plainlit = df.getOWLLiteral("string", "en");
     private final IRI iri = IRI.create(URN_TEST, "iri");
-    private final Set<OWLAnnotation> as =
-        Sets.newHashSet(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
+    private final Set<OWLAnnotation> as = set(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
     private final OWLClass ce = df.getOWLClass(URN_TEST, "c");
     private final OWLNamedIndividual i = df.getOWLNamedIndividual(URN_TEST, "i");
     private final OWLNamedIndividual j = df.getOWLNamedIndividual(URN_TEST, "j");
     private final OWLDatatype d = df.getOWLDatatype(URN_TEST, "datatype");
-    private final Set<OWLDataProperty> dps = Sets.newHashSet(df.getOWLDataProperty(iri), dp);
+    private final Set<OWLDataProperty> dps = set(df.getOWLDataProperty(iri), dp);
     private final List<OWLObjectProperty> ops = Arrays.asList(df.getOWLObjectProperty(iri), op);
-    private final Set<OWLClass> classes = Sets.newHashSet(df.getOWLClass(iri), ce);
-    private final Set<OWLNamedIndividual> inds = Sets.newHashSet(i, df.getOWLNamedIndividual(iri));
-    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create(VAR, "v1"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable(VAR, "var3"),
-            df.getSWRLVariable(VAR, "var4")));
-    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create(VAR, "v2"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable(VAR, "var5"),
-            df.getSWRLVariable(VAR, "var6")));
-    private final Set<SWRLAtom> body = Sets.newHashSet(v1);
-    private final Set<SWRLAtom> head = Sets.newHashSet(v2);
+    private final Set<OWLClass> classes = set(df.getOWLClass(iri), ce);
+    private final Set<OWLNamedIndividual> inds = set(i, df.getOWLNamedIndividual(iri));
+    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create(VAR, "v1"), Arrays
+        .asList((SWRLDArgument) df.getSWRLVariable(VAR, "var3"), df.getSWRLVariable(VAR, "var4")));
+    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create(VAR, "v2"), Arrays
+        .asList((SWRLDArgument) df.getSWRLVariable(VAR, "var5"), df.getSWRLVariable(VAR, "var6")));
+    private final Set<SWRLAtom> body = set(v1);
+    private final Set<SWRLAtom> head = set(v2);
     private final SWRLDArgument var1 = df.getSWRLVariable(VAR, "var1");
     private final List<SWRLDArgument> var1list = Arrays.asList(var1);
     private final SWRLIArgument var2 = df.getSWRLVariable(VAR, "var2");
     private final LinkedHashSet<SWRLAtom> body2 =
-        Sets.newLinkedHashSet(Arrays.asList(v1, df.getSWRLClassAtom(ce, var2),
+        new LinkedHashSet<>(Arrays.asList(v1, df.getSWRLClassAtom(ce, var2),
             df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list),
             df.getSWRLDifferentIndividualsAtom(var2, df.getSWRLIndividualArgument(i)),
             df.getSWRLSameIndividualAtom(var2,
                 df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri))),
             df.getSWRLBuiltInAtom(iri, var1list)));
-    private final LinkedHashSet<SWRLAtom> head2 = Sets.newLinkedHashSet(
+    private final LinkedHashSet<SWRLAtom> head2 = new LinkedHashSet<>(
         Arrays.asList(v2, df.getSWRLDataPropertyAtom(dp, var2, df.getSWRLLiteralArgument(lit)),
             df.getSWRLObjectPropertyAtom(op, var2, var2)));
     private final OWLOntologyManager m = getManager();

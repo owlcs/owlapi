@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
-import com.google.common.io.Closeables;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -78,8 +77,8 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     @Override
     public Optional<OutputStream> getOutputStream() {
         try {
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
-                new FileOutputStream(out));
+            BufferedOutputStream bufferedOutputStream =
+                new BufferedOutputStream(new FileOutputStream(out));
             outputStream = new XZOutputStream(bufferedOutputStream, filterOptions);
         } catch (IOException e) {
             LOGGER.error("Cannot create output stream", e);
@@ -97,6 +96,8 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     public void close() throws Exception {
         OutputStream toReturn = outputStream;
         outputStream = null;
-        Closeables.close(toReturn, false);
+        if (toReturn != null) {
+            toReturn.close();
+        }
     }
 }

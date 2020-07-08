@@ -48,8 +48,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.google.common.base.Splitter;
-
 /**
  * A mapper which given a root folder attempts to automatically discover and map files to
  * ontologies. The mapper is only capable of mapping ontologies in RDF/XML and OWL/XML (other
@@ -300,7 +298,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
 
     @Nullable
     private static IRI parseManLine(String line) {
-        for (String tok : Splitter.on(" ").split(line)) {
+        for (String tok : line.split(" ")) {
             if (tok.startsWith("<") && tok.endsWith(">")) {
                 return unquote(tok);
             }

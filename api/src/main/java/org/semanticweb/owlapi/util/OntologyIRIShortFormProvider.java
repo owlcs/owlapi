@@ -14,12 +14,13 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import com.google.common.base.Splitter;
 import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -158,7 +159,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         String path = uri.getPath();
         if (path != null && !path.isEmpty()) {
             String candidatePathElement = "";
-            for (String tok : Splitter.on('/').split(path)) {
+            for (String tok : path.split("/")) {
                 if (isCandidatePathElement(tok)) {
                     candidatePathElement = stripExtensionIfPresent(tok);
                 }

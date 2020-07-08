@@ -17,6 +17,7 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -36,8 +37,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tukaani.xz.XZInputStream;
-
-import com.google.common.base.Charsets;
 
 /**
  * Static methods from AbstractOWLParser. Mostly used by OWLOntologyDocumentSource implementations.
@@ -101,7 +100,7 @@ public class DocumentSources {
      */
     public static Reader wrapInputAsReader(OWLOntologyDocumentSource source,
         OWLOntologyLoaderConfiguration configuration) throws OWLOntologyInputSourceException {
-        return wrapInputAsReader(source, configuration, Charsets.UTF_8);
+        return wrapInputAsReader(source, configuration, StandardCharsets.UTF_8);
     }
 
     /**

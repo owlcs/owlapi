@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.modularity.locality;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -26,9 +28,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.modularity.ModuleExtractor;
-
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.SetMultimap;
 
 /**
  * Abstract class for convenience implementation of locality-based {@link ModuleExtractor}s. Offers
@@ -73,8 +72,7 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
     /**
      * Map associating each entity with the axioms that contains it.
      */
-    private @Nonnull final SetMultimap<OWLEntity, OWLAxiom> axiomsContainingEntity =
-        HashMultimap.create();
+    private @Nonnull final Map<OWLEntity, Set<OWLAxiom>> axiomsContainingEntity = new HashMap<>();
 
     /**
      * Creates a new {@link LocalityModuleExtractor}.
@@ -191,8 +189,8 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
      * {@link LocalityModuleExtractor#axiomsContainingEntity}.
      */
     private void initialize() {
-        axiomBase().forEach(axiom -> axiom.signature()
-            .forEach(entity -> axiomsContainingEntity.put(entity, axiom)));
+        axiomBase().forEach(axiom -> axiom.signature().forEach(entity -> axiomsContainingEntity
+            .computeIfAbsent(entity, x -> new HashSet<>()).add(axiom)));
     }
 
     /**

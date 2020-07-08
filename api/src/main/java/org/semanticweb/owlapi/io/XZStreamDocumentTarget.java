@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import com.google.common.io.Closeables;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Optional;
@@ -51,7 +50,7 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget, AutoCl
     public XZStreamDocumentTarget(OutputStream os, FilterOptions... filterOptions) {
         outputStream = os;
         if (filterOptions.length == 0) {
-            this.filterOptions = new FilterOptions[]{new LZMA2Options()};
+            this.filterOptions = new FilterOptions[] {new LZMA2Options()};
         } else {
             this.filterOptions = filterOptions;
         }
@@ -84,6 +83,8 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget, AutoCl
     public void close() throws Exception {
         XZOutputStream toReturn = xzOutputStream;
         xzOutputStream = null;
-        Closeables.close(toReturn, false);
+        if (toReturn != null) {
+            toReturn.close();
+        }
     }
 }

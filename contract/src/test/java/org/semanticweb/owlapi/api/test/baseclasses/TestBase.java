@@ -23,6 +23,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -126,6 +127,10 @@ public abstract class TestBase {
 
     protected static <S> Set<S> singleton(S s) {
         return Collections.singleton(s);
+    }
+
+    public static <S> Set<S> set(S... s) {
+        return new HashSet<>(Arrays.asList(s));
     }
 
     private static Set<OWLAnnotation> reannotate(Stream<OWLAnnotation> anns) {

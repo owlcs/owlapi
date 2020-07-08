@@ -26,8 +26,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubOb
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
 
-import com.google.common.collect.Sets;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -41,8 +41,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
-public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends
-    AxiomsRoundTrippingBase {
+public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends AxiomsRoundTrippingBase {
 
     public AxiomsRoundTrippingNoManchesterSyntaxTestCase(AxiomBuilder f) {
         super(f);
@@ -50,34 +49,32 @@ public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends
 
     @Parameters
     public static List<AxiomBuilder> getData() {
-        OWLObjectPropertyExpression p = ObjectProperty(iri("p"))
-            .getInverseProperty();
-        OWLObjectPropertyExpression q = ObjectProperty(iri("q"))
-            .getInverseProperty();
+        OWLObjectPropertyExpression p = ObjectProperty(iri("p")).getInverseProperty();
+        OWLObjectPropertyExpression q = ObjectProperty(iri("q")).getInverseProperty();
         OWLClass clsA = Class(iri("A"));
         return Arrays.asList(
             // AsymmetricObjectPropertyInverse
-            () -> Sets.newHashSet(AsymmetricObjectProperty(p)),
+            () -> Collections.singleton(AsymmetricObjectProperty(p)),
             // EquivalentObjectPropertiesWithInverses
-            () -> Sets.newHashSet(EquivalentObjectProperties(p, q)),
+            () -> Collections.singleton(EquivalentObjectProperties(p, q)),
             // FunctionalObjectPropertyInverse
-            () -> Sets.newHashSet(FunctionalObjectProperty(p)),
+            () -> Collections.singleton(FunctionalObjectProperty(p)),
             // InverseFunctionalObjectPropertyInverse
-            () -> Sets.newHashSet(InverseFunctionalObjectProperty(p)),
+            () -> Collections.singleton(InverseFunctionalObjectProperty(p)),
             // IrreflexiveObjectPropertyInverse
-            () -> Sets.newHashSet(IrreflexiveObjectProperty(p)),
+            () -> Collections.singleton(IrreflexiveObjectProperty(p)),
             // ObjectPropertyDomainInverse
-            () -> Sets.newHashSet(ObjectPropertyDomain(p, clsA)),
+            () -> Collections.singleton(ObjectPropertyDomain(p, clsA)),
             // ObjectPropertyRangeInverse
-            () -> Sets.newHashSet(ObjectPropertyRange(p, clsA)),
+            () -> Collections.singleton(ObjectPropertyRange(p, clsA)),
             // ReflexiveObjectPropertyInverse
-            () -> Sets.newHashSet(ReflexiveObjectProperty(p)),
+            () -> Collections.singleton(ReflexiveObjectProperty(p)),
             // SubObjectPropertyOfInverse
-            () -> Sets.newHashSet(SubObjectPropertyOf(p, q)),
+            () -> Collections.singleton(SubObjectPropertyOf(p, q)),
             // SymmetricObjectPropertyInverse
-            () -> Sets.newHashSet(SymmetricObjectProperty(p)),
+            () -> Collections.singleton(SymmetricObjectProperty(p)),
             // TransitiveObjectPropertyInverse
-            () -> Sets.newHashSet(TransitiveObjectProperty(p)));
+            () -> Collections.singleton(TransitiveObjectProperty(p)));
     }
 
     @Override

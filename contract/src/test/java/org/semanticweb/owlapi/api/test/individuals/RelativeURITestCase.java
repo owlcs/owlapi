@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AxiomsRoundTrippingBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -33,8 +32,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 public class RelativeURITestCase extends AxiomsRoundTrippingBase {
 
     public RelativeURITestCase() {
-        super(() -> Sets
-            .newHashSet(Declaration(Class(IRI(IRI.getNextDocumentIRI(uriBase) + "/", "Office")))));
+        super(() -> set(Declaration(Class(IRI(IRI.getNextDocumentIRI(uriBase) + "/", "Office")))));
     }
 
     @Test
@@ -56,8 +54,7 @@ public class RelativeURITestCase extends AxiomsRoundTrippingBase {
                 + "  <owl:Ontology rdf:about=\"http://example.org/rdfxmlparserbug\"/>"
                 + "  <owl:Thing rdf:about=\"http://example.com/#1#2\">"
                 + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#NamedIndividual\"/>"
-                + "  </owl:Thing>"
-                + "</rdf:RDF>";
+                + "  </owl:Thing>" + "</rdf:RDF>";
         OWLOntology ontology = getOWLOntology();
         RDFXMLParser parser = new RDFXMLParser();
         parser.parse(new StringDocumentSource(rdfContent), ontology, config);

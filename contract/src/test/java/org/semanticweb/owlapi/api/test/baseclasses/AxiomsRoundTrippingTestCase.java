@@ -106,8 +106,6 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-import com.google.common.collect.Sets;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
@@ -251,21 +249,20 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
                 createIndividual(), createIndividual(), createIndividual(), createIndividual(),
                 createIndividual(), createIndividual(), createIndividual(), createIndividual())),
             //
-            () -> Sets.newHashSet(
-                SubClassOf(clsA, ObjectSomeValuesFrom(op, ObjectSomeValuesFrom(op, clsB))),
+            () -> set(SubClassOf(clsA, ObjectSomeValuesFrom(op, ObjectSomeValuesFrom(op, clsB))),
                 Declaration(clsA), Declaration(clsB)),
             //
-            () -> Sets.newHashSet(Declaration(RDFSLabel()), Declaration(peter),
+            () -> set(Declaration(RDFSLabel()), Declaration(peter),
                 AnnotationAssertion(RDFSLabel(), peter.getIRI(), Literal("X", "en"), ann1, ann2)),
             //
-            () -> Sets.newHashSet(Declaration(RDFSLabel()), Declaration(peter, eAnn1, eAnn2),
+            () -> set(Declaration(RDFSLabel()), Declaration(peter, eAnn1, eAnn2),
                 AnnotationAssertion(RDFSLabel(), peter.getIRI(), Literal("X", "en"), ann1, ann2)),
             //
             () -> singleton(InverseObjectProperties(oq, op)),
             //
             () -> singleton(InverseObjectProperties(op, oq)),
             //
-            () -> Sets.newHashSet(Declaration(clsA),
+            () -> set(Declaration(clsA),
                 AnnotationAssertion(apropA, clsA.getIRI(),
                     IRI("http://www.semanticweb.org/owlapi#", "object"))),
             //
@@ -285,7 +282,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             //
             () -> singleton(DataPropertyRange(dp, DataUnionOf(disj1, disj2))),
             //
-            () -> Sets.newHashSet(
+            () -> set(
                 HasKey(singleton(Annotation(apropA, Literal("Test", ""))), clsA, propA, propB,
                     propC),
                 Declaration(apropA), Declaration(propA), Declaration(propB), Declaration(propC)),
@@ -299,7 +296,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             //
             () -> singleton(DataPropertyAssertion(dp, ind, Literal(33.3))),
             //
-            () -> Sets.newHashSet(NegativeDataPropertyAssertion(dp, ind, Literal(33.3)),
+            () -> set(NegativeDataPropertyAssertion(dp, ind, Literal(33.3)),
                 NegativeDataPropertyAssertion(dp, ind, Literal("weasel", "")),
                 NegativeDataPropertyAssertion(dp, ind, Literal("weasel"))),
             //
@@ -309,8 +306,8 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             //
             () -> singleton(DataPropertyRange(dp, TopDatatype())),
             //
-            () -> Sets.newHashSet(DisjointDataProperties(dpA, dpB, dpC), Declaration(dpA),
-                Declaration(dpB), Declaration(dpC)),
+            () -> set(DisjointDataProperties(dpA, dpB, dpC), Declaration(dpA), Declaration(dpB),
+                Declaration(dpC)),
             //
             () -> singleton(DisjointDataProperties(dpA, dpB)),
             //
@@ -318,21 +315,21 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             //
             () -> singleton(AsymmetricObjectProperty(op)),
             //
-            () -> Sets.newHashSet(DatatypeDefinition(datatype, DataComplementOf(Integer())),
+            () -> set(DatatypeDefinition(datatype, DataComplementOf(Integer())),
                 Declaration(datatype)),
             //
-            () -> Sets.newHashSet(DifferentIndividuals(ind, indj),
+            () -> set(DifferentIndividuals(ind, indj),
                 DifferentIndividuals(ind, NamedIndividual(iri("k")))),
             //
             () -> singleton(DifferentIndividuals(ind, indj, NamedIndividual(iri("k")),
                 NamedIndividual(iri("l")))),
             //
-            () -> Sets.newHashSet(DisjointObjectProperties(propA, propB, propC), Declaration(propA),
+            () -> set(DisjointObjectProperties(propA, propB, propC), Declaration(propA),
                 Declaration(propB), Declaration(propC)),
             //
             () -> singleton(DisjointObjectProperties(propA, propB)),
             //
-            () -> Sets.newHashSet(EquivalentObjectProperties(propA, propB), Declaration(propA),
+            () -> set(EquivalentObjectProperties(propA, propB), Declaration(propA),
                 Declaration(propB)),
             //
             () -> singleton(FunctionalObjectProperty(op)),
@@ -344,10 +341,10 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             () -> singleton(DifferentIndividuals(
                 asUnorderedSet(Stream.generate(() -> createIndividual()).limit(1000)))),
             //
-            () -> Sets.newHashSet(AnnotationAssertion(apropA, clsA.getIRI(), Literal("abc", "en")),
+            () -> set(AnnotationAssertion(apropA, clsA.getIRI(), Literal("abc", "en")),
                 Declaration(clsA)),
             //
-            () -> Sets.newHashSet(AnnotationAssertion(apropA, iriA, Literal("abc", "en")),
+            () -> set(AnnotationAssertion(apropA, iriA, Literal("abc", "en")),
                 AnnotationAssertion(apropA, iriA, Literal("abcd", "")),
                 AnnotationAssertion(apropA, iriA, Literal("abcde")),
                 AnnotationAssertion(apropA, iriA, Literal("abcdef", OWL2Datatype.XSD_STRING)),
@@ -358,15 +355,14 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             () -> singleton(ObjectPropertyAssertion(op, ind, indj)),
             //
             () -> singleton(SubPropertyChainOf(Arrays.asList(propA, propB, propC), propD,
-                Sets.newHashSet(Annotation(apropA, Literal("Test", "en")),
+                set(Annotation(apropA, Literal("Test", "en")),
                     Annotation(apropB, Literal("Test", ""))))),
             //
             () -> singleton(ObjectPropertyDomain(op, clsA)),
             //
             () -> singleton(ObjectPropertyRange(op, clsA)),
             //
-            () -> Sets.newHashSet(
-                Declaration(Class(IRI("http://www.test.com/ontology#", "Class%37A"))),
+            () -> set(Declaration(Class(IRI("http://www.test.com/ontology#", "Class%37A"))),
                 Declaration(ObjectProperty(IRI("http://www.test.com/ontology#", "prop%37A")))),
             //
             () -> singleton(ReflexiveObjectProperty(op)),
@@ -375,7 +371,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             //
             () -> singleton(DataPropertyAssertion(dp, ind, Literal("Test \"literal\"\nStuff"))),
             //
-            () -> Sets.newHashSet(DataPropertyAssertion(dp, ind, Literal("Test \"literal\"")),
+            () -> set(DataPropertyAssertion(dp, ind, Literal("Test \"literal\"")),
                 DataPropertyAssertion(dp, ind, Literal("Test 'literal'")),
                 DataPropertyAssertion(dp, ind, Literal("Test \"\"\"literal\"\"\""))),
             //
@@ -385,7 +381,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             //
             () -> singleton(TransitiveObjectProperty(op)),
             //
-            () -> Sets.newHashSet(DataPropertyAssertion(dp, ind, Literal(3)),
+            () -> set(DataPropertyAssertion(dp, ind, Literal(3)),
                 DataPropertyAssertion(dp, ind, Literal(33.3)),
                 DataPropertyAssertion(dp, ind, Literal(true)),
                 DataPropertyAssertion(dp, ind, Literal(33.3f)),

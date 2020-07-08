@@ -30,9 +30,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nullable;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -52,7 +49,7 @@ public class CollectionFactory {
 
     /**
      * @param value the number of expected threads that will update threadsafe collections; useful
-     *        for increasing the concurrency in ConcurrentHashMaps
+     *              for increasing the concurrency in ConcurrentHashMaps
      */
     public static void setExpectedThreads(int value) {
         EXPECTEDTHREADS.set(value);
@@ -84,12 +81,16 @@ public class CollectionFactory {
 
     /**
      * @param elements values to add to the list
-     * @param <T> axiom type
+     * @param <T>      axiom type
      * @return fresh non threadsafe list
      */
     @SafeVarargs
     public static <T> List<T> createList(T... elements) {
-        return Lists.newArrayList(elements);
+        List<T> l = new ArrayList<>();
+        for (T t : elements) {
+            l.add(t);
+        }
+        return l;
     }
 
     /**
@@ -101,26 +102,30 @@ public class CollectionFactory {
     }
 
     /**
-     * @param i iterable
+     * @param i   iterable
      * @param <T> type
      * @return list from iterable
      */
     public static <T> List<T> list(Iterable<T> i) {
-        return Lists.newArrayList(i);
+        List<T> l = new ArrayList<>();
+        for (T t : i) {
+            l.add(t);
+        }
+        return l;
     }
 
     /**
-     * @param i iterable
+     * @param i   iterable
      * @param <T> type
      * @return list from iterable
      */
     @SafeVarargs
     public static <T> List<T> list(T... i) {
-        return Lists.newArrayList(i);
+        return createList(i);
     }
 
     /**
-     * @param i iterable
+     * @param i   iterable
      * @param <T> type
      * @return list from iterable
      */
@@ -129,7 +134,7 @@ public class CollectionFactory {
     }
 
     /**
-     * @param c values to add to the set
+     * @param c   values to add to the set
      * @param <T> axiom type
      * @return fresh non threadsafe set
      */
@@ -139,7 +144,7 @@ public class CollectionFactory {
 
     /**
      * @param initialCapacity initial capacity for the new set
-     * @param <T> axiom type
+     * @param <T>             axiom type
      * @return fresh non threadsafe set
      */
     public static <T> Set<T> createSet(int initialCapacity) {
@@ -166,17 +171,17 @@ public class CollectionFactory {
 
     /**
      * @param elements values to add to the set
-     * @param <T> axiom type
+     * @param <T>      axiom type
      * @return fresh non threadsafe set
      */
     @SafeVarargs
     public static <T> Set<T> createSet(T... elements) {
-        return Sets.newHashSet(elements);
+        return new HashSet<>(list(elements));
     }
 
     /**
      * @param element value to add to the set
-     * @param <T> axiom type
+     * @param <T>     axiom type
      * @return fresh non threadsafe set
      */
     public static <T> Set<T> createSet(T element) {
@@ -205,7 +210,7 @@ public class CollectionFactory {
 
     /**
      * @param source the collection to lazily copy
-     * @param <T> axiom type
+     * @param <T>    axiom type
      * @return a lazy defensive copy for source; the source collection will not be copied until a
      *         method that modifies the collection gets called, e.g., add(), addAll()
      */
@@ -215,7 +220,7 @@ public class CollectionFactory {
 
     /**
      * @param source source collection
-     * @param <T> axiom type
+     * @param <T>    axiom type
      * @return copy on request that builds a list from the input set
      */
     public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(
@@ -228,7 +233,7 @@ public class CollectionFactory {
 
     /**
      * @param source the source collection, expected to be immutable
-     * @param <T> axiom type
+     * @param <T>    axiom type
      * @return copy on request that does not build a list immediately
      */
     public static <T> Set<T> copy(@Nullable Collection<T> source) {
@@ -237,8 +242,8 @@ public class CollectionFactory {
 
     /**
      * @param source the source collection, expected to be mutable; the backing list is created
-     *        immediately
-     * @param <T> axiom type
+     *               immediately
+     * @param <T>    axiom type
      * @return copy on request that builds a list immediately
      */
     public static <T> Set<T> copyMutable(@Nullable Collection<T> source) {
@@ -247,7 +252,7 @@ public class CollectionFactory {
 
     /**
      * @param source the source collection, expected to be immutable
-     * @param <T> axiom type
+     * @param <T>    axiom type
      * @return copy on request that does not build a list immediately
      */
     public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(
@@ -285,7 +290,7 @@ public class CollectionFactory {
         private int containsCounter = 0;
 
         /**
-         * @param source initial elements
+         * @param source   initial elements
          * @param listCopy true if a copy must be made
          */
         public ConditionalCopySet(Collection<T> source, boolean listCopy) {

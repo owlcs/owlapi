@@ -97,6 +97,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_REST;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_SUBJECT;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -143,8 +144,6 @@ import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -560,8 +559,7 @@ public class TripleHandlers {
         @Override
         public void handleTriple(IRI s, IRI p, IRI o) {
             consume(s, p, o);
-            add(df
-                .getOWLEquivalentClassesAxiom(Sets.newHashSet(ce(s), translateEquivalentClass(o))));
+            add(df.getOWLEquivalentClassesAxiom(Arrays.asList(ce(s), translateEquivalentClass(o))));
         }
 
         protected abstract OWLClassExpression translateEquivalentClass(IRI mainNode);
@@ -1304,7 +1302,7 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI s, IRI p, IRI o) {
-            add(df.getOWLDifferentIndividualsAxiom(Sets.newHashSet(ind(s), ind(o)), anns()));
+            add(df.getOWLDifferentIndividualsAxiom(Arrays.asList(ind(s), ind(o)), anns()));
             consume(s, p, o);
         }
     }
@@ -1362,7 +1360,7 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI s, IRI p, IRI o) {
-            add(df.getOWLDisjointClassesAxiom(Sets.newHashSet(ce(s), ce(o)), anns()));
+            add(df.getOWLDisjointClassesAxiom(Arrays.asList(ce(s), ce(o)), anns()));
             consume(s, p, o);
         }
     }
@@ -1412,7 +1410,7 @@ public class TripleHandlers {
         }
 
         private void translateEquivalentClasses(IRI s, IRI p, IRI o) {
-            add(df.getOWLEquivalentClassesAxiom(Sets.newHashSet(ce(s), ce(o)), anns()));
+            add(df.getOWLEquivalentClassesAxiom(Arrays.asList(ce(s), ce(o)), anns()));
             consume(s, p, o);
         }
     }
@@ -1432,11 +1430,11 @@ public class TripleHandlers {
         public void handleTriple(IRI s, IRI p, IRI o) {
             Set<OWLAnnotation> anns = anns();
             if (isOpLax(s) && isOpLax(o)) {
-                add(df.getOWLEquivalentObjectPropertiesAxiom(Sets.newHashSet(op(s), op(o)), anns));
+                add(df.getOWLEquivalentObjectPropertiesAxiom(Arrays.asList(op(s), op(o)), anns));
                 consume(s, p, o);
             }
             if (isDPLax(s) && isDPLax(o)) {
-                add(df.getOWLEquivalentDataPropertiesAxiom(Sets.newHashSet(dp(s), dp(o)), anns));
+                add(df.getOWLEquivalentDataPropertiesAxiom(Arrays.asList(dp(s), dp(o)), anns));
                 consume(s, p, o);
             }
             // TODO: LOG ERROR
@@ -1928,7 +1926,7 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI s, IRI p, IRI o) {
-            add(df.getOWLSameIndividualAxiom(Sets.newHashSet(ind(s), ind(o)), anns()));
+            add(df.getOWLSameIndividualAxiom(Arrays.asList(ind(s), ind(o)), anns()));
             consume(s, p, o);
         }
     }

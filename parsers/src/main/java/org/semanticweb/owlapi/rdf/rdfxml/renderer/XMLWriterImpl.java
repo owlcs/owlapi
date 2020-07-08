@@ -38,8 +38,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.google.common.base.Splitter;
-
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .
  *
@@ -341,7 +339,7 @@ public class XMLWriterImpl implements XMLWriter {
                     // Name is null so by convention this is a comment
                     if (textContent != null) {
                         writer.write("\n\n\n");
-                        for (String token : Splitter.on('\n').split(verifyNotNull(textContent))) {
+                        for (String token : verifyNotNull(textContent).split("\n")) {
                             if (!"\n".equals(token)) {
                                 insertIndentation();
                             }

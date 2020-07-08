@@ -15,18 +15,19 @@ package org.semanticweb.owlapi.model;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.util.CollectionFactory;
-
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 /**
  * Represents the type of axioms which can belong to ontologies. Axioms can be retrieved from
@@ -88,10 +89,10 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
     /** Set of tbox axiom types. */         public static final Set<AxiomType<?>>                                   TBoxAxiomTypes = CollectionFactory.createSet((AxiomType<?>) SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES, OBJECT_PROPERTY_DOMAIN, OBJECT_PROPERTY_RANGE, FUNCTIONAL_OBJECT_PROPERTY, INVERSE_FUNCTIONAL_OBJECT_PROPERTY, DATA_PROPERTY_DOMAIN, DATA_PROPERTY_RANGE, FUNCTIONAL_DATA_PROPERTY, DATATYPE_DEFINITION, DISJOINT_UNION, HAS_KEY);
     /** Set of abox axiom types. */         public static final Set<AxiomType<?>>                                   ABoxAxiomTypes = CollectionFactory.createSet((AxiomType<?>) CLASS_ASSERTION, SAME_INDIVIDUAL, DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION, NEGATIVE_OBJECT_PROPERTY_ASSERTION, DATA_PROPERTY_ASSERTION, NEGATIVE_DATA_PROPERTY_ASSERTION);
     /** Set of rbox axiom types. */         public static final Set<AxiomType<?>>                                   RBoxAxiomTypes = CollectionFactory.createSet((AxiomType<?>) TRANSITIVE_OBJECT_PROPERTY, DISJOINT_DATA_PROPERTIES, SUB_DATA_PROPERTY, EQUIVALENT_DATA_PROPERTIES, DISJOINT_OBJECT_PROPERTIES, SUB_OBJECT_PROPERTY, EQUIVALENT_OBJECT_PROPERTIES, SUB_PROPERTY_CHAIN_OF, INVERSE_OBJECT_PROPERTIES, SYMMETRIC_OBJECT_PROPERTY, ASYMMETRIC_OBJECT_PROPERTY, REFLEXIVE_OBJECT_PROPERTY, IRREFLEXIVE_OBJECT_PROPERTY);
-    /** Set of tbox and rbox axiom types. */public static final Set<AxiomType<?>>                                   TBoxAndRBoxAxiomTypes = Sets.newHashSet(Iterables.concat(TBoxAxiomTypes, RBoxAxiomTypes));
+    /** Set of tbox and rbox axiom types. */public static final Set<AxiomType<?>>                                   TBoxAndRBoxAxiomTypes = Collections.unmodifiableSet(Stream.concat(TBoxAxiomTypes.stream(), RBoxAxiomTypes.stream()).collect(Collectors.toSet()));
 
-    private static final Map<String, AxiomType<? extends OWLAxiom>> NAME_TYPE_MAP = Maps.uniqueIndex(AXIOM_TYPES, AxiomType::getName);
-    private static final Map<Class<?>, AxiomType<? extends OWLAxiom>> CLASS_TYPE_MAP = Maps.uniqueIndex(AXIOM_TYPES, AxiomType::getActualClass);
+    private static final Map<String, AxiomType<? extends OWLAxiom>> NAME_TYPE_MAP = Collections.unmodifiableMap(AXIOM_TYPES.stream().collect(Collectors.toMap(AxiomType::getName, Function.identity())));
+    private static final Map<Class<?>, AxiomType<? extends OWLAxiom>> CLASS_TYPE_MAP = Collections.unmodifiableMap(AXIOM_TYPES.stream().collect(Collectors.toMap(AxiomType::getActualClass, Function.identity())));
     private final String name;
     private final boolean owl2Axiom;
     private final boolean nonSyntacticOWL2Axiom;
@@ -145,7 +146,7 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
      */
     public static Set<OWLAxiom> getAxiomsWithoutTypes(Collection<OWLAxiom> sourceAxioms,
         AxiomType<?>... axiomTypes) {
-        Set<AxiomType<?>> disallowed = Sets.newHashSet(axiomTypes);
+        Set<AxiomType<?>> disallowed = new HashSet<>(Arrays.asList(axiomTypes));
         return asSet(sourceAxioms.stream().filter(a -> !disallowed.contains(a.getAxiomType())));
     }
 
@@ -159,7 +160,7 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
      */
     public static Set<OWLAxiom> getAxiomsOfTypes(Collection<OWLAxiom> sourceAxioms,
         AxiomType<?>... axiomTypes) {
-        Set<AxiomType<?>> allowed = Sets.newHashSet(axiomTypes);
+        Set<AxiomType<?>> allowed = new HashSet<>(Arrays.asList(axiomTypes));
         return asSet(sourceAxioms.stream().filter(a -> allowed.contains(a.getAxiomType())));
     }
 

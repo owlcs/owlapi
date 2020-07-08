@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
-import com.google.common.collect.Sets;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -37,7 +36,7 @@ public class AxiomsRoundTrippingWithEntitiesTestCase extends AxiomsRoundTripping
     private static final OWLAnnotationProperty apropB = AnnotationProperty(iri("apropB"));
 
     public AxiomsRoundTrippingWithEntitiesTestCase() {
-        super(() -> Sets.newHashSet(Declaration(clsA),
+        super(() -> set(Declaration(clsA),
             AnnotationAssertion(apropA, clsA.getIRI(), Literal("value1")),
             AnnotationAssertion(apropB, clsA.getIRI(), Literal("value2"))));
     }

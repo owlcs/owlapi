@@ -14,9 +14,9 @@ package org.semanticweb.owlapi.apibinding;
 
 import static org.semanticweb.owlapi.model.IRI.getNextDocumentIRI;
 
-import com.google.common.collect.Sets;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -111,7 +111,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
@@ -265,7 +264,7 @@ public final class OWLFunctionalSyntaxFactory {
     }
 
     public static OWLDeclarationAxiom Declaration(OWLEntity entity, OWLAnnotation... a) {
-        return DF.getOWLDeclarationAxiom(entity, Sets.newHashSet(a));
+        return DF.getOWLDeclarationAxiom(entity, new HashSet<>(Arrays.asList(a)));
     }
 
     // Class Expressions
@@ -718,7 +717,8 @@ public final class OWLFunctionalSyntaxFactory {
 
     public static OWLAnnotationAssertionAxiom AnnotationAssertion(OWLAnnotationProperty property,
         OWLAnnotationSubject subject, OWLAnnotationValue value, OWLAnnotation... set) {
-        return DF.getOWLAnnotationAssertionAxiom(property, subject, value, Sets.newHashSet(set));
+        return DF.getOWLAnnotationAssertionAxiom(property, subject, value,
+            new HashSet<>(Arrays.asList(set)));
     }
 
     public static OWLAnnotation Annotation(OWLAnnotationProperty property,

@@ -33,9 +33,6 @@ import org.semanticweb.owlapi.modularity.locality.LocalityClass;
 import org.semanticweb.owlapi.modularity.locality.LocalityModuleExtractor;
 import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityModuleExtractor;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.SetMultimap;
-
 /**
  * Class to represent the atomic decomposition of a set of axioms.
  *
@@ -218,7 +215,7 @@ public final class AtomicDecomposition implements HasAxioms {
      * {@link AtomicDecomposition}. Gets computed within {@link AtomicDecomposition#decompose()}
      * when calling {@link AtomicDecomposition#moduleToSignatureOf(OWLAxiom)}.
      */
-    private final @Nonnull SetMultimap<OWLAxiom, OWLAxiom> moduleToSignatureOf;
+    private final @Nonnull Map<OWLAxiom, Set<OWLAxiom>> moduleToSignatureOf;
 
     /**
      * Constructs the {@link AtomicDecomposition} for the given axiom base based on the module
@@ -283,7 +280,7 @@ public final class AtomicDecomposition implements HasAxioms {
         moduleExtractor =
             Objects.requireNonNull(function, "The given function may not be null").apply(axioms());
         Objects.requireNonNull(axioms, "The given function may not retrieve null");
-        moduleToSignatureOf = HashMultimap.create();
+        moduleToSignatureOf = new HashMap<>();
         atomOf = new HashMap<>();
         decompose();
     }
@@ -393,11 +390,12 @@ public final class AtomicDecomposition implements HasAxioms {
         if (beta.isPresent()) {
             moduleOfBeta = moduleToSignatureOf.get(beta.get());
             moduleExtractor.extract(alpha.signature(), moduleOfBeta::contains)
-                .forEach(moduleAxiom -> moduleToSignatureOf.put(alpha, moduleAxiom));
+                .forEach(moduleAxiom -> moduleToSignatureOf
+                    .computeIfAbsent(alpha, x -> new HashSet<>()).add(moduleAxiom));
         } else {
             moduleOfBeta = axioms;
-            moduleExtractor.extract(alpha.signature())
-                .forEach(moduleAxiom -> moduleToSignatureOf.put(alpha, moduleAxiom));
+            moduleExtractor.extract(alpha.signature()).forEach(moduleAxiom -> moduleToSignatureOf
+                .computeIfAbsent(alpha, x -> new HashSet<>()).add(moduleAxiom));
         }
 
         // modules are equal if size are equal

@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import com.google.common.collect.Iterators;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -155,7 +154,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
 
     @Override
     public Iterator<T> iterator() {
-        return Iterators.unmodifiableIterator(delegate.iterator());
+        return Collections.unmodifiableList(delegate).iterator();
     }
 
     /**

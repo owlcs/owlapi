@@ -2,11 +2,11 @@ package org.semanticweb.owlapitools.decomposition;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
@@ -70,7 +70,7 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
     /**
      * map between axioms and concept expressions
      */
-    Multimap<OWLAxiom, OWLClassExpression> exprMap = LinkedHashMultimap.create();
+    Map<OWLAxiom, Set<OWLClassExpression>> exprMap = new LinkedHashMap<>();
     /**
      * remember the axiom locality value here
      */
@@ -140,7 +140,8 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         Signature s = new Signature();
         for (AxiomWrapper q : axioms) {
             if (q.isUsed()) {
-                exprMap.putAll(q.getAxiom(), asList(getExpr(q.getAxiom())));
+                exprMap.computeIfAbsent(q.getAxiom(), x -> new HashSet<>())
+                    .addAll(asList(getExpr(q.getAxiom())));
                 s.addAll(q.getAxiom().signature());
             }
         }

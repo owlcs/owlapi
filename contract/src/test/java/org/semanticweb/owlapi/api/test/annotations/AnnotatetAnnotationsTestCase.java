@@ -9,6 +9,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSL
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
@@ -28,8 +29,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-import com.google.common.collect.Sets;
-
 @SuppressWarnings("javadoc")
 public class AnnotatetAnnotationsTestCase extends TestBase {
 
@@ -37,8 +36,8 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
     public void shouldRoundtripMultipleNestedAnnotationsdebug()
         throws OWLOntologyCreationException {
         String ns = "urn:n:a#";
-        Set<OWLAxiom> axioms =
-            Sets.newHashSet(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty(ns, "r"),
+        Set<OWLAxiom> axioms = Collections
+            .singleton(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty(ns, "r"),
                 df.getOWLNamedIndividual(ns, "a"), df.getOWLNamedIndividual(ns, "b"),
                 Arrays.asList(
                     df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(1),

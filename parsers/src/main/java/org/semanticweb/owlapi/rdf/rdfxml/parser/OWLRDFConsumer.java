@@ -98,9 +98,11 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUB_PROPERTY_OF
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -168,7 +170,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Sets;
 
 /**
  * A parser/interpreter for an RDF graph which represents an OWL ontology. The consumer interprets
@@ -194,9 +195,9 @@ public class OWLRDFConsumer
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLRDFConsumer.class);
     private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
-    private static final Set<IRI> entityTypes = Sets.newHashSet(OWL_CLASS.getIRI(),
+    private static final Set<IRI> entityTypes = new HashSet<>(Arrays.asList(OWL_CLASS.getIRI(),
         OWL_OBJECT_PROPERTY.getIRI(), OWL_DATA_PROPERTY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(),
-        RDFS_DATATYPE.getIRI(), OWL_NAMED_INDIVIDUAL.getIRI());
+        RDFS_DATATYPE.getIRI(), OWL_NAMED_INDIVIDUAL.getIRI()));
     // The set of IRIs that are either explicitly typed
     // an an owl:Class, or are inferred to be an owl:Class
     // because they are used in some triple whose predicate
@@ -1868,7 +1869,7 @@ public class OWLRDFConsumer
     /**
      * @param entityType entity type
      * @param mainNode main node
-     * @param <E> entity type
+     * @param <E>        entity type
      * @return error entity
      */
     public <E extends OWLEntity> E generateAndLogParseError(EntityType<E> entityType,

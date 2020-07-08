@@ -58,9 +58,6 @@ import org.semanticweb.owlapi.model.OWLOntologyWriterConfiguration;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
@@ -262,7 +259,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
     @Test
     public void shouldCall_createOntology_with_writeLock_4() throws OWLOntologyCreationException {
         IRI arg0 = mockIRI();
-        Set<OWLOntology> arg1 = Sets.newConcurrentHashSet();
+        Set<OWLOntology> arg1 = Collections.emptySet();
         manager.createOntology(arg0, arg1);
         verifyWriteLock_LockUnlock();
     }
@@ -504,7 +501,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_setIRIMappers_with_writeLock() {
-        Set<OWLOntologyIRIMapper> arg0 = Sets.newHashSet();
+        Set<OWLOntologyIRIMapper> arg0 = Collections.emptySet();
         manager.setIRIMappers(arg0);
         verifyWriteLock_LockUnlock();
     }
@@ -529,7 +526,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_setOntologyParsers_with_writeLock() {
-        Set<OWLParserFactory> arg0 = Sets.newHashSet();
+        Set<OWLParserFactory> arg0 = Collections.emptySet();
         manager.setOntologyParsers(arg0);
         verifyWriteLock_LockUnlock();
     }
@@ -554,7 +551,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_setOntologyFactories_with_writeLock() {
-        Set<OWLOntologyFactory> arg0 = Sets.newHashSet();
+        Set<OWLOntologyFactory> arg0 = Collections.emptySet();
         manager.setOntologyFactories(arg0);
         verifyWriteLock_LockUnlock();
     }
@@ -567,7 +564,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_setOntologyStorers_with_writeLock() {
-        Set<OWLStorerFactory> arg0 = Sets.newHashSet();
+        Set<OWLStorerFactory> arg0 = Collections.emptySet();
         manager.setOntologyStorers(arg0);
         verifyWriteLock_LockUnlock();
     }
@@ -688,7 +685,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_applyChanges_with_writeLock() {
-        List<OWLOntologyChange> arg0 = Lists.newArrayList();
+        List<OWLOntologyChange> arg0 = Collections.emptyList();
         manager.applyChanges(arg0);
         verifyWriteLock_LockUnlock();
     }
@@ -704,7 +701,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
     @Test
     public void shouldCall_addAxioms_with_writeLock() {
         OWLOntology arg0 = mockOntology();
-        Set<OWLAxiom> axioms = Sets.newHashSet(mock(OWLAxiom.class));
+        Set<OWLAxiom> axioms = Collections.singleton(mock(OWLAxiom.class));
         manager.addAxioms(arg0, axioms);
         verifyWriteLock_LockUnlock();
     }
@@ -726,7 +723,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_removeAxioms_with_writeLock() {
-        Set<OWLAxiom> arg1 = Sets.newHashSet();
+        Set<OWLAxiom> arg1 = Collections.emptySet();
         manager.removeAxioms(ontology, arg1);
         verifyWriteLock_LockUnlock();
     }

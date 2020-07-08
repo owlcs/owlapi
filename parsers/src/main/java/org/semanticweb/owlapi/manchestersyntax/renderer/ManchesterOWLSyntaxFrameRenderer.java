@@ -115,8 +115,6 @@ import org.semanticweb.owlapi.util.OWLObjectComparator;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-import com.google.common.collect.Sets;
-
 /**
  * The Class ManchesterOWLSyntaxFrameRenderer.
  *
@@ -128,7 +126,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     protected final OWLObjectComparator ooc;
     private final OWLOntology o;
-    private final Set<AxiomType<?>> filteredAxiomTypes = Sets.newHashSet(AxiomType.SWRL_RULE);
+    private final Set<AxiomType<?>> filteredAxiomTypes = Collections.singleton(AxiomType.SWRL_RULE);
     private final List<RendererListener> listeners = new ArrayList<>();
     private final Predicate<OWLAxiom> props =
         ax -> ((OWLNaryPropertyAxiom<?>) ax).properties().count() == 2;

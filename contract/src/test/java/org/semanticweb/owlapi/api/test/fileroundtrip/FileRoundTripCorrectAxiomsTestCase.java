@@ -49,7 +49,6 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
-import com.google.common.collect.Sets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -94,8 +93,7 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     protected OWLClass classC = Class(iri("C"));
 
     protected void assertEqualsSet(String ontology, OWLAxiom... axioms) {
-        assertEquals(asUnorderedSet(ontologyFromClasspathFile(ontology).axioms()),
-            Sets.newHashSet(axioms));
+        assertEquals(asUnorderedSet(ontologyFromClasspathFile(ontology).axioms()), set(axioms));
     }
 
     @Test

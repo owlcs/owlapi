@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -123,9 +124,6 @@ import org.semanticweb.owlapi.util.OWLAnnotationPropertyTransformer;
 import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 
 import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentPriorityCollection;
 
@@ -1130,13 +1128,12 @@ public class OWLOntologyManagerImpl
         Collection<IRI> illegals = OWLDocumentFormat.determineIllegalPunnings(true,
             Imports.INCLUDED.stream(o).flatMap(HasSignature::unsortedSignature),
             o.getPunnedIRIs(Imports.INCLUDED));
-        Multimap<IRI, OWLDeclarationAxiom> illegalDeclarations = HashMultimap.create();
+        Map<IRI, Collection<OWLDeclarationAxiom>> illegalDeclarations = new HashMap<>();
         o.axioms(AxiomType.DECLARATION, Imports.INCLUDED)
-            .filter(d -> illegals.contains(d.getEntity().getIRI()))
-            .forEach(d -> illegalDeclarations.put(d.getEntity().getIRI(), d));
+            .filter(d -> illegals.contains(d.getEntity().getIRI())).forEach(d -> illegalDeclarations
+                .computeIfAbsent(d.getEntity().getIRI(), x -> new HashSet<>()).add(d));
         Map<OWLEntity, OWLEntity> replacementMap = new HashMap<>();
-        for (Map.Entry<IRI, Collection<OWLDeclarationAxiom>> e : illegalDeclarations.asMap()
-            .entrySet()) {
+        for (Map.Entry<IRI, Collection<OWLDeclarationAxiom>> e : illegalDeclarations.entrySet()) {
             if (e.getValue().size() == 1) {
                 // One declaration only: illegal punning comes from use or from
                 // defaulting of types

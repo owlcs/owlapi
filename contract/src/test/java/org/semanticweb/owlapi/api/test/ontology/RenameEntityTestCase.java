@@ -85,8 +85,6 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.util.OWLEntityRenamer;
 
-import com.google.common.collect.Sets;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
@@ -241,19 +239,19 @@ public class RenameEntityTestCase extends TestBase {
         OWLNamedIndividual indA = NamedIndividual(iri(IND_A));
         OWLNamedIndividual indB = NamedIndividual(iri(IND_A));
         OWLAnnotationProperty annoProp = AnnotationProperty(iri(ANNO_PROP));
-        Set<OWLAxiom> axioms1 = Sets.newHashSet(ClassAssertion(clsA, indA),
-            DataPropertyAssertion(propA, indA, Literal(33)),
-            NegativeDataPropertyAssertion(propA, indA, Literal(44)),
-            AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")),
-            ObjectPropertyAssertion(propB, indA, indB),
-            NegativeObjectPropertyAssertion(propB, indA, indB));
+        Set<OWLAxiom> axioms1 =
+            set(ClassAssertion(clsA, indA), DataPropertyAssertion(propA, indA, Literal(33)),
+                NegativeDataPropertyAssertion(propA, indA, Literal(44)),
+                AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")),
+                ObjectPropertyAssertion(propB, indA, indB),
+                NegativeObjectPropertyAssertion(propB, indA, indB));
         ont.add(axioms1);
-        Set<OWLAxiom> axioms2 = Sets.newHashSet(ClassAssertion(clsA, indB),
-            DataPropertyAssertion(propA, indB, Literal(33)),
-            NegativeDataPropertyAssertion(propA, indB, Literal(44)),
-            AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")),
-            ObjectPropertyAssertion(propB, indB, indB),
-            NegativeObjectPropertyAssertion(propB, indB, indB));
+        Set<OWLAxiom> axioms2 =
+            set(ClassAssertion(clsA, indB), DataPropertyAssertion(propA, indB, Literal(33)),
+                NegativeDataPropertyAssertion(propA, indB, Literal(44)),
+                AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")),
+                ObjectPropertyAssertion(propB, indB, indB),
+                NegativeObjectPropertyAssertion(propB, indB, indB));
         OWLEntityRenamer entityRenamer =
             new OWLEntityRenamer(ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(indA, indB.getIRI());
