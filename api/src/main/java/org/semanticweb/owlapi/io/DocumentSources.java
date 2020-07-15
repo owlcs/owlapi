@@ -220,8 +220,10 @@ public class DocumentSources {
 
     protected static URLConnection connect(OWLOntologyLoaderConfiguration config,
         URLConnection conn, int connectionTimeout, String acceptHeaders) throws IOException {
-        if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
-            // follow redirects to HTTPS
+    	
+    	boolean retry = true;
+    	while (conn instanceof HttpURLConnection && config.isFollowRedirects() && retry) {
+    		// follow redirects to HTTPS
             HttpURLConnection con = (HttpURLConnection) conn;
             con.connect();
             int responseCode = con.getResponseCode();
@@ -233,9 +235,11 @@ public class DocumentSources {
                 || responseCode == 307 || responseCode == 308) {
                 String location = con.getHeaderField("Location");
                 URL newURL = new URL(location);
-                return rebuildConnection(config, connectionTimeout, newURL, acceptHeaders);
+                conn = rebuildConnection(config, connectionTimeout, newURL, acceptHeaders);
             }
-        }
+            else retry = false;
+    	}
+    	
         return conn;
     }
 
