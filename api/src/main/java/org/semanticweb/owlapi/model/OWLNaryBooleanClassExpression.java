@@ -36,7 +36,7 @@ public interface OWLNaryBooleanClassExpression
 
     /**
      * @return the class expressions
-     * @deprecated use the stream method
+     * @deprecated use {@link #operands()}
      */
     @Deprecated
     default Set<OWLClassExpression> getOperands() {

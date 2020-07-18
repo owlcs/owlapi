@@ -7,7 +7,7 @@ public interface OWLVisitorBase {
 
     /**
      * @param object object to visit
-     * @deprecated use doDefault() instead
+     * @deprecated use {@code #doDefault(Object)} instead
      */
     @Deprecated
     default void getDefaultReturnValue(Object object) {
@@ -19,15 +19,14 @@ public interface OWLVisitorBase {
      *
      * @param object The object that was visited.
      */
-    default void doDefault(@SuppressWarnings("unused") Object object) {
-    }
+    default void doDefault(@SuppressWarnings("unused") Object object) {}
 
     /**
-     * default behaviour. Override this method to change the behaviour of all
-     * non overridden methods.
+     * default behaviour. Override this method to change the behaviour of all non overridden
+     * methods.
      *
      * @param c default parameter
-     * @deprecated use doDefault instead.
+     * @deprecated use {@code #doDefault(Object)} instead
      */
     @Deprecated
     default void handleDefault(Object c) {

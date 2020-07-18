@@ -13,32 +13,31 @@
 package org.coode.owlapi.manchesterowlsyntax;
 
 import java.util.Set;
+
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
- * A parser for the Manchester OWL Syntax. All properties must be defined before
- * they are used. For example, consider the restriction hasPart some Leg. The
- * parser must know in advance whether or not hasPart is an object property or a
- * data property so that Leg gets parsed correctly. In a tool, such as an
- * editor, it is expected that hasPart will already exists as either a data
- * property or an object property. If a complete ontology is being parsed, it is
- * expected that hasPart will have been defined at the top of the file before it
- * is used in any class expressions or property assertions (e.g. ObjectProperty:
- * hasPart)
+ * A parser for the Manchester OWL Syntax. All properties must be defined before they are used. For
+ * example, consider the restriction hasPart some Leg. The parser must know in advance whether or
+ * not hasPart is an object property or a data property so that Leg gets parsed correctly. In a
+ * tool, such as an editor, it is expected that hasPart will already exists as either a data
+ * property or an object property. If a complete ontology is being parsed, it is expected that
+ * hasPart will have been defined at the top of the file before it is used in any class expressions
+ * or property assertions (e.g. ObjectProperty: hasPart)
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
  *         10-Sep-2007
- * @deprecated use org.semanticweb.owlapi.apibinding.OWLManager# createManchesterParser
+ * @deprecated use {@link org.semanticweb.owlapi.apibinding.OWLManager#createManchesterParser()}
  */
 @Deprecated
 public class ManchesterOWLSyntaxEditorParser extends ManchesterOWLSyntaxParserImpl {
 
     /**
      * @param dataFactory dataFactory
-     * @param s s
+     * @param s           s
      */
     public ManchesterOWLSyntaxEditorParser(OWLDataFactory dataFactory, String s) {
         this(new OntologyConfigurator(), dataFactory, s);
@@ -46,8 +45,8 @@ public class ManchesterOWLSyntaxEditorParser extends ManchesterOWLSyntaxParserIm
 
     /**
      * @param configuration configuration
-     * @param dataFactory dataFactory
-     * @param s s
+     * @param dataFactory   dataFactory
+     * @param s             s
      */
     public ManchesterOWLSyntaxEditorParser(OntologyConfigurator configuration,
         OWLDataFactory dataFactory, String s) {

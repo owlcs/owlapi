@@ -55,7 +55,7 @@ public interface OWLDataOneOf extends OWLDataRange, HasOperands<OWLLiteral> {
      * Gets the values ({@link OWLLiteral}s) that this data range consists of.
      *
      * @return The values that this data range consists of.
-     * @deprecated use the stream method
+     * @deprecated use {@link #values()}
      */
     @Deprecated
     default Set<OWLLiteral> getValues() {

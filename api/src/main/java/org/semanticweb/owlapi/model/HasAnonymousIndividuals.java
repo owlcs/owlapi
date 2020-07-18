@@ -39,7 +39,7 @@ public interface HasAnonymousIndividuals {
     /**
      * Gets the anonymous individuals occurring in this object.
      *
-     * @return A set of anonymous individuals
+     * @return A stream of anonymous individuals
      */
     default Stream<OWLAnonymousIndividual> anonymousIndividuals() {
         return empty();

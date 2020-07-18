@@ -51,7 +51,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
      * Gets all of the top level class expressions that appear in this axiom.
      *
      * @return A {@code Set} of class expressions that appear in the axiom.
-     * @deprecated use the stream method
+     * @deprecated use {@link #classExpressions()}
      */
     @Deprecated
     default Set<OWLClassExpression> getClassExpressions() {
@@ -75,7 +75,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
      * {@link #getClassExpressions()} method as a list of class expressions.
      *
      * @return A list of the class expressions in this axiom.
-     * @deprecated use the stream method
+     * @deprecated use {@link #getOperandsAsList()}
      */
     @Deprecated
     default List<OWLClassExpression> getClassExpressionsAsList() {
@@ -92,7 +92,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
     boolean contains(OWLClassExpression ce);
 
     /**
-     * Gets the set of class expressions that appear in this axiom minus the specfied class
+     * Gets the set of class expressions that appear in this axiom minus the specified class
      * expressions.
      *
      * @param desc The class expressions to subtract from the class expressions in this axiom

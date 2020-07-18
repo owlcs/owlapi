@@ -27,18 +27,17 @@ import java.util.stream.Stream;
 public interface HasImportsClosure {
 
     /**
-     * Gets the set of <em>loaded</em> ontologies that this ontology is related
-     * to via the <em>reflexive transitive closure</em> of the directlyImports
-     * relation as defined in Section 3.4 of the OWL 2 Structural Specification.
-     * For example, if this ontology imports ontology B, and ontology B imports
-     * ontology C, then this method will return the set consisting of this
+     * Gets the set of <em>loaded</em> ontologies that this ontology is related to via the
+     * <em>reflexive transitive closure</em> of the directlyImports relation as defined in Section
+     * 3.4 of the OWL 2 Structural Specification. For example, if this ontology imports ontology B,
+     * and ontology B imports ontology C, then this method will return the set consisting of this
      * ontology, ontology B and ontology C.
      *
      * @return The set of ontologies in the reflexive transitive closure of the directlyImports
-     * relation.
+     *         relation.
      * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
-     * because it was removed from the manager.
-     * @deprecated use the stream method
+     *                                     because it was removed from the manager.
+     * @deprecated use {@link #importsClosure()}
      */
     @Deprecated
     default Set<OWLOntology> getImportsClosure() {
@@ -49,7 +48,7 @@ public interface HasImportsClosure {
      * Gets the imports closure, including the root object.
      *
      * @return Stream of ontologies representing the imports closure of this object (includes this
-     * object).
+     *         object).
      */
     Stream<OWLOntology> importsClosure();
 }

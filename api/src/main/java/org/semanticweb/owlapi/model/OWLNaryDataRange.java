@@ -35,7 +35,7 @@ public interface OWLNaryDataRange extends OWLDataRange, HasOperands<OWLDataRange
 
     /**
      * @return the data ranges
-     * @deprecated use the stream method
+     * @deprecated use {@link #operands()}
      */
     @Deprecated
     default Set<OWLDataRange> getOperands() {

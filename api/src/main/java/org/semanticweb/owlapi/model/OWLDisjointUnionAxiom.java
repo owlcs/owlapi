@@ -70,7 +70,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom, HasOperands<OWLCla
      *
      * @return A {@code Set} containing the operands of the disjoint union, note that this <b>does
      *         not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
-     * @deprecated use the stream method
+     * @deprecated use {@link #classExpressions()}
      */
     @Deprecated
     default Set<OWLClassExpression> getClassExpressions() {

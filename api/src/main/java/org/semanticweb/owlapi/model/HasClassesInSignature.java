@@ -19,8 +19,8 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * An interface to an object that has a signature and can provide the classes
- * that are contained in its signature.
+ * An interface to an object that has a signature and can provide the classes that are contained in
+ * its signature.
  *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
@@ -31,9 +31,9 @@ public interface HasClassesInSignature {
      * Gets the classes in the signature of this object.
      *
      * @return A set containing the classes that are in the signature of this object. The set is a
-     * subset of the signature, and is not backed by the signature; it is a modifiable collection
-     * and changes are not reflected by the signature.
-     * @deprecated use the stream method
+     *         subset of the signature, and is not backed by the signature; it is a modifiable
+     *         collection and changes are not reflected by the signature.
+     * @deprecated use {@link #classesInSignature()}
      */
     @Deprecated
     default Set<OWLClass> getClassesInSignature() {

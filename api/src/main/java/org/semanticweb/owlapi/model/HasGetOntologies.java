@@ -26,7 +26,7 @@ public interface HasGetOntologies {
 
     /**
      * @return The set of ontologies contained within this object
-     * @deprecated use the stream method
+     * @deprecated use {@link #ontologies()}
      */
     @Deprecated
     default Set<OWLOntology> getOntologies() {

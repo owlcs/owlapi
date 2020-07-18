@@ -50,7 +50,7 @@ public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom, OWLNaryAxiom
 
     /**
      * @return the individuals
-     * @deprecated use the stream method
+     * @deprecated use {@link #individuals()}
      */
     @Deprecated
     default Set<OWLIndividual> getIndividuals() {

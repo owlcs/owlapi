@@ -17,11 +17,11 @@ package org.semanticweb.owlapi.expression;
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
- * @deprecated use org.semanticweb.owlapi.mansyntax.renderer.ParserException
+ * @deprecated use {@link org.semanticweb.owlapi.manchestersyntax.renderer.ParserException}
  */
 @Deprecated
-public class ParserException extends
-    org.semanticweb.owlapi.manchestersyntax.renderer.ParserException {
+public class ParserException
+    extends org.semanticweb.owlapi.manchestersyntax.renderer.ParserException {
 
     @SuppressWarnings("javadoc")
     public ParserException(

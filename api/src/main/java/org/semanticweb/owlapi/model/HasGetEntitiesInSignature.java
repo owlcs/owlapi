@@ -27,7 +27,7 @@ public interface HasGetEntitiesInSignature {
     /**
      * @param entityIRI IRI for all entities to retrieve
      * @return entities with IRI equal to entityIRI
-     * @deprecated use the stream method
+     * @deprecated use {@link #entitiesInSignature(IRI)}
      */
     @Deprecated
     default Set<OWLEntity> getEntitiesInSignature(IRI entityIRI) {

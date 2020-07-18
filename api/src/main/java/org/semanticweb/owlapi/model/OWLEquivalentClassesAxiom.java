@@ -53,7 +53,7 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      * @return A set of classes that represents the named classes that are specified to be
      *         equivalent to some other class (expression), excluding the built in classes owl:Thing
      *         and owl:Nothing
-     * @deprecated use the stream method
+     * @deprecated use {@link #namedClasses()}
      */
     @Deprecated
     default Set<OWLClass> getNamedClasses() {

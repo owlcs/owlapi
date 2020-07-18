@@ -14,8 +14,10 @@ package org.semanticweb.owlapi.util.mansyntax;
 
 import java.util.List;
 import java.util.Set;
+
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
@@ -38,8 +40,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
 
 /**
- * Interface for a parser able to parse Manchester OWL Syntax. This covers
- * Protege use of the parser.
+ * Interface for a parser able to parse Manchester OWL Syntax. This covers Protege use of the
+ * parser.
  *
  * @author ignazio
  */
@@ -74,15 +76,14 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
      *
      * @return axiom
      * @throws OWLParserException parsing error
-     * @deprecated use parseAxiom(). parseClassAxiom() only casts the result of parseAxiom() to
-     * OWLClassAxiom.
+     * @deprecated use {@link #parseAxiom()}. {@code parseClassAxiom()} only casts the result of
+     *             {@code parseAxiom()} to OWLClassAxiom.
      */
     @Deprecated
     OWLClassAxiom parseClassAxiom();
 
     /**
-     * Parses an OWL class expression that is represented in Manchester OWL
-     * Syntax.
+     * Parses an OWL class expression that is represented in Manchester OWL Syntax.
      *
      * @return The parsed class expression
      * @throws OWLParserException If a class expression could not be parsed.
@@ -139,7 +140,7 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
 
     /**
      * @param datatype datatype to use, if one exists in the context. If null, the datatype will be
-     * decided by the literal itself.
+     *                 decided by the literal itself.
      * @return parsed literal
      */
     OWLLiteral parseLiteral(@Nullable OWLDatatype datatype);
@@ -162,7 +163,7 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
     /**
      * @param ont ont
      * @return format
-     * @throws OWLParserException parsing error
+     * @throws OWLParserException        parsing error
      * @throws UnloadableImportException import error
      */
     ManchesterSyntaxDocumentFormat parseOntology(OWLOntology ont);
@@ -221,8 +222,7 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
     IRI parseVariable();
 
     /**
-     * Convenience method equivalent to {@code setStringToParse("string"};
-     * parseClassexpression();}
+     * Convenience method equivalent to {@code setStringToParse("string"}; parseClassexpression();}
      *
      * @param s String to parse
      * @return parsed class expression

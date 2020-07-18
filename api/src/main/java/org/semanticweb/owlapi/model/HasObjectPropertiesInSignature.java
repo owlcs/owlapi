@@ -19,8 +19,8 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * An interface to an object that has a signature and can provide the object
- * properties that are contained in its signature.
+ * An interface to an object that has a signature and can provide the object properties that are
+ * contained in its signature.
  *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
@@ -28,14 +28,13 @@ import java.util.stream.Stream;
 public interface HasObjectPropertiesInSignature {
 
     /**
-     * A convenience method that obtains the object properties that are in the
-     * signature of this object. The default implementation of this method
-     * returns an empty, modifiable set.
+     * A convenience method that obtains the object properties that are in the signature of this
+     * object. The default implementation of this method returns an empty, modifiable set.
      *
      * @return A set containing the object properties that are in the signature of this object.The
-     * set is a subset of the signature, and is not backed by the signature; it is a modifiable
-     * collection and changes are not reflected by the signature.
-     * @deprecated use the stream method
+     *         set is a subset of the signature, and is not backed by the signature; it is a
+     *         modifiable collection and changes are not reflected by the signature.
+     * @deprecated use {@link #objectPropertiesInSignature()}
      */
     @Deprecated
     default Set<OWLObjectProperty> getObjectPropertiesInSignature() {

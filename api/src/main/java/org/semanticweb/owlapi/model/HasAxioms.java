@@ -30,8 +30,8 @@ public interface HasAxioms {
      * Gets the {@link OWLAxiom}s contained in this object.
      *
      * @return The set of {@link OWLAxiom}s contained in this object. Changes are not reflected
-     * back.
-     * @deprecated use the stream method
+     *         back.
+     * @deprecated use {@link #axioms()}
      */
     @Deprecated
     default Set<OWLAxiom> getAxioms() {

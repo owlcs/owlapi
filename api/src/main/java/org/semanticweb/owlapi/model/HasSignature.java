@@ -39,7 +39,7 @@ public interface HasSignature {
      *
      * @return A set of entities that represents the signature of this object. Changes are not
      *         reflected back.
-     * @deprecated use the stream method
+     * @deprecated use {@link #signature()}
      */
     @Deprecated
     default Set<OWLEntity> getSignature() {

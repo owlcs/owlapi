@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
@@ -31,8 +32,8 @@ public interface OWLAxiomCollection
     /**
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return All of the axioms in this collection, and optionally in the import closure. The set
-     * that is returned is a copy of the data.
-     * @deprecated use the stream method
+     *         that is returned is a copy of the data.
+     * @deprecated use {@link #axioms(Imports)}
      */
     @Deprecated
     default Set<OWLAxiom> getAxioms(Imports includeImportsClosure) {
@@ -41,7 +42,7 @@ public interface OWLAxiomCollection
 
     /**
      * @param imports if INCLUDED, include imports closure.
-     * @return stream of All of the axioms in this collection, and optionally in the import closure.
+     * @return stream of all of the axioms in this collection, and optionally in the import closure.
      */
     default Stream<OWLAxiom> axioms(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::axioms);
@@ -59,13 +60,13 @@ public interface OWLAxiomCollection
     int getAxiomCount(Imports includeImportsClosure);
 
     /**
-     * Gets all axioms semantically relevant, i.e., all axioms that are not
-     * annotation axioms or declaration axioms.
+     * Gets all axioms semantically relevant, i.e., all axioms that are not annotation axioms or
+     * declaration axioms.
      *
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return A set of axioms which are of type {@code OWLLogicalAxiom}, optionally including the
-     * imports closure. The set that is returned is a copy of the data.
-     * @deprecated use the stream method
+     *         imports closure. The set that is returned is a copy of the data.
+     * @deprecated use {@link #logicalAxioms(Imports)}
      */
     @Deprecated
     default Set<OWLLogicalAxiom> getLogicalAxioms(Imports includeImportsClosure) {
@@ -73,12 +74,12 @@ public interface OWLAxiomCollection
     }
 
     /**
-     * Gets all axioms semantically relevant, i.e., all axioms that are not
-     * annotation axioms or declaration axioms.
+     * Gets all axioms semantically relevant, i.e., all axioms that are not annotation axioms or
+     * declaration axioms.
      *
      * @param imports if INCLUDED, include imports closure.
      * @return A stream of axioms which are of type {@code OWLLogicalAxiom}, optionally including
-     * the imports closure.
+     *         the imports closure.
      */
     default Stream<OWLLogicalAxiom> logicalAxioms(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::logicalAxioms);
@@ -92,8 +93,8 @@ public interface OWLAxiomCollection
     int getLogicalAxiomCount();
 
     /**
-     * Gets the number of logical axioms in this collection, optionally
-     * including the imports closure.
+     * Gets the number of logical axioms in this collection, optionally including the imports
+     * closure.
      *
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return The number of axioms in this collection, optionally including the imports closure.
@@ -103,11 +104,11 @@ public interface OWLAxiomCollection
     /**
      * Gets all axioms of the specified type.
      *
-     * @param axiomType The type of axioms to be retrived.
+     * @param axiomType             The type of axioms to be retrived.
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @param <T> axiom type
+     * @param <T>                   axiom type
      * @return all axioms of the specified type. The set is a copy of the data.
-     * @deprecated use the stream method
+     * @deprecated use {@link #axioms(AxiomType, Imports)}
      */
     @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType,
@@ -119,8 +120,8 @@ public interface OWLAxiomCollection
      * Gets all axioms of the specified type.
      *
      * @param axiomType The type of axioms to be retrived.
-     * @param imports if INCLUDED, include imports closure.
-     * @param <T> axiom type
+     * @param imports   if INCLUDED, include imports closure.
+     * @param <T>       axiom type
      * @return stream of all axioms of the specified type.
      */
     default <T extends OWLAxiom> Stream<T> axioms(AxiomType<T> axiomType, Imports imports) {
@@ -131,33 +132,34 @@ public interface OWLAxiomCollection
      * Gets the axiom count of a specific type of axiom.
      *
      * @param axiomType The type of axiom to count
-     * @param <T> axiom type class
+     * @param <T>       axiom type class
      * @return The number of the specified types of axioms in this collection
      */
     <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType);
 
     /**
-     * Gets the axiom count of a specific type of axiom, optionally including
-     * the imports closure.
+     * Gets the axiom count of a specific type of axiom, optionally including the imports closure.
      *
-     * @param axiomType The type of axiom to count
+     * @param axiomType             The type of axiom to count
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @param <T> axiom type
+     * @param <T>                   axiom type
      * @return The number of the specified types of axioms in this collection
      */
     <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType, Imports includeImportsClosure);
 
     /**
-     * Determines if this ontology contains the specified axiom, optionally
-     * including the imports closure.
+     * Determines if this ontology contains the specified axiom, optionally including the imports
+     * closure.
      *
-     * @param axiom The axiom to search.
+     * @param axiom                 The axiom to search.
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @param ignoreAnnotations if IGNORE_ANNOTATIONS, annotations are ignored when searching for
-     * the axiom. For example, if the collection contains {@code SubClassOf(Annotation(p V) A B)}
-     * then this method will return {@code true} if the ontology contains {@code SubClassOf(A B)} or
-     * {@code SubClassOf(Annotation(q S) A B)} for any annotation property {@code q} and any
-     * annotation value {@code S}.
+     * @param ignoreAnnotations     if IGNORE_ANNOTATIONS, annotations are ignored when searching
+     *                              for the axiom. For example, if the collection contains
+     *                              {@code SubClassOf(Annotation(p V) A B)} then this method will
+     *                              return {@code true} if the ontology contains
+     *                              {@code SubClassOf(A B)} or
+     *                              {@code SubClassOf(Annotation(q S) A B)} for any annotation
+     *                              property {@code q} and any annotation value {@code S}.
      * @return {@code true} if the ontology contains the specified axiom.
      */
     boolean containsAxiom(OWLAxiom axiom, Imports includeImportsClosure,
@@ -172,16 +174,15 @@ public interface OWLAxiomCollection
     boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom);
 
     /**
-     * Gets the set of axioms contained in this collection that have the same
-     * "logical structure" as the specified axiom; i.e., all axioms that equal
-     * the specified axiom, when ignoring annotations. Optionally the imports
-     * closure is included.
+     * Gets the set of axioms contained in this collection that have the same "logical structure" as
+     * the specified axiom; i.e., all axioms that equal the specified axiom, when ignoring
+     * annotations. Optionally the imports closure is included.
      *
      * @param axiom The axiom that the returned axioms must equal, ignoring annotations.
      * @return The set of axioms such that for any two axioms, {@code axiomA} and {@code axiomB} in
-     * the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
+     *         the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
      * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set.
-     * @deprecated use the stream method
+     * @deprecated use {@link #axiomsIgnoreAnnotations(OWLAxiom)}
      */
     @Deprecated
     default Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom) {
@@ -189,17 +190,17 @@ public interface OWLAxiomCollection
     }
 
     /**
-     * Gets the set of axioms contained in this collection that have the same
-     * "logical structure" as the specified axiom; i.e., all axioms that equal
-     * the specified axiom, when ignoring annotations. Optionally the imports
-     * closure is included.
+     * Gets the set of axioms contained in this collection that have the same "logical structure" as
+     * the specified axiom; i.e., all axioms that equal the specified axiom, when ignoring
+     * annotations. Optionally the imports closure is included.
      *
-     * @param axiom The axiom that the returned axioms must equal, ignoring annotations.
+     * @param axiom                 The axiom that the returned axioms must equal, ignoring
+     *                              annotations.
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return The set of axioms such that for any two axioms, {@code axiomA} and {@code axiomB} in
-     * the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
+     *         the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
      * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set.
-     * @deprecated use the stream method
+     * @deprecated use {@link #axiomsIgnoreAnnotations(OWLAxiom, Imports)}
      */
     @Deprecated
     default Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom,
@@ -208,44 +209,42 @@ public interface OWLAxiomCollection
     }
 
     /**
-     * Gets the set of axioms contained in this collection that have the same
-     * "logical structure" as the specified axiom; i.e., all axioms that equal
-     * the specified axiom, when ignoring annotations. Optionally the imports
-     * closure is included.
+     * Gets the set of axioms contained in this collection that have the same "logical structure" as
+     * the specified axiom; i.e., all axioms that equal the specified axiom, when ignoring
+     * annotations. Optionally the imports closure is included.
      *
      * @param axiom The axiom that the returned axioms must equal, ignoring annotations.
      * @return The set of axioms such that for any two axioms, {@code axiomA} and {@code axiomB} in
-     * the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
+     *         the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
      * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set.
      */
     Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom axiom);
 
     /**
-     * Gets the set of axioms contained in this collection that have the same
-     * "logical structure" as the specified axiom; i.e., all axioms that equal
-     * the specified axiom, when ignoring annotations. Optionally the imports
-     * closure is included.
+     * Gets the set of axioms contained in this collection that have the same "logical structure" as
+     * the specified axiom; i.e., all axioms that equal the specified axiom, when ignoring
+     * annotations. Optionally the imports closure is included.
      *
-     * @param axiom The axiom that the returned axioms must equal, ignoring annotations.
+     * @param axiom                 The axiom that the returned axioms must equal, ignoring
+     *                              annotations.
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return The set of axioms such that for any two axioms, {@code axiomA} and {@code axiomB} in
-     * the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
+     *         the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
      * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set.
      */
     Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom axiom, Imports includeImportsClosure);
 
     /**
-     * Gets the axioms where the specified {@link OWLPrimitive} appears in the
-     * signature of the axiom.<br>
-     * Note that currently signatures contain {@link OWLEntity} only. This
-     * method accepts OWLPrimitive so that also anonymous individuals, literals,
-     * IRIs and annotation values can be passed in, although they are not
-     * included in the axioms' signatures.
+     * Gets the axioms where the specified {@link OWLPrimitive} appears in the signature of the
+     * axiom.<br>
+     * Note that currently signatures contain {@link OWLEntity} only. This method accepts
+     * OWLPrimitive so that also anonymous individuals, literals, IRIs and annotation values can be
+     * passed in, although they are not included in the axioms' signatures.
      *
      * @param owlEntity The entity that should be directly referred to by all axioms in the results
-     * set.
+     *                  set.
      * @return All axioms referencing the entity. The set is a copy of the data.
-     * @deprecated use the stream method
+     * @deprecated use {@link #referencingAxioms(OWLPrimitive)}
      */
     @Deprecated
     default Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity) {
@@ -253,32 +252,30 @@ public interface OWLAxiomCollection
     }
 
     /**
-     * Gets the axioms where the specified {@link OWLPrimitive} appears in the
-     * signature of the axiom.<br>
-     * Note that currently signatures contain {@link OWLEntity} only. This
-     * method accepts OWLPrimitive so that also anonymous individuals, literals,
-     * IRIs and annotation values can be passed in, although they are not
-     * included in the axioms' signatures.
+     * Gets the axioms where the specified {@link OWLPrimitive} appears in the signature of the
+     * axiom.<br>
+     * Note that currently signatures contain {@link OWLEntity} only. This method accepts
+     * OWLPrimitive so that also anonymous individuals, literals, IRIs and annotation values can be
+     * passed in, although they are not included in the axioms' signatures.
      *
      * @param owlEntity The entity that should be directly referred to by all axioms in the results
-     * set.
+     *                  set.
      * @return Stream of all axioms referencing the entity.
      */
     Stream<OWLAxiom> referencingAxioms(OWLPrimitive owlEntity);
 
     /**
-     * Gets the axioms where the specified {@link OWLPrimitive} appears in the
-     * signature of the axiom.<br>
-     * Note that currently signatures contain {@link OWLEntity} only. This
-     * method accepts OWLPrimitive so that also anonymous individuals, literals,
-     * IRIs and annotation values can be passed in, although they are not
-     * included in the axioms' signatures.
+     * Gets the axioms where the specified {@link OWLPrimitive} appears in the signature of the
+     * axiom.<br>
+     * Note that currently signatures contain {@link OWLEntity} only. This method accepts
+     * OWLPrimitive so that also anonymous individuals, literals, IRIs and annotation values can be
+     * passed in, although they are not included in the axioms' signatures.
      *
-     * @param owlEntity The entity that should be directly referred to by all axioms in the results
-     * set.
+     * @param owlEntity             The entity that should be directly referred to by all axioms in
+     *                              the results set.
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return All axioms referencing the entity. The set is a copy of the data.
-     * @deprecated use the stream method
+     * @deprecated use {@link #referencingAxioms(OWLPrimitive, Imports)}
      */
     @Deprecated
     default Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity,
@@ -287,16 +284,15 @@ public interface OWLAxiomCollection
     }
 
     /**
-     * Gets the axioms where the specified {@link OWLPrimitive} appears in the
-     * signature of the axiom.<br>
-     * Note that currently signatures contain {@link OWLEntity} only. This
-     * method accepts OWLPrimitive so that also anonymous individuals, literals,
-     * IRIs and annotation values can be passed in, although they are not
-     * included in the axioms' signatures.
+     * Gets the axioms where the specified {@link OWLPrimitive} appears in the signature of the
+     * axiom.<br>
+     * Note that currently signatures contain {@link OWLEntity} only. This method accepts
+     * OWLPrimitive so that also anonymous individuals, literals, IRIs and annotation values can be
+     * passed in, although they are not included in the axioms' signatures.
      *
      * @param owlEntity The entity that should be directly referred to by all axioms in the results
-     * set.
-     * @param imports if INCLUDED, include imports closure.
+     *                  set.
+     * @param imports   if INCLUDED, include imports closure.
      * @return stream of all axioms referencing the entity.
      */
     default Stream<OWLAxiom> referencingAxioms(OWLPrimitive owlEntity, Imports imports) {
@@ -309,13 +305,18 @@ public interface OWLAxiomCollection
      * Gets the axioms that form the definition/description of a class.
      *
      * @param cls The class whose describing axioms are to be retrieved.
-     * @return A set of class axioms that describe the class. This set includes <ul> <li>Subclass
-     * axioms where the subclass is equal to the specified class</li> <li>Equivalent class axioms
-     * where the specified class is an operand in the equivalent class axiom</li> <li>Disjoint class
-     * axioms where the specified class is an operand in the disjoint class axiom</li> <li>Disjoint
-     * union axioms, where the specified class is the named class that is equivalent to the disjoint
-     * union</li> </ul> The returned set is a copy of the data.
-     * @deprecated use the stream method
+     * @return A set of class axioms that describe the class. This set includes
+     *         <ul>
+     *         <li>Subclass axioms where the subclass is equal to the specified class</li>
+     *         <li>Equivalent class axioms where the specified class is an operand in the equivalent
+     *         class axiom</li>
+     *         <li>Disjoint class axioms where the specified class is an operand in the disjoint
+     *         class axiom</li>
+     *         <li>Disjoint union axioms, where the specified class is the named class that is
+     *         equivalent to the disjoint union</li>
+     *         </ul>
+     *         The returned set is a copy of the data.
+     * @deprecated use {@link #axioms(OWLClass)}
      */
     @Deprecated
     default Set<OWLClassAxiom> getAxioms(OWLClass cls) {
@@ -326,27 +327,36 @@ public interface OWLAxiomCollection
      * Gets the axioms that form the definition/description of a class.
      *
      * @param cls The class whose describing axioms are to be retrieved.
-     * @return A stream of class axioms that describe the class. This set includes <ul> <li>Subclass
-     * axioms where the subclass is equal to the specified class</li> <li>Equivalent class axioms
-     * where the specified class is an operand in the equivalent class axiom</li> <li>Disjoint class
-     * axioms where the specified class is an operand in the disjoint class axiom</li> <li>Disjoint
-     * union axioms, where the specified class is the named class that is equivalent to the disjoint
-     * union</li> </ul> The returned set is a copy of the data.
+     * @return A stream of class axioms that describe the class. This set includes
+     *         <ul>
+     *         <li>Subclass axioms where the subclass is equal to the specified class</li>
+     *         <li>Equivalent class axioms where the specified class is an operand in the equivalent
+     *         class axiom</li>
+     *         <li>Disjoint class axioms where the specified class is an operand in the disjoint
+     *         class axiom</li>
+     *         <li>Disjoint union axioms, where the specified class is the named class that is
+     *         equivalent to the disjoint union</li>
+     *         </ul>
      */
     Stream<OWLClassAxiom> axioms(OWLClass cls);
 
     /**
      * Gets the axioms that form the definition/description of a class.
      *
-     * @param cls The class whose describing axioms are to be retrieved.
+     * @param cls                   The class whose describing axioms are to be retrieved.
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return A set of class axioms that describe the class. This set includes <ul> <li>Subclass
-     * axioms where the subclass is equal to the specified class</li> <li>Equivalent class axioms
-     * where the specified class is an operand in the equivalent class axiom</li> <li>Disjoint class
-     * axioms where the specified class is an operand in the disjoint class axiom</li> <li>Disjoint
-     * union axioms, where the specified class is the named class that is equivalent to the disjoint
-     * union</li> </ul> The returned set is a copy of the data.
-     * @deprecated use the stream method
+     * @return A set of class axioms that describe the class. This set includes
+     *         <ul>
+     *         <li>Subclass axioms where the subclass is equal to the specified class</li>
+     *         <li>Equivalent class axioms where the specified class is an operand in the equivalent
+     *         class axiom</li>
+     *         <li>Disjoint class axioms where the specified class is an operand in the disjoint
+     *         class axiom</li>
+     *         <li>Disjoint union axioms, where the specified class is the named class that is
+     *         equivalent to the disjoint union</li>
+     *         </ul>
+     *         The returned set is a copy of the data.
+     * @deprecated use {@link #axioms(OWLClass, Imports))}
      */
     @Deprecated
     default Set<OWLClassAxiom> getAxioms(OWLClass cls, Imports includeImportsClosure) {
@@ -358,34 +368,42 @@ public interface OWLAxiomCollection
     /**
      * Gets the axioms that form the definition/description of a class.
      *
-     * @param cls The class whose describing axioms are to be retrieved.
+     * @param cls     The class whose describing axioms are to be retrieved.
      * @param imports if INCLUDED, include imports closure.
-     * @return A stream of class axioms that describe the class. This includes <ul> <li>Subclass
-     * axioms where the subclass is equal to the specified class</li> <li>Equivalent class axioms
-     * where the specified class is an operand in the equivalent class axiom</li> <li>Disjoint class
-     * axioms where the specified class is an operand in the disjoint class axiom</li> <li>Disjoint
-     * union axioms, where the specified class is the named class that is equivalent to the disjoint
-     * union</li> </ul>
+     * @return A stream of class axioms that describe the class. This includes
+     *         <ul>
+     *         <li>Subclass axioms where the subclass is equal to the specified class</li>
+     *         <li>Equivalent class axioms where the specified class is an operand in the equivalent
+     *         class axiom</li>
+     *         <li>Disjoint class axioms where the specified class is an operand in the disjoint
+     *         class axiom</li>
+     *         <li>Disjoint union axioms, where the specified class is the named class that is
+     *         equivalent to the disjoint union</li>
+     *         </ul>
      */
     default Stream<OWLClassAxiom> axioms(OWLClass cls, Imports imports) {
         return imports.stream(this).flatMap(o -> o.axioms(cls));
     }
 
     /**
-     * Gets the axioms that form the definition/description of an object
-     * property.
+     * Gets the axioms that form the definition/description of an object property.
      *
      * @param property The property whose defining axioms are to be retrieved.
-     * @return A set of object property axioms that includes <ul> <li>Sub-property axioms where the
-     * sub property is the specified property</li> <li>Equivalent property axioms where the axiom
-     * contains the specified property</li> <li>Equivalent property axioms that contain the inverse
-     * of the specified property</li> <li>Disjoint property axioms that contain the specified
-     * property </li> <li>Domain axioms that specify a domain of the specified property </li>
-     * <li>Range axioms that specify a range of the specified property </li> <li>Any property
-     * characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.) whose subject is the
-     * specified property</li> <li>Inverse properties axioms that contain the specified property
-     * </li> </ul> The set that is returned is a copy of the data.
-     * @deprecated use the stream method
+     * @return A set of object property axioms that includes
+     *         <ul>
+     *         <li>Sub-property axioms where the sub property is the specified property</li>
+     *         <li>Equivalent property axioms where the axiom contains the specified property</li>
+     *         <li>Equivalent property axioms that contain the inverse of the specified
+     *         property</li>
+     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Domain axioms that specify a domain of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Any property characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.)
+     *         whose subject is the specified property</li>
+     *         <li>Inverse properties axioms that contain the specified property</li>
+     *         </ul>
+     *         The set that is returned is a copy of the data.
+     * @deprecated use {@link #axioms(OWLObjectPropertyExpression)}
      */
     @Deprecated
     default Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property) {
@@ -393,38 +411,45 @@ public interface OWLAxiomCollection
     }
 
     /**
-     * Gets the axioms that form the definition/description of an object
-     * property.
+     * Gets the axioms that form the definition/description of an object property.
      *
      * @param property The property whose defining axioms are to be retrieved.
-     * @return A set of object property axioms that includes <ul> <li>Sub-property axioms where the
-     * sub property is the specified property</li> <li>Equivalent property axioms where the axiom
-     * contains the specified property</li> <li>Equivalent property axioms that contain the inverse
-     * of the specified property</li> <li>Disjoint property axioms that contain the specified
-     * property </li> <li>Domain axioms that specify a domain of the specified property </li>
-     * <li>Range axioms that specify a range of the specified property </li> <li>Any property
-     * characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.) whose subject is the
-     * specified property</li> <li>Inverse properties axioms that contain the specified property
-     * </li> </ul> The set that is returned is a copy of the data.
+     * @return A stream of object property axioms that includes
+     *         <ul>
+     *         <li>Sub-property axioms where the sub property is the specified property</li>
+     *         <li>Equivalent property axioms where the axiom contains the specified property</li>
+     *         <li>Equivalent property axioms that contain the inverse of the specified
+     *         property</li>
+     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Domain axioms that specify a domain of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Any property characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.)
+     *         whose subject is the specified property</li>
+     *         <li>Inverse properties axioms that contain the specified property</li>
+     *         </ul>
      */
     Stream<OWLObjectPropertyAxiom> axioms(OWLObjectPropertyExpression property);
 
     /**
-     * Gets the axioms that form the definition/description of an object
-     * property.
+     * Gets the axioms that form the definition/description of an object property.
      *
-     * @param property The property whose defining axioms are to be retrieved.
+     * @param property              The property whose defining axioms are to be retrieved.
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return A set of object property axioms that includes <ul> <li>Sub-property axioms where the
-     * sub property is the specified property</li> <li>Equivalent property axioms where the axiom
-     * contains the specified property</li> <li>Equivalent property axioms that contain the inverse
-     * of the specified property</li> <li>Disjoint property axioms that contain the specified
-     * property </li> <li>Domain axioms that specify a domain of the specified property </li>
-     * <li>Range axioms that specify a range of the specified property </li> <li>Any property
-     * characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.) whose subject is the
-     * specified property</li> <li>Inverse properties axioms that contain the specified property
-     * </li> </ul> The set that is returned is a copy of the data.
-     * @deprecated use the stream method
+     * @return A set of object property axioms that includes
+     *         <ul>
+     *         <li>Sub-property axioms where the sub property is the specified property</li>
+     *         <li>Equivalent property axioms where the axiom contains the specified property</li>
+     *         <li>Equivalent property axioms that contain the inverse of the specified
+     *         property</li>
+     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Domain axioms that specify a domain of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Any property characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.)
+     *         whose subject is the specified property</li>
+     *         <li>Inverse properties axioms that contain the specified property</li>
+     *         </ul>
+     *         The set that is returned is a copy of the data.
+     * @deprecated use {@link #axioms(OWLObjectPropertyExpression, Imports)}
      */
     @Deprecated
     default Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property,
@@ -433,20 +458,23 @@ public interface OWLAxiomCollection
     }
 
     /**
-     * Gets the axioms that form the definition/description of an object
-     * property.
+     * Gets the axioms that form the definition/description of an object property.
      *
      * @param property The property whose defining axioms are to be retrieved.
-     * @param imports if INCLUDED, include imports closure.
-     * @return A stream of object property axioms that includes <ul> <li>Sub-property axioms where
-     * the sub property is the specified property</li> <li>Equivalent property axioms where the
-     * axiom contains the specified property</li> <li>Equivalent property axioms that contain the
-     * inverse of the specified property</li> <li>Disjoint property axioms that contain the
-     * specified property </li> <li>Domain axioms that specify a domain of the specified property
-     * </li> <li>Range axioms that specify a range of the specified property </li> <li>Any property
-     * characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.) whose subject is the
-     * specified property</li> <li>Inverse properties axioms that contain the specified property
-     * </li> </ul>
+     * @param imports  if INCLUDED, include imports closure.
+     * @return A stream of object property axioms that includes
+     *         <ul>
+     *         <li>Sub-property axioms where the sub property is the specified property</li>
+     *         <li>Equivalent property axioms where the axiom contains the specified property</li>
+     *         <li>Equivalent property axioms that contain the inverse of the specified
+     *         property</li>
+     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Domain axioms that specify a domain of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Any property characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.)
+     *         whose subject is the specified property</li>
+     *         <li>Inverse properties axioms that contain the specified property</li>
+     *         </ul>
      */
     default Stream<OWLObjectPropertyAxiom> axioms(OWLObjectPropertyExpression property,
         Imports imports) {
@@ -457,14 +485,18 @@ public interface OWLAxiomCollection
      * Gets the axioms that form the definition/description of a data property.
      *
      * @param property The property whose defining axioms are to be retrieved.
-     * @return A set of data property axioms that includes <ul> <li>Sub-property axioms where the
-     * sub property is the specified property</li> <li>Equivalent property axioms where the axiom
-     * contains the specified property</li> <li>Disjoint property axioms that contain the specified
-     * property </li> <li>Domain axioms that specify a domain of the specified property </li>
-     * <li>Range axioms that specify a range of the specified property </li> <li>Any property
-     * characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.) whose subject is the
-     * specified property</li> </ul> The set is a copy of the data.
-     * @deprecated use the stream method
+     * @return A set of data property axioms that includes
+     *         <ul>
+     *         <li>Sub-property axioms where the sub property is the specified property</li>
+     *         <li>Equivalent property axioms where the axiom contains the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Domain axioms that specify a domain of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Any property characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.)
+     *         whose subject is the specified property</li>
+     *         </ul>
+     *         The set is a copy of the data.
+     * @deprecated use {@link #axioms(OWLDataProperty)}
      */
     @Deprecated
     default Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property) {
@@ -475,29 +507,36 @@ public interface OWLAxiomCollection
      * Gets the axioms that form the definition/description of a data property.
      *
      * @param property The property whose defining axioms are to be retrieved.
-     * @return A stream of data property axioms that includes <ul> <li>Sub-property axioms where the
-     * sub property is the specified property</li> <li>Equivalent property axioms where the axiom
-     * contains the specified property</li> <li>Disjoint property axioms that contain the specified
-     * property </li> <li>Domain axioms that specify a domain of the specified property </li>
-     * <li>Range axioms that specify a range of the specified property </li> <li>Any property
-     * characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.) whose subject is the
-     * specified property</li> </ul> The set is a copy of the data.
+     * @return A stream of data property axioms that includes
+     *         <ul>
+     *         <li>Sub-property axioms where the sub property is the specified property</li>
+     *         <li>Equivalent property axioms where the axiom contains the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Domain axioms that specify a domain of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Any property characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.)
+     *         whose subject is the specified property</li>
+     *         </ul>
      */
     Stream<OWLDataPropertyAxiom> axioms(OWLDataProperty property);
 
     /**
      * Gets the axioms that form the definition/description of a data property.
      *
-     * @param property The property whose defining axioms are to be retrieved.
+     * @param property              The property whose defining axioms are to be retrieved.
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return A set of data property axioms that includes <ul> <li>Sub-property axioms where the
-     * sub property is the specified property</li> <li>Equivalent property axioms where the axiom
-     * contains the specified property</li> <li>Disjoint property axioms that contain the specified
-     * property </li> <li>Domain axioms that specify a domain of the specified property </li>
-     * <li>Range axioms that specify a range of the specified property </li> <li>Any property
-     * characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.) whose subject is the
-     * specified property</li> </ul> The set is a copy of the data.
-     * @deprecated use the stream method
+     * @return A set of data property axioms that includes
+     *         <ul>
+     *         <li>Sub-property axioms where the sub property is the specified property</li>
+     *         <li>Equivalent property axioms where the axiom contains the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Domain axioms that specify a domain of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Any property characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.)
+     *         whose subject is the specified property</li>
+     *         </ul>
+     *         The set is a copy of the data.
+     * @deprecated use {@link #axioms(OWLDataProperty, Imports)}
      */
     @Deprecated
     default Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property,
@@ -509,14 +548,17 @@ public interface OWLAxiomCollection
      * Gets the axioms that form the definition/description of a data property.
      *
      * @param property The property whose defining axioms are to be retrieved.
-     * @param imports if INCLUDED, include imports closure.
-     * @return A stream of data property axioms that includes <ul> <li>Sub-property axioms where the
-     * sub property is the specified property</li> <li>Equivalent property axioms where the axiom
-     * contains the specified property</li> <li>Disjoint property axioms that contain the specified
-     * property </li> <li>Domain axioms that specify a domain of the specified property </li>
-     * <li>Range axioms that specify a range of the specified property </li> <li>Any property
-     * characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.) whose subject is the
-     * specified property</li> </ul>
+     * @param imports  if INCLUDED, include imports closure.
+     * @return A stream of data property axioms that includes
+     *         <ul>
+     *         <li>Sub-property axioms where the sub property is the specified property</li>
+     *         <li>Equivalent property axioms where the axiom contains the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Domain axioms that specify a domain of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Any property characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.)
+     *         whose subject is the specified property</li>
+     *         </ul>
      */
     default Stream<OWLDataPropertyAxiom> axioms(OWLDataProperty property, Imports imports) {
         return imports.stream(this).flatMap(o -> o.axioms(property));
@@ -526,15 +568,20 @@ public interface OWLAxiomCollection
      * Gets the axioms that form the definition/description of an individual.
      *
      * @param individual The individual whose defining axioms are to be retrieved.
-     * @return A set of individual axioms that includes <ul> <li>Individual type assertions that
-     * assert the type of the specified individual</li> <li>Same individuals axioms that contain the
-     * specified individual </li> <li>Different individuals axioms that contain the specified
-     * individual</li> <li>Object property assertion axioms whose subject is the specified
-     * individual</li> <li>Data property assertion axioms whose subject is the specified
-     * individual</li> <li>Negative object property assertion axioms whose subject is the specified
-     * individual</li> <li>Negative data property assertion axioms whose subject is the specified
-     * individual</li> </ul> The set is a copy of the data.
-     * @deprecated use the stream method
+     * @return A set of individual axioms that includes
+     *         <ul>
+     *         <li>Individual type assertions that assert the type of the specified individual</li>
+     *         <li>Same individuals axioms that contain the specified individual</li>
+     *         <li>Different individuals axioms that contain the specified individual</li>
+     *         <li>Object property assertion axioms whose subject is the specified individual</li>
+     *         <li>Data property assertion axioms whose subject is the specified individual</li>
+     *         <li>Negative object property assertion axioms whose subject is the specified
+     *         individual</li>
+     *         <li>Negative data property assertion axioms whose subject is the specified
+     *         individual</li>
+     *         </ul>
+     *         The set is a copy of the data.
+     * @deprecated use {@link #axioms(OWLIndividual)}
      */
     @Deprecated
     default Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual) {
@@ -545,31 +592,40 @@ public interface OWLAxiomCollection
      * Gets the axioms that form the definition/description of an individual.
      *
      * @param individual The individual whose defining axioms are to be retrieved.
-     * @return A set of individual axioms that includes <ul> <li>Individual type assertions that
-     * assert the type of the specified individual</li> <li>Same individuals axioms that contain the
-     * specified individual </li> <li>Different individuals axioms that contain the specified
-     * individual</li> <li>Object property assertion axioms whose subject is the specified
-     * individual</li> <li>Data property assertion axioms whose subject is the specified
-     * individual</li> <li>Negative object property assertion axioms whose subject is the specified
-     * individual</li> <li>Negative data property assertion axioms whose subject is the specified
-     * individual</li> </ul> The set is a copy of the data.
+     * @return A stream of individual axioms that includes
+     *         <ul>
+     *         <li>Individual type assertions that assert the type of the specified individual</li>
+     *         <li>Same individuals axioms that contain the specified individual</li>
+     *         <li>Different individuals axioms that contain the specified individual</li>
+     *         <li>Object property assertion axioms whose subject is the specified individual</li>
+     *         <li>Data property assertion axioms whose subject is the specified individual</li>
+     *         <li>Negative object property assertion axioms whose subject is the specified
+     *         individual</li>
+     *         <li>Negative data property assertion axioms whose subject is the specified
+     *         individual</li>
+     *         </ul>
      */
     Stream<OWLIndividualAxiom> axioms(OWLIndividual individual);
 
     /**
      * Gets the axioms that form the definition/description of an individual.
      *
-     * @param individual The individual whose defining axioms are to be retrieved.
+     * @param individual            The individual whose defining axioms are to be retrieved.
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return A set of individual axioms that includes <ul> <li>Individual type assertions that
-     * assert the type of the specified individual</li> <li>Same individuals axioms that contain the
-     * specified individual </li> <li>Different individuals axioms that contain the specified
-     * individual</li> <li>Object property assertion axioms whose subject is the specified
-     * individual</li> <li>Data property assertion axioms whose subject is the specified
-     * individual</li> <li>Negative object property assertion axioms whose subject is the specified
-     * individual</li> <li>Negative data property assertion axioms whose subject is the specified
-     * individual</li> </ul> The set is a copy of the data.
-     * @deprecated use the stream method
+     * @return A set of individual axioms that includes
+     *         <ul>
+     *         <li>Individual type assertions that assert the type of the specified individual</li>
+     *         <li>Same individuals axioms that contain the specified individual</li>
+     *         <li>Different individuals axioms that contain the specified individual</li>
+     *         <li>Object property assertion axioms whose subject is the specified individual</li>
+     *         <li>Data property assertion axioms whose subject is the specified individual</li>
+     *         <li>Negative object property assertion axioms whose subject is the specified
+     *         individual</li>
+     *         <li>Negative data property assertion axioms whose subject is the specified
+     *         individual</li>
+     *         </ul>
+     *         The set is a copy of the data.
+     * @deprecated use {@link #axioms(OWLIndividual, Imports)}
      */
     @Deprecated
     default Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual,
@@ -581,30 +637,39 @@ public interface OWLAxiomCollection
      * Gets the axioms that form the definition/description of an individual.
      *
      * @param individual The individual whose defining axioms are to be retrieved.
-     * @param imports if INCLUDED, include imports closure.
-     * @return A stream of individual axioms that includes <ul> <li>Individual type assertions that
-     * assert the type of the specified individual</li> <li>Same individuals axioms that contain the
-     * specified individual </li> <li>Different individuals axioms that contain the specified
-     * individual</li> <li>Object property assertion axioms whose subject is the specified
-     * individual</li> <li>Data property assertion axioms whose subject is the specified
-     * individual</li> <li>Negative object property assertion axioms whose subject is the specified
-     * individual</li> <li>Negative data property assertion axioms whose subject is the specified
-     * individual</li> </ul>
+     * @param imports    if INCLUDED, include imports closure.
+     * @return A stream of individual axioms that includes
+     *         <ul>
+     *         <li>Individual type assertions that assert the type of the specified individual</li>
+     *         <li>Same individuals axioms that contain the specified individual</li>
+     *         <li>Different individuals axioms that contain the specified individual</li>
+     *         <li>Object property assertion axioms whose subject is the specified individual</li>
+     *         <li>Data property assertion axioms whose subject is the specified individual</li>
+     *         <li>Negative object property assertion axioms whose subject is the specified
+     *         individual</li>
+     *         <li>Negative data property assertion axioms whose subject is the specified
+     *         individual</li>
+     *         </ul>
      */
     default Stream<OWLIndividualAxiom> axioms(OWLIndividual individual, Imports imports) {
         return imports.stream(this).flatMap(o -> o.axioms(individual));
     }
 
     /**
-     * Gets the axioms that form the definition/description of an annotation
-     * property.
+     * Gets the axioms that form the definition/description of an annotation property.
      *
      * @param property The property whose definition axioms are to be retrieved
-     * @return A set of axioms that includes <ul> <li>Annotation subpropertyOf axioms where the
-     * specified property is the sub property</li> <li>Annotation property domain axioms that
-     * specify a domain for the specified property</li> <li>Annotation property range axioms that
-     * specify a range for the specified property</li> </ul> The set is a copy of the data.
-     * @deprecated use the stream method
+     * @return A set of axioms that includes
+     *         <ul>
+     *         <li>Annotation subpropertyOf axioms where the specified property is the sub
+     *         property</li>
+     *         <li>Annotation property domain axioms that specify a domain for the specified
+     *         property</li>
+     *         <li>Annotation property range axioms that specify a range for the specified
+     *         property</li>
+     *         </ul>
+     *         The set is a copy of the data.
+     * @deprecated use {@link #axioms(OWLAnnotationProperty)}
      */
     @Deprecated
     default Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property) {
@@ -612,37 +677,46 @@ public interface OWLAxiomCollection
     }
 
     /**
-     * Gets the axioms that form the definition/description of an annotation
-     * property.
+     * Gets the axioms that form the definition/description of an annotation property.
      *
      * @param property The property whose definition axioms are to be retrieved
-     * @return stream of axioms that includes <ul> <li>Annotation subpropertyOf axioms where the
-     * specified property is the sub property</li> <li>Annotation property domain axioms that
-     * specify a domain for the specified property</li> <li>Annotation property range axioms that
-     * specify a range for the specified property</li> </ul>
+     * @return stream of axioms that includes
+     *         <ul>
+     *         <li>Annotation subpropertyOf axioms where the specified property is the sub
+     *         property</li>
+     *         <li>Annotation property domain axioms that specify a domain for the specified
+     *         property</li>
+     *         <li>Annotation property range axioms that specify a range for the specified
+     *         property</li>
+     *         </ul>
      */
     default Stream<OWLAnnotationAxiom> axioms(OWLAnnotationProperty property) {
-        return Stream
-            .of(axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)
-                    .filter(a -> a.getSubProperty().equals(property)),
-                axioms(AxiomType.ANNOTATION_PROPERTY_RANGE)
-                    .filter(a -> a.getProperty().equals(property)),
-                axioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN)
-                    .filter(a -> a.getProperty().equals(property)))
+        return Stream.of(
+            axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)
+                .filter(a -> a.getSubProperty().equals(property)),
+            axioms(AxiomType.ANNOTATION_PROPERTY_RANGE)
+                .filter(a -> a.getProperty().equals(property)),
+            axioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN)
+                .filter(a -> a.getProperty().equals(property)))
             .flatMap(x -> x);
     }
 
     /**
-     * Gets the axioms that form the definition/description of an annotation
-     * property.
+     * Gets the axioms that form the definition/description of an annotation property.
      *
-     * @param property The property whose definition axioms are to be retrieved
+     * @param property              The property whose definition axioms are to be retrieved
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return A set of axioms that includes <ul> <li>Annotation subpropertyOf axioms where the
-     * specified property is the sub property</li> <li>Annotation property domain axioms that
-     * specify a domain for the specified property</li> <li>Annotation property range axioms that
-     * specify a range for the specified property</li> </ul> The set is a copy of the data.
-     * @deprecated use the stream method
+     * @return A set of axioms that includes
+     *         <ul>
+     *         <li>Annotation subpropertyOf axioms where the specified property is the sub
+     *         property</li>
+     *         <li>Annotation property domain axioms that specify a domain for the specified
+     *         property</li>
+     *         <li>Annotation property range axioms that specify a range for the specified
+     *         property</li>
+     *         </ul>
+     *         The set is a copy of the data.
+     * @deprecated use {@link #axioms(OWLAnnotationProperty, Imports)}
      */
     @Deprecated
     default Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property,
@@ -651,15 +725,19 @@ public interface OWLAxiomCollection
     }
 
     /**
-     * Gets the axioms that form the definition/description of an annotation
-     * property.
+     * Gets the axioms that form the definition/description of an annotation property.
      *
      * @param property The property whose definition axioms are to be retrieved
-     * @param imports if INCLUDED, include imports closure.
-     * @return A stream of axioms that includes <ul> <li>Annotation subpropertyOf axioms where the
-     * specified property is the sub property</li> <li>Annotation property domain axioms that
-     * specify a domain for the specified property</li> <li>Annotation property range axioms that
-     * specify a range for the specified property</li> </ul>
+     * @param imports  if INCLUDED, include imports closure.
+     * @return A stream of axioms that includes
+     *         <ul>
+     *         <li>Annotation subpropertyOf axioms where the specified property is the sub
+     *         property</li>
+     *         <li>Annotation property domain axioms that specify a domain for the specified
+     *         property</li>
+     *         <li>Annotation property range axioms that specify a range for the specified
+     *         property</li>
+     *         </ul>
      */
     default Stream<OWLAnnotationAxiom> axioms(OWLAnnotationProperty property, Imports imports) {
         return imports.stream(this).flatMap(o -> o.axioms(property));
@@ -670,8 +748,8 @@ public interface OWLAxiomCollection
      *
      * @param datatype The datatype
      * @return The set of datatype definition axioms for the specified datatype. The set is a copy
-     * of the data.
-     * @deprecated use the stream method
+     *         of the data.
+     * @deprecated use {@link #axioms(OWLDatatype)}
      */
     @Deprecated
     default Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype) {
@@ -689,11 +767,11 @@ public interface OWLAxiomCollection
     /**
      * Gets the datatype definition axioms for the specified datatype.
      *
-     * @param datatype The datatype
+     * @param datatype              The datatype
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return The set of datatype definition axioms for the specified datatype. The set is a copy
-     * of the data.
-     * @deprecated use the stream method
+     *         of the data.
+     * @deprecated use {@link #axioms(OWLDatatype, Imports)}
      */
     @Deprecated
     default Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype,
@@ -705,9 +783,9 @@ public interface OWLAxiomCollection
      * Gets the datatype definition axioms for the specified datatype.
      *
      * @param datatype The datatype
-     * @param imports if INCLUDED, include imports closure.
+     * @param imports  if INCLUDED, include imports closure.
      * @return The set of datatype definition axioms for the specified datatype. The set is a copy
-     * of the data.
+     *         of the data.
      */
     default Stream<OWLDatatypeDefinitionAxiom> axioms(OWLDatatype datatype, Imports imports) {
         return imports.stream(this).flatMap(o -> o.datatypeDefinitions(datatype));

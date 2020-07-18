@@ -45,7 +45,7 @@ public interface HasAnnotations {
 
     /**
      * @param p filter predicate for annotations. Can be used to match the annotation property or
-     *        the annotation value
+     *          the annotation value
      * @return a stream of OWLAnnotations on this object, with filter applied. This will only
      *         include the annotations contained in this object, not the value of annotation
      *         assertion axioms in an ontology or in other ontologies. Use the EntitySearcher
@@ -79,7 +79,7 @@ public interface HasAnnotations {
      *         that affect the annotations on this object will not change the returned set. Note:
      *         for iterating over this set of annotations, using the annotations() stream is more
      *         efficient.
-     * @deprecated use the stream method
+     * @deprecated use {@link #annotations()}
      */
     @Deprecated
     default Set<OWLAnnotation> getAnnotations() {
@@ -90,10 +90,10 @@ public interface HasAnnotations {
      * Gets the annotations whose annotation property is equal to {@code annotationProperty}.
      *
      * @param annotationProperty The annotation property that will be equal to the annotation
-     *        property of each returned annotation.
+     *                           property of each returned annotation.
      * @return A set of annotations whose annotation properties is equals to {@code
      * annotationProperty}.
-     * @deprecated use the stream method
+     * @deprecated use {@link #annotations(OWLAnnotationProperty)}
      */
     @Deprecated
     default Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
