@@ -103,7 +103,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     /**
      * Determines if the signature contains the specified entity.
      * 
-     * @param owlEntity The entity
+     * @param owlEntity             The entity
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return {@code true} if the signature or the import closure contains a reference to the
      *         specified entity.
@@ -114,7 +114,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     /**
      * Determines if the signature contains an entity with the specified IRI.
      * 
-     * @param entityIRI The IRI to test for.
+     * @param entityIRI             The IRI to test for.
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an entity with the specified
      *         IRI.
@@ -126,7 +126,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     /**
      * Determines if the signature contains an OWLClass that has the specified IRI.
      * 
-     * @param owlClassIRI The IRI of the class to check for
+     * @param owlClassIRI           The IRI of the class to check for
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an entity with the specified
      *         IRI.
@@ -137,7 +137,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     /**
      * Determines if the signature contains an OWLObjectProperty that has the specified IRI.
      * 
-     * @param owlObjectPropertyIRI The IRI of the OWLObjectProperty to check for
+     * @param owlObjectPropertyIRI  The IRI of the OWLObjectProperty to check for
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an object property with the
      *         specified IRI.
@@ -148,7 +148,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     /**
      * Determines if the signature contains an OWLDataProperty that has the specified IRI.
      * 
-     * @param owlDataPropertyIRI The IRI of the OWLDataProperty to check for
+     * @param owlDataPropertyIRI    The IRI of the OWLDataProperty to check for
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains a data property with the
      *         specified IRI.
@@ -160,7 +160,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * Determines if the signature contains an OWLAnnotationProperty that has the specified IRI.
      * 
      * @param owlAnnotationPropertyIRI The IRI of the OWLAnnotationProperty to check for
-     * @param includeImportsClosure if INCLUDED, include imports closure.
+     * @param includeImportsClosure    if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an annotation property with the
      *         specified IRI.
      */
@@ -170,7 +170,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     /**
      * Determines if the signature contains an OWLDatatype that has the specified IRI.
      * 
-     * @param owlDatatypeIRI The IRI of the OWLDatatype to check for
+     * @param owlDatatypeIRI        The IRI of the OWLDatatype to check for
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains a datatype with the specified
      *         IRI.
@@ -181,7 +181,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     /**
      * Determines if the signature contains an OWLNamedIndividual that has the specified IRI.
      * 
-     * @param owlIndividualIRI The IRI of the OWLNamedIndividual to check for
+     * @param owlIndividualIRI      The IRI of the OWLNamedIndividual to check for
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an individual with the specified
      *         IRI.
@@ -291,7 +291,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * import closure - e.g., whether an ontology has classes, object propertyies, or named
      * individuals in its signature. Anonymous individuals are not included.
      * 
-     * @param type type of entity to check
+     * @param type                  type of entity to check
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if entities of the specified type are in the signature
      */
@@ -300,7 +300,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     /**
      * Gets the entities in the signature that have the specified IRI.
      * 
-     * @param iri The IRI of the entitied to be retrieved.
+     * @param iri                   The IRI of the entitied to be retrieved.
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return the set of entities with the specified IRI, optionally including the ones in the
      *         import closure.
@@ -317,10 +317,10 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     Set<IRI> getPunnedIRIs(@Nonnull Imports includeImportsClosure);
 
     /**
-     * @param entity entyty to check
+     * @param entity                entyty to check
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if entity is referenced
-     * @deprecated use containsEntityInSignature
+     * @deprecated use {@link #containsEntityInSignature(OWLEntity, Imports)}
      */
     @Deprecated
     boolean containsReference(@Nonnull OWLEntity entity, @Nonnull Imports includeImportsClosure);
@@ -328,7 +328,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     /**
      * @param entity entyty to check
      * @return true if entity is referenced
-     * @deprecated use containsEntityInSignature
+     * @deprecated use {@link #containsEntityInSignature(OWLEntity)}
      */
     @Deprecated
     boolean containsReference(@Nonnull OWLEntity entity);

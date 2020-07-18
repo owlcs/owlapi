@@ -33,14 +33,14 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
  *         10-Sep-2007
- * @deprecated use org.semanticweb.owlapi.apibinding.OWLManager#createManchesterParser
+ * @deprecated use {@link org.semanticweb.owlapi.apibinding.OWLManager#createManchesterParser()}
  */
 @Deprecated
 public class ManchesterOWLSyntaxEditorParser extends ManchesterOWLSyntaxParserImpl {
 
     /**
      * @param dataFactory dataFactory
-     * @param s s
+     * @param s           s
      */
     public ManchesterOWLSyntaxEditorParser(@Nonnull OWLDataFactory dataFactory, @Nonnull String s) {
         this(new OWLOntologyLoaderConfiguration(), dataFactory, s);
@@ -48,8 +48,8 @@ public class ManchesterOWLSyntaxEditorParser extends ManchesterOWLSyntaxParserIm
 
     /**
      * @param configuration configuration
-     * @param dataFactory dataFactory
-     * @param s s
+     * @param dataFactory   dataFactory
+     * @param s             s
      */
     public ManchesterOWLSyntaxEditorParser(final OWLOntologyLoaderConfiguration configuration,
         @Nonnull OWLDataFactory dataFactory, @Nonnull String s) {

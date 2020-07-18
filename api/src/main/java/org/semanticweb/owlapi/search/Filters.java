@@ -41,35 +41,30 @@ public class Filters {
 
     /**
      * @author ignazio
-     * @param <A>
-     *        axiom type
+     * @param <A> axiom type
      */
-    public abstract static class AxiomFilter<A extends OWLAxiom> implements
-            OWLAxiomSearchFilter {
+    public abstract static class AxiomFilter<A extends OWLAxiom> implements OWLAxiomSearchFilter {
 
         private static final long serialVersionUID = 40000L;
         @Nonnull
         private final Collection<AxiomType<?>> types;
 
         /**
-         * @param type
-         *        axiom type to filter on
+         * @param type axiom type to filter on
          */
         public AxiomFilter(AxiomType<?> type) {
-            types = CollectionFactory.<AxiomType<?>> list(type);
+            types = CollectionFactory.<AxiomType<?>>list(type);
         }
 
         /**
-         * @param types
-         *        axiom types to filter on
+         * @param types axiom types to filter on
          */
         public AxiomFilter(@Nonnull Collection<AxiomType<?>> types) {
             this.types = types;
         }
 
         /**
-         * @param types
-         *        axiom types to filter on
+         * @param types axiom types to filter on
          */
         public AxiomFilter(@Nonnull AxiomType<?>... types) {
             this.types = CollectionFactory.list(types);
@@ -88,11 +83,10 @@ public class Filters {
         }
 
         /**
-         * Override this method to select what part of the axiom should be
-         * compared with the input key
+         * Override this method to select what part of the axiom should be compared with the input
+         * key
          * 
-         * @param axiom
-         *        axiom to check
+         * @param axiom axiom to check
          * @return Object to compare to the input key
          */
         @Nonnull
@@ -100,247 +94,231 @@ public class Filters {
     }
 
     /**
-     * filter returning subannotation axioms where the super property matches
-     * the input key.
+     * filter returning subannotation axioms where the super property matches the input key.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter subAnnotationWithSuper = new AxiomFilter<OWLSubAnnotationPropertyOfAxiom>(
-            AxiomType.SUB_ANNOTATION_PROPERTY_OF) {
+    public static final OWLAxiomSearchFilter subAnnotationWithSuper =
+        new AxiomFilter<OWLSubAnnotationPropertyOfAxiom>(AxiomType.SUB_ANNOTATION_PROPERTY_OF) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(
-                @Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
-            return axiom.getSuperProperty();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
+                return axiom.getSuperProperty();
+            }
+        };
     /**
-     * filter returning subannotation axioms where the sub property matches the
-     * input key.
+     * filter returning subannotation axioms where the sub property matches the input key.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter subAnnotationWithSub = new AxiomFilter<OWLSubAnnotationPropertyOfAxiom>(
-            AxiomType.SUB_ANNOTATION_PROPERTY_OF) {
+    public static final OWLAxiomSearchFilter subAnnotationWithSub =
+        new AxiomFilter<OWLSubAnnotationPropertyOfAxiom>(AxiomType.SUB_ANNOTATION_PROPERTY_OF) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(
-                @Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
-            return axiom.getSubProperty();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
+                return axiom.getSubProperty();
+            }
+        };
     /**
-     * filter returning subclass axioms where the super class matches the input
-     * key.
+     * filter returning subclass axioms where the super class matches the input key.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter subClassWithSuper = new AxiomFilter<OWLSubClassOfAxiom>(
-            AxiomType.SUBCLASS_OF) {
+    public static final OWLAxiomSearchFilter subClassWithSuper =
+        new AxiomFilter<OWLSubClassOfAxiom>(AxiomType.SUBCLASS_OF) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(@Nonnull OWLSubClassOfAxiom axiom) {
-            return axiom.getSuperClass();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLSubClassOfAxiom axiom) {
+                return axiom.getSuperClass();
+            }
+        };
     /**
-     * filter returning subclass axioms where the sub class matches the input
-     * key.
+     * filter returning subclass axioms where the sub class matches the input key.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter subClassWithSub = new AxiomFilter<OWLSubClassOfAxiom>(
-            AxiomType.SUBCLASS_OF) {
+    public static final OWLAxiomSearchFilter subClassWithSub =
+        new AxiomFilter<OWLSubClassOfAxiom>(AxiomType.SUBCLASS_OF) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(@Nonnull OWLSubClassOfAxiom axiom) {
-            return axiom.getSubClass();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLSubClassOfAxiom axiom) {
+                return axiom.getSubClass();
+            }
+        };
     /**
-     * filter returning sub object property axioms where the super property
-     * matches the input key.
+     * filter returning sub object property axioms where the super property matches the input key.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter subObjectPropertyWithSuper = new AxiomFilter<OWLSubObjectPropertyOfAxiom>(
-            AxiomType.SUB_OBJECT_PROPERTY) {
+    public static final OWLAxiomSearchFilter subObjectPropertyWithSuper =
+        new AxiomFilter<OWLSubObjectPropertyOfAxiom>(AxiomType.SUB_OBJECT_PROPERTY) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
-            return axiom.getSuperProperty();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
+                return axiom.getSuperProperty();
+            }
+        };
     /**
-     * filter returning sub object property axioms where the sub property
-     * matches the input key.
+     * filter returning sub object property axioms where the sub property matches the input key.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter subObjectPropertyWithSub = new AxiomFilter<OWLSubObjectPropertyOfAxiom>(
-            AxiomType.SUB_OBJECT_PROPERTY) {
+    public static final OWLAxiomSearchFilter subObjectPropertyWithSub =
+        new AxiomFilter<OWLSubObjectPropertyOfAxiom>(AxiomType.SUB_OBJECT_PROPERTY) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
-            return axiom.getSubProperty();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
+                return axiom.getSubProperty();
+            }
+        };
     /**
-     * filter returning sub data property axioms where the super property
-     * matches the input key.
+     * filter returning sub data property axioms where the super property matches the input key.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter subDataPropertyWithSuper = new AxiomFilter<OWLSubDataPropertyOfAxiom>(
-            AxiomType.SUB_DATA_PROPERTY) {
+    public static final OWLAxiomSearchFilter subDataPropertyWithSuper =
+        new AxiomFilter<OWLSubDataPropertyOfAxiom>(AxiomType.SUB_DATA_PROPERTY) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
-            return axiom.getSuperProperty();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
+                return axiom.getSuperProperty();
+            }
+        };
     /**
-     * filter returning sub data property axioms where the sub property matches
-     * the input key.
+     * filter returning sub data property axioms where the sub property matches the input key.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter subDataPropertyWithSub = new AxiomFilter<OWLSubDataPropertyOfAxiom>(
-            AxiomType.SUB_DATA_PROPERTY) {
+    public static final OWLAxiomSearchFilter subDataPropertyWithSub =
+        new AxiomFilter<OWLSubDataPropertyOfAxiom>(AxiomType.SUB_DATA_PROPERTY) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
-            return axiom.getSubProperty();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
+                return axiom.getSubProperty();
+            }
+        };
     /**
-     * filter returning datatype definition axioms where the datatype matches
-     * the input key.
+     * filter returning datatype definition axioms where the datatype matches the input key.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter datatypeDefFilter = new AxiomFilter<OWLDatatypeDefinitionAxiom>(
-            AxiomType.DATATYPE_DEFINITION) {
+    public static final OWLAxiomSearchFilter datatypeDefFilter =
+        new AxiomFilter<OWLDatatypeDefinitionAxiom>(AxiomType.DATATYPE_DEFINITION) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
-            return axiom.getDatatype();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
+                return axiom.getDatatype();
+            }
+        };
     /**
-     * filter returning annotation property range axioms where the property
-     * matches the input key.
+     * filter returning annotation property range axioms where the property matches the input key.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter apRangeFilter = new AxiomFilter<OWLAnnotationPropertyRangeAxiom>(
-            AxiomType.ANNOTATION_PROPERTY_RANGE) {
+    public static final OWLAxiomSearchFilter apRangeFilter =
+        new AxiomFilter<OWLAnnotationPropertyRangeAxiom>(AxiomType.ANNOTATION_PROPERTY_RANGE) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(
-                @Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
-            return axiom.getProperty();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
+                return axiom.getProperty();
+            }
+        };
     /**
-     * filter returning annotation property domain axioms where the property
-     * matches the input key.
+     * filter returning annotation property domain axioms where the property matches the input key.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter apDomainFilter = new AxiomFilter<OWLAnnotationPropertyDomainAxiom>(
-            AxiomType.ANNOTATION_PROPERTY_DOMAIN) {
+    public static final OWLAxiomSearchFilter apDomainFilter =
+        new AxiomFilter<OWLAnnotationPropertyDomainAxiom>(AxiomType.ANNOTATION_PROPERTY_DOMAIN) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(
-                @Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
-            return axiom.getProperty();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
+                return axiom.getProperty();
+            }
+        };
     /**
-     * filter returning annotation assertions where the subject matches the
-     * input key.
+     * filter returning annotation assertions where the subject matches the input key.
      * 
-     * @deprecated use the OWLOntology:getAnnotationAssertionAxioms() in place
-     *             of this filter as it is much faster, thanks to indexing.
+     * @deprecated use
+     *             {@link org.semanticweb.owlapi.model.OWLOntology#getAnnotationAssertionAxioms()}
+     *             in place of this filter as it is much faster, thanks to indexing.
      */
     @Deprecated
     @Nonnull
-    public static final OWLAxiomSearchFilter annotations = new AxiomFilter<OWLAnnotationAssertionAxiom>(
-            AxiomType.ANNOTATION_ASSERTION) {
+    public static final OWLAxiomSearchFilter annotations =
+        new AxiomFilter<OWLAnnotationAssertionAxiom>(AxiomType.ANNOTATION_ASSERTION) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Nonnull
-        @Override
-        protected Object axiomValue(@Nonnull OWLAnnotationAssertionAxiom axiom) {
-            return axiom.getSubject();
-        }
-    };
+            @Nonnull
+            @Override
+            protected Object axiomValue(@Nonnull OWLAnnotationAssertionAxiom axiom) {
+                return axiom.getSubject();
+            }
+        };
     /**
-     * filter returning all axioms included in TBox or RBox. No assertions,
-     * nonlogical axioms or SWRL rules.
+     * filter returning all axioms included in TBox or RBox. No assertions, nonlogical axioms or
+     * SWRL rules.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter axiomsFromTBoxAndRBox = new AxiomFilter<OWLAxiom>(
-            AxiomType.TBoxAndRBoxAxiomTypes) {
+    public static final OWLAxiomSearchFilter axiomsFromTBoxAndRBox =
+        new AxiomFilter<OWLAxiom>(AxiomType.TBoxAndRBoxAxiomTypes) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Override
-        protected Object axiomValue(OWLAxiom axiom) {
-            return axiom;
-        }
+            @Override
+            protected Object axiomValue(OWLAxiom axiom) {
+                return axiom;
+            }
 
-        @Override
-        public boolean pass(OWLAxiom axiom, Object key) {
-            // for this filter, accept all axioms
-            return true;
-        }
-    };
+            @Override
+            public boolean pass(OWLAxiom axiom, Object key) {
+                // for this filter, accept all axioms
+                return true;
+            }
+        };
     /**
-     * filter returning all axioms not in TBox or RBox; therefore, ABox axioms,
-     * nonlogical axioms and SWRL rules.
+     * filter returning all axioms not in TBox or RBox; therefore, ABox axioms, nonlogical axioms
+     * and SWRL rules.
      */
     @Nonnull
-    public static final OWLAxiomSearchFilter axiomsNotInTBoxOrRBox = new AxiomFilter<OWLAxiom>(
-            AxiomType.AXIOM_TYPES) {
+    public static final OWLAxiomSearchFilter axiomsNotInTBoxOrRBox =
+        new AxiomFilter<OWLAxiom>(AxiomType.AXIOM_TYPES) {
 
-        private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-        @Override
-        protected Object axiomValue(OWLAxiom axiom) {
-            return axiom;
-        }
+            @Override
+            protected Object axiomValue(OWLAxiom axiom) {
+                return axiom;
+            }
 
-        @Override
-        public boolean pass(@Nonnull OWLAxiom axiom, Object key) {
-            // for this filter, only accept the axioms whose types are not in
-            // tbox or rbox
-            return !AxiomType.TBoxAndRBoxAxiomTypes.contains(axiom
-                    .getAxiomType());
-        }
-    };
+            @Override
+            public boolean pass(@Nonnull OWLAxiom axiom, Object key) {
+                // for this filter, only accept the axioms whose types are not in
+                // tbox or rbox
+                return !AxiomType.TBoxAndRBoxAxiomTypes.contains(axiom.getAxiomType());
+            }
+        };
 }

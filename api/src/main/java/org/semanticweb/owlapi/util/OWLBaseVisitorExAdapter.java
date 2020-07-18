@@ -15,16 +15,12 @@ package org.semanticweb.owlapi.util;
 import javax.annotation.Nonnull;
 
 /**
- * Provides a base for visitorEx adapters. The adapter can be set up to return a
- * default value.
+ * Provides a base for visitorEx adapters. The adapter can be set up to return a default value.
  * 
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 4.0.0
- * @param <O>
- *        visitor return type
- * @param <I>
- *        type accepting the visitor
+ * @param <O> visitor return type
+ * @param <I> type accepting the visitor
  */
 public class OWLBaseVisitorExAdapter<O, I> {
 
@@ -32,13 +28,12 @@ public class OWLBaseVisitorExAdapter<O, I> {
     private final O defaultReturnValue;
 
     /**
-     * Gets the default return value for this visitor. By default, the default
-     * is {@code null}, but a fixed value (independent of the specified
-     * {@code OWLObject} {@code object}) can be specified in the constructor
+     * Gets the default return value for this visitor. By default, the default is {@code null}, but
+     * a fixed value (independent of the specified {@code OWLObject} {@code object}) can be
+     * specified in the constructor
      * {@link org.semanticweb.owlapi.util.OWLBaseVisitorExAdapter#OWLBaseVisitorExAdapter(Object)}
      * 
-     * @param object
-     *        The object that was visited.
+     * @param object The object that was visited.
      * @return The default return value
      */
     @Nonnull
@@ -47,10 +42,9 @@ public class OWLBaseVisitorExAdapter<O, I> {
     }
 
     /**
-     * @param object
-     *        object to visit
+     * @param object object to visit
      * @return default value
-     * @deprecated use doDefault() instead
+     * @deprecated use {@link #doDefault(Object)} instead
      */
     @Deprecated
     @Nonnull
@@ -59,8 +53,7 @@ public class OWLBaseVisitorExAdapter<O, I> {
     }
 
     /**
-     * @param defaultReturnValue
-     *        default return value
+     * @param defaultReturnValue default return value
      */
     public OWLBaseVisitorExAdapter(@Nonnull O defaultReturnValue) {
         this.defaultReturnValue = defaultReturnValue;

@@ -15,19 +15,16 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <V>
- *        the value type
+ * @param <V> the value type
  */
-public interface OWLHasValueRestriction<V extends OWLObject> extends
-        OWLRestriction, HasFiller<V> {
+public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestriction, HasFiller<V> {
 
     /**
-     * Gets the value which is the filler for this restriction. In the case of
-     * an object restriction this will be an individual, in the case of a data
-     * restriction this will be a constant (data value).
+     * Gets the value which is the filler for this restriction. In the case of an object restriction
+     * this will be an individual, in the case of a data restriction this will be a constant (data
+     * value).
      * 
      * @return the value
      */
@@ -36,18 +33,18 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends
     V getFiller();
 
     /**
-     * @deprecated use getFiller instead
+     * @deprecated use {@link #getFiller()} instead
      * @return the value
      */
     @Deprecated
     V getValue();
 
     /**
-     * A convenience method that obtains this restriction as an existential
-     * restriction with a nominal filler.
+     * A convenience method that obtains this restriction as an existential restriction with a
+     * nominal filler.
      * 
-     * @return The existential equivalent of this value restriction.
-     *         simp(HasValue(p a)) = some(p {a})
+     * @return The existential equivalent of this value restriction. simp(HasValue(p a)) = some(p
+     *         {a})
      */
     @Nonnull
     OWLClassExpression asSomeValuesFrom();
