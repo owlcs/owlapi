@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * Represents an OWL 2 <a href="http://www.w3.org/TR/owl2-syntax/#Ontologies">Ontology</a> in the
  * OWL 2 specification. <br>
  * An {@code OWLOntology} consists of a possibly empty set of
- * {@link org.semanticweb.owlapi.model.OWLAxiom}s and a possibly empty set of
+ * {@link org.semanticweb.owlapi6.model.OWLAxiom}s and a possibly empty set of
  * {@link OWLAnnotation}s. An ontology can have an ontology IRI which can be used to identify the
  * ontology. If it has an ontology IRI then it may also have an ontology version IRI. Since OWL 2,
  * an ontology need not have an ontology IRI. (See the
@@ -164,30 +164,26 @@ public interface OWLOntology
 
     // Imported ontologies
     /**
-     * Gets the set of <em>loaded</em> ontologies that this ontology is related to via the
+     * Gets the stream of <em>loaded</em> ontologies that this ontology is related to via the
      * <em>transitive closure</em> of the
      * <a href="http://www.w3.org/TR/owl2-syntax/#Imports">directlyImports relation</a>.<br>
      * For example, if this ontology imports ontology B, and ontology B imports ontology C, then
-     * this method will return the set consisting of ontology B and ontology C.
+     * this method will return the stream consisting of ontology B and ontology C.
      *
-     * @return The set of ontologies that this ontology is related to via the transitive closure of
-     *         the directlyImports relation. The set that is returned is a copy - it will not be
-     *         updated if the ontology changes. It is therefore safe to apply changes to this
-     *         ontology while iterating over this set.
+     * @return The stream of ontologies that this ontology is related to via the transitive closure
+     *         of the directlyImports relation.
      * @throws UnknownOWLOntologyException if this ontology is no longer managed by its manager
      *                                     because it was removed from the manager.
      */
     Stream<OWLOntology> imports();
 
     /**
-     * Gets the set of imports declarations for this ontology. The set returned represents the set
-     * of IRIs that correspond to the set of IRIs in an ontology's directlyImportsDocuments (see
+     * Gets the stream of imports declarations for this ontology. The stream returned represents the
+     * set of IRIs that correspond to the set of IRIs in an ontology's directlyImportsDocuments (see
      * Section 3 in the OWL 2 structural specification).
      *
      * @return Sorted stream of imports declarations that correspond to the set of ontology document
-     *         IRIs that are directly imported by this ontology. The set that is returned is a copy
-     *         - it will not be updated if the ontology changes. It is therefore safe to apply
-     *         changes to this ontology while iterating over this set.
+     *         IRIs that are directly imported by this ontology.
      */
     Stream<OWLImportsDeclaration> importsDeclarations();
 
@@ -206,9 +202,7 @@ public interface OWLOntology
      * AxiomType::TBoxAxiomTypes.
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
-     * @return A set containing the axioms which are of the specified type. The set that is returned
-     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
-     *         updated if the ontology changes.
+     * @return A stream containing the axioms which are of the specified type.
      */
     Stream<OWLAxiom> tboxAxioms(Imports includeImportsClosure);
 
@@ -217,9 +211,7 @@ public interface OWLOntology
      * AxiomType::ABoxAxiomTypes.
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
-     * @return A set containing the axioms which are of the specified type. The set that is returned
-     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
-     *         updated if the ontology changes.
+     * @return A stream containing the axioms which are of the specified type.
      */
     Stream<OWLAxiom> aboxAxioms(Imports includeImportsClosure);
 
@@ -228,23 +220,19 @@ public interface OWLOntology
      * AxiomType::RBoxAxiomTypes.
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
-     * @return A set containing the axioms which are of the specified type. The set that is returned
-     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
-     *         updated if the ontology changes.
+     * @return A stream containing the axioms which are of the specified type.
      */
     Stream<OWLAxiom> rboxAxioms(Imports includeImportsClosure);
 
     /**
-     * Gets the set of general axioms in this ontology. This includes:
+     * Gets the stream of general axioms in this ontology. This includes:
      * <ul>
      * <li>Subclass axioms that have a complex class as the subclass</li>
      * <li>Equivalent class axioms that don't contain any named classes ( {@code OWLClass}es)</li>
      * <li>Disjoint class axioms that don't contain any named classes ( {@code OWLClass}es)</li>
      * </ul>
      *
-     * @return The sorted set that is returned is a copy of the axioms in the ontology - it will not
-     *         be updated if the ontology changes. It is therefore safe to apply changes to this
-     *         ontology while iterating over this set.
+     * @return The stream of general class axioms in the ontology.
      */
     Stream<OWLClassAxiom> generalClassAxioms();
 
@@ -257,9 +245,7 @@ public interface OWLOntology
      * OWL 2 Structural Specification</a>)
      *
      * @param imports if INCLUDED, the imports closure is included.
-     * @return A set of {@code OWLEntity} objects. The set that is returned is a copy - it will not
-     *         be updated if the ontology changes. It is therefore safe to apply changes to this
-     *         ontology while iterating over this set.
+     * @return A stream of {@code OWLEntity} objects.
      * @see #classesInSignature()
      * @see #objectPropertiesInSignature()
      * @see #dataPropertiesInSignature()
@@ -277,9 +263,7 @@ public interface OWLOntology
      * OWL 2 Structural Specification</a>)
      *
      * @param imports if INCLUDED, the imports closure is included.
-     * @return A set of {@code OWLEntity} objects. The set that is returned is a copy - it will not
-     *         be updated if the ontology changes. It is therefore safe to apply changes to this
-     *         ontology while iterating over this set.
+     * @return A stream of {@code OWLEntity} objects.
      * @see #classesInSignature()
      * @see #objectPropertiesInSignature()
      * @see #dataPropertiesInSignature()

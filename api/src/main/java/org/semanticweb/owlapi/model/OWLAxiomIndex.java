@@ -23,8 +23,8 @@ import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.utilities.OWLAxiomSearchFilter;
 
 /**
- * Axiom accessor methods - all OWLOntology methods that return sets of axioms of a certain type or
- * with a certain entity referred.
+ * Axiom accessor methods - all OWLOntology methods that return streams of axioms of a certain type
+ * or with a certain entity referred.
  *
  * @author ignazio
  * @since 4.0.0
@@ -35,14 +35,14 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * Generic search method: returns all axioms which refer entity, are instances of type,
      * optionally including the imports closure in the results.
      *
-     * @param <T> type of returned axioms
-     * @param type type of axioms
-     * @param entity referred entity (OWLPrimitive or property/class expression)
-     * @param imports if INCLUDED, include imports closure.
+     * @param <T>            type of returned axioms
+     * @param type           type of axioms
+     * @param entity         referred entity (OWLPrimitive or property/class expression)
+     * @param imports        if INCLUDED, include imports closure.
      * @param forSubPosition for sub axioms (subclass, subproperty), the value specifies whether
-     *        entity should appear as sub or super entity in the axioms returned. For axiom types
-     *        that have no sub/super entites, this parameter is ignored.
-     * @return set of axioms satisfying the conditions. The set is a copy of the data.
+     *                       entity should appear as sub or super entity in the axioms returned. For
+     *                       axiom types that have no sub/super entities, this parameter is ignored.
+     * @return stream of axioms satisfying the conditions.
      */
     default <T extends OWLAxiom> Stream<T> axioms(Class<T> type, OWLObject entity, Imports imports,
         Navigation forSubPosition) {
@@ -54,13 +54,13 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * Generic search method: returns all axioms which refer entity, are instances of type,
      * optionally including the imports closure in the results.
      *
-     * @param <T> type of returned axioms
-     * @param type type of axioms
-     * @param entity referred entity (OWLPrimitive or property/class expression)
+     * @param <T>            type of returned axioms
+     * @param type           type of axioms
+     * @param entity         referred entity (OWLPrimitive or property/class expression)
      * @param forSubPosition for sub axioms (subclass, subproperty), the value specifies whether
-     *        entity should appear as sub or super entity in the axioms returned. For axiom types
-     *        that have no sub/super entites, this parameter is ignored.
-     * @return set of axioms satisfying the conditions. The set is a copy of the data.
+     *                       entity should appear as sub or super entity in the axioms returned. For
+     *                       axiom types that have no sub/super entities, this parameter is ignored.
+     * @return stream of axioms satisfying the conditions.
      */
     default <T extends OWLAxiom> Stream<T> axioms(Class<T> type, OWLObject entity,
         Navigation forSubPosition) {
@@ -71,12 +71,12 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * Generic filter type for further refining search by axiom type. The returned axioms are both
      * belonging to one of the types listed by the filter and satisfying its pass condition.
      *
-     * @param <T> type of returned axioms
-     * @param filter the filter to match
-     * @param key the key. Its type is generic and it is used only by the filter.
+     * @param <T>                   type of returned axioms
+     * @param filter                the filter to match
+     * @param key                   the key. Its type is generic and it is used only by the filter.
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return a collection of axioms matching the request. The axioms are collected from a set,
-     *         therefore the collection contains no duplicates. It is a copy of the data.
+     * @return a stream of axioms matching the request. The axioms are collected from a set,
+     *         therefore it contains no duplicates.
      */
     <T extends OWLAxiom> Stream<T> axioms(OWLAxiomSearchFilter filter, Object key,
         Imports includeImportsClosure);
@@ -85,11 +85,11 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * Generic filter type for further refining search by axiom type. The returned axioms are both
      * belonging to one of the types listed by the filter and satisfying its pass condition.
      *
-     * @param <T> type of returned axioms
+     * @param <T>    type of returned axioms
      * @param filter the filter to match
-     * @param key the key. Its type is generic and it is used only by the filter.
-     * @return a collection of axioms matching the request. The axioms are collected from a set,
-     *         therefore the collection contains no duplicates. It is a copy of the data.
+     * @param key    the key. Its type is generic and it is used only by the filter.
+     * @return a stream of axioms matching the request. The axioms are collected from a set,
+     *         therefore it contains no duplicates.
      */
     <T extends OWLAxiom> Stream<T> axioms(OWLAxiomSearchFilter filter, Object key);
 
@@ -98,7 +98,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * true if there is at least one result matching the filter.
      *
      * @param filter the filter to match
-     * @param key the key. Its type is generic and it is used only by the filter.
+     * @param key    the key. Its type is generic and it is used only by the filter.
      * @return true if there is at least one result matching the filter.
      */
     boolean contains(OWLAxiomSearchFilter filter, Object key);
@@ -107,8 +107,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * Generic containment check type for further refining search by axiom type. The method returns
      * true if there is at least one result matching the filter.
      *
-     * @param filter the filter to match
-     * @param key the key. Its type is generic and it is used only by the filter.
+     * @param filter                the filter to match
+     * @param key                   the key. Its type is generic and it is used only by the filter.
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if there is at least one result matching the filter.
      */
@@ -118,15 +118,15 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * Generic search method: resutns all axioms which refer entity, are instances of type,
      * optionally including the imports closure in the results.
      *
-     * @param <T> type of returned axioms
-     * @param type type of axioms
-     * @param explicitClass for overlapping indexes in the ontology internals, an explicit class
-     *        rathet than the entity class might be necessary
-     * @param entity referred entity (OWLPrimitive or property/class expression)
+     * @param <T>            type of returned axioms
+     * @param type           type of axioms
+     * @param explicitClass  for overlapping indexes in the ontology internals, an explicit class
+     *                       rathet than the entity class might be necessary
+     * @param entity         referred entity (OWLPrimitive or property/class expression)
      * @param forSubPosition for sub axioms (subclass, subproperty), the value specifies whether
-     *        entity should appear as sub or super entity in the axioms returned. For axiom types
-     *        that have no sub/super entites, this parameter is ignored.
-     * @return set of axioms satisfying the conditions. The set is a copy of the data.
+     *                       entity should appear as sub or super entity in the axioms returned. For
+     *                       axiom types that have no sub/super entites, this parameter is ignored.
+     * @return stream of axioms satisfying the conditions.
      */
     <T extends OWLAxiom> Stream<T> axioms(Class<T> type, Class<? extends OWLObject> explicitClass,
         OWLObject entity, Navigation forSubPosition);
@@ -135,16 +135,16 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * Generic search method: returns all axioms which refer entity, are instances of type,
      * optionally including the imports closure in the results.
      *
-     * @param <T> type of returned axioms
-     * @param type type of axioms
-     * @param explicitClass for overlapping indexes in the ontology internals, an explicit class
-     *        rathet than the entity class might be necessary
-     * @param entity referred entity (OWLPrimitive or property/class expression)
-     * @param imports if INCLUDED, include imports closure.
+     * @param <T>            type of returned axioms
+     * @param type           type of axioms
+     * @param explicitClass  for overlapping indexes in the ontology internals, an explicit class
+     *                       rathet than the entity class might be necessary
+     * @param entity         referred entity (OWLPrimitive or property/class expression)
+     * @param imports        if INCLUDED, include imports closure.
      * @param forSubPosition for sub axioms (subclass, subproperty), the value specifies whether
-     *        entity should appear as sub or super entity in the axioms returned. For axiom types
-     *        that have no sub/super entites, this parameter is ignored.
-     * @return set of axioms satisfying the conditions. The set is a copy of the data.
+     *                       entity should appear as sub or super entity in the axioms returned. For
+     *                       axiom types that have no sub/super entites, this parameter is ignored.
+     * @return stream of axioms satisfying the conditions.
      */
     default <T extends OWLAxiom> Stream<T> axioms(Class<T> type,
         Class<? extends OWLObject> explicitClass, OWLObject entity, Imports imports,
@@ -160,7 +160,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * sub-property.
      *
      * @param subProperty The sub-property of the axioms to be retrieved.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     Stream<OWLSubAnnotationPropertyOfAxiom> subAnnotationPropertyOfAxioms(
         OWLAnnotationProperty subProperty);
@@ -170,7 +170,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * property in the domain axiom.
      *
      * @param property The property that the axiom specifies a domain for.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     Stream<OWLAnnotationPropertyDomainAxiom> annotationPropertyDomainAxioms(
         OWLAnnotationProperty property);
@@ -180,7 +180,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * property in the range axiom.
      *
      * @param property The property that the axiom specifies a range for.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     Stream<OWLAnnotationPropertyRangeAxiom> annotationPropertyRangeAxioms(
         OWLAnnotationProperty property);
@@ -192,8 +192,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     /**
      * Gets the declaration axioms for specified entity.
      *
-     * @param subject The entity that is the subject of the set of returned axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @param subject The entity that is the subject of the stream of returned axioms.
+     * @return the axioms matching the search.
      */
     default Stream<OWLDeclarationAxiom> declarationAxioms(OWLEntity subject) {
         return axioms(OWLDeclarationAxiom.class, subject, EXCLUDED, IN_SUB_POSITION);
@@ -203,7 +203,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * Gets the axioms that annotate the specified entity.
      *
      * @param entity The entity whose annotations are to be retrieved.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(
         OWLAnnotationSubject entity) {
@@ -213,9 +213,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     /**
      * Gets the axioms that annotate the specified entity.
      *
-     * @param entity The entity whose annotations are to be retrieved.
+     * @param entity  The entity whose annotations are to be retrieved.
      * @param imports imports included or excluded
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(
         OWLAnnotationSubject entity, Imports imports) {
@@ -230,7 +230,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified class.
      *
      * @param cls The class that is equal to the left hand side of the axiom (subclass).
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLSubClassOfAxiom> subClassAxiomsForSubClass(OWLClass cls) {
         return axioms(OWLSubClassOfAxiom.class, OWLClass.class, cls, EXCLUDED, IN_SUB_POSITION);
@@ -241,7 +241,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified class.
      *
      * @param cls The class
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLSubClassOfAxiom> subClassAxiomsForSuperClass(OWLClass cls) {
         return axioms(OWLSubClassOfAxiom.class, OWLClass.class, cls, EXCLUDED, IN_SUPER_POSITION);
@@ -252,7 +252,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * operand.
      *
      * @param cls The class to search
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLEquivalentClassesAxiom> equivalentClassesAxioms(OWLClass cls) {
         return axioms(OWLEquivalentClassesAxiom.class, OWLClass.class, cls, EXCLUDED,
@@ -260,10 +260,10 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     }
 
     /**
-     * Gets the set of disjoint class axioms that contain the specified class as an operand.
+     * Gets the stream of disjoint class axioms that contain the specified class as an operand.
      *
      * @param cls The class to search
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLDisjointClassesAxiom> disjointClassesAxioms(OWLClass cls) {
         return axioms(OWLDisjointClassesAxiom.class, OWLClass.class, cls, EXCLUDED,
@@ -271,13 +271,13 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     }
 
     /**
-     * Gets the set of disjoint union axioms that have the specified class as the named class that
-     * is equivalent to the disjoint union of operands. For example, if the ontology contained the
-     * axiom DisjointUnion(A, propP some C, D, E) this axiom would be returned for class A (but not
-     * for D or E).
+     * Gets the stream of disjoint union axioms that have the specified class as the named class
+     * that is equivalent to the disjoint union of operands. For example, if the ontology contained
+     * the axiom DisjointUnion(A, propP some C, D, E) this axiom would be returned for class A (but
+     * not for D or E).
      *
      * @param owlClass The class that indexes the axioms to be retrieved.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLDisjointUnionAxiom> disjointUnionAxioms(OWLClass owlClass) {
         return axioms(OWLDisjointUnionAxiom.class, OWLClass.class, owlClass, EXCLUDED,
@@ -288,7 +288,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * Gets the has key axioms that have the specified class as their subject.
      *
      * @param cls The subject of the has key axioms
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLHasKeyAxiom> hasKeyAxioms(OWLClass cls) {
         return axioms(OWLHasKeyAxiom.class, OWLClass.class, cls, EXCLUDED, IN_SUB_POSITION);
@@ -301,7 +301,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified property.
      *
      * @param subProperty The property which is equal to the sub property of the retrieved axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsForSubProperty(
         OWLObjectPropertyExpression subProperty) {
@@ -314,8 +314,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified property.
      *
      * @param superProperty The property which is equal to the super-property of the retrieved
-     *        axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     *                      axioms.
+     * @return the axioms matching the search.
      */
     default Stream<OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsForSuperProperty(
         OWLObjectPropertyExpression superProperty) {
@@ -328,7 +328,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * property.
      *
      * @param property The property which is equal to the property of the retrieved axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLObjectPropertyDomainAxiom> objectPropertyDomainAxioms(
         OWLObjectPropertyExpression property) {
@@ -341,7 +341,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * property.
      *
      * @param property The property which is equal to the property of the retrieved axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLObjectPropertyRangeAxiom> objectPropertyRangeAxioms(
         OWLObjectPropertyExpression property) {
@@ -351,10 +351,10 @@ public interface OWLAxiomIndex extends HasImportsClosure {
 
     /**
      * Gets the {@link OWLInverseObjectPropertiesAxiom}s where the specified property is contained
-     * in the set returned by {@link OWLInverseObjectPropertiesAxiom#properties()} .
+     * in the stream returned by {@link OWLInverseObjectPropertiesAxiom#properties()} .
      *
      * @param property The property which is equal to the property of the retrieved axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLInverseObjectPropertiesAxiom> inverseObjectPropertyAxioms(
         OWLObjectPropertyExpression property) {
@@ -367,8 +367,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * equivalent to some other object property expression(s).
      *
      * @param property The property that the retrieved axioms make equivalent to some other property
-     *        expressions.
-     * @return the axioms matching the search. The set is a copy of the data.
+     *                 expressions.
+     * @return the axioms matching the search.
      */
     default Stream<OWLEquivalentObjectPropertiesAxiom> equivalentObjectPropertiesAxioms(
         OWLObjectPropertyExpression property) {
@@ -381,8 +381,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * with some other object property expression(s).
      *
      * @param property The property that the retrieved axioms makes disjoint to some other property
-     *        expressions.
-     * @return the axioms matching the search. The set is a copy of the data.
+     *                 expressions.
+     * @return the axioms matching the search.
      */
     default Stream<OWLDisjointObjectPropertiesAxiom> disjointObjectPropertiesAxioms(
         OWLObjectPropertyExpression property) {
@@ -395,7 +395,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified object property functional.
      *
      * @param property The property that is made functional by the axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLFunctionalObjectPropertyAxiom> functionalObjectPropertyAxioms(
         OWLObjectPropertyExpression property) {
@@ -408,7 +408,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * make the specified object property inverse functional.
      *
      * @param property The property that is made inverse functional by the axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLInverseFunctionalObjectPropertyAxiom> inverseFunctionalObjectPropertyAxioms(
         OWLObjectPropertyExpression property) {
@@ -421,7 +421,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified object property symmetric.
      *
      * @param property The property that is made symmetric by the axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLSymmetricObjectPropertyAxiom> symmetricObjectPropertyAxioms(
         OWLObjectPropertyExpression property) {
@@ -434,7 +434,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified object property asymmetric.
      *
      * @param property The property that is made asymmetric by the axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLAsymmetricObjectPropertyAxiom> asymmetricObjectPropertyAxioms(
         OWLObjectPropertyExpression property) {
@@ -447,7 +447,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified object property reflexive.
      *
      * @param property The property that is made reflexive by the axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLReflexiveObjectPropertyAxiom> reflexiveObjectPropertyAxioms(
         OWLObjectPropertyExpression property) {
@@ -460,7 +460,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified object property irreflexive.
      *
      * @param property The property that is made irreflexive by the axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLIrreflexiveObjectPropertyAxiom> irreflexiveObjectPropertyAxioms(
         OWLObjectPropertyExpression property) {
@@ -473,7 +473,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified object property transitive.
      *
      * @param property The property that is made transitive by the axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLTransitiveObjectPropertyAxiom> transitiveObjectPropertyAxioms(
         OWLObjectPropertyExpression property) {
@@ -488,7 +488,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * property.
      *
      * @param subProperty The property which is equal to the sub property of the retrieved axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsForSubProperty(
         OWLDataProperty subProperty) {
@@ -501,8 +501,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified property.
      *
      * @param superProperty The property which is equal to the super-property of the retrieved
-     *        axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     *                      axioms.
+     * @return the axioms matching the search.
      */
     default Stream<OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsForSuperProperty(
         OWLDataPropertyExpression superProperty) {
@@ -515,7 +515,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * property.
      *
      * @param property The property which is equal to the property of the retrieved axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLDataPropertyDomainAxiom> dataPropertyDomainAxioms(OWLDataProperty property) {
         return axioms(OWLDataPropertyDomainAxiom.class, OWLDataPropertyExpression.class, property,
@@ -527,7 +527,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * property.
      *
      * @param property The property which is equal to the property of the retrieved axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLDataPropertyRangeAxiom> dataPropertyRangeAxioms(OWLDataProperty property) {
         return axioms(OWLDataPropertyRangeAxiom.class, OWLDataPropertyExpression.class, property,
@@ -539,8 +539,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * equivalent to some other data property expression(s).
      *
      * @param property The property that the retrieved axioms make equivalent to some other property
-     *        expressions.
-     * @return the axioms matching the search. The set is a copy of the data.
+     *                 expressions.
+     * @return the axioms matching the search.
      */
     default Stream<OWLEquivalentDataPropertiesAxiom> equivalentDataPropertiesAxioms(
         OWLDataProperty property) {
@@ -553,8 +553,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * with some other data property expression(s).
      *
      * @param property The property that the retrieved axioms makes disjoint to some other property
-     *        expressions.
-     * @return the axioms matching the search. The set is a copy of the data.
+     *                 expressions.
+     * @return the axioms matching the search.
      */
     default Stream<OWLDisjointDataPropertiesAxiom> disjointDataPropertiesAxioms(
         OWLDataProperty property) {
@@ -567,7 +567,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified data property functional.
      *
      * @param property The property that is made functional by the axioms.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLFunctionalDataPropertyAxiom> functionalDataPropertyAxioms(
         OWLDataPropertyExpression property) {
@@ -582,8 +582,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * {@code individual} an instance of some class expression.
      *
      * @param individual The individual that the returned axioms make an instance of some class
-     *        expression.
-     * @return the axioms matching the search. The set is a copy of the data.
+     *                   expression.
+     * @return the axioms matching the search.
      */
     default Stream<OWLClassAssertionAxiom> classAssertionAxioms(OWLIndividual individual) {
         return axioms(OWLClassAssertionAxiom.class, OWLIndividual.class, individual, EXCLUDED,
@@ -595,7 +595,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * class expression, {@code ce}, a type for some individual.
      *
      * @param ce The class expression that the returned axioms make a type for some individual.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLClassAssertionAxiom> classAssertionAxioms(OWLClassExpression ce) {
         return axioms(OWLClassAssertionAxiom.class, OWLClassExpression.class, ce, EXCLUDED,
@@ -607,7 +607,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified {@code individual} as the subject of the axiom.
      *
      * @param individual The individual that the returned axioms have as a subject.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLDataPropertyAssertionAxiom> dataPropertyAssertionAxioms(
         OWLIndividual individual) {
@@ -620,7 +620,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified {@code individual} as the subject of the axiom.
      *
      * @param individual The individual that the returned axioms have as a subject.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLObjectPropertyAssertionAxiom> objectPropertyAssertionAxioms(
         OWLIndividual individual) {
@@ -633,7 +633,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * have the specified {@code individual} as the subject of the axiom.
      *
      * @param individual The individual that the returned axioms have as a subject.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLNegativeObjectPropertyAssertionAxiom> negativeObjectPropertyAssertionAxioms(
         OWLIndividual individual) {
@@ -646,7 +646,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * the specified {@code individual} as the subject of the axiom.
      *
      * @param individual The individual that the returned axioms have as a subject.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     default Stream<OWLNegativeDataPropertyAssertionAxiom> negativeDataPropertyAssertionAxioms(
         OWLIndividual individual) {
@@ -659,8 +659,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * {@code individual} the same as some other individual.
      *
      * @param individual The individual that the returned axioms make the same as some other
-     *        individual.
-     * @return the axioms matching the search. The set is a copy of the data.
+     *                   individual.
+     * @return the axioms matching the search.
      */
     default Stream<OWLSameIndividualAxiom> sameIndividualAxioms(OWLIndividual individual) {
         return axioms(OWLSameIndividualAxiom.class, OWLIndividual.class, individual, EXCLUDED,
@@ -672,8 +672,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * specified {@code individual} different to some other individual.
      *
      * @param individual The individual that the returned axioms make the different as some other
-     *        individual.
-     * @return the axioms matching the search. The set is a copy of the data.
+     *                   individual.
+     * @return the axioms matching the search.
      */
     default Stream<OWLDifferentIndividualsAxiom> differentIndividualAxioms(
         OWLIndividual individual) {
@@ -686,7 +686,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * definition for the specified datatype.
      *
      * @param datatype The datatype for which the returned axioms provide a definition.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return the axioms matching the search.
      */
     Stream<OWLDatatypeDefinitionAxiom> datatypeDefinitions(OWLDatatype datatype);
 }
