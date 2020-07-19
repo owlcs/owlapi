@@ -28,6 +28,7 @@
 		<!-- remove this line for releases, if the release process fails because 
 			of missing javadoc jars -->
 		<no-javadoc>false</no-javadoc>
+		<maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- 5.0.0 is the earliest release on Maven Central for this series -->
 		<last.japicmp.compare.version>5.0.0</last.japicmp.compare.version>		
@@ -255,7 +256,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>3.0.1</version>
+						<version>${maven-javadoc-plugin.version}</version>
 						<configuration>
 							<show>public</show>
 						</configuration>
@@ -308,10 +309,10 @@
 			</plugin>
 
 			<!-- We need to configure the Javadoc Plugin for deploying the Javadocs -->
-			<plugin>
+			<!--plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.1</version>
+				<version>${maven-javadoc-plugin.version}</version>
 				<configuration>
 					<show>public</show>
 				</configuration>
@@ -326,7 +327,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin-->
 			<!-- The Surefire Plugin is for error reporting. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
