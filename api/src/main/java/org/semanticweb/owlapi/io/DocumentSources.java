@@ -18,8 +18,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -204,7 +206,7 @@ public class DocumentSources {
             }
             int connectionTimeout = config.getConnectionTimeout();
             conn.setConnectTimeout(connectionTimeout);
-            conn = connect(config, conn, connectionTimeout, actualAcceptHeaders);
+            conn = connect(config, conn, connectionTimeout, actualAcceptHeaders, new HashSet<>());
             String contentEncoding = conn.getContentEncoding();
             InputStream is = connectWithFiveRetries(documentIRI, config, conn, connectionTimeout,
                 contentEncoding);
@@ -218,7 +220,8 @@ public class DocumentSources {
     }
 
     protected static URLConnection connect(OWLOntologyLoaderConfiguration config,
-        URLConnection conn, int connectionTimeout, String acceptHeaders) throws IOException {
+        URLConnection conn, int connectionTimeout, String acceptHeaders, Set<String> visited)
+        throws IOException {
         if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
             // follow redirects to HTTPS
             HttpURLConnection con = (HttpURLConnection) conn;
@@ -231,8 +234,15 @@ public class DocumentSources {
                 // no constants for temporary and permanent redirect in HttpURLConnection
                 || responseCode == 307 || responseCode == 308) {
                 String location = con.getHeaderField("Location");
-                URL newURL = new URL(location);
-                return rebuildConnection(config, connectionTimeout, newURL, acceptHeaders);
+                if (visited.add(location)) {
+                    URL newURL = new URL(location);
+                    return connect(config,
+                        rebuildConnection(config, connectionTimeout, newURL, acceptHeaders),
+                        connectionTimeout, acceptHeaders, visited);
+                } else {
+                    throw new IllegalStateException(
+                        "Infinite loop: redirect cycle detected. " + visited);
+                }
             }
         }
         return conn;
