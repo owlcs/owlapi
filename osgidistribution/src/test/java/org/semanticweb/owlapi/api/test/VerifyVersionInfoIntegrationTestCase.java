@@ -28,7 +28,6 @@ public class VerifyVersionInfoIntegrationTestCase {
         // This test will fail after setting the release version if the fallback
         // has not been updated.
         VersionInfo info = VersionInfo.getVersionInfo();
-        // assertEquals("5.1.0-SNAPSHOT", info.getVersion());
-        assertTrue(info.getVersion().startsWith("5.1.15"));
+        assertTrue(info.getVersion().startsWith("5.1.16"));
     }
 }
