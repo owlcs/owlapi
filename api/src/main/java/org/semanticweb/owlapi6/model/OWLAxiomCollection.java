@@ -76,7 +76,7 @@ public interface OWLAxiomCollection
     /**
      * Gets all axioms of the specified type.
      *
-     * @param axiomType The type of axioms to be retrived.
+     * @param axiomType The type of axioms to be retrieved.
      * @param imports   if INCLUDED, include imports closure.
      * @param <T>       axiom type
      * @return stream of all axioms of the specified type.

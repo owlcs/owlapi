@@ -17,7 +17,7 @@ import org.semanticweb.owlapi6.model.OWLEntity;
 import org.semanticweb.owlapi6.modularity.ModuleType;
 
 /**
- * atomical decomposer of the ontology
+ * Atomic decomposer for an ontology.
  */
 public class Decomposer {
 

@@ -34,8 +34,6 @@ import org.semanticweb.owlapi6.model.OWLSubPropertyChainOfAxiom;
 class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     UpperBoundComplementEvaluator(Signature s) {

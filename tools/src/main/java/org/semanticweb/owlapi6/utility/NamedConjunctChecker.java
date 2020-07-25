@@ -45,9 +45,9 @@ public class NamedConjunctChecker {
     /**
      * @param conj The conjunct to check for
      * @param classExpression The expression to be checked
-     * @return true ifa named class is a conjunct in a given class expression. For class expressions
-     *         which aren't named classes or object intersections this method will always return
-     *         false.
+     * @return true if a named class is a conjunct in a given class expression. For class
+     *         expressions which aren't named classes or object intersections this method will
+     *         always return false.
      */
     public boolean isNamedConjunct(OWLClass conj, OWLClassExpression classExpression) {
         checkNotNull(conj, "conj cannot be null");

@@ -77,15 +77,15 @@ public interface IRIProvider extends Serializable {
     }
 
     /**
-     * @param uri the uri to create the IRI from
-     * @return the IRI wrapping the uri
+     * @param uri the URI to create the IRI from
+     * @return the IRI wrapping the URI
      */
     default IRI getIRI(URI uri) {
         return getIRI(checkNotNull(uri, "uri cannot be null").toString());
     }
 
     /**
-     * @param url the url to create the IRI from
+     * @param url the URL to create the IRI from
      * @return an IRI wrapping url.toURI()
      * @throws OWLRuntimeException if the URL is ill formed
      */

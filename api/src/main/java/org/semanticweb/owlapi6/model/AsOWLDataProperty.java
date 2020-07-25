@@ -20,7 +20,7 @@ public interface AsOWLDataProperty {
      *
      * @return The entity as an OWLDataProperty.
      * @throws OWLRuntimeException if this entity is not an OWLDataProperty (check with the
-     * isOWLDataProperty method first).
+     *         {@link #isOWLDataProperty()} method first).
      */
     default OWLDataProperty asOWLDataProperty() {
         if (isOWLDataProperty()) {

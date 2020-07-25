@@ -352,7 +352,7 @@ public interface OWLOntology
 
     /**
      * @param illegals set of illegal punnings
-     * @param i        iri to checl
+     * @param i        iri to check
      * @param puns     list of pun types
      */
     static void computeIllegal(Collection<IRI> illegals, IRI i, List<EntityType<?>> puns) {

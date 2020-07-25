@@ -81,7 +81,7 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
         return false;
     }
 
-    // QCRs
+    // Qualified cardinality restriction
     /**
      * @param n cardinality
      * @param r role

@@ -53,8 +53,6 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     boolean isTopEq = false;
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     TopEquivalenceEvaluator(Signature s) {

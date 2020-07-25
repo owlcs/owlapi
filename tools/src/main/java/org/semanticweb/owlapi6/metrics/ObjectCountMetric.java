@@ -52,7 +52,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
     /**
      * Gets the objects.
      *
-     * @param ont the ont
+     * @param ont the ontology
      * @return the objects
      */
     protected abstract Stream<E> getObjects(OWLOntology ont);

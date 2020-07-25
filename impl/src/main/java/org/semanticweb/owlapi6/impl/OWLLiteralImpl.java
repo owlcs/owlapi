@@ -34,8 +34,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private final String language;
 
     /**
-     * @param literal actual literal form
-     * @param lang language for literal, can be null
+     * @param literal  actual literal form
+     * @param lang     language tag for literal, can be null
      * @param datatype datatype for literal
      */
     public OWLLiteralImpl(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {

@@ -19,8 +19,8 @@ public interface AsOWLClass {
      * casting).
      *
      * @return The entity as an OWLClass.
-     * @throws OWLRuntimeException if this entity is not an OWLClass (check with the isOWLClass
-     * method first).
+     * @throws OWLRuntimeException if this entity is not an OWLClass (check with
+     *         {@link #isOWLClass()} first).
      */
     default OWLClass asOWLClass() {
         if (isOWLClass()) {

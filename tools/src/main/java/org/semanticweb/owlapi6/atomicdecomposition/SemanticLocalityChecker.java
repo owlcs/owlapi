@@ -79,8 +79,6 @@ public class SemanticLocalityChecker implements LocalityChecker {
     private final OWLOntologyManager manager;
 
     /**
-     * init c'tor
-     *
      * @param f reasoner factory
      * @param m manager
      */
@@ -92,8 +90,6 @@ public class SemanticLocalityChecker implements LocalityChecker {
     }
 
     /**
-     * init c'tor
-     *
      * @param r reasoner
      */
     public SemanticLocalityChecker(OWLReasoner r) {
@@ -130,7 +126,7 @@ public class SemanticLocalityChecker implements LocalityChecker {
         return axiom.nestedClassExpressions();
     }
 
-    /* init kernel with the ontology signature */
+    /* Init kernel with the ontology signature */
     @Override
     public void preprocessOntology(Collection<AxiomWrapper> axioms) {
         exprMap.clear();

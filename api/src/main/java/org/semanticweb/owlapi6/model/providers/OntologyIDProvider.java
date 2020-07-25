@@ -28,7 +28,7 @@ public interface OntologyIDProvider extends Serializable {
 
     /**
      * @param iri The ontology IRI (may be {@code null})
-     * @return an ontology identifier specifiying the ontology IRI and version IRI. Equivalent to
+     * @return an ontology identifier specifying the ontology IRI and version IRI. Equivalent to
      *         OWLOntologyID(Optional
      */
     default OWLOntologyID getOWLOntologyID(@Nullable IRI iri) {
@@ -38,14 +38,14 @@ public interface OntologyIDProvider extends Serializable {
     /**
      * @param iri The ontology IRI (may be {@code null})
      * @param versionIRI The version IRI (must be {@code null} if the ontologyIRI is null)
-     * @return an ontology identifier specifiying the ontology IRI and version IRI.
+     * @return an ontology identifier specifying the ontology IRI and version IRI.
      */
     OWLOntologyID getOWLOntologyID(@Nullable IRI iri, @Nullable IRI versionIRI);
 
     /**
      * @param iri The ontology IRI (may be absent)
      * @param version The version IRI (must be absent if the ontologyIRI is absent)
-     * @return an ontology identifier specifiying the ontology IRI and version IRI.
+     * @return an ontology identifier specifying the ontology IRI and version IRI.
      */
     OWLOntologyID getOWLOntologyID(Optional<IRI> iri, Optional<IRI> version);
 

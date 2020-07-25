@@ -37,8 +37,8 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
 
     /**
      * @param propertyChain property chain
-     * @param superProperty superproperty
-     * @param annotations annotations
+     * @param superProperty super property
+     * @param annotations   annotations
      */
     public OWLSubPropertyChainAxiomImpl(List<? extends OWLObjectPropertyExpression> propertyChain,
         OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations) {

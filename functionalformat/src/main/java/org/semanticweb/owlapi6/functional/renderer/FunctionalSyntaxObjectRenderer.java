@@ -134,7 +134,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
 
     /**
      * @param ontology the ontology
-     * @param writer   the writer
+     * @param writer the writer
      */
     public FunctionalSyntaxObjectRenderer(@Nullable OWLOntology ontology, Writer writer) {
         ont = Optional.ofNullable(ontology);
@@ -366,7 +366,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
                 asList(ont.get().declarationAxioms(entity).sorted());
             axioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
             // if multiple illegal declarations already exist, they have already
-            // been outputted the renderer cannot take responsibility for
+            // been output the renderer cannot take responsibility for
             // removing them. It should not add declarations for illegally
             // punned entities here, though
             if (addMissingDeclarations && axioms.isEmpty() && !entity.isBuiltIn()
@@ -385,9 +385,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     /**
      * Writes of the annotation for the specified entity.
      *
-     * @param entity               The entity
+     * @param entity The entity
      * @param alreadyWrittenAxioms already written axioms, to be updated with the newly written
-     *                             axioms
+     *        axioms
      */
     private void writeAnnotations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
         ont.ifPresent(o -> o.annotationAssertionAxioms(entity.getIRI()).sorted()
@@ -579,7 +579,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
 
     /**
      * @param axioms axioms to render
-     * @return Stirng containing the axioms, rendered as if they were the only content of a fresh
+     * @return String containing the axioms, rendered as if they were the only content of a fresh
      *         ontology
      */
     public String renderAxioms(Collection<OWLAxiom> axioms) {

@@ -26,7 +26,7 @@ public class IllegalElementNameException extends OWLRuntimeException {
     private final String elementName;
 
     /**
-     * @param elementName elementName
+     * @param elementName element name
      */
     public IllegalElementNameException(String elementName) {
         super("Illegal Element Name (Element Is Not A QName): " + elementName);

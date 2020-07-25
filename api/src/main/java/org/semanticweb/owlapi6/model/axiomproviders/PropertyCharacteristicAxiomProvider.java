@@ -42,7 +42,7 @@ public interface PropertyCharacteristicAxiomProvider {
     }
 
     /**
-     * @param property property
+     * @param property    property
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a functional object property axiom with annotations
      */
@@ -59,7 +59,7 @@ public interface PropertyCharacteristicAxiomProvider {
     }
 
     /**
-     * @param property property
+     * @param property    property
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an inverse functional object property axiom with annotations
      */
@@ -76,7 +76,7 @@ public interface PropertyCharacteristicAxiomProvider {
     }
 
     /**
-     * @param property property
+     * @param property    property
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a reflexive object property axiom with annotations
      */
@@ -93,7 +93,7 @@ public interface PropertyCharacteristicAxiomProvider {
     }
 
     /**
-     * @param property property
+     * @param property    property
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an irreflexive object property axiom with annotations
      */
@@ -110,7 +110,7 @@ public interface PropertyCharacteristicAxiomProvider {
     }
 
     /**
-     * @param property property
+     * @param property    property
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a symmetric property axiom with annotations
      */
@@ -118,7 +118,7 @@ public interface PropertyCharacteristicAxiomProvider {
         OWLObjectPropertyExpression property, Collection<OWLAnnotation> annotations);
 
     /**
-     * @param propertyExpression property Expression
+     * @param propertyExpression property expression
      * @return an asymmetric object property axiom on the specified argument
      */
     default OWLAsymmetricObjectPropertyAxiom getOWLAsymmetricObjectPropertyAxiom(
@@ -127,13 +127,12 @@ public interface PropertyCharacteristicAxiomProvider {
     }
 
     /**
-     * @param propertyExpression property Expression
-     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @param propertyExpression property expression
+     * @param annotations        A set of annotations. Cannot be null or contain nulls.
      * @return an asymmetric object property axiom on the specified argument with annotations
      */
     OWLAsymmetricObjectPropertyAxiom getOWLAsymmetricObjectPropertyAxiom(
-        OWLObjectPropertyExpression propertyExpression,
-        Collection<OWLAnnotation> annotations);
+        OWLObjectPropertyExpression propertyExpression, Collection<OWLAnnotation> annotations);
 
     /**
      * @param property property
@@ -145,7 +144,7 @@ public interface PropertyCharacteristicAxiomProvider {
     }
 
     /**
-     * @param property property
+     * @param property    property
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a transitive object property axiom on the specified argument with annotations
      */
@@ -162,7 +161,7 @@ public interface PropertyCharacteristicAxiomProvider {
     }
 
     /**
-     * @param property property
+     * @param property    property
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a functional data property axiom with annotations
      */

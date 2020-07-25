@@ -25,22 +25,22 @@ public class Diff {
     Clause clause2;
 
     /**
-     * @param ftype ftype
-     * @param type type
-     * @param f1 f1
-     * @param n n
+     * @param ftype frame type
+     * @param type  type
+     * @param f1    frame 1
+     * @param n     n
      */
     public Diff(String ftype, String type, Frame f1, int n) {
         this(ftype, type, f1, null, null, n);
     }
 
     /**
-     * @param ftype ftype
-     * @param type type
-     * @param f1 f1
-     * @param f2 f2
-     * @param c c
-     * @param n n
+     * @param ftype frame type
+     * @param type  type
+     * @param f1    frame 1
+     * @param f2    frame 2
+     * @param c     c
+     * @param n     n
      */
     public Diff(String ftype, String type, Frame f1, @Nullable Frame f2, @Nullable Clause c,
         int n) {

@@ -30,7 +30,7 @@ import org.semanticweb.owlapi6.search.Searcher;
 
 /**
  * This is a test of the property type guessing for rdf:Property instances of the kind encountered
- * when attempting to parse an rdfs schema.
+ * when attempting to parse an RDFS schema.
  * <p/>
  * The CIDOC schema is a good test case, because it every property has a domain and a range
  * specified; some properties have a range of Literal (and hence are data properties), and there are

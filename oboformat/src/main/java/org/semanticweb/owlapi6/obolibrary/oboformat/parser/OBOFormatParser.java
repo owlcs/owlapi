@@ -152,7 +152,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param s          input stream
+     * @param s input stream
      * @param importsMap map for imports
      */
     protected OBOFormatParser(MyStream s, Map<String, OBODoc> importsMap) {
@@ -223,7 +223,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param followImports followImports
+     * @param followImports true if imports should be followed
      */
     public void setFollowImports(boolean followImports) {
         followImport = followImports;
@@ -232,7 +232,7 @@ public class OBOFormatParser {
     /**
      * Parses a local file or URL to an OBODoc.
      *
-     * @param fn fn
+     * @param fn file name
      * @return parsed obo document
      */
     public OBODoc parse(String fn) {
@@ -244,7 +244,7 @@ public class OBOFormatParser {
      *
      * @param file file
      * @return parsed obo document
-     * @throws IOException io exception
+     * @throws IOException if there was a problem reading from the output stream
      */
     public OBODoc parse(File file) throws IOException {
         location = file;
@@ -258,7 +258,7 @@ public class OBOFormatParser {
     /**
      * Parses a remote URL to an OBODoc.
      *
-     * @param url url
+     * @param url URL
      * @return parsed obo document
      */
     public OBODoc parse(URL url) {
@@ -269,7 +269,7 @@ public class OBOFormatParser {
     /**
      * Parses a remote URL to an OBODoc.
      *
-     * @param urlstr urlstr
+     * @param urlstr URL string
      * @return parsed obo document
      */
     @SuppressWarnings("null")
@@ -859,7 +859,7 @@ public class OBOFormatParser {
     /**
      * intersection_of-Tag Class-ID | intersection_of-Tag Relation-ID Class-ID.
      *
-     * @param cl cl
+     * @param cl clause
      * @return modified clause
      */
     private Clause parseTermIntersect(Clause cl) {
@@ -1100,7 +1100,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param cl cl
+     * @param cl clause
      * @throws OBOFormatParserException parser exception
      */
     public void parseEOL(Clause cl) {

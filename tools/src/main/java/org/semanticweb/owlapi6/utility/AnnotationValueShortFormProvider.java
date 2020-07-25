@@ -187,7 +187,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     }
 
     /**
-     * @param literalRenderer the literalRenderer to set
+     * @param literalRenderer the literal renderer to set
      */
     public void setLiteralRenderer(StringAnnotationVisitor literalRenderer) {
         this.literalRenderer = checkNotNull(literalRenderer);

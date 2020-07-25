@@ -45,7 +45,7 @@ public class CollectionFactory {
 
     /**
      * @param value the number of expected threads that will update threadsafe collections; useful
-     *              for increasing the concurrency in ConcurrentHashMaps
+     *        for increasing the concurrency in ConcurrentHashMap instances created by this factory
      */
     public static void setExpectedThreads(int value) {
         EXPECTEDTHREADS.set(value);
@@ -68,7 +68,7 @@ public class CollectionFactory {
     }
 
     /**
-     * @param c   values to add to the set
+     * @param c values to add to the set
      * @param <T> axiom type
      * @return fresh non threadsafe set
      */
@@ -78,7 +78,7 @@ public class CollectionFactory {
 
     /**
      * @param initialCapacity initial capacity for the new set
-     * @param <T>             axiom type
+     * @param <T> axiom type
      * @return fresh non threadsafe set
      */
     public static <T> Set<T> createSet(int initialCapacity) {
@@ -96,7 +96,7 @@ public class CollectionFactory {
 
     /**
      * @param elements values to add to the set
-     * @param <T>      axiom type
+     * @param <T> axiom type
      * @return fresh non threadsafe set
      */
     @SafeVarargs
@@ -106,7 +106,7 @@ public class CollectionFactory {
 
     /**
      * @param element value to add to the set
-     * @param <T>     axiom type
+     * @param <T> axiom type
      * @return fresh non threadsafe set
      */
     public static <T> Set<T> createSet(@Nullable T element) {
@@ -128,7 +128,7 @@ public class CollectionFactory {
     /**
      * @param <K> key type
      * @param <V> value type
-     * @return fresh threadsafe hashmap
+     * @return fresh threadsafe HashMap
      */
     public static <K, V> ConcurrentMap<K, V> createSyncMap() {
         return new ConcurrentHashMap<>(16, 0.75F, EXPECTEDTHREADS.get());

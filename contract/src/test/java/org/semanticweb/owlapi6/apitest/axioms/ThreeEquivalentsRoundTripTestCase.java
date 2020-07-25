@@ -26,7 +26,7 @@ import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
-/** test for 3178902 adapted from the report Thimoty provided. */
+/** test for 3178902 adapted from the report Timothy provided. */
 public class ThreeEquivalentsRoundTripTestCase extends TestBase {
 
     @Test

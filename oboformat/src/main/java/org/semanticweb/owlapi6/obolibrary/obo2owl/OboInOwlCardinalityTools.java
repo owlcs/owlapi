@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi6.obolibrary.obo2owl;
 
 import static org.semanticweb.owlapi6.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi6.vocab.OBOFormatConstants.OboFormatTag.TAG_AUTO_GENERATED_BY;
 import static org.semanticweb.owlapi6.vocab.OBOFormatConstants.OboFormatTag.TAG_COMMENT;
 import static org.semanticweb.owlapi6.vocab.OBOFormatConstants.OboFormatTag.TAG_CREATED_BY;
@@ -165,7 +164,8 @@ public final class OboInOwlCardinalityTools {
             return;
         }
         // check cardinality constraint
-        groupAnnotations(properties, ontology).forEach((k, v) -> reportAndUpdate(ontology, reporter, handler, k, v));
+        groupAnnotations(properties, ontology)
+            .forEach((k, v) -> reportAndUpdate(ontology, reporter, handler, k, v));
     }
 
     protected static void reportAndUpdate(OWLOntology ontology,
@@ -280,7 +280,7 @@ public final class OboInOwlCardinalityTools {
          * is either a list of resolved annotations or an exception thrown by this method.
          *
          * @param property            property
-         * @param ontologyAnnotations ontologyAnnotations
+         * @param ontologyAnnotations ontology annotations
          * @return list of resolved annotations
          */
         List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
@@ -306,7 +306,7 @@ public final class OboInOwlCardinalityTools {
          * Report a conflict for a given annotation property and ontology annotations.
          *
          * @param property            property
-         * @param ontologyAnnotations ontologyAnnotations
+         * @param ontologyAnnotations ontology annotations
          */
         void reportConflict(OWLAnnotationProperty property,
             Collection<OWLAnnotation> ontologyAnnotations);

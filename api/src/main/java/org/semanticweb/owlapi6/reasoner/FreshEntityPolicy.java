@@ -24,7 +24,7 @@ package org.semanticweb.owlapi6.reasoner;
 public enum FreshEntityPolicy {
     /**
      * Specifies that fresh entities are allowed when they are encountered in the signature of
-     * OWLObjects in queries to a reasoner.
+     * {@code OWLObject} instances in queries to a reasoner.
      */
     ALLOW,
     /**

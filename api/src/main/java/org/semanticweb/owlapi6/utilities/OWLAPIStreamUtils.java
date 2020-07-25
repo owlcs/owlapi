@@ -139,7 +139,7 @@ public class OWLAPIStreamUtils {
      * A method to be used on arrays that are sorted and do not contain nulls.
      * 
      * @param <T> type of the returned stream
-     * @param c   sorted aray of distinct, nonnull elements
+     * @param c   sorted array of distinct, non null elements
      * @return stream that won't cause sorted() calls to sort the array again
      */
     public static <T> Stream<T> streamFromSorted(T[] c) {

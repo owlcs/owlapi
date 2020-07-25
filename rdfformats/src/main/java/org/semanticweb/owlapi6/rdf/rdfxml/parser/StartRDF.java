@@ -316,14 +316,14 @@ class NodeElement extends AbstractState implements State {
     }
 
     /**
-     * @param uri the uri
+     * @param iri the IRI
      * @return property iri
      */
-    String getPropertyIRI(String uri) {
-        if (RDF_LI.equals(uri)) {
+    String getPropertyIRI(String iri) {
+        if (RDF_LI.equals(iri)) {
             return getNextLi();
         }
-        return uri;
+        return iri;
     }
 
     @Override

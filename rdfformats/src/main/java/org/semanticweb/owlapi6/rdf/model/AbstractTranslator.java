@@ -260,11 +260,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final Set<OWLAxiom> translatedAxioms;
 
     /**
-     * @param manager          the manager
-     * @param ontology         the ontology
-     * @param format           target format
-     * @param useStrongTyping  true if strong typing should be used
-     * @param multiple         will tell whether anonymous individuals need an id or not
+     * @param manager the manager
+     * @param ontology the ontology
+     * @param format target format
+     * @param useStrongTyping true if strong typing should be used
+     * @param multiple will tell whether anonymous individuals need an id or not
      * @param translatedAxioms translated axioms
      */
     public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology,
@@ -378,7 +378,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     /**
      * Add type triples and the owl:onProperty triples for an OWLRestriction.
      *
-     * @param desc     The restriction
+     * @param desc The restriction
      * @param property property
      */
     private void addRestrictionCommonTriplePropertyRange(OWLRestriction desc,
@@ -1043,10 +1043,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * owl:annotatedSource, owl:annotatedProperty, owl:annotatedTarget, and other triples to encode
      * the annotations.
      *
-     * @param ax        The axiom that the triple specified as subject, pred, obj represents.
-     * @param subject   The subject of the triple representing the axiom
+     * @param ax The axiom that the triple specified as subject, pred, obj represents.
+     * @param subject The subject of the triple representing the axiom
      * @param predicate The predicate of the triple representing the axiom
-     * @param object    The object of the triple representing the axiom
+     * @param object The object of the triple representing the axiom
      */
     private void addSingleTripleAxiomRPN(OWLAxiom ax, R subject, P predicate, N object) {
         // Base triple
@@ -1072,9 +1072,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     /**
      * Translates an annotation on a given subject. This method implements the TANN(ann, y)
-     * translation in the spec
+     * translation in the specifications.
      *
-     * @param subject    The subject of the annotation
+     * @param subject The subject of the annotation
      * @param annotation The annotation
      */
     private void translateAnnotation(OWLObject subject, OWLAnnotation annotation) {
@@ -1120,7 +1120,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     /**
      * @param object that has already been mapped
-     * @param <T>    type needed
+     * @param <T> type needed
      * @return mapped node, or null if the node is absent
      */
     @SuppressWarnings("unchecked")
@@ -1131,8 +1131,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     /**
      * @param subject subject
-     * @param pred    predicate
-     * @param object  object
+     * @param pred predicate
+     * @param object object
      */
     public void addTriple(R subject, IRI pred, IRI object) {
         addTriple(subject, getPredicateNode(pred), getResourceNode(object));
@@ -1140,8 +1140,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     /**
      * @param subject subject
-     * @param pred    predicate
-     * @param object  object
+     * @param pred predicate
+     * @param object object
      */
     public void addTriple(R subject, IRI pred, OWLObject object) {
         addTriple(subject, getPredicateNode(pred), getNode(object));
@@ -1161,7 +1161,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * Gets an anonymous resource.
      *
      * @param key A key for the resource. For a given key identity, the resources that are returned
-     *            should be equal and have the same hashcode.
+     *        should be equal and have the same hashcode.
      * @return The resource
      */
     protected abstract R getAnonymousNode(Object key);
@@ -1192,8 +1192,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             }
             if (context[0].equals(s) && context[1].equals(p)) {
                 // An identical axiom triple has been translated earlier, the
-                // same rdf node should
-                // be used.
+                // same node should be used.
                 // This happens only if two axioms are identical except for
                 // annotations and they
                 // both translate to one single triple.

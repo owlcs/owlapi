@@ -2,7 +2,6 @@ package org.semanticweb.owlapi6.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi6.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi6.utility.CollectionFactory.createSet;
-import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.builtInAPIris;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_NOTHING;
@@ -10,6 +9,7 @@ import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_THING;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.RDFS_LITERAL;
+import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.builtInAPIris;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +50,7 @@ class FoundIRIs {
     private final Set<IRI> objectPropertyIRIs = createSet();
     private final Set<IRI> dataPropertyIRIs = createSet();
     /**
-     * Same as classExpressionIRIs but for rdf properties things neither typed as a data or object
+     * Same as classExpressionIRIs but for RDF properties things neither typed as a data or object
      * property - bad!
      */
     private final Set<IRI> propertyIRIs = createSet();
@@ -73,7 +73,7 @@ class FoundIRIs {
     private final Set<IRI> restrictionIRIs = createSet();
     private final boolean strict;
     /**
-     * The IRI of the first reource that is typed as an ontology
+     * The IRI of the first resource that is typed as an ontology
      */
     @Nullable
     protected IRI firstOntologyIRI;
@@ -125,7 +125,7 @@ class FoundIRIs {
     /**
      * Adds the class expression.
      *
-     * @param iri             the iri
+     * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
     public void addClassExpression(IRI iri, boolean explicitlyTyped) {
@@ -152,7 +152,7 @@ class FoundIRIs {
     /**
      * Adds the object property.
      *
-     * @param iri             the iri
+     * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
     public void addObjectProperty(IRI iri, boolean explicitlyTyped) {
@@ -163,7 +163,7 @@ class FoundIRIs {
     /**
      * Adds the data property.
      *
-     * @param iri             the iri
+     * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
     public void addDataProperty(IRI iri, boolean explicitlyTyped) {
@@ -174,7 +174,7 @@ class FoundIRIs {
     /**
      * Adds the annotation property.
      *
-     * @param iri             the iri
+     * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
     protected void addAnnotationProperty(IRI iri, boolean explicitlyTyped) {
@@ -185,7 +185,7 @@ class FoundIRIs {
     /**
      * Adds the data range.
      *
-     * @param iri             the iri
+     * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
     public void addDataRange(IRI iri, boolean explicitlyTyped) {
@@ -196,7 +196,7 @@ class FoundIRIs {
     /**
      * Adds the owl named individual.
      *
-     * @param iri             the iri
+     * @param iri the iri
      * @param explicitlyTyped the explicitly type
      */
     protected void addOWLNamedIndividual(IRI iri, boolean explicitlyTyped) {
@@ -207,7 +207,7 @@ class FoundIRIs {
     /**
      * Adds the owl restriction.
      *
-     * @param iri             the iri
+     * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
     protected void addOWLRestriction(IRI iri, boolean explicitlyTyped) {
@@ -380,7 +380,7 @@ class FoundIRIs {
      * Adds the ontology version for an ontology IRI.
      * 
      * @param ontology ontology IRI
-     * @param version  the version of the ontology
+     * @param version the version of the ontology
      */
     protected void addVersionIRI(IRI ontology, IRI version) {
         ontologyVersions.put(ontology, version);

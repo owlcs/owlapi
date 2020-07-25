@@ -62,8 +62,8 @@ public interface LiteralProvider extends DatatypeProvider {
      * Convenience method that obtains a literal typed as an integer.
      *
      * @param value The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of the integer, and
-     *         whose data type is xsd:integer.
+     * @return An {@code OWLLiteral} whose literal is the lexical value of the integer, and whose
+     *         data type is xsd:integer.
      */
     OWLLiteral getOWLLiteral(int value);
 
@@ -71,8 +71,8 @@ public interface LiteralProvider extends DatatypeProvider {
      * Convenience method that obtains a literal typed as a double.
      *
      * @param value The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of the double, and
-     *         whose data type is xsd:double.
+     * @return An {@code OWLLiteral} whose literal is the lexical value of the double, and whose
+     *         data type is xsd:double.
      */
     OWLLiteral getOWLLiteral(double value);
 
@@ -80,8 +80,8 @@ public interface LiteralProvider extends DatatypeProvider {
      * Convenience method that obtains a literal typed as a boolean.
      *
      * @param value The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of the boolean, and
-     *         whose data type is xsd:boolean.
+     * @return An {@code OWLLiteral} whose literal is the lexical value of the boolean, and whose
+     *         data type is xsd:boolean.
      */
     OWLLiteral getOWLLiteral(boolean value);
 
@@ -89,8 +89,8 @@ public interface LiteralProvider extends DatatypeProvider {
      * Convenience method that obtains a literal typed as a float.
      *
      * @param value The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of the float, and
-     *         whose data type is xsd:float.
+     * @return An {@code OWLLiteral} whose literal is the lexical value of the float, and whose data
+     *         type is xsd:float.
      */
     OWLLiteral getOWLLiteral(float value);
 

@@ -20,7 +20,7 @@ public interface AsOWLNamedIndividual {
      *
      * @return The entity as an OWLNamedIndividual.
      * @throws OWLRuntimeException if this entity is not an OWLIndividual (check with the
-     * isOWLIndividual method first).
+     *         {@link #isOWLNamedIndividual()} method first).
      */
     default OWLNamedIndividual asOWLNamedIndividual() {
         if (isOWLNamedIndividual()) {

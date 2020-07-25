@@ -44,13 +44,13 @@ public class ParserException extends OWLParserException {
     private final boolean ontologyNameExpected;
 
     /**
-     * @param message          the message
-     * @param tokenSequence    the token sequence
-     * @param startPos         the start pos
-     * @param lineNumber       the line number
-     * @param columnNumber     the column number
+     * @param message the message
+     * @param tokenSequence the token sequence
+     * @param startPos the start pos
+     * @param lineNumber the line number
+     * @param columnNumber the column number
      * @param expectedKeywords the expected keywords
-     * @param flags            error flags
+     * @param flags error flags
      */
     public ParserException(String message, List<String> tokenSequence, int startPos, int lineNumber,
         int columnNumber, @Nullable Set<String> expectedKeywords, boolean... flags) {
@@ -81,7 +81,7 @@ public class ParserException extends OWLParserException {
     }
 
     /**
-     * @return the start pos
+     * @return the start position
      */
     public int getStartPos() {
         return startPos;

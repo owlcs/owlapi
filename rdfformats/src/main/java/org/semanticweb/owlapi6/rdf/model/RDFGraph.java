@@ -101,10 +101,10 @@ public class RDFGraph implements Serializable {
     }
 
     /**
-     * Ensure ids are outputted for reused individuals and annotated expressions.
+     * Ensure ids are output for reused individuals and annotated expressions.
      */
     public void forceIdOutput() {
-        // Some individuals might need to appear in mutliple triples although
+        // Some individuals might need to appear in multiple triples although
         // they do not appear in
         // multiple positions in the axioms.
         // An example of such a situation is an anonymous individual as object
@@ -133,7 +133,7 @@ public class RDFGraph implements Serializable {
         for (Map.Entry<RDFResourceBlankNode, List<RDFResourceBlankNode>> e : anonIndividualsInMultipleTriples
             .entrySet()) {
             if (e.getValue().size() > 1) {
-                // individuals that need their id outputted
+                // individuals that need their id output
                 e.getValue().forEach(o -> o.setIdRequired(true));
             }
         }

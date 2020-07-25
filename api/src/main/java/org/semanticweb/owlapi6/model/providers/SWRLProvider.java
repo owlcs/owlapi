@@ -132,7 +132,7 @@ public interface SWRLProvider {
      *
      * @param builtInIRI The builtin predicate IRI
      * @param args A non-empty set of SWRL Arguments.
-     * @return A SWRLBuiltInAtom whose predicate is identified by the specified builtInIRI and that
+     * @return A SWRLBuiltInAtom whose predicate is identified by the specified builtIn IRI and that
      *         has the specified arguments
      * @throws IllegalArgumentException if the list of arguments is empty
      */
@@ -201,7 +201,7 @@ public interface SWRLProvider {
     /**
      * @param arg0 first individual
      * @param arg1 second individual
-     * @return a differentindividual atom
+     * @return a different individual atom
      */
     SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(SWRLIArgument arg0,
         SWRLIArgument arg1);

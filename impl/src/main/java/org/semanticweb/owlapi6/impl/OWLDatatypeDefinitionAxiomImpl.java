@@ -28,18 +28,18 @@ import org.semanticweb.owlapi6.model.OWLDatatypeDefinitionAxiom;
  * @since 3.0.0
  */
 public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl
-                implements OWLDatatypeDefinitionAxiom {
+    implements OWLDatatypeDefinitionAxiom {
 
     private final OWLDatatype datatype;
     private final OWLDataRange dataRange;
 
     /**
-     * @param datatype datatype
-     * @param dataRange datarange
+     * @param datatype    datatype
+     * @param dataRange   data range
      * @param annotations annotations on the axiom
      */
     public OWLDatatypeDefinitionAxiomImpl(OWLDatatype datatype, OWLDataRange dataRange,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
@@ -49,15 +49,14 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl
     @SuppressWarnings("unchecked")
     public OWLAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-                        : new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(),
-                                        NO_ANNOTATIONS);
+            : new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(),
-                        mergeAnnos(anns));
+            mergeAnnos(anns));
     }
 
     @Override

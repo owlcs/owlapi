@@ -24,7 +24,7 @@ public enum ChangeApplied {
      */
     SUCCESSFULLY,
     /**
-     * chnge not applied.
+     * Change not applied.
      */
     UNSUCCESSFULLY,
     /**

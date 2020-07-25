@@ -27,7 +27,7 @@ public interface HasDirectImports {
      * the IRIs defined by the directlyImportsDocument association as discussed in Section 3.4 of
      * the OWL 2 Structural specification.
      *
-     * @return The stream of directlyImportsDocument IRIs.
+     * @return The stream of directly imported document IRIs.
      * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
      *         because it was removed from the manager.
      */

@@ -21,19 +21,19 @@ import org.semanticweb.owlapi6.io.OWLParserException;
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
 
     /**
-     * @param message message
-     * @param lineNumber lineNumber
-     * @param columnNumber columnNumber
+     * @param message      message
+     * @param lineNumber   line number
+     * @param columnNumber column number
      */
     public ManchesterOWLSyntaxParserException(String message, int lineNumber, int columnNumber) {
         super(message, lineNumber, columnNumber);
     }
 
     /**
-     * @param message message
-     * @param cause cause
-     * @param lineNumber lineNumber
-     * @param columnNumber columnNumber
+     * @param message      message
+     * @param cause        cause
+     * @param lineNumber   line number
+     * @param columnNumber column number
      */
     public ManchesterOWLSyntaxParserException(String message, Throwable cause, int lineNumber,
         int columnNumber) {

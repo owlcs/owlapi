@@ -43,7 +43,7 @@ public class OWLOntologyIDImpl implements OWLOntologyID {
     private int hashCode;
 
     /**
-     * Constructs an ontology identifier specifiying the ontology IRI and version IRI.
+     * Constructs an ontology identifier specifying the ontology IRI and version IRI.
      *
      * @param iri The ontology IRI (may be absent)
      * @param version The version IRI (must be absent if the ontologyIRI is absent)

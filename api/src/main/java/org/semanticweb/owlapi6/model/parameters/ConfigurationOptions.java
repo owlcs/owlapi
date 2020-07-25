@@ -87,7 +87,7 @@ public enum ConfigurationOptions {
     LABELS_AS_BANNER                    (Boolean.FALSE),
     /** True if banners for ontology 
      * sections and entity comments 
-     * should be outputted. */
+     * should be output. */
     BANNERS_ENABLED                     (Boolean.TRUE),
     /** List of banned 
      * parsers keys. */

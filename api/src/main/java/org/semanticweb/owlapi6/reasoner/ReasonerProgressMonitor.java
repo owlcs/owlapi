@@ -15,15 +15,15 @@ package org.semanticweb.owlapi6.reasoner;
 import java.io.Serializable;
 
 /**
- * The ReasonerProgressMonitor interface should be implemented by objects that wish to montitor the
- * progress of a resoner. The reasoner whose progress is being monitored will call the methods on
+ * The ReasonerProgressMonitor interface should be implemented by objects that wish to moniitor the
+ * progress of a reasoner. The reasoner whose progress is being monitored will call the methods on
  * this interface. The progress monitor is designed to monitor long running reasoner tasks such as
  * loading, preprocessing, consistency checking, classification and realisation. <br>
  * Tasks are executed sequentially. Nested tasks are not supported. <br>
  * The general contract is that the reasoner will call {@link #reasonerTaskStarted(String)}, then
  * call either {@link #reasonerTaskBusy()} or {@link #reasonerTaskProgressChanged(int, int)} any
  * number of times and finally call {@link #reasonerTaskStopped()} when the task ends or has been
- * interupted. This cycle may then be repeated.
+ * interrupted. This cycle may then be repeated.
  *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
@@ -65,7 +65,7 @@ public interface ReasonerProgressMonitor extends Serializable {
     default void reasonerTaskStarted(String taskName) {}
 
     /**
-     * Indicates that a previosly started task has now stopped. This method will only be called
+     * Indicates that a previously started task has now stopped. This method will only be called
      * after the {@link #reasonerTaskStarted(String)} method has been called. The notion of subtasks
      * is not supported. <br>
      * Note that this method may be called from a thread that is not the event dispatch thread.
@@ -74,7 +74,7 @@ public interface ReasonerProgressMonitor extends Serializable {
 
     /**
      * Indicates that the reasoner is part way through a particular task, for example consistency
-     * checking, classification or reaslisation. This method will only be called after the
+     * checking, classification or realisation. This method will only be called after the
      * {@link #reasonerTaskStarted(String)} method has been called. It will not be called after the
      * {@link #reasonerTaskStopped()} method has been called. <br>
      * Note that this method may be called from a thread that is not the event dispatch thread.

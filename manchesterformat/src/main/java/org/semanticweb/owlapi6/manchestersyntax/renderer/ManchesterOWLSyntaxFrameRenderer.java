@@ -244,7 +244,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Write ontology.
      *
-     * @throws OWLOntologyStorageException the oWL renderer exception
+     * @throws OWLOntologyStorageException renderer exception
      */
     public void writeOntology() throws OWLOntologyStorageException {
         writePrefixMap();
@@ -424,7 +424,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     /**
-     * @param cls the cls
+     * @param cls the class
      * @return the sets the
      */
     public Collection<OWLAxiom> write(OWLClass cls) {

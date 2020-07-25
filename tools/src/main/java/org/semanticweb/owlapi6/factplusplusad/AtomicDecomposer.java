@@ -11,7 +11,7 @@ import org.semanticweb.owlapi6.atomicdecomposition.Signature;
 import org.semanticweb.owlapi6.modularity.ModuleType;
 
 /**
- * atomical decomposer of the ontology
+ * Atomic decomposer for an ontology.
  */
 class AtomicDecomposer {
 

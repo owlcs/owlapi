@@ -26,7 +26,7 @@ import org.semanticweb.owlapi6.modularity.ModuleType;
 public class Modularizer {
 
     /**
-     * pointer to a sig index; if not NULL then use optimized algo
+     * pointer to a signature index; if not NULL then use optimized algorithm
      */
     private final SigIndex sigIndex;
     /**
@@ -59,8 +59,6 @@ public class Modularizer {
     private boolean noAtomsProcessing = true;
 
     /**
-     * init c'tor
-     *
      * @param moduleMethod module method
      */
     Modularizer(ModuleMethod moduleMethod) {
@@ -157,7 +155,7 @@ public class Modularizer {
     }
 
     /**
-     * extract module wrt presence of a sig index
+     * extract module wrt presence of a signature index
      *
      * @param list axioms
      */

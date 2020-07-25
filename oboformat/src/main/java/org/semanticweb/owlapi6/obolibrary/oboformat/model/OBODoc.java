@@ -70,7 +70,7 @@ public class OBODoc {
 
     /**
      * @param prefix the prefix
-     * @return true, if is treat xrefs as equivalent
+     * @return true, if xref values should be treated as equivalent
      */
     public static boolean isTreatXrefsAsEquivalent(@Nullable String prefix) {
         return "RO".equals(prefix);
@@ -155,7 +155,7 @@ public class OBODoc {
 
     /**
      * @param id the id
-     * @param visitedDocs the visited docs
+     * @param visitedDocs the visited documents
      * @return the frame
      */
     @Nullable
@@ -204,7 +204,7 @@ public class OBODoc {
 
     /**
      * @param id the id
-     * @param visitedDocs the visited docs
+     * @param visitedDocs the visited documents
      * @return the frame
      */
     @Nullable
@@ -235,14 +235,14 @@ public class OBODoc {
     }
 
     /**
-     * @return the imported obo docs
+     * @return the imported obo documents
      */
     public Collection<OBODoc> getImportedOBODocs() {
         return importedOBODocs;
     }
 
     /**
-     * @param importedOBODocs the new imported obo docs
+     * @param importedOBODocs the new imported obo documents
      */
     public void setImportedOBODocs(Collection<OBODoc> importedOBODocs) {
         this.importedOBODocs.clear();
@@ -340,7 +340,7 @@ public class OBODoc {
     /**
      * Adds the default ontology header.
      *
-     * @param defaultOnt the default ont
+     * @param defaultOnt the default ontology
      */
     public void addDefaultOntologyHeader(String defaultOnt) {
         Frame hf = verifyNotNull(getHeaderFrame());

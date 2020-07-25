@@ -216,7 +216,7 @@ public class Frame {
     /**
      * @param <T> the generic type
      * @param tag the tag
-     * @param cls the cls
+     * @param cls the class
      * @return the tag value for tag and class
      */
     @Nullable
@@ -235,7 +235,7 @@ public class Frame {
     /**
      * @param <T> the generic type
      * @param tag the tag
-     * @param cls the cls
+     * @param cls the class
      * @return the tag value for tag and class
      */
     @Nullable
@@ -264,7 +264,7 @@ public class Frame {
     /**
      * @param <T> the generic type
      * @param tag the tag
-     * @param cls the cls
+     * @param cls the class
      * @return the tag values for tag and class
      */
     public <T> Collection<T> getTagValues(OboFormatTag tag, Class<T> cls) {
@@ -274,7 +274,7 @@ public class Frame {
     /**
      * @param <T> the generic type
      * @param tag the tag
-     * @param cls the cls
+     * @param cls the class
      * @return the tag values for tag and class
      */
     public <T> Collection<T> getTagValues(String tag, Class<T> cls) {
@@ -285,7 +285,7 @@ public class Frame {
 
     /**
      * @param tag the tag
-     * @return the tag xrefs for tg
+     * @return the tag xref values for tag
      */
     public Collection<Xref> getTagXrefs(String tag) {
         Collection<Xref> xrefs = new ArrayList<>();

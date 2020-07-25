@@ -124,67 +124,62 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLObjectVisitor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OWLAnnotationPropertyTransformer.class);
+    private static final Logger LOGGER =
+        LoggerFactory.getLogger(OWLAnnotationPropertyTransformer.class);
     private final OWLDataFactory df;
     private final Map<OWLEntity, OWLEntity> replacementMap;
-    @Nullable private Object obj;
+    @Nullable
+    private Object obj;
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory.
+     * Creates an object duplicator that duplicates objects using the specified data factory.
      *
-     * @param dataFactory
-     *        The data factory to be used for the duplication.
+     * @param dataFactory The data factory to be used for the duplication.
      */
     public OWLAnnotationPropertyTransformer(OWLDataFactory dataFactory) {
         this(new HashMap<OWLEntity, OWLEntity>(), dataFactory);
     }
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory and uri replacement map.
+     * Creates an object duplicator that duplicates objects using the specified data factory and IRI
+     * replacement map.
      *
-     * @param dataFactory
-     *        The data factory to be used for the duplication.
-     * @param iriReplacementMap
-     *        The map to use for the replacement of URIs. Any uris the appear in
-     *        the map will be replaced as objects are duplicated. This can be
-     *        used to "rename" entities.
+     * @param dataFactory The data factory to be used for the duplication.
+     * @param iriReplacementMap The map to use for the replacement of URIs. Any uris the appear in
+     *        the map will be replaced as objects are duplicated. This can be used to "rename"
+     *        entities.
      */
-    public OWLAnnotationPropertyTransformer(OWLDataFactory dataFactory, Map<OWLEntity, OWLEntity> iriReplacementMap) {
+    public OWLAnnotationPropertyTransformer(OWLDataFactory dataFactory,
+        Map<OWLEntity, OWLEntity> iriReplacementMap) {
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(iriReplacementMap, "iriReplacementMap cannot be null");
         replacementMap = new HashMap<>(iriReplacementMap);
     }
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory and uri replacement map.
+     * Creates an object duplicator that duplicates objects using the specified data factory and IRI
+     * replacement map.
      *
-     * @param dataFactory
-     *        The data factory to be used for the duplication.
-     * @param entityIRIReplacementMap
-     *        The map to use for the replacement of URIs. Any uris the appear in
-     *        the map will be replaced as objects are duplicated. This can be
-     *        used to "rename" entities.
+     * @param dataFactory The data factory to be used for the duplication.
+     * @param entityIRIReplacementMap The map to use for the replacement of URIs. Any uris the
+     *        appear in the map will be replaced as objects are duplicated. This can be used to
+     *        "rename" entities.
      */
     public OWLAnnotationPropertyTransformer(Map<OWLEntity, OWLEntity> entityIRIReplacementMap,
         OWLDataFactory dataFactory) {
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
-        replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
+        replacementMap = new HashMap<>(
+            checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
     }
 
     /**
-     * @param object
-     *        the object to duplicate
-     * @param <O>
-     *        return type
+     * @param object the object to duplicate
+     * @param <O> return type
      * @return the duplicate
      */
     public <O extends OWLObject> O transformObject(O object) {
@@ -204,19 +199,17 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         this.obj = obj;
     }
 
-    @SuppressWarnings({ "unchecked", })
+    @SuppressWarnings({"unchecked",})
     protected <O extends OWLObject> O dup(O o) {
         o.accept(this);
         return (O) verifyNotNull(obj);
     }
 
     /**
-     * Given an IRI belonging to an entity, returns a IRI. This may be the same
-     * IRI that the entity has, or an alternative IRI if a replacement has been
-     * specified.
+     * Given an IRI belonging to an entity, returns a IRI. This may be the same IRI that the entity
+     * has, or an alternative IRI if a replacement has been specified.
      *
-     * @param entity
-     *        The entity
+     * @param entity The entity
      * @return The IRI
      */
     private OWLEntity getIRI(OWLEntity entity) {
@@ -238,18 +231,20 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLClassAssertionAxiom ax) {
-        obj = df.getOWLClassAssertionAxiom(dup(ax.getClassExpression()), dup(ax.getIndividual()), anns(ax));
-    }
-
-    @Override
-    public void visit(OWLDataPropertyAssertionAxiom ax) {
-        obj = df.getOWLDataPropertyAssertionAxiom(dup(ax.getProperty()), dup(ax.getSubject()), dup(ax.getObject()),
+        obj = df.getOWLClassAssertionAxiom(dup(ax.getClassExpression()), dup(ax.getIndividual()),
             anns(ax));
     }
 
     @Override
+    public void visit(OWLDataPropertyAssertionAxiom ax) {
+        obj = df.getOWLDataPropertyAssertionAxiom(dup(ax.getProperty()), dup(ax.getSubject()),
+            dup(ax.getObject()), anns(ax));
+    }
+
+    @Override
     public void visit(OWLDataPropertyDomainAxiom ax) {
-        obj = df.getOWLDataPropertyDomainAxiom(dup(ax.getProperty()), dup(ax.getDomain()), anns(ax));
+        obj =
+            df.getOWLDataPropertyDomainAxiom(dup(ax.getProperty()), dup(ax.getDomain()), anns(ax));
     }
 
     @Override
@@ -259,7 +254,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom ax) {
-        obj = df.getOWLSubDataPropertyOfAxiom(dup(ax.getSubProperty()), dup(ax.getSuperProperty()), anns(ax));
+        obj = df.getOWLSubDataPropertyOfAxiom(dup(ax.getSubProperty()), dup(ax.getSuperProperty()),
+            anns(ax));
     }
 
     @Override
@@ -289,7 +285,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLDisjointUnionAxiom ax) {
-        obj = df.getOWLDisjointUnionAxiom(dup(ax.getOWLClass()), set(ax.classExpressions()), anns(ax));
+        obj = df.getOWLDisjointUnionAxiom(dup(ax.getOWLClass()), set(ax.classExpressions()),
+            anns(ax));
     }
 
     @Override
@@ -311,8 +308,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             } else {
                 relatedIndividual = df.getOWLNamedIndividual((IRI) value);
             }
-            obj = df.getOWLObjectPropertyAssertionAxiom(prop.asOWLObjectProperty(), individual, relatedIndividual,
-                ax.annotationsAsList());
+            obj = df.getOWLObjectPropertyAssertionAxiom(prop.asOWLObjectProperty(), individual,
+                relatedIndividual, ax.annotationsAsList());
             return;
         } else if (prop.isDataPropertyExpression()) {
             // turn to data property assertion
@@ -322,11 +319,12 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             } else {
                 individual = df.getOWLNamedIndividual((IRI) subject);
             }
-            obj = df.getOWLDataPropertyAssertionAxiom(prop.asOWLDataProperty(), individual, (OWLLiteral) value,
-                ax.annotationsAsList());
+            obj = df.getOWLDataPropertyAssertionAxiom(prop.asOWLDataProperty(), individual,
+                (OWLLiteral) value, ax.annotationsAsList());
             return;
         }
-        obj = df.getOWLAnnotationAssertionAxiom(prop.asOWLAnnotationProperty(), subject, value, anns(ax));
+        obj = df.getOWLAnnotationAssertionAxiom(prop.asOWLAnnotationProperty(), subject, value,
+            anns(ax));
     }
 
     @Override
@@ -361,7 +359,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom ax) {
-        obj = df.getOWLInverseObjectPropertiesAxiom(dup(ax.getFirstProperty()), dup(ax.getSecondProperty()), anns(ax));
+        obj = df.getOWLInverseObjectPropertiesAxiom(dup(ax.getFirstProperty()),
+            dup(ax.getSecondProperty()), anns(ax));
     }
 
     @Override
@@ -371,41 +370,45 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom ax) {
-        obj = df.getOWLNegativeDataPropertyAssertionAxiom(dup(ax.getProperty()), dup(ax.getSubject()),
-            dup(ax.getObject()), anns(ax));
+        obj = df.getOWLNegativeDataPropertyAssertionAxiom(dup(ax.getProperty()),
+            dup(ax.getSubject()), dup(ax.getObject()), anns(ax));
     }
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom ax) {
-        obj = df.getOWLNegativeObjectPropertyAssertionAxiom(dup(ax.getProperty()), dup(ax.getSubject()),
-            dup(ax.getObject()), anns(ax));
+        obj = df.getOWLNegativeObjectPropertyAssertionAxiom(dup(ax.getProperty()),
+            dup(ax.getSubject()), dup(ax.getObject()), anns(ax));
     }
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom ax) {
-        obj = df.getOWLObjectPropertyAssertionAxiom(dup(ax.getProperty()), dup(ax.getSubject()), dup(ax.getObject()),
-            anns(ax));
+        obj = df.getOWLObjectPropertyAssertionAxiom(dup(ax.getProperty()), dup(ax.getSubject()),
+            dup(ax.getObject()), anns(ax));
     }
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom ax) {
-        obj = df.getOWLSubPropertyChainOfAxiom(asList(ax.getPropertyChain().stream().map(this::dup)),
-            dup(ax.getSuperProperty()), anns(ax));
+        obj =
+            df.getOWLSubPropertyChainOfAxiom(asList(ax.getPropertyChain().stream().map(this::dup)),
+                dup(ax.getSuperProperty()), anns(ax));
     }
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom ax) {
-        obj = df.getOWLObjectPropertyDomainAxiom(dup(ax.getProperty()), dup(ax.getDomain()), anns(ax));
+        obj = df.getOWLObjectPropertyDomainAxiom(dup(ax.getProperty()), dup(ax.getDomain()),
+            anns(ax));
     }
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom ax) {
-        obj = df.getOWLObjectPropertyRangeAxiom(dup(ax.getProperty()), dup(ax.getRange()), anns(ax));
+        obj =
+            df.getOWLObjectPropertyRangeAxiom(dup(ax.getProperty()), dup(ax.getRange()), anns(ax));
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom ax) {
-        obj = df.getOWLSubObjectPropertyOfAxiom(dup(ax.getSubProperty()), dup(ax.getSuperProperty()), anns(ax));
+        obj = df.getOWLSubObjectPropertyOfAxiom(dup(ax.getSubProperty()),
+            dup(ax.getSuperProperty()), anns(ax));
     }
 
     @Override
@@ -445,17 +448,20 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLDataExactCardinality ce) {
-        obj = df.getOWLDataExactCardinality(ce.getCardinality(), dup(ce.getProperty()), dup(ce.getFiller()));
+        obj = df.getOWLDataExactCardinality(ce.getCardinality(), dup(ce.getProperty()),
+            dup(ce.getFiller()));
     }
 
     @Override
     public void visit(OWLDataMaxCardinality ce) {
-        obj = df.getOWLDataMaxCardinality(ce.getCardinality(), dup(ce.getProperty()), dup(ce.getFiller()));
+        obj = df.getOWLDataMaxCardinality(ce.getCardinality(), dup(ce.getProperty()),
+            dup(ce.getFiller()));
     }
 
     @Override
     public void visit(OWLDataMinCardinality ce) {
-        obj = df.getOWLDataMinCardinality(ce.getCardinality(), dup(ce.getProperty()), dup(ce.getFiller()));
+        obj = df.getOWLDataMinCardinality(ce.getCardinality(), dup(ce.getProperty()),
+            dup(ce.getFiller()));
     }
 
     @Override
@@ -480,7 +486,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLObjectExactCardinality ce) {
-        obj = df.getOWLObjectExactCardinality(ce.getCardinality(), dup(ce.getProperty()), dup(ce.getFiller()));
+        obj = df.getOWLObjectExactCardinality(ce.getCardinality(), dup(ce.getProperty()),
+            dup(ce.getFiller()));
     }
 
     @Override
@@ -490,12 +497,14 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLObjectMaxCardinality ce) {
-        obj = df.getOWLObjectMaxCardinality(ce.getCardinality(), dup(ce.getProperty()), dup(ce.getFiller()));
+        obj = df.getOWLObjectMaxCardinality(ce.getCardinality(), dup(ce.getProperty()),
+            dup(ce.getFiller()));
     }
 
     @Override
     public void visit(OWLObjectMinCardinality ce) {
-        obj = df.getOWLObjectMinCardinality(ce.getCardinality(), dup(ce.getProperty()), dup(ce.getFiller()));
+        obj = df.getOWLObjectMinCardinality(ce.getCardinality(), dup(ce.getProperty()),
+            dup(ce.getFiller()));
     }
 
     @Override
@@ -540,7 +549,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLDatatypeRestriction node) {
-        obj = df.getOWLDatatypeRestriction(dup(node.getDatatype()), asList(node.facetRestrictions().map(this::dup)));
+        obj = df.getOWLDatatypeRestriction(dup(node.getDatatype()),
+            asList(node.facetRestrictions().map(this::dup)));
     }
 
     @Override
@@ -585,7 +595,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(SWRLRule rule) {
-        obj = df.getSWRLRule(asList(rule.body().map(this::dup)), asList(rule.head().map(this::dup)));
+        obj =
+            df.getSWRLRule(asList(rule.body().map(this::dup)), asList(rule.head().map(this::dup)));
     }
 
     @Override
@@ -617,12 +628,14 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
-        obj = df.getSWRLDifferentIndividualsAtom(dup(node.getFirstArgument()), dup(node.getSecondArgument()));
+        obj = df.getSWRLDifferentIndividualsAtom(dup(node.getFirstArgument()),
+            dup(node.getSecondArgument()));
     }
 
     @Override
     public void visit(SWRLSameIndividualAtom node) {
-        obj = df.getSWRLSameIndividualAtom(dup(node.getFirstArgument()), dup(node.getSecondArgument()));
+        obj = df.getSWRLSameIndividualAtom(dup(node.getFirstArgument()),
+            dup(node.getSecondArgument()));
     }
 
     @Override
@@ -642,7 +655,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLHasKeyAxiom ax) {
-        obj = df.getOWLHasKeyAxiom(dup(ax.getClassExpression()), set(ax.propertyExpressions()), anns(ax));
+        obj = df.getOWLHasKeyAxiom(dup(ax.getClassExpression()), set(ax.propertyExpressions()),
+            anns(ax));
     }
 
     @Override
@@ -670,7 +684,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property domain axiom turned to object property domain after parsing. This could introduce errors if the original domain was an anonymous expression: {} is the new domain.",
                 domain);
-            obj = df.getOWLObjectPropertyDomainAxiom(prop.asOWLObjectProperty(), d, ax.annotationsAsList());
+            obj = df.getOWLObjectPropertyDomainAxiom(prop.asOWLObjectProperty(), d,
+                ax.annotationsAsList());
             return;
         } else if (prop.isDataPropertyExpression()) {
             // turn to data property domain
@@ -678,10 +693,12 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property domain axiom turned to data property domain after parsing. This could introduce errors if the original domain was an anonymous expression: {} is the new domain.",
                 domain);
-            obj = df.getOWLDataPropertyDomainAxiom(prop.asOWLDataProperty(), d, ax.annotationsAsList());
+            obj = df.getOWLDataPropertyDomainAxiom(prop.asOWLDataProperty(), d,
+                ax.annotationsAsList());
             return;
         }
-        obj = df.getOWLAnnotationPropertyDomainAxiom(prop.asOWLAnnotationProperty(), domain, anns(ax));
+        obj = df.getOWLAnnotationPropertyDomainAxiom(prop.asOWLAnnotationProperty(), domain,
+            anns(ax));
     }
 
     @Override
@@ -694,7 +711,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property range axiom turned to object property range after parsing. This could introduce errors if the original range was an anonymous expression: {} is the new domain.",
                 range);
-            obj = df.getOWLObjectPropertyRangeAxiom(prop.asOWLObjectProperty(), d, ax.annotationsAsList());
+            obj = df.getOWLObjectPropertyRangeAxiom(prop.asOWLObjectProperty(), d,
+                ax.annotationsAsList());
             return;
         } else if (prop.isDataPropertyExpression()) {
             // turn to data property domain
@@ -702,10 +720,12 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             LOGGER.warn(
                 "Annotation property range axiom turned to data property range after parsing. This could introduce errors if the original range was an anonymous expression: {} is the new domain.",
                 range);
-            obj = df.getOWLDataPropertyRangeAxiom(prop.asOWLDataProperty(), d, ax.annotationsAsList());
+            obj = df.getOWLDataPropertyRangeAxiom(prop.asOWLDataProperty(), d,
+                ax.annotationsAsList());
             return;
         }
-        obj = df.getOWLAnnotationPropertyRangeAxiom(prop.asOWLAnnotationProperty(), range, anns(ax));
+        obj =
+            df.getOWLAnnotationPropertyRangeAxiom(prop.asOWLAnnotationProperty(), range, anns(ax));
     }
 
     @Override
@@ -716,8 +736,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             // check: it is possible that the properties represent an actual
             // illegal punning, where this fix cannot be applied
             if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
-                obj = df.getOWLSubObjectPropertyOfAxiom(sub.asOWLObjectProperty(), sup.asOWLObjectProperty(),
-                    ax.annotationsAsList());
+                obj = df.getOWLSubObjectPropertyOfAxiom(sub.asOWLObjectProperty(),
+                    sup.asOWLObjectProperty(), ax.annotationsAsList());
             } else {
                 // cannot repair: leave unchanged
                 obj = ax;
@@ -725,8 +745,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             return;
         } else if (sub.isDataPropertyExpression() || sup.isDataPropertyExpression()) {
             if (sub.isOWLDataProperty() && sup.isOWLDataProperty()) {
-                obj = df.getOWLSubDataPropertyOfAxiom(sub.asOWLDataProperty(), sup.asOWLDataProperty(),
-                    ax.annotationsAsList());
+                obj = df.getOWLSubDataPropertyOfAxiom(sub.asOWLDataProperty(),
+                    sup.asOWLDataProperty(), ax.annotationsAsList());
             } else {
                 // cannot repair: leave unchanged
                 obj = ax;
@@ -734,8 +754,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             return;
         }
         if (sub.isOWLAnnotationProperty() && sup.isOWLAnnotationProperty()) {
-            obj = df.getOWLSubAnnotationPropertyOfAxiom(sub.asOWLAnnotationProperty(), sup.asOWLAnnotationProperty(),
-                anns(ax));
+            obj = df.getOWLSubAnnotationPropertyOfAxiom(sub.asOWLAnnotationProperty(),
+                sup.asOWLAnnotationProperty(), anns(ax));
         } else {
             // cannot repair: leave unchanged
             obj = ax;
@@ -768,16 +788,15 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom ax) {
-        obj = df.getOWLDatatypeDefinitionAxiom(dup(ax.getDatatype()), dup(ax.getDataRange()), anns(ax));
+        obj = df.getOWLDatatypeDefinitionAxiom(dup(ax.getDatatype()), dup(ax.getDataRange()),
+            anns(ax));
     }
 
     /**
      * A utility function that duplicates a set of objects.
      *
-     * @param objects
-     *        The set of object to be duplicated
-     * @param <O>
-     *        type contained in the collections
+     * @param objects The set of object to be duplicated
+     * @param <O> type contained in the collections
      * @return The set of duplicated objects
      */
     private <O extends OWLObject> Collection<O> set(Stream<O> objects) {

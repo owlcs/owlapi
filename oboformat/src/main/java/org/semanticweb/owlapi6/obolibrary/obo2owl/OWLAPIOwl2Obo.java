@@ -142,8 +142,6 @@ public class OWLAPIOwl2Obo {
     private boolean muteUntranslatableAxioms = false;
 
     /**
-     * Instantiates a new oWLAPI owl2 obo.
-     *
      * @param translationManager the translation manager
      */
     public OWLAPIOwl2Obo(OWLOntologyManager translationManager) {
@@ -170,7 +168,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Adds the qualifiers.
      *
-     * @param c          the c
+     * @param c the c
      * @param qualifiers the qualifiers
      */
     protected static void addQualifiers(Clause c, Stream<OWLAnnotation> qualifiers) {
@@ -180,7 +178,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Adds the qualifiers.
      *
-     * @param c         the c
+     * @param c the c
      * @param qualifier the qualifier
      */
     protected static void addQualifiers(Clause c, OWLAnnotation qualifier) {
@@ -219,7 +217,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Gets the ontology id.
      *
-     * @param iriObj the iri obj
+     * @param iriObj the iri
      * @return the ontology id
      */
     public static String getOntologyId(IRI iriObj) {
@@ -256,7 +254,7 @@ public class OWLAPIOwl2Obo {
      * corresponds to an OBO alternate identifier. Track non related annotations.
      *
      * @param annotations set of annotations for the entity @return replaced_by if it is an alt_id
-     * @return alt id check result
+     * @return alternate id check result
      */
     protected static Optional<OboAltIdCheckResult> checkForOboAltId(
         Collection<OWLAnnotationAssertionAxiom> annotations) {
@@ -319,8 +317,8 @@ public class OWLAPIOwl2Obo {
      * to resolve the identifier. Should the translation process encounter a problem or not find an
      * identifier the defaultValue is returned.
      *
-     * @param obj          the {@link OWLObject} to resolve
-     * @param ont          the target ontology
+     * @param obj the {@link OWLObject} to resolve
+     * @param ont the target ontology
      * @param defaultValue the value to return in case of an error or no id
      * @return identifier or the default value
      */
@@ -346,7 +344,7 @@ public class OWLAPIOwl2Obo {
      * @param ont the target ontology
      * @return identifier or null
      * @throws UntranslatableAxiomException the untranslatable axiom exception
-     *                                      {@link UntranslatableAxiomException} is thrown.
+     *         {@link UntranslatableAxiomException} is thrown.
      */
     @Nullable
     public static String getIdentifierFromObject(OWLObject obj, OWLOntology ont)
@@ -442,7 +440,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Owl object to tag.
      *
-     * @param obj the obj
+     * @param obj the object
      * @return the string
      */
     @Nullable
@@ -462,7 +460,7 @@ public class OWLAPIOwl2Obo {
     @Nullable
     protected static String tagFromPrefix(String iri, @Nullable String tag) {
         if (tag == null) {
-            // hardcoded values for legacy annotation properties: (TEMPORARY)
+            // hard coded values for legacy annotation properties: (TEMPORARY)
             if (iri.startsWith(Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_")) {
                 String legacyId = iri.replace(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "");
                 if ("IAO_xref".equals(legacyId)) {
@@ -506,7 +504,7 @@ public class OWLAPIOwl2Obo {
      * Find similar clauses.
      *
      * @param clauses the clauses
-     * @param target  the target
+     * @param target the target
      * @return the list
      */
     static List<Clause> findSimilarClauses(List<Clause> clauses, Clause target) {
@@ -542,7 +540,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Merge similar into target.
      *
-     * @param target  the target
+     * @param target the target
      * @param similar the similar
      */
     static void mergeSimilarIntoTarget(Clause target, List<Clause> similar) {
@@ -573,7 +571,7 @@ public class OWLAPIOwl2Obo {
      * Find matching qualifier value.
      *
      * @param query the query
-     * @param list  the list
+     * @param list the list
      * @return the qualifier value
      */
     @Nullable
@@ -592,7 +590,7 @@ public class OWLAPIOwl2Obo {
      * Merge qualifier values.
      *
      * @param target the target
-     * @param newQV  the new qv
+     * @param newQV the new qv
      */
     static void mergeQualifierValues(QualifierValue target, QualifierValue newQV) {
         // do nothing, if they are equal
@@ -642,7 +640,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Checks if is discard untranslatable.
      *
-     * @return the discardUntranslatable
+     * @return the discard untranslatable value
      */
     public boolean isDiscardUntranslatable() {
         return discardUntranslatable;
@@ -651,7 +649,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Sets the discard untranslatable.
      *
-     * @param discardUntranslatable the discardUntranslatable to set
+     * @param discardUntranslatable the new value for discard untranslatable to set
      */
     public void setDiscardUntranslatable(boolean discardUntranslatable) {
         this.discardUntranslatable = discardUntranslatable;
@@ -696,8 +694,8 @@ public class OWLAPIOwl2Obo {
     /**
      * Convert.
      *
-     * @param ont the ont
-     * @return the oBO doc
+     * @param ont the ontology
+     * @return the OBO doc
      */
     public OBODoc convert(OWLOntology ont) {
         owlOntology = ont;
@@ -713,16 +711,16 @@ public class OWLAPIOwl2Obo {
     /**
      * Gets the untranslatable axioms.
      *
-     * @return the untranslatableAxioms
+     * @return the untranslatable axioms
      */
     public Collection<OWLAxiom> getUntranslatableAxioms() {
         return untranslatableAxioms;
     }
 
     /**
-     * Tr.
+     * Translate to obo document.
      * 
-     * @return the oBO doc
+     * @return the OBO doc
      */
     protected OBODoc tr() {
         setObodoc(new OBODoc());
@@ -755,7 +753,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Pre process.
+     * Preprocess.
      */
     protected void preProcess() {
         // converse of postProcess in obo2owl
@@ -821,11 +819,11 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr object property.
+     * Translate object property.
      *
-     * @param prop        the prop
-     * @param tag         the tag
-     * @param value       the value
+     * @param prop the prop
+     * @param tag the tag
+     * @param value the value
      * @param annotations the annotations
      * @return true, if successful
      */
@@ -853,11 +851,11 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr object property.
+     * Translate object property.
      *
-     * @param prop        the prop
-     * @param tag         the tag
-     * @param value       the value
+     * @param prop the prop
+     * @param tag the tag
+     * @param value the value
      * @param annotations the annotations
      * @return true, if successful
      */
@@ -875,9 +873,9 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr nary property axiom.
+     * Translate nary property axiom.
      *
-     * @param ax  the ax
+     * @param ax the ax
      * @param tag the tag
      */
     protected void trNaryPropertyAxiom(OWLNaryPropertyAxiom<OWLObjectPropertyExpression> ax,
@@ -913,12 +911,12 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate annotation.
      *
-     * @param prop       the prop
-     * @param annVal     the ann val
+     * @param prop the prop
+     * @param annVal annotation value
      * @param qualifiers the qualifiers
-     * @param frame      the frame
+     * @param frame the frame
      * @return true, if successful
      */
     protected boolean tr(OWLAnnotationProperty prop, OWLAnnotationValue annVal,
@@ -1035,9 +1033,9 @@ public class OWLAPIOwl2Obo {
     /**
      * Handle synonym.
      *
-     * @param qualifiers            the qualifiers
-     * @param scope                 the scope
-     * @param clause                the clause
+     * @param qualifiers the qualifiers
+     * @param scope the scope
+     * @param clause the clause
      * @param unprocessedQualifiers the unprocessed qualifiers
      */
     protected void handleSynonym(Collection<OWLAnnotation> qualifiers, @Nullable String scope,
@@ -1074,7 +1072,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Handle a duplicate clause in a frame during translation.
      *
-     * @param frame  the frame
+     * @param frame the frame
      * @param clause the clause
      * @return true if the clause is to be marked as redundant and will not be added to the
      */
@@ -1085,12 +1083,12 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr generic property value.
+     * Translate generic property value.
      *
-     * @param prop       the prop
-     * @param annVal     the ann val
+     * @param prop the prop
+     * @param annVal annotation value
      * @param qualifiers the qualifiers
-     * @param frame      the frame
+     * @param frame the frame
      * @return true, if successful
      */
     protected boolean trGenericPropertyValue(OWLAnnotationProperty prop, OWLAnnotationValue annVal,
@@ -1128,8 +1126,8 @@ public class OWLAPIOwl2Obo {
     /**
      * Gets the value.
      *
-     * @param annVal the ann val
-     * @param tag    the tag
+     * @param annVal annotation value
+     * @param tag the tag
      * @return the value
      */
     protected Object getValue(OWLAnnotationValue annVal, @Nullable String tag) {
@@ -1157,7 +1155,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate ontology.
      *
      * @param ontology the ontology
      */
@@ -1213,7 +1211,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Gets the identifier.
      *
-     * @param obj the obj
+     * @param obj the object
      * @return the identifier
      */
     @Nullable
@@ -1285,10 +1283,10 @@ public class OWLAPIOwl2Obo {
     /**
      * Creates the relationship clause with restrictions.
      *
-     * @param r        the r
+     * @param r the r
      * @param fillerId the filler id
-     * @param qvs      the qvs
-     * @param ax       the ax
+     * @param qvs the qvs
+     * @param ax the ax
      * @return the clause
      */
     protected Clause createRelationshipClauseWithRestrictions(OWLQuantifiedObjectRestriction r,
@@ -1305,9 +1303,9 @@ public class OWLAPIOwl2Obo {
      * Creates the relationship clause with cardinality.
      *
      * @param restriction the restriction
-     * @param fillerId    the filler id
-     * @param qvs         the qvs
-     * @param ax          the ax
+     * @param fillerId the filler id
+     * @param qvs the qvs
+     * @param ax the ax
      * @return the clause
      */
     protected Clause createRelationshipClauseWithCardinality(
@@ -1363,7 +1361,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Helper class: allow to return two values for the alt id check.
+     * Helper class: allow to return two values for the alternate id check.
      */
     private static class OboAltIdCheckResult {
 
@@ -1385,7 +1383,7 @@ public class OWLAPIOwl2Obo {
          * Instantiates a new untranslatable axiom exception.
          *
          * @param message the message
-         * @param cause   the cause
+         * @param cause the cause
          */
         public UntranslatableAxiomException(String message, Throwable cause) {
             super(message, cause);

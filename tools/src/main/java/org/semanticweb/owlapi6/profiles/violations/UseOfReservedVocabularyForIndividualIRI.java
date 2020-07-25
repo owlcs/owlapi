@@ -30,8 +30,8 @@ public class UseOfReservedVocabularyForIndividualIRI extends OWLProfileViolation
 
     /**
      * @param ontology ontology
-     * @param axiom axiom
-     * @param ind ind
+     * @param axiom    axiom
+     * @param ind      individual
      */
     public UseOfReservedVocabularyForIndividualIRI(OWLOntology ontology, @Nullable OWLAxiom axiom,
         OWLNamedIndividual ind) {

@@ -29,13 +29,12 @@ import org.semanticweb.owlapi6.profiles.OWLProfileViolationVisitorEx;
 public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation {
 
     /**
-     * @param ontology ontology
-     * @param axiom axiom
-     * @param rangeAxiom rangeAxiom
+     * @param ontology   ontology
+     * @param axiom      axiom
+     * @param rangeAxiom range axiom
      */
     public LastPropertyInChainNotInImposedRange(OWLOntology ontology,
-        @Nullable OWLSubPropertyChainOfAxiom axiom,
-        OWLObjectPropertyRangeAxiom rangeAxiom) {
+        @Nullable OWLSubPropertyChainOfAxiom axiom, OWLObjectPropertyRangeAxiom rangeAxiom) {
         super(ontology, axiom, rangeAxiom);
     }
 

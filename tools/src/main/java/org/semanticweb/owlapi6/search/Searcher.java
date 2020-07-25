@@ -95,7 +95,7 @@ public final class Searcher {
      * Retrieve literals from a collection of assertions.
      *
      * @param axioms axioms
-     * @param p      optional property to match. Null means all.
+     * @param p optional property to match. Null means all.
      * @return literals
      */
     public static Stream<OWLLiteral> values(Stream<OWLDataPropertyAssertionAxiom> axioms,
@@ -107,7 +107,7 @@ public final class Searcher {
      * Retrieve objects from a collection of assertions.
      *
      * @param axioms axioms
-     * @param p      optional property to match. Null means all.
+     * @param p optional property to match. Null means all.
      * @return objects
      */
     public static Stream<OWLIndividual> values(Stream<OWLObjectPropertyAssertionAxiom> axioms,
@@ -119,7 +119,7 @@ public final class Searcher {
      * Retrieve literals from a collection of negative assertions.
      *
      * @param axioms axioms
-     * @param p      optional property to match. Null means all.
+     * @param p optional property to match. Null means all.
      * @return literals
      */
     public static Stream<OWLLiteral> negValues(Stream<OWLNegativeDataPropertyAssertionAxiom> axioms,
@@ -131,7 +131,7 @@ public final class Searcher {
      * Retrieve objects from a collection of negative assertions.
      *
      * @param axioms axioms
-     * @param p      optional property to match. Null means all.
+     * @param p optional property to match. Null means all.
      * @return objects
      */
     public static Stream<OWLIndividual> negValues(
@@ -164,7 +164,7 @@ public final class Searcher {
      * Retrieve inverses from a collection of inverse axioms.
      *
      * @param axioms axioms to check
-     * @param p      property to match; not returned in the set
+     * @param p property to match; not returned in the set
      * @return inverses of p
      */
     public static Stream<OWLObjectPropertyExpression> inverse(
@@ -186,7 +186,7 @@ public final class Searcher {
      * Retrieve annotation values from annotations.
      *
      * @param annotations annotations
-     * @param p           optional annotation property to match. Null means all.
+     * @param p optional annotation property to match. Null means all.
      * @return annotation values
      */
     public static Stream<OWLAnnotationValue> values(Stream<OWLAnnotation> annotations,
@@ -198,7 +198,7 @@ public final class Searcher {
      * Retrieve annotations from a collection of annotation assertion axioms.
      *
      * @param axioms axioms
-     * @param p      optional annotation property to match. Null means all.
+     * @param p optional annotation property to match. Null means all.
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotationObjects(
@@ -210,7 +210,7 @@ public final class Searcher {
      * Retrieve the annotation from an annotation assertion axiom.
      *
      * @param axiom axiom
-     * @param p     optional annotation property to match. Null means all.
+     * @param p optional annotation property to match. Null means all.
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotationObject(OWLAnnotationAssertionAxiom axiom,
@@ -249,7 +249,7 @@ public final class Searcher {
      * retrieved; for annotation assertion axioms, their asserted annotation is retrieved as well.
      *
      * @param axioms axioms
-     * @param p      optional annotation property to match. Null means all.
+     * @param p optional annotation property to match. Null means all.
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotations(Stream<? extends OWLAxiom> axioms,
@@ -262,7 +262,7 @@ public final class Searcher {
      * annotation assertion axioms, their asserted annotation is retrieved as well.
      *
      * @param axiom axiom
-     * @param p     optional annotation property to match. Null means all.
+     * @param p optional annotation property to match. Null means all.
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotations(OWLAxiom axiom,
@@ -283,7 +283,7 @@ public final class Searcher {
      * of axiom types can be passed in, as long as the entity type they contain is compatible with
      * the return type for the collection.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
      * @return equivalent entities
      */
@@ -297,9 +297,9 @@ public final class Searcher {
      * of axiom types can be passed in, as long as the entity type they contain is compatible with
      * the return type for the collection.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
-     * @param type   type contained in the returned collection
+     * @param type type contained in the returned collection
      * @return equivalent entities
      */
     public static <C extends OWLObject> Stream<C> equivalent(Stream<? extends OWLAxiom> axioms,
@@ -311,7 +311,7 @@ public final class Searcher {
      * Retrieve equivalent entities from an axiom, including individuals from sameAs axioms.
      *
      * @param axiom axiom
-     * @param <C>   type contained in the returned collection
+     * @param <C> type contained in the returned collection
      * @return equivalent entities
      */
     public static <C extends OWLObject> Stream<C> equivalent(OWLAxiom axiom) {
@@ -322,8 +322,8 @@ public final class Searcher {
      * Retrieve equivalent entities from an axiom, including individuals from sameAs axioms.
      *
      * @param axiom axiom
-     * @param type  type returned
-     * @param <C>   type contained in the returned collection
+     * @param type type returned
+     * @param <C> type contained in the returned collection
      * @return equivalent entities
      */
     public static <C extends OWLObject> Stream<C> equivalent(OWLAxiom axiom, Class<C> type) {
@@ -335,7 +335,7 @@ public final class Searcher {
      * mixture of axiom types can be passed in, as long as the entity type they contain is
      * compatible with the return type for the collection.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
      * @return disjoint entities
      */
@@ -349,9 +349,9 @@ public final class Searcher {
      * mixture of axiom types can be passed in, as long as the entity type they contain is
      * compatible with the return type for the collection.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
-     * @param type   type contained in the returned collection
+     * @param type type contained in the returned collection
      * @return disjoint entities
      */
     public static <C extends OWLObject> Stream<C> different(Stream<? extends OWLAxiom> axioms,
@@ -362,7 +362,7 @@ public final class Searcher {
     /**
      * Retrieve disjoint entities from an axiom, including individuals from differentFrom axioms.
      *
-     * @param <C>   returned type
+     * @param <C> returned type
      * @param axiom axiom
      * @return disjoint entities
      */
@@ -373,9 +373,9 @@ public final class Searcher {
     /**
      * Retrieve disjoint entities from an axiom, including individuals from differentFrom axioms.
      *
-     * @param <C>   returned type
+     * @param <C> returned type
      * @param axiom axiom
-     * @param type  witness for returned type
+     * @param type witness for returned type
      * @return disjoint entities
      */
     public static <C extends OWLObject> Stream<C> different(OWLAxiom axiom,
@@ -388,7 +388,7 @@ public final class Searcher {
      * be passed in, as long as the entity type they contain is compatible with the return type for
      * the collection.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
      * @return sub expressions
      */
@@ -402,9 +402,9 @@ public final class Searcher {
      * be passed in, as long as the entity type they contain is compatible with the return type for
      * the collection.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
-     * @param type   type contained in the returned collection
+     * @param type type contained in the returned collection
      * @return sub expressions
      */
     public static <C extends OWLObject> Stream<C> sub(Stream<? extends OWLAxiom> axioms,
@@ -417,7 +417,7 @@ public final class Searcher {
      * can be passed in, as long as the entity type they contain is compatible with the return type
      * for the collection.
      *
-     * @param <C>   returned type
+     * @param <C> returned type
      * @param axiom axiom
      * @return sub expressions
      */
@@ -430,9 +430,9 @@ public final class Searcher {
      * can be passed in, as long as the entity type they contain is compatible with the return type
      * for the collection.
      *
-     * @param <C>   returned type
+     * @param <C> returned type
      * @param axiom axiom
-     * @param type  witness for returned type
+     * @param type witness for returned type
      * @return sub expressions
      */
     public static <C extends OWLObject> C sub(OWLAxiom axiom,
@@ -441,13 +441,13 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of axioms, i.e., superclass or superproperty. A mixture of axiom
+     * Retrieve the super part of axioms, i.e., superclass or super property. A mixture of axiom
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
-     * @param type   type contained in the returned collection
+     * @param type type contained in the returned collection
      * @return sub expressions
      */
     public static <C extends OWLObject> Stream<C> sup(Stream<? extends OWLAxiom> axioms,
@@ -456,11 +456,11 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of axioms, i.e., superclass or superproperty. A mixture of axiom
+     * Retrieve the super part of axioms, i.e., superclass or super property. A mixture of axiom
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
      * @return sub expressions
      */
@@ -470,11 +470,11 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of an axiom, i.e., superclass or superproperty. A mixture of axiom
+     * Retrieve the super part of an axiom, i.e., superclass or super property. A mixture of axiom
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
      *
-     * @param <C>   returned type
+     * @param <C> returned type
      * @param axiom axiom
      * @return sub expressions
      */
@@ -487,9 +487,9 @@ public final class Searcher {
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
      *
-     * @param <C>   returned type
+     * @param <C> returned type
      * @param axiom axiom
-     * @param type  witness for returned type
+     * @param type witness for returned type
      * @return sub expressions
      */
     public static <C extends OWLObject> C sup(OWLAxiom axiom,
@@ -500,7 +500,7 @@ public final class Searcher {
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
      * @return sub expressions
      */
@@ -512,9 +512,9 @@ public final class Searcher {
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
-     * @param type   type contained in the returned collection
+     * @param type type contained in the returned collection
      * @return sub expressions
      */
     public static <C extends OWLObject> Stream<C> domain(Stream<? extends OWLAxiom> axioms,
@@ -525,7 +525,7 @@ public final class Searcher {
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C>   returned type
+     * @param <C> returned type
      * @param axiom axiom
      * @return sub expressions
      */
@@ -536,9 +536,9 @@ public final class Searcher {
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C>   returned type
+     * @param <C> returned type
      * @param axiom axiom
-     * @param type  witness for returned type
+     * @param type witness for returned type
      * @return sub expressions
      */
     public static <C extends OWLObject> C domain(OWLAxiom axiom,
@@ -549,7 +549,7 @@ public final class Searcher {
     /**
      * Retrieve the ranges from range axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
      * @return sub expressions
      */
@@ -561,9 +561,9 @@ public final class Searcher {
     /**
      * Retrieve the ranges from range axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C>    returned type
+     * @param <C> returned type
      * @param axioms axioms
-     * @param type   type contained in the returned collection
+     * @param type type contained in the returned collection
      * @return sub expressions
      */
     public static <C extends OWLObject> Stream<C> range(Stream<? extends OWLAxiom> axioms,
@@ -574,7 +574,7 @@ public final class Searcher {
     /**
      * Retrieve the ranges from a range axiom. A mixture of axiom types can be passed in.
      *
-     * @param <C>   returned type
+     * @param <C> returned type
      * @param axiom axiom
      * @return sub expressions
      */
@@ -585,9 +585,9 @@ public final class Searcher {
     /**
      * Retrieve the ranges from a range axiom. A mixture of axiom types can be passed in.
      *
-     * @param <C>   returned type
+     * @param <C> returned type
      * @param axiom axiom
-     * @param type  witness for returned type
+     * @param type witness for returned type
      * @return sub expressions
      */
     public static <C extends OWLObject> C range(OWLAxiom axiom,
@@ -652,8 +652,8 @@ public final class Searcher {
      * property. This includes the annotations on annotation assertion axioms with matching
      * annotation property.
      *
-     * @param e                  entity
-     * @param o                  The ontology to examine for annotation axioms
+     * @param e entity
+     * @param o The ontology to examine for annotation axioms
      * @param annotationProperty The annotation property
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
@@ -666,8 +666,8 @@ public final class Searcher {
      * Obtains the annotations on this entity where the annotation has the specified annotation
      * property; this is restricted to the object of annotation assertion axioms.
      *
-     * @param e                  entity
-     * @param o                  The ontology to examine for annotation axioms
+     * @param e entity
+     * @param o The ontology to examine for annotation axioms
      * @param annotationProperty The annotation property
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
@@ -692,8 +692,8 @@ public final class Searcher {
      * Obtains the annotations on this entity where the annotation has the specified annotation
      * property; this is restricted to the object of annotation assertion axioms.
      *
-     * @param e                  entity
-     * @param o                  The ontology to examine for annotation axioms
+     * @param e entity
+     * @param o The ontology to examine for annotation axioms
      * @param annotationProperty The annotation property
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
@@ -706,8 +706,8 @@ public final class Searcher {
      * Obtains the annotations on this entity where the annotation has the specified annotation
      * property; this is restricted to the object of annotation assertion axioms.
      *
-     * @param e                  entity
-     * @param onts               The ontologies to examine for annotation axioms
+     * @param e entity
+     * @param onts The ontologies to examine for annotation axioms
      * @param annotationProperty The annotation property
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
@@ -720,8 +720,8 @@ public final class Searcher {
      * Obtains the annotations on this entity where the annotation has the specified annotation
      * property; this is restricted to the object of annotation assertion axioms.
      *
-     * @param e                  entity
-     * @param onts               The ontologies to examine for annotation axioms
+     * @param e entity
+     * @param onts The ontologies to examine for annotation axioms
      * @param annotationProperty The annotation property
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
@@ -735,8 +735,8 @@ public final class Searcher {
      * property. This includes the annotations on annotation assertion axioms with matching
      * annotation property.
      *
-     * @param e                  entity
-     * @param o                  The ontology to examine for annotation axioms
+     * @param e entity
+     * @param o The ontology to examine for annotation axioms
      * @param annotationProperty The annotation property
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
@@ -750,8 +750,8 @@ public final class Searcher {
      * property. This includes the annotations on annotation assertion axioms with matching
      * annotation property.
      *
-     * @param e                  entity
-     * @param onts               The ontologies to examine for annotation axioms
+     * @param e entity
+     * @param onts The ontologies to examine for annotation axioms
      * @param annotationProperty The annotation property
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
@@ -765,8 +765,8 @@ public final class Searcher {
      * property. This includes the annotations on annotation assertion axioms with matching
      * annotation property.
      *
-     * @param e                  entity
-     * @param onts               The ontologies to examine for annotation axioms
+     * @param e entity
+     * @param onts The ontologies to examine for annotation axioms
      * @param annotationProperty The annotation property
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
@@ -800,8 +800,8 @@ public final class Searcher {
      * ontology.
      *
      * @param <P> property type
-     * @param e   entity
-     * @param o   The ontology to be examined for SubProperty axioms.
+     * @param e entity
+     * @param o The ontology to be examined for SubProperty axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
      *         that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where
      *         {@code this} refers to this property.
@@ -820,8 +820,8 @@ public final class Searcher {
      * Gets the properties which are asserted to be sub-properties of this property in the specified
      * ontology.
      *
-     * @param <P>  property type
-     * @param e    entity
+     * @param <P> property type
+     * @param e entity
      * @param onts The ontologies to be examined for SubProperty axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
      *         that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where
@@ -837,8 +837,8 @@ public final class Searcher {
      * ontology.
      *
      * @param <P> property type
-     * @param e   entity
-     * @param o   The ontology to be examined for SubProperty axioms.
+     * @param e entity
+     * @param o The ontology to be examined for SubProperty axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
      *         that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where
      *         {@code this} refers to this property.
@@ -858,8 +858,8 @@ public final class Searcher {
      * Gets the properties which are asserted to be sub-properties of this property in the specified
      * ontology.
      *
-     * @param <P>  property type
-     * @param e    entity
+     * @param <P> property type
+     * @param e entity
      * @param onts The ontologies to be examined for SubPropertyOf axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
      *         that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where
@@ -887,7 +887,7 @@ public final class Searcher {
      * A convenience method that examines the axioms in the specified ontologies and returns the
      * class expression corresponding to the asserted super classes of this class.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The set of ontologies to be examined.
      * @return A set of {@code OWLClassExpressions}s that represent the super classes of this class
      */
@@ -912,7 +912,7 @@ public final class Searcher {
      * Gets the classes which have been <i>asserted</i> to be subclasses of this class in the
      * specified ontologies.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies which should be examined for subclass axioms.
      * @return A {@code Stream} of {@code OWLClassExpression}s that represet the asserted subclasses
      *         of this class.
@@ -939,7 +939,7 @@ public final class Searcher {
      * A convenience method that examines the axioms in the specified ontologies and returns the
      * class expressions corresponding to equivalent classes of this class.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies to be examined for axioms
      * @return A {@code Stream} of {@code OWLClassExpression}s that represent the equivalent classes
      *         of this class, that have been asserted in the specified ontologies.
@@ -966,7 +966,7 @@ public final class Searcher {
      * Gets the classes which have been asserted to be disjoint with this class by axioms in the
      * specified ontologies.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies to search for disjoint class axioms
      * @return A {@code Stream} of {@code OWLClassExpression}s that represent the disjoint classes
      *         of this class.
@@ -990,7 +990,7 @@ public final class Searcher {
     /**
      * Gets the different individuals in the specified ontologies.
      *
-     * @param e    individual
+     * @param e individual
      * @param onts The ontologies to search for different individuals
      * @return A {@code Stream} of different {@code OWLIndividual}s.
      */
@@ -1014,7 +1014,7 @@ public final class Searcher {
     /**
      * Gets the same individuals in the specified ontologies.
      *
-     * @param e    individual
+     * @param e individual
      * @param onts The ontologies to search for same individuals
      * @return A {@code Stream} of same {@code OWLIndividual}s.
      */
@@ -1042,7 +1042,7 @@ public final class Searcher {
      * A convenience method that examines the axioms in the specified ontologies and returns the
      * class expressions corresponding to equivalent classes of this class.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies to be examined for axioms
      * @return A {@code Stream} of {@code OWLClassExpression}s that represent the equivalent classes
      *         of this class, that have been asserted in the specified ontologies.
@@ -1057,8 +1057,8 @@ public final class Searcher {
      * specified ontology.
      *
      * @param <P> property type
-     * @param e   entity
-     * @param o   The ontology to search for disjoint class axioms
+     * @param e entity
+     * @param o The ontology to search for disjoint class axioms
      * @return A {@code Stream} of {@code OWLClassExpression}s that represent the disjoint classes
      *         of this class.
      */
@@ -1078,8 +1078,8 @@ public final class Searcher {
      * Gets the classes which have been asserted to be disjoint with this class by axioms in the
      * specified ontologies.
      *
-     * @param <P>  property type
-     * @param e    entity
+     * @param <P> property type
+     * @param e entity
      * @param onts The ontologies to search for disjoint class axioms
      * @return A {@code Stream} of {@code OWLClassExpression}s that represent the disjoint classes
      *         of this class.
@@ -1108,7 +1108,7 @@ public final class Searcher {
      * A convenience method that examines the axioms in the specified ontologies and returns the
      * class expressions corresponding to equivalent classes of this class.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies to be examined for axioms
      * @return A {@code Stream} of {@code OWLClassExpression}s that represent the equivalent classes
      *         of this class, that have been asserted in the specified ontologies.
@@ -1124,7 +1124,7 @@ public final class Searcher {
      *
      * @param e entity
      * @param o The ontology to be examined for class assertion axioms that assert an individual to
-     *          be an instance of this class.
+     *        be an instance of this class.
      * @return A {@code Stream} of {@code OWLIndividual}s that represent the individual that have
      *         been asserted to be an instance of this class.
      */
@@ -1134,11 +1134,11 @@ public final class Searcher {
 
     /**
      * Gets the individuals that have been asserted to be an instance of this class by axioms in the
-     * speficied ontologies.
+     * specified ontologies.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies to be examined for class assertion axioms that assert an
-     *             individual to be an instance of this class.
+     *        individual to be an instance of this class.
      * @return A {@code Stream} of {@code OWLIndividual}s that represent the individual that have
      *         been asserted to be an instance of this class.
      */
@@ -1161,11 +1161,11 @@ public final class Searcher {
      * Gets the axioms in the specified ontology and possibly its imports closure that contain this
      * entity in their signature.
      *
-     * @param e              entity
-     * @param o              The ontology that will be searched for axioms
+     * @param e entity
+     * @param o The ontology that will be searched for axioms
      * @param includeImports If {@code true} then axioms in the imports closure will also be
-     *                       returned, if {@code false} then only the axioms in the specified
-     *                       ontology will be returned.
+     *        returned, if {@code false} then only the axioms in the specified ontology will be
+     *        returned.
      * @return The axioms in the specified ontology whose signature contains this entity.
      */
     public static Stream<OWLAxiom> getReferencingAxioms(OWLEntity e, OWLOntology o,
@@ -1178,7 +1178,7 @@ public final class Searcher {
      *
      * @param e entity
      * @param o The ontology that should be examined for axioms which assert a domain of this
-     *          property
+     *        property
      * @return A set of {@code OWLClassExpression}s corresponding to the domains of this property
      *         (the domain of the property is essentially the intersection of these class
      *         expressions).
@@ -1191,7 +1191,7 @@ public final class Searcher {
      * Gets the asserted domains of this property by examining the axioms in the specified
      * ontologies.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies to be examined.
      * @return A set of {@code OWLClassExpression}s that represent the asserted domains of this
      *         property.
@@ -1206,7 +1206,7 @@ public final class Searcher {
      *
      * @param e entity
      * @param o The ontology that should be examined for axioms which assert a domain of this
-     *          property
+     *        property
      * @return A set of {@code OWLClassExpression}s corresponding to the domains of this property
      *         (the domain of the property is essentially the intersection of these class
      *         expressions).
@@ -1231,7 +1231,7 @@ public final class Searcher {
      * Gets the asserted ranges of this property by examining the axioms in the specified
      * ontologies.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies to be examined for range axioms.
      * @return A set of ranges for this property, which have been asserted by axioms in the
      *         specified ontologies.
@@ -1244,7 +1244,7 @@ public final class Searcher {
      * Gets the asserted domains of this property by examining the axioms in the specified
      * ontologies.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies to be examined.
      * @return A set of {@code OWLClassExpression}s that represent the asserted domains of this
      *         property.
@@ -1270,7 +1270,7 @@ public final class Searcher {
      * Gets the asserted ranges of this property by examining the axioms in the specified
      * ontologies.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies to be examined for range axioms.
      * @return A set of ranges for this property, which have been asserted by axioms in the
      *         specified ontologies.
@@ -1285,7 +1285,7 @@ public final class Searcher {
      *
      * @param e entity
      * @param o The ontology that should be examined for axioms which assert a domain of this
-     *          property
+     *        property
      * @return A set of {@code OWLClassExpression}s corresponding to the domains of this property
      *         (the domain of the property is essentially the intersection of these class
      *         expressions).
@@ -1298,7 +1298,7 @@ public final class Searcher {
      * Gets the asserted domains of this property by examining the axioms in the specified
      * ontologies.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies to be examined.
      * @return A set of {@code OWLClassExpression}s that represent the asserted domains of this
      *         property.
@@ -1322,7 +1322,7 @@ public final class Searcher {
      * Gets the asserted ranges of this property by examining the axioms in the specified
      * ontologies.
      *
-     * @param e    entity
+     * @param e entity
      * @param onts The ontologies to be examined for range axioms.
      * @return A set of ranges for this property, which have been asserted by axioms in the
      *         specified ontologies.
@@ -1346,7 +1346,7 @@ public final class Searcher {
      * Checks if e is declared transitive in a collection of ontologies.
      *
      * @param onts ontologies
-     * @param e    property
+     * @param e property
      * @return true for transitive properties
      */
     public static boolean isTransitive(OWLObjectPropertyExpression e, Stream<OWLOntology> onts) {
@@ -1368,7 +1368,7 @@ public final class Searcher {
      * Checks if e is declared symmetric in a collection of ontologies.
      *
      * @param onts ontologies
-     * @param e    property
+     * @param e property
      * @return true for symmetric properties
      */
     public static boolean isSymmetric(OWLObjectPropertyExpression e, Stream<OWLOntology> onts) {
@@ -1390,7 +1390,7 @@ public final class Searcher {
      * Checks if e is declared asymmetric in a collection of ontologies.
      *
      * @param onts ontologies
-     * @param e    property
+     * @param e property
      * @return true for asymmetric properties
      */
     public static boolean isAsymmetric(OWLObjectPropertyExpression e, Stream<OWLOntology> onts) {
@@ -1412,7 +1412,7 @@ public final class Searcher {
      * Checks if e is declared reflexive in a collection of ontologies.
      *
      * @param onts ontologies
-     * @param e    property
+     * @param e property
      * @return true for reflexive properties
      */
     public static boolean isReflexive(OWLObjectPropertyExpression e, Stream<OWLOntology> onts) {
@@ -1434,7 +1434,7 @@ public final class Searcher {
      * Checks if e is declared irreflexive in a collection of ontologies.
      *
      * @param onts ontologies
-     * @param e    property
+     * @param e property
      * @return true for irreflexive properties
      */
     public static boolean isIrreflexive(OWLObjectPropertyExpression e, Stream<OWLOntology> onts) {
@@ -1456,7 +1456,7 @@ public final class Searcher {
      * Checks if e is declared inverse functional in a collection of ontologies.
      *
      * @param onts ontologies
-     * @param e    property
+     * @param e property
      * @return true for inverse functional properties
      */
     public static boolean isInverseFunctional(OWLObjectPropertyExpression e,
@@ -1479,7 +1479,7 @@ public final class Searcher {
      * Checks if e is declared functional in a collection of ontologies.
      *
      * @param onts ontologies
-     * @param e    property
+     * @param e property
      * @return true for functional object properties
      */
     public static boolean isFunctional(OWLObjectPropertyExpression e, Stream<OWLOntology> onts) {
@@ -1501,7 +1501,7 @@ public final class Searcher {
      * Checks if e is declared functional in a collection of ontologies.
      *
      * @param onts ontologies
-     * @param e    property
+     * @param e property
      * @return true for functional data properties
      */
     public static boolean isFunctional(OWLDataProperty e, Stream<OWLOntology> onts) {
@@ -1523,7 +1523,7 @@ public final class Searcher {
      * Checks if c is defined (is included in equivalent axioms) in a collection of ontologies.
      *
      * @param onts ontologies
-     * @param c    class
+     * @param c class
      * @return true for defined classes
      */
     public static boolean isDefined(OWLClass c, Stream<OWLOntology> onts) {
@@ -1533,8 +1533,8 @@ public final class Searcher {
     /**
      * Checks if o contains axiom a, with or without imports closure.
      *
-     * @param o       ontology
-     * @param a       axiom
+     * @param o ontology
+     * @param a axiom
      * @param imports true if imports closure is included
      * @return true if a is contained
      */
@@ -1545,8 +1545,8 @@ public final class Searcher {
     /**
      * Checks if any of the ontologies contains axiom a, with or without imports closure.
      *
-     * @param onts    ontologies
-     * @param a       axiom
+     * @param onts ontologies
+     * @param a axiom
      * @param imports true if imports closure is included
      * @return true if a is contained
      */
@@ -1557,8 +1557,8 @@ public final class Searcher {
     /**
      * Checks if o contains axiom a, with or without imports closure, ignoring annotations.
      *
-     * @param o       ontology
-     * @param a       axiom
+     * @param o ontology
+     * @param a axiom
      * @param imports true if imports closure is included
      * @return true if a is contained
      */
@@ -1570,8 +1570,8 @@ public final class Searcher {
     /**
      * Checks if any of the ontologies contains axiom a, with or without imports closure.
      *
-     * @param onts    ontologies
-     * @param a       axiom
+     * @param onts ontologies
+     * @param a axiom
      * @param imports true if imports closure is included
      * @return true if a is contained
      */
@@ -1583,8 +1583,8 @@ public final class Searcher {
     /**
      * Get matching axioms for a, ignoring annotations.
      *
-     * @param o       ontology
-     * @param a       axiom
+     * @param o ontology
+     * @param a axiom
      * @param imports true if imports closure is included
      * @return matching axioms
      */
@@ -1596,8 +1596,8 @@ public final class Searcher {
     /**
      * Get matching axioms for a, ignoring annotations.
      *
-     * @param o       ontology
-     * @param a       axiom
+     * @param o ontology
+     * @param a axiom
      * @param imports true if imports closure is included
      * @return matching axioms
      */
@@ -1618,8 +1618,8 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
+     * @param i individual
+     * @param p property to search
      * @param onts ontologies to search
      * @return literal values
      */
@@ -1640,8 +1640,8 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
+     * @param i individual
+     * @param p property to search
      * @param onts ontologies to search
      * @return property values
      */
@@ -1662,8 +1662,8 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
+     * @param i individual
+     * @param p property to search
      * @param onts ontologies to search
      * @return property values
      */
@@ -1684,8 +1684,8 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
+     * @param i individual
+     * @param p property to search
      * @param onts ontologies to search
      * @return property values
      */
@@ -1706,8 +1706,8 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
+     * @param i individual
+     * @param p property to search
      * @param onts ontologies to search
      * @return true if value present
      */
@@ -1728,8 +1728,8 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
+     * @param i individual
+     * @param p property to search
      * @param onts ontologies to search
      * @return true if value present
      */
@@ -1750,8 +1750,8 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
+     * @param i individual
+     * @param p property to search
      * @param onts ontologies to search
      * @return true if value present
      */
@@ -1772,8 +1772,8 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
+     * @param i individual
+     * @param p property to search
      * @param onts ontologies to search
      * @return true if value present
      */
@@ -1783,10 +1783,10 @@ public final class Searcher {
     }
 
     /**
-     * @param i   individual
-     * @param p   property to search
+     * @param i individual
+     * @param p property to search
      * @param lit literal to search
-     * @param o   ontology to search
+     * @param o ontology to search
      * @return true if value present
      */
     public static boolean hasDataPropertyValue(OWLIndividual i, OWLDataPropertyExpression p,
@@ -1795,9 +1795,9 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
-     * @param lit  literal to search
+     * @param i individual
+     * @param p property to search
+     * @param lit literal to search
      * @param onts ontologies to search
      * @return true if value present
      */
@@ -1819,9 +1819,9 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
-     * @param j    individual to search
+     * @param i individual
+     * @param p property to search
+     * @param j individual to search
      * @param onts ontologies to search
      * @return true if value present
      */
@@ -1831,10 +1831,10 @@ public final class Searcher {
     }
 
     /**
-     * @param i   individual
-     * @param p   property to search
+     * @param i individual
+     * @param p property to search
      * @param lit literal to search
-     * @param o   ontology to search
+     * @param o ontology to search
      * @return true if value present
      */
     public static boolean hasNegativeDataPropertyValue(OWLIndividual i, OWLDataPropertyExpression p,
@@ -1843,9 +1843,9 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
-     * @param lit  literal to search
+     * @param i individual
+     * @param p property to search
+     * @param lit literal to search
      * @param onts ontologies to search
      * @return true if value present
      */
@@ -1867,9 +1867,9 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
-     * @param p    property to search
-     * @param j    individual to search
+     * @param i individual
+     * @param p property to search
+     * @param j individual to search
      * @param onts ontologies to search
      * @return true if value present
      */
@@ -1892,7 +1892,7 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
+     * @param i individual
      * @param onts ontologies to search
      * @return literal values
      */
@@ -1917,7 +1917,7 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
+     * @param i individual
      * @param onts ontologies to search
      * @return property values
      */
@@ -1955,7 +1955,7 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
+     * @param i individual
      * @param onts ontologies to search
      * @return property values
      */
@@ -1967,7 +1967,7 @@ public final class Searcher {
     }
 
     /**
-     * @param i    individual
+     * @param i individual
      * @param onts ontologies to search
      * @return property values
      */
@@ -1993,7 +1993,7 @@ public final class Searcher {
     }
 
     /**
-     * @param e    object property
+     * @param e object property
      * @param onts ontologies to search
      * @return property inverses
      */
@@ -2012,7 +2012,7 @@ public final class Searcher {
     }
 
     /**
-     * @param e    class
+     * @param e class
      * @param onts ontologies to search
      * @return instances of class
      */
@@ -2031,7 +2031,7 @@ public final class Searcher {
     }
 
     /**
-     * @param e    individual
+     * @param e individual
      * @param onts ontologies to search
      * @return types for individual
      */

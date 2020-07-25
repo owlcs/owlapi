@@ -647,7 +647,7 @@ public class StructuralReasoner extends OWLReasonerBase {
          * Gets the children as asserted.
          *
          * @param parent The parent whose children are to be retrieved
-         * @return The raw asserted children of the speicified parent
+         * @return The raw asserted children of the specified parent
          */
         Collection<T> getChildren(T parent);
     }

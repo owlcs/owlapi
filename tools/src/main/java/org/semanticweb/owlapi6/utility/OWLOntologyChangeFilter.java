@@ -98,7 +98,7 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChan
      * Gets the ontology which the current change being visited was applied to.
      *
      * @return The ontology or {@code null} if the filter is not in a change visit cycle. When
-     *         called from within a {@code visit} method, the return value is guarenteed not to be
+     *         called from within a {@code visit} method, the return value is guaranteed not to be
      *         {@code
      * null}.
      */

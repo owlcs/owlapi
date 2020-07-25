@@ -146,10 +146,10 @@ public class RDFParser extends DefaultHandler {
     /**
      * Parses RDF from given input source.
      *
-     * @param source        specifies where RDF comes from
+     * @param source specifies where RDF comes from
      * @param inputConsumer receives notifications about RDF parsing events
-     * @throws SAXException SAXException
-     * @throws IOException  IOException
+     * @throws SAXException SAX exception
+     * @throws IOException if there was a problem reading from the output stream
      */
     public void parse(InputSource source, RDFConsumer inputConsumer)
         throws SAXException, IOException {
@@ -337,12 +337,12 @@ public class RDFParser extends DefaultHandler {
     /**
      * Resolves an IRI with the current base.
      *
-     * @param uri the IRI being resolved
+     * @param iri the IRI being resolved
      * @return the resolved IRI
      */
-    public String resolveIRI(String uri) {
-        checkNotNull(uri, "uri cannot be null");
-        if (uri.isEmpty()) {
+    public String resolveIRI(String iri) {
+        checkNotNull(iri, "uri cannot be null");
+        if (iri.isEmpty()) {
             // MH - Fix for resolving a "This document" reference against base
             // IRIs.
             String namespace = getBaseIRI().getNamespace();
@@ -357,16 +357,16 @@ public class RDFParser extends DefaultHandler {
             return base;
         } else {
             try {
-                String resolved = resolvedIRIs.get(uri);
+                String resolved = resolvedIRIs.get(iri);
                 if (resolved != null) {
                     return resolved;
                 }
-                String u = resolveFromDelegate(getBaseIRI(), uri);
-                resolvedIRIs.put(uri, u);
+                String u = resolveFromDelegate(getBaseIRI(), iri);
+                resolvedIRIs.put(iri, u);
                 return u;
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e,
-                    String.format(WRONGRESOLVE, uri, getBaseIRI(), e.getMessage()),
+                    String.format(WRONGRESOLVE, iri, getBaseIRI(), e.getMessage()),
                     getDocumentLocator());
             }
         }
@@ -375,11 +375,11 @@ public class RDFParser extends DefaultHandler {
     /**
      * Called when a statement with resource value is added to the model.
      *
-     * @param subject       IRI of the subject resource
-     * @param predicate     IRI of the predicate resource
-     * @param object        IRI of the object resource
-     * @param reificationID if not {@code null}, contains IRI of the resource that will wold the
-     *                      reified statement
+     * @param subject IRI of the subject resource
+     * @param predicate IRI of the predicate resource
+     * @param object IRI of the object resource
+     * @param reificationID if not {@code null}, contains IRI of the resource that will hold the
+     *        reified statement
      */
     public void statementWithResourceValue(String subject, String predicate, String object,
         @Nullable String reificationID) {
@@ -397,12 +397,12 @@ public class RDFParser extends DefaultHandler {
     /**
      * Called when a statement with literal value is added to the model.
      *
-     * @param subject       IRI of the subject resource
-     * @param predicate     IRI of the predicate resource
-     * @param object        literal object value
-     * @param dataType      the IRI of the literal's datatype (may be {@code null})
-     * @param reificationID if not {@code null}, contains IRI of the resource that will wold the
-     *                      reified statement
+     * @param subject IRI of the subject resource
+     * @param predicate IRI of the predicate resource
+     * @param object literal object value
+     * @param dataType the IRI of the literal's datatype (may be {@code null})
+     * @param reificationID if not {@code null}, contains IRI of the resource that will hold the
+     *        reified statement
      */
     public void statementWithLiteralValue(String subject, String predicate, String object,
         @Nullable String dataType, @Nullable String reificationID) {
@@ -446,9 +446,9 @@ public class RDFParser extends DefaultHandler {
     }
 
     /**
-     * If conditon b is true, throw an exception with provided message.
+     * If condition b is true, throw an exception with provided message.
      *
-     * @param b       condition to verify
+     * @param b condition to verify
      * @param message message for the exception
      * @throws RDFParserException exception thrown
      */

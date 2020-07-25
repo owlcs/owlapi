@@ -140,12 +140,12 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     /**
      * A utility method that obtains a set of axioms that are indexed by some object.
      *
-     * @param <K>        the key type
-     * @param <E>        the element type
-     * @param obj        The object that indexed the axioms
-     * @param map        The map that provides the index structure
+     * @param <K> the key type
+     * @param <E> the element type
+     * @param obj The object that indexed the axioms
+     * @param map The map that provides the index structure
      * @param addIfEmpty A flag that indicates whether an empty set of axiom should be added to the
-     *                   index if there is not value present for the indexing object.
+     *        index if there is not value present for the indexing object.
      * @return A set of axioms (may be empty)
      */
     private static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
@@ -256,19 +256,17 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     }
 
     /**
-     * Gets the rHS entities.
-     *
      * @param axiom the axiom
-     * @return the rHS entities
+     * @return the RHS entities
      */
     private Collection<OWLEntity> getRHSEntities(OWLAxiom axiom) {
         return getIndexedSet(axiom, entitiesByAxiomRHS, true);
     }
 
     /**
-     * Index axioms by rhs entities.
+     * Index axioms by RHS entities.
      *
-     * @param rhs   the rhs
+     * @param rhs the RHS
      * @param axiom the axiom
      */
     protected void indexAxiomsByRHSEntities(OWLObject rhs, OWLAxiom axiom) {

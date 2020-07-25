@@ -29,9 +29,8 @@ import org.semanticweb.owlapi6.model.OWLObjectOneOf;
 public interface NominalProvider {
 
     /**
-     * Gets an OWLDataOneOf
-     * <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals" >(see
-     * spec)</a>
+     * Gets an <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
+     * >OWLDataOneOf</a>
      *
      * @param values The set of values that the data one of should contain.
      * @return A data one of that enumerates the specified set of values
@@ -39,9 +38,8 @@ public interface NominalProvider {
     OWLDataOneOf getOWLDataOneOf(Stream<? extends OWLLiteral> values);
 
     /**
-     * Gets an OWLDataOneOf
-     * <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals" >(see
-     * spec)</a>
+     * Gets an <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
+     * >OWLDataOneOf</a>
      *
      * @param values The set of values that the data one of should contain.
      * @return A data one of that enumerates the specified set of values
@@ -52,12 +50,11 @@ public interface NominalProvider {
     }
 
     /**
-     * Gets an OWLDataOneOf
-     * <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals" >(see
-     * spec)</a>
+     * Gets an <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
+     * >OWLDataOneOf</a>
      *
      * @param values The set of values that the data one of should contain. Cannot be null or
-     * contain null values.
+     *               contain null values.
      * @return A data one of that enumerates the specified set of values
      */
     default OWLDataOneOf getOWLDataOneOf(OWLLiteral... values) {
@@ -66,13 +63,13 @@ public interface NominalProvider {
     }
 
     /**
-     * @param values indivudals for restriction. Cannot be null or contain nulls.
+     * @param values individuals for restriction. Cannot be null or contain nulls.
      * @return a OneOf expression on specified individuals
      */
     OWLObjectOneOf getOWLObjectOneOf(Stream<? extends OWLIndividual> values);
 
     /**
-     * @param values indivudals for restriction. Cannot be null or contain nulls.
+     * @param values individuals for restriction. Cannot be null or contain nulls.
      * @return a OneOf expression on specified individuals
      */
     default OWLObjectOneOf getOWLObjectOneOf(Collection<? extends OWLIndividual> values) {
@@ -80,7 +77,7 @@ public interface NominalProvider {
     }
 
     /**
-     * @param individuals indivudals for restriction. Cannot be null or contain nulls.
+     * @param individuals individuals for restriction. Cannot be null or contain nulls.
      * @return a OneOf expression on specified individuals
      */
     default OWLObjectOneOf getOWLObjectOneOf(OWLIndividual... individuals) {

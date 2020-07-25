@@ -27,9 +27,9 @@ import org.semanticweb.owlapi6.profiles.OWLProfileViolationVisitorEx;
 public class UseOfNonSubClassExpression extends OWLProfileViolation {
 
     /**
-     * @param ontology ontology
-     * @param axiom axiom
-     * @param classExpression classExpression
+     * @param ontology        ontology
+     * @param axiom           axiom
+     * @param classExpression class expression
      */
     public UseOfNonSubClassExpression(OWLOntology ontology, OWLAxiom axiom,
         OWLClassExpression classExpression) {

@@ -24,18 +24,16 @@ import org.semanticweb.owlapi6.model.OWLSubObjectPropertyOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLSubObjectPropertyOfAxiomImpl
-                extends OWLSubPropertyAxiomImpl<OWLObjectPropertyExpression>
-                implements OWLSubObjectPropertyOfAxiom {
+public class OWLSubObjectPropertyOfAxiomImpl extends
+    OWLSubPropertyAxiomImpl<OWLObjectPropertyExpression> implements OWLSubObjectPropertyOfAxiom {
 
     /**
-     * @param subProperty subproperty
-     * @param superProperty superproperty
-     * @param annotations annotations
+     * @param subProperty   subproperty
+     * @param superProperty super property
+     * @param annotations   annotations
      */
     public OWLSubObjectPropertyOfAxiomImpl(OWLObjectPropertyExpression subProperty,
-                    OWLObjectPropertyExpression superProperty,
-                    Collection<OWLAnnotation> annotations) {
+        OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations) {
         super(subProperty, superProperty, annotations);
     }
 
@@ -43,14 +41,14 @@ public class OWLSubObjectPropertyOfAxiomImpl
     @SuppressWarnings("unchecked")
     public OWLSubObjectPropertyOfAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-                        : new OWLSubObjectPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
-                                        NO_ANNOTATIONS);
+            : new OWLSubObjectPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLSubObjectPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
-                        mergeAnnos(anns));
+            mergeAnnos(anns));
     }
 }

@@ -72,7 +72,7 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
     private Signature sig = new Signature();
 
     /**
-     * init c'tor
+     * Fresh checker.
      */
     public SyntacticLocalityChecker() {
         topEval = new TopEquivalenceEvaluator(this);
@@ -141,7 +141,7 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
     /**
      * Processing method for all Disjoint axioms.
      * 
-     * @param <T>   generic type of input
+     * @param <T> generic type of input
      * @param axiom axiom
      * @return true if axiom is local
      */

@@ -34,7 +34,7 @@ import org.semanticweb.owlapi6.reasoner.OWLReasonerFactory;
  * </ol>
  * When executed, the class will find all inconsistent classes in the ontology. For each
  * inconsistent class, the debugger will be used to determine the set of support for the
- * inconsistency. A report will then be written to the outpur file.
+ * inconsistency. A report will then be written to the output file.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0

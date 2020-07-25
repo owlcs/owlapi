@@ -275,7 +275,7 @@ import org.semanticweb.owlapi6.search.Filters;
  * <tr>
  * <td>OWLDifferentIndividualsAxiom</td>
  * <td>(distinct i1 i2)</td>
- * <td><i>OWLDifferentIndividualsAxiom i1 i2 ... in</i> will be splitted into: <br>
+ * <td><i>OWLDifferentIndividualsAxiom i1 i2 ... in</i> will be split into: <br>
  * { (distinct i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
  * </td>
  * </tr>
@@ -287,7 +287,7 @@ import org.semanticweb.owlapi6.search.Filters;
  * <tr>
  * <td>OWLSameIndividualsAxiom</td>
  * <td>(equal i1 i2)</td>
- * <td><i>OWLSameIndividual i1 i2 ...i(n-1) in</i> in will be splitted into:<br>
+ * <td><i>OWLSameIndividual i1 i2 ...i(n-1) in</i> in will be split into:<br>
  * { (equal i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
  * (equal i1 i2)<br>
  * (equal i1 i3)<br>

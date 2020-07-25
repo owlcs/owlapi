@@ -8,14 +8,14 @@ import org.semanticweb.owlapi6.io.OWLParserException;
 public class OBOFormatException extends OWLParserException {
 
     /**
-     * Instantiates a new oBO format exception.
+     * Instantiates a new OBO format exception.
      */
     public OBOFormatException() {
         super();
     }
 
     /**
-     * Instantiates a new oBO format exception.
+     * Instantiates a new OBO format exception.
      *
      * @param message the message
      */
@@ -24,7 +24,7 @@ public class OBOFormatException extends OWLParserException {
     }
 
     /**
-     * Instantiates a new oBO format exception.
+     * Instantiates a new OBO format exception.
      *
      * @param e the e
      */
@@ -33,7 +33,7 @@ public class OBOFormatException extends OWLParserException {
     }
 
     /**
-     * Instantiates a new oBO format exception.
+     * Instantiates a new OBO format exception.
      *
      * @param message the message
      * @param e the e

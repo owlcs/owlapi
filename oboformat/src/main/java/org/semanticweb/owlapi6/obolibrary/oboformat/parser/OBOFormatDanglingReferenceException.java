@@ -6,14 +6,14 @@ package org.semanticweb.owlapi6.obolibrary.oboformat.parser;
 public class OBOFormatDanglingReferenceException extends OBOFormatException {
 
     /**
-     * Instantiates a new oBO format dangling reference exception.
+     * Instantiates a new OBO format dangling reference exception.
      */
     public OBOFormatDanglingReferenceException() {
         super();
     }
 
     /**
-     * Instantiates a new oBO format dangling reference exception.
+     * Instantiates a new OBO format dangling reference exception.
      *
      * @param message the message
      */
@@ -22,7 +22,7 @@ public class OBOFormatDanglingReferenceException extends OBOFormatException {
     }
 
     /**
-     * Instantiates a new oBO format dangling reference exception.
+     * Instantiates a new OBO format dangling reference exception.
      *
      * @param e the e
      */
@@ -31,7 +31,7 @@ public class OBOFormatDanglingReferenceException extends OBOFormatException {
     }
 
     /**
-     * Instantiates a new oBO format dangling reference exception.
+     * Instantiates a new OBO format dangling reference exception.
      *
      * @param message the message
      * @param e the e

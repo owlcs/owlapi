@@ -33,9 +33,9 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation {
 
     /**
      * @param ontology ontology
-     * @param axiom axiom
-     * @param dtr dtr
-     * @param facet facet
+     * @param axiom    axiom
+     * @param dtr      data type restriction
+     * @param facet    facet
      */
     public UseOfIllegalFacetRestriction(OWLOntology ontology, @Nullable OWLAxiom axiom,
         OWLDatatypeRestriction dtr, OWLFacet facet) {

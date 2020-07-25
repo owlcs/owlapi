@@ -31,8 +31,8 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation {
 
     /**
      * @param ontology ontology
-     * @param axiom axiom
-     * @param hasSelf hasSelf
+     * @param axiom    axiom
+     * @param hasSelf  has self restriction
      */
     public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology, @Nullable OWLAxiom axiom,
         OWLObjectHasSelf hasSelf) {

@@ -61,7 +61,7 @@ class SynonymMap {
         // We can load legacy ontologies by providing synonyms for built in
         // vocabulary (e.g. DAML+OIL -> OWL)
         synonyms.clear();
-        // Legacy protege-owlapi representation of QCRs
+        // Legacy protege-owlapi representation of qualified cardinality restrictions
         synonyms.put(df.getIRI(OWL.getPrefixIRI(), "valuesFrom"), OWL_ON_CLASS.getIRI());
         if (!strict) {
             OWLRDFVocabulary.damlCompatibility()

@@ -92,10 +92,11 @@ import org.semanticweb.owlapi6.search.Filters;
 import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.Pair;
 
 /**
- * A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
- * syntax. Note that only a subset of OWL can be expressed in KRSS. <br>
+ * A {@code KRSSObjectRenderer} renders an OWLOntology in the original KRSS syntax. Note that only a
+ * subset of OWL can be expressed in KRSS. <br>
  * <b>Abbreviations</b>
- * <table><caption>Abbreviations</caption>
+ * <table>
+ * <caption>Abbreviations</caption>
  * <tr>
  * <td>CN</td>
  * <td>concept name</td>
@@ -115,7 +116,8 @@ import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.Pair;
  * </table>
  * <br>
  * <b>KRSS concept language</b>
- * <table><caption>KRSS concept language</caption>
+ * <table>
+ * <caption>KRSS concept language</caption>
  * <tr>
  * <td>KRSS</td>
  * <td>OWLClassExpression</td>
@@ -155,7 +157,8 @@ import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.Pair;
  * </table>
  * <br>
  * <b>KRSS role language</b>
- * <table><caption>KRSS role language</caption>
+ * <table>
+ * <caption>KRSS role language</caption>
  * <tr>
  * <td>KRSS</td>
  * <td>OWLObjectPropertyExpression</td>
@@ -167,10 +170,10 @@ import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.Pair;
  * </table>
  * <br>
  * Each referenced class, object property as well as individual is defined using
- * <i>define-concept</i> resp. <i>define-primitive-concept</i>,
- * <i>define-role</i> and <i>define-individual</i>. In addition, axioms are
- * translated as follows. <br>
- * <table><caption>remarks</caption>
+ * <i>define-concept</i> resp. <i>define-primitive-concept</i>, <i>define-role</i> and
+ * <i>define-individual</i>. In addition, axioms are translated as follows. <br>
+ * <table>
+ * <caption>remarks</caption>
  * <tr>
  * <td>OWLAxiom</td>
  * <td>KRSS syntax</td>
@@ -187,8 +190,8 @@ import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.Pair;
  * <tr>
  * <td>OWLDisjointClassesAxiom</td>
  * <td>(disjoint C D)</td>
- * <td>multiple pairwise disjoint statements are added in case of more than 2
- * disjoint expressions</td>
+ * <td>multiple pairwise disjoint statements are added in case of more than 2 disjoint
+ * expressions</td>
  * </tr>
  * <tr>
  * <td>OWLSubClassOf</td>
@@ -196,14 +199,14 @@ import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.Pair;
  * <td>Multiple OWLSubClassOf axioms for C will be combined: <br>
  * (define-primitive-concept C (and D1...Dn)) <br>
  * Only applicable if there is no OWLEquivalentClasses axiom.<br>
- * KRSS does not allow both define-concept C and define-primitive-concept C.
- * GCIs not supported in KRSS (see KRSS2)</td>
+ * KRSS does not allow both define-concept C and define-primitive-concept C. GCIs not supported in
+ * KRSS (see KRSS2)</td>
  * </tr>
  * <tr>
  * <td>OWLEquivalentObjectPropertiesAxiom</td>
  * <td>(define-role R S)</td>
- * <td>Only applicable if the is no OWLSubObjectPropertyOf for R and the number
- * of the involved properties must be two</td>
+ * <td>Only applicable if the is no OWLSubObjectPropertyOf for R and the number of the involved
+ * properties must be two</td>
  * </tr>
  * <tr>
  * <td>OWLObjectPropertyDomainAxiom</td>
@@ -218,9 +221,9 @@ import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.Pair;
  * <tr>
  * <td>OWLSubObjectPropertyOf</td>
  * <td>(define-primitive-role R S)</td>
- * <td>Only applicable if the is no OWLEquivalentObjectPropertiesAxiom for R and
- * only one OWLSubObjectPropertyOf axiom for a given property is allowed. If
- * there are more one is randomly chosen.</td>
+ * <td>Only applicable if the is no OWLEquivalentObjectPropertiesAxiom for R and only one
+ * OWLSubObjectPropertyOf axiom for a given property is allowed. If there are more one is randomly
+ * chosen.</td>
  * </tr>
  * <tr>
  * <td>OWLTransitiveObjectPropertyAxiom</td>
@@ -233,8 +236,7 @@ import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.Pair;
  * <tr>
  * <td>OWLDifferentIndividualsAxiom</td>
  * <td>(distinct i1 i2)</td>
- * <td><i>OWLDifferentIndividualsAxiom i1 i2 ... in</i> will be splitted into:
- * <br>
+ * <td><i>OWLDifferentIndividualsAxiom i1 i2 ... in</i> will be split into: <br>
  * { (distinct i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k}</td>
  * </tr>
  * <tr>
@@ -245,7 +247,7 @@ import org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.Pair;
  * <tr>
  * <td>OWLSameIndividualsAxiom</td>
  * <td>(equal i1 i2)</td>
- * <td><i>OWLSameIndividual i1 i2 ...i(n-1)</i> in will be splitted into:<br>
+ * <td><i>OWLSameIndividual i1 i2 ...i(n-1)</i> in will be split into:<br>
  * { (equal i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
  * </td>
  * </tr>
@@ -264,10 +266,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     private int lastNewLinePos = 0;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
+     * @param ontology ontology
+     * @param writer writer
      */
     public KRSSObjectRenderer(OWLOntology ontology, Writer writer) {
         ont = checkNotNull(ontology);
@@ -286,7 +286,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         writeList(descs.subList(1, size), AND);
     }
 
-    protected void flattenProperties(List<OWLObjectPropertyExpression> props, @Nullable KRSSVocabulary junctor) {
+    protected void flattenProperties(List<OWLObjectPropertyExpression> props,
+        @Nullable KRSSVocabulary junctor) {
         int size = props.size();
         if (size == 0) {
             return;
@@ -486,7 +487,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(asList(sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
+                flatten(asList(
+                    sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
                 writeCloseBracket();
                 writeln();
             } else {
@@ -500,8 +502,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         }
         ontology.objectPropertiesInSignature().forEach(property -> {
             writeOpenBracket();
-            Stream<OWLObjectPropertyExpression> pStream = equivalent(
-                ontology.equivalentObjectPropertiesAxioms(property));
+            Stream<OWLObjectPropertyExpression> pStream =
+                equivalent(ontology.equivalentObjectPropertiesAxioms(property));
             Collection<OWLObjectPropertyExpression> properties = asList(pStream);
             boolean isDefined = !properties.isEmpty();
             if (isDefined) {
@@ -516,9 +518,9 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
                 writeSpace();
-                Iterator<OWLObjectPropertyExpression> i = sup(
-                    ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
-                    OWLObjectPropertyExpression.class).iterator();
+                Iterator<OWLObjectPropertyExpression> i =
+                    sup(ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
+                        OWLObjectPropertyExpression.class).iterator();
                 if (i.hasNext()) {
                     write(i.next());
                 }
@@ -575,7 +577,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         writer.write(s);
     }
 
-    protected <T extends OWLPropertyRange> void writeCardinality(KRSSVocabulary v, OWLCardinalityRestriction<T> c) {
+    protected <T extends OWLPropertyRange> void writeCardinality(KRSSVocabulary v,
+        OWLCardinalityRestriction<T> c) {
         writeOpenBracket();
         write(v);
         write(c.getCardinality());
@@ -630,7 +633,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         write(OPEN_BRACKET);
     }
 
-    protected <T extends OWLPropertyRange> void writeRestriction(KRSSVocabulary v, OWLQuantifiedRestriction<T> c) {
+    protected <T extends OWLPropertyRange> void writeRestriction(KRSSVocabulary v,
+        OWLQuantifiedRestriction<T> c) {
         writeOpenBracket();
         write(v);
         write(c.getProperty());

@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * atomical ontology structure
+ * Atomic ontology structure.
  */
 public class AtomList {
 

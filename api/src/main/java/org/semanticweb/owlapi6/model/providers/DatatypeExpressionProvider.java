@@ -30,7 +30,7 @@ public interface DatatypeExpressionProvider extends LiteralProvider, OWLVocabula
 
     /**
      * OWLDatatypeRestriction <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions">see
-     * spec</a>
+     * specification</a>
      *
      * @param dataType datatype for the restriction
      * @param facetRestrictions facet restrictions. Cannot contain nulls.
@@ -41,7 +41,7 @@ public interface DatatypeExpressionProvider extends LiteralProvider, OWLVocabula
 
     /**
      * OWLDatatypeRestriction <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions">see
-     * spec</a>
+     * specification</a>
      *
      * @param dataType datatype for the restriction
      * @param facet facet for restriction

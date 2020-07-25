@@ -29,8 +29,6 @@ public class OntologyBasedModularizer {
     Modularizer modularizer;
 
     /**
-     * init c'tor
-     *
      * @param ontology ontology to modularise
      * @param moduleMethod modularisation method
      */
@@ -74,7 +72,7 @@ public class OntologyBasedModularizer {
 
     /**
      * @param entities signature
-     * @param type modulet type
+     * @param type module type
      * @return module
      */
     public Collection<OWLAxiom> getModule(Stream<OWLEntity> entities, ModuleType type) {

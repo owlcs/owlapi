@@ -32,10 +32,10 @@ public abstract class RDFResource implements RDFNode, org.apache.commons.rdf.api
     public abstract IRI getResource();
 
     /**
-     * For blank nodes, return a valid value for thr rdf/xml nodeId attribute. For non blank nodes,
+     * For blank nodes, return a valid value for the RDF/XML nodeId attribute. For non blank nodes,
      * an exception should be thrown. The method must only be called on blank nodes.
      * 
-     * @return a valid value for thr rdf/xml nodeId attribute
+     * @return a valid value for the RDF/XML nodeId attribute
      */
     public abstract String getNodeIDValue();
 

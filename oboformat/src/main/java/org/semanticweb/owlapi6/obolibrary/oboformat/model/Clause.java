@@ -22,32 +22,29 @@ public class Clause {
     private static final Logger LOGGER = LoggerFactory.getLogger(Clause.class);
     private static final List<?> trueValues = Arrays.asList(Boolean.TRUE, "true");
     private static final List<?> falseValues = Arrays.asList(Boolean.FALSE, "false");
-    @Nullable protected String tag;
+    @Nullable
+    protected String tag;
     protected List<Object> values = new ArrayList<>();
     protected Collection<Xref> xrefs = new ArrayList<>();
     protected Collection<QualifierValue> qualifierValues = new ArrayList<>();
 
     /**
-     * @param tag
-     *        tag
+     * @param tag tag
      */
     public Clause(OboFormatTag tag) {
         this(tag.getTag());
     }
 
     /**
-     * @param tag
-     *        tag
+     * @param tag tag
      */
     public Clause(@Nullable String tag) {
         this.tag = tag;
     }
 
     /**
-     * @param tag
-     *        tag
-     * @param value
-     *        value
+     * @param tag tag
+     * @param value value
      */
     public Clause(@Nullable String tag, String value) {
         this(tag);
@@ -55,16 +52,15 @@ public class Clause {
     }
 
     /**
-     * @param tag
-     *        tag
-     * @param value
-     *        value
+     * @param tag tag
+     * @param value value
      */
     public Clause(OboFormatTag tag, String value) {
         this(tag.getTag(), value);
     }
 
-    private static boolean collectionsEquals(@Nullable Collection<?> c1, @Nullable Collection<?> c2) {
+    private static boolean collectionsEquals(@Nullable Collection<?> c1,
+        @Nullable Collection<?> c2) {
         if (c1 == null || c1.isEmpty()) {
             return c2 == null || c2.isEmpty();
         }
@@ -87,8 +83,7 @@ public class Clause {
     }
 
     /**
-     * @param value
-     *        value to set
+     * @param value value to set
      * @return modified clause
      */
     public Clause withValue(String value) {
@@ -97,9 +92,8 @@ public class Clause {
     }
 
     /**
-     * freezing a clause signals that the clause has become quiescent, and that
-     * data structures can be adjusted to increase performance, or reduce memory
-     * consumption.
+     * freezing a clause signals that the clause has become quiescent, and that data structures can
+     * be adjusted to increase performance, or reduce memory consumption.
      */
     void freeze() {
         freezeValues();
@@ -167,8 +161,7 @@ public class Clause {
     }
 
     /**
-     * @param tag
-     *        tag
+     * @param tag tag
      * @return modified clause
      */
     public Clause setTag(String tag) {
@@ -184,8 +177,7 @@ public class Clause {
     }
 
     /**
-     * @param values
-     *        values
+     * @param values values
      * @return modified clause
      */
     public Clause setValues(Collection<Object> values) {
@@ -209,8 +201,7 @@ public class Clause {
     }
 
     /**
-     * @param v
-     *        v
+     * @param v v
      */
     public void addValue(@Nullable Object v) {
         if (!(values instanceof ArrayList)) {
@@ -223,8 +214,7 @@ public class Clause {
 
     /**
      * @return value
-     * @throws FrameStructureException
-     *         if there is no value
+     * @throws FrameStructureException if there is no value
      */
     public Object getValue() {
         Object value = null;
@@ -235,8 +225,7 @@ public class Clause {
     }
 
     /**
-     * @param v
-     *        v
+     * @param v v
      * @return modified clause
      */
     public Clause setValue(Object v) {
@@ -250,10 +239,8 @@ public class Clause {
     }
 
     /**
-     * @param cls
-     *        cls
-     * @param <T>
-     *        value type
+     * @param cls cls
+     * @param <T> value type
      * @return value
      */
     public <T> T getValue(Class<T> cls) {
@@ -263,8 +250,7 @@ public class Clause {
 
     /**
      * @return value2
-     * @throws FrameStructureException
-     *         if there is no value
+     * @throws FrameStructureException if there is no value
      */
     public Object getValue2() {
         if (values.size() > 1) {
@@ -274,10 +260,8 @@ public class Clause {
     }
 
     /**
-     * @param cls
-     *        cls
-     * @param <T>
-     *        value type
+     * @param cls class
+     * @param <T> value type
      * @return value2
      */
     public <T> T getValue2(Class<T> cls) {
@@ -286,15 +270,14 @@ public class Clause {
     }
 
     /**
-     * @return xrefs
+     * @return xref list
      */
     public Collection<Xref> getXrefs() {
         return xrefs;
     }
 
     /**
-     * @param xrefs
-     *        xrefs
+     * @param xrefs xref list
      * @return modified clause
      */
     public Clause setXrefs(Collection<Xref> xrefs) {
@@ -318,8 +301,7 @@ public class Clause {
     }
 
     /**
-     * @param xref
-     *        xref
+     * @param xref xref
      */
     public void addXref(Xref xref) {
         if (!(xrefs instanceof ArrayList)) {
@@ -338,8 +320,7 @@ public class Clause {
     }
 
     /**
-     * @param qualifierValues
-     *        qualifierValues
+     * @param qualifierValues qualifierValues
      * @return modified clause
      */
     public Clause setQualifierValues(Collection<QualifierValue> qualifierValues) {
@@ -349,7 +330,8 @@ public class Clause {
                     this.qualifierValues = Collections.emptyList();
                     break;
                 case 1:
-                    this.qualifierValues = Collections.singletonList(qualifierValues.iterator().next());
+                    this.qualifierValues =
+                        Collections.singletonList(qualifierValues.iterator().next());
                     break;
                 default:
                     this.qualifierValues = new ArrayList<>(qualifierValues);
@@ -362,8 +344,7 @@ public class Clause {
     }
 
     /**
-     * @param qv
-     *        qv
+     * @param qv qv
      */
     public void addQualifierValue(QualifierValue qv) {
         if (!(qualifierValues instanceof ArrayList)) {
@@ -404,8 +385,8 @@ public class Clause {
 
     @Override
     public int hashCode() {
-        return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode() + 31 * 31 * values.hashCode()
-            + taghash();
+        return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode()
+            + 31 * 31 * values.hashCode() + taghash();
     }
 
     private int taghash() {

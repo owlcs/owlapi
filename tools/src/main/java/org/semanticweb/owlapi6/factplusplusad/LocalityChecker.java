@@ -20,8 +20,6 @@ abstract class LocalityChecker extends SigAccessor
     boolean isLocal = true;
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     LocalityChecker(Signature s) {
@@ -30,7 +28,7 @@ abstract class LocalityChecker extends SigAccessor
 
     /**
      * @param moduleMethod modularisation method
-     * @param pSig         signature
+     * @param pSig signature
      * @return locality checker by a method
      */
     static LocalityChecker createLocalityChecker(ModuleMethod moduleMethod, Signature pSig) {
