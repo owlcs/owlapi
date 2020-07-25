@@ -22,49 +22,40 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDebugger {
 
     /**
-     * Gets the oWL ontology.
-     * 
      * @return the {@code OWLOntology} that is being debugged.
-     * @throws OWLException
-     *         if there is any problem
+     * @throws OWLException if there is any problem
      */
     @Nonnull
     OWLOntology getOWLOntology() throws OWLException;
 
     /**
-     * Gets the sOS for incosistent class.
+     * Gets the sOS for inconsistent class.
      * 
-     * @param cls
-     *        The class which is inconsistent
-     * @return the first set of supporting (SOS) axioms that are responsible for
-     *         the specified class being inconsistent.
-     * @throws OWLException
-     *         if there is any problem
+     * @param cls The class which is inconsistent
+     * @return the first set of supporting (SOS) axioms that are responsible for the specified class
+     *         being inconsistent.
+     * @throws OWLException if there is any problem
      */
     @Nonnull
-    Set<OWLAxiom> getSOSForInconsistentClass(@Nonnull OWLClassExpression cls)
-            throws OWLException;
+    Set<OWLAxiom> getSOSForInconsistentClass(@Nonnull OWLClassExpression cls) throws OWLException;
 
     /**
-     * Gets the all sos for incosistent class.
+     * Gets the all sos for inconsistent class.
      * 
-     * @param cls
-     *        the inconsistent class
-     * @return all sets of supporting axioms that are responsible for the
-     *         specified class being inconsistent
-     * @throws OWLException
-     *         if there is any problem
+     * @param cls the inconsistent class
+     * @return all sets of supporting axioms that are responsible for the specified class being
+     *         inconsistent
+     * @throws OWLException if there is any problem
      */
     @Nonnull
-    Set<Set<OWLAxiom>> getAllSOSForInconsistentClass(
-            @Nonnull OWLClassExpression cls) throws OWLException;
+    Set<Set<OWLAxiom>> getAllSOSForInconsistentClass(@Nonnull OWLClassExpression cls)
+        throws OWLException;
 
     /** dispose of resources locked such as reasoners. */
     void dispose();

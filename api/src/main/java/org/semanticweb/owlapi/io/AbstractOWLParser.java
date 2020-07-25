@@ -81,8 +81,8 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
      * @param config the load configuration
      * @param acceptHeaders accept headers
      * @return The input stream obtained from the URI
-     * @throws IOException if there was an {@code IOException} in obtaining the input stream from
-     *         the URI.
+     * @throws IOException if there was an {@link java.io.IOException} in obtaining the input stream
+     *         from the URI.
      */
     @Nonnull
     protected InputStream getInputStream(@Nonnull IRI documentIRI,

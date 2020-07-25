@@ -317,7 +317,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     Set<IRI> getPunnedIRIs(@Nonnull Imports includeImportsClosure);
 
     /**
-     * @param entity                entyty to check
+     * @param entity                entity to check
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if entity is referenced
      * @deprecated use {@link #containsEntityInSignature(OWLEntity, Imports)}
@@ -326,7 +326,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
     boolean containsReference(@Nonnull OWLEntity entity, @Nonnull Imports includeImportsClosure);
 
     /**
-     * @param entity entyty to check
+     * @param entity entity to check
      * @return true if entity is referenced
      * @deprecated use {@link #containsEntityInSignature(OWLEntity)}
      */

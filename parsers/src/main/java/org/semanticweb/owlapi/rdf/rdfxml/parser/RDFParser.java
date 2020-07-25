@@ -12,8 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_OBJECT;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_PREDICATE;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_STATEMENT;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_SUBJECT;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_TYPE;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.XMLLANG;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.XMLNS;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.IOException;
 import java.io.StreamTokenizer;
@@ -49,7 +56,8 @@ import org.xml.sax.helpers.LocatorImpl;
  */
 public class RDFParser extends DefaultHandler implements IRIProvider {
 
-    private static final String WRONGRESOLVE = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
+    private static final String WRONGRESOLVE =
+        "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     @Nonnull
     protected static final Locator nullDocumentLocator = new LocatorImpl();
     private final Map<String, String> resolvedIRIs = new HashMap<>();
@@ -103,17 +111,13 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /**
      * Parses RDF from given input source.
      * 
-     * @param source
-     *        specifies where RDF comes from
-     * @param inputConsumer
-     *        receives notifications about RDF parsing events
-     * @throws SAXException
-     *         SAXException
-     * @throws IOException
-     *         IOException
+     * @param source specifies where RDF comes from
+     * @param inputConsumer receives notifications about RDF parsing events
+     * @throws SAXException SAX exception
+     * @throws IOException if there was a problem parsing the output stream
      */
-    public void parse(@Nonnull InputSource source, @Nonnull RDFConsumer inputConsumer) throws SAXException,
-        IOException {
+    public void parse(@Nonnull InputSource source, @Nonnull RDFConsumer inputConsumer)
+        throws SAXException, IOException {
         InputSource s = checkNotNull(source, "source cannot be null");
         checkNotNull(inputConsumer, "consumer cannot be null");
         String systemID = s.getSystemId();
@@ -140,12 +144,15 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 public void elementDecl(String name, String model) {}
 
                 @Override
-                public void attributeDecl(String eName, String aName, String type, String mode, String value) {}
+                public void attributeDecl(String eName, String aName, String type, String mode,
+                    String value) {}
             };
-            SAXParsers.initParserWithOWLAPIStandards(handler, inputConsumer.getConfiguration().getEntityExpansionLimit()).parse(source, this);
+            SAXParsers.initParserWithOWLAPIStandards(handler,
+                inputConsumer.getConfiguration().getEntityExpansionLimit()).parse(source, this);
             inputConsumer.endModel();
         } catch (URISyntaxException e) {
-            throw new SAXException("Invalid SystemID '" + systemID + "'of the supplied input source.", e);
+            throw new SAXException(
+                "Invalid SystemID '" + systemID + "'of the supplied input source.", e);
         } finally {
             state = null;
             states.clear();
@@ -161,8 +168,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /**
      * Sets the error handler.
      * 
-     * @param errorHandler
-     *        the error handler
+     * @param errorHandler the error handler
      */
     public void setErrorHandler(@Nonnull ErrorHandler errorHandler) {
         this.errorHandler = checkNotNull(errorHandler, "errorHandler cannot be null");
@@ -195,7 +201,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes)
+        throws SAXException {
         processXMLBase(attributes);
         processXMLLanguage(attributes);
         state.startElement(uri, localName, qName, attributes);
@@ -217,7 +224,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     public void processingInstruction(String target, String data) {
         if ("include-rdf".equals(target)) {
             Map<String, String> arguments = parseStringArguments(data);
-            verify(arguments.size() > 2, "Incorrect number of arguments for 'include-rdf' processing instruction.");
+            verify(arguments.size() > 2,
+                "Incorrect number of arguments for 'include-rdf' processing instruction.");
             String logicalIRI = arguments.get("logicalIRI");
             String physicalIRI = arguments.get("physicalIRI");
             if (physicalIRI != null) {
@@ -230,8 +238,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /**
      * Pushes a new state on the state stack.
      * 
-     * @param s
-     *        new state
+     * @param s new state
      */
     public void pushState(State s) {
         states.add(s);
@@ -275,8 +282,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /**
      * Processes xml:base reference if there is one.
      * 
-     * @param atts
-     *        the attributes potentially containing xml:base declaration
+     * @param atts the attributes potentially containing xml:base declaration
      */
     private void processXMLBase(@Nonnull Attributes atts) {
         checkNotNull(atts, "atts cannot be null");
@@ -287,7 +293,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 baseIRI = resolveFromDelegate(getBaseIRI(), value);
                 resolvedIRIs.clear();
             } catch (IllegalArgumentException e) {
-                throw new RDFParserException(e, String.format(WRONGRESOLVE, value, getBaseIRI(), e.getMessage()),
+                throw new RDFParserException(e,
+                    String.format(WRONGRESOLVE, value, getBaseIRI(), e.getMessage()),
                     getDocumentLocator());
             }
         }
@@ -296,8 +303,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /**
      * Processes xml:language reference is there is one.
      * 
-     * @param atts
-     *        the attributes potentially containing xml:language declaration
+     * @param atts the attributes potentially containing xml:language declaration
      */
     private void processXMLLanguage(@Nonnull Attributes atts) {
         checkNotNull(atts, "atts cannot be null");
@@ -311,14 +317,13 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /**
      * Resolves an IRI with the current base.
      * 
-     * @param uri
-     *        the IRI being resolved
+     * @param iri the IRI being resolved
      * @return the resolved IRI
      */
     @Nonnull
-    public String resolveIRI(@Nonnull String uri) {
-        checkNotNull(uri, "uri cannot be null");
-        if (uri.isEmpty()) {
+    public String resolveIRI(@Nonnull String iri) {
+        checkNotNull(iri, "uri cannot be null");
+        if (iri.isEmpty()) {
             // MH - Fix for resolving a "This document" reference against base
             // IRIs.
             String namespace = getBaseIRI().getNamespace();
@@ -334,18 +339,19 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             }
         } else {
             try {
-                String resolved = resolvedIRIs.get(uri);
+                String resolved = resolvedIRIs.get(iri);
                 if (resolved != null) {
                     return resolved;
                 } else {
-                    IRI theIRI = resolveFromDelegate(getBaseIRI(), uri);
+                    IRI theIRI = resolveFromDelegate(getBaseIRI(), iri);
                     String u = theIRI.toString();
                     uriCache.put(u, theIRI);
-                    resolvedIRIs.put(uri, u);
+                    resolvedIRIs.put(iri, u);
                     return u;
                 }
             } catch (IllegalArgumentException e) {
-                throw new RDFParserException(e, String.format(WRONGRESOLVE, uri, getBaseIRI(), e.getMessage()),
+                throw new RDFParserException(e,
+                    String.format(WRONGRESOLVE, iri, getBaseIRI(), e.getMessage()),
                     getDocumentLocator());
             }
         }
@@ -354,18 +360,14 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /**
      * Called when a statement with resource value is added to the model.
      * 
-     * @param subject
-     *        IRI of the subject resource
-     * @param predicate
-     *        IRI of the predicate resource
-     * @param object
-     *        IRI of the object resource
-     * @param reificationID
-     *        if not {@code null}, contains IRI of the resource that will wold
-     *        the reified statement
+     * @param subject IRI of the subject resource
+     * @param predicate IRI of the predicate resource
+     * @param object IRI of the object resource
+     * @param reificationID if not {@code null}, contains IRI of the resource that will hold the
+     *        reified statement
      */
-    public void statementWithResourceValue(@Nonnull String subject, @Nonnull String predicate, @Nonnull String object,
-        @Nullable String reificationID) {
+    public void statementWithResourceValue(@Nonnull String subject, @Nonnull String predicate,
+        @Nonnull String object, @Nullable String reificationID) {
         String remappedSubject = consumer.remapOnlyIfRemapped(subject);
         consumer.statementWithResourceValue(remappedSubject, predicate, object);
         if (reificationID != null) {
@@ -379,34 +381,29 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /**
      * Called when a statement with literal value is added to the model.
      * 
-     * @param subject
-     *        IRI of the subject resource
-     * @param predicate
-     *        IRI of the predicate resource
-     * @param object
-     *        literal object value
-     * @param dataType
-     *        the IRI of the literal's datatype (may be {@code null})
-     * @param reificationID
-     *        if not {@code null}, contains IRI of the resource that will wold
-     *        the reified statement
+     * @param subject IRI of the subject resource
+     * @param predicate IRI of the predicate resource
+     * @param object literal object value
+     * @param dataType the IRI of the literal's datatype (may be {@code null})
+     * @param reificationID if not {@code null}, contains IRI of the resource that will hold the
+     *        reified statement
      */
-    public void statementWithLiteralValue(@Nonnull String subject, @Nonnull String predicate, @Nonnull String object,
-        @Nullable String dataType, @Nullable String reificationID) {
+    public void statementWithLiteralValue(@Nonnull String subject, @Nonnull String predicate,
+        @Nonnull String object, @Nullable String dataType, @Nullable String reificationID) {
         consumer.statementWithLiteralValue(subject, predicate, object, language, dataType);
         if (reificationID != null) {
             consumer.statementWithResourceValue(reificationID, RDF_TYPE, RDF_STATEMENT);
             consumer.statementWithResourceValue(reificationID, RDF_SUBJECT, subject);
             consumer.statementWithResourceValue(reificationID, RDF_PREDICATE, predicate);
-            consumer.statementWithLiteralValue(reificationID, RDF_OBJECT, object, language, dataType);
+            consumer.statementWithLiteralValue(reificationID, RDF_OBJECT, object, language,
+                dataType);
         }
     }
 
     /**
      * Parses the string into a map of name-value pairs.
      * 
-     * @param string
-     *        string to be parsed
+     * @param string string to be parsed
      * @return map of name-value pairs
      */
     private Map<String, String> parseStringArguments(String string) {
@@ -415,11 +412,13 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             Map<String, String> result = new HashMap<>();
             tokenizer.nextToken();
             while (tokenizer.ttype != StreamTokenizer.TT_EOF) {
-                verify(tokenizer.ttype != StreamTokenizer.TT_WORD, "Invalid processing instruction argument.");
+                verify(tokenizer.ttype != StreamTokenizer.TT_WORD,
+                    "Invalid processing instruction argument.");
                 String name = tokenizer.sval;
                 verify('=' != tokenizer.nextToken(), "Expecting token '='");
                 tokenizer.nextToken();
-                verify(tokenizer.ttype != '\"' && tokenizer.ttype != '\'', "Invalid processing instruction argument.");
+                verify(tokenizer.ttype != '\"' && tokenizer.ttype != '\'',
+                    "Invalid processing instruction argument.");
                 String value = tokenizer.sval;
                 result.put(name, value);
                 tokenizer.nextToken();
@@ -437,14 +436,11 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     }
 
     /**
-     * If conditon b is true, throw an exception with provided message
+     * If condition b is true, throw an exception with provided message
      * 
-     * @param b
-     *        condition to verify
-     * @param message
-     *        message for the exception
-     * @throws RDFParserException
-     *         exception thrown
+     * @param b condition to verify
+     * @param message message for the exception
+     * @throws RDFParserException exception thrown
      */
     public void verify(boolean b, @Nonnull String message) {
         if (b) {

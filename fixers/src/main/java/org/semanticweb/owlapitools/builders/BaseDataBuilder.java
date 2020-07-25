@@ -25,20 +25,17 @@ import org.semanticweb.owlapi.model.OWLObject;
 /**
  * Builder class for OWLDataAllValuesFrom
  * 
- * @param <T>
- *        type built
- * @param <B>
- *        builder type
+ * @param <T> type built
+ * @param <B> builder type
  */
-public abstract class BaseDataBuilder<T extends OWLObject, B> extends
-        BaseDataPropertyBuilder<T, B> {
+public abstract class BaseDataBuilder<T extends OWLObject, B>
+    extends BaseDataPropertyBuilder<T, B> {
 
     @Nullable
     private OWLDataRange dataRange = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BaseDataBuilder(OWLDataFactory df) {
@@ -46,8 +43,7 @@ public abstract class BaseDataBuilder<T extends OWLObject, B> extends
     }
 
     /**
-     * @param arg
-     *        range
+     * @param arg range
      * @return builder
      */
     @Nonnull
@@ -58,7 +54,7 @@ public abstract class BaseDataBuilder<T extends OWLObject, B> extends
     }
 
     /**
-     * @return the dataRange
+     * @return the data range
      */
     @Nonnull
     public OWLDataRange getDataRange() {

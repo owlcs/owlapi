@@ -17,16 +17,12 @@ import javax.annotation.Nonnull;
 /**
  * The vocabulary that the Manchester OWL Syntax uses.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 25-Apr-2007
- * @deprecated use
- *             {@link org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax}
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         25-Apr-2007
+ * @deprecated use {@link org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax}
  */
 @Deprecated
 public enum ManchesterOWLSyntax {
-
-
-
 
 
 
@@ -125,7 +121,7 @@ public enum ManchesterOWLSyntax {
     org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax legacy;
 
     private ManchesterOWLSyntax(
-            org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax legacy) {
+        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax legacy) {
         this.legacy = legacy;
     }
 
@@ -144,7 +140,7 @@ public enum ManchesterOWLSyntax {
         return legacy.isAxiomKeyword();
     }
 
-    /** @return class conective */
+    /** @return is class connective */
     public boolean isClassExpressionConnectiveKeyword() {
         return legacy.isClassExpressionConnectiveKeyword();
     }
@@ -165,8 +161,7 @@ public enum ManchesterOWLSyntax {
     }
 
     /**
-     * @param s
-     *        s
+     * @param s s
      * @return true if matches keyword
      */
     public boolean matches(String s) {
@@ -174,8 +169,7 @@ public enum ManchesterOWLSyntax {
     }
 
     /**
-     * @param s
-     *        s
+     * @param s s
      * @return true if either form matches
      */
     public boolean matchesEitherForm(String s) {
@@ -185,10 +179,8 @@ public enum ManchesterOWLSyntax {
     /**
      * for keywords which match two tokens.
      * 
-     * @param s
-     *        s
-     * @param v
-     *        v
+     * @param s s
+     * @param v v
      * @return true if matches
      */
     public boolean matches(@Nonnull String s, @Nonnull String v) {
@@ -196,8 +188,7 @@ public enum ManchesterOWLSyntax {
     }
 
     /**
-     * @param rendering
-     *        rendering
+     * @param rendering rendering
      * @return manchester owl syntax object
      */
     public static ManchesterOWLSyntax parse(String rendering) {

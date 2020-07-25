@@ -264,7 +264,7 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
 
     /**
      * @param entity
-     *        entyty to check
+     *        entity to check
      * @param includeImportsClosure
      *        if true, include imports closure.
      * @return true if entity is referenced

@@ -70,7 +70,7 @@ public interface OWLAxiomCollectionBooleanArgs
     /**
      * Gets all axioms of the specified type.
      * 
-     * @param axiomType             The type of axioms to be retrived.
+     * @param axiomType             The type of axioms to be retrieved.
      * @param includeImportsClosure if true, include imports closure.
      * @return all axioms of the specified type. The set is a copy of the data.
      * @param <T> axiom type

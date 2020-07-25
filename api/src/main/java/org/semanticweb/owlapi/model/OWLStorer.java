@@ -20,65 +20,46 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 
 /**
- * An ontology storer stores an ontology in a particular format at a location
- * specified by a particular URI.
+ * An ontology storer stores an ontology in a particular format at a location specified by a
+ * particular URI.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLStorer extends Serializable {
 
     /**
-     * Determines if this storer can store an ontology in the specified ontology
-     * format.
+     * Determines if this storer can store an ontology in the specified ontology format.
      * 
-     * @param ontologyFormat
-     *        The desired ontology format.
-     * @return {@code true} if this storer can store an ontology in the desired
-     *         format.
+     * @param ontologyFormat The desired ontology format.
+     * @return {@code true} if this storer can store an ontology in the desired format.
      */
     boolean canStoreOntology(@Nonnull OWLDocumentFormat ontologyFormat);
 
     /**
-     * Stores an ontology to the specified ontology document IRI in the
-     * specified format.
+     * Stores an ontology to the specified ontology document IRI in the specified format.
      * 
-     * @param ontology
-     *        The ontology to be stored
-     * @param documentIRI
-     *        The ontology document IRI where the ontology will be saved to
-     * @param ontologyFormat
-     *        The format that the ontology should be stored in @throws
-     *        OWLOntologyStorageException if there was a problem storing the
-     *        ontology.
-     * @throws IOException
-     *         if there was an IOException when storing the ontology
-     * @throws OWLOntologyStorageException
-     *         if there was a problem storing the ontology
+     * @param ontology The ontology to be stored
+     * @param documentIRI The ontology document IRI where the ontology will be saved to
+     * @param ontologyFormat The format that the ontology should be stored in @throws
+     *        OWLOntologyStorageException if there was a problem storing the ontology.
+     * @throws IOException if there was an {@link java.io.IOException} when storing the ontology
+     * @throws OWLOntologyStorageException if there was a problem storing the ontology
      */
     void storeOntology(@Nonnull OWLOntology ontology, @Nonnull IRI documentIRI,
-            @Nonnull OWLDocumentFormat ontologyFormat)
-            throws OWLOntologyStorageException, IOException;
+        @Nonnull OWLDocumentFormat ontologyFormat) throws OWLOntologyStorageException, IOException;
 
     /**
-     * Stores an ontology to the specified target. This method assumes the
-     * storer can write the ontology to some stream.
+     * Stores an ontology to the specified target. This method assumes the storer can write the
+     * ontology to some stream.
      * 
-     * @param ontology
-     *        The ontology to be stored
-     * @param target
-     *        The target which describes the ontology document where the
-     *        ontology should be stored
-     * @param format
-     *        The format in which to store the ontology
-     * @throws OWLOntologyStorageException
-     *         if there was a problem storing the ontology.
-     * @throws IOException
-     *         if there was an IOException when storing the ontology.
+     * @param ontology The ontology to be stored
+     * @param target The target which describes the ontology document where the ontology should be
+     *        stored
+     * @param format The format in which to store the ontology
+     * @throws OWLOntologyStorageException if there was a problem storing the ontology.
+     * @throws IOException if there was an {@link java.io.IOException} when storing the ontology.
      */
-    void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyDocumentTarget target,
-            @Nonnull OWLDocumentFormat format)
-            throws OWLOntologyStorageException, IOException;
+    void storeOntology(@Nonnull OWLOntology ontology, @Nonnull OWLOntologyDocumentTarget target,
+        @Nonnull OWLDocumentFormat format) throws OWLOntologyStorageException, IOException;
 }

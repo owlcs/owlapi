@@ -53,7 +53,7 @@ public class CollectionFactory {
      * of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted. NOTE: use this
      * method if ordering is desirable but not necessary.
      * 
-     * @param <T>      list type
+     * @param <T> list type
      * @param toReturn list to sort
      */
     public static <T extends Comparable<T>> void sortOptionallyComparables(
@@ -96,7 +96,7 @@ public class CollectionFactory {
      * NOTE: use this method if ordering is desirable but not necessary.
      * 
      * @param toReturn collection to sort
-     * @param <T>      list type
+     * @param <T> list type
      * @return sorted copy of the input, if no errors are raised. Copy of the original otherwise.
      */
     @Nonnull
@@ -122,7 +122,7 @@ public class CollectionFactory {
      * NOTE: use this method if ordering is desirable but not necessary.
      * 
      * @param toReturn collection to sort
-     * @param <T>      list type
+     * @param <T> list type
      * @return sorted copy of the input, if no errors are raised. Copy of the original otherwise.
      */
     @Nonnull
@@ -154,7 +154,7 @@ public class CollectionFactory {
 
     /**
      * @param value the number of expected threads that will update threadsafe collections; useful
-     *              for increasing the concurrency in ConcurrentHashMaps
+     *        for increasing the concurrency in ConcurrentHashMap instances created by this factory
      */
     public static void setExpectedThreads(int value) {
         EXPECTEDTHREADS.set(value);
@@ -284,7 +284,7 @@ public class CollectionFactory {
     }
 
     /**
-     * @return a new weak hashmap wrapped as a synchronized map
+     * @return a new weak HashMap wrapped as a synchronized map
      * @param <K> key type
      * @param <V> value type
      */
@@ -326,7 +326,7 @@ public class CollectionFactory {
     }
 
     /**
-     * @return fresh threadsafe hashmap
+     * @return fresh threadsafe HashMap
      * @param <K> key type
      * @param <V> value type
      */
@@ -401,7 +401,7 @@ public class CollectionFactory {
         private int containsCounter = 0;
 
         /**
-         * @param source   initial elements
+         * @param source initial elements
          * @param listCopy true if a copy must be made
          */
         public ConditionalCopySet(@Nonnull Collection<T> source, boolean listCopy) {

@@ -10,14 +10,10 @@ public class OBOFormatParserException extends OBOFormatException {
     private final String line;
 
     /**
-     * @param message
-     *        the message
-     * @param e
-     *        the cause
-     * @param lineNo
-     *        the line no
-     * @param line
-     *        the line
+     * @param message the message
+     * @param e the cause
+     * @param lineNo the line no
+     * @param line the line
      */
     public OBOFormatParserException(String message, Throwable e, int lineNo, String line) {
         super(message, e);
@@ -26,12 +22,9 @@ public class OBOFormatParserException extends OBOFormatException {
     }
 
     /**
-     * @param message
-     *        the message
-     * @param lineNo
-     *        the line no
-     * @param line
-     *        the line
+     * @param message the message
+     * @param lineNo the line no
+     * @param line the line
      */
     public OBOFormatParserException(String message, int lineNo, String line) {
         super(message);
@@ -40,12 +33,9 @@ public class OBOFormatParserException extends OBOFormatException {
     }
 
     /**
-     * @param e
-     *        the cause
-     * @param lineNo
-     *        the line no
-     * @param line
-     *        the line
+     * @param e the cause
+     * @param lineNo the line no
+     * @param line the line
      */
     public OBOFormatParserException(Throwable e, int lineNo, String line) {
         super(e);
@@ -54,7 +44,7 @@ public class OBOFormatParserException extends OBOFormatException {
     }
 
     /**
-     * @return the lineNo
+     * @return the line number
      */
     public int getLineNo() {
         return lineNo;

@@ -9,8 +9,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * This class will eventually replace the id to uri translation in Owl2Obo and
- * OboO2Owl <br>
+ * This class will eventually replace the id to IRI translation in Owl2Obo and OboO2Owl <br>
  * It is currently in-progress.
  * 
  * @author cjm
@@ -23,8 +22,7 @@ public class IdTranslator {
     private final Map<String, String> idspaceMap = new HashMap<>();
 
     /**
-     * @param iri
-     *        iri
+     * @param iri iri
      * @return string for iri
      */
     @Nullable
@@ -33,8 +31,7 @@ public class IdTranslator {
     }
 
     /**
-     * @param id
-     *        id
+     * @param id id
      * @return string for id
      */
     @Nullable
@@ -56,11 +53,10 @@ public class IdTranslator {
     }
 
     /**
-     * True if id starts with a standard URI prefix (http, ftp, https) followed
-     * by a ":". Does not check if it actually conforms to URI syntax.
+     * True if id starts with a standard URI prefix (http, ftp, https) followed by a ":". Does not
+     * check if it actually conforms to URI syntax.
      * 
-     * @param id
-     *        id
+     * @param id id
      * @return boolean
      */
     public static boolean isURI(@Nonnull String id) {
@@ -71,12 +67,10 @@ public class IdTranslator {
     }
 
     /**
-     * Expands an OBO prefix such as "GO" to
-     * "http://purl.obolibrary.org/obo/GO_". By default a prefix XX maps to
-     * http://purl.obolibrary.org/obo/XX_
+     * Expands an OBO prefix such as "GO" to "http://purl.obolibrary.org/obo/GO_". By default a
+     * prefix XX maps to http://purl.obolibrary.org/obo/XX_
      * 
-     * @param prefix
-     *        prefix
+     * @param prefix prefix
      * @return expanded prefix
      */
     public String expandPrefix(String prefix) {

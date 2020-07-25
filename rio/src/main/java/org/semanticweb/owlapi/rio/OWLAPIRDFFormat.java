@@ -100,13 +100,13 @@ public class OWLAPIRDFFormat extends RDFFormat {
     private OWLDocumentFormatFactory owlFormatFactory;
 
     /**
-     * @param name               name
-     * @param mimeType           mimeType
-     * @param charset            charset
-     * @param fileExtension      fileExtension
-     * @param supportsNamespaces supportsNamespaces
-     * @param supportsContexts   supportsContexts
-     * @param owlFormat          owlFormat
+     * @param name name
+     * @param mimeType mime type
+     * @param charset charset
+     * @param fileExtension file extension
+     * @param supportsNamespaces supports namespaces
+     * @param supportsContexts supports contexts
+     * @param owlFormat owl format
      */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset, String fileExtension,
         boolean supportsNamespaces, boolean supportsContexts, OWLDocumentFormatFactory owlFormat) {
@@ -115,13 +115,13 @@ public class OWLAPIRDFFormat extends RDFFormat {
     }
 
     /**
-     * @param name               name
-     * @param mimeType           mimeType
-     * @param charset            charset
-     * @param fileExtensions     fileExtensions
-     * @param supportsNamespaces supportsNamespaces
-     * @param supportsContexts   supportsContexts
-     * @param owlFormat          owlFormat
+     * @param name name
+     * @param mimeType mime type
+     * @param charset charset
+     * @param fileExtensions file extensions
+     * @param supportsNamespaces supports namespaces
+     * @param supportsContexts supports contexts
+     * @param owlFormat owl format
      */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset,
         Collection<String> fileExtensions, boolean supportsNamespaces, boolean supportsContexts,
@@ -131,13 +131,13 @@ public class OWLAPIRDFFormat extends RDFFormat {
     }
 
     /**
-     * @param name               name
-     * @param mimeTypes          mimeTypes
-     * @param charset            charset
-     * @param fileExtensions     fileExtensions
-     * @param supportsNamespaces supportsNamespaces
-     * @param supportsContexts   supportsContexts
-     * @param owlFormat          owlFormat
+     * @param name name
+     * @param mimeTypes mime types
+     * @param charset charset
+     * @param fileExtensions file extensions
+     * @param supportsNamespaces supports namespaces
+     * @param supportsContexts supports contexts
+     * @param owlFormat owl format
      */
     public OWLAPIRDFFormat(String name, Collection<String> mimeTypes, Charset charset,
         Collection<String> fileExtensions, boolean supportsNamespaces, boolean supportsContexts,
@@ -147,13 +147,13 @@ public class OWLAPIRDFFormat extends RDFFormat {
     }
 
     /**
-     * @param name               name
-     * @param mimeType           mimeType
-     * @param charset            charset
-     * @param fileExtension      fileExtension
-     * @param supportsNamespaces supportsNamespaces
-     * @param supportsContexts   supportsContexts
-     * @param owlFormat          owlFormat
+     * @param name name
+     * @param mimeType mime type
+     * @param charset charset
+     * @param fileExtension file extension
+     * @param supportsNamespaces supports namespaces
+     * @param supportsContexts supports contexts
+     * @param owlFormat owl format
      */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset, String fileExtension,
         boolean supportsNamespaces, boolean supportsContexts, OWLDocumentFormat owlFormat) {
@@ -162,13 +162,13 @@ public class OWLAPIRDFFormat extends RDFFormat {
     }
 
     /**
-     * @param name               name
-     * @param mimeType           mimeType
-     * @param charset            charset
-     * @param fileExtensions     fileExtensions
-     * @param supportsNamespaces supportsNamespaces
-     * @param supportsContexts   supportsContexts
-     * @param owlFormat          owlFormat
+     * @param name name
+     * @param mimeType mime type
+     * @param charset charset
+     * @param fileExtensions file extensions
+     * @param supportsNamespaces supports namespaces
+     * @param supportsContexts supports contexts
+     * @param owlFormat owl format
      */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset,
         Collection<String> fileExtensions, boolean supportsNamespaces, boolean supportsContexts,
@@ -178,13 +178,13 @@ public class OWLAPIRDFFormat extends RDFFormat {
     }
 
     /**
-     * @param name               name
-     * @param mimeTypes          mimeTypes
-     * @param charset            charset
-     * @param fileExtensions     fileExtensions
-     * @param supportsNamespaces supportsNamespaces
-     * @param supportsContexts   supportsContexts
-     * @param owlFormat          owlFormat
+     * @param name name
+     * @param mimeTypes mime types
+     * @param charset charset
+     * @param fileExtensions file extensions
+     * @param supportsNamespaces supports namespaces
+     * @param supportsContexts supports contexts
+     * @param owlFormat owl format
      */
     public OWLAPIRDFFormat(String name, Collection<String> mimeTypes, Charset charset,
         Collection<String> fileExtensions, boolean supportsNamespaces, boolean supportsContexts,

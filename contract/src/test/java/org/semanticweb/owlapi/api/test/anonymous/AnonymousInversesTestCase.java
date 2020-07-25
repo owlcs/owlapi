@@ -18,12 +18,10 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-public class AnonymousInversesTestCase extends
-        AbstractFileRoundTrippingTestCase {
+public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Nonnull
     @Override
@@ -32,9 +30,8 @@ public class AnonymousInversesTestCase extends
     }
 
     /*
-     * XXX Manchester syntax and functional syntax are commented out. This isn't
-     * supported in the Manchester syntax (current spec) and the functional
-     * syntax parser needs fixing once the OWL 2 spec has stabilised.
+     * XXX Manchester syntax is commented out. This isn't supported in the Manchester syntax
+     * (current specification)
      */
     @Override
     @Test

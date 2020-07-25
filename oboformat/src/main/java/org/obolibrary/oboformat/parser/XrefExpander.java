@@ -29,10 +29,8 @@ public class XrefExpander {
     Map<String, OBODoc> targetDocMap = new HashMap<>();
 
     /**
-     * @param src
-     *        src
-     * @throws InvalidXrefMapException
-     *         InvalidXrefMapException
+     * @param src src
+     * @throws InvalidXrefMapException InvalidXrefMapException
      */
     public XrefExpander(@Nonnull OBODoc src) {
         sourceOBODoc = src;
@@ -48,12 +46,9 @@ public class XrefExpander {
     }
 
     /**
-     * @param src
-     *        src
-     * @param targetBase
-     *        targetBase
-     * @throws InvalidXrefMapException
-     *         InvalidXrefMapException
+     * @param src src
+     * @param targetBase targetBase
+     * @throws InvalidXrefMapException InvalidXrefMapException
      */
     public XrefExpander(OBODoc src, String targetBase) {
         sourceOBODoc = src;
@@ -62,12 +57,9 @@ public class XrefExpander {
     }
 
     /**
-     * @param src
-     *        src
-     * @param tgt
-     *        tgt
-     * @throws InvalidXrefMapException
-     *         InvalidXrefMapException
+     * @param src src
+     * @param tgt tgt
+     * @throws InvalidXrefMapException InvalidXrefMapException
      */
     public XrefExpander(OBODoc src, OBODoc tgt) {
         sourceOBODoc = src;
@@ -76,8 +68,7 @@ public class XrefExpander {
     }
 
     /**
-     * @throws InvalidXrefMapException
-     *         InvalidXrefMapException
+     * @throws InvalidXrefMapException InvalidXrefMapException
      */
     public final void setUp() {
         // required for translation of IDs
@@ -99,14 +90,16 @@ public class XrefExpander {
                 // addMacro(idSpace,"is_specific_equivalent_of","Class: ?X
                 // EquivalentTo: ?Y and "+oboIdToIRI(parts[1])+" some
                 // "+oboIdToIRI(parts[2]));
-            } else if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag())) {
+            } else if (c.getTag()
+                .equals(OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag())) {
                 addRule(idSpace, new GenusDifferentiaExpansion(parts[1], parts[2]));
                 // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y
                 // EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some
                 // "+oboIdToIRI(parts[2]));
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
-            } else if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA.getTag())) {
+            } else if (c.getTag()
+                .equals(OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA.getTag())) {
                 addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1], parts[2]));
                 // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y
                 // EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some
@@ -128,7 +121,8 @@ public class XrefExpander {
                 // create a new bridge ontology for every expansion macro
                 OBODoc tgt = new OBODoc();
                 Frame thf = new Frame(FrameType.HEADER);
-                thf.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY, targetBase + "-" + idSpace.toLowerCase()));
+                thf.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY,
+                    targetBase + "-" + idSpace.toLowerCase()));
                 tgt.setHeaderFrame(thf);
                 targetDocMap.put(idSpace, tgt);
                 sourceOBODoc.addImportedOBODoc(tgt);
@@ -151,8 +145,7 @@ public class XrefExpander {
     }
 
     /**
-     * @param idSpace
-     *        idSpace
+     * @param idSpace idSpace
      * @return target doc
      */
     public OBODoc getTargetDoc(String idSpace) {
@@ -170,7 +163,7 @@ public class XrefExpander {
         treatMap.put(db, rule);
     }
 
-    /** expand xrefs */
+    /** Expand xref values. */
     public void expandXrefs() {
         for (Frame f : sourceOBODoc.getTermFrames()) {
             String id = f.getTagValue(OboFormatTag.TAG_ID, String.class);
@@ -201,12 +194,9 @@ public class XrefExpander {
         public String idSpace;
 
         /**
-         * @param sf
-         *        sf
-         * @param id
-         *        id
-         * @param xRef
-         *        xref
+         * @param sf sf
+         * @param id id
+         * @param xRef xref
          */
         public abstract void expand(@Nonnull Frame sf, String id, String xRef);
 
@@ -254,10 +244,8 @@ public class XrefExpander {
         protected final String tgt;
 
         /**
-         * @param rel
-         *        rel
-         * @param tgt
-         *        tgt
+         * @param rel rel
+         * @param tgt tgt
          */
         public GenusDifferentiaExpansion(String rel, String tgt) {
             this.rel = rel;
@@ -282,10 +270,8 @@ public class XrefExpander {
         protected final String tgt;
 
         /**
-         * @param rel
-         *        rel
-         * @param tgt
-         *        tgt
+         * @param rel rel
+         * @param tgt tgt
          */
         public ReverseGenusDifferentiaExpansion(String rel, String tgt) {
             this.rel = rel;
@@ -319,8 +305,7 @@ public class XrefExpander {
         protected final String rel;
 
         /**
-         * @param rel
-         *        rel
+         * @param rel rel
          */
         public RelationshipExpansion(String rel) {
             this.rel = rel;

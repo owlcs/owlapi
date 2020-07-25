@@ -7,7 +7,27 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNamedObject;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +56,7 @@ public class MacroExpansionVisitor {
     }
 
     /**
-     * @param ontology ontology to visit
+     * @param ontology                 ontology to visit
      * @param shouldAddExpansionMarker true if expansion should be added
      */
     public MacroExpansionVisitor(@Nonnull OWLOntology ontology, boolean shouldAddExpansionMarker) {
@@ -45,9 +65,9 @@ public class MacroExpansionVisitor {
     }
 
     /**
-     * @param ontology ontology to visit
+     * @param ontology                  ontology to visit
      * @param shouldTransferAnnotations true if annotations should be transferred
-     * @param shouldAddExpansionMarker true if expansion should be added
+     * @param shouldAddExpansionMarker  true if expansion should be added
      */
     public MacroExpansionVisitor(@Nonnull OWLOntology ontology, boolean shouldTransferAnnotations,
         boolean shouldAddExpansionMarker) {
@@ -56,10 +76,10 @@ public class MacroExpansionVisitor {
     }
 
     /**
-     * @param inputOntology inputOntology
-     * @param extraAnnotations extra annotations to add
+     * @param inputOntology             input ontology
+     * @param extraAnnotations          extra annotations to add
      * @param shouldTransferAnnotations true if annotations should be transferred
-     * @param shouldAddExpansionMarker true if expansion should be added
+     * @param shouldAddExpansionMarker  true if expansion should be added
      */
     public MacroExpansionVisitor(@Nonnull OWLOntology inputOntology,
         Set<OWLAnnotation> extraAnnotations, boolean shouldTransferAnnotations,

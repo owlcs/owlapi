@@ -10,15 +10,14 @@ public class Xref {
     String annotation;
 
     /**
-     * @param idref
-     *        idref
+     * @param idref id reference
      */
     public Xref(@Nonnull String idref) {
         this.idref = idref;
     }
 
     /**
-     * @return idref
+     * @return id reference
      */
     @Nonnull
     public String getIdref() {
@@ -26,8 +25,7 @@ public class Xref {
     }
 
     /**
-     * @param idref
-     *        idref
+     * @param idref id reference
      */
     public void setIdref(@Nonnull String idref) {
         this.idref = idref;
@@ -41,8 +39,7 @@ public class Xref {
     }
 
     /**
-     * @param annotation
-     *        annotation
+     * @param annotation annotation
      */
     public void setAnnotation(String annotation) {
         this.annotation = annotation;

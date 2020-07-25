@@ -51,8 +51,8 @@ public class RDFXMLWriter {
     }
 
     /**
-     * @param elementName elementName
-     * @throws IOException io exception
+     * @param elementName element name
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void writeStartElement(@Nonnull IRI elementName) throws IOException {
         // Sort out with namespace
@@ -60,7 +60,7 @@ public class RDFXMLWriter {
     }
 
     /**
-     * @throws IOException io exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void writeParseTypeAttribute() throws IOException {
         writer.writeAttribute(PARSETYPE_IRI, "Collection");
@@ -69,15 +69,15 @@ public class RDFXMLWriter {
     /**
      * Parse type attribute for literals.
      * 
-     * @throws IOException io exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void writeParseTypeLiteralAttribute() throws IOException {
         writer.writeAttribute(PARSETYPE_IRI, "Literal");
     }
 
     /**
-     * @param datatypeIRI datatypeIRI
-     * @throws IOException io exception
+     * @param datatypeIRI datatype IRI
+     * @throws IOException exception writing
      */
     public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI) throws IOException {
         checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
@@ -90,22 +90,22 @@ public class RDFXMLWriter {
 
     /**
      * @param text text
-     * @throws IOException io exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void writeTextContent(@Nonnull String text) throws IOException {
         writer.writeTextContent(text);
     }
 
     /**
-     * @param lang lang
-     * @throws IOException io exception
+     * @param lang language tag
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void writeLangAttribute(@Nonnull String lang) throws IOException {
         writer.writeAttribute(XML_LANG, lang);
     }
 
     /**
-     * @throws IOException io exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void writeEndElement() throws IOException {
         writer.writeEndElement();
@@ -113,7 +113,7 @@ public class RDFXMLWriter {
 
     /**
      * @param value value
-     * @throws IOException io exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void writeAboutAttribute(@Nonnull IRI value) throws IOException {
         writeAttribute(RDF_ABOUT, value);
@@ -121,7 +121,7 @@ public class RDFXMLWriter {
 
     /**
      * @param node node
-     * @throws IOException io exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void writeNodeIDAttribute(@Nonnull RDFResourceBlankNode node) throws IOException {
         assert node.isAnonymous();
@@ -131,7 +131,7 @@ public class RDFXMLWriter {
     /**
      * @param attributeName attribute name
      * @param value value
-     * @throws IOException io exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void writeAttribute(@Nonnull IRI attributeName, @Nonnull IRI value) throws IOException {
         writer.writeAttribute(attributeName,
@@ -146,21 +146,21 @@ public class RDFXMLWriter {
 
     /**
      * @param value value
-     * @throws IOException io exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void writeResourceAttribute(@Nonnull IRI value) throws IOException {
         writeAttribute(RDF_RESOURCE, value);
     }
 
     /**
-     * @throws IOException io exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void startDocument() throws IOException {
         writer.startDocument(RDF_RDF);
     }
 
     /**
-     * @throws IOException io exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void endDocument() throws IOException {
         writer.endDocument();
@@ -168,7 +168,7 @@ public class RDFXMLWriter {
 
     /**
      * @param comment comment
-     * @throws IOException io exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void writeComment(@Nonnull String comment) throws IOException {
         writer.writeComment(comment);

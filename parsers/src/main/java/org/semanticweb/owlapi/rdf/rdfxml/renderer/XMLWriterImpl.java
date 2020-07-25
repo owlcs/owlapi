@@ -63,9 +63,9 @@ public class XMLWriterImpl implements XMLWriter {
 
     /**
      * @param writer writer
-     * @param xmlWriterNamespaceManager xmlWriterNamespaceManager
-     * @param xmlBase xmlBase
-     * @param preferences xml writer preferences instance
+     * @param xmlWriterNamespaceManager namespace manager
+     * @param xmlBase XML base
+     * @param preferences XML writer preferences instance
      */
     public XMLWriterImpl(@Nonnull Writer writer,
         @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager, @Nonnull String xmlBase,
@@ -312,7 +312,7 @@ public class XMLWriterImpl implements XMLWriter {
 
         /**
          * @param close close
-         * @throws IOException io error
+         * @throws IOException if there was a problem writing to the output stream
          */
         public void writeElementStart(boolean close) throws IOException {
             if (!startWritten) {
@@ -369,7 +369,7 @@ public class XMLWriterImpl implements XMLWriter {
         /**
          * write end element
          * 
-         * @throws IOException io error
+         * @throws IOException if there was a problem writing to the output stream
          */
         public void writeElementEnd() throws IOException {
             if (name != null) {

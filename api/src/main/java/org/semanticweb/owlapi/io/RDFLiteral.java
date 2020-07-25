@@ -22,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
 public class RDFLiteral extends RDFNode {
@@ -40,28 +39,21 @@ public class RDFLiteral extends RDFNode {
     /**
      * Constructor for plain literal wrappers
      * 
-     * @param literal
-     *        lexical form
-     * @param lang
-     *        language tag
-     * @param datatype
-     *        datatype IRI
+     * @param literal lexical form
+     * @param lang language tag
+     * @param datatype datatype IRI
      */
-    public RDFLiteral(@Nonnull String literal, @Nonnull String lang,
-            @Nullable IRI datatype) {
+    public RDFLiteral(@Nonnull String literal, @Nonnull String lang, @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
         this.lang = lang;
-        this.datatype = datatype == null ? OWL2Datatype.RDF_PLAIN_LITERAL
-                .getIRI() : datatype;
+        this.datatype = datatype == null ? OWL2Datatype.RDF_PLAIN_LITERAL.getIRI() : datatype;
     }
 
     /**
-     * @param literal
-     *        the wrapped literal
+     * @param literal the wrapped literal
      */
     public RDFLiteral(@Nonnull OWLLiteral literal) {
-        this(literal.getLiteral(), literal.getLang(), literal.getDatatype()
-                .getIRI());
+        this(literal.getLiteral(), literal.getLang(), literal.getDatatype().getIRI());
     }
 
     @Override
@@ -119,7 +111,7 @@ public class RDFLiteral extends RDFNode {
         return lexicalValue;
     }
 
-    /** @return the lang tag for this literal */
+    /** @return the language tag for this literal */
     @Nonnull
     public String getLang() {
         return lang;

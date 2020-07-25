@@ -5,8 +5,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
@@ -16,10 +18,14 @@ public class Frame {
     /** The Enum FrameType. */
     public enum FrameType {
         /** HEADER. */
-        HEADER, /** TERM. */
-        TERM, /** TYPEDEF. */
-        TYPEDEF, /** INSTANCE. */
-        INSTANCE, /** ANNOTATION. */
+        HEADER,
+        /** TERM. */
+        TERM,
+        /** TYPEDEF. */
+        TYPEDEF,
+        /** INSTANCE. */
+        INSTANCE,
+        /** ANNOTATION. */
         ANNOTATION
     }
 
@@ -38,8 +44,7 @@ public class Frame {
     /**
      * Instantiates a new frame.
      * 
-     * @param type
-     *        the type
+     * @param type the type
      */
     public Frame(FrameType type) {
         init();
@@ -52,9 +57,9 @@ public class Frame {
     }
 
     /**
-     * freezing a frame signals that a frame has become quiescent, and that data structures can be adjusted to
-     * increase performance or reduce memory consumption. If a frozen frame is subsequently modified it will be thawed
-     * as necessary.
+     * freezing a frame signals that a frame has become quiescent, and that data structures can be
+     * adjusted to increase performance or reduce memory consumption. If a frozen frame is
+     * subsequently modified it will be thawed as necessary.
      */
     public void freeze() {
         if (clauses.isEmpty()) {
@@ -86,8 +91,7 @@ public class Frame {
     }
 
     /**
-     * @param type
-     *        the new type
+     * @param type the new type
      */
     public void setType(FrameType type) {
         this.type = type;
@@ -101,8 +105,7 @@ public class Frame {
     }
 
     /**
-     * @param id
-     *        the new id
+     * @param id the new id
      */
     public void setId(String id) {
         this.id = id;
@@ -116,8 +119,7 @@ public class Frame {
     }
 
     /**
-     * @param tag
-     *        the tag
+     * @param tag the tag
      * @return the clauses for tag
      */
     @Nonnull
@@ -132,8 +134,7 @@ public class Frame {
     }
 
     /**
-     * @param tag
-     *        the tag
+     * @param tag the tag
      * @return the clauses for tag
      */
     @Nonnull
@@ -142,8 +143,7 @@ public class Frame {
     }
 
     /**
-     * @param tag
-     *        the tag
+     * @param tag the tag
      * @return null if no value set, otherwise first value
      */
     @Nullable
@@ -158,8 +158,7 @@ public class Frame {
     }
 
     /**
-     * @param tag
-     *        the tag
+     * @param tag the tag
      * @return the clause for tag
      */
     @Nullable
@@ -168,20 +167,18 @@ public class Frame {
     }
 
     /**
-     * @param clauses
-     *        the new clauses
+     * @param clauses the new clauses
      */
     public void setClauses(Collection<Clause> clauses) {
         this.clauses = clauses;
     }
 
     /**
-     * @param cl
-     *        the clause
+     * @param cl the clause
      */
     public void addClause(Clause cl) {
         if (!(clauses instanceof ArrayList)) {
-            Collection<Clause> tmp  = new ArrayList<>(clauses.size()+1);
+            Collection<Clause> tmp = new ArrayList<>(clauses.size() + 1);
             tmp.addAll(clauses);
             clauses = tmp;
         }
@@ -204,8 +201,7 @@ public class Frame {
     }
 
     /**
-     * @param tag
-     *        the tag
+     * @param tag the tag
      * @return the tag value for tag
      */
     @Nullable
@@ -218,8 +214,7 @@ public class Frame {
     }
 
     /**
-     * @param tag
-     *        the tag
+     * @param tag the tag
      * @return the tag value for tag
      */
     @Nullable
@@ -228,12 +223,9 @@ public class Frame {
     }
 
     /**
-     * @param <T>
-     *        the generic type
-     * @param tag
-     *        the tag
-     * @param cls
-     *        the cls
+     * @param <T> the generic type
+     * @param tag the tag
+     * @param cls the cls
      * @return the tag value for tag and class
      */
     @SuppressWarnings("null")
@@ -250,12 +242,9 @@ public class Frame {
     }
 
     /**
-     * @param <T>
-     *        the generic type
-     * @param tag
-     *        the tag
-     * @param cls
-     *        the cls
+     * @param <T> the generic type
+     * @param tag the tag
+     * @param cls the cls
      * @return the tag value for tag and class
      */
     @Nullable
@@ -264,8 +253,7 @@ public class Frame {
     }
 
     /**
-     * @param tag
-     *        the tag
+     * @param tag the tag
      * @return the tag values for tag
      */
     @Nonnull
@@ -274,8 +262,7 @@ public class Frame {
     }
 
     /**
-     * @param tag
-     *        the tag
+     * @param tag the tag
      * @return the tag values for tag
      */
     @Nonnull
@@ -288,12 +275,9 @@ public class Frame {
     }
 
     /**
-     * @param <T>
-     *        the generic type
-     * @param tag
-     *        the tag
-     * @param cls
-     *        the cls
+     * @param <T> the generic type
+     * @param tag the tag
+     * @param cls the cls
      * @return the tag values for tag and class
      */
     @Nonnull
@@ -302,12 +286,9 @@ public class Frame {
     }
 
     /**
-     * @param <T>
-     *        the generic type
-     * @param tag
-     *        the tag
-     * @param cls
-     *        the cls
+     * @param <T> the generic type
+     * @param tag the tag
+     * @param cls the cls
      * @return the tag values for tag and class
      */
     @Nonnull
@@ -320,9 +301,8 @@ public class Frame {
     }
 
     /**
-     * @param tag
-     *        the tag
-     * @return the tag xrefs for tg
+     * @param tag the tag
+     * @return the tag xref list for tag
      */
     @SuppressWarnings("null")
     @Nonnull
@@ -349,10 +329,8 @@ public class Frame {
     }
 
     /**
-     * @param extFrame
-     *        the external frame
-     * @throws FrameMergeException
-     *         the frame merge exception
+     * @param extFrame the external frame
+     * @throws FrameMergeException the frame merge exception
      */
     public void merge(@Nonnull Frame extFrame) throws FrameMergeException {
         if (this == extFrame) {
@@ -373,19 +351,19 @@ public class Frame {
     /**
      * Check this frame for violations, i.e. cardinality constraint violations.
      * 
-     * @throws FrameStructureException
-     *         the frame structure exception
+     * @throws FrameStructureException the frame structure exception
      * @see OboInOwlCardinalityTools for equivalent checks in OWL
      */
     @SuppressWarnings("null")
     public void check() throws FrameStructureException {
         if (FrameType.HEADER.equals(type)) {
-            checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY, OboFormatTag.TAG_FORMAT_VERSION, OboFormatTag.TAG_DATE,
-                OboFormatTag.TAG_DEFAULT_NAMESPACE, OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
+            checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY, OboFormatTag.TAG_FORMAT_VERSION,
+                OboFormatTag.TAG_DATE, OboFormatTag.TAG_DEFAULT_NAMESPACE,
+                OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
         }
         if (FrameType.TYPEDEF.equals(type)) {
-            checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN, OboFormatTag.TAG_RANGE, OboFormatTag.TAG_IS_METADATA_TAG,
-                OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
+            checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN, OboFormatTag.TAG_RANGE,
+                OboFormatTag.TAG_IS_METADATA_TAG, OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
         }
         if (!FrameType.HEADER.equals(getType())) {
             if (getClauses(OboFormatTag.TAG_ID).size() != 1) {
@@ -405,23 +383,25 @@ public class Frame {
         checkMaxOneCardinality(OboFormatTag.TAG_IS_ANONYMOUS, OboFormatTag.TAG_NAME,
             // OboFormatTag.TAG_NAMESPACE,
             OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT, OboFormatTag.TAG_IS_ANTI_SYMMETRIC,
-            OboFormatTag.TAG_IS_CYCLIC, OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
-            OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL, OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
-            OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY, OboFormatTag.TAG_CREATION_DATE);
+            OboFormatTag.TAG_IS_CYCLIC, OboFormatTag.TAG_IS_REFLEXIVE,
+            OboFormatTag.TAG_IS_SYMMETRIC, OboFormatTag.TAG_IS_TRANSITIVE,
+            OboFormatTag.TAG_IS_FUNCTIONAL, OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
+            OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
+            OboFormatTag.TAG_CREATION_DATE);
     }
 
     /**
      * Check max one cardinality.
      * 
-     * @param tags
-     *        the tags
-     * @throws FrameStructureException
-     *         frame structure exception
+     * @param tags the tags
+     * @throws FrameStructureException frame structure exception
      */
-    private void checkMaxOneCardinality(@Nonnull OboFormatTag... tags) throws FrameStructureException {
+    private void checkMaxOneCardinality(@Nonnull OboFormatTag... tags)
+        throws FrameStructureException {
         for (OboFormatTag tag : tags) {
             if (getClauses(tag).size() > 1) {
-                throw new FrameStructureException(this, "multiple " + tag.getTag() + " tags not allowed.");
+                throw new FrameStructureException(this,
+                    "multiple " + tag.getTag() + " tags not allowed.");
             }
         }
     }

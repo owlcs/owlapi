@@ -54,8 +54,8 @@ public class MacroExpansionGCIVisitor {
     }
 
     /**
-     * @param inputOntology inputOntology
-     * @param outputManager outputManager
+     * @param inputOntology input ontology
+     * @param outputManager output manager
      * @param shouldAddExpansionMarker expansion marker should be added
      */
     public MacroExpansionGCIVisitor(OWLOntologyManager outputManager, OWLOntology inputOntology,
@@ -76,7 +76,6 @@ public class MacroExpansionGCIVisitor {
             LOG.error("no axiom");
             return;
         }
-        // System.out.println("adding:"+axiom);
         AddAxiom addAx = new AddAxiom(outputOntology, axiom);
         try {
             outputManager.applyChange(addAx);
@@ -86,7 +85,7 @@ public class MacroExpansionGCIVisitor {
     }
 
     /**
-     * @return ontology for gci
+     * @return ontology for general concept inclusion
      */
     public OWLOntology createGCIOntology() {
         MacroExpansions expansions = new MacroExpansions();

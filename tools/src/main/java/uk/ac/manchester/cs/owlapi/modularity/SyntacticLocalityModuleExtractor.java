@@ -212,9 +212,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * Creates a new module extractor for a subset of a given ontology, its manager, and a specified
      * type of locality.
      * 
-     * @param man        the manager for the associated ontology
-     * @param ont        the associated ontology
-     * @param axs        the subset of the ontology as a set of axioms
+     * @param man the manager for the associated ontology
+     * @param ont the associated ontology
+     * @param axs the subset of the ontology as a set of axioms
      * @param moduleType the type of module this extractor will construct
      * @deprecated use the constructor that takes an IRI rather than an ontology as second argument.
      *             The second argument is used only in logging assertions and can be null.
@@ -231,9 +231,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * Creates a new module extractor for a subset of a given ontology, its manager, and a specified
      * type of locality.
      * 
-     * @param man        the manager for the associated ontology
-     * @param ontIRI     the associated ontology IRI. Only for debugging purposes.
-     * @param axs        the subset of the ontology as a set of axioms
+     * @param man the manager for the associated ontology
+     * @param ontIRI the associated ontology IRI. Only for debugging purposes.
+     * @param axs the subset of the ontology as a set of axioms
      * @param moduleType the type of module this extractor will construct
      */
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man, IRI ontIRI,
@@ -242,10 +242,10 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     /**
-     * @param man               manager
-     * @param ontIRI            ontology IRI
-     * @param axs               axioms
-     * @param moduleType        module type
+     * @param man manager
+     * @param ontIRI ontology IRI
+     * @param axs axioms
+     * @param moduleType module type
      * @param excludeAssertions exclude assertions
      */
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man, IRI ontIRI,
@@ -254,11 +254,11 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     /**
-     * @param man               manager
-     * @param config            config object to access configuration
-     * @param ontIRI            ontology IRI
-     * @param axs               axioms
-     * @param moduleType        module type
+     * @param man manager
+     * @param config config object to access configuration
+     * @param ontIRI ontology IRI
+     * @param axs axioms
+     * @param moduleType module type
      * @param excludeAssertions exclude assertions
      */
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man,
@@ -291,8 +291,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * Creates a new module extractor for a given ontology, its manager, and a specified type of
      * locality.
      * 
-     * @param man        the manager for the associated ontology
-     * @param ont        the associated ontology
+     * @param man the manager for the associated ontology
+     * @param ont the associated ontology
      * @param moduleType the type of module this extractor will construct
      */
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man,
@@ -337,11 +337,11 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * <p/>
      * This method is (if necessary, iteratively) called by the public method extract.
      * 
-     * @param subOnt        an array of Booleans representing the sub-ontology
-     * @param signature     the seed signature (set of entities) for the module; on return of the
-     *                      method, this will contain the signature of the module
+     * @param subOnt an array of Booleans representing the sub-ontology
+     * @param signature the seed signature (set of entities) for the module; on return of the
+     *        method, this will contain the signature of the module
      * @param localityClass the type of locality
-     * @param verbose       a flag for verbose output (test purposes)
+     * @param verbose a flag for verbose output (test purposes)
      * @return an array of Booleans representing the module
      */
     @Nonnull
@@ -394,11 +394,11 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * given signature and locality type. The module will only contain logical axioms, no annotation
      * or declaration axioms. The sub-ontology and module are represented as sets of axioms.
      * 
-     * @param subOnt        a set of axioms representing the sub-ontology
-     * @param signature     the seed signature (set of entities) for the module; on return of the
-     *                      method, this will contain the signature of the module
+     * @param subOnt a set of axioms representing the sub-ontology
+     * @param signature the seed signature (set of entities) for the module; on return of the
+     *        method, this will contain the signature of the module
      * @param localityClass the type of locality
-     * @param verbose       a flag for verbose output (test purposes)
+     * @param verbose a flag for verbose output (test purposes)
      * @return a set of axioms representing the module
      */
     @Nonnull
@@ -449,8 +449,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * declaration axioms, entity annotation axioms, and axiom annotation axioms. The module and
      * enriched module are represented as sets of axioms.
      * 
-     * @param module  a set of axioms representing the original module
-     * @param sig     a set of entities representing the signature of the original module
+     * @param module a set of axioms representing the original module
+     * @param sig a set of entities representing the signature of the original module
      * @param verbose a flag for verbose output (test purposes)
      * @return a set of axioms representing the enriched module
      */
@@ -521,7 +521,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     /**
-     * Minus ontology uri.
+     * Minus ontology IRI.
      * 
      * @param s the s
      * @return the string
@@ -536,8 +536,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * Output signature.
      * 
      * @param preamble the preamble
-     * @param sig      the sig
-     * @param verbose  the verbose
+     * @param sig the signature
+     * @param verbose the verbose
      */
     void outputSignature(@Nonnull String preamble, @Nonnull Set<OWLEntity> sig, boolean verbose) {
         if (verbose) {
@@ -551,8 +551,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     /**
      * Extract unnested module.
      * 
-     * @param sig     the sig
-     * @param cls     the cls
+     * @param sig the sig
+     * @param cls the cls
      * @param verbose the verbose
      * @return the sets the
      */
@@ -572,9 +572,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * Super or sub classes.
      * 
      * @param superOrSubClassLevel the super or sub class level
-     * @param superVsSub           the super vs sub
-     * @param reasoner             the reasoner
-     * @param classesInSig         the classes in sig
+     * @param superVsSub the super vs sub
+     * @param reasoner the reasoner
+     * @param classesInSig the classes in sig
      * @return the sets the
      */
     @Nonnull
@@ -622,10 +622,10 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     /**
      * Enrich signature.
      * 
-     * @param sig             the sig
+     * @param sig the sig
      * @param superClassLevel the super class level
-     * @param subClassLevel   the sub class level
-     * @param reasoner        the reasoner
+     * @param subClassLevel the sub class level
+     * @param reasoner the reasoner
      * @return the sets the
      */
     @Nonnull
@@ -666,25 +666,24 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * reasoner. The module will include annotation and declaration axioms for all entities and
      * axioms in it.
      * 
-     * @param sig             the seed signature (set of entities) for the module
+     * @param sig the seed signature (set of entities) for the module
      * @param superClassLevel determines whether superclasses are added to the signature before
-     *                        segment extraction, see below for admissible values
-     * @param subClassLevel   determines whether subclasses are added to the signature before
-     *                        segment extraction<br>
-     *                        Admissible values for superClassLevel (analogously for subClassLevel):
-     *                        <ul>
-     *                        <li>If superClassLevel greater than 0, then all classes C are included
-     *                        for which the class hierarchy computed by the reasoner contains a path
-     *                        of length at most superClassLevel downwards from C to some class from
-     *                        the signature.</li>
-     *                        <li>If superClassLevel = 0, then no super-/subclasses are added.</li>
-     *                        <li>If superClassLevel lesser than 0, then all direct and indirect
-     *                        super-/subclasses of any class in the signature are added.</li>
-     *                        </ul>
-     * @param reasoner        the reasoner to determine super-/subclasses. This can be an arbitrary
-     *                        reasoner, including a ToldClassHierarchyReasoner. It must have loaded
-     *                        the ontology. Can be null if superClassLevel and subClassLevel are 0.
-     * @param verbose         true if verbose output is required
+     *        segment extraction, see below for admissible values
+     * @param subClassLevel determines whether subclasses are added to the signature before segment
+     *        extraction<br>
+     *        Admissible values for superClassLevel (analogously for subClassLevel):
+     *        <ul>
+     *        <li>If superClassLevel greater than 0, then all classes C are included for which the
+     *        class hierarchy computed by the reasoner contains a path of length at most
+     *        superClassLevel downwards from C to some class from the signature.</li>
+     *        <li>If superClassLevel = 0, then no super-/subclasses are added.</li>
+     *        <li>If superClassLevel lesser than 0, then all direct and indirect super-/subclasses
+     *        of any class in the signature are added.</li>
+     *        </ul>
+     * @param reasoner the reasoner to determine super-/subclasses. This can be an arbitrary
+     *        reasoner, including a ToldClassHierarchyReasoner. It must have loaded the ontology.
+     *        Can be null if superClassLevel and subClassLevel are 0.
+     * @param verbose true if verbose output is required
      * @return the module
      */
     @Nonnull
@@ -741,14 +740,14 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     /**
      * Extract as ontology.
      * 
-     * @param signature       the signature
-     * @param iri             the iri
+     * @param signature the signature
+     * @param iri the iri
      * @param superClassLevel the super class level
-     * @param subClassLevel   the sub class level
-     * @param reasoner        the reasoner
-     * @param verbose         the verbose
-     * @return the oWL ontology
-     * @throws OWLOntologyCreationException the oWL ontology creation exception
+     * @param subClassLevel the sub class level
+     * @param reasoner the reasoner
+     * @param verbose the verbose
+     * @return the ontology
+     * @throws OWLOntologyCreationException any ontology creation exception
      */
     @Nonnull
     OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature, @Nonnull IRI iri,

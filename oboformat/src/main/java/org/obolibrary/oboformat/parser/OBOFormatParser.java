@@ -144,7 +144,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param followImports followImports
+     * @param followImports true if imports should be followed
      */
     public void setFollowImports(boolean followImports) {
         followImport = followImports;
@@ -153,7 +153,7 @@ public class OBOFormatParser {
     /**
      * Parses a local file or URL to an OBODoc.
      * 
-     * @param fn fn
+     * @param fn file name
      * @return parsed obo document
      * @throws IOException io exception
      * @throws OBOFormatParserException parser exception
@@ -187,7 +187,7 @@ public class OBOFormatParser {
     /**
      * Parses a remote URL to an OBODoc.
      * 
-     * @param url url
+     * @param url URL to connect to
      * @return parsed obo document
      * @throws IOException io exception
      * @throws OBOFormatParserException parser exception
@@ -203,7 +203,7 @@ public class OBOFormatParser {
     /**
      * Parses a remote URL to an OBODoc.
      * 
-     * @param urlstr urlstr
+     * @param urlstr URL string
      * @return parsed obo document
      * @throws IOException io exception
      * @throws OBOFormatParserException parser exception
@@ -900,7 +900,7 @@ public class OBOFormatParser {
     /**
      * intersection_of-Tag Class-ID | intersection_of-Tag Relation-ID Class-ID.
      * 
-     * @param cl cl
+     * @param cl clause
      * @return modified clause
      * @throws OBOFormatParserException parser exception
      */
@@ -1153,7 +1153,7 @@ public class OBOFormatParser {
     // End-of-line matter
     // ----------------------------------------
     /**
-     * @param cl cl
+     * @param cl clause
      * @throws OBOFormatParserException parser exception
      */
     public void parseEOL(@Nonnull Clause cl) {

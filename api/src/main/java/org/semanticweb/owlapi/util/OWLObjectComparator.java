@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * A ShortFormProvider based comparator for OWLObjects. OWLEntity instances are
+ * A ShortFormProvider based comparator for {@code OWLObject} instances. OWLEntity instances are
  * sorted according to their short forms.
  * 
  * @author ignazio
@@ -32,8 +32,7 @@ public class OWLObjectComparator implements Comparator<OWLObject> {
     private final OWLEntityComparator entityComparator;
 
     /**
-     * @param shortFormProvider
-     *        short form provider to use
+     * @param shortFormProvider short form provider to use
      */
     public OWLObjectComparator(@Nonnull ShortFormProvider shortFormProvider) {
         entityComparator = new OWLEntityComparator(shortFormProvider);

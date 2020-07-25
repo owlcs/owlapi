@@ -82,8 +82,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
      * casting).
      * 
      * @return The entity as an OWLClass.
-     * @throws OWLRuntimeException if this entity is not an OWLClass (check with the isOWLClass
-     *         method first).
+     * @throws OWLRuntimeException if this entity is not an OWLClass (check with
+     *         {@link #isOWLClass()} first).
      */
     @Nonnull
     OWLClass asOWLClass();
@@ -100,8 +100,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
      * explicit casting).
      * 
      * @return The entity as an OWLObjectProperty.
-     * @throws OWLRuntimeException if this entity is not an OWLObjectProperty (check with the
-     *         isOWLObjectProperty method first).
+     * @throws OWLRuntimeException if this entity is not an OWLObjectProperty (check with
+     *         {@link #isOWLObjectProperty()} first).
      */
     @Nonnull
     OWLObjectProperty asOWLObjectProperty();
@@ -118,8 +118,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
      * explicit casting).
      * 
      * @return The entity as an OWLDataProperty.
-     * @throws OWLRuntimeException if this entity is not an OWLDataProperty (check with the
-     *         isOWLDataProperty method first).
+     * @throws OWLRuntimeException if this entity is not an OWLDataProperty (check with
+     *         {@link #isOWLDataProperty()} first).
      */
     @Nonnull
     OWLDataProperty asOWLDataProperty();
@@ -178,10 +178,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     OWLAnnotationProperty asOWLAnnotationProperty();
 
     /**
-     * Returns a string representation that can be used as the ID of this entity. This is the
-     * toString representation of the IRI
-     * 
-     * @return A string representing the toString of the IRI of this entity.
+     * @return a string representation that can be used as the ID of this entity. This is the
+     *         {@code #toString()} representation of the IRI
      */
     @Nonnull
     String toStringID();

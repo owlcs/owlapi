@@ -341,7 +341,7 @@ public abstract class TestBase {
 
     /**
      * ignore declarations of builtins and of named individuals - named individuals do not /need/ a
-     * declaration, but addiong one is not an error.
+     * declaration, but adding one is not an error.
      * 
      * @param parse true if the axiom belongs to the parsed ones, false for the input
      * @return true if the axiom can be ignored
@@ -412,7 +412,7 @@ public abstract class TestBase {
      * reloaded, or was reloaded and the reloaded version is not equal (in terms of ontology URI and
      * axioms) with the original.
      * 
-     * @param ont    The ontology to be round tripped.
+     * @param ont The ontology to be round tripped.
      * @param format The format to use when doing the round trip.
      */
     public OWLOntology roundTripOntology(@Nonnull OWLOntology ont,

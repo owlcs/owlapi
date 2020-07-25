@@ -66,10 +66,10 @@ public class MapPointer<K, V extends OWLAxiom> {
     private final ObjectObjectHashMap<K, Collection<V>> map = new ObjectObjectHashMap<>(17, 0.75F);
 
     /**
-     * @param t           type of axioms contained
-     * @param v           visitor
+     * @param t type of axioms contained
+     * @param v visitor
      * @param initialized true if initialized
-     * @param i           internals containing this pointer
+     * @param i internals containing this pointer
      */
     public MapPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
         boolean initialized, @Nonnull Internals i) {
@@ -126,8 +126,6 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * init the map pointer
-     * 
      * @return the map pointer
      */
     @SuppressWarnings({"unchecked", "null"})
@@ -166,7 +164,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @return keyset
+     * @return key set
      */
     @Nonnull
     public synchronized List<K> keySet() {
@@ -189,9 +187,9 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param <T>    type of key
+     * @param <T> type of key
      * @param filter filter to satisfy
-     * @param key    key
+     * @param key key
      * @return set of values
      */
     @Nonnull
@@ -223,7 +221,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key   key to add
+     * @param key key to add
      * @param value value to add
      * @return true if addition happens
      */
@@ -237,7 +235,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key   key to look up
+     * @param key key to look up
      * @param value value to remove
      * @return true if removal happens
      */
@@ -259,7 +257,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key   key to look up
+     * @param key key to look up
      * @param value value to look up
      * @return true if key and value are contained
      */

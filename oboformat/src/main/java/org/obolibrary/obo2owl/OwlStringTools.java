@@ -54,9 +54,9 @@ public class OwlStringTools {
      * null.
      * 
      * @param axioms axioms
-     * @param translationManager translationManager
+     * @param translationManager translation manager
      * @return string or null
-     * @throws OwlStringException OwlStringException
+     * @throws OwlStringException any exception
      * @see #translate(String, OWLOntologyManager)
      */
     @Nullable
@@ -95,9 +95,9 @@ public class OwlStringTools {
      * Parse the axioms from the given axiom string. Returns null for empty and null strings.
      * 
      * @param axioms axioms
-     * @param translationManager translationManager
+     * @param translationManager translation manager
      * @return set of axioms or null
-     * @throws OwlStringException OwlStringException
+     * @throws OwlStringException any exception
      * @see #translate(Set,OWLOntologyManager)
      */
     @Nullable

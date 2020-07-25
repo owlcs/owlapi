@@ -98,7 +98,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * Interprets this expression as a conjunction and returns the conjuncts. This method does not
      * normalise the expression (full CNF is not computed).
      * 
-     * @return The conjucts of this expression if it is a conjunction (object intersection of), or
+     * @return The conjuncts of this expression if it is a conjunction (object intersection of), or
      *         otherwise a singleton set containing this expression. Note that nested conjunctions
      *         will be flattened, for example, calling this method on (A and B) and C will return
      *         the set {A, B, C}
@@ -108,11 +108,11 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
 
     /**
      * Determines if this class expression contains a particular conjunct. This method does not do
-     * any normalisation such as applying DeMorgans rules.
+     * any normalisation such as applying DeMorgan's rules.
      * 
      * @param ce The conjunct to test for
      * @return {@code true} if this class expression is equal to {@code ce} or if this class
-     *         expression is an {@code ObjectIntersectionOf} (possibly nested withing another
+     *         expression is an {@code ObjectIntersectionOf} (possibly nested within another
      *         {@code ObjectIntersectionOf}) that contains {@code ce}, otherwise {@code false}.
      */
     boolean containsConjunct(@Nonnull OWLClassExpression ce);

@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ACCEPT_HTTP_COMPRESSION;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ALLOW_DUPLICATES_IN_CONSTRUCT_SETS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.AUTHORIZATION_VALUE;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNED_PARSERS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.CONNECTION_TIMEOUT;
@@ -26,7 +27,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PRIOR
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPAIR_ILLEGAL_PUNNINGS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPORT_STACK_TRACES;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
-import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.*;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SKIP_MODULE_ANNOTATIONS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TREAT_DUBLINCORE_AS_BUILTIN;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TRIM_TO_SIZE;
 
@@ -41,9 +42,9 @@ import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * A configuration object that specifies options and hints to objects that load OWLOntologies. Every
- * {@code OWLOntologyLoaderConfiguration} is immutable. Changing a setting results in the creation
- * of a new {@code OWLOntologyLoaderConfiguration} with that setting. For example,
+ * A configuration object that specifies options and hints to objects that load {@code OWLOntology}
+ * instances. Every {@code OWLOntologyLoaderConfiguration} is immutable. Changing a setting results
+ * in the creation of a new {@code OWLOntologyLoaderConfiguration} with that setting. For example,
  * 
  * <pre>
  * OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
@@ -86,7 +87,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * ontology loading.
      * 
      * @param ontologyDocumentIRI The ontology document IRI that will be ignored if it is
-     *                            encountered as an imported ontology during loading.
+     *        encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI set.
      */
     public OWLOntologyLoaderConfiguration addIgnoredImport(IRI ontologyDocumentIRI) {
@@ -112,7 +113,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * during ontology loading.
      * 
      * @param ontologyDocumentIRI The ontology document IRI that would be ignored if it is
-     *                            encountered as an imported ontology during loading.
+     *        encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI
      *         removed.
      */
@@ -124,7 +125,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
-     * Internally copies this configuaration object.
+     * Internally copies this configuration object.
      * 
      * @return The copied configuration
      */
@@ -138,7 +139,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
-     * Set the priorty collection sorting option.
+     * Set the priority collection sorting option.
      * 
      * @param sorting the sorting option to be used.
      * @return An {@code OWLOntologyLoaderConfiguration} with the new sorting option set.
@@ -254,7 +255,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * 
      * @return {@code true} if the Dublin Core Vocabulary should be treated as built in vocabulary
      *         and Dublin Core properties are interpreted as annotation properties, otherwise
-     *         {@code false}. The defaut is {@code true}.
+     *         {@code false}. The default is {@code true}.
      */
     public boolean isTreatDublinCoreAsBuiltIn() {
         return TREAT_DUBLINCORE_AS_BUILTIN.getValue(Boolean.class, overrides).booleanValue();
@@ -304,7 +305,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
 
     /**
      * @param l new timeout Note: the timeout is an int and represents milliseconds. This is
-     *          necessary for use in {@code URLConnection}
+     *        necessary for use in {@code URLConnection}
      * @return A {@code OWLOntologyLoaderConfiguration} with the connection timeout set to the new
      *         value.
      */
@@ -320,7 +321,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
 
     /**
      * @param value true if redirects should be followed across protocols, false otherwise.
-     * @return a copy of the current object with followRedirects set to the new value.
+     * @return a copy of the current object with the follow redirects flag set to the new value.
      */
     @Nonnull
     public OWLOntologyLoaderConfiguration setFollowRedirects(boolean value) {
@@ -340,7 +341,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * annotation axioms is enabled.
      * 
      * @param b {@code true} if annotation axioms should be loaded, or {@code false} if annotation
-     *          axioms should not be loaded and should be discarded on loading.
+     *        axioms should not be loaded and should be discarded on loading.
      * @return An {@code OWLOntologyLoaderConfiguration} object with the option set.
      */
     @Nonnull
@@ -439,7 +440,8 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
 
     /**
      * @param value true if Dublin Core vocabulary should be treated as built in.
-     * @return a copy of the current object with treatDublinCoreAsBuiltIn set to the new value.
+     * @return a copy of the current object with the treat Dublin Core as builtIn set to the new
+     *         value.
      */
     @Nonnull
     public OWLOntologyLoaderConfiguration setTreatDublinCoreAsBuiltIn(boolean value) {
@@ -455,7 +457,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
 
     /**
      * @param ban list of parser factory class names that should be skipped when attempting ontology
-     *            parsing. The list is space separated.
+     *        parsing. The list is space separated.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
     public OWLOntologyLoaderConfiguration setBannedParsers(String ban) {
@@ -551,7 +553,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
 
     /**
      * @param value false if collections used in constructs such as equivalent classes and
-     *              properties should be duplicate free.
+     *        properties should be duplicate free.
      * @return A {@code OWLOntologyLoaderConfiguration} with the allow duplicates flag set to the
      *         new value.
      */

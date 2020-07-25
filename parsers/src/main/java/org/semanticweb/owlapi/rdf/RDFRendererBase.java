@@ -277,7 +277,7 @@ public abstract class RDFRendererBase {
         throws IOException;
 
     /**
-     * @throws IOException io error
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void render() throws IOException {
         graph = new RDFGraph();
@@ -630,7 +630,7 @@ public abstract class RDFRendererBase {
     }
 
     /**
-     * @throws IOException io error
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void renderAnonRoots() throws IOException {
         Set<RDFResourceBlankNode> rootAnonymousNodes = new TreeSet<>(graph.getRootAnonymousNodes());
@@ -646,7 +646,7 @@ public abstract class RDFRendererBase {
      * 
      * @param node The main node to be rendered
      * @param root true if root
-     * @throws IOException io error
+     * @throws IOException if there was a problem writing to the output stream
      */
     public abstract void render(@Nonnull RDFResource node, boolean root) throws IOException;
 

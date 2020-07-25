@@ -20,14 +20,13 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  * @author ignazio
  * @since 4.0.0
  */
-public abstract class OWLOntologyDocumentSourceBase implements
-        OWLOntologyDocumentSource {
+public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocumentSource {
 
     private static final AtomicLong COUNTER = new AtomicLong();
     private String acceptHeaders = null;
+
     /**
-     * @param prefix
-     *        prefix for result
+     * @param prefix prefix for result
      * @return a fresh IRI
      */
     @Nonnull
@@ -36,18 +35,16 @@ public abstract class OWLOntologyDocumentSourceBase implements
     }
 
     /**
-     * Wrap an input stream to strip BOMs.
+     * Wrap an input stream to strip the BOM.
      * 
-     * @param delegate
-     *        delegate to wrap
+     * @param delegate delegate to wrap
      * @return wrapped input stream
      */
     @Nonnull
     public static InputStream wrap(@Nonnull InputStream delegate) {
         checkNotNull(delegate, "delegate cannot be null");
-        return new BOMInputStream(delegate, ByteOrderMark.UTF_8,
-                ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_16LE,
-                ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
+        return new BOMInputStream(delegate, ByteOrderMark.UTF_8, ByteOrderMark.UTF_16BE,
+            ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
     }
 
     private final OWLDocumentFormat format;
@@ -56,13 +53,11 @@ public abstract class OWLOntologyDocumentSourceBase implements
     /**
      * Constructs an ontology input source using the specified file.
      * 
-     * @param format
-     *        ontology format. If null, it is considered unspecified
-     * @param mime
-     *        mime type. If null or empty, it is considered unspecified.
+     * @param format ontology format. If null, it is considered unspecified
+     * @param mime mime type. If null or empty, it is considered unspecified.
      */
     public OWLOntologyDocumentSourceBase(@Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nullable String mime) {
         this.format = format;
         mimeType = mime;
     }

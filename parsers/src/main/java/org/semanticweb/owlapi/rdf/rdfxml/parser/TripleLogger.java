@@ -18,15 +18,13 @@ import org.slf4j.LoggerFactory;
  */
 public class TripleLogger {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(TripleLogger.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TripleLogger.class);
     private PrefixManager prefixManager;
     // Debug stuff
     private final AtomicInteger count = new AtomicInteger();
 
     /**
-     * @param prefixManager
-     *        prefix manager
+     * @param prefixManager prefix manager
      */
     public void setPrefixManager(@Nullable PrefixManager prefixManager) {
         this.prefixManager = prefixManager;
@@ -40,12 +38,9 @@ public class TripleLogger {
     /**
      * log triples at debug level and increment triple count
      * 
-     * @param s
-     *        subject
-     * @param p
-     *        predicate
-     * @param o
-     *        object
+     * @param s subject
+     * @param p predicate
+     * @param o object
      */
     public void logTriple(Object s, Object p, Object o) {
         justLog(s, p, o);
@@ -53,53 +48,37 @@ public class TripleLogger {
     }
 
     /**
-     * log triples at debug level, including language and datatype, and
-     * increment triple count
+     * log triples at debug level, including language and datatype, and increment triple count
      * 
-     * @param s
-     *        subject
-     * @param p
-     *        predicate
-     * @param o
-     *        object
-     * @param lang
-     *        language
-     * @param datatype
-     *        datatype
+     * @param s subject
+     * @param p predicate
+     * @param o object
+     * @param lang language
+     * @param datatype datatype
      */
-    public void logTriple(Object s, Object p, Object o, Object lang,
-            Object datatype) {
+    public void logTriple(Object s, Object p, Object o, Object lang, Object datatype) {
         justLog(s, p, o, lang, datatype);
         incrementTripleCount();
     }
 
     /**
-     * @param s
-     *        subject
-     * @param p
-     *        predicate
-     * @param o
-     *        object
-     * @param lang
-     *        language
-     * @param datatype
-     *        datatype
+     * @param s subject
+     * @param p predicate
+     * @param o object
+     * @param lang language
+     * @param datatype datatype
      */
-    public void justLog(Object s, Object p, Object o, Object lang,
-            Object datatype) {
+    public void justLog(Object s, Object p, Object o, Object lang, Object datatype) {
         if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("s={} p={} o={} l={} dt={}", shorten(s), shorten(p),
-                    shorten(o), lang, shorten(datatype));
+            LOGGER.trace("s={} p={} o={} l={} dt={}", shorten(s), shorten(p), shorten(o), lang,
+                shorten(datatype));
         }
     }
 
     /**
-     * @param s
-     *        subject
-     * @param p
-     *        predicate
-     * @param o
-     *        object
+     * @param s subject
+     * @param p predicate
+     * @param o object
      */
     public void justLog(Object s, Object p, Object o) {
         if (LOGGER.isTraceEnabled()) {
@@ -112,8 +91,7 @@ public class TripleLogger {
             return "null";
         }
         if (o instanceof String
-                && (((String) o).startsWith("http:") || ((String) o)
-                        .startsWith("urn:"))) {
+            && (((String) o).startsWith("http:") || ((String) o).startsWith("urn:"))) {
             return shorten(IRI.create((String) o));
         }
         if (prefixManager == null || !(o instanceof IRI)) {
@@ -136,14 +114,13 @@ public class TripleLogger {
         }
     }
 
-    /** log finl count. */
+    /** log final count. */
     public void logNumberOfTriples() {
         LOGGER.debug("Total number of triples: {}", count);
     }
 
     /**
-     * @param id
-     *        log ontology id
+     * @param id log ontology id
      */
     public static void logOntologyID(OWLOntologyID id) {
         LOGGER.debug("Loaded {}", id);

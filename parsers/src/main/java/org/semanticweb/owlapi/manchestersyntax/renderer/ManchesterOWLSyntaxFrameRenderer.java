@@ -155,7 +155,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
 
         /**
-         * @param o        key
+         * @param o key
          * @param forAxiom axiom to add
          */
         public void put(O o, V forAxiom) {
@@ -228,8 +228,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Instantiates a new manchester owl syntax frame renderer.
      * 
-     * @param ontology                the ontology
-     * @param writer                  the writer
+     * @param ontology the ontology
+     * @param writer the writer
      * @param entityShortFormProvider the entity short form provider
      */
     public ManchesterOWLSyntaxFrameRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
@@ -240,8 +240,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Instantiates a new manchester owl syntax frame renderer.
      * 
-     * @param ontologies              the ontologies
-     * @param writer                  the writer
+     * @param ontologies the ontologies
+     * @param writer the writer
      * @param entityShortFormProvider the entity short form provider
      */
     public ManchesterOWLSyntaxFrameRenderer(@Nonnull Set<OWLOntology> ontologies, Writer writer,
@@ -320,7 +320,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Write ontology.
      * 
-     * @throws OWLRendererException the oWL renderer exception
+     * @throws OWLRendererException the OWL renderer exception
      */
     public void writeOntology() throws OWLRendererException {
         if (ontologies.size() != 1) {
@@ -523,9 +523,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     /**
-     * Write full uri.
+     * Write full URI.
      * 
-     * @param uri the uri
+     * @param uri the URI
      */
     public void writeFullURI(String uri) {
         write("<");
@@ -585,7 +585,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     /**
-     * @param cls the cls
+     * @param cls the class
      * @return the sets the
      */
     @Nonnull
@@ -1249,7 +1249,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      * Write entity start.
      * 
      * @param keyword the keyword
-     * @param entity  the entity
+     * @param entity the entity
      * @return written axioms
      */
     private Collection<OWLAnnotationAssertionAxiom> writeEntityStart(
@@ -1390,10 +1390,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Write section.
      * 
-     * @param keyword        the keyword
-     * @param content        the content
-     * @param delimiter      the delimiter
-     * @param newline        the newline
+     * @param keyword the keyword
+     * @param content the content
+     * @param delimiter the delimiter
+     * @param newline the newline
      * @param ontologiesList the ontologies list
      */
     public void writeSection(@Nonnull ManchesterOWLSyntax keyword, @Nonnull Collection<?> content,
@@ -1435,7 +1435,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Write comment.
      * 
-     * @param comment        the comment
+     * @param comment the comment
      * @param placeOnNewline the place on newline
      */
     public void writeComment(String comment, boolean placeOnNewline) {
@@ -1443,8 +1443,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     /**
-     * @param commentDelim   the comment delim
-     * @param comment        the comment
+     * @param commentDelim the comment delim
+     * @param comment the comment
      * @param placeOnNewline the place on newline
      */
     public void writeComment(String commentDelim, String comment, boolean placeOnNewline) {

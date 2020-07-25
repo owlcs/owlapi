@@ -345,10 +345,10 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     protected OWLObjectPropertyManager propertyManager = null;
 
     /**
-     * @param walker     onotlogy walker to use
+     * @param walker ontology walker to use
      * @param violations collection of violations; the collection is modified during the visit
-     * @param profiles   the profiles to check. An empty collection means OWL 2 FULL will be the
-     *                   pofile used.
+     * @param profiles the profiles to check. An empty collection means OWL 2 FULL will be the
+     *        profile used.
      */
     protected ProfileVisitorBase(OWLOntologyWalker walker,
         Collection<OWLProfileViolation> violations, Collection<Profiles> profiles) {

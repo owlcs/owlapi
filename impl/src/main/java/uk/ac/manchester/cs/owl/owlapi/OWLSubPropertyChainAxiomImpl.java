@@ -32,13 +32,11 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLSubPropertyChainAxiomImpl extends
-        OWLPropertyAxiomImplWithEntityAndAnonCaching implements
-        OWLSubPropertyChainOfAxiom {
+public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImplWithEntityAndAnonCaching
+    implements OWLSubPropertyChainOfAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -47,29 +45,24 @@ public class OWLSubPropertyChainAxiomImpl extends
     private final OWLObjectPropertyExpression superProperty;
 
     /**
-     * @param propertyChain
-     *        property chain
-     * @param superProperty
-     *        superproperty
-     * @param annotations
-     *        annotations
+     * @param propertyChain property chain
+     * @param superProperty super property
+     * @param annotations   annotations
      */
     public OWLSubPropertyChainAxiomImpl(
-            @Nonnull List<? extends OWLObjectPropertyExpression> propertyChain,
-            @Nonnull OWLObjectPropertyExpression superProperty,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+        @Nonnull List<? extends OWLObjectPropertyExpression> propertyChain,
+        @Nonnull OWLObjectPropertyExpression superProperty,
+        @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.propertyChain = new ArrayList<>(checkNotNull(propertyChain,
-                "propertyChain cannot be null"));
-        this.superProperty = checkNotNull(superProperty,
-                "superProperty cannot be null");
+        this.propertyChain =
+            new ArrayList<>(checkNotNull(propertyChain, "propertyChain cannot be null"));
+        this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");
     }
 
     @Override
-    public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
-        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(),
-                getSuperProperty(), mergeAnnos(annotations));
+    public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(), getSuperProperty(),
+            mergeAnnos(annotations));
     }
 
     @Override
@@ -77,8 +70,8 @@ public class OWLSubPropertyChainAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(),
-                getSuperProperty(), NO_ANNOTATIONS);
+        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(), getSuperProperty(),
+            NO_ANNOTATIONS);
     }
 
     @Override
@@ -95,7 +88,7 @@ public class OWLSubPropertyChainAxiomImpl extends
     public boolean isEncodingOfTransitiveProperty() {
         if (propertyChain.size() == 2) {
             return superProperty.equals(propertyChain.get(0))
-                    && superProperty.equals(propertyChain.get(1));
+                && superProperty.equals(propertyChain.get(1));
         } else {
             return false;
         }
@@ -134,7 +127,7 @@ public class OWLSubPropertyChainAxiomImpl extends
         }
         OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) obj;
         return other.getPropertyChain().equals(getPropertyChain())
-                && other.getSuperProperty().equals(superProperty);
+            && other.getSuperProperty().equals(superProperty);
     }
 
     @Override
@@ -145,10 +138,8 @@ public class OWLSubPropertyChainAxiomImpl extends
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) object;
-        for (int i = 0; i < propertyChain.size()
-                && i < other.getPropertyChain().size(); i++) {
-            int diff = propertyChain.get(i).compareTo(
-                    other.getPropertyChain().get(i));
+        for (int i = 0; i < propertyChain.size() && i < other.getPropertyChain().size(); i++) {
+            int diff = propertyChain.get(i).compareTo(other.getPropertyChain().get(i));
             if (diff != 0) {
                 return diff;
             }

@@ -150,7 +150,7 @@ public interface PrefixManager extends Serializable {
     void copyPrefixesFrom(@Nonnull Map<String, String> from);
 
     /**
-     * Removes a previously registerd prefix namespace mapping
+     * Removes a previously registered prefix namespace mapping
      * 
      * @param namespace The namespace to be removed.
      */

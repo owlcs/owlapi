@@ -23,7 +23,8 @@ public class Obo2OWLConstants {
     public static final String DEFAULT_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
     /** OIO vocabulary prefix */
     @Nonnull
-    public static final String OIOVOCAB_IRI_PREFIX = "http://www.geneontology.org/formats/oboInOwl#";
+    public static final String OIOVOCAB_IRI_PREFIX =
+        "http://www.geneontology.org/formats/oboInOwl#";
     /** IRI for the 'has obsolescence reason' annotation property */
     @Nonnull
     public static final IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX + "IAO_0000231");
@@ -32,8 +33,7 @@ public class Obo2OWLConstants {
     public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX + "IAO_0000227");
 
     /**
-     * @param d
-     *        date to format
+     * @param d date to format
      * @return formatted string
      */
     @Nonnull
@@ -41,7 +41,8 @@ public class Obo2OWLConstants {
         return FORMATTER.format(d);
     }
 
-    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    private static final SimpleDateFormat FORMATTER =
+        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     /** obo to owl vocabulary */
     public enum Obo2OWLVocabulary implements HasIRI {
@@ -87,8 +88,8 @@ public class Obo2OWLConstants {
         @Nonnull
         final String mappedTag;
 
-        Obo2OWLVocabulary(@Nonnull String namespce, @Nonnull String shortName, @Nonnull String label,
-            @Nonnull String mappedTag) {
+        Obo2OWLVocabulary(@Nonnull String namespce, @Nonnull String shortName,
+            @Nonnull String label, @Nonnull String mappedTag) {
             iri = IRI.create(namespce + shortName);
             this.shortName = shortName;
             namespace = namespce;
@@ -134,10 +135,9 @@ public class Obo2OWLConstants {
         }
 
         /**
-         * @param e
-         *        entity to check
-         * @return true if e has the same iri as the enum value, false if e is
-         *         null or has a different iri
+         * @param e entity to check
+         * @return true if e has the same iri as the enum value, false if e is null or has a
+         *         different iri
          */
         public boolean sameIRI(@Nullable OWLEntity e) {
             // if a null value is passed in, then no match
@@ -159,9 +159,8 @@ public class Obo2OWLConstants {
     }
 
     /**
-     * @param tag
-     *        tag
-     * @return obj for tag
+     * @param tag tag
+     * @return Obo2OWLVocabulary for tag
      */
     public static Obo2OWLVocabulary getVocabularyObj(String tag) {
         return TAGSTOVOCAB.get(tag);

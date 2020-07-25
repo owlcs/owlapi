@@ -51,14 +51,14 @@ public class AbstractRenderer {
     }
 
     /**
-     * @param useTabbing useTabbing
+     * @param useTabbing true if tabs should be used
      */
     protected void setUseTabbing(boolean useTabbing) {
         this.useTabbing = useTabbing;
     }
 
     /**
-     * @param useWrapping useWrapping
+     * @param useWrapping true if output should be wrapped
      */
     protected void setUseWrapping(boolean useWrapping) {
         this.useWrapping = useWrapping;
@@ -69,7 +69,7 @@ public class AbstractRenderer {
         return useWrapping;
     }
 
-    /** @return true if use tabbing */
+    /** @return true if tabs should be used */
     protected boolean isUseTabbing() {
         return useTabbing;
     }

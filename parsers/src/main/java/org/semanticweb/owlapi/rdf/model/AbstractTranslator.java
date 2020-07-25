@@ -272,14 +272,14 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final Set<OWLIndividual> currentIndividuals = new HashSet<>();
 
     /**
-     * @param manager          the manager
-     * @param ontology         the ontology
-     * @param format           target format
-     * @param useStrongTyping  true if strong typing should be used
-     * @param multiple         multiple individuals appearance
-     * @param appearance       axiom appearance
-     * @param nextNode         next blank id counter
-     * @param blankNodeMap     blank node map
+     * @param manager the manager
+     * @param ontology the ontology
+     * @param format target format
+     * @param useStrongTyping true if strong typing should be used
+     * @param multiple multiple individuals appearance
+     * @param appearance axiom appearance
+     * @param nextNode next blank id counter
+     * @param blankNodeMap blank node map
      * @param translatedAxioms translated axioms
      */
     public AbstractTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
@@ -407,7 +407,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     /**
      * Add type triples and the owl:onProperty triples for an OWLRestriction.
      * 
-     * @param desc     The restriction
+     * @param desc The restriction
      * @param property property
      */
     private void addRestrictionCommonTriplePropertyRange(@Nonnull OWLRestriction desc,
@@ -1060,10 +1060,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * owl:annotatedSource, owl:annotatedProperty, owl:annotatedTarget, and other triples to encode
      * the annotations.
      * 
-     * @param ax        The axiom that the triple specified as subject, pred, obj represents.
-     * @param subject   The subject of the triple representing the axiom
+     * @param ax The axiom that the triple specified as subject, pred, obj represents.
+     * @param subject The subject of the triple representing the axiom
      * @param predicate The predicate of the triple representing the axiom
-     * @param object    The object of the triple representing the axiom
+     * @param object The object of the triple representing the axiom
      */
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax, @Nonnull R subject,
         @Nonnull P predicate, @Nonnull N object) {
@@ -1094,9 +1094,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     /**
      * Translates an annotation on a given subject. This method implements the TANN(ann, y)
-     * translation in the spec
+     * translation in the specifications.
      * 
-     * @param subject    The subject of the annotation
+     * @param subject The subject of the annotation
      * @param annotation The annotation
      */
     private void translateAnnotation(@Nonnull OWLObject subject,
@@ -1156,7 +1156,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     /**
      * @param object that has already been mapped
-     * @param <T>    type needed
+     * @param <T> type needed
      * @return mapped node, or null if the node is absent
      */
     public <T extends N> T getMappedNode(OWLObject object) {
@@ -1168,8 +1168,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     /**
      * @param subject subject
-     * @param pred    predicate
-     * @param object  object
+     * @param pred predicate
+     * @param object object
      */
     public void addTriple(R subject, IRI pred, IRI object) {
         addTriple(subject, getPredicateNode(pred), getResourceNode(object));
@@ -1177,8 +1177,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     /**
      * @param subject subject
-     * @param pred    predicate
-     * @param object  object
+     * @param pred predicate
+     * @param object object
      */
     public void addTriple(R subject, IRI pred, OWLObject object) {
         addTriple(subject, getPredicateNode(pred), getNode(object));
@@ -1200,7 +1200,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * Gets an anonymous resource.
      * 
      * @param key A key for the resource. For a given key identity, the resources that are returned
-     *            should be equal and have the same hashcode.
+     *        should be equal and have the same hashcode.
      * @return The resource
      */
     @Nonnull
@@ -1209,7 +1209,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     /**
      * Gets a fresh anonymous resource.
      * 
-     * @param key     A key for the resource. Each call will create a new node; nodes cannot clash.
+     * @param key A key for the resource. Each call will create a new node; nodes cannot clash.
      * @param isAxiom true if axiom
      * @return The resource
      */
@@ -1280,7 +1280,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                 return (O) getNode(obj);
             }
             if (context[0].equals(s) && context[1].equals(p)) {
-                // An identical axiom triple has been translated earlier, the same rdf node should
+                // An identical axiom triple has been translated earlier, the same RDF node should
                 // be used.
                 // This happens only if two axioms are identical except for annotations and they
                 // both translate to one single triple.
@@ -1417,10 +1417,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * method delegates to the {@code addPairwise} method after sorting the class expressions so
      * that named classes appear first.
      * 
-     * @param axiom            The axiom which will dictate which axiom annotation get rendered
+     * @param axiom The axiom which will dictate which axiom annotation get rendered
      * @param classExpressions The set of class expressions to be rendered.
-     * @param iri              The IRI which describes the relationship between pairs of class
-     *                         expressions.
+     * @param iri The IRI which describes the relationship between pairs of class expressions.
      */
     private void addPairwiseClassExpressions(@Nonnull OWLAxiom axiom,
         @Nonnull Set<OWLClassExpression> classExpressions, @Nonnull IRI iri) {

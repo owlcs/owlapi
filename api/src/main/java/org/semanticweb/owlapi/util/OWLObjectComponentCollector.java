@@ -112,8 +112,7 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class OWLObjectComponentCollector implements OWLObjectVisitor {
@@ -121,12 +120,10 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     private final Set<OWLObject> result = new HashSet<>();
 
     /**
-     * A convenience method that obtains the components of an OWL object. Note
-     * that by definition, the components of the object include the object
-     * itself.
+     * A convenience method that obtains the components of an OWL object. Note that by definition,
+     * the components of the object include the object itself.
      * 
-     * @param object
-     *        The object whose components are to be obtained.
+     * @param object The object whose components are to be obtained.
      * @return The component of the specified object.
      */
     @Nonnull
@@ -140,8 +137,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     /** @return the resulting owl objects */
     @Nonnull
     public Set<OWLObject> getResult() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(result);
+        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(result);
     }
 
     private void process(@Nonnull Set<? extends OWLObject> objects) {
@@ -152,11 +148,10 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
     /**
-     * Handles an object. By default, this method adds the object to the result
-     * collection. This method may be overriden to do something else.
+     * Handles an object. By default, this method adds the object to the result collection. This
+     * method may be overridden to do something else.
      * 
-     * @param obj
-     *        The object being added.
+     * @param obj The object being added.
      */
     protected void handleObject(@Nonnull OWLObject obj) {
         checkNotNull(obj, "obj cannot be null");
@@ -568,12 +563,10 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     public void visit(OWLHasKeyAxiom axiom) {
         handleObject(axiom);
         axiom.getClassExpression().accept(this);
-        for (OWLObjectPropertyExpression prop : axiom
-                .getObjectPropertyExpressions()) {
+        for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
             prop.accept(this);
         }
-        for (OWLDataPropertyExpression prop : axiom
-                .getDataPropertyExpressions()) {
+        for (OWLDataPropertyExpression prop : axiom.getDataPropertyExpressions()) {
             prop.accept(this);
         }
     }

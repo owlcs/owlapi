@@ -73,7 +73,7 @@ public class OWLXMLWriter {
     private final Map<String, String> iriPrefixMap = new TreeMap<>(new StringLengthComparator());
 
     /**
-     * @param writer   writer
+     * @param writer writer
      * @param ontology ontology
      */
     public OWLXMLWriter(@Nonnull Writer writer, @Nullable OWLOntology ontology) {
@@ -107,7 +107,7 @@ public class OWLXMLWriter {
      * A convenience method to write a prefix.
      * 
      * @param prefixName The name of the prefix (e.g. owl: is the prefix name for the OWL prefix)
-     * @param iri        The prefix iri
+     * @param iri The prefix iri
      * @throws IOException io error
      */
     public void writePrefix(String prefixName, String iri) throws IOException {
@@ -241,7 +241,7 @@ public class OWLXMLWriter {
      * Writes an IRI element for a given IRI.
      * 
      * @param iri The IRI to be written as an element. If the IRI can be abbreviated then an
-     *            AbbreviatedIRI element will be written
+     *        AbbreviatedIRI element will be written
      */
     public void writeIRIElement(IRI iri) {
         try {
@@ -273,7 +273,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param lang lang
+     * @param lang language tag
      */
     public void writeLangAttribute(@Nonnull String lang) {
         try {
@@ -317,7 +317,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param uri uri
+     * @param uri URI
      */
     public void writeAnnotationURIAttribute(URI uri) {
         try {

@@ -17,22 +17,20 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /**
- * Represents an <a
- * href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Individuals"
- * >ObjectOneOf</a> class expression in the OWL 2 Specification.
+ * Represents an
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Individuals" >ObjectOneOf</a> class
+ * expression in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
 
     /**
-     * Gets the individuals that are in the oneOf. These individuals represent
-     * the exact instances (extension) of this class expression.
+     * Gets the individuals that are in the oneOf. These individuals represent the exact instances
+     * (extension) of this class expression.
      * 
-     * @return The individiauls that are the values of this {@code ObjectOneOf}
-     *         class expression.
+     * @return The individuals that are the values of this {@code ObjectOneOf} class expression.
      */
     @Nonnull
     Set<OWLIndividual> getIndividuals();
@@ -40,8 +38,8 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
     /**
      * Simplifies this enumeration to a union of singleton nominals
      * 
-     * @return This enumeration in a more standard DL form. simp({a}) = {a}
-     *         simp({a0, ... , {an}) = unionOf({a0}, ... , {an})
+     * @return This enumeration in a more standard DL form. {@code simp({a}) = {a}, simp({a0, ... ,
+     *         {an}) = unionOf({a0}, ... , {an})}}
      */
     @Nonnull
     OWLClassExpression asObjectUnionOf();

@@ -17,8 +17,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
 public abstract class RDFResource extends RDFNode {
@@ -31,10 +30,10 @@ public abstract class RDFResource extends RDFNode {
     public abstract IRI getResource();
 
     /**
-     * For blank nodes, return a valid value for thr rdf/xml nodeId attribute. For non blank nodes,
+     * For blank nodes, return a valid value for the RDF/XML nodeId attribute. For non blank nodes,
      * an exception should be thrown. The method must only be called on blank nodes.
      * 
-     * @return a valid value for thr rdf/xml nodeId attribute
+     * @return a valid value for the RDF/XML nodeId attribute
      */
     public abstract String getNodeIDValue();
 

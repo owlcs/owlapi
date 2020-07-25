@@ -301,7 +301,7 @@ enum PARSER_OWLXMLVocabulary implements HasIRI {
     }
 
     /**
-     * @param handler owlxml handler
+     * @param handler OWL/XML handler
      * @return element handler
      */
     @Nonnull

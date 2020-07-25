@@ -17,17 +17,15 @@ import javax.annotation.Nonnull;
 /**
  * Enumeration for module types.
  * 
- * @author Thomas Schneider, School of Computer Science, University of
- *         Manchester
+ * @author Thomas Schneider, School of Computer Science, University of Manchester
  */
 public enum ModuleType {
-    /** Module type representing top modules (aka lower modules). */
+    /** Module type representing top modules (AKA lower modules). */
     TOP("top"),
-    /** Module type representing bottom modules (aka upper modules). */
+    /** Module type representing bottom modules (AKA upper modules). */
     BOT("bottom"),
     /**
-     * Module type representing fixpoint-nested modules
-     * (top-of-bottom-of-top-of-...).
+     * Module type representing fixpoint-nested modules (top-of-bottom-of-top-of-...).
      */
     STAR("nested");
 
@@ -38,8 +36,7 @@ public enum ModuleType {
     /**
      * Constructs a module type with the given name and alternative name.
      * 
-     * @param name
-     *        the name in bottom/top notation
+     * @param name the name in bottom/top notation
      */
     ModuleType(@Nonnull String name) {
         this.name = name;

@@ -21,13 +21,12 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
 /**
- * A utility class which can be used by implementations to provide a toString
- * rendering of OWL API objects. The idea is that this is pluggable. TODO this
- * does not allow for independent rendering; in a multithreaded situation, the
- * rendere may change mid execution because of the static singleton instance
+ * A utility class which can be used by implementations to provide a toString rendering of OWL API
+ * objects. The idea is that this is pluggable. TODO this does not allow for independent rendering;
+ * in a multithreaded situation, the renderer may change mid execution because of the static
+ * singleton instance
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public final class ToStringRenderer {
@@ -46,25 +45,21 @@ public final class ToStringRenderer {
     }
 
     /**
-     * @param provider
-     *        the new short form provider
+     * @param provider the new short form provider
      */
-    public synchronized void setShortFormProvider(
-            @Nonnull ShortFormProvider provider) {
+    public synchronized void setShortFormProvider(@Nonnull ShortFormProvider provider) {
         renderer.setShortFormProvider(provider);
     }
 
     /**
-     * @param renderer
-     *        the new renderer to use
+     * @param renderer the new renderer to use
      */
     public synchronized void setRenderer(@Nonnull OWLObjectRenderer renderer) {
         this.renderer = checkNotNull(renderer, "renderer cannot be null");
     }
 
     /**
-     * @param object
-     *        the object to render
+     * @param object the object to render
      * @return the rendering for the object
      */
     public synchronized String getRendering(@Nonnull OWLObject object) {

@@ -15,21 +15,21 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /**
- * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Exact_Cardinality_2"
- * >DataExactCardinality</a> retrictions in the OWL 2 Specification.
+ * Represents
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Exact_Cardinality_2" >DataExactCardinality</a>
+ * restrictions in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDataExactCardinality extends OWLDataCardinalityRestriction {
 
     /**
-     * Obtains an equivalent form that is a conjunction of a min cardinality and
-     * max cardinality restriction.
+     * Obtains an equivalent form that is a conjunction of a min cardinality and max cardinality
+     * restriction.
      * 
-     * @return The semantically equivalent but structurally simpler form simp(=
-     *         1 R C) = &gt;= 1 R C and &lt;= 1 R C
+     * @return The semantically equivalent but structurally simpler form simp(= 1 R C) = &gt;= 1 R C
+     *         and &lt;= 1 R C
      */
     @Nonnull
     OWLClassExpression asIntersectionOfMinMax();

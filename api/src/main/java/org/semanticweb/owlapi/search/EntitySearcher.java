@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
-import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 import com.google.common.collect.LinkedListMultimap;
@@ -831,8 +830,8 @@ public class EntitySearcher {
      * 
      * @param e entity
      * @param ontology The ontology which should be examined for subclass axioms.
-     * @return A {@code Set} of {@code OWLClassExpression}s that represet the asserted subclasses of
-     *         this class.
+     * @return A {@code Set} of {@code OWLClassExpression}s that represents the asserted subclasses
+     *         of this class.
      */
     @Nonnull
     public static Collection<OWLClassExpression> getSubClasses(@Nonnull OWLClass e,
@@ -846,8 +845,8 @@ public class EntitySearcher {
      * 
      * @param e entity
      * @param ontologies The ontologies which should be examined for subclass axioms.
-     * @return A {@code Set} of {@code OWLClassExpression}s that represet the asserted subclasses of
-     *         this class.
+     * @return A {@code Set} of {@code OWLClassExpression}s that represents the asserted subclasses
+     *         of this class.
      */
     @Nonnull
     public static Collection<OWLClassExpression> getSubClasses(@Nonnull OWLClass e,
@@ -1246,7 +1245,7 @@ public class EntitySearcher {
 
     /**
      * Gets the individuals that have been asserted to be an instance of this class by axioms in the
-     * speficied ontologies.
+     * specified ontologies.
      * 
      * @param e entity
      * @param ontologies The ontologies to be examined for class assertion axioms that assert an

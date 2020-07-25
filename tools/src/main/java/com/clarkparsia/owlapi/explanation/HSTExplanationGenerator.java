@@ -56,8 +56,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
 
     /**
-     * Instantiates a new hST explanation generator.
-     * 
      * @param singleExplanationGenerator explanation generator to use
      */
     public HSTExplanationGenerator(
@@ -217,7 +215,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @param currentPathContents The contents of the current path. Initially this should be an
      *        empty set.
      * @param maxExplanations the max explanations
-     * @throws OWLException the oWL exception
+     * @throws OWLException any exception
      */
     private void constructHittingSetTree(@Nonnull OWLClassExpression unsatClass,
         @Nonnull Set<OWLAxiom> mups, @Nonnull Set<Set<OWLAxiom>> allMups,
@@ -283,15 +281,15 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Recurse.
      * 
-     * @param unsatClass the unsat class
-     * @param allMups the all mups
+     * @param unsatClass unsatisfiable class
+     * @param allMups mups set
      * @param satPaths the sat paths
      * @param currentPathContents the current path contents
      * @param maxExplanations the max explanations
-     * @param orderedMups the ordered mups
+     * @param orderedMups ordered mups
      * @param axiom the axiom
      * @return the list
-     * @throws OWLException the oWL exception
+     * @throws OWLException any exception
      */
     @Nonnull
     private List<OWLAxiom> recurse(@Nonnull OWLClassExpression unsatClass,
@@ -343,8 +341,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /**
      * Gets the new mups.
      * 
-     * @param unsatClass the unsat class
-     * @param allMups the all mups
+     * @param unsatClass unsatisfiable class
+     * @param allMups mups set
      * @param currentPathContents the current path contents
      * @return the new mups
      */

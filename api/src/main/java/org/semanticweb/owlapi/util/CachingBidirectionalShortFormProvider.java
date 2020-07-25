@@ -23,16 +23,14 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
- * A bidirectional short form provider that caches entity short forms. The
- * provider has various methods to add, remove, update entities in the cache and
- * also to rebuild the cache from scratch.
+ * A bidirectional short form provider that caches entity short forms. The provider has various
+ * methods to add, remove, update entities in the cache and also to rebuild the cache from scratch.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class CachingBidirectionalShortFormProvider implements
-        BidirectionalShortFormProvider {
+public abstract class CachingBidirectionalShortFormProvider
+    implements BidirectionalShortFormProvider {
 
     private final Map<String, Set<OWLEntity>> shortForm2EntityMap = new HashMap<>();
     private final Map<OWLEntity, String> entity2ShortFormMap = new HashMap<>();
@@ -40,14 +38,12 @@ public abstract class CachingBidirectionalShortFormProvider implements
     protected CachingBidirectionalShortFormProvider() {}
 
     /**
-     * Generates the short form for the specified entity. This short form will
-     * be cached so that it can be retrieved efficiently and so that the entity
-     * can be obtained from the short form. If the short form for the entity
-     * changes then the cach must explicilty be updated using the {@code update}
-     * method.
+     * Generates the short form for the specified entity. This short form will be cached so that it
+     * can be retrieved efficiently and so that the entity can be obtained from the short form. If
+     * the short form for the entity changes then the cache must explicitly be updated using the
+     * {@code update} method.
      * 
-     * @param entity
-     *        The entity whose short form should be generated.
+     * @param entity The entity whose short form should be generated.
      * @return short form
      */
     @Nonnull
@@ -56,16 +52,13 @@ public abstract class CachingBidirectionalShortFormProvider implements
     @Override
     public Set<String> getShortForms() {
         return CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(shortForm2EntityMap
-                        .keySet());
+            .getCopyOnRequestSetFromMutableCollection(shortForm2EntityMap.keySet());
     }
 
     /**
-     * Rebuilds the cache using entities obtained from the specified entity set
-     * provider.
+     * Rebuilds the cache using entities obtained from the specified entity set provider.
      * 
-     * @param entitySetProvider
-     *        The {@code OWLEntitySetProvider} that should be used to obtain the
+     * @param entitySetProvider The {@code OWLEntitySetProvider} that should be used to obtain the
      *        entities whose short forms will be cached.
      */
     protected void rebuild(OWLEntitySetProvider<OWLEntity> entitySetProvider) {
@@ -80,9 +73,8 @@ public abstract class CachingBidirectionalShortFormProvider implements
     /**
      * Adds an entity to the cache.
      * 
-     * @param entity
-     *        The entity to be added to the cache - the short form will
-     *        automatically be generated and added to the cache.
+     * @param entity The entity to be added to the cache - the short form will automatically be
+     *        generated and added to the cache.
      */
     public void add(@Nonnull OWLEntity entity) {
         String shortForm = generateShortForm(entity);
@@ -99,8 +91,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
     /**
      * Removes an entity and its short form from the cache.
      * 
-     * @param entity
-     *        The entity to be removed.
+     * @param entity The entity to be removed.
      */
     protected void remove(OWLEntity entity) {
         String shortForm = entity2ShortFormMap.remove(entity);
@@ -113,8 +104,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
     public Set<OWLEntity> getEntities(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities != null) {
-            return CollectionFactory
-                    .getCopyOnRequestSetFromImmutableCollection(entities);
+            return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(entities);
         } else {
             return CollectionFactory.emptySet();
         }

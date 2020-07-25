@@ -15,10 +15,9 @@ import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
- * A mapping between some known ontology formats and the common file extensions
- * used for them. This mapping is not necessarily complete and file extensions
- * are not mandatory, so do not rely on this as a filter to determine what is
- * the format of an input file.
+ * A mapping between some known ontology formats and the common file extensions used for them. This
+ * mapping is not necessarily complete and file extensions are not mandatory, so do not rely on this
+ * as a filter to determine what is the format of an input file.
  */
 public enum Extensions {
     /** RDF/XML, common extensions: owl, rdf, rdfs */
@@ -31,14 +30,13 @@ public enum Extensions {
     OBO(OBODocumentFormat.class, ".obo"),
     /** Manchester OWL syntax, common extensions: omn, owl */
     MANCHESTERSYNTAX(ManchesterSyntaxDocumentFormat.class, ".omn", ".owl"),
-    /** Functional sytax, common extensions: fss, owl */
+    /** Functional syntax, common extensions: fss, owl */
     FUNCTIONALSYNTAX(FunctionalSyntaxDocumentFormat.class, ".fss", ".owl");
 
     private List<String> extensions;
     private Class<? extends OWLDocumentFormat> documentFormat;
 
-    private Extensions(Class<? extends OWLDocumentFormat> d,
-            String... knownExtensions) {
+    private Extensions(Class<? extends OWLDocumentFormat> d, String... knownExtensions) {
         documentFormat = d;
         extensions = Arrays.asList(knownExtensions);
     }
@@ -52,13 +50,11 @@ public enum Extensions {
     }
 
     /**
-     * @param format
-     *        the format for which extensions are desired
+     * @param format the format for which extensions are desired
      * @return common extensions list. Empty list if no matching type is found.
      */
     @Nonnull
-    public static Iterable<String> getCommonExtensions(
-            Class<? extends OWLDocumentFormat> format) {
+    public static Iterable<String> getCommonExtensions(Class<? extends OWLDocumentFormat> format) {
         for (Extensions e : values()) {
             if (e.documentFormat.equals(format)) {
                 return e.getCommonExtensions();

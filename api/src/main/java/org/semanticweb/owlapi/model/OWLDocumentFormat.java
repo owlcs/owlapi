@@ -95,7 +95,7 @@ public interface OWLDocumentFormat extends Serializable {
      * Sets the meta data for the ontology loader.
      * 
      * @param loaderMetaData The metadata.
-     * @throws NullPointerException if the {@code loaderMetaData} is {@code null}.
+     * @throws NullPointerException if the argument is {@code null}.
      */
     void setOntologyLoaderMetaData(@Nonnull OWLOntologyLoaderMetaData loaderMetaData);
 

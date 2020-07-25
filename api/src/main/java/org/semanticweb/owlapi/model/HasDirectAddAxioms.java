@@ -19,23 +19,20 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
- * Interface for an object that accepts axiom additions (tipycally, an
- * OWLOntology).
+ * Interface for an object that accepts axiom additions (typically, an OWLOntology).
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 public interface HasDirectAddAxioms {
 
     /**
-     * A convenience method that adds a set of axioms to an ontology. The
-     * appropriate AddAxiom change objects are automatically generated.
+     * A convenience method that adds a set of axioms to an ontology. The appropriate AddAxiom
+     * change objects are automatically generated.
      * 
-     * @param axioms
-     *        The axioms to be added. Not {@code null}.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @param axioms The axioms to be added. Not {@code null}.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     *         otherwise.
      */
-        ChangeApplied addAxioms(@Nonnull Set<? extends OWLAxiom> axioms);
+    ChangeApplied addAxioms(@Nonnull Set<? extends OWLAxiom> axioms);
 }

@@ -110,7 +110,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     private boolean prepared = false;
 
     /**
-     * @param rootOntology the ontology
+     * @param rootOntology  the ontology
      * @param configuration the reasoner configuration
      * @param bufferingMode the buffering mode
      */
@@ -172,7 +172,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     /**
      * @throws ReasonerInterruptedException on interruption
-     * @throws TimeOutException on timeout
+     * @throws TimeOutException             on timeout
      */
     public final void prepareReasoner() {
         classHierarchyInfo.computeHierarchy();
@@ -901,8 +901,8 @@ public class StructuralReasoner extends OWLReasonerBase {
          * Processes the specified signature that represents the signature of potential changes.
          * 
          * @param signature The signature
-         * @param added added axioms
-         * @param removed removed axioms
+         * @param added     added axioms
+         * @param removed   removed axioms
          */
         @SuppressWarnings("unused")
         public void processChanges(@Nonnull Set<T> signature, @Nonnull Set<OWLAxiom> added,
@@ -914,17 +914,17 @@ public class StructuralReasoner extends OWLReasonerBase {
          * Applies the tarjan algorithm for a given entity. This computes the cycle that the entity
          * is involved in (if any).
          * 
-         * @param entity The entity
-         * @param inputIndex index
-         * @param stack stack
-         * @param indexMap index map
-         * @param lowlinkMap low link map
-         * @param result result
-         * @param processed processed
-         * @param stackEntities stack entities
-         * @param cache A cache of children to parents - may be {@code null} if no caching is to
-         *        take place.
-         * @param childrenOfTop A set of entities that have a raw parent that is the top entity
+         * @param entity          The entity
+         * @param inputIndex      index
+         * @param stack           stack
+         * @param indexMap        index map
+         * @param lowlinkMap      low link map
+         * @param result          result
+         * @param processed       processed
+         * @param stackEntities   stack entities
+         * @param cache           A cache of children to parents - may be {@code null} if no caching
+         *                        is to take place.
+         * @param childrenOfTop   A set of entities that have a raw parent that is the top entity
          * @param parentsOfBottom A set of entities that have a raw parent that is the bottom entity
          */
         public void tarjan(@Nonnull T entity, int inputIndex, @Nonnull Stack<T> stack,
@@ -1320,7 +1320,7 @@ public class StructuralReasoner extends OWLReasonerBase {
          * Gets the children as asserted.
          * 
          * @param parent The parent whose children are to be retrieved
-         * @return The raw asserted children of the speicified parent
+         * @return The raw asserted children of the specified parent
          */
         @Nonnull
         Collection<T> getChildren(@Nonnull T parent);

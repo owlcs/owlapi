@@ -96,10 +96,10 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param fn     the file name to read in
+     * @param fn the file name to read in
      * @param writer the writer
-     * @throws IOException              Signals that an I/O exception has occurred.
-     * @throws OBOFormatParserException the oBO format parser exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws OBOFormatParserException the OBO format parser exception
      */
     public void write(@Nonnull String fn, @Nonnull BufferedWriter writer) throws IOException {
         if (fn.startsWith("http:")) {
@@ -117,10 +117,10 @@ public class OBOFormatWriter {
     /**
      * Write.
      * 
-     * @param url    the url
+     * @param url the url
      * @param writer the writer
-     * @throws IOException              Signals that an I/O exception has occurred.
-     * @throws OBOFormatParserException the oBO format parser exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws OBOFormatParserException the OBO format parser exception
      */
     public void write(@Nonnull URL url, @Nonnull BufferedWriter writer) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -130,8 +130,8 @@ public class OBOFormatWriter {
     /**
      * @param reader the reader
      * @param writer the writer
-     * @throws IOException              Signals that an I/O exception has occurred.
-     * @throws OBOFormatParserException the oBO format parser exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws OBOFormatParserException the OBO format parser exception
      */
     public void write(BufferedReader reader, @Nonnull BufferedWriter writer) throws IOException {
         OBOFormatParser parser = new OBOFormatParser();
@@ -140,7 +140,7 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param doc         the doc
+     * @param doc the doc
      * @param outFilename the out file name
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -149,7 +149,7 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param doc     the doc
+     * @param doc the doc
      * @param outFile the out file
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -162,7 +162,7 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param doc    the doc
+     * @param doc the doc
      * @param writer the writer
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -172,8 +172,8 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param doc          the doc
-     * @param writer       the writer
+     * @param doc the doc
+     * @param writer the writer
      * @param nameProvider the name provider
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -232,8 +232,8 @@ public class OBOFormatWriter {
     /**
      * Write header.
      * 
-     * @param frame        the frame
-     * @param writer       the writer
+     * @param frame the frame
+     * @param writer the writer
      * @param nameProvider the name provider
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -280,8 +280,8 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param frame        the frame
-     * @param writer       the writer
+     * @param frame the frame
+     * @param writer the writer
      * @param nameProvider the name provider
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -472,9 +472,9 @@ public class OBOFormatWriter {
             first = false;
         }
         Collection<Xref> xrefs = clause.getXrefs();
-        // if the xrefs value is null, then there should *never* be xrefs at
-        // this location
-        // not that the value may be a non-null empty list - here we still want
+        // If the xref list is null, then there should *never* be xref values at
+        // this location.
+        // Note that the value may be a non-null empty list - here we still want
         // to write []
         if (!xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
@@ -588,8 +588,8 @@ public class OBOFormatWriter {
     /**
      * Write.
      * 
-     * @param clause       the clause
-     * @param writer       the writer
+     * @param clause the clause
+     * @param writer the writer
      * @param nameProvider the name provider
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -830,9 +830,9 @@ public class OBOFormatWriter {
         /**
          * Compare values.
          * 
-         * @param o1 the o1
-         * @param o2 the o2
-         * @return the int
+         * @param o1 the first object
+         * @param o2 the second
+         * @return comparison value
          */
         @SuppressWarnings("null")
         private static int compareValues(@Nullable Object o1, @Nullable Object o2) {
@@ -858,8 +858,8 @@ public class OBOFormatWriter {
         }
 
         /**
-         * @param obj the obj
-         * @return toString representation
+         * @param obj the object
+         * @return string representation
          */
         @Nullable
         private static String toStringRepresentation(@Nullable Object obj) {
@@ -980,9 +980,9 @@ public class OBOFormatWriter {
         private final OBODoc result;
 
         /**
-         * @param ont                 ontology
+         * @param ont ontology
          * @param defaultOboNamespace default OBO namespace
-         * @param result              result
+         * @param result result
          */
         public OWLOntologyNameProvider(@Nonnull OWLOntology ont, String defaultOboNamespace,
             OBODoc result) {

@@ -49,7 +49,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private int hashCode;
 
     /**
-     * Constructs an ontology identifier specifiying the ontology IRI and version IRI. Equivalent to
+     * Constructs an ontology identifier specifying the ontology IRI and version IRI. Equivalent to
      * OWLOntologyID(Optional
      * 
      * @param iri The ontology IRI (may be {@code null})
@@ -61,9 +61,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     }
 
     /**
-     * Constructs an ontology identifier specifiying the ontology IRI and version IRI.
+     * Constructs an ontology identifier specifying the ontology IRI and version IRI.
      * 
-     * @param iri        The ontology IRI (may be {@code null})
+     * @param iri The ontology IRI (may be {@code null})
      * @param versionIRI The version IRI (must be {@code null} if the ontologyIRI is null)
      * @deprecated use {@link #OWLOntologyID(Optional, Optional)} instead
      */
@@ -106,9 +106,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     }
 
     /**
-     * Constructs an ontology identifier specifiying the ontology IRI and version IRI.
+     * Constructs an ontology identifier specifying the ontology IRI and version IRI.
      * 
-     * @param iri     The ontology IRI (may be absent)
+     * @param iri The ontology IRI (may be absent)
      * @param version The version IRI (must be absent if the ontologyIRI is absent)
      */
     public OWLOntologyID(@Nonnull Optional<IRI> iri, @Nonnull Optional<IRI> version) {

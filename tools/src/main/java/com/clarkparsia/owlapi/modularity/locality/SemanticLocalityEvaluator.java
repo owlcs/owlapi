@@ -67,7 +67,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     /**
      * Instantiates a new semantic locality evaluator.
      * 
-     * @param man ontology manager
+     * @param man             ontology manager
      * @param reasonerFactory reasoner factory
      */
     public SemanticLocalityEvaluator(@Nonnull OWLOntologyManager man,
@@ -153,7 +153,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          * Replace bottom.
          * 
          * @param axiom the axiom
-         * @param sig the sig
+         * @param sig   the sig
          * @return the modified OWL axiom
          */
         @Nonnull
@@ -168,7 +168,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          * Takes an OWLClassExpression and a signature replaces by bottom the entities not in the
          * signature
          * 
-         * @param desc the desc
+         * @param desc the class expression
          * @return the modified OWL class expression
          */
         @Nonnull

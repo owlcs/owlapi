@@ -600,10 +600,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             }
         }
         // if multiple illegal declarations already exist, they have already
-        // been outputted
-        // the renderer cannot take responsibility for removing them
-        // It should not add declarations for illegally punned entities here,
-        // though
+        // been output; the renderer cannot take responsibility for removing
+        // them. It should not add declarations for illegally punned entities
+        // here, though
         if (addMissingDeclarations && axioms.isEmpty()) {
             // if declarations should be added, check if the IRI is illegally
             // punned

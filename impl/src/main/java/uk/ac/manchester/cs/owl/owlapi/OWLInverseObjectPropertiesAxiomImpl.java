@@ -43,8 +43,8 @@ public class OWLInverseObjectPropertiesAxiomImpl
     private static final long serialVersionUID = 40000L;
 
     /**
-     * @param first first property
-     * @param second second peoperty
+     * @param first       first property
+     * @param second      second property
      * @param annotations annotations
      */
     public OWLInverseObjectPropertiesAxiomImpl(@Nonnull OWLObjectPropertyExpression first,

@@ -29,85 +29,61 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
- * A bidirectional short form provider which uses a specified short form
- * provider to generate the bidirectional entity--shortform mappings.
+ * A bidirectional short form provider which uses a specified short form provider to generate the
+ * bidirectional entity--short form mappings.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class BidirectionalShortFormProviderAdapter extends
-        CachingBidirectionalShortFormProvider {
+public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalShortFormProvider {
 
     @Nonnull
     private final ShortFormProvider shortFormProvider;
     private Set<OWLOntology> ontologies;
     private OWLOntologyManager man;
     @Nonnull
-    private final OWLOntologyChangeListener changeListener = new OWLOntologyChangeListener() {
-
-        @Override
-        public void ontologiesChanged(
-                @Nonnull List<? extends OWLOntologyChange> changes) {
-            handleChanges(changes);
-        }
-    };
+    private final OWLOntologyChangeListener changeListener =
+        (@Nonnull List<? extends OWLOntologyChange> changes) -> handleChanges(changes);
 
     /**
-     * @param shortFormProvider
-     *        the short form provider to use
+     * @param shortFormProvider the short form provider to use
      */
-    public BidirectionalShortFormProviderAdapter(
-            @Nonnull ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider,
-                "shortFormProvider cannot be null");
+    public BidirectionalShortFormProviderAdapter(@Nonnull ShortFormProvider shortFormProvider) {
+        this.shortFormProvider =
+            checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     /**
-     * Creates a BidirectionalShortFormProvider that maps between the entities
-     * that are referenced in the specified ontologies and the short forms of
-     * these entities.
+     * Creates a BidirectionalShortFormProvider that maps between the entities that are referenced
+     * in the specified ontologies and the short forms of these entities.
      * 
-     * @param ontologies
-     *        The ontologies that contain references to the entities to be
-     *        mapped.
-     * @param shortFormProvider
-     *        The short form provider that should be used to generate the short
+     * @param ontologies The ontologies that contain references to the entities to be mapped.
+     * @param shortFormProvider The short form provider that should be used to generate the short
      *        forms of the referenced entities.
      */
-    public BidirectionalShortFormProviderAdapter(
-            @Nonnull Set<OWLOntology> ontologies,
-            @Nonnull ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider,
-                "shortFormProvider cannot be null");
-        this.ontologies = new HashSet<>(checkNotNull(ontologies,
-                "ontologies cannot be null"));
+    public BidirectionalShortFormProviderAdapter(@Nonnull Set<OWLOntology> ontologies,
+        @Nonnull ShortFormProvider shortFormProvider) {
+        this.shortFormProvider =
+            checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.ontologies = new HashSet<>(checkNotNull(ontologies, "ontologies cannot be null"));
         rebuild(new ReferencedEntitySetProvider(ontologies));
     }
 
     /**
-     * Creates a BidirectionalShortFormProvider that maps between the entities
-     * that are referenced in the specified ontologies and the shortforms of
-     * these entities. Note that the {@code dispose} method must be called when
-     * the provider has been finished with so that the provider may remove
-     * itself as a listener from the manager.
+     * Creates a BidirectionalShortFormProvider that maps between the entities that are referenced
+     * in the specified ontologies and the short forms of these entities. Note that the
+     * {@code dispose} method must be called when the provider has been finished with so that the
+     * provider may remove itself as a listener from the manager.
      * 
-     * @param ontologies
-     *        The ontologies that contain references to the entities to be
-     *        mapped.
-     * @param shortFormProvider
-     *        The short form provider that should be used to generate the short
+     * @param ontologies The ontologies that contain references to the entities to be mapped.
+     * @param shortFormProvider The short form provider that should be used to generate the short
      *        forms of the referenced entities.
-     * @param man
-     *        This short form provider will track changes to ontologies. The
-     *        provider will listen for ontology changes and update the cache of
-     *        entity--shortform mappings based on whether the specified
-     *        ontologies contain references to entities or not.
+     * @param man This short form provider will track changes to ontologies. The provider will
+     *        listen for ontology changes and update the cache of entity--short form mappings based
+     *        on whether the specified ontologies contain references to entities or not.
      */
-    public BidirectionalShortFormProviderAdapter(
-            @Nonnull OWLOntologyManager man,
-            @Nonnull Set<OWLOntology> ontologies,
-            @Nonnull ShortFormProvider shortFormProvider) {
+    public BidirectionalShortFormProviderAdapter(@Nonnull OWLOntologyManager man,
+        @Nonnull Set<OWLOntology> ontologies, @Nonnull ShortFormProvider shortFormProvider) {
         this(ontologies, shortFormProvider);
         this.man = checkNotNull(man, "man cannot be null");
         this.man.addOntologyChangeListener(changeListener);

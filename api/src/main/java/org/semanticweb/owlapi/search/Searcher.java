@@ -21,7 +21,26 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 
 /**
  * A collection of static search utilities.
@@ -35,14 +54,13 @@ public final class Searcher {
     /**
      * Retrieve literals from a collection of assertions.
      * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional property to match. Null means all.
+     * @param axioms axioms
+     * @param p      optional property to match. Null means all.
      * @return literals
      */
     @Nonnull
-    public static Collection<OWLLiteral> values(@Nonnull Collection<OWLDataPropertyAssertionAxiom> axioms,
+    public static Collection<OWLLiteral> values(
+        @Nonnull Collection<OWLDataPropertyAssertionAxiom> axioms,
         @Nullable OWLDataPropertyExpression p) {
         Set<OWLLiteral> literals = new HashSet<>();
         for (OWLDataPropertyAssertionAxiom ax : axioms) {
@@ -56,14 +74,13 @@ public final class Searcher {
     /**
      * Retrieve objects from a collection of assertions.
      * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional property to match. Null means all.
+     * @param axioms axioms
+     * @param p      optional property to match. Null means all.
      * @return objects
      */
     @Nonnull
-    public static Collection<OWLIndividual> values(@Nonnull Collection<OWLObjectPropertyAssertionAxiom> axioms,
+    public static Collection<OWLIndividual> values(
+        @Nonnull Collection<OWLObjectPropertyAssertionAxiom> axioms,
         @Nullable OWLObjectPropertyExpression p) {
         Set<OWLIndividual> objects = new HashSet<>();
         for (OWLObjectPropertyAssertionAxiom ax : axioms) {
@@ -77,14 +94,13 @@ public final class Searcher {
     /**
      * Retrieve literals from a collection of negative assertions.
      * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional property to match. Null means all.
+     * @param axioms axioms
+     * @param p      optional property to match. Null means all.
      * @return literals
      */
     @Nonnull
-    public static Collection<OWLLiteral> negValues(@Nonnull Collection<OWLNegativeDataPropertyAssertionAxiom> axioms,
+    public static Collection<OWLLiteral> negValues(
+        @Nonnull Collection<OWLNegativeDataPropertyAssertionAxiom> axioms,
         @Nullable OWLDataPropertyExpression p) {
         Set<OWLLiteral> literals = new HashSet<>();
         for (OWLNegativeDataPropertyAssertionAxiom ax : axioms) {
@@ -98,15 +114,14 @@ public final class Searcher {
     /**
      * Retrieve objects from a collection of negative assertions.
      * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional property to match. Null means all.
+     * @param axioms axioms
+     * @param p      optional property to match. Null means all.
      * @return objects
      */
     @Nonnull
     public static Collection<OWLIndividual> negValues(
-        @Nonnull Collection<OWLNegativeObjectPropertyAssertionAxiom> axioms, @Nullable OWLObjectPropertyExpression p) {
+        @Nonnull Collection<OWLNegativeObjectPropertyAssertionAxiom> axioms,
+        @Nullable OWLObjectPropertyExpression p) {
         Set<OWLIndividual> objects = new HashSet<>();
         for (OWLNegativeObjectPropertyAssertionAxiom ax : axioms) {
             if (p == null || ax.getProperty().equals(p)) {
@@ -119,12 +134,12 @@ public final class Searcher {
     /**
      * Retrieve classes from class assertions.
      * 
-     * @param axioms
-     *        axioms
+     * @param axioms axioms
      * @return classes
      */
     @Nonnull
-    public static Collection<OWLClassExpression> types(@Nonnull Collection<OWLClassAssertionAxiom> axioms) {
+    public static Collection<OWLClassExpression> types(
+        @Nonnull Collection<OWLClassAssertionAxiom> axioms) {
         Set<OWLClassExpression> objects = new HashSet<>();
         for (OWLClassAssertionAxiom ax : axioms) {
             objects.add(ax.getClassExpression());
@@ -135,12 +150,12 @@ public final class Searcher {
     /**
      * Retrieve individuals from class assertions.
      * 
-     * @param axioms
-     *        axioms
+     * @param axioms axioms
      * @return individuals
      */
     @Nonnull
-    public static Collection<OWLIndividual> instances(@Nonnull Collection<OWLClassAssertionAxiom> axioms) {
+    public static Collection<OWLIndividual> instances(
+        @Nonnull Collection<OWLClassAssertionAxiom> axioms) {
         Set<OWLIndividual> objects = new HashSet<>();
         for (OWLClassAssertionAxiom ax : axioms) {
             objects.add(ax.getIndividual());
@@ -151,15 +166,14 @@ public final class Searcher {
     /**
      * Retrieve inverses from a collection of inverse axioms.
      * 
-     * @param axioms
-     *        axioms to check
-     * @param p
-     *        property to match; not returned in the set
+     * @param axioms axioms to check
+     * @param p      property to match; not returned in the set
      * @return inverses of p
      */
     @Nonnull
     public static Collection<OWLObjectPropertyExpression> inverse(
-        @Nonnull Collection<OWLInverseObjectPropertiesAxiom> axioms, @Nonnull OWLObjectPropertyExpression p) {
+        @Nonnull Collection<OWLInverseObjectPropertiesAxiom> axioms,
+        @Nonnull OWLObjectPropertyExpression p) {
         List<OWLObjectPropertyExpression> toReturn = new ArrayList<>();
         for (OWLInverseObjectPropertiesAxiom ax : axioms) {
             if (ax.getFirstProperty().equals(p)) {
@@ -174,27 +188,25 @@ public final class Searcher {
     /**
      * Retrieve annotation values from annotations
      * 
-     * @param annotations
-     *        annotations
+     * @param annotations annotations
      * @return annotation values
      */
     @Nonnull
-    public static Collection<OWLAnnotationValue> values(@Nonnull Collection<OWLAnnotation> annotations) {
+    public static Collection<OWLAnnotationValue> values(
+        @Nonnull Collection<OWLAnnotation> annotations) {
         return values(annotations, null);
     }
 
     /**
      * Retrieve annotation values from annotations
      * 
-     * @param annotations
-     *        annotations
-     * @param p
-     *        optional annotation property to filter. Null means all.
+     * @param annotations annotations
+     * @param p           optional annotation property to filter. Null means all.
      * @return annotation values
      */
     @Nonnull
-    public static Collection<OWLAnnotationValue> values(@Nonnull Collection<OWLAnnotation> annotations,
-        @Nullable OWLAnnotationProperty p) {
+    public static Collection<OWLAnnotationValue> values(
+        @Nonnull Collection<OWLAnnotation> annotations, @Nullable OWLAnnotationProperty p) {
         Set<OWLAnnotationValue> toReturn = new HashSet<>();
         for (OWLAnnotation ax : annotations) {
             if (p == null || ax.getProperty().equals(p)) {
@@ -205,30 +217,28 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve annotations from a collection of axioms. For regular axioms,
-     * their annotations are retrieved; for annotation assertion axioms, their
-     * asserted annotation is retrieved as well.
+     * Retrieve annotations from a collection of axioms. For regular axioms, their annotations are
+     * retrieved; for annotation assertion axioms, their asserted annotation is retrieved as well.
      * 
-     * @param axioms
-     *        axioms
+     * @param axioms axioms
      * @return annotations
      */
     @Nonnull
-    public static Collection<OWLAnnotation> annotations(@Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static Collection<OWLAnnotation> annotations(
+        @Nonnull Collection<? extends OWLAxiom> axioms) {
         return annotations(axioms, null);
     }
 
     /**
      * Retrieve annotations from a collection of annotation assertion axioms.
      * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional annotation property to filter. Null means all.
+     * @param axioms axioms
+     * @param p      optional annotation property to filter. Null means all.
      * @return annotations
      */
     @Nonnull
-    public static Collection<OWLAnnotation> annotationObjects(@Nonnull Collection<OWLAnnotationAssertionAxiom> axioms,
+    public static Collection<OWLAnnotation> annotationObjects(
+        @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms,
         @Nullable OWLAnnotationProperty p) {
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLAnnotationAssertionAxiom ax : axioms) {
@@ -244,12 +254,12 @@ public final class Searcher {
     /**
      * Retrieve annotations from a collection of annotation assertion axioms.
      * 
-     * @param axioms
-     *        axioms
+     * @param axioms axioms
      * @return annotations
      */
     @Nonnull
-    public static Collection<OWLAnnotation> annotationObjects(@Nonnull Collection<OWLAnnotationAssertionAxiom> axioms) {
+    public static Collection<OWLAnnotation> annotationObjects(
+        @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms) {
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLAnnotationAssertionAxiom ax : axioms) {
             assert ax != null;
@@ -261,10 +271,8 @@ public final class Searcher {
     /**
      * Retrieve the annotation from an annotation assertion axiom.
      * 
-     * @param axiom
-     *        axiom
-     * @param p
-     *        optional annotation property to filter. Null means all.
+     * @param axiom axiom
+     * @param p     optional annotation property to filter. Null means all.
      * @return annotations
      */
     public static OWLAnnotation annotationObject(@Nonnull OWLAnnotationAssertionAxiom axiom,
@@ -276,19 +284,16 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve annotations from a collection of axioms. For regular axioms,
-     * their annotations are retrieved; for annotation assertion axioms, their
-     * asserted annotation is retrieved as well.
+     * Retrieve annotations from a collection of axioms. For regular axioms, their annotations are
+     * retrieved; for annotation assertion axioms, their asserted annotation is retrieved as well.
      * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional annotation property to filter. Null means all.
+     * @param axioms axioms
+     * @param p      optional annotation property to filter. Null means all.
      * @return annotations
      */
     @Nonnull
-    public static Collection<OWLAnnotation> annotations(@Nonnull Collection<? extends OWLAxiom> axioms,
-        @Nullable OWLAnnotationProperty p) {
+    public static Collection<OWLAnnotation> annotations(
+        @Nonnull Collection<? extends OWLAxiom> axioms, @Nullable OWLAnnotationProperty p) {
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLAxiom ax : axioms) {
             assert ax != null;
@@ -299,18 +304,16 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve annotations from an axiom. For regular axioms, their annotations
-     * are retrieved; for annotation assertion axioms, their asserted annotation
-     * is retrieved as well.
+     * Retrieve annotations from an axiom. For regular axioms, their annotations are retrieved; for
+     * annotation assertion axioms, their asserted annotation is retrieved as well.
      * 
-     * @param axiom
-     *        axiom
-     * @param p
-     *        optional annotation property to filter. Null means all.
+     * @param axiom axiom
+     * @param p     optional annotation property to filter. Null means all.
      * @return annotations
      */
     @Nonnull
-    public static Set<OWLAnnotation> annotations(@Nonnull OWLAxiom axiom, @Nullable OWLAnnotationProperty p) {
+    public static Set<OWLAnnotation> annotations(@Nonnull OWLAxiom axiom,
+        @Nullable OWLAnnotationProperty p) {
         Set<OWLAnnotation> set = new HashSet<>();
         if (axiom instanceof OWLAnnotationAssertionAxiom) {
             OWLAnnotationAssertionAxiom ax = (OWLAnnotationAssertionAxiom) axiom;
@@ -327,39 +330,34 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve equivalent entities from axioms, including individuals from
-     * sameAs axioms. A mixture of axiom types can be passed in, as long as the
-     * entity type they contain is compatible with the return type for the
-     * collection.
+     * Retrieve equivalent entities from axioms, including individuals from sameAs axioms. A mixture
+     * of axiom types can be passed in, as long as the entity type they contain is compatible with
+     * the return type for the collection.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     * @param <C>    returned type
+     * @param axioms axioms
      * @return equivalent entities
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> equivalent(@Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> equivalent(
+        @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) equivalent(axioms, OWLObject.class);
     }
 
     /**
-     * Retrieve equivalent entities from axioms, including individuals from
-     * sameAs axioms. A mixture of axiom types can be passed in, as long as the
-     * entity type they contain is compatible with the return type for the
-     * collection.
+     * Retrieve equivalent entities from axioms, including individuals from sameAs axioms. A mixture
+     * of axiom types can be passed in, as long as the entity type they contain is compatible with
+     * the return type for the collection.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     * @param <C>    returned type
+     * @param axioms axioms
+     * @param type   type contained in the returned collection
      * @return equivalent entities
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> equivalent(@Nonnull Collection<? extends OWLAxiom> axioms,
+    public static <C extends OWLObject> Collection<C> equivalent(
+        @Nonnull Collection<? extends OWLAxiom> axioms,
         @SuppressWarnings("unused") @Nonnull Class<C> type) {
         Set<C> toReturn = new HashSet<>();
         for (OWLAxiom ax : axioms) {
@@ -371,13 +369,10 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve equivalent entities from an axiom, including individuals from
-     * sameAs axioms.
+     * Retrieve equivalent entities from an axiom, including individuals from sameAs axioms.
      * 
-     * @param axiom
-     *        axiom
-     * @param <C>
-     *        type contained in the returned collection
+     * @param axiom axiom
+     * @param <C>   type contained in the returned collection
      * @return equivalent entities
      */
     @Nonnull
@@ -386,39 +381,34 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve disjoint entities from axioms, including individuals from
-     * differentFrom axioms. A mixture of axiom types can be passed in, as long
-     * as the entity type they contain is compatible with the return type for
-     * the collection.
+     * Retrieve disjoint entities from axioms, including individuals from differentFrom axioms. A
+     * mixture of axiom types can be passed in, as long as the entity type they contain is
+     * compatible with the return type for the collection.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     * @param <C>    returned type
+     * @param axioms axioms
      * @return disjoint entities
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> different(@Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> different(
+        @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) different(axioms, OWLObject.class);
     }
 
     /**
-     * Retrieve disjoint entities from axioms, including individuals from
-     * differentFrom axioms. A mixture of axiom types can be passed in, as long
-     * as the entity type they contain is compatible with the return type for
-     * the collection.
+     * Retrieve disjoint entities from axioms, including individuals from differentFrom axioms. A
+     * mixture of axiom types can be passed in, as long as the entity type they contain is
+     * compatible with the return type for the collection.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     * @param <C>    returned type
+     * @param axioms axioms
+     * @param type   type contained in the returned collection
      * @return disjoint entities
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> different(@Nonnull Collection<? extends OWLAxiom> axioms,
+    public static <C extends OWLObject> Collection<C> different(
+        @Nonnull Collection<? extends OWLAxiom> axioms,
         @SuppressWarnings("unused") @Nonnull Class<C> type) {
         Set<C> toReturn = new HashSet<>();
         for (OWLAxiom ax : axioms) {
@@ -430,13 +420,10 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve disjoint entities from an axiom, including individuals from
-     * differentFrom axioms.
+     * Retrieve disjoint entities from an axiom, including individuals from differentFrom axioms.
      * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
+     * @param <C>   returned type
+     * @param axiom axiom
      * @return disjoint entities
      */
     @Nonnull
@@ -445,37 +432,34 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the sub part of axioms, i.e., subclass or subproperty. A mixture
-     * of axiom types can be passed in, as long as the entity type they contain
-     * is compatible with the return type for the collection.
+     * Retrieve the sub part of axioms, i.e., subclass or subproperty. A mixture of axiom types can
+     * be passed in, as long as the entity type they contain is compatible with the return type for
+     * the collection.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     * @param <C>    returned type
+     * @param axioms axioms
      * @return sub expressions
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> sub(@Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> sub(
+        @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) sub(axioms, OWLObject.class);
     }
 
     /**
-     * Retrieve the sub part of axioms, i.e., subclass or subproperty. A mixture
-     * of axiom types can be passed in, as long as the entity type they contain
-     * is compatible with the return type for the collection.
+     * Retrieve the sub part of axioms, i.e., subclass or subproperty. A mixture of axiom types can
+     * be passed in, as long as the entity type they contain is compatible with the return type for
+     * the collection.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     * @param <C>    returned type
+     * @param axioms axioms
+     * @param type   type contained in the returned collection
      * @return sub expressions
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> sub(@Nonnull Collection<? extends OWLAxiom> axioms,
+    public static <C extends OWLObject> Collection<C> sub(
+        @Nonnull Collection<? extends OWLAxiom> axioms,
         @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
@@ -487,14 +471,12 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the sub part of an axiom, i.e., subclass or subproperty. A
-     * mixture of axiom types can be passed in, as long as the entity type they
-     * contain is compatible with the return type for the collection.
+     * Retrieve the sub part of an axiom, i.e., subclass or subproperty. A mixture of axiom types
+     * can be passed in, as long as the entity type they contain is compatible with the return type
+     * for the collection.
      * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
+     * @param <C>   returned type
+     * @param axiom axiom
      * @return sub expressions
      */
     @Nonnull
@@ -503,20 +485,18 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of axioms, i.e., superclass or superproperty. A
-     * mixture of axiom types can be passed in, as long as the entity type they
-     * contain is compatible with the return type for the collection.
+     * Retrieve the super part of axioms, i.e., superclass or super property. A mixture of axiom
+     * types can be passed in, as long as the entity type they contain is compatible with the return
+     * type for the collection.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     * @param <C>    returned type
+     * @param axioms axioms
+     * @param type   type contained in the returned collection
      * @return sub expressions
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> sup(@Nonnull Collection<? extends OWLAxiom> axioms,
+    public static <C extends OWLObject> Collection<C> sup(
+        @Nonnull Collection<? extends OWLAxiom> axioms,
         @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
@@ -528,31 +508,28 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of axioms, i.e., superclass or superproperty. A
-     * mixture of axiom types can be passed in, as long as the entity type they
-     * contain is compatible with the return type for the collection.
+     * Retrieve the super part of axioms, i.e., superclass or super property. A mixture of axiom
+     * types can be passed in, as long as the entity type they contain is compatible with the return
+     * type for the collection.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     * @param <C>    returned type
+     * @param axioms axioms
      * @return sub expressions
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> sup(@Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> sup(
+        @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) sup(axioms, OWLObject.class);
     }
 
     /**
-     * Retrieve the super part of an axiom, i.e., superclass or superproperty. A
-     * mixture of axiom types can be passed in, as long as the entity type they
-     * contain is compatible with the return type for the collection.
+     * Retrieve the super part of an axiom, i.e., superclass or super property. A mixture of axiom
+     * types can be passed in, as long as the entity type they contain is compatible with the return
+     * type for the collection.
      * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
+     * @param <C>   returned type
+     * @param axiom axiom
      * @return sub expressions
      */
     @Nonnull
@@ -561,35 +538,30 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the domains from domain axioms. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     * @param <C>    returned type
+     * @param axioms axioms
      * @return sub expressions
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> domain(@Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> domain(
+        @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) domain(axioms, OWLObject.class);
     }
 
     /**
-     * Retrieve the domains from domain axioms. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     * @param <C>    returned type
+     * @param axioms axioms
+     * @param type   type contained in the returned collection
      * @return sub expressions
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> domain(@Nonnull Collection<? extends OWLAxiom> axioms,
+    public static <C extends OWLObject> Collection<C> domain(
+        @Nonnull Collection<? extends OWLAxiom> axioms,
         @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
@@ -601,13 +573,10 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the domains from domain axioms. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
+     * @param <C>   returned type
+     * @param axiom axiom
      * @return sub expressions
      */
     @Nonnull
@@ -616,35 +585,30 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the ranges from range axioms. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the ranges from range axioms. A mixture of axiom types can be passed in.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     * @param <C>    returned type
+     * @param axioms axioms
      * @return sub expressions
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> range(@Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> range(
+        @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) range(axioms, OWLObject.class);
     }
 
     /**
-     * Retrieve the ranges from range axioms. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the ranges from range axioms. A mixture of axiom types can be passed in.
      * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     * @param <C>    returned type
+     * @param axioms axioms
+     * @param type   type contained in the returned collection
      * @return sub expressions
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> range(@Nonnull Collection<? extends OWLAxiom> axioms,
+    public static <C extends OWLObject> Collection<C> range(
+        @Nonnull Collection<? extends OWLAxiom> axioms,
         @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
@@ -656,13 +620,10 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the ranges from a range axiom. A mixture of axiom types can be
-     * passed in.
+     * Retrieve the ranges from a range axiom. A mixture of axiom types can be passed in.
      * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
+     * @param <C>   returned type
+     * @param axiom axiom
      * @return sub expressions
      */
     @Nonnull
@@ -671,11 +632,10 @@ public final class Searcher {
     }
 
     /**
-     * Transform a collection of ontologies to a collection of IRIs of those
-     * ontologies. Anonymous ontologies are skipped.
+     * Transform a collection of ontologies to a collection of IRIs of those ontologies. Anonymous
+     * ontologies are skipped.
      * 
-     * @param ontologies
-     *        ontologies to transform
+     * @param ontologies ontologies to transform
      * @return collection of IRIs for the ontologies.
      */
     @Nonnull
@@ -688,11 +648,10 @@ public final class Searcher {
     }
 
     /**
-     * Transform a collection of ontology ids to a collection of IRIs of those
-     * ontology ids. Anonymous ontology ids are skipped.
+     * Transform a collection of ontology ids to a collection of IRIs of those ontology ids.
+     * Anonymous ontology ids are skipped.
      * 
-     * @param ids
-     *        ontology ids to transform
+     * @param ids ontology ids to transform
      * @return collection of IRIs for the ontology ids.
      */
     @Nonnull

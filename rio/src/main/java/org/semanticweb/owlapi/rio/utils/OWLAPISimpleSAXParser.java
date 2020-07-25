@@ -174,7 +174,7 @@ public class OWLAPISimpleSAXParser {
      * 
      * @param file The file containing the XML to parse.
      * @throws SAXException parse exception
-     * @throws IOException  parse exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void parse(File file) throws SAXException, IOException {
         try (InputStream in = new FileInputStream(file)) {
@@ -187,7 +187,7 @@ public class OWLAPISimpleSAXParser {
      * 
      * @param in An <tt>InputStream</tt> containing XML data.
      * @throws SAXException parse exception
-     * @throws IOException  parse exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void parse(InputStream in) throws SAXException, IOException {
         parse(new InputSource(in));
@@ -198,7 +198,7 @@ public class OWLAPISimpleSAXParser {
      * 
      * @param reader A <tt>Reader</tt> containing XML data.
      * @throws SAXException parse exception
-     * @throws IOException  parse exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     public void parse(Reader reader) throws SAXException, IOException {
         parse(new InputSource(reader));
@@ -209,7 +209,7 @@ public class OWLAPISimpleSAXParser {
      * 
      * @param inputSource An <tt>InputSource</tt> containing XML data.
      * @throws SAXException parse exception
-     * @throws IOException  parse exception
+     * @throws IOException if there was a problem writing to the output stream
      */
     private synchronized void parse(InputSource inputSource) throws SAXException, IOException {
         SimpleSAXDefaultHandler handler = new SimpleSAXDefaultHandler();

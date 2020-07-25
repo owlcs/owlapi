@@ -15,42 +15,30 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 /**
  * The Class OWLRDFXMLParserMalformedNodeException.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLRDFXMLParserMalformedNodeException extends
-        OWLRDFXMLParserException {
+public class OWLRDFXMLParserMalformedNodeException extends OWLRDFXMLParserException {
 
     private static final long serialVersionUID = 40000L;
 
     /**
-     * Instantiates a new oWLRDFXML parser malformed node exception.
-     * 
-     * @param cause
-     *        the cause
+     * @param cause the cause
      */
     public OWLRDFXMLParserMalformedNodeException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * Instantiates a new oWLRDFXML parser malformed node exception.
-     * 
-     * @param message
-     *        the message
-     * @param cause
-     *        the cause
+     * @param message the message
+     * @param cause   the cause
      */
     public OWLRDFXMLParserMalformedNodeException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * Instantiates a new oWLRDFXML parser malformed node exception.
-     * 
-     * @param message
-     *        the message
+     * @param message the message
      */
     public OWLRDFXMLParserMalformedNodeException(String message) {
         super(message);

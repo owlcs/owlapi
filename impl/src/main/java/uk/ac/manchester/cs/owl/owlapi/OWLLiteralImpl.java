@@ -75,11 +75,11 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching imp
     }
 
     /**
-     * @param literal the lexical form
-     * @param lang the language; can be null or an empty string, in which case datatype can be any
-     *        datatype but not null
+     * @param literal  the lexical form
+     * @param lang     the language tag; can be null or an empty string, in which case datatype can
+     *                 be any datatype but not null
      * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST
-     *        be RDFPlainLiteral
+     *                 be RDFPlainLiteral
      */
     public OWLLiteralImpl(@Nonnull String literal, @Nullable String lang,
         @Nullable OWLDatatype datatype) {

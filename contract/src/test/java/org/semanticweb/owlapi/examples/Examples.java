@@ -373,7 +373,7 @@ public class Examples extends TestBase {
     /**
      * This example shows how to work with dataranges. OWL 1.1 (and newer) allows data ranges to be
      * created by taking a base datatype e.g. int, string etc. and then by applying facets to
-     * restrict the datarange. For example, int greater than 18
+     * restrict the data range. For example, int greater than 18
      * 
      * @throws Exception exception
      */
@@ -1366,7 +1366,7 @@ public class Examples extends TestBase {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // Load the MGED ontology. There is a copy of the MGED ontology located
         // at the address pointed to by its ontology IRI (this is good practice
-        // and is recommended in the OWL 2 spec).
+        // and is recommended in the OWL 2 specifications).
         OWLOntology ontology = manager.loadOntology(mgedOntologyIri);
         // Print out the ontology IRI and its imported ontology IRIs
         printOntologyAndImports(manager, ontology);
@@ -1424,7 +1424,7 @@ public class Examples extends TestBase {
     /**
      * Prints the IRI of an ontology and its document IRI.
      * 
-     * @param manager  The manager that manages the ontology
+     * @param manager The manager that manages the ontology
      * @param ontology The ontology
      */
     private static void printOntology(@Nonnull OWLOntologyManager manager,
@@ -1445,7 +1445,7 @@ public class Examples extends TestBase {
      * parameter that has the ontology IRI that we're after as its value.
      * 
      * @param ontologyIRI The IRI of the ontology.
-     * @param tones       tones iri
+     * @param tones tones iri
      * @return The document IRI of the ontology in the TONES repository.
      */
     @Nonnull
@@ -1505,7 +1505,7 @@ public class Examples extends TestBase {
      * The following example uses entities and axioms that are used in the OWL Primer. The purpose
      * of this example is to illustrate some of the methods of creating class expressions and
      * various types of axioms. Typically, an ontology wouldn't be constructed programmatically in a
-     * long drawn out fashion like this, it would be constructe in an ontology editor such as
+     * long drawn out fashion like this, it would be constructed in an ontology editor such as
      * Protege 4, or Swoop. The OWL API would then be used to examine the asserted structure of the
      * ontology, and in conjunction with an OWL reasoner such as FaCT++ or Pellet used to query the
      * inferred ontology.

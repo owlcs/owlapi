@@ -81,7 +81,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /**
-     * @return the IRI scheme, e.g., http, urn
+     * @return the IRI scheme, e.g., {@code http}, {@code urn}
      */
     @Nullable
     public String getScheme() {
@@ -101,7 +101,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /**
-     * @param s the IRI stirng to be resolved
+     * @param s the IRI string to be resolved
      * @return s resolved against this IRI (with the URI::resolve() method, unless this IRI is
      *         opaque)
      */
@@ -273,8 +273,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /**
-     * @param uri the uri to create the IRI from
-     * @return the IRI wrapping the uri
+     * @param uri the URI to create the IRI from
+     * @return the IRI wrapping the URI
      */
     @Nonnull
     public static IRI create(@Nonnull URI uri) {
@@ -283,7 +283,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /**
-     * @param url the url to create the IRI from
+     * @param url the URL to create the IRI from
      * @return an IRI wrapping url.toURI()
      * @throws OWLRuntimeException if the URL is ill formed
      */

@@ -27,86 +27,67 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
- * An {@code OWLParser} parses an ontology document and adds the axioms of the
- * parsed ontology to the {@code OWLOntology} object passed to the {@code parse}
- * methods. <br>
- * {@code OWLParser} implementations are supposed to be stateless, and therefore
- * immutable. By default, implementation factories are injected in
- * OWLOntologyManager instances at creation in OWLManager.
- * This is not mandatory, and a specific manager can have different
- * implementations injected at any time after creation.<br>
- * OWLParsers are typically used by {@link OWLOntologyManager
- * OWLOntologyManagers} to populate empty {@link OWLOntology OWLOntologies}, but
- * can be used to add axioms to an {@code OWLOntology} that already contains
+ * An {@code OWLParser} parses an ontology document and adds the axioms of the parsed ontology to
+ * the {@code OWLOntology} object passed to the {@code parse} methods. <br>
+ * {@code OWLParser} implementations are supposed to be stateless, and therefore immutable. By
+ * default, implementation factories are injected in OWLOntologyManager instances at creation in
+ * OWLManager. This is not mandatory, and a specific manager can have different implementations
+ * injected at any time after creation.<br>
+ * OWLParsers are typically used by {@link OWLOntologyManager} to populate empty {@link OWLOntology}
+ * instances, but can be used to add axioms to an {@code OWLOntology} that already contains
  * axioms.<br>
- * One such case is parsing {@code owl:imports} which point to documents that
- * are not ontologies. In this case, any axioms parsed from the imported
- * document are added to the existing ontology, which already contains axioms
- * parsed from a different document.
+ * One such case is parsing {@code owl:imports} which point to documents that are not ontologies. In
+ * this case, any axioms parsed from the imported document are added to the existing ontology, which
+ * already contains axioms parsed from a different document.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLParser extends Serializable {
 
     /**
-     * Parses the ontology with a concrete representation available at
-     * {@code documentIRI} and adds its axioms to {@code ontology}. Implementors
-     * of this method should load imported ontologies through
+     * Parses the ontology with a concrete representation available at {@code documentIRI} and adds
+     * its axioms to {@code ontology}. Implementors of this method should load imported ontologies
+     * through
      * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
      * makeLoadImportRequest()}.
      * 
-     * @param documentIRI
-     *        the IRI of the document to parse
-     * @param ontology
-     *        the ontology to which the parsed axioms are added
+     * @param documentIRI the IRI of the document to parse
+     * @param ontology the ontology to which the parsed axioms are added
      * @return the format of the parsed ontology
-     * @throws OWLParserException
-     *         if there was a parsing problem parsing the ontology.
-     * @throws IOException
-     *         if there was an IO problem during parsing.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem updating {@code ontology}. Typically this
-     *         depends on the document being parsed containing an ontology with
-     *         an ontology IRI clashing with one already loaded.
-     * @throws UnloadableImportException
-     *         if one or more imports could not be loaded.
+     * @throws OWLParserException if there was a parsing problem parsing the ontology.
+     * @throws IOException if there was an IO problem during parsing.
+     * @throws OWLOntologyChangeException if there was a problem updating {@code ontology}.
+     *         Typically this depends on the document being parsed containing an ontology with an
+     *         ontology IRI clashing with one already loaded.
+     * @throws UnloadableImportException if one or more imports could not be loaded.
      */
     @Nonnull
-    OWLDocumentFormat parse(@Nonnull IRI documentIRI,
-            @Nonnull OWLOntology ontology) throws IOException;
+    OWLDocumentFormat parse(@Nonnull IRI documentIRI, @Nonnull OWLOntology ontology)
+        throws IOException;
 
     /**
-     * Parses the ontology with a concrete representation in
-     * {@code documentSource} and adds its axioms to {@code ontology}.
-     * Implementors of this method should load imported ontologies through
+     * Parses the ontology with a concrete representation in {@code documentSource} and adds its
+     * axioms to {@code ontology}. Implementors of this method should load imported ontologies
+     * through
      * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
      * makeLoadImportRequest()}.
      * 
-     * @param documentSource
-     *        the source of a concrete representation of the document to parse
-     * @param ontology
-     *        the ontology to which the parsed axioms are added
-     * @param configuration
-     *        parsing options for the parser
+     * @param documentSource the source of a concrete representation of the document to parse
+     * @param ontology the ontology to which the parsed axioms are added
+     * @param configuration parsing options for the parser
      * @return the format of the parsed ontology
-     * @throws OWLParserException
-     *         if there was a parsing problem parsing the ontology.
-     * @throws IOException
-     *         if there was an IO problem during parsing.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem updating {@code ontology}. Typically this
-     *         depends on the document being parsed containing an ontology with
-     *         an ontology IRI clashing with one already loaded.
-     * @throws UnloadableImportException
-     *         if one or more imports could not be loaded.
+     * @throws OWLParserException if there was a parsing problem parsing the ontology.
+     * @throws IOException if there was an IO problem during parsing.
+     * @throws OWLOntologyChangeException if there was a problem updating {@code ontology}.
+     *         Typically this depends on the document being parsed containing an ontology with an
+     *         ontology IRI clashing with one already loaded.
+     * @throws UnloadableImportException if one or more imports could not be loaded.
      */
     @Nonnull
     OWLDocumentFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyLoaderConfiguration configuration)
-            throws IOException;
+        @Nonnull OWLOntology ontology, @Nonnull OWLOntologyLoaderConfiguration configuration)
+        throws IOException;
 
     /** @return a unique name for the parser, typically the simple class name */
     @Nonnull

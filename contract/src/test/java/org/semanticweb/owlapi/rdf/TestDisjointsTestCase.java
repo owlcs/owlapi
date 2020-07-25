@@ -13,7 +13,8 @@
 package org.semanticweb.owlapi.rdf;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,15 +36,13 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
 /**
- * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
- * it possible to specify that a set of classes are mutually disjoint.
- * Unfortunately, this must be represented in RDF as a set of pairwise disjoint
- * statements. In otherwords, DisjointClasses(A, B, C) must be represented as
- * DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). This test case
- * ensure that these axioms are serialsed correctly.
+ * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes it possible to
+ * specify that a set of classes are mutually disjoint. Unfortunately, this must be represented in
+ * RDF as a set of pairwise disjoint statements. In other words, DisjointClasses(A, B, C) must be
+ * represented as DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). This test case ensure
+ * that these axioms are serialsed correctly.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
@@ -57,8 +56,8 @@ public class TestDisjointsTestCase extends TestBase {
 
     @Test
     public void testAnonDisjoints() throws Exception {
-        OWLOntology ontA = m.createOntology(OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("urntests#uri"));
+        OWLOntology ontA =
+            m.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI("urntests#uri"));
         OWLClass clsA = createClass();
         OWLClass clsB = createClass();
         OWLObjectProperty prop = createObjectProperty();

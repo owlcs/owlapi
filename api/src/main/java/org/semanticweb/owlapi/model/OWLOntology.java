@@ -97,10 +97,10 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     // Imported ontologies
     /**
      * Gets the set of document IRIs that are directly imported by this ontology. This corresponds
-     * to the IRIs defined by the directlyImportsDocument association as discussed in Section 3.4 of
-     * the OWL 2 Structural specification.
+     * to the IRIs defined by the {@code directlyImportsDocument} association as discussed in
+     * Section 3.4 of the OWL 2 Structural specification.
      * 
-     * @return The set of directlyImportsDocument IRIs.
+     * @return The set of directly imported IRIs.
      * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
      *         because it was removed from the manager.
      */

@@ -88,7 +88,7 @@ public class JustificationMap {
     /**
      * Instantiates a new justification map.
      * 
-     * @param desc   the class expression
+     * @param desc the class expression
      * @param axioms the axioms
      */
     public JustificationMap(@Nonnull OWLClassExpression desc, @Nonnull Set<OWLAxiom> axioms) {
@@ -214,9 +214,7 @@ public class JustificationMap {
         private final Set<OWLObject> lhs = new HashSet<>();
 
         /**
-         * Gets the rhs.
-         * 
-         * @return the rhs
+         * @return the RHS
          */
         @Nonnull
         public Set<OWLObject> getRHS() {
@@ -224,16 +222,14 @@ public class JustificationMap {
         }
 
         /**
-         * Gets the lhs.
-         * 
-         * @return the lhs
+         * @return the RHS
          */
         @Nonnull
         public Set<OWLObject> getLHS() {
             return lhs;
         }
 
-        /** Instantiates a new oWL axiom part extractor. */
+        /** Instantiates a new extractor. */
         OWLAxiomPartExtractor() {}
 
         @Override
@@ -429,7 +425,7 @@ public class JustificationMap {
         private static final long serialVersionUID = 40000L;
         private int result;
 
-        /** Instantiates a new oWL axiom comparator. */
+        /** Instantiates a new comparator. */
         OWLAxiomComparator() {}
 
         @Override

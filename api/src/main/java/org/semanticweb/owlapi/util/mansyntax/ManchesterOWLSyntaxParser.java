@@ -160,12 +160,12 @@ public interface ManchesterOWLSyntaxParser
     OWLLiteral parseLiteral(@Nullable OWLDatatype datatype);
 
     /**
-     * @param owlEntityChecker owlEntityChecker
+     * @param owlEntityChecker entity checker
      */
     void setOWLEntityChecker(@Nonnull OWLEntityChecker owlEntityChecker);
 
     /**
-     * @param owlOntologyChecker owlOntologyChecker
+     * @param owlOntologyChecker ontology checker
      */
     void setOWLOntologyChecker(@Nonnull OWLOntologyChecker owlOntologyChecker);
 
@@ -176,7 +176,7 @@ public interface ManchesterOWLSyntaxParser
     List<OWLObjectPropertyExpression> parseObjectPropertyChain();
 
     /**
-     * @param ont ont
+     * @param ont ontology
      * @return format
      * @throws OWLParserException        parsing error
      * @throws UnloadableImportException import error

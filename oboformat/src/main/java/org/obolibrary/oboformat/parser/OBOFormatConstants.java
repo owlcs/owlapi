@@ -132,7 +132,7 @@ public class OBOFormatConstants {
         /**TAG_IS_METADATA_TAG.                  */ TAG_IS_METADATA_TAG                             ("is_metadata_tag",         10000,  10000,  205),
         /**TAG_CONSIDER.                         */ TAG_CONSIDER                                    ("consider",                10000,  120,    190),
         /**TAG_INVERSE_OF.                       */ TAG_INVERSE_OF                                  ("inverse_of",              10000,  10000,  140),
-        /**TAG_IS_ASYMMETRIC. */ TAG_IS_ASYMMETRIC("is_asymmetric"),
+        /**TAG_IS_ASYMMETRIC.                    */ TAG_IS_ASYMMETRIC                               ("is_asymmetric"),
         /**TAG_NAMESPACE_ID_RULE.                */ TAG_NAMESPACE_ID_RULE                           ("namespace-id-rule",       46),
         /**TAG_LOGICAL_DEFINITION_VIEW_RELATION. */ TAG_LOGICAL_DEFINITION_VIEW_RELATION("logical-definition-view-relation"),
         //@formatter:on
@@ -142,10 +142,9 @@ public class OBOFormatConstants {
          */
         TAG_SCOPE("scope"),
         /**
-         * Implicit, in synonymtypedef.
+         * Implicit, in TAG_SYNONYMTYPEDEF.
          */
         TAG_HAS_SYNONYM_TYPE("has_synonym_type"),
-        /** implicit, in synonym. */
         /**
          * Broad.
          */

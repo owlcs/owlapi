@@ -17,12 +17,10 @@ import java.util.Collection;
 import javax.annotation.Nonnull;
 
 /**
- * Represents an atom in a rule. Atoms can either be in the head (concequent) or
- * body (antecedent) of the rule. Atoms hold objects which are either data
- * objects or individual objects.
+ * Represents an atom in a rule. Atoms can either be in the head (consequent) or body (antecedent)
+ * of the rule. Atoms hold objects which are either data objects or individual objects.
  * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLAtom extends SWRLObject {

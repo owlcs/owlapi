@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public enum ConfigurationOptions {
     //@formatter:off
-    /** True if http compression 
+    /** True if HTTP compression 
      * should be used. */
     ACCEPT_HTTP_COMPRESSION             (Boolean.TRUE),
     /** Timeout for connections. */
@@ -86,7 +86,7 @@ public enum ConfigurationOptions {
     LABELS_AS_BANNER                    (Boolean.FALSE),
     /** True if banners for ontology 
      * sections and entity comments 
-     * should be outputted. */
+     * should be output. */
     BANNERS_ENABLED                     (Boolean.TRUE),
     /** List of banned 
      * parsers keys. */
@@ -154,7 +154,7 @@ public enum ConfigurationOptions {
 
     /**
      * @param parameterName parameter name - by default the full name of this enumeration plus the
-     *                      enum member name
+     *        enum member name
      * @return matching ConfigurationOptions member, or null if none found
      */
     @Nullable
@@ -166,9 +166,9 @@ public enum ConfigurationOptions {
     }
 
     /**
-     * @param <T>   return type
+     * @param <T> return type
      * @param value value to parse according to the enum default value
-     * @param type  type of the returned value
+     * @param type type of the returned value
      * @return parsed value
      */
     protected <T> T parse(Object value, Class<T> type) {
@@ -188,8 +188,8 @@ public enum ConfigurationOptions {
     }
 
     /**
-     * @param <T>       return type
-     * @param type      type for this value
+     * @param <T> return type
+     * @param type type for this value
      * @param overrides local overrides
      * @return value for this configuration option. Values are evaluated as follows: first, check
      *         overrides; if no overrides are present, check if a system property with the expected
@@ -214,7 +214,7 @@ public enum ConfigurationOptions {
     }
 
     /**
-     * @param <T>  return type
+     * @param <T> return type
      * @param type type to cast to
      * @return default value
      */

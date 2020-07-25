@@ -174,7 +174,7 @@ public class OWLEntityRenamer {
     }
 
     /**
-     * Fills a list with ontology annotaton changes which will replace ontology annotations.
+     * Fills a list with ontology annotation changes which will replace ontology annotations.
      *
      * @param changes A list that will be filled with ontology changes which will remove the
      *        specified axioms from the specified ontology, and add the duplicated/transformed

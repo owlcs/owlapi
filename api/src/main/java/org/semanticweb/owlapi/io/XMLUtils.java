@@ -44,7 +44,7 @@ public final class XMLUtils {
      * Determines if a character is an XML name start character.
      * 
      * @param codePoint The code point of the character to be tested. For UTF-16 characters the code
-     *                  point corresponds to the value of the char that represents the character.
+     *        point corresponds to the value of the char that represents the character.
      * @return {@code true} if {@code codePoint} is an XML name start character, otherwise
      *         {@code false}
      */
@@ -66,8 +66,8 @@ public final class XMLUtils {
      * Determines if a character is an XML name character.
      * 
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     *                  characters the code point corresponds to the value of the char that
-     *                  represents the character.
+     *        characters the code point corresponds to the value of the char that represents the
+     *        character.
      * @return {@code true} if {@code codePoint} is an XML name start character, otherwise
      *         {@code false}
      */
@@ -79,11 +79,11 @@ public final class XMLUtils {
     }
 
     /**
-     * Deterimines if a character is an NCName (Non-Colonised Name) start character.
+     * Determines if a character is an NCName (Non-Colonised Name) start character.
      * 
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     *                  characters the code point corresponds to the value of the char that
-     *                  represents the character.
+     *        characters the code point corresponds to the value of the char that represents the
+     *        character.
      * @return {@code true} if {@code codePoint} is a NCName start character, otherwise
      *         {@code false}.
      */
@@ -92,11 +92,11 @@ public final class XMLUtils {
     }
 
     /**
-     * Deterimines if a character is an NCName (Non-Colonised Name) character.
+     * Determines if a character is an NCName (Non-Colonised Name) character.
      * 
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     *                  characters the code point corresponds to the value of the char that
-     *                  represents the character.
+     *        characters the code point corresponds to the value of the char that represents the
+     *        character.
      * @return {@code true} if {@code codePoint} is a NCName character, otherwise {@code false}.
      */
     public static boolean isNCNameChar(int codePoint) {
@@ -148,7 +148,7 @@ public final class XMLUtils {
      * as the 'Prefix Name' and the second NCName is referred to as the 'Local Name' - i.e.
      * PrefixName:LocalName).
      *
-     * @param s     The character sequence to be tested.
+     * @param s The character sequence to be tested.
      * @param start start index to check
      * @return {@code true} if {@code s} is a QName, otherwise {@code false}.
      */
@@ -258,9 +258,9 @@ public final class XMLUtils {
     }
 
     /**
-     * utility to get the part of a charsequence that is not the NCName fragment.
+     * utility to get the part of a char sequence that is not the NCName fragment.
      * 
-     * @param s the charsequence to split
+     * @param s the char sequence to split
      * @return the prefix split at the last non-ncname character, or the whole input if no ncname is
      *         found
      */
@@ -322,9 +322,9 @@ public final class XMLUtils {
      * Escapes a subset of a char sequence so that it is valid XML. Escaped or unchanged characters
      * are added to destination.
      * 
-     * @param chars       chars to check
-     * @param start       start index (inclusive)
-     * @param count       number of characters
+     * @param chars chars to check
+     * @param start start index (inclusive)
+     * @param count number of characters
      * @param destination destination for escaped chars
      * @return The modified destination.
      */

@@ -29,20 +29,17 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 /**
- * This class demonstrates some aspects of the OWL API. It expects three
- * arguments:
+ * This class demonstrates some aspects of the OWL API. It expects three arguments:
  * <ol>
  * <li>The URI of an ontology</li>
  * <li>The URI of a reasoner</li>
  * <li>A location to place the results.</li>
  * </ol>
- * When executed, the class will find all inconsistent classes in the ontology.
- * For each inconsistent class, the debugger will be used to determine the set
- * of support for the inconsistency. A report will then be written to the outpur
- * file.
+ * When executed, the class will find all inconsistent classes in the ontology. For each
+ * inconsistent class, the debugger will be used to determine the set of support for the
+ * inconsistency. A report will then be written to the output file.
  * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
@@ -56,9 +53,8 @@ public class Debugger {
     @Nonnull
     private final OWLClass bottom;
 
-    public Debugger(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntology ontology,
-            @Nonnull OWLReasonerFactory reasonerFactory) {
+    public Debugger(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
+        @Nonnull OWLReasonerFactory reasonerFactory) {
         this.ontology = ontology;
         checker = reasonerFactory.createNonBufferingReasoner(ontology);
         /* Create a new debugger */
@@ -68,8 +64,7 @@ public class Debugger {
     }
 
     public void report(@Nonnull PrintWriter writer) throws OWLException {
-        OWLTutorialSyntaxObjectRenderer renderer = new OWLTutorialSyntaxObjectRenderer(
-                writer);
+        OWLTutorialSyntaxObjectRenderer renderer = new OWLTutorialSyntaxObjectRenderer(writer);
         /* Write a header */
         renderer.header();
         Set<OWLClass> unsatisfiables = new HashSet<>();
@@ -93,11 +88,10 @@ public class Debugger {
                 writer.println("<br>Axioms causing inconsistency:<br>");
                 writer.println("<ul>");
                 /*
-                 * Find the set of support for the inconsistency. This will
-                 * return us a collection of axioms
+                 * Find the set of support for the inconsistency. This will return us a collection
+                 * of axioms
                  */
-                Set<OWLAxiom> sos = debugger
-                        .getSOSForInconsistentClass(unsatisfiable);
+                Set<OWLAxiom> sos = debugger.getSOSForInconsistentClass(unsatisfiable);
                 /* Print the axioms. */
                 for (OWLAxiom axiom : sos) {
                     writer.println("<li>");

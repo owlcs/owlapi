@@ -30,7 +30,7 @@ public interface OWLOntologyLoaderListener extends Serializable {
      * Called when the process of attempting to load an ontology starts.
      * 
      * @param event
-     *        The loading started event that describes the ontologt that is
+     *        The loading started event that describes the ontology that is
      *        being loaded.
      */
     void startedLoadingOntology(@Nonnull LoadingStartedEvent event);

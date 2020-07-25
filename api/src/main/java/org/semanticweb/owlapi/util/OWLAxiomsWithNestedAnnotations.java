@@ -4,7 +4,7 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * For axioms with nested annotations, an id needs to be outputted.
+ * For axioms with nested annotations, an id needs to be output.
  * 
  * @author ignazio
  */

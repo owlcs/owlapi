@@ -12,7 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATA_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DATATYPE;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -26,15 +31,13 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /**
  * Represents the different types of OWL 2 Entities.
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
- * @param <E>
- *        entity type
+ * @param <E> entity type
  */
 @SuppressWarnings("unused")
-public final class EntityType<E extends OWLEntity> implements Serializable,
-        HasShortForm, HasPrefixedName, HasIRI {
+public final class EntityType<E extends OWLEntity>
+    implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
 
     private static final long serialVersionUID = 40000L;
     //@formatter:off
@@ -55,8 +58,8 @@ public final class EntityType<E extends OWLEntity> implements Serializable,
     @Nonnull
     private final String pluralPrintName;
 
-    private EntityType(@Nonnull String name, @Nonnull String print,
-            @Nonnull String pluralPrint, @Nonnull OWLRDFVocabulary vocabulary) {
+    private EntityType(@Nonnull String name, @Nonnull String print, @Nonnull String pluralPrint,
+        @Nonnull OWLRDFVocabulary vocabulary) {
         this.name = name;
         this.vocabulary = vocabulary;
         printName = print;
@@ -68,7 +71,7 @@ public final class EntityType<E extends OWLEntity> implements Serializable,
         return vocabulary;
     }
 
-    /** @return this entity tipe name */
+    /** @return this entity type name */
     public String getName() {
         return name;
     }
