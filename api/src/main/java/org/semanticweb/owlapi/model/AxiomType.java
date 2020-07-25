@@ -141,8 +141,8 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
      *
      * @param sourceAxioms The source set of axioms
      * @param axiomTypes The types that will be filtered out of the source set
-     * @return A set of axioms that represents the sourceAxioms without the specified types. Note
-     *         that sourceAxioms will not be modified. The returned set is a copy.
+     * @return A set of axioms that represents the source axioms without the specified types. Note
+     *         that source axioms will not be modified. The returned set is a copy.
      */
     public static Set<OWLAxiom> getAxiomsWithoutTypes(Collection<OWLAxiom> sourceAxioms,
         AxiomType<?>... axiomTypes) {
@@ -155,8 +155,8 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
      *
      * @param sourceAxioms The source set of axioms
      * @param axiomTypes The types of axioms that will be returned
-     * @return A set of axioms that represents the sourceAxioms that have the specified types. Note
-     *         that sourceAxioms will not be modified. The returned set is a copy.
+     * @return A set of axioms that represents the source axioms that have the specified types. Note
+     *         that source axioms will not be modified. The returned set is a copy.
      */
     public static Set<OWLAxiom> getAxiomsOfTypes(Collection<OWLAxiom> sourceAxioms,
         AxiomType<?>... axiomTypes) {

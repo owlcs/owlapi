@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * test for 3178902 adapted from the report Thimoty provided.
+ * test for 3178902 adapted from the report Timothy provided.
  */
 @SuppressWarnings("javadoc")
 public class ThreeEquivalentsRoundTripTestCase extends TestBase {
@@ -41,8 +41,7 @@ public class ThreeEquivalentsRoundTripTestCase extends TestBase {
         OWLObjectProperty p = ObjectProperty(IRI(ns + "#", "p"));
         OWLObjectProperty q = ObjectProperty(IRI(ns + "#", "q"));
         OWLAxiom axiomToAdd = EquivalentClasses(Class(IRI(ns + "#", "A")),
-            ObjectSomeValuesFrom(p, b),
-            ObjectSomeValuesFrom(q, c));
+            ObjectSomeValuesFrom(p, b), ObjectSomeValuesFrom(q, c));
         OWLOntology ontology = getOWLOntology();
         ontology.getOWLOntologyManager().addAxiom(ontology, axiomToAdd);
         // when

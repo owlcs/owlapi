@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class OWLXMLOntologyStorageException extends OWLOntologyStorageException {
 
     /**
-     * Instantiates a new oWLXML ontology storage exception.
+     * Instantiates a new OWL/XML ontology storage exception.
      *
      * @param message the message
      */
@@ -32,17 +32,17 @@ public class OWLXMLOntologyStorageException extends OWLOntologyStorageException 
     }
 
     /**
-     * Instantiates a new oWLXML ontology storage exception.
+     * Instantiates a new OWL/XML ontology storage exception.
      *
      * @param message the message
-     * @param cause the cause
+     * @param cause   the cause
      */
     public OWLXMLOntologyStorageException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * Instantiates a new oWLXML ontology storage exception.
+     * Instantiates a new OWL/XML ontology storage exception.
      *
      * @param cause the cause
      */

@@ -142,7 +142,7 @@ public class RDFLiteral extends RDFNode implements Literal {
     }
 
     /**
-     * @return the lang tag for this literal
+     * @return the language tag for this literal
      */
     public String getLang() {
         return lang;

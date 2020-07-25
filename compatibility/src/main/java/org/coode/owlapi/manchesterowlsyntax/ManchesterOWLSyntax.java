@@ -122,8 +122,7 @@ public enum ManchesterOWLSyntax {
      * @param rendering rendering
      * @return manchester owl syntax object
      */
-    public static @Nullable
-    ManchesterOWLSyntax parse(String rendering) {
+    public static @Nullable ManchesterOWLSyntax parse(String rendering) {
         for (ManchesterOWLSyntax m : values()) {
             if (m.matches(rendering)) {
                 return m;
@@ -154,7 +153,7 @@ public enum ManchesterOWLSyntax {
     }
 
     /**
-     * @return class conective
+     * @return true if it is a class connective
      */
     public boolean isClassExpressionConnectiveKeyword() {
         return legacy.isClassExpressionConnectiveKeyword();

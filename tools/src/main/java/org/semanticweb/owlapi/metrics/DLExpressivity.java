@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.metrics;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.List;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
@@ -26,8 +27,6 @@ import org.semanticweb.owlapi.util.DLExpressivityChecker;
 public class DLExpressivity extends AbstractOWLMetric<String> {
 
     /**
-     * Instantiates a new dL expressivity.
-     *
      * @param o ontology to use
      */
     public DLExpressivity(OWLOntology o) {

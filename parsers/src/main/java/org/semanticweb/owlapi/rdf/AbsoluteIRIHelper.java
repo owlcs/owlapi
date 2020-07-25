@@ -13,8 +13,8 @@ public class AbsoluteIRIHelper {
      * @param f format used in rendering
      * @param o ontology being rendered
      * @return absolute version of iri; same as input if the input is absolute, else the prefix is
-     *         taken from the prefix mappings or from the ontology id. If none of thee are
-     *         available, a hardcoded prefix is used.
+     *         taken from the prefix mappings or from the ontology id. If none of there are
+     *         available, a hard coded prefix is used.
      */
     public static IRI verifyAbsolute(IRI iri, @Nullable OWLDocumentFormat f, OWLOntology o) {
         if (iri.isAbsolute()) {

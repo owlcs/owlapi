@@ -74,7 +74,7 @@ public interface OWLObject
      * Accepts a visitor
      *
      * @param visitor The visitor
-     * @param <O>     visitor return type
+     * @param <O> visitor return type
      * @return visitor value
      */
     <O> O accept(OWLObjectVisitorEx<O> visitor);
@@ -164,7 +164,7 @@ public interface OWLObject
     }
 
     /**
-     * @return hash code for the object; clled on first use, cached by OWLObjectImpl in the default
+     * @return hash code for the object; called on first use, cached by OWLObjectImpl in the default
      *         implementation.
      */
     int initHashCode();

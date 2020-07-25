@@ -15,23 +15,25 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.concurrent.atomic.AtomicReference;
+
 import javax.inject.Provider;
+
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
 /**
- * A utility class which can be used by implementations to provide a toString
- * rendering of OWL API objects. The idea is that this is pluggable. TODO this
- * does not allow for independent rendering; in a multithreaded situation, the
- * rendere may change mid execution because of the static singleton instance
+ * A utility class which can be used by implementations to provide a toString rendering of OWL API
+ * objects. The idea is that this is pluggable. TODO this does not allow for independent rendering;
+ * in a multithreaded situation, the renderer may change mid execution because of the static
+ * singleton instance
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public final class ToStringRenderer {
 
-    private static final AtomicReference<Provider<OWLObjectRenderer>> rendererProvider = new AtomicReference<>(
-        SimpleRenderer::new);
+    private static final AtomicReference<Provider<OWLObjectRenderer>> rendererProvider =
+        new AtomicReference<>(SimpleRenderer::new);
 
     /**
      * @return the singleton instance

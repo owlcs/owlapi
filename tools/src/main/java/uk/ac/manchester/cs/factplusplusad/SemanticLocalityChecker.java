@@ -74,8 +74,6 @@ class SemanticLocalityChecker extends LocalityChecker {
     private final ExpressionManager expressionManager;
 
     /**
-     * init c'tor
-     *
      * @param sig signature
      * @param m ontology manager
      * @param factory factory
@@ -98,7 +96,7 @@ class SemanticLocalityChecker extends LocalityChecker {
         return Stream.of(e).filter(Objects::nonNull);
     }
 
-    /* init kernel with the ontology signature */
+    /* Init kernel with the ontology signature */
     @Override
     public void preprocessOntology(Collection<AxiomWrapper> axioms) {
         exprMap.clear();

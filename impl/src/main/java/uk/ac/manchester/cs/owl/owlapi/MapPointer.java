@@ -140,8 +140,6 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * init the map pointer
-     *
      * @return the map pointer
      */
     @SuppressWarnings({"unchecked"})
@@ -172,7 +170,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @return keyset
+     * @return key set
      */
     public synchronized Stream<K> keySet() {
         init();

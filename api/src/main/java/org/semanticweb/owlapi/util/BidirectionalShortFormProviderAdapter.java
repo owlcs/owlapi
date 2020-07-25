@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * A bidirectional short form provider which uses a specified short form provider to generate the
- * bidirectional entity--shortform mappings.
+ * bidirectional entity--short form mappings.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -72,7 +72,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
 
     /**
      * Creates a BidirectionalShortFormProvider that maps between the entities that are referenced
-     * in the specified ontologies and the shortforms of these entities. Note that the
+     * in the specified ontologies and the short forms of these entities. Note that the
      * {@code dispose} method must be called when the provider has been finished with so that the
      * provider may remove itself as a listener from the manager.
      *
@@ -80,7 +80,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
      * @param shortFormProvider The short form provider that should be used to generate the short
      *        forms of the referenced entities.
      * @param man This short form provider will track changes to ontologies. The provider will
-     *        listen for ontology changes and update the cache of entity--shortform mappings based
+     *        listen for ontology changes and update the cache of entity--short form mappings based
      *        on whether the specified ontologies contain references to entities or not.
      */
     public BidirectionalShortFormProviderAdapter(OWLOntologyManager man,

@@ -1,6 +1,7 @@
 package org.semanticweb.owlapitools.decomposition;
 
 import java.util.Collection;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 
@@ -16,7 +17,7 @@ public interface LocalityChecker {
     boolean local(OWLAxiom axiom);
 
     /**
-     * allow the checker to preprocess an ontology if necessary
+     * Allow the checker to preprocess an ontology if necessary
      *
      * @param vec collection of axioms
      */
@@ -34,13 +35,13 @@ public interface LocalityChecker {
 
     /**
      * @param expr expression to evaluate
-     * @return true if expr is top equivalent
+     * @return true if expression is top equivalent
      */
     boolean isTopEquivalent(OWLObject expr);
 
     /**
      * @param expr expression to evaluate
-     * @return true if expr is bottom equivalent
+     * @return true if expression is bottom equivalent
      */
     boolean isBotEquivalent(OWLObject expr);
 }

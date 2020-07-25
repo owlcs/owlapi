@@ -34,7 +34,7 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression, SWRL
      *         {@code simp(p) = p}<br>
      *         {@code simp(inv(p)) = inv(p)}<br>
      * @deprecated Since it is not legal to apply ObjectInverseOf to anything other than an Object
-     *             Property, all object properties are always in the simpled form.
+     *             Property, all object properties are always in the simplified form.
      */
     @Deprecated
     default OWLObjectPropertyExpression getSimplified() {

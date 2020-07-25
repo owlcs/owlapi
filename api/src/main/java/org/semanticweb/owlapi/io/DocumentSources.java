@@ -282,7 +282,7 @@ public class DocumentSources {
     }
 
     /**
-     * Wrap an input stream to strip BOMs.
+     * Wrap an input stream to strip the BOM.
      *
      * @param delegate delegate to wrap
      * @return wrapped input stream

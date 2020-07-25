@@ -6,7 +6,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Nullable;
+
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.Frame.FrameType;
@@ -32,8 +34,7 @@ public class XrefExpander {
     String targetBase;
 
     /**
-     * @param src src
-     * @throws InvalidXrefMapException InvalidXrefMapException
+     * @param src source document
      */
     @SuppressWarnings("null")
     public XrefExpander(OBODoc src) {
@@ -50,9 +51,8 @@ public class XrefExpander {
     }
 
     /**
-     * @param src src
-     * @param targetBase targetBase
-     * @throws InvalidXrefMapException InvalidXrefMapException
+     * @param src source document
+     * @param targetBase target base
      */
     public XrefExpander(OBODoc src, String targetBase) {
         sourceOBODoc = src;
@@ -61,9 +61,8 @@ public class XrefExpander {
     }
 
     /**
-     * @param src src
-     * @param tgt tgt
-     * @throws InvalidXrefMapException InvalidXrefMapException
+     * @param src source
+     * @param tgt target
      */
     public XrefExpander(OBODoc src, OBODoc tgt) {
         sourceOBODoc = src;
@@ -77,7 +76,7 @@ public class XrefExpander {
     }
 
     /**
-     * @throws InvalidXrefMapException InvalidXrefMapException
+     * Setup expander.
      */
     public final void setUp() {
         // required for translation of IDs
@@ -145,7 +144,7 @@ public class XrefExpander {
     }
 
     /**
-     * @param idSpace idSpace
+     * @param idSpace id space
      * @return target doc
      */
     public OBODoc getTargetDoc(String idSpace) {
@@ -164,7 +163,7 @@ public class XrefExpander {
     }
 
     /**
-     * Expand xrefs.
+     * Expand xref list.
      */
     public void expandXrefs() {
         for (Frame f : sourceOBODoc.getTermFrames()) {
@@ -195,7 +194,7 @@ public class XrefExpander {
         protected String idSpace;
 
         /**
-         * @param sf sf
+         * @param sf source frame
          * @param id id
          * @param xRef xref
          */
@@ -251,8 +250,8 @@ public class XrefExpander {
         protected final String tgt;
 
         /**
-         * @param rel rel
-         * @param tgt tgt
+         * @param rel rellation
+         * @param tgt target
          */
         public GenusDifferentiaExpansion(String rel, String tgt) {
             this.rel = rel;
@@ -279,8 +278,8 @@ public class XrefExpander {
         protected final String tgt;
 
         /**
-         * @param rel rel
-         * @param tgt tgt
+         * @param rel relation
+         * @param tgt target
          */
         public ReverseGenusDifferentiaExpansion(String rel, String tgt) {
             this.rel = rel;
@@ -318,7 +317,7 @@ public class XrefExpander {
         protected final String rel;
 
         /**
-         * @param rel rel
+         * @param rel relation
          */
         public RelationshipExpansion(String rel) {
             this.rel = rel;

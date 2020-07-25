@@ -25,9 +25,9 @@ public interface MIMETypeAware {
     String getDefaultMIMEType();
 
     /**
-     * Returns a sorted list of MIMETypes for the OWLDocumentFormat that this class is a factory
+     * Returns a sorted list of MIME types for the OWLDocumentFormat that this class is a factory
      * for. If this list is not empty, the first element in the returned list must be the default
-     * MIMEType.
+     * MIME type.
      *
      * @return A list of strings containing the known MIME types for this format.
      */
@@ -40,8 +40,8 @@ public interface MIMETypeAware {
     }
 
     /**
-     * Determines whether either getDefaultMIMEType() equals the given mimeType or getMIMETypes()
-     * contains the given mimeType.
+     * Determines whether either {@link #getDefaultMIMEType()} equals the given mime type or
+     * {@link #getMIMETypes()} contains the given mime type.
      *
      * @param mimeType The MIME type to match against.
      * @return True if the given MIME type matches this format.

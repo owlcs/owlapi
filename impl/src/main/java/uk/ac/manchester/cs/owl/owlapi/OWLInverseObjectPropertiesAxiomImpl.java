@@ -39,8 +39,8 @@ public class OWLInverseObjectPropertiesAxiomImpl
     private final OWLObjectPropertyExpression second;
 
     /**
-     * @param first first property
-     * @param second second peoperty
+     * @param first       first property
+     * @param second      second property
      * @param annotations annotations
      */
     public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first,

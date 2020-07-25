@@ -444,7 +444,7 @@ enum PARSER_OWLXMLVocabulary implements HasIRI {
     }
 
     /**
-     * @param handler owlxml handler
+     * @param handler OWL/XML handler
      * @return element handler
      */
     OWLEH<?, ?> createHandler(OWLXMLPH handler) {
@@ -454,12 +454,14 @@ enum PARSER_OWLXMLVocabulary implements HasIRI {
     }
 }
 
+
 interface ObjectPropertyEH {
 
     <T> T getOWLObject();
 
     <T> T getOWLObject(Class<T> witness);
 }
+
 
 @SuppressWarnings({"unused"})
 abstract class OWLEH<O, B extends Builder<O>> {
@@ -645,6 +647,7 @@ abstract class OWLEH<O, B extends Builder<O>> {
     }
 }
 
+
 class ClassEH<X extends OWLClassExpression, B extends Builder<X>> extends OWLEH<X, B> {
 
     public ClassEH(Function<OWLDataFactory, B> b) {
@@ -652,6 +655,7 @@ class ClassEH<X extends OWLClassExpression, B extends Builder<X>> extends OWLEH<
         child = HandleChild.AbstractClassExpressionEH;
     }
 }
+
 
 class DataCardEH<X extends OWLClassExpression, B extends Builder<X> & SettableCardinality<?> & SettableProperty<OWLDataPropertyExpression, ?> & SettableRange<OWLDataRange, ?>>
     extends DataREH<X, B> {
@@ -668,6 +672,7 @@ class DataCardEH<X extends OWLClassExpression, B extends Builder<X> & SettableCa
     }
 }
 
+
 class AxiomEH<X extends OWLAxiom, B extends Builder<X>> extends OWLEH<X, B> {
 
     AxiomEH(Function<OWLDataFactory, B> b) {
@@ -676,6 +681,7 @@ class AxiomEH<X extends OWLAxiom, B extends Builder<X>> extends OWLEH<X, B> {
     }
 }
 
+
 abstract class DataRangeEH<X extends OWLDataRange, B extends Builder<X>> extends OWLEH<X, B> {
 
     public DataRangeEH(Function<OWLDataFactory, B> b) {
@@ -683,6 +689,7 @@ abstract class DataRangeEH<X extends OWLDataRange, B extends Builder<X>> extends
         child = HandleChild.AbstractOWLDataRangeHandler;
     }
 }
+
 
 class ObjectCardEH<X extends OWLClassExpression, B extends Builder<X> & SettableCardinality<?> & SettableProperty<OWLObjectPropertyExpression, ?> & SettableRange<OWLClassExpression, ?>>
     extends ObjectREH<X, B> {
@@ -699,6 +706,7 @@ class ObjectCardEH<X extends OWLClassExpression, B extends Builder<X> & Settable
     }
 }
 
+
 class ObjectPEH extends OWLEH<OWLObjectProperty, BuilderObjectProperty>
     implements ObjectPropertyEH {
 
@@ -707,6 +715,7 @@ class ObjectPEH extends OWLEH<OWLObjectProperty, BuilderObjectProperty>
         child = HandleChild.ObjectPropertyEH;
     }
 }
+
 
 class DataREH<X extends OWLClassExpression, B extends Builder<X> & SettableProperty<OWLDataPropertyExpression, ?> & SettableRange<OWLDataRange, ?>>
     extends ClassEH<X, B> {
@@ -727,6 +736,7 @@ class DataREH<X extends OWLClassExpression, B extends Builder<X> & SettablePrope
     }
 }
 
+
 class ObjectREH<X extends OWLClassExpression, B extends Builder<X> & SettableProperty<OWLObjectPropertyExpression, ?> & SettableRange<OWLClassExpression, ?>>
     extends ClassEH<X, B> {
 
@@ -745,6 +755,7 @@ class ObjectREH<X extends OWLClassExpression, B extends Builder<X> & SettablePro
         builder.withRange(h.getOWLObject());
     }
 }
+
 
 class IRIEH extends OWLEH<IRI, Builder<IRI>> {
 
@@ -775,6 +786,7 @@ class IRIEH extends OWLEH<IRI, Builder<IRI>> {
     }
 }
 
+
 class UnionOfEH extends OWLEH<OWLClassExpression, Builder<OWLClassExpression>> {
 
     @Override
@@ -793,6 +805,7 @@ class UnionOfEH extends OWLEH<OWLClassExpression, Builder<OWLClassExpression>> {
         throw new OWLRuntimeException("getOWLObject should not be called on OWLUnionOfEH");
     }
 }
+
 
 class LegacyEntityAnnEH extends AxiomEH<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> {
 
@@ -832,6 +845,7 @@ class LegacyEntityAnnEH extends AxiomEH<OWLAnnotationAssertionAxiom, BuilderAnno
     }
 }
 
+
 class AnnotationAxiomEH extends AxiomEH<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> {
 
     AnnotationAxiomEH() {
@@ -861,6 +875,7 @@ class AnnotationAxiomEH extends AxiomEH<OWLAnnotationAssertionAxiom, BuilderAnno
         builder.withValue(h.getOWLObject());
     }
 }
+
 
 class AnnEH extends OWLEH<OWLAnnotation, BuilderAnnotation> {
 
@@ -894,6 +909,7 @@ class AnnEH extends OWLEH<OWLAnnotation, BuilderAnnotation> {
     }
 }
 
+
 class AnnDomainEH
     extends AxiomEH<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
 
@@ -906,6 +922,7 @@ class AnnDomainEH
         builder.withDomain(h.getOWLObject());
     }
 }
+
 
 class AnnotationPropEH extends OWLEH<OWLAnnotationProperty, BuilderAnnotationProperty> {
 
@@ -920,6 +937,7 @@ class AnnotationPropEH extends OWLEH<OWLAnnotationProperty, BuilderAnnotationPro
     }
 }
 
+
 class AnnotationRangeEH
     extends AxiomEH<OWLAnnotationPropertyRangeAxiom, BuilderAnnotationPropertyRange> {
 
@@ -932,6 +950,7 @@ class AnnotationRangeEH
         builder.withRange(h.getOWLObject());
     }
 }
+
 
 class AnonEH extends OWLEH<OWLAnonymousIndividual, BuilderAnonymousIndividual> {
 
@@ -953,6 +972,7 @@ class AnonEH extends OWLEH<OWLAnonymousIndividual, BuilderAnonymousIndividual> {
         }
     }
 }
+
 
 class ClassAssertAxiomEH extends AxiomEH<OWLClassAssertionAxiom, BuilderClassAssertion> {
 
@@ -976,6 +996,7 @@ class ClassAssertAxiomEH extends AxiomEH<OWLClassAssertionAxiom, BuilderClassAss
     }
 }
 
+
 class OWLClassEH extends ClassEH<OWLClass, BuilderClass> {
 
     public OWLClassEH() {
@@ -987,6 +1008,7 @@ class OWLClassEH extends ClassEH<OWLClass, BuilderClass> {
         builder.withIRI(getIRIFromAttribute(localName, value));
     }
 }
+
 
 class DataComplEH extends DataRangeEH<OWLDataComplementOf, BuilderDataComplementOf> {
 
@@ -1000,6 +1022,7 @@ class DataComplEH extends DataRangeEH<OWLDataComplementOf, BuilderDataComplement
     }
 }
 
+
 class DataHasValueEH extends ClassEH<OWLDataHasValue, BuilderDataHasValue> {
 
     public DataHasValueEH() {
@@ -1011,6 +1034,7 @@ class DataHasValueEH extends ClassEH<OWLDataHasValue, BuilderDataHasValue> {
         builder.withLiteral(h.getOWLObject());
     }
 }
+
 
 class DataIntersectionOfEH extends DataRangeEH<OWLDataIntersectionOf, BuilderDataIntersectionOf> {
 
@@ -1024,6 +1048,7 @@ class DataIntersectionOfEH extends DataRangeEH<OWLDataIntersectionOf, BuilderDat
     }
 }
 
+
 class DataOneOfEH extends DataRangeEH<OWLDataOneOf, BuilderDataOneOf> {
 
     public DataOneOfEH() {
@@ -1035,6 +1060,7 @@ class DataOneOfEH extends DataRangeEH<OWLDataOneOf, BuilderDataOneOf> {
         builder.withItem(h.getOWLObject());
     }
 }
+
 
 class DataPropertyAxiomEH
     extends AxiomEH<OWLDataPropertyAssertionAxiom, BuilderDataPropertyAssertion> {
@@ -1059,6 +1085,7 @@ class DataPropertyAxiomEH
     }
 }
 
+
 class DataPropertyDomainEH extends AxiomEH<OWLDataPropertyDomainAxiom, BuilderDataPropertyDomain> {
 
     DataPropertyDomainEH() {
@@ -1070,6 +1097,7 @@ class DataPropertyDomainEH extends AxiomEH<OWLDataPropertyDomainAxiom, BuilderDa
         builder.withDomain(h.getOWLObject());
     }
 }
+
 
 class DataPropertyEH extends OWLEH<OWLDataProperty, BuilderDataProperty> {
 
@@ -1084,6 +1112,7 @@ class DataPropertyEH extends OWLEH<OWLDataProperty, BuilderDataProperty> {
     }
 }
 
+
 class DataPropertyRangeEH extends AxiomEH<OWLDataPropertyRangeAxiom, BuilderDataPropertyRange> {
 
     DataPropertyRangeEH() {
@@ -1095,6 +1124,7 @@ class DataPropertyRangeEH extends AxiomEH<OWLDataPropertyRangeAxiom, BuilderData
         builder.withRange(h.getOWLObject(OWLDataRange.class));
     }
 }
+
 
 class DataRestrictionEH extends DataRangeEH<OWLDatatypeRestriction, BuilderDatatypeRestriction> {
 
@@ -1135,6 +1165,7 @@ class DataRestrictionEH extends DataRangeEH<OWLDatatypeRestriction, BuilderDatat
     }
 }
 
+
 class DataUnionOfEH extends DataRangeEH<OWLDataUnionOf, BuilderDataUnionOf> {
 
     public DataUnionOfEH() {
@@ -1146,6 +1177,7 @@ class DataUnionOfEH extends DataRangeEH<OWLDataUnionOf, BuilderDataUnionOf> {
         builder.withItem(h.getOWLObject());
     }
 }
+
 
 class DatatypeDefinitionEH extends AxiomEH<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
 
@@ -1164,6 +1196,7 @@ class DatatypeDefinitionEH extends AxiomEH<OWLDatatypeDefinitionAxiom, BuilderDa
     }
 }
 
+
 class DatatypeEH extends DataRangeEH<OWLDatatype, BuilderDatatype> {
 
     public DatatypeEH() {
@@ -1175,6 +1208,7 @@ class DatatypeEH extends DataRangeEH<OWLDatatype, BuilderDatatype> {
         builder.withIRI(getIRIFromAttribute(localName, value));
     }
 }
+
 
 class DatatypeFacetEH extends OWLEH<OWLFacetRestriction, BuilderFacetRestriction> {
 
@@ -1196,6 +1230,7 @@ class DatatypeFacetEH extends OWLEH<OWLFacetRestriction, BuilderFacetRestriction
     }
 }
 
+
 class DatatypeRestrictionEH
     extends DataRangeEH<OWLDatatypeRestriction, BuilderDatatypeRestriction> {
 
@@ -1216,6 +1251,7 @@ class DatatypeRestrictionEH
         builder.withItem(h.getOWLObject());
     }
 }
+
 
 class DeclarationEH extends AxiomEH<OWLDeclarationAxiom, BuilderDeclaration> {
 
@@ -1254,6 +1290,7 @@ class DeclarationEH extends AxiomEH<OWLDeclarationAxiom, BuilderDeclaration> {
     }
 }
 
+
 class DifferentIndividualsEH
     extends AxiomEH<OWLDifferentIndividualsAxiom, BuilderDifferentIndividuals> {
 
@@ -1272,6 +1309,7 @@ class DifferentIndividualsEH
     }
 }
 
+
 class DisjointClassesEH extends AxiomEH<OWLDisjointClassesAxiom, BuilderDisjointClasses> {
 
     DisjointClassesEH() {
@@ -1283,6 +1321,7 @@ class DisjointClassesEH extends AxiomEH<OWLDisjointClassesAxiom, BuilderDisjoint
         builder.withItem(h.getOWLObject());
     }
 }
+
 
 class DisjointDataPropertiesEH
     extends AxiomEH<OWLDisjointDataPropertiesAxiom, BuilderDisjointDataProperties> {
@@ -1297,6 +1336,7 @@ class DisjointDataPropertiesEH
     }
 }
 
+
 class DisjointObjectPropertiesEH
     extends AxiomEH<OWLDisjointObjectPropertiesAxiom, BuilderDisjointObjectProperties> {
 
@@ -1309,6 +1349,7 @@ class DisjointObjectPropertiesEH
         builder.withItem(h.getOWLObject());
     }
 }
+
 
 class DisjointUnionEH extends AxiomEH<OWLDisjointUnionAxiom, BuilderDisjointUnion> {
 
@@ -1326,6 +1367,7 @@ class DisjointUnionEH extends AxiomEH<OWLDisjointUnionAxiom, BuilderDisjointUnio
     }
 }
 
+
 class EquivalentClassesEH extends AxiomEH<OWLEquivalentClassesAxiom, BuilderEquivalentClasses> {
 
     EquivalentClassesEH() {
@@ -1337,6 +1379,7 @@ class EquivalentClassesEH extends AxiomEH<OWLEquivalentClassesAxiom, BuilderEqui
         builder.withItem(h.getOWLObject());
     }
 }
+
 
 class EqDataPropertiesEH
     extends AxiomEH<OWLEquivalentDataPropertiesAxiom, BuilderEquivalentDataProperties> {
@@ -1351,6 +1394,7 @@ class EqDataPropertiesEH
     }
 }
 
+
 class EqObjectPropertiesEH
     extends AxiomEH<OWLEquivalentObjectPropertiesAxiom, BuilderEquivalentObjectProperties> {
 
@@ -1363,6 +1407,7 @@ class EqObjectPropertiesEH
         builder.withItem(h.getOWLObject());
     }
 }
+
 
 class HasKeyEH extends AxiomEH<OWLHasKeyAxiom, BuilderHasKey> {
 
@@ -1386,6 +1431,7 @@ class HasKeyEH extends AxiomEH<OWLHasKeyAxiom, BuilderHasKey> {
     }
 }
 
+
 class IndividualEH extends OWLEH<OWLNamedIndividual, BuilderNamedIndividual> {
 
     public IndividualEH() {
@@ -1398,6 +1444,7 @@ class IndividualEH extends OWLEH<OWLNamedIndividual, BuilderNamedIndividual> {
         builder.withIRI(getIRIFromAttribute(localName, value));
     }
 }
+
 
 class InverseObjectAxiomEH
     extends AxiomEH<OWLInverseObjectPropertiesAxiom, BuilderInverseObjectProperties> {
@@ -1416,6 +1463,7 @@ class InverseObjectAxiomEH
     }
 }
 
+
 class InverseObjectEH extends OWLEH<OWLObjectInverseOf, BuilderObjectInverseOf>
     implements ObjectPropertyEH {
 
@@ -1424,6 +1472,7 @@ class InverseObjectEH extends OWLEH<OWLObjectInverseOf, BuilderObjectInverseOf>
         child = HandleChild.ObjectPropertyEH;
     }
 }
+
 
 class LiteralEH extends OWLEH<OWLLiteral, BuilderLiteral> {
 
@@ -1461,6 +1510,7 @@ class LiteralEH extends OWLEH<OWLLiteral, BuilderLiteral> {
     }
 }
 
+
 class NegDataPropertyAxiomEH
     extends AxiomEH<OWLNegativeDataPropertyAssertionAxiom, BuilderNegativeDataPropertyAssertion> {
 
@@ -1483,6 +1533,7 @@ class NegDataPropertyAxiomEH
         builder.withValue(h.getOWLObject());
     }
 }
+
 
 class NegObjectPropertyAxiomEH extends
     AxiomEH<OWLNegativeObjectPropertyAssertionAxiom, BuilderNegativeObjectPropertyAssertion> {
@@ -1510,6 +1561,7 @@ class NegObjectPropertyAxiomEH extends
     }
 }
 
+
 class ComplementOfEH extends ClassEH<OWLObjectComplementOf, BuilderComplementOf> {
 
     public ComplementOfEH() {
@@ -1521,6 +1573,7 @@ class ComplementOfEH extends ClassEH<OWLObjectComplementOf, BuilderComplementOf>
         builder.withClass(h.getOWLObject());
     }
 }
+
 
 class HasValueEH extends ClassEH<OWLObjectHasValue, BuilderObjectHasValue> {
 
@@ -1539,6 +1592,7 @@ class HasValueEH extends ClassEH<OWLObjectHasValue, BuilderObjectHasValue> {
     }
 }
 
+
 class IntersectionOfEH extends ClassEH<OWLObjectIntersectionOf, BuilderObjectIntersectionOf> {
 
     public IntersectionOfEH() {
@@ -1551,6 +1605,7 @@ class IntersectionOfEH extends ClassEH<OWLObjectIntersectionOf, BuilderObjectInt
     }
 }
 
+
 class OneOfEH extends ClassEH<OWLObjectOneOf, BuilderOneOf> {
 
     public OneOfEH() {
@@ -1562,6 +1617,7 @@ class OneOfEH extends ClassEH<OWLObjectOneOf, BuilderOneOf> {
         builder.withItem(h.getOWLObject());
     }
 }
+
 
 class ObjectPropertyAxiomEH
     extends AxiomEH<OWLObjectPropertyAssertionAxiom, BuilderObjectPropertyAssertion> {
@@ -1589,6 +1645,7 @@ class ObjectPropertyAxiomEH
     }
 }
 
+
 class ObjectPropertyDomainEH
     extends AxiomEH<OWLObjectPropertyDomainAxiom, BuilderObjectPropertyDomain> {
 
@@ -1602,6 +1659,7 @@ class ObjectPropertyDomainEH
     }
 }
 
+
 class OWLObjectPropertyEH extends ObjectPEH {
 
     @Override
@@ -1609,6 +1667,7 @@ class OWLObjectPropertyEH extends ObjectPEH {
         builder.withIRI(getIRIFromAttribute(localName, value));
     }
 }
+
 
 class ObjectPropertyRangeEH
     extends AxiomEH<OWLObjectPropertyRangeAxiom, BuilderObjectPropertyRange> {
@@ -1623,6 +1682,7 @@ class ObjectPropertyRangeEH
     }
 }
 
+
 class ObjectUnionOfEH extends ClassEH<OWLObjectUnionOf, BuilderUnionOf> {
 
     public ObjectUnionOfEH() {
@@ -1634,6 +1694,7 @@ class ObjectUnionOfEH extends ClassEH<OWLObjectUnionOf, BuilderUnionOf> {
         builder.withItem(h.getOWLObject());
     }
 }
+
 
 class SameIndividualsEH extends AxiomEH<OWLSameIndividualAxiom, BuilderSameIndividual> {
 
@@ -1651,6 +1712,7 @@ class SameIndividualsEH extends AxiomEH<OWLSameIndividualAxiom, BuilderSameIndiv
         builder.withItem(h.getOWLObject());
     }
 }
+
 
 class SubAnnPropertyOfEH
     extends AxiomEH<OWLSubAnnotationPropertyOfAxiom, BuilderSubAnnotationPropertyOf> {
@@ -1671,6 +1733,7 @@ class SubAnnPropertyOfEH
     }
 }
 
+
 class SubClassEH extends AxiomEH<OWLSubClassOfAxiom, BuilderSubClass> {
 
     SubClassEH() {
@@ -1687,6 +1750,7 @@ class SubClassEH extends AxiomEH<OWLSubClassOfAxiom, BuilderSubClass> {
     }
 }
 
+
 class SubDataPropertyOfEH extends AxiomEH<OWLSubDataPropertyOfAxiom, BuilderSubDataProperty> {
 
     SubDataPropertyOfEH() {
@@ -1702,6 +1766,7 @@ class SubDataPropertyOfEH extends AxiomEH<OWLSubDataPropertyOfAxiom, BuilderSubD
         }
     }
 }
+
 
 class ChainEH
     extends OWLEH<List<OWLObjectPropertyExpression>, Builder<List<OWLObjectPropertyExpression>>> {
@@ -1723,6 +1788,7 @@ class ChainEH
         propertyList.add(h.getOWLObject());
     }
 }
+
 
 class SubObjectPropertyOfEH extends AxiomEH<OWLSubObjectPropertyOfAxiom, BuilderSubObjectProperty> {
 
@@ -1773,6 +1839,7 @@ class SubObjectPropertyOfEH extends AxiomEH<OWLSubObjectPropertyOfAxiom, Builder
     }
 }
 
+
 abstract class AtomEH<X extends SWRLAtom, B extends Builder<X>> extends OWLEH<X, B> {
 
     public AtomEH() {
@@ -1787,6 +1854,7 @@ abstract class AtomEH<X extends SWRLAtom, B extends Builder<X>> extends OWLEH<X,
         return df.getSWRLIndividualArgument(i);
     }
 }
+
 
 class AtomListEH extends OWLEH<List<SWRLAtom>, Builder<List<SWRLAtom>>> {
 
@@ -1807,6 +1875,7 @@ class AtomListEH extends OWLEH<List<SWRLAtom>, Builder<List<SWRLAtom>>> {
         return atoms;
     }
 }
+
 
 class BuiltInAtomEH extends AtomEH<SWRLBuiltInAtom, BuilderSWRLBuiltInAtom> {
 
@@ -1830,6 +1899,7 @@ class BuiltInAtomEH extends AtomEH<SWRLBuiltInAtom, BuilderSWRLBuiltInAtom> {
     }
 }
 
+
 class ClassAtomEH extends AtomEH<SWRLClassAtom, BuilderSWRLClassAtom> {
 
     public ClassAtomEH() {
@@ -1851,6 +1921,7 @@ class ClassAtomEH extends AtomEH<SWRLClassAtom, BuilderSWRLClassAtom> {
         builder.with(swrlInd(h.getOWLObject()));
     }
 }
+
 
 class DataPropertyAtomEH extends AtomEH<SWRLDataPropertyAtom, BuilderSWRLDataPropertyAtom> {
 
@@ -1888,6 +1959,7 @@ class DataPropertyAtomEH extends AtomEH<SWRLDataPropertyAtom, BuilderSWRLDataPro
     }
 }
 
+
 class DataRangeAtomEH extends AtomEH<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
 
     public DataRangeAtomEH() {
@@ -1909,6 +1981,7 @@ class DataRangeAtomEH extends AtomEH<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom
         builder.with(swrlLit(h.getOWLObject()));
     }
 }
+
 
 class IndividualsAtomEH<X extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument>, B extends BuilderSWRLIndividualsAtom<X, B>>
     extends AtomEH<X, B> {
@@ -1936,6 +2009,7 @@ class IndividualsAtomEH<X extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument>, 
     }
 }
 
+
 class ObjectPropertyAtomEH
     extends IndividualsAtomEH<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
 
@@ -1948,6 +2022,7 @@ class ObjectPropertyAtomEH
         builder.withProperty(h.getOWLObject());
     }
 }
+
 
 class SWRLRuleEH extends AxiomEH<SWRLRule, BuilderSWRLRule> {
 
@@ -1965,6 +2040,7 @@ class SWRLRuleEH extends AxiomEH<SWRLRule, BuilderSWRLRule> {
     }
 }
 
+
 class VariableEH extends OWLEH<SWRLVariable, BuilderSWRLVariable> {
 
     public VariableEH() {
@@ -1981,6 +2057,7 @@ class VariableEH extends OWLEH<SWRLVariable, BuilderSWRLVariable> {
         }
     }
 }
+
 
 class OntologyEH extends OWLEH<OWLOntology, Builder<OWLOntology>> {
 
@@ -2034,6 +2111,7 @@ class OntologyEH extends OWLEH<OWLOntology, Builder<OWLOntology>> {
         // nothing to do here
     }
 }
+
 
 class ImportsEH extends OWLEH<OWLOntology, Builder<OWLOntology>> {
 

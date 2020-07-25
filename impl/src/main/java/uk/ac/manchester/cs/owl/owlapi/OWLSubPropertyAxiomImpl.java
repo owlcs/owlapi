@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
@@ -24,17 +25,16 @@ import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> extends
-    OWLPropertyAxiomImpl implements
-    OWLSubPropertyAxiom<P> {
+public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
+    extends OWLPropertyAxiomImpl implements OWLSubPropertyAxiom<P> {
 
     private final P subProperty;
     private final P superProperty;
 
     /**
-     * @param subProperty subProperty
-     * @param superProperty superProperty
-     * @param annotations annotations
+     * @param subProperty   sub property
+     * @param superProperty super property
+     * @param annotations   annotations
      */
     public OWLSubPropertyAxiomImpl(P subProperty, P superProperty,
         Collection<OWLAnnotation> annotations) {

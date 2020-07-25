@@ -1,6 +1,7 @@
 package uk.ac.manchester.cs.factplusplusad;
 
 import java.util.Collection;
+
 import org.semanticweb.owlapi.atomicdecomposition.ModuleMethod;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -18,8 +19,6 @@ class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
     boolean isLocal = true;
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     LocalityChecker(Signature s) {

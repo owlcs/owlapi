@@ -451,7 +451,7 @@ public class TripleHandlers {
          * map. Other triples which reside in the triples by predicate (single valued) triple aren't
          * "root" triples for axioms. First we translate all system triples and then go for triples
          * whose predicates are not system/reserved vocabulary IRIs to translate these into ABox
-         * assertions or annotationIRIs
+         * assertions or annotation IRIs
          *
          * @return any remaining triples
          */
@@ -2412,10 +2412,10 @@ public class TripleHandlers {
          * Gets the object of the target triple that has the specified main node
          *
          * @param mainNode The main node
-         * @return The object of the triple that has the specified mainNode as its s and the IRI
+         * @return The object of the triple that has the specified main node as its s and the IRI
          *         returned by the {@code TypeAxiomHandler#getSourceTriplePredicate()} method. For
-         *         backwards compatibility, a search will also be performed for triples whos s is
-         *         the specified mainNode and p rdf:object
+         *         backwards compatibility, a search will also be performed for triples whose s is
+         *         the specified main node and p rdf:object
          */
         @Nullable
         private IRI getObjectOfTargetTriple(IRI mainNode) {
@@ -2830,7 +2830,7 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI s, IRI p, IRI o) {
-            // TODO: Change to rdfs:Class? (See table 5 in the spec)
+            // TODO: Change to rdfs:Class? (See table 5 in the specifications)
             addCe(s, false);
             consume(s, p, o);
             if (!isStrict()) {

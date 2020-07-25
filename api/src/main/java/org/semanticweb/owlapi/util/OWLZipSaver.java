@@ -46,7 +46,7 @@ public class OWLZipSaver {
     }
 
     /**
-     * @param index function to use to generate the index content. The default straegy is to create
+     * @param index function to use to generate the index content. The default strategy is to create
      *        a YAML file. The methods on this class can be passed here to switch to different
      *        strategies, or a user defined strategy can be used.
      */
@@ -155,11 +155,11 @@ public class OWLZipSaver {
     }
 
     /**
-     * Prepare a catalog index; this method can be used as a BiFunction for setIndex. Imports
-     * statements are not navigated; all ontologies required have to appear explicitly in the
-     * collections.
+     * Prepare a catalog index; this method can be used as a {@link java.util.function.BiFunction}
+     * for {@link #setIndex(BiFunction)}. Imports statements are not navigated; all ontologies
+     * required have to appear explicitly in the collections.
      * 
-     * @param roots collection fo roots, if any
+     * @param roots collection of roots, if any
      * @param ontologies collection of ontologies, if any
      * @return content of a catalog index for the input ontologies
      */
@@ -186,11 +186,11 @@ public class OWLZipSaver {
     }
 
     /**
-     * Prepare a yaml index; this method can be used as a BiFunction for setIndex. Imports
-     * statements are not navigated; all ontologies required have to appear explicitly in the
-     * collections.
+     * Prepare a yaml index; this method can be used as a {@link java.util.function.BiFunction} for
+     * {@link #setIndex(BiFunction)}. Imports statements are not navigated; all ontologies required
+     * have to appear explicitly in the collections.
      * 
-     * @param roots collection fo roots, if any
+     * @param roots collection of roots, if any
      * @param ontologies collection of ontologies, if any
      * @return content of a yaml index for the input ontologies
      */
@@ -209,11 +209,11 @@ public class OWLZipSaver {
     }
 
     /**
-     * Prepare a properties index; this method can be used as a BiFunction for setIndex. Imports
-     * statements are not navigated; all ontologies required have to appear explicitly in the
-     * collections.
+     * Prepare a properties index; this method can be used as a
+     * {@link java.util.function.BiFunction} for {@link #setIndex(BiFunction)}. Imports statements
+     * are not navigated; all ontologies required have to appear explicitly in the collections.
      * 
-     * @param roots collection fo roots, if any
+     * @param roots collection of roots, if any
      * @param ontologies collection of ontologies, if any
      * @return content of a properties index for the input ontologies
      */
@@ -232,7 +232,7 @@ public class OWLZipSaver {
 
     /**
      * Prepare a zip name for an ontology id; this method can be used as a Function for
-     * setEntryPath.
+     * {@code setEntryPath}.
      * 
      * @param id ontology id
      * @return zip entry name for the ontology

@@ -67,7 +67,7 @@ public final class Searcher {
      * Retrieve literals from a collection of assertions.
      *
      * @param axioms axioms
-     * @param p optional property to match. Null means all.
+     * @param p      optional property to match. Null means all.
      * @return literals
      */
     public static Stream<OWLLiteral> values(Stream<OWLDataPropertyAssertionAxiom> axioms,
@@ -79,7 +79,7 @@ public final class Searcher {
      * Retrieve objects from a collection of assertions.
      *
      * @param axioms axioms
-     * @param p optional property to match. Null means all.
+     * @param p      optional property to match. Null means all.
      * @return objects
      */
     public static Stream<OWLIndividual> values(Stream<OWLObjectPropertyAssertionAxiom> axioms,
@@ -91,7 +91,7 @@ public final class Searcher {
      * Retrieve literals from a collection of negative assertions.
      *
      * @param axioms axioms
-     * @param p optional property to match. Null means all.
+     * @param p      optional property to match. Null means all.
      * @return literals
      */
     public static Stream<OWLLiteral> negValues(Stream<OWLNegativeDataPropertyAssertionAxiom> axioms,
@@ -103,7 +103,7 @@ public final class Searcher {
      * Retrieve objects from a collection of negative assertions.
      *
      * @param axioms axioms
-     * @param p optional property to match. Null means all.
+     * @param p      optional property to match. Null means all.
      * @return objects
      */
     public static Stream<OWLIndividual> negValues(
@@ -136,7 +136,7 @@ public final class Searcher {
      * Retrieve inverses from a collection of inverse axioms.
      *
      * @param axioms axioms to check
-     * @param p property to match; not returned in the set
+     * @param p      property to match; not returned in the set
      * @return inverses of p
      */
     public static Stream<OWLObjectPropertyExpression> inverse(
@@ -167,7 +167,7 @@ public final class Searcher {
      * Retrieve annotation values from annotations.
      *
      * @param annotations annotations
-     * @param p optional annotation property to filter. Null means all.
+     * @param p           optional annotation property to filter. Null means all.
      * @return annotation values
      */
     public static Stream<OWLAnnotationValue> values(Stream<OWLAnnotation> annotations,
@@ -190,7 +190,7 @@ public final class Searcher {
      * Retrieve annotations from a collection of annotation assertion axioms.
      *
      * @param axioms axioms
-     * @param p optional annotation property to filter. Null means all.
+     * @param p      optional annotation property to filter. Null means all.
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotationObjects(
@@ -202,7 +202,7 @@ public final class Searcher {
      * Retrieve the annotation from an annotation assertion axiom.
      *
      * @param axiom axiom
-     * @param p optional annotation property to filter. Null means all.
+     * @param p     optional annotation property to filter. Null means all.
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotationObject(OWLAnnotationAssertionAxiom axiom,
@@ -230,7 +230,7 @@ public final class Searcher {
      * retrieved; for annotation assertion axioms, their asserted annotation is retrieved as well.
      *
      * @param axioms axioms
-     * @param p optional annotation property to filter. Null means all.
+     * @param p      optional annotation property to filter. Null means all.
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotations(Stream<? extends OWLAxiom> axioms,
@@ -243,7 +243,7 @@ public final class Searcher {
      * annotation assertion axioms, their asserted annotation is retrieved as well.
      *
      * @param axiom axiom
-     * @param p optional annotation property to filter. Null means all.
+     * @param p     optional annotation property to filter. Null means all.
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotations(OWLAxiom axiom,
@@ -264,7 +264,7 @@ public final class Searcher {
      * of axiom types can be passed in, as long as the entity type they contain is compatible with
      * the return type for the collection.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
      * @return equivalent entities
      */
@@ -278,9 +278,9 @@ public final class Searcher {
      * of axiom types can be passed in, as long as the entity type they contain is compatible with
      * the return type for the collection.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
-     * @param type type contained in the returned collection
+     * @param type   type contained in the returned collection
      * @return equivalent entities
      */
     public static <C extends OWLObject> Stream<C> equivalent(Stream<? extends OWLAxiom> axioms,
@@ -292,7 +292,7 @@ public final class Searcher {
      * Retrieve equivalent entities from an axiom, including individuals from sameAs axioms.
      *
      * @param axiom axiom
-     * @param <C> type contained in the returned collection
+     * @param <C>   type contained in the returned collection
      * @return equivalent entities
      */
     public static <C extends OWLObject> Stream<C> equivalent(OWLAxiom axiom) {
@@ -303,8 +303,8 @@ public final class Searcher {
      * Retrieve equivalent entities from an axiom, including individuals from sameAs axioms.
      *
      * @param axiom axiom
-     * @param type type returned
-     * @param <C> type contained in the returned collection
+     * @param type  type returned
+     * @param <C>   type contained in the returned collection
      * @return equivalent entities
      */
     public static <C extends OWLObject> Stream<C> equivalent(OWLAxiom axiom,
@@ -317,7 +317,7 @@ public final class Searcher {
      * mixture of axiom types can be passed in, as long as the entity type they contain is
      * compatible with the return type for the collection.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
      * @return disjoint entities
      */
@@ -331,9 +331,9 @@ public final class Searcher {
      * mixture of axiom types can be passed in, as long as the entity type they contain is
      * compatible with the return type for the collection.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
-     * @param type type contained in the returned collection
+     * @param type   type contained in the returned collection
      * @return disjoint entities
      */
     public static <C extends OWLObject> Stream<C> different(Stream<? extends OWLAxiom> axioms,
@@ -344,7 +344,7 @@ public final class Searcher {
     /**
      * Retrieve disjoint entities from an axiom, including individuals from differentFrom axioms.
      *
-     * @param <C> returned type
+     * @param <C>   returned type
      * @param axiom axiom
      * @return disjoint entities
      */
@@ -355,9 +355,9 @@ public final class Searcher {
     /**
      * Retrieve disjoint entities from an axiom, including individuals from differentFrom axioms.
      *
-     * @param <C> returned type
+     * @param <C>   returned type
      * @param axiom axiom
-     * @param type witness for returned type
+     * @param type  witness for returned type
      * @return disjoint entities
      */
     public static <C extends OWLObject> Stream<C> different(OWLAxiom axiom,
@@ -370,7 +370,7 @@ public final class Searcher {
      * be passed in, as long as the entity type they contain is compatible with the return type for
      * the collection.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
      * @return sub expressions
      */
@@ -384,9 +384,9 @@ public final class Searcher {
      * be passed in, as long as the entity type they contain is compatible with the return type for
      * the collection.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
-     * @param type type contained in the returned collection
+     * @param type   type contained in the returned collection
      * @return sub expressions
      */
     public static <C extends OWLObject> Stream<C> sub(Stream<? extends OWLAxiom> axioms,
@@ -399,7 +399,7 @@ public final class Searcher {
      * can be passed in, as long as the entity type they contain is compatible with the return type
      * for the collection.
      *
-     * @param <C> returned type
+     * @param <C>   returned type
      * @param axiom axiom
      * @return sub expressions
      */
@@ -412,9 +412,9 @@ public final class Searcher {
      * can be passed in, as long as the entity type they contain is compatible with the return type
      * for the collection.
      *
-     * @param <C> returned type
+     * @param <C>   returned type
      * @param axiom axiom
-     * @param type witness for returned type
+     * @param type  witness for returned type
      * @return sub expressions
      */
     public static <C extends OWLObject> C sub(OWLAxiom axiom,
@@ -423,13 +423,13 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of axioms, i.e., superclass or superproperty. A mixture of axiom
+     * Retrieve the super part of axioms, i.e., superclass or super property. A mixture of axiom
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
-     * @param type type contained in the returned collection
+     * @param type   type contained in the returned collection
      * @return sub expressions
      */
     public static <C extends OWLObject> Stream<C> sup(Stream<? extends OWLAxiom> axioms,
@@ -438,11 +438,11 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of axioms, i.e., superclass or superproperty. A mixture of axiom
+     * Retrieve the super part of axioms, i.e., superclass or super property. A mixture of axiom
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
      * @return sub expressions
      */
@@ -452,11 +452,11 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of an axiom, i.e., superclass or superproperty. A mixture of axiom
+     * Retrieve the super part of an axiom, i.e., superclass or super property. A mixture of axiom
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
      *
-     * @param <C> returned type
+     * @param <C>   returned type
      * @param axiom axiom
      * @return sub expressions
      */
@@ -465,13 +465,13 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of an axiom, i.e., superclass or superproperty. A mixture of axiom
+     * Retrieve the super part of an axiom, i.e., superclass or super property. A mixture of axiom
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
      *
-     * @param <C> returned type
+     * @param <C>   returned type
      * @param axiom axiom
-     * @param type witness for returned type
+     * @param type  witness for returned type
      * @return sub expressions
      */
     public static <C extends OWLObject> C sup(OWLAxiom axiom,
@@ -482,7 +482,7 @@ public final class Searcher {
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
      * @return sub expressions
      */
@@ -494,9 +494,9 @@ public final class Searcher {
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
-     * @param type type contained in the returned collection
+     * @param type   type contained in the returned collection
      * @return sub expressions
      */
     public static <C extends OWLObject> Stream<C> domain(Stream<? extends OWLAxiom> axioms,
@@ -507,7 +507,7 @@ public final class Searcher {
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C> returned type
+     * @param <C>   returned type
      * @param axiom axiom
      * @return sub expressions
      */
@@ -518,9 +518,9 @@ public final class Searcher {
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C> returned type
+     * @param <C>   returned type
      * @param axiom axiom
-     * @param type witness for returned type
+     * @param type  witness for returned type
      * @return sub expressions
      */
     public static <C extends OWLObject> C domain(OWLAxiom axiom,
@@ -531,7 +531,7 @@ public final class Searcher {
     /**
      * Retrieve the ranges from range axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
      * @return sub expressions
      */
@@ -543,9 +543,9 @@ public final class Searcher {
     /**
      * Retrieve the ranges from range axioms. A mixture of axiom types can be passed in.
      *
-     * @param <C> returned type
+     * @param <C>    returned type
      * @param axioms axioms
-     * @param type type contained in the returned collection
+     * @param type   type contained in the returned collection
      * @return sub expressions
      */
     public static <C extends OWLObject> Stream<C> range(Stream<? extends OWLAxiom> axioms,
@@ -556,7 +556,7 @@ public final class Searcher {
     /**
      * Retrieve the ranges from a range axiom. A mixture of axiom types can be passed in.
      *
-     * @param <C> returned type
+     * @param <C>   returned type
      * @param axiom axiom
      * @return sub expressions
      */
@@ -567,9 +567,9 @@ public final class Searcher {
     /**
      * Retrieve the ranges from a range axiom. A mixture of axiom types can be passed in.
      *
-     * @param <C> returned type
+     * @param <C>   returned type
      * @param axiom axiom
-     * @param type witness for returned type
+     * @param type  witness for returned type
      * @return sub expressions
      */
     public static <C extends OWLObject> C range(OWLAxiom axiom,

@@ -15,12 +15,14 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.Comparator;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * A ShortFormProvider based comparator for OWLObjects. OWLEntity instances are
+ * A ShortFormProvider based comparator for {@code OWLObject} instances. OWLEntity instances are
  * sorted according to their short forms.
  *
  * @author ignazio

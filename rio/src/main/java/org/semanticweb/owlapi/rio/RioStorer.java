@@ -82,8 +82,8 @@ public class RioStorer extends AbstractOWLStorer {
 
     /**
      * @param ontologyFormat format
-     * @param rioHandler     rdf handler
-     * @param contexts       contexts
+     * @param rioHandler RDF handler
+     * @param contexts contexts
      */
     public RioStorer(OWLDocumentFormatFactory ontologyFormat, RDFHandler rioHandler,
         Resource... contexts) {
@@ -93,7 +93,7 @@ public class RioStorer extends AbstractOWLStorer {
 
     /**
      * @param ontologyFormat format
-     * @param contexts       contexts
+     * @param contexts contexts
      */
     public RioStorer(OWLDocumentFormatFactory ontologyFormat, Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
@@ -103,18 +103,18 @@ public class RioStorer extends AbstractOWLStorer {
 
     /**
      * If the {@link RDFFormat} is null, then it is acceptable to return an in memory
-     * {@link StatementCollector}. This method will only be called from storeOntology if
+     * {@link StatementCollector}. This method will only be called from {@code storeOntology} if
      * {@link #setRioHandler(RDFHandler)} is not called with a non-null argument.
      *
-     * @param format       The {@link RDFFormat} for the resulting {@link RDFHandler}, if the writer
-     *                     parameter is not null.
-     * @param outputStream The {@link OutputStream} for the resulting RDFHandler, or null to create
-     *                     an in-memory collection.
-     * @param baseIRI      base IRI
+     * @param format The {@link RDFFormat} for the resulting {@link RDFHandler}, if the writer
+     *        parameter is not null.
+     * @param outputStream The {@link java.io.OutputStream} for the resulting RDFHandler, or null to
+     *        create an in-memory collection.
+     * @param baseIRI base IRI
      * @return An implementation of the {@link RDFHandler} interface, based on the parameters given
      *         to this method.
      * @throws OWLOntologyStorageException If the format does not have an {@link RDFWriter}
-     *                                     implementation available on the classpath.
+     *         implementation available on the classpath.
      */
     protected static RDFHandler getRDFHandlerForOutputStream(@Nullable RDFFormat format,
         OutputStream outputStream, @Nullable String baseIRI) throws OWLOntologyStorageException {
@@ -157,18 +157,18 @@ public class RioStorer extends AbstractOWLStorer {
 
     /**
      * If the {@link RDFFormat} is null, then it is acceptable to return an in memory
-     * {@link StatementCollector}. This method will only be called from storeOntology if
+     * {@link StatementCollector}. This method will only be called from {@code storeOntology} if
      * {@link #setRioHandler(RDFHandler)} is not called with a non-null argument.
      *
-     * @param format  The {@link RDFFormat} for the resulting {@link RDFHandler}, if the writer
-     *                parameter is not null.
-     * @param writer  The {@link Writer} for the resulting RDFHandler, or null to create an
-     *                in-memory collection.
+     * @param format The {@link RDFFormat} for the resulting {@link RDFHandler}, if the writer
+     *        parameter is not null.
+     * @param writer The {@link Writer} for the resulting RDFHandler, or null to create an in-memory
+     *        collection.
      * @param baseIRI base IRI
      * @return An implementation of the {@link RDFHandler} interface, based on the parameters given
      *         to this method.
      * @throws OWLOntologyStorageException If the format does not have an {@link RDFWriter}
-     *                                     implementation available on the classpath.
+     *         implementation available on the classpath.
      */
     protected RDFHandler getRDFHandlerForWriter(@Nullable RDFFormat format, Writer writer,
         @Nullable String baseIRI) throws OWLOntologyStorageException {
@@ -185,7 +185,7 @@ public class RioStorer extends AbstractOWLStorer {
     }
 
     /**
-     * @return the rioHandler
+     * @return the RDF handler
      */
     @Nullable
     public RDFHandler getRioHandler() {
@@ -193,7 +193,7 @@ public class RioStorer extends AbstractOWLStorer {
     }
 
     /**
-     * @param rioHandler the rioHandler to set
+     * @param rioHandler the RDF handler to set
      */
     public void setRioHandler(final RDFHandler rioHandler) {
         this.rioHandler = rioHandler;

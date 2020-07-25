@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -51,7 +52,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
     /**
      * Gets the objects.
      *
-     * @param ont the ont
+     * @param ont the ontology
      * @return the objects
      */
     protected abstract Stream<E> getObjects(OWLOntology ont);

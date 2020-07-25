@@ -3,12 +3,14 @@ package uk.ac.manchester.cs.factplusplusad;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
+
 import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 import org.semanticweb.owlapitools.decomposition.OntologyAtom;
+
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
- * atomical decomposer of the ontology
+ * Atomic decomposer for an ontology.
  */
 class AtomicDecomposer {
 
@@ -62,8 +64,7 @@ class AtomicDecomposer {
     }
 
     /**
-     * Remove tautologies (axioms that are always local) from the ontology
-     * temporarily.
+     * Remove tautologies (axioms that are always local) from the ontology temporarily.
      *
      * @param o ontology
      */
@@ -79,8 +80,7 @@ class AtomicDecomposer {
     }
 
     /**
-     * Build a module for given axiom AX; use parent atom's module as a base for
-     * the module search.
+     * Build a module for given axiom AX; use parent atom's module as a base for the module search.
      *
      * @param sig signature
      * @param parent parent atom
@@ -106,8 +106,7 @@ class AtomicDecomposer {
     }
 
     /**
-     * Create atom for given axiom AX; use parent atom's module as a base for
-     * the module search.
+     * Create atom for given axiom AX; use parent atom's module as a base for the module search.
      *
      * @param ax axiom
      * @param parent parent atom

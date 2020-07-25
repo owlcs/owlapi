@@ -40,7 +40,7 @@ public class RDFXMLWriter {
     }
 
     /**
-     * @param elementName elementName
+     * @param elementName element name
      */
     public void writeStartElement(IRI elementName) {
         // Sort out with namespace
@@ -62,7 +62,7 @@ public class RDFXMLWriter {
     }
 
     /**
-     * @param datatypeIRI datatypeIRI
+     * @param datatypeIRI datatype IRI
      */
     public void writeDatatypeAttribute(IRI datatypeIRI) {
         checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
@@ -81,7 +81,7 @@ public class RDFXMLWriter {
     }
 
     /**
-     * @param lang lang
+     * @param lang language tag
      */
     public void writeLangAttribute(String lang) {
         writer.writeAttribute(XML_LANG, lang);
@@ -111,11 +111,11 @@ public class RDFXMLWriter {
 
     /**
      * @param attributeName attribute name
-     * @param value value
+     * @param value         value
      */
     public void writeAttribute(IRI attributeName, IRI value) {
-        writer
-            .writeAttribute(attributeName, checkNotNull(value, "value cannot be null").toString());
+        writer.writeAttribute(attributeName,
+            checkNotNull(value, "value cannot be null").toString());
     }
 
     /**

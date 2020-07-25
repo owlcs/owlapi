@@ -34,10 +34,8 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
     OWLAnonymousIndividual asOWLAnonymousIndividual();
 
     /**
-     * Returns a string representation that can be used as the ID of this individual. This is the
-     * toString representation of the node ID of this individual
-     *
-     * @return A string representing the toString of the node ID of this entity.
+     * @return a string representation that can be used as the ID of this individual. This is the
+     *         {@code toString()} representation of the node ID of this individual
      */
     String toStringID();
 
@@ -49,7 +47,7 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
     /**
      * @param visitor visitor
      * @param <O> visitor return type
-     * @return visitor ex type
+     * @return visitor type
      */
     <O> O accept(OWLIndividualVisitorEx<O> visitor);
 }

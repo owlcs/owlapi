@@ -6,7 +6,9 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -47,7 +49,7 @@ public class MacroExpansionVisitor {
     }
 
     /**
-     * @param ontology ontology to use
+     * @param ontology                 ontology to use
      * @param shouldAddExpansionMarker true if expansions should be added
      */
     public MacroExpansionVisitor(OWLOntology ontology, boolean shouldAddExpansionMarker) {
@@ -56,9 +58,9 @@ public class MacroExpansionVisitor {
     }
 
     /**
-     * @param ontology ontology to use
+     * @param ontology                  ontology to use
      * @param shouldTransferAnnotations true if annotations should be transferred
-     * @param shouldAddExpansionMarker true if expansions should be added
+     * @param shouldAddExpansionMarker  true if expansions should be added
      */
     public MacroExpansionVisitor(OWLOntology ontology, boolean shouldTransferAnnotations,
         boolean shouldAddExpansionMarker) {
@@ -67,10 +69,10 @@ public class MacroExpansionVisitor {
     }
 
     /**
-     * @param inputOntology inputOntology
-     * @param extraAnnotations extra annotations to add
+     * @param inputOntology             input ontology
+     * @param extraAnnotations          extra annotations to add
      * @param shouldTransferAnnotations true if annotations should be transferred
-     * @param shouldAddExpansionMarker true if expansions should be added
+     * @param shouldAddExpansionMarker  true if expansions should be added
      */
     public MacroExpansionVisitor(OWLOntology inputOntology, Set<OWLAnnotation> extraAnnotations,
         boolean shouldTransferAnnotations, boolean shouldAddExpansionMarker) {
@@ -183,9 +185,8 @@ public class MacroExpansionVisitor {
                     OWLDataFactory dataFactory = visitor.df;
                     OWLClass axValClass = dataFactory.getOWLClass(axValIRI);
                     if (asList(inputOntology.declarationAxioms(axValClass)).isEmpty()) {
-                        OWLDeclarationAxiom declarationAxiom = dataFactory
-                            .getOWLDeclarationAxiom(axValClass,
-                                annotations);
+                        OWLDeclarationAxiom declarationAxiom =
+                            dataFactory.getOWLDeclarationAxiom(axValClass, annotations);
                         declarations.add(declarationAxiom);
                         newAxioms.add(declarationAxiom);
                         manager.addAxiom(inputOntology, declarationAxiom);
@@ -199,8 +200,8 @@ public class MacroExpansionVisitor {
                         visitor.rebuild(inputOntology);
                     }
                     LOG.info("Template to Expand {}", expandTo);
-                    expandTo = expandTo
-                        .replaceAll("\\?X", visitor.getTool().getId((IRI) axiom.getSubject()));
+                    expandTo = expandTo.replaceAll("\\?X",
+                        visitor.getTool().getId((IRI) axiom.getSubject()));
                     expandTo = expandTo.replaceAll("\\?Y", visitor.getTool().getId(axValIRI));
                     LOG.info("Expanding {}", expandTo);
                     try {
@@ -219,8 +220,8 @@ public class MacroExpansionVisitor {
         protected void expandAndAddAnnotations(String expandTo, AtomicBoolean expandedSomething,
             Set<OWLAnnotation> annotations) {
             visitor.getTool().parseManchesterExpressionFrames(expandTo).stream()
-                .map(axp -> axp.getAxiom()).map(
-                ax -> shouldTransferAnnotations() ? ax.getAnnotatedAxiom(annotations) : ax)
+                .map(axp -> axp.getAxiom())
+                .map(ax -> shouldTransferAnnotations() ? ax.getAnnotatedAxiom(annotations) : ax)
                 .forEach(expandedAxiom -> {
                     newAxioms.add(expandedAxiom);
                     expandedSomething.set(true);
@@ -245,8 +246,7 @@ public class MacroExpansionVisitor {
                 @Override
                 @Nullable
                 protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
-                    OWLIndividual filler,
-                    OWLObjectPropertyExpression p) {
+                    OWLIndividual filler, OWLObjectPropertyExpression p) {
                     OWLClassExpression result = expandObject(filler, p);
                     if (result != null) {
                         result = df.getOWLObjectSomeValuesFrom(desc.getProperty(), result);

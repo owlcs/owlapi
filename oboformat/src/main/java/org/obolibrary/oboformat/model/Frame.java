@@ -216,7 +216,7 @@ public class Frame {
     /**
      * @param <T> the generic type
      * @param tag the tag
-     * @param cls the cls
+     * @param cls the class
      * @return the tag value for tag and class
      */
     @Nullable
@@ -235,7 +235,7 @@ public class Frame {
     /**
      * @param <T> the generic type
      * @param tag the tag
-     * @param cls the cls
+     * @param cls the class
      * @return the tag value for tag and class
      */
     @Nullable
@@ -264,7 +264,7 @@ public class Frame {
     /**
      * @param <T> the generic type
      * @param tag the tag
-     * @param cls the cls
+     * @param cls the class
      * @return the tag values for tag and class
      */
     public <T> Collection<T> getTagValues(OboFormatTag tag, Class<T> cls) {
@@ -274,7 +274,7 @@ public class Frame {
     /**
      * @param <T> the generic type
      * @param tag the tag
-     * @param cls the cls
+     * @param cls the class
      * @return the tag values for tag and class
      */
     public <T> Collection<T> getTagValues(String tag, Class<T> cls) {
@@ -285,7 +285,7 @@ public class Frame {
 
     /**
      * @param tag the tag
-     * @return the tag xrefs for tg
+     * @return the tag xref list for tag
      */
     public Collection<Xref> getTagXrefs(String tag) {
         Collection<Xref> xrefs = new ArrayList<>();
@@ -350,12 +350,12 @@ public class Frame {
     public void check() {
         if (FrameType.HEADER.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY, OboFormatTag.TAG_FORMAT_VERSION,
-                            OboFormatTag.TAG_DATE, OboFormatTag.TAG_DEFAULT_NAMESPACE,
-                            OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
+                OboFormatTag.TAG_DATE, OboFormatTag.TAG_DEFAULT_NAMESPACE,
+                OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
         }
         if (FrameType.TYPEDEF.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN, OboFormatTag.TAG_RANGE,
-                            OboFormatTag.TAG_IS_METADATA_TAG, OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
+                OboFormatTag.TAG_IS_METADATA_TAG, OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
         }
         if (!FrameType.HEADER.equals(getType())) {
             List<Clause> tagIdClauses = getClauses(OboFormatTag.TAG_ID);
@@ -373,13 +373,13 @@ public class Frame {
             throw new FrameStructureException(this, "single intersection_of tags are not allowed");
         }
         checkMaxOneCardinality(OboFormatTag.TAG_IS_ANONYMOUS, OboFormatTag.TAG_NAME,
-                        // OboFormatTag.TAG_NAMESPACE,
-                        OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT,
-                        OboFormatTag.TAG_IS_ANTI_SYMMETRIC, OboFormatTag.TAG_IS_CYCLIC,
-                        OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
-                        OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL,
-                        OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL, OboFormatTag.TAG_IS_OBSELETE,
-                        OboFormatTag.TAG_CREATED_BY, OboFormatTag.TAG_CREATION_DATE);
+            // OboFormatTag.TAG_NAMESPACE,
+            OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT, OboFormatTag.TAG_IS_ANTI_SYMMETRIC,
+            OboFormatTag.TAG_IS_CYCLIC, OboFormatTag.TAG_IS_REFLEXIVE,
+            OboFormatTag.TAG_IS_SYMMETRIC, OboFormatTag.TAG_IS_TRANSITIVE,
+            OboFormatTag.TAG_IS_FUNCTIONAL, OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
+            OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
+            OboFormatTag.TAG_CREATION_DATE);
     }
 
     /**
@@ -392,7 +392,7 @@ public class Frame {
         for (OboFormatTag tag : tags) {
             if (getClauses(tag).size() > 1) {
                 throw new FrameStructureException(this,
-                                "multiple " + tag.getTag() + " tags not allowed.");
+                    "multiple " + tag.getTag() + " tags not allowed.");
             }
         }
     }

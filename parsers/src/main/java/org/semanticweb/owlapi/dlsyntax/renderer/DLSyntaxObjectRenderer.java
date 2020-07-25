@@ -40,7 +40,9 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -163,15 +165,15 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     /**
-     * @param focusedObject focusedObject
+     * @param focusedObject focused object
      */
     public void setFocusedObject(@Nullable OWLObject focusedObject) {
         this.focusedObject = focusedObject;
     }
 
     /**
-     * @param obj obj
-     * @return true if obj is equal to focusedObject
+     * @param obj object
+     * @return true if object is equal to focused object
      */
     public boolean isFocusedObject(OWLObject obj) {
         if (focusedObject == null) {
@@ -182,8 +184,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider,
-            "shortFormProvider cannot be null");
+        this.shortFormProvider =
+            checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     @Override
@@ -263,7 +265,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
                 writeObject(o1, nest);
             }
         } else {
-            for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext(); ) {
+            for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
                 OWLObject o = it.next();
                 writeObject(o, nest);
                 if (it.hasNext()) {
@@ -717,7 +719,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(OWLObjectOneOf ce) {
-        for (Iterator<? extends OWLIndividual> it = ce.individuals().iterator(); it.hasNext(); ) {
+        for (Iterator<? extends OWLIndividual> it = ce.individuals().iterator(); it.hasNext();) {
             write("{");
             it.next().accept(this);
             write("}");
@@ -772,7 +774,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(OWLDataOneOf node) {
-        for (Iterator<? extends OWLLiteral> it = node.values().iterator(); it.hasNext(); ) {
+        for (Iterator<? extends OWLLiteral> it = node.values().iterator(); it.hasNext();) {
             write("{");
             it.next().accept(this);
             write("}");

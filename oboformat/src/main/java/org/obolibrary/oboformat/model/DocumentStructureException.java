@@ -8,7 +8,7 @@ public class DocumentStructureException extends RuntimeException {
     /**
      * Instantiates a new document structure exception.
      *
-     * @param msg the msg
+     * @param msg the message
      */
     public DocumentStructureException(String msg) {
         super(msg);

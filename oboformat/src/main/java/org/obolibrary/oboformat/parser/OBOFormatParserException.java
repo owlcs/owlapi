@@ -47,7 +47,7 @@ public class OBOFormatParserException extends OBOFormatException {
     }
 
     /**
-     * @return the lineNo
+     * @return the line number
      */
     public int getLineNo() {
         return lineNo;

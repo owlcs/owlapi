@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -26,19 +27,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
- * This composite change will convert a primitive class to a defined class by
- * replacing subclass axioms where the class in question is on the left hand
- * side of the subclass axiom to an equivalent classes axiom which makes the
- * class equivalent to the intersection of its superclasses. <br>
- * More formally, given a class A, a set of ontologies S, and a target
- * targetOntology T, for each targetOntology O in S, subclass axioms whose LHS
- * is A will be removed from O. The superclasses from these axioms will be
- * combined into an intersection class which will be made equivalent to A using
- * an equivalent classes axioms E. E will be added to the target targetOntology
- * T.<br>
- * This composite change supports the pattern of working where a primitive class
- * is converted to a defined class - functionality which is usually found in
- * editors.
+ * This composite change will convert a primitive class to a defined class by replacing subclass
+ * axioms where the class in question is on the left hand side of the subclass axiom to an
+ * equivalent classes axiom which makes the class equivalent to the intersection of its
+ * superclasses. <br>
+ * More formally, given a class A, a set of ontologies S, and a target targetOntology T, for each
+ * targetOntology O in S, subclass axioms whose LHS is A will be removed from O. The superclasses
+ * from these axioms will be combined into an intersection class which will be made equivalent to A
+ * using an equivalent classes axioms E. E will be added to the target targetOntology T.<br>
+ * This composite change supports the pattern of working where a primitive class is converted to a
+ * defined class - functionality which is usually found in editors.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
@@ -51,8 +49,8 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
      * @param dataFactory A data factory which can be used to create the appropriate axioms
      * @param cls The class whose superclasses will be converted to an equivalent class.
      * @param ontologies The ontologies which should be examined for subclass axioms.
-     * @param targetOntology The targetOntology which the equivalent classes axiom should be added
-     * to
+     * @param targetOntology The target ontology which the equivalent classes axiom should be added
+     *        to
      */
     public ConvertSuperClassesToEquivalentClass(OWLDataFactory dataFactory, OWLClass cls,
         Collection<OWLOntology> ontologies, OWLOntology targetOntology) {

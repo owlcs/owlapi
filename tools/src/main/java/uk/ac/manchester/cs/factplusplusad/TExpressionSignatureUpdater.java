@@ -42,8 +42,6 @@ class TExpressionSignatureUpdater implements OWLObjectVisitor {
     Signature sig;
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     TExpressionSignatureUpdater(Signature s) {

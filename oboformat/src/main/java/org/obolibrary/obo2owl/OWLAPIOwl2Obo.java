@@ -136,8 +136,6 @@ public class OWLAPIOwl2Obo {
     private boolean muteUntranslatableAxioms = false;
 
     /**
-     * Instantiates a new oWLAPI owl2 obo.
-     *
      * @param translationManager the translation manager
      */
     public OWLAPIOwl2Obo(OWLOntologyManager translationManager) {
@@ -216,7 +214,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Gets the ontology id.
      *
-     * @param iriObj the iri obj
+     * @param iriObj the iri
      * @return the ontology id
      */
     public static String getOntologyId(IRI iriObj) {
@@ -258,7 +256,7 @@ public class OWLAPIOwl2Obo {
      * corresponds to an OBO alternate identifier. Track non related annotations.
      *
      * @param annotations set of annotations for the entity @return replaced_by if it is an alt_id
-     * @return alt id check result
+     * @return alternate id check result
      */
     private static Optional<OboAltIdCheckResult> checkForOboAltId(
         Collection<OWLAnnotationAssertionAxiom> annotations) {
@@ -444,7 +442,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Owl object to tag.
      *
-     * @param obj the obj
+     * @param obj the object
      * @return the string
      */
     @Nullable
@@ -461,7 +459,7 @@ public class OWLAPIOwl2Obo {
         String iri = iriObj.toString();
         String tag = ANNOTATIONPROPERTYMAP.get(iri);
         if (tag == null) {
-            // hardcoded values for legacy annotation properties: (TEMPORARY)
+            // hard coded values for legacy annotation properties: (TEMPORARY)
             if (iri.startsWith(Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_")) {
                 String legacyId = iri.replace(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "");
                 if ("IAO_xref".equals(legacyId)) {
@@ -642,7 +640,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Checks if is discard untranslatable.
      *
-     * @return the discardUntranslatable
+     * @return the discard untranslatable flag
      */
     public boolean isDiscardUntranslatable() {
         return discardUntranslatable;
@@ -651,7 +649,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Sets the discard untranslatable.
      *
-     * @param discardUntranslatable the discardUntranslatable to set
+     * @param discardUntranslatable the new value for discard untranslatable to set
      */
     public void setDiscardUntranslatable(boolean discardUntranslatable) {
         this.discardUntranslatable = discardUntranslatable;
@@ -696,8 +694,8 @@ public class OWLAPIOwl2Obo {
     /**
      * Convert.
      *
-     * @param ont the ont
-     * @return the oBO doc
+     * @param ont the ontology
+     * @return the OBO doc
      */
     public OBODoc convert(OWLOntology ont) {
         owlOntology = ont;
@@ -713,16 +711,16 @@ public class OWLAPIOwl2Obo {
     /**
      * Gets the untranslatable axioms.
      *
-     * @return the untranslatableAxioms
+     * @return the untranslatable axioms
      */
     public Collection<OWLAxiom> getUntranslatableAxioms() {
         return untranslatableAxioms;
     }
 
     /**
-     * Tr.
+     * Translate to obo document.
      *
-     * @return the oBO doc
+     * @return the OBO doc
      */
     protected OBODoc tr() {
         setObodoc(new OBODoc());
@@ -752,7 +750,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Pre process.
+     * Preprocess.
      */
     protected void preProcess() {
         // converse of postProcess in obo2owl
@@ -818,7 +816,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr object property.
+     * Translate object property.
      *
      * @param prop the prop
      * @param tag the tag
@@ -850,7 +848,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr object property.
+     * Translate object property.
      *
      * @param prop the prop
      * @param tag the tag
@@ -872,7 +870,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr nary property axiom.
+     * Translate nary property axiom.
      *
      * @param ax the ax
      * @param tag the tag
@@ -907,7 +905,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate.
      *
      * @param ax the ax
      */
@@ -969,7 +967,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -978,7 +976,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -992,7 +990,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1001,7 +999,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1015,7 +1013,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1029,7 +1027,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1045,7 +1043,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1077,7 +1075,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1091,7 +1089,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1105,7 +1103,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1119,7 +1117,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1242,24 +1240,23 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
-     * @param aanAx the aan ax
+     * @param ax annotation assertion axiom
      * @param frame the frame
      */
-    protected void tr(OWLAnnotationAssertionAxiom aanAx, Frame frame) {
-        boolean success =
-            tr(aanAx.getProperty(), aanAx.getValue(), asList(aanAx.annotations()), frame);
+    protected void tr(OWLAnnotationAssertionAxiom ax, Frame frame) {
+        boolean success = tr(ax.getProperty(), ax.getValue(), asList(ax.annotations()), frame);
         if (!success) {
-            untranslatableAxioms.add(aanAx);
+            untranslatableAxioms.add(ax);
         }
     }
 
     /**
-     * Tr.
+     * Translate annotation.
      *
      * @param prop the prop
-     * @param annVal the ann val
+     * @param annVal annotation value
      * @param qualifiers the qualifiers
      * @param frame the frame
      * @return true, if successful
@@ -1428,10 +1425,10 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr generic property value.
+     * Translate generic property value.
      *
      * @param prop the prop
-     * @param annVal the ann val
+     * @param annVal annotation value
      * @param qualifiers the qualifiers
      * @param frame the frame
      * @return true, if successful
@@ -1471,7 +1468,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Gets the value.
      *
-     * @param annVal the ann val
+     * @param annVal annotation value
      * @param tag the tag
      * @return the value
      */
@@ -1500,7 +1497,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate ontology.
      *
      * @param ontology the ontology
      */
@@ -1532,7 +1529,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1713,7 +1710,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1748,7 +1745,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param axiom the axiom
      */
@@ -1823,7 +1820,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Gets the identifier.
      *
-     * @param obj the obj
+     * @param obj the object
      * @return the identifier
      */
     @Nullable
@@ -1895,7 +1892,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -1963,7 +1960,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Tr.
+     * Translate axiom.
      *
      * @param ax the ax
      */
@@ -2181,7 +2178,7 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Helper class: allow to return two values for the alt id check.
+     * Helper class: allow to return two values for the alternate id check.
      */
     private static class OboAltIdCheckResult {
 

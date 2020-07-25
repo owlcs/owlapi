@@ -473,7 +473,7 @@ public interface OWLSignature
     }
 
     /**
-     * @param entity entyty to check
+     * @param entity entity to check
      * @return true if entity is referenced
      * @deprecated use {@link #containsEntityInSignature(OWLEntity)}
      */

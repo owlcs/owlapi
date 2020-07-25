@@ -110,9 +110,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /**
      * Instantiates a new black box explanation.
      *
-     * @param ontology        the ontology
+     * @param ontology the ontology
      * @param reasonerFactory the reasoner factory
-     * @param reasoner        the reasoner
+     * @param reasoner the reasoner
      */
     public BlackBoxExplanation(OWLOntology ontology, OWLReasonerFactory reasonerFactory,
         OWLReasoner reasoner) {
@@ -123,11 +123,11 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /**
      * Instantiates a new black box explanation.
      *
-     * @param ontology              the ontology
-     * @param reasonerFactory       the reasoner factory
-     * @param reasoner              the reasoner
+     * @param ontology the ontology
+     * @param reasonerFactory the reasoner factory
+     * @param reasoner the reasoner
      * @param fastPruningWindowSize the window size for fast pruning (default to 1% of axioms, or 10
-     *                              - whichever is larger)
+     *        - whichever is larger)
      */
     public BlackBoxExplanation(OWLOntology ontology, OWLReasonerFactory reasonerFactory,
         OWLReasoner reasoner, int fastPruningWindowSize) {
@@ -137,13 +137,13 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     }
 
     /**
-     * A utility method. Adds axioms from one set to another set upto a specified limit. Annotation
+     * A utility method. Adds axioms from one set to another set up to a specified limit. Annotation
      * axioms are stripped out
      *
-     * @param <N>    the number type
+     * @param <N> the number type
      * @param source The source set. Objects from this set will be added to the destination set
-     * @param dest   The destination set. Objects will be added to this set
-     * @param limit  The maximum number of objects to be added.
+     * @param dest The destination set. Objects will be added to this set
+     * @param limit The maximum number of objects to be added.
      * @return The number of objects that were actually added.
      */
     private static <N extends OWLAxiom> int addMax(Set<N> source, Set<N> dest, int limit) {
@@ -259,7 +259,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      * Creates a set of axioms to expands the debugging axiom set by adding the defining axioms for
      * the specified entity.
      *
-     * @param obj   the obj
+     * @param obj the obj
      * @param limit the limit
      * @return the int
      */
@@ -287,7 +287,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /**
      * Expands the axiom set by adding the referencing axioms for the specified entity.
      *
-     * @param obj   the obj
+     * @param obj the obj
      * @param limit the limit
      * @return the int
      */
@@ -357,9 +357,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      * Tests the satisfiability of the test class. The ontology is recreated before the test is
      * performed.
      *
-     * @param unsatClass the unsat class
+     * @param unsatClass the unsatisfiable class
      * @return true, if is satisfiable
-     * @throws OWLException the oWL exception
+     * @throws OWLException exception
      */
     private boolean isSatisfiable(OWLClassExpression unsatClass) throws OWLException {
         try {
@@ -430,8 +430,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /**
      * Prune until minimal.
      *
-     * @param unsatClass the unsat class
-     * @throws OWLException the oWL exception
+     * @param unsatClass the unsatisfiable class
+     * @throws OWLException exception
      */
     protected void pruneUntilMinimal(OWLClassExpression unsatClass) throws OWLException {
         LOGGER.info("FOUND CLASH! Pruning {} axioms...", Integer.valueOf(debuggingAxioms.size()));

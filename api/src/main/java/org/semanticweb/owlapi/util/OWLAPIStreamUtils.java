@@ -133,7 +133,7 @@ public class OWLAPIStreamUtils {
      * A method to be used on collections that are sorted, immutable and do not contain nulls.
      * 
      * @param <T> type
-     * @param c sorted collection of distinct, nonnull elements; the collection must be immutable
+     * @param c sorted collection of distinct, non null elements; the collection must be immutable
      * @return stream that won't cause sorted() calls to sort the collection again
      */
     public static <T> Stream<T> streamFromSorted(Collection<T> c) {
@@ -144,7 +144,7 @@ public class OWLAPIStreamUtils {
      * A method to be used on arrays that are sorted and do not contain nulls.
      * 
      * @param <T> type
-     * @param c sorted aray of distinct, nonnull elements
+     * @param c sorted array of distinct, non null elements
      * @return stream that won't cause sorted() calls to sort the array again
      */
     public static <T> Stream<T> streamFromSorted(T[] c) {

@@ -16,8 +16,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
- * Represents a metric about some aspect of an ontology and possibly its imports
- * closure.
+ * Represents a metric about some aspect of an ontology and possibly its imports closure.
  *
  * @param <M> the metric type
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -33,12 +32,12 @@ public interface OWLMetric<M> {
     String getName();
 
     /**
-     * Gets the value of this metric. This value is computed w.r.t. the current
-     * ontology and possibly the imports closure (if specified).
+     * Gets the value of this metric. This value is computed w.r.t. the current ontology and
+     * possibly the imports closure (if specified).
      *
      * @return An object which represents the value of this metric - calling the {@code toString}
-     * method of the object returned by this method will result in a human readable string that
-     * displays the value of the metric.
+     *         method of the object returned by this method will result in a human readable string
+     *         that displays the value of the metric.
      */
     M getValue();
 
@@ -50,44 +49,42 @@ public interface OWLMetric<M> {
     OWLOntology getOntology();
 
     /**
-     * Sets the "root" ontology. The metric will be recomputed from this
-     * ontology (and potentially its imports closure if selected).
+     * Sets the "root" ontology. The metric will be recomputed from this ontology (and potentially
+     * its imports closure if selected).
      *
      * @param ontology The ontology for which the metric should be computed.
      */
     void setOntology(OWLOntology ontology);
 
     /**
-     * Determines if the computation of the metric should take into account the
-     * imports closure of the current ontology.
+     * Determines if the computation of the metric should take into account the imports closure of
+     * the current ontology.
      *
      * @return {@code true} if the imports closure of the current ontology is taken into account
-     * when computing the value of this metric, or {@code false} if the imports closure isn't taken
-     * into account when computing this metric.
+     *         when computing the value of this metric, or {@code false} if the imports closure
+     *         isn't taken into account when computing this metric.
      */
     boolean isImportsClosureUsed();
 
     /**
-     * Sets whether this metric uses the imports closure of the current
-     * ontology.
+     * Sets whether this metric uses the imports closure of the current ontology.
      *
      * @param b the new imports closure used {@code true} if this metric uses the imports closure of
-     * the current ontology, otherwise false.
+     *        the current ontology, otherwise false.
      */
     void setImportsClosureUsed(boolean b);
 
     /**
-     * Gets the ontology manager which, amongst other things can be used to
-     * obtain the imports closure of the current ontology.
+     * Gets the ontology manager which, amongst other things can be used to obtain the imports
+     * closure of the current ontology.
      *
      * @return An {@code OWLOntologyManager}.
      */
     OWLOntologyManager getManager();
 
     /**
-     * Diposes of the metric. If the metric attaches itself as a listener to an
-     * ontology manager then this will cause the metric to detach itself and
-     * stop listening for ontology changes.
+     * Disposes of the metric. If the metric attaches itself as a listener to an ontology manager
+     * then this will cause the metric to detach itself and stop listening for ontology changes.
      */
     void dispose();
 }

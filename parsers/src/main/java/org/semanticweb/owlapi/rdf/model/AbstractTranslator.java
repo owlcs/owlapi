@@ -1069,7 +1069,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     /**
      * Translates an annotation on a given subject. This method implements the TANN(ann, y)
-     * translation in the spec
+     * translation in the specifications.
      *
      * @param subject The subject of the annotation
      * @param annotation The annotation
@@ -1188,7 +1188,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                 return getNode(obj);
             }
             if (context[0].equals(s) && context[1].equals(p)) {
-                // An identical axiom triple has been translated earlier, the same rdf node should
+                // An identical axiom triple has been translated earlier, the same node should
                 // be used.
                 // This happens only if two axioms are identical except for annotations and they
                 // both translate to one single triple.

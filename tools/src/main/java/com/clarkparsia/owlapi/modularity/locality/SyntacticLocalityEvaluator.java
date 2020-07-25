@@ -21,6 +21,7 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
@@ -186,7 +187,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         /**
          * Checks if is bottom equivalent.
          *
-         * @param desc the desc
+         * @param desc the class expression
          * @return true, if is bottom equivalent
          */
         private boolean isBottomEquivalent(OWLClassExpression desc) {
@@ -197,8 +198,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         /**
          * Checks if is bottom equivalent.
          *
-         * @param desc the desc
-         * @param sig the sig
+         * @param desc     the class expression
+         * @param sig      the sig
          * @param locality the locality
          * @return true, if is bottom equivalent
          */
@@ -561,8 +562,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         /**
          * Checks if is top equivalent.
          *
-         * @param desc the desc
-         * @param sig the sig
+         * @param desc     the class expression
+         * @param sig      the sig
          * @param locality the locality
          * @return true, if is top equivalent
          */
@@ -882,7 +883,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
          * Checks if is local.
          *
          * @param axiom the axiom
-         * @param sig the sig
+         * @param sig   the sig
          * @return true, if is local
          */
         public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> sig) {

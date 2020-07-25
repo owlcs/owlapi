@@ -8,7 +8,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
+
 import javax.annotation.Nullable;
+
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.model.Frame.FrameType;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
@@ -68,7 +70,7 @@ public class OBODoc {
 
     /**
      * @param prefix the prefix
-     * @return true, if is treat xrefs as equivalent
+     * @return true, if xref values should be treated as equivalent
      */
     public static boolean isTreatXrefsAsEquivalent(@Nullable String prefix) {
         if ("RO".equals(prefix)) {
@@ -114,13 +116,13 @@ public class OBODoc {
     }
 
     /**
-     * Freezing an OBODoc signals that the document has become quiescent, and
-     * that the system may optimize data structures for performance or space.
+     * Freezing an OBODoc signals that the document has become quiescent, and that the system may
+     * optimize data structures for performance or space.
      */
     public void freezeFrames() {
         verifyNotNull(headerFrame,
             "headerFrame cannot be null at this stage. Setting the headr frame has been skipped")
-            .freeze();
+                .freeze();
         freezeFrameMap(termFrameMap);
         freezeFrameMap(typedefFrameMap);
         freezeFrameMap(instanceFrameMap);
@@ -156,7 +158,7 @@ public class OBODoc {
 
     /**
      * @param id the id
-     * @param visitedDocs the visited docs
+     * @param visitedDocs the visited documents
      * @return the frame
      */
     @Nullable
@@ -205,7 +207,7 @@ public class OBODoc {
 
     /**
      * @param id the id
-     * @param visitedDocs the visited docs
+     * @param visitedDocs the visited documents
      * @return the frame
      */
     @Nullable
@@ -236,14 +238,14 @@ public class OBODoc {
     }
 
     /**
-     * @return the imported obo docs
+     * @return the imported obo documents
      */
     public Collection<OBODoc> getImportedOBODocs() {
         return importedOBODocs;
     }
 
     /**
-     * @param importedOBODocs the new imported obo docs
+     * @param importedOBODocs the new imported obo documents
      */
     public void setImportedOBODocs(Collection<OBODoc> importedOBODocs) {
         this.importedOBODocs.clear();
@@ -341,7 +343,7 @@ public class OBODoc {
     /**
      * Adds the default ontology header.
      *
-     * @param defaultOnt the default ont
+     * @param defaultOnt the default ontology
      */
     public void addDefaultOntologyHeader(String defaultOnt) {
         Frame hf = verifyNotNull(getHeaderFrame());
@@ -353,8 +355,7 @@ public class OBODoc {
     }
 
     /**
-     * Check this document for violations, i.e. cardinality constraint
-     * violations.
+     * Check this document for violations, i.e. cardinality constraint violations.
      *
      * @see OboInOwlCardinalityTools for equivalent checks in OWL
      */

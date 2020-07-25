@@ -32,7 +32,7 @@ public class OWLProfileReport {
     private final List<OWLProfileViolation> violations;
 
     /**
-     * @param profile the profile used
+     * @param profile    the profile used
      * @param violations the set of violations
      */
     public OWLProfileReport(OWLProfile profile, Collection<OWLProfileViolation> violations) {
@@ -78,7 +78,7 @@ public class OWLProfileReport {
     }
 
     /**
-     * @param ax axom of interest
+     * @param ax axiom of interest
      * @return the violations found, filtered by axiom
      */
     public List<OWLProfileViolation> getViolations(OWLAxiom ax) {

@@ -354,8 +354,8 @@ public class EntitySearcher {
      *
      * @param e entity
      * @param ontology The ontology which should be examined for subclass axioms.
-     * @return A {@code Set} of {@code OWLClassExpression}s that represet the asserted subclasses of
-     *         this class.
+     * @return A {@code Set} of {@code OWLClassExpression}s that represent the asserted subclasses
+     *         of this class.
      */
     public static Stream<OWLClassExpression> getSubClasses(OWLClass e, OWLOntology ontology) {
         return Searcher.sub(ontology.subClassAxiomsForSuperClass(e));
@@ -367,8 +367,8 @@ public class EntitySearcher {
      *
      * @param e entity
      * @param ontologies The ontologies which should be examined for subclass axioms.
-     * @return A {@code Set} of {@code OWLClassExpression}s that represet the asserted subclasses of
-     *         this class.
+     * @return A {@code Set} of {@code OWLClassExpression}s that represent the asserted subclasses
+     *         of this class.
      */
     public static Stream<OWLClassExpression> getSubClasses(OWLClass e,
         Stream<OWLOntology> ontologies) {
@@ -591,7 +591,7 @@ public class EntitySearcher {
 
     /**
      * Gets the individuals that have been asserted to be an instance of this class by axioms in the
-     * speficied ontologies.
+     * specified ontologies.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined for class assertion axioms that assert an

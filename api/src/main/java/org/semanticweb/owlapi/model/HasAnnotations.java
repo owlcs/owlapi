@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 public interface HasAnnotations {
 
     /**
-     * @return a sorted stream of OWLAnnotations on this object. This will only include the
+     * @return a sorted stream of OWLAnnotation instances on this object. This will only include the
      *         annotations contained in this object, not the value of annotation assertion axioms in
      *         an ontology or in other ontologies. Use the EntitySearcher methods for that purpose.
      */
@@ -45,9 +45,9 @@ public interface HasAnnotations {
 
     /**
      * @param p filter predicate for annotations. Can be used to match the annotation property or
-     *          the annotation value
-     * @return a stream of OWLAnnotations on this object, with filter applied. This will only
-     *         include the annotations contained in this object, not the value of annotation
+     *        the annotation value
+     * @return a stream of OWLAnnotation instances on this object, with filter applied. This will
+     *         only include the annotations contained in this object, not the value of annotation
      *         assertion axioms in an ontology or in other ontologies. Use the EntitySearcher
      *         methods for that purpose.
      */
@@ -58,8 +58,8 @@ public interface HasAnnotations {
 
     /**
      * @param p annotation property to filter on
-     * @return a stream of OWLAnnotations on this object, with filter applied. This will only
-     *         include the annotations contained in this object, not the value of annotation
+     * @return a stream of OWLAnnotation instances on this object, with filter applied. This will
+     *         only include the annotations contained in this object, not the value of annotation
      *         assertion axioms in an ontology or in other ontologies. Use the EntitySearcher
      *         methods for that purpose.
      */
@@ -90,7 +90,7 @@ public interface HasAnnotations {
      * Gets the annotations whose annotation property is equal to {@code annotationProperty}.
      *
      * @param annotationProperty The annotation property that will be equal to the annotation
-     *                           property of each returned annotation.
+     *        property of each returned annotation.
      * @return A set of annotations whose annotation properties is equals to {@code
      * annotationProperty}.
      * @deprecated use {@link #annotations(OWLAnnotationProperty)}

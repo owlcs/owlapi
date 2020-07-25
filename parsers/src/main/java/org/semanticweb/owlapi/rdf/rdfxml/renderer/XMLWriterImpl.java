@@ -59,9 +59,9 @@ public class XMLWriterImpl implements XMLWriter {
 
     /**
      * @param writer writer
-     * @param xmlWriterNamespaceManager xmlWriterNamespaceManager
-     * @param xmlBase xmlBase
-     * @param preferences xml writer preferences instance
+     * @param xmlWriterNamespaceManager namespace manager
+     * @param xmlBase XML base
+     * @param preferences XML writer preferences instance
      */
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager,
         String xmlBase, OWLOntologyWriterConfiguration preferences) {

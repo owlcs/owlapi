@@ -231,9 +231,9 @@ public class ManchesterOWLSyntaxTokenizer {
 
         /**
          * @param token token
-         * @param pos pos
-         * @param col col
-         * @param row row
+         * @param pos   position
+         * @param col   column
+         * @param row   row
          */
         public Token(String token, int pos, int col, int row) {
             currentToken = token;

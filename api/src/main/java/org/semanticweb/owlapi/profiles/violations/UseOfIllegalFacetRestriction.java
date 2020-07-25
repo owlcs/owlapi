@@ -13,7 +13,9 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -31,13 +33,12 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation {
 
     /**
      * @param ontology ontology
-     * @param axiom axiom
-     * @param dtr dtr
-     * @param facet facet
+     * @param axiom    axiom
+     * @param dtr      datatype restriction
+     * @param facet    facet
      */
     public UseOfIllegalFacetRestriction(OWLOntology ontology, @Nullable OWLAxiom axiom,
-        OWLDatatypeRestriction dtr,
-        OWLFacet facet) {
+        OWLDatatypeRestriction dtr, OWLFacet facet) {
         super(ontology, axiom, facet);
         datatypeRestriction = dtr;
     }

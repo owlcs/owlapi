@@ -18,7 +18,7 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 public class Modularizer {
 
     /**
-     * pointer to a sig index; if not NULL then use optimized algo
+     * pointer to a signature index; if not NULL then use optimized algorithm
      */
     private final SigIndex sigIndex;
     /**
@@ -47,7 +47,7 @@ public class Modularizer {
     private long nNonLocal = 0;
 
     /**
-     * @param c the clocality checker
+     * @param c the locality checker
      */
     public Modularizer(LocalityChecker c) {
         checker = c;
@@ -138,7 +138,7 @@ public class Modularizer {
     }
 
     /**
-     * extract module wrt presence of a sig index
+     * extract module wrt presence of a signature index
      *
      * @param list axioms
      */

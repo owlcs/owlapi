@@ -15,14 +15,15 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public abstract class RDFResource extends RDFNode implements
-    org.apache.commons.rdf.api.BlankNodeOrIRI {
+public abstract class RDFResource extends RDFNode
+    implements org.apache.commons.rdf.api.BlankNodeOrIRI {
 
     // XXX implement equals()
 
@@ -32,10 +33,10 @@ public abstract class RDFResource extends RDFNode implements
     public abstract IRI getResource();
 
     /**
-     * For blank nodes, return a valid value for thr rdf/xml nodeId attribute. For non blank nodes,
+     * For blank nodes, return a valid value for the RDF/XML nodeId attribute. For non blank nodes,
      * an exception should be thrown. The method must only be called on blank nodes.
      * 
-     * @return a valid value for thr rdf/xml nodeId attribute
+     * @return a valid value for thE RDF/XML nodeId attribute
      */
     public abstract String getNodeIDValue();
 

@@ -3,7 +3,9 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -58,13 +60,12 @@ public class TripleLogger {
     }
 
     /**
-     * Log triples at debug level, including language and datatype, and
-     * increment triple count.
+     * Log triples at debug level, including language and datatype, and increment triple count.
      *
      * @param s subject
      * @param p predicate
      * @param o object
-     * @param lang language
+     * @param lang language tag
      * @param datatype datatype
      */
     public void logTriple(Object s, Object p, Object o, @Nullable Object lang,
@@ -77,7 +78,7 @@ public class TripleLogger {
      * @param s subject
      * @param p predicate
      * @param o object
-     * @param lang language
+     * @param lang language tag
      * @param datatype datatype
      */
     public void justLog(Object s, Object p, Object o, @Nullable Object lang,
@@ -103,8 +104,8 @@ public class TripleLogger {
         if (o == null) {
             return "null";
         }
-        if (o instanceof String && (((String) o).startsWith("http:") || ((String) o)
-            .startsWith("urn:"))) {
+        if (o instanceof String
+            && (((String) o).startsWith("http:") || ((String) o).startsWith("urn:"))) {
             return shorten(IRI.create((String) o));
         }
         if (prefixManager == null || !(o instanceof IRI)) {
@@ -130,7 +131,7 @@ public class TripleLogger {
     }
 
     /**
-     * log finl count.
+     * log final count.
      */
     public void logNumberOfTriples() {
         LOGGER.debug("Total number of triples: {}", count);

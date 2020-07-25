@@ -13,10 +13,11 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
+
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * An {@code OWLOntologyStorageException} that was caused by an IOException.
+ * An {@code OWLOntologyStorageException} that was caused by an {@code IOException}.
  *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
@@ -34,9 +35,7 @@ public class OWLOntologyStorageIOException extends OWLOntologyStorageException {
     }
 
     /**
-     * Gets the IOException that this exception wraps.
-     *
-     * @return The IOException
+     * @return the {@code IOException} that this exception wraps.
      */
     public IOException getIOException() {
         return ioException;

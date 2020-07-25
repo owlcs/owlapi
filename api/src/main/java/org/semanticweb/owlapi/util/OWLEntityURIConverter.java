@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -54,9 +55,9 @@ public class OWLEntityURIConverter {
      * Creates a converter that will convert the URIs of entities in the specified ontologies using
      * the specified conversion strategy.
      *
-     * @param manager The manager which managers the specified ontologies.
-     * @param ontologies The ontologies whose entity URIs will be converted
-     * @param strategy The conversion strategy to be used.
+     * @param manager    The manager which managers the specified ontologies.
+     * @param ontologies The ontologies whose entity IRIs will be converted
+     * @param strategy   The conversion strategy to be used.
      */
     public OWLEntityURIConverter(OWLOntologyManager manager, Collection<OWLOntology> ontologies,
         OWLEntityURIConverterStrategy strategy) {

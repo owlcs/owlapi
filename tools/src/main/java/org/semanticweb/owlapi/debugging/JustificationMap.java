@@ -82,7 +82,7 @@ public class JustificationMap {
     /**
      * Instantiates a new justification map.
      *
-     * @param desc the class expression
+     * @param desc   the class expression
      * @param axioms the axioms
      */
     public JustificationMap(OWLClassExpression desc, Set<OWLAxiom> axioms) {
@@ -162,23 +162,19 @@ public class JustificationMap {
         private final Set<OWLObject> lhs = new HashSet<>();
 
         /**
-         * Instantiates a new oWL axiom part extractor.
+         * Instantiates a new part extractor.
          */
         OWLAxiomPartExtractor() {}
 
         /**
-         * Gets the rhs.
-         *
-         * @return the rhs
+         * @return the RHS
          */
         public Set<OWLObject> getRHS() {
             return rhs;
         }
 
         /**
-         * Gets the lhs.
-         *
-         * @return the lhs
+         * @return the LHS
          */
         public Set<OWLObject> getLHS() {
             return lhs;

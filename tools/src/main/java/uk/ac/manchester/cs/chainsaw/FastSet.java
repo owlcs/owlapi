@@ -30,7 +30,7 @@ public interface FastSet {
     boolean contains(int o);
 
     /**
-     * @param c eleemnts to check
+     * @param c elements to check
      * @return true if all elements are contained
      */
     boolean containsAll(FastSet c);
@@ -75,7 +75,7 @@ public interface FastSet {
     /**
      * remove all elements between the two positions
      *
-     * @param i beginning position
+     * @param i   beginning position
      * @param end end position
      */
     void removeAll(int i, int end);
@@ -86,7 +86,7 @@ public interface FastSet {
     void removeAllValues(int... values);
 
     /**
-     * @param c eleemnts to check
+     * @param c elements to check
      * @return true if any of the elements is contained
      */
     boolean containsAny(FastSet c);

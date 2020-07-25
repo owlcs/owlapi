@@ -29,7 +29,7 @@ import com.carrotsearch.hppcrt.maps.ObjectIntHashMap;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
- * atomc decomposition implementation
+ * Atomic decomposition implementation.
  */
 public class AtomicDecompositionImpl implements AtomicDecomposition {
 

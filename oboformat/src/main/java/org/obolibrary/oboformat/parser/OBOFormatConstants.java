@@ -142,10 +142,9 @@ public class OBOFormatConstants {
          */
         TAG_SCOPE("scope"),
         /**
-         * Implicit, in synonymtypedef.
+         * Implicit, in TAG_SYNONYMTYPEDEF.
          */
         TAG_HAS_SYNONYM_TYPE("has_synonym_type"),
-        /** implicit, in synonym. */
         /**
          * Broad.
          */

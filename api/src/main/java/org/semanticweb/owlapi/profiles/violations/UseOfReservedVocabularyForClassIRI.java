@@ -13,7 +13,9 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -28,8 +30,8 @@ public class UseOfReservedVocabularyForClassIRI extends OWLProfileViolation {
 
     /**
      * @param ontology ontology
-     * @param axiom axiom
-     * @param cls cls
+     * @param axiom    axiom
+     * @param cls      class
      */
     public UseOfReservedVocabularyForClassIRI(OWLOntology ontology, @Nullable OWLAxiom axiom,
         OWLClass cls) {

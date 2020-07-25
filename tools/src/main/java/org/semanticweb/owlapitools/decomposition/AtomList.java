@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * atomical ontology structure
+ * Atomic ontology structure.
  */
 public class AtomList {
 

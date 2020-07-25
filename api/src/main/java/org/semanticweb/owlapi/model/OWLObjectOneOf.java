@@ -67,7 +67,7 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression, HasOperands
      * Gets the individuals that are in the oneOf. These individuals represent the exact instances
      * (extension) of this class expression.
      *
-     * @return The individiauls that are the values of this {@code ObjectOneOf} class expression.
+     * @return The individuals that are the values of this {@code ObjectOneOf} class expression.
      */
     Stream<OWLIndividual> individuals();
 

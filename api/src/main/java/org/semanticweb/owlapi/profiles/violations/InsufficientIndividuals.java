@@ -13,7 +13,9 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -26,8 +28,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 public class InsufficientIndividuals extends OWLProfileViolation {
 
     /**
-     * @param currentOntology currentOntology
-     * @param node node
+     * @param currentOntology current ontology
+     * @param node            node
      */
     public InsufficientIndividuals(OWLOntology currentOntology, @Nullable OWLAxiom node) {
         super(currentOntology, node, null);

@@ -4,7 +4,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -23,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Macro expansion gci visitor.
+ * Macro expansion GCI visitor.
  */
 public class MacroExpansionGCIVisitor {
 
@@ -47,9 +49,9 @@ public class MacroExpansionGCIVisitor {
     }
 
     /**
-     * @param outputManager outputManager
-     * @param inputOntology inputOntology
-     * @param shouldAddExpansionMarker should expansionMarker be added
+     * @param outputManager output manager
+     * @param inputOntology input ontology
+     * @param shouldAddExpansionMarker should expansion marker be added
      */
     public MacroExpansionGCIVisitor(OWLOntologyManager outputManager, OWLOntology inputOntology,
         boolean shouldAddExpansionMarker) {
@@ -65,7 +67,7 @@ public class MacroExpansionGCIVisitor {
     }
 
     /**
-     * @return ontology for gci
+     * @return ontology for general concept expansion
      */
     public OWLOntology createGCIOntology() {
         MacroExpansions expansions = new MacroExpansions();

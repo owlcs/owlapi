@@ -55,8 +55,6 @@ class SyntacticLocalityChecker extends LocalityChecker {
     BotEquivalenceEvaluator botEval;
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     SyntacticLocalityChecker(Signature s) {

@@ -20,8 +20,8 @@ import org.semanticweb.owlapi.model.HasIRI;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
-    HasIRI, org.apache.commons.rdf.api.RDFTerm {
+public abstract class RDFNode
+    implements Serializable, Comparable<RDFNode>, HasIRI, org.apache.commons.rdf.api.RDFTerm {
 
     /**
      * Determines if this node is a literal node.
@@ -44,7 +44,7 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
     /**
      * Determines if this node is a resource and is anonymous.
      *
-     * @return {@code true} if this is a resource node (i.e. {@code isLiteral} returns {@code
+     * @return {@code true} if this is a resource node (i.e. {@link #isLiteral()} returns {@code
      * false}) and the node is anonymous, or {@code false} if this is a resource node and is not
      *         anonymous.
      */

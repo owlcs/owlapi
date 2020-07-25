@@ -90,7 +90,7 @@ public final class XMLUtils {
     }
 
     /**
-     * Deterimines if a character is an NCName (Non-Colonised Name) start character.
+     * Determines if a character is an NCName (Non-Colonised Name) start character.
      *
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
      *        characters the code point corresponds to the value of the char that represents the
@@ -103,7 +103,7 @@ public final class XMLUtils {
     }
 
     /**
-     * Deterimines if a character is an NCName (Non-Colonised Name) character.
+     * Determines if a character is an NCName (Non-Colonised Name) character.
      *
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
      *        characters the code point corresponds to the value of the char that represents the
@@ -270,9 +270,9 @@ public final class XMLUtils {
     }
 
     /**
-     * utility to get the part of a charsequence that is not the NCName fragment.
+     * utility to get the part of a char sequence that is not the NCName fragment.
      * 
-     * @param s the charsequence to split
+     * @param s the char sequence to split
      * @return the prefix split at the last non-ncname character, or the whole input if no ncname is
      *         found
      */

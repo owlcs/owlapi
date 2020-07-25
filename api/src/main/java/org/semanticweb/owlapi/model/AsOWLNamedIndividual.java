@@ -6,8 +6,7 @@ package org.semanticweb.owlapi.model;
 public interface AsOWLNamedIndividual {
 
     /**
-     * A convenience method that determines if this entity is an
-     * OWLNamedIndividual.
+     * A convenience method that determines if this entity is an OWLNamedIndividual.
      *
      * @return {@code true} if this entity is an OWLNamedIndividual, otherwise {@code false}
      */
@@ -16,12 +15,12 @@ public interface AsOWLNamedIndividual {
     }
 
     /**
-     * A convenience method that obtains this entity as an OWLNamedIndividual
-     * (in order to avoid explicit casting).
+     * A convenience method that obtains this entity as an OWLNamedIndividual (in order to avoid
+     * explicit casting).
      *
      * @return The entity as an OWLNamedIndividual.
      * @throws OWLRuntimeException if this entity is not an OWLIndividual (check with the
-     * isOWLIndividual method first).
+     *         {@link #isOWLNamedIndividual()} method first).
      */
     default OWLNamedIndividual asOWLNamedIndividual() {
         if (isOWLNamedIndividual()) {

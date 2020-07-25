@@ -69,7 +69,7 @@ public class DefaultPrefixManager
     }
 
     /**
-     * Default constructor setting the comparator to string lenght comparator.
+     * Default constructor setting the comparator to string length comparator.
      */
     public DefaultPrefixManager() {
         this(null, null, null);

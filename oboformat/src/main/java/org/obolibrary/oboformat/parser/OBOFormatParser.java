@@ -135,7 +135,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param followImports followImports
+     * @param followImports true if imports should be followed
      */
     public void setFollowImports(boolean followImports) {
         followImport = followImports;
@@ -144,9 +144,9 @@ public class OBOFormatParser {
     /**
      * Parses a local file or URL to an OBODoc.
      *
-     * @param fn fn
+     * @param fn file name
      * @return parsed obo document
-     * @throws IOException io exception
+     * @throws IOException if there was a problem reading from the output stream
      * @throws OBOFormatParserException parser exception
      */
     public OBODoc parse(String fn) throws IOException {
@@ -161,7 +161,7 @@ public class OBOFormatParser {
      *
      * @param file file
      * @return parsed obo document
-     * @throws IOException io exception
+     * @throws IOException if there was a problem reading from the output stream
      * @throws OBOFormatParserException parser exception
      */
     public OBODoc parse(File file) throws IOException {
@@ -176,9 +176,9 @@ public class OBOFormatParser {
     /**
      * Parses a remote URL to an OBODoc.
      *
-     * @param url url
+     * @param url URL
      * @return parsed obo document
-     * @throws IOException io exception
+     * @throws IOException if there was a problem reading from the output stream
      * @throws OBOFormatParserException parser exception
      */
     public OBODoc parse(URL url) throws IOException {
@@ -191,9 +191,9 @@ public class OBOFormatParser {
     /**
      * Parses a remote URL to an OBODoc.
      *
-     * @param urlstr urlstr
+     * @param urlstr URL string
      * @return parsed obo document
-     * @throws IOException io exception
+     * @throws IOException if there was a problem reading from the output stream
      * @throws OBOFormatParserException parser exception
      */
     public OBODoc parseURL(String urlstr) throws IOException {
@@ -228,7 +228,7 @@ public class OBOFormatParser {
     /**
      * @param reader reader
      * @return parsed obo document
-     * @throws IOException io exception
+     * @throws IOException if there was a problem reading from the output stream
      * @throws OBOFormatParserException parser exception
      */
     public OBODoc parse(Reader reader) throws IOException {
@@ -881,7 +881,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param cl cl
+     * @param cl class
      * @throws OBOFormatParserException parser exception
      * @return {@code intersection_of-Tag Class-ID | intersection_of-Tag Relation-ID Class-ID}
      */

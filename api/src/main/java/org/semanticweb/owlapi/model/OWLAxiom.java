@@ -37,7 +37,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *
      * @param <T> type
      * @param axiom axiom to divest of annotations
-     * @return The annotationless version of the axiom
+     * @return The axiom without annotations
      */
     @SuppressWarnings("unchecked")
     static <T extends OWLAxiom> T getAxiomWithoutAnnotations(T axiom) {
@@ -110,7 +110,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * essentially returns a version of this axiom stripped of any annotations.
      *
      * @param <T> type
-     * @return The annotationless version of this axiom
+     * @return The axiom without annotations
      */
     <T extends OWLAxiom> T getAxiomWithoutAnnotations();
 
@@ -124,7 +124,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *
      * @param <T> type
      * @param witness Variable to ground the generic return type
-     * @return The annotationless version of this axiom
+     * @return The axiom without annotations
      */
     @SuppressWarnings("unchecked")
     default <T extends OWLAxiom> T getAxiomWithoutAnnotations(

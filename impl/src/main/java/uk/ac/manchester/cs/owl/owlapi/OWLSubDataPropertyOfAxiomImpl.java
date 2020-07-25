@@ -28,9 +28,9 @@ public class OWLSubDataPropertyOfAxiomImpl extends
     OWLSubPropertyAxiomImpl<OWLDataPropertyExpression> implements OWLSubDataPropertyOfAxiom {
 
     /**
-     * @param subProperty subproperty
-     * @param superProperty superproperty
-     * @param annotations annotations
+     * @param subProperty   sub property
+     * @param superProperty super property
+     * @param annotations   annotations
      */
     public OWLSubDataPropertyOfAxiomImpl(OWLDataPropertyExpression subProperty,
         OWLDataPropertyExpression superProperty, Collection<OWLAnnotation> annotations) {

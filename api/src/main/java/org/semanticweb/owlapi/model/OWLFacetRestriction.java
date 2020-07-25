@@ -49,7 +49,7 @@ public interface OWLFacetRestriction extends OWLObject {
     }
 
     /**
-     * Gets the retricted facet.
+     * Gets the restricted facet.
      *
      * @return The restricted facet
      */

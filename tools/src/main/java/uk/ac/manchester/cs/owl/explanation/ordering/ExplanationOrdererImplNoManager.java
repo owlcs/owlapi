@@ -261,19 +261,17 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     }
 
     /**
-     * Gets the rHS entities.
-     *
      * @param axiom the axiom
-     * @return the rHS entities
+     * @return the RHS entities
      */
     private Collection<OWLEntity> getRHSEntities(OWLAxiom axiom) {
         return entitiesByAxiomRHS.computeIfAbsent(axiom, x -> createLinkedSet());
     }
 
     /**
-     * Index axioms by rhs entities.
+     * Index axioms by RHS entities.
      *
-     * @param rhs   the rhs
+     * @param rhs the RHS
      * @param axiom the axiom
      */
     protected void indexAxiomsByRHSEntities(OWLObject rhs, OWLAxiom axiom) {

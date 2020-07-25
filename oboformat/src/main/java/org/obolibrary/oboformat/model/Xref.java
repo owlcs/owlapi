@@ -12,21 +12,21 @@ public class Xref {
     protected String annotation;
 
     /**
-     * @param idref idref
+     * @param idref id reference
      */
     public Xref(String idref) {
         this.idref = idref;
     }
 
     /**
-     * @return idref
+     * @return id reference
      */
     public String getIdref() {
         return idref;
     }
 
     /**
-     * @param idref idref
+     * @param idref id reference
      */
     public void setIdref(String idref) {
         this.idref = idref;

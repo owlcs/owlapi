@@ -38,8 +38,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * check whether class expressions are equivalent to bottom wrt given locality
- * class
+ * check whether class expressions are equivalent to bottom wrt given locality class
  */
 class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
@@ -121,7 +120,7 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     /**
-     * QCRs
+     * Qualified cardinality restriction
      *
      * @param n cardinality
      * @param r property
@@ -218,10 +217,8 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectExactCardinality expr) {
         int n = expr.getCardinality();
-        isBotEq =
-            isMinBotEquivalent(n, expr.getProperty(), expr.getFiller()) || isMaxBotEquivalent(n,
-                expr
-                    .getProperty(), expr.getFiller());
+        isBotEq = isMinBotEquivalent(n, expr.getProperty(), expr.getFiller())
+            || isMaxBotEquivalent(n, expr.getProperty(), expr.getFiller());
     }
 
     @Override
@@ -252,10 +249,8 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     @Override
     public void visit(OWLDataExactCardinality expr) {
         int n = expr.getCardinality();
-        isBotEq =
-            isMinBotEquivalent(n, expr.getProperty(), expr.getFiller()) || isMaxBotEquivalent(n,
-                expr
-                    .getProperty(), expr.getFiller());
+        isBotEq = isMinBotEquivalent(n, expr.getProperty(), expr.getFiller())
+            || isMaxBotEquivalent(n, expr.getProperty(), expr.getFiller());
     }
 
     @Override

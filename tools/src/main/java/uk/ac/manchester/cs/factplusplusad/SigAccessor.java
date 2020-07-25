@@ -15,8 +15,6 @@ class SigAccessor {
     Signature sig;
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     SigAccessor(Signature s) {

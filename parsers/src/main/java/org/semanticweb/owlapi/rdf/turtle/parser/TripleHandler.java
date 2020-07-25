@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -27,7 +28,7 @@ public interface TripleHandler {
      * Handle prefix directive.
      *
      * @param prefixName the prefix name
-     * @param prefix the prefix
+     * @param prefix     the prefix
      */
     void handlePrefixDirective(String prefixName, String prefix);
 
@@ -48,38 +49,38 @@ public interface TripleHandler {
     /**
      * Handle triple.
      *
-     * @param subject the subject
+     * @param subject   the subject
      * @param predicate the predicate
-     * @param object the object
+     * @param object    the object
      */
     void handleTriple(IRI subject, IRI predicate, IRI object);
 
     /**
      * Handle triple.
      *
-     * @param subject the subject
+     * @param subject   the subject
      * @param predicate the predicate
-     * @param object the object
+     * @param object    the object
      */
     void handleTriple(IRI subject, IRI predicate, String object);
 
     /**
      * Handle triple.
      *
-     * @param subject the subject
+     * @param subject   the subject
      * @param predicate the predicate
-     * @param object the object
-     * @param lang the lang
+     * @param object    the object
+     * @param lang      the language tag
      */
     void handleTriple(IRI subject, IRI predicate, String object, @Nullable String lang);
 
     /**
      * Handle triple.
      *
-     * @param subject the subject
+     * @param subject   the subject
      * @param predicate the predicate
-     * @param object the object
-     * @param datatype the datatype
+     * @param object    the object
+     * @param datatype  the datatype
      */
     void handleTriple(IRI subject, IRI predicate, String object, @Nullable IRI datatype);
 

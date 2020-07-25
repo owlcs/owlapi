@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public enum ConfigurationOptions {
     //@formatter:off
-    /** True if http compression should be used. */
+    /** True if HTTP compression should be used. */
     ACCEPT_HTTP_COMPRESSION(Boolean.TRUE),
     /** Timeout for connections. */
     CONNECTION_TIMEOUT(Integer.valueOf(20000)),
@@ -58,7 +58,7 @@ public enum ConfigurationOptions {
     INDENT_SIZE(Integer.valueOf(4)),
     /** True if rdfs:label values are to be used as banners in text output. */
     LABELS_AS_BANNER(Boolean.FALSE),
-    /** True if banners for ontology sections and entity comments should be outputted. */
+    /** True if banners for ontology sections and entity comments should be output. */
     BANNERS_ENABLED(Boolean.TRUE),
     /** List of banned parsers keys. */
     BANNED_PARSERS(""),
@@ -124,8 +124,8 @@ public enum ConfigurationOptions {
 
     /**
      * @param parameterName parameter name - by default the full name of this enumeration plus the
-     *                      enum member name
-     * @return , atching ConfigurationOptions member, or null if none found
+     *        enum member name
+     * @return matching ConfigurationOptions member, or null if none found
      */
     @Nullable
     public static ConfigurationOptions find(String parameterName) {
@@ -137,8 +137,8 @@ public enum ConfigurationOptions {
 
     /**
      * @param value value to parse according to the enum default value
-     * @param type  type of the returned value
-     * @param <T>   type
+     * @param type type of the returned value
+     * @param <T> type
      * @return parsed value
      */
     protected <T> T parse(Object value, Class<T> type) {
@@ -158,9 +158,9 @@ public enum ConfigurationOptions {
     }
 
     /**
-     * @param type      type for this value
+     * @param type type for this value
      * @param overrides local overrides
-     * @param <T>       type
+     * @param <T> type
      * @return value for this configuration option. Values are evaluated as follows: first, check
      *         overrides; if no overrides are present, check if a system property with the expected
      *         name is set; if not, check the config file; if no value is set in the config file,
@@ -185,7 +185,7 @@ public enum ConfigurationOptions {
 
     /**
      * @param type type to cast to
-     * @param <T>  type
+     * @param <T> type
      * @return default value
      */
     public <T> T getDefaultValue(Class<T> type) {

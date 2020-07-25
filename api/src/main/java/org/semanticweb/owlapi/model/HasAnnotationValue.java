@@ -40,7 +40,7 @@ public interface HasAnnotationValue {
     /**
      * @return the annotation value itself; this method allows OWLAnnotationAssertionAxiom and
      *         OWLAnnotation to use the default methods rather than replicate the methods. For
-     *         OWLAnnotationValue instances, the value eturned is the object itself.
+     *         OWLAnnotationValue instances, the value returned is the object itself.
      */
     OWLAnnotationValue annotationValue();
 

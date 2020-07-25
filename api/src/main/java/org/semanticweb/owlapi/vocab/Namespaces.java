@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.vocab.Namespaces.BuiltIn.NOT_BUILT_IN;
 import static org.semanticweb.owlapi.vocab.Namespaces.Status.IN_USE;
 
 import java.util.EnumSet;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -88,8 +89,8 @@ public enum Namespaces {
     /**
      * Ignored imports.
      */
-    public static final EnumSet<Namespaces> defaultIgnoredImports = EnumSet
-        .of(OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
+    public static final EnumSet<Namespaces> defaultIgnoredImports =
+        EnumSet.of(OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
     final Status status;
     final BuiltIn builtIn;
     final String hashless;
@@ -156,7 +157,7 @@ public enum Namespaces {
 
     /**
      * @return {@code true} if this namespace is not obsolete and is currently in active use,
-     * otherwise {@code false}.
+     *         otherwise {@code false}.
      */
     public boolean isInUse() {
         return status == IN_USE;
@@ -164,7 +165,7 @@ public enum Namespaces {
 
     /**
      * @return {@code true} if this namespace is defined as a core part of the OWL-2 specification,
-     * otherwise {@code false}.
+     *         otherwise {@code false}.
      */
     public boolean isBuiltIn() {
         return builtIn == BUILT_IN;
@@ -192,8 +193,8 @@ public enum Namespaces {
     }
 
     /**
-     * Indicates that a prefix is builtin - i.e. that it is either owl, rdf,
-     * rdfs, or xsd
+     * Indicates that a prefix is builtin - i.e. that it is either {@code owl}, {@code rdf},
+     * {@code rdfs}, or {@code xsd}
      */
     public enum BuiltIn {
         /**

@@ -19,7 +19,9 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -68,15 +70,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     /**
      * Instantiates a new semantic locality evaluator.
      *
-     * @param man ontology manager
+     * @param man             ontology manager
      * @param reasonerFactory reasoner factory
      */
     public SemanticLocalityEvaluator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory) {
         df = checkNotNull(man, "man cannot be null").getOWLDataFactory();
         try {
             reasoner = checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
-                .createNonBufferingReasoner(man
-                    .createOntology());
+                .createNonBufferingReasoner(man.createOntology());
         } catch (Exception e) {
             throw new OWLRuntimeException(e);
         }
@@ -85,9 +86,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     @Override
     public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
         LOGGER.info("Replacing axiom by Bottom");
-        OWLAxiom newAxiom = bottomReplacer
-            .replaceBottom(checkNotNull(axiom, "axiom cannot be null"), checkNotNull(
-                signature, "signature cannot be null"));
+        OWLAxiom newAxiom =
+            bottomReplacer.replaceBottom(checkNotNull(axiom, "axiom cannot be null"),
+                checkNotNull(signature, "signature cannot be null"));
         return axiomVisitor.isLocal(newAxiom);
     }
 
@@ -98,8 +99,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         private boolean isLocal;
 
-        AxiomLocalityVisitor() {
-        }
+        AxiomLocalityVisitor() {}
 
         /**
          * @return true, if is local
@@ -160,8 +160,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         private OWLClassExpression newClassExpression;
         private Collection<OWLEntity> signature;
 
-        BottomReplacer() {
-        }
+        BottomReplacer() {}
 
         /**
          * @return the result
@@ -174,7 +173,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          * Replace bottom.
          *
          * @param axiom the axiom
-         * @param sig the sig
+         * @param sig   the sig
          * @return the modified OWL axiom
          */
         public OWLAxiom replaceBottom(OWLAxiom axiom, Collection<OWLEntity> sig) {
@@ -184,10 +183,10 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         /**
-         * Takes an OWLClassExpression and a signature replaces by bottom the
-         * entities not in the signature.
+         * Takes an OWLClassExpression and a signature replaces by bottom the entities not in the
+         * signature.
          *
-         * @param desc the desc
+         * @param desc the class expression
          * @return the modified OWL class expression
          */
         public OWLClassExpression replaceBottom(OWLClassExpression desc) {
@@ -292,8 +291,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectAllValuesFrom ce) {
             if (signature.contains(ce.getProperty().getNamedProperty())) {
-                newClassExpression = df
-                    .getOWLObjectAllValuesFrom(ce.getProperty(), replaceBottom(ce.getFiller()));
+                newClassExpression =
+                    df.getOWLObjectAllValuesFrom(ce.getProperty(), replaceBottom(ce.getFiller()));
             } else {
                 newClassExpression = df.getOWLThing();
             }
@@ -349,8 +348,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectSomeValuesFrom ce) {
             if (signature.contains(ce.getProperty().getNamedProperty())) {
-                newClassExpression = df
-                    .getOWLObjectSomeValuesFrom(ce.getProperty(), replaceBottom(ce.getFiller()));
+                newClassExpression =
+                    df.getOWLObjectSomeValuesFrom(ce.getProperty(), replaceBottom(ce.getFiller()));
             } else {
                 newClassExpression = df.getOWLNothing();
             }

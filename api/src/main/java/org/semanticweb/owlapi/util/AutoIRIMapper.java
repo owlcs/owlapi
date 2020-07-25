@@ -83,10 +83,10 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * (and possibly sub-folders).
      *
      * @param rootDirectory The root directory which should be searched for ontologies; this can
-     *        also be a zip/jar file containing ontologies. If root is actually a folder, zip/jar
-     *        files included in the folder are parsed for ontologies. The zip parsing is delegated
-     *        to ZipIRIMapper.
-     * @param recursive Sub directories will be searched recursively if {@code true}.
+     *                      also be a zip/jar file containing ontologies. If root is actually a
+     *                      folder, zip/jar files included in the folder are parsed for ontologies.
+     *                      The zip parsing is delegated to ZipIRIMapper.
+     * @param recursive     Sub directories will be searched recursively if {@code true}.
      */
     public AutoIRIMapper(File rootDirectory, boolean recursive) {
         directoryPath =
@@ -155,8 +155,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     /**
      * Sets the extensions of files that are to be examined for ontological content. (By default the
-     * extensions are, owl, xml and rdf). Only files that have the specified extensions will be
-     * examined to see if they contain ontologies.
+     * extensions are {@code owl}, {@code xml} and {@code rdf}). Only files that have the specified
+     * extensions will be examined to see if they contain ontologies.
      *
      * @param extensions the set of extensions
      */
@@ -168,7 +168,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     /**
      * Gets the set of ontology IRIs that this mapper has found.
      *
-     * @return A {@code Set} of ontology (logical) URIs
+     * @return A {@code Set} of ontology (logical) IRIs
      */
     public Set<IRI> getOntologyIRIs() {
         if (!mapped) {
@@ -354,7 +354,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     /**
      * @param ontologyIRI ontology
-     * @param file file
+     * @param file        file
      */
     protected void addMapping(IRI ontologyIRI, File file) {
         ontologyIRI2PhysicalURIMap.put(ontologyIRI, IRI.create(file));

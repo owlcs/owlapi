@@ -1,6 +1,7 @@
 package uk.ac.manchester.cs.factplusplusad;
 
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -46,8 +47,6 @@ class TSignatureUpdater implements OWLAxiomVisitor {
     TExpressionSignatureUpdater updater;
 
     /**
-     * init c'tor
-     *
      * @param sig signature
      */
     TSignatureUpdater(Signature sig) {

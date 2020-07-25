@@ -17,14 +17,14 @@ import org.semanticweb.owlapi.model.IRI;
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .
  *
- * @author Matthew Horridge, The Univeristy Of Manchester, Medical Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface XMLWriter {
 
     /**
-     * Sets the encoding for the document that the rdfwriter produces. The
-     * default encoding is "UTF-8".
+     * Sets the encoding for the document that the RDF writer produces. The default encoding is
+     * {@code UTF-8}.
      *
      * @param encoding The encoding.
      */
@@ -38,7 +38,7 @@ public interface XMLWriter {
     XMLWriterNamespaceManager getNamespacePrefixes();
 
     /**
-     * @return the xml base
+     * @return the XML base
      */
     String getXMLBase();
 
@@ -51,16 +51,15 @@ public interface XMLWriter {
     void setWrapAttributes(boolean b);
 
     /**
-     * Starts writing the document. The root element will contain the namespace
-     * declarations and xml:base attribute.
+     * Starts writing the document. The root element will contain the namespace declarations and
+     * xml:base attribute.
      *
      * @param rootElement The iri of the root element.
      */
     void startDocument(IRI rootElement);
 
     /**
-     * Causes all open elements, including the document root element, to be
-     * closed.
+     * Causes all open elements, including the document root element, to be closed.
      */
     void endDocument();
 
@@ -68,7 +67,7 @@ public interface XMLWriter {
      * Writes the start of an element.
      *
      * @param name The tag name of the element to be written. This must be a valid QName. @throws
-     * IllegalElementNameException if the specified name is not a valid QName
+     *        IllegalElementNameException if the specified name is not a valid QName
      */
     void writeStartElement(IRI name);
 
@@ -78,8 +77,8 @@ public interface XMLWriter {
     void writeEndElement();
 
     /**
-     * Writes an attribute of the last element to be started (that has not been
-     * closed). Note: if the attribute is an iri, use writeAttribute(IRI, String
+     * Writes an attribute of the last element to be started (that has not been closed). Note: if
+     * the attribute is an iri, use writeAttribute(IRI, String
      *
      * @param attr The name of the attribute
      * @param val The value of the attribute
@@ -87,8 +86,7 @@ public interface XMLWriter {
     void writeAttribute(String attr, String val);
 
     /**
-     * Writes an attribute of the last element to be started (that has not been
-     * closed).
+     * Writes an attribute of the last element to be started (that has not been closed).
      *
      * @param attr The name of the attribute
      * @param val The value of the attribute
@@ -103,7 +101,7 @@ public interface XMLWriter {
     void writeTextContent(String text);
 
     /**
-     * @param commentText commentText
+     * @param commentText comment text
      */
     void writeComment(String commentText);
 }

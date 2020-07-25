@@ -15,7 +15,9 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomChange;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -25,20 +27,17 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
- * Provides a convenient method to filter add/remove axiom changes based on the
- * type of axiom that is being added or removed from an ontology.<br>
- * The general pattern of use is to simply create an instance of the
- * {@code OWLOntologyChangeFilter} and override the appropriate visit methods
- * corresponding to the types of axioms that are of interest. Each visit
- * corresponds to a single change and the {@code isAdd} or {@code isRemove}
- * methods can be used to determine if the axiom corresponding to the change is
- * being added or removed from an ontology - the ontology can be obtained via
- * the {@code getOntology} method.<br>
- * Example: Suppose we are interested in changes that alter the domain of an
- * object property. We receive a list of changes, {@code ontChanges}, from an
- * ontology change listener. We can use the {@code OWLOntologyChangeFilter} to
- * filter out the changes that alter the domain of an object property in the
- * following way:<br>
+ * Provides a convenient method to filter add/remove axiom changes based on the type of axiom that
+ * is being added or removed from an ontology.<br>
+ * The general pattern of use is to simply create an instance of the {@code OWLOntologyChangeFilter}
+ * and override the appropriate visit methods corresponding to the types of axioms that are of
+ * interest. Each visit corresponds to a single change and the {@code isAdd} or {@code isRemove}
+ * methods can be used to determine if the axiom corresponding to the change is being added or
+ * removed from an ontology - the ontology can be obtained via the {@code getOntology} method.<br>
+ * Example: Suppose we are interested in changes that alter the domain of an object property. We
+ * receive a list of changes, {@code ontChanges}, from an ontology change listener. We can use the
+ * {@code OWLOntologyChangeFilter} to filter out the changes that alter the domain of an object
+ * property in the following way:<br>
  *
  * <pre>
  * OWLOntologyChangeFilter filter = new OWLOntologyChangeFilter() {
@@ -99,7 +98,8 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChan
      * Gets the ontology which the current change being visited was applied to.
      *
      * @return The ontology or {@code null} if the filter is not in a change visit cycle. When
-     * called from within a {@code visit} method, the return value is guarenteed not to be {@code
+     *         called from within a {@code visit} method, the return value is guaranteed not to be
+     *         {@code
      * null}.
      */
     @Nullable

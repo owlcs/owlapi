@@ -271,7 +271,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     /**
      * @param ontology the ontology
-     * @param writer   the writer
+     * @param writer the writer
      */
     public FunctionalSyntaxObjectRenderer(@Nullable OWLOntology ontology, Writer writer) {
         ont = Optional.ofNullable(ontology);
@@ -422,7 +422,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     /**
      * @param axioms axioms to render
-     * @return Stirng containing the axioms, rendered as if they were the only content of a fresh
+     * @return String containing the axioms, rendered as if they were the only content of a fresh
      *         ontology
      */
     public String renderAxioms(Collection<OWLAxiom> axioms) {
@@ -462,8 +462,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     /**
-     * @param add       true if missing declarations should be added. If false, no declarations will
-     *                  be added.
+     * @param add true if missing declarations should be added. If false, no declarations will be
+     *        added.
      * @param signature signature to explore.
      * @return collection of IRIS used in illegal punnings
      */
@@ -495,8 +495,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     /**
      * @param illegals set of illegal punnings
-     * @param i        iri to checl
-     * @param puns     list of pun types
+     * @param i iri to check
+     * @param puns list of pun types
      */
     static void computeIllegal(Collection<IRI> illegals, IRI i, List<EntityType<?>> puns) {
         boolean hasObject = puns.contains(EntityType.OBJECT_PROPERTY);
@@ -720,7 +720,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             Collection<OWLDeclarationAxiom> axioms = asList(o.declarationAxioms(entity).sorted());
             axioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
             // if multiple illegal declarations already exist, they have already
-            // been outputted the renderer cannot take responsibility for removing
+            // been output the renderer cannot take responsibility for removing
             // them. It should not add declarations for illegally punned entities
             // here, though
             if (addMissingDeclarations && axioms.isEmpty() && !entity.isBuiltIn()
@@ -750,9 +750,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     /**
      * Writes of the annotation for the specified entity.
      *
-     * @param entity               The entity
+     * @param entity The entity
      * @param alreadyWrittenAxioms already written axioms, to be updated with the newly written
-     *                             axioms
+     *        axioms
      */
     protected void writeAnnotations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
         ont.ifPresent(o -> o.annotationAssertionAxioms(entity.getIRI()).sorted()

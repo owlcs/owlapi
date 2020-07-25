@@ -59,9 +59,9 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
     OWLDatatype getDatatype();
 
     /**
-     * Gets the datarange that defines the datatype.
+     * Gets the data range that defines the datatype.
      *
-     * @return The defining datarange
+     * @return The defining data range
      */
     OWLDataRange getDataRange();
 

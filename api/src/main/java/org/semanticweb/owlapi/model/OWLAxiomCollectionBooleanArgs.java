@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
 /**
- * Ontology methods related to it being a collection of axioms. This interface differes from
+ * Ontology methods related to it being a collection of axioms. This interface differs from
  * OWLAxiomCollection because it uses booleans instead of Imports value to determine import closure
  * inclusion.
  *
@@ -78,7 +78,7 @@ public interface OWLAxiomCollectionBooleanArgs
     /**
      * Gets all axioms of the specified type.
      *
-     * @param axiomType             The type of axioms to be retrived.
+     * @param axiomType             The type of axioms to be retrieved.
      * @param includeImportsClosure if true, include imports closure.
      * @param <T>                   axiom type
      * @return all axioms of the specified type. The set is a copy of the data.

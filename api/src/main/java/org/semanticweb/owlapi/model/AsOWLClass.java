@@ -15,12 +15,12 @@ public interface AsOWLClass {
     }
 
     /**
-     * A convenience method that obtains this entity as an OWLClass (in order to
-     * avoid explicit casting).
+     * A convenience method that obtains this entity as an OWLClass (in order to avoid explicit
+     * casting).
      *
      * @return The entity as an OWLClass.
-     * @throws OWLRuntimeException if this entity is not an OWLClass (check with the isOWLClass
-     * method first).
+     * @throws OWLRuntimeException if this entity is not an OWLClass (check with
+     *         {@link #isOWLClass()} first).
      */
     default OWLClass asOWLClass() {
         if (isOWLClass()) {

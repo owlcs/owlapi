@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Set;
+
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -21,7 +22,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
     private int size = 0;
 
     /**
-     * @param key key
+     * @param key   key
      * @param value value
      * @return true if changes happen
      */
@@ -43,7 +44,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * @param key key
+     * @param key    key
      * @param values values
      */
     public void setEntry(K key, Collection<V> values) {
@@ -52,8 +53,8 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * returns a mutable set of values connected to the key; if no value is
-     * connected, returns an immutable empty set
+     * returns a mutable set of values connected to the key; if no value is connected, returns an
+     * immutable empty set
      *
      * @param key key
      * @return the set of values connected with the key
@@ -99,10 +100,10 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * removes the value connected to the key; if there is more than one value
-     * connected to the key, only one is removed
+     * removes the value connected to the key; if there is more than one value connected to the key,
+     * only one is removed
      *
-     * @param key key
+     * @param key   key
      * @param value value
      * @return true if changes made
      */
@@ -181,7 +182,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * @param otherMap otherMap
+     * @param otherMap map to copy from
      */
     public void putAll(IdentityMultiMap<K, V> otherMap) {
         for (K k : otherMap.keySet()) {

@@ -18,7 +18,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 /**
- * Represents an atom in a rule. Atoms can either be in the head (concequent) or body (antecedent)
+ * Represents an atom in a rule. Atoms can either be in the head (consequent) or body (antecedent)
  * of the rule. Atoms hold objects which are either data objects or individual objects.
  *
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group

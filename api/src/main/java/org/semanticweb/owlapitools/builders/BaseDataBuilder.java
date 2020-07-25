@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -27,9 +28,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * @param <T> type built
  * @param <B> builder type
  */
-public abstract class BaseDataBuilder<T extends OWLObject, B> extends
-    BaseDataPropertyBuilder<T, B> implements
-    SettableRange<OWLDataRange, B> {
+public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPropertyBuilder<T, B>
+    implements SettableRange<OWLDataRange, B> {
 
     @Nullable
     private OWLDataRange dataRange = null;
@@ -58,7 +58,7 @@ public abstract class BaseDataBuilder<T extends OWLObject, B> extends
     }
 
     /**
-     * @return the dataRange
+     * @return the data range
      */
     public OWLDataRange getDataRange() {
         return verifyNotNull(dataRange);

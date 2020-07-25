@@ -246,7 +246,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Write ontology.
      *
-     * @throws OWLRendererException the oWL renderer exception
+     * @throws OWLRendererException renderer exception
      */
     public void writeOntology() throws OWLRendererException {
         writePrefixMap();
@@ -389,9 +389,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     /**
-     * Write full uri.
+     * Write full URI.
      *
-     * @param uri the uri
+     * @param uri the URI to write
      */
     public void writeFullURI(String uri) {
         write("<");
@@ -459,7 +459,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     /**
-     * @param cls the cls
+     * @param cls the class
      * @return the sets the
      */
     public Collection<OWLAxiom> write(OWLClass cls) {
@@ -1120,7 +1120,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     /**
-     * @param commentDelim the comment delim
+     * @param commentDelim the comment delimiter
      * @param comment the comment
      * @param placeOnNewline the place on newline
      */

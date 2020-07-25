@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.debugging;
 
 import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLException;
@@ -25,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public interface OWLDebugger {
 
     /**
-     * Gets the oWL ontology.
+     * Gets the ontology.
      *
      * @return the {@code OWLOntology} that is being debugged.
      * @throws OWLException if there is any problem
@@ -33,21 +34,21 @@ public interface OWLDebugger {
     OWLOntology getOWLOntology() throws OWLException;
 
     /**
-     * Gets the sOS for incosistent class.
+     * Gets the SOS for inconsistent class.
      *
      * @param cls The class which is inconsistent
      * @return the first set of supporting (SOS) axioms that are responsible for the specified class
-     * being inconsistent.
+     *         being inconsistent.
      * @throws OWLException if there is any problem
      */
     Set<OWLAxiom> getSOSForInconsistentClass(OWLClassExpression cls) throws OWLException;
 
     /**
-     * Gets the all sos for incosistent class.
+     * Get all SOS for inconsistent class.
      *
      * @param cls the inconsistent class
      * @return all sets of supporting axioms that are responsible for the specified class being
-     * inconsistent
+     *         inconsistent
      * @throws OWLException if there is any problem
      */
     Set<Set<OWLAxiom>> getAllSOSForInconsistentClass(OWLClassExpression cls) throws OWLException;

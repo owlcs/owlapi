@@ -248,7 +248,7 @@ public class Clause {
     }
 
     /**
-     * @param cls cls
+     * @param cls class
      * @param <T> value type
      * @return value
      */
@@ -269,7 +269,7 @@ public class Clause {
     }
 
     /**
-     * @param cls cls
+     * @param cls class
      * @param <T> value type
      * @return value2
      */
@@ -279,14 +279,14 @@ public class Clause {
     }
 
     /**
-     * @return xrefs
+     * @return xref list
      */
     public Collection<Xref> getXrefs() {
         return xrefs;
     }
 
     /**
-     * @param xrefs xrefs
+     * @param xrefs xref list
      */
     public void setXrefs(Collection<Xref> xrefs) {
         if (!(this.xrefs instanceof ArrayList)) {
@@ -327,7 +327,7 @@ public class Clause {
     }
 
     /**
-     * @param qualifierValues qualifierValues
+     * @param qualifierValues qualifier values
      */
     public void setQualifierValues(Collection<QualifierValue> qualifierValues) {
         if (!(this.qualifierValues instanceof ArrayList)) {
@@ -349,7 +349,7 @@ public class Clause {
     }
 
     /**
-     * @param qv qv
+     * @param qv qualifier value
      */
     public void addQualifierValue(QualifierValue qv) {
         if (!(qualifierValues instanceof ArrayList)) {

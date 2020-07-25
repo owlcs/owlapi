@@ -92,7 +92,7 @@ public class ParserException extends OWLParserException {
      * 
      * @param message the message
      * @param tokenSequence the token sequence
-     * @param startPos the start pos
+     * @param startPos the start position
      * @param lineNumber the line number
      * @param columnNumber the column number
      * @param ontologyNameExpected the ontology name expected
@@ -121,7 +121,7 @@ public class ParserException extends OWLParserException {
      * Instantiates a new parser exception.
      * 
      * @param tokenSequence the token sequence
-     * @param startPos the start pos
+     * @param startPos the start position
      * @param lineNumber the line number
      * @param columnNumber the column number
      * @param ontologyNameExpected the ontology name expected
@@ -151,7 +151,7 @@ public class ParserException extends OWLParserException {
      * 
      * @param message the message
      * @param tokenSequence the token sequence
-     * @param startPos the start pos
+     * @param startPos the start position
      * @param lineNumber the line number
      * @param columnNumber the column number
      * @param classNameExpected the class name expected
@@ -188,8 +188,8 @@ public class ParserException extends OWLParserException {
      * Instantiates a new parser exception.
      * 
      * @param message the message
-     * @param tokenSeqence the token seqence
-     * @param startPos the start pos
+     * @param tokenSeqence the token sequence
+     * @param startPos the start position
      * @param lineNumber the line number
      * @param columnNumber the column number
      * @param classNameExpected the class name expected
@@ -213,8 +213,8 @@ public class ParserException extends OWLParserException {
     /**
      * Instantiates a new parser exception.
      * 
-     * @param tokenSeqence the token seqence
-     * @param startPos the start pos
+     * @param tokenSeqence the token sequence
+     * @param startPos the start position
      * @param lineNumber the line number
      * @param columnNumber the column number
      * @param classNameExpected the class name expected
@@ -243,7 +243,7 @@ public class ParserException extends OWLParserException {
      * @param lineNumber the line number
      * @param columnNumber the column number
      * @param integerExpected the integer expected
-     * @param startPos the start pos
+     * @param startPos the start position
      */
     public ParserException(String message, List<String> tokenSequence, int lineNumber,
         int columnNumber, boolean integerExpected, int startPos) {
@@ -259,7 +259,7 @@ public class ParserException extends OWLParserException {
      * @param lineNumber the line number
      * @param columnNumber the column number
      * @param integerExpected the integer expected
-     * @param startPos the start pos
+     * @param startPos the start position
      */
     public ParserException(List<String> tokenSequence, int lineNumber, int columnNumber,
         boolean integerExpected, int startPos) {
@@ -273,7 +273,7 @@ public class ParserException extends OWLParserException {
      * 
      * @param message the message
      * @param tokenSequence the token sequence
-     * @param startPos the start pos
+     * @param startPos the start position
      * @param lineNumber the line number
      * @param columnNumber the column number
      * @param keywords the keywords
@@ -288,7 +288,7 @@ public class ParserException extends OWLParserException {
      * Instantiates a new parser exception.
      * 
      * @param tokenSequence the token sequence
-     * @param startPos the start pos
+     * @param startPos the start position
      * @param lineNumber the line number
      * @param columnNumber the column number
      * @param keywords the keywords
@@ -315,7 +315,7 @@ public class ParserException extends OWLParserException {
      * Instantiates a new parser exception.
      *
      * @param tokenSequence the token sequence
-     * @param startPos the start pos
+     * @param startPos the start position
      * @param lineNumber the line number
      * @param columnNumber the column number
      * @param classNameExpected the class name expected
@@ -357,9 +357,7 @@ public class ParserException extends OWLParserException {
     }
 
     /**
-     * Gets the start pos.
-     *
-     * @return the start pos
+     * @return the start position
      */
     public int getStartPos() {
         return startPos;
@@ -446,11 +444,6 @@ public class ParserException extends OWLParserException {
         return currentToken;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.semanticweb.owlapi.io.OWLParserException#getLineNumber()
-     */
     @Override
     public int getLineNumber() {
         return lineNumber;

@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -26,9 +27,9 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 public class UseOfNonAtomicClassExpression extends OWLProfileViolation {
 
     /**
-     * @param ontology ontology
-     * @param axiom axiom
-     * @param classExpression classExpression
+     * @param ontology        ontology
+     * @param axiom           axiom
+     * @param classExpression class expression
      */
     public UseOfNonAtomicClassExpression(OWLOntology ontology, OWLAxiom axiom,
         OWLClassExpression classExpression) {

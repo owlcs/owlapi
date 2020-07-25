@@ -26,14 +26,9 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     LowerBoundDirectEvaluator lbd;
     UpperBoundComplementEvaluator ubc;
     LowerBoundComplementEvaluator lbc;
-    /**
-     * keep the value here
-     */
     int value = 0;
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     CardinalityEvaluatorBase(Signature s) {
@@ -206,8 +201,7 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     abstract int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c);
 
     void setEvaluators(UpperBoundDirectEvaluator pUD, LowerBoundDirectEvaluator pLD,
-        UpperBoundComplementEvaluator pUC,
-        LowerBoundComplementEvaluator pLC) {
+        UpperBoundComplementEvaluator pUC, LowerBoundComplementEvaluator pLC) {
         ubd = pUD;
         lbd = pLD;
         ubc = pUC;

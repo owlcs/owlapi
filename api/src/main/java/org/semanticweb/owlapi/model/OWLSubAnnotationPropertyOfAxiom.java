@@ -63,9 +63,9 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
     OWLAnnotationProperty getSubProperty();
 
     /**
-     * Gets the superproperty of this axiom.
+     * Gets the super property of this axiom.
      *
-     * @return The annotation property that represents the superproperty in this axiom.
+     * @return The annotation property that represents the super property in this axiom.
      */
     OWLAnnotationProperty getSuperProperty();
 

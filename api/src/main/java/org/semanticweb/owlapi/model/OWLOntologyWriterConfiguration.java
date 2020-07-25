@@ -129,7 +129,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     }
 
     /**
-     * @param useEntities useNamespaceEntities
+     * @param useEntities true if namespace entities should be used
      * @return new config object
      */
     public OWLOntologyWriterConfiguration withUseNamespaceEntities(boolean useEntities) {

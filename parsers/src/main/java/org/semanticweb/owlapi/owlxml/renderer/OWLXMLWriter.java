@@ -30,6 +30,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.IRI;
@@ -47,11 +48,10 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
- * Writes OWL/XML. In an OWL/XML documents written by this writer, the base is
- * always the ontology URI, and the default namespace is always the OWL
- * namespace (http://www.w3.org/2002/07/owl#). Unlike RDF/XML, entity URIs
- * aren't abbreviated using the XML namespace mechanism, instead they are
- * encoded using 'prefix' elements.
+ * Writes OWL/XML. In an OWL/XML documents written by this writer, the base is always the ontology
+ * URI, and the default namespace is always the OWL namespace (http://www.w3.org/2002/07/owl#).
+ * Unlike RDF/XML, entity URIs aren't abbreviated using the XML namespace mechanism, instead they
+ * are encoded using 'prefix' elements.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -60,8 +60,8 @@ public class OWLXMLWriter {
 
     private static final String LANG_IRI = "xml:lang";
     private static final IRI VERSION_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "versionIRI");
-    private static final IRI ONTOLOGY_IRI = IRI
-        .create(Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
+    private static final IRI ONTOLOGY_IRI =
+        IRI.create(Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
     private final XMLWriter writer;
     private final Map<String, String> iriPrefixMap = new TreeMap<>(new StringLengthComparator());
 
@@ -79,8 +79,8 @@ public class OWLXMLWriter {
         if (!ontology.isAnonymous()) {
             base = ontology.getOntologyID().getOntologyIRI().get().toString();
         }
-        this.writer = new XMLWriterImpl(writer, nsm, base, ontology.getOWLOntologyManager()
-            .getOntologyWriterConfiguration());
+        this.writer = new XMLWriterImpl(writer, nsm, base,
+            ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
     }
 
     /**
@@ -117,9 +117,9 @@ public class OWLXMLWriter {
     }
 
     /**
-     * Gets an IRI attribute value for a full IRI. If the IRI has a prefix that
-     * coincides with a written prefix then the compact IRI will be returned,
-     * otherwise the full IRI will be returned.
+     * Gets an IRI attribute value for a full IRI. If the IRI has a prefix that coincides with a
+     * written prefix then the compact IRI will be returned, otherwise the full IRI will be
+     * returned.
      *
      * @param iri The IRI
      * @return Either the compact version of the IRI or the full IRI.
@@ -175,8 +175,8 @@ public class OWLXMLWriter {
     }
 
     /**
-     * Writes a datatype attributed (used on Literal elements). The full
-     * datatype IRI is written out.
+     * Writes a datatype attributed (used on Literal elements). The full datatype IRI is written
+     * out.
      *
      * @param datatype The datatype
      */
@@ -213,7 +213,7 @@ public class OWLXMLWriter {
      * Writes an IRI element for a given IRI.
      *
      * @param iri The IRI to be written as an element. If the IRI can be abbreviated then an
-     * AbbreviatedIRI element will be written
+     *        AbbreviatedIRI element will be written
      */
     public void writeIRIElement(IRI iri) {
         String iriString = iri.toString();
@@ -240,7 +240,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param lang lang
+     * @param lang language tag
      */
     public void writeLangAttribute(String lang) {
         writer.writeAttribute(LANG_IRI, lang);
@@ -268,7 +268,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param uri uri
+     * @param uri URI
      */
     public void writeAnnotationURIAttribute(URI uri) {
         writer.writeAttribute(ANNOTATION_URI.getIRI(), uri.toString());

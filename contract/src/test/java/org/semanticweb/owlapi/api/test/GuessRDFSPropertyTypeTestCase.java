@@ -11,7 +11,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -30,30 +32,24 @@ import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.search.Searcher;
 
 /**
- * This is a test of the property type guessing for rdf:Property instances of
- * the kind encountered when attempting to parse an rdfs schema.
+ * This is a test of the property type guessing for rdf:Property instances of the kind encountered
+ * when attempting to parse an RDFS schema.
  * <p/>
- * The CIDOC schema is a good test case, because it every property has a domain
- * and a range specified; some properties have a range of Literal (and hence are
- * data properties), and there are subclass relations specified for both data
- * and object properties.
+ * The CIDOC schema is a good test case, because it every property has a domain and a range
+ * specified; some properties have a range of Literal (and hence are data properties), and there are
+ * subclass relations specified for both data and object properties.
  * <p/>
  * There should be no Annotation Properties.
  * <p/>
- * See <a href="http://www.cidoc-crm.org/">The CIDOC Web Site</a> for more
- * details.
+ * See <a href="http://www.cidoc-crm.org/">The CIDOC Web Site</a> for more details.
  */
 @SuppressWarnings({"javadoc", "null"})
 public class GuessRDFSPropertyTypeTestCase extends TestBase {
 
-    private static final @Nonnull
-    String CIDOC_FILE = "cidoc_crm_v5.0.4_official_release.rdfs.xml";
-    private static final @Nonnull
-    String CIDOC_PREFIX = "http://www.cidoc-crm.org/cidoc-crm/";
-    private @Nonnull
-    OWLOntology cidocOntology;
-    private @Nonnull
-    PrefixDocumentFormat prefixOWLDocumentFormat;
+    private static final @Nonnull String CIDOC_FILE = "cidoc_crm_v5.0.4_official_release.rdfs.xml";
+    private static final @Nonnull String CIDOC_PREFIX = "http://www.cidoc-crm.org/cidoc-crm/";
+    private @Nonnull OWLOntology cidocOntology;
+    private @Nonnull PrefixDocumentFormat prefixOWLDocumentFormat;
 
     @Before
     public void setUp() {
@@ -75,8 +71,7 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
     @Test
     public void testDataProperty() {
         testProperty("P79_beginning_is_qualified_by", "E52_Time-Span",
-            "http://www.w3.org/2000/01/rdf-schema#Literal",
-            "P3_has_note");
+            "http://www.w3.org/2000/01/rdf-schema#Literal", "P3_has_note");
     }
 
     public void testProperty(String propertyName, String expectedDomain, String expectedRange,
@@ -97,10 +92,9 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
     }
 
     private void testProperty(OWLObjectProperty p11property, String expectedDomain,
-        String expectedRange,
-        String expectedSuperProperty) {
-        Stream<OWLClassExpression> rangeStream = Searcher
-            .range(cidocOntology.objectPropertyRangeAxioms(p11property));
+        String expectedRange, String expectedSuperProperty) {
+        Stream<OWLClassExpression> rangeStream =
+            Searcher.range(cidocOntology.objectPropertyRangeAxioms(p11property));
         Collection<OWLClassExpression> ranges = asUnorderedSet(rangeStream);
         assertEquals("should have 1 range", 1, ranges.size());
         HasIRI range = (HasIRI) ranges.iterator().next();
@@ -110,17 +104,16 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
             expectedIRI = prefixOWLDocumentFormat.getIRI(expectedRange);
         }
         assertEquals("range", expectedIRI, rangeIRI);
-        Stream<OWLClassExpression> domainStream = Searcher
-            .domain(cidocOntology.objectPropertyDomainAxioms(
-                p11property));
+        Stream<OWLClassExpression> domainStream =
+            Searcher.domain(cidocOntology.objectPropertyDomainAxioms(p11property));
         Collection<OWLClassExpression> domains = asUnorderedSet(domainStream);
         assertEquals("should have 1 domain", 1, domains.size());
         HasIRI domain = (HasIRI) domains.iterator().next();
         IRI domainIRI = domain.getIRI();
         assertEquals("domain should be E5_Event", prefixOWLDocumentFormat.getIRI(expectedDomain),
             domainIRI);
-        Stream<OWLObjectPropertyExpression> superStream = Searcher.sup(cidocOntology.axioms(
-            Filters.subObjectPropertyWithSub, p11property, INCLUDED));
+        Stream<OWLObjectPropertyExpression> superStream = Searcher
+            .sup(cidocOntology.axioms(Filters.subObjectPropertyWithSub, p11property, INCLUDED));
         Collection<OWLObjectPropertyExpression> superProperties = asUnorderedSet(superStream);
         // Set<OWLPropertyExpression> superProperties =
         // p11_property.getSuperProperties(cidocOntology);
@@ -132,10 +125,9 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
     }
 
     private void testProperty(OWLDataProperty p11property, String expectedDomain,
-        String expectedRange,
-        String expectedSuperProperty) {
-        Stream<OWLClassExpression> rangeClasses = Searcher
-            .range(cidocOntology.dataPropertyRangeAxioms(p11property));
+        String expectedRange, String expectedSuperProperty) {
+        Stream<OWLClassExpression> rangeClasses =
+            Searcher.range(cidocOntology.dataPropertyRangeAxioms(p11property));
         Collection<OWLClassExpression> ranges = asUnorderedSet(rangeClasses);
         assertEquals("should have 1 range", 1, ranges.size());
         HasIRI range = (HasIRI) ranges.iterator().next();
@@ -145,8 +137,8 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
             expectedIRI = prefixOWLDocumentFormat.getIRI(expectedRange);
         }
         assertEquals("range", expectedIRI, rangeIRI);
-        Stream<OWLClassExpression> domainStream = Searcher
-            .domain(cidocOntology.dataPropertyDomainAxioms(p11property));
+        Stream<OWLClassExpression> domainStream =
+            Searcher.domain(cidocOntology.dataPropertyDomainAxioms(p11property));
         Collection<OWLClassExpression> domains = asUnorderedSet(domainStream);
         // p11_property .getDomains(cidocOntology);
         assertEquals("should have 1 domain", 1, domains.size());
@@ -154,8 +146,8 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
         IRI domainIRI = domain.getIRI();
         assertEquals("domain should be E5_Event", prefixOWLDocumentFormat.getIRI(expectedDomain),
             domainIRI);
-        Stream<OWLObjectPropertyExpression> supStream = Searcher.sup(cidocOntology.axioms(
-            Filters.subDataPropertyWithSub, p11property, INCLUDED));
+        Stream<OWLObjectPropertyExpression> supStream = Searcher
+            .sup(cidocOntology.axioms(Filters.subDataPropertyWithSub, p11property, INCLUDED));
         Collection<OWLObjectPropertyExpression> superProperties = asUnorderedSet(supStream);
         // Set<OWLPropertyExpression> superProperties =
         // p11_property.getSuperProperties(cidocOntology);
@@ -168,21 +160,19 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
 
     @Test
     public void testObjectPropertyAndDataPropertySetsNonTriviallyDisjoint() {
-        Set<OWLObjectProperty> objectProperties = asUnorderedSet(
-            cidocOntology.objectPropertiesInSignature());
-        Set<OWLDataProperty> dataProperties = asUnorderedSet(
-            cidocOntology.dataPropertiesInSignature());
+        Set<OWLObjectProperty> objectProperties =
+            asUnorderedSet(cidocOntology.objectPropertiesInSignature());
+        Set<OWLDataProperty> dataProperties =
+            asUnorderedSet(cidocOntology.dataPropertiesInSignature());
         assertFalse("should have some object Properties", objectProperties.isEmpty());
         assertFalse("should have some data Properties", dataProperties.isEmpty());
         assertTrue("object properties and data properties should be disjoint",
-            Collections.disjoint(objectProperties,
-                dataProperties));
+            Collections.disjoint(objectProperties, dataProperties));
     }
 
     @Test
     public void testAnnotationPropertyCount() {
         assertEquals("should only have 2 rdfs annotation properties", 2,
-            cidocOntology.annotationPropertiesInSignature(
-                INCLUDED).count());
+            cidocOntology.annotationPropertiesInSignature(INCLUDED).count());
     }
 }

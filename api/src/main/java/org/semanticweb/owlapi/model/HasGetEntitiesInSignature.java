@@ -26,7 +26,7 @@ public interface HasGetEntitiesInSignature {
 
     /**
      * @param entityIRI IRI for all entities to retrieve
-     * @return entities with IRI equal to entityIRI
+     * @return entities with IRI equal to entity IRI
      * @deprecated use {@link #entitiesInSignature(IRI)}
      */
     @Deprecated
@@ -36,7 +36,7 @@ public interface HasGetEntitiesInSignature {
 
     /**
      * @param entityIRI IRI for all entities to retrieve
-     * @return stream of entities with IRI equal to entityIRI
+     * @return stream of entities with IRI equal to entity IRI
      */
     Stream<OWLEntity> entitiesInSignature(IRI entityIRI);
 }

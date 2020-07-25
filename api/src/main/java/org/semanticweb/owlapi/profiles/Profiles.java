@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 /**
  * This enumeration includes all currently implemented profile checkers and known information about
  * available reasoners for those profiles. Note that reasoner capabilities might be out of date,
- * since they are independent projects. Therefore, ther emight be reasoners not listed here and the
+ * since they are independent projects. Therefore, there might be reasoners not listed here and the
  * reasoners listed might have changed.<br>
  * The use case for this class was suggested by Peter Ansell, see
  * <a href= "https://github.com/ansell/owlapi/commit/fa88c8139fe3d59ea46d363a9c9a36f6ddf05119"

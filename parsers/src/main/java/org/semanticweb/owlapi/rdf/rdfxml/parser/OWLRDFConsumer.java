@@ -214,16 +214,15 @@ public class OWLRDFConsumer
      */
     private final Set<IRI> classIRIs = createSet();
     /**
-     * Same as classExpressionIRIs but for object properties
+     * The object property iris.
      */
     private final Set<IRI> objectPropertyIRIs = createSet();
     /**
-     * Same as classExpressionIRIs but for data properties
+     * The data property iris.
      */
     private final Set<IRI> dataPropertyIRIs = createSet();
     /**
-     * Same as classExpressionIRIs but for rdf properties things neither typed as a data or object
-     * property - bad!
+     * The RDF property iris, for RDF properties neither typed as a data or object property - bad!
      */
     private final Set<IRI> propertyIRIs = createSet();
     /**
@@ -231,7 +230,7 @@ public class OWLRDFConsumer
      */
     private final Set<IRI> individualIRIs = createSet();
     /**
-     * Same as classExpressionIRIs but for annotation properties
+     * The annotation property iris.
      */
     private final Set<IRI> annPropertyIRIs = createSet();
     /**
@@ -292,39 +291,39 @@ public class OWLRDFConsumer
      */
     private final Map<IRI, IRI> synonymMap = createMap();
     /**
-     * The swrl rules.
+     * The SWRL rules.
      */
     private final Set<IRI> swrlRules = createSet();
     /**
-     * The swrl individual property atoms.
+     * The SWRL individual property atoms.
      */
     private final Set<IRI> swrlIndividualPropertyAtoms = createSet();
     /**
-     * The swrl data valued property atoms.
+     * The SWRL data valued property atoms.
      */
     private final Set<IRI> swrlDataValuedPropertyAtoms = createSet();
     /**
-     * The swrl class atoms.
+     * The SWRL class atoms.
      */
     private final Set<IRI> swrlClassAtoms = createSet();
     /**
-     * The swrl data range atoms.
+     * The SWRL data range atoms.
      */
     private final Set<IRI> swrlDataRangeAtoms = createSet();
     /**
-     * The swrl built in atoms.
+     * The SWRL built in atoms.
      */
     private final Set<IRI> swrlBuiltInAtoms = createSet();
     /**
-     * The swrl variables.
+     * The SWRL variables.
      */
     private final Set<IRI> swrlVariables = createSet();
     /**
-     * The swrl same as atoms.
+     * The SWRL same as atoms.
      */
     private final Set<IRI> swrlSameAsAtoms = createSet();
     /**
-     * The swrl different from atoms.
+     * The SWRL different from atoms.
      */
     private final Set<IRI> swrlDifferentFromAtoms = createSet();
     /**
@@ -366,7 +365,7 @@ public class OWLRDFConsumer
     private final Map<String, IRI> iriMap = createMap();
     RemappingIndividualProvider anonProvider;
     /**
-     * The IRI of the first reource that is typed as an ontology
+     * The IRI of the first resource that is typed as an ontology
      */
     @Nullable
     private IRI firstOntologyIRI;
@@ -392,8 +391,6 @@ public class OWLRDFConsumer
     private boolean parsedAllTriples = false;
 
     /**
-     * Instantiates a new oWLRDF consumer.
-     *
      * @param ontology the ontology
      * @param configuration the configuration
      */
@@ -402,8 +399,6 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Instantiates a new oWLRDF consumer.
-     *
      * @param ontology the ontology
      * @param checker anonymous node checker
      * @param configuration the configuration
@@ -500,7 +495,7 @@ public class OWLRDFConsumer
         // vocabulary
         // where the vocabulary has simply changed (e.g. DAML+OIL -> OWL)
         synonymMap.clear();
-        // Legacy protege-owlapi representation of QCRs
+        // Legacy protege-owlapi representation of qualified cardinality restrictions
         synonymMap.put(IRI.create(OWL.getPrefixIRI(), "valuesFrom"), OWL_ON_CLASS.getIRI());
         if (!configuration.isStrict()) {
             addDAMLOILVocabulary();
@@ -509,7 +504,7 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Adds the damloil vocabulary.
+     * Adds the DAML+OIL vocabulary.
      */
     private void addDAMLOILVocabulary() {
         synonymMap.put(daml("subClassOf"), RDFS_SUBCLASS_OF.getIRI());
@@ -820,19 +815,15 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Adds the rdf property.
-     *
-     * @param iri the iri
+     * @param iri the iri of an RDF property
      */
     protected void addRDFProperty(IRI iri) {
         propertyIRIs.add(iri);
     }
 
     /**
-     * Checks if is rDF property.
-     *
      * @param iri the iri
-     * @return true, if is rDF property
+     * @return true, if is RDF property
      */
     protected boolean isRDFProperty(IRI iri) {
         return propertyIRIs.contains(iri);
@@ -1068,9 +1059,7 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Gets the oWL ontology manager.
-     *
-     * @return the oWL ontology manager
+     * @return the ontology manager
      */
     public OWLOntologyManager getOWLOntologyManager() {
         return ontology.getOWLOntologyManager();
@@ -1101,40 +1090,32 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Gets the oWL class.
-     *
      * @param iri the iri
-     * @return the oWL class
+     * @return the OWL class
      */
     protected OWLClass getOWLClass(IRI iri) {
         return df.getOWLClass(iri);
     }
 
     /**
-     * Gets the oWL object property.
-     *
      * @param iri the iri
-     * @return the oWL object property
+     * @return the object property
      */
     protected OWLObjectProperty getOWLObjectProperty(IRI iri) {
         return df.getOWLObjectProperty(iri);
     }
 
     /**
-     * Gets the oWL data property.
-     *
      * @param iri the iri
-     * @return the oWL data property
+     * @return the data property
      */
     protected OWLDataProperty getOWLDataProperty(IRI iri) {
         return df.getOWLDataProperty(iri);
     }
 
     /**
-     * Gets the oWL individual.
-     *
      * @param iri the iri
-     * @return the oWL individual
+     * @return the individual
      */
     protected OWLIndividual getOWLIndividual(IRI iri) {
         if (isAnonymousNode(iri)) {
@@ -1171,12 +1152,12 @@ public class OWLRDFConsumer
      *
      * @param subject the subject
      * @param predicate the predicate
-     * @param con the con
+     * @param literal the literal
      */
-    protected void consumeTriple(IRI subject, IRI predicate, OWLLiteral con) {
+    protected void consumeTriple(IRI subject, IRI predicate, OWLLiteral literal) {
         LOGGER.trace("consuming triple");
-        tripleLogger.justLog(subject, predicate, con);
-        if (!isTriplePresent(subject, predicate, con, true)) {
+        tripleLogger.justLog(subject, predicate, literal);
+        if (!isTriplePresent(subject, predicate, literal, true)) {
             LOGGER.trace("consuming triple failed");
         }
     }
@@ -1194,7 +1175,7 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Adds the swrl rule.
+     * Adds the SWRL rule.
      *
      * @param iri the iri
      */
@@ -1203,17 +1184,17 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Checks if is sWRL rule.
+     * Checks if is SWRL rule.
      *
      * @param iri the iri
-     * @return true, if is sWRL rule
+     * @return true, if is SWRL rule
      */
     protected boolean isSWRLRule(IRI iri) {
         return swrlRules.contains(iri);
     }
 
     /**
-     * Adds the swrl individual property atom.
+     * Adds the SWRL individual property atom.
      *
      * @param iri the iri
      */
@@ -1222,17 +1203,17 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Checks if is sWRL individual property atom.
+     * Checks if is SWRL individual property atom.
      *
      * @param iri the iri
-     * @return true, if is sWRL individual property atom
+     * @return true, if is SWRL individual property atom
      */
     protected boolean isSWRLIndividualPropertyAtom(IRI iri) {
         return swrlIndividualPropertyAtoms.contains(iri);
     }
 
     /**
-     * Adds the swrl data property atom.
+     * Adds the SWRL data property atom.
      *
      * @param iri the iri
      */
@@ -1241,17 +1222,17 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Checks if is sWRL data valued property atom.
+     * Checks if is SWRL data valued property atom.
      *
      * @param iri the iri
-     * @return true, if is sWRL data valued property atom
+     * @return true, if is SWRL data valued property atom
      */
     protected boolean isSWRLDataValuedPropertyAtom(IRI iri) {
         return swrlDataValuedPropertyAtoms.contains(iri);
     }
 
     /**
-     * Adds the swrl class atom.
+     * Adds the SWRL class atom.
      *
      * @param iri the iri
      */
@@ -1260,17 +1241,17 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Checks if is sWRL class atom.
+     * Checks if is SWRL class atom.
      *
      * @param iri the iri
-     * @return true, if is sWRL class atom
+     * @return true, if is SWRL class atom
      */
     protected boolean isSWRLClassAtom(IRI iri) {
         return swrlClassAtoms.contains(iri);
     }
 
     /**
-     * Adds the swrl same as atom.
+     * Adds the SWRL same as atom.
      *
      * @param iri the iri
      */
@@ -1279,17 +1260,17 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Checks if is sWRL same as atom.
+     * Checks if is SWRL same as atom.
      *
      * @param iri the iri
-     * @return true, if is sWRL same as atom
+     * @return true, if is SWRL same as atom
      */
     protected boolean isSWRLSameAsAtom(IRI iri) {
         return swrlSameAsAtoms.contains(iri);
     }
 
     /**
-     * Adds the swrl different from atom.
+     * Adds the SWRL different from atom.
      *
      * @param iri the iri
      */
@@ -1298,17 +1279,17 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Checks if is sWRL different from atom.
+     * Checks if is SWRL different from atom.
      *
      * @param iri the iri
-     * @return true, if is sWRL different from atom
+     * @return true, if is SWRL different from atom
      */
     protected boolean isSWRLDifferentFromAtom(IRI iri) {
         return swrlDifferentFromAtoms.contains(iri);
     }
 
     /**
-     * Adds the swrl data range atom.
+     * Adds the SWRL data range atom.
      *
      * @param iri the iri
      */
@@ -1317,17 +1298,17 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Checks if is sWRL data range atom.
+     * Checks if is SWRL data range atom.
      *
      * @param iri the iri
-     * @return true, if is sWRL data range atom
+     * @return true, if is SWRL data range atom
      */
     protected boolean isSWRLDataRangeAtom(IRI iri) {
         return swrlDataRangeAtoms.contains(iri);
     }
 
     /**
-     * Adds the swrl built in atom.
+     * Adds the SWRL built in atom.
      *
      * @param iri the iri
      */
@@ -1336,17 +1317,17 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Checks if is sWRL built in atom.
+     * Checks if is SWRL built in atom.
      *
      * @param iri the iri
-     * @return true, if is sWRL built in atom
+     * @return true, if is SWRL built in atom
      */
     protected boolean isSWRLBuiltInAtom(IRI iri) {
         return swrlBuiltInAtoms.contains(iri);
     }
 
     /**
-     * Adds the swrl variable.
+     * Adds the SWRL variable.
      *
      * @param iri the iri
      */
@@ -1355,10 +1336,10 @@ public class OWLRDFConsumer
     }
 
     /**
-     * Checks if is sWRL variable.
+     * Checks if is SWRL variable.
      *
      * @param iri the iri
-     * @return true, if is sWRL variable
+     * @return true, if is SWRL variable
      */
     protected boolean isSWRLVariable(IRI iri) {
         return swrlVariables.contains(iri);
@@ -1593,8 +1574,8 @@ public class OWLRDFConsumer
      *
      * @param literal The literal
      * @param datatype The data type
-     * @param lang The lang
-     * @return The {@code OWLLiteral} (either typed or untyped depending on the params)
+     * @param lang The language tag
+     * @return The {@code OWLLiteral} (either typed or untyped depending on the parameters)
      */
     OWLLiteral getOWLLiteral(String literal, @Nullable IRI datatype, @Nullable String lang) {
         if (lang != null && !isBlank(lang)) {
@@ -1616,9 +1597,9 @@ public class OWLRDFConsumer
     }
 
     /**
-     * compatibility proxy for TranslatorAccessor#translateClassExpression
+     * compatibility proxy for {@link TranslatorAccessor#translateClassExpression(IRI)}
      *
-     * @param i iri fr the class expression
+     * @param i iri for the class expression
      * @return translated class expression
      */
     public OWLClassExpression translateClassExpression(IRI i) {
@@ -1701,7 +1682,7 @@ public class OWLRDFConsumer
      * Translate data property expression.
      *
      * @param iri the iri
-     * @return the oWL data property expression
+     * @return the data property expression
      */
     public OWLDataPropertyExpression translateDataPropertyExpression(IRI iri) {
         return df.getOWLDataProperty(iri);
@@ -1711,7 +1692,7 @@ public class OWLRDFConsumer
      * Translate object property expression.
      *
      * @param mainNode the main node
-     * @return the oWL object property expression
+     * @return the object property expression
      */
     public OWLObjectPropertyExpression translateObjectPropertyExpression(IRI mainNode) {
         OWLObjectPropertyExpression prop = translatedProperties.get(mainNode);
@@ -1746,7 +1727,7 @@ public class OWLRDFConsumer
      * Translate individual.
      *
      * @param node the node
-     * @return the oWL individual
+     * @return the individual
      */
     public OWLIndividual translateIndividual(IRI node) {
         return getOWLIndividual(node);
@@ -1869,7 +1850,7 @@ public class OWLRDFConsumer
     /**
      * @param entityType entity type
      * @param mainNode main node
-     * @param <E>        entity type
+     * @param <E> entity type
      * @return error entity
      */
     public <E extends OWLEntity> E generateAndLogParseError(EntityType<E> entityType,

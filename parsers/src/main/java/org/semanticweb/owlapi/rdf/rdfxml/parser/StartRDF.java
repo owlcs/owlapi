@@ -44,7 +44,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.NodeID;
 import org.slf4j.Logger;
@@ -59,15 +61,21 @@ abstract class AbstractState {
     static final String DATATYPE_RESOURCE = "rdf:datatype specified on a node with resource value.";
     static final String TEXT_SEEN = "Text was seen and new node is started.";
     static final String RDF_RDF = "Expecting rdf:RDF element.";
-    static final String OP_EXPECTED = "Cannot answer characters when object properties are expected.";
+    static final String OP_EXPECTED =
+        "Cannot answer characters when object properties are expected.";
     static final String CHARACTERS_NOT_EXPECTED = "Characters were not expected.";
     static final String INCORRECT_START = "incorrect element start encountered.";
-    static final String EXPECTING_OBJECT = "Expecting an object element instead of character content.";
-    static final String RDF_RDF_EXPECTED = "Expecting rdf:rdf element instead of character content.";
+    static final String EXPECTING_OBJECT =
+        "Expecting an object element instead of character content.";
+    static final String RDF_RDF_EXPECTED =
+        "Expecting rdf:rdf element instead of character content.";
     static final String NODE_EXPECTED = "Cannot answer characters when node is expected.";
-    static final String NO_RDF_NODE_ID_ID_ABOUT = "Element cannot specify both rdf:nodeID and rdf:ID or rdf:about attributes.";
-    static final String NO_RDF_ID_AND_ABOUT = "Element cannot specify both rdf:ID and rdf:about attributes.";
-    static final String ABOUT_EACH_PREFIX_UNSUPPORTED = "rdf:aboutEachPrefix attribute is not supported.";
+    static final String NO_RDF_NODE_ID_ID_ABOUT =
+        "Element cannot specify both rdf:nodeID and rdf:ID or rdf:about attributes.";
+    static final String NO_RDF_ID_AND_ABOUT =
+        "Element cannot specify both rdf:ID and rdf:about attributes.";
+    static final String ABOUT_EACH_PREFIX_UNSUPPORTED =
+        "rdf:aboutEachPrefix attribute is not supported.";
     static final String ABOUT_EACH_UNSUPPORTED = "rdf:aboutEach attribute is not supported.";
     //@formatter:off
     protected final RDFParser parser;
@@ -313,14 +321,14 @@ class NodeElement extends AbstractState implements State {
     }
 
     /**
-     * @param uri the uri
+     * @param iri the IRI
      * @return property iri
      */
-    String getPropertyIRI(String uri) {
-        if (RDF_LI.equals(uri)) {
+    String getPropertyIRI(String iri) {
+        if (RDF_LI.equals(iri)) {
             return getNextLi();
         }
-        return uri;
+        return iri;
     }
 
     @Override

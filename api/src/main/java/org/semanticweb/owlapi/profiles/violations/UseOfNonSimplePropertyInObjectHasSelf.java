@@ -13,7 +13,9 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
@@ -29,8 +31,8 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation {
 
     /**
      * @param ontology ontology
-     * @param axiom axiom
-     * @param hasSelf hasSelf
+     * @param axiom    axiom
+     * @param hasSelf  has self restriction
      */
     public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology, @Nullable OWLAxiom axiom,
         OWLObjectHasSelf hasSelf) {
@@ -55,7 +57,6 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation {
     @Override
     public String toString() {
         return toString("Use of non-simple property in %s restriction: %s",
-            ClassExpressionType.OBJECT_HAS_SELF
-                .getName(), getExpression());
+            ClassExpressionType.OBJECT_HAS_SELF.getName(), getExpression());
     }
 }

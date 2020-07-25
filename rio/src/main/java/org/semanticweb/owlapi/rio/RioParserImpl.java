@@ -149,7 +149,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      *
      * @param source  An {@link OWLOntologyDocumentSource} containing RDF statements.
      * @param baseUri The base URI to use when parsing the document source.
-     * @param handler rdf handler
+     * @param handler RDF handler
      * @param config  loading configuration
      * @throws OWLOntologyInputSourceException if the source cannot be accessed
      * @throws UnsupportedRDFormatException    If the document contains a format which is currently

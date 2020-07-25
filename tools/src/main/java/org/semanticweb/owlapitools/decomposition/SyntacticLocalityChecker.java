@@ -72,7 +72,7 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
     private Signature sig = new Signature();
 
     /**
-     * init c'tor
+     * Fresh checker.
      */
     public SyntacticLocalityChecker() {
         topEval = new TopEquivalenceEvaluator(this);

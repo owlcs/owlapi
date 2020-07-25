@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -82,8 +83,6 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
     private final OWLOntologyManager manager;
 
     /**
-     * init c'tor
-     *
      * @param f reasoner factory
      * @param m manager
      */
@@ -95,8 +94,6 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
     }
 
     /**
-     * init c'tor
-     *
      * @param r reasoner
      */
     public SemanticLocalityChecker(OWLReasoner r) {
@@ -133,7 +130,7 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         return isLocal;
     }
 
-    /* init kernel with the ontology signature */
+    /* Init kernel with the ontology signature */
     @Override
     public void preprocessOntology(Collection<AxiomWrapper> axioms) {
         exprMap.clear();

@@ -21,28 +21,28 @@ import org.xml.sax.SAXException;
 public interface State {
 
     /**
-     * @param namespaceIRI namespaceIRI
-     * @param localName localName
-     * @param qName qName
-     * @param atts atts
-     * @throws SAXException sax exception
+     * @param namespaceIRI namespace IRI
+     * @param localName    localName
+     * @param qName        qName
+     * @param atts         attributes
+     * @throws SAXException SAX exception
      */
     void startElement(String namespaceIRI, String localName, String qName, Attributes atts)
         throws SAXException;
 
     /**
-     * @param namespaceIRI namespaceIRI
-     * @param localName localName
-     * @param qName qName
-     * @throws SAXException SAXException
+     * @param namespaceIRI namespace IRI
+     * @param localName    localName
+     * @param qName        qName
+     * @throws SAXException SAX exception
      */
     void endElement(String namespaceIRI, String localName, String qName) throws SAXException;
 
     /**
-     * @param data data
-     * @param start start
+     * @param data   data
+     * @param start  start
      * @param length length
-     * @throws SAXException SAXException
+     * @throws SAXException SAX exception
      */
     void characters(char[] data, int start, int length) throws SAXException;
 }

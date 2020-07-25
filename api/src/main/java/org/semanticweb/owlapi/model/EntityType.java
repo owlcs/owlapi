@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
 import org.semanticweb.owlapi.model.providers.EntityProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -34,8 +35,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class EntityType<E extends OWLEntity> implements Serializable, HasShortForm, HasPrefixedName,
-    HasIRI {
+public class EntityType<E extends OWLEntity>
+    implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
 
 //@formatter:off
     /** Class entity.               */ public static final EntityType<OWLClass>              CLASS               = new EntityType<>("Class",               "Class",               "Classes",               OWL_CLASS,              (i, p) -> p.getOWLClass(i));
@@ -45,13 +46,15 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
     /** Named individual entity.    */ public static final EntityType<OWLNamedIndividual>    NAMED_INDIVIDUAL    = new EntityType<>("NamedIndividual",     "Named individual",    "Named individuals",     OWL_NAMED_INDIVIDUAL,   (i, p) -> p.getOWLNamedIndividual(i));
     /** Datatype entity.            */ public static final EntityType<OWLDatatype>           DATATYPE            = new EntityType<>("Datatype",            "Datatype",            "Datatypes",             RDFS_DATATYPE,          (i, p) -> p.getOWLDatatype(i));
     //@formatter:on
-    private static final List<EntityType<?>> VALUES = Collections.<EntityType<?>>unmodifiableList(
-        Arrays.asList(CLASS, OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
+    private static final List<EntityType<?>> VALUES =
+        Collections.<EntityType<?>>unmodifiableList(Arrays.asList(CLASS, OBJECT_PROPERTY,
+            DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
     private final String name;
     private final OWLRDFVocabulary vocabulary;
     private final String printName;
     private final String pluralPrintName;
     private final Builder<E> builder;
+
     protected EntityType(String name, String print, String pluralPrint, OWLRDFVocabulary vocabulary,
         Builder<E> builder) {
         this.name = name;
@@ -76,7 +79,7 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
     }
 
     /**
-     * @return this entity tipe name
+     * @return this entity type name
      */
     public String getName() {
         return name;

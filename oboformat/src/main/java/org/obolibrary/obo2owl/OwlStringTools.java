@@ -32,7 +32,7 @@ public class OwlStringTools {
      * null.
      *
      * @param axioms axioms
-     * @param translationManager translationManager
+     * @param translationManager translation manager
      * @return string or null
      * @deprecated use {@link #translate(Collection)}
      */
@@ -66,7 +66,7 @@ public class OwlStringTools {
      * Parse the axioms from the given axiom string. Returns null for empty and null strings.
      *
      * @param axioms axioms
-     * @param translationManager translationManager
+     * @param translationManager translation manager
      * @return set of axioms or null
      * @see #translate(Collection, OWLOntologyManager)
      */

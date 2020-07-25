@@ -88,8 +88,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.search.Filters;
 
 /**
- * A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS syntax. Note that only
- * a subset of OWL can be expressed in KRSS. <br>
+ * A {@code KRSSObjectRenderer} renders an OWLOntology in the original KRSS syntax. Note that only a
+ * subset of OWL can be expressed in KRSS. <br>
  * <b>Abbreviations</b>
  * <table summary="Abbreviations">
  * <tr>
@@ -228,7 +228,7 @@ import org.semanticweb.owlapi.search.Filters;
  * <tr>
  * <td>OWLDifferentIndividualsAxiom</td>
  * <td>(distinct i1 i2)</td>
- * <td><i>OWLDifferentIndividualsAxiom i1 i2 ... in</i> will be splitted into: <br>
+ * <td><i>OWLDifferentIndividualsAxiom i1 i2 ... in</i> will be split into: <br>
  * { (distinct i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k}</td>
  * </tr>
  * <tr>
@@ -239,7 +239,7 @@ import org.semanticweb.owlapi.search.Filters;
  * <tr>
  * <td>OWLSameIndividualsAxiom</td>
  * <td>(equal i1 i2)</td>
- * <td><i>OWLSameIndividual i1 i2 ...i(n-1)</i> in will be splitted into:<br>
+ * <td><i>OWLSameIndividual i1 i2 ...i(n-1)</i> in will be split into:<br>
  * { (equal i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
  * </td>
  * </tr>

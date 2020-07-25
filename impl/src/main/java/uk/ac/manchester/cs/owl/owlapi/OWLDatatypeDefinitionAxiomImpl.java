@@ -34,8 +34,8 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl
     private final OWLDataRange dataRange;
 
     /**
-     * @param datatype datatype
-     * @param dataRange datarange
+     * @param datatype    datatype
+     * @param dataRange   data range
      * @param annotations annotations on the axiom
      */
     public OWLDatatypeDefinitionAxiomImpl(OWLDatatype datatype, OWLDataRange dataRange,

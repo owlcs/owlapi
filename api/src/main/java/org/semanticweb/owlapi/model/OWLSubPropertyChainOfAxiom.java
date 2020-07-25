@@ -69,7 +69,7 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
     /**
      * Gets the super property of this axiom.
      *
-     * @return The property expression that represents the superproperty in this expression.
+     * @return The property expression that represents the super property in this expression.
      */
     OWLObjectPropertyExpression getSuperProperty();
 

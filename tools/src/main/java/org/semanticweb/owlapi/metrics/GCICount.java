@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.metrics;
 
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -23,8 +24,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class GCICount extends AxiomCountMetric {
 
     /**
-     * Instantiates a new gCI count.
-     *
      * @param o ontology to use
      */
     public GCICount(OWLOntology o) {

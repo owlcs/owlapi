@@ -30,9 +30,9 @@ public interface HasDirectImports {
      * to the IRIs defined by the directlyImportsDocument association as discussed in Section 3.4 of
      * the OWL 2 Structural specification.
      *
-     * @return The set of directlyImportsDocument IRIs.
+     * @return The set of directly imported document IRIs.
      * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
-     *                                     because it was removed from the manager.
+     *         because it was removed from the manager.
      * @deprecated use {@link #directImportsDocuments()}
      */
     @Deprecated
@@ -45,9 +45,9 @@ public interface HasDirectImports {
      * the IRIs defined by the directlyImportsDocument association as discussed in Section 3.4 of
      * the OWL 2 Structural specification.
      *
-     * @return The stream of directlyImportsDocument IRIs.
+     * @return The stream of directly imported document IRIs.
      * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
-     *                                     because it was removed from the manager.
+     *         because it was removed from the manager.
      */
     Stream<IRI> directImportsDocuments();
 
@@ -63,7 +63,7 @@ public interface HasDirectImports {
      * @return A set of ontologies such that for this ontology O, and each ontology O' in the set,
      *         (O, O') is in the directlyImports relation.
      * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
-     *                                     because it was removed from the manager.
+     *         because it was removed from the manager.
      * @deprecated use {@link #directImports()}
      */
     @Deprecated
@@ -83,7 +83,7 @@ public interface HasDirectImports {
      * @return Stream of ontologies such that for this ontology O, and each ontology O' in the set,
      *         (O, O') is in the directlyImports relation.
      * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
-     *                                     because it was removed from the manager.
+     *         because it was removed from the manager.
      */
     Stream<OWLOntology> directImports();
 }

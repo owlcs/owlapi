@@ -10,10 +10,12 @@ import java.util.Collection;
 import java.util.Deque;
 import java.util.List;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.atomicdecomposition.ModuleMethod;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
+
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
@@ -22,7 +24,7 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 public class Modularizer {
 
     /**
-     * pointer to a sig index; if not NULL then use optimized algo
+     * pointer to a signature index; if not NULL then use optimized algorithm
      */
     private final SigIndex sigIndex;
     /**
@@ -55,8 +57,6 @@ public class Modularizer {
     private boolean noAtomsProcessing = true;
 
     /**
-     * init c'tor
-     *
      * @param moduleMethod module method
      */
     Modularizer(ModuleMethod moduleMethod) {
@@ -152,7 +152,7 @@ public class Modularizer {
     }
 
     /**
-     * extract module wrt presence of a sig index
+     * extract module wrt presence of a signature index
      *
      * @param list axioms
      */

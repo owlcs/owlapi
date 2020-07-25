@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.change;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -23,17 +24,15 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * This composite change will create a value partion - see "pattern 2" in
- * "Representing Specified Values in OWL: "value partitions" and "value sets""
+ * This composite change will create a value partitiion - see "pattern 2" in "Representing Specified
+ * Values in OWL: "value partitions" and "value sets""
  * (http://www.w3.org/TR/swbp-specified-values.)<br>
- * A value partition is an ontology design pattern which is used to represent a
- * set of closed values for a particular property. For example the property
- * hasSize might only take values from SmallSize, MediumSize and LargeSize. In
- * this case, the value partition is Size, and has the values SmallSize,
- * MediumSize and LargeSize. This composite change will set hasSize to be
- * functional and its range as Size. Size will be covered by SmallSize,
- * MediumSize and LargeSize and these classes which represent the values will be
- * made disjoint with eachother.
+ * A value partition is an ontology design pattern which is used to represent a set of closed values
+ * for a particular property. For example the property hasSize might only take values from
+ * SmallSize, MediumSize and LargeSize. In this case, the value partition is Size, and has the
+ * values SmallSize, MediumSize and LargeSize. This composite change will set hasSize to be
+ * functional and its range as Size. Size will be covered by SmallSize, MediumSize and LargeSize and
+ * these classes which represent the values will be made disjoint with each other.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
@@ -46,11 +45,11 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
      * @param dataFactory A data factory which can be used to create the necessary axioms
      * @param valuePartitionClass The class which represents the value partition.
      * @param valuePartionClasses The classes that represent the various values of the value
-     * partition.
+     *        partition.
      * @param valuePartitionProperty the property which should be used in conjunction with the value
-     * partition.
+     *        partition.
      * @param targetOntology The target ontology which the axioms that are necessary to create the
-     * value partition will be added to.
+     *        value partition will be added to.
      */
     public CreateValuePartition(OWLDataFactory dataFactory, OWLClass valuePartitionClass,
         Collection<OWLClass> valuePartionClasses, OWLObjectProperty valuePartitionProperty,
@@ -63,8 +62,8 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
     }
 
     private void generateChanges(OWLOntology targetOntology,
-        Collection<OWLClass> valuePartitionClasses,
-        OWLClass valuePartitionClass, OWLObjectProperty valuePartitionProperty) {
+        Collection<OWLClass> valuePartitionClasses, OWLClass valuePartitionClass,
+        OWLObjectProperty valuePartitionProperty) {
         // To create a value partition from a set of classes which represent the
         // values, a value partition class, a property we...
         // 1) Make the classes which represent the values, subclasses of the

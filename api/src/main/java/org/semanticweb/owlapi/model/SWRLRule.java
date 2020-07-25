@@ -106,8 +106,8 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * If this rule contains atoms that have predicates that are inverse object properties, then
-     * this method creates and returns a rule where the arguments of these atoms are fliped over and
-     * the predicate is the inverse (simplified) property.
+     * this method creates and returns a rule where the arguments of these atoms are flipped over
+     * and the predicate is the inverse (simplified) property.
      *
      * @return The rule such that any atoms of the form inverseOf(p)(x, y) are transformed to p(x,
      *         y).

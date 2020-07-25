@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * Anonymous or named object interface. Named OWLObjects have an IRI; this includes
+ * Anonymous or named object interface. Named {@code OWLObject} instances have an IRI; this includes
  * {@code OWLClass}, {@code OWLDataProperty}, {@code OWLObjectProperty}, {@code OWLDatatype},
  * {@code OWLAnnotationProperty} and {@code OWLNamedIndividual} instances. {@code OWLOntology}
  * instances also have an IRI or can be anonymous, depending on the contents of their ontology id.

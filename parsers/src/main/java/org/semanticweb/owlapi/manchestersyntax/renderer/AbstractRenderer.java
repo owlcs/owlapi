@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
@@ -55,21 +57,21 @@ public class AbstractRenderer {
     }
 
     /**
-     * @param useWrapping useWrapping
+     * @param useWrapping true if output should be wrapped
      */
     protected void setUseWrapping(boolean useWrapping) {
         this.useWrapping = useWrapping;
     }
 
     /**
-     * @return true if use tabbing
+     * @return true if tabs should be used
      */
     protected boolean isUseTabbing() {
         return useTabbing;
     }
 
     /**
-     * @param useTabbing useTabbing
+     * @param useTabbing true if tabs should be used
      */
     protected void setUseTabbing(boolean useTabbing) {
         this.useTabbing = useTabbing;

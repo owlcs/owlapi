@@ -215,9 +215,9 @@ public class OBOFormatWriter {
             first = false;
         }
         Collection<Xref> xrefs = clause.getXrefs();
-        // if the xrefs value is null, then there should *never* be xrefs at
-        // this location
-        // not that the value may be a non-null empty list - here we still want
+        // If the xref list is null, then there should *never* be xref values at
+        // this location.
+        // Note that the value may be a non-null empty list - here we still want
         // to write []
         if (!xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
@@ -487,9 +487,9 @@ public class OBOFormatWriter {
     /**
      * Compare values.
      *
-     * @param o1 the o1
-     * @param o2 the o2
-     * @return the int
+     * @param o1 the first object
+     * @param o2 the second object
+     * @return comparison result
      */
     private static int compareValues(@Nullable Object o1, @Nullable Object o2) {
         if (o1 == null && o2 == null) {
@@ -514,8 +514,8 @@ public class OBOFormatWriter {
     }
 
     /**
-     * @param obj the obj
-     * @return toString representation
+     * @param obj the object
+     * @return string representation
      */
     private static String toStringRepresentation(@Nullable Object obj) {
         if (obj == null) {
@@ -549,7 +549,7 @@ public class OBOFormatWriter {
      * @param fn the file name to read in
      * @param writer the writer
      * @throws IOException Signals that an I/O exception has occurred.
-     * @throws OBOFormatParserException the oBO format parser exception
+     * @throws OBOFormatParserException the OBO format parser exception
      */
     public void write(String fn, Writer writer) throws IOException {
         if (fn.startsWith("http:")) {
@@ -568,7 +568,7 @@ public class OBOFormatWriter {
      * @param url the url
      * @param writer the writer
      * @throws IOException Signals that an I/O exception has occurred.
-     * @throws OBOFormatParserException the oBO format parser exception
+     * @throws OBOFormatParserException the OBO format parser exception
      */
     public void write(URL url, Writer writer) throws IOException {
         Reader reader = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -579,7 +579,7 @@ public class OBOFormatWriter {
      * @param reader the reader
      * @param writer the writer
      * @throws IOException Signals that an I/O exception has occurred.
-     * @throws OBOFormatParserException the oBO format parser exception
+     * @throws OBOFormatParserException the OBO format parser exception
      */
     public void write(Reader reader, Writer writer) throws IOException {
         OBOFormatParser parser = new OBOFormatParser();

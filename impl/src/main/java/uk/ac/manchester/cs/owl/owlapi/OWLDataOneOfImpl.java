@@ -33,7 +33,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     private final List<OWLLiteral> values;
 
     /**
-     * @param values lierals
+     * @param values literals
      */
     public OWLDataOneOfImpl(Stream<? extends OWLLiteral> values) {
         checkNotNull(values, "values cannot be null");
@@ -41,14 +41,14 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
     /**
-     * @param values lierals
+     * @param values literals
      */
     public OWLDataOneOfImpl(Collection<? extends OWLLiteral> values) {
         this(checkNotNull(values, "values cannot be null").stream());
     }
 
     /**
-     * @param value lieral
+     * @param value literal
      */
     public OWLDataOneOfImpl(OWLLiteral value) {
         checkNotNull(value, "value cannot be null");

@@ -39,10 +39,10 @@ public class RDFResourceBlankNode extends RDFResource implements BlankNode {
     /**
      * Create an RDFResource that is anonymous.
      *
-     * @param resource The IRI of the resource
+     * @param resource     The IRI of the resource
      * @param isIndividual true if the node represents an individual
-     * @param forceId true if id should be outputted
-     * @param isAxiom true if axiom
+     * @param forceId      true if id should be output
+     * @param isAxiom      true if axiom
      */
     public RDFResourceBlankNode(IRI resource, boolean isIndividual, boolean forceId,
         boolean isAxiom) {
@@ -55,10 +55,10 @@ public class RDFResourceBlankNode extends RDFResource implements BlankNode {
     /**
      * Create an RDFResource that is anonymous.
      *
-     * @param anonId the number at the end of the anon IRI
+     * @param anonId       the number at the end of the anon IRI
      * @param isIndividual true if the node represents an individual
-     * @param forceId true if id should be outputted
-     * @param isAxiom true if axiom
+     * @param forceId      true if id should be output
+     * @param isAxiom      true if axiom
      */
     public RDFResourceBlankNode(Integer anonId, boolean isIndividual, boolean forceId,
         boolean isAxiom) {
@@ -69,8 +69,8 @@ public class RDFResourceBlankNode extends RDFResource implements BlankNode {
      * Create an RDFResource that is anonymous
      *
      * @param isIndividual true if this is an individual
-     * @param forceId true if the id should be outputted
-     * @param isAxiom true if axiom
+     * @param forceId      true if the id should be output
+     * @param isAxiom      true if axiom
      */
     public RDFResourceBlankNode(boolean isIndividual, boolean forceId, boolean isAxiom) {
         this(NodeID.nextFreshNodeId(), isIndividual, forceId, isAxiom);

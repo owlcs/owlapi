@@ -26,7 +26,7 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
     private final OWLDataRange dataRange;
 
     /**
-     * @param dataRange datarange
+     * @param dataRange data range
      */
     public OWLDataComplementOfImpl(OWLDataRange dataRange) {
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");

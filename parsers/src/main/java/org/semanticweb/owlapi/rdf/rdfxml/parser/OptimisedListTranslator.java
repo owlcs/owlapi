@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -12,10 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The
- * type of list (i.e. the type of objects in the list) are determined by a
- * {@code ListItemTranslator}. The translator consumes all triples which are
- * used in the translation.
+ * Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The type of list (i.e. the
+ * type of objects in the list) are determined by a {@code ListItemTranslator}. The translator
+ * consumes all triples which are used in the translation.
  *
  * @param <O> type
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -28,7 +28,7 @@ class OptimisedListTranslator<O extends OWLObject> {
     private final ListItemTranslator<O> translator;
 
     /**
-     * @param consumer consumer
+     * @param consumer   consumer
      * @param translator translator
      */
     protected OptimisedListTranslator(OWLRDFConsumer consumer, ListItemTranslator<O> translator) {
@@ -69,7 +69,7 @@ class OptimisedListTranslator<O extends OWLObject> {
     }
 
     /**
-     * @param mainNode mainNode
+     * @param mainNode main node
      * @return translated list
      */
     @SuppressWarnings("unchecked")
@@ -93,7 +93,7 @@ class OptimisedListTranslator<O extends OWLObject> {
     }
 
     /**
-     * @param mainNode mainNode
+     * @param mainNode main node
      * @return translated list
      */
     public Set<O> translateToSet(IRI mainNode) {

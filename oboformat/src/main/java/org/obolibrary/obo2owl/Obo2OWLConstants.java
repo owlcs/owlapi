@@ -34,7 +34,7 @@ public class Obo2OWLConstants {
 
     /**
      * @param tag tag
-     * @return obj for tag
+     * @return object for tag
      */
     @Nullable
     public static Obo2OWLVocabulary getVocabularyObj(String tag) {

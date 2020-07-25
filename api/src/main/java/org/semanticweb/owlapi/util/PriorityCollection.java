@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 
@@ -54,8 +55,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
 
     /**
      * @param c collection of elements to set. Existing elements will be removed, and the priority
-     * collection will be sorted according to the PriorityCollectionSorting value for the manager
-     * configuration.
+     *        collection will be sorted according to the PriorityCollectionSorting value for the
+     *        manager configuration.
      */
     public void set(Iterable<T> c) {
         clear();
@@ -64,8 +65,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
 
     /**
      * @param c collection of elements to set. Existing elements will be removed, and the priority
-     * collection will be sorted according to the PriorityCollectionSorting value for the manager
-     * configuration.
+     *        collection will be sorted according to the PriorityCollectionSorting value for the
+     *        manager configuration.
      */
     public void set(Set<T> c) {
         clear();
@@ -76,8 +77,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * Remove all elements, replace with the arguments and sort according to
-     * priority.
+     * Remove all elements, replace with the arguments and sort according to priority.
      *
      * @param c list of elements to set
      */
@@ -87,8 +87,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * Add the arguments and sort according to the PriorityCollectionSorting
-     * value for the manager configuration.
+     * Add the arguments and sort according to the PriorityCollectionSorting value for the manager
+     * configuration.
      *
      * @param c list of elements to add
      */
@@ -101,8 +101,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * Add the argument and sort according to the PriorityCollectionSorting
-     * value for the manager configuration.
+     * Add the argument and sort according to the PriorityCollectionSorting value for the manager
+     * configuration.
      *
      * @param t element to add
      */
@@ -112,8 +112,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * Add the arguments and sort according to the PriorityCollectionSorting
-     * value for the manager configuration.
+     * Add the arguments and sort according to the PriorityCollectionSorting value for the manager
+     * configuration.
      *
      * @param c list of elements to add
      */
@@ -146,7 +146,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * Rmove all elements from the collection.
+     * Remove all elements from the collection.
      */
     public void clear() {
         delegate.clear();
@@ -159,10 +159,9 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
 
     /**
      * Returns the first item matching the mime type<br>
-     * NOTE: The order in which the services are loaded an examined is not
-     * deterministic so this method may return different results if the
-     * MIME-Type matches more than one item. However, if the default MIME-Types
-     * are always unique, the correct item will always be chosen
+     * NOTE: The order in which the services are loaded an examined is not deterministic so this
+     * method may return different results if the MIME-Type matches more than one item. However, if
+     * the default MIME-Types are always unique, the correct item will always be chosen
      *
      * @param mimeType A MIME type to use for choosing an item
      * @return An item matching the given mime type or null if none were found.

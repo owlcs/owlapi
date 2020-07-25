@@ -78,14 +78,14 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @return the priorty collection sorting option
+     * @return the priority collection sorting option
      */
     public PriorityCollectionSorting getPriorityCollectionSorting() {
         return PRIORITY_COLLECTION_SORTING.getValue(PriorityCollectionSorting.class, overrides);
     }
 
     /**
-     * Set the priorty collection sorting option.
+     * Set the priority collection sorting option.
      *
      * @param sorting the sorting option to be used.
      * @return An {@code OntologyConfigurator} with the new sorting option set.
@@ -169,7 +169,7 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param value true if redirects should be followed across protocols, false otherwise.
-     * @return a copy of the current object with followRedirects set to the new value.
+     * @return a copy of the current object with follow redirects set to the new value.
      */
     public OntologyConfigurator setFollowRedirects(boolean value) {
         overrides.put(FOLLOW_REDIRECTS, Boolean.valueOf(value));
@@ -297,7 +297,7 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param value true if Dublin Core vocabulary should be treated as built in.
-     * @return a copy of the current object with treatDublinCoreAsBuiltIn set to the new value.
+     * @return a copy of the current object with treat dublin core as builtIn set to the new value.
      */
     public OntologyConfigurator setTreatDublinCoreAsBuiltIn(boolean value) {
         overrides.put(TREAT_DUBLINCORE_AS_BUILTIN, Boolean.valueOf(value));

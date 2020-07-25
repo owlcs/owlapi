@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.change;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -26,11 +27,10 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
- * Given a set of ontologies, this composite change will replace all subclass
- * axioms in each ontology, whose super class is an object intersection
- * (conjuction) with multiple subclass axioms - one for each conjunct. For
- * example, A subClassOf (B and C), would be replaced with two subclass axioms,
- * A subClassOf B, and A subClassOf C.
+ * Given a set of ontologies, this composite change will replace all subclass axioms in each
+ * ontology, whose super class is an object intersection (conjunction) with multiple subclass axioms
+ * - one for each conjunct. For example, A subClassOf (B and C), would be replaced with two subclass
+ * axioms, A subClassOf B, and A subClassOf C.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
@@ -38,10 +38,10 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
 
     /**
-     * Creates a composite change to split subclass axioms into multiple more
-     * fine grained subclass axioms.
+     * Creates a composite change to split subclass axioms into multiple more fine grained subclass
+     * axioms.
      *
-     * @param ontologies The ontologies whose subclass axioms should be processed.
+     * @param ontologies  The ontologies whose subclass axioms should be processed.
      * @param dataFactory The data factory which should be used to create new axioms.
      */
     public SplitSubClassAxioms(Collection<OWLOntology> ontologies, OWLDataFactory dataFactory) {
@@ -54,9 +54,8 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         ax.getSuperClass().accept(splitter);
         if (splitter.result.size() > 1) {
             addChange(new RemoveAxiom(o, ax));
-            splitter.result
-                .forEach(desc -> addChange(
-                    new AddAxiom(o, df.getOWLSubClassOfAxiom(ax.getSubClass(), desc))));
+            splitter.result.forEach(desc -> addChange(
+                new AddAxiom(o, df.getOWLSubClassOfAxiom(ax.getSubClass(), desc))));
         }
     }
 
@@ -73,8 +72,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         /**
          * Instantiates a new conjunct splitter.
          */
-        ConjunctSplitter() {
-        }
+        ConjunctSplitter() {}
 
         @Override
         public void doDefault(Object object) {
