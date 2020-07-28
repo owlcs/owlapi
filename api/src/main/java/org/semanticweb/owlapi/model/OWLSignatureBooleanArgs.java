@@ -121,7 +121,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
     /**
      * Determines if the signature contains the specified entity.
      *
-     * @param owlEntity             The entity
+     * @param owlEntity The entity
      * @param includeImportsClosure if true, include imports closure.
      * @return {@code true} if the signature or the import closure contains a reference to the
      *         specified entity.
@@ -135,7 +135,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
     /**
      * Determines if the signature contains an entity with the specified IRI.
      *
-     * @param entityIRI             The IRI to test for.
+     * @param entityIRI The IRI to test for.
      * @param includeImportsClosure if true, include imports closure.
      * @return true if the signature or the import closure contains an entity with the specified
      *         IRI.
@@ -151,7 +151,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
     /**
      * Determines if the signature contains an OWLClass that has the specified IRI.
      *
-     * @param owlClassIRI           The IRI of the class to check for
+     * @param owlClassIRI The IRI of the class to check for
      * @param includeImportsClosure if true, include imports closure.
      * @return true if the signature or the import closure contains an entity with the specified
      *         IRI.
@@ -165,7 +165,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
     /**
      * Determines if the signature contains an OWLObjectProperty that has the specified IRI.
      *
-     * @param owlObjectPropertyIRI  The IRI of the OWLObjectProperty to check for
+     * @param owlObjectPropertyIRI The IRI of the OWLObjectProperty to check for
      * @param includeImportsClosure if true, include imports closure.
      * @return true if the signature or the import closure contains an object property with the
      *         specified IRI.
@@ -181,7 +181,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
     /**
      * Determines if the signature contains an OWLDataProperty that has the specified IRI.
      *
-     * @param owlDataPropertyIRI    The IRI of the OWLDataProperty to check for
+     * @param owlDataPropertyIRI The IRI of the OWLDataProperty to check for
      * @param includeImportsClosure if true, include imports closure.
      * @return true if the signature or the import closure contains a data property with the
      *         specified IRI.
@@ -198,7 +198,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      * Determines if the signature contains an OWLAnnotationProperty that has the specified IRI.
      *
      * @param owlAnnotationPropertyIRI The IRI of the OWLAnnotationProperty to check for
-     * @param includeImportsClosure    if true, include imports closure.
+     * @param includeImportsClosure if true, include imports closure.
      * @return true if the signature or the import closure contains an annotation property with the
      *         specified IRI.
      * @deprecated use {@link #containsAnnotationPropertyInSignature(IRI, Imports)}
@@ -213,7 +213,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
     /**
      * Determines if the signature contains an OWLDatatype that has the specified IRI.
      *
-     * @param owlDatatypeIRI        The IRI of the OWLDatatype to check for
+     * @param owlDatatypeIRI The IRI of the OWLDatatype to check for
      * @param includeImportsClosure if true, include imports closure.
      * @return true if the signature or the import closure contains a datatype with the specified
      *         IRI.
@@ -228,7 +228,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
     /**
      * Determines if the signature contains an OWLNamedIndividual that has the specified IRI.
      *
-     * @param owlIndividualIRI      The IRI of the OWLNamedIndividual to check for
+     * @param owlIndividualIRI The IRI of the OWLNamedIndividual to check for
      * @param includeImportsClosure if true, include imports closure.
      * @return true if the signature or the import closure contains an individual with the specified
      *         IRI.
@@ -244,7 +244,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
     /**
      * Gets the entities in the signature that have the specified IRI.
      *
-     * @param iri                   The IRI of the entities to be retrieved.
+     * @param iri The IRI of the entities to be retrieved.
      * @param includeImportsClosure if true, include imports closure.
      * @return the set of entities with the specified IRI, optionally including the ones in the
      *         import closure.
@@ -256,10 +256,10 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
     }
 
     /**
-     * @param entity                entity to check
+     * @param entity entity to check
      * @param includeImportsClosure if true, include imports closure.
      * @return true if entity is referenced
-     * @deprecated use {@link #containsReference(OWLEntity, Imports)}
+     * @deprecated use {@link #containsEntityInSignature(OWLEntity, Imports)}
      */
     @Deprecated
     default boolean containsReference(OWLEntity entity, boolean includeImportsClosure) {

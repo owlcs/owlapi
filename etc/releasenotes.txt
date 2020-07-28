@@ -1,3 +1,10 @@
+## 5.1.16 28 July 2020
+
+### Bug fixes:
+
+*    Fix follow multiple redirects across protocols #954
+*    Javadoc fixes for deprecated stream methods #950
+
 ## 5.1.15 02 July 2020
 
 ### Features:

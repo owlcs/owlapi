@@ -688,7 +688,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
 
     /**
      * Gets the {@link OWLInverseObjectPropertiesAxiom} objects where the specified property is
-     * contained in the set returned by {@link OWLInverseObjectPropertiesAxiom#getProperties()} .
+     * contained in the set returned by {@link OWLInverseObjectPropertiesAxiom#properties()} .
      *
      * @param property The property which is equal to the property of the retrieved axioms.
      * @return the axioms matching the search. The set is a copy of the data.

@@ -17,11 +17,11 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNu
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Object and datatype union provider.

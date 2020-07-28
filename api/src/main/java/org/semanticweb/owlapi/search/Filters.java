@@ -95,7 +95,8 @@ public class Filters {
     /**
      * filter returning annotation assertions where the subject matches the input key.
      *
-     * @deprecated use {@link org.semanticweb.owlapi.model.OWLOntology#annotationAssertionAxioms()}
+     * @deprecated use
+     *             {@link org.semanticweb.owlapi.model.OWLOntology#annotationAssertionAxioms(org.semanticweb.owlapi.model.OWLAnnotationSubject)}
      *             in place of this filter as it is much faster, thanks to indexing.
      */
     @Deprecated
@@ -148,7 +149,7 @@ public class Filters {
 
         /**
          * @param type axiom type to filter on
-         * @param f    filter lambda
+         * @param f filter lambda
          */
         public AxiomFilter(AxiomType<?> type, Filter<A> f) {
             types = CollectionFactory.<AxiomType<?>>list(type);
@@ -157,7 +158,7 @@ public class Filters {
 
         /**
          * @param types axiom types to filter on
-         * @param f     filter lambda
+         * @param f filter lambda
          */
         public AxiomFilter(Collection<AxiomType<?>> types, Filter<A> f) {
             this.types = types;
@@ -165,7 +166,7 @@ public class Filters {
         }
 
         /**
-         * @param f     filter lambda
+         * @param f filter lambda
          * @param types axiom types to filter on
          */
         public AxiomFilter(Filter<A> f, AxiomType<?>... types) {

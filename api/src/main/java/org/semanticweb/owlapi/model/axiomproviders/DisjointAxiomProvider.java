@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -26,7 +27,6 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Disjoint classes and properties provider.
@@ -54,7 +54,7 @@ public interface DisjointAxiomProvider {
 
     /**
      * @param classExpressions Disjoint classes. Cannot be null or contain nulls.
-     * @param annotations      A set of annotations. Cannot be null or contain nulls.
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint class axiom with annotations
      */
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
@@ -62,8 +62,8 @@ public interface DisjointAxiomProvider {
         Collection<OWLAnnotation> annotations);
 
     /**
-     * @param classA      Disjoint class.
-     * @param classB      Disjoint class.
+     * @param classA Disjoint class.
+     * @param classB Disjoint class.
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint class axiom with annotations
      */
@@ -74,7 +74,7 @@ public interface DisjointAxiomProvider {
 
     /**
      * @param classExpressions Disjoint classes. Cannot be null or contain nulls.
-     * @param annotations      A set of annotations. Cannot be null or contain nulls.
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint class axiom with annotations
      */
     default OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
@@ -112,7 +112,7 @@ public interface DisjointAxiomProvider {
     }
 
     /**
-     * @param properties  Cannot be null or contain nulls.
+     * @param properties Cannot be null or contain nulls.
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint object properties axiom with specified properties and annotations
      */
@@ -121,8 +121,8 @@ public interface DisjointAxiomProvider {
         Collection<OWLAnnotation> annotations);
 
     /**
-     * @param p           Disjoint property
-     * @param q           Disjoint property
+     * @param p Disjoint property
+     * @param q Disjoint property
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint object properties axiom with specified properties and annotations
      */
@@ -152,7 +152,7 @@ public interface DisjointAxiomProvider {
     }
 
     /**
-     * @param properties  Cannot be null or contain nulls.
+     * @param properties Cannot be null or contain nulls.
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint data properties axiom with specified properties and annotations
      */
@@ -161,8 +161,8 @@ public interface DisjointAxiomProvider {
         Collection<OWLAnnotation> annotations);
 
     /**
-     * @param p           Disjoint property
-     * @param q           Disjoint property
+     * @param p Disjoint property
+     * @param q Disjoint property
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint data properties axiom with specified properties and annotations
      */

@@ -16,7 +16,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>5.1.16-SNAPSHOT</version>
+	<version>5.1.16</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlcs.github.io/owlapi/</url>
@@ -27,7 +27,7 @@
 		<rdf4j.version>2.4.2</rdf4j.version>
 		<!-- remove this line for releases, if the release process fails because 
 			of missing javadoc jars -->
-		<no-javadoc>true</no-javadoc>
+		<no-javadoc>false</no-javadoc>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- 5.0.0 is the earliest release on Maven Central for this series -->
 		<last.japicmp.compare.version>5.0.0</last.japicmp.compare.version>		
@@ -255,7 +255,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>3.0.1</version>
+						<version>3.2.0</version>
 						<configuration>
 							<show>public</show>
 						</configuration>
