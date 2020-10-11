@@ -188,7 +188,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             () -> Arrays.asList(SubClassOf(clsA, DataExactCardinality(3, dp, Integer()))),
             () -> Arrays.asList(DataPropertyRange(dp, DataUnionOf(disj1, disj2))),
             () -> Arrays.asList( HasKey(singleton(Annotation(apropA, Literal("Test", ""))), clsA, pA, pB, pC), Declaration(apropA), Declaration(pA), Declaration(pB), Declaration(pC)),
-            () -> Arrays.asList( DisjointClasses(asUnorderedSet(Stream.generate(() -> createClass()).limit(1000)))),
+            () -> Arrays.asList( DisjointClasses(asUnorderedSet(Stream.generate(() -> createClass()).limit(6000)))),
             () -> Arrays.asList(SubClassOf(clsB, ObjectSomeValuesFrom(op.getInverseProperty(), clsA))),
             () -> Arrays.asList(SubDataPropertyOf(dp, dq)),
             () -> Arrays.asList(DataPropertyAssertion(dp, ind, Literal(33.3))),
