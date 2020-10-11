@@ -170,7 +170,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     }
 
     /**
-     * @param manager    ontology manager
+     * @param manager ontology manager
      * @param ontologyID ontology id
      */
     public OWLImmutableOntologyImpl(@Nonnull OWLOntologyManager manager,
@@ -741,7 +741,18 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity,
         Imports includeImportsClosure) {
         if (includeImportsClosure != INCLUDED) {
-            return ontsignatures.get(this).contains(owlEntity);
+            // Do not use the cached signature if it has not been created already.
+            // Creating the cache while this method is called during updates leads to very expensive
+            // lookups.
+            Set<OWLEntity> set = ontsignatures.getIfPresent(this);
+            if (set == null) {
+                if (ints.containsReference(owlEntity)) {
+                    return true;
+                }
+                return getAnnotations().stream()
+                    .anyMatch(a -> a.getSignature().contains(owlEntity));
+            }
+            return set.contains(owlEntity);
         }
         for (OWLOntology o : getImportsClosure()) {
             if (o.containsEntityInSignature(owlEntity, EXCLUDED)) {
