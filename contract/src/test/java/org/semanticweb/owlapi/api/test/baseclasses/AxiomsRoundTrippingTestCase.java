@@ -288,7 +288,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
                 Declaration(apropA), Declaration(propA), Declaration(propB), Declaration(propC)),
             //
             () -> singleton(
-                DisjointClasses(asUnorderedSet(Stream.generate(() -> createClass()).limit(1000)))),
+                DisjointClasses(asUnorderedSet(Stream.generate(() -> createClass()).limit(6000)))),
             //
             () -> singleton(SubClassOf(clsB, ObjectSomeValuesFrom(op.getInverseProperty(), clsA))),
             //

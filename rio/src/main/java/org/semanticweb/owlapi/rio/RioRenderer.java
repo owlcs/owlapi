@@ -35,13 +35,16 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
-import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.eclipse.rdf4j.rio.RDFHandlerException;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
@@ -211,38 +214,54 @@ public class RioRenderer extends RDFRendererBase {
 
     @Override
     public void render(final RDFResource node, boolean root) {
-        if (pending.contains(node)) {
+        if (!pending.add(node)) {
             return;
         }
-        pending.add(node);
-        final Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
+        // do not use recursion, as it fails on very large expressions
+        List<RDFTriple> statements = new ArrayList<>();
+
+        final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
+        trace(triples);
+        triples.stream().filter(renderedStatements::add).forEach(statements::add);
+        // for each RDF resource object, get the triples for the object and add them in the list
+        // right after the first appearance as object; the list will contain the same sequence of
+        // triples as the recursion would encounter.
+        recurseOnNestedResources(statements);
+        // then we go back and get context-sensitive statements and
+        // actually pass those to the RDFHandler
+        statements.forEach(triple -> RioUtils.tripleAsStatements(triple, contexts)
+            .forEach(writer::handleStatement));
+        pending.remove(node);
+    }
+
+    protected void recurseOnNestedResources(List<RDFTriple> list) {
+        Set<RDFResource> subnodes = new HashSet<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getObject() instanceof RDFResource) {
+                RDFResource node = (RDFResource) list.get(i).getObject();
+                if (!pending.contains(node) && subnodes.add(node)) {
+                    final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
+                    trace(triples);
+                    addNewTriples(list, i, triples);
+                }
+            }
+        }
+    }
+
+    protected void addNewTriples(List<RDFTriple> list, int i, final Collection<RDFTriple> triples) {
+        Iterator<RDFTriple> it = triples.stream().filter(renderedStatements::add).iterator();
+        int local = 1;
+        while (it.hasNext()) {
+            list.add(i + local, it.next());
+        }
+    }
+
+    protected void trace(final Collection<RDFTriple> triples) {
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("triples.size()={}", Integer.valueOf(triples.size()));
             if (!triples.isEmpty()) {
                 LOGGER.trace("triples={}", triples);
             }
         }
-        for (final RDFTriple tripleToRender : triples) {
-            try {
-                if (!renderedStatements.contains(tripleToRender)) {
-                    renderedStatements.add(tripleToRender);
-                    // then we go back and get context-sensitive statements and
-                    // actually pass those to the RDFHandler
-                    for (Statement statement : RioUtils.tripleAsStatements(tripleToRender,
-                        contexts)) {
-                        writer.handleStatement(statement);
-                        if (tripleToRender.getObject() instanceof RDFResource) {
-                            render((RDFResource) tripleToRender.getObject(), false);
-                        }
-                    }
-                } else if (LOGGER.isTraceEnabled()) {
-                    LOGGER.trace("not printing duplicate statement, or recursing on its object: {}",
-                        tripleToRender);
-                }
-            } catch (RDFHandlerException e) {
-                throw new OWLRuntimeException(e);
-            }
-        }
-        pending.remove(node);
     }
 }
