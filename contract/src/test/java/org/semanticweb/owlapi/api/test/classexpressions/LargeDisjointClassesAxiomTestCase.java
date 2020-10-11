@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointClasses;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,19 +25,17 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class LargeDisjointClassesAxiomTestCase extends
-        AbstractAxiomsRoundTrippingTestCase {
+public class LargeDisjointClassesAxiomTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<>();
         Set<OWLClass> clses = new HashSet<>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 6000; i++) {
             clses.add(createClass());
         }
         axioms.add(DisjointClasses(clses));
