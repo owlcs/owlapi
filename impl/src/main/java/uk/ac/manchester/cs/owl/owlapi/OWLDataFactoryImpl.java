@@ -186,11 +186,17 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, OWLClas
         new OWLDataFactoryInternalsImpl(false);
     private OWLOntologyLoaderConfiguration config;
 
+    /**
+     * Constructor for configuration injection.
+     */
     @Inject
     public OWLDataFactoryImpl() {
         this(new OWLOntologyLoaderConfiguration());
     }
 
+    /**
+     * @param config configuration
+     */
     public OWLDataFactoryImpl(OWLOntologyLoaderConfiguration config) {
         this.config = config;
     }

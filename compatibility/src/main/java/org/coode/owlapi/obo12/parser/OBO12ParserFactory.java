@@ -38,9 +38,6 @@
  */
 package org.coode.owlapi.obo12.parser;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.semanticweb.owlapi.io.LegacyOWLParserFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;

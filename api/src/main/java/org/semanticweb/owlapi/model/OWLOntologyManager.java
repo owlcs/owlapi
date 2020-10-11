@@ -336,10 +336,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
 
     /**
      * Copy an ontology from another manager to this one. The returned OWLOntology will return this
-     * manager when {@link #getOWLOntologyManager()} is invoked. The copy mode is defined by the
-     * {@link OntologyCopy} parameter: SHALLOW for simply creating a new ontology containing the
-     * same axioms and same id, DEEP for copying across format and document IRI, MOVE to remove the
-     * ontology from its previous manager.
+     * manager when {@link OWLOntology#getOWLOntologyManager()} is invoked. The copy mode is defined
+     * by the {@link OntologyCopy} parameter: SHALLOW for simply creating a new ontology containing
+     * the same axioms and same id, DEEP for copying across format and document IRI, MOVE to remove
+     * the ontology from its previous manager.
      * 
      * @param toCopy ontology to copy
      * @param settings settings for the copy

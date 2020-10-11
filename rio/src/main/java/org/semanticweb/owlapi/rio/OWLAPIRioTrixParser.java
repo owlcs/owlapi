@@ -1,5 +1,5 @@
 /*
- * NOTE:  Dervived from openrdf sesame version 2.9.0.  See
+ * NOTE:  Derived from openrdf sesame version 2.9.0.  See
  *  sesame distribution, available at https://bitbucket.org/openrdf/sesame
  * for license details referenced below.
  * Licensed to Aduna under one or more contributor license agreements.

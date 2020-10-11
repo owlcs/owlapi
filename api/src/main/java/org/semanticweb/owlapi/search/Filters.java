@@ -262,7 +262,7 @@ public class Filters {
      * filter returning annotation assertions where the subject matches the input key.
      * 
      * @deprecated use
-     *             {@link org.semanticweb.owlapi.model.OWLOntology#getAnnotationAssertionAxioms()}
+     *             {@link org.semanticweb.owlapi.model.OWLOntology#getAnnotationAssertionAxioms(org.semanticweb.owlapi.model.OWLAnnotationSubject)}
      *             in place of this filter as it is much faster, thanks to indexing.
      */
     @Deprecated
