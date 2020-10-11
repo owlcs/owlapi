@@ -229,8 +229,12 @@ public class RioRenderer extends RDFRendererBase {
         recurseOnNestedResources(statements);
         // then we go back and get context-sensitive statements and
         // actually pass those to the RDFHandler
-        statements.forEach(triple -> RioUtils.tripleAsStatements(triple, contexts)
-            .forEach(writer::handleStatement));
+        try {
+            statements.forEach(triple -> RioUtils.tripleAsStatements(triple, contexts)
+                .forEach(writer::handleStatement));
+        } catch (RDFHandlerException e) {
+            throw new OWLRuntimeException(e);
+        }
         pending.remove(node);
     }
 
