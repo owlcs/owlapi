@@ -20,13 +20,22 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
+import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
@@ -46,16 +55,12 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     /**
-     * @param property
-     *        annotation property
-     * @param value
-     *        annotation value
-     * @param annotations
-     *        annotations on the axiom
+     * @param property annotation property
+     * @param value annotation value
+     * @param annotations annotations on the axiom
      */
     public OWLAnnotationImpl(@Nonnull OWLAnnotationProperty property,
-        @Nonnull OWLAnnotationValue value,
-        @Nonnull Set<? extends OWLAnnotation> annotations) {
+        @Nonnull OWLAnnotationValue value, @Nonnull Set<? extends OWLAnnotation> annotations) {
         this.property = checkNotNull(property, "property cannot be null");
         this.value = checkNotNull(value, "value cannot be null");
         checkNotNull(annotations, "annotations cannot be null");
@@ -64,8 +69,7 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
 
     @Override
     public Set<OWLAnnotation> getAnnotations() {
-        return CollectionFactory
-            .getCopyOnRequestSetFromImmutableCollection(anns);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(anns);
     }
 
     @Override
@@ -79,8 +83,7 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     @Override
-    public OWLAnnotation getAnnotatedAnnotation(
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLAnnotation getAnnotatedAnnotation(@Nonnull Set<OWLAnnotation> annotations) {
         if (annotations.isEmpty()) {
             return this;
         }
@@ -90,19 +93,17 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     /**
-     * Determines if this annotation is an annotation used to deprecate an IRI.
-     * This is the case if the annotation property has an IRI of
-     * {@code owl:deprecated} and the value of the annotation is
-     * {@code "true"^^xsd:boolean}
+     * Determines if this annotation is an annotation used to deprecate an IRI. This is the case if
+     * the annotation property has an IRI of {@code owl:deprecated} and the value of the annotation
+     * is {@code "true"^^xsd:boolean}
      * 
-     * @return {@code true} if this annotation is an annotation that can be used
-     *         to deprecate an IRI, otherwise {@code false}.
+     * @return {@code true} if this annotation is an annotation that can be used to deprecate an
+     *         IRI, otherwise {@code false}.
      */
     @Override
     public boolean isDeprecatedIRIAnnotation() {
         return property.isDeprecated() && value instanceof OWLLiteral
-            && ((OWLLiteral) value).isBoolean()
-            && ((OWLLiteral) value).parseBoolean();
+            && ((OWLLiteral) value).isBoolean() && ((OWLLiteral) value).parseBoolean();
     }
 
     @Override
@@ -112,14 +113,12 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
         }
         if (obj instanceof OWLAnnotationImpl) {
             OWLAnnotationImpl other = (OWLAnnotationImpl) obj;
-            return other.getProperty().equals(property)
-                && other.getValue().equals(value)
+            return other.getProperty().equals(property) && other.getValue().equals(value)
                 && other.anns.equals(anns);
         }
         if (obj instanceof OWLAnnotation) {
             OWLAnnotation other = (OWLAnnotation) obj;
-            return other.getProperty().equals(property)
-                && other.getValue().equals(value)
+            return other.getProperty().equals(property) && other.getValue().equals(value)
                 && other.getAnnotations().equals(getAnnotations());
         }
         return false;
@@ -159,6 +158,7 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(property);
+        entities.addAll(getValue().getSignature());
         addEntitiesFromAnnotationsToSet(anns, entities);
     }
 

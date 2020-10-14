@@ -63,7 +63,6 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-@SuppressWarnings("javadoc")
 public class TurtleTestCase extends TestBase {
 
     private static final IRI SOUTH_AFIRCA = IRI("http://dbpedia.org/resource/South_Africa");
@@ -83,6 +82,10 @@ public class TurtleTestCase extends TestBase {
     @Nonnull
     private final IRI s = IRI.create("urn:test#s");
 
+    private static String normalize(String s) {
+        return s.replaceAll("\r", "").replaceAll("\\n#.*", "").replaceAll("\\n+", "\n").trim();
+    }
+
     @Test
     public void shouldSaveBaseIRINotOntologyInTurtle()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
@@ -96,7 +99,7 @@ public class TurtleTestCase extends TestBase {
         TurtleDocumentFormat format = new TurtleDocumentFormat();
         format.setDefaultPrefix(base);
         o.saveOntology(format, t);
-        String string = t.toString().replaceAll("\\n#.*", "").replaceAll("\\n\\n*", "\n").trim();
+        String string = normalize(t.toString());
         assertEquals(
             "@prefix : <urn:test:base#> .\n" + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
                 + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
@@ -124,7 +127,7 @@ public class TurtleTestCase extends TestBase {
         RioTurtleDocumentFormat format = new RioTurtleDocumentFormat();
         format.setDefaultPrefix(base);
         o.saveOntology(format, t);
-        String string = t.toString().replaceAll("\\n#.*", "").replaceAll("\\n\\n*", "\n").trim();
+        String string = normalize(t.toString());
         assertEquals(
             "@base <urn:test:base#> .\n" + "@prefix : <urn:test:base#> .\n"
                 + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
