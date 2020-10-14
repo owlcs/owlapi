@@ -76,6 +76,10 @@ public class TurtleTestCase extends TestBase {
     private final IRI s = df.getIRI("urn:test#", "s");
     private final String iri = "urn:test:literals";
 
+    private static String normalize(String s) {
+        return s.replaceAll("\r", "").replaceAll("\\n#.*", "").replaceAll("\\n+", "\n").trim();
+    }
+
     @Test
     public void shouldSaveIRIsWithCommasInTurtle()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
@@ -117,7 +121,7 @@ public class TurtleTestCase extends TestBase {
         StringDocumentTarget t = new StringDocumentTarget();
         o.getPrefixManager().withDefaultPrefix(base);
         o.saveOntology(new TurtleDocumentFormat(), t);
-        String string = t.toString().replaceAll("\\n#.*", "").replaceAll("\\n\\n*", "\n").trim();
+        String string = normalize(t.toString());
         assertEquals(
             "@prefix : <urn:test:base#> .\n" + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
                 + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
@@ -143,7 +147,7 @@ public class TurtleTestCase extends TestBase {
         StringDocumentTarget t = new StringDocumentTarget();
         o.getPrefixManager().withDefaultPrefix(base);
         o.saveOntology(new RioTurtleDocumentFormat(), t);
-        String string = t.toString().replaceAll("\\n#.*", "").replaceAll("\\n\\n*", "\n").trim();
+        String string = normalize(t.toString());
         assertEquals(
             "@base <urn:test:base#> .\n" + "@prefix : <urn:test:base#> .\n"
                 + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
