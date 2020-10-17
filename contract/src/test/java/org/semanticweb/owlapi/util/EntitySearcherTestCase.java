@@ -1,14 +1,14 @@
 package org.semanticweb.owlapi.util;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectInverseOf;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Ontology;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -16,8 +16,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.search.EntitySearcher;
 
@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.search.EntitySearcher;
 public class EntitySearcherTestCase extends TestBase {
 
     private OWLObjectProperty superProperty;
+    private OWLObjectPropertyExpression inverseProperty;
     private OWLObjectProperty subProperty;
     private Set<OWLOntology> ontologies;
 
@@ -34,21 +35,31 @@ public class EntitySearcherTestCase extends TestBase {
         pm.setDefaultPrefix("http://www.ontologies.com/ontology");
         subProperty = ObjectProperty("subProperty", pm);
         superProperty = ObjectProperty("superProperty", pm);
-        OWLOntology ontology = Ontology(m, SubObjectPropertyOf(subProperty, superProperty));
+        inverseProperty = ObjectInverseOf(ObjectProperty("inverseProperty", pm));
+        OWLOntology ontology = Ontology(m, SubObjectPropertyOf(subProperty, superProperty),
+            SubObjectPropertyOf(subProperty, inverseProperty));
         ontologies = Collections.singleton(ontology);
     }
 
     @Test
     public void shouldReturnSuperProperty() {
-        List<OWLProperty> supers =
-            asList(EntitySearcher.getSuperProperties(subProperty, ontologies.stream()));
-        assertTrue(supers.toString(), supers.contains(superProperty));
+        Stream<OWLObjectPropertyExpression> superProperties =
+            EntitySearcher.getSuperProperties(subProperty, ontologies.stream());
+        assertTrue(superProperties.anyMatch(superProperty::equals));
+    }
+
+    @Test
+    public void shouldWorkWithInverse() {
+        Set<OWLObjectPropertyExpression> expressions = new HashSet<>();
+        EntitySearcher.getSuperProperties(subProperty, ontologies.stream())
+            .forEach(expressions::add);
+        assertEquals(2, expressions.size());
     }
 
     @Test
     public void shouldReturnSubProperty() {
-        Stream<OWLProperty> subs =
+        Stream<OWLObjectPropertyExpression> subs =
             EntitySearcher.getSubProperties(superProperty, ontologies.stream());
-        assertTrue(contains(subs, subProperty));
+        assertTrue(subs.anyMatch(subProperty::equals));
     }
 }
