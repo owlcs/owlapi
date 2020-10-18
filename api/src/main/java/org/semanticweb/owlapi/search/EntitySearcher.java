@@ -110,7 +110,8 @@ public class EntitySearcher {
      *
      * @param e entity
      * @param ontology The ontology to examine for annotation axioms
-     * @param annotationProperty The annotation property
+     * @param annotationProperty The annotation property. If null, any annotation property will
+     *        match.
      * @return A stream of {@code OWLAnnotation} objects that have the specified URI.
      */
     public static Stream<OWLAnnotation> getAnnotationObjects(OWLEntity e, OWLOntology ontology,
@@ -119,8 +120,8 @@ public class EntitySearcher {
     }
 
     /**
-     * Obtains the annotations on e where the annotation has the specified annotation property; this
-     * is restricted to the object of annotation assertion axioms.
+     * Obtains the annotations on e; this is restricted to the object of annotation assertion
+     * axioms.
      *
      * @param e entity
      * @param ontology The ontology to examine for annotation axioms
@@ -136,7 +137,8 @@ public class EntitySearcher {
      *
      * @param e entity
      * @param ontology The ontology to examine for annotation axioms
-     * @param annotationProperty The annotation property
+     * @param annotationProperty The annotation property. If null, any annotation property will
+     *        match.
      * @return A stream of {@code OWLAnnotation} objects that have the specified URI.
      */
     public static Stream<OWLAnnotation> getAnnotationObjects(OWLAnnotationSubject e,
@@ -151,7 +153,8 @@ public class EntitySearcher {
      *
      * @param e entity
      * @param ontologies The ontologies to examine for annotation axioms
-     * @param annotationProperty The annotation property
+     * @param annotationProperty The annotation property. If null, any annotation property will
+     *        match.
      * @return A stream of {@code OWLAnnotation} objects that have the specified URI.
      */
     public static Stream<OWLAnnotation> getAnnotationObjects(OWLAnnotationSubject e,
@@ -165,7 +168,8 @@ public class EntitySearcher {
      *
      * @param e entity
      * @param ontologies The ontologies to examine for annotation axioms
-     * @param annotationProperty The annotation property
+     * @param annotationProperty The annotation property. If null, any annotation property will
+     *        match.
      * @return A stream of {@code OWLAnnotation} objects that have the specified URI.
      */
     public static Stream<OWLAnnotation> getAnnotationObjects(OWLEntity e,
@@ -701,8 +705,8 @@ public class EntitySearcher {
      *
      * @param e entity
      * @param ontology The ontology to search for disjoint axioms
-     * @return A stream of {@code OWLClassExpression}s that represent the properties disjoint with
-     *         e.
+     * @return A stream of {@code OWLAnnotationProperty}s that represent the properties disjoint
+     *         with e.
      */
     @SuppressWarnings("unused")
     public static Stream<OWLAnnotationProperty> getDisjointProperties(OWLAnnotationProperty e,
@@ -718,8 +722,8 @@ public class EntitySearcher {
      *
      * @param e entity
      * @param ontologies The ontologies to search for disjoint axioms
-     * @return A stream of {@code OWLClassExpression}s that represent the properties disjoint with
-     *         e.
+     * @return A stream of {@code OWLAnnotationProperty}s that represent the properties disjoint
+     *         with e.
      */
     @SuppressWarnings("unused")
     public static Stream<OWLAnnotationProperty> getDisjointProperties(OWLAnnotationProperty e,
