@@ -47,8 +47,10 @@ import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
+import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.search.Filters;
+import org.semanticweb.owlapi6.search.Searcher;
 
 public class SearcherTestCase extends TestBase {
 
@@ -71,24 +73,29 @@ public class SearcherTestCase extends TestBase {
         OWLObjectProperty c = ObjectProperty(IRI(URN_TEST, "c"));
         OWLObjectProperty d = ObjectProperty(IRI(URN_TEST, "d"));
         OWLObjectProperty e = ObjectProperty(IRI(URN_TEST, "e"));
+        OWLObjectProperty f = ObjectProperty(IRI(URN_TEST, "f"));
         OWLClass x = Class(IRI(URN_TEST, "x"));
         OWLClass y = Class(IRI(URN_TEST, "Y"));
         OWLAxiom ax = SubObjectPropertyOf(c, d);
         OWLAxiom ax2 = ObjectPropertyDomain(c, x);
         OWLAxiom ax3 = ObjectPropertyRange(c, y);
         OWLAxiom ax4 = EquivalentObjectProperties(c, e);
-        o.addAxiom(ax);
-        o.addAxiom(ax2);
-        o.addAxiom(ax3);
-        o.addAxiom(ax4);
+        OWLAxiom ax5 = SubObjectPropertyOf(c, df.getOWLObjectInverseOf(f));
+        OWLAxiom ax6 = EquivalentObjectProperties(e, df.getOWLObjectInverseOf(f));
+        o.addAxioms(ax, ax2, ax3, ax4, ax5, ax6);
         assertTrue(contains(o.axioms(AxiomType.SUB_OBJECT_PROPERTY), ax));
-        Collection<OWLAxiom> axioms =
+        Collection<OWLAxiom> axioms1 =
             asUnorderedSet(o.axioms(Filters.subObjectPropertyWithSuper, d, INCLUDED));
-        assertTrue(contains(sub(axioms.stream()), c));
-        axioms = asUnorderedSet(o.axioms(Filters.subObjectPropertyWithSub, c, INCLUDED));
-        assertTrue(contains(sup(axioms.stream()), d));
+        assertTrue(contains(sub(axioms1.stream()), c));
+        Collection<OWLAxiom> axioms2 =
+            asUnorderedSet(o.axioms(Filters.subObjectPropertyWithSub, c, INCLUDED));
+        assertTrue(contains(sup(axioms2.stream()), d));
         assertTrue(contains(domain(o.objectPropertyDomainAxioms(c)), x));
         assertTrue(contains(equivalent(o.equivalentObjectPropertiesAxioms(c)), e));
+        assertTrue(contains(equivalent(o.equivalentObjectPropertiesAxioms(e)),
+            df.getOWLObjectInverseOf(f)));
+        Searcher.getSuperProperties(c, o)
+            .forEach(q -> assertTrue(q instanceof OWLObjectPropertyExpression));
     }
 
     @Test
