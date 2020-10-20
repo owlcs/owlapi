@@ -16,8 +16,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
+import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLProperty;
 import org.semanticweb.owlapi6.model.PrefixManager;
 import org.semanticweb.owlapi6.search.Searcher;
 import org.semanticweb.owlapi6.utilities.PrefixManagerImpl;
@@ -40,14 +40,15 @@ public class EntitySearcherTestCase extends TestBase {
 
     @Test
     public void shouldReturnSuperProperty() {
-        List<OWLProperty> supers =
+        List<OWLObjectPropertyExpression> supers =
             asList(Searcher.getSuperProperties(subProperty, ontologies.stream()));
         assertTrue(supers.toString(), supers.contains(superProperty));
     }
 
     @Test
     public void shouldReturnSubProperty() {
-        Stream<OWLProperty> subs = Searcher.getSubProperties(superProperty, ontologies.stream());
+        Stream<OWLObjectPropertyExpression> subs =
+            Searcher.getSubProperties(superProperty, ontologies.stream());
         assertTrue(contains(subs, subProperty));
     }
 }
