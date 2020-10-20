@@ -2,13 +2,13 @@
 description = 'OWLAPI :: Atomic Decomposition and Explanation'
 dependencies {
   compile project(':owlapi-api')
-  compile 'commons-io:commons-io:2.6'
+  compile 'commons-io:commons-io:2.8.0'
   compile ('com.github.ben-manes.caffeine:caffeine:[2.8.0,3)') {
     exclude module: "checker-qual"
     exclude module: "error_prone_annotations"
   }
-  compile 'org.yaml:snakeyaml:1.25'
+  compile 'org.yaml:snakeyaml:1.27'
   compile 'org.tukaani:xz:1.8'
-  compile 'com.squareup.okhttp3:okhttp:3.12.0'
+  compile 'com.squareup.okhttp3:okhttp:4.10.0-RC1'
   testCompile 'org.apache.commons:commons-rdf-api:0.5.0:tests'
 }
