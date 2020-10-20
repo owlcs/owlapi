@@ -92,13 +92,10 @@ import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSynta
 import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntax.TYPES;
 import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntax.VALUE;
 import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntax.VALUE_PARTITION;
-import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntax.parse;
 import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntax.values;
 import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.EOFTOKEN;
 import static org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.eof;
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi6.vocab.OWLRDFVocabulary.builtInAPIris;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -244,7 +241,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     /**
      * @param configurationProvider configuration provider
-     * @param dataFactory           dataFactory
+     * @param dataFactory dataFactory
      */
     @Inject
     public ManchesterOWLSyntaxParserImpl(OntologyConfigurator configurationProvider,

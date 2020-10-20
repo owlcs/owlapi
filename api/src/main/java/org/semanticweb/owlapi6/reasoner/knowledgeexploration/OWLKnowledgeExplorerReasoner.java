@@ -34,7 +34,8 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
     RootNode getRoot(OWLClassExpression expression);
 
     /**
-     * @param node a node, as returned by either {@link #getRoot(OWLClassExpression)} or {@link #getObjectNeighbours(RootNode)}
+     * @param node a node, as returned by either {@link #getRoot(OWLClassExpression)} or
+     *        {@link #getObjectNeighbours(RootNode, OWLObjectProperty)}
      * @param deterministicOnly true if only deterministic results should be returned
      * @return neighbors by object property
      */
@@ -42,28 +43,32 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
         boolean deterministicOnly);
 
     /**
-     * @param node a node, as returned by either {@link #getRoot(OWLClassExpression)} or {@link #getObjectNeighbours(RootNode)}
+     * @param node a node, as returned by either {@link #getRoot(OWLClassExpression)} or
+     *        {@link #getObjectNeighbours(RootNode, OWLObjectProperty)}
      * @param deterministicOnly true if only deterministic results should be returned
      * @return neighbors by data property
      */
     Node<OWLDataProperty> getDataNeighbours(RootNode node, boolean deterministicOnly);
 
     /**
-     * @param node a node, as returned by either {@link #getRoot(OWLClassExpression)} or {@link #getObjectNeighbours(RootNode)}
+     * @param node a node, as returned by either {@link #getRoot(OWLClassExpression)} or
+     *        {@link #getObjectNeighbours(RootNode, OWLObjectProperty)}
      * @param property the property being followed
      * @return neighbors by object property
      */
     Collection<RootNode> getObjectNeighbours(RootNode node, OWLObjectProperty property);
 
     /**
-     * @param node a node, as returned by either {@link #getRoot(OWLClassExpression)} or {@link #getObjectNeighbours(RootNode)}
+     * @param node a node, as returned by either {@link #getRoot(OWLClassExpression)} or
+     *        {@link #getObjectNeighbours(RootNode, OWLObjectProperty)}
      * @param property the property being followed
      * @return neighbors by data property
      */
     Collection<RootNode> getDataNeighbours(RootNode node, OWLDataProperty property);
 
     /**
-     * @param node a node, as returned by either {@link #getRoot(OWLClassExpression)} or {@link #getObjectNeighbours(RootNode)}
+     * @param node a node, as returned by either {@link #getRoot(OWLClassExpression)} or
+     *        {@link #getObjectNeighbours(RootNode, OWLObjectProperty)}
      * @param deterministicOnly true if only deterministic results should be returned
      * @return neighbors label by object property
      */
@@ -77,7 +82,8 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
     Node<? extends OWLDataRange> getDataLabel(RootNode node, boolean deterministicOnly);
 
     /**
-     * @param node a node, as return by either {@link #getRoot(OWLClassExpression)} or {@link #getObjectNeighbours(RootNode)}
+     * @param node a node, as return by either {@link #getRoot(OWLClassExpression)} or
+     *        {@link #getObjectNeighbours(RootNode, OWLObjectProperty)}
      * @return a node that blocks given node, or null if there is no such blocker
      */
     RootNode getBlocker(RootNode node);
