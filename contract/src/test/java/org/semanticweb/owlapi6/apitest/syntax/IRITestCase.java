@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi6.apitest.syntax;
 
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
@@ -7,6 +8,7 @@ import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi6.io.UnparsableOntologyException;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLRuntimeException;
@@ -72,6 +74,8 @@ public class IRITestCase extends TestBase {
             "<http://x.org> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .\n"
                 + "<http://x.org/myprop> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n"
                 + "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .";
+        expectedException.expect(OWLRuntimeException.class);
+        expectedException.expectCause(IsInstanceOf.instanceOf(UnparsableOntologyException.class));
         roundTrip(f, bad);
     }
 
@@ -138,6 +142,8 @@ public class IRITestCase extends TestBase {
             "<http://x.org> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .\n"
                 + "<http://x.org/myprop> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n"
                 + "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .";
+        expectedException.expect(OWLRuntimeException.class);
+        expectedException.expectCause(IsInstanceOf.instanceOf(UnparsableOntologyException.class));
         roundTrip(f, bad);
     }
 

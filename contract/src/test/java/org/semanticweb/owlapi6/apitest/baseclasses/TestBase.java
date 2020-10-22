@@ -148,6 +148,12 @@ public abstract class TestBase {
         return man;
     }
 
+    protected static OWLOntologyManager setupConcurrentManager() {
+        OWLOntologyManager man = OWLManager.createConcurrentOWLOntologyManager();
+        man.setOntologyConfigurator(masterConfigurator);
+        return man;
+    }
+
     protected static <S> Set<S> singleton(S s) {
         return Collections.singleton(s);
     }
