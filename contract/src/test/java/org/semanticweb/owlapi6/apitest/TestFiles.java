@@ -1,47 +1,53 @@
 package org.semanticweb.owlapi6.apitest;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
-
 public class TestFiles {
 
     private static String string(String name) {
         try {
-            return IOUtils.toString(TestFiles.class.getResourceAsStream(name), StandardCharsets.UTF_8);
+            return normalize(IOUtils.toString(TestFiles.class.getResourceAsStream(name), StandardCharsets.UTF_8));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 
     private static String[] strings(String name) {
         try {
             Iterator<String> readLines = IOUtils
-                .readLines(TestFiles.class.getResourceAsStream(name), StandardCharsets.UTF_8).iterator();
+                    .readLines(TestFiles.class.getResourceAsStream(name), StandardCharsets.UTF_8).iterator();
             List<String> toReturn = new ArrayList<>();
             StringBuilder b = new StringBuilder();
             while (readLines.hasNext()) {
-                String l = readLines.next();
-                if (l.isEmpty()) {
-                    String st = b.toString();
-                    if (!st.isEmpty()) {
-                        toReturn.add(st);
-                        b = new StringBuilder();
+                String line = readLines.next();
+                if (line.isEmpty()) {
+                    if (b.length() != 0) {
+                        toReturn.add(b.toString());
                     }
+                    b = new StringBuilder();
+                } else {
+                    b.append(line).append("\n");
                 }
             }
-            String last = b.toString();
-            if (!last.isEmpty()) {
-                toReturn.add(last);
+            if (b.length() != 0) {
+                toReturn.add(b.toString());
             }
+            assert !toReturn.isEmpty();
             return toReturn.toArray(new String[0]);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
+    }
+
+    private static String normalize(String s) {
+        return s.replace(System.lineSeparator(), "\n");
     }
 
     public static String ontFirst = string("ontFirst.txt");
