@@ -20,7 +20,7 @@ package org.semanticweb.owlapi6.model;
  * @since 2.0.0
  */
 public interface OWLObjectPropertyDomainAxiom extends
-    OWLPropertyDomainAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+    OWLPropertyDomainAxiom<OWLObjectPropertyExpression, OWLClassExpression>, OWLObjectPropertyAxiom {
 
     @Override
     @SuppressWarnings("unchecked")

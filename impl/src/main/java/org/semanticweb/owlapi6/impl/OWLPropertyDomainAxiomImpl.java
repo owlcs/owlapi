@@ -12,14 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.impl;
 
-import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
-
-import java.util.Collection;
-
 import org.semanticweb.owlapi6.model.OWLAnnotation;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
 import org.semanticweb.owlapi6.model.OWLPropertyDomainAxiom;
 import org.semanticweb.owlapi6.model.OWLPropertyExpression;
+
+import java.util.Collection;
+
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -27,7 +27,7 @@ import org.semanticweb.owlapi6.model.OWLPropertyExpression;
  * @param <P> property type
  */
 public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression>
-                extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
+                extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P, OWLClassExpression> {
 
     private final OWLClassExpression domain;
 

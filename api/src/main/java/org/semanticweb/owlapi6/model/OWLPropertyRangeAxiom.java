@@ -13,15 +13,13 @@
 package org.semanticweb.owlapi6.model;
 
 /**
- * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Range">
- * ObjectPropertyRange</a> axioms in the OWL 2 specification.
+ * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Range">ObjectPropertyRange</a>
+ * and <a href="https://www.w3.org/TR/owl2-syntax/#Data_Property_Range">
+ * Data Property Range</a> axioms in the OWL 2 specification.
  *
- * @param <R>
- *        range
- * @param <P>
- *        property expression
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <R> {@link OWLPropertyRange range}
+ * @param <P> {@link OWLPropertyExpression property expression}
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extends OWLPropertyRange>

@@ -12,132 +12,23 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.dlsyntax.renderer;
 
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.AND;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.BOTTOM;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.COMMA;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.COMP;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.DISJOINT_WITH;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.EQUAL;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.EQUIVALENT_TO;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.EXISTS;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.FORALL;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.IMPLIES;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.IN;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.INVERSE;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.MAX;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.MIN;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.NOT;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.NOT_EQUAL;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.OR;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.SELF;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.SUBCLASS;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.TOP;
-import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.WEDGE;
-import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNull;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi6.annotations.Renders;
 import org.semanticweb.owlapi6.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.io.OWLObjectRenderer;
-import org.semanticweb.owlapi6.model.IRI;
-import org.semanticweb.owlapi6.model.IsAnonymous;
-import org.semanticweb.owlapi6.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLCardinalityRestriction;
-import org.semanticweb.owlapi6.model.OWLClass;
-import org.semanticweb.owlapi6.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLClassExpression;
-import org.semanticweb.owlapi6.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi6.model.OWLDataComplementOf;
-import org.semanticweb.owlapi6.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi6.model.OWLDataHasValue;
-import org.semanticweb.owlapi6.model.OWLDataIntersectionOf;
-import org.semanticweb.owlapi6.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi6.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi6.model.OWLDataOneOf;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
-import org.semanticweb.owlapi6.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi6.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi6.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi6.model.OWLDataUnionOf;
-import org.semanticweb.owlapi6.model.OWLDatatype;
-import org.semanticweb.owlapi6.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi6.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi6.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi6.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi6.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi6.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi6.model.OWLEntity;
-import org.semanticweb.owlapi6.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi6.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi6.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi6.model.OWLFacetRestriction;
-import org.semanticweb.owlapi6.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLHasValueRestriction;
-import org.semanticweb.owlapi6.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi6.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLLiteral;
-import org.semanticweb.owlapi6.model.OWLLogicalAxiom;
-import org.semanticweb.owlapi6.model.OWLNamedIndividual;
-import org.semanticweb.owlapi6.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLObject;
-import org.semanticweb.owlapi6.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi6.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi6.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi6.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi6.model.OWLObjectHasValue;
-import org.semanticweb.owlapi6.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi6.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi6.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi6.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi6.model.OWLObjectOneOf;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
-import org.semanticweb.owlapi6.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi6.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi6.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi6.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi6.model.OWLObjectVisitor;
-import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLPropertyAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLPropertyDomainAxiom;
-import org.semanticweb.owlapi6.model.OWLPropertyExpression;
-import org.semanticweb.owlapi6.model.OWLPropertyRange;
-import org.semanticweb.owlapi6.model.OWLPropertyRangeAxiom;
-import org.semanticweb.owlapi6.model.OWLQuantifiedRestriction;
-import org.semanticweb.owlapi6.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi6.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi6.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi6.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi6.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.PrefixManager;
-import org.semanticweb.owlapi6.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi6.model.SWRLClassAtom;
-import org.semanticweb.owlapi6.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi6.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi6.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi6.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi6.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi6.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi6.model.SWRLRule;
-import org.semanticweb.owlapi6.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi6.model.SWRLVariable;
+import org.semanticweb.owlapi6.model.*;
 import org.semanticweb.owlapi6.utilities.IRIShortFormProvider;
 import org.semanticweb.owlapi6.utilities.ShortFormProvider;
 import org.semanticweb.owlapi6.utility.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi6.utility.SimpleShortFormProvider;
+
+import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import static org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntax.*;
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNull;
 
 /**
  * Renders objects in unicode DL syntax.
@@ -301,7 +192,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         return writeSpace().write(SUBCLASS).writeSpace();
     }
 
-    private void writeDomainAxiom(OWLPropertyDomainAxiom<?> axiom) {
+    private void writeDomainAxiom(OWLPropertyDomainAxiom<?, ?> axiom) {
         write(EXISTS).writeSpace().accept(axiom.getProperty()).writeRestrictionSeparator()
             .write(TOP).subClass().roundedAnon(axiom.getDomain());
     }
