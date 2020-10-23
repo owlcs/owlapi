@@ -442,10 +442,10 @@ public interface OWLOntologyManager
      *         parsed from a document and the document contained syntax errors.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports
      *         could not be loaded for what ever reason. If the
-     *         {@link MissingImportHandlingStrategy} is set to
-     *         {@link MissingImportHandlingStrategy#SILENT} then this exception will not be thrown.
-     *         The {@code UnloadableImportException} contains information about the import
-     *         declaration that triggered the import and the cause of this exception is an {@code
+     *         {@link MissingImportHandlingStrategy#throwException()} for this manager returns false
+     *         then this exception will not be thrown. The {@code UnloadableImportException}
+     *         contains information about the import declaration that triggered the import and the
+     *         cause of this exception is an {@code
      * OWLOntologyCreationException} which contains information about why the import could not be
      *         loaded.
      * @throws org.semanticweb.owlapi6.io.OWLOntologyCreationIOException if there was an {@code
@@ -470,10 +470,10 @@ public interface OWLOntologyManager
      *         parsed from a document and the document contained syntax errors.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports
      *         could not be loaded for what ever reason. If the
-     *         {@link MissingImportHandlingStrategy} is set to
-     *         {@link MissingImportHandlingStrategy#SILENT} then this exception will not be thrown.
-     *         The {@code UnloadableImportException} contains information about the import
-     *         declaration that triggered the import and the cause of this exception is an {@code
+     *         {@link MissingImportHandlingStrategy#throwException()} for this manager returns false
+     *         then this exception will not be thrown. The {@code UnloadableImportException}
+     *         contains information about the import declaration that triggered the import and the
+     *         cause of this exception is an {@code
      * OWLOntologyCreationException} which contains information about why the import could not be
      *         loaded.
      * @throws org.semanticweb.owlapi6.io.OWLOntologyCreationIOException if there was an {@code
@@ -499,10 +499,10 @@ public interface OWLOntologyManager
      *         parsed.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports
      *         could not be loaded for what ever reason. If the
-     *         {@link MissingImportHandlingStrategy} is set to
-     *         {@link MissingImportHandlingStrategy#SILENT} then this exception will not be thrown.
-     *         The {@code UnloadableImportException} contains information about the import
-     *         declaration that triggered the import and the cause of this exception is an {@code
+     *         {@link MissingImportHandlingStrategy#throwException()} for this manager returns false
+     *         then this exception will not be thrown. The {@code UnloadableImportException}
+     *         contains information about the import declaration that triggered the import and the
+     *         cause of this exception is an {@code
      * OWLOntologyCreationException} which contains information about why the import could not be
      *         loaded.
      * @throws org.semanticweb.owlapi6.io.OWLOntologyCreationIOException if there was an {@code
@@ -528,10 +528,10 @@ public interface OWLOntologyManager
      *         parsed.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports
      *         could not be loaded for what ever reason. If the
-     *         {@link MissingImportHandlingStrategy} is set to
-     *         {@link MissingImportHandlingStrategy#SILENT} then this exception will not be thrown.
-     *         The {@code UnloadableImportException} contains information about the import
-     *         declaration that triggered the import and the cause of this exception is an {@code
+     *         {@link MissingImportHandlingStrategy#throwException()} for this manager returns false
+     *         then this exception will not be thrown. The {@code UnloadableImportException}
+     *         contains information about the import declaration that triggered the import and the
+     *         cause of this exception is an {@code
      * OWLOntologyCreationException} which contains information about why the import could not be
      *         loaded.
      * @throws org.semanticweb.owlapi6.io.OWLOntologyCreationIOException if there was an {@code
@@ -555,10 +555,10 @@ public interface OWLOntologyManager
      *         parsed from a document and the document contained syntax errors.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports
      *         could not be loaded for what ever reason. If the
-     *         {@link MissingImportHandlingStrategy} is set to
-     *         {@link MissingImportHandlingStrategy#SILENT} then this exception will not be thrown.
-     *         The {@code UnloadableImportException} contains information about the import
-     *         declaration that triggered the import and the cause of this exception is an {@code
+     *         {@link MissingImportHandlingStrategy#throwException()} for this manager returns false
+     *         then this exception will not be thrown. The {@code UnloadableImportException}
+     *         contains information about the import declaration that triggered the import and the
+     *         cause of this exception is an {@code
      * OWLOntologyCreationException} which contains information about why the import could not be
      *         loaded.
      * @throws org.semanticweb.owlapi6.io.OWLOntologyCreationIOException if there was an {@code
@@ -588,10 +588,10 @@ public interface OWLOntologyManager
      *         parsed from a document and the document contained syntax errors.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports
      *         could not be loaded for what ever reason. If the
-     *         {@link MissingImportHandlingStrategy} is set to
-     *         {@link MissingImportHandlingStrategy#SILENT} then this exception will not be thrown.
-     *         The {@code UnloadableImportException} contains information about the import
-     *         declaration that triggered the import and the cause of this exception is an {@code
+     *         {@link MissingImportHandlingStrategy#throwException()} for this manager returns false
+     *         then this exception will not be thrown. The {@code UnloadableImportException}
+     *         contains information about the import declaration that triggered the import and the
+     *         cause of this exception is an {@code
      * OWLOntologyCreationException} which contains information about why the import could not be
      *         loaded.
      * @throws org.semanticweb.owlapi6.io.OWLOntologyCreationIOException if there was an {@code

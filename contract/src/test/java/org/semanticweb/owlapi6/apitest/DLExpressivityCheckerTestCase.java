@@ -284,7 +284,7 @@ import org.semanticweb.owlapi6.utility.Languages;
 public class DLExpressivityCheckerTestCase extends TestBase {
 
     private final List<OWLAxiom> objects;
-    private final String expected;
+    private String expected;
     private final List<Construct> constructs;
     private final List<Languages> expressible;
     private final List<Languages> within;
@@ -298,6 +298,7 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         expressible = exp;
         this.within = within;
         minimal = min;
+        this.expected = expected;
     }
 
     @SafeVarargs
@@ -439,18 +440,14 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             }
         }
         Collection<Languages> expressibleInLanguages = testsubject.expressibleInLanguages();
-        assertEquals(delta("expressible", expressible, expressibleInLanguages), expressible,
-            expressibleInLanguages);
-        assertEquals(constructs, constructsFound);
-        assertEquals(delta("below", within, below), new HashSet<>(within), new HashSet<>(below));
+        assertEquals(expected + delta("expressible", expressible, expressibleInLanguages),
+            expressible, expressibleInLanguages);
+        assertEquals(expected, constructs, constructsFound);
+        assertEquals(expected + delta("below", within, below), new HashSet<>(within),
+            new HashSet<>(below));
         assertEquals(expected, testsubject.getDescriptionLogicName());
-        assertEquals(delta("minimal", minimal, minimalLanguages), new HashSet<>(minimal),
+        assertEquals(expected + delta("minimal", minimal, minimalLanguages), new HashSet<>(minimal),
             new HashSet<>(minimalLanguages));
-        // String message = asList(ont.iterator().next().axioms()) + "\n" +
-        // constructsFound + "\t"
-        // + "expressible in " + expressibleInLanguages + "\tminimal:\t" +
-        // minimalLanguages;
-        // System.out.println(message);
     }
 
     private static String delta(String prefix, Collection<Languages> within2,

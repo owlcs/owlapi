@@ -43,7 +43,6 @@ import org.semanticweb.owlapi6.model.OWLEntity;
 import org.semanticweb.owlapi6.model.OWLNamedIndividual;
 import org.semanticweb.owlapi6.model.OWLObject;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
-import org.semanticweb.owlapi6.model.OWLObjectType;
 import org.semanticweb.owlapi6.model.PrefixManager;
 import org.semanticweb.owlapi6.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi6.utility.OWLClassExpressionCollector;
@@ -53,11 +52,11 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
+public abstract class OWLObjectImpl
+    implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
 
     /**
      * a convenience reference for an empty annotation set, saves on typing.
@@ -75,9 +74,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     protected static LoadingCache<OWLObjectImpl, List<OWLAnnotationProperty>> annotationPropertiesSignatures =  build(key -> cacheSig(key, OWLEntity::isOWLAnnotationProperty,  OWLEntity::asOWLAnnotationProperty));
     // @formatter:on
     static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
-        return Caffeine.newBuilder()
-            .maximumSize(ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue())
-            .build(c);
+        return Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
+            .getValue(Integer.class, Collections.emptyMap()).longValue()).build(c);
     }
 
     static <T> List<T> cacheSig(OWLObject o, Predicate<OWLEntity> p, Function<OWLEntity, T> f) {
@@ -147,8 +145,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
         if (!(obj instanceof OWLObject)) {
             return false;
         }
-        return OWLObjectType.equals(this, (OWLObject) obj);
+        return equalsOWLObject((OWLObject) obj);
     }
+
 
     @Override
     public int hashCode() {
@@ -160,7 +159,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
 
     @Override
     public int compareTo(@Nullable OWLObject obj) {
-        return OWLObjectType.compareTo(this, verifyNotNull(obj));
+        return compareToOWLObject(verifyNotNull(obj));
     }
 
     @Override

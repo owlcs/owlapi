@@ -72,7 +72,7 @@ public interface HasApplyChanges extends HasManager {
                     assert change != null;
                     ChangeApplied enactChangeApplication = change.getOntology().enactChange(change);
                     results.add(enactChangeApplication);
-                    if (enactChangeApplication == ChangeApplied.UNSUCCESSFULLY) {
+                    if (enactChangeApplication.unsuccessful()) {
                         rollbackRequested = true;
                     }
                     getOWLOntologyManager().fireChangeApplied(change);
@@ -86,7 +86,7 @@ public interface HasApplyChanges extends HasManager {
             if (!rollbackRequested) {
                 List<OWLOntologyChange> toBroadcast = new ArrayList<>();
                 report.forEach((a, b) -> {
-                    if (a == ChangeApplied.SUCCESSFULLY) {
+                    if (a.successful()) {
                         toBroadcast.add(b);
                     }
                 });
@@ -143,19 +143,18 @@ public interface HasApplyChanges extends HasManager {
 
     /**
      * This method is to be called to roll back a specific change. The change will be rolled back
-     * only if the ChangeApplied parameter equals {@link ChangeApplied#SUCCESSFULLY}, as the method
-     * is meant to roll back changes that have been successfully applied; other changes cannot be
-     * rolled back. Not for use by user applications, this is meant to be called only by
-     * {@link #rollBackChanges(ChangeReport)}.
+     * only if {@code r#successful()}, as the method is meant to roll back changes that have been
+     * successfully applied; other changes cannot be rolled back. Not for use by user applications,
+     * this is meant to be called only by {@link #rollBackChanges(ChangeReport)}.
      * 
      * @param r ChangeApplied related to the change parameter
      * @param change change to roll back
      * @return new value for the application result of the change
      */
     default ChangeApplied rollbackChange(ChangeApplied r, OWLOntologyChange change) {
-        if (r == ChangeApplied.SUCCESSFULLY) {
+        if (r.successful()) {
             ChangeApplied rollbackResult = change.getOntology().enactChange(change.reverseChange());
-            if (rollbackResult == ChangeApplied.UNSUCCESSFULLY) {
+            if (rollbackResult.unsuccessful()) {
                 // rollback could not complete, throw an exception
                 throw new OWLRuntimeException("Rollback of changes unsuccessful: Change " + change
                     + " could not be rolled back");

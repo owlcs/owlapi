@@ -29,21 +29,18 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi6.documents.ToStringRenderer;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
-import org.semanticweb.owlapi6.model.DataRangeType;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLDatatype;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLEntity;
 import org.semanticweb.owlapi6.model.OWLObject;
-import org.semanticweb.owlapi6.model.OWLObjectType;
 import org.semanticweb.owlapi6.model.PrefixManager;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 
 /**
  * An optimised implementation of OWLDatatype for OWL2Datatypes.
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
 public class OWL2DatatypeImpl implements OWLDatatype {
@@ -52,13 +49,11 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     private final int hashCode;
 
     /**
-     * Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
-     * specified {@link OWL2Datatype}.
+     * Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the specified
+     * {@link OWL2Datatype}.
      * 
-     * @param owl2Datatype
-     *        The datatype. Not {@code null}.
-     * @throws NullPointerException
-     *         if {@code owl2Datatype} is {@code null}.
+     * @param owl2Datatype The datatype. Not {@code null}.
+     * @throws NullPointerException if {@code owl2Datatype} is {@code null}.
      */
     public OWL2DatatypeImpl(OWL2Datatype owl2Datatype) {
         this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");
@@ -106,11 +101,6 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public DataRangeType getDataRangeType() {
-        return DataRangeType.DATATYPE;
-    }
-
-    @Override
     public boolean isBuiltIn() {
         return true;
     }
@@ -143,7 +133,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         if (!(obj instanceof OWLDatatype)) {
             return false;
         }
-        return OWLObjectType.equals(this, (OWLDatatype) obj);
+        return equalsOWLObject((OWLDatatype) obj);
     }
 
     @Override
@@ -168,7 +158,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public int compareTo(@Nullable OWLObject obj) {
-        return OWLObjectType.compareTo(this, verifyNotNull(obj));
+        return compareToOWLObject(verifyNotNull(obj));
     }
 
     @Override

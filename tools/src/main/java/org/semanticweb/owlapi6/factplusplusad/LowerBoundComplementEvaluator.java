@@ -161,15 +161,18 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
     }
 
     protected int reportCandidate(boolean foundC, int foundM, int mMax, int kMax, int sumK) {
+        int found = foundM;
+        int sum = sumK;
+        int max = mMax;
         if (foundC) {
             // found during the deterministic case
-            foundM -= sumK;
-            return foundM > 0 ? foundM : noLowerValue;
+            found -= sum;
+            return found > 0 ? found : noLowerValue;
         } else {
             // no deterministic option; choose the best one
-            sumK -= kMax;
-            mMax -= sumK;
-            return mMax > 0 ? mMax : noLowerValue;
+            sum -= kMax;
+            max -= sum;
+            return max > 0 ? max : noLowerValue;
         }
     }
 

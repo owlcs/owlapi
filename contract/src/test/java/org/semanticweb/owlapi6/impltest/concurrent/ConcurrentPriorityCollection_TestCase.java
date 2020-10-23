@@ -34,8 +34,6 @@ public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
     private Lock readLock, writeLock;
     @Mock
     private T element;
-    private final PriorityCollectionSorting hasOntologyLoaderConfiguration =
-        PriorityCollectionSorting.NEVER;
     private Iterable<T> iterable;
 
     @Before
@@ -44,7 +42,7 @@ public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         iterable = Arrays.asList(element);
         collection =
-            new ConcurrentPriorityCollection<>(readWriteLock, hasOntologyLoaderConfiguration);
+            new ConcurrentPriorityCollection<>(readWriteLock, PriorityCollectionSorting.NEVER);
     }
 
     @Test

@@ -314,7 +314,7 @@ public class OWLProfileTestCase extends TestBase {
         assertEquals(violations.toString(), expectedViolations.size(), violations.size());
         checkInCollection(violations, expectedViolations);
         ontology.applyChanges(violations.stream().flatMap(v -> v.repair().stream()));
-        assertEquals(0, profile.checkOntology(ontology).getViolations().size());
+        assertEquals(name, 0, profile.checkOntology(ontology).getViolations().size());
     }
 
     Profiles p;
@@ -322,6 +322,7 @@ public class OWLProfileTestCase extends TestBase {
     List<OWLAxiom> axioms;
     Supplier<OWLOntology> onts;
     List<Class<?>> exceptions;
+    private String name;
 
     public OWLProfileTestCase(Supplier<OWLOntology> os, String name, List<OWLEntity> entities,
         List<OWLAxiom> axioms, Profiles p, List<Class<?>> exceptions) {
@@ -330,6 +331,7 @@ public class OWLProfileTestCase extends TestBase {
         this.axioms = axioms;
         onts = os;
         this.exceptions = exceptions;
+        this.name = name;
     }
 
     static OWLOntology os0() {
@@ -376,8 +378,8 @@ public class OWLProfileTestCase extends TestBase {
     static Supplier<OWLOntology> o2 = OWLProfileTestCase::os2;
 
 
-    private static OWLDataFactory DFLIST= OWLManager
-            .getOWLDataFactory(new OntologyConfigurator().withAllowDuplicatesInConstructSets(true));
+    private static OWLDataFactory DFLIST = OWLManager
+        .getOWLDataFactory(new OntologyConfigurator().withAllowDuplicatesInConstructSets(true));
 
     @Parameters
     public static Collection<Object[]> getData() {

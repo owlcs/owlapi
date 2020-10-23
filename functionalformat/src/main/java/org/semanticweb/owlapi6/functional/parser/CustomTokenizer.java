@@ -163,7 +163,8 @@ class CustomTokenizer implements TokenManager {
         return colonIndex;
     }
 
-    protected int advanceColonIndex(int colonIndex) throws IOException {
+    protected int advanceColonIndex(int colon) throws IOException {
+        int colonIndex = colon;
         char c;
         loop: while (true) {
             try {

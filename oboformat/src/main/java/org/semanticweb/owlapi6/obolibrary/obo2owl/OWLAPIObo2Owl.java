@@ -1060,12 +1060,12 @@ public class OWLAPIObo2Owl {
         }
     }
 
-    protected OWLAxiom parseRelationship(OWLObjectProperty p, Clause clause, OWLAxiom ax, Object v,
-        Set<OWLAnnotation> annotations) {
+    protected OWLAxiom parseRelationship(OWLObjectProperty p, Clause clause, @Nullable OWLAxiom ax,
+        Object v, Set<OWLAnnotation> annotations) {
         IRI relId = oboIdToIRI((String) v);
         OWLAnnotationProperty metaProp = typedefToAnnotationProperty.get(relId.toString());
         if (metaProp != null) {
-            ax = df.getOWLAnnotationAssertionAxiom(metaProp, p.getIRI(),
+            return df.getOWLAnnotationAssertionAxiom(metaProp, p.getIRI(),
                 oboIdToIRI((String) clause.getValue2()), annotations);
         }
         return ax;
@@ -1158,15 +1158,16 @@ public class OWLAPIObo2Owl {
     }
 
     protected OWLAxiom parsePropertyValue(OWLAnnotationSubject sub, Clause clause,
-        Set<OWLAnnotation> annotations, OWLAxiom ax) {
+        Set<OWLAnnotation> annotations, @Nullable OWLAxiom ax) {
         Collection<Object> values = clause.getValues();
         Object v = clause.getValue();
         Object v2 = clause.getValue2();
         if (values.size() == 2) {
             // property_value(Rel-ID Entity-ID Qualifiers)
-            ax = df.getOWLAnnotationAssertionAxiom(trAnnotationProp((String) v), sub,
+            return df.getOWLAnnotationAssertionAxiom(trAnnotationProp((String) v), sub,
                 trAnnotationProp(v2.toString()).getIRI(), annotations);
-        } else if (values.size() == 3) {
+        }
+        if (values.size() == 3) {
             // property_value(Rel-ID Value XSD-Type Qualifiers)
             Iterator<Object> it = clause.getValues().iterator();
             it.next();
@@ -1180,12 +1181,11 @@ public class OWLAPIObo2Owl {
             }
             OWLAnnotationValue value =
                 df.getOWLLiteral((String) v2, OWL2Datatype.getDatatype(valueIRI));
-            ax = df.getOWLAnnotationAssertionAxiom(trAnnotationProp((String) v), sub, value,
+            return df.getOWLAnnotationAssertionAxiom(trAnnotationProp((String) v), sub, value,
                 annotations);
-        } else {
-            LOG.error(CANNOT_TRANSLATE, clause);
-            // TODO
         }
+        LOG.error(CANNOT_TRANSLATE, clause);
+        // TODO
         return ax;
     }
 

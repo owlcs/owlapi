@@ -175,15 +175,15 @@ public class RioParserImpl implements OWLParser, RioParser {
         RIOAnonymousNodeChecker() {}
 
         @Override
-        public boolean isAnonymousNode(IRI iri) {
+        public boolean isAnonymousNode(@Nullable IRI iri) {
             // HACK: FIXME: When the mess of having blank nodes
             // represented as IRIs is
             // finished remove the genid hack below
-            return anon(iri.toString());
+            return anon(iri == null ? null : iri.toString());
         }
 
         @Override
-        public boolean isAnonymousNode(String iri) {
+        public boolean isAnonymousNode(@Nullable String iri) {
             // HACK: FIXME: When the mess of having blank nodes
             // represented as IRIs is
             // finished remove the genid hack below
@@ -194,15 +194,15 @@ public class RioParserImpl implements OWLParser, RioParser {
         // gave a name to the blank
         // node themselves
         @Override
-        public boolean isAnonymousSharedNode(String iri) {
+        public boolean isAnonymousSharedNode(@Nullable String iri) {
             // HACK: FIXME: When the mess of having blank nodes
             // represented as IRIs is
             // finished remove the genid hack below
             return anon(iri);
         }
 
-        boolean anon(String iri) {
-            return iri.startsWith("_:") || iri.contains("genid");
+        boolean anon(@Nullable String iri) {
+            return iri != null && (iri.startsWith("_:") || iri.contains("genid"));
         }
     }
 

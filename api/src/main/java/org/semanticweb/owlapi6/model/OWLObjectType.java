@@ -54,8 +54,8 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 /**
- * Enumenration for OWLObject types. Allows for enum like operations on all
- * axiom and expression types.
+ * Enumeration for OWLObject types. Allows for enum like operations on all axiom and expression
+ * types.
  */
 public enum OWLObjectType {
     // @formatter:off
@@ -200,8 +200,7 @@ public enum OWLObjectType {
     }
 
     /**
-     * @param o
-     *        object for which hash code is required
+     * @param o object for which hash code is required
      * @return hash code computed on all components
      */
     public int hashCode(OWLObject o) {
@@ -215,10 +214,8 @@ public enum OWLObjectType {
     /**
      * Iteration for hash codes
      * 
-     * @param a
-     *        existing hash
-     * @param b
-     *        hash to add
+     * @param a existing hash
+     * @param b hash to add
      * @return new hash
      */
     static int hashIteration(int a, int b) {
@@ -226,32 +223,26 @@ public enum OWLObjectType {
     }
 
     /**
-     * @param o
-     *        owl object to navigate
-     * @return components as a stream. The stream is ordered (by visit order)
-     *         but not sorted.
+     * @param o owl object to navigate
+     * @return components as a stream. The stream is ordered (by visit order) but not sorted.
      */
     public Stream<?> components(OWLObject o) {
         return Stream.of(components).map(f -> f.apply(o));
     }
 
     /**
-     * @param o
-     *        owl object to navigate
-     * @return components as a stream; for objects that can have annotations on
-     *         them, the annotation list appears first. The stream is ordered
-     *         (by visit order) but not sorted.
+     * @param o owl object to navigate
+     * @return components as a stream; for objects that can have annotations on them, the annotation
+     *         list appears first. The stream is ordered (by visit order) but not sorted.
      */
     public Stream<?> componentsAnnotationsFirst(OWLObject o) {
         return Stream.of(componentsAnnotationsFirst).map(f -> f.apply(o));
     }
 
     /**
-     * @param o
-     *        owl object to navigate
-     * @return components as a stream; for objects that can have annotations on
-     *         them, the annotation list appears last. The stream is ordered (by
-     *         visit order) but not sorted.
+     * @param o owl object to navigate
+     * @return components as a stream; for objects that can have annotations on them, the annotation
+     *         list appears last. The stream is ordered (by visit order) but not sorted.
      */
     public Stream<?> componentsAnnotationsLast(OWLObject o) {
         return Stream.of(componentsAnnotationsFirst).map(f -> f.apply(o));
@@ -279,12 +270,10 @@ public enum OWLObjectType {
     }
 
     /**
-     * @param first
-     *        an object
-     * @param second
-     *        an object to be compared with {@code a} for equality
-     * @return {@code true} if the arguments are equal to each other. Semantics
-     *         is the same as {@link java.util.Objects#equals(Object, Object)}.
+     * @param first an object
+     * @param second an object to be compared with {@code a} for equality
+     * @return {@code true} if the arguments are equal to each other. Semantics is the same as
+     *         {@link java.util.Objects#equals(Object, Object)}.
      */
     public static boolean equals(@Nullable OWLObject first, @Nullable OWLObject second) {
         if (second == first) {
@@ -318,10 +307,8 @@ public enum OWLObjectType {
     }
 
     /**
-     * @param first
-     *        first element to compare
-     * @param second
-     *        second element to compare
+     * @param first first element to compare
+     * @param second second element to compare
      * @return comparison between two objects
      */
     public static int compareTo(OWLObject first, OWLObject second) {
@@ -342,20 +329,24 @@ public enum OWLObjectType {
         return diff;
     }
 
-    private static final String INCOMPARABLE = "Incomparable types: '%s' with class %s, '%s' with class %s found while comparing iterators";
+    private static final String INCOMPARABLE =
+        "Incomparable types: '%s' with class %s, '%s' with class %s found while comparing iterators";
 
     @SuppressWarnings("unchecked")
     private static int compare(Object o1, Object o2) {
         if (o1 instanceof Stream && o2 instanceof Stream) {
             return compareIterators(((Stream<?>) o1).iterator(), ((Stream<?>) o2).iterator());
         } else if (o1 instanceof Collection && o2 instanceof Collection) {
-            return compareIterators(((Collection<?>) o1).iterator(), ((Collection<?>) o2).iterator());
+            return compareIterators(((Collection<?>) o1).iterator(),
+                ((Collection<?>) o2).iterator());
         } else if (o1 instanceof Comparable && o2 instanceof Comparable) {
             return ((Comparable<Object>) o1).compareTo(o2);
         }
-        throw new IllegalArgumentException(String.format(INCOMPARABLE, o1, o1.getClass(), o2, o2.getClass()));
+        throw new IllegalArgumentException(
+            String.format(INCOMPARABLE, o1, o1.getClass(), o2, o2.getClass()));
     }
 }
+
 
 interface Accessors {
 
@@ -388,32 +379,42 @@ interface Accessors {
     Function<OWLObject, Object> getFacet = o -> ((OWLFacetRestriction) o).getFacet();
     Function<OWLObject, Object> getFacetValue = o -> ((OWLFacetRestriction) o).getFacetValue();
     Function<OWLObject, Object> getOntologyID = o -> ((HasOntologyID) o).getOntologyID();
-    Function<OWLObject, Object> getPropertyChain = o -> ((OWLSubPropertyChainOfAxiom) o).getPropertyChain();
-    Function<OWLObject, Object> getSuperPropertyChain = o -> ((OWLSubPropertyChainOfAxiom) o).getSuperProperty();
+    Function<OWLObject, Object> getPropertyChain =
+        o -> ((OWLSubPropertyChainOfAxiom) o).getPropertyChain();
+    Function<OWLObject, Object> getSuperPropertyChain =
+        o -> ((OWLSubPropertyChainOfAxiom) o).getSuperProperty();
     Function<OWLObject, Object> getInverse = o -> ((OWLObjectInverseOf) o).getInverse();
     Function<OWLObject, Object> getSubProperty = o -> ((OWLSubPropertyAxiom<?>) o).getSubProperty();
-    Function<OWLObject, Object> getSuperProperty = o -> ((OWLSubPropertyAxiom<?>) o).getSuperProperty();
-    Function<OWLObject, Object> getAnnSubProperty = o -> ((OWLSubAnnotationPropertyOfAxiom) o).getSubProperty();
-    Function<OWLObject, Object> getAnnSuperProperty = o -> ((OWLSubAnnotationPropertyOfAxiom) o).getSuperProperty();
+    Function<OWLObject, Object> getSuperProperty =
+        o -> ((OWLSubPropertyAxiom<?>) o).getSuperProperty();
+    Function<OWLObject, Object> getAnnSubProperty =
+        o -> ((OWLSubAnnotationPropertyOfAxiom) o).getSubProperty();
+    Function<OWLObject, Object> getAnnSuperProperty =
+        o -> ((OWLSubAnnotationPropertyOfAxiom) o).getSuperProperty();
     Function<OWLObject, Object> getSubClass = o -> ((OWLSubClassOfAxiom) o).getSubClass();
     Function<OWLObject, Object> getSuperClass = o -> ((OWLSubClassOfAxiom) o).getSuperClass();
-    Function<OWLObject, Object> getFirstArgument = o -> ((SWRLBinaryAtom<?, ?>) o).getFirstArgument();
-    Function<OWLObject, Object> getSecondArgument = o -> ((SWRLBinaryAtom<?, ?>) o).getSecondArgument();
+    Function<OWLObject, Object> getFirstArgument =
+        o -> ((SWRLBinaryAtom<?, ?>) o).getFirstArgument();
+    Function<OWLObject, Object> getSecondArgument =
+        o -> ((SWRLBinaryAtom<?, ?>) o).getSecondArgument();
     Function<OWLObject, Object> getPredicate = o -> ((SWRLAtom) o).getPredicate();
     Function<OWLObject, Object> getArguments = o -> ((SWRLBuiltInAtom) o).argumentsAsList();
     Function<OWLObject, Object> getArgument = o -> ((SWRLUnaryAtom<?>) o).getArgument();
     Function<OWLObject, Object> getIRI = o -> ((HasIRI) o).getIRI();
     Function<OWLObject, Object> getEntity = o -> ((OWLDeclarationAxiom) o).getEntity();
     Function<OWLObject, Object> getOperandsAsList = o -> ((HasOperands<?>) o).getOperandsAsList();
-    Function<OWLObject, Object> facetRestrictionsAsList = o -> ((OWLDatatypeRestriction) o).facetRestrictionsAsList();
+    Function<OWLObject, Object> facetRestrictionsAsList =
+        o -> ((OWLDatatypeRestriction) o).facetRestrictionsAsList();
     Function<OWLObject, Object> getOperand = o -> ((OWLObjectComplementOf) o).getOperand();
     Function<OWLObject, Object> getID = o -> ((OWLAnonymousIndividual) o).getID();
     Function<OWLObject, Object> bodyList = o -> ((SWRLRule) o).bodyList();
     Function<OWLObject, Object> headList = o -> ((SWRLRule) o).headList();
     Function<OWLObject, Object> getIndividual = o -> ((HasIndividual) o).getIndividual();
-    Function<OWLObject, Object> getClassExpression = o -> ((HasClassExpression) o).getClassExpression();
+    Function<OWLObject, Object> getClassExpression =
+        o -> ((HasClassExpression) o).getClassExpression();
     Function<OWLObject, Object> getProperty = o -> ((HasProperty<?>) o).getProperty();
-    Function<OWLObject, Object> getCardinality = o -> Integer.valueOf(((HasCardinality) o).getCardinality());
+    Function<OWLObject, Object> getCardinality =
+        o -> Integer.valueOf(((HasCardinality) o).getCardinality());
     Function<OWLObject, Object> getFiller = o -> ((HasFiller<?>) o).getFiller();
     Function<OWLObject, Object> getAnnotationValue = o -> ((OWLAnnotation) o).getValue();
     Function<OWLObject, Object> getSubject = o -> ((HasSubject<?>) o).getSubject();

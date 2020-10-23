@@ -50,7 +50,7 @@ import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
-import org.eclipse.rdf4j.model.vocabulary.XMLSchema;
+import org.eclipse.rdf4j.model.vocabulary.XSD;
 import org.semanticweb.owlapi6.documents.RDFLiteral;
 import org.semanticweb.owlapi6.documents.RDFNode;
 import org.semanticweb.owlapi6.documents.RDFResourceIRI;
@@ -146,7 +146,7 @@ public final class RioUtils {
         if (literalObject.hasLang()) {
             object = vf.createLiteral(literalObject.getLexicalValue(), literalObject.getLang());
         } else if (literalObject.isPlainLiteral()) {
-            object = vf.createLiteral(literalObject.getLexicalValue(), XMLSchema.STRING);
+            object = vf.createLiteral(literalObject.getLexicalValue(), XSD.STRING);
         } else {
             object = vf.createLiteral(literalObject.getLexicalValue(),
                 vf.createIRI(literalObject.getDatatype().toString()));

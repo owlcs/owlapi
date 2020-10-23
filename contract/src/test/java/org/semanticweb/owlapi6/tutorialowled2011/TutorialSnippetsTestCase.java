@@ -706,6 +706,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
+    @SuppressWarnings("unused")
     public void testDataRanges() throws OWLException {
         // Data ranges are used as the types of literals, as the ranges for data
         // properties

@@ -12,25 +12,117 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.model.parameters;
 
+import java.io.Serializable;
+
 /**
  * Parameters for ontology copying across managers.
  *
  * @since 4.0.0
  */
-public enum OntologyCopy {
+public interface OntologyCopy extends Serializable {
+    /**
+     * Enumeration holding known instances.
+     */
+    enum KnownValues implements OntologyCopy {
+        /**
+         * the ontology copy will create a new OWLOntology instance with same ontology annotations,
+         * same ID and same axioms. Format, document IRI will not be copied over.
+         */
+        SHALLOW_COPY_ONTOLOGY(false, true, false),
+        /**
+         * the ontology copy will create a new OWLOntology instance with same ontology annotations,
+         * same ID and same axioms. Format, document IRI will be copied over.
+         */
+        DEEP_COPY_ONTOLOGY(false, false, false),
+        /**
+         * the ontology copy will remove the ontology from the previous manager. Format, document
+         * IRI will be removed from the previous manager.
+         */
+        MOVE_ONTOLOGY(false, false, true),
+        /**
+         * the ontology copy will create a new OWLOntology instance for each ontology in the imports
+         * closure, with same ontology annotations, same ID and same axioms. Format, document IRI
+         * will not be copied over.
+         */
+        SHALLOW_COPY_ONTOLOGYCLOSURE(true, true, false),
+        /**
+         * the ontology copy will create a new OWLOntology instance for each ontology in the imports
+         * closure, with same ontology annotations, same ID and same axioms. Format, document IRI
+         * will be copied over.
+         */
+        DEEP_COPY_ONTOLOGYCLOSURE(true, false, false),
+        /**
+         * the ontology copy will remove the imports closure from the previous manager. Format,
+         * document IRI will be removed from the previous manager.
+         */
+        MOVE_ONTOLOGYCLOSURE(true, false, true);
+
+        private final boolean applyToImportsClosure;
+        private final boolean applyToAxiomsAndAnnotationsOnly;
+        private final boolean move;
+
+        private KnownValues(boolean applyToImportsClosure, boolean applyToAxiomsAndAnnotationsOnly,
+            boolean move) {
+            this.applyToImportsClosure = applyToImportsClosure;
+            this.applyToAxiomsAndAnnotationsOnly = applyToAxiomsAndAnnotationsOnly;
+            this.move = move;
+        }
+
+        @Override
+        public boolean applyToImportsClosure() {
+            return applyToImportsClosure;
+        }
+
+        @Override
+        public boolean applyToAxiomsAndAnnotationsOnly() {
+            return applyToAxiomsAndAnnotationsOnly;
+        }
+
+        @Override
+        public boolean move() {
+            return move;
+        }
+    }
+
     /**
      * the ontology copy will create a new OWLOntology instance with same ontology annotations, same
      * ID and same axioms. Format, document IRI will not be copied over.
      */
-    SHALLOW,
+    OntologyCopy SHALLOW_COPY = KnownValues.SHALLOW_COPY_ONTOLOGY;
     /**
      * the ontology copy will create a new OWLOntology instance with same ontology annotations, same
      * ID and same axioms. Format, document IRI will be copied over.
      */
-    DEEP,
+    OntologyCopy DEEP_COPY = KnownValues.DEEP_COPY_ONTOLOGY;
     /**
      * the ontology copy will remove the ontology from the previous manager. Format, document IRI
      * will be removed from the previous manager.
      */
-    MOVE
+    OntologyCopy MOVE = KnownValues.MOVE_ONTOLOGY;
+    /**
+     * the ontology copy will create a new OWLOntology instance for each ontology in the imports
+     * closure, with same ontology annotations, same ID and same axioms. Format, document IRI will
+     * not be copied over.
+     */
+    OntologyCopy SHALLOW_COPY_ONTOLOGY_CLOSURE = KnownValues.SHALLOW_COPY_ONTOLOGYCLOSURE;
+    /**
+     * the ontology copy will create a new OWLOntology instance for each ontology in the imports
+     * closure, with same ontology annotations, same ID and same axioms. Format, document IRI will
+     * be copied over.
+     */
+    OntologyCopy DEEP_COPY_ONTOLOGY_CLOSURE = KnownValues.DEEP_COPY_ONTOLOGYCLOSURE;
+    /**
+     * the ontology copy will remove the imports closure from the previous manager. Format, document
+     * IRI will be removed from the previous manager.
+     */
+    OntologyCopy MOVE_ONTOLOGY_CLOSURE = KnownValues.MOVE_ONTOLOGYCLOSURE;
+
+    /** @return true if the imports closure of an ontology should also be copied/moved */
+    boolean applyToImportsClosure();
+
+    /** @return true if only axioms and annotations should be copied */
+    boolean applyToAxiomsAndAnnotationsOnly();
+
+    /** @return true if the ontology should be moved */
+    boolean move();
 }

@@ -22,14 +22,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLObject
-    extends Comparable<OWLObject>, Serializable, HasSignature, HasContainsEntityInSignature, HasAnonymousIndividuals,
-    HasClassesInSignature, HasObjectPropertiesInSignature, HasDataPropertiesInSignature, HasIndividualsInSignature,
-    HasDatatypesInSignature, HasAnnotationPropertiesInSignature, HasIndex, HasHashIndex, IsAnonymous {
+    extends Comparable<OWLObject>, Serializable, HasSignature, HasContainsEntityInSignature,
+    HasAnonymousIndividuals, HasClassesInSignature, HasObjectPropertiesInSignature,
+    HasDataPropertiesInSignature, HasIndividualsInSignature, HasDatatypesInSignature,
+    HasAnnotationPropertiesInSignature, HasIndex, HasHashIndex, IsAnonymous {
 
     /**
      * Gets all of the nested (includes top level) class expressions (anonymous and named) that are
@@ -48,41 +48,35 @@ public interface OWLObject
     /**
      * Accepts a visitor
      *
-     * @param visitor
-     *        The visitor
+     * @param visitor The visitor
      */
     void accept(OWLObjectVisitor visitor);
 
     /**
      * Accepts a visitor
      *
-     * @param visitor
-     *        The visitor
-     * @param <O>
-     *        visitor return type
+     * @param visitor The visitor
+     * @param <O> visitor return type
      * @return visitor value
      */
     <O> O accept(OWLObjectVisitorEx<O> visitor);
 
     /**
-     * Determines if this object is either, owl:Thing (the top class),
-     * owl:topObjectProperty (the top object property) , owl:topDataProperty
-     * (the top data property) or rdfs:Literal (the top datatype).
+     * Determines if this object is either, owl:Thing (the top class), owl:topObjectProperty (the
+     * top object property) , owl:topDataProperty (the top data property) or rdfs:Literal (the top
+     * datatype).
      *
-     * @return {@code true} if this object corresponds to one of the above
-     *         entities.
+     * @return {@code true} if this object corresponds to one of the above entities.
      */
     default boolean isTopEntity() {
         return false;
     }
 
     /**
-     * Determines if this object is either, owl:Nothing (the bottom class),
-     * owl:bottomObjectProperty (the bottom object property) ,
-     * owl:bottomDataProperty (the bottom data property).
+     * Determines if this object is either, owl:Nothing (the bottom class), owl:bottomObjectProperty
+     * (the bottom object property) , owl:bottomDataProperty (the bottom data property).
      *
-     * @return {@code true} if this object corresponds to one of the above
-     *         entities.
+     * @return {@code true} if this object corresponds to one of the above entities.
      */
     default boolean isBottomEntity() {
         return false;
@@ -117,19 +111,17 @@ public interface OWLObject
     }
 
     /**
-     * @return true if this object is not an axiom, not an individual and
-     *         anonymous; this is true for class and property expressions, as
-     *         well as data ranges.
+     * @return true if this object is not an axiom, not an individual and anonymous; this is true
+     *         for class and property expressions, as well as data ranges.
      */
     default boolean isAnonymousExpression() {
-        return !isAxiom() && !isIndividual() && !isOntology() && !isIRI() && !(this instanceof OWLLiteral)
-            && isAnonymous();
+        return !isAxiom() && !isIndividual() && !isOntology() && !isIRI()
+            && !(this instanceof OWLLiteral) && isAnonymous();
     }
 
     /**
-     * @return true if this object contains anonymous expressions referred
-     *         multiple times. This is called structure sharing. An example can
-     *         be:<br>
+     * @return true if this object contains anonymous expressions referred multiple times. This is
+     *         called structure sharing. An example can be:<br>
      *
      *         <pre>
      * some P C subClassOf some Q (some P C)
@@ -146,18 +138,41 @@ public interface OWLObject
      */
     default boolean hasSharedStructure() {
         Map<OWLObject, AtomicInteger> counters = new HashMap<>();
-        Stream<OWLObject> filter = flatComponents(this).filter(x -> x instanceof OWLObject).map(x -> (OWLObject) x)
-            .filter(OWLObject::isAnonymousExpression);
-        filter.forEach(x -> counters.computeIfAbsent(x, q -> new AtomicInteger(0)).incrementAndGet());
+        Stream<OWLObject> filter = flatComponents(this).filter(x -> x instanceof OWLObject)
+            .map(x -> (OWLObject) x).filter(OWLObject::isAnonymousExpression);
+        filter
+            .forEach(x -> counters.computeIfAbsent(x, q -> new AtomicInteger(0)).incrementAndGet());
         return counters.values().stream().anyMatch(x -> x.get() > 1);
     }
 
     /**
-     * @return hash code for the object; called on first use, cached by
-     *         OWLObjectImpl in the default implementation.
+     * @return hash code for the object; called on first use, cached by OWLObjectImpl in the default
+     *         implementation.
      */
     default int initHashCode() {
         return type().hashCode(this);
+    }
+
+    /**
+     * OWLObject based equals. Used in the default implementation for equals calls.
+     * 
+     * @param obj object to compare to
+     * @return true if obj equals this object
+     */
+    default boolean equalsOWLObject(OWLObject obj) {
+        return OWLObjectType.equals(this, obj);
+    }
+
+    /**
+     * Comparator implementation for OWLObjects. Used in the default implementation for compareTo
+     * calls.
+     * 
+     * @param obj object to compare to
+     * @return negative value for {@code this < obj}, positive value for {@code obj < this}, zero if
+     *         this object and obj are equal.
+     */
+    default int compareToOWLObject(OWLObject obj) {
+        return OWLObjectType.compareTo(this, obj);
     }
 
     /**
@@ -166,26 +181,24 @@ public interface OWLObject
     OWLObjectType type();
 
     /**
-     * @return components as a stream. The stream is ordered (by visit order)
-     *         but not sorted. Annotation lists are skipped.
+     * @return components as a stream. The stream is ordered (by visit order) but not sorted.
+     *         Annotation lists are skipped.
      */
     default Stream<?> componentStream() {
         return type().components(this);
     }
 
     /**
-     * @return components as a stream; for objects that can have annotations on
-     *         them, the annotation list appears first. The stream is ordered
-     *         (by visit order) but not sorted.
+     * @return components as a stream; for objects that can have annotations on them, the annotation
+     *         list appears first. The stream is ordered (by visit order) but not sorted.
      */
     default Stream<?> componentsAnnotationsFirst() {
         return type().componentsAnnotationsFirst(this);
     }
 
     /**
-     * @return components as a stream; for objects that can have annotations on
-     *         them, the annotation list appears last. The stream is ordered (by
-     *         visit order) but not sorted.
+     * @return components as a stream; for objects that can have annotations on them, the annotation
+     *         list appears last. The stream is ordered (by visit order) but not sorted.
      */
     default Stream<?> componentsAnnotationsLast() {
         return type().componentsAnnotationsLast(this);
@@ -202,17 +215,14 @@ public interface OWLObject
     }
 
     /**
-     * @param format
-     *        document format to use
+     * @param format document format to use
      * @return string serialization
      */
     String toSyntax(OWLDocumentFormat format);
 
     /**
-     * @param format
-     *        document format to use
-     * @param pm
-     *        prefix manager
+     * @param format document format to use
+     * @param pm prefix manager
      * @return string serialization
      */
     String toSyntax(OWLDocumentFormat format, PrefixManager pm);
@@ -228,15 +238,13 @@ public interface OWLObject
     String toManchesterSyntax();
 
     /**
-     * @param pm
-     *        prefix manager
+     * @param pm prefix manager
      * @return format the object to functional syntax
      */
     String toFunctionalSyntax(PrefixManager pm);
 
     /**
-     * @param pm
-     *        prefix manager
+     * @param pm prefix manager
      * @return format the object to manchester syntax
      */
     String toManchesterSyntax(PrefixManager pm);

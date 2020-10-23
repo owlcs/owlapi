@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.utility;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.NodeID;
 import org.slf4j.Logger;
@@ -28,7 +30,7 @@ public class AnonymousNodeCheckerImpl implements AnonymousNodeChecker {
     private static final Logger LOGGER = LoggerFactory.getLogger(AnonymousNodeCheckerImpl.class);
 
     @Override
-    public boolean isAnonymousNode(IRI iri) {
+    public boolean isAnonymousNode(@Nullable IRI iri) {
         boolean value = NodeID.isAnonymousNodeIRI(iri);
         if (value) {
             LOGGER.trace("anonymous iri {}", iri);
@@ -37,7 +39,7 @@ public class AnonymousNodeCheckerImpl implements AnonymousNodeChecker {
     }
 
     @Override
-    public boolean isAnonymousNode(String iri) {
+    public boolean isAnonymousNode(@Nullable String iri) {
         boolean value = NodeID.isAnonymousNodeIRI(iri);
         if (value) {
             LOGGER.trace("anonymous string {}", iri);
@@ -46,7 +48,7 @@ public class AnonymousNodeCheckerImpl implements AnonymousNodeChecker {
     }
 
     @Override
-    public boolean isAnonymousSharedNode(String iri) {
+    public boolean isAnonymousSharedNode(@Nullable String iri) {
         boolean value = NodeID.isAnonymousNodeID(iri);
         if (value) {
             LOGGER.trace("anonymous shared id {}", iri);

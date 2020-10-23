@@ -12,13 +12,48 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.model;
 
+import java.io.Serializable;
+
 /**
  * Specifies how missing imports should be treated during loading.
  *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
-public enum MissingImportHandlingStrategy implements ByName<MissingImportHandlingStrategy> {
+public interface MissingImportHandlingStrategy
+    extends ByName<MissingImportHandlingStrategy>, Serializable {
+    /**
+     * Enumeration holding known instances.
+     */
+    enum KnownValues implements MissingImportHandlingStrategy {
+        /**
+         * Specifies that an {@link org.semanticweb.owlapi6.model.UnloadableImportException} will
+         * NOT be thrown during ontology loading if an import cannot be loaded (for what ever
+         * reason). Instead, any registered
+         * {@link org.semanticweb.owlapi6.model.MissingImportListener}s will be informed of the
+         * problem via their
+         * {@link org.semanticweb.owlapi6.model.MissingImportListener#importMissing(org.semanticweb.owlapi6.model.MissingImportEvent)}
+         * method.
+         */
+        NO_EXCEPTION(false),
+        /**
+         * Specifies that an {@link org.semanticweb.owlapi6.model.UnloadableImportException} WILL be
+         * thrown during ontology loading if an import cannot be loaded.
+         */
+        RAISE_EXCEPTION(true);
+
+        private final boolean raiseException;
+
+        private KnownValues(boolean raiseException) {
+            this.raiseException = raiseException;
+        }
+
+        @Override
+        public boolean throwException() {
+            return raiseException;
+        }
+    }
+
     /**
      * Specifies that an {@link org.semanticweb.owlapi6.model.UnloadableImportException} will NOT be
      * thrown during ontology loading if an import cannot be loaded (for what ever reason). Instead,
@@ -27,15 +62,24 @@ public enum MissingImportHandlingStrategy implements ByName<MissingImportHandlin
      * {@link org.semanticweb.owlapi6.model.MissingImportListener#importMissing(org.semanticweb.owlapi6.model.MissingImportEvent)}
      * method.
      */
-    SILENT,
+    MissingImportHandlingStrategy SILENT = KnownValues.NO_EXCEPTION;
     /**
      * Specifies that an {@link org.semanticweb.owlapi6.model.UnloadableImportException} WILL be
      * thrown during ontology loading if an import cannot be loaded.
      */
-    THROW_EXCEPTION;
+    MissingImportHandlingStrategy THROW_EXCEPTION = KnownValues.RAISE_EXCEPTION;
 
     @Override
-    public MissingImportHandlingStrategy byName(CharSequence name) {
-        return valueOf(name.toString());
+    public default MissingImportHandlingStrategy byName(CharSequence name) {
+        if ("SILENT".equals(name)) {
+            return SILENT;
+        }
+        if ("THROW_EXCEPTION".equals(name)) {
+            return THROW_EXCEPTION;
+        }
+        throw new IllegalArgumentException(name + " is not a known instance name");
     }
+
+    /** @return true if an exception should be thrown */
+    boolean throwException();
 }

@@ -4,6 +4,7 @@
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -89,7 +90,7 @@ public class OWLManagerFromBundleTest {
         OWLClass D = df.getOWLClass("urn:weasel:bar");
         OWLSubClassOfAxiom axiom = df.getOWLSubClassOfAxiom(C, D);
         ChangeApplied changeApplied = manager.addAxiom(ontology, axiom);
-        assertEquals("axiom not added successfully", changeApplied, ChangeApplied.SUCCESSFULLY);
+        assertTrue("axiom not added successfully", changeApplied.successful());
         assertEquals("wrong number of axioms", 1, ontology.getLogicalAxiomCount());
         assertEquals("wrong number of classes", 2, ontology.classesInSignature().count());
 

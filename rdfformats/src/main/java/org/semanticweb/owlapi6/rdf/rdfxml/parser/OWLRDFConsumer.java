@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi6.model.MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
 import static org.semanticweb.owlapi6.rdf.rdfxml.parser.AbstractTriplePH.ANNOTATIONRESOURCETRIPLEHANDLER;
 import static org.semanticweb.owlapi6.rdf.rdfxml.parser.AbstractTriplePH.INVERSEOFHANDLER;
 import static org.semanticweb.owlapi6.rdf.rdfxml.parser.AbstractTriplePH.OBJECTPROPERTYASSERTIONHANDLER;
@@ -459,7 +458,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             return;
         }
         if (io.isAnonymous()
-            && getConfiguration().getMissingOntologyHeaderStrategy() == INCLUDE_GRAPH) {
+            && getConfiguration().getMissingOntologyHeaderStrategy().includeGraph()) {
             // We should have just included the triples rather than imported
             // them. So, we remove the imports statement, add the axioms
             // from the imported ontology to out importing ontology and
@@ -595,10 +594,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             .ifPresent(candidateIRIs::remove));
         // Choose the first one parsed
         if (candidateIRIs.contains(iris.firstOntologyIRI)) {
-            ontologyIRIToSet = Optional.ofNullable(iris.firstOntologyIRI);
-        } else if (!candidateIRIs.isEmpty()) {
+            return Optional.ofNullable(iris.firstOntologyIRI);
+        }
+        if (!candidateIRIs.isEmpty()) {
             // Just pick any
-            ontologyIRIToSet = Optional.ofNullable(candidateIRIs.iterator().next());
+            return Optional.ofNullable(candidateIRIs.iterator().next());
         }
         return ontologyIRIToSet;
     }
@@ -606,7 +606,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     protected Optional<IRI> getOntologyIRI(Optional<IRI> ontologyIRIToSet) {
         IRI ontologyIRI = iris.ontologyIRIs.iterator().next();
         if (!anon.isAnonymousNode(ontologyIRI)) {
-            ontologyIRIToSet = Optional.ofNullable(ontologyIRI);
+            return Optional.ofNullable(ontologyIRI);
         }
         return ontologyIRIToSet;
     }
@@ -821,8 +821,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         Collection<OWLFacetRestriction> restrictions = createLinkedSet();
         // Try the legacy encoding
         Stream.of(OWLFacet.values())
-            .forEach(f -> consume(() -> tripleIndex.literal(n, f.getIRI(), true),
-                val -> restrictions.add(df.getOWLFacetRestriction(f, val))));
+            .forEach(f -> consume(() -> tripleIndex.literal(n, f.getIRI(), true), val -> {
+                if (val != null) {
+                    restrictions.add(df.getOWLFacetRestriction(f, val));
+                }
+            }));
         return df.getOWLDatatypeRestriction(dt, restrictions);
     }
 
@@ -898,8 +901,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected void processPredicates(IRI n, Collection<OWLAnnotation> anns, IRI i) {
         if (iris.isAP(i)) {
-            consume(() -> tripleIndex.literal(n, i, true),
-                l -> anns.add(df.getOWLAnnotation(ap(i), l)));
+            consume(() -> tripleIndex.literal(n, i, true), l -> {
+                if (l != null) {
+                    anns.add(df.getOWLAnnotation(ap(i), l));
+                }
+            });
         }
     }
 
@@ -911,15 +917,19 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         Collection<OWLAnnotation> dest, IRI p) {
         OWLAnnotationProperty ap = ap(p);
         consume(() -> tripleIndex.literal(n, p, true), l -> {
-            dest.add(df.getOWLAnnotation(ap, l,
-                anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, l))));
-            tripleIndex.consumeIfPresent(n, p, l);
+            if (l != null) {
+                dest.add(df.getOWLAnnotation(ap, l,
+                    anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, l))));
+                tripleIndex.consumeIfPresent(n, p, l);
+            }
         });
         consume(() -> tripleIndex.resource(n, p, true), r -> {
-            dest.add(df.getOWLAnnotation(ap, getAnnotationValue(r),
-                anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, r))));
-            if (!tripleIndex.consumeIfPresent(n, p, r)) {
-                LOGGER.trace("consuming triple failed");
+            if (r != null) {
+                dest.add(df.getOWLAnnotation(ap, getAnnotationValue(r),
+                    anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, r))));
+                if (!tripleIndex.consumeIfPresent(n, p, r)) {
+                    LOGGER.trace("consuming triple failed");
+                }
             }
         });
     }
@@ -948,7 +958,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         return p.equals(tripleIndex.resource(i, OWL_ANNOTATED_PROPERTY, false));
     }
 
-    private OWLAnnotationValue getAnnotationValue(IRI resVal) {
+    private OWLAnnotationValue getAnnotationValue(@Nullable IRI resVal) {
+        if (resVal == null) {
+            return resVal;
+        }
         return anon.isAnonymousNode(resVal) ? getOWLAnonymousIndividual(resVal.toString()) : resVal;
     }
 

@@ -209,21 +209,23 @@ public class RioRenderer extends RDFRendererBase {
         }
         // do not use recursion, as it fails on very large expressions
         List<RDFTriple> statements = new ArrayList<>();
-
-        final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
-        trace(triples);
-        triples.stream().filter(renderedStatements::add).forEach(statements::add);
-        // for each RDF resource object, get the triples for the object and add them in the list
-        // right after the first appearance as object; the list will contain the same sequence of
-        // triples as the recursion would encounter.
-        recurseOnNestedResources(statements);
-        // then we go back and get context-sensitive statements and
-        // actually pass those to the RDFHandler
-        try {
-            statements.forEach(triple -> RioUtils.tripleAsStatements(triple, contexts)
-                .forEach(writer::handleStatement));
-        } catch (RDFHandlerException e) {
-            throw new OWLRuntimeException(e);
+        if (graph != null) {
+            final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
+            trace(triples);
+            triples.stream().filter(renderedStatements::add).forEach(statements::add);
+            // for each RDF resource object, get the triples for the object and add them in the list
+            // right after the first appearance as object; the list will contain the same sequence
+            // of
+            // triples as the recursion would encounter.
+            recurseOnNestedResources(statements);
+            // then we go back and get context-sensitive statements and
+            // actually pass those to the RDFHandler
+            try {
+                statements.forEach(triple -> RioUtils.tripleAsStatements(triple, contexts)
+                    .forEach(writer::handleStatement));
+            } catch (RDFHandlerException e) {
+                throw new OWLRuntimeException(e);
+            }
         }
         pending.remove(node);
     }
@@ -234,9 +236,11 @@ public class RioRenderer extends RDFRendererBase {
             if (list.get(i).getObject() instanceof RDFResource) {
                 RDFResource node = (RDFResource) list.get(i).getObject();
                 if (!pending.contains(node) && subnodes.add(node)) {
-                    final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
-                    trace(triples);
-                    addNewTriples(list, i, triples);
+                    if (graph != null) {
+                        final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
+                        trace(triples);
+                        addNewTriples(list, i, triples);
+                    }
                 }
             }
         }

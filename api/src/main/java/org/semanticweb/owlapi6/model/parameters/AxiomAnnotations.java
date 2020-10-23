@@ -12,6 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.model.parameters;
 
+import java.io.Serializable;
+import java.util.function.BiPredicate;
+
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
@@ -21,31 +24,46 @@ import org.semanticweb.owlapi6.model.OWLOntology;
  * @author ignazio
  * @since 4.0.0
  */
-public enum AxiomAnnotations {
+public interface AxiomAnnotations extends Serializable {
+    /**
+     * Enumeration holding known instances.
+     */
+    enum KnownValues implements AxiomAnnotations {
+        /**
+         * Search for axioms ignoring annotations.
+         */
+        IGNORE_ANNOTATIONS((o, ax) -> o.containsAxiomIgnoreAnnotations(ax)),
+        /**
+         * Search for axioms taking annotations into account.
+         */
+        CONSIDER_ANNOTATIONS((o, ax) -> o.containsAxiom(ax));
+
+        private final BiPredicate<OWLOntology, OWLAxiom> c;
+
+        private KnownValues(BiPredicate<OWLOntology, OWLAxiom> c) {
+            this.c = c;
+        }
+
+        @Override
+        public boolean contains(OWLOntology o, OWLAxiom ax) {
+            return c.test(o, ax);
+        }
+    }
+
     /**
      * Search for axioms ignoring annotations.
      */
-    IGNORE_AXIOM_ANNOTATIONS {
-        @Override
-        public boolean contains(OWLOntology o, OWLAxiom ax) {
-            return o.containsAxiomIgnoreAnnotations(ax);
-        }
-    },
+    AxiomAnnotations IGNORE_AXIOM_ANNOTATIONS = KnownValues.IGNORE_ANNOTATIONS;
     /**
      * Search for axioms taking annotations into account.
      */
-    CONSIDER_AXIOM_ANNOTATIONS {
-        @Override
-        public boolean contains(OWLOntology o, OWLAxiom ax) {
-            return o.containsAxiom(ax);
-        }
-    };
+    AxiomAnnotations CONSIDER_AXIOM_ANNOTATIONS = KnownValues.CONSIDER_ANNOTATIONS;
 
     /**
      * @param o ontology to check
      * @param ax axiom to check
      * @return true if the ontology contains the axiom, considering or disregarding annotations
-     * depending on the axiom annotation value.
+     *         depending on implementation depending on the axiom annotation value.
      */
-    public abstract boolean contains(OWLOntology o, OWLAxiom ax);
+    boolean contains(OWLOntology o, OWLAxiom ax);
 }

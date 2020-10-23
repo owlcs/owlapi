@@ -33,21 +33,21 @@ public class ChangeReport {
      * @return true if all changes were successful
      */
     public boolean allSuccessful() {
-        return changeEffects.stream().allMatch(ChangeApplied.SUCCESSFULLY::equals);
+        return changeEffects.stream().allMatch(ChangeApplied::successful);
     }
 
     /**
      * @return true if all changes were unsuccessful
      */
     public boolean allUnsuccessful() {
-        return changeEffects.stream().allMatch(ChangeApplied.UNSUCCESSFULLY::equals);
+        return changeEffects.stream().allMatch(ChangeApplied::unsuccessful);
     }
 
     /**
      * @return true if all changes were no operations
      */
     public boolean allNoOperation() {
-        return changeEffects.stream().allMatch(ChangeApplied.NO_OPERATION::equals);
+        return changeEffects.stream().allMatch(ChangeApplied::noChange);
     }
 
     /**
