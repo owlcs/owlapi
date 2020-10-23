@@ -18,11 +18,14 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.JarURLConnection;
+import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -70,6 +73,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     protected static final String DEFAULT_REQUEST =
         "application/rdf+xml, application/xml; q=0.7, text/xml; q=0.6" + TEXTPLAIN_REQUEST_TYPE
             + LAST_REQUEST_TYPE;
+    private static final String ACCEPTABLE_CONTENT_ENCODING = "xz,gzip,deflate";
 
     protected AbstractOWLParser() {}
 
@@ -106,31 +110,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         }
         int connectionTimeout = config.getConnectionTimeout();
         conn.setConnectTimeout(connectionTimeout);
-        if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
-            // follow redirects to HTTPS
-            HttpURLConnection con = (HttpURLConnection) conn;
-            con.connect();
-            int responseCode = con.getResponseCode();
-            // redirect
-            if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
-                || responseCode == HttpURLConnection.HTTP_MOVED_PERM
-                || responseCode == HttpURLConnection.HTTP_SEE_OTHER
-                // no constants for temporary and permanent redirect in HttpURLConnection
-                || responseCode == 307 || responseCode == 308) {
-                String location = con.getHeaderField("Location");
-                URL newURL = new URL(location);
-                conn = newURL.openConnection();
-                conn.addRequestProperty("Accept", actualAcceptHeaders);
-                if (config.getAuthorizationValue() != null
-                    && !config.getAuthorizationValue().isEmpty()) {
-                    conn.setRequestProperty("Authorization", config.getAuthorizationValue());
-                }
-                if (config.isAcceptingHTTPCompression()) {
-                    conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
-                }
-                conn.setConnectTimeout(connectionTimeout);
-            }
-        }
+        conn = connect(config, actualAcceptHeaders, conn, connectionTimeout, new HashSet<>());
         String contentEncoding = conn.getContentEncoding();
         String fileName = getFileNameFromContentDisposition(conn);
         if (fileName == null && conn.getURL() != null) {
@@ -156,6 +136,47 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
             throw new IOException("cannot connect to " + documentIRI + "; retry limit exhausted");
         }
         return checkFileName(fileName, is);
+    }
+
+    protected URLConnection connect(OWLOntologyLoaderConfiguration config,
+        String actualAcceptHeaders, URLConnection conn, int connectionTimeout, Set<String> visited)
+        throws IOException, MalformedURLException {
+        if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
+            // follow redirects to HTTPS
+            HttpURLConnection con = (HttpURLConnection) conn;
+            con.connect();
+            int responseCode = con.getResponseCode();
+            // redirect
+            if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
+                || responseCode == HttpURLConnection.HTTP_MOVED_PERM
+                || responseCode == HttpURLConnection.HTTP_SEE_OTHER
+                // no constants for temporary and permanent redirect in HttpURLConnection
+                || responseCode == 307 || responseCode == 308) {
+                String location = con.getHeaderField("Location");
+                if (visited.add(location)) {
+                    URL newURL = new URL(location);
+                    return connect(config, actualAcceptHeaders,
+                        rebuildConnection(config, connectionTimeout, newURL, actualAcceptHeaders),
+                        connectionTimeout, visited);
+                } else {
+                    throw new IllegalStateException(
+                        "Infinite loop: redirect cycle detected. " + visited);
+                }
+            }
+        }
+        return conn;
+    }
+
+    protected static URLConnection rebuildConnection(OWLOntologyLoaderConfiguration config,
+        int connectionTimeout, URL newURL, String acceptHeaders) throws IOException {
+        URLConnection conn;
+        conn = newURL.openConnection();
+        conn.addRequestProperty("Accept", acceptHeaders);
+        if (config.isAcceptingHTTPCompression()) {
+            conn.setRequestProperty("Accept-Encoding", ACCEPTABLE_CONTENT_ENCODING);
+        }
+        conn.setConnectTimeout(connectionTimeout);
+        return conn;
     }
 
     private static InputStream checkFileName(String fileName, InputStream in) throws IOException {
