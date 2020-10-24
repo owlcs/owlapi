@@ -131,7 +131,8 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentPriorityCollection;
 public class OWLOntologyManagerImpl
     implements OWLOntologyManager, OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
 
-    private static final String BADLY_BEHAVING_LISTENER_HAS_BEEN_REMOVED = "BADLY BEHAVING LISTENER: {} has been removed";
+    private static final String BADLY_BEHAVING_LISTENER_HAS_BEEN_REMOVED =
+        "BADLY BEHAVING LISTENER: {} has been removed";
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyManagerImpl.class);
     @Nonnull
@@ -867,7 +868,7 @@ public class OWLOntologyManagerImpl
                 ontologiesByID.get(((SetOntologyID) change).getNewOntologyID());
             OWLOntology o = change.getOntology();
             if (existingOntology != null && !o.equals(existingOntology)) {
-                if (!o.getAxioms().equals(existingOntology.getAxioms())) {
+                if (!sameAxioms(existingOntology, o)) {
                     String location = "OWLOntologyManagerImpl.checkForOntologyIDChange()";
                     LOGGER.error(location + " existing:{}", existingOntology);
                     LOGGER.error(location + " new:{}", o);
@@ -884,6 +885,20 @@ public class OWLOntologyManagerImpl
             renameOntology(setID.getOriginalOntologyID(), setID.getNewOntologyID());
             resetImportsClosureCache();
         }
+    }
+
+    protected boolean sameAxioms(OWLOntology existingOntology, OWLOntology o) {
+        for (AxiomType<?> t : AxiomType.AXIOM_TYPES) {
+            if (existingOntology.getAxiomCount(t) != o.getAxiomCount(t)) {
+                return false;
+            }
+        }
+        for (AxiomType<?> t : AxiomType.AXIOM_TYPES) {
+            if (!existingOntology.getAxioms(t).equals(o.getAxioms(t))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // Methods to create, load and reload ontologies
@@ -1200,11 +1215,11 @@ public class OWLOntologyManagerImpl
     /**
      * This is the method that all the other load method delegate to.
      * 
-     * @param ontologyIRI    The URI of the ontology to be loaded. This is only used to report to
-     *                       listeners and may be {@code null}
+     * @param ontologyIRI The URI of the ontology to be loaded. This is only used to report to
+     *        listeners and may be {@code null}
      * @param documentSource The input source that specifies where the ontology should be loaded
-     *                       from.
-     * @param configuration  load configuration
+     *        from.
+     * @param configuration load configuration
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException If the ontology could not be loaded.
      */
