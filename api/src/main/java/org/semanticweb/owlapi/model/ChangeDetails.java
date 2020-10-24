@@ -8,7 +8,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
  * A class to hold detailed results on a set of changes. {@code changeEffect} has the overall result
  * of the transaction (changes can have been applied successfully, they can have failed and been
  * rolled back, or all changes might have been no-operation). {@code enactedChanges} has all the
- * changes that have
+ * changes that have been applied successfully.
  *
  * @author ignazio
  */

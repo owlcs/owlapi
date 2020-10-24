@@ -35,10 +35,9 @@ public interface OWLNaryBooleanClassExpression
     }
 
     /**
-     * @return the class expressions
-     * @deprecated use {@link #operands()}
+     * @return the class expressions. The set that is returned is a copy; modifications to the
+     *         returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLClassExpression> getOperands() {
         return asSet(operands());
     }

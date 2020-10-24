@@ -54,10 +54,9 @@ public interface OWLDataOneOf extends OWLDataRange, HasOperands<OWLLiteral> {
     /**
      * Gets the values ({@link OWLLiteral}s) that this data range consists of.
      *
-     * @return The values that this data range consists of.
-     * @deprecated use {@link #values()}
+     * @return The values that this data range consists of. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLLiteral> getValues() {
         return asSet(values());
     }

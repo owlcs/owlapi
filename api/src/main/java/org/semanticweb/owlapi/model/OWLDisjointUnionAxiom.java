@@ -69,10 +69,10 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom, HasOperands<OWLCla
      * Gets the class expressions which are operands of the disjoint union.
      *
      * @return A {@code Set} containing the operands of the disjoint union, note that this <b>does
-     *         not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
-     * @deprecated use {@link #classExpressions()}
+     *         not</b> include the {@code OWLClass} that is equivalent to the disjoint union. The
+     *         set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLClassExpression> getClassExpressions() {
         return asSet(classExpressions());
     }

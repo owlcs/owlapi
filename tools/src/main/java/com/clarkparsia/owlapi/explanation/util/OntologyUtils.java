@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -31,18 +32,16 @@ public final class OntologyUtils {
     private static final String AXIOM_CANNOT_BE_NULL = "axiom cannot be null";
     private static final String ONTOLOGIES_CANNOT_BE_NULL = "ontologies cannot be null";
 
-    private OntologyUtils() {
-    }
+    private OntologyUtils() {}
 
     /**
-     * Determines if a class description contains any unreferenced entities with
-     * respect to the ontology that contains the entailments which are being
-     * explained.
+     * Determines if a class description contains any unreferenced entities with respect to the
+     * ontology that contains the entailments which are being explained.
      *
      * @param ontology the ontology to search
      * @param desc The description to be searched
      * @return {@code true} if the description references entities that the ontology that contains
-     * entailments which are being explained, otherwise {@code false}
+     *         entailments which are being explained, otherwise {@code false}
      */
     public static boolean containsUnreferencedEntity(OWLOntology ontology,
         OWLClassExpression desc) {
@@ -57,8 +56,8 @@ public final class OntologyUtils {
     }
 
     /**
-     * Removes an axiom from all the given ontologies that contains the axiom
-     * and returns those ontologies.
+     * Removes an axiom from all the given ontologies that contains the axiom and returns those
+     * ontologies.
      *
      * @param axiom axiom being removed
      * @param ontologies ontologies from which axiom is being removed
@@ -81,9 +80,7 @@ public final class OntologyUtils {
      * @param axiom the axiom to add
      * @param ontologies the ontologies to add the axiom to
      * @param manager the manager for the application
-     * @deprecated use {@link #addAxiom(OWLAxiom, Stream)}
      */
-    @Deprecated
     public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies,
         OWLOntologyManager manager) {
         checkNotNull(manager, "manager cannot be null");

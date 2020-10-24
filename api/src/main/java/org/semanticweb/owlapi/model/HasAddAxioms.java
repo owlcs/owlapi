@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
@@ -24,28 +25,28 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 public interface HasAddAxioms {
 
     /**
-     * A convenience method that adds a set of axioms to an ontology. The
-     * appropriate AddAxiom change objects are automatically generated.
+     * A convenience method that adds a collection of axioms to an ontology. The appropriate
+     * AddAxiom change objects are automatically generated.
      *
      * @param ont The ontology to which the axioms should be added.
      * @param axioms The axioms to be added.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
-     * otherwise.
-     * @deprecated use {@link #addAxioms(OWLOntology, Stream)} instead.
+     * @return ChangeApplied.SUCCESSFULLY if the axioms are added, ChangeApplied.UNSUCCESSFULLY
+     *         otherwise. For more detailed results see
+     *         {@link HasApplyChanges#applyChangesAndGetDetails(java.util.List)}
      */
-    @Deprecated
     default ChangeApplied addAxioms(OWLOntology ont, Collection<? extends OWLAxiom> axioms) {
         return addAxioms(ont, axioms.stream());
     }
 
     /**
-     * A convenience method that adds a set of axioms to an ontology. The
-     * appropriate AddAxiom change objects are automatically generated.
+     * A convenience method that adds a stream of axioms to an ontology. The appropriate AddAxiom
+     * change objects are automatically generated.
      *
      * @param ont The ontology to which the axioms should be added.
      * @param axioms The axioms to be added.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
-     * otherwise.
+     * @return ChangeApplied.SUCCESSFULLY if the axioms are added, ChangeApplied.UNSUCCESSFULLY
+     *         otherwise. For more detailed results see
+     *         {@link HasApplyChanges#applyChangesAndGetDetails(java.util.List)}
      */
     ChangeApplied addAxioms(OWLOntology ont, Stream<? extends OWLAxiom> axioms);
 }

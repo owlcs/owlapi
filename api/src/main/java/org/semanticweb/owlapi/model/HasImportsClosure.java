@@ -34,12 +34,11 @@ public interface HasImportsClosure {
      * ontology, ontology B and ontology C.
      *
      * @return The set of ontologies in the reflexive transitive closure of the directlyImports
-     *         relation.
+     *         relation. The set that is returned is a copy; modifications to the returned set will
+     *         not be reflected in this object.
      * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
-     *                                     because it was removed from the manager.
-     * @deprecated use {@link #importsClosure()}
+     *         because it was removed from the manager.
      */
-    @Deprecated
     default Set<OWLOntology> getImportsClosure() {
         return asSet(importsClosure());
     }

@@ -31,12 +31,10 @@ public interface HasObjectPropertiesInSignature {
      * A convenience method that obtains the object properties that are in the signature of this
      * object. The default implementation of this method returns an empty, modifiable set.
      *
-     * @return A set containing the object properties that are in the signature of this object.The
+     * @return A set containing the object properties that are in the signature of this object. The
      *         set is a subset of the signature, and is not backed by the signature; it is a
      *         modifiable collection and changes are not reflected by the signature.
-     * @deprecated use {@link #objectPropertiesInSignature()}
      */
-    @Deprecated
     default Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         return asSet(objectPropertiesInSignature());
     }

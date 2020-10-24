@@ -30,7 +30,8 @@ public interface OWLAxiomCollectionBooleanArgs
 
     /**
      * @param b true if imports are included.
-     * @return All of the axioms in this collection. The set is a copy of the data.
+     * @return All of the axioms in this collection. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      * @deprecated use {@link #axioms(Imports)} instead
      */
     @Deprecated
@@ -54,7 +55,8 @@ public interface OWLAxiomCollectionBooleanArgs
      *
      * @param includeImportsClosure if true, include imports closure.
      * @return A set of axioms which are of type {@code OWLLogicalAxiom}, optionally including the
-     *         imports closure. The set that is returned is a copy of the data.
+     *         imports closure. The set that is returned is a copy; modifications to the returned
+     *         set will not be reflected in this object.
      * @deprecated use {@link #logicalAxioms(Imports)}
      */
     @Deprecated
@@ -81,7 +83,8 @@ public interface OWLAxiomCollectionBooleanArgs
      * @param axiomType The type of axioms to be retrieved.
      * @param includeImportsClosure if true, include imports closure.
      * @param <T> axiom type
-     * @return all axioms of the specified type. The set is a copy of the data.
+     * @return all axioms of the specified type. The set that is returned is a copy; modifications
+     *         to the returned set will not be reflected in this object.
      * @deprecated use {@link #axioms(AxiomType, Imports)}
      */
     @Deprecated
@@ -147,7 +150,9 @@ public interface OWLAxiomCollectionBooleanArgs
      * @param includeImportsClosure if true, include imports closure.
      * @return The set of axioms such that for any two axioms, {@code axiomA} and {@code axiomB} in
      *         the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
-     * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set.
+     * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set. The
+     *         set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      * @deprecated use {@link #axiomsIgnoreAnnotations(OWLAxiom, Imports)}
      */
     @Deprecated
@@ -166,7 +171,8 @@ public interface OWLAxiomCollectionBooleanArgs
      * @param owlEntity The entity that should be directly referred to by all axioms in the results
      *        set.
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return All axioms referencing the entity. The set is a copy of the data.
+     * @return All axioms referencing the entity. The set that is returned is a copy; modifications
+     *         to the returned set will not be reflected in this object.
      * @deprecated use {@link #referencingAxioms(OWLPrimitive, Imports)}
      */
     @Deprecated
@@ -192,7 +198,8 @@ public interface OWLAxiomCollectionBooleanArgs
      *         <li>Disjoint union axioms, where the specified class is the named class that is
      *         equivalent to the disjoint union</li>
      *         </ul>
-     *         The returned set is a copy of the data.
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      * @deprecated use {@link #axioms(OWLClass, Imports)} instead
      */
     @Deprecated
@@ -218,7 +225,8 @@ public interface OWLAxiomCollectionBooleanArgs
      *         whose subject is the specified property</li>
      *         <li>Inverse properties axioms that contain the specified property</li>
      *         </ul>
-     *         The set that is returned is a copy of the data.
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      * @deprecated use {@link #axioms(OWLObjectPropertyExpression, Imports)} instead
      */
     @Deprecated
@@ -242,7 +250,8 @@ public interface OWLAxiomCollectionBooleanArgs
      *         <li>Any property characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.)
      *         whose subject is the specified property</li>
      *         </ul>
-     *         The set is a copy of the data.
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      * @deprecated use {@link #axioms(OWLDataProperty, Imports)} instead
      */
     @Deprecated
@@ -268,7 +277,8 @@ public interface OWLAxiomCollectionBooleanArgs
      *         <li>Negative data property assertion axioms whose subject is the specified
      *         individual</li>
      *         </ul>
-     *         The set is a copy of the data.
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      * @deprecated use {@link #axioms(OWLIndividual, Imports)} instead
      */
     @Deprecated
@@ -291,7 +301,8 @@ public interface OWLAxiomCollectionBooleanArgs
      *         <li>Annotation property range axioms that specify a range for the specified
      *         property</li>
      *         </ul>
-     *         The set is a copy of the data.
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      * @deprecated use {@link #axioms(OWLAnnotationProperty, Imports)} instead
      */
     @Deprecated
@@ -305,8 +316,9 @@ public interface OWLAxiomCollectionBooleanArgs
      *
      * @param datatype The datatype
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return The set of datatype definition axioms for the specified datatype. The set is a copy
-     *         of the data.
+     * @return The set of datatype definition axioms for the specified datatype. The set that is
+     *         returned is a copy; modifications to the returned set will not be reflected in this
+     *         object.
      * @deprecated use {@link #axioms(OWLDatatype, Imports)} instead
      */
     @Deprecated

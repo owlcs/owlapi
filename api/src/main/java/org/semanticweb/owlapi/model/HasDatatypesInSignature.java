@@ -25,14 +25,12 @@ import java.util.stream.Stream;
 public interface HasDatatypesInSignature {
 
     /**
-     * A convenience method that obtains the datatypes that are in the signature of this object.
+     * Gets the datatypes that are in the signature of this object.
      *
-     * @return A set containing the datatypes that are in the signature of this object.The set is a
+     * @return A set containing the datatypes that are in the signature of this object. The set is a
      *         subset of the signature, and is not backed by the signature; it is a modifiable
      *         collection and changes are not reflected by the signature.
-     * @deprecated use {@link #datatypesInSignature()}
      */
-    @Deprecated
     default Set<OWLDatatype> getDatatypesInSignature() {
         return asSet(datatypesInSignature());
     }

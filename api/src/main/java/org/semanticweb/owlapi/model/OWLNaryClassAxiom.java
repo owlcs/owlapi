@@ -50,10 +50,9 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
     /**
      * Gets all of the top level class expressions that appear in this axiom.
      *
-     * @return A {@code Set} of class expressions that appear in the axiom.
-     * @deprecated use {@link #classExpressions()}
+     * @return A {@code Set} of class expressions that appear in the axiom. The set that is returned
+     *         is a copy; modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLClassExpression> getClassExpressions() {
         return asSet(classExpressions());
     }

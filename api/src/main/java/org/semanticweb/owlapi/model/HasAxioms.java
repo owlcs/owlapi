@@ -29,11 +29,9 @@ public interface HasAxioms {
     /**
      * Gets the {@link OWLAxiom}s contained in this object.
      *
-     * @return The set of {@link OWLAxiom}s contained in this object. Changes are not reflected
-     *         back.
-     * @deprecated use {@link #axioms()}
+     * @return The set of {@link OWLAxiom}s contained in this object. The set is a copy, changes are
+     *         not reflected back.
      */
-    @Deprecated
     default Set<OWLAxiom> getAxioms() {
         return asSet(axioms());
     }

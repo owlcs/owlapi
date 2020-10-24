@@ -30,7 +30,7 @@ public interface HasAxiomsByType {
 
     /**
      * Compare the axioms inside this object with the axioms inside the other object, shortcutting
-     * by type - won't merge all axioms in a large lump for comparisons only
+     * by type; it will not merge all axioms in a large lump for comparisons only
      *
      * @param o other object to compare
      * @return true if the two objects contain the same axioms
@@ -46,22 +46,20 @@ public interface HasAxiomsByType {
      * Gets the axioms which are of the specified type.
      *
      * @param axiomType The type of axioms to be retrieved.
-     * @param <T>       axiom type
+     * @param <T> axiom type
      * @return A set containing the axioms which are of the specified type. The set that is returned
      *         is a copy of the axioms in this object. Modifications to the returned set will not be
      *         reflected in this object.
-     * @deprecated use {@link #axioms(AxiomType)}
      */
-    @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
         return asSet(axioms(axiomType));
     }
 
     /**
-     * Filter axioms according to the specified type.
+     * Gets the axioms which are of the specified type.
      *
      * @param axiomType The type of axioms to be retrieved.
-     * @param <T>       axiom type
+     * @param <T> axiom type
      * @return Stream of axioms of the specified type.
      */
     <T extends OWLAxiom> Stream<T> axioms(AxiomType<T> axiomType);

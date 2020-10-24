@@ -49,10 +49,9 @@ public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom, OWLNaryAxiom
     }
 
     /**
-     * @return the individuals
-     * @deprecated use {@link #individuals()}
+     * @return The individuals. The set that is returned is a copy; modifications to the returned
+     *         set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLIndividual> getIndividuals() {
         return asSet(individuals());
     }

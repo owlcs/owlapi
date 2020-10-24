@@ -4,7 +4,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -277,8 +279,8 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         addValueToHash(83);
-        hashCode = hashCode * MULT + axiom.getFirstProperty().hashCode() + axiom.getSecondProperty()
-            .hashCode();
+        hashCode = hashCode * MULT + axiom.getFirstProperty().hashCode()
+            + axiom.getSecondProperty().hashCode();
         visitStream(axiom.annotations());
     }
 
@@ -711,7 +713,6 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getDataRange().accept(this);
     }
 
-    @Deprecated
     private void visitStream(Collection<? extends OWLObject> collection) {
         collection.forEach(o -> o.accept(this));
     }

@@ -36,18 +36,15 @@ public interface SWRLAtom extends SWRLObject {
     /**
      * Gets all of the arguments in this atom.
      *
-     * @return The collection of arguments in this atom
-     * @deprecated use {@link #allArguments()}
+     * @return The collection of arguments in this atom The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Collection<SWRLArgument> getAllArguments() {
         return asList(allArguments());
     }
 
     /**
-     * Gets all of the arguments in this atom.
-     *
-     * @return The collection of arguments in this atom
+     * @return The stream of all arguments in this atom
      */
     public Stream<SWRLArgument> allArguments();
 }

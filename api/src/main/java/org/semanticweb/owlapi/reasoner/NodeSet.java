@@ -32,10 +32,10 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * A convenience method that gets all of the entities contained in the {@code Nodes} in this
      * {@code NodeSet}.
      *
-     * @return The union of the entities contained in the {@code Nodes} in this {@code NodeSet}.
-     * @deprecated use {@link #entities()}
+     * @return The union of the entities contained in the {@code Nodes} in this {@code NodeSet}. The
+     *         set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<E> getFlattened() {
         return asSet(entities());
     }
@@ -94,11 +94,9 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
     /**
      * Gets the {@code Node}s contained in this {@code NodeSet}.
      *
-     * @return The set of {@code Node}s contained in this {@code NodeSet}. Note that this set will
-     *         be an unmodifiable set.
-     * @deprecated use {@link #nodes()}
+     * @return The set of {@code Node}s contained in this {@code NodeSet}. The set that is returned
+     *         is a copy; modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<Node<E>> getNodes() {
         return asSet(nodes());
     }
@@ -106,8 +104,7 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
     /**
      * Gets the {@code Node}s contained in this {@code NodeSet}.
      *
-     * @return The set of {@code Node}s contained in this {@code NodeSet}. Note that this set will
-     *         be an unmodifiable set.
+     * @return stream of {@code Node}s contained in this {@code NodeSet}.
      */
     Stream<Node<E>> nodes();
 }

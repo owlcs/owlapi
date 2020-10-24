@@ -26,10 +26,9 @@ public interface HasGetEntitiesInSignature {
 
     /**
      * @param entityIRI IRI for all entities to retrieve
-     * @return entities with IRI equal to entity IRI
-     * @deprecated use {@link #entitiesInSignature(IRI)}
+     * @return entities with IRI equal to entity IRI. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLEntity> getEntitiesInSignature(IRI entityIRI) {
         return asSet(entitiesInSignature(entityIRI));
     }

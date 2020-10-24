@@ -154,7 +154,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     /**
      * Accepts a visitor
      *
-     * @param <O>     visitor return type
+     * @param <O> visitor return type
      * @param visitor The visitor
      * @return visitor return value
      */
@@ -212,14 +212,11 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * this method will return the set consisting of ontology B and ontology C.
      *
      * @return The set of ontologies that this ontology is related to via the transitive closure of
-     *         the directlyImports relation. The set that is returned is a copy - it will not be
-     *         updated if the ontology changes. It is therefore safe to apply changes to this
-     *         ontology while iterating over this set.
+     *         the directlyImports relation. The set that is returned is a copy; modifications to
+     *         the returned set will not be reflected in this object.
      * @throws UnknownOWLOntologyException if this ontology is no longer managed by its manager
-     *                                     because it was removed from the manager.
-     * @deprecated use {@link #imports()}
+     *         because it was removed from the manager.
      */
-    @Deprecated
     default Set<OWLOntology> getImports() {
         return asSet(imports());
     }
@@ -232,10 +229,9 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * this method will return the set consisting of ontology B and ontology C.
      *
      * @return The stream of ontologies that this ontology is related to via the transitive closure
-     *         of the directlyImports relation. It is safe to apply changes to this ontology while
-     *         iterating over this set.
+     *         of the directlyImports relation.
      * @throws UnknownOWLOntologyException if this ontology is no longer managed by its manager
-     *                                     because it was removed from the manager.
+     *         because it was removed from the manager.
      */
     Stream<OWLOntology> imports();
 
@@ -245,20 +241,17 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * Section 3 in the OWL 2 structural specification).
      *
      * @return The set of imports declarations that correspond to the set of ontology document IRIs
-     *         that are directly imported by this ontology. The set that is returned is a copy - it
-     *         will not be updated if the ontology changes. It is therefore safe to apply changes to
-     *         this ontology while iterating over this set.
-     * @deprecated use {@link #importsDeclarations()}
+     *         that are directly imported by this ontology. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLImportsDeclaration> getImportsDeclarations() {
         return asSet(importsDeclarations());
     }
 
     /**
-     * Gets the stream of imports declarations for this ontology. The set returned represents the
-     * set of IRIs that correspond to the set of IRIs in an ontology's directlyImportsDocuments (see
-     * Section 3 in the OWL 2 structural specification).
+     * Gets the stream of imports declarations for this ontology. These are the IRIs that correspond
+     * to the set of IRIs in an ontology's directlyImportsDocuments (see Section 3 in the OWL 2
+     * structural specification).
      *
      * @return Sorted stream of imports declarations that correspond to the set of ontology document
      *         IRIs that are directly imported by this ontology.
@@ -282,11 +275,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The set that is returned
-     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
-     *         updated if the ontology changes.
-     * @deprecated use {@link #tboxAxioms(Imports)}
+     *         is a copy; modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLAxiom> getTBoxAxioms(Imports includeImportsClosure) {
         return asSet(tboxAxioms(includeImportsClosure));
     }
@@ -306,11 +296,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The set that is returned
-     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
-     *         updated if the ontology changes.
-     * @deprecated use {@link #aboxAxioms(Imports)}
+     *         is a copy; modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLAxiom> getABoxAxioms(Imports includeImportsClosure) {
         return asSet(aboxAxioms(includeImportsClosure));
     }
@@ -330,11 +317,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The set that is returned
-     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
-     *         updated if the ontology changes.
-     * @deprecated use {@link #rboxAxioms(Imports)}
+     *         is a copy; modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLAxiom> getRBoxAxioms(Imports includeImportsClosure) {
         return asSet(rboxAxioms(includeImportsClosure));
     }
@@ -356,12 +340,9 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * <li>Disjoint class axioms that don't contain any named classes ( {@code OWLClass}es)</li>
      * </ul>
      *
-     * @return The set that is returned is a copy of the axioms in the ontology - it will not be
-     *         updated if the ontology changes. It is therefore safe to apply changes to this
-     *         ontology while iterating over this set.
-     * @deprecated use {@link #generalClassAxioms()}
+     * @return The set of general axioms in this ontology. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLClassAxiom> getGeneralClassAxioms() {
         return asSet(generalClassAxioms());
     }
@@ -388,16 +369,13 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * OWL 2 Structural Specification</a>)
      *
      * @param imports if INCLUDED, the imports closure is included.
-     * @return A set of {@code OWLEntity} objects. The set that is returned is a copy - it will not
-     *         be updated if the ontology changes. It is therefore safe to apply changes to this
-     *         ontology while iterating over this set.
+     * @return A set of {@code OWLEntity} objects. The set that is returned is a copy; modifications
+     *         to the returned set will not be reflected in this object.
      * @see #classesInSignature()
      * @see #objectPropertiesInSignature()
      * @see #dataPropertiesInSignature()
      * @see #individualsInSignature()
-     * @deprecated use {@link #signature(Imports)}
      */
-    @Deprecated
     default Set<OWLEntity> getSignature(Imports imports) {
         return asSet(signature(imports));
     }
@@ -435,7 +413,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * declaration axiom for the specified entity.
      *
      * @param owlEntity The entity to be tested for
-     * @param imports   if INCLUDED, the imports closure is included.
+     * @param imports if INCLUDED, the imports closure is included.
      * @return {@code true} if the ontology or its imports closure contains a declaration for the
      *         specified entity, otherwise {@code false}.
      */
@@ -450,8 +428,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * loaded from, or the default ontology format if the ontology was created programmatically.
      *
      * @throws OWLOntologyStorageException An exception will be thrown if there is a problem with
-     *                                     saving the ontology, or the ontology can't be saved in
-     *                                     the format it was loaded from.
+     *         saving the ontology, or the ontology can't be saved in the format it was loaded from.
      */
     default void saveOntology() throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this);
@@ -473,7 +450,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param outputStream The output stream where the ontology will be saved to
      * @throws OWLOntologyStorageException If there was a problem saving this ontology to the
-     *                                     specified output stream
+     *         specified output stream
      */
     default void saveOntology(OutputStream outputStream) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, outputStream);
@@ -493,7 +470,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * Saves the ontology to the specified document IRI in the specified ontology format.
      *
      * @param ontologyFormat The format in which to save the ontology
-     * @param documentIRI    The document IRI where the ontology should be saved to
+     * @param documentIRI The document IRI where the ontology should be saved to
      * @throws OWLOntologyStorageException If the ontology could not be saved.
      */
     default void saveOntology(OWLDocumentFormat ontologyFormat, IRI documentIRI)
@@ -505,7 +482,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * Saves the ontology to the specified output stream in the specified ontology format.
      *
      * @param ontologyFormat The format in which to save the ontology
-     * @param outputStream   The output stream where the ontology will be saved to.
+     * @param outputStream The output stream where the ontology will be saved to.
      * @throws OWLOntologyStorageException If the ontology could not be saved.
      */
     default void saveOntology(OWLDocumentFormat ontologyFormat, OutputStream outputStream)

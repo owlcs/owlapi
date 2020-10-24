@@ -87,10 +87,9 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
     /**
      * Gets the entities contained in this node. The entities are equivalent to each other.
      *
-     * @return The set of entities contained in this {@code Node}.
-     * @deprecated use {@link #entities()}
+     * @return The set of entities contained in this {@code Node}. The set that is returned is a
+     *         copy; modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<E> getEntities() {
         return asSet(entities());
     }
@@ -98,7 +97,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
     /**
      * Gets the entities contained in this node. The entities are equivalent to each other.
      *
-     * @return The set of entities contained in this {@code Node}.
+     * @return stream of entities contained in this {@code Node}.
      */
     Stream<E> entities();
 

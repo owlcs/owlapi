@@ -25,10 +25,9 @@ import java.util.stream.Stream;
 public interface HasGetOntologies {
 
     /**
-     * @return The set of ontologies contained within this object
-     * @deprecated use {@link #ontologies()}
+     * @return The set of ontologies contained within this object. The set that is returned is a
+     *         copy; modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLOntology> getOntologies() {
         return asSet(ontologies());
     }

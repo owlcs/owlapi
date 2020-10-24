@@ -30,12 +30,11 @@ public interface HasDirectImports {
      * to the IRIs defined by the directlyImportsDocument association as discussed in Section 3.4 of
      * the OWL 2 Structural specification.
      *
-     * @return The set of directly imported document IRIs.
+     * @return The set of directly imported document IRIs. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
      *         because it was removed from the manager.
-     * @deprecated use {@link #directImportsDocuments()}
      */
-    @Deprecated
     default Set<IRI> getDirectImportsDocuments() {
         return asSet(directImportsDocuments());
     }
@@ -61,12 +60,11 @@ public interface HasDirectImports {
      * what ever reason.
      *
      * @return A set of ontologies such that for this ontology O, and each ontology O' in the set,
-     *         (O, O') is in the directlyImports relation.
+     *         (O, O') is in the directlyImports relation. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
      *         because it was removed from the manager.
-     * @deprecated use {@link #directImports()}
      */
-    @Deprecated
     default Set<OWLOntology> getDirectImports() {
         return asSet(directImports());
     }

@@ -29,11 +29,10 @@ public interface HasLogicalAxioms {
     /**
      * Gets the set of {@link OWLLogicalAxiom}s contained within this object.
      *
-     * @return A set of {@link OWLLogicalAxiom}s that are contained within this object. Changes are
-     *         not reflected back.
-     * @deprecated use {@link #logicalAxioms()}
+     * @return A set of {@link OWLLogicalAxiom}s that are contained within this object. The set that
+     *         is returned is a copy; modifications to the returned set will not be reflected in
+     *         this object.
      */
-    @Deprecated
     default Set<OWLLogicalAxiom> getLogicalAxioms() {
         return asSet(logicalAxioms());
     }

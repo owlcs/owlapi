@@ -32,10 +32,9 @@ public interface OWLAxiomCollection
     /**
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return All of the axioms in this collection, and optionally in the import closure. The set
-     *         that is returned is a copy of the data.
-     * @deprecated use {@link #axioms(Imports)}
+     *         that is returned is a copy; modifications to the returned set will not be reflected
+     *         in this object.
      */
-    @Deprecated
     default Set<OWLAxiom> getAxioms(Imports includeImportsClosure) {
         return asSet(axioms(includeImportsClosure));
     }
@@ -65,10 +64,9 @@ public interface OWLAxiomCollection
      *
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return A set of axioms which are of type {@code OWLLogicalAxiom}, optionally including the
-     *         imports closure. The set that is returned is a copy of the data.
-     * @deprecated use {@link #logicalAxioms(Imports)}
+     *         imports closure. The set that is returned is a copy; modifications to the returned
+     *         set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLLogicalAxiom> getLogicalAxioms(Imports includeImportsClosure) {
         return asSet(logicalAxioms(includeImportsClosure));
     }
@@ -107,10 +105,9 @@ public interface OWLAxiomCollection
      * @param axiomType The type of axioms to be retrieved.
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @param <T> axiom type
-     * @return all axioms of the specified type. The set is a copy of the data.
-     * @deprecated use {@link #axioms(AxiomType, Imports)}
+     * @return all axioms of the specified type. The set that is returned is a copy; modifications
+     *         to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType,
         Imports includeImportsClosure) {
         return asSet(axioms(axiomType, includeImportsClosure));
@@ -180,10 +177,10 @@ public interface OWLAxiomCollection
      * @param axiom The axiom that the returned axioms must equal, ignoring annotations.
      * @return The set of axioms such that for any two axioms, {@code axiomA} and {@code axiomB} in
      *         the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
-     * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set.
-     * @deprecated use {@link #axiomsIgnoreAnnotations(OWLAxiom)}
+     * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set. The
+     *         set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom) {
         return asSet(axiomsIgnoreAnnotations(axiom));
     }
@@ -197,37 +194,37 @@ public interface OWLAxiomCollection
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return The set of axioms such that for any two axioms, {@code axiomA} and {@code axiomB} in
      *         the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
-     * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set.
-     * @deprecated use {@link #axiomsIgnoreAnnotations(OWLAxiom, Imports)}
+     * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set. The
+     *         set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom,
         Imports includeImportsClosure) {
         return asSet(axiomsIgnoreAnnotations(axiom, includeImportsClosure));
     }
 
     /**
-     * Gets the set of axioms contained in this collection that have the same "logical structure" as
-     * the specified axiom; i.e., all axioms that equal the specified axiom, when ignoring
+     * Gets the stream of axioms contained in this collection that have the same "logical structure"
+     * as the specified axiom; i.e., all axioms that equal the specified axiom, when ignoring
      * annotations. Optionally the imports closure is included.
      *
      * @param axiom The axiom that the returned axioms must equal, ignoring annotations.
-     * @return The set of axioms such that for any two axioms, {@code axiomA} and {@code axiomB} in
-     *         the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
-     * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set.
+     * @return stream of axioms such that for any two axioms, {@code axiomA} and {@code axiomB},
+     *         {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
+     * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the stream.
      */
     Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom axiom);
 
     /**
-     * Gets the set of axioms contained in this collection that have the same "logical structure" as
-     * the specified axiom; i.e., all axioms that equal the specified axiom, when ignoring
+     * Gets the stream of axioms contained in this collection that have the same "logical structure"
+     * as the specified axiom; i.e., all axioms that equal the specified axiom, when ignoring
      * annotations. Optionally the imports closure is included.
      *
      * @param axiom The axiom that the returned axioms must equal, ignoring annotations.
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return The set of axioms such that for any two axioms, {@code axiomA} and {@code axiomB} in
-     *         the set, {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
-     * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the set.
+     * @return stream of axioms such that for any two axioms, {@code axiomA} and {@code axiomB},
+     *         {@code axiomA.getAxiomWithoutAnnotations()} is equal to {@code
+     * axiomB.getAxiomWithoutAnnotations()}. The specified axiom will be contained in the stream.
      */
     Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom axiom, Imports includeImportsClosure);
 
@@ -240,10 +237,9 @@ public interface OWLAxiomCollection
      *
      * @param owlEntity The entity that should be directly referred to by all axioms in the results
      *        set.
-     * @return All axioms referencing the entity. The set is a copy of the data.
-     * @deprecated use {@link #referencingAxioms(OWLPrimitive)}
+     * @return All axioms referencing the entity. The set that is returned is a copy; modifications
+     *         to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity) {
         return asSet(referencingAxioms(owlEntity));
     }
@@ -271,10 +267,9 @@ public interface OWLAxiomCollection
      * @param owlEntity The entity that should be directly referred to by all axioms in the results
      *        set.
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return All axioms referencing the entity. The set is a copy of the data.
-     * @deprecated use {@link #referencingAxioms(OWLPrimitive, Imports)}
+     * @return All axioms referencing the entity. The set that is returned is a copy; modifications
+     *         to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity,
         Imports includeImportsClosure) {
         return asSet(referencingAxioms(owlEntity, includeImportsClosure));
@@ -312,10 +307,9 @@ public interface OWLAxiomCollection
      *         <li>Disjoint union axioms, where the specified class is the named class that is
      *         equivalent to the disjoint union</li>
      *         </ul>
-     *         The returned set is a copy of the data.
-     * @deprecated use {@link #axioms(OWLClass)}
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLClassAxiom> getAxioms(OWLClass cls) {
         return asSet(axioms(cls));
     }
@@ -352,10 +346,9 @@ public interface OWLAxiomCollection
      *         <li>Disjoint union axioms, where the specified class is the named class that is
      *         equivalent to the disjoint union</li>
      *         </ul>
-     *         The returned set is a copy of the data.
-     * @deprecated use {@link #axioms(OWLClass, Imports)}
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLClassAxiom> getAxioms(OWLClass cls, Imports includeImportsClosure) {
         return asSet(axioms(cls, includeImportsClosure));
     }
@@ -399,10 +392,9 @@ public interface OWLAxiomCollection
      *         whose subject is the specified property</li>
      *         <li>Inverse properties axioms that contain the specified property</li>
      *         </ul>
-     *         The set that is returned is a copy of the data.
-     * @deprecated use {@link #axioms(OWLObjectPropertyExpression)}
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property) {
         return asSet(axioms(property));
     }
@@ -445,10 +437,9 @@ public interface OWLAxiomCollection
      *         whose subject is the specified property</li>
      *         <li>Inverse properties axioms that contain the specified property</li>
      *         </ul>
-     *         The set that is returned is a copy of the data.
-     * @deprecated use {@link #axioms(OWLObjectPropertyExpression, Imports)}
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property,
         Imports includeImportsClosure) {
         return asSet(axioms(property, includeImportsClosure));
@@ -492,10 +483,9 @@ public interface OWLAxiomCollection
      *         <li>Any property characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.)
      *         whose subject is the specified property</li>
      *         </ul>
-     *         The set is a copy of the data.
-     * @deprecated use {@link #axioms(OWLDataProperty)}
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property) {
         return asSet(axioms(property));
     }
@@ -532,10 +522,9 @@ public interface OWLAxiomCollection
      *         <li>Any property characteristic axiom (i.e. Functional, Symmetric, Reflexive etc.)
      *         whose subject is the specified property</li>
      *         </ul>
-     *         The set is a copy of the data.
-     * @deprecated use {@link #axioms(OWLDataProperty, Imports)}
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property,
         Imports includeImportsClosure) {
         return asSet(axioms(property, includeImportsClosure));
@@ -577,10 +566,9 @@ public interface OWLAxiomCollection
      *         <li>Negative data property assertion axioms whose subject is the specified
      *         individual</li>
      *         </ul>
-     *         The set is a copy of the data.
-     * @deprecated use {@link #axioms(OWLIndividual)}
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual) {
         return asSet(axioms(individual));
     }
@@ -621,10 +609,9 @@ public interface OWLAxiomCollection
      *         <li>Negative data property assertion axioms whose subject is the specified
      *         individual</li>
      *         </ul>
-     *         The set is a copy of the data.
-     * @deprecated use {@link #axioms(OWLIndividual, Imports)}
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual,
         Imports includeImportsClosure) {
         return asSet(axioms(individual, includeImportsClosure));
@@ -665,10 +652,9 @@ public interface OWLAxiomCollection
      *         <li>Annotation property range axioms that specify a range for the specified
      *         property</li>
      *         </ul>
-     *         The set is a copy of the data.
-     * @deprecated use {@link #axioms(OWLAnnotationProperty)}
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property) {
         return asSet(axioms(property));
     }
@@ -712,10 +698,9 @@ public interface OWLAxiomCollection
      *         <li>Annotation property range axioms that specify a range for the specified
      *         property</li>
      *         </ul>
-     *         The set is a copy of the data.
-     * @deprecated use {@link #axioms(OWLAnnotationProperty, Imports)}
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property,
         Imports includeImportsClosure) {
         return asSet(axioms(property, includeImportsClosure));
@@ -744,11 +729,10 @@ public interface OWLAxiomCollection
      * Gets the datatype definition axioms for the specified datatype.
      *
      * @param datatype The datatype
-     * @return The set of datatype definition axioms for the specified datatype. The set is a copy
-     *         of the data.
-     * @deprecated use {@link #axioms(OWLDatatype)}
+     * @return The set of datatype definition axioms for the specified datatype. The set that is
+     *         returned is a copy; modifications to the returned set will not be reflected in this
+     *         object.
      */
-    @Deprecated
     default Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype) {
         return asSet(axioms(datatype));
     }
@@ -766,11 +750,10 @@ public interface OWLAxiomCollection
      *
      * @param datatype The datatype
      * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return The set of datatype definition axioms for the specified datatype. The set is a copy
-     *         of the data.
-     * @deprecated use {@link #axioms(OWLDatatype, Imports)}
+     * @return The set of datatype definition axioms for the specified datatype. The set that is
+     *         returned is a copy; modifications to the returned set will not be reflected in this
+     *         object.
      */
-    @Deprecated
     default Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype,
         Imports includeImportsClosure) {
         return asSet(axioms(datatype, includeImportsClosure));
@@ -781,8 +764,7 @@ public interface OWLAxiomCollection
      *
      * @param datatype The datatype
      * @param imports if INCLUDED, include imports closure.
-     * @return The set of datatype definition axioms for the specified datatype. The set is a copy
-     *         of the data.
+     * @return stream of datatype definition axioms for the specified datatype.
      */
     default Stream<OWLDatatypeDefinitionAxiom> axioms(OWLDatatype datatype, Imports imports) {
         return imports.stream(this).flatMap(o -> o.datatypeDefinitions(datatype));

@@ -383,16 +383,15 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         }
 
         /**
-         * @return facets
-         * @deprecated use {@link #facets()}
+         * @return Facets. The set that is returned is a copy; modifications to the returned set
+         *         will not be reflected in this object.
          */
-        @Deprecated
         public Set<OWLFacet> getFacets() {
             return asSet(facets());
         }
 
         /**
-         * @return facets
+         * @return facets stream
          */
         public Stream<OWLFacet> facets() {
             return facets.stream();

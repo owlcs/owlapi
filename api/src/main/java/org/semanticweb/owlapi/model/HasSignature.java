@@ -37,11 +37,10 @@ public interface HasSignature {
      * For ontology changes, this is the signature of the axiom being added/removed or the
      * annotation being added/removed, or empty.
      *
-     * @return A set of entities that represents the signature of this object. Changes are not
-     *         reflected back.
-     * @deprecated use {@link #signature()}
+     * @return A set of entities that represents the signature of this object. The set that is
+     *         returned is a copy; modifications to the returned set will not be reflected in this
+     *         object.
      */
-    @Deprecated
     default Set<OWLEntity> getSignature() {
         return asSet(unsortedSignature());
     }

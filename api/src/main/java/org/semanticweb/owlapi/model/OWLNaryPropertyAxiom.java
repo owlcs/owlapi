@@ -48,10 +48,9 @@ public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression>
     }
 
     /**
-     * @return all of the properties that appear in this axiom
-     * @deprecated use {@link #properties()}
+     * @return all of the properties that appear in this axiom. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<P> getProperties() {
         return asSet(properties());
     }

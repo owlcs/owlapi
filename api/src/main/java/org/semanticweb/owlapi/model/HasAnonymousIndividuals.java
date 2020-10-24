@@ -25,21 +25,16 @@ import java.util.stream.Stream;
 public interface HasAnonymousIndividuals {
 
     /**
-     * Gets the anonymous individuals occurring in this object. The set is a copy, changes are not
-     * reflected back. The default implementation of this method returns a modifiable, empty set.
-     *
-     * @return A set of anonymous individuals
-     * @deprecated use {@link #anonymousIndividuals()}
+     * @return The anonymous individuals occurring in this object. The set is a copy, changes are
+     *         not reflected back. The default implementation of this method returns a modifiable,
+     *         empty set.
      */
-    @Deprecated
     default Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return asSet(anonymousIndividuals());
     }
 
     /**
-     * Gets the anonymous individuals occurring in this object.
-     *
-     * @return A stream of anonymous individuals
+     * @return A stream of anonymous individuals occurring in this object.
      */
     default Stream<OWLAnonymousIndividual> anonymousIndividuals() {
         return empty();

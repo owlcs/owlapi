@@ -121,10 +121,9 @@ public interface PrefixManager extends Serializable {
     /**
      * Gets the prefix names that have a mapping in this prefix manager.
      *
-     * @return The prefix names as a set of strings.
-     * @deprecated use {@link #prefixNames()}
+     * @return The prefix names as a set of strings. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<String> getPrefixNames() {
         return asSet(prefixNames());
     }

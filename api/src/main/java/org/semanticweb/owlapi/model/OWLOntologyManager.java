@@ -63,11 +63,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * Gets the ontologies that are managed by this manager that contain the specified axiom.
      *
      * @param axiom The axioms
-     * @return The set of ontologies such that for each ontology, O the specified axiom is contained
-     *         in O.
-     * @deprecated use {@link #ontologies(OWLAxiom)}
+     * @return The set of ontologies such that for each ontology O the specified axiom is contained
+     *         in O. The set that is returned is a copy; modifications to the returned set will not
+     *         be reflected in this object.
      */
-    @Deprecated
     default Set<OWLOntology> getOntologies(OWLAxiom axiom) {
         return asSet(ontologies(axiom));
     }
@@ -76,8 +75,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * Gets the ontologies that are managed by this manager that contain the specified axiom.
      *
      * @param axiom The axioms
-     * @return The set of ontologies such that for each ontology, O the specified axiom is contained
-     *         in O.
+     * @return The stream of ontologies such that for each ontology O the specified axiom is
+     *         contained in O.
      */
     default Stream<OWLOntology> ontologies(OWLAxiom axiom) {
         return ontologies().filter(o -> o.containsAxiom(axiom));
@@ -149,20 +148,19 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *
      * @param ontologyVersionIRI The version IRI to match against all of the known ontologies.
      * @return A set of OWLOntologyIDs where the version matches the given version or the empty set
-     *         if none match.
-     * @deprecated use {@link #ontologyIDsByVersion(IRI)}
+     *         if none match. The set that is returned is a copy; modifications to the returned set
+     *         will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLOntologyID> getOntologyIDsByVersion(IRI ontologyVersionIRI) {
         return asSet(ontologyIDsByVersion(ontologyVersionIRI));
     }
 
     /**
-     * Gets a set of OWLOntologyIDs representing ontologies that are managed by this manager.
+     * Gets a stream of OWLOntologyIDs representing ontologies that are managed by this manager.
      *
      * @param ontologyVersionIRI The version IRI to match against all of the known ontologies.
-     * @return A set of OWLOntologyIDs where the version matches the given version or the empty set
-     *         if none match.
+     * @return A stream of OWLOntologyIDs where the version matches the given version or the empty
+     *         set if none match.
      */
     Stream<OWLOntologyID> ontologyIDsByVersion(IRI ontologyVersionIRI);
 
@@ -199,10 +197,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @param ontology The ontology whose direct imports are to be retrieved.
      * @return The set of <em>loaded</em> ontologies that the specified ontology is related to via
      *         the directlyImports relation. If the ontology is not managed by this manager then the
-     *         empty set will be returned.
-     * @deprecated use {@link #directImports(OWLOntology)}
+     *         empty set will be returned. The set that is returned is a copy; modifications to the
+     *         returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLOntology> getDirectImports(OWLOntology ontology) {
         return asSet(directImports(ontology));
     }
@@ -227,10 +224,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         directly imports relation of this ontology. If, for what ever reason, an imported
      *         ontology could not be loaded, then it will not be contained in the returned set of
      *         ontologies. If the ontology is not managed by this manager then the empty set will be
-     *         returned.
-     * @deprecated use {@link #imports(OWLOntology)}
+     *         returned. The set that is returned is a copy; modifications to the returned set will
+     *         not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLOntology> getImports(OWLOntology ontology) {
         return asSet(imports(ontology));
     }
@@ -257,10 +253,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         and B imports C, then calling this method with A will return the set consisting of A,
      *         B and C. If, for what ever reason, an imported ontology could not be loaded, then it
      *         will not be contained in the returned set of ontologies. If the ontology is not
-     *         managed by this manager then the empty set will be returned.
-     * @deprecated use {@link #importsClosure(OWLOntology)}
+     *         managed by this manager then the empty set will be returned. The set that is returned
+     *         is a copy; modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLOntology> getImportsClosure(OWLOntology ontology) {
         return asSet(importsClosure(ontology));
     }

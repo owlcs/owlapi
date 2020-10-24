@@ -34,10 +34,9 @@ public interface OWLNaryDataRange extends OWLDataRange, HasOperands<OWLDataRange
     }
 
     /**
-     * @return the data ranges
-     * @deprecated use {@link #operands()}
+     * @return the data ranges. The set that is returned is a copy; modifications to the returned
+     *         set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLDataRange> getOperands() {
         return asSet(operands());
     }

@@ -41,10 +41,9 @@ public interface OWLObject
      * modifiable set.
      *
      * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s that represent the
-     *         nested class expressions used in this object.
-     * @deprecated use {@link #nestedClassExpressions()}
+     *         nested class expressions used in this object. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<OWLClassExpression> getNestedClassExpressions() {
         return asSet(nestedClassExpressions());
     }

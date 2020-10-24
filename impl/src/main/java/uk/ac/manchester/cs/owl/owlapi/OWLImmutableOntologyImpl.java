@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
@@ -36,6 +37,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.HasAnnotationPropertiesInSignature;
+import org.semanticweb.owlapi.model.HasAxiomsByType;
 import org.semanticweb.owlapi.model.HasDatatypesInSignature;
 import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.IRI;
@@ -199,6 +201,18 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     @Override
     public Stream<OWLAxiom> axioms() {
         return ints.getAxioms();
+    }
+
+    @Override
+    public boolean equalAxioms(HasAxiomsByType o) {
+        if (o instanceof OWLAxiomCollection) {
+            OWLAxiomCollection ont = (OWLAxiomCollection) o;
+            return AxiomType.AXIOM_TYPES.stream()
+                .allMatch(t -> getAxiomCount(t) == ont.getAxiomCount(t))
+                && AxiomType.AXIOM_TYPES.stream()
+                    .allMatch(t -> axioms(t).collect(toSet()).equals(o.axioms(t).collect(toSet())));
+        }
+        return OWLOntology.super.equalAxioms(o);
     }
 
     @Override

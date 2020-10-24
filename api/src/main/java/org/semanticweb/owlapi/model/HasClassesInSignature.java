@@ -33,9 +33,7 @@ public interface HasClassesInSignature {
      * @return A set containing the classes that are in the signature of this object. The set is a
      *         subset of the signature, and is not backed by the signature; it is a modifiable
      *         collection and changes are not reflected by the signature.
-     * @deprecated use {@link #classesInSignature()}
      */
-    @Deprecated
     default Set<OWLClass> getClassesInSignature() {
         return asSet(classesInSignature());
     }

@@ -55,10 +55,10 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression, HasOperands
      * Gets the individuals that are in the oneOf. These individuals represent the exact instances
      * (extension) of this class expression.
      *
-     * @return The individuals that are the values of this {@code ObjectOneOf} class expression.
-     * @deprecated use {@link #individuals()}
+     * @return The individuals that are the values of this {@code ObjectOneOf} class expression. The
+     *         set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      */
-    @Deprecated
     default Set<OWLIndividual> getIndividuals() {
         return asSet(individuals());
     }

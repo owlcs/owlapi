@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
@@ -29,10 +30,9 @@ import org.semanticweb.owlapi.model.OWLEntity;
 public interface OWLEntitySetProvider<E extends OWLEntity> {
 
     /**
-     * @return the entities that are provided by this provider.
-     * @deprecated use {@link #entities()}
+     * @return the entities that are provided by this provider. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      */
-    @Deprecated
     default Set<E> getEntities() {
         return asSet(entities());
     }

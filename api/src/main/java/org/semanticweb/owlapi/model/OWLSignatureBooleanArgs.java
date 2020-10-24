@@ -30,7 +30,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *
      * @param includeImportsClosure if true, include imports closure.
      * @return the set of classes in the signature, optionally including the import closure. The set
-     *         that is returned is a copy of the data.
+     *         that is returned is a copy; modifications to the returned set will not be reflected
+     *         in this object.
      * @deprecated use {@link #classesInSignature(Imports)}
      */
     @Deprecated
@@ -43,7 +44,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *
      * @param includeImportsClosure if true, include imports closure.
      * @return the set of object properties in the signature, optionally including the import
-     *         closure. The set that is returned is a copy of the data.
+     *         closure. The set that is returned is a copy; modifications to the returned set will
+     *         not be reflected in this object.
      * @deprecated use {@link #objectPropertiesInSignature(Imports)}
      */
     @Deprecated
@@ -56,7 +58,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *
      * @param includeImportsClosure if true, include imports closure.
      * @return the set of data properties in the signature, optionally including the import closure.
-     *         The set that is returned is a copy of the data.
+     *         The set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      * @deprecated use {@link #dataPropertiesInSignature(Imports)}
      */
     @Deprecated
@@ -69,7 +72,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *
      * @param includeImportsClosure if true, include imports closure.
      * @return the set of individuals in the signature, optionally including the import closure. The
-     *         set that is returned is a copy of the data.
+     *         set that is returned is a copy; modifications to the returned set will not be
+     *         reflected in this object.
      * @deprecated use {@link #individualsInSignature(Imports)}
      */
     @Deprecated
@@ -82,7 +86,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      * closure.
      *
      * @param includeImportsClosure if true, include imports closure.
-     * @return The set of referenced anonymous individuals
+     * @return The set of referenced anonymous individuals. The set that is returned is a copy;
+     *         modifications to the returned set will not be reflected in this object.
      * @deprecated use {@link #referencedAnonymousIndividuals(Imports)}
      */
     @Deprecated
@@ -96,7 +101,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *
      * @param includeImportsClosure if true, include imports closure.
      * @return the set of datatypes in the signature of this ontology, optionally including the
-     *         import closure. The set that is returned is a copy of the data.
+     *         import closure. The set that is returned is a copy; modifications to the returned set
+     *         will not be reflected in this object.
      * @deprecated use {@link #datatypesInSignature(Imports)}
      */
     @Deprecated
@@ -109,7 +115,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *
      * @param includeImportsClosure if true, include imports closure.
      * @return the set of annotation properties in the signature, optionally including the import
-     *         closure. The set that is returned is a copy of the data.
+     *         closure. The set that is returned is a copy; modifications to the returned set will
+     *         not be reflected in this object.
      * @deprecated use {@link #annotationPropertiesInSignature(Imports)}
      */
     @Deprecated
@@ -247,7 +254,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      * @param iri The IRI of the entities to be retrieved.
      * @param includeImportsClosure if true, include imports closure.
      * @return the set of entities with the specified IRI, optionally including the ones in the
-     *         import closure.
+     *         import closure. The set that is returned is a copy; modifications to the returned set
+     *         will not be reflected in this object.
      * @deprecated use {@link #entitiesInSignature(IRI, Imports)}
      */
     @Deprecated

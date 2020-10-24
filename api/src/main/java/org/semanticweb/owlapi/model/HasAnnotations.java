@@ -79,9 +79,7 @@ public interface HasAnnotations {
      *         that affect the annotations on this object will not change the returned set. Note:
      *         for iterating over this set of annotations, using the annotations() stream is more
      *         efficient.
-     * @deprecated use {@link #annotations()}
      */
-    @Deprecated
     default Set<OWLAnnotation> getAnnotations() {
         return asSet(annotations());
     }
@@ -93,9 +91,7 @@ public interface HasAnnotations {
      *        property of each returned annotation.
      * @return A set of annotations whose annotation properties is equals to {@code
      * annotationProperty}.
-     * @deprecated use {@link #annotations(OWLAnnotationProperty)}
      */
-    @Deprecated
     default Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
         return asSet(annotations(a -> a.getProperty().equals(annotationProperty)));
     }
