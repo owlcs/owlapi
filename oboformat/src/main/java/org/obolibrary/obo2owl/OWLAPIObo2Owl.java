@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -77,14 +78,25 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Sets;
 
 /**
  * The Class OWLAPIObo2Owl.
  */
 public class OWLAPIObo2Owl {
+
+    private class IDCache extends LinkedHashMap<String, IRI> {
+        private final int cacheSize;
+
+        IDCache(int cacheSize) {
+            this.cacheSize = cacheSize;
+        }
+
+        @Override
+        protected boolean removeEldestEntry(@Nullable Map.Entry<String, IRI> eldest) {
+            return size() > cacheSize;
+        }
+    }
 
     private static final String TRUE = "true";
     /**
@@ -110,16 +122,7 @@ public class OWLAPIObo2Owl {
      * loading of keys is recursive, and a bug in ConcurrentHashMap implementation causes livelocks
      * for this particular situation.
      */
-    private final com.google.common.cache.LoadingCache<String, IRI> idToIRICache = CacheBuilder
-        .newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
-            .getValue(Integer.class, Collections.emptyMap()).longValue())
-        .build(new CacheLoader<String, IRI>() {
-
-            @Override
-            public IRI load(String key) {
-                return loadOboToIRI(key);
-            }
-        });
+    private Map<String, IRI> idToIRICache;
 
     /**
      * @param manager the manager
@@ -330,6 +333,10 @@ public class OWLAPIObo2Owl {
         // use the given manager and its factory
         manager = m;
         fac = manager.getOWLDataFactory();
+        int cacheSize = ConfigurationOptions.CACHE_SIZE
+            .getValue(Integer.class, Collections.emptyMap()).intValue();
+        idToIRICache = new IDCache(cacheSize);
+
         // clear all internal maps.
         idSpaceMap.clear();
         apToDeclare.clear();
@@ -1462,7 +1469,12 @@ public class OWLAPIObo2Owl {
      * @return the iri
      */
     public IRI oboIdToIRI(String id) {
-        return idToIRICache.getUnchecked(id);
+        IRI iri = idToIRICache.get(id);
+        if (iri == null) {
+            iri = loadOboToIRI(id);
+            idToIRICache.put(id, iri);
+        }
+        return iri;
     }
 
     /**
