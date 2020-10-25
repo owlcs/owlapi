@@ -284,16 +284,17 @@ import org.semanticweb.owlapi6.utility.Languages;
 public class DLExpressivityCheckerTestCase extends TestBase {
 
     private final List<OWLAxiom> objects;
-    private String expected;
+    private final String expectedStrict;
     private final List<Construct> constructs;
     private final List<Languages> expressible;
     private final List<Languages> within;
     private final List<Languages> minimal;
+    private String expected;
 
     public DLExpressivityCheckerTestCase(String expected, String expectedStrict, List<Construct> c,
         List<Languages> exp, List<Languages> within, List<Languages> min, List<OWLAxiom> objects) {
         this.objects = objects;
-        this.expected = expectedStrict;
+        this.expectedStrict = expectedStrict;
         constructs = c;
         expressible = exp;
         this.within = within;
@@ -445,7 +446,7 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         assertEquals(expected, constructs, constructsFound);
         assertEquals(expected + delta("below", within, below), new HashSet<>(within),
             new HashSet<>(below));
-        assertEquals(expected, testsubject.getDescriptionLogicName());
+        assertEquals(expectedStrict, testsubject.getDescriptionLogicName());
         assertEquals(expected + delta("minimal", minimal, minimalLanguages), new HashSet<>(minimal),
             new HashSet<>(minimalLanguages));
     }
