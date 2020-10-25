@@ -29,7 +29,7 @@ import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
  * @since 2.0.0
  */
 public class OWLObjectPropertyDomainAxiomImpl
-    extends OWLPropertyDomainAxiomImpl<OWLObjectPropertyExpression>
+    extends OWLPropertyDomainAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression>
     implements OWLObjectPropertyDomainAxiom {
 
     /**

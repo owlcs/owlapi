@@ -19,8 +19,9 @@ package org.semanticweb.owlapi6.model;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLObjectPropertyDomainAxiom extends
-    OWLPropertyDomainAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+public interface OWLObjectPropertyDomainAxiom
+    extends OWLPropertyDomainAxiom<OWLObjectPropertyExpression, OWLClassExpression>,
+    OWLObjectPropertyAxiom, OWLSubClassOfAxiomShortCut {
 
     @Override
     @SuppressWarnings("unchecked")

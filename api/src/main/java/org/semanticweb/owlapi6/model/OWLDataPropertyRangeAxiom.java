@@ -20,7 +20,8 @@ package org.semanticweb.owlapi6.model;
  * @since 2.0.0
  */
 public interface OWLDataPropertyRangeAxiom
-    extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>, OWLDataPropertyAxiom {
+    extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>, OWLDataPropertyAxiom,
+    OWLSubClassOfAxiomShortCut {
 
     @Override
     @SuppressWarnings("unchecked")
