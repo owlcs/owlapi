@@ -1,4 +1,5 @@
 org.semanticweb.owlapi6.rio.RioBinaryRdfStorerFactory
+org.semanticweb.owlapi6.rio.RioHDTRdfStorerFactory
 org.semanticweb.owlapi6.rio.RioJsonLDStorerFactory
 org.semanticweb.owlapi6.rio.RioJsonStorerFactory
 org.semanticweb.owlapi6.rio.RioN3StorerFactory

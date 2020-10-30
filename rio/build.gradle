@@ -15,6 +15,7 @@ dependencies {
     compile 'org.eclipse.rdf4j:rdf4j-rio-rdfxml:3.4.3'
     compile 'org.eclipse.rdf4j:rdf4j-rio-trix:3.4.3'
     compile 'org.eclipse.rdf4j:rdf4j-rio-turtle:3.4.3'
+    compile 'org.eclipse.rdf4j:rdf4j-rio-hdt:3.4.3'
     compile 'org.eclipse.rdf4j:rdf4j-rio-trig:3.4.3'
     compile ('org.eclipse.rdf4j:rdf4j-rio-jsonld:3.4.3') {
         exclude module: "httpclient-osgi"

@@ -1,4 +1,5 @@
 org.semanticweb.owlapi6.rio.RioBinaryRdfParserFactory
+org.semanticweb.owlapi6.rio.RioHDTRdfParserFactory
 org.semanticweb.owlapi6.rio.RioJsonLDParserFactory
 org.semanticweb.owlapi6.rio.RioJsonParserFactory
 org.semanticweb.owlapi6.rio.RioN3ParserFactory
