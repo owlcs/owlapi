@@ -101,7 +101,6 @@ public class OBOFormatOWLAPIParser extends AbstractOWLParser implements Serializ
                     reader.close();
                 }
             }
-
         } catch (OBOFormatParserException e) {
             throw new OWLParserException(e);
         }

@@ -13,6 +13,8 @@
 package org.semanticweb.owlapi.owlxml.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 
 import javax.annotation.Nonnull;
 
@@ -74,10 +76,9 @@ public class OWLXMLParser extends AbstractOWLParser {
             // General exception
             throw new OWLParserException(e);
         } finally {
-            if (isrc != null && isrc.getByteStream() != null) {
-                isrc.getByteStream().close();
-            } else if (isrc != null && isrc.getCharacterStream() != null) {
-                isrc.getCharacterStream().close();
+            if (isrc != null) {
+                try (InputStream in = isrc.getByteStream(); Reader r = isrc.getCharacterStream()) {
+                }
             }
         }
     }

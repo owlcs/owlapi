@@ -60,33 +60,39 @@ public class KRSSOWLParser extends AbstractOWLParser {
                 parser = new KRSSParser(documentSource.getInputStream());
             } else {
                 InputStream is = null;
-                if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:")) {
-                    if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:!")) {
-                        String name = documentSource.getDocumentIRI().toString().substring(5);
-                        if (!name.startsWith("/")) {
-                            name = "/" + name;
+                try {
+                    if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:")) {
+                        if (documentSource.getDocumentIRI().getNamespace().startsWith("jar:!")) {
+                            String name = documentSource.getDocumentIRI().toString().substring(5);
+                            if (!name.startsWith("/")) {
+                                name = "/" + name;
+                            }
+                            is = getClass().getResourceAsStream(name);
+                        } else {
+                            try {
+                                is = ((JarURLConnection) new URL(
+                                    documentSource.getDocumentIRI().toString()).openConnection())
+                                        .getInputStream();
+                            } catch (IOException e) {
+                                throw new OWLParserException(e);
+                            }
                         }
-                        is = getClass().getResourceAsStream(name);
                     } else {
-                        try {
-                            is = ((JarURLConnection) new URL(
-                                documentSource.getDocumentIRI().toString()).openConnection())
-                                    .getInputStream();
-                        } catch (IOException e) {
-                            throw new OWLParserException(e);
+                        Optional<String> headers = documentSource.getAcceptHeaders();
+                        if (headers.isPresent()) {
+                            is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                                headers.get());
+                        } else {
+                            is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                                DEFAULT_REQUEST);
                         }
                     }
-                } else {
-                    Optional<String> headers = documentSource.getAcceptHeaders();
-                    if (headers.isPresent()) {
-                        is = getInputStream(documentSource.getDocumentIRI(), configuration,
-                            headers.get());
-                    } else {
-                        is = getInputStream(documentSource.getDocumentIRI(), configuration,
-                            DEFAULT_REQUEST);
+                    parser = new KRSSParser(is);
+                } finally {
+                    if (is != null) {
+                        is.close();
                     }
                 }
-                parser = new KRSSParser(is);
             }
             parser.setOntology(ontology, ontology.getOWLOntologyManager().getOWLDataFactory());
             parser.parse();

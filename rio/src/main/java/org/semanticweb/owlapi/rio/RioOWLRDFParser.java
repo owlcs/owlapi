@@ -78,7 +78,7 @@ public class RioOWLRDFParser extends RDFParserBase {
     }
 
     /**
-     * @param owlFormat    OWL format
+     * @param owlFormat OWL format
      * @param valueFactory value factory
      */
     public RioOWLRDFParser(OWLAPIRDFFormat owlFormat, ValueFactory valueFactory) {
@@ -103,6 +103,8 @@ public class RioOWLRDFParser extends RDFParserBase {
     @Override
     public void parse(InputStream in, String baseURI) throws IOException {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
+        // input stream closed in the caller
+        @SuppressWarnings("resource")
         StreamDocumentSource source =
             new StreamDocumentSource(checkNotNull(in, "in cannot be null"),
                 IRI.create(checkNotNull(baseURI, "baseURI cannot be null")), nextFormat,
@@ -134,6 +136,8 @@ public class RioOWLRDFParser extends RDFParserBase {
     @Override
     public void parse(Reader reader, String baseURI) throws IOException {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
+        // reader closed in the caller
+        @SuppressWarnings("resource")
         ReaderDocumentSource source =
             new ReaderDocumentSource(checkNotNull(reader, "reader cannot be null"),
                 IRI.create(checkNotNull(baseURI, "baseURI cannot be null")), nextFormat,

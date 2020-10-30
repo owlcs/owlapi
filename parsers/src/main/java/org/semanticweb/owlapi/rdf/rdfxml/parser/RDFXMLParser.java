@@ -13,6 +13,8 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 
 import javax.annotation.Nonnull;
 
@@ -28,8 +30,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFXMLParser extends AbstractOWLParser {
@@ -48,25 +49,22 @@ public class RDFXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
+        OWLOntologyLoaderConfiguration configuration) throws IOException {
         InputSource is = null;
         try {
             final RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
             RDFParser parser = new RDFParser() {
 
                 @Override
-                public void startPrefixMapping(String prefix, String uri)
-                        throws SAXException {
+                public void startPrefixMapping(String prefix, String uri) throws SAXException {
                     assert prefix != null;
                     assert uri != null;
                     super.startPrefixMapping(prefix, uri);
                     format.setPrefix(prefix, uri);
                 }
             };
-            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology,
-                    configuration);
+            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, configuration);
             consumer.setIRIProvider(parser);
             consumer.setOntologyFormat(format);
             is = getInputSource(documentSource, configuration);
@@ -77,10 +75,9 @@ public class RDFXMLParser extends AbstractOWLParser {
         } catch (SAXException e) {
             throw new OWLRDFXMLParserException(e);
         } finally {
-            if (is != null && is.getByteStream() != null) {
-                is.getByteStream().close();
-            } else if (is != null && is.getCharacterStream() != null) {
-                is.getCharacterStream().close();
+            if (is != null) {
+                try (InputStream in = is.getByteStream(); Reader r = is.getCharacterStream()) {
+                }
             }
         }
     }

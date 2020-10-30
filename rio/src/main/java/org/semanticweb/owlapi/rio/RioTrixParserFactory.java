@@ -36,6 +36,8 @@
 package org.semanticweb.owlapi.rio;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
@@ -90,13 +92,19 @@ public class RioTrixParserFactory extends AbstractRioParserFactory {
             createParser.setRDFHandler(handler);
             long rioParseStart = System.currentTimeMillis();
             if (owlFormatFactory.isTextual() && documentSource.isReaderAvailable()) {
-                createParser.parse(documentSource.getReader(), baseUri);
+                try (Reader reader = documentSource.getReader()) {
+                    createParser.parse(reader, baseUri);
+                }
             } else if (documentSource.isInputStreamAvailable()) {
-                createParser.parse(documentSource.getInputStream(), baseUri);
+                try (InputStream inputStream = documentSource.getInputStream()) {
+                    createParser.parse(inputStream, baseUri);
+                }
             } else {
                 URL url = URI.create(documentSource.getDocumentIRI().toString()).toURL();
                 URLConnection conn = url.openConnection();
-                createParser.parse(conn.getInputStream(), baseUri);
+                try (InputStream inputStream = conn.getInputStream()) {
+                    createParser.parse(inputStream, baseUri);
+                }
             }
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("rioParse: timing={}",
