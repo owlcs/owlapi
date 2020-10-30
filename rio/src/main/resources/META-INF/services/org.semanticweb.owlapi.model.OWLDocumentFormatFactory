@@ -1,4 +1,5 @@
 org.semanticweb.owlapi.formats.BinaryRDFDocumentFormatFactory
+org.semanticweb.owlapi.formats.HDTRDFDocumentFormatFactory
 org.semanticweb.owlapi.formats.N3DocumentFormatFactory
 org.semanticweb.owlapi.formats.NQuadsDocumentFormatFactory
 org.semanticweb.owlapi.formats.NTriplesDocumentFormatFactory

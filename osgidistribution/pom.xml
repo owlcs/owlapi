@@ -25,14 +25,14 @@
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-rio</artifactId><version>${project.version}</version></dependency>
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-api</artifactId><version>${project.version}</version></dependency>
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-compatibility</artifactId><version>${project.version}</version></dependency>
-		<dependency><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId><version>3.0.1</version></dependency>
+		<dependency><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId><version>3.0.2</version></dependency>
 		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-core</artifactId><version>2.9.10</version></dependency>
 		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId><version>2.9.10.5</version></dependency>
 		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-annotations</artifactId><version>2.9.10</version></dependency>
 		<dependency><groupId>org.apache.commons</groupId><artifactId>commons-rdf-api</artifactId><version>0.3.0-incubating</version></dependency>
 		<dependency><groupId>org.tukaani</groupId><artifactId>xz</artifactId><version>1.6</version></dependency>
-		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.22</version></dependency>
-		<dependency><groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j</artifactId><version>1.7.22</version></dependency>
+		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.30</version></dependency>
+		<dependency><groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j</artifactId><version>1.7.30</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-api</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-languages</artifactId><version>${inherited.rdf4j.version}</version></dependency>
@@ -47,14 +47,15 @@
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-trix</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-turtle</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-trig</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-hdt</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-util</artifactId><version>${inherited.rdf4j.version}</version></dependency>
-		<dependency><groupId>com.github.jsonld-java</groupId><artifactId>jsonld-java</artifactId><version>0.12.0</version></dependency>
+		<dependency><groupId>com.github.jsonld-java</groupId><artifactId>jsonld-java</artifactId><version>0.13.0</version></dependency>
 		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpclient</artifactId><version>4.5.2</version></dependency>
 		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpclient-cache</artifactId><version>4.5.2</version></dependency>
 		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpcore</artifactId><version>4.4.5</version></dependency>
 		<dependency><groupId>commons-codec</groupId><artifactId>commons-codec</artifactId><version>1.10</version></dependency>
 		<dependency><groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version></dependency>
-		<dependency><groupId>commons-io</groupId><artifactId>commons-io</artifactId><version>2.5</version></dependency>
+		<dependency><groupId>commons-io</groupId><artifactId>commons-io</artifactId><version>2.6</version></dependency>
 		<dependency><groupId>com.github.vsonnier</groupId><artifactId>hppcrt</artifactId><version>0.7.5</version></dependency>
 		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>30.0-jre</version></dependency>
 		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.5.6</version></dependency>
@@ -66,7 +67,7 @@
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.apache.felix.framework</artifactId><version>5.6.10</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.osgi.core</artifactId><version>1.4.0</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.servicemix.bundles</groupId><artifactId>org.apache.servicemix.bundles.javax-inject</artifactId><version>1_2</version></dependency>
-		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId><version>1.7.22</version><scope>test</scope></dependency>
+		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId><version>1.7.30</version><scope>test</scope></dependency>
 	</dependencies>
 
 	<build>
