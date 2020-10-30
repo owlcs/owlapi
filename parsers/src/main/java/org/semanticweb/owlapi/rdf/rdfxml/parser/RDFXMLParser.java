@@ -13,7 +13,11 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -40,7 +44,9 @@ public class RDFXMLParser extends AbstractOWLParser {
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
         OWLOntologyLoaderConfiguration configuration) {
+        InputSource is = null;
         try {
+            is = getInputSource(documentSource, configuration);
             final RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
             RDFParser parser = new RDFParser() {
 
@@ -56,11 +62,19 @@ public class RDFXMLParser extends AbstractOWLParser {
             OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, configuration);
             consumer.setIRIProvider(parser);
             consumer.setOntologyFormat(format);
-            InputSource is = getInputSource(documentSource, configuration);
             parser.parse(is, consumer);
             return format;
-        } catch (RDFParserException | SAXException | OWLOntologyInputSourceException | IOException e) {
+        } catch (RDFParserException | SAXException | OWLOntologyInputSourceException
+            | IOException e) {
             throw new OWLRDFXMLParserException(e);
+        } finally {
+            if (is != null) {
+                try (InputStream byteStream = is.getByteStream();
+                    Reader characterStream = is.getCharacterStream()) {
+                } catch (IOException e) {
+                    throw new OWLRDFXMLParserException(e);
+                }
+            }
         }
     }
 }

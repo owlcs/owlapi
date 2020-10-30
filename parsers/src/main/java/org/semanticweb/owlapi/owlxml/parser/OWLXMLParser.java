@@ -13,6 +13,8 @@
 package org.semanticweb.owlapi.owlxml.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
@@ -43,8 +45,9 @@ public class OWLXMLParser extends AbstractOWLParser {
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
         OWLOntologyLoaderConfiguration configuration) {
+        InputSource isrc = null;
         try {
-            InputSource isrc = getInputSource(documentSource, configuration);
+            isrc = getInputSource(documentSource, configuration);
             OWLXMLPH handler = new OWLXMLPH(ontology, configuration);
             SAXParsers.initParserWithOWLAPIStandards(null, configuration.getEntityExpansionLimit())
                 .parse(isrc, handler);
@@ -64,6 +67,15 @@ public class OWLXMLParser extends AbstractOWLParser {
             | IllegalStateException e) {
             // General exception
             throw new OWLParserException(e);
+        } finally {
+            if (isrc != null) {
+                try (InputStream byteStream = isrc.getByteStream();
+                    Reader characterStream = isrc.getCharacterStream()) {
+                } catch (IOException e) {
+                    throw new OWLParserException(e);
+                }
+            }
         }
+
     }
 }

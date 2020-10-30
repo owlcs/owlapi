@@ -39,6 +39,8 @@ import static org.semanticweb.owlapi.io.DocumentSources.wrapInputAsReader;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -147,21 +149,19 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      * Parse the given document source and return a {@link StatementCollector} containing the RDF
      * statements found in the source.
      *
-     * @param source  An {@link OWLOntologyDocumentSource} containing RDF statements.
+     * @param source An {@link OWLOntologyDocumentSource} containing RDF statements.
      * @param baseUri The base URI to use when parsing the document source.
      * @param handler RDF handler
-     * @param config  loading configuration
+     * @param config loading configuration
      * @throws OWLOntologyInputSourceException if the source cannot be accessed
-     * @throws UnsupportedRDFormatException    If the document contains a format which is currently
-     *                                         unsupported, based on the parsers that are currently
-     *                                         available.
-     * @throws IOException                     If there is an input/output exception while accessing
-     *                                         the document source.
-     * @throws RDFParseException               If there is an error while parsing the document
-     *                                         source.
-     * @throws RDFHandlerException             If there is an error related to the processing of the
-     *                                         RDF statements after parsing.
-     * @throws MalformedURLException           If there are malformed URLs.
+     * @throws UnsupportedRDFormatException If the document contains a format which is currently
+     *         unsupported, based on the parsers that are currently available.
+     * @throws IOException If there is an input/output exception while accessing the document
+     *         source.
+     * @throws RDFParseException If there is an error while parsing the document source.
+     * @throws RDFHandlerException If there is an error related to the processing of the RDF
+     *         statements after parsing.
+     * @throws MalformedURLException If there are malformed URLs.
      */
     protected void parseDocumentSource(final OWLOntologyDocumentSource source, final String baseUri,
         final RDFHandler handler, OWLOntologyLoaderConfiguration config)
@@ -176,17 +176,20 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         long rioParseStart = System.currentTimeMillis();
         try {
             if (owlFormatFactory.isTextual()) {
-                createParser.parse(wrapInputAsReader(source, config), baseUri);
+                try (Reader wrappedInput = wrapInputAsReader(source, config)) {
+                    createParser.parse(wrappedInput, baseUri);
+                }
                 return;
-            } // if the format is not textual, but the source is a String based
-              // source,
-              // the following call can fail with an OWLOntologyInputSource
-              // exception without
-              // there being an actual I/O error. This should be considered a
-              // parser error
-              // and further parsing attempted.
-            try {
-                createParser.parse(DocumentSources.wrapInput(source, config), baseUri);
+            }
+            // if the format is not textual, but the source is a String based
+            // source,
+            // the following call can fail with an OWLOntologyInputSource
+            // exception without
+            // there being an actual I/O error. This should be considered a
+            // parser error
+            // and further parsing attempted.
+            try (InputStream wrappedInput = DocumentSources.wrapInput(source, config)) {
+                createParser.parse(wrappedInput, baseUri);
             } catch (OWLOntologyInputSourceException e) {
                 throw new OWLParserException(e.getMessage(), e);
             }
