@@ -49,4 +49,9 @@ public class BinaryRDFDocumentFormat extends RioRDFPrefixDocumentFormat {
     public BinaryRDFDocumentFormat() {
         super(RDFFormat.BINARY);
     }
+
+    @Override
+    public boolean isTextual() {
+        return false;
+    }
 }
