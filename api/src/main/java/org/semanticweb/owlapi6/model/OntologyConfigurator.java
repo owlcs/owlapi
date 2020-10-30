@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.ALLO
 import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.AUTHORIZATION_VALUE;
 import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.BANNED_PARSERS;
 import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.BANNERS_ENABLED;
+import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.CACHE_SIZE;
 import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.CONNECTION_TIMEOUT;
 import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.DISABLE_IMPORTS_LOADING;
 import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.ENTITY_EXPANSION_LIMIT;
@@ -197,6 +198,22 @@ public class OntologyConfigurator implements Serializable {
      */
     public int getStreamMarkLimit() {
         return STREAM_MARK_LIMIT.getValue(Integer.class, overrides).intValue();
+    }
+
+    /**
+     * @param l new caches size
+     * @return A {@code OWLOntologyLoaderConfiguration} with the caches size set to the new value.
+     */
+    public OntologyConfigurator setCacheSize(int l) {
+        overrides.put(CACHE_SIZE, Integer.valueOf(l));
+        return this;
+    }
+
+    /**
+     * @return Size of caches.
+     */
+    public int getCacheSize() {
+        return CACHE_SIZE.getValue(Integer.class, overrides).intValue();
     }
 
     /**

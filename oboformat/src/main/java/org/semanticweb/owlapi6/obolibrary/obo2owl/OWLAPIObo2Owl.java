@@ -81,6 +81,19 @@ import org.slf4j.LoggerFactory;
  */
 public class OWLAPIObo2Owl {
 
+    private class IDCache extends LinkedHashMap<String, IRI> {
+        private final int cacheSize;
+
+        IDCache(int cacheSize) {
+            this.cacheSize = cacheSize;
+        }
+
+        @Override
+        protected boolean removeEldestEntry(@Nullable Map.Entry<String, IRI> eldest) {
+            return size() > cacheSize;
+        }
+    }
+
     private static final String TRUE = "true";
     private static final String CANNOT_TRANSLATE = "Cannot translate: {}";
     /**
@@ -107,13 +120,7 @@ public class OWLAPIObo2Owl {
      * loading of keys is recursive, and a bug in ConcurrentHashMap implementation causes livelocks
      * for this particular situation.
      */
-    private final Map<String, IRI> idToIRICache = new LinkedHashMap<>() {
-
-        @Override
-        protected boolean removeEldestEntry(@Nullable Map.Entry<String, IRI> eldest) {
-            return size() > 1024;
-        }
-    };
+    private Map<String, IRI> idToIRICache;
     private OntologyConfigurator config;
 
     /**
@@ -418,14 +425,16 @@ public class OWLAPIObo2Owl {
      * @param doc the obodoc
      * @param in the in
      * @return the OWL ontology
-     * @throws OWLOntologyCreationException if an ontologymust be created because null was passed in
-     *         input but creation failed
+     * @throws OWLOntologyCreationException if an ontology must be created because null was passed
+     *         in input but creation failed
      */
     public OWLOntology convert(OBODoc doc, @Nullable OWLOntology in)
         throws OWLOntologyCreationException {
         obodoc = doc;
         init(in == null ? manager : in.getOWLOntologyManager());
         config = in == null ? manager.getOntologyConfigurator() : in.getOntologyConfigurator();
+        int cacheSize = config.getCacheSize();
+        idToIRICache = new IDCache(cacheSize);
         return tr(in == null ? manager.createOntology() : in);
     }
 
