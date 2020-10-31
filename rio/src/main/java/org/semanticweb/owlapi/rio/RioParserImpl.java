@@ -172,6 +172,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_URI_SYNTAX);
         createParser.getParserConfig().addNonFatalError(XMLParserSettings.DISALLOW_DOCTYPE_DECL);
         createParser.getParserConfig().set(XMLParserSettings.DISALLOW_DOCTYPE_DECL, Boolean.FALSE);
+        createParser.getParserConfig().set(BasicParserSettings.VERIFY_URI_SYNTAX, Boolean.FALSE);
         createParser.setRDFHandler(handler);
         long rioParseStart = System.currentTimeMillis();
         try {

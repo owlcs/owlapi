@@ -24,14 +24,15 @@ public class IRITestCase extends TestBase {
         OWLDocumentFormat f = new ManchesterSyntaxDocumentFormat();
         String bad = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
             + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-            + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
             + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
-            + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n" + "Prefix: : <http://x.org>\n"
-            + "Ontology: <http://x.org>\n" + "AnnotationProperty: < https://example.org/bad-url>";
+            + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+            + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+            + "Prefix: : <http://x.org>\n" + "Ontology: <http://x.org>\n"
+            + "AnnotationProperty: < https://example.org/bad-url>";
         roundTrip(f, bad);
     }
 
-    @Test(expected = OWLRuntimeException.class)
+    @Test
     public void shouldParseIRIAndSkipPrefixedSpaceTriG() {
         OWLDocumentFormat f = new TrigDocumentFormat();
         String bad =
@@ -44,7 +45,6 @@ public class IRITestCase extends TestBase {
                 + "  <http://x.org/myprop> a owl:AnnotationProperty .\n"
                 + "  <http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .\n"
                 + "}";
-        // exception thrown by the parser
         loadOntologyFromString(bad, f);
     }
 
@@ -75,7 +75,7 @@ public class IRITestCase extends TestBase {
         roundTrip(f, bad);
     }
 
-    @Test(expected = OWLRuntimeException.class)
+    @Test
     public void shouldParseIRIAndSkipPrefixedSpaceRioRDFXML() {
         OWLDocumentFormat f = new RioRDFXMLDocumentFormat();
 
@@ -92,7 +92,6 @@ public class IRITestCase extends TestBase {
             + "</rdf:Description>\n" + "<rdf:Description rdf:about=\"http://x.org/myobj\">\n"
             + "    <myprop xmlns=\"http://x.org/\" rdf:resource=\" https://example.org/bad-url\"/>\n"
             + "</rdf:Description>\n" + "</rdf:RDF>";
-        // exception thrown by the parser
         loadOntologyFromString(bad, f);
     }
 
@@ -103,18 +102,13 @@ public class IRITestCase extends TestBase {
         String bad =
             "@prefix : <http://x.org#> .\n" + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
                 + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
-                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
                 + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
                 + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
                 + "<http://x.org> a owl:Ontology .\n"
                 + "<http://x.org/myprop> a owl:AnnotationProperty .\n"
                 + "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .";
-        // The parser ignores the triple with a bad IRI
-        String good = bad.replace(
-            "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .", "");
-        OWLOntology o1 = loadOntologyFromString(bad, f);
-        OWLOntology o2 = loadOntologyFromString(good, f);
-        equal(o1, o2);
+        loadOntologyFromString(bad, f);
     }
 
     @Test
