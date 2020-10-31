@@ -17,12 +17,14 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.FALSELITERAL;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.LANGSTRING;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.TRUELITERAL;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDFLOAT;
-import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDINTEGER;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDLONG;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDSTRING;
 
 import java.util.Locale;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -164,12 +166,37 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
                 literal = getOWLLiteral(Double.parseDouble(lexicalValue));
             } else if (datatype.isInteger()) {
                 literal = parseInteger(lexicalValue, datatype);
+            } else if (datatype.equals(XSDLONG)) {
+                literal = parseLong(lexicalValue, datatype);
             } else {
                 literal = getBasicLiteral(lexicalValue, datatype);
             }
         } catch (@SuppressWarnings("unused") NumberFormatException e) {
             // some literal is malformed, i.e., wrong format
             literal = getBasicLiteral(lexicalValue, datatype);
+        }
+        return literal;
+    }
+
+    protected OWLLiteral parseLong(String lexicalValue, OWLDatatype datatype) {
+        OWLLiteral literal;
+        if (lexicalValue.trim().isEmpty()) {
+            literal = getBasicLiteral(lexicalValue, datatype);
+        } else {
+            // again, some W3C tests require padding zeroes to make
+            // literals different
+            if (lexicalValue.trim().charAt(0) == '0') {
+                literal = getBasicLiteral(lexicalValue, datatype);
+            } else {
+                try {
+                    // this is fine for values that can be parsed as
+                    // longs - not all values are
+                    literal = new OWLLiteralImplLong(Long.parseLong(lexicalValue));
+                } catch (@SuppressWarnings("unused") NumberFormatException ex) {
+                    // try as a big decimal
+                    literal = getBasicLiteral(lexicalValue, datatype);
+                }
+            }
         }
         return literal;
     }
@@ -182,7 +209,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
             // again, some W3C tests require padding zeroes to make
             // literals different
             if (lexicalValue.trim().charAt(0) == '0') {
-                literal = getBasicLiteral(lexicalValue, XSDINTEGER);
+                literal = getBasicLiteral(lexicalValue, datatype);
             } else {
                 try {
                     // this is fine for values that can be parsed as

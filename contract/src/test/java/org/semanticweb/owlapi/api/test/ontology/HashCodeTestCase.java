@@ -35,6 +35,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplBoolean;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplDouble;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplFloat;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplInteger;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplLong;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
 
 /**
@@ -45,6 +46,22 @@ import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
 public class HashCodeTestCase extends TestBase {
 
     private static final String THREE = "3.0";
+
+    @Test
+    public void testSetContainsLong() {
+        OWLDatatypeImpl datatype = new OWLDatatypeImpl(OWL2Datatype.XSD_LONG.getIRI());
+        OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3", null, datatype);
+        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3", null, datatype);
+        OWLLiteral litLongImpl = new OWLLiteralImplLong(3);
+        assertEquals(litNoComp.getLiteral(), litLongImpl.getLiteral());
+        assertTrue(litLongImpl.equals(litNoComp));
+        assertTrue(litNoComp.equals(litLongImpl));
+        assertEquals(litNoComp, litLongImpl);
+        Set<OWLLiteral> lncset = new HashSet<>();
+        lncset.add(litNoComp);
+        assertTrue(lncset.contains(litNoComp2));
+        assertTrue(lncset.contains(litLongImpl));
+    }
 
     @Test
     public void testSetContainsInt() {

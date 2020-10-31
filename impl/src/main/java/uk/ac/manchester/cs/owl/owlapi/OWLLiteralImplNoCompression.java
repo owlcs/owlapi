@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -26,11 +25,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
 
-    private static final OWLDatatype RDF_PLAIN_LITERAL =
-        new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
-    private static final OWLDatatype RDF_LANG_STRING =
-        new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
-    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
     private final String literal;
     private final OWLDatatype datatype;
     private final String language;
@@ -46,20 +40,20 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         if (lang == null || lang.isEmpty()) {
             language = "";
             if (datatype == null) {
-                this.datatype = XSD_STRING;
+                this.datatype = InternalizedEntities.XSDSTRING;
             } else {
                 this.datatype = datatype;
             }
         } else {
-            if (datatype != null
-                && !(datatype.equals(RDF_LANG_STRING) || datatype.equals(RDF_PLAIN_LITERAL))) {
+            if (datatype != null && !(datatype.equals(InternalizedEntities.LANGSTRING)
+                || datatype.equals(InternalizedEntities.PLAIN))) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from RDF_LANG_STRING or RDF_PLAIN_LITERAL
                 throw new OWLRuntimeException("Error: cannot build a literal with type: "
                     + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
-            this.datatype = RDF_LANG_STRING;
+            this.datatype = InternalizedEntities.LANGSTRING;
         }
     }
 
@@ -163,6 +157,9 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
             }
             if (isBoolean()) {
                 return parseBoolean() ? 1 : 0;
+            }
+            if (datatype.equals(InternalizedEntities.XSDLONG)) {
+                return (int) Long.parseLong(getLiteral());
             }
         } catch (@SuppressWarnings("unused") NumberFormatException e) {
             // it is possible that a literal does not have a value that's valid
