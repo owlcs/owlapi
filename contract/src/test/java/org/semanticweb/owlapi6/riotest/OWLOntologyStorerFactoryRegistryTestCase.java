@@ -12,7 +12,7 @@ import org.semanticweb.owlapi6.utilities.PriorityCollection;
  */
 public class OWLOntologyStorerFactoryRegistryTestCase {
 
-    private static final int EXPECTED_STORERS = 20;
+    private static final int EXPECTED_STORERS = 21;
 
     @Test
     public void setUp() {

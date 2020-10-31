@@ -337,6 +337,8 @@ public class OWLAPIObo2Owl {
         apToDeclare.clear();
         clsToDeclare.clear();
         typedefToAnnotationProperty.clear();
+        config = m.getOntologyConfigurator();
+        initIDCache();
     }
 
     /**
@@ -433,9 +435,12 @@ public class OWLAPIObo2Owl {
         obodoc = doc;
         init(in == null ? manager : in.getOWLOntologyManager());
         config = in == null ? manager.getOntologyConfigurator() : in.getOntologyConfigurator();
-        int cacheSize = config.getCacheSize();
-        idToIRICache = new IDCache(cacheSize);
+        initIDCache();
         return tr(in == null ? manager.createOntology() : in);
+    }
+
+    protected void initIDCache() {
+        idToIRICache = new IDCache(config.getCacheSize());
     }
 
     /**
