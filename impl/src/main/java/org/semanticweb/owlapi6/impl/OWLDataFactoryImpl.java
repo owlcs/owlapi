@@ -1210,6 +1210,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
+    public OWLLiteral getOWLLiteral(long value) {
+        return new OWLLiteralImplLong(value);
+    }
+
+    @Override
     public OWLLiteral getOWLLiteral(double value) {
         return new OWLLiteralImplDouble(value);
     }
@@ -1292,6 +1297,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
                 literal = getOWLLiteral(Double.parseDouble(lexicalValue));
             } else if (datatype.isInteger()) {
                 literal = parseInteger(lexicalValue, datatype);
+            } else if (datatype.isLong()) {
+                literal = parseLong(lexicalValue, datatype);
             } else {
                 literal = getBasicLiteral(lexicalValue, datatype);
             }
@@ -1338,12 +1345,35 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
             // again, some W3C tests require padding zeroes to make
             // literals different
             if (firstNonblankIsZero(lexicalValue)) {
-                literal = getBasicLiteral(lexicalValue, XSDINTEGER);
+                literal = getBasicLiteral(lexicalValue, datatype);
             } else {
                 try {
                     // this is fine for values that can be parsed as
                     // ints - not all values are
                     literal = getOWLLiteral(Integer.parseInt(lexicalValue));
+                } catch (@SuppressWarnings("unused") NumberFormatException ex) {
+                    // try as a big decimal
+                    literal = getBasicLiteral(lexicalValue, datatype);
+                }
+            }
+        }
+        return literal;
+    }
+
+    protected OWLLiteral parseLong(String lexicalValue, OWLDatatype datatype) {
+        OWLLiteral literal;
+        if (isBlank(lexicalValue)) {
+            literal = getBasicLiteral(lexicalValue, datatype);
+        } else {
+            // again, some W3C tests require padding zeroes to make
+            // literals different
+            if (firstNonblankIsZero(lexicalValue)) {
+                literal = getBasicLiteral(lexicalValue, datatype);
+            } else {
+                try {
+                    // this is fine for values that can be parsed as
+                    // ints - not all values are
+                    literal = getOWLLiteral(Long.parseLong(lexicalValue));
                 } catch (@SuppressWarnings("unused") NumberFormatException ex) {
                     // try as a big decimal
                     literal = getBasicLiteral(lexicalValue, datatype);

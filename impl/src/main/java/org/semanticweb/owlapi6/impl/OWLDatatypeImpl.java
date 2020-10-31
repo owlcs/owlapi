@@ -90,6 +90,11 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     }
 
     @Override
+    public boolean isLong() {
+        return iri.equals(OWL2Datatype.XSD_LONG.getIRI());
+    }
+
+    @Override
     public boolean isString() {
         return iri.equals(OWL2Datatype.XSD_STRING.getIRI());
     }

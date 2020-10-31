@@ -33,6 +33,8 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     @Nullable
     private Integer intValue = null;
     @Nullable
+    private Long longValue;
+    @Nullable
     private Double doubleValue = null;
     @Nullable
     private Float floatValue = null;
@@ -62,6 +64,8 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
             withValue(expected.parseFloat());
         } else if (expected.isInteger()) {
             withValue(expected.parseInteger());
+        } else if (expected.isLong()) {
+            withValue(expected.parseLong());
         } else {
             withLiteralForm(expected.getLiteral());
         }
@@ -90,6 +94,16 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     public BuilderLiteral withValue(int arg) {
         clear();
         intValue = Integer.valueOf(arg);
+        return this;
+    }
+
+    /**
+     * @param arg int value
+     * @return builder
+     */
+    public BuilderLiteral withValue(long arg) {
+        clear();
+        longValue = Long.valueOf(arg);
         return this;
     }
 
@@ -176,6 +190,9 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     public OWLLiteral buildObject() {
         if (intValue != null) {
             return df.getOWLLiteral(intValue.intValue());
+        }
+        if (longValue != null) {
+            return df.getOWLLiteral(longValue.longValue());
         }
         if (doubleValue != null) {
             return df.getOWLLiteral(doubleValue.doubleValue());

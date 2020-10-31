@@ -285,7 +285,36 @@ public enum OWLObjectType {
         if (first.type() != second.type() || first.hashCode() != second.hashCode()) {
             return false;
         }
+        // comparing literals of the same primitive subclass can be achieved with fewer object
+        // creations
+        // if (first instanceof OWLLiteral) {
+        // return specificEquals((OWLLiteral) first, (OWLLiteral) second);
+        // }
         return useFunctionsForEqual(first, second);
+    }
+
+    protected static boolean specificEquals(OWLLiteral l1, OWLLiteral l2) {
+        if (!l1.getDatatype().equals(l2.getDatatype())) {
+            return false;
+        }
+        if (l1.getClass().equals(l2.getClass())) {
+            if (l1.isInteger()) {
+                return l1.parseInteger() == l2.parseInteger();
+            }
+            if (l1.isDouble()) {
+                return l1.parseDouble() == l2.parseDouble();
+            }
+            if (l1.isFloat()) {
+                return l1.parseFloat() == l2.parseFloat();
+            }
+            if (l1.isBoolean()) {
+                return l1.parseBoolean() == l2.parseBoolean();
+            }
+            if (l1.isLong()) {
+                return l1.parseLong() == l2.parseLong();
+            }
+        }
+        return useFunctionsForEqual(l1, l2);
     }
 
     protected static boolean useFunctionsForEqual(OWLObject first, OWLObject second) {
@@ -363,6 +392,9 @@ interface Accessors {
             }
             if (l.isBoolean()) {
                 return l.parseBoolean() ? 1 : 0;
+            }
+            if (l.isLong()) {
+                return (int) l.parseLong();
             }
         } catch (@SuppressWarnings("unused") NumberFormatException e) {
             // it is possible that a literal does not have a value that's valid

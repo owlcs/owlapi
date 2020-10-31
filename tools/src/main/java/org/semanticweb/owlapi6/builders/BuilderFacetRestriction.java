@@ -62,6 +62,15 @@ public class BuilderFacetRestriction
     }
 
     /**
+     * @param arg long value
+     * @return builder
+     */
+    public BuilderFacetRestriction withLiteral(long arg) {
+        literal = df.getOWLLiteral(arg);
+        return this;
+    }
+
+    /**
      * @param arg literal value
      * @return builder
      */

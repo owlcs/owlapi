@@ -800,6 +800,10 @@ public final class OWLFunctionalSyntaxFactory {
         return DF.getOWLLiteral(literal);
     }
 
+    public static OWLLiteral Literal(long literal) {
+        return DF.getOWLLiteral(literal);
+    }
+
     public static OWLLiteral Literal(double literal) {
         return DF.getOWLLiteral(literal);
     }
