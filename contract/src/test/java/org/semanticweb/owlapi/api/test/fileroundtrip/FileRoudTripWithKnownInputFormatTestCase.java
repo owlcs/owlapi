@@ -12,36 +12,54 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.fileroundtrip;
 
-import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
-public abstract class AbstractFileRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
+@RunWith(Parameterized.class)
+public class FileRoudTripWithKnownInputFormatTestCase extends AbstractFileRoundTrippingTestCase {
+    private OWLDocumentFormat format;
 
-    protected String fileName;
-
-    public AbstractFileRoundTrippingTestCase(String f) {
-        fileName = f;
+    public FileRoudTripWithKnownInputFormatTestCase(String f, OWLDocumentFormat format) {
+        super(f);
+        this.format = format;
     }
 
     @Override
     protected OWLOntology createOntology() {
-        return createOntology(null);
+        return createOntology(format);
     }
 
-    protected OWLOntology createOntology(@Nullable OWLDocumentFormat f) {
-        OWLOntology o = ontologyFromClasspathFile(fileName, f);
-        if (logger.isTraceEnabled()) {
-            logger.trace("ontology as parsed from input file:");
-            o.axioms().forEach(ax -> logger.trace(ax.toString()));
-        }
-        return o;
+    @Parameters
+    public static List<Object[]> getData() {
+        List<Object[]> l = new ArrayList<>();
+        l.add(new Object[] {"testBlankNodesDomain.ttl", new TurtleDocumentFormat()});
+        return l;
+    }
+
+    @Override
+    @Test
+    public void roundTripRDFXMLAndFunctionalShouldBeSame()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = createOntology();
+        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
+        equal(o1, o2);
     }
 }

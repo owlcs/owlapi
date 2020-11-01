@@ -42,7 +42,7 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     public void testRDFXML() throws Exception {
-        roundTripOntology(createOntology());
+        roundTripOntology(createOntology(), new RDFXMLDocumentFormat());
     }
 
     @Test

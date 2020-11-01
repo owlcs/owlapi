@@ -20,6 +20,9 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,6 +39,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -187,12 +191,30 @@ public abstract class TestBase {
     }
 
     protected OWLOntology ontologyFromClasspathFile(String fileName,
+        @Nullable OWLDocumentFormat f) {
+        return ontologyFromClasspathFile(fileName, config, f);
+    }
+
+    protected OWLOntology ontologyFromClasspathFile(String fileName,
         OWLOntologyLoaderConfiguration configuration) {
-        try {
+        try (InputStream in = getClass().getResourceAsStream('/' + fileName)) {
+            return m1.loadOntologyFromOntologyDocument(new StreamDocumentSource(in), configuration);
+        } catch (OWLOntologyCreationException | IOException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    protected OWLOntology ontologyFromClasspathFile(String fileName,
+        OWLOntologyLoaderConfiguration configuration, @Nullable OWLDocumentFormat f) {
+        if (f == null) {
+            return ontologyFromClasspathFile(fileName, configuration);
+        }
+        URL resource = getClass().getResource('/' + fileName);
+        try (InputStream resourceAsStream = new FileInputStream(new File(resource.toURI()))) {
             return m1.loadOntologyFromOntologyDocument(
-                new StreamDocumentSource(getClass().getResourceAsStream('/' + fileName)),
+                new StreamDocumentSource(resourceAsStream, IRI.create(resource), f, null),
                 configuration);
-        } catch (OWLOntologyCreationException e) {
+        } catch (OWLOntologyCreationException | IOException | URISyntaxException e) {
             throw new OWLRuntimeException(e);
         }
     }

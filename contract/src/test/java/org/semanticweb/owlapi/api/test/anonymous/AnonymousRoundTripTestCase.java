@@ -85,14 +85,4 @@ public class AnonymousRoundTripTestCase extends AbstractRoundTrippingTestCase {
         ont1.add(ax1);
         return ont1;
     }
-    //
-    // @Override
-    // public void testTurtle() throws Exception {
-    // StringDocumentTarget saveOntology =
-    // saveOntology(createOntology(), new TurtleDocumentFormat());
-    // String s = saveOntology.toString().replaceAll("\\n#[\\w\\:\\. #]+\\n", "\n")
-    // .replaceAll("\\n#[\\w\\:\\. #]+\\n", "\n").replaceAll("\\n[ ]*\\n", "\n");
-    // System.out.println("AnonymousRoundTripTestCase.testTurtle() " + s);
-    // super.testTurtle();
-    // }
 }

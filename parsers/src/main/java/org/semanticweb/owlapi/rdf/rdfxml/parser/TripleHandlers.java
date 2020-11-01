@@ -1794,11 +1794,17 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI s, IRI p, IRI o) {
-            if (isOpLax(s) && isCe(o)) {
+            if (isOpLax(s)) {
+                if (!isCe(o)) {
+                    addCe(o, false);
+                }
                 translateObjectPropertyDomain(s, p, o);
-            } else if (isDataPropertyStrict(s) && isCe(o)) {
+            } else if (isDPLax(s)) {
+                if (!isCe(o)) {
+                    addCe(o, false);
+                }
                 translateDataPropertyDomain(s, p, o);
-            } else if (isApLax(s) && isCe(o) && !isAnon(o)) {
+            } else if (isApLax(s) && !isAnon(o)) {
                 translateAnnotationPropertyDomain(s, p, o);
             } else if (!isStrict()) {
                 addAp(s, false);
