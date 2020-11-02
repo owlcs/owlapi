@@ -1898,11 +1898,11 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI subject, IRI predicate, IRI object) {
-            if (consumer.isObjectProperty(subject) && consumer.isClassExpression(object)) {
+            if (consumer.isObjectProperty(subject)) {
                 translateObjectPropertyDomain(subject, predicate, object);
-            } else if (consumer.isDataPropertyOnly(subject) && consumer.isClassExpression(object)) {
+            } else if (consumer.isDataProperty(subject)) {
                 translateDataPropertyDomain(subject, predicate, object);
-            } else if (consumer.isAnnotationProperty(subject) && consumer.isClassExpression(object)
+            } else if (consumer.isAnnotationProperty(subject)
                 && !consumer.isAnonymousNode(object)) {
                 translateAnnotationPropertyDomain(subject, predicate, object);
             } else if (!isStrict()) {
