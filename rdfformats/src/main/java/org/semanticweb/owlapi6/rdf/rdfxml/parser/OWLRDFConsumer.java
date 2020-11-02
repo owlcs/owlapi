@@ -1512,13 +1512,19 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean handlePropertyDomainTriple(IRI s, IRI p, IRI o) {
-        if (iris.isOpLax(s) && iris.isClassExpression(o)) {
+        if (iris.isOpLax(s)) {
+            if (!iris.isClassExpression(o)) {
+                iris.addClassExpression(o, false);
+            }
             add(df.getOWLObjectPropertyDomainAxiom(translateOPE(s), ce(o), pendingAnns()));
             return tripleIndex.consumeTriple(s, p, o);
-        } else if (iris.isDataPropertyStrict(s) && iris.isClassExpression(o)) {
+        } else if (iris.isDataPropertyStrict(s)) {
+            if (!iris.isClassExpression(o)) {
+                iris.addClassExpression(o, false);
+            }
             add(df.getOWLDataPropertyDomainAxiom(dp(s), ce(o), pendingAnns()));
             return tripleIndex.consumeTriple(s, p, o);
-        } else if (iris.isAP(s) && iris.isClassExpression(o) && !anon.isAnonymousNode(o)) {
+        } else if (iris.isAP(s) && !anon.isAnonymousNode(o)) {
             add(df.getOWLAnnotationPropertyDomainAxiom(ap(s), o, pendingAnns()));
             // TODO: Handle anonymous domain - error?
             return tripleIndex.consumeTriple(s, p, o);
