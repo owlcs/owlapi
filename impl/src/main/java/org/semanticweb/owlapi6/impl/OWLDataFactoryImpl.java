@@ -1330,7 +1330,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     protected static final boolean isNegativeZero(CharSequence c) {
         for (int i = 0; i < c.length(); i++) {
             if (!Character.isWhitespace(c.charAt(i))) {
-                return i < c.length() - 4 && c.charAt(i) == '-' && c.charAt(i + 1) == '0'
+                return i <= c.length() - 4 && c.charAt(i) == '-' && c.charAt(i + 1) == '0'
                     && c.charAt(i + 2) == '.' && c.charAt(i + 3) == '0';
             }
         }
