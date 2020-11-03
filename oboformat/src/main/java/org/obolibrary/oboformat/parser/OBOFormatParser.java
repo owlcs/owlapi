@@ -77,7 +77,7 @@ public class OBOFormatParser {
     protected OBOFormatParser(MyStream s, Map<String, OBODoc> importsMap) {
         stream = s;
         importCache.putAll(importsMap);
-        Caffeine<String, String> builder = Caffeine.newBuilder().maximumWeight(8388608)
+        Caffeine<String, String> builder = Caffeine.newBuilder().weakKeys().maximumWeight(8388608)
             .weigher((String key, String value) -> key.length());
         if (LOG.isDebugEnabled()) {
             builder.recordStats();

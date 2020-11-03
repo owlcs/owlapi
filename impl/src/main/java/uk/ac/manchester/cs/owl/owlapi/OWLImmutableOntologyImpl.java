@@ -118,8 +118,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         key.ints.getOntologyAnnotations(false).stream().flatMap(a->a.getAnnotationPropertiesInSignature().stream())).collect(Collectors.toSet())));
     // @formatter:on
     static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
-        return Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
-            .getValue(Integer.class, Collections.emptyMap()).longValue()).build(c);
+        return Caffeine.newBuilder().weakKeys().maximumSize(size()).build(c);
+    }
+
+    protected static long size() {
+        return ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap())
+            .longValue();
     }
 
     protected static void invalidateOntologyCaches(OWLImmutableOntologyImpl o) {

@@ -313,8 +313,12 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     // public creation
     private static final long serialVersionUID = 40000L;
     private static final LoadingCache<String, String> PREFIX_CACHE =
-        Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
-            .getValue(Integer.class, Collections.emptyMap()).longValue()).build(k -> k);
+        Caffeine.newBuilder().weakKeys().maximumSize(size()).build(k -> k);
+
+    protected static long size() {
+        return ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap())
+            .longValue();
+    }
 
     @Nonnull
     private final String remainder;
