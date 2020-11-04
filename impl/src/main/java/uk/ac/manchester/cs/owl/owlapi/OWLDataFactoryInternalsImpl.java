@@ -63,8 +63,12 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
     }
 
     private static <F, T> LoadingCache<F, T> builder(CacheLoader<F, T> f) {
-        return Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
-            .getValue(Integer.class, Collections.emptyMap()).longValue()).build(f);
+        return Caffeine.newBuilder().weakKeys().maximumSize(size()).build(f);
+    }
+
+    protected static long size() {
+        return ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap())
+            .longValue();
     }
 
     @Override

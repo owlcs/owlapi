@@ -46,9 +46,14 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     OWLPrimitive, HasShortForm, org.apache.commons.rdf.api.IRI {
 
     // Cache prefixes for memory gains.
-    private static final LoadingCache<String, String> CACHE = Caffeine.newBuilder().maximumSize(
-        ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue())
-        .build(k -> k);
+    private static final LoadingCache<String, String> CACHE =
+        Caffeine.newBuilder().weakKeys().maximumSize(size()).build(k -> k);
+
+    protected static long size() {
+        return ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap())
+            .longValue();
+    }
+
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
     // Impl - All constructors are private - factory methods are used for
     // public creation
