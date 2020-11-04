@@ -82,12 +82,15 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     private static final String DEFAULT_REQUEST =
         "application/rdf+xml, application/xml; q=0.7, text/xml; q=0.6" + TEXTPLAIN_REQUEST_TYPE
             + LAST_REQUEST_TYPE;
-    private static final LoadingCache<Integer, OkHttpClient> CACHE =
-        Caffeine.newBuilder().maximumSize(16)
-            .build(timeout -> new OkHttpClient.Builder()
-                .connectTimeout(timeout.longValue(), TimeUnit.MILLISECONDS)
-                .readTimeout(timeout.longValue(), TimeUnit.MILLISECONDS).followRedirects(true)
-                .followSslRedirects(true).build());
+    private static final LoadingCache<Integer, OkHttpClient> CACHE = Caffeine.newBuilder()
+        .weakKeys().maximumSize(16).build(timeout -> okClient(timeout.longValue()));
+
+    protected static OkHttpClient okClient(long timeout) {
+        return new OkHttpClient.Builder().connectTimeout(timeout, TimeUnit.MILLISECONDS)
+            .readTimeout(timeout, TimeUnit.MILLISECONDS).followRedirects(true)
+            .followSslRedirects(true).build();
+    }
+
     protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
     protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
     private final String documentIRI;
