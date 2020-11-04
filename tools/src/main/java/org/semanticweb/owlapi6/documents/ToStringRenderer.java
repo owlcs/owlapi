@@ -39,11 +39,11 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
  * A utility class which can be used by implementations to provide a toString rendering of OWL API
- * objects. The renderer can be set through the ConfigurtionOptions class, with property file or
+ * objects. The renderer can be set through the ConfigurationOptions class, with property file or
  * system property. No local override is possible, because ToStringRenderer has no access to
  * ontology or ontology manager objects. Be careful of changing the value of the options in a
  * multithreaded application, as this will cause the renderer to change behaviour. For a more
- * precise rendering use the syntax specific methods in OWLObject, where the desired forma is
+ * precise rendering use the syntax specific methods in OWLObject, where the desired form is
  * specified as input.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
