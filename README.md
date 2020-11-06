@@ -11,16 +11,59 @@ The OWL API is a Java API for creating, manipulating and serialising OWL Ontolog
 
 The following components are included:
 
-* An API for OWL 2 and an in-memory reference implementation
-* RDF/XML parser and writer
-* OWL/XML parser and writer
-* OWL Functional Syntax parser and writer
-* Turtle parser and writer
-* KRSS parser
-* OBO format parser
+* An API for OWL 2 and an in-memory reference implementation.
+* Read and write support for RDF/XML, OWL/XML, Functional syntax, Manchester syntax, Turtle, OBO.
+* Write support for KRSS, DL syntax, LaTeX.
+* Other formats via RIO integration (NTriples, JSON, etc.).
 * Reasoner interfaces for working with reasoners such as FaCT++, HermiT, Pellet, Racer, JFact and Chainsaw.
+* See documentation pages on the wiki for more details.
 
 ## Release notes
+
+## 5.1.17 6 November 2020
+
+### Features:
+
+*    Remove @Deprecated annotations for Set based methods in OWLAPI 5 #981
+*    Support RDF4J Rio HDT parser #931
+*    OWLLiteral for XSD:Long #970
+
+### Bug fixes:
+
+*    Fix Performance of signature checks during ontology changes #968
+*    Fix Error on RIO renderer when expression has 6000 elements #971
+*    Fix OWLOntology#datatypesInSignature to include ontology header #965
+*    Fix EntitySearcher.getSuperProperties fails when parent is inverse #964
+*    Update guava and junit versions
+*    Fix OWLParser not ensuring streams are closed on exit #973
+*    Error with undeclared classes in domain axioms #962
+*    Fix Ontology caches should use weak keys #984
+
+## 5.1.16 28 July 2020
+
+### Bug fixes:
+
+*    Fix follow multiple redirects across protocols #954
+*    Javadoc fixes for deprecated stream methods #950
+
+## 5.1.15 02 July 2020
+
+### Features:
+
+*    Allow creation of tautologies for n-ary axioms #776
+*    Configurable fast pruning window size
+
+### Bug fixes:
+
+*    Fix javadoc for OWLObject::nestedClassExpressions #937
+*    Fix classAssertionAxioms with OWLClassExpression fails #930
+*    Fix Include ontology annotations in signature #928
+*    Fix Unable to set base directive for turtle writers #938
+*    Fix OWLAPI accepts IRIs with leading spaces #940
+*    Fix SWRL body reordered when structure shared #936
+*    Fix roundtrip through OBO changes IRI of owl:versionInfo #947
+
+
 
 ## 5.1.14 18 April 2020
 

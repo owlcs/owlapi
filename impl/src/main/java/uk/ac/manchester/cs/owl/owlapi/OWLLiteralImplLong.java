@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
- * @since 5.1.18
+ * @since 5.1.17
  */
 public class OWLLiteralImplLong extends OWLObjectImpl implements OWLLiteral {
 

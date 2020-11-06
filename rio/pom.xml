@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>owlapi-parent</artifactId>
 		<groupId>net.sourceforge.owlapi</groupId>
-		<version>5.1.17-SNAPSHOT</version>
+		<version>5.1.17</version>
 	</parent>
 	<artifactId>owlapi-rio</artifactId>
 	<name>OWLAPI :: RDF4J Rio</name>
@@ -31,6 +31,12 @@
 			<groupId>org.eclipse.rdf4j</groupId>
 			<artifactId>rdf4j-rio-api</artifactId>
 			<version>${inherited.rdf4j.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.xml.bind</groupId>
+					<artifactId>jaxb-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.rdf4j</groupId>

@@ -40,7 +40,7 @@ import org.semanticweb.owlapi.formats.HDTRDFDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
- * @since 5.1.18
+ * @since 5.1.17
  */
 @HasPriority(16)
 public class RioHDTRdfParserFactory extends AbstractRioParserFactory {

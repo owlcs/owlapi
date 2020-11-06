@@ -39,7 +39,7 @@ import org.eclipse.rdf4j.rio.RDFFormat;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
- * @since 5.1.18
+ * @since 5.1.17
  */
 public class HDTRDFDocumentFormat extends RioRDFPrefixDocumentFormat {
 
