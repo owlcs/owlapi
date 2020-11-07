@@ -8,11 +8,8 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>4.5.10</version>
+		<version>5.1.17</version>
 	</parent>
-	<properties>
-		<inherited.rdf4j.version>${rdf4j.version}</inherited.rdf4j.version>
-	</properties>
 
 	<dependencies>
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-distribution</artifactId><version>${project.version}</version></dependency>
