@@ -1,3 +1,12 @@
+## 4.5.19 7 November 2020
+
+### Bug fixes:
+
+*    Fix OWLParser not ensuring streams are closed on exit #973
+*    Error with undeclared classes in domain axioms #962
+*    Fix Ontology caches should use weak keys #984
+
+
 ## 4.5.18 23 October 2020
 
 ### Bug fixes:
@@ -114,6 +123,7 @@
 *    Fix Cyclic imports and missing declarations cause parsing error #798
 *    Fix Unescaping characters: OBOFormatParser#handleNextChar() #822
 *    Fix IRI PREFIX_CACHE instance uses too much memory #825
+
 
 ## 4.5.9 1 February 2019
 
