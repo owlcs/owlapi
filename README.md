@@ -411,6 +411,44 @@ Features:
 *    OWLAPI 5 uses Java 8
 
 
+## 4.5.19 7 November 2020
+
+### Bug fixes:
+
+*    Fix OWLParser not ensuring streams are closed on exit #973
+*    Error with undeclared classes in domain axioms #962
+*    Fix Ontology caches should use weak keys #984
+
+
+## 4.5.18 23 October 2020
+
+### Bug fixes:
+
+*    Fix Performance of signature checks during ontology changes #968
+*    Fix Error on RIO renderer when expression has 6000 elements #971
+*    Fix OWLOntology#datatypesInSignature to include ontology header #965
+*    Fix Ontology not loaded in case of multiple HTTP redirects #954
+
+
+## 4.5.17 02 July 2020
+
+### Features:
+
+*    Let OBO parser follow redirects
+*    Allow creation of tautologies for n-ary axioms #776
+*    Configurable fast pruning window size
+
+### Bug fixes:
+
+*    Fix javadoc for OWLObject::nestedClassExpressions #937
+*    Fix classAssertionAxioms with OWLClassExpression fails #930
+*    Fix Include ontology annotations in signature #928
+*    Fix Unable to set base directive for turtle writers #938
+*    Fix OWLAPI accepts IRIs with leading spaces #940
+*    Fix SWRL body reordered when structure shared #936
+*    Fix roundtrip through OBO changes IRI of owl:versionInfo #947
+
+
 ## 4.5.16 18 April 2020
 
 ### Bug fixes:
