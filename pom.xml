@@ -457,11 +457,10 @@
 						</execution>
 					</executions>
 				</plugin>
-				<!-- 
 				<plugin>
 					<groupId>com.github.siom79.japicmp</groupId>
 					<artifactId>japicmp-maven-plugin</artifactId>
-					<version>0.12.0</version>
+					<version>0.14.4</version>
 					<configuration>
 						<oldVersion>
 							<dependency>
@@ -492,7 +491,7 @@
 							</goals>
 						</execution>
 					</executions>
-				</plugin> -->
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
