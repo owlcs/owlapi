@@ -40,10 +40,12 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -62,6 +64,7 @@ import org.eclipse.rdf4j.rio.RDFHandlerException;
 import org.eclipse.rdf4j.rio.RDFParseException;
 import org.eclipse.rdf4j.rio.RDFParser;
 import org.eclipse.rdf4j.rio.Rio;
+import org.eclipse.rdf4j.rio.RioSetting;
 import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
 import org.eclipse.rdf4j.rio.helpers.BasicParserSettings;
 import org.eclipse.rdf4j.rio.helpers.StatementCollector;
@@ -224,6 +227,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
         createParser.getParserConfig().addNonFatalError(XMLParserSettings.DISALLOW_DOCTYPE_DECL);
         createParser.getParserConfig().set(XMLParserSettings.DISALLOW_DOCTYPE_DECL, Boolean.FALSE);
+        addParametersIfPresent(documentSource, createParser);
         createParser.setRDFHandler(handler);
         long rioParseStart = System.currentTimeMillis();
         if (owlFormatFactory.isTextual() && documentSource.isReaderAvailable()) {
@@ -244,6 +248,22 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("rioParse: timing={}",
                 Long.valueOf(System.currentTimeMillis() - rioParseStart));
+        }
+    }
+
+    // These warnings are suppressed because the types cannot be easily determined here without
+    // forcing constraints that might need to be updated when Rio introduces new settings.
+    @SuppressWarnings({"null", "rawtypes", "unchecked"})
+    protected void addParametersIfPresent(OWLOntologyDocumentSource documentSource,
+        RDFParser createParser) {
+        Collection<RioSetting<?>> supportedSettings = createParser.getSupportedSettings();
+        if (documentSource.getFormat() != null && !supportedSettings.isEmpty()) {
+            for (RioSetting r : supportedSettings) {
+                Serializable v = documentSource.getFormat().getParameter(r, null);
+                if (v != null) {
+                    createParser.getParserConfig().set(r, v);
+                }
+            }
         }
     }
 
