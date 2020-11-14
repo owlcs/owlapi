@@ -41,9 +41,12 @@ import java.io.BufferedWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.Writer;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Collection;
 
 import javax.annotation.Nullable;
 
@@ -53,7 +56,12 @@ import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.eclipse.rdf4j.rio.RDFWriter;
 import org.eclipse.rdf4j.rio.Rio;
+import org.eclipse.rdf4j.rio.RioSetting;
 import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
+import org.eclipse.rdf4j.rio.helpers.BasicWriterSettings;
+import org.eclipse.rdf4j.rio.helpers.JSONLDSettings;
+import org.eclipse.rdf4j.rio.helpers.JSONSettings;
+import org.eclipse.rdf4j.rio.helpers.NTriplesWriterSettings;
 import org.eclipse.rdf4j.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
@@ -225,6 +233,9 @@ public class RioStorer extends AbstractOWLStorer {
             }
         }
         try {
+            // if this is a writer rather than a statement collector, set its config from the format
+            // parameters, if any
+            addSettingsIfPresent(format);
             final RioRenderer ren =
                 new RioRenderer(ontology, verifyNotNull(rioHandler), format, contexts);
             ren.render();
@@ -262,11 +273,63 @@ public class RioStorer extends AbstractOWLStorer {
             }
         }
         try {
+            // if this is a writer rather than a statement collector, set its config from the format
+            // parameters, if any
+            addSettingsIfPresent(format);
             final RioRenderer ren =
                 new RioRenderer(ontology, verifyNotNull(rioHandler), format, contexts);
             ren.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
+        }
+    }
+
+    // These warnings are suppressed because the types cannot be easily determined here without
+    // forcing constraints that might need to be updated when Rio introduces new settings.
+    @SuppressWarnings({"rawtypes", "null", "unchecked"})
+    protected void addSettingsIfPresent(OWLDocumentFormat format) {
+        if (rioHandler instanceof RDFWriter) {
+            RDFWriter w = (RDFWriter) rioHandler;
+            Collection<RioSetting<?>> supportedSettings = knownSettings(w);
+            for (RioSetting r : supportedSettings) {
+                Serializable v = format.getParameter(r, null);
+                if (v != null) {
+                    w.getWriterConfig().set(r, v);
+                }
+            }
+        }
+    }
+
+    protected Collection<RioSetting<?>> knownSettings(RDFWriter w) {
+        try {
+            return w.getSupportedSettings();
+        } catch (UnsupportedOperationException e) {
+            LOGGER.debug(
+                "Bug in RIO means this exception is thrown in some formats where an unmodifiable class is modified.  As a workaround, OWLAPI will try all the known settings - relying on the caller to only use supported settings.",
+                e);
+            return Arrays.asList(JSONSettings.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER,
+                JSONSettings.ALLOW_COMMENTS, JSONSettings.ALLOW_NON_NUMERIC_NUMBERS,
+                JSONSettings.ALLOW_NUMERIC_LEADING_ZEROS, JSONSettings.ALLOW_SINGLE_QUOTES,
+                JSONSettings.ALLOW_TRAILING_COMMA, JSONSettings.ALLOW_UNQUOTED_CONTROL_CHARS,
+                JSONSettings.ALLOW_UNQUOTED_FIELD_NAMES, JSONSettings.ALLOW_YAML_COMMENTS,
+                JSONSettings.INCLUDE_SOURCE_IN_LOCATION, JSONSettings.STRICT_DUPLICATE_DETECTION,
+                JSONLDSettings.COMPACT_ARRAYS, JSONLDSettings.DOCUMENT_LOADER,
+                JSONLDSettings.HIERARCHICAL_VIEW, JSONLDSettings.JSONLD_MODE,
+                JSONLDSettings.OPTIMIZE, JSONLDSettings.PRODUCE_GENERALIZED_RDF,
+                JSONLDSettings.USE_NATIVE_TYPES, JSONLDSettings.USE_RDF_TYPE,
+                BasicWriterSettings.BASE_DIRECTIVE,
+                BasicWriterSettings.CONVERT_RDF_STAR_TO_REIFICATION,
+                BasicWriterSettings.ENCODE_RDF_STAR, BasicWriterSettings.INLINE_BLANK_NODES,
+                BasicWriterSettings.PRETTY_PRINT,
+                BasicWriterSettings.RDF_LANGSTRING_TO_LANG_LITERAL,
+                BasicWriterSettings.XSD_STRING_TO_PLAIN_LITERAL,
+                NTriplesWriterSettings.ESCAPE_UNICODE);
+            // parsing only settings, not used here
+            // NTriplesParserSettings
+            // RDFJSONParserSettings
+            // XMLParserSettings
+            // TriXParserSettings
+            // TurtleParserSettings
         }
     }
 }
