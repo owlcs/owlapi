@@ -354,28 +354,30 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching imp
 
         @Nonnull
         static byte[] compress(String s) throws IOException {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            GZIPOutputStream zipout = new GZIPOutputStream(out);
-            Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING);
-            writer.write(s);
-            writer.flush();
-            zipout.finish();
-            zipout.flush();
-            return out.toByteArray();
+            try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    GZIPOutputStream zipout = new GZIPOutputStream(out);) {
+                Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING);
+                writer.write(s);
+                writer.flush();
+                zipout.finish();
+                zipout.flush();
+                return out.toByteArray();
+            }
         }
 
         @Nonnull
         static String decompress(byte[] result) throws IOException {
-            ByteArrayInputStream in = new ByteArrayInputStream(result);
-            GZIPInputStream zipin = new GZIPInputStream(in);
-            Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING);
-            StringBuilder b = new StringBuilder();
-            int c = reader.read();
-            while (c > -1) {
-                b.append((char) c);
-                c = reader.read();
+            try (ByteArrayInputStream in = new ByteArrayInputStream(result);
+                    GZIPInputStream zipin = new GZIPInputStream(in);) {
+                Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING);
+                StringBuilder b = new StringBuilder();
+                int c = reader.read();
+                while (c > -1) {
+                    b.append((char) c);
+                    c = reader.read();
+                }
+                return b.toString();
             }
-            return b.toString();
         }
 
         private static final String COMPRESSED_ENCODING = "UTF-16";
