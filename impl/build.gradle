@@ -2,7 +2,7 @@
 description = 'OWLAPI :: Default Implementation'
 dependencies {
   compile 'com.github.vsonnier:hppcrt:0.7.5'
-  compile ('com.github.ben-manes.caffeine:caffeine:[2.8.0,3)') {
+  compile ('com.github.ben-manes.caffeine:caffeine:[2.8.6,3)') {
     exclude module: "checker-qual"
     exclude module: "error_prone_annotations"
   }

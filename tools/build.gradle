@@ -3,7 +3,7 @@ description = 'OWLAPI :: Atomic Decomposition and Explanation'
 dependencies {
   compile project(':owlapi-api')
   compile 'commons-io:commons-io:2.8.0'
-  compile ('com.github.ben-manes.caffeine:caffeine:[2.8.0,3)') {
+  compile ('com.github.ben-manes.caffeine:caffeine:[2.8.6,3)') {
     exclude module: "checker-qual"
     exclude module: "error_prone_annotations"
   }
