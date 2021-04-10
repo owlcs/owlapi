@@ -50,6 +50,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -300,6 +301,10 @@ public abstract class RDFRendererBase {
             writeBanner(bannerText);
         }
         renderEntity(entity);
+        Iterator<OWLEntity> it = graph.getRootIRIs(entity).iterator();
+        while (it.hasNext()) {
+            renderEntity(it.next());
+        }
     }
 
     private void renderEntity(OWLEntity entity) {
