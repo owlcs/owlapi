@@ -43,6 +43,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -335,14 +336,19 @@ public abstract class RDFRendererBase {
                     }
                 }
                 renderEntity(entity);
+                Iterator<OWLEntity> it = graph.getRootIRIs(entity).iterator();
+                while (it.hasNext()) {
+                    renderEntity(it.next());
+                }
             }
         }
     }
 
     private void renderEntity(@Nonnull OWLEntity entity) throws IOException {
+        RDFResourceIRI subjectNode = new RDFResourceIRI(verifyAbsolute(entity.getIRI()));
         beginObject();
         writeEntityComment(entity);
-        render(new RDFResourceIRI(verifyAbsolute(entity.getIRI())), true);
+        render(subjectNode, true);
         renderAnonRoots();
         endObject();
     }
