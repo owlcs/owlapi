@@ -143,6 +143,7 @@ import org.semanticweb.owlapi6.model.OWLDataOneOf;
 import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi6.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi6.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi6.model.OWLDataRange;
 import org.semanticweb.owlapi6.model.OWLDataSomeValuesFrom;
@@ -187,6 +188,7 @@ import org.semanticweb.owlapi6.model.OWLObjectOneOf;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi6.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi6.model.OWLObjectUnionOf;
@@ -540,6 +542,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             addPairwise(axiom, axiom.classExpressions(), OWL_EQUIVALENT_CLASS.getIRI());
         } else {
             axiom.splitToAnnotatedPairs().stream().sorted().forEach(ax -> ax.accept(this));
+            processIfNotAnonymous(axiom.getOperandsAsList().stream()
+                .filter(OWLClassExpression::isNamed).map(OWLClassExpression::asOWLClass));
         }
     }
 
@@ -579,6 +583,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             addPairwise(axiom, axiom.properties(), OWL_EQUIVALENT_PROPERTY.getIRI());
         } else {
             axiom.splitToAnnotatedPairs().stream().sorted().forEach(ax -> ax.accept(this));
+            processIfNotAnonymous(
+                axiom.getOperandsAsList().stream().filter(OWLObjectPropertyExpression::isNamed)
+                    .map(OWLObjectPropertyExpression::asOWLObjectProperty));
         }
     }
 
@@ -664,6 +671,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             addPairwise(axiom, axiom.properties(), OWL_EQUIVALENT_PROPERTY.getIRI());
         } else {
             axiom.splitToAnnotatedPairs().stream().sorted().forEach(ax -> ax.accept(this));
+            processIfNotAnonymous(
+                axiom.getOperandsAsList().stream().filter(OWLDataPropertyExpression::isNamed)
+                    .map(OWLDataPropertyExpression::asOWLDataProperty));
         }
     }
 
@@ -712,6 +722,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         axiom.splitToAnnotatedPairs().forEach(a -> addSingleTripleAxiom(a,
             a.getOperandsAsList().get(0), OWL_SAME_AS.getIRI(), a.getOperandsAsList().get(1)));
         processIfAnonymous(axiom.individuals(), axiom);
+        processIfNotAnonymous(axiom.getOperandsAsList().stream().filter(OWLIndividual::isNamed)
+            .map(OWLIndividual::asOWLNamedIndividual));
     }
 
     @Override
@@ -1274,6 +1286,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private void processIfAnonymous(OWLIndividual ind) {
         process(ind, x -> true);
+    }
+
+    private void processIfNotAnonymous(Stream<OWLEntity> inds) {
+        inds.forEach(graph::addRootIRIs);
     }
 
     private void addPairwise(OWLAxiom axiom, Stream<? extends OWLObject> objects, IRI iri) {

@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -38,6 +39,7 @@ import org.semanticweb.owlapi6.documents.RDFResource;
 import org.semanticweb.owlapi6.documents.RDFResourceBlankNode;
 import org.semanticweb.owlapi6.documents.RDFTriple;
 import org.semanticweb.owlapi6.model.IRI;
+import org.semanticweb.owlapi6.model.OWLEntity;
 import org.semanticweb.owlapi6.vocab.OWLRDFVocabulary;
 
 /**
@@ -51,6 +53,7 @@ public class RDFGraph implements Serializable {
         Arrays.asList(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
+    private final Set<OWLEntity> rootIRIs = new HashSet<>();
     private final Set<RDFTriple> triples = createLinkedSet();
     private final Map<RDFNode, RDFNode> remappedNodes = createMap();
     @Nullable
@@ -238,5 +241,24 @@ public class RDFGraph implements Serializable {
     @Nullable
     public RDFResource getOntology() {
         return ontology;
+    }
+
+    /**
+     * Some graphs have multiple root entities, i.e., sameAs(a1, a2, a3) axioms are turned to
+     * {@code (a1 sameAs a2), (a2 sameAs a3)} because of RDF limitations. To render all triples, a1
+     * and a2 must be rendered; usual process would render only a1, and so a3 would be lost.
+     * 
+     * @param i root IRI for this graph
+     */
+    public void addRootIRIs(OWLEntity i) {
+        rootIRIs.add(i);
+    }
+
+    /**
+     * @param toSkip entity to skip
+     * @return root entities, minus the one to be skipped, sorted
+     */
+    public Stream<OWLEntity> getRootIRIs(OWLEntity toSkip) {
+        return rootIRIs.stream().filter(x -> !toSkip.equals(x)).sorted();
     }
 }
