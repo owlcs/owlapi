@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage{breqn}
 \parskip 0pt
 \parindent 0pt
 \oddsidemargin 0cm

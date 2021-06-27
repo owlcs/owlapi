@@ -79,6 +79,7 @@ public class LatexStorer implements OWLStorer {
         try {
             LatexWriter wr = new LatexWriter(w);
             wr.write("\\documentclass{article}\n");
+            w.write("\\usepackage{breqn}\n");
             wr.write("\\parskip 0pt\n");
             wr.write("\\parindent 0pt\n");
             wr.write("\\oddsidemargin 0cm\n");

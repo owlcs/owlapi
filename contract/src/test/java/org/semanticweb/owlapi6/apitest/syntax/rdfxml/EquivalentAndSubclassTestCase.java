@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -15,7 +15,7 @@ package org.semanticweb.owlapi6.apitest.syntax.rdfxml;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.TestFiles;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
@@ -34,13 +34,13 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 /**
  * Tests the loading of a single ontology multiple times, using the same ontologyIRI in the
  * {@link OWLOntologyID} as that used in the actual ontology that is being imported.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class EquivalentAndSubclassTestCase extends TestBase {
+class EquivalentAndSubclassTestCase extends TestBase {
 
     @Test
-    public void testRoundtrip() throws Exception {
+    void testRoundtrip() {
         // given
         OWLOntology o = loadOntologyFromString(TestFiles.equivalentAndSubclasses,
             new ManchesterSyntaxDocumentFormat());
@@ -49,7 +49,7 @@ public class EquivalentAndSubclassTestCase extends TestBase {
         equal(o, o2);
     }
 
-    public static void relax(OWLOntology ontology) {
+    static void relax(OWLOntology ontology) {
         Set<OWLAxiom> newAxioms = new HashSet<>();
         ontology.axioms(AxiomType.EQUIVALENT_CLASSES).forEach(ax -> {
             ax.operands().forEach(x -> {
@@ -94,7 +94,7 @@ public class EquivalentAndSubclassTestCase extends TestBase {
             }
         } else if (x instanceof OWLObjectIntersectionOf) {
             ((OWLObjectIntersectionOf) x).operands()
-                .forEach(op -> svfs.addAll(getSomeValuesFromAncestor(op, dataFactory)));
+            .forEach(op -> svfs.addAll(getSomeValuesFromAncestor(op, dataFactory)));
         }
         return svfs;
     }
@@ -105,7 +105,7 @@ public class EquivalentAndSubclassTestCase extends TestBase {
             cs.add(x.asOWLClass());
         } else if (x instanceof OWLObjectIntersectionOf) {
             ((OWLObjectIntersectionOf) x).operands()
-                .forEach(op -> cs.addAll(getNamedAncestors(op)));
+            .forEach(op -> cs.addAll(getNamedAncestors(op)));
         }
         return cs;
     }

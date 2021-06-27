@@ -2,9 +2,10 @@ package org.semanticweb.owlapi6.apitest.imports;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.zip.ZipException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLOntology;
@@ -12,59 +13,23 @@ import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.utility.AutoIRIMapper;
 import org.semanticweb.owlapi6.utility.OWLZipClosureIRIMapper;
 
-public class OWLZipClosureIRIMapperTestCase extends TestBase {
-    protected IRI dIRI = df.getIRI("http://test.org/complexImports/D.owl");
+class OWLZipClosureIRIMapperTestCase extends TestBase {
+    static final IRI dIRI = iri("http://test.org/complexImports/", "D.owl");
 
-    @Test
-    public void shouldLoadClosureWithYaml()
-        throws ZipException, IOException, OWLOntologyCreationException {
-        File file2 = new File(RESOURCES, "owlzipwithyaml.zip");
+    @ParameterizedTest
+    @ValueSource(strings = {"owlzipwithyaml.zip", "owlzipwithfolders.zip", "owlzipwithcatalog.zip",
+        "owlzipnoindex.zip",})
+    void shouldLoadClosure(String child) throws OWLOntologyCreationException, IOException {
+        File file2 = new File(RESOURCES, child);
         m1.getIRIMappers().add(new AutoIRIMapper(imports(), true, df));
         OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
-        OWLZipClosureIRIMapper source = new OWLZipClosureIRIMapper(file2, df);
-        m.getIRIMappers().add(source);
+        m.getIRIMappers().add(new OWLZipClosureIRIMapper(file2, df));
         OWLOntology loadOntology = m.loadOntology(dIRI);
         equal(loadOntology, test);
     }
 
     @Test
-    public void shouldLoadClosureWithProperties()
-        throws ZipException, IOException, OWLOntologyCreationException {
-        File file2 = new File(RESOURCES, "owlzipwithfolders.zip");
-        m1.getIRIMappers().add(new AutoIRIMapper(imports(), true, df));
-        OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
-        OWLZipClosureIRIMapper source = new OWLZipClosureIRIMapper(file2, df);
-        m.getIRIMappers().add(source);
-        OWLOntology loadOntology = m.loadOntology(dIRI);
-        equal(loadOntology, test);
-    }
-
-    @Test
-    public void shouldLoadClosureWithCatalog()
-        throws ZipException, IOException, OWLOntologyCreationException {
-        File file2 = new File(RESOURCES, "owlzipwithcatalog.zip");
-        m1.getIRIMappers().add(new AutoIRIMapper(imports(), true, df));
-        OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
-        OWLZipClosureIRIMapper source = new OWLZipClosureIRIMapper(file2, df);
-        m.getIRIMappers().add(source);
-        OWLOntology loadOntology = m.loadOntology(dIRI);
-        equal(loadOntology, test);
-    }
-
-    @Test
-    public void shouldMapIRIsWithoutIndex()
-        throws ZipException, IOException, OWLOntologyCreationException {
-        File file2 = new File(RESOURCES, "owlzipnoindex.zip");
-        m1.getIRIMappers().add(new AutoIRIMapper(imports(), true, df));
-        OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
-        OWLZipClosureIRIMapper source = new OWLZipClosureIRIMapper(file2, df);
-        m.getIRIMappers().add(source);
-        OWLOntology loadOntology = m.loadOntology(dIRI);
-        equal(loadOntology, test);
-    }
-
-    @Test
-    public void shouldMapIRIsWithAutoIRIMapper() throws OWLOntologyCreationException {
+    void shouldMapIRIsWithAutoIRIMapper() throws OWLOntologyCreationException {
         File file2 = new File(RESOURCES, "owlzipnoindex.zip");
         m1.getIRIMappers().add(new AutoIRIMapper(imports(), true, df));
         OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
@@ -73,11 +38,11 @@ public class OWLZipClosureIRIMapperTestCase extends TestBase {
         equal(loadOntology, test);
     }
 
-    protected File imports() {
+    private File imports() {
         return new File(RESOURCES, "imports");
     }
 
-    protected File d() {
+    private File d() {
         return new File(RESOURCES, "/imports/D.owl");
     }
 }

@@ -3,13 +3,13 @@
  */
 package org.semanticweb.owlapi6.riotest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.net.URISyntaxException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.documents.FileDocumentSource;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
@@ -25,10 +25,10 @@ import org.semanticweb.owlapi6.rioformats.RioRDFXMLDocumentFormatFactory;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class RioParserTestCase extends TestBase {
+class RioParserTestCase extends TestBase {
 
-    @Before
-    public void setUpManager() {
+    @BeforeEach
+    void setUpManager() {
         // Use non-Rio storers
         // limit to Rio parsers for RioParserImpl Test
         // testManager = OWLOntologyManagerFactoryRegistry
@@ -46,7 +46,7 @@ public class RioParserTestCase extends TestBase {
      * OWLOntologyDocumentSource, org.semanticweb.owlapi6.model.OWLOntology)}
      */
     @Test
-    public void testParse() throws Exception {
+    void testParse() throws Exception {
         OWLOntology owlapiOntologyPrimer = getAnonymousOWLOntology();
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLDocumentFormat format =
@@ -57,7 +57,7 @@ public class RioParserTestCase extends TestBase {
         // OWLOntology ontology = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager().createOntology(
         OWLOntology ontology = m1.createOntology(
-            df.getIRI("http://protege.stanford.edu/plugins/owl/owl-library/", "koala.owl"));
+            iri("http://protege.stanford.edu/plugins/owl/owl-library/", "koala.owl"));
         OWLDocumentFormat rioOntologyFormat =
             getStream("/koala.owl").acceptParser(rioParser, ontology, config);
         assertEquals(new RioRDFXMLDocumentFormat(), rioOntologyFormat);
@@ -71,7 +71,7 @@ public class RioParserTestCase extends TestBase {
      * OWLOntologyDocumentSource, org.semanticweb.owlapi6.model.OWLOntology)}
      */
     @Test
-    public void testParsePrimer() throws Exception {
+    void testParsePrimer() throws Exception {
         OWLOntology owlapiOntologyPrimer = getAnonymousOWLOntology();
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLDocumentFormat format = getStream("/primer.rdfxml.xml").acceptParser(owlapiParser,
@@ -82,7 +82,7 @@ public class RioParserTestCase extends TestBase {
         // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager()
         OWLOntology rioOntologyPrimer =
-            m1.createOntology(df.getIRI("http://example.com/owl/", "families"));
+            m1.createOntology(iri("http://example.com/owl/", "families"));
         OWLDocumentFormat rioOntologyFormat =
             getStream("/primer.rdfxml.xml").acceptParser(rioParser, rioOntologyPrimer, config);
         assertEquals(new RioRDFXMLDocumentFormat(), rioOntologyFormat);
@@ -107,7 +107,7 @@ public class RioParserTestCase extends TestBase {
      * OWLOntologyDocumentSource, org.semanticweb.owlapi6.model.OWLOntology)}
      */
     @Test
-    public void testParsePrimerSubset() throws Exception {
+    void testParsePrimerSubset() throws Exception {
         // XXX this test does not work yet
         // output:
         // Rio:
@@ -128,7 +128,7 @@ public class RioParserTestCase extends TestBase {
         // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager().createOntology(
         OWLOntology rioOntologyPrimer =
-            m1.createOntology(df.getIRI("http://example.com/owl/", "families"));
+            m1.createOntology(iri("http://example.com/owl/", "families"));
         OWLDocumentFormat rioOntologyFormat = getStream("/rioParserTest1-minimal.rdf")
             .acceptParser(rioParser, rioOntologyPrimer, config);
         assertEquals(new RioRDFXMLDocumentFormat(), rioOntologyFormat);

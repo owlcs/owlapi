@@ -1,12 +1,8 @@
 package org.semanticweb.owlapi6.apitest.syntax;
 
-import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi6.apitest.TestEntities.A;
-import static org.semanticweb.owlapi6.apitest.TestEntities.B;
-import static org.semanticweb.owlapi6.apitest.TestEntities.C;
-import static org.semanticweb.owlapi6.apitest.TestEntities.D;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.TestFiles;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.dlsyntax.renderer.DLSyntaxObjectRenderer;
@@ -15,10 +11,10 @@ import org.semanticweb.owlapi6.formats.DLSyntaxHTMLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
-public class DLSyntaxTestCase extends TestBase {
+class DLSyntaxTestCase extends TestBase {
 
     @Test
-    public void testCommasOnDisjointThree() {
+    void testCommasOnDisjointThree() {
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C);
         DLSyntaxObjectRenderer visitor = new DLSyntaxObjectRenderer();
         String render = visitor.render(ax);
@@ -26,7 +22,7 @@ public class DLSyntaxTestCase extends TestBase {
     }
 
     @Test
-    public void testCommasOnDisjointTwo() {
+    void testCommasOnDisjointTwo() {
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B);
         DLSyntaxObjectRenderer visitor = new DLSyntaxObjectRenderer();
         String render = visitor.render(ax);
@@ -34,7 +30,7 @@ public class DLSyntaxTestCase extends TestBase {
     }
 
     @Test
-    public void testCommasOnDisjointFour() {
+    void testCommasOnDisjointFour() {
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C, D);
         DLSyntaxObjectRenderer visitor = new DLSyntaxObjectRenderer();
         String render = visitor.render(ax);
@@ -42,34 +38,37 @@ public class DLSyntaxTestCase extends TestBase {
     }
 
     @Test
-    public void testCommasOnDisjointThreeOntologyHTML() throws Exception {
+    void testCommasOnDisjointThreeOntologyHTML() throws Exception {
         OWLOntology o = m.createOntology(df.getIRI("urn:test:onto"));
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C);
         o.addAxiom(ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
-        assertEquals(TestFiles.disjointInHTML, render.replace(System.getProperty("line.separator"), "\n"));
+        assertEquals(TestFiles.disjointInHTML,
+            render.replace(System.getProperty("line.separator"), "\n"));
     }
 
     @Test
-    public void testCommasOnDisjointTwoOntologyHTML() throws Exception {
+    void testCommasOnDisjointTwoOntologyHTML() throws Exception {
         OWLOntology o = m.createOntology(df.getIRI("urn:test:onto"));
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B);
         o.addAxiom(ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
-        assertEquals(TestFiles.disjointTwoInHTML, render.replace(System.getProperty("line.separator"), "\n"));
+        assertEquals(TestFiles.disjointTwoInHTML,
+            render.replace(System.getProperty("line.separator"), "\n"));
     }
 
     @Test
-    public void testCommasOnDisjointFourOntologyHTML() throws Exception {
+    void testCommasOnDisjointFourOntologyHTML() throws Exception {
         OWLOntology o = m.createOntology(df.getIRI("urn:test:onto"));
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C, D);
         o.addAxiom(ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
-        assertEquals(TestFiles.disjoint4InHTML, render.replace(System.getProperty("line.separator"), "\n"));
+        assertEquals(TestFiles.disjoint4InHTML,
+            render.replace(System.getProperty("line.separator"), "\n"));
     }
 
     @Test
-    public void testCommasOnDisjointThreeOntology() throws Exception {
+    void testCommasOnDisjointThreeOntology() throws Exception {
         OWLOntology o = m.createOntology();
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C);
         o.addAxiom(ax);
@@ -78,7 +77,7 @@ public class DLSyntaxTestCase extends TestBase {
     }
 
     @Test
-    public void testCommasOnDisjointTwoOntology() throws Exception {
+    void testCommasOnDisjointTwoOntology() throws Exception {
         OWLOntology o = m.createOntology();
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B);
         o.addAxiom(ax);
@@ -87,7 +86,7 @@ public class DLSyntaxTestCase extends TestBase {
     }
 
     @Test
-    public void testCommasOnDisjointFourOntology() throws Exception {
+    void testCommasOnDisjointFourOntology() throws Exception {
         OWLOntology o = m.createOntology();
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C, D);
         o.addAxiom(ax);

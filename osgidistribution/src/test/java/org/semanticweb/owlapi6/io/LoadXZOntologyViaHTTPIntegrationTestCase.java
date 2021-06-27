@@ -2,10 +2,10 @@ package org.semanticweb.owlapi6.io;/**
  * Created by ses on 3/12/15.
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.experimental.categories.Category;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
 import org.semanticweb.owlapi6.model.IRI;

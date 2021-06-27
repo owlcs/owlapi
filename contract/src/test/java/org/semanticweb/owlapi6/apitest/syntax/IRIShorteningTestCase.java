@@ -1,14 +1,14 @@
 package org.semanticweb.owlapi6.apitest.syntax;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.documents.StringDocumentTarget;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
@@ -20,26 +20,23 @@ import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi6.model.OWLNamedIndividual;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi6.vocab.Namespaces;
 import org.semanticweb.owlapi6.vocab.OWLRDFVocabulary;
 
 /**
  * Created by ses on 6/23/14.
  */
-public class IRIShorteningTestCase extends TestBase {
+class IRIShorteningTestCase extends TestBase {
 
     @Test
-    public void shouldAllowColonColon() throws OWLOntologyStorageException {
+    void shouldAllowColonColon() {
         OWLOntology o = ontForShortening();
         assertionOnShortening(o, new TurtleDocumentFormatFactory());
         assertionOnShortening(o, new FunctionalSyntaxDocumentFormatFactory());
         assertionOnShortening(o, new ManchesterSyntaxDocumentFormatFactory());
     }
 
-    protected void assertionOnShortening(OWLOntology o, OWLDocumentFormatFactory f)
-        throws OWLOntologyStorageException {
+    protected void assertionOnShortening(OWLOntology o, OWLDocumentFormatFactory f) {
         OWLDocumentFormat turtle = f.createFormat();
         o.getPrefixManager().withPrefix("s", "urn:test:individual#");
         StringDocumentTarget saveOntology = saveOntology(o, turtle);
@@ -49,38 +46,38 @@ public class IRIShorteningTestCase extends TestBase {
     }
 
     protected OWLOntology ontForShortening() {
-        OWLOntology o = getOWLOntology(df.getIRI("urn:ontology:testcolons"));
+        OWLOntology o = getOWLOntology(iri("urn:ontology:", "testcolons"));
         o.addAxiom(df.getOWLDeclarationAxiom(
-            df.getOWLNamedIndividual(df.getIRI("urn:test:individual#colona:colonb"))));
+            df.getOWLNamedIndividual(iri("urn:test:individual#colona:", "colonb"))));
         return o;
     }
 
     @Test
-    public void testIriEqualToPrefixNotShortenedInFSS() throws Exception {
+    void testIriEqualToPrefixNotShortenedInFSS() {
         OWLOntology o = createTestOntology();
         String output = saveOntology(o, new FunctionalSyntaxDocumentFormat()).toString();
         matchExact(output, "NamedIndividual(rdf:)", false);
         matchExact(output, "NamedIndividual(rdf:type)", true);
     }
 
-    public void matchExact(String output, String text, boolean expected) {
+    void matchExact(String output, String text, boolean expected) {
         String message = "should " + (expected ? "" : "not ") + "contain" + text + " - " + output;
-        assertTrue(message, expected == output.contains(text));
+        assertTrue(expected == output.contains(text), message);
     }
 
     @Test
-    public void testIriEqualToPrefixShortenedInTurtle() throws Exception {
+    void testIriEqualToPrefixShortenedInTurtle() {
         OWLOntology o = createTestOntology();
         String output = saveOntology(o, new TurtleDocumentFormat()).toString();
         matchRegex(output, "rdf:\\s+rdf:type\\s+owl:NamedIndividual");
         matchRegex(output, "rdf:type\\s+rdf:type\\s+owl:NamedIndividual");
     }
 
-    public void matchRegex(String output, String regex) {
+    void matchRegex(String output, String regex) {
         Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(output);
         boolean found = matcher.find();
-        assertTrue("should  contain " + regex + " - " + output, found);
+        assertTrue(found, "should  contain " + regex + " - " + output);
     }
 
     private OWLOntology createTestOntology() {
@@ -93,9 +90,8 @@ public class IRIShorteningTestCase extends TestBase {
     }
 
     @Test
-    public void shouldOutputURNsCorrectly()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(df.getIRI("urn:ontology:", "test"));
+    void shouldOutputURNsCorrectly() {
+        OWLOntology o = getOWLOntology(iri("urn:ontology:", "test"));
         o.add(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty("urn:test#", "p"),
             df.getOWLNamedIndividual("urn:test#", "test"),
             df.getOWLNamedIndividual("urn:other:", "test")));

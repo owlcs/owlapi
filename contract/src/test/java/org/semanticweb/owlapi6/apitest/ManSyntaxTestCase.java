@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -15,28 +15,18 @@ package org.semanticweb.owlapi6.apitest;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.documents.StringDocumentTarget;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 
-@RunWith(Parameterized.class)
-public class ManSyntaxTestCase extends TestBase {
+class ManSyntaxTestCase extends TestBase {
 
-    private final OWLAxiom object;
-
-    public ManSyntaxTestCase(OWLAxiom object) {
-        this.object = object;
-    }
-
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         Collection<Object[]> toReturn = new ArrayList<>();
         Builder b = new Builder();
         toReturn.add(new Object[] {b.ann()});
@@ -113,9 +103,10 @@ public class ManSyntaxTestCase extends TestBase {
         return toReturn;
     }
 
-    @Test
-    public void testAssertion() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = setupManager().createOntology(df.getIRI("urn:test:manchester"));
+    @ParameterizedTest
+    @MethodSource("getData")
+    void testAssertion(OWLAxiom object) throws OWLOntologyCreationException {
+        OWLOntology o = setupManager().createOntology(iri("urn:test:", "manchester"));
         o.addAxiom(object);
         StringDocumentTarget s = saveOntology(o, new ManchesterSyntaxDocumentFormat());
         loadOntologyFromString(s, new ManchesterSyntaxDocumentFormat());

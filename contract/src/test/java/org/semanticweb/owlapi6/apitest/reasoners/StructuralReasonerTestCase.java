@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,18 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest.reasoners;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentClasses;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.OWLNothing;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.OWLThing;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SubClassOf;
-import static org.semanticweb.owlapi6.apitest.TestEntities.A;
-import static org.semanticweb.owlapi6.apitest.TestEntities.B;
-import static org.semanticweb.owlapi6.apitest.TestEntities.C;
-import static org.semanticweb.owlapi6.apitest.TestEntities.D;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLOntology;
@@ -37,22 +33,7 @@ import org.semanticweb.owlapi6.reasoner.structural.StructuralReasoner;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-public class StructuralReasonerTestCase extends TestBase {
-
-    @Test
-    public void testClassHierarchy() {
-        OWLOntology ont = getOWLOntology();
-        ont.addAxiom(EquivalentClasses(OWLThing(), C));
-        ont.addAxiom(SubClassOf(B, A));
-        ont.addAxiom(EquivalentClasses(A, D));
-        StructuralReasoner reasoner =
-            new StructuralReasoner(ont, new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
-        testClassHierarchy(reasoner);
-        ont.add(SubClassOf(A, OWLThing()));
-        testClassHierarchy(reasoner);
-        ont.remove(SubClassOf(A, OWLThing()));
-        testClassHierarchy(reasoner);
-    }
+class StructuralReasonerTestCase extends TestBase {
 
     private static void testClassHierarchy(StructuralReasoner reasoner) {
         NodeSet<OWLClass> subsOfA = reasoner.getSubClasses(A, true);
@@ -81,5 +62,20 @@ public class StructuralReasonerTestCase extends TestBase {
         Node<OWLClass> equivsOfTop = reasoner.getEquivalentClasses(OWLThing());
         assertEquals(2, equivsOfTop.entities().count());
         assertTrue(equivsOfTop.entities().anyMatch(x -> x.equals(C)));
+    }
+
+    @Test
+    void testClassHierarchy() {
+        OWLOntology ont = getOWLOntology();
+        ont.addAxiom(EquivalentClasses(OWLThing(), C));
+        ont.addAxiom(SubClassOf(B, A));
+        ont.addAxiom(EquivalentClasses(A, D));
+        StructuralReasoner reasoner =
+            new StructuralReasoner(ont, new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
+        testClassHierarchy(reasoner);
+        ont.add(SubClassOf(A, OWLThing()));
+        testClassHierarchy(reasoner);
+        ont.remove(SubClassOf(A, OWLThing()));
+        testClassHierarchy(reasoner);
     }
 }

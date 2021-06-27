@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.examples;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.semanticweb.owlapi6.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi6.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi6.search.Searcher.sup;
@@ -32,8 +32,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
 import org.semanticweb.owlapi6.apitest.TestFiles;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
@@ -283,7 +283,7 @@ public class Examples extends TestBase {
         OWLOntology ontology = load(manager);
         // Now save a local copy of the ontology. (Specify a path appropriate to
         // your setup)
-        File file = folder.newFile("owlapiexamples_saving.owl");
+        File file = new File(folder, "owlapiexamples_saving.owl");
         ontology.saveOntology(df.getIRI(file.toURI()));
         // By default ontologies are saved in the format from which they were
         // loaded. In this case the ontology was loaded from rdf/xml. We
@@ -527,7 +527,7 @@ public class Examples extends TestBase {
         // }
         // Now save a copy to another location in OWL/XML format (i.e. disregard
         // the format that the ontology was loaded in).
-        IRI destination = df.getIRI(folder.newFile("owlapiexample_example1.xml"));
+        IRI destination = df.getIRI(new File(folder, "owlapiexample_example1.xml"));
         ontology.saveOntology(new OWLXMLDocumentFormat(), destination);
     }
 
@@ -1056,7 +1056,7 @@ public class Examples extends TestBase {
         // to get the restrictions on quokka we need to obtain the
         // subclass axioms for quokka.
         ont.subClassAxiomsForSubClass(quokka)
-            .forEach(ax -> ax.getSuperClass().accept(restrictionVisitor));
+        .forEach(ax -> ax.getSuperClass().accept(restrictionVisitor));
         // Ask our superclass to accept a visit from the RestrictionVisitor
         // - if it is an existential restriction then our restriction visitor
         // will answer it - if not our visitor will ignore it
@@ -1269,7 +1269,7 @@ public class Examples extends TestBase {
      *
      * @throws Exception exception
      */
-    @Ignore("This test is ignored. We do not want to fetch stuff from the network just to run a unit test for an example")
+    @Disabled("This test is ignored. We do not want to fetch stuff from the network just to run a unit test for an example")
     @Test
     public void shouldUseIRIMappers() throws Exception {
         IRI mgedOntologyIri =
@@ -1314,7 +1314,7 @@ public class Examples extends TestBase {
         // folder and maps their IRIs to their locations in this folder We
         // specify a directory/folder where the ontologies are located. In this
         // case we've just specified the tmp directory.
-        File file = folder.newFolder();
+        File file = new File(folder, "folder");
         // We can also specify a flag to indicate whether the directory should
         // be searched recursively.
         OWLOntologyIRIMapper autoIRIMapper = new AutoIRIMapper(file, false, df);
@@ -1732,7 +1732,7 @@ public class Examples extends TestBase {
                 processedClasses.add(ce);
                 for (OWLOntology ont : onts) {
                     ont.subClassAxiomsForSubClass(ce)
-                        .forEach(ax -> ax.getSuperClass().accept(this));
+                    .forEach(ax -> ax.getSuperClass().accept(this));
                 }
             }
         }

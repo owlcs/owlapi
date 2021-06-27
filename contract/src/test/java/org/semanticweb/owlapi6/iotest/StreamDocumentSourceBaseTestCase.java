@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi6.iotest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import java.io.ByteArrayInputStream;
@@ -8,17 +8,17 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.documents.ReaderDocumentSource;
 import org.semanticweb.owlapi6.documents.StreamDocumentSourceBase;
 import org.semanticweb.owlapi6.io.OWLParser;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
 
-public class StreamDocumentSourceBaseTestCase {
+class StreamDocumentSourceBaseTestCase {
 
     @Test
-    public void shouldCreateRewindableReaderWithKnownContent() {
+    void shouldCreateRewindableReaderWithKnownContent() {
         String input =
             "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
                 + "<owl:Ontology/>\n"

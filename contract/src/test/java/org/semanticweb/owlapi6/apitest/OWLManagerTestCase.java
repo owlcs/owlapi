@@ -6,8 +6,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.lang.reflect.Field;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
 import org.semanticweb.owlapi6.impl.OWLOntologyManagerImpl;
 import org.semanticweb.owlapi6.impl.concurrent.ConcurrentOWLOntologyImpl;
@@ -17,29 +17,29 @@ import org.semanticweb.owlapi6.model.OWLOntologyManager;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
-public class OWLManagerTestCase {
+class OWLManagerTestCase {
 
     private OWLOntologyManager manager;
     private OWLOntology ontology;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         manager = OWLManager.createOWLOntologyManager();
         ontology = manager.createOntology();
     }
 
     @Test
-    public void shouldCreateOntologyWithCorrectManager() {
+    void shouldCreateOntologyWithCorrectManager() {
         assertThat(ontology.getOWLOntologyManager(), is(manager));
     }
 
     @Test
-    public void shouldCreateConcurrentOntologyByDefault() {
+    void shouldCreateConcurrentOntologyByDefault() {
         assertThat(ontology, is(instanceOf(ConcurrentOWLOntologyImpl.class)));
     }
 
     @Test
-    public void shouldShareReadWriteLockOnConcurrentManager() throws Exception {
+    void shouldShareReadWriteLockOnConcurrentManager() throws Exception {
         // Nasty, but not sure of another way to do this without exposing it in
         // the interface
         manager = OWLManager.createConcurrentOWLOntologyManager();

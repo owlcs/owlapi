@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,13 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest.ontology;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.change.SetOntologyIDData;
 import org.semanticweb.owlapi6.model.OWLOntology;
@@ -29,15 +29,15 @@ import org.semanticweb.owlapi6.model.SetOntologyID;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-public class SetOntologyIDDataTestCase extends TestBase {
+class SetOntologyIDDataTestCase extends TestBase {
 
     private final OWLOntology mockOntology = mock(OWLOntology.class);
     private final OWLOntologyID mockOntologyID = df.getOWLOntologyID();
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         when(mockOntology.getOntologyID()).thenReturn(df
-            .getOWLOntologyID(df.getIRI("urn:test:", "onto1"), df.getIRI("urn:test:", "onto1_1")));
+            .getOWLOntologyID(iri("urn:test:", "onto1"), iri("urn:test:", "onto1_1")));
     }
 
     private SetOntologyIDData createData() {
@@ -45,7 +45,7 @@ public class SetOntologyIDDataTestCase extends TestBase {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         SetOntologyIDData data1 = createData();
         SetOntologyIDData data2 = createData();
         assertEquals(data1, data2);
@@ -53,20 +53,20 @@ public class SetOntologyIDDataTestCase extends TestBase {
     }
 
     @Test
-    public void testGettersReturnNotNull() {
+    void testGettersReturnNotNull() {
         SetOntologyIDData data = createData();
         assertNotNull(data.getNewId());
         assertNotNull(data.createOntologyChange(mockOntology));
     }
 
     @Test
-    public void testGettersEquals() {
+    void testGettersEquals() {
         SetOntologyIDData data = createData();
         assertEquals(mockOntologyID, data.getNewId());
     }
 
     @Test
-    public void testCreateOntologyChange() {
+    void testCreateOntologyChange() {
         SetOntologyIDData data = createData();
         SetOntologyID change = data.createOntologyChange(mockOntology);
         assertEquals(mockOntology, change.getOntology());
@@ -74,7 +74,7 @@ public class SetOntologyIDDataTestCase extends TestBase {
     }
 
     @Test
-    public void testOntologyChangeSymmetry() {
+    void testOntologyChangeSymmetry() {
         SetOntologyIDData data = createData();
         SetOntologyID change = new SetOntologyID(mockOntology, mockOntologyID);
         assertEquals(change.getChangeData(), data);

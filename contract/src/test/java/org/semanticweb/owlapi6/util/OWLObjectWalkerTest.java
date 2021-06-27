@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi6.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi6.utility.AnnotationWalkingControl.DONT_WALK_ANNOTATIONS;
 import static org.semanticweb.owlapi6.utility.AnnotationWalkingControl.WALK_ANNOTATIONS;
 import static org.semanticweb.owlapi6.utility.AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY;
@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
@@ -26,7 +26,7 @@ import org.semanticweb.owlapi6.utility.OWLObjectWalker;
 /**
  * Created by ses on 8/15/15.
  */
-public class OWLObjectWalkerTest extends TestBase {
+class OWLObjectWalkerTest extends TestBase {
 
     private OWLAnnotation world;
     private OWLAnnotation cruelWorld;
@@ -55,7 +55,7 @@ public class OWLObjectWalkerTest extends TestBase {
         assertEquals(expected, visitedAnnotations);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         ap = df.getOWLAnnotationProperty(iri("ap"));
         cruelWorld = df.getOWLAnnotation(ap, df.getOWLLiteral("cruel world"));

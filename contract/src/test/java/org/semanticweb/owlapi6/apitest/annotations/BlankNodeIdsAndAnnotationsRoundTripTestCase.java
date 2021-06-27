@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -16,7 +16,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi6.apitest.baseclasses.AbstractRoundTrippingTestCase;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
+import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi6.model.AxiomType;
@@ -37,8 +41,7 @@ import org.semanticweb.owlapi6.rioformats.RioRDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.rioformats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi6.rioformats.TrigDocumentFormat;
 
-public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTrippingTestCase {
-
+class BlankNodeIdsAndAnnotationsRoundTripTestCase extends TestBase {
     private final OWLAnnotation ann1 = df.getRDFSComment("test for anon class in object position");
     private final OWLAnnotation ann2 = df.getRDFSComment("test for named class in object position");
     private final OWLAnnotation ann3 =
@@ -70,9 +73,7 @@ public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTr
             new NQuadsDocumentFormat(), new TurtleDocumentFormat(), new RioTurtleDocumentFormat(),
             new RioRDFXMLDocumentFormat()));
 
-    @Override
-    protected OWLOntology createOntology() {
-        OWLOntology ont1 = getOWLOntology();
+    protected OWLOntology blankNodeIdsAndAnnotationsRoundTripTestCase(OWLOntology ont1) {
         ont1.add(
             df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(c4), a, Arrays.asList(ann1)),
             df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(c5), a, Arrays.asList(ann5)),
@@ -93,8 +94,7 @@ public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTr
         // Axioms without annotations are lost if identical axioms with
         // annotations exist.
         // This is not a code defect, it's a consequence of the mapping specs.
-        // To allow roundtripping to work and help verify the rest of the axioms
-        // are accurately
+        // To allow roundtripping to work and help verify the rest of the axioms are accurately
         // written out and parsed, this method adds the lost unannotated axioms.
         if (singleAxiomsLost.contains(ont2.getFormat())) {
             OWLIndividual i = ont2.axioms(AxiomType.CLASS_ASSERTION)
@@ -106,5 +106,20 @@ public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTr
             }
         }
         return super.equal(ont1, ont2);
+    }
+
+    @ParameterizedTest
+    @MethodSource("formats")
+    void testFormat(OWLDocumentFormat d) {
+        roundTripOntology(blankNodeIdsAndAnnotationsRoundTripTestCase(getOWLOntology()), d);
+    }
+
+    @Test
+    void roundTripRDFXMLAndFunctionalShouldBeSame() {
+        OWLOntology o = blankNodeIdsAndAnnotationsRoundTripTestCase(getOWLOntology());
+        OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
+        equal(o, o1);
+        equal(o1, o2);
     }
 }

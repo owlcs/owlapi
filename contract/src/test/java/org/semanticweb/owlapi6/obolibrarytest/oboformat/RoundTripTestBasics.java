@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi6.obolibrarytest.oboformat;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -17,7 +17,7 @@ import org.semanticweb.owlapi6.obolibrary.oboformat.diff.Diff;
 import org.semanticweb.owlapi6.obolibrary.oboformat.diff.OBODocDiffer;
 import org.semanticweb.owlapi6.obolibrary.oboformat.model.OBODoc;
 
-public class RoundTripTestBasics extends OboFormatTestBasics {
+class RoundTripTestBasics extends OboFormatTestBasics {
 
     private static boolean compareOWLOntologiesPartial(OWLOntology oo, OWLOntology oo2,
         boolean isExpectRoundtrip, @Nullable Collection<OWLAxiom> untranslatableAxioms) {
@@ -28,8 +28,7 @@ public class RoundTripTestBasics extends OboFormatTestBasics {
             }
             long expectedSize = oo.getAxiomCount();
             long foundSize = oo2.getAxiomCount();
-            assertEquals("Expected same number of axioms", expectedSize,
-                foundSize + untranslatedSize);
+            assertEquals(expectedSize, foundSize + untranslatedSize);
             return false;
         }
         return true;
@@ -53,7 +52,7 @@ public class RoundTripTestBasics extends OboFormatTestBasics {
         obodoc2.check();
         List<Diff> diffs = OBODocDiffer.getDiffs(obodoc, obodoc2);
         if (isExpectRoundtrip) {
-            assertEquals("Expected no diffs but " + diffs, 0, diffs.size());
+            assertEquals(0, diffs.size(), "Expected no diffs but " + diffs);
         }
         return diffs;
     }

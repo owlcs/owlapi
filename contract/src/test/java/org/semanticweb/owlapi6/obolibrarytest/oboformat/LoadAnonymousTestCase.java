@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi6.obolibrarytest.oboformat;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Annotation;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Class;
@@ -20,10 +20,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.TestFiles;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
-import org.semanticweb.owlapi6.documents.StringDocumentSource;
 import org.semanticweb.owlapi6.formats.OBODocumentFormat;
 import org.semanticweb.owlapi6.model.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi6.model.OWLAnnotationAssertionAxiom;
@@ -35,13 +34,12 @@ import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLLiteral;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
 
-public class LoadAnonymousTestCase extends TestBase {
+class LoadAnonymousTestCase extends TestBase {
 
-    private static final String OBO_UO = "http://purl.obolibrary.org/obo/uo#";
     private static final String OBO = "http://purl.obolibrary.org/obo/";
+    private static final String OBO_UO = "http://purl.obolibrary.org/obo/uo#";
     private static final String OBO_IN_OWL = "http://www.geneontology.org/formats/oboInOwl#";
 
     private static OWLLiteral literal(String s) {
@@ -62,13 +60,11 @@ public class LoadAnonymousTestCase extends TestBase {
     }
 
     @Test
-    public void shouldLoad() throws OWLOntologyCreationException {
-        StringDocumentSource streamDocumentSource =
-            new StringDocumentSource(TestFiles.loadOboAnonymous, new OBODocumentFormat());
+    void shouldLoad() {
         OntologyConfigurator loaderConfig = new OntologyConfigurator()
             .setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
-        OWLOntology ontology =
-            m1.loadOntologyFromOntologyDocument(streamDocumentSource, loaderConfig);
+        OWLOntology ontology = loadOntologyFromString(TestFiles.loadOboAnonymous,
+            new OBODocumentFormat(), loaderConfig);
         OWLAnnotationProperty date = ap(OBO_IN_OWL, "date");
         OWLAnnotationProperty mpathSlim = ap(OBO_UO, "mpath_slim");
         OWLAnnotationProperty subsetProperty = ap(OBO_IN_OWL, "SubsetProperty");

@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,15 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest.annotations;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.TestFiles;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.documents.StringDocumentSource;
@@ -34,15 +34,15 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.SWRLAtom;
 import org.semanticweb.owlapi6.model.SWRLVariable;
 
-public class SWRLAnnotationTestCase extends TestBase {
+class SWRLAnnotationTestCase extends TestBase {
 
     private static final String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
     protected OWLClass a = Class(IRI(NS + "#", "A"));
     protected OWLClass b = Class(IRI(NS + "#", "B"));
     protected OWLAxiom axiom;
 
-    @Before
-    public void setUpAtoms() {
+    @BeforeEach
+    void setUpAtoms() {
         SWRLVariable x = df.getSWRLVariable(NS + "#", "x");
         SWRLAtom atom1 = df.getSWRLClassAtom(a, x);
         SWRLAtom atom2 = df.getSWRLClassAtom(b, x);
@@ -57,7 +57,7 @@ public class SWRLAnnotationTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripAnnotation() throws Exception {
+    void shouldRoundTripAnnotation() {
         OWLOntology ontology = createOntology();
         assertTrue(ontology.containsAxiom(axiom));
         StringDocumentTarget saveOntology = saveOntology(ontology);
@@ -65,14 +65,14 @@ public class SWRLAnnotationTestCase extends TestBase {
         assertTrue(ontology.containsAxiom(axiom));
     }
 
-    public OWLOntology createOntology() {
+    OWLOntology createOntology() {
         OWLOntology ontology = getOWLOntology();
         ontology.add(axiom);
         return ontology;
     }
 
     @Test
-    public void replicateFailure() throws Exception {
+    void replicateFailure() {
         String input = TestFiles.HEAD + " rdf:ID=\"test-table5-prp-inv2-rule\"" + TestFiles.TAIL;
         OWLOntology ontology = loadOntologyFromString(
             new StringDocumentSource(input, "test", new RDFXMLDocumentFormat(), null));
@@ -81,7 +81,7 @@ public class SWRLAnnotationTestCase extends TestBase {
     }
 
     @Test
-    public void replicateSuccess() throws Exception {
+    void replicateSuccess() {
         String input = TestFiles.HEAD + TestFiles.TAIL;
         OWLOntology ontology = loadOntologyFromString(
             new StringDocumentSource(input, "test", new RDFXMLDocumentFormat(), null));

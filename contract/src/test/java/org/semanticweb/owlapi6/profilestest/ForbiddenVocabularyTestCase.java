@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,14 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.profilestest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.TestFiles;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
@@ -34,7 +34,7 @@ import org.semanticweb.owlapi6.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi6.profiles.violations.UseOfReservedVocabularyForAnnotationPropertyIRI;
 import org.semanticweb.owlapi6.utility.OWLObjectPropertyManager;
 
-public class ForbiddenVocabularyTestCase extends TestBase {
+class ForbiddenVocabularyTestCase extends TestBase {
 
     private static final String URN_TEST = "urn:test:";
     OWLObjectProperty father = df.getOWLObjectProperty(URN_TEST, "hasFather");
@@ -43,7 +43,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
     OWLObjectProperty uncle = df.getOWLObjectProperty(URN_TEST, "hasUncle");
 
     @Test
-    public void shouldFindViolation() {
+    void shouldFindViolation() {
         OWLOntology o = loadOntologyFromString(TestFiles.violation, new RDFXMLDocumentFormat());
         OWL2DLProfile p = new OWL2DLProfile();
         OWLProfileReport checkOntology = p.checkOntology(o);
@@ -53,7 +53,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
     }
 
     @Test
-    public void testGenIdGalenFragment() {
+    void testGenIdGalenFragment() {
         OWLOntology o = loadOntologyFromString(TestFiles.galenFragment, new RDFXMLDocumentFormat());
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(o);
@@ -61,7 +61,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
     }
 
     @Test
-    public void testOWLEL() {
+    void testOWLEL() {
         OWLOntology o = loadOntologyFromString(TestFiles.ontology, new RDFXMLDocumentFormat());
         OWL2RLProfile p = new OWL2RLProfile();
         OWLProfileReport report = p.checkOntology(o);
@@ -69,16 +69,16 @@ public class ForbiddenVocabularyTestCase extends TestBase {
     }
 
     @Test
-    public void shouldCauseViolationsWithUseOfPropertyInChain() throws OWLOntologyCreationException {
+    void shouldCauseViolationsWithUseOfPropertyInChain() throws OWLOntologyCreationException {
         OWLOntology o = m.createOntology();
         o.addAxiom(df.getOWLDeclarationAxiom(father));
         o.addAxiom(df.getOWLDeclarationAxiom(brother));
         o.addAxiom(df.getOWLDeclarationAxiom(child));
         o.addAxiom(df.getOWLDeclarationAxiom(uncle));
-        OWLSubPropertyChainOfAxiom brokenAxiom1 = df.getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
-            uncle);
-        OWLSubPropertyChainOfAxiom brokenAxiom2 = df.getOWLSubPropertyChainOfAxiom(Arrays.asList(child, uncle),
-            brother);
+        OWLSubPropertyChainOfAxiom brokenAxiom1 =
+            df.getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother), uncle);
+        OWLSubPropertyChainOfAxiom brokenAxiom2 =
+            df.getOWLSubPropertyChainOfAxiom(Arrays.asList(child, uncle), brother);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(o);
         o.addAxiom(brokenAxiom1);
         o.addAxiom(brokenAxiom2);
@@ -95,14 +95,14 @@ public class ForbiddenVocabularyTestCase extends TestBase {
     }
 
     @Test
-    public void shouldNotCauseViolations() throws OWLOntologyCreationException {
+    void shouldNotCauseViolations() throws OWLOntologyCreationException {
         OWLOntology o = m.createOntology();
         o.addAxiom(df.getOWLDeclarationAxiom(father));
         o.addAxiom(df.getOWLDeclarationAxiom(brother));
         o.addAxiom(df.getOWLDeclarationAxiom(child));
         o.addAxiom(df.getOWLDeclarationAxiom(uncle));
-        OWLSubPropertyChainOfAxiom brokenAxiom1 = df.getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
-            uncle);
+        OWLSubPropertyChainOfAxiom brokenAxiom1 =
+            df.getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother), uncle);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(o);
         o.addAxiom(brokenAxiom1);
         assertTrue(manager.isLessThan(brother, uncle));
@@ -115,16 +115,18 @@ public class ForbiddenVocabularyTestCase extends TestBase {
     }
 
     @Test
-    public void shouldNotCauseViolationsInput1() {
-        OWLOntology o = loadOntologyFromString(TestFiles.forbiddenInput1, new RDFXMLDocumentFormat());
+    void shouldNotCauseViolationsInput1() {
+        OWLOntology o =
+            loadOntologyFromString(TestFiles.forbiddenInput1, new RDFXMLDocumentFormat());
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         assertTrue(violations.isEmpty());
     }
 
     @Test
-    public void shouldNotCauseViolationsInput2() {
-        OWLOntology o = loadOntologyFromString(TestFiles.forbiddenInput2, new RDFXMLDocumentFormat());
+    void shouldNotCauseViolationsInput2() {
+        OWLOntology o =
+            loadOntologyFromString(TestFiles.forbiddenInput2, new RDFXMLDocumentFormat());
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         assertTrue(violations.isEmpty());

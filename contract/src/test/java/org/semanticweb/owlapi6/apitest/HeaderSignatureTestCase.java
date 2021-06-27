@@ -1,12 +1,12 @@
 package org.semanticweb.owlapi6.apitest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi6.model.AddOntologyAnnotation;
@@ -19,10 +19,10 @@ import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 /**
  * Created by @ssz on 29.08.2020.
  */
-public class HeaderSignatureTestCase extends TestBase {
+class HeaderSignatureTestCase extends TestBase {
 
     @Test
-    public void testContainsAnnotationPropertyIssue928() throws OWLOntologyCreationException {
+    void testContainsAnnotationPropertyIssue928() throws OWLOntologyCreationException {
         OWLAnnotationProperty seeAlso = df.getRDFSSeeAlso();
         OWLDatatype intType = df.getIntegerOWLDatatype();
         OWLDatatype stringType = df.getStringOWLDatatype();
@@ -42,7 +42,7 @@ public class HeaderSignatureTestCase extends TestBase {
     }
 
     @Test
-    public void testContainsDatatypesInHeaderIssue965() {
+    void testContainsDatatypesInHeaderIssue965() {
         String s = "@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
             + "@prefix owl:   <http://www.w3.org/2002/07/owl#> .\n"
             + "@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n"

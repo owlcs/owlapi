@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.tutorialowled2011;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi6.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asUnorderedSet;
@@ -28,9 +28,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
 import org.semanticweb.owlapi6.apitest.TestFiles;
 import org.semanticweb.owlapi6.documents.StreamDocumentTarget;
@@ -109,26 +108,19 @@ import org.semanticweb.owlapi6.vocab.OWLFacet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TutorialSnippetsTestCase {
+class TutorialSnippetsTestCase {
 
-    @Rule
-    public TemporaryFolder temporaryFolder = new TemporaryFolder();
-    protected static OWLDataFactory df = OWLManager.getOWLDataFactory();
+    @TempDir
+    public File temporaryFolder;
+    protected OWLDataFactory df = OWLManager.getOWLDataFactory();
     private static final Logger LOG = LoggerFactory.getLogger(TutorialSnippetsTestCase.class);
-    public static final IRI KOALA_IRI =
+    final IRI KOALA_IRI =
         df.getIRI("http://protege.stanford.edu/plugins/owl/owl-library/", "koala.owl");
-    public static final IRI EXAMPLE_IRI =
-        df.getIRI("http://www.semanticweb.org/ontologies/", "ont.owl");
-    public static final IRI EXAMPLE_SAVE_IRI =
-        df.getIRI("file:materializedOntologies/", "ont1290535967123.owl");
+    final IRI EXAMPLE_IRI = df.getIRI("http://www.semanticweb.org/ontologies/", "ont.owl");
+    final IRI EXAMPLE_SAVE_IRI = df.getIRI("file:materializedOntologies/", "ont1290535967123.owl");
     protected OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
-
-    public OWLOntologyManager create() {
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        PriorityCollection<OWLOntologyIRIMapper> iriMappers = m.getIRIMappers();
-        iriMappers.add(new AutoIRIMapper(new File("materializedOntologies"), true, df));
-        return m;
-    }
+    // a visitor to extract label annotations
+    protected LabelExtractor le = new LabelExtractor();
 
     private static OWLOntology loadPizzaOntology(OWLOntologyManager m)
         throws OWLOntologyCreationException {
@@ -136,15 +128,22 @@ public class TutorialSnippetsTestCase {
             new StringDocumentSource(TestFiles.KOALA, new RDFXMLDocumentFormat()));
     }
 
+    OWLOntologyManager create() {
+        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        PriorityCollection<OWLOntologyIRIMapper> iriMappers = m.getIRIMappers();
+        iriMappers.add(new AutoIRIMapper(new File("materializedOntologies"), true, df));
+        return m;
+    }
+
     @Test
-    public void testOntologyLoading() throws OWLException {
+    void testOntologyLoading() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         assertNotNull(o);
     }
 
     @Test
-    public void testOntologyLoadingFromStringSource() throws OWLException {
+    void testOntologyLoadingFromStringSource() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         OWLDocumentFormat format = verifyNotNull(o.getFormat());
@@ -161,14 +160,14 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testOntologyCreation() throws OWLException {
+    void testOntologyCreation() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         assertNotNull(o);
     }
 
     @Test
-    public void testShowClasses() throws OWLException {
+    void testShowClasses() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         assertNotNull(o);
@@ -179,11 +178,11 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testSaveOntology() throws Exception {
+    void testSaveOntology() throws Exception {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         assertNotNull(o);
-        File output = temporaryFolder.newFile("saved_pizza.owl");
+        File output = new File(temporaryFolder, "saved_pizza.owl");
         // Output will be deleted on exit; to keep temporary file replace
         // previous line with the following
         // File output = File.createTempFile("saved_pizza", ".owl");
@@ -200,11 +199,11 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testIRIMapper() throws Exception {
+    void testIRIMapper() throws Exception {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         // map the ontology IRI to a physical IRI (files for example)
         // Create the document IRI for our ontology
-        File output = temporaryFolder.newFile("saved_pizza.owl");
+        File output = new File(temporaryFolder, "saved_pizza.owl");
         // Output will be deleted on exit; to keep temporary file replace
         // previous line with the following
         // File output = File.createTempFile("saved_pizza", ".owl");
@@ -224,7 +223,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testAddAxioms() throws OWLException {
+    void testAddAxioms() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(KOALA_IRI);
         // class A and class B
@@ -242,7 +241,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testAssertedSuperclasses() throws OWLException {
+    void testAssertedSuperclasses() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         OWLClass quokkaCls = df.getOWLClass(KOALA_IRI + "#", "Quokka");
@@ -252,7 +251,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testSWRL() throws OWLException {
+    void testSWRL() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         // Get hold of references to class A and class B.
@@ -275,7 +274,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testIndividualAssertions() throws OWLException {
+    void testIndividualAssertions() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         // We want to state that matthew has a father who is peter.
@@ -297,7 +296,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testDelete() throws OWLException {
+    void testDelete() throws OWLException {
         // Delete individuals representing countries
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
@@ -313,12 +312,12 @@ public class TutorialSnippetsTestCase {
         // Now apply the changes
         o.applyChanges(remover.getChanges());
         long size = o.individualsInSignature().count();
-        assertTrue(previousNumberOfIndividuals + " supposed to be larger than " + size,
-            previousNumberOfIndividuals > size);
+        assertTrue(previousNumberOfIndividuals > size,
+            previousNumberOfIndividuals + " supposed to be larger than " + size);
     }
 
     @Test
-    public void testAddSomeRestriction() throws OWLException {
+    void testAddSomeRestriction() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         // all Heads have parts that are noses (at least one)
@@ -337,7 +336,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testDatatypeRestriction() throws OWLException {
+    void testDatatypeRestriction() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         // Adults have an age greater than 18.
@@ -354,7 +353,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testUnsatisfiableClasses() throws OWLException {
+    void testUnsatisfiableClasses() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // Create a console progress monitor. This will print the reasoner
@@ -385,7 +384,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testDescendants() throws OWLException {
+    void testDescendants() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // Create a console progress monitor. This will print the reasoner
@@ -413,7 +412,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testPetInstances() throws OWLException {
+    void testPetInstances() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // Create a console progress monitor. This will print the reasoner
@@ -446,7 +445,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testLookupRestrictions() throws OWLException {
+    void testLookupRestrictions() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // We want to examine the restrictions on all classes.
@@ -473,50 +472,8 @@ public class TutorialSnippetsTestCase {
         });
     }
 
-    /**
-     * Visits existential restrictions and collects the properties which are restricted.
-     */
-    private static class RestrictionVisitor implements OWLClassExpressionVisitor {
-
-        private final Set<OWLClass> processedClasses;
-        private final Set<OWLObjectPropertyExpression> restrictedProperties;
-        private final Set<OWLOntology> onts;
-
-        RestrictionVisitor(Set<OWLOntology> onts) {
-            restrictedProperties = new HashSet<>();
-            processedClasses = new HashSet<>();
-            this.onts = onts;
-        }
-
-        public Set<OWLObjectPropertyExpression> getRestrictedProperties() {
-            return restrictedProperties;
-        }
-
-        @Override
-        public void visit(OWLClass ce) {
-            // avoid cycles
-            if (!processedClasses.contains(ce)) {
-                // If we are processing inherited restrictions then
-                // we recursively visit named supers.
-                processedClasses.add(ce);
-                for (OWLOntology ont : onts) {
-                    ont.subClassAxiomsForSubClass(ce)
-                        .forEach(ax -> ax.getSuperClass().accept(this));
-                }
-            }
-        }
-
-        @Override
-        public void visit(OWLObjectSomeValuesFrom ce) {
-            // This method gets called when a class expression is an
-            // existential (someValuesFrom) restriction and it asks us to visit
-            // it
-            restrictedProperties.add(ce.getProperty());
-        }
-    }
-
     @Test
-    public void testComment() throws OWLException {
+    void testComment() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // We want to add a comment to the pizza class.
@@ -532,7 +489,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testVersionInfo() throws OWLException {
+    void testVersionInfo() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // We want to add a comment to the pizza class.
@@ -546,20 +503,20 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testReadAnnotations() throws OWLException {
+    void testReadAnnotations() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // Get the annotations on the class that use the label property
         Predicate<? super OWLAnnotation> portugueseLabelsOnly =
             a -> a.getValue().asLiteral().isPresent()
-                && a.getValue().asLiteral().get().hasLang("pt");
-        o.classesInSignature().flatMap(c -> getAnnotationObjects(c, o, df.getRDFSLabel()))
+            && a.getValue().asLiteral().get().hasLang("pt");
+            o.classesInSignature().flatMap(c -> getAnnotationObjects(c, o, df.getRDFSLabel()))
             .filter(portugueseLabelsOnly)
             .forEach(a -> assertNotNull(a.getValue().asLiteral().get().getLiteral()));
     }
 
     @Test
-    public void testInferredOntology() throws OWLException {
+    void testInferredOntology() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // Create the reasoner and classify the ontology
@@ -576,7 +533,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testMergedOntology() throws OWLException {
+    void testMergedOntology() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o1 = loadPizzaOntology(m);
         OWLOntology o2 = m.createOntology(EXAMPLE_IRI);
@@ -594,7 +551,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testOntologyWalker() throws OWLException {
+    void testOntologyWalker() throws OWLException {
         // How to use an ontology walker to walk the asserted structure of an
         // ontology.
         OWLOntologyManager m = create();
@@ -622,7 +579,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testMargherita() throws OWLException {
+    void testMargherita() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // For this particular ontology, we know that all class, properties
@@ -639,12 +596,12 @@ public class TutorialSnippetsTestCase {
 
     /**
      * Prints out the properties that instances of a class expression must have.
-     * 
+     *
      * @param o The ontology
      * @param reasoner The reasoner
      * @param cls The class expression
      */
-    private static void printProperties(OWLOntology o, OWLReasoner reasoner, OWLClass cls) {
+    private void printProperties(OWLOntology o, OWLReasoner reasoner, OWLClass cls) {
         o.objectPropertiesInSignature().forEach(prop -> {
             // To test whether an instance of A MUST have a property p with a
             // filler, check for the satisfiability of A and not (some p Thing)
@@ -663,7 +620,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testModularization() throws OWLException {
+    void testModularization() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // extract a module for all toppings.
@@ -686,7 +643,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testIndividual() throws OWLException {
+    void testIndividual() throws OWLException {
         // :Mary is an instance of the class :Person.
         OWLOntologyManager m = create();
         // The IRIs used here are taken from the OWL 2 Primer
@@ -707,7 +664,7 @@ public class TutorialSnippetsTestCase {
 
     @Test
     @SuppressWarnings("unused")
-    public void testDataRanges() throws OWLException {
+    void testDataRanges() throws OWLException {
         // Data ranges are used as the types of literals, as the ranges for data
         // properties
         OWLOntologyManager m = create();
@@ -746,7 +703,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    public void testPropertyAssertions() throws OWLException {
+    void testPropertyAssertions() throws OWLException {
         // how to specify various property assertions for individuals
         OWLOntologyManager m = create();
         IRI ontologyIRI = df.getIRI("http://example.com/owl/families/", "");
@@ -782,8 +739,105 @@ public class TutorialSnippetsTestCase {
         printHierarchy(reasoner, clazz, 0, new HashSet<OWLClass>());
         /* Now print out any unsatisfiable classes */
         o.classesInSignature().filter(cl -> !reasoner.isSatisfiable(cl))
-            .forEach(cl -> assertNotNull(labelFor(cl, o)));
+        .forEach(cl -> assertNotNull(labelFor(cl, o)));
         reasoner.dispose();
+    }
+
+    private String labelFor(OWLEntity clazz, OWLOntology o) {
+        return getAnnotationObjects(clazz, o).map(a -> a.accept(le)).filter(v -> !v.isEmpty())
+            .findAny().orElseGet(() -> clazz.getIRI().toString());
+    }
+
+    public void printHierarchy(OWLReasoner reasoner, OWLClass clazz, int level,
+        Set<OWLClass> visited) {
+        // Only print satisfiable classes to skip Nothing
+        if (!visited.contains(clazz) && reasoner.isSatisfiable(clazz)) {
+            visited.add(clazz);
+            // for (int i = 0; i < level * 4; i++) {
+            // System.out.print(" ");
+            // }
+            // System.out.println(labelFor(clazz, reasoner.getRootOntology()));
+            /* Find the children and recurse */
+            NodeSet<OWLClass> subClasses = reasoner.getSubClasses(clazz, true);
+            subClasses.entities()
+            .forEach(child -> printHierarchy(reasoner, child, level + 1, visited));
+        }
+    }
+
+    @Test
+    void testHierarchy() throws OWLException {
+        OWLOntologyManager m = create();
+        OWLOntology o = loadPizzaOntology(m);
+        // Get Thing
+        OWLClass clazz = df.getOWLThing();
+        // System.out.println("Class : " + clazz);
+        // Print the hierarchy below thing
+        printHierarchy(o, clazz);
+    }
+
+    @Test
+    void testRendering() throws OWLException {
+        // Simple Rendering Example. Reads an ontology and then renders it.
+        OWLOntologyManager m = create();
+        OWLOntology o = loadPizzaOntology(m);
+        // Save using a different format
+        StreamDocumentTarget target = new StreamDocumentTarget(new ByteArrayOutputStream());
+        o.saveOntology(new FunctionalSyntaxDocumentFormat(), target);
+    }
+
+    @Test
+    void testCheckProfile() throws OWLException {
+        OWLOntologyManager m = create();
+        OWLOntology o = m.createOntology(KOALA_IRI);
+        // Available profiles: DL, EL, QL, RL, OWL2 (Full)
+        OWL2DLProfile profile = new OWL2DLProfile();
+        OWLProfileReport report = profile.checkOntology(o);
+        for (OWLProfileViolation v : report.getViolations()) {
+            // deal with violations
+            System.out.println(v);
+        }
+    }
+
+    /**
+     * Visits existential restrictions and collects the properties which are restricted.
+     */
+    private static class RestrictionVisitor implements OWLClassExpressionVisitor {
+
+        private final Set<OWLClass> processedClasses;
+        private final Set<OWLObjectPropertyExpression> restrictedProperties;
+        private final Set<OWLOntology> onts;
+
+        RestrictionVisitor(Set<OWLOntology> onts) {
+            restrictedProperties = new HashSet<>();
+            processedClasses = new HashSet<>();
+            this.onts = onts;
+        }
+
+        public Set<OWLObjectPropertyExpression> getRestrictedProperties() {
+            return restrictedProperties;
+        }
+
+        @Override
+        public void visit(OWLClass ce) {
+            // avoid cycles
+            if (!processedClasses.contains(ce)) {
+                // If we are processing inherited restrictions then
+                // we recursively visit named supers.
+                processedClasses.add(ce);
+                for (OWLOntology ont : onts) {
+                    ont.subClassAxiomsForSubClass(ce)
+                    .forEach(ax -> ax.getSuperClass().accept(this));
+                }
+            }
+        }
+
+        @Override
+        public void visit(OWLObjectSomeValuesFrom ce) {
+            // This method gets called when a class expression is an
+            // existential (someValuesFrom) restriction and it asks us to visit
+            // it
+            restrictedProperties.add(ce.getProperty());
+        }
     }
 
     public static class LoggingReasonerProgressMonitor implements ReasonerProgressMonitor {
@@ -818,64 +872,6 @@ public class TutorialSnippetsTestCase {
         @Override
         public void reasonerTaskBusy() {
             logger.info("Reasoner Task is busy");
-        }
-    }
-
-    // a visitor to extract label annotations
-    protected LabelExtractor le = new LabelExtractor();
-
-    private String labelFor(OWLEntity clazz, OWLOntology o) {
-        return getAnnotationObjects(clazz, o).map(a -> a.accept(le)).filter(v -> !v.isEmpty())
-            .findAny().orElseGet(() -> clazz.getIRI().toString());
-    }
-
-    public void printHierarchy(OWLReasoner reasoner, OWLClass clazz, int level,
-        Set<OWLClass> visited) {
-        // Only print satisfiable classes to skip Nothing
-        if (!visited.contains(clazz) && reasoner.isSatisfiable(clazz)) {
-            visited.add(clazz);
-            // for (int i = 0; i < level * 4; i++) {
-            // System.out.print(" ");
-            // }
-            // System.out.println(labelFor(clazz, reasoner.getRootOntology()));
-            /* Find the children and recurse */
-            NodeSet<OWLClass> subClasses = reasoner.getSubClasses(clazz, true);
-            subClasses.entities()
-                .forEach(child -> printHierarchy(reasoner, child, level + 1, visited));
-        }
-    }
-
-    @Test
-    public void testHierarchy() throws OWLException {
-        OWLOntologyManager m = create();
-        OWLOntology o = loadPizzaOntology(m);
-        // Get Thing
-        OWLClass clazz = df.getOWLThing();
-        // System.out.println("Class : " + clazz);
-        // Print the hierarchy below thing
-        printHierarchy(o, clazz);
-    }
-
-    @Test
-    public void testRendering() throws OWLException {
-        // Simple Rendering Example. Reads an ontology and then renders it.
-        OWLOntologyManager m = create();
-        OWLOntology o = loadPizzaOntology(m);
-        // Save using a different format
-        StreamDocumentTarget target = new StreamDocumentTarget(new ByteArrayOutputStream());
-        o.saveOntology(new FunctionalSyntaxDocumentFormat(), target);
-    }
-
-    @Test
-    public void testCheckProfile() throws OWLException {
-        OWLOntologyManager m = create();
-        OWLOntology o = m.createOntology(KOALA_IRI);
-        // Available profiles: DL, EL, QL, RL, OWL2 (Full)
-        OWL2DLProfile profile = new OWL2DLProfile();
-        OWLProfileReport report = profile.checkOntology(o);
-        for (OWLProfileViolation v : report.getViolations()) {
-            // deal with violations
-            System.out.println(v);
         }
     }
 }

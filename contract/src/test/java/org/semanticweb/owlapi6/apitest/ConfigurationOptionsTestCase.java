@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi6.apitest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi6.model.MissingImportHandlingStrategy.THROW_EXCEPTION;
 import static org.semanticweb.owlapi6.model.MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
 import static org.semanticweb.owlapi6.model.PriorityCollectionSorting.ON_SET_INJECTION_ONLY;
@@ -20,48 +20,35 @@ import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.SAVE
 import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.TREAT_DUBLINCORE_AS_BUILTIN;
 import static org.semanticweb.owlapi6.model.parameters.ConfigurationOptions.USE_NAMESPACE_ENTITIES;
 
-import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.List;
+import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi6.model.parameters.ConfigurationOptions;
 
-@RunWith(Parameterized.class)
-public class ConfigurationOptionsTestCase {
+class ConfigurationOptionsTestCase {
 
-    @Parameter(0)
-    public ConfigurationOptions config;
-    @Parameter(1)
-    public Object value;
-
-    @Parameters(name = "{0}")
-    public static List<Object[]> values() {
-        List<Object[]> toReturn = new ArrayList<>();
-        toReturn.add(new Object[] {CONNECTION_TIMEOUT, Integer.valueOf(20000)});
-        toReturn.add(new Object[] {INDENT_SIZE, Integer.valueOf(4)});
-        toReturn.add(new Object[] {INDENTING, Boolean.TRUE});
-        toReturn.add(new Object[] {LABELS_AS_BANNER, Boolean.FALSE});
-        toReturn.add(new Object[] {LOAD_ANNOTATIONS, Boolean.TRUE});
-        toReturn.add(new Object[] {PARSE_WITH_STRICT_CONFIGURATION, Boolean.FALSE});
-        toReturn.add(new Object[] {MISSING_IMPORT_HANDLING_STRATEGY, THROW_EXCEPTION});
-        toReturn.add(new Object[] {MISSING_ONTOLOGY_HEADER_STRATEGY, INCLUDE_GRAPH});
-        toReturn.add(new Object[] {PRIORITY_COLLECTION_SORTING, ON_SET_INJECTION_ONLY});
-        toReturn.add(new Object[] {REMAP_IDS, Boolean.TRUE});
-        toReturn.add(new Object[] {REPORT_STACK_TRACES, Boolean.TRUE});
-        toReturn.add(new Object[] {RETRIES_TO_ATTEMPT, Integer.valueOf(5)});
-        toReturn.add(new Object[] {SAVE_IDS, Boolean.FALSE});
-        toReturn.add(new Object[] {TREAT_DUBLINCORE_AS_BUILTIN, Boolean.TRUE});
-        toReturn.add(new Object[] {USE_NAMESPACE_ENTITIES, Boolean.FALSE});
-        return toReturn;
+    static Stream<Arguments> values() {
+        return Stream.of(Arguments.of(CONNECTION_TIMEOUT, Integer.valueOf(20000)),
+            Arguments.of(INDENT_SIZE, Integer.valueOf(4)), Arguments.of(INDENTING, Boolean.TRUE),
+            Arguments.of(LABELS_AS_BANNER, Boolean.FALSE),
+            Arguments.of(LOAD_ANNOTATIONS, Boolean.TRUE),
+            Arguments.of(PARSE_WITH_STRICT_CONFIGURATION, Boolean.FALSE),
+            Arguments.of(MISSING_IMPORT_HANDLING_STRATEGY, THROW_EXCEPTION),
+            Arguments.of(MISSING_ONTOLOGY_HEADER_STRATEGY, INCLUDE_GRAPH),
+            Arguments.of(PRIORITY_COLLECTION_SORTING, ON_SET_INJECTION_ONLY),
+            Arguments.of(REMAP_IDS, Boolean.TRUE), Arguments.of(REPORT_STACK_TRACES, Boolean.TRUE),
+            Arguments.of(RETRIES_TO_ATTEMPT, Integer.valueOf(5)),
+            Arguments.of(SAVE_IDS, Boolean.FALSE),
+            Arguments.of(TREAT_DUBLINCORE_AS_BUILTIN, Boolean.TRUE),
+            Arguments.of(USE_NAMESPACE_ENTITIES, Boolean.FALSE));
     }
 
-    @Test
-    public void shouldFindExpectedValue() {
+    @ParameterizedTest
+    @MethodSource("values")
+    void shouldFindExpectedValue(ConfigurationOptions config, Object value) {
         assertEquals(value,
             config.getValue(value.getClass(), new EnumMap<>(ConfigurationOptions.class)));
         assertEquals(value, config.getDefaultValue(value.getClass()));

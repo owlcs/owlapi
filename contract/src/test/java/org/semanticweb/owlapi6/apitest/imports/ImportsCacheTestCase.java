@@ -1,10 +1,10 @@
 package org.semanticweb.owlapi6.apitest.imports;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.contains;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.AddImport;
 import org.semanticweb.owlapi6.model.IRI;
@@ -14,18 +14,18 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10 Jul 16
  */
-public class ImportsCacheTestCase extends TestBase {
+class ImportsCacheTestCase extends TestBase {
 
     private OWLOntology ontA;
     private OWLOntology ontB;
     private IRI ontBDocIri;
     private OWLImportsDeclaration ontBDocumentIriImportsDeclaration;
 
-    @Before
-    public void setUpOntologies() throws Exception {
-        ontA = m.createOntology(df.getIRI("http://ont.com/ontA"));
-        ontB = m.createOntology(df.getIRI("http://ont.com/ontB"));
-        ontBDocIri = df.getIRI("http://docs.ont.com/ontB");
+    @BeforeEach
+    void setUpOntologies() throws Exception {
+        ontA = m.createOntology(iri("http://ont.com/", "ontA"));
+        ontB = m.createOntology(iri("http://ont.com/", "ontB"));
+        ontBDocIri = iri("http://docs.ont.com/ontB");
         ontBDocumentIriImportsDeclaration = df.getOWLImportsDeclaration(ontBDocIri);
     }
 
@@ -34,7 +34,7 @@ public class ImportsCacheTestCase extends TestBase {
      * document IRI is set BEFORE adding the imports declaration.
      */
     @Test
-    public void shouldRetrieveImportsClosureByDocumentIri() {
+    void shouldRetrieveImportsClosureByDocumentIri() {
         // Update the document IRI for ontB BEFORE we add the import
         m.setOntologyDocumentIRI(ontB, ontBDocIri);
         // OntA imports OntB by a document IRI rather than its ontology IRI
@@ -48,7 +48,7 @@ public class ImportsCacheTestCase extends TestBase {
      * document IRI is set AFTER adding the imports declaration.
      */
     @Test
-    public void shouldRetrieveImportsClosureByDocumentIriAfterDocumentIriChange() {
+    void shouldRetrieveImportsClosureByDocumentIriAfterDocumentIriChange() {
         // OntA imports OntB by a document IRI rather than its ontology IRI
         ontA.applyChange(new AddImport(ontA, ontBDocumentIriImportsDeclaration));
         // Update the document IRI for ontB (AFTER we haved added the import)

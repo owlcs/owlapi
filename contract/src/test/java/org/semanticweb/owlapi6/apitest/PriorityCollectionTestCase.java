@@ -1,11 +1,11 @@
 package org.semanticweb.owlapi6.apitest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.functional.renderer.FunctionalSyntaxStorerFactory;
 import org.semanticweb.owlapi6.io.OWLStorer;
 import org.semanticweb.owlapi6.krss2.renderer.KRSS2OWLSyntaxStorerFactory;
@@ -28,10 +28,10 @@ import org.semanticweb.owlapi6.rio.RioTrixStorerFactory;
 import org.semanticweb.owlapi6.rio.RioTurtleStorerFactory;
 import org.semanticweb.owlapi6.utilities.PriorityCollection;
 
-public class PriorityCollectionTestCase {
+class PriorityCollectionTestCase {
 
     @Test
-    public void shouldStoreStorers() {
+    void shouldStoreStorers() {
         List<OWLStorer> storers =
             Arrays.asList(new RioBinaryRdfStorerFactory().get(), new RioJsonLDStorerFactory().get(),
                 new RioJsonStorerFactory().get(), new RioN3StorerFactory().get(),
@@ -45,6 +45,6 @@ public class PriorityCollectionTestCase {
         PriorityCollection<OWLStorer> pc =
             new PriorityCollection<>(PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
         pc.set(storers);
-        assertEquals(pc.toString(), storers.size(), pc.size());
+        assertEquals(storers.size(), pc.size(), pc.toString());
     }
 }

@@ -7,7 +7,7 @@ import org.apache.felix.bundlerepository.Resolver;
 import org.apache.felix.bundlerepository.impl.RepositoryAdminImpl;
 import org.apache.felix.bundlerepository.impl.RequirementImpl;
 import org.apache.felix.bundlerepository.impl.ResolverImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;

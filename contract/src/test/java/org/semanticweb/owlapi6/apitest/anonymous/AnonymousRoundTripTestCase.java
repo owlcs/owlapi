@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest.anonymous;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.AnonymousIndividual;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Class;
@@ -22,32 +22,27 @@ import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
 
-import java.util.Collections;
-
-import org.junit.Test;
-import org.semanticweb.owlapi6.apitest.baseclasses.AbstractRoundTrippingTestCase;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLClass;
-import org.semanticweb.owlapi6.model.OWLClassExpression;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 
-public class AnonymousRoundTripTestCase extends AbstractRoundTrippingTestCase {
+class AnonymousRoundTripTestCase extends TestBase {
 
     @Test
-    public void shouldNotFailOnAnonymousOntologySearch() throws OWLOntologyCreationException {
+    void shouldNotFailOnAnonymousOntologySearch() throws OWLOntologyCreationException {
         m.createOntology(df.getOWLOntologyID());
         assertNull(m.getOntology(df.getOWLOntologyID()));
     }
 
     @Test
-    public void testRoundTrip() throws Exception {
+    void testRoundTrip() {
         String ns = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
         OWLClass a = Class(IRI(ns + "#", "A"));
         OWLAnonymousIndividual h = AnonymousIndividual();
@@ -64,19 +59,4 @@ public class AnonymousRoundTripTestCase extends AbstractRoundTrippingTestCase {
         equal(ontology, o);
     }
 
-    @Override
-    protected OWLOntology createOntology() {
-        OWLDataProperty dp = df.getOWLDataProperty("urn:test:anon#D");
-        OWLObjectProperty op = df.getOWLObjectProperty("urn:test:anon#O");
-        OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:test:anon#A2");
-        OWLAnonymousIndividual i = df.getOWLAnonymousIndividual("_:b0");
-        OWLAnnotation sub1 = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral("z1"));
-        OWLAnnotation an1 = df.getOWLAnnotation(ap, i, Collections.singletonList(sub1));
-        OWLClassExpression c1 = df.getOWLDataAllValuesFrom(dp, df.getBooleanOWLDatatype());
-        OWLClassExpression c2 = df.getOWLObjectSomeValuesFrom(op, df.getOWLThing());
-        OWLAxiom ax1 = df.getOWLSubClassOfAxiom(c1, c2, Collections.singletonList(an1));
-        OWLOntology ont1 = getOWLOntology();
-        ont1.add(ax1);
-        return ont1;
-    }
 }

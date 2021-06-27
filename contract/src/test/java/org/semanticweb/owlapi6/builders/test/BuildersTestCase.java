@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.builders.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,9 +22,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi6.builders.Builder;
 import org.semanticweb.owlapi6.builders.BuilderAnnotation;
 import org.semanticweb.owlapi6.builders.BuilderAnnotationAssertion;
@@ -212,52 +211,35 @@ import org.semanticweb.owlapi6.model.SWRLVariable;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 import org.semanticweb.owlapi6.vocab.OWLFacet;
 
-@RunWith(Parameterized.class)
-public class BuildersTestCase<Q> {
+class BuildersTestCase<Q> {
 
-    private static final String TEST = "test";
-    private static final String URN_TEST = "urn:test#";
-    protected static OWLDataFactory df = new OWLDataFactoryImpl();
-    protected static OWLAnnotationProperty ap = df.getOWLAnnotationProperty(URN_TEST, "ann");
-    protected static OWLObjectProperty op = df.getOWLObjectProperty(URN_TEST, "op");
-    protected static OWLDataProperty dp = df.getOWLDataProperty(URN_TEST, "dp");
-    protected static OWLLiteral lit = df.getOWLLiteral(false);
-    protected static IRI iri = df.getIRI(URN_TEST, "iri");
-    protected static Set<OWLAnnotation> anns =
-        new HashSet<>(Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral(TEST))));
-    protected static OWLClass ce = df.getOWLClass(URN_TEST, "c");
-    protected static OWLNamedIndividual i = df.getOWLNamedIndividual(URN_TEST, "i");
-    protected static OWLDatatype d = df.getBooleanOWLDatatype();
-    protected static Set<OWLDataProperty> dps =
-        new HashSet<>(Arrays.asList(df.getOWLDataProperty(iri), dp));
-    protected static Set<OWLObjectProperty> ops =
-        new HashSet<>(Arrays.asList(df.getOWLObjectProperty(iri), op));
-    protected static Set<OWLClass> classes = new HashSet<>(Arrays.asList(df.getOWLClass(iri), ce));
-    protected static Set<OWLNamedIndividual> inds =
-        new HashSet<>(Arrays.asList(i, df.getOWLNamedIndividual(iri)));
-    protected static SWRLDArgument var1 = df.getSWRLVariable(URN_TEST, "var1");
-    protected static SWRLIArgument var2 = df.getSWRLVariable(URN_TEST, "var2");
-    protected static SWRLAtom v1 = df.getSWRLBuiltInAtom(df.getIRI(URN_TEST, "v1"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable(URN_TEST, "var3"),
-            df.getSWRLVariable(URN_TEST, "var4")));
-    protected static SWRLAtom v2 = df.getSWRLBuiltInAtom(df.getIRI(URN_TEST, "v2"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable(URN_TEST, "var5"),
-            df.getSWRLVariable(URN_TEST, "var6")));
-    protected static Set<SWRLAtom> body = new HashSet<>(Arrays.asList(v1));
-    protected static Set<SWRLAtom> head = new HashSet<>(Arrays.asList(v2));
-    private final Builder<Q> b;
-    private final Q expected;
-    private final OWLOntologyManager m = getManager();
-    private final Prepare<Q> p;
+    static final String URN_TEST = "urn:test#";
+    static final String TEST = "test";
+    //@formatter:off
+    static final OWLDataFactory df = new OWLDataFactoryImpl();
+    static final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(URN_TEST, "ann");
+    static final OWLObjectProperty op = df.getOWLObjectProperty(URN_TEST, "op");
+    static final OWLDataProperty dp = df.getOWLDataProperty(URN_TEST, "dp");
+    static final OWLLiteral lit = df.getOWLLiteral(false);
+    static final IRI iri = df.getIRI(URN_TEST, "iri");
+    static final Set<OWLAnnotation> anns = new HashSet<>(Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral(TEST))));
+    static final OWLClass ce = df.getOWLClass(URN_TEST, "c");
+    static final OWLNamedIndividual i = df.getOWLNamedIndividual(URN_TEST, "i");
+    static final OWLDatatype d = df.getBooleanOWLDatatype();
+    static final Set<OWLDataProperty> dps = new HashSet<>(Arrays.asList(df.getOWLDataProperty(iri), dp));
+    static final Set<OWLObjectProperty> ops = new HashSet<>(Arrays.asList(df.getOWLObjectProperty(iri), op));
+    static final Set<OWLClass> classes = new HashSet<>(Arrays.asList(df.getOWLClass(iri), ce));
+    static final Set<OWLNamedIndividual> inds = new HashSet<>(Arrays.asList(i, df.getOWLNamedIndividual(iri)));
+    static final SWRLDArgument var1 = df.getSWRLVariable(URN_TEST, "var1");
+    static final SWRLIArgument var2 = df.getSWRLVariable(URN_TEST, "var2");
+    static final SWRLAtom v1 = df.getSWRLBuiltInAtom(df.getIRI(URN_TEST, "v1"), Arrays.asList((SWRLDArgument) df.getSWRLVariable(URN_TEST, "var3"), df.getSWRLVariable(URN_TEST, "var4")));
+    static final SWRLAtom v2 = df.getSWRLBuiltInAtom(df.getIRI(URN_TEST, "v2"), Arrays.asList((SWRLDArgument) df.getSWRLVariable(URN_TEST, "var5"), df.getSWRLVariable(URN_TEST, "var6")));
+    static final Set<SWRLAtom> body = new HashSet<>(Arrays.asList(v1));
+    static final Set<SWRLAtom> head = new HashSet<>(Arrays.asList(v2));
+    //@formatter:on
+    final OWLOntologyManager m = getManager();
 
-    public BuildersTestCase(Prepare<Q> p, Builder<Q> b, Q o) {
-        this.b = b;
-        expected = o;
-        this.p = p;
-    }
-
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         Collection<Object[]> toReturn = new ArrayList<>();
         //@formatter:off
         toReturn.add(new Object[] {(Prepare<OWLAnnotation>)                             x->new BuilderAnnotation(x, df),                     new BuilderAnnotation(df).withProperty(ap).withValue(lit),                                                                     df.getOWLAnnotation(ap, lit)});
@@ -352,7 +334,7 @@ public class BuildersTestCase<Q> {
         toReturn.add(new Object[] {(Prepare<OWLSymmetricObjectPropertyAxiom>)           x->new BuilderSymmetricObjectProperty(x,df),         new BuilderSymmetricObjectProperty(df).withProperty(op).withAnnotations(anns),                                          df.getOWLSymmetricObjectPropertyAxiom(op, anns)});
         toReturn.add(new Object[] {(Prepare<OWLTransitiveObjectPropertyAxiom>)          x->new BuilderTransitiveObjectProperty(x,df),        new BuilderTransitiveObjectProperty(df).withProperty(op).withAnnotations(anns),                                         df.getOWLTransitiveObjectPropertyAxiom(op, anns)});
         toReturn.add(new Object[] {(Prepare<OWLObjectUnionOf>)                          x->new BuilderUnionOf(x,df),                         new BuilderUnionOf(df).withItems(classes),                                                                                     df.getOWLObjectUnionOf(classes)});
-      //@formatter:on
+        //@formatter:on
         return toReturn;
     }
 
@@ -360,18 +342,19 @@ public class BuildersTestCase<Q> {
     private static OWLOntologyManager getManager() {
         OWLOntologyManager instance = new OWLOntologyManagerImpl(df, new ReentrantReadWriteLock());
         instance.getOntologyFactories()
-            .set(new OWLOntologyFactoryImpl((o, id, c) -> new OWLOntologyImpl(o, id, c)));
+        .set(new OWLOntologyFactoryImpl((o, id, c) -> new OWLOntologyImpl(o, id, c)));
         return instance;
     }
 
-    @Test
-    public void shouldTest() throws OWLOntologyCreationException {
+    @ParameterizedTest
+    @MethodSource("getData")
+    void shouldTest(Prepare<Q> p, Builder<Q> b, Q expected) throws OWLOntologyCreationException {
         assertEquals(expected, b.buildObject());
         if (expected instanceof OWLAxiom) {
             OWLOntology o = m.createOntology();
             b.applyChanges(o);
-            assertTrue(expected.toString() + " but " + o.toString(),
-                o.containsAxiom((OWLAxiom) expected));
+            assertTrue(o.containsAxiom((OWLAxiom) expected),
+                expected.toString() + " but " + o.toString());
         }
         Q created = p.build(expected).buildObject();
         assertEquals(expected.hashCode(), created.hashCode());

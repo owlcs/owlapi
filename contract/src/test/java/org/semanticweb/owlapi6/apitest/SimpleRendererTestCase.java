@@ -1,15 +1,15 @@
 package org.semanticweb.owlapi6.apitest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.utility.SimpleRenderer;
 
-public class SimpleRendererTestCase extends TestBase {
+class SimpleRendererTestCase extends TestBase {
 
     private static final String RESULT = "test:t";
     private static final String TEST = "test";
@@ -18,13 +18,13 @@ public class SimpleRendererTestCase extends TestBase {
     private final SimpleRenderer testSubject = new SimpleRenderer();
 
     @Test
-    public void shouldSetPrefixes() {
+    void shouldSetPrefixes() {
         testSubject.setPrefix(TEST, NS);
         assertEquals(RESULT, testSubject.render(T));
     }
 
     @Test
-    public void shouldCopyPrefixesFromFormat() {
+    void shouldCopyPrefixesFromFormat() {
         RDFXMLDocumentFormat f = new RDFXMLDocumentFormat();
         OWLOntology o = getOWLOntology();
         o.getOWLOntologyManager().setOntologyFormat(o, f);

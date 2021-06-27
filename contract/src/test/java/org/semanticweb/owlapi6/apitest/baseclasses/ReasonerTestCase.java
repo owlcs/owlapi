@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest.baseclasses;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentClasses;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.InverseObjectProperties;
@@ -23,22 +23,10 @@ import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.OWLNothing;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.OWLThing;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SubClassOf;
 import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
-import static org.semanticweb.owlapi6.apitest.TestEntities.A;
-import static org.semanticweb.owlapi6.apitest.TestEntities.B;
-import static org.semanticweb.owlapi6.apitest.TestEntities.C;
-import static org.semanticweb.owlapi6.apitest.TestEntities.D;
-import static org.semanticweb.owlapi6.apitest.TestEntities.E;
-import static org.semanticweb.owlapi6.apitest.TestEntities.F;
-import static org.semanticweb.owlapi6.apitest.TestEntities.G;
-import static org.semanticweb.owlapi6.apitest.TestEntities.K;
-import static org.semanticweb.owlapi6.apitest.TestEntities.P;
-import static org.semanticweb.owlapi6.apitest.TestEntities.Q;
-import static org.semanticweb.owlapi6.apitest.TestEntities.R;
-import static org.semanticweb.owlapi6.apitest.TestEntities.S;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi6.model.OWLOntology;
@@ -53,11 +41,11 @@ import org.semanticweb.owlapi6.reasoner.structural.StructuralReasonerFactory;
  * This test case creates a small ontology and tests the getters in the reasoner interface. The test
  * ontology isn't designed to test the correctness of reasoning results, rather it is designed to
  * test the reasoner returns the results in the form required by the OWL API reasoner interface.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-public class ReasonerTestCase extends TestBase {
+class ReasonerTestCase extends TestBase {
 
     private final OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
     private OWLReasoner reasoner;
@@ -72,28 +60,28 @@ public class ReasonerTestCase extends TestBase {
         return o;
     }
 
-    @Before
-    public void setUpOntoAndReasoner() {
+    @BeforeEach
+    void setUpOntoAndReasoner() {
         reasoner = reasonerFactory.createReasoner(createOntology());
     }
 
-    @After
-    public void tearDown() {
+    @AfterEach
+    void tearDown() {
         reasoner.dispose();
     }
 
     @Test
-    public void testGetName() {
+    void testGetName() {
         assertNotNull(reasoner.getReasonerName());
     }
 
     @Test
-    public void testGetVersion() {
+    void testGetVersion() {
         assertNotNull(reasoner.getReasonerVersion());
     }
 
     @Test
-    public void testGetTopClassNode() {
+    void testGetTopClassNode() {
         Node<OWLClass> node = reasoner.getTopClassNode();
         assertTrue(node.isTopNode());
         assertFalse(node.isBottomNode());
@@ -106,7 +94,7 @@ public class ReasonerTestCase extends TestBase {
     }
 
     @Test
-    public void testGetBottomClassNode() {
+    void testGetBottomClassNode() {
         Node<OWLClass> node = reasoner.getBottomClassNode();
         assertTrue(node.isBottomNode());
         assertFalse(node.isTopNode());
@@ -119,7 +107,7 @@ public class ReasonerTestCase extends TestBase {
     }
 
     @Test
-    public void testGetEquivalentClasses() {
+    void testGetEquivalentClasses() {
         Node<OWLClass> nTop = reasoner.getEquivalentClasses(OWLThing());
         assertNotNull(nTop);
         assertEquals(2, nTop.getSize());
@@ -177,7 +165,7 @@ public class ReasonerTestCase extends TestBase {
     }
 
     @Test
-    public void testGetSuperClassesDirect() {
+    void testGetSuperClassesDirect() {
         NodeSet<OWLClass> nsSupTop = reasoner.getSuperClasses(OWLThing(), true);
         assertNotNull(nsSupTop);
         assertTrue(nsSupTop.isEmpty());
@@ -231,7 +219,7 @@ public class ReasonerTestCase extends TestBase {
     }
 
     @Test
-    public void testGetSuperClasses() {
+    void testGetSuperClasses() {
         NodeSet<OWLClass> nsSupTop = reasoner.getSuperClasses(OWLThing(), false);
         assertNotNull(nsSupTop);
         assertTrue(nsSupTop.isEmpty());
@@ -305,7 +293,7 @@ public class ReasonerTestCase extends TestBase {
     }
 
     @Test
-    public void testGetSubClassesDirect() {
+    void testGetSubClassesDirect() {
         NodeSet<OWLClass> nsSubTop = reasoner.getSubClasses(OWLThing(), true);
         assertNotNull(nsSubTop);
         assertEquals(1, nsSubTop.nodes().count());
@@ -357,7 +345,7 @@ public class ReasonerTestCase extends TestBase {
     }
 
     @Test
-    public void testGetSubClasses() {
+    void testGetSubClasses() {
         NodeSet<OWLClass> nsSubTop = reasoner.getSubClasses(OWLThing(), false);
         assertNotNull(nsSubTop);
         assertEquals(5, nsSubTop.nodes().count());
@@ -429,7 +417,7 @@ public class ReasonerTestCase extends TestBase {
     }
 
     @Test
-    public void testIsSatisfiable() {
+    void testIsSatisfiable() {
         assertTrue(reasoner.isSatisfiable(OWLThing()));
         assertTrue(reasoner.isSatisfiable(G));
         assertTrue(reasoner.isSatisfiable(A));
@@ -442,27 +430,27 @@ public class ReasonerTestCase extends TestBase {
     }
 
     @Test
-    public void testComputeClassHierarchy() {
+    void testComputeClassHierarchy() {
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         assertTrue(reasoner.isPrecomputed(InferenceType.CLASS_HIERARCHY));
     }
 
     @Test
-    public void testGetTopObjectPropertyNode() {
+    void testGetTopObjectPropertyNode() {
         Node<OWLObjectPropertyExpression> node = reasoner.getTopObjectPropertyNode();
         assertNotNull(node);
         assertTrue(node.isTopNode());
     }
 
     @Test
-    public void testGetBottomObjectPropertyNode() {
+    void testGetBottomObjectPropertyNode() {
         Node<OWLObjectPropertyExpression> node = reasoner.getBottomObjectPropertyNode();
         assertNotNull(node);
         assertTrue(node.isBottomNode());
     }
 
     @Test
-    public void testGetSubObjectPropertiesDirect() {
+    void testGetSubObjectPropertiesDirect() {
         NodeSet<OWLObjectPropertyExpression> nsSubTop =
             reasoner.getSubObjectProperties(df.getOWLTopObjectProperty(), true);
         assertNotNull(nsSubTop);
@@ -514,7 +502,7 @@ public class ReasonerTestCase extends TestBase {
     }
 
     @Test
-    public void testGetSubObjectProperties() {
+    void testGetSubObjectProperties() {
         NodeSet<OWLObjectPropertyExpression> nsSubTop =
             reasoner.getSubObjectProperties(df.getOWLTopObjectProperty(), false);
         assertNotNull(nsSubTop);

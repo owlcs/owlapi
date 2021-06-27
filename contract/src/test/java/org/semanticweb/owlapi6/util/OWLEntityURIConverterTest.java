@@ -1,10 +1,10 @@
 package org.semanticweb.owlapi6.util;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.stream.Stream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLEntity;
@@ -48,10 +48,10 @@ public class OWLEntityURIConverterTest extends TestBase {
     }
 
     protected static void assertCorrectRename(OWLEntity x) {
-        assertTrue(x.getIRI().toString(), x.getIRI().getIRIString().contains(NEW_NAMESPACE));
+        assertTrue(x.getIRI().getIRIString().contains(NEW_NAMESPACE), x.getIRI().toString());
     }
 
     protected static void assertOldName(OWLEntity x) {
-        assertTrue(x.getIRI().toString(), x.getIRI().getIRIString().contains(OLD_NAMESPACE));
+        assertTrue(x.getIRI().getIRIString().contains(OLD_NAMESPACE), x.getIRI().toString());
     }
 }

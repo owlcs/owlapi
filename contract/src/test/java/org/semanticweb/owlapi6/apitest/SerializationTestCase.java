@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
 
 import java.io.ByteArrayInputStream;
@@ -27,8 +27,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.AddImport;
 import org.semanticweb.owlapi6.model.IRI;
@@ -55,15 +55,19 @@ import org.semanticweb.owlapi6.utility.AutoIRIMapper;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 import org.semanticweb.owlapi6.vocab.OWLFacet;
 
-public class SerializationTestCase extends TestBase {
+class SerializationTestCase extends TestBase {
 
     private static final String NS = "urn:test#";
     private final OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
     private final OWLDataProperty dp = df.getOWLDataProperty(NS, "dp");
+    private final OWLDataProperty dp1 = df.getOWLDataProperty(NS, "dp1");
+    private final OWLDataProperty dp2 = df.getOWLDataProperty(NS, "dp2");
     private final OWLObjectProperty op = df.getOWLObjectProperty(NS, "op");
-    private final IRI iri = df.getIRI(NS, "iri");
+    private final OWLObjectProperty op1 = df.getOWLObjectProperty(NS, "op1");
+    private final OWLObjectProperty op2 = df.getOWLObjectProperty(NS, "op2");
+    private final IRI iri = iri(NS, "iri");
     private final OWLLiteral owlliteral = df.getOWLLiteral(true);
-    private final OWLAnnotationSubject as = df.getIRI(NS, "i");
+    private final OWLAnnotationSubject as = iri(NS, "i");
     private final OWLDatatype owldatatype = df.getOWLDatatype(owl2datatype);
     private final OWLDataRange dr = df.getOWLDatatypeRestriction(owldatatype);
     private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(NS, "ap");
@@ -72,18 +76,20 @@ public class SerializationTestCase extends TestBase {
     private final OWLClassExpression c = df.getOWLClass(NS, "classexpression");
     private final PrefixManager prefixmanager = new PrefixManagerImpl();
     private final OWLIndividual ai = df.getOWLAnonymousIndividual();
+    private final OWLIndividual i1 = df.getOWLNamedIndividual(NS, "i1");
+    private final OWLIndividual i2 = df.getOWLNamedIndividual(NS, "i2");
     private final OWLAnnotationValue owlannotationvalue = owlliteral;
-    private final Set<OWLObjectPropertyExpression> setop = new HashSet<>(Arrays.asList(op, op));
-    private final Set<OWLDataPropertyExpression> setdp = new HashSet<>(Arrays.asList(dp, dp));
+    private final List<OWLObjectPropertyExpression> setop = Arrays.asList(op1, op2);
+    private final List<OWLDataPropertyExpression> setdp = Arrays.asList(dp1, dp2);
     private final List<OWLObjectPropertyExpression> listowlobjectproperties = Arrays.asList(op, op);
-    private final Set<OWLIndividual> setowlindividual = new HashSet<>(Arrays.asList(ai));
+    private final List<OWLIndividual> setowlindividual = Arrays.asList(i1, i2);
     private final Set<OWLPropertyExpression> setowlpropertyexpression =
         new HashSet<>(Arrays.asList(op, op));
-    IRI ontologyIRI;
     protected OWLOntology o;
+    IRI ontologyIRI;
 
-    @Before
-    public void setUp() throws OWLOntologyCreationException, URISyntaxException {
+    @BeforeEach
+    void setUp() throws OWLOntologyCreationException, URISyntaxException {
         m.getIRIMappers().add(new AutoIRIMapper(new File("."), false, df));
         o = m.loadOntologyFromOntologyDocument(
             new File(getClass().getResource("/pizza.owl").toURI()));
@@ -91,7 +97,7 @@ public class SerializationTestCase extends TestBase {
     }
 
     @Test
-    public void testrun() throws Exception {
+    void testrun() throws Exception {
         o.applyChange(new AddImport(o, df.getOWLImportsDeclaration(iri)));
         o.add(df.getOWLDeclarationAxiom(df.getOWLClass(iri)));
         o.add(sub(c, df.getOWLClass(string, prefixmanager)));

@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -28,7 +28,7 @@ import org.semanticweb.owlapi6.tutorial.LabelExtractor;
 /**
  * Simple example. Read an ontology, and display the class hierarchy. May use a reasoner to
  * calculate the hierarchy.
- * 
+ *
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
@@ -54,7 +54,7 @@ public final class SimpleHierarchyExample {
         printHierarchy(reasoner, clazz, 0);
         /* Now print out any unsatisfiable classes */
         ontology.classesInSignature().filter(c -> !reasoner.isSatisfiable(c))
-            .forEach(c -> out.println("XXX: " + labelFor(c)));
+        .forEach(c -> out.println("XXX: " + labelFor(c)));
         reasoner.dispose();
     }
 
@@ -87,7 +87,7 @@ public final class SimpleHierarchyExample {
             out.println(labelFor(clazz));
             /* Find the children and recurse */
             reasoner.getSubClasses(clazz, true).entities().filter(c -> !c.equals(clazz))
-                .forEach(c -> printHierarchy(reasoner, c, level + 1));
+            .forEach(c -> printHierarchy(reasoner, c, level + 1));
         }
     }
 

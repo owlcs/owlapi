@@ -1,7 +1,8 @@
 package org.semanticweb.owlapi6.apitest.syntax;
 
-import org.hamcrest.core.IsInstanceOf;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
@@ -20,9 +21,9 @@ import org.semanticweb.owlapi6.rioformats.RioRDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.rioformats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi6.rioformats.TrigDocumentFormat;
 
-public class IRITestCase extends TestBase {
+class IRITestCase extends TestBase {
     @Test
-    public void shouldParseIRIAndSkipPrefixedSpaceManchesterSyntax() {
+    void shouldParseIRIAndSkipPrefixedSpaceManchesterSyntax() {
         OWLDocumentFormat f = new ManchesterSyntaxDocumentFormat();
         String bad = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
             + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
@@ -33,8 +34,8 @@ public class IRITestCase extends TestBase {
         roundTrip(f, bad);
     }
 
-    @Test(expected = OWLRuntimeException.class)
-    public void shouldParseIRIAndSkipPrefixedSpaceTriG() {
+    @Test
+    void shouldParseIRIAndSkipPrefixedSpaceTriG() {
         OWLDocumentFormat f = new TrigDocumentFormat();
         String bad =
             "@prefix : <http://x.org#> .\n" + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
@@ -47,11 +48,11 @@ public class IRITestCase extends TestBase {
                 + "  <http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .\n"
                 + "}";
         // exception thrown by the parser
-        loadOntologyFromString(bad, f);
+        assertThrows(OWLRuntimeException.class, () -> loadOntologyFromString(bad, f));
     }
 
     @Test
-    public void shouldParseIRIAndSkipPrefixedSpaceRDFJSON() {
+    void shouldParseIRIAndSkipPrefixedSpaceRDFJSON() {
         OWLDocumentFormat f = new RDFJsonDocumentFormat();
         String bad = "{\n" + "  \"http://x.org\" : {\n"
             + "    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\" : [\n" + "      {\n"
@@ -68,19 +69,23 @@ public class IRITestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseIRIAndSkipPrefixedSpaceNTriples() {
+    void shouldParseIRIAndSkipPrefixedSpaceNTriples() {
         OWLDocumentFormat f = new NTriplesDocumentFormat();
         String bad =
             "<http://x.org> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .\n"
                 + "<http://x.org/myprop> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n"
                 + "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .";
-        expectedException.expect(OWLRuntimeException.class);
-        expectedException.expectCause(IsInstanceOf.instanceOf(UnparsableOntologyException.class));
-        roundTrip(f, bad);
+        assertThrows(UnparsableOntologyException.class, () -> {
+            try {
+                roundTrip(f, bad);
+            } catch (OWLRuntimeException e) {
+                throw (UnparsableOntologyException) e.getCause();
+            }
+        });
     }
 
-    @Test(expected = OWLRuntimeException.class)
-    public void shouldParseIRIAndSkipPrefixedSpaceRioRDFXML() {
+    @Test
+    void shouldParseIRIAndSkipPrefixedSpaceRioRDFXML() {
         OWLDocumentFormat f = new RioRDFXMLDocumentFormat();
 
         String bad = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<rdf:RDF\n"
@@ -97,11 +102,11 @@ public class IRITestCase extends TestBase {
             + "    <myprop xmlns=\"http://x.org/\" rdf:resource=\" https://example.org/bad-url\"/>\n"
             + "</rdf:Description>\n" + "</rdf:RDF>";
         // exception thrown by the parser
-        loadOntologyFromString(bad, f);
+        assertThrows(OWLRuntimeException.class, () -> loadOntologyFromString(bad, f));
     }
 
     @Test
-    public void shouldParseIRIAndSkipPrefixedSpaceRioTurtle() {
+    void shouldParseIRIAndSkipPrefixedSpaceRioTurtle() {
         OWLDocumentFormat f = new RioTurtleDocumentFormat();
 
         String bad =
@@ -123,7 +128,7 @@ public class IRITestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseIRIAndSkipPrefixedSpaceJSONLD() {
+    void shouldParseIRIAndSkipPrefixedSpaceJSONLD() {
         OWLDocumentFormat f = new RDFJsonLDDocumentFormat();
 
         String bad = "[ {\n" + "  \"@id\" : \"http://x.org\",\n"
@@ -136,19 +141,18 @@ public class IRITestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseIRIAndSkipPrefixedSpaceNQUADS() {
+    void shouldParseIRIAndSkipPrefixedSpaceNQUADS() {
         OWLDocumentFormat f = new NQuadsDocumentFormat();
         String bad =
             "<http://x.org> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .\n"
                 + "<http://x.org/myprop> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n"
                 + "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .";
-        expectedException.expect(OWLRuntimeException.class);
-        expectedException.expectCause(IsInstanceOf.instanceOf(UnparsableOntologyException.class));
-        roundTrip(f, bad);
+        assertThrowsWithCause(OWLRuntimeException.class, UnparsableOntologyException.class,
+            () -> roundTrip(f, bad));
     }
 
     @Test
-    public void shouldParseIRIAndSkipPrefixedSpaceOWLXML() {
+    void shouldParseIRIAndSkipPrefixedSpaceOWLXML() {
         OWLDocumentFormat f = new OWLXMLDocumentFormat();
         String bad = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<Ontology xmlns=\"http://www.w3.org/2002/07/owl#\"\n"
@@ -171,8 +175,8 @@ public class IRITestCase extends TestBase {
         roundTrip(f, bad);
     }
 
-    @Test(expected = OWLRuntimeException.class)
-    public void shouldParseIRIAndSkipPrefixedSpaceRDFXML() {
+    @Test
+    void shouldParseIRIAndSkipPrefixedSpaceRDFXML() {
         OWLDocumentFormat f = new RDFXMLDocumentFormat();
         String bad =
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<rdf:RDF xmlns=\"http://x.org#\"\n"
@@ -188,11 +192,11 @@ public class IRITestCase extends TestBase {
                 + "        <x:myprop rdf:resource=\" https://example.org/bad-url\"/>\n"
                 + "    </rdf:Description>\n" + "</rdf:RDF>";
         // exception thrown by the parser
-        loadOntologyFromString(bad, f);
+        assertThrows(OWLRuntimeException.class, () -> loadOntologyFromString(bad, f));
     }
 
-    @Test(expected = OWLRuntimeException.class)
-    public void shouldParseIRIAndSkipPrefixedSpaceTurtle() {
+    @Test
+    void shouldParseIRIAndSkipPrefixedSpaceTurtle() {
         OWLDocumentFormat f = new TurtleDocumentFormat();
         String bad =
             "@prefix : <http://x.org#> .\n" + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
@@ -204,11 +208,11 @@ public class IRITestCase extends TestBase {
                 + "<http://x.org/myprop> rdf:type owl:AnnotationProperty .\n"
                 + "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .";
         // exception thrown by the parser
-        loadOntologyFromString(bad, f);
+        assertThrows(OWLRuntimeException.class, () -> loadOntologyFromString(bad, f));
     }
 
     @Test
-    public void shouldParseIRIAndSkipPrefixedSpaceFunctionalSyntax() {
+    void shouldParseIRIAndSkipPrefixedSpaceFunctionalSyntax() {
         OWLDocumentFormat f = new FunctionalSyntaxDocumentFormat();
         String bad = "Prefix(:=<http://x.org#>)\n"
             + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"

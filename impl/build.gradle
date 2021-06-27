@@ -1,11 +1,11 @@
 
 description = 'OWLAPI :: Default Implementation'
 dependencies {
-  compile 'com.github.vsonnier:hppcrt:0.7.5'
-  compile ('com.github.ben-manes.caffeine:caffeine:[2.8.6,3)') {
+  implementation 'com.github.vsonnier:hppcrt:0.7.5'
+  implementation ('com.github.ben-manes.caffeine:caffeine:[3.0.2, 4)') {
     exclude module: "checker-qual"
     exclude module: "error_prone_annotations"
   }
-  compile project(':owlapi-api')
-  compile project(':owlapi-tools')
+  implementation project(':owlapi-api')
+  implementation project(':owlapi-tools')
 }

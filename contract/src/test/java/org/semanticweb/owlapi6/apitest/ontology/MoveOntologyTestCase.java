@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,16 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest.ontology;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.TestFiles;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.documents.StringDocumentSource;
@@ -36,14 +36,14 @@ import org.semanticweb.owlapi6.model.parameters.OntologyCopy;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class MoveOntologyTestCase extends TestBase {
+class MoveOntologyTestCase extends TestBase {
 
     private OWLOntology root;
     private OWLOntology imported;
 
-    @Before
-    public void setUp() throws OWLOntologyCreationException {
-        m.createOntology(df.getIRI("urn:test#", "test"));
+    @BeforeEach
+    void setUp() throws OWLOntologyCreationException {
+        m.createOntology(iri("urn:test#", "test"));
         IRI importedIRI = df.getIRI("urn:test#", "imported");
         imported = m.createOntology(importedIRI);
         root = m.createOntology(df.getIRI("urn:test#", "root"));
@@ -54,7 +54,7 @@ public class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    public void testMove() throws OWLOntologyCreationException {
+    void testMove() throws OWLOntologyCreationException {
         OWLOntology o = m.loadOntologyFromOntologyDocument(
             new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.MOVE);
@@ -67,7 +67,7 @@ public class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    public void testShallow() throws OWLOntologyCreationException {
+    void testShallow() throws OWLOntologyCreationException {
         OWLOntology o = m.loadOntologyFromOntologyDocument(
             new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.SHALLOW_COPY);
@@ -80,9 +80,8 @@ public class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    public void testDeep() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(
-            new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
+    void testDeep() throws OWLOntologyCreationException {
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.DEEP_COPY);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
@@ -94,7 +93,7 @@ public class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    public void testMoveImportsClosure() throws OWLOntologyCreationException {
+    void testMoveImportsClosure() throws OWLOntologyCreationException {
         assertTrue(m.contains(root));
         assertTrue(m.contains(imported));
         OWLOntology copy = m1.copyOntology(root, OntologyCopy.MOVE_ONTOLOGY_CLOSURE);
@@ -111,7 +110,7 @@ public class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    public void testShallowImportsClosure() throws OWLOntologyCreationException {
+    void testShallowImportsClosure() throws OWLOntologyCreationException {
         assertTrue(m.contains(root));
         assertTrue(m.contains(imported));
         OWLOntology copy = m1.copyOntology(root, OntologyCopy.SHALLOW_COPY_ONTOLOGY_CLOSURE);
@@ -128,7 +127,7 @@ public class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    public void testDeepImportsClosure() throws OWLOntologyCreationException {
+    void testDeepImportsClosure() throws OWLOntologyCreationException {
         assertTrue(m.contains(root));
         assertTrue(m.contains(imported));
         OWLOntology copy = m1.copyOntology(root, OntologyCopy.DEEP_COPY_ONTOLOGY_CLOSURE);
