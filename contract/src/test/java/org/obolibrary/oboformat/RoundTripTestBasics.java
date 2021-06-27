@@ -1,34 +1,34 @@
 package org.obolibrary.oboformat;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+
 import javax.annotation.Nullable;
+
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.diff.Diff;
 import org.obolibrary.oboformat.diff.OBODocDiffer;
 import org.obolibrary.oboformat.model.OBODoc;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-@SuppressWarnings("javadoc")
-public class RoundTripTestBasics extends OboFormatTestBasics {
+class RoundTripTestBasics extends OboFormatTestBasics {
 
     private static boolean compareOWLOntologiesPartial(OWLOntology oo, OWLOntology oo2,
-        boolean isExpectRoundtrip,
-        @Nullable Collection<OWLAxiom> untranslatableAxioms) {
+        boolean isExpectRoundtrip, @Nullable Collection<OWLAxiom> untranslatableAxioms) {
         if (isExpectRoundtrip) {
             int untranslatedSize = 0;
             if (untranslatableAxioms != null) {
                 untranslatedSize = untranslatableAxioms.size();
             }
-            long expectedSize = oo.axioms().count();
-            long foundSize = oo2.axioms().count();
-            assertEquals("Expected same number of axioms", expectedSize,
-                foundSize + untranslatedSize);
+            long expectedSize = oo.getAxiomCount();
+            long foundSize = oo2.getAxiomCount();
+            assertEquals(expectedSize, foundSize + untranslatedSize);
             return false;
         }
         return true;
@@ -41,12 +41,18 @@ public class RoundTripTestBasics extends OboFormatTestBasics {
 
     public List<Diff> roundTripOBODoc(OBODoc obodoc, boolean isExpectRoundtrip) throws Exception {
         OWLOntology oo = convert(obodoc);
+        StringDocumentTarget oo2 = new StringDocumentTarget();
+        StringDocumentTarget oo1 = new StringDocumentTarget();
+        oo.saveOntology(oo1);
         OBODoc obodoc2 = convert(oo);
+        convert(obodoc2).saveOntology(oo2);
+        String s1 = oo1.toString();
+        String s2 = oo2.toString();
+        assertEquals(s1, s2);
         obodoc2.check();
-        writeOBO(obodoc2);
         List<Diff> diffs = OBODocDiffer.getDiffs(obodoc, obodoc2);
         if (isExpectRoundtrip) {
-            assertEquals("Expected no diffs but " + diffs, 0, diffs.size());
+            assertEquals(0, diffs.size(), "Expected no diffs but " + diffs);
         }
         return diffs;
     }

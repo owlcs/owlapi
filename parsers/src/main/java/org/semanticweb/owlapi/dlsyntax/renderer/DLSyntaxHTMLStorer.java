@@ -15,7 +15,9 @@ package org.semanticweb.owlapi.dlsyntax.renderer;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -99,7 +101,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
     @Override
     protected void endWritingAxiom(PrintWriter writer) {
-        checkNotNull(writer, "writer cannot be null").println(" </div>");
+        checkNotNull(writer, "writer cannot be null").println("</div>");
     }
 
     @Override

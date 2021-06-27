@@ -1,0 +1,13 @@
+<rdf:RDF xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:marc-fields="http://bibframe.org/marc/" xmlns:rda-fields="http://bibframe.org/rda/" xmlns:bf-abstract="http://bibframe.org/model-abstract/" xmlns:bframe="http://bibframe.org/vocab/frame" xmlns:bfmain="http://bibframe.org/vocab/main" xml:base="http://bibframe.org/vocab/">
+  <owl:Ontology rdf:about="">
+  </owl:Ontology>
+  <rdfs:Class rdf:about="http://bibframe.org/vocab/Resource">
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://bibframe.org/vocab/relatedTo">
+    <rdfs:domain rdf:resource="http://bibframe.org/vocab/Resource"/>
+    <rdfs:range rdf:resource="http://bibframe.org/vocab/Resource"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://bibframe.org/vocab/partOf">
+    <rdfs:subPropertyOf rdf:resource="http://bibframe.org/vocab/relatedTo"/>
+  </rdf:Property>
+</rdf:RDF>

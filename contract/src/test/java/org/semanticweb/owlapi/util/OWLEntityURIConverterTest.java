@@ -1,18 +1,19 @@
 package org.semanticweb.owlapi.util;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.File;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-public class OWLEntityURIConverterTest {
+public class OWLEntityURIConverterTest extends TestBase {
 
     private static final String TEST_ONTOLOGY_RESOURCE = "testUriConverterOntology.owl";
     private static final String OLD_NAMESPACE = "http://www.example.org/testOntology#";

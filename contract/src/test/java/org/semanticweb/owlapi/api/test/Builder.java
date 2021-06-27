@@ -9,105 +9,46 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.*;
 
-@SuppressWarnings("javadoc")
 public class Builder {
 
-    private static final String VAR = "urn:swrl:var#";
-    private static final String URN_TEST = "urn:test:test#";
+    private static final String SWRL = "urn:swrl:var#";
+    private static final String NS = "urn:test:test#";
     private static OWLDataFactory df = OWLManager.getOWLDataFactory();
-    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(URN_TEST, "ann");
-    private final OWLObjectProperty op = df.getOWLObjectProperty(URN_TEST, "op");
-    private final OWLDataProperty dp = df.getOWLDataProperty(URN_TEST, "dp");
+    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(NS, "ann");
+    private final OWLObjectProperty op = df.getOWLObjectProperty(NS, "op");
+    private final OWLDataProperty dp = df.getOWLDataProperty(NS, "dp");
     private final OWLLiteral lit = df.getOWLLiteral(false);
     private final OWLLiteral plainlit = df.getOWLLiteral("string", "en");
-    private final IRI iri = IRI.create(URN_TEST, "iri");
-    private final Set<OWLAnnotation> as = set(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
-    private final OWLClass ce = df.getOWLClass(URN_TEST, "c");
-    private final OWLNamedIndividual i = df.getOWLNamedIndividual(URN_TEST, "i");
-    private final OWLNamedIndividual j = df.getOWLNamedIndividual(URN_TEST, "j");
-    private final OWLDatatype d = df.getOWLDatatype(URN_TEST, "datatype");
-    private final Set<OWLDataProperty> dps = set(df.getOWLDataProperty(iri), dp);
+    private final IRI iri = TestBase.iri(NS, "iri");
+    private final List<OWLAnnotation> as = set(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
+    private final OWLClass ce = df.getOWLClass(NS, "c");
+    private final OWLNamedIndividual i = df.getOWLNamedIndividual(NS, "i");
+    private final OWLNamedIndividual j = df.getOWLNamedIndividual(NS, "j");
+    private final OWLDatatype d = df.getOWLDatatype(NS, "datatype");
+    private final List<OWLDataProperty> dps = Arrays.asList(df.getOWLDataProperty(iri), dp);
     private final List<OWLObjectProperty> ops = Arrays.asList(df.getOWLObjectProperty(iri), op);
-    private final Set<OWLClass> classes = set(df.getOWLClass(iri), ce);
-    private final Set<OWLNamedIndividual> inds = set(i, df.getOWLNamedIndividual(iri));
-    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create(VAR, "v1"), Arrays
-        .asList((SWRLDArgument) df.getSWRLVariable(VAR, "var3"), df.getSWRLVariable(VAR, "var4")));
-    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create(VAR, "v2"), Arrays
-        .asList((SWRLDArgument) df.getSWRLVariable(VAR, "var5"), df.getSWRLVariable(VAR, "var6")));
-    private final Set<SWRLAtom> body = set(v1);
-    private final Set<SWRLAtom> head = set(v2);
-    private final SWRLDArgument var1 = df.getSWRLVariable(VAR, "var1");
+    private final List<OWLClass> classes = Arrays.asList(df.getOWLClass(iri), ce);
+    private final List<OWLNamedIndividual> inds = Arrays.asList(i, df.getOWLNamedIndividual(iri));
+    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(TestBase.iri(SWRL, "v1"), Arrays.asList((SWRLDArgument) df.getSWRLVariable(SWRL, "var3"), df.getSWRLVariable(SWRL, "var4")));
+    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(TestBase.iri(SWRL, "v2"), Arrays.asList((SWRLDArgument) df.getSWRLVariable(SWRL, "var5"), df.getSWRLVariable(SWRL, "var6")));
+    private final List<SWRLAtom> body = Arrays.asList(v1);
+    private final List<SWRLAtom> head = Arrays.asList(v2);
+    private final SWRLDArgument var1 = df.getSWRLVariable(SWRL, "var1");
     private final List<SWRLDArgument> var1list = Arrays.asList(var1);
-    private final SWRLIArgument var2 = df.getSWRLVariable(VAR, "var2");
-    private final LinkedHashSet<SWRLAtom> body2 =
-        new LinkedHashSet<>(Arrays.asList(v1, df.getSWRLClassAtom(ce, var2),
-            df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list),
-            df.getSWRLDifferentIndividualsAtom(var2, df.getSWRLIndividualArgument(i)),
-            df.getSWRLSameIndividualAtom(var2,
-                df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri))),
-            df.getSWRLBuiltInAtom(iri, var1list)));
-    private final LinkedHashSet<SWRLAtom> head2 = new LinkedHashSet<>(
+    private final SWRLIArgument var2 = df.getSWRLVariable(SWRL, "var2");
+    private final List<SWRLAtom> body2 = Arrays.asList(v1, df.getSWRLClassAtom(ce, var2),
+        df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list),
+        df.getSWRLDifferentIndividualsAtom(var2, df.getSWRLIndividualArgument(i)),
+        df.getSWRLSameIndividualAtom(var2,
+            df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri))),
+        df.getSWRLBuiltInAtom(iri, var1list));
+    private final List<SWRLAtom> head2 =
         Arrays.asList(v2, df.getSWRLDataPropertyAtom(dp, var2, df.getSWRLLiteralArgument(lit)),
-            df.getSWRLObjectPropertyAtom(op, var2, var2)));
+            df.getSWRLObjectPropertyAtom(op, var2, var2));
     private final OWLOntologyManager m = getManager();
 
     // no parsers and storers injected
@@ -418,7 +359,7 @@ public class Builder {
 
     public OWLOntology onto() {
         try {
-            return m.createOntology(IRI.create(URN_TEST, "test"));
+            return m.createOntology(TestBase.iri(NS, "test"));
         } catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
         }

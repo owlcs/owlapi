@@ -12,26 +12,25 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.dataproperties;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointUnion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
-public class DisjointUnionTestCase extends TestBase {
+class DisjointUnionTestCase extends TestBase {
 
-    private static final String NS = "http://protege.org/protege/DisjointUnion.owl";
-    public static final OWLClass A = Class(IRI(NS + "#", "A"));
-    public static final OWLClass B = Class(IRI(NS + "#", "B"));
-    public static final OWLClass C = Class(IRI(NS + "#", "C"));
+    static final String NS = "http://protege.org/protege/DisjointUnion.owl";
+    static final OWLClass A = Class(IRI(NS + "#", "A"));
+    static final OWLClass B = Class(IRI(NS + "#", "B"));
+    static final OWLClass C = Class(IRI(NS + "#", "C"));
 
     @Test
-    public void testDisjointUnion() {
+    void testDisjointUnion() {
         OWLOntology ontology = getOWLOntology();
         ontology.add(DisjointUnion(A, B, C));
         assertEquals(1, ontology.disjointUnionAxioms(A).count());

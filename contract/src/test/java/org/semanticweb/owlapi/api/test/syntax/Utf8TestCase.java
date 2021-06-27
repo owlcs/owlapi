@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
@@ -23,8 +23,9 @@ import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
@@ -33,89 +34,52 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 
-@SuppressWarnings("javadoc")
-public class Utf8TestCase extends TestBase {
+class Utf8TestCase extends TestBase {
 
-    private static final String INVALID_UTF8 =
-        "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
-            + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
-            + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
-            + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
-            + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
-            + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
-            + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
-            + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
-            + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
-
-    private static boolean checkOntology(OWLOntology ontology, OWLClass c, String chinese) {
-        return getAnnotationObjects(c, ontology)
-            .anyMatch(a -> a.getValue().asLiteral().get().getLiteral().equals(chinese));
+    @Test
+    void testUTF8roundTrip() throws Exception {
+        saveOntology(loadOntologyFromString(TestFiles.roundtripUTF8String,
+            new FunctionalSyntaxDocumentFormat()));
     }
 
     @Test
-    public void testUTF8roundTrip() throws Exception {
-        String onto = "Ontology(<http://protege.org/UTF8.owl>"
-            + "Declaration(Class(<http://protege.org/UTF8.owl#A>))"
-            + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "
-            + "\"Chinese=處方\"^^<http://www.w3.org/2001/XMLSchema#string>))";
-        saveOntology(loadOntologyFromString(onto));
-        // ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes());
-        // ByteArrayOutputStream out = new ByteArrayOutputStream();
-        // manager.saveOntology(manager.loadOntologyFromOntologyDocument(in),
-        // out);
-    }
-
-    @Test(expected = Exception.class)
-    public void testInvalidUTF8roundTripOWLXML() {
+    void testInvalidUTF8roundTripOWLXML() {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should fail parsing but is read
         // in as an owl/xml file
-        String onto = INVALID_UTF8;
         ByteArrayInputStream in =
-            new ByteArrayInputStream(onto.getBytes(StandardCharsets.ISO_8859_1));
+            new ByteArrayInputStream(TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
-        parser.parse(new StreamDocumentSource(in), getOWLOntology(), config);
-        fail("parsing should have failed, invalid input");
+        assertThrows(Exception.class,
+            () -> parser.parse(new StreamDocumentSource(in), getOWLOntology(), config));
         // expected to fail, but actual exception depends on the parsers in
         // the classpath
     }
 
     @Test
-    public void testInvalidUTF8roundTripWithInputStream() throws OWLOntologyCreationException {
+    void testInvalidUTF8roundTripWithInputStream() throws OWLOntologyCreationException {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
-        String onto = INVALID_UTF8;
         ByteArrayInputStream in =
-            new ByteArrayInputStream(onto.getBytes(StandardCharsets.ISO_8859_1));
+            new ByteArrayInputStream(TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
         m.loadOntologyFromOntologyDocument(in);
     }
 
     @Test
-    public void testInvalidUTF8roundTripFromReader() throws OWLOntologyCreationException {
+    void testInvalidUTF8roundTripFromReader() {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
-        String onto2 = "<!DOCTYPE rdf:RDF [\n"
-            + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n" + "<rdf:RDF \n"
-            + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
-            + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
-            + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
-            + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
-            + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
-            + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
-            + "<owl:Ontology rdf:about=\"#\" />\n"
-            + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
-        OWLOntology o2 = loadOntologyFromString(onto2);
-        String onto1 = INVALID_UTF8;
-        OWLOntology o1 = loadOntologyFromString(onto1);
-        equal(o1, o2);
+        assertThrows(OWLRuntimeException.class,
+            () -> loadOntologyFromString(TestFiles.INVALID_UTF8, new RDFXMLDocumentFormat()));
     }
 
     @Test
-    public void testPositiveUTF8roundTrip() throws Exception {
+    void testPositiveUTF8roundTrip() throws Exception {
         String ns = "http://protege.org/UTF8.owl";
         OWLOntology ontology = getOWLOntology();
         OWLClass a = Class(IRI(ns + "#", "A"));
@@ -127,7 +91,7 @@ public class Utf8TestCase extends TestBase {
     }
 
     @Test
-    public void testRoundTrip() throws Exception {
+    void testRoundTrip() throws Exception {
         String ns = "http://protege.org/ontologies/UTF8RoundTrip.owl";
         OWLClass c = Class(IRI(ns + "#", "C"));
         /*
@@ -150,5 +114,10 @@ public class Utf8TestCase extends TestBase {
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(), Literal(chinese));
         ontology.add(annotationAxiom);
         return ontology;
+    }
+
+    private static boolean checkOntology(OWLOntology ontology, OWLClass c, String chinese) {
+        return getAnnotationObjects(c, ontology)
+            .anyMatch(a -> a.getValue().asLiteral().get().getLiteral().equals(chinese));
     }
 }

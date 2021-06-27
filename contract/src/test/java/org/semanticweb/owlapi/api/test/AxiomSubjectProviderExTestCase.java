@@ -12,43 +12,31 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 
-@SuppressWarnings({"javadoc"})
-@RunWith(Parameterized.class)
-public class AxiomSubjectProviderExTestCase {
+class AxiomSubjectProviderExTestCase {
 
     private static final String TEST_IRI = "urn:test:test#iri";
     private static final String BUILT_IN_ATOM =
-        "BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) )";
+        "BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>))";
     private static final String IRI = "<urn:test:test#iri>";
     private static final String I = "<urn:test:test#i>";
     private static final String C = "<urn:test:test#c>";
     private static final String DP = "<urn:test:test#dp>";
     private static final String ANN = "<urn:test:test#ann>";
     private static final String OP = "<urn:test:test#op>";
-    private final OWLAxiom object;
-    private final String expected;
 
-    public AxiomSubjectProviderExTestCase(OWLAxiom object, String expected) {
-        this.object = object;
-        this.expected = expected;
-    }
-
-    @Parameters
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLAxiom, String> map = new LinkedHashMap<>();
         map.put(b.dDp(), DP);
@@ -127,8 +115,9 @@ public class AxiomSubjectProviderExTestCase {
         return toReturn;
     }
 
-    @Test
-    public void testAssertion() {
+    @ParameterizedTest
+    @MethodSource("getData")
+    void testAssertion(OWLAxiom object, String expected) {
         AxiomSubjectProviderEx testsubject = new AxiomSubjectProviderEx();
         String result = object.accept(testsubject).toString();
         assertEquals(expected, result);

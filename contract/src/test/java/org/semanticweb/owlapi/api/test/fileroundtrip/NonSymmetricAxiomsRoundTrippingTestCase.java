@@ -12,88 +12,41 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.fileroundtrip;
 
-import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataIntersectionOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataSomeValuesFrom;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataUnionOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Datatype;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DatatypeDefinition;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectIntersectionOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectUnionOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataUnionOf;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@RunWith(Parameterized.class)
-@SuppressWarnings("javadoc")
-public class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
+class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
 
-    private static final IRI iriA = iri("A");
-    private static final OWLClass clsA = Class(iriA);
-    private static final OWLClass clsB = Class(iri("B"));
-    private static final OWLClass clsC = Class(iri("C"));
-    private static final OWLDatatype dataD = Datatype(iri("D"));
-    private static final OWLDatatype dataE = Datatype(iri("E"));
-    private static final OWLObjectProperty propA = ObjectProperty(iri("propA"));
-    private static final OWLDataProperty propB = DataProperty(iri("propB"));
-    private static final OWLObjectSomeValuesFrom d =
-        ObjectSomeValuesFrom(propA, ObjectIntersectionOf(clsB, clsC));
-    private static final OWLDataSomeValuesFrom e =
-        DataSomeValuesFrom(propB, DataIntersectionOf(dataD, dataE));
-    private static final OWLClassExpression du = ObjectUnionOf(clsB, clsC);
-    private static final OWLDataUnionOf eu = DataUnionOf(dataD, dataE);
-    private final OWLAxiom in;
-    private final OWLAxiom out;
-
-    public NonSymmetricAxiomsRoundTrippingTestCase(OWLAxiom in, OWLAxiom out) {
-        this.in = in;
-        this.out = out;
+    static Stream<Arguments> nonSymmetricAxiomsRoundTrippingTestCase() {
+        OWLDatatype dataD = Datatype(iri("D"));
+        OWLDatatype dataE = Datatype(iri("E"));
+        OWLObjectSomeValuesFrom d = ObjectSomeValuesFrom(P, ObjectIntersectionOf(B, C));
+        OWLDataSomeValuesFrom e = DataSomeValuesFrom(DP, DataIntersectionOf(dataD, dataE));
+        OWLClassExpression du = ObjectUnionOf(B, C);
+        OWLDataUnionOf eu = DataUnionOf(dataD, dataE);
+        return Stream.of(
+            Arguments.of(SubClassOf(A, ObjectIntersectionOf(d, d)), SubClassOf(A, d)),
+            Arguments.of(SubClassOf(A, ObjectUnionOf(e, e)), SubClassOf(A, e)),
+            Arguments.of(SubClassOf(A, ObjectIntersectionOf(du, du)), SubClassOf(A, du)),
+            Arguments.of(DatatypeDefinition(dataD, DataUnionOf(eu, eu)), DatatypeDefinition(dataD, eu)));
     }
 
-    @Parameters
-    public static List<OWLAxiom[]> getData() {
-        List<OWLAxiom[]> list = new ArrayList<>();
-        list.add(
-            new OWLAxiom[] {SubClassOf(clsA, ObjectIntersectionOf(d, d)), SubClassOf(clsA, d)});
-        list.add(new OWLAxiom[] {SubClassOf(clsA, ObjectUnionOf(e, e)), SubClassOf(clsA, e)});
-        list.add(
-            new OWLAxiom[] {SubClassOf(clsA, ObjectIntersectionOf(du, du)), SubClassOf(clsA, du)});
-        list.add(new OWLAxiom[] {DatatypeDefinition(dataD, DataUnionOf(eu, eu)),
-            DatatypeDefinition(dataD, eu)});
-        return list;
-    }
-
-    @Test
-    public void shouldRoundTripAReadableVersion()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    @ParameterizedTest
+    @MethodSource("nonSymmetricAxiomsRoundTrippingTestCase")
+    void shouldRoundTripAReadableVersion(OWLAxiom in, OWLAxiom out) {
         OWLOntology output = getOWLOntology();
         output.add(in);
         OWLOntology o = roundTrip(output, new FunctionalSyntaxDocumentFormat());

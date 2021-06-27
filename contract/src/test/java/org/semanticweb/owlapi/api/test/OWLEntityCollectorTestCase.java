@@ -12,38 +12,25 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
-@SuppressWarnings({"javadoc"})
-@RunWith(Parameterized.class)
-public class OWLEntityCollectorTestCase {
+class OWLEntityCollectorTestCase {
 
-    protected OWLAxiom object;
-    protected List<String> expected;
-
-    public OWLEntityCollectorTestCase(OWLAxiom object, String[] expected) {
-        this.object = object;
-        this.expected = new ArrayList<>(Arrays.asList(expected));
-        this.expected.sort(null);
-    }
-
-    @Parameterized.Parameters(name = "{0}")
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLAxiom, String[]> map = new LinkedHashMap<>();
         String ann = "<urn:test:test#ann>";
@@ -143,12 +130,14 @@ public class OWLEntityCollectorTestCase {
         return toReturn;
     }
 
-    @Test
-    public void testAssertion() {
+    @ParameterizedTest
+    @MethodSource("getData")
+    void testAssertion(OWLAxiom object, String[] expected) {
         List<OWLEntity> sig = new ArrayList<>();
         OWLEntityCollector testsubject = new OWLEntityCollector(sig);
         object.accept(testsubject);
-        List<String> result = asList(sig.stream().map(p -> p.toString()).distinct().sorted());
-        assertEquals(expected.toString(), result.toString());
+        Stream<String> result = sig.stream().map(p -> p.toString()).distinct().sorted();
+        assertEquals(Stream.of(expected).distinct().sorted().collect(Collectors.joining(", ")),
+            result.collect(Collectors.joining(", ")));
     }
 }

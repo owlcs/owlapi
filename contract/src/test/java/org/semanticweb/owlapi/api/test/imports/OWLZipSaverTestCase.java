@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test.imports;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -10,7 +10,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.AddImport;
@@ -20,14 +20,13 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.OWLZipSaver;
 
-@SuppressWarnings("javadoc")
-public class OWLZipSaverTestCase extends TestBase {
-    protected IRI iri1 = IRI.create("urn:test:o1.owl");
-    protected IRI iri2 = IRI.create("urn:test:o2.owl");
+class OWLZipSaverTestCase extends TestBase {
+    static final IRI iri1 = iri("urn:test:", "o1.owl");
+    static final IRI iri2 = iri("urn:test:", "o2.owl");
 
     @Test
-    public void shouldSaveClosureWithYaml() throws ZipException, IOException,
-        OWLOntologyCreationException, OWLOntologyStorageException {
+    void shouldSaveClosureWithYaml() throws ZipException, IOException, OWLOntologyCreationException,
+        OWLOntologyStorageException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         OWLOntology o1 = m.createOntology(iri1);
         OWLOntology o2 = m.createOntology(iri2);

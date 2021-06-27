@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
@@ -27,10 +27,9 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Arrays;
 import java.util.Collection;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -44,37 +43,31 @@ import org.semanticweb.owlapi.model.OWLPrimitive;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
-@RunWith(Parameterized.class)
-public class AnnotationAccessorsTestCase extends TestBase {
+class AnnotationAccessorsTestCase extends TestBase {
 
-    private static final IRI SUBJECT = IRI
-        .create("http://owlapi.sourceforge.net/ontologies/test#", "X");
-    private final OWLPrimitive e;
-
-    public AnnotationAccessorsTestCase(OWLPrimitive e) {
-        this.e = e;
+    static Collection<OWLPrimitive> getData() {
+        return Arrays.asList(Class(subject()), NamedIndividual(subject()), DataProperty(subject()),
+            ObjectProperty(subject()), Datatype(subject()), AnnotationProperty(subject()),
+            AnonymousIndividual());
     }
 
-    @Parameters
-    public static Collection<OWLPrimitive> getData() {
-        return Arrays.asList(Class(SUBJECT), NamedIndividual(SUBJECT), DataProperty(SUBJECT),
-            ObjectProperty(SUBJECT),
-            Datatype(SUBJECT), AnnotationProperty(SUBJECT), AnonymousIndividual());
+    protected static IRI subject() {
+        return iri("http://owlapi.sourceforge.net/ontologies/test#", "X");
     }
 
     private static OWLAnnotationAssertionAxiom createAnnotationAssertionAxiom() {
         OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
         OWLAnnotationValue value = Literal("value");
-        return AnnotationAssertion(prop, SUBJECT, value);
+        return AnnotationAssertion(prop, subject(), value);
     }
 
-    @Test
-    public void testClassAccessor() {
+    @ParameterizedTest
+    @MethodSource("getData")
+    void testClassAccessor(OWLPrimitive e) {
         OWLOntology ont = getOWLOntology();
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
-        ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(ont.annotationAssertionAxioms(SUBJECT).anyMatch(a -> a.equals(ax)));
+        ont.addAxiom(ax);
+        assertTrue(ont.annotationAssertionAxioms(subject()).anyMatch(a -> a.equals(ax)));
         if (e instanceof OWLEntity) {
             assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())
                 .anyMatch(a -> a.equals(ax)));

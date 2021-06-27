@@ -84,9 +84,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.1</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.7.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -331,7 +331,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.20</version>
+				<version>3.0.0-M5</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.junit.jupiter</groupId>
+						<artifactId>junit-jupiter</artifactId>
+						<version>5.7.1</version>
+					</dependency>
+				</dependencies>
 				<configuration>
 					<includes>
 						<include>**/*TestCase.java, **/*Test.java</include>
@@ -386,7 +393,7 @@
 				<!-- verify all bytecode (including third party libs) is Java 8 max -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.0.0-M1</version>
+				<version>3.0.0-M3</version>
 				<executions>
 					<execution>
 						<id>enforce-bytecode-version</id>
@@ -397,6 +404,16 @@
 							<rules>
 								<enforceBytecodeVersion>
 									<maxJdkVersion>1.8</maxJdkVersion>
+									 <excludes>
+					                    <exclude>org.junit.jupiter:junit-jupiter</exclude>
+					                    <exclude>org.junit.jupiter:junit-jupiter-engine</exclude>
+					                    <exclude>org.junit.platform:junit-platform-engine</exclude>
+					                    <exclude>org.junit.jupiter:junit-jupiter-params</exclude>
+					                    <exclude>org.junit.jupiter:junit-jupiter-api</exclude>
+					                    <exclude>org.opentest4j:opentest4j</exclude>
+					                    <exclude>org.apiguardian:apiguardian-api</exclude>
+					                    <exclude>org.junit.platform:junit-platform-commons</exclude>
+                  					</excludes>
 								</enforceBytecodeVersion>
 							</rules>
 							<fail>true</fail>

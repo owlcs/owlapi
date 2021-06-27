@@ -1,10 +1,10 @@
 package org.coode.owlapi.obo12;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.coode.owlapi.obo12.parser.OBO12DocumentFormat;
 import org.coode.owlapi.obo12.parser.OBO12ParserFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
@@ -12,11 +12,10 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-@SuppressWarnings("javadoc")
-public class LoadCellTestCase {
+class LoadCellTestCase {
 
     @Test
-    public void shouldParse() throws OWLOntologyCreationException {
+    void shouldParse() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         m.getOntologyParsers().add(new OBO12ParserFactory());
         assertEquals(21, m.getOntologyParsers().size());
@@ -27,7 +26,7 @@ public class LoadCellTestCase {
     }
 
     @Test
-    public void shouldParseOBO12() throws OWLOntologyCreationException {
+    void shouldParseOBO12() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         m.getOntologyParsers().add(new OBO12ParserFactory());
         assertEquals(21, m.getOntologyParsers().size());
@@ -38,7 +37,7 @@ public class LoadCellTestCase {
     }
 
     @Test
-    public void shouldParseGenericOBO() throws OWLOntologyCreationException {
+    void shouldParseGenericOBO() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         m.getOntologyParsers().add(new OBO12ParserFactory());
         assertEquals(21, m.getOntologyParsers().size());

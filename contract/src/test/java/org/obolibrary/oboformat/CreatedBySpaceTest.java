@@ -1,10 +1,9 @@
 package org.obolibrary.oboformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 
-@SuppressWarnings({"javadoc"})
 public class CreatedBySpaceTest extends OboFormatTestBasics {
 
     @Test

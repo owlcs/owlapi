@@ -25,7 +25,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
@@ -34,28 +35,15 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-@SuppressWarnings("javadoc")
-public class TripleComparatorTestCase {
+class TripleComparatorTestCase extends TestBase {
 
     private final String ns = "http://www.co-ode.org/roberts/pto.owl#";
     private final RDFResourceIRI g = r(Class(IRI(ns, "MoleOfGoldAtom")));
     private final RDFResourceIRI d = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
     private final RDFResourceIRI subtype = r(RDFS_SUBCLASS_OF.getIRI());
 
-    private static RDFResourceIRI r(OWLEntity e) {
-        return new RDFResourceIRI(e.getIRI());
-    }
-
-    private static RDFResourceIRI r(IRI e) {
-        return new RDFResourceIRI(e);
-    }
-
-    private static RDFNode r(int s) {
-        return new RDFResourceBlankNode(Integer.valueOf(s), false, false, false);
-    }
-
     @Test
-    public void shouldSort() {
+    void shouldSort() {
         List<RDFTriple> list = new ArrayList<>(Arrays.asList(
         //@formatter:off
             triple("MoleOfNiobiumAtom"),
@@ -138,5 +126,17 @@ public class TripleComparatorTestCase {
 
     private RDFTriple triple(int n) {
         return new RDFTriple(g, subtype, r(n));
+    }
+
+    private static RDFResourceIRI r(OWLEntity e) {
+        return new RDFResourceIRI(e.getIRI());
+    }
+
+    private static RDFResourceIRI r(IRI e) {
+        return new RDFResourceIRI(e);
+    }
+
+    private static RDFNode r(int s) {
+        return new RDFResourceBlankNode(Integer.valueOf(s), false, false, false);
     }
 }

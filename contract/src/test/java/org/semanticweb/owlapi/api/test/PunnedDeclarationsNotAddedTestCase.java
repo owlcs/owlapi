@@ -1,14 +1,13 @@
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
@@ -23,18 +22,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-@SuppressWarnings("javadoc")
-@RunWith(Parameterized.class)
-public class PunnedDeclarationsNotAddedTestCase extends TestBase {
+class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
-    private final OWLDocumentFormat format;
-
-    public PunnedDeclarationsNotAddedTestCase(OWLDocumentFormat format) {
-        this.format = format;
-    }
-
-    @Parameters(name = "{0}")
-    public static Collection<OWLDocumentFormat> data() {
+    static Collection<OWLDocumentFormat> data() {
         return Arrays.asList(new FunctionalSyntaxDocumentFormat(), new OWLXMLDocumentFormat(),
             new RDFXMLDocumentFormat(), new TurtleDocumentFormat());
     }
@@ -45,9 +35,8 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
         o.add(df.getOWLDeclarationAxiom(op));
         o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
-        OWLAnnotationAssertionAxiom assertion = df
-            .getOWLAnnotationAssertionAxiom(iri("test"), df.getOWLAnnotation(ap,
-                iri("otherTest")));
+        OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"),
+            df.getOWLAnnotation(ap, iri("otherTest")));
         o.add(assertion);
         return o;
     }
@@ -57,25 +46,26 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
         OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testAnnotationProperty"));
         o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
-        OWLAnnotationAssertionAxiom assertion = df
-            .getOWLAnnotationAssertionAxiom(iri("test"), df.getOWLAnnotation(ap,
-                iri("otherTest")));
+        OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"),
+            df.getOWLAnnotation(ap, iri("otherTest")));
         o.add(assertion);
         return o;
     }
 
-    @Test
-    public void shouldNotAddDeclarationsForIllegalPunnings() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
+    @ParameterizedTest
+    @MethodSource("data")
+    void shouldNotAddDeclarationsForIllegalPunnings(OWLDocumentFormat format)
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = getOntologyWithPunnedInvalidDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
         OWLDeclarationAxiom ax = df.getOWLDeclarationAxiom(ap);
-        assertFalse("ap testProperty should not have been declared", reloaded.containsAxiom(ax));
+        assertFalse(reloaded.containsAxiom(ax), "Property should not have been declared");
     }
 
-    @Test
-    public void shouldDeclareMissingEntities()
+    @ParameterizedTest
+    @MethodSource("data")
+    void shouldDeclareMissingEntities(OWLDocumentFormat format)
         throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = getOntologyWithMissingDeclarations();
         OWLOntology reloaded = roundTrip(o, format);

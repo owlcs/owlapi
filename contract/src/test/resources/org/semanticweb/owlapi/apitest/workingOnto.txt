@@ -1,0 +1,3 @@
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+ @prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+ foaf:fundedBy rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .

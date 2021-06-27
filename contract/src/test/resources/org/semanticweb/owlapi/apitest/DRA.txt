@@ -1,0 +1,1 @@
+DataRangeAtom(<urn:test:test#datatype> Variable(<urn:swrl:var#var1>))

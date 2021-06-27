@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.dataproperties;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.change.AddAxiomData;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -25,21 +25,20 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc"})
-public class AddAxiomDataTestCase {
+class AddAxiomDataTestCase {
 
     private final OWLAxiom mockAxiom = mock(OWLAxiom.class);
     private final OWLOntology mockOntology = mock(OWLOntology.class);
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         AddAxiomData data1 = new AddAxiomData(mockAxiom);
         AddAxiomData data2 = new AddAxiomData(mockAxiom);
         assertEquals(data1, data2);
     }
 
     @Test
-    public void testOntologyChange() {
+    void testOntologyChange() {
         AddAxiomData data = new AddAxiomData(mockAxiom);
         AddAxiom change = data.createOntologyChange(mockOntology);
         assertEquals(change.getOntology(), mockOntology);
@@ -47,7 +46,7 @@ public class AddAxiomDataTestCase {
     }
 
     @Test
-    public void testRoundTripChange() {
+    void testRoundTripChange() {
         AddAxiomData data = new AddAxiomData(mockAxiom);
         AddAxiom change = new AddAxiom(mockOntology, mockAxiom);
         assertEquals(data, change.getChangeData());

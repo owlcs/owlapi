@@ -12,27 +12,25 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 
-import com.google.common.collect.Sets;
-
-@SuppressWarnings({"javadoc"})
-@RunWith(Parameterized.class)
-public class OWLClassExpressionCollectorTestCase {
+class OWLClassExpressionCollectorTestCase {
 
     private static final String CI = "<urn:test:test#c>";
     private static final String IRII = "<urn:test:test#iri>";
@@ -62,33 +60,27 @@ public class OWLClassExpressionCollectorTestCase {
     private static final String DEQ =
         "DataExactCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
     private static final String THING = "owl:Thing";
-    private final OWLAxiom object;
-    private final Set<String> expected;
 
-    public OWLClassExpressionCollectorTestCase(OWLAxiom object, String[] expected) {
-        this.object = object;
-        this.expected = Sets.newHashSet(expected);
-    }
-
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         Builder b = new Builder();
-        Map<OWLAxiom, String[]> map = new LinkedHashMap<>();
-        String[] empty = new String[] {};
+        Map<OWLAxiom, Set<String>> map = new LinkedHashMap<>();
+        Set<String> empty = Collections.emptySet();
+        Set<String> ci = Collections.singleton(CI);
+        Set<String> ciIrii = new HashSet<>(Arrays.asList(CI, IRII));
         map.put(b.dRange(), empty);
         map.put(b.dDef(), empty);
-        map.put(b.decC(), new String[] {CI});
+        map.put(b.decC(), ci);
         map.put(b.decOp(), empty);
         map.put(b.decDp(), empty);
         map.put(b.decDt(), empty);
         map.put(b.decAp(), empty);
         map.put(b.decI(), empty);
         map.put(b.assDi(), empty);
-        map.put(b.dc(), new String[] {CI, IRII});
+        map.put(b.dc(), ciIrii);
         map.put(b.dDp(), empty);
         map.put(b.dOp(), empty);
-        map.put(b.du(), new String[] {CI, IRII});
-        map.put(b.ec(), new String[] {CI, IRII});
+        map.put(b.du(), ciIrii);
+        map.put(b.ec(), ciIrii);
         map.put(b.eDp(), empty);
         map.put(b.eOp(), empty);
         map.put(b.fdp(), empty);
@@ -101,58 +93,59 @@ public class OWLClassExpressionCollectorTestCase {
         map.put(b.opa(), empty);
         map.put(b.opaInv(), empty);
         map.put(b.opaInvj(), empty);
-        map.put(b.oDom(), new String[] {CI});
-        map.put(b.oRange(), new String[] {CI});
+        map.put(b.oDom(), ci);
+        map.put(b.oRange(), ci);
         map.put(b.chain(), empty);
         map.put(b.ref(), empty);
         map.put(b.same(), empty);
         map.put(b.subAnn(), empty);
-        map.put(b.subClass(), new String[] {THING, CI});
+        map.put(b.subClass(), new HashSet<>(Arrays.asList(THING, CI)));
         map.put(b.subData(), empty);
         map.put(b.subObject(), empty);
         map.put(b.rule(), empty);
         map.put(b.symm(), empty);
         map.put(b.trans(), empty);
-        map.put(b.hasKey(), new String[] {CI});
+        map.put(b.hasKey(), ci);
         map.put(b.ann(), empty);
         map.put(b.asymm(), empty);
         map.put(b.annDom(), empty);
         map.put(b.annRange(), empty);
-        map.put(b.ass(), new String[] {CI});
-        map.put(b.assAnd(), new String[] {CI, IRII, AND});
-        map.put(b.assOr(), new String[] {CI, IRII, OR});
+        map.put(b.ass(), ci);
+        map.put(b.assAnd(), new HashSet<>(Arrays.asList(CI, IRII, AND)));
+        map.put(b.assOr(), new HashSet<>(Arrays.asList(CI, IRII, OR)));
         map.put(b.dRangeAnd(), empty);
         map.put(b.dRangeOr(), empty);
-        map.put(b.assNot(), new String[] {CI, NOT});
-        map.put(b.assNotAnon(), new String[] {CI, NOT});
-        map.put(b.assSome(), new String[] {CI, SOME});
-        map.put(b.assAll(), new String[] {CI, ALL});
-        map.put(b.assHas(), new String[] {HAS});
-        map.put(b.assMin(), new String[] {CI, OMIN});
-        map.put(b.assMax(), new String[] {CI, MAX});
-        map.put(b.assEq(), new String[] {CI, OEQ});
-        map.put(b.assHasSelf(), new String[] {SELF});
-        map.put(b.assOneOf(), new String[] {ONE});
-        map.put(b.assDSome(), new String[] {DSOME});
-        map.put(b.assDAll(), new String[] {DALL});
-        map.put(b.assDHas(), new String[] {DHAS});
-        map.put(b.assDMin(), new String[] {DMIN});
-        map.put(b.assDMax(), new String[] {DMAX});
-        map.put(b.assDEq(), new String[] {DEQ});
+        map.put(b.assNot(), new HashSet<>(Arrays.asList(CI, NOT)));
+        map.put(b.assNotAnon(), new HashSet<>(Arrays.asList(CI, NOT)));
+        map.put(b.assSome(), new HashSet<>(Arrays.asList(CI, SOME)));
+        map.put(b.assAll(), new HashSet<>(Arrays.asList(CI, ALL)));
+        map.put(b.assHas(), Collections.singleton(HAS));
+        map.put(b.assMin(), new HashSet<>(Arrays.asList(CI, OMIN)));
+        map.put(b.assMax(), new HashSet<>(Arrays.asList(CI, MAX)));
+        map.put(b.assEq(), new HashSet<>(Arrays.asList(CI, OEQ)));
+        map.put(b.assHasSelf(), Collections.singleton(SELF));
+        map.put(b.assOneOf(), Collections.singleton(ONE));
+        map.put(b.assDSome(), Collections.singleton(DSOME));
+        map.put(b.assDAll(), Collections.singleton(DALL));
+        map.put(b.assDHas(), Collections.singleton(DHAS));
+        map.put(b.assDMin(), Collections.singleton(DMIN));
+        map.put(b.assDMax(), Collections.singleton(DMAX));
+        map.put(b.assDEq(), Collections.singleton(DEQ));
         map.put(b.dOneOf(), empty);
         map.put(b.dNot(), empty);
         map.put(b.dRangeRestrict(), empty);
         map.put(b.assD(), empty);
         map.put(b.assDPlain(), empty);
-        map.put(b.dDom(), new String[] {CI});
-        map.put(b.bigRule(), new String[] {CI});
+        map.put(b.dDom(), ci);
+        map.put(b.bigRule(), ci);
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
         return toReturn;
     }
 
-    @Test
-    public void testAssertion() {
+    @ParameterizedTest
+    @MethodSource("getData")
+    void testAssertion(OWLAxiom object, Set<String> expected) {
         OWLClassExpressionCollector testsubject = new OWLClassExpressionCollector();
         Collection<OWLClassExpression> components = object.accept(testsubject);
         Set<String> strings = asUnorderedSet(components.stream().map(Object::toString));

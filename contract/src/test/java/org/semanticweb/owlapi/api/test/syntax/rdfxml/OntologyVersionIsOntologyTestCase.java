@@ -12,8 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -21,12 +22,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class OntologyVersionIsOntologyTestCase extends TestBase {
 
     @Test
-    public void testLoad() throws Exception {
-        String in =
-            "<https://mobi.com/ontologies/12/2018/VersionIsItself> a <http://www.w3.org/2002/07/owl#Ontology>;\n"
-                + "  <http://www.w3.org/2002/07/owl#versionIRI> <https://mobi.com/ontologies/12/2018/VersionIsItself> ;\n"
-                + "  <http://purl.org/dc/terms/title> \"versionIsItself\" .";
-        OWLOntology o = loadOntologyFromString(in, new RioTurtleDocumentFormat());
+    void testLoad() throws Exception {
+        OWLOntology o =
+            loadOntologyFromString(TestFiles.ontologyVersionParse, new RioTurtleDocumentFormat());
         StringDocumentTarget saveOntology = saveOntology(o, new RioTurtleDocumentFormat());
         OWLOntology o1 =
             loadOntologyFromString(saveOntology.toString(), new RioTurtleDocumentFormat());

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
@@ -23,7 +23,8 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -34,46 +35,36 @@ import org.semanticweb.owlapi.search.Filters;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.0
  */
-@SuppressWarnings("javadoc")
-public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
+class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
 
     @Test
-    public void testGetSuperProperties() {
+    void testGetSuperProperties() {
         OWLOntology ont = getOWLOntology();
         OWLAnnotationProperty propP = AnnotationProperty(iri("propP"));
         OWLAnnotationProperty propQ = AnnotationProperty(iri("propQ"));
         OWLAnnotationProperty propR = AnnotationProperty(iri("propR"));
-        ont.getOWLOntologyManager().addAxiom(ont,
-            df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
-        ont.getOWLOntologyManager().addAxiom(ont,
+        ont.addAxioms(df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ),
             df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-        Collection<OWLAxiom> axioms = asUnorderedSet(
-            ont.axioms(Filters.subAnnotationWithSub, propP, INCLUDED));
+        Collection<OWLAxiom> axioms =
+            asUnorderedSet(ont.axioms(Filters.subAnnotationWithSub, propP, INCLUDED));
         assertTrue(contains(sup(axioms.stream()), propQ));
         assertTrue(contains(sup(axioms.stream()), propR));
-        axioms = asUnorderedSet(
-            ont.axioms(Filters.subAnnotationWithSub, propP, EXCLUDED));
+        axioms = asUnorderedSet(ont.axioms(Filters.subAnnotationWithSub, propP, EXCLUDED));
         assertTrue(contains(sup(axioms.stream()), propQ));
         assertTrue(contains(sup(axioms.stream()), propR));
     }
 
     @Test
-    public void testGetSubProperties() {
+    void testGetSubProperties() {
         OWLOntology ont = getOWLOntology();
         OWLAnnotationProperty propP = AnnotationProperty(iri("propP"));
         OWLAnnotationProperty propQ = AnnotationProperty(iri("propQ"));
         OWLAnnotationProperty propR = AnnotationProperty(iri("propR"));
-        ont.getOWLOntologyManager().addAxiom(ont,
-            df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
-        ont.getOWLOntologyManager().addAxiom(ont,
+        ont.addAxioms(df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ),
             df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-        assertTrue(contains(
-            sub(ont.axioms(subAnnotationWithSuper, propQ, INCLUDED)), propP));
-        assertTrue(contains(
-            sub(ont.axioms(subAnnotationWithSuper, propQ, EXCLUDED)), propP));
-        assertTrue(contains(
-            sub(ont.axioms(subAnnotationWithSuper, propR, INCLUDED)), propP));
-        assertTrue(contains(
-            sub(ont.axioms(subAnnotationWithSuper, propR, EXCLUDED)), propP));
+        assertTrue(contains(sub(ont.axioms(subAnnotationWithSuper, propQ, INCLUDED)), propP));
+        assertTrue(contains(sub(ont.axioms(subAnnotationWithSuper, propQ, EXCLUDED)), propP));
+        assertTrue(contains(sub(ont.axioms(subAnnotationWithSuper, propR, INCLUDED)), propP));
+        assertTrue(contains(sub(ont.axioms(subAnnotationWithSuper, propR, EXCLUDED)), propP));
     }
 }

@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.api.test.syntax;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -31,14 +31,13 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
-public class OWLXMLNullPointerTestCase extends TestBase {
+class OWLXMLNullPointerTestCase extends TestBase {
 
-    public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
-    private static final String NS = "urn:test";
+    static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
+    static final String NS = "urn:test";
 
     @Test
-    public void testRoundTrip() throws Exception {
+    void testRoundTrip() throws Exception {
         OWLOntology ontology = getOWLOntology(IRI(NS, ""));
         OWLClass cheesy = Class(IRI(NS + "#", "CheeseyPizza"));
         OWLClass cheese = Class(IRI(NS + "#", "CheeseTopping"));
@@ -55,13 +54,13 @@ public class OWLXMLNullPointerTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParse() throws Exception {
+    void shouldParse() throws Exception {
         OWLOntology o = getOWLOntology();
         OWLClass c = df.getOWLClass("urn:test#", "c");
         OWLObjectProperty p = df.getOWLObjectProperty("urn:test#", "p");
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
         OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(c, df.getOWLObjectHasValue(p, i));
-        o.getOWLOntologyManager().addAxiom(o, sub);
+        o.addAxiom(sub);
         OWLOntology roundtrip = roundTrip(o, new OWLXMLDocumentFormat());
         equal(o, roundtrip);
     }

@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.io;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -8,14 +8,15 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.model.IRI;
 
-@SuppressWarnings({"javadoc", "resource"})
-public class StreamDocumentSourceBaseTestCase {
+@SuppressWarnings("resource")
+class StreamDocumentSourceBaseTestCase {
 
     @Test
-    public void shouldCreateRewindableReaderWithKnownContent() throws IOException {
+    void shouldCreateRewindableReaderWithKnownContent() throws IOException {
         String input =
             "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
                 + "<owl:Ontology/>\n" + "    <owl:Class rdf:about=\"http://example.com/Person\">\n"
@@ -26,10 +27,9 @@ public class StreamDocumentSourceBaseTestCase {
                 + "    <owl:ObjectProperty rdf:about=\"http://example.com/objectProperty\"/>\n"
                 + "</rdf:RDF>";
         StreamDocumentSourceBase source = new StreamDocumentSourceBase(
-            new InputStreamReader(new ByteArrayInputStream(
-                input.getBytes()), StandardCharsets.UTF_8), IRI.create("urn:test#", "test"), null,
-            null) {
-        };
+            new InputStreamReader(new ByteArrayInputStream(input.getBytes()),
+                StandardCharsets.UTF_8),
+            IRI.create("urn:test#", "test"), null, null) {};
         Reader r = source.getReader().get();
         StringWriter w = new StringWriter();
         int i = r.read();

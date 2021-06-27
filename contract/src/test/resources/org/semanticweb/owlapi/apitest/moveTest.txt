@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="urn:test#test"
+     xml:base="urn:test#test"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="urn:testcopy"><owl:imports rdf:resource="urn:test#test"/></owl:Ontology>
+    <rdfs:Datatype rdf:about="urn:mydatatype">
+        <owl:equivalentClass>
+            <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#double"/>
+        </owl:equivalentClass>
+    </rdfs:Datatype>
+    <owl:Axiom>
+        <rdfs:label >datatype definition</rdfs:label>
+        <owl:annotatedProperty rdf:resource="http://www.w3.org/2002/07/owl#equivalentClass"/>
+        <owl:annotatedSource rdf:resource="urn:mydatatype"/>
+        <owl:annotatedTarget>
+            <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#double"/>
+        </owl:annotatedTarget>
+    </owl:Axiom></rdf:RDF>

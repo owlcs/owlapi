@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.axioms;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createDataProperty;
@@ -20,7 +20,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.creat
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -30,18 +30,17 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * A test case which ensures that an ontology contains entity references when
- * that ontology only contains entity declaration axioms. In other words, entity
- * declaration axioms produce the correct entity references.
+ * A test case which ensures that an ontology contains entity references when that ontology only
+ * contains entity declaration axioms. In other words, entity declaration axioms produce the correct
+ * entity references.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
-public class DeclarationEntityReferencesTestCase extends TestBase {
+class DeclarationEntityReferencesTestCase extends TestBase {
 
     @Test
-    public void testOWLClassDeclarationAxiom() {
+    void testOWLClassDeclarationAxiom() {
         OWLClass cls = createClass();
         OWLAxiom ax = Declaration(cls);
         OWLOntology ont = getOWLOntology();
@@ -50,7 +49,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
     }
 
     @Test
-    public void testOWLObjectPropertyDeclarationAxiom() {
+    void testOWLObjectPropertyDeclarationAxiom() {
         OWLObjectProperty prop = createObjectProperty();
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont = getOWLOntology();
@@ -59,7 +58,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
     }
 
     @Test
-    public void testOWLDataPropertyDeclarationAxiom() {
+    void testOWLDataPropertyDeclarationAxiom() {
         OWLDataProperty prop = createDataProperty();
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont = getOWLOntology();
@@ -68,7 +67,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
     }
 
     @Test
-    public void testOWLIndividualDeclarationAxiom() {
+    void testOWLIndividualDeclarationAxiom() {
         OWLNamedIndividual ind = createIndividual();
         OWLAxiom ax = Declaration(ind);
         OWLOntology ont = getOWLOntology();

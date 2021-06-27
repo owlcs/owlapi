@@ -1,6 +1,6 @@
 package org.semanticweb.owlapitools.decomposition.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
@@ -9,14 +9,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.apitest.TestFiles;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -29,20 +28,18 @@ import uk.ac.manchester.cs.atomicdecomposition.AtomicDecompositionImpl;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
-@SuppressWarnings("javadoc")
-@RunWith(Parameterized.class)
-public class OldModularisationEquivalenceTestCase extends TestBase {
+class OldModularisationEquivalenceTestCase extends TestBase {
 
-    private static final String DRY_EUCALYPT_FOREST = "DryEucalyptForest";
-    private static final String QUOKKA = "Quokka";
-    private static final String STUDENT = "Student";
-    private static final String KOALA2 = "Koala";
-    private static final String MALE_STUDENT_WITH3_DAUGHTERS = "MaleStudentWith3Daughters";
-    private static final String KOALA_WITH_PHD = "KoalaWithPhD";
-    private static final String TASMANIAN_DEVIL = "TasmanianDevil";
-    private static final String GRADUATE_STUDENT = "GraduateStudent";
-    private static final String RAINFOREST = "Rainforest";
-    public static final String KOALA = "<?xml version=\"1.0\"?>\n"
+    static final String DRY_EUCALYPT_FOREST = "DryEucalyptForest";
+    static final String QUOKKA = "Quokka";
+    static final String STUDENT = "Student";
+    static final String KOALA2 = "Koala";
+    static final String MALE_STUDENT_WITH3_DAUGHTERS = "MaleStudentWith3Daughters";
+    static final String KOALA_WITH_PHD = "KoalaWithPhD";
+    static final String TASMANIAN_DEVIL = "TasmanianDevil";
+    static final String GRADUATE_STUDENT = "GraduateStudent";
+    static final String RAINFOREST = "Rainforest";
+    static final String KOALA = "<?xml version=\"1.0\"?>\n"
         + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
         + "  <owl:Ontology rdf:about=\"\"/>\n"
         + "  <owl:Class rdf:ID=\"Female\"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"female\"/></owl:hasValue></owl:Restriction></owl:equivalentClass></owl:Class>\n"
@@ -69,20 +66,14 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         + "  <owl:FunctionalProperty rdf:ID=\"hasGender\"><rdfs:range rdf:resource=\"#Gender\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#ObjectProperty\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:FunctionalProperty>\n"
         + "  <owl:FunctionalProperty rdf:ID=\"isHardWorking\"><rdfs:range rdf:resource=\"http://www.w3.org/2001/XMLSchema#boolean\"/><rdfs:domain rdf:resource=\"#Person\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/></owl:FunctionalProperty>\n"
         + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>";
-    private static String ns = "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#";
-    private static OWLDataFactory f = OWLManager.getOWLDataFactory();
-    private final Set<OWLEntity> signature;
+    static String ns = "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#";
+    static OWLDataFactory f = OWLManager.getOWLDataFactory();
 
-    public OldModularisationEquivalenceTestCase(Set<OWLEntity> l) {
-        signature = l;
-    }
-
-    private static Set<OWLEntity> l(String... s) {
+    static Set<OWLEntity> l(String... s) {
         return asSet(Stream.of(s).map(st -> f.getOWLClass(ns, st)), OWLEntity.class);
     }
 
-    @Parameters(name = "{0}")
-    public static List<Set<OWLEntity>> params() {
+    static List<Set<OWLEntity>> params() {
         List<Set<OWLEntity>> l = new ArrayList<>();
         l.add(l("Person"));
         l.add(l("Habitat"));
@@ -132,10 +123,12 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         return l;
     }
 
-    @Test
-    @Ignore
-    public void testModularizationWithAtomicDecompositionStar() throws OWLException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
+    @ParameterizedTest
+    @MethodSource("params")
+    @Disabled
+    void testModularizationWithAtomicDecompositionStar(Set<OWLEntity> signature)
+        throws OWLException {
+        OWLOntology o = loadOntologyFromString(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
             asList(getADModule1(o, signature, ModuleType.STAR).stream().sorted());
         List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.STAR)
@@ -143,9 +136,11 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         makeAssertion(module1, module2);
     }
 
-    @Test
-    public void testModularizationWithAtomicDecompositionTop() throws OWLException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
+    @ParameterizedTest
+    @MethodSource("params")
+    void testModularizationWithAtomicDecompositionTop(Set<OWLEntity> signature)
+        throws OWLException {
+        OWLOntology o = loadOntologyFromString(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
             asList(getADModule1(o, signature, ModuleType.TOP).stream().sorted());
         List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.TOP)
@@ -153,9 +148,11 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         makeAssertion(module1, module2);
     }
 
-    @Test
-    public void testModularizationWithAtomicDecompositionBottom() throws OWLException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
+    @ParameterizedTest
+    @MethodSource("params")
+    void testModularizationWithAtomicDecompositionBottom(Set<OWLEntity> signature)
+        throws OWLException {
+        OWLOntology o = loadOntologyFromString(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
             asList(getADModule1(o, signature, ModuleType.BOT).stream().sorted());
         List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.BOT)

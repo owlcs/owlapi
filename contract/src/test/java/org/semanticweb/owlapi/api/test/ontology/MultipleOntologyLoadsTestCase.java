@@ -12,14 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.Optional;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -27,13 +27,13 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings("javadoc")
-public class MultipleOntologyLoadsTestCase extends TestBase {
+class MultipleOntologyLoadsTestCase extends TestBase {
 
     private final Optional<IRI> v2 =
         optional(IRI.getNextDocumentIRI("http://test.example.org/ontology/0139/version:2"));
@@ -61,7 +61,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         try {
             getOWLOntology(secondUniqueOWLOntologyID);
             fail("Did not receive expected OWLOntologyDocumentAlreadyExistsException");
-        } catch (RuntimeException e) {
+        } catch (OWLRuntimeException e) {
             assertEquals(new OWLOntologyID(i139, v2),
                 ((OWLOntologyAlreadyExistsException) e.getCause()).getOntologyID());
         }
@@ -77,7 +77,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         try {
             getOWLOntology(secondUniqueOWLOntologyID);
             fail("Did not receive expected OWLOntologyAlreadyExistsException");
-        } catch (RuntimeException e) {
+        } catch (OWLRuntimeException e) {
             assertEquals(new OWLOntologyID(i139, v1),
                 ((OWLOntologyAlreadyExistsException) e.getCause()).getOntologyID());
         }

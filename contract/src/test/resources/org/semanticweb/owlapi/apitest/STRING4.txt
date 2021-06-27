@@ -1,0 +1,5 @@
+<http://www.semanticweb.org/owlapi/test224612089629142> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<http://owlapi.sourceforge.net/ontology#prop> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://owlapi.sourceforge.net/ontology#A> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://owlapi.sourceforge.net/ontology#A> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Thing> .
+<http://owlapi.sourceforge.net/ontology#A> <http://owlapi.sourceforge.net/ontology#prop> "test url" .

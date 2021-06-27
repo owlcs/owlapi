@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annotation;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
@@ -28,8 +28,10 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.io.File;
 import java.io.FileOutputStream;
+
 import javax.annotation.Nonnull;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
@@ -52,8 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
-public class OntologyContainsAxiomTestCase extends TestBase {
+class OntologyContainsAxiomTestCase extends TestBase {
 
     private static RDFXMLDocumentFormat createRDFXMLFormat() {
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
@@ -72,22 +73,22 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     }
 
     @Test
-    public void testOntologyContainsPlainAxiom() {
-        OWLAxiom axiom = SubClassOf(Class(iri("A")), Class(iri("B")));
+    void testOntologyContainsPlainAxiom() {
+        OWLAxiom axiom = SubClassOf(A, B);
         OWLOntology ont = getOWLOntology();
-        ont.getOWLOntologyManager().addAxiom(ont, axiom);
+        ont.addAxiom(axiom);
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
     }
 
     @Test
-    public void testOntologyContainsAnnotatedAxiom() {
+    void testOntologyContainsAnnotatedAxiom() {
         OWLLiteral annoLiteral = Literal("value");
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
         OWLAnnotation anno = Annotation(annoProp, annoLiteral);
-        OWLAxiom axiom = SubClassOf(Class(iri("A")), Class(iri("B")), singleton(anno));
+        OWLAxiom axiom = SubClassOf(A, B, singleton(anno));
         OWLOntology ont = getOWLOntology();
-        ont.getOWLOntologyManager().addAxiom(ont, axiom);
+        ont.addAxiom(axiom);
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
         assertFalse(ont.containsAxiom(axiom.getAxiomWithoutAnnotations()));
@@ -96,23 +97,23 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     }
 
     @Test
-    public void testOntologyContainsAxiomsForRDFXML1() throws Exception {
+    void testOntologyContainsAxiomsForRDFXML1() throws Exception {
         RDFXMLDocumentFormat format = createRDFXMLFormat();
         runTestOntologyContainsAxioms1(format);
     }
 
     @Test
-    public void testOntologyContainsAxiomsForOWLXML1() throws Exception {
+    void testOntologyContainsAxiomsForOWLXML1() throws Exception {
         runTestOntologyContainsAxioms1(new OWLXMLDocumentFormat());
     }
 
     @Test
-    public void testOntologyContainsAxiomsForOWLFunctionalSyntax1() throws Exception {
+    void testOntologyContainsAxiomsForOWLFunctionalSyntax1() throws Exception {
         runTestOntologyContainsAxioms1(new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
-    public void testOntologyContainsAxiomsForTurtleSyntax1() throws Exception {
+    void testOntologyContainsAxiomsForTurtleSyntax1() throws Exception {
         TurtleDocumentFormat format = createTurtleOntologyFormat();
         runTestOntologyContainsAxioms1(format);
     }
@@ -120,26 +121,21 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms1(OWLDocumentFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology();
-        @Nonnull
         IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
         OWLOntology ont2 = getOWLOntology();
-        @Nonnull
         IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
-        ont1.getOWLOntologyManager().applyChange(new AddImport(ont2, ont2import));
-        OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
-        OWLAxiom axannoPropdecl = Declaration(annoProp);
-        ont1.getOWLOntologyManager().addAxiom(ont1, axannoPropdecl);
-        OWLAnnotation inont1anno = Annotation(annoProp, ont1iri);
-        OWLAnnotation inont2anno = Annotation(annoProp, ont2iri);
-        OWLClass a = Class(iri("A"));
-        OWLAxiom axAdecl = Declaration(a, singleton(inont1anno));
-        ont1.getOWLOntologyManager().addAxiom(ont1, axAdecl);
-        OWLClass b = Class(iri("B"));
-        OWLAxiom axBdecl = Declaration(b, singleton(inont2anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, axBdecl);
-        OWLAxiom axAsubB = SubClassOf(Class(iri("A")), Class(iri("B")), singleton(inont2anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, axAsubB);
+        ont1.applyChange(new AddImport(ont2, ont2import));
+        OWLAxiom axannoPropdecl = Declaration(AP);
+        ont1.addAxiom(axannoPropdecl);
+        OWLAnnotation inont1anno = Annotation(AP, ont1iri);
+        OWLAnnotation inont2anno = Annotation(AP, ont2iri);
+        OWLAxiom axAdecl = Declaration(A, singleton(inont1anno));
+        ont1.addAxiom(axAdecl);
+        OWLAxiom axBdecl = Declaration(B, singleton(inont2anno));
+        ont2.addAxiom(axBdecl);
+        OWLAxiom axAsubB = SubClassOf(A, B, singleton(inont2anno));
+        ont2.addAxiom(axAsubB);
         // annoProp is in ont1 and in the import closure of ont2
         assertTrue(containsConsiderEx(ont1, axannoPropdecl));
         assertFalse(containsConsiderEx(ont2, axannoPropdecl));
@@ -156,16 +152,16 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         assertFalse(containsConsider(ont1, axAsubB));
         assertTrue(containsConsiderEx(ont2, axAsubB));
         assertTrue(containsConsider(ont2, axAsubB));
-        @Nonnull
-        File savedLocation1 = folder.newFile("testont1A.owl");
-        FileOutputStream out1 = new FileOutputStream(savedLocation1);
-        StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
-        ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
-        @Nonnull
-        File savedLocation2 = folder.newFile("testont2A.owl");
-        FileOutputStream out2 = new FileOutputStream(savedLocation2);
-        StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
-        ont2.getOWLOntologyManager().saveOntology(ont2, format, writer2);
+        File savedLocation1 = new File(folder, "testont1A.owl");
+        try (FileOutputStream out1 = new FileOutputStream(savedLocation1)) {
+            StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
+            ont1.saveOntology(format, writer1);
+        }
+        File savedLocation2 = new File(folder, "testont2A.owl");
+        try (FileOutputStream out2 = new FileOutputStream(savedLocation2)) {
+            StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
+            ont2.saveOntology(format, writer2);
+        }
         OWLOntologyManager man = setupManager();
         OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
         OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
@@ -196,22 +192,22 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     }
 
     @Test
-    public void testOntologyContainsAxiomsForRDFXML2() throws Exception {
+    void testOntologyContainsAxiomsForRDFXML2() throws Exception {
         runTestOntologyContainsAxioms2(createRDFXMLFormat());
     }
 
     @Test
-    public void testOntologyContainsAxiomsForOWLXML2() throws Exception {
+    void testOntologyContainsAxiomsForOWLXML2() throws Exception {
         runTestOntologyContainsAxioms2(new OWLXMLDocumentFormat());
     }
 
     @Test
-    public void testOntologyContainsAxiomsForOWLFunctionalSyntax2() throws Exception {
+    void testOntologyContainsAxiomsForOWLFunctionalSyntax2() throws Exception {
         runTestOntologyContainsAxioms2(new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
-    public void testOntologyContainsAxiomsForTurtleSyntax2() throws Exception {
+    void testOntologyContainsAxiomsForTurtleSyntax2() throws Exception {
         runTestOntologyContainsAxioms2(createTurtleOntologyFormat());
     }
 
@@ -222,20 +218,17 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLOntology ont2 = getOWLOntology();
         IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
-        ont2.getOWLOntologyManager().applyChange(new AddImport(ont2, ont2import));
-        OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
-        OWLAxiom axAnnoPropDecl = Declaration(annoProp);
-        ont1.getOWLOntologyManager().addAxiom(ont1, axAnnoPropDecl);
-        OWLAnnotation inOnt1Anno = Annotation(annoProp, ont1iri);
-        OWLAnnotation inOnt2Anno = Annotation(annoProp, ont2iri);
-        OWLClass a = Class(iri("A"));
-        OWLAxiom axADecl = Declaration(a, singleton(inOnt1Anno));
-        ont1.getOWLOntologyManager().addAxiom(ont1, axADecl);
-        OWLClass b = Class(iri("B"));
-        OWLAxiom axBDecl = Declaration(b, singleton(inOnt2Anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, axBDecl);
-        OWLAxiom axAsubB = SubClassOf(Class(iri("A")), Class(iri("B")), singleton(inOnt2Anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, axAsubB);
+        ont2.applyChange(new AddImport(ont2, ont2import));
+        OWLAxiom axAnnoPropDecl = Declaration(AP);
+        ont1.addAxiom(axAnnoPropDecl);
+        OWLAnnotation inOnt1Anno = Annotation(AP, ont1iri);
+        OWLAnnotation inOnt2Anno = Annotation(AP, ont2iri);
+        OWLAxiom axADecl = Declaration(A, singleton(inOnt1Anno));
+        ont1.addAxiom(axADecl);
+        OWLAxiom axBDecl = Declaration(B, singleton(inOnt2Anno));
+        ont2.addAxiom(axBDecl);
+        OWLAxiom axAsubB = SubClassOf(A, B, singleton(inOnt2Anno));
+        ont2.addAxiom(axAsubB);
         // annoProp is in ont1 and in the import closure of ont2
         assertTrue(containsConsiderEx(ont1, axAnnoPropDecl));
         assertFalse(containsConsiderEx(ont2, axAnnoPropDecl));
@@ -252,19 +245,18 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         assertFalse(containsConsider(ont1, axAsubB));
         assertTrue(containsConsiderEx(ont2, axAsubB));
         assertTrue(containsConsider(ont2, axAsubB));
-        @Nonnull
-        File savedLocation1 = folder.newFile("testont1B.owl");
-        FileOutputStream out1 = new FileOutputStream(savedLocation1);
-        StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
-        ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
-        @Nonnull
-        File savedLocation2 = folder.newFile("testont2B.owl");
-        FileOutputStream out2 = new FileOutputStream(savedLocation2);
-        StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
-        ont2.getOWLOntologyManager().saveOntology(ont2, format, writer2);
+        File savedLocation1 = new File(folder, "testont1B.owl");
+        try (FileOutputStream out1 = new FileOutputStream(savedLocation1)) {
+            StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
+            ont1.saveOntology(format, writer1);
+        }
+        File savedLocation2 = new File(folder, "testont2B.owl");
+        try (FileOutputStream out2 = new FileOutputStream(savedLocation2)) {
+            StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
+            ont2.saveOntology(format, writer2);
+        }
         OWLOntologyManager man = setupManager();
-        @SuppressWarnings("unused")
-        OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
+        man.loadOntologyFromOntologyDocument(savedLocation1);
         OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
         ont2L.imports().forEach(o -> o.axioms().forEach(ax -> {
             assertTrue(containsConsiderEx(o, ax));

@@ -12,82 +12,70 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseObjectProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.search.Searcher.inverse;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
-import org.junit.Test;
+import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-
-import com.google.common.collect.Lists;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-@SuppressWarnings("javadoc")
-public class ObjectPropertyTestCase extends TestBase {
+class ObjectPropertyTestCase extends TestBase {
 
     @Test
-    public void testInverseInverseSimplification() {
-        OWLObjectProperty p = ObjectProperty(iri("p"));
-        OWLObjectPropertyExpression inv = p.getInverseProperty();
+    void testInverseInverseSimplification() {
+        OWLObjectPropertyExpression inv = P.getInverseProperty();
         OWLObjectPropertyExpression inv2 = inv.getInverseProperty();
-        assertEquals(p, inv2);
+        assertEquals(P, inv2);
     }
 
     @Test
-    public void testInverseInverseInverseSimplification() {
-        OWLObjectProperty p = ObjectProperty(iri("p"));
-        OWLObjectPropertyExpression inv = p.getInverseProperty();
+    void testInverseInverseInverseSimplification() {
+        OWLObjectPropertyExpression inv = P.getInverseProperty();
         OWLObjectPropertyExpression inv2 = inv.getInverseProperty();
         OWLObjectPropertyExpression inv3 = inv2.getInverseProperty();
         assertEquals(inv, inv3);
     }
 
     @Test
-    public void testInverse() {
+    void testInverse() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLObjectProperty propQ = ObjectProperty(iri("q"));
-        OWLAxiom ax = InverseObjectProperties(propP, propQ);
-        ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(contains(inverse(ont.inverseObjectPropertyAxioms(propP), propP), propQ));
-        assertFalse(contains(inverse(ont.inverseObjectPropertyAxioms(propP), propP), propP));
+        OWLAxiom ax = InverseObjectProperties(P, Q);
+        ont.addAxiom(ax);
+        assertTrue(contains(inverse(ont.inverseObjectPropertyAxioms(P), P), Q));
+        assertFalse(contains(inverse(ont.inverseObjectPropertyAxioms(P), P), P));
     }
 
     @Test
-    public void testInverseSelf() {
+    void testInverseSelf() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLAxiom ax = InverseObjectProperties(propP, propP);
-        ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(contains(inverse(ont.inverseObjectPropertyAxioms(propP), propP), propP));
+        OWLAxiom ax = InverseObjectProperties(P, P);
+        ont.addAxiom(ax);
+        assertTrue(contains(inverse(ont.inverseObjectPropertyAxioms(P), P), P));
     }
 
     @Test
-    public void testCompareRoleChains() {
+    void testCompareRoleChains() {
         OWLObjectPropertyExpression p = df.getOWLObjectProperty("_:", "p");
         OWLObjectPropertyExpression q = df.getOWLObjectProperty("_:", "q");
         OWLObjectPropertyExpression r = df.getOWLObjectProperty("_:", "r");
-        OWLSubPropertyChainOfAxiom ax1 =
-            df.getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, q), r);
-        OWLSubPropertyChainOfAxiom ax2 =
-            df.getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, p), r);
-        assertNotEquals("role chains should not be equal", ax1, ax2);
+        OWLSubPropertyChainOfAxiom ax1 = df.getOWLSubPropertyChainOfAxiom(Arrays.asList(p, q), r);
+        OWLSubPropertyChainOfAxiom ax2 = df.getOWLSubPropertyChainOfAxiom(Arrays.asList(p, p), r);
+        assertNotEquals(ax1, ax2, "role chains should not be equal");
         int comparisonResult = ax1.compareTo(ax2);
-        assertNotEquals(
-            "role chain comparision:\n " + ax1 + " should not compare to\n " + ax2 + " as 0\n", 0,
-            comparisonResult);
+        assertNotEquals(0, comparisonResult);
     }
 }

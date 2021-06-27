@@ -12,19 +12,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
@@ -33,38 +33,17 @@ import org.semanticweb.owlapi.model.parameters.OntologyCopy;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({"javadoc"})
-public class MoveOntologyTestCase extends TestBase {
+class MoveOntologyTestCase extends TestBase {
 
-    private final static String s =
-        "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"urn:test#test\"\n"
-            + "     xml:base=\"urn:test#test\"\n"
-            + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-            + "     xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
-            + "     xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n"
-            + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-            + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-            + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-            + "    <owl:Ontology rdf:about=\"urn:testcopy\"><owl:imports rdf:resource=\"urn:test#test\"/></owl:Ontology>\n"
-            + "    <rdfs:Datatype rdf:about=\"urn:mydatatype\">\n"
-            + "        <owl:equivalentClass>\n"
-            + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
-            + "        </owl:equivalentClass>\n" + "    </rdfs:Datatype>\n" + "    <owl:Axiom>\n"
-            + "        <rdfs:label >datatype definition</rdfs:label>\n"
-            + "        <owl:annotatedProperty rdf:resource=\"http://www.w3.org/2002/07/owl#equivalentClass\"/>\n"
-            + "        <owl:annotatedSource rdf:resource=\"urn:mydatatype\"/>\n"
-            + "        <owl:annotatedTarget>\n"
-            + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
-            + "        </owl:annotatedTarget>\n" + "    </owl:Axiom></rdf:RDF>";
-
-    @Before
-    public void setUp() throws OWLOntologyCreationException {
-        m.createOntology(IRI.create("urn:test#", "test"));
+    @BeforeEach
+    void setUp() throws OWLOntologyCreationException {
+        m.createOntology(iri("urn:test#", "test"));
     }
 
     @Test
-    public void testMove() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
+    void testMove() throws OWLOntologyCreationException {
+        OWLOntology o =
+            m.loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.MOVE);
         assertSame(o, copy);
         assertEquals(m1, copy.getOWLOntologyManager());
@@ -75,8 +54,9 @@ public class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    public void testShallow() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
+    void testShallow() throws OWLOntologyCreationException {
+        OWLOntology o =
+            m.loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.SHALLOW);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
@@ -87,8 +67,9 @@ public class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    public void testDeep() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
+    void testDeep() throws OWLOntologyCreationException {
+        OWLOntology o =
+            m.loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.DEEP);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));

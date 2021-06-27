@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.util.AnnotationWalkingControl.DONT_WALK_ANNOTATIONS;
 import static org.semanticweb.owlapi.util.AnnotationWalkingControl.WALK_ANNOTATIONS;
 import static org.semanticweb.owlapi.util.AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY;
@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -24,8 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /**
  * Created by ses on 8/15/15.
  */
-@SuppressWarnings({"javadoc"})
-public class OWLObjectWalkerTest extends TestBase {
+class OWLObjectWalkerTest extends TestBase {
 
     private OWLAnnotation world;
     private OWLAnnotation cruelWorld;
@@ -54,7 +53,7 @@ public class OWLObjectWalkerTest extends TestBase {
         assertEquals(expected, visitedAnnotations);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         ap = df.getOWLAnnotationProperty(iri("ap"));
         cruelWorld = df.getOWLAnnotation(ap, df.getOWLLiteral("cruel world"));
@@ -74,7 +73,7 @@ public class OWLObjectWalkerTest extends TestBase {
 
     private OWLOntology getOwlOntology() {
         OWLOntology o = getOWLOntology();
-        m.applyChange(new AddOntologyAnnotation(o, hello));
+        o.applyChange(new AddOntologyAnnotation(o, hello));
         o.addAxiom(df.getOWLDeclarationAxiom(ap, singleton(goodbye)));
         return o;
     }

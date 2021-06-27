@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://namespace.owl#"
+     xml:base="http://namespace.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://namespace.owl"/>
+    <owl:Class rdf:about="http://namespace.owl#A"/>
+<A/></rdf:RDF>

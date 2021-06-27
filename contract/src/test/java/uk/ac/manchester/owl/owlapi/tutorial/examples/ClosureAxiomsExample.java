@@ -23,17 +23,15 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
 
 /**
- * This class demonstrates some aspects of the OWL API. It expects three
- * arguments:
+ * This class demonstrates some aspects of the OWL API. It expects three arguments:
  * <ol>
  * <li>The URI of an ontology</li>
  * <li>The URI of destination</li>
  * <li>The URI of a class</li>
  * </ol>
- * When executed, the class will find all subclass axioms that form part of the
- * definition of the given class. For each of these, if the superclass is a
- * conjunction of existential restrictions, then an additional subclass axiom
- * will be added to the ontology, "closing" the restrictions.
+ * When executed, the class will find all subclass axioms that form part of the definition of the
+ * given class. For each of these, if the superclass is a conjunction of existential restrictions,
+ * then an additional subclass axiom will be added to the ontology, "closing" the restrictions.
  *
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
@@ -60,7 +58,7 @@ public class ClosureAxiomsExample {
         System.out.println("Logical URI : " + documentIRI);
         System.out.println("Document IRI: " + ontology.getOntologyID());
         System.out.println("Format      : " + ontology.getFormat());
-        ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
+        ClosureAxioms closureAxioms = new ClosureAxioms(ontology);
         OWLClass clazz = Class(classIRI);
         System.out.println("Class URI   : " + classIRI);
         System.out.println(clazz);
@@ -68,7 +66,7 @@ public class ClosureAxiomsExample {
         closureAxioms.addClosureAxioms(clazz);
         /* Now save a copy to another location */
         System.out.println("Saving: " + outputDocumentIRI);
-        manager.saveOntology(ontology, outputDocumentIRI);
+        ontology.saveOntology(outputDocumentIRI);
         System.out.println("Ontology Saved...");
         System.out.println("Document IRI : " + outputDocumentIRI);
         /* Remove the ontology from the manager */

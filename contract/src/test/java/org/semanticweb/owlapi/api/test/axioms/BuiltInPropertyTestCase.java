@@ -12,12 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.axioms;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -26,56 +26,45 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
-public class BuiltInPropertyTestCase extends TestBase {
-
-    private static final String PROP2 = "prop";
+class BuiltInPropertyTestCase extends TestBase {
 
     @Test
-    public void testTopObjectPropertyPositive() {
-        OWLObjectPropertyExpression prop = df.getOWLTopObjectProperty();
-        assertTrue(prop.isOWLTopObjectProperty());
+    void testTopObjectPropertyPositive() {
+        assertTrue(df.getOWLTopObjectProperty().isOWLTopObjectProperty());
     }
 
     @Test
-    public void testBottomObjectPropertyPositive() {
-        OWLObjectPropertyExpression prop = df.getOWLBottomObjectProperty();
-        assertTrue(prop.isOWLBottomObjectProperty());
+    void testBottomObjectPropertyPositive() {
+        assertTrue(df.getOWLBottomObjectProperty().isOWLBottomObjectProperty());
     }
 
     @Test
-    public void testTopObjectPropertyNegative() {
-        OWLObjectPropertyExpression prop = ObjectProperty(iri(PROP2));
-        assertFalse(prop.isOWLTopObjectProperty());
+    void testTopObjectPropertyNegative() {
+        assertFalse(PROP.isOWLTopObjectProperty());
     }
 
     @Test
-    public void testBottomObjectPropertyNegative() {
-        OWLObjectPropertyExpression prop = ObjectProperty(iri(PROP2));
-        assertFalse(prop.isOWLBottomObjectProperty());
+    void testBottomObjectPropertyNegative() {
+        assertFalse(PROP.isOWLBottomObjectProperty());
     }
 
     @Test
-    public void testTopDataPropertyPositive() {
-        OWLDataPropertyExpression prop = df.getOWLTopDataProperty();
-        assertTrue(prop.isOWLTopDataProperty());
+    void testTopDataPropertyPositive() {
+        assertTrue(df.getOWLTopDataProperty().isOWLTopDataProperty());
     }
 
     @Test
-    public void testBottomDataPropertyPositive() {
-        OWLDataPropertyExpression prop = df.getOWLBottomDataProperty();
-        assertTrue(prop.isOWLBottomDataProperty());
+    void testBottomDataPropertyPositive() {
+        assertTrue(df.getOWLBottomDataProperty().isOWLBottomDataProperty());
     }
 
     @Test
-    public void testTopDataPropertyNegative() {
-        OWLDataPropertyExpression prop = DataProperty(iri(PROP2));
-        assertFalse(prop.isOWLTopDataProperty());
+    void testTopDataPropertyNegative() {
+        assertFalse(DPROP.isOWLTopDataProperty());
     }
 
     @Test
-    public void testBottomDataPropertyNegative() {
-        OWLDataPropertyExpression prop = DataProperty(iri(PROP2));
-        assertFalse(prop.isOWLBottomDataProperty());
+    void testBottomDataPropertyNegative() {
+        assertFalse(DPROP.isOWLBottomDataProperty());
     }
 }

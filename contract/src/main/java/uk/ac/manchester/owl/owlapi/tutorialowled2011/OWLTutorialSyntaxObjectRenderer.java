@@ -102,8 +102,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private static final boolean TABLES = true;
     private static final int TABLE_COLUMNS = 3;
-    private final @Nonnull
-    ShortFormProvider shortForms;
+    private final @Nonnull ShortFormProvider shortForms;
     private final Writer writer;
     int lastNewLinePos;
     private int pos;
@@ -168,7 +167,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     private <T extends OWLObject> OWLTutorialSyntaxObjectRenderer writeTable(Stream<T> objects) {
         writeTableStart();
         int count = 0;
-        for (Iterator<T> it = objects.iterator(); it.hasNext(); ) {
+        for (Iterator<T> it = objects.iterator(); it.hasNext();) {
             if (count % TABLE_COLUMNS == 0) {
                 if (count > 0) {
                     writeTableRowEnd();
@@ -187,7 +186,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private <T extends OWLObject> OWLTutorialSyntaxObjectRenderer writeList(Stream<T> objects) {
         writeListStart();
-        for (Iterator<T> it = objects.iterator(); it.hasNext(); ) {
+        for (Iterator<T> it = objects.iterator(); it.hasNext();) {
             writeListItemStart();
             it.next().accept(this);
             writeListItemEnd();
@@ -208,8 +207,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
             .writeCollection(ontology.objectPropertiesInSignature())
             .writeCollection(ontology.dataPropertiesInSignature());
         write("</div>\n<div class='box'>\n<h2>Individuals</h2>\n")
-            .writeCollection(ontology.individualsInSignature())
-            .write("</div>");
+            .writeCollection(ontology.individualsInSignature()).write("</div>");
         write("<div><div class='box'><h2>Axioms</h2>\n");
         writeListStart();
         ontology.axioms().forEach(ax -> {
@@ -384,8 +382,8 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept(this);
-        writeSpace().write(keyword("==")).writeSpace()
-            .write(axiom.classExpressions(), keyword("|"));
+        writeSpace().write(keyword("==")).writeSpace().write(axiom.classExpressions(),
+            keyword("|"));
     }
 
     @Override
@@ -523,8 +521,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private OWLTutorialSyntaxObjectRenderer writeRestriction(String str,
-        OWLCardinalityRestriction<?> restriction,
-        OWLPropertyExpression property) {
+        OWLCardinalityRestriction<?> restriction, OWLPropertyExpression property) {
         write(str).writeOpenBracket().write(restriction.getCardinality()).writeSpace();
         property.accept(this);
         if (restriction.isQualified()) {

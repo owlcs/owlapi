@@ -642,6 +642,11 @@ public final class OWLFunctionalSyntaxFactory {
         return DF.getOWLDifferentIndividualsAxiom(individuals);
     }
 
+    public static OWLDifferentIndividualsAxiom DifferentIndividuals(
+        Collection<? extends OWLIndividual> individuals, Collection<OWLAnnotation> a) {
+        return DF.getOWLDifferentIndividualsAxiom(individuals, a);
+    }
+
     public static OWLSameIndividualAxiom SameIndividual(
         Collection<? extends OWLIndividual> individuals) {
         return DF.getOWLSameIndividualAxiom(individuals);

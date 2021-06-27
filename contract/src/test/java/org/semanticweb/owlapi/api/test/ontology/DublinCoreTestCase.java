@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
@@ -24,16 +24,15 @@ import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
-public class DublinCoreTestCase extends TestBase {
+class DublinCoreTestCase extends TestBase {
 
     @Test
-    public void testAnnotationProperties() {
+    void testAnnotationProperties() {
         OWLOntology ontology = ontologyFromClasspathFile("dublincore.rdf");
         for (DublinCoreVocabulary vocabulary : DublinCoreVocabulary.values()) {
-            assertTrue(vocabulary.getIRI().toString(),
-                ontology.containsAnnotationPropertyInSignature(
-                    vocabulary.getIRI(), EXCLUDED));
+            assertTrue(
+                ontology.containsAnnotationPropertyInSignature(vocabulary.getIRI(), EXCLUDED),
+                vocabulary.getIRI().toString());
         }
     }
 }

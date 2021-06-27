@@ -12,19 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -34,47 +31,37 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
-public class AnnotationPropertyReferencesTestCase extends TestBase {
+class AnnotationPropertyReferencesTestCase extends TestBase {
+    static final OWLLiteral val = Literal("Test", "");
 
     @Test
-    public void testContainsReferenceForAnnotationAssertion() {
-        OWLAnnotationProperty ap = AnnotationProperty(iri("prop"));
-        OWLLiteral val = Literal("Test", "");
-        OWLAnnotationSubject subject = Class(iri("A")).getIRI();
-        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(ap, subject, val);
+    void testContainsReferenceForAnnotationAssertion() {
+        OWLAnnotationSubject subject = A.getIRI();
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(AP, subject, val);
         OWLOntology ont = getOWLOntology();
-        ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(ont.containsAnnotationPropertyInSignature(ap.getIRI()));
+        ont.addAxiom(ax);
+        assertTrue(ont.containsAnnotationPropertyInSignature(AP.getIRI()));
+        assertTrue(ont.annotationPropertiesInSignature().anyMatch(a -> a.equals(AP)));
+    }
+
+    @Test
+    void testContainsReferenceForAxiomAnnotation() {
+        OWLAnnotation anno = df.getOWLAnnotation(AP, val);
+        OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(A, B, singleton(anno));
+        OWLOntology ont = getOWLOntology();
+        ont.addAxiom(ax);
+        assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI()));
         assertTrue(
-            ont.annotationPropertiesInSignature().anyMatch(a -> a.equals(ap)));
+            ont.annotationPropertiesInSignature().anyMatch(a -> a.equals(anno.getProperty())));
     }
 
     @Test
-    public void testContainsReferenceForAxiomAnnotation() {
-        OWLAnnotationProperty ap = AnnotationProperty(iri("prop"));
-        OWLLiteral val = Literal("Test", "");
-        OWLAnnotation anno = df.getOWLAnnotation(ap, val);
-        OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(Class(iri("A")),
-            Class(iri("B")), singleton(anno));
+    void testContainsReferenceForOntologyAnnotation() {
+        OWLAnnotation anno = df.getOWLAnnotation(AP, val);
         OWLOntology ont = getOWLOntology();
-        ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(ont.containsAnnotationPropertyInSignature(
-            anno.getProperty().getIRI()));
-        assertTrue(ont.annotationPropertiesInSignature()
-            .anyMatch(a -> a.equals(anno.getProperty())));
-    }
-
-    @Test
-    public void testContainsReferenceForOntologyAnnotation() {
-        OWLAnnotationProperty ap = AnnotationProperty(iri("prop"));
-        OWLLiteral val = Literal("Test");
-        OWLAnnotation anno = df.getOWLAnnotation(ap, val);
-        OWLOntology ont = getOWLOntology();
-        ont.getOWLOntologyManager()
-            .applyChange(new AddOntologyAnnotation(ont, anno));
-        assertTrue(ont.containsAnnotationPropertyInSignature(
-            anno.getProperty().getIRI(), EXCLUDED));
+        ont.applyChange(new AddOntologyAnnotation(ont, anno));
+        assertTrue(
+            ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI(), EXCLUDED));
         assertTrue(ont.annotationPropertiesInSignature(EXCLUDED)
             .anyMatch(a -> a.equals(anno.getProperty())));
     }

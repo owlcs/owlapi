@@ -12,269 +12,166 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.semanticweb.owlapi.apitest.TestFiles.AANN;
+import static org.semanticweb.owlapi.apitest.TestFiles.ACALL;
+import static org.semanticweb.owlapi.apitest.TestFiles.ACHAS;
+import static org.semanticweb.owlapi.apitest.TestFiles.ACL;
+import static org.semanticweb.owlapi.apitest.TestFiles.ACLAND;
+import static org.semanticweb.owlapi.apitest.TestFiles.ACLOR;
+import static org.semanticweb.owlapi.apitest.TestFiles.ACNOT;
+import static org.semanticweb.owlapi.apitest.TestFiles.ACSOME;
+import static org.semanticweb.owlapi.apitest.TestFiles.ADALL;
+import static org.semanticweb.owlapi.apitest.TestFiles.ADEQ;
+import static org.semanticweb.owlapi.apitest.TestFiles.ADHAS;
+import static org.semanticweb.owlapi.apitest.TestFiles.ADMAX;
+import static org.semanticweb.owlapi.apitest.TestFiles.ADMIN;
+import static org.semanticweb.owlapi.apitest.TestFiles.ADONEOF;
+import static org.semanticweb.owlapi.apitest.TestFiles.ADSOME;
+import static org.semanticweb.owlapi.apitest.TestFiles.ALL;
+import static org.semanticweb.owlapi.apitest.TestFiles.AND;
+import static org.semanticweb.owlapi.apitest.TestFiles.ANDP;
+import static org.semanticweb.owlapi.apitest.TestFiles.ANNI;
+import static org.semanticweb.owlapi.apitest.TestFiles.ANNSHORT;
+import static org.semanticweb.owlapi.apitest.TestFiles.ANOP;
+import static org.semanticweb.owlapi.apitest.TestFiles.AOEQ;
+import static org.semanticweb.owlapi.apitest.TestFiles.AOINV;
+import static org.semanticweb.owlapi.apitest.TestFiles.AOMAX;
+import static org.semanticweb.owlapi.apitest.TestFiles.AOMIN;
+import static org.semanticweb.owlapi.apitest.TestFiles.AONE;
+import static org.semanticweb.owlapi.apitest.TestFiles.AOP;
+import static org.semanticweb.owlapi.apitest.TestFiles.AOPJ;
+import static org.semanticweb.owlapi.apitest.TestFiles.APD;
+import static org.semanticweb.owlapi.apitest.TestFiles.APR;
+import static org.semanticweb.owlapi.apitest.TestFiles.ASELF;
+import static org.semanticweb.owlapi.apitest.TestFiles.BLN;
+import static org.semanticweb.owlapi.apitest.TestFiles.C;
+import static org.semanticweb.owlapi.apitest.TestFiles.CI;
+import static org.semanticweb.owlapi.apitest.TestFiles.CNOT;
+import static org.semanticweb.owlapi.apitest.TestFiles.DALL;
+import static org.semanticweb.owlapi.apitest.TestFiles.DAND;
+import static org.semanticweb.owlapi.apitest.TestFiles.DANN;
+import static org.semanticweb.owlapi.apitest.TestFiles.DB;
+import static org.semanticweb.owlapi.apitest.TestFiles.DC;
+import static org.semanticweb.owlapi.apitest.TestFiles.DD;
+import static org.semanticweb.owlapi.apitest.TestFiles.DDP;
+import static org.semanticweb.owlapi.apitest.TestFiles.DEQ;
+import static org.semanticweb.owlapi.apitest.TestFiles.DHAS;
+import static org.semanticweb.owlapi.apitest.TestFiles.DIFF;
+import static org.semanticweb.owlapi.apitest.TestFiles.DIND;
+import static org.semanticweb.owlapi.apitest.TestFiles.DISJDP;
+import static org.semanticweb.owlapi.apitest.TestFiles.DMAX;
+import static org.semanticweb.owlapi.apitest.TestFiles.DMIN;
+import static org.semanticweb.owlapi.apitest.TestFiles.DNOT;
+import static org.semanticweb.owlapi.apitest.TestFiles.DONEOF;
+import static org.semanticweb.owlapi.apitest.TestFiles.DOP;
+import static org.semanticweb.owlapi.apitest.TestFiles.DOR;
+import static org.semanticweb.owlapi.apitest.TestFiles.DP;
+import static org.semanticweb.owlapi.apitest.TestFiles.DPI;
+import static org.semanticweb.owlapi.apitest.TestFiles.DPR;
+import static org.semanticweb.owlapi.apitest.TestFiles.DPRAND;
+import static org.semanticweb.owlapi.apitest.TestFiles.DPRNOT;
+import static org.semanticweb.owlapi.apitest.TestFiles.DPROR;
+import static org.semanticweb.owlapi.apitest.TestFiles.DRA;
+import static org.semanticweb.owlapi.apitest.TestFiles.DSJC;
+import static org.semanticweb.owlapi.apitest.TestFiles.DSJOP;
+import static org.semanticweb.owlapi.apitest.TestFiles.DSOME;
+import static org.semanticweb.owlapi.apitest.TestFiles.DT;
+import static org.semanticweb.owlapi.apitest.TestFiles.DTD;
+import static org.semanticweb.owlapi.apitest.TestFiles.DTI;
+import static org.semanticweb.owlapi.apitest.TestFiles.DU;
+import static org.semanticweb.owlapi.apitest.TestFiles.EQC;
+import static org.semanticweb.owlapi.apitest.TestFiles.EQDP;
+import static org.semanticweb.owlapi.apitest.TestFiles.EQOP;
+import static org.semanticweb.owlapi.apitest.TestFiles.FDP;
+import static org.semanticweb.owlapi.apitest.TestFiles.FOP;
+import static org.semanticweb.owlapi.apitest.TestFiles.HAS;
+import static org.semanticweb.owlapi.apitest.TestFiles.HASKEY;
+import static org.semanticweb.owlapi.apitest.TestFiles.I;
+import static org.semanticweb.owlapi.apitest.TestFiles.IFP;
+import static org.semanticweb.owlapi.apitest.TestFiles.II;
+import static org.semanticweb.owlapi.apitest.TestFiles.INVERSE;
+import static org.semanticweb.owlapi.apitest.TestFiles.IOP;
+import static org.semanticweb.owlapi.apitest.TestFiles.IRI;
+import static org.semanticweb.owlapi.apitest.TestFiles.IRII;
+import static org.semanticweb.owlapi.apitest.TestFiles.IRR;
+import static org.semanticweb.owlapi.apitest.TestFiles.MAX;
+import static org.semanticweb.owlapi.apitest.TestFiles.MAXSIX;
+import static org.semanticweb.owlapi.apitest.TestFiles.MIN5;
+import static org.semanticweb.owlapi.apitest.TestFiles.MINMAX;
+import static org.semanticweb.owlapi.apitest.TestFiles.MINMXSIX;
+import static org.semanticweb.owlapi.apitest.TestFiles.NOT;
+import static org.semanticweb.owlapi.apitest.TestFiles.OEQ;
+import static org.semanticweb.owlapi.apitest.TestFiles.OMIN;
+import static org.semanticweb.owlapi.apitest.TestFiles.ONE;
+import static org.semanticweb.owlapi.apitest.TestFiles.OP;
+import static org.semanticweb.owlapi.apitest.TestFiles.OPD;
+import static org.semanticweb.owlapi.apitest.TestFiles.OPI;
+import static org.semanticweb.owlapi.apitest.TestFiles.OPR;
+import static org.semanticweb.owlapi.apitest.TestFiles.OR;
+import static org.semanticweb.owlapi.apitest.TestFiles.R;
+import static org.semanticweb.owlapi.apitest.TestFiles.SAME;
+import static org.semanticweb.owlapi.apitest.TestFiles.SELF;
+import static org.semanticweb.owlapi.apitest.TestFiles.SHORTRULE;
+import static org.semanticweb.owlapi.apitest.TestFiles.SOME;
+import static org.semanticweb.owlapi.apitest.TestFiles.SUBA;
+import static org.semanticweb.owlapi.apitest.TestFiles.SUBC;
+import static org.semanticweb.owlapi.apitest.TestFiles.SUBD;
+import static org.semanticweb.owlapi.apitest.TestFiles.SUBO;
+import static org.semanticweb.owlapi.apitest.TestFiles.SUBOP;
+import static org.semanticweb.owlapi.apitest.TestFiles.SYMM;
+import static org.semanticweb.owlapi.apitest.TestFiles.T;
+import static org.semanticweb.owlapi.apitest.TestFiles.VAR1;
+import static org.semanticweb.owlapi.apitest.TestFiles.adp;
+import static org.semanticweb.owlapi.apitest.TestFiles.asymmetric;
+import static org.semanticweb.owlapi.apitest.TestFiles.classvar2;
+import static org.semanticweb.owlapi.apitest.TestFiles.diffvar2;
+import static org.semanticweb.owlapi.apitest.TestFiles.dlsaferule;
+import static org.semanticweb.owlapi.apitest.TestFiles.dpafalse;
+import static org.semanticweb.owlapi.apitest.TestFiles.dpdomain;
+import static org.semanticweb.owlapi.apitest.TestFiles.dpvar2;
+import static org.semanticweb.owlapi.apitest.TestFiles.opavar2;
+import static org.semanticweb.owlapi.apitest.TestFiles.plain;
+import static org.semanticweb.owlapi.apitest.TestFiles.v1;
+import static org.semanticweb.owlapi.apitest.TestFiles.v2;
+import static org.semanticweb.owlapi.apitest.TestFiles.v3;
+import static org.semanticweb.owlapi.apitest.TestFiles.v34;
+import static org.semanticweb.owlapi.apitest.TestFiles.var2;
+import static org.semanticweb.owlapi.apitest.TestFiles.var236;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.OWLObjectComponentCollector;
 
-import com.google.common.collect.Sets;
+class OWLObjectComponentCollectorTestCase {
 
-@SuppressWarnings({"javadoc"})
-@RunWith(Parameterized.class)
-public class OWLObjectComponentCollectorTestCase {
-
-    private static final String CI = "<urn:test:test#c>";
-    private static final String C = "urn:test:test#c";
-    private static final String DTD =
-        "DatatypeDefinition(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#datatype> xsd:double)";
-    private static final String DB = "http://www.w3.org/2001/XMLSchema#double";
-    private static final String DT = "urn:test:test#datatype";
-    private static final String DP = "urn:test:test#dp";
-    private static final String DPI = "<urn:test:test#dp>";
-    private static final String DTI = "<urn:test:test#datatype>";
-    private static final String DPR =
-        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#datatype>)";
-    private static final String DC =
-        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Class(<urn:test:test#c>))";
-    private static final String OP = "urn:test:test#op";
-    private static final String OPI = "<urn:test:test#op>";
-    private static final String DOP =
-        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectProperty(<urn:test:test#op>))";
-    private static final String ANN = "urn:test:test#ann";
-    private static final String ANNI = "<urn:test:test#ann>";
-    private static final String DANN =
-        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) AnnotationProperty(<urn:test:test#ann>))";
-    private static final String DDP =
-        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataProperty(<urn:test:test#dp>))";
-    private static final String DD =
-        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Datatype(<urn:test:test#datatype>))";
-    private static final String FDP =
-        "FunctionalDataProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp>)";
-    private static final String FOP =
-        "FunctionalObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
-    private static final String IFP =
-        "InverseFunctionalObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
-    private static final String IOP =
-        "InverseObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#op>)";
-    private static final String DIND =
-        "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) NamedIndividual(<urn:test:test#i>))";
-    private static final String DIFF =
-        "DifferentIndividuals(<urn:test:test#i> <urn:test:test#iri> )";
-    private static final String DSJC = "DisjointClasses(<urn:test:test#c> <urn:test:test#iri>)";
-    private static final String IRI = "urn:test:test#iri";
-    private static final String IRII = "<urn:test:test#iri>";
-    private static final String I = "urn:test:test#i";
-    private static final String DISJDP =
-        "DisjointDataProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#iri> )";
-    private static final String DSJOP =
-        "DisjointObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#iri> <urn:test:test#op> )";
-    private static final String II = "<urn:test:test#i>";
-    private static final String SYMM =
-        "SymmetricObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
-    private static final String plain = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
-    private static final String adp =
-        "DataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"string\"@en)";
-    private static final String dpdomain =
-        "DataPropertyDomain(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#c>)";
-    private static final String VAR1 = "Variable(<urn:swrl:var#var1>)";
-    private static final String DRA =
-        "DataRangeAtom(<urn:test:test#datatype> Variable(<urn:swrl:var#var1>))";
-    private static final String v1 =
-        "BuiltInAtom(<urn:test:test#iri> Variable(<urn:swrl:var#var1>) )";
-    private static final String v2 =
-        "SameAsAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#iri>)";
-    private static final String var2 = "Variable(<urn:swrl:var#var2>)";
-    private static final String diffvar2 =
-        "DifferentFromAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#i>)";
-    private static final String opavar2 =
-        "ObjectPropertyAtom(<urn:test:test#op> Variable(<urn:swrl:var#var2>) Variable(<urn:swrl:var#var2>))";
-    private static final String dpvar2 =
-        "DataPropertyAtom(<urn:test:test#dp> Variable(<urn:swrl:var#var2>) \"false\"^^xsd:boolean)";
-    private static final String classvar2 =
-        "ClassAtom(<urn:test:test#c> Variable(<urn:swrl:var#var2>))";
-    private static final String rule =
-        "DLSafeRule(Annotation(<urn:test:test#ann> \"test\"^^xsd:string)  Body(BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>) ) ClassAtom(<urn:test:test#c> Variable(<urn:swrl:var#var2>)) DataRangeAtom(<urn:test:test#datatype> Variable(<urn:swrl:var#var1>)) BuiltInAtom(<urn:test:test#iri> Variable(<urn:swrl:var#var1>) ) DifferentFromAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#i>) SameAsAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#iri>)) Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) ) DataPropertyAtom(<urn:test:test#dp> Variable(<urn:swrl:var#var2>) \"false\"^^xsd:boolean) ObjectPropertyAtom(<urn:test:test#op> Variable(<urn:swrl:var#var2>) Variable(<urn:swrl:var#var2>))) )";
-    private static final String T =
-        "TransitiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
-    private static final String HASKEY =
-        "HasKey(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> (<urn:test:test#iri> <urn:test:test#op> ) (<urn:test:test#dp> ))";
-    private static final String AANN =
-        "AnnotationAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> <urn:test:test#iri> \"false\"^^xsd:boolean)";
-    private static final String asymm =
-        "AsymmetricObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
-    private static final String APD =
-        "AnnotationPropertyDomain(<urn:test:test#ann> <urn:test:test#iri>)";
-    private static final String APR =
-        "AnnotationPropertyRange(<urn:test:test#ann> <urn:test:test#iri>)";
-    private static final String ACL =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#i>)";
-    private static final String ACLAND =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectIntersectionOf(<urn:test:test#c> <urn:test:test#iri>) <urn:test:test#i>)";
-    private static final String AND = "ObjectIntersectionOf(<urn:test:test#c> <urn:test:test#iri>)";
-    private static final String ACLOR =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectUnionOf(<urn:test:test#c> <urn:test:test#iri>) <urn:test:test#i>)";
-    private static final String OR = "ObjectUnionOf(<urn:test:test#c> <urn:test:test#iri>)";
-    private static final String DPRAND =
-        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataIntersectionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) ))";
-    private static final String DONEOF = "DataOneOf(\"false\"^^xsd:boolean )";
-    private static final String DAND =
-        "DataIntersectionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) )";
-    private static final String DOR =
-        "DataUnionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) )";
-    private static final String DPROR =
-        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataUnionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) ))";
-    private static final String CNOT =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectComplementOf(<urn:test:test#c>) <urn:test:test#i>)";
-    private static final String NOT = "ObjectComplementOf(<urn:test:test#c>)";
-    private static final String ID = "_:id";
-    private static final String ACNOT =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectComplementOf(<urn:test:test#c>) _:id)";
-    private static final String ACSOME =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectSomeValuesFrom(<urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)";
-    private static final String SOME = "ObjectSomeValuesFrom(<urn:test:test#op> <urn:test:test#c>)";
-    private static final String ACALL =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectAllValuesFrom(<urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)";
-    private static final String ALL = "ObjectAllValuesFrom(<urn:test:test#op> <urn:test:test#c>)";
-    private static final String ACHAS =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectHasValue(<urn:test:test#op> <urn:test:test#i>) <urn:test:test#i>)";
-    private static final String HAS = "ObjectHasValue(<urn:test:test#op> <urn:test:test#i>)";
-    private static final String AOMIN =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectMinCardinality(1 <urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)";
-    private static final String OMIN =
-        "ObjectMinCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
-    private static final String AOMAX =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectMaxCardinality(1 <urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)";
-    private static final String MAX =
-        "ObjectMaxCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
-    private static final String AOEQ =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectExactCardinality(1 <urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)";
-    private static final String OEQ =
-        "ObjectExactCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
-    private static final String ASELF =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectHasSelf(<urn:test:test#op>) <urn:test:test#i>)";
-    private static final String SELF = "ObjectHasSelf(<urn:test:test#op>)";
-    private static final String AONE =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectOneOf(<urn:test:test#i>) <urn:test:test#i>)";
-    private static final String ONE = "ObjectOneOf(<urn:test:test#i>)";
-    private static final String ADSOME =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataSomeValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)";
-    private static final String DSOME =
-        "DataSomeValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>)";
-    private static final String ADALL =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataAllValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)";
-    private static final String DALL =
-        "DataAllValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>)";
-    private static final String ADHAS =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataHasValue(<urn:test:test#dp> \"false\"^^xsd:boolean) <urn:test:test#i>)";
-    private static final String DHAS = "DataHasValue(<urn:test:test#dp> \"false\"^^xsd:boolean)";
-    private static final String ADMIN =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataMinCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)";
-    private static final String DMIN =
-        "DataMinCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
-    private static final String ADMAX =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataMaxCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)";
-    private static final String DMAX =
-        "DataMaxCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
-    private static final String ADEQ =
-        "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataExactCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)";
-    private static final String DEQ =
-        "DataExactCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
-    private static final String ADONEOF =
-        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataOneOf(\"false\"^^xsd:boolean ))";
-    private static final String DPRNOT =
-        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataComplementOf(DataOneOf(\"false\"^^xsd:boolean )))";
-    private static final String DNOT = "DataComplementOf(DataOneOf(\"false\"^^xsd:boolean ))";
-    private static final String FIVE = "\"5.0\"^^xsd:double";
-    private static final String SIX = "\"6.0\"^^xsd:double";
-    private static final String MINMAX =
-        "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataRangeRestriction(xsd:double facetRestriction(minExclusive \"5.0\"^^xsd:double) facetRestriction(maxExclusive \"6.0\"^^xsd:double)))";
-    private static final String MINMXSIX =
-        "DataRangeRestriction(xsd:double facetRestriction(minExclusive \"5.0\"^^xsd:double) facetRestriction(maxExclusive \"6.0\"^^xsd:double))";
-    private static final String MIN5 = "facetRestriction(minExclusive \"5.0\"^^xsd:double)";
-    private static final String MAXSIX = "facetRestriction(maxExclusive \"6.0\"^^xsd:double)";
-    private static final String dpafalse =
-        "DataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"false\"^^xsd:boolean)";
-    private static final String EQC =
-        "EquivalentClasses(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#iri> )";
-    private static final String EQDP =
-        "EquivalentDataProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#iri> )";
-    private static final String EQOP =
-        "EquivalentObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#iri> <urn:test:test#op> )";
-    private static final String IRR =
-        "IrreflexiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
-    private static final String BLN = "http://www.w3.org/2001/XMLSchema#boolean";
     private static final String FALSE = "\"false\"^^xsd:boolean";
-    private static final String DU =
-        "DisjointUnion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#c> <urn:test:test#iri> )";
-    private static final String ANDP =
-        "NegativeDataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"false\"^^xsd:boolean)";
-    private static final String ANOP =
-        "NegativeObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#i> <urn:test:test#i>)";
-    private static final String AOP =
-        "ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#i> <urn:test:test#i>)";
-    private static final String INVERSE = "ObjectInverseOf(<urn:test:test#op>)";
-    private static final String AOINV =
-        "ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test:test#op>) <urn:test:test#i> <urn:test:test#i>)";
-    private static final String JI = "<urn:test:test#j>";
-    private static final String J = "urn:test:test#j";
-    private static final String AOPJ =
-        "ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test:test#op>) <urn:test:test#i> <urn:test:test#j>)";
-    private static final String OPD =
-        "ObjectPropertyDomain(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#c>)";
-    private static final String OPR =
-        "ObjectPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#c>)";
-    private static final String SUBO =
-        "SubObjectPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectPropertyChain( <urn:test:test#iri> <urn:test:test#op> ) <urn:test:test#op>)";
-    private static final String R =
-        "ReflexiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)";
-    private static final String SAME =
-        "SameIndividual(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#i> <urn:test:test#iri> )";
-    private static final String LABEL = "http://www.w3.org/2000/01/rdf-schema#label";
-    private static final String LAB = "rdfs:label";
-    private static final String SUBA =
-        "SubAnnotationPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> rdfs:label)";
-    private static final String TOP = "http://www.w3.org/2002/07/owl#Thing";
-    private static final String THING = "owl:Thing";
-    private static final String SUBC =
-        "SubClassOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> owl:Thing)";
-    private static final String TOPDT = "http://www.w3.org/2002/07/owl#topDataProperty";
-    private static final String TDT = "owl:topDataProperty";
-    private static final String SUBD = "SubDataPropertyOf(<urn:test:test#dp> owl:topDataProperty)";
-    private static final String TOPOP = "http://www.w3.org/2002/07/owl#topObjectProperty";
-    private static final String TOPO = "owl:topObjectProperty";
-    private static final String SUBOP =
-        "SubObjectPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> owl:topObjectProperty)";
-    private static final String var6 = "Variable(<urn:swrl:var#var6>)";
-    private static final String var5 = "Variable(<urn:swrl:var#var5>)";
-    private static final String v4 = "Variable(<urn:swrl:var#var4>)";
-    private static final String v34 =
-        "BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>) )";
-    private static final String v3 = "Variable(<urn:swrl:var#var3>)";
-    private static final String var236 =
-        "BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) )";
-    private static final String SHORTRULE =
-        "DLSafeRule( Body(BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>) )) Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) )) )";
-    private final OWLAxiom object;
-    private final Set<String> expected;
+    static final String FIVE = "\"5.0\"^^xsd:double";
+    static final String SIX = "\"6.0\"^^xsd:double";
+    static final String LABEL = "http://www.w3.org/2000/01/rdf-schema#label";
+    static final String LAB = "rdfs:label";
+    static final String TOP = "http://www.w3.org/2002/07/owl#Thing";
+    static final String THING = "owl:Thing";
+    static final String TOPDT = "http://www.w3.org/2002/07/owl#topDataProperty";
+    static final String TDT = "owl:topDataProperty";
+    static final String TOPOP = "http://www.w3.org/2002/07/owl#topObjectProperty";
+    static final String TOPO = "owl:topObjectProperty";
+    static final String var6 = "Variable(<urn:swrl:var#var6>)";
+    static final String var5 = "Variable(<urn:swrl:var#var5>)";
+    static final String v4 = "Variable(<urn:swrl:var#var4>)";
 
-    public OWLObjectComponentCollectorTestCase(OWLAxiom object, String[] expected) {
-        this.object = object;
-        this.expected = Sets.newHashSet(expected);
-    }
-
-    @Parameterized.Parameters(name = "{0}")
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLAxiom, String[]> map = new LinkedHashMap<>();
         map.put(b.assDPlain(), new String[] {plain, DP, I, DPI, II, adp, plain, "\"string\"@en"});
@@ -284,7 +181,7 @@ public class OWLObjectComponentCollectorTestCase {
         map.put(b.decOp(), new String[] {OP, OPI, DOP});
         map.put(b.decDp(), new String[] {DP, DPI, DDP});
         map.put(b.decDt(), new String[] {DT, DD, DTI});
-        map.put(b.decAp(), new String[] {ANN, ANNI, DANN});
+        map.put(b.decAp(), new String[] {ANNSHORT, ANNI, DANN});
         map.put(b.decI(), new String[] {I, II, DIND});
         map.put(b.assDi(), new String[] {I, IRI, II, IRII, DIFF});
         map.put(b.dc(), new String[] {C, IRI, CI, IRII, DSJC});
@@ -303,13 +200,14 @@ public class OWLObjectComponentCollectorTestCase {
         map.put(b.nop(), new String[] {I, OP, OPI, II, ANOP});
         map.put(b.opa(), new String[] {I, OP, OPI, II, AOP});
         map.put(b.opaInv(), new String[] {I, OP, OPI, INVERSE, II, AOINV});
-        map.put(b.opaInvj(), new String[] {I, J, OP, OPI, INVERSE, II, JI, AOPJ});
+        map.put(b.opaInvj(),
+            new String[] {I, "urn:test:test#j", OP, OPI, INVERSE, II, "<urn:test:test#j>", AOPJ});
         map.put(b.oDom(), new String[] {C, OP, CI, OPI, OPD});
         map.put(b.oRange(), new String[] {C, OP, CI, OPI, OPR});
         map.put(b.chain(), new String[] {IRI, OP, IRII, OPI, SUBO});
         map.put(b.ref(), new String[] {OP, OPI, R});
         map.put(b.same(), new String[] {I, IRI, II, IRII, SAME});
-        map.put(b.subAnn(), new String[] {LABEL, ANN, LAB, ANNI, SUBA});
+        map.put(b.subAnn(), new String[] {LABEL, ANNSHORT, LAB, ANNI, SUBA});
         map.put(b.subClass(), new String[] {TOP, C, THING, CI, SUBC});
         map.put(b.subData(), new String[] {TOPDT, DP, TDT, DPI, SUBD});
         map.put(b.subObject(), new String[] {TOPOP, OP, TOPO, OPI, SUBOP});
@@ -318,9 +216,9 @@ public class OWLObjectComponentCollectorTestCase {
         map.put(b.trans(), new String[] {OP, OPI, T});
         map.put(b.hasKey(), new String[] {C, DP, IRI, OP, CI, IRII, OPI, DPI, HASKEY});
         map.put(b.ann(), new String[] {IRI, AANN});
-        map.put(b.asymm(), new String[] {OP, OPI, asymm});
-        map.put(b.annDom(), new String[] {ANN, IRI, ANNI, APD});
-        map.put(b.annRange(), new String[] {ANN, IRI, ANNI, APR});
+        map.put(b.asymm(), new String[] {OP, OPI, asymmetric});
+        map.put(b.annDom(), new String[] {ANNSHORT, IRI, ANNI, APD});
+        map.put(b.annRange(), new String[] {ANNSHORT, IRI, ANNI, APR});
         map.put(b.ass(), new String[] {C, I, CI, II, ACL});
         map.put(b.assAnd(), new String[] {C, I, IRI, CI, IRII, II, ACLAND, AND});
         map.put(b.assOr(), new String[] {C, I, IRI, CI, IRII, II, ACLOR, OR});
@@ -328,7 +226,7 @@ public class OWLObjectComponentCollectorTestCase {
             new String[] {BLN, DT, DP, DPI, DPRAND, DTI, DONEOF, DAND, FALSE, BLN});
         map.put(b.dRangeOr(), new String[] {BLN, DT, DP, DPI, DOR, DPROR, DTI, DONEOF, FALSE, BLN});
         map.put(b.assNot(), new String[] {C, I, CI, II, CNOT, NOT});
-        map.put(b.assNotAnon(), new String[] {C, CI, ID, ACNOT, NOT});
+        map.put(b.assNotAnon(), new String[] {C, CI, "_:id", ACNOT, NOT});
         map.put(b.assSome(), new String[] {C, I, OP, CI, OPI, II, ACSOME, SOME});
         map.put(b.assAll(), new String[] {C, I, OP, CI, OPI, II, ACALL, ALL});
         map.put(b.assHas(), new String[] {I, OP, OPI, II, ACHAS, HAS});
@@ -353,17 +251,18 @@ public class OWLObjectComponentCollectorTestCase {
         map.put(b.bigRule(),
             new String[] {FALSE, var6, var5, v1, v4, v34, v3, v2, var2, OPI, var236, FALSE,
                 diffvar2, DP, VAR1, CI, DT, BLN, IRII, opavar2, DRA, II, BLN, dpvar2, OP, C, IRI,
-                classvar2, IRII, I, rule, DTI, II, DPI});
+                classvar2, IRII, I, dlsaferule, DTI, II, DPI});
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
         return toReturn;
     }
 
-    @Test
-    public void testAssertion() {
+    @ParameterizedTest
+    @MethodSource("getData")
+    void testAssertion(OWLAxiom object, String[] expected) {
         OWLObjectComponentCollector testsubject = new OWLObjectComponentCollector();
         Collection<OWLObject> components = testsubject.getComponents(object);
         Set<String> strings = asUnorderedSet(components.stream().map(Object::toString));
-        assertEquals(expected, strings);
+        assertEquals(new HashSet<>(Arrays.asList(expected)), strings);
     }
 }

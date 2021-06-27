@@ -42,10 +42,6 @@ public class LatexRenderer extends AbstractOWLRenderer {
     private final ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
     private final OWLEntityComparator entityComparator = new OWLEntityComparator(shortFormProvider);
 
-    private static String escapeName(String name) {
-        return name.replace("_", "\\_");
-    }
-
     private static Collection<? extends OWLAxiom> sortAxioms(Stream<? extends OWLAxiom> axioms) {
         return asList(axioms.sorted(new OWLAxiomComparator()));
     }
@@ -56,6 +52,10 @@ public class LatexRenderer extends AbstractOWLRenderer {
         w.write("}\n\n");
     }
 
+    private static String escapeName(String name) {
+        return name.replace("_", "\\_");
+    }
+    
     @Override
     public void render(OWLOntology o, PrintWriter _w) throws OWLRendererException {
         try {

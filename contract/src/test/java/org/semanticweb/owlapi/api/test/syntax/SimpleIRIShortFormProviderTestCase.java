@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 
@@ -23,11 +23,10 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
-public class SimpleIRIShortFormProviderTestCase {
+class SimpleIRIShortFormProviderTestCase {
 
     @Test
-    public void testFragmentShortForm() {
+    void testFragmentShortForm() {
         IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/x#", "A");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
         String shortForm = sfp.getShortForm(iri);
@@ -35,7 +34,7 @@ public class SimpleIRIShortFormProviderTestCase {
     }
 
     @Test
-    public void testLastPathShortForm() {
+    void testLastPathShortForm() {
         IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/", "x");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
         String shortForm = sfp.getShortForm(iri);
@@ -43,7 +42,7 @@ public class SimpleIRIShortFormProviderTestCase {
     }
 
     @Test
-    public void testEmptyPathShortForm() {
+    void testEmptyPathShortForm() {
         IRI iri = IRI("http://owl.cs.manchester.ac.uk/", "");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
         String shortForm = sfp.getShortForm(iri);

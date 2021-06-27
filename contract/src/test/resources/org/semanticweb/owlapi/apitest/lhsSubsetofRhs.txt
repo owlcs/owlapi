@@ -1,0 +1,4 @@
+Ontology(<http://x.org/test.owl>
+SubClassOf(ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>) ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>))
+SubClassOf(ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>) ObjectSomeValuesFrom(<http://x.org/located-in> ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>)))
+SubClassOf(ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>) ObjectSomeValuesFrom(<http://x.org/located-in> ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo1>))))

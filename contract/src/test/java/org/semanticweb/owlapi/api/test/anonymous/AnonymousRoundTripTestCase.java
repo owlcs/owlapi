@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
@@ -22,34 +22,28 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Liter
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
 
-import java.util.Collections;
-
-import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
-@SuppressWarnings("javadoc")
-public class AnonymousRoundTripTestCase extends AbstractRoundTrippingTestCase {
+class AnonymousRoundTripTestCase extends TestBase {
 
     @Test
-    public void shouldNotFailOnAnonymousOntologySearch() throws OWLOntologyCreationException {
+    void shouldNotFailOnAnonymousOntologySearch() throws OWLOntologyCreationException {
         m.createOntology(new OWLOntologyID());
         assertNull(m.getOntology(new OWLOntologyID()));
     }
 
     @Test
-    public void testRoundTrip() throws Exception {
+    void testRoundTrip() {
         String ns = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
         OWLClass a = Class(IRI(ns + "#", "A"));
         OWLAnonymousIndividual h = AnonymousIndividual();
@@ -66,23 +60,4 @@ public class AnonymousRoundTripTestCase extends AbstractRoundTrippingTestCase {
         equal(ontology, o);
     }
 
-    @Override
-    protected OWLOntology createOntology() {
-
-        OWLDataProperty dp = df.getOWLDataProperty("urn:test:anon#D");
-        OWLObjectProperty op = df.getOWLObjectProperty("urn:test:anon#O");
-        OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:test:anon#A2");
-        OWLAnonymousIndividual i = df.getOWLAnonymousIndividual("_:b0");
-        OWLAnnotation sub1 = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral("z1"));
-        OWLAnnotation an1 = df.getOWLAnnotation(ap, i, Collections.singletonList(sub1));
-
-        OWLClassExpression c1 = df.getOWLDataAllValuesFrom(dp, df.getBooleanOWLDatatype());
-        OWLClassExpression c2 = df.getOWLObjectSomeValuesFrom(op, df.getOWLThing());
-
-        OWLAxiom ax1 = df.getOWLSubClassOfAxiom(c1, c2, Collections.singletonList(an1));
-
-        OWLOntology ont1 = getOWLOntology();
-        ont1.add(ax1);
-        return ont1;
-    }
 }

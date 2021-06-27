@@ -12,122 +12,33 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ClassAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyDomain;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyRange;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Datatype;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DifferentIndividuals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointClasses;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointDataProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointObjectProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentDataProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalDataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseFunctionalObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IrreflexiveObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NegativeDataPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NegativeObjectPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyDomain;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyRange;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ReflexiveObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SameIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubDataPropertyOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.search.EntitySearcher.isAsymmetric;
-import static org.semanticweb.owlapi.search.EntitySearcher.isFunctional;
-import static org.semanticweb.owlapi.search.EntitySearcher.isInverseFunctional;
-import static org.semanticweb.owlapi.search.EntitySearcher.isIrreflexive;
-import static org.semanticweb.owlapi.search.EntitySearcher.isReflexive;
-import static org.semanticweb.owlapi.search.EntitySearcher.isSymmetric;
-import static org.semanticweb.owlapi.search.EntitySearcher.isTransitive;
+import static org.semanticweb.owlapi.search.EntitySearcher.*;
 import static org.semanticweb.owlapi.search.Filters.subClassWithSub;
 import static org.semanticweb.owlapi.search.Filters.subClassWithSuper;
-import static org.semanticweb.owlapi.search.Searcher.different;
-import static org.semanticweb.owlapi.search.Searcher.domain;
-import static org.semanticweb.owlapi.search.Searcher.equivalent;
-import static org.semanticweb.owlapi.search.Searcher.instances;
-import static org.semanticweb.owlapi.search.Searcher.range;
-import static org.semanticweb.owlapi.search.Searcher.sub;
-import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.search.Searcher.types;
+import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
 import java.util.Collections;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-@SuppressWarnings("javadoc")
-public class OWLOntologyAccessorsTestCase extends TestBase {
+class OWLOntologyAccessorsTestCase extends TestBase {
 
-    private static final String IND_B = "indB";
-    private static final String IND_A = "indA";
-    private static final String PROP2 = "prop";
+    static final OWLNamedIndividual indA = NamedIndividual(iri("indA"));
+    static final OWLNamedIndividual indB = NamedIndividual(iri("indB"));
+    static final OWLNamedIndividual indC = NamedIndividual(iri("indC"));
 
     private static void performAxiomTests(OWLOntology ont, OWLAxiom... axioms) {
         assertEquals(ont.getAxiomCount(), axioms.length);
@@ -150,425 +61,335 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
     }
 
     @Test
-    public void shouldFindExpectedIRIOccurrences() {
+    void shouldFindExpectedIRIOccurrences() {
         OWLOntology o = getOWLOntology();
-        IRI query = IRI.create("urn:test:someIRI");
+        IRI query = iri("urn:test:", "someIRI");
         OWLAnnotationProperty ap1 = df.getOWLAnnotationProperty("urn:test:AP1");
         OWLAnnotationProperty ap2 = df.getOWLAnnotationProperty("urn:test:AP2");
         o.add(df.getOWLAnnotationPropertyDomainAxiom(ap1, query));
         OWLAnnotation a = df.getOWLAnnotation(ap2, query);
         OWLClass c = df.getOWLClass("urn:test:C");
         o.add(df.getOWLSubClassOfAxiom(c, df.getOWLThing(), Collections.singletonList(a)));
-        o.add(df.getOWLAnnotationAssertionAxiom(IRI.create("urn:test:otherIRI"), a));
+        o.add(df.getOWLAnnotationAssertionAxiom(iri("urn:test:", "otherIRI"), a));
         long count = o.referencingAxioms(query).count();
         assertEquals(3, o.getAxiomCount());
         assertEquals(3, count);
-
     }
 
     @Test
-    public void testSubClassOfAxiomAccessors() {
+    void testSubClassOfAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLClass clsA = Class(iri("A"));
-        OWLClass clsB = Class(iri("B"));
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLSubClassOfAxiom ax = SubClassOf(clsA, clsB);
-        man.addAxiom(ont, ax);
-        OWLSubClassOfAxiom ax2 = SubClassOf(clsA, ObjectSomeValuesFrom(prop, clsB));
-        man.addAxiom(ont, ax2);
+        OWLSubClassOfAxiom ax = SubClassOf(A, B);
+        ont.addAxiom(ax);
+        OWLSubClassOfAxiom ax2 = SubClassOf(A, ObjectSomeValuesFrom(P, B));
+        ont.addAxiom(ax2);
         performAxiomTests(ont, ax, ax2);
-        assertTrue(contains(ont.subClassAxiomsForSubClass(clsA), ax));
-        assertTrue(contains(ont.subClassAxiomsForSuperClass(clsB), ax));
-        assertTrue(contains(ont.axioms(clsA), ax));
-        assertTrue(contains(sup(ont.axioms(subClassWithSub, clsA, INCLUDED)), clsB));
-        assertTrue(contains(sub(ont.axioms(subClassWithSuper, clsB, INCLUDED)), clsA));
+        assertTrue(contains(ont.subClassAxiomsForSubClass(A), ax));
+        assertTrue(contains(ont.subClassAxiomsForSuperClass(B), ax));
+        assertTrue(contains(ont.axioms(A), ax));
+        assertTrue(contains(sup(ont.axioms(subClassWithSub, A, INCLUDED)), B));
+        assertTrue(contains(sub(ont.axioms(subClassWithSuper, B, INCLUDED)), A));
     }
 
     @Test
-    public void testEquivalentClassesAxiomAccessors() {
+    void testEquivalentClassesAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLClass clsA = Class(iri("A"));
-        OWLClass clsB = Class(iri("B"));
-        OWLClass clsC = Class(iri("C"));
-        OWLClass clsD = Class(iri("D"));
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, clsB, clsC,
-            ObjectSomeValuesFrom(prop, clsD));
-        man.addAxiom(ont, ax);
+        OWLEquivalentClassesAxiom ax = EquivalentClasses(A, B, C, ObjectSomeValuesFrom(P, D));
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.equivalentClassesAxioms(clsA), ax));
-        assertTrue(contains(ont.equivalentClassesAxioms(clsB), ax));
-        assertTrue(contains(ont.equivalentClassesAxioms(clsC), ax));
-        assertTrue(contains(ont.axioms(clsA), ax));
-        assertTrue(contains(ont.axioms(clsB), ax));
-        assertTrue(contains(ont.axioms(clsC), ax));
+        assertTrue(contains(ont.equivalentClassesAxioms(A), ax));
+        assertTrue(contains(ont.equivalentClassesAxioms(B), ax));
+        assertTrue(contains(ont.equivalentClassesAxioms(C), ax));
+        assertTrue(contains(ont.axioms(A), ax));
+        assertTrue(contains(ont.axioms(B), ax));
+        assertTrue(contains(ont.axioms(C), ax));
     }
 
     @Test
-    public void testDisjointClassesAxiomAccessors() {
+    void testDisjointClassesAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLClass clsA = Class(iri("A"));
-        OWLClass clsB = Class(iri("B"));
-        OWLClass clsC = Class(iri("C"));
-        OWLClass clsD = Class(iri("D"));
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLDisjointClassesAxiom ax = DisjointClasses(clsA, clsB, clsC,
-            ObjectSomeValuesFrom(prop, clsD));
-        man.addAxiom(ont, ax);
+        OWLDisjointClassesAxiom ax = DisjointClasses(A, B, C, ObjectSomeValuesFrom(P, D));
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.disjointClassesAxioms(clsA), ax));
-        assertTrue(contains(ont.disjointClassesAxioms(clsB), ax));
-        assertTrue(contains(ont.disjointClassesAxioms(clsC), ax));
-        assertTrue(contains(ont.axioms(clsA), ax));
-        assertTrue(contains(ont.axioms(clsB), ax));
-        assertTrue(contains(ont.axioms(clsC), ax));
+        assertTrue(contains(ont.disjointClassesAxioms(A), ax));
+        assertTrue(contains(ont.disjointClassesAxioms(B), ax));
+        assertTrue(contains(ont.disjointClassesAxioms(C), ax));
+        assertTrue(contains(ont.axioms(A), ax));
+        assertTrue(contains(ont.axioms(B), ax));
+        assertTrue(contains(ont.axioms(C), ax));
     }
 
     @Test
-    public void testSubObjectPropertyOfAxiomAccessors() {
+    void testSubObjectPropertyOfAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLObjectProperty propQ = ObjectProperty(iri("q"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLSubObjectPropertyOfAxiom ax = SubObjectPropertyOf(propP, propQ);
-        man.addAxiom(ont, ax);
+        OWLSubObjectPropertyOfAxiom ax = SubObjectPropertyOf(P, Q);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.objectSubPropertyAxiomsForSubProperty(propP), ax));
-        assertTrue(contains(ont.objectSubPropertyAxiomsForSuperProperty(propQ), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
+        assertTrue(contains(ont.objectSubPropertyAxiomsForSubProperty(P), ax));
+        assertTrue(contains(ont.objectSubPropertyAxiomsForSuperProperty(Q), ax));
+        assertTrue(contains(ont.axioms(P), ax));
     }
 
     @Test
-    public void testEquivalentObjectPropertiesAxiomAccessors() {
+    void testEquivalentObjectPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLObjectProperty propQ = ObjectProperty(iri("q"));
-        OWLObjectProperty propR = ObjectProperty(iri("r"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLEquivalentObjectPropertiesAxiom ax = EquivalentObjectProperties(propP, propQ, propR);
-        man.addAxiom(ont, ax);
+        OWLEquivalentObjectPropertiesAxiom ax = EquivalentObjectProperties(P, Q, R);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.equivalentObjectPropertiesAxioms(propP), ax));
-        assertTrue(contains(ont.equivalentObjectPropertiesAxioms(propQ), ax));
-        assertTrue(contains(ont.equivalentObjectPropertiesAxioms(propR), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(contains(ont.axioms(propQ), ax));
-        assertTrue(contains(ont.axioms(propR), ax));
+        assertTrue(contains(ont.equivalentObjectPropertiesAxioms(P), ax));
+        assertTrue(contains(ont.equivalentObjectPropertiesAxioms(Q), ax));
+        assertTrue(contains(ont.equivalentObjectPropertiesAxioms(R), ax));
+        assertTrue(contains(ont.axioms(P), ax));
+        assertTrue(contains(ont.axioms(Q), ax));
+        assertTrue(contains(ont.axioms(R), ax));
     }
 
     @Test
-    public void testDisjointObjectPropertiesAxiomAccessors() {
+    void testDisjointObjectPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLObjectProperty propQ = ObjectProperty(iri("q"));
-        OWLObjectProperty propR = ObjectProperty(iri("r"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLDisjointObjectPropertiesAxiom ax = DisjointObjectProperties(propP, propQ, propR);
-        man.addAxiom(ont, ax);
+        OWLDisjointObjectPropertiesAxiom ax = DisjointObjectProperties(P, Q, R);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.disjointObjectPropertiesAxioms(propP), ax));
-        assertTrue(contains(ont.disjointObjectPropertiesAxioms(propQ), ax));
-        assertTrue(contains(ont.disjointObjectPropertiesAxioms(propR), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(contains(ont.axioms(propQ), ax));
-        assertTrue(contains(ont.axioms(propR), ax));
+        assertTrue(contains(ont.disjointObjectPropertiesAxioms(P), ax));
+        assertTrue(contains(ont.disjointObjectPropertiesAxioms(Q), ax));
+        assertTrue(contains(ont.disjointObjectPropertiesAxioms(R), ax));
+        assertTrue(contains(ont.axioms(P), ax));
+        assertTrue(contains(ont.axioms(Q), ax));
+        assertTrue(contains(ont.axioms(R), ax));
     }
 
     @Test
-    public void testObjectPropertyDomainAxiomAccessors() {
+    void testObjectPropertyDomainAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLClass clsA = Class(iri("ClsA"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLObjectPropertyDomainAxiom ax = ObjectPropertyDomain(propP, clsA);
-        man.addAxiom(ont, ax);
+        OWLObjectPropertyDomainAxiom ax = ObjectPropertyDomain(P, A);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.objectPropertyDomainAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(contains(domain(ont.objectPropertyDomainAxioms(propP)), clsA));
+        assertTrue(contains(ont.objectPropertyDomainAxioms(P), ax));
+        assertTrue(contains(ont.axioms(P), ax));
+        assertTrue(contains(domain(ont.objectPropertyDomainAxioms(P)), A));
     }
 
     @Test
-    public void testObjectPropertyRangeAxiomAccessors() {
+    void testObjectPropertyRangeAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLClass clsA = Class(iri("ClsA"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLObjectPropertyRangeAxiom ax = ObjectPropertyRange(propP, clsA);
-        man.addAxiom(ont, ax);
+        OWLObjectPropertyRangeAxiom ax = ObjectPropertyRange(P, A);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.objectPropertyRangeAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(contains(range(ont.objectPropertyRangeAxioms(propP)), clsA));
+        assertTrue(contains(ont.objectPropertyRangeAxioms(P), ax));
+        assertTrue(contains(ont.axioms(P), ax));
+        assertTrue(contains(range(ont.objectPropertyRangeAxioms(P)), A));
     }
 
     @Test
-    public void testFunctionalObjectPropertyAxiomAccessors() {
+    void testFunctionalObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLFunctionalObjectPropertyAxiom ax = FunctionalObjectProperty(propP);
-        man.addAxiom(ont, ax);
+        OWLFunctionalObjectPropertyAxiom ax = FunctionalObjectProperty(P);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.functionalObjectPropertyAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(isFunctional(propP, ont));
+        assertTrue(contains(ont.functionalObjectPropertyAxioms(P), ax));
+        assertTrue(contains(ont.axioms(P), ax));
+        assertTrue(isFunctional(P, ont));
     }
 
     @Test
-    public void testInverseFunctionalObjectPropertyAxiomAccessors() {
+    void testInverseFunctionalObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLInverseFunctionalObjectPropertyAxiom ax = InverseFunctionalObjectProperty(propP);
-        man.addAxiom(ont, ax);
+        OWLInverseFunctionalObjectPropertyAxiom ax = InverseFunctionalObjectProperty(P);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.inverseFunctionalObjectPropertyAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(isInverseFunctional(propP, ont));
+        assertTrue(contains(ont.inverseFunctionalObjectPropertyAxioms(P), ax));
+        assertTrue(contains(ont.axioms(P), ax));
+        assertTrue(isInverseFunctional(P, ont));
     }
 
     @Test
-    public void testTransitiveObjectPropertyAxiomAccessors() {
+    void testTransitiveObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLTransitiveObjectPropertyAxiom ax = TransitiveObjectProperty(propP);
-        man.addAxiom(ont, ax);
+        OWLTransitiveObjectPropertyAxiom ax = TransitiveObjectProperty(P);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.transitiveObjectPropertyAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(isTransitive(propP, ont));
+        assertTrue(contains(ont.transitiveObjectPropertyAxioms(P), ax));
+        assertTrue(contains(ont.axioms(P), ax));
+        assertTrue(isTransitive(P, ont));
     }
 
     @Test
-    public void testSymmetricObjectPropertyAxiomAccessors() {
+    void testSymmetricObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLSymmetricObjectPropertyAxiom ax = SymmetricObjectProperty(propP);
-        man.addAxiom(ont, ax);
+        OWLSymmetricObjectPropertyAxiom ax = SymmetricObjectProperty(P);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.symmetricObjectPropertyAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(isSymmetric(propP, ont));
+        assertTrue(contains(ont.symmetricObjectPropertyAxioms(P), ax));
+        assertTrue(contains(ont.axioms(P), ax));
+        assertTrue(isSymmetric(P, ont));
     }
 
     @Test
-    public void testAsymmetricObjectPropertyAxiomAccessors() {
+    void testAsymmetricObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLAsymmetricObjectPropertyAxiom ax = AsymmetricObjectProperty(propP);
-        man.addAxiom(ont, ax);
+        OWLAsymmetricObjectPropertyAxiom ax = AsymmetricObjectProperty(P);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.asymmetricObjectPropertyAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(isAsymmetric(propP, ont));
+        assertTrue(contains(ont.asymmetricObjectPropertyAxioms(P), ax));
+        assertTrue(contains(ont.axioms(P), ax));
+        assertTrue(isAsymmetric(P, ont));
     }
 
     @Test
-    public void testReflexiveObjectPropertyAxiomAccessors() {
+    void testReflexiveObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLReflexiveObjectPropertyAxiom ax = ReflexiveObjectProperty(propP);
-        man.addAxiom(ont, ax);
+        OWLReflexiveObjectPropertyAxiom ax = ReflexiveObjectProperty(P);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.reflexiveObjectPropertyAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(isReflexive(propP, ont));
+        assertTrue(contains(ont.reflexiveObjectPropertyAxioms(P), ax));
+        assertTrue(contains(ont.axioms(P), ax));
+        assertTrue(isReflexive(P, ont));
     }
 
     @Test
-    public void testIrreflexiveObjectPropertyAxiomAccessors() {
+    void testIrreflexiveObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLIrreflexiveObjectPropertyAxiom ax = IrreflexiveObjectProperty(propP);
-        man.addAxiom(ont, ax);
+        OWLIrreflexiveObjectPropertyAxiom ax = IrreflexiveObjectProperty(P);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.irreflexiveObjectPropertyAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(isIrreflexive(propP, ont));
+        assertTrue(contains(ont.irreflexiveObjectPropertyAxioms(P), ax));
+        assertTrue(contains(ont.axioms(P), ax));
+        assertTrue(isIrreflexive(P, ont));
     }
 
     @Test
-    public void testSubDataPropertyOfAxiomAccessors() {
+    void testSubDataPropertyOfAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLDataProperty propP = DataProperty(iri("p"));
-        OWLDataProperty propQ = DataProperty(iri("q"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLSubDataPropertyOfAxiom ax = SubDataPropertyOf(propP, propQ);
-        man.addAxiom(ont, ax);
+        OWLSubDataPropertyOfAxiom ax = SubDataPropertyOf(DP, DQ);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.dataSubPropertyAxiomsForSubProperty(propP), ax));
-        assertTrue(contains(ont.dataSubPropertyAxiomsForSuperProperty(propQ), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
+        assertTrue(contains(ont.dataSubPropertyAxiomsForSubProperty(DP), ax));
+        assertTrue(contains(ont.dataSubPropertyAxiomsForSuperProperty(DQ), ax));
+        assertTrue(contains(ont.axioms(DP), ax));
     }
 
     @Test
-    public void testEquivalentDataPropertiesAxiomAccessors() {
+    void testEquivalentDataPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLDataProperty propP = DataProperty(iri("p"));
-        OWLDataProperty propQ = DataProperty(iri("q"));
-        OWLDataProperty propR = DataProperty(iri("r"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLEquivalentDataPropertiesAxiom ax = EquivalentDataProperties(propP, propQ, propR);
-        man.addAxiom(ont, ax);
+        OWLEquivalentDataPropertiesAxiom ax = EquivalentDataProperties(DP, DQ, DR);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.equivalentDataPropertiesAxioms(propP), ax));
-        assertTrue(contains(ont.equivalentDataPropertiesAxioms(propQ), ax));
-        assertTrue(contains(ont.equivalentDataPropertiesAxioms(propR), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(contains(ont.axioms(propQ), ax));
-        assertTrue(contains(ont.axioms(propR), ax));
+        assertTrue(contains(ont.equivalentDataPropertiesAxioms(DP), ax));
+        assertTrue(contains(ont.equivalentDataPropertiesAxioms(DQ), ax));
+        assertTrue(contains(ont.equivalentDataPropertiesAxioms(DR), ax));
+        assertTrue(contains(ont.axioms(DP), ax));
+        assertTrue(contains(ont.axioms(DQ), ax));
+        assertTrue(contains(ont.axioms(DR), ax));
     }
 
     @Test
-    public void testDisjointDataPropertiesAxiomAccessors() {
+    void testDisjointDataPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLDataProperty propP = DataProperty(iri("p"));
-        OWLDataProperty propQ = DataProperty(iri("q"));
-        OWLDataProperty propR = DataProperty(iri("r"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLDisjointDataPropertiesAxiom ax = DisjointDataProperties(propP, propQ, propR);
-        man.addAxiom(ont, ax);
+        OWLDisjointDataPropertiesAxiom ax = DisjointDataProperties(DP, DQ, DR);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.disjointDataPropertiesAxioms(propP), ax));
-        assertTrue(contains(ont.disjointDataPropertiesAxioms(propQ), ax));
-        assertTrue(contains(ont.disjointDataPropertiesAxioms(propR), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(contains(ont.axioms(propQ), ax));
-        assertTrue(contains(ont.axioms(propR), ax));
+        assertTrue(contains(ont.disjointDataPropertiesAxioms(DP), ax));
+        assertTrue(contains(ont.disjointDataPropertiesAxioms(DQ), ax));
+        assertTrue(contains(ont.disjointDataPropertiesAxioms(DR), ax));
+        assertTrue(contains(ont.axioms(DP), ax));
+        assertTrue(contains(ont.axioms(DQ), ax));
+        assertTrue(contains(ont.axioms(DR), ax));
     }
 
     @Test
-    public void testDataPropertyDomainAxiomAccessors() {
+    void testDataPropertyDomainAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLDataProperty propP = DataProperty(iri("p"));
-        OWLClass clsA = Class(iri("ClsA"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLDataPropertyDomainAxiom ax = DataPropertyDomain(propP, clsA);
-        man.addAxiom(ont, ax);
+        OWLDataPropertyDomainAxiom ax = DataPropertyDomain(DP, A);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.dataPropertyDomainAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(contains(domain(ont.dataPropertyDomainAxioms(propP)), clsA));
+        assertTrue(contains(ont.dataPropertyDomainAxioms(DP), ax));
+        assertTrue(contains(ont.axioms(DP), ax));
+        assertTrue(contains(domain(ont.dataPropertyDomainAxioms(DP)), A));
     }
 
     @Test
-    public void testDataPropertyRangeAxiomAccessors() {
+    void testDataPropertyRangeAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLDataProperty propP = DataProperty(iri("p"));
         OWLDatatype dt = Datatype(iri("dt"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLDataPropertyRangeAxiom ax = DataPropertyRange(propP, dt);
-        man.addAxiom(ont, ax);
+        OWLDataPropertyRangeAxiom ax = DataPropertyRange(DP, dt);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.dataPropertyRangeAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(contains(range(ont.dataPropertyRangeAxioms(propP)), dt));
+        assertTrue(contains(ont.dataPropertyRangeAxioms(DP), ax));
+        assertTrue(contains(ont.axioms(DP), ax));
+        assertTrue(contains(range(ont.dataPropertyRangeAxioms(DP)), dt));
     }
 
     @Test
-    public void testFunctionalDataPropertyAxiomAccessors() {
+    void testFunctionalDataPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLDataProperty propP = DataProperty(iri("p"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLFunctionalDataPropertyAxiom ax = FunctionalDataProperty(propP);
-        man.addAxiom(ont, ax);
+        OWLFunctionalDataPropertyAxiom ax = FunctionalDataProperty(DP);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
-        assertTrue(contains(ont.functionalDataPropertyAxioms(propP), ax));
-        assertTrue(contains(ont.axioms(propP), ax));
-        assertTrue(isFunctional(propP, ont));
+        assertTrue(contains(ont.functionalDataPropertyAxioms(DP), ax));
+        assertTrue(contains(ont.axioms(DP), ax));
+        assertTrue(isFunctional(DP, ont));
     }
 
     @Test
-    public void testClassAssertionAxiomAccessors() {
+    void testClassAssertionAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLClass clsA = Class(iri("clsA"));
-        OWLNamedIndividual indA = NamedIndividual(iri(IND_A));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLClassAssertionAxiom ax = ClassAssertion(clsA, indA);
-        man.addAxiom(ont, ax);
+        OWLClassAssertionAxiom ax = ClassAssertion(A, indA);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.classAssertionAxioms(indA), ax));
-        assertTrue(contains(ont.classAssertionAxioms(clsA), ax));
+        assertTrue(contains(ont.classAssertionAxioms(A), ax));
         assertTrue(contains(ont.axioms(indA), ax));
         assertTrue(contains(instances(ont.classAssertionAxioms(indA)), indA));
-        assertTrue(contains(types(ont.classAssertionAxioms(indA)), clsA));
+        assertTrue(contains(types(ont.classAssertionAxioms(indA)), A));
     }
 
     @Test
-    public void testObjectPropertyAxiomAccessors() {
+    void testObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        OWLNamedIndividual indA = NamedIndividual(iri(IND_A));
-        OWLNamedIndividual indB = NamedIndividual(iri(IND_B));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLObjectPropertyAssertionAxiom ax = ObjectPropertyAssertion(prop, indA, indB);
-        man.addAxiom(ont, ax);
+        OWLObjectPropertyAssertionAxiom ax = ObjectPropertyAssertion(P, indA, indB);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.objectPropertyAssertionAxioms(indA), ax));
         assertTrue(contains(ont.axioms(indA), ax));
     }
 
     @Test
-    public void testNegativeObjectPropertyAxiomAccessors() {
+    void testNegativeObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        OWLNamedIndividual indA = NamedIndividual(iri(IND_A));
-        OWLNamedIndividual indB = NamedIndividual(iri(IND_B));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLNegativeObjectPropertyAssertionAxiom ax =
-            NegativeObjectPropertyAssertion(prop, indA, indB);
-        man.addAxiom(ont, ax);
+        OWLNegativeObjectPropertyAssertionAxiom ax = NegativeObjectPropertyAssertion(P, indA, indB);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.negativeObjectPropertyAssertionAxioms(indA), ax));
         assertTrue(contains(ont.axioms(indA), ax));
     }
 
     @Test
-    public void testDataPropertyAxiomAccessors() {
+    void testDataPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLDataProperty prop = DataProperty(iri(PROP2));
-        OWLNamedIndividual indA = NamedIndividual(iri(IND_A));
         OWLLiteral lit = Literal(3);
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLDataPropertyAssertionAxiom ax = DataPropertyAssertion(prop, indA, lit);
-        man.addAxiom(ont, ax);
+        OWLDataPropertyAssertionAxiom ax = DataPropertyAssertion(DP, indA, lit);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.dataPropertyAssertionAxioms(indA), ax));
         assertTrue(contains(ont.axioms(indA), ax));
     }
 
     @Test
-    public void testNegativeDataPropertyAxiomAccessors() {
+    void testNegativeDataPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLDataProperty prop = DataProperty(iri(PROP2));
-        OWLNamedIndividual indA = NamedIndividual(iri(IND_A));
         OWLLiteral lit = Literal(3);
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLNegativeDataPropertyAssertionAxiom ax = NegativeDataPropertyAssertion(prop, indA, lit);
-        man.addAxiom(ont, ax);
+        OWLNegativeDataPropertyAssertionAxiom ax = NegativeDataPropertyAssertion(DP, indA, lit);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.negativeDataPropertyAssertionAxioms(indA), ax));
         assertTrue(contains(ont.axioms(indA), ax));
     }
 
     @Test
-    public void testSameIndividualAxiomAccessors() {
+    void testSameIndividualAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLNamedIndividual indA = NamedIndividual(iri(IND_A));
-        OWLNamedIndividual indB = NamedIndividual(iri(IND_B));
-        OWLNamedIndividual indC = NamedIndividual(iri("indC"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
         OWLSameIndividualAxiom ax = SameIndividual(indA, indB, indC);
-        man.addAxiom(ont, ax);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.sameIndividualAxioms(indA), ax));
         assertTrue(contains(ont.sameIndividualAxioms(indB), ax));
@@ -581,14 +402,10 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
     }
 
     @Test
-    public void testDifferentIndividualsAxiomAccessors() {
+    void testDifferentIndividualsAxiomAccessors() {
         OWLOntology ont = getOWLOntology();
-        OWLNamedIndividual indA = NamedIndividual(iri(IND_A));
-        OWLNamedIndividual indB = NamedIndividual(iri(IND_B));
-        OWLNamedIndividual indC = NamedIndividual(iri("indC"));
-        OWLOntologyManager man = ont.getOWLOntologyManager();
         OWLDifferentIndividualsAxiom ax = DifferentIndividuals(indA, indB, indC);
-        man.addAxiom(ont, ax);
+        ont.addAxiom(ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.differentIndividualAxioms(indA), ax));
         assertTrue(contains(ont.differentIndividualAxioms(indB), ax));

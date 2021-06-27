@@ -1,15 +1,13 @@
 package org.semanticweb.owlapi.api.test.syntax.manchester;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
@@ -25,40 +23,31 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-@SuppressWarnings("javadoc")
-@RunWith(Parameterized.class)
-public class ManchesterSyntaxParserTest extends TestBase {
+class ManchesterSyntaxParserTest extends TestBase {
 
-    private final String input;
-    private final Object expected;
-
-    public ManchesterSyntaxParserTest(String input, Object expected) {
-        this.input = input;
-        this.expected = expected;
-    }
-
-    @Parameters
     public static Collection<Object[]> data() {
         // can't use df at this point - it has not been initialised yet
         OWLDataFactory datafactory = OWLManager.getOWLDataFactory();
         OWLDataProperty hasAge =
-            datafactory.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
+            datafactory.getOWLDataProperty(iri("http://example.org/", "hasAge"));
         return Arrays.asList(
         //@formatter:off
             new Object[] { "hasAge exactly 1 xsd:int",  datafactory.getOWLDataExactCardinality(1, hasAge, OWL2Datatype.XSD_INT) },
-            new Object[]{"hasAge exactly 1", datafactory.getOWLDataExactCardinality(1, hasAge)},
-            new Object[] { "hasAge min 1 xsd:int",      datafactory.getOWLDataMinCardinality(1, hasAge, OWL2Datatype.XSD_INT) }, 
-            new Object[]{"hasAge min 1", datafactory.getOWLDataMinCardinality(1, hasAge)},
-            new Object[] { "hasAge max 1 xsd:int",      datafactory.getOWLDataMaxCardinality(1, hasAge, OWL2Datatype.XSD_INT) }, 
-            new Object[]{"hasAge max 1", datafactory.getOWLDataMaxCardinality(1, hasAge)});
-        //@formatter:on
+            new Object[] { "hasAge exactly 1",          datafactory.getOWLDataExactCardinality(1, hasAge)},
+            new Object[] { "hasAge min 1 xsd:int",      datafactory.getOWLDataMinCardinality(1, hasAge, OWL2Datatype.XSD_INT)},
+            new Object[] { "hasAge min 1",              datafactory.getOWLDataMinCardinality(1, hasAge)},
+            new Object[] { "hasAge max 1 xsd:int",      datafactory.getOWLDataMaxCardinality(1, hasAge, OWL2Datatype.XSD_INT)},
+            new Object[] { "hasAge max 1",              datafactory.getOWLDataMaxCardinality(1, hasAge)});
+            //@formatter:on
     }
 
-    @Test
-    public void testParseDataCardinalityExpression() throws OWLOntologyCreationException {
-        OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
+    @ParameterizedTest
+    @MethodSource("data")
+    public void testParseDataCardinalityExpression(String input, Object expected)
+        throws OWLOntologyCreationException {
+        OWLDataProperty hasAge = df.getOWLDataProperty(iri("http://example.org/", "hasAge"));
         OWLOntology ont = m.createOntology();
-        m.addAxiom(ont, df.getOWLDeclarationAxiom(hasAge));
+        ont.addAxiom(df.getOWLDeclarationAxiom(hasAge));
         ManchesterOWLSyntaxClassExpressionParser parser =
             new ManchesterOWLSyntaxClassExpressionParser(df, checker(m));
         assertEquals(expected, parser.parse(input));

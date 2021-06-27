@@ -1,7 +1,7 @@
 package org.obolibrary.oboformat;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,6 +15,8 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -40,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-@SuppressWarnings({"javadoc"})
 public class OboFormatTestBasics extends TestBase {
 
     protected static String renderOboToString(OBODoc oboDoc) throws IOException {
@@ -59,14 +60,11 @@ public class OboFormatTestBasics extends TestBase {
         return parseOBOFile(fn, false, Collections.emptyMap());
     }
 
-    @SuppressWarnings("resource")
     protected OBODoc parseOBOFile(String fn, boolean allowEmptyFrames, Map<String, OBODoc> cache) {
-        InputStream inputStream = getInputStream(fn);
-        OBOFormatParser p = new OBOFormatParser(cache);
-        OBODoc obodoc;
-        try {
-            obodoc = p.parse(new BufferedReader(new InputStreamReader(inputStream)));
-            assertNotNull("The obodoc should not be null", obodoc);
+        try (InputStream inputStream = new FileInputStream(getFile(fn))) {
+            OBOFormatParser p = new OBOFormatParser(cache);
+            OBODoc obodoc = p.parse(new BufferedReader(new InputStreamReader(inputStream)));
+            assertNotNull(obodoc);
             if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
                 fail("Term frames should not be empty.");
             }
@@ -76,36 +74,35 @@ public class OboFormatTestBasics extends TestBase {
         }
     }
 
-    protected OBODoc parseOBOFile(Reader fn, boolean allowEmptyFrames) throws IOException {
-        OBOFormatParser p = new OBOFormatParser();
+    protected OBODoc parseOBOFile(Reader fn, boolean allowEmptyFrames, Map<String, OBODoc> cache) throws IOException {
+        OBOFormatParser p = new OBOFormatParser(cache);
         OBODoc obodoc = p.parse(new BufferedReader(fn));
-        assertNotNull("The obodoc should not be null", obodoc);
+        assertNotNull(obodoc);
         if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
             fail("Term frames should not be empty.");
         }
         return obodoc;
     }
 
-    @SuppressWarnings("resource")
-    protected InputStream getInputStream(String fn) {
-        InputStream inputStream = OboFormatTestBasics.class.getResourceAsStream(fn);
+    protected File getFile(String fn) {
+        URL inputStream = OboFormatTestBasics.class.getResource(fn);
         if (inputStream == null) {
-            inputStream = getClass().getResourceAsStream("obo/" + fn);
+            inputStream = getClass().getResource("obo/" + fn);
         }
         if (inputStream == null) {
-            inputStream = ClassLoader.getSystemResourceAsStream(fn);
+            inputStream = ClassLoader.getSystemResource(fn);
         }
         if (inputStream == null) {
-            inputStream = ClassLoader.getSystemResourceAsStream("obo/" + fn);
+            inputStream = ClassLoader.getSystemResource("obo/" + fn);
         }
         if (inputStream == null) {
-            try {
-                inputStream = new FileInputStream(new File("obo/" + fn));
-            } catch (FileNotFoundException e) {
-                throw new OWLRuntimeException(e);
-            }
+            return new File("obo/" + fn);
         }
-        return inputStream;
+        try {
+            return new File(inputStream.toURI());
+        } catch (URISyntaxException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     protected OBODoc parseOBOFile(File file) throws IOException {
@@ -116,7 +113,7 @@ public class OboFormatTestBasics extends TestBase {
     protected OWLOntology parseOWLFile(String fn) throws OWLOntologyCreationException {
         OWLOntologyManager manager = setupManager();
         // TODO replace
-        return manager.loadOntologyFromOntologyDocument(getInputStream(fn));
+        return manager.loadOntologyFromOntologyDocument(getFile(fn));
     }
 
     protected OWLOntology convert(OBODoc obodoc) {
@@ -161,22 +158,19 @@ public class OboFormatTestBasics extends TestBase {
 
     protected StringDocumentTarget writeOWL(OWLOntology ontology, OWLDocumentFormat format) {
         StringDocumentTarget target = new StringDocumentTarget();
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
         try {
-            manager.saveOntology(ontology, format, target);
+            ontology.saveOntology(format, target);
         } catch (OWLOntologyStorageException e) {
             throw new OWLRuntimeException(e);
         }
         return target;
     }
 
-    protected @Nullable
-    IRI getIriByLabel(OWLOntology ontology, String label) {
-        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology
-            .axioms(AxiomType.ANNOTATION_ASSERTION)
-            .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral && label
-                .equals(
-                    ((OWLLiteral) aa.getValue()).getLiteral()))
+    protected @Nullable IRI getIriByLabel(OWLOntology ontology, String label) {
+        Optional<OWLAnnotationAssertionAxiom> anyMatch =
+            ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
+                .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral
+                    && label.equals(((OWLLiteral) aa.getValue()).getLiteral()))
                 .filter(aa -> aa.getSubject().isIRI()).findAny();
         if (anyMatch.isPresent()) {
             return (IRI) anyMatch.get().getSubject();
@@ -186,7 +180,7 @@ public class OboFormatTestBasics extends TestBase {
 
     protected String readResource(String resource) throws IOException {
         StringBuilder sb = new StringBuilder();
-        try (InputStream inputStream = getInputStream(resource);
+        try (InputStream inputStream = new FileInputStream(getFile(resource));
             Reader r = new InputStreamReader(inputStream);
             BufferedReader reader = new BufferedReader(r);) {
             String line;

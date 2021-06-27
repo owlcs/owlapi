@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.io;
 
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,9 +18,8 @@ import org.apache.commons.rdf.api.Quad;
 import org.apache.commons.rdf.api.RDF;
 import org.apache.commons.rdf.api.RDFTerm;
 import org.apache.commons.rdf.api.Triple;
-import org.junit.Assume;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -30,35 +30,35 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @SuppressWarnings({"javadoc", "null"})
 public class CommonsRDFTermTest extends AbstractRDFTest {
 
-    @Ignore
+    @Disabled
     @Override
     public void hashCodeBlankNode() {
         // TODO Auto-generated method stub
         // super.hashCodeBlankNode();
     }
 
-    @Ignore
+    @Disabled
     @Override
     public void hashCodeLiteral() {
         // TODO Auto-generated method stub
         // super.hashCodeLiteral();
     }
 
-    @Ignore
+    @Disabled
     @Override
     public void testCreateGraph() {
         // TODO Auto-generated method stub
         // super.testCreateGraph();
     }
 
-    @Ignore
+    @Disabled
     @Override
     public void testCreateBlankNodeIdentifierTwiceDifferentFactories() {
         // TODO Auto-generated method stub
         // super.testCreateBlankNodeIdentifierTwiceDifferentFactories();
     }
 
-    @Ignore
+    @Disabled
     @Override
     public void hashCodeTriple() {
         // TODO Auto-generated method stub
@@ -71,28 +71,28 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
     }
 
     @Override
-    @Ignore
+    @Disabled
     @Test
     public void testPossiblyInvalidBlankNode() throws Exception {
         // FIXME: Should BlankNode identifiers be validated? At least
         // ntriplesString() output should be checked - but could
         // this also affect load/save issues?
-        Assume.assumeTrue("BlankNode identifiers are not validated", false);
+        assumeTrue(false, "BlankNode identifiers are not validated");
         super.testPossiblyInvalidBlankNode();
     }
 
-    @Ignore
+    @Disabled
     @Override
     public void testInvalidLiteralLang() throws Exception {
         // FIXME: RDFLiteral should not allow spaces in lang
-        Assume.assumeTrue("RDFLiteral does not validate lang", false);
+        assumeTrue(false, "RDFLiteral does not validate lang");
         super.testInvalidLiteralLang();
     }
 
-    @Ignore
+    @Disabled
     @Override
     public void testInvalidIRI() throws Exception {
-        Assume.assumeTrue("IRI string is not validated", false);
+        assumeTrue(false, "IRI string is not validated");
         super.testInvalidIRI();
     }
 

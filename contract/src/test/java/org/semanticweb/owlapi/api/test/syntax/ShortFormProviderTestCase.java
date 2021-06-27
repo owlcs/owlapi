@@ -12,21 +12,21 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.util.QNameShortFormProvider;
 
-@SuppressWarnings("javadoc")
-public class ShortFormProviderTestCase {
+class ShortFormProviderTestCase {
 
     @Test
-    public void shouldFindShortForm() {
+    void shouldFindShortForm() {
         OWLClass c = Class(IRI("http://www.ebi.ac.uk/fgpt/ontologies/test/", "TEST_00001"));
         QNameShortFormProvider shortener = new QNameShortFormProvider();
         String shortform = shortener.getShortForm(c);
@@ -34,7 +34,7 @@ public class ShortFormProviderTestCase {
     }
 
     @Test
-    public void shouldFindShortFormForWoman() {
+    void shouldFindShortFormForWoman() {
         OWLClass c = Class(IRI("http://www.example.org/#", "Woman"));
         QNameShortFormProvider shortener = new QNameShortFormProvider();
         String shortform = shortener.getShortForm(c);
@@ -42,7 +42,7 @@ public class ShortFormProviderTestCase {
     }
 
     @Test
-    public void shouldFindShortFormForSetPRefix() {
+    void shouldFindShortFormForSetPRefix() {
         OWLClass c = Class(IRI("http://www.example.org/#", "Woman"));
         Map<String, String> prefixes = new HashMap<>();
         prefixes.put("test", "http://www.example.org/#");

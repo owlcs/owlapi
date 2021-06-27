@@ -16,7 +16,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.NQuadsDocumentFormat;
 import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonDocumentFormat;
@@ -36,9 +40,10 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-@SuppressWarnings("javadoc")
-public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTrippingTestCase {
+class BlankNodeIdsAndAnnotationsRoundTripTestCase extends TestBase {
     private final OWLAnnotation ann1 = df.getRDFSComment("test for anon class in object position");
     private final OWLAnnotation ann2 = df.getRDFSComment("test for named class in object position");
     private final OWLAnnotation ann3 =
@@ -64,16 +69,13 @@ public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTr
     private final OWLClassExpression ce4 =
         df.getOWLObjectIntersectionOf(df.getOWLObjectExactCardinality(2, op),
             df.getOWLDataExactCardinality(3, dp), df.getOWLObjectComplementOf(ce3), ce3);
-
     private final Set<OWLDocumentFormat> singleAxiomsLost =
         new HashSet<>(Arrays.asList(new TrigDocumentFormat(), new RDFJsonLDDocumentFormat(),
             new NTriplesDocumentFormat(), new RDFXMLDocumentFormat(), new RDFJsonDocumentFormat(),
             new NQuadsDocumentFormat(), new TurtleDocumentFormat(), new RioTurtleDocumentFormat(),
             new RioRDFXMLDocumentFormat()));
 
-    @Override
-    protected OWLOntology createOntology() {
-        OWLOntology ont1 = getOWLOntology();
+    protected OWLOntology blankNodeIdsAndAnnotationsRoundTripTestCase(OWLOntology ont1) {
         ont1.add(
             df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(c4), a, Arrays.asList(ann1)),
             df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(c5), a, Arrays.asList(ann5)),
@@ -86,13 +88,13 @@ public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTr
             df.getOWLClassAssertionAxiom(ce1, b), df.getOWLClassAssertionAxiom(ce2, b),
             df.getOWLClassAssertionAxiom(c4, a),
             df.getOWLClassAssertionAxiom(c4, a, Arrays.asList(ann2)));
-
         return ont1;
     }
 
     @Override
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
-        // Axioms without annotations are lost if identical axioms with annotations exist.
+        // Axioms without annotations are lost if identical axioms with
+        // annotations exist.
         // This is not a code defect, it's a consequence of the mapping specs.
         // To allow roundtripping to work and help verify the rest of the axioms are accurately
         // written out and parsed, this method adds the lost unannotated axioms.
@@ -106,5 +108,20 @@ public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTr
             }
         }
         return super.equal(ont1, ont2);
+    }
+
+    @ParameterizedTest
+    @MethodSource("formats")
+    void testFormat(OWLDocumentFormat d) {
+        roundTripOntology(blankNodeIdsAndAnnotationsRoundTripTestCase(getOWLOntology()), d);
+    }
+
+    @Test
+    void roundTripRDFXMLAndFunctionalShouldBeSame() {
+        OWLOntology o = blankNodeIdsAndAnnotationsRoundTripTestCase(getOWLOntology());
+        OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
+        equal(o, o1);
+        equal(o1, o2);
     }
 }

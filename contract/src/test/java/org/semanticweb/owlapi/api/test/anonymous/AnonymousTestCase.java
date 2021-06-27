@@ -23,7 +23,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Objec
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -34,13 +34,12 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
-public class AnonymousTestCase extends TestBase {
+class AnonymousTestCase extends TestBase {
 
     private static final String URN_TEST = "urn:test#";
 
     @Test
-    public void shouldRoundTrip() throws Exception {
+    void shouldRoundTrip() throws Exception {
         OWLClass c = Class(IRI(URN_TEST, "C"));
         OWLClass d = Class(IRI(URN_TEST, "D"));
         OWLObjectProperty p = ObjectProperty(IRI(URN_TEST, "p"));
@@ -48,14 +47,14 @@ public class AnonymousTestCase extends TestBase {
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = getOWLOntology();
         ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i),
-            DataPropertyAssertion(q, i, Literal(
-                "hello")));
-        OWLOntology ontologyReloaded = loadOntologyFromString(saveOntology(ontology));
+            DataPropertyAssertion(q, i, Literal("hello")));
+        OWLOntology ontologyReloaded =
+            loadOntologyFromString(saveOntology(ontology), ontology.getNonnullFormat());
         equal(ontology, ontologyReloaded);
     }
 
     @Test
-    public void testRoundTripWithAnonymousIndividuals() throws Exception {
+    void testRoundTripWithAnonymousIndividuals() throws Exception {
         String ns = "http://test.com/genid#";
         OWLNamedIndividual i = df.getOWLNamedIndividual(ns, "i");
         OWLObjectProperty p = df.getOWLObjectProperty(ns, "p");
@@ -63,8 +62,8 @@ public class AnonymousTestCase extends TestBase {
         OWLOntology ontology = getOWLOntology();
         OWLIndividual ind = df.getOWLAnonymousIndividual();
         OWLObjectPropertyAssertionAxiom ax1 = df.getOWLObjectPropertyAssertionAxiom(p, i, ind);
-        OWLDataPropertyAssertionAxiom ax2 = df
-            .getOWLDataPropertyAssertionAxiom(q, ind, df.getOWLLiteral(5));
+        OWLDataPropertyAssertionAxiom ax2 =
+            df.getOWLDataPropertyAssertionAxiom(q, ind, df.getOWLLiteral(5));
         ontology.add(ax1, ax2);
         OWLOntology reload = roundTrip(ontology);
         equal(ontology, reload);

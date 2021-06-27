@@ -12,8 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import javax.annotation.Nullable;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
@@ -28,8 +31,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
-@SuppressWarnings("javadoc")
-public class ManchesterParseErrorTestCase extends TestBase {
+class ManchesterParseErrorTestCase extends TestBase {
 
     private static OWLClassExpression parse(String text) {
         MockEntityChecker checker = new MockEntityChecker(df);
@@ -39,25 +41,24 @@ public class ManchesterParseErrorTestCase extends TestBase {
         return parser.parseClassExpression();
     }
 
-    @Test(expected = ParserException.class)
-    public void shouldNotParse() {
+    @Test
+    void shouldNotParse() {
         parse("p some rdfs:Literal");
         String text1 = "p some Litera";
-        parse(text1);
+        assertThrows(ParserException.class, () -> parse(text1));
     }
 
-    @Test(expected = ParserException.class)
-    public void shouldNotParseToo() {
+    @Test
+    void shouldNotParseToo() {
         parse("p some rdfs:Literal");
         String text1 = "p some Literal";
-        parse(text1);
+        assertThrows(ParserException.class, () -> parse(text1));
     }
 
     /**
-     * A very simple entity checker that only understands that "p" is a property
-     * and rdfs:Literal is a datatype. He is an extreme simplification of the
-     * entity checker that runs when Protege is set to render entities as
-     * qnames.
+     * A very simple entity checker that only understands that "p" is a property and rdfs:Literal is
+     * a datatype. He is an extreme simplification of the entity checker that runs when Protege is
+     * set to render entities as qnames.
      *
      * @author tredmond
      */
@@ -70,20 +71,17 @@ public class ManchesterParseErrorTestCase extends TestBase {
         }
 
         @Override
-        public @Nullable
-        OWLClass getOWLClass(String name) {
+        public @Nullable OWLClass getOWLClass(String name) {
             return null;
         }
 
         @Override
-        public @Nullable
-        OWLObjectProperty getOWLObjectProperty(String name) {
+        public @Nullable OWLObjectProperty getOWLObjectProperty(String name) {
             return null;
         }
 
         @Override
-        public @Nullable
-        OWLDataProperty getOWLDataProperty(@Nullable String name) {
+        public @Nullable OWLDataProperty getOWLDataProperty(@Nullable String name) {
             if ("p".equals(name)) {
                 return factory.getOWLDataProperty("http://protege.org/Test.owl#", "p");
             } else {
@@ -92,20 +90,17 @@ public class ManchesterParseErrorTestCase extends TestBase {
         }
 
         @Override
-        public @Nullable
-        OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        public @Nullable OWLAnnotationProperty getOWLAnnotationProperty(String name) {
             return null;
         }
 
         @Override
-        public @Nullable
-        OWLNamedIndividual getOWLIndividual(String name) {
+        public @Nullable OWLNamedIndividual getOWLIndividual(String name) {
             return null;
         }
 
         @Override
-        public @Nullable
-        OWLDatatype getOWLDatatype(@Nullable String name) {
+        public @Nullable OWLDatatype getOWLDatatype(@Nullable String name) {
             if ("rdfs:Literal".equals(name)) {
                 return factory.getTopDatatype();
             } else {

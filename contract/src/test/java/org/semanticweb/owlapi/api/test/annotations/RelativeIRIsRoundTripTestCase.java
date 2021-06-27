@@ -14,7 +14,12 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import java.util.Arrays;
 
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -22,12 +27,12 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.OWLEntityRenamer;
 
-@SuppressWarnings("javadoc")
-public class RelativeIRIsRoundTripTestCase extends AbstractRoundTrippingTestCase {
+class RelativeIRIsRoundTripTestCase extends TestBase {
     private final String ns = "";
     // "urn:test:ns#";
     private final OWLDataProperty d = df.getOWLDataProperty(ns + "d");
@@ -37,13 +42,11 @@ public class RelativeIRIsRoundTripTestCase extends AbstractRoundTrippingTestCase
     private final OWLAnnotation ann1 = df.getOWLAnnotation(x, df.getOWLLiteral("x"));
     private final OWLAnnotation ann2 = df.getOWLAnnotation(y, df.getOWLLiteral("y"));
 
-    @Override
-    protected OWLOntology createOntology() {
+    protected OWLOntology relativeIRIsRoundTripTestCase() {
         OWLClassExpression c1 = df.getOWLDataAllValuesFrom(d, df.getBooleanOWLDatatype());
         OWLClassExpression c2 = df.getOWLObjectSomeValuesFrom(o, df.getOWLThing());
         OWLAxiom a = df.getOWLSubClassOfAxiom(c1, c2, Arrays.asList(ann1, ann2));
-
-        OWLOntology ont1 = getOWLOntology(IRI.create("http://www.semanticweb.org/owlapi/"));
+        OWLOntology ont1 = getOWLOntology(iri("http://www.semanticweb.org/owlapi/", ""));
         ont1.add(a);
         return ont1;
     }
@@ -61,7 +64,22 @@ public class RelativeIRIsRoundTripTestCase extends AbstractRoundTrippingTestCase
         return super.equal(ont1, ont2);
     }
 
-    protected IRI relativise(HasIRI hasIRI) {
-        return IRI.create("http://www.semanticweb.org/owlapi/", hasIRI.getIRI().toString());
+    protected IRI relativise(HasIRI e) {
+        return iri("http://www.semanticweb.org/owlapi/", e.getIRI().toString());
+    }
+
+    @ParameterizedTest
+    @MethodSource("formats")
+    void testFormat(OWLDocumentFormat d) {
+        roundTripOntology(relativeIRIsRoundTripTestCase(), d);
+    }
+
+    @Test
+    void roundTripRDFXMLAndFunctionalShouldBeSame() {
+        OWLOntology ont = relativeIRIsRoundTripTestCase();
+        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
+        equal(ont, o1);
+        equal(o1, o2);
     }
 }

@@ -1,0 +1,1 @@
+[SubClassOf(owl:Thing DataAllValuesFrom(<urn:test:test#dp> DataComplementOf(DataOneOf("false"^^xsd:boolean))))]

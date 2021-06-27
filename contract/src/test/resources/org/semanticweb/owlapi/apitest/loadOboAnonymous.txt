@@ -1,0 +1,40 @@
+format-version: 1.2
+date: 27:06:2013 17:08
+saved-by: gkoutos
+auto-generated-by: OBO-Edit 2.3
+subsetdef: abnormal_slim "Abnormal/normal slim"
+subsetdef: absent_slim "Absent/present slim"
+subsetdef: attribute_slim "Attribute slim"
+subsetdef: cell_quality "cell_quality"
+subsetdef: disposition_slim "Disposition slim"
+subsetdef: mpath_slim "Pathology slim"
+subsetdef: prefix_slim "prefix slim"
+subsetdef: relational_slim "Relational slim: types of quality that require an additional entity in order to exist"
+subsetdef: scalar_slim "Scalar slim"
+subsetdef: unit_group_slim "unit group slim"
+subsetdef: unit_slim "unit slim"
+subsetdef: value_slim "Value slim"
+default-namespace: quality
+namespace-id-rule: * UO:$sequence(7,0,9999999)$
+remark: Filtered by Ancestor ID equals "UO:0000000"
+ontology: uo
+ontology: pato
+ontology: pato
+ontology: pato
+
+[Term]
+id: UO:0000000
+name: unit
+namespace: unit.ontology
+def: "A unit of measurement is a standardized quantity of a physical quality." [Wikipedia:Wikipedia]
+created_by: george gkoutos
+
+[Term]
+id: UO:0000001
+name: length unit
+namespace: unit.ontology
+def: "A unit which is a standard measure of the distance between two points." [Wikipedia:Wikipedia]
+subset: unit_group_slim
+is_a: UO:0000000 ! unit
+relationship: is_unit_of PATO:0001708 ! 1-D extent
+created_by: george gkoutos

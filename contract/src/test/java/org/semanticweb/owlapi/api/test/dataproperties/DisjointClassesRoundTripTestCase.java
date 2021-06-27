@@ -12,39 +12,32 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.dataproperties;
 
-import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointClasses;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectUnionOf;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-@SuppressWarnings("javadoc")
-public class DisjointClassesRoundTripTestCase extends TestBase {
+class DisjointClassesRoundTripTestCase extends TestBase {
 
-    private static final String NS = "http://ns.owl";
+    static final String NS = "http://ns.owl";
 
     @Test
-    public void shouldParse() throws OWLOntologyCreationException {
+    void shouldParse() {
         OWLOntology ontology = buildOntology();
-        String input =
-            "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n Prefix: piz: <http://ns.owl#>\n Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n Ontology: <http://ns.owl>\n"
-                + " Class: piz:F\n Class: piz:E\n Class: piz:D\n Class: piz:C\n DisjointClasses: \n ( piz:D or piz:C),\n (piz:E or piz:C),\n (piz:F or piz:C)";
-        OWLOntology roundtripped = loadOntologyFromString(input);
-        assertTrue(input, equalStreams(ontology.logicalAxioms(), roundtripped.logicalAxioms()));
+        OWLOntology roundtripped = loadOntologyFromString(TestFiles.parseDisjointClasses,
+            new ManchesterSyntaxDocumentFormat());
+        equal(ontology, roundtripped);
     }
 
     @Test
-    public void shouldRoundTrip() throws Exception {
+    void shouldRoundTrip() {
         OWLOntology ontology = buildOntology();
         PrefixDocumentFormat format = new ManchesterSyntaxDocumentFormat();
         format.setPrefix("piz", NS + '#');
@@ -53,15 +46,9 @@ public class DisjointClassesRoundTripTestCase extends TestBase {
     }
 
     private OWLOntology buildOntology() {
-        OWLClass c = Class(IRI(NS + "#", "C"));
-        OWLClass d = Class(IRI(NS + "#", "D"));
-        OWLClass e = Class(IRI(NS + "#", "E"));
-        OWLClass f = Class(IRI(NS + "#", "F"));
-        OWLOntology ontology = getOWLOntology();
-        OWLDisjointClassesAxiom disjointClasses = DisjointClasses(ObjectUnionOf(c, d),
-            ObjectUnionOf(c, e),
-            ObjectUnionOf(c, f));
-        ontology.add(disjointClasses);
+        OWLOntology ontology = getOWLOntology(iri(NS, ""));
+        ontology
+            .add(DisjointClasses(ObjectUnionOf(C, D), ObjectUnionOf(C, E), ObjectUnionOf(C, F)));
         return ontology;
     }
 }

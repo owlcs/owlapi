@@ -12,181 +12,105 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
-@SuppressWarnings({"javadoc"})
-@RunWith(Parameterized.class)
-public class VisitorsTestCase {
+class VisitorsTestCase extends TestBase {
 
-    private final OWLObject object;
-    private final String expected;
-
-    public VisitorsTestCase(OWLObject object, String expected) {
-        this.object = object;
-        this.expected = expected;
-    }
-
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLObject, String> map = new LinkedHashMap<>();
-        map.put(b.rule(),
-            "DLSafeRule( Body(BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>) )) Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) )) )");
-        map.put(b.bigRule(),
-            "DLSafeRule(Annotation(<urn:test:test#ann> \"test\"^^xsd:string)  Body(BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>) ) ClassAtom(<urn:test:test#c> Variable(<urn:swrl:var#var2>)) DataRangeAtom(<urn:test:test#datatype> Variable(<urn:swrl:var#var1>)) BuiltInAtom(<urn:test:test#iri> Variable(<urn:swrl:var#var1>) ) DifferentFromAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#i>) SameAsAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#iri>)) Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) ) DataPropertyAtom(<urn:test:test#dp> Variable(<urn:swrl:var#var2>) \"false\"^^xsd:boolean) ObjectPropertyAtom(<urn:test:test#op> Variable(<urn:swrl:var#var2>) Variable(<urn:swrl:var#var2>))) )");
-        map.put(b.onto(),
-            "Ontology(OntologyID(OntologyIRI(<urn:test:test#test>) VersionIRI(<null>)) [Axioms: 0] [Logical axioms: 0])");
-        map.put(b.ann(),
-            "AnnotationAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> <urn:test:test#iri> \"false\"^^xsd:boolean)");
-        map.put(b.asymm(),
-            "AsymmetricObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)");
-        map.put(b.annDom(), "AnnotationPropertyDomain(<urn:test:test#ann> <urn:test:test#iri>)");
-        map.put(b.annRange(), "AnnotationPropertyRange(<urn:test:test#ann> <urn:test:test#iri>)");
-        map.put(b.ass(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#i>)");
-        map.put(b.assAnd(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectIntersectionOf(<urn:test:test#c> <urn:test:test#iri>) <urn:test:test#i>)");
-        map.put(b.assOr(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectUnionOf(<urn:test:test#c> <urn:test:test#iri>) <urn:test:test#i>)");
-        map.put(b.dRangeAnd(),
-            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataIntersectionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) ))");
-        map.put(b.dRangeOr(),
-            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataUnionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) ))");
-        map.put(b.assNot(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectComplementOf(<urn:test:test#c>) <urn:test:test#i>)");
-        map.put(b.assNotAnon(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectComplementOf(<urn:test:test#c>) _:id)");
-        map.put(b.assSome(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectSomeValuesFrom(<urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)");
-        map.put(b.assAll(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectAllValuesFrom(<urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)");
-        map.put(b.assHas(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectHasValue(<urn:test:test#op> <urn:test:test#i>) <urn:test:test#i>)");
-        map.put(b.assMin(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectMinCardinality(1 <urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)");
-        map.put(b.assMax(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectMaxCardinality(1 <urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)");
-        map.put(b.assEq(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectExactCardinality(1 <urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)");
-        map.put(b.assHasSelf(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectHasSelf(<urn:test:test#op>) <urn:test:test#i>)");
-        map.put(b.assOneOf(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectOneOf(<urn:test:test#i>) <urn:test:test#i>)");
-        map.put(b.assDSome(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataSomeValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)");
-        map.put(b.assDAll(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataAllValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)");
-        map.put(b.assDHas(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataHasValue(<urn:test:test#dp> \"false\"^^xsd:boolean) <urn:test:test#i>)");
-        map.put(b.assDMin(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataMinCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)");
-        map.put(b.assDMax(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataMaxCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)");
-        map.put(b.assDEq(),
-            "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataExactCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)");
-        map.put(b.dOneOf(),
-            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataOneOf(\"false\"^^xsd:boolean ))");
-        map.put(b.dNot(),
-            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataComplementOf(DataOneOf(\"false\"^^xsd:boolean )))");
-        map.put(b.dRangeRestrict(),
-            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataRangeRestriction(xsd:double facetRestriction(minExclusive \"5.0\"^^xsd:double) facetRestriction(maxExclusive \"6.0\"^^xsd:double)))");
-        map.put(b.assD(),
-            "DataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"false\"^^xsd:boolean)");
-        map.put(b.assDPlain(),
-            "DataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"string\"@en)");
-        map.put(b.dDom(),
-            "DataPropertyDomain(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#c>)");
-        map.put(b.dRange(),
-            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#datatype>)");
-        map.put(b.dDef(),
-            "DatatypeDefinition(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#datatype> xsd:double)");
-        map.put(b.decC(),
-            "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Class(<urn:test:test#c>))");
-        map.put(b.decOp(),
-            "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectProperty(<urn:test:test#op>))");
-        map.put(b.decDp(),
-            "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataProperty(<urn:test:test#dp>))");
-        map.put(b.decDt(),
-            "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Datatype(<urn:test:test#datatype>))");
-        map.put(b.decAp(),
-            "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) AnnotationProperty(<urn:test:test#ann>))");
-        map.put(b.decI(),
-            "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) NamedIndividual(<urn:test:test#i>))");
-        map.put(b.assDi(), "DifferentIndividuals(<urn:test:test#i> <urn:test:test#iri> )");
-        map.put(b.dc(), "DisjointClasses(<urn:test:test#c> <urn:test:test#iri>)");
-        map.put(b.dDp(),
-            "DisjointDataProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#iri> )");
-        map.put(b.dOp(),
-            "DisjointObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#iri> <urn:test:test#op> )");
-        map.put(b.du(),
-            "DisjointUnion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#c> <urn:test:test#iri> )");
-        map.put(b.ec(),
-            "EquivalentClasses(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#iri> )");
-        map.put(b.eDp(),
-            "EquivalentDataProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#iri> )");
-        map.put(b.eOp(),
-            "EquivalentObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#iri> <urn:test:test#op> )");
-        map.put(b.fdp(),
-            "FunctionalDataProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp>)");
-        map.put(b.fop(),
-            "FunctionalObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)");
-        map.put(b.ifp(),
-            "InverseFunctionalObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)");
-        map.put(b.iop(),
-            "InverseObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#op>)");
-        map.put(b.irr(),
-            "IrreflexiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)");
-        map.put(b.ndp(),
-            "NegativeDataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"false\"^^xsd:boolean)");
-        map.put(b.nop(),
-            "NegativeObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#i> <urn:test:test#i>)");
-        map.put(b.opa(),
-            "ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#i> <urn:test:test#i>)");
-        map.put(b.opaInv(),
-            "ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test:test#op>) <urn:test:test#i> <urn:test:test#i>)");
-        map.put(b.opaInvj(),
-            "ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test:test#op>) <urn:test:test#i> <urn:test:test#j>)");
-        map.put(b.oDom(),
-            "ObjectPropertyDomain(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#c>)");
-        map.put(b.oRange(),
-            "ObjectPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#c>)");
-        map.put(b.chain(),
-            "SubObjectPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectPropertyChain( <urn:test:test#iri> <urn:test:test#op> ) <urn:test:test#op>)");
-        map.put(b.ref(),
-            "ReflexiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)");
-        map.put(b.same(),
-            "SameIndividual(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#i> <urn:test:test#iri> )");
-        map.put(b.subAnn(),
-            "SubAnnotationPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> rdfs:label)");
-        map.put(b.subClass(),
-            "SubClassOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> owl:Thing)");
-        map.put(b.subData(), "SubDataPropertyOf(<urn:test:test#dp> owl:topDataProperty)");
-        map.put(b.subObject(),
-            "SubObjectPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> owl:topObjectProperty)");
-        map.put(b.symm(),
-            "SymmetricObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)");
-        map.put(b.trans(),
-            "TransitiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)");
-        map.put(b.hasKey(),
-            "HasKey(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> (<urn:test:test#iri> <urn:test:test#op> ) (<urn:test:test#dp> ))");
+        map.put(b.rule(), TestFiles.RULE);
+        map.put(b.bigRule(), TestFiles.BIGRULE);
+        map.put(b.onto(), TestFiles.ONTO);
+        map.put(b.ann(), TestFiles.ANN);
+        map.put(b.asymm(), TestFiles.ASYMM);
+        map.put(b.annDom(), TestFiles.ANNDOM);
+        map.put(b.annRange(), TestFiles.ANNRANGE);
+        map.put(b.ass(), TestFiles.ASS);
+        map.put(b.assAnd(), TestFiles.ASSAND);
+        map.put(b.assOr(), TestFiles.ASSOR);
+        map.put(b.dRangeAnd(), TestFiles.DRANGEAND);
+        map.put(b.dRangeOr(), TestFiles.DRANGEOR);
+        map.put(b.assNot(), TestFiles.ASSNOT);
+        map.put(b.assNotAnon(), TestFiles.ASSNOTANON);
+        map.put(b.assSome(), TestFiles.ASSSOME);
+        map.put(b.assAll(), TestFiles.ASSALL);
+        map.put(b.assHas(), TestFiles.ASSHAS);
+        map.put(b.assMin(), TestFiles.ASSMIN);
+        map.put(b.assMax(), TestFiles.ASSMAX);
+        map.put(b.assEq(), TestFiles.ASSEQ);
+        map.put(b.assHasSelf(), TestFiles.ASSHASSELF);
+        map.put(b.assOneOf(), TestFiles.ASSONEOF);
+        map.put(b.assDSome(), TestFiles.assDSome);
+        map.put(b.assDAll(), TestFiles.assDAll);
+        map.put(b.assDHas(), TestFiles.assDHas);
+        map.put(b.assDMin(), TestFiles.assDMin);
+        map.put(b.assDMax(), TestFiles.assDMax);
+        map.put(b.assDEq(), TestFiles.assDEq);
+        map.put(b.dOneOf(), TestFiles.dataOneOf);
+        map.put(b.dNot(), TestFiles.dataNot);
+        map.put(b.dRangeRestrict(), TestFiles.dRangeRestrict);
+        map.put(b.assD(), TestFiles.assD);
+        map.put(b.assDPlain(), TestFiles.assDPlain);
+        map.put(b.dDom(), TestFiles.dDom);
+        map.put(b.dRange(), TestFiles.dRange);
+        map.put(b.dDef(), TestFiles.dDef);
+        map.put(b.decC(), TestFiles.decC);
+        map.put(b.decOp(), TestFiles.decOp);
+        map.put(b.decDp(), TestFiles.decDp);
+        map.put(b.decDt(), TestFiles.decDt);
+        map.put(b.decAp(), TestFiles.decAp);
+        map.put(b.decI(), TestFiles.decI);
+        map.put(b.assDi(), TestFiles.assDi);
+        map.put(b.dc(), TestFiles.disjointClasses);
+        map.put(b.dDp(), TestFiles.disjointDp);
+        map.put(b.dOp(), TestFiles.disjointOp);
+        map.put(b.du(), TestFiles.disjointu);
+        map.put(b.ec(), TestFiles.ec);
+        map.put(b.eDp(), TestFiles.eDp);
+        map.put(b.eOp(), TestFiles.eOp);
+        map.put(b.fdp(), TestFiles.functionaldp);
+        map.put(b.fop(), TestFiles.functionalop);
+        map.put(b.ifp(), TestFiles.inversefp);
+        map.put(b.iop(), TestFiles.inverseop);
+        map.put(b.irr(), TestFiles.irreflexive);
+        map.put(b.ndp(), TestFiles.ndp);
+        map.put(b.nop(), TestFiles.nop);
+        map.put(b.opa(), TestFiles.opa);
+        map.put(b.opaInv(), TestFiles.OPAINV);
+        map.put(b.opaInvj(), TestFiles.OPAINVJ);
+        map.put(b.oDom(), TestFiles.ODOM);
+        map.put(b.oRange(), TestFiles.ORANGE);
+        map.put(b.chain(), TestFiles.CHAIN);
+        map.put(b.ref(), TestFiles.REF);
+        map.put(b.same(), TestFiles.SAME);
+        map.put(b.subAnn(), TestFiles.SUBANN);
+        map.put(b.subClass(), TestFiles.SUBCLASS);
+        map.put(b.subData(), TestFiles.SUBDATA);
+        map.put(b.subObject(), TestFiles.SUBOBJECT);
+        map.put(b.symm(), TestFiles.SYMM);
+        map.put(b.trans(), TestFiles.TRANS);
+        map.put(b.hasKey(), TestFiles.HASKEY);
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
         return toReturn;
     }
 
-    @Test
-    public void testAssertion() {
+    @ParameterizedTest
+    @MethodSource("getData")
+    void testAssertion(OWLObject object, String expected) {
         String render = new SimpleRenderer().render(object);
         assertEquals(expected, render);
     }

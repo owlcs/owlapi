@@ -1,39 +1,25 @@
 package org.semanticweb.owlapitools.decomposition.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Set;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+
 import uk.ac.manchester.cs.atomicdecomposition.Atom;
 import uk.ac.manchester.cs.atomicdecomposition.AtomicDecomposition;
 import uk.ac.manchester.cs.atomicdecomposition.AtomicDecompositionImpl;
 
-@SuppressWarnings("javadoc")
-public class AtomicDecomposerDepedenciesTest {
+class AtomicDecomposerDepedenciesTest {
 
     private static final String URN_TEST = "urn:test#";
-
-    private static OWLOntology getOntology() throws OWLOntologyCreationException {
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        OWLOntology o = m.createOntology();
-        OWLDataFactory f = m.getOWLDataFactory();
-        OWLClass powerYoga = f.getOWLClass(IRI.create(URN_TEST, "PowerYoga"));
-        OWLClass yoga = f.getOWLClass(IRI.create(URN_TEST, "Yoga"));
-        OWLClass relaxation = f.getOWLClass(IRI.create(URN_TEST, "Relaxation"));
-        OWLClass activity = f.getOWLClass(IRI.create(URN_TEST, "Activity"));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(powerYoga, yoga));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(yoga, relaxation));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(relaxation, activity));
-        return o;
-    }
 
     @Test
     public void atomicDecomposerDepedenciesTest() throws OWLOntologyCreationException {
@@ -51,5 +37,19 @@ public class AtomicDecomposerDepedenciesTest {
         // then
         assertEquals(0, dependencies2.size());
         assertEquals(0, dependencies.size());
+    }
+
+    private static OWLOntology getOntology() throws OWLOntologyCreationException {
+        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        OWLOntology o = m.createOntology();
+        OWLDataFactory f = m.getOWLDataFactory();
+        OWLClass powerYoga = f.getOWLClass(URN_TEST, "PowerYoga");
+        OWLClass yoga = f.getOWLClass(URN_TEST, "Yoga");
+        OWLClass relaxation = f.getOWLClass(URN_TEST, "Relaxation");
+        OWLClass activity = f.getOWLClass(URN_TEST, "Activity");
+        o.addAxiom(f.getOWLSubClassOfAxiom(powerYoga, yoga));
+        o.addAxiom(f.getOWLSubClassOfAxiom(yoga, relaxation));
+        o.addAxiom(f.getOWLSubClassOfAxiom(relaxation, activity));
+        return o;
     }
 }

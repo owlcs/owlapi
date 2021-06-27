@@ -12,37 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.dataproperties;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-@SuppressWarnings("javadoc")
-public class AllDifferentTestCase extends TestBase {
+class AllDifferentTestCase extends TestBase {
 
     @Test
-    public void testDistinctMembers() throws OWLOntologyCreationException {
-        String onto1 = "<?xml version=\"1.0\"?>\n"
-            + "<rdf:RDF xml:base = \"http://example.org/\" "
-            + "xmlns = \"http://example.org/\" xmlns:owl = \"http://www.w3.org/2002/07/owl#\" "
-            + "xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"> <owl:Ontology/>"
-            + "<owl:AllDifferent> "
-            + "<owl:distinctMembers rdf:parseType=\"Collection\"> "
-            + "<rdf:Description rdf:about=\"Peter\" /> "
-            + "<rdf:Description rdf:about=\"Peter_Griffin\" /> "
-            + "<rdf:Description rdf:about=\"Petre\" /> "
-            + "</owl:distinctMembers> </owl:AllDifferent> </rdf:RDF>";
-        String onto2 = "<?xml version=\"1.0\"?>\n"
-            + "<rdf:RDF xml:base = \"http://example.org/\" xmlns = \"http://example.org/\" "
-            + "xmlns:owl = \"http://www.w3.org/2002/07/owl#\" "
-            + "xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><owl:Ontology/>"
-            + "<owl:AllDifferent><owl:members rdf:parseType=\"Collection\">"
-            + "<rdf:Description rdf:about=\"Peter\" />"
-            + "<rdf:Description rdf:about=\"Peter_Griffin\" />"
-            + "<rdf:Description rdf:about=\"Petre\" />"
-            + "</owl:members></owl:AllDifferent></rdf:RDF>";
-        OWLOntology o1 = loadOntologyFromString(onto1);
-        OWLOntology o2 = loadOntologyFromString(onto2);
+    void testDistinctMembers() {
+        OWLOntology o1 =
+            loadOntologyFromString(TestFiles.distinctMembers1, new RDFXMLDocumentFormat());
+        OWLOntology o2 =
+            loadOntologyFromString(TestFiles.distinctMembers2, new RDFXMLDocumentFormat());
         equal(o2, o1);
     }
 }

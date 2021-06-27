@@ -12,11 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc"})
-public class RemoveOntologyAnnotationDataTestCase {
+class RemoveOntologyAnnotationDataTestCase {
 
     private final OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);
     private final OWLOntology mockOntology = mock(OWLOntology.class);
@@ -37,7 +36,7 @@ public class RemoveOntologyAnnotationDataTestCase {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         RemoveOntologyAnnotationData data1 = createData();
         RemoveOntologyAnnotationData data2 = createData();
         assertEquals(data1, data2);
@@ -45,20 +44,20 @@ public class RemoveOntologyAnnotationDataTestCase {
     }
 
     @Test
-    public void testGettersReturnNotNull() {
+    void testGettersReturnNotNull() {
         RemoveOntologyAnnotationData data = createData();
         assertNotNull(data.getAnnotation());
         assertNotNull(data.createOntologyChange(mockOntology));
     }
 
     @Test
-    public void testGettersEquals() {
+    void testGettersEquals() {
         RemoveOntologyAnnotationData data = createData();
         assertEquals(mockAnnotation, data.getAnnotation());
     }
 
     @Test
-    public void testCreateOntologyChange() {
+    void testCreateOntologyChange() {
         RemoveOntologyAnnotationData data = createData();
         RemoveOntologyAnnotation change = data.createOntologyChange(mockOntology);
         assertEquals(mockOntology, change.getOntology());
@@ -66,10 +65,10 @@ public class RemoveOntologyAnnotationDataTestCase {
     }
 
     @Test
-    public void testGetChangeData() {
+    void testGetChangeData() {
         RemoveOntologyAnnotationData data = createData();
-        RemoveOntologyAnnotation change = new RemoveOntologyAnnotation(mockOntology,
-            mockAnnotation);
+        RemoveOntologyAnnotation change =
+            new RemoveOntologyAnnotation(mockOntology, mockAnnotation);
         assertEquals(change.getChangeData(), data);
     }
 }

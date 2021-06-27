@@ -12,33 +12,22 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.HornAxiomVisitorEx;
 
-@SuppressWarnings({"javadoc"})
-@RunWith(Parameterized.class)
-public class HornAxiomVisitorExTestCase {
+class HornAxiomVisitorExTestCase {
 
-    private final OWLAxiom object;
-    private final Boolean b;
-
-    public HornAxiomVisitorExTestCase(OWLAxiom object, Boolean b) {
-        this.object = object;
-        this.b = b;
-    }
-
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLObject, Boolean> map = new LinkedHashMap<>();
         map.put(b.ann(), Boolean.TRUE);
@@ -113,12 +102,13 @@ public class HornAxiomVisitorExTestCase {
         map.put(b.hasKey(), Boolean.FALSE);
         map.put(b.bigRule(), Boolean.FALSE);
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[]{k, v}));
+        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
         return toReturn;
     }
 
-    @Test
-    public void testAssertion() {
+    @ParameterizedTest
+    @MethodSource("getData")
+    void testAssertion(OWLAxiom object, Boolean b) {
         HornAxiomVisitorEx testsubject = new HornAxiomVisitorEx();
         Boolean result = object.accept(testsubject);
         assertEquals(b, result);
