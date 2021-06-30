@@ -14,10 +14,10 @@ import org.semanticweb.owlapi.model.IRI;
  */
 class OWLOntologyIRIShortFormProviderTestCase {
 
-    private static final String ONT = "ont";
-    private static final String ONTOLOGIES = "/ontologies/";
+    static final String ONT = "ont";
+    static final String ONTOLOGIES = "/ontologies/";
     static final String SCHEME_DOMAIN = "http://www.semanticweb.org";
-    private final OntologyIRIShortFormProvider sfp = new OntologyIRIShortFormProvider();
+    final OntologyIRIShortFormProvider sfp = new OntologyIRIShortFormProvider();
 
     @Test
     void shouldFindLastPathElement() {
