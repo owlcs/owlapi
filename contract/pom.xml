@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>5.1.17</version>
+		<version>5.1.18</version>
 	</parent>
 	<dependencies>
 		<dependency>
