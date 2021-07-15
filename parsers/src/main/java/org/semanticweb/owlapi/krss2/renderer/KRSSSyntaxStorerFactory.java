@@ -36,6 +36,7 @@
 package org.semanticweb.owlapi.krss2.renderer;
 
 import org.semanticweb.owlapi.formats.KRSSDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 
@@ -53,7 +54,7 @@ public class KRSSSyntaxStorerFactory extends OWLStorerFactoryImpl {
     }
 
     @Override
-    public OWLStorer createStorer() {
+    public OWLStorer createStorer(OWLOntology ontology) {
         return new KRSSSyntaxStorer();
     }
 }

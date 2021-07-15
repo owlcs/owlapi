@@ -36,6 +36,7 @@
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
 import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 
@@ -53,7 +54,7 @@ public class DLSyntaxStorerFactory extends OWLStorerFactoryImpl {
     }
 
     @Override
-    public OWLStorer createStorer() {
+    public OWLStorer createStorer(OWLOntology ontology) {
         return new DLSyntaxStorer();
     }
 }

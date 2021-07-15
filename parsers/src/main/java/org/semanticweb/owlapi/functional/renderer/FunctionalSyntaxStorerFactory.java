@@ -37,6 +37,7 @@ package org.semanticweb.owlapi.functional.renderer;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 
@@ -55,7 +56,7 @@ public class FunctionalSyntaxStorerFactory extends OWLStorerFactoryImpl {
     }
 
     @Override
-    public OWLStorer createStorer() {
+    public OWLStorer createStorer(OWLOntology ontology) {
         return new FunctionalSyntaxStorer();
     }
 }

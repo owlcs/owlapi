@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory;
 import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorerFactory;
 import org.semanticweb.owlapi.latex.renderer.LatexStorerFactory;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterSyntaxStorerFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.oboformat.OBOFormatStorerFactory;
@@ -33,15 +35,24 @@ class PriorityCollectionTestCase {
     @Test
     void shouldStoreStorers() {
         List<OWLStorer> storers =
-            Arrays.asList(new RioBinaryRdfStorerFactory().get(), new RioJsonLDStorerFactory().get(),
-                new RioJsonStorerFactory().get(), new RioN3StorerFactory().get(),
-                new RioNQuadsStorerFactory().get(), new RioNTriplesStorerFactory().get(),
-                new RioRDFXMLStorerFactory().get(), new RioTrigStorerFactory().get(),
-                new RioTrixStorerFactory().get(), new RioTurtleStorerFactory().get(),
-                new OBOFormatStorerFactory().get(), new RDFXMLStorerFactory().get(),
-                new OWLXMLStorerFactory().get(), new FunctionalSyntaxStorerFactory().get(),
-                new ManchesterSyntaxStorerFactory().get(), new KRSS2OWLSyntaxStorerFactory().get(),
-                new TurtleStorerFactory().get(), new LatexStorerFactory().get());
+            Arrays.asList(new RioBinaryRdfStorerFactory().apply(any(OWLOntology.class)),
+                new RioJsonLDStorerFactory().apply(any(OWLOntology.class)),
+                new RioJsonStorerFactory().apply(any(OWLOntology.class)),
+                new RioN3StorerFactory().apply(any(OWLOntology.class)),
+                new RioNQuadsStorerFactory().apply(any(OWLOntology.class)),
+                new RioNTriplesStorerFactory().apply(any(OWLOntology.class)),
+                new RioRDFXMLStorerFactory().apply(any(OWLOntology.class)),
+                new RioTrigStorerFactory().apply(any(OWLOntology.class)),
+                new RioTrixStorerFactory().apply(any(OWLOntology.class)),
+                new RioTurtleStorerFactory().apply(any(OWLOntology.class)),
+                new OBOFormatStorerFactory().apply(any(OWLOntology.class)),
+                new RDFXMLStorerFactory().apply(any(OWLOntology.class)),
+                new OWLXMLStorerFactory().apply(any(OWLOntology.class)),
+                new FunctionalSyntaxStorerFactory().apply(any(OWLOntology.class)),
+                new ManchesterSyntaxStorerFactory().apply(any(OWLOntology.class)),
+                new KRSS2OWLSyntaxStorerFactory().apply(any(OWLOntology.class)),
+                new TurtleStorerFactory().apply(any(OWLOntology.class)),
+                new LatexStorerFactory().apply(any(OWLOntology.class)));
         PriorityCollection<OWLStorer> pc =
             new PriorityCollection<>(PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
         pc.set(storers);

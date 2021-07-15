@@ -1319,7 +1319,7 @@ public class OWLOntologyManagerImpl
         readLock.lock();
         try {
             for (OWLStorerFactory storerFactory : ontologyStorers) {
-                OWLStorer storer = storerFactory.createStorer();
+                OWLStorer storer = storerFactory.createStorer(ontology);
                 if (storer.canStoreOntology(ontologyFormat)) {
                     storer.storeOntology(ontology, documentIRI, ontologyFormat);
                     return;
@@ -1367,7 +1367,7 @@ public class OWLOntologyManagerImpl
         readLock.lock();
         try {
             for (OWLStorerFactory storerFactory : ontologyStorers) {
-                OWLStorer storer = storerFactory.createStorer();
+                OWLStorer storer = storerFactory.createStorer(ontology);
                 if (storer.canStoreOntology(ontologyFormat)) {
                     storer.storeOntology(ontology, documentTarget, ontologyFormat);
                     return;

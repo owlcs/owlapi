@@ -35,7 +35,9 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 
@@ -50,7 +52,11 @@ public abstract class AbstractRioStorerFactory extends OWLStorerFactoryImpl {
     }
 
     @Override
-    public OWLStorer createStorer() {
-        return new RioStorer(getFormatFactory());
+    public OWLStorer createStorer(OWLOntology ontology) {
+        return ontology
+                .getOntologyID()
+                .getOntologyIRI()
+                .map(iri -> new RioStorer(getFormatFactory(), SimpleValueFactory.getInstance().createIRI(iri.toString())))
+                .orElse(new RioStorer(getFormatFactory()));
     }
 }

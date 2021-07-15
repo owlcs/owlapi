@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
 
@@ -35,7 +36,7 @@ public abstract class OWLStorerFactoryImpl implements OWLStorerFactory {
     }
 
     @Override
-    public final OWLStorer get() {
-        return createStorer();
+    public final OWLStorer apply(OWLOntology ontology) {
+        return createStorer(ontology);
     }
 }

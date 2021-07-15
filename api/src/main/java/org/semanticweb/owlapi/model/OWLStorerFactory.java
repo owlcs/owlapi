@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 /**
  * Factory for ontology storers. Provide a priority to allow for sorting of ontology storers.
@@ -22,14 +22,14 @@ import java.util.function.Supplier;
  * storer in the second position, it is sufficient for it to pick a priority value strictly between
  * 0 and 1.
  */
-public interface OWLStorerFactory extends Serializable, Supplier<OWLStorer> {
+public interface OWLStorerFactory extends Serializable, Function<OWLOntology, OWLStorer> {
 
     /**
      * Create new storer.
      *
      * @return new storer
      */
-    OWLStorer createStorer();
+    OWLStorer createStorer(OWLOntology ontology);
 
     /**
      * @return format factory for the format parsed by this storer
