@@ -52,6 +52,7 @@ import javax.annotation.Nullable;
 
 import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.eclipse.rdf4j.rio.RDFWriter;
@@ -236,8 +237,8 @@ public class RioStorer extends AbstractOWLStorer {
             // if this is a writer rather than a statement collector, set its config from the format
             // parameters, if any
             addSettingsIfPresent(format);
-            final RioRenderer ren =
-                new RioRenderer(ontology, verifyNotNull(rioHandler), format, contexts);
+            final RioRenderer ren = new RioRenderer(ontology, verifyNotNull(rioHandler), format,
+                contexts(ontology, format));
             ren.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
@@ -276,12 +277,29 @@ public class RioStorer extends AbstractOWLStorer {
             // if this is a writer rather than a statement collector, set its config from the format
             // parameters, if any
             addSettingsIfPresent(format);
-            final RioRenderer ren =
-                new RioRenderer(ontology, verifyNotNull(rioHandler), format, contexts);
+            final RioRenderer ren = new RioRenderer(ontology, verifyNotNull(rioHandler), format,
+                contexts(ontology, format));
             ren.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
         }
+    }
+
+    private Resource[] contexts(OWLOntology o, OWLDocumentFormat d) {
+        String namedGraph = o.getOntologyID().getOntologyIRI().map(Object::toString).orElse(null);
+        Object namedGraphOverride = d.getParameter("namedgraph", namedGraph);
+        if (namedGraphOverride != null) {
+            Resource context =
+                SimpleValueFactory.getInstance().createIRI(namedGraphOverride.toString());
+            if (contexts.length == 0) {
+                return new Resource[] {context};
+            }
+            Resource[] toReturn = new Resource[contexts.length + 1];
+            System.arraycopy(contexts, 0, toReturn, 0, contexts.length);
+            toReturn[contexts.length] = context;
+            return toReturn;
+        }
+        return contexts;
     }
 
     // These warnings are suppressed because the types cannot be easily determined here without
