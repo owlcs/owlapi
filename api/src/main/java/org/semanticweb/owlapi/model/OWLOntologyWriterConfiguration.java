@@ -29,6 +29,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     private boolean labelsAsBanner = false;
     private boolean bannersEnabled = true;
     private int indentSize = 4;
+    private boolean outputNamedGraphIRI = false;
 
     private OWLOntologyWriterConfiguration copy() {
         OWLOntologyWriterConfiguration toReturn = new OWLOntologyWriterConfiguration();
@@ -37,6 +38,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
         toReturn.useNamespaceEntities = useNamespaceEntities;
         toReturn.remapIds = remapIds;
         toReturn.saveIds = saveIds;
+        toReturn.outputNamedGraphIRI = outputNamedGraphIRI;
         return toReturn;
     }
 
@@ -178,5 +180,25 @@ public class OWLOntologyWriterConfiguration implements Serializable {
         OWLOntologyWriterConfiguration copy = copy();
         copy.labelsAsBanner = label;
         return copy;
+    }
+
+    /**
+     * @param label True if named graph IRIs comments should be enabled.
+     * @return new config object
+     */
+    public OWLOntologyWriterConfiguration withNamedGraphIRIEnabled(boolean label) {
+        if (outputNamedGraphIRI == label) {
+            return this;
+        }
+        OWLOntologyWriterConfiguration copy = copy();
+        copy.outputNamedGraphIRI = label;
+        return copy;
+    }
+
+    /**
+     * @return should output named graph IRIs
+     */
+    public boolean shouldOutputNamedGraphIRI() {
+        return outputNamedGraphIRI;
     }
 }

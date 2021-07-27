@@ -286,8 +286,16 @@ public class RioStorer extends AbstractOWLStorer {
     }
 
     private Resource[] contexts(OWLOntology o, OWLDocumentFormat d) {
-        String namedGraph = o.getOntologyID().getOntologyIRI().map(Object::toString).orElse(null);
-        Object namedGraphOverride = d.getParameter("namedgraph", namedGraph);
+        boolean shouldUseOntologyIRI =
+            o.getOWLOntologyManager().getOntologyWriterConfiguration().shouldOutputNamedGraphIRI();
+        String namedGraph = null;
+        if (shouldUseOntologyIRI) {
+            // Only use the ontology IRI if the configuration option OUTPUT_NAMED_GRAPH_IRI is set
+            // to true.
+            // If the configuration option is false, only use the value of namedGraphOverride.
+            namedGraph = o.getOntologyID().getOntologyIRI().map(Object::toString).orElse(null);
+        }
+        Object namedGraphOverride = d.getParameter("namedGraphOverride", namedGraph);
         if (namedGraphOverride != null) {
             Resource context =
                 SimpleValueFactory.getInstance().createIRI(namedGraphOverride.toString());
