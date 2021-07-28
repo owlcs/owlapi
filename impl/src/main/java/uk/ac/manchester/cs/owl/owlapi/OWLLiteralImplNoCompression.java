@@ -284,11 +284,11 @@ public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAn
     @Override
     protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         OWLLiteral other = (OWLLiteral) object;
-        int diff = literal.compareTo(other.getLiteral());
+        int diff = datatype.compareTo(other.getDatatype());
         if (diff != 0) {
             return diff;
         }
-        diff = datatype.compareTo(other.getDatatype());
+        diff = literal.compareTo(other.getLiteral());
         if (diff != 0) {
             return diff;
         }

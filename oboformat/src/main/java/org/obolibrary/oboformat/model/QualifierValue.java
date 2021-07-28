@@ -93,7 +93,10 @@ public class QualifierValue implements Comparable<QualifierValue> {
         if (o == null) {
             return 1;
         }
-        // use toString representation
-        return toString().compareTo(o.toString());
+        int q = qualifier.compareTo(o.qualifier);
+        if (q == 0) {
+            return value.compareTo(o.value);
+        }
+        return q;
     }
 }

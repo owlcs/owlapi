@@ -18,17 +18,28 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLDataVisitor;
+import org.semanticweb.owlapi.model.OWLDataVisitorEx;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.google.common.base.Optional;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCaching
+    implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private final int literal;
@@ -41,10 +52,8 @@ public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCach
     }
 
     /**
-     * @param literal
-     *        literal value
-     * @param datatype
-     *        datatype
+     * @param literal literal value
+     * @param datatype datatype
      */
     public OWLLiteralImplInteger(int literal, @Nonnull OWLDatatype datatype) {
         this.literal = literal;
@@ -158,7 +167,8 @@ public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCach
             return literal == other.literal;
         }
         if (obj instanceof OWLLiteral) {
-            return ((OWLLiteral) obj).isInteger() && ((OWLLiteral) obj).getLiteral().charAt(0) != '0'
+            return ((OWLLiteral) obj).isInteger()
+                && ((OWLLiteral) obj).getLiteral().charAt(0) != '0'
                 && literal == ((OWLLiteral) obj).parseInteger();
         }
         return false;
@@ -187,13 +197,13 @@ public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCach
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         OWLLiteral other = (OWLLiteral) object;
-        int diff = getLiteral().compareTo(other.getLiteral());
+        int diff = datatype.compareTo(other.getDatatype());
         if (diff != 0) {
             return diff;
         }
-        int compareTo = datatype.compareTo(other.getDatatype());
-        if (compareTo != 0) {
-            return compareTo;
+        diff = getLiteral().compareTo(other.getLiteral());
+        if (diff != 0) {
+            return diff;
         }
         return Integer.compare(literal, other.parseInteger());
     }
@@ -220,6 +230,6 @@ public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCach
 
     @Override
     public Optional<OWLLiteral> asLiteral() {
-        return Optional.<OWLLiteral> of(this);
+        return Optional.<OWLLiteral>of(this);
     }
 }

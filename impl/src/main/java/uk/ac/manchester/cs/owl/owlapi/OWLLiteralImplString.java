@@ -195,11 +195,11 @@ public class OWLLiteralImplString implements OWLLiteral {
 
     protected int compareObjectOfSameType(OWLObject object) {
         OWLLiteral other = (OWLLiteral) object;
-        int diff = getLiteral().compareTo(other.getLiteral());
+        int diff = getDatatype().compareTo(other.getDatatype());
         if (diff != 0) {
             return diff;
         }
-        diff = getDatatype().compareTo(other.getDatatype());
+        diff = getLiteral().compareTo(other.getLiteral());
         if (diff != 0) {
             return diff;
         }
