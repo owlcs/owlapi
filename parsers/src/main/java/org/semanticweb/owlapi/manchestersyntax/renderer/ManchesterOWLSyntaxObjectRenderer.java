@@ -368,7 +368,6 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(@Nonnull OWLObjectHasSelf ce) {
         ce.getProperty().accept(this);
-        write(SOME);
         write(SELF);
     }
 
