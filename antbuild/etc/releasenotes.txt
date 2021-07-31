@@ -1,3 +1,16 @@
+## 4.5.20 31 July 2021
+
+### Features:
+
+*    Specify RioSetting values for Rio renderers #614
+
+### Bug fixes:
+
+*    Fix sameAs failure when more than 2 entities included #994
+*    Ordering of literals to be consistent with OWLAPI 5
+*    Fix Trig and rdf/json should include a named graph. #1002
+*    Fix ObjectHasSelf rendered wrongly in manchester syntax #1005
+
 ## 4.5.19 7 November 2020
 
 ### Bug fixes:
