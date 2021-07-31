@@ -120,7 +120,18 @@ public enum ConfigurationOptions {
      * {@code Equivalent(A, A)}.*/
     ALLOW_DUPLICATES_IN_CONSTRUCT_SETS  (Boolean.FALSE),
     /**Max number of elements for caches.*/
-    CACHE_SIZE                        (Integer.valueOf(2048));
+    CACHE_SIZE                        (Integer.valueOf(2048)),
+    /** False if named graph IRIs should
+     * not be created for formats like
+     * TriG and RDF/JSON. This is the 
+     * historic behaviour of the API.
+     * Switch to true to always use the
+     * ontology IRI as graph IRI for
+     * named ontologies. The named 
+     * graph IRI can be set independently
+     * or overridden with 
+     * {@code OWLDocumentFormat::setParameter("namedGraphOverride", "desired value")}.*/
+    OUTPUT_NAMED_GRAPH_IRI              (Boolean.FALSE);
     //@formatter:on
     private static final String PREFIX =
         "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";

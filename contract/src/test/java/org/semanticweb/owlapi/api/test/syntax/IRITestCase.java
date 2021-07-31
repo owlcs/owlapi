@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
@@ -14,8 +16,10 @@ import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TrigDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 public class IRITestCase extends TestBase {
@@ -46,6 +50,26 @@ public class IRITestCase extends TestBase {
                 + "}";
         // exception thrown by the parser
         loadOntologyFromString(bad, f);
+    }
+
+    @Test
+    public void shouldOutputNamedGraph() throws OWLOntologyStorageException {
+        OWLDocumentFormat f = new TrigDocumentFormat();
+        OWLOntology o = getOWLOntology("urn:test:ontology");
+        o.getOWLOntologyManager().getOntologyLoaderConfiguration().withNamedGraphIRIEnabled(true);
+        StringDocumentTarget saved = saveOntology(o, f);
+        assertTrue(saved.toString()
+            .contains("<http://www.semanticweb.org/owlapi/test/urn:test:ontology> {"));
+    }
+
+    @Test
+    public void shouldOutputOverriddenNamedGraph() throws OWLOntologyStorageException {
+        OWLDocumentFormat f = new TrigDocumentFormat();
+        String value = "urn:test:onto";
+        f.setParameter("namedGraphOverride", value);
+        OWLOntology o = getOWLOntology("urn:test:ontology");
+        StringDocumentTarget saved = saveOntology(o, f);
+        assertTrue(saved.toString().contains("<" + value + ">"));
     }
 
     @Test
