@@ -20,6 +20,18 @@ The following components are included:
 
 ## Release notes
 
+## 5.1.18 30 July 2021
+
+### Features:
+
+*    Specify RioSetting values for Rio renderers #614
+
+### Bug fixes:
+
+*    Fix sameAs failure when more than 2 entities included #994
+*    Fix Trig and rdf/json should include a named graph. #1002
+*    Fix ObjectHasSelf rendered wrongly in manchester syntax #1005
+
 ## 5.1.17 6 November 2020
 
 ### Features:
