@@ -2201,6 +2201,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
                 // C(a)
                 add(df.getOWLClassAssertionAxiom(translatorAccessor.translateClassExpression(o),
                     individual(s), pendingAnns()));
+                tripleIndex.consumeIfPresent(s, p, o);
             }
         } else {
             if (!handleConditionally(predicates.get(p), s, p, o)) {
