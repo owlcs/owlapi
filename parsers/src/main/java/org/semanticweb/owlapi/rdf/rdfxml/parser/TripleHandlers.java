@@ -332,6 +332,7 @@ public class TripleHandlers {
                         consumer.translatorAccessor.translateClassExpression(object);
                     consumer.addAxiom(consumer.getDataFactory().getOWLClassAssertionAxiom(ce, ind,
                         consumer.getPendingAnnotations()));
+                    consumer.consumeTriple(subject, predicate, object);
                 }
             } else {
                 TriplePredicateHandler handler = predicates.get(predicate);
