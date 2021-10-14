@@ -85,7 +85,6 @@ import org.semanticweb.owlapi6.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi6.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLClass;
-import org.semanticweb.owlapi6.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
 import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDataRange;
@@ -144,7 +143,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      * Instantiates a new manchester owl syntax frame renderer.
      *
      * @param ontology the ontology
-     * @param writer   the writer
+     * @param writer the writer
      */
     public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer) {
         super(writer, ontology.getPrefixManager());
@@ -155,8 +154,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Instantiates a new manchester owl syntax frame renderer.
      *
-     * @param ontologies              the ontologies
-     * @param writer                  the writer
+     * @param ontologies the ontologies
+     * @param writer the writer
      * @param entityShortFormProvider the entity short form provider
      */
     public ManchesterOWLSyntaxFrameRenderer(Collection<OWLOntology> ontologies, Writer writer,
@@ -470,12 +469,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     protected void renderClassAssertion(OWLClass cls, List<OWLAxiom> axioms) {
         SectionMap<Object, OWLAxiom> individuals = new SectionMap<>();
-        filtersort(o.classAssertionAxioms(cls),
-            ax -> renderExtensions || ((OWLClassAssertionAxiom) ax).getIndividual().isAnonymous())
-                .forEach(ax -> {
-                    individuals.put(ax.getIndividual(), ax);
-                    axioms.add(ax);
-                });
+        filtersort(o.classAssertionAxioms(cls), ax -> renderExtensions).forEach(ax -> {
+            individuals.put(ax.getIndividual(), ax);
+            axioms.add(ax);
+        });
         writeSection(INDIVIDUALS, individuals, ",", true);
     }
 
@@ -965,7 +962,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      * Write entity start.
      *
      * @param keyword the keyword
-     * @param entity  the entity
+     * @param entity the entity
      * @return written axioms
      */
     private Collection<OWLAnnotationAssertionAxiom> writeEntityStart(ManchesterOWLSyntax keyword,
@@ -1089,10 +1086,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Write section.
      *
-     * @param keyword   the keyword
-     * @param content   the content
+     * @param keyword the keyword
+     * @param content the content
      * @param delimiter the delimiter
-     * @param newline   the newline
+     * @param newline the newline
      */
     public void writeSection(ManchesterOWLSyntax keyword, Iterator<?> content, String delimiter,
         boolean newline) {
@@ -1136,7 +1133,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Write comment.
      *
-     * @param comment        the comment
+     * @param comment the comment
      * @param placeOnNewline the place on newline
      */
     public void writeComment(String comment, boolean placeOnNewline) {
@@ -1144,8 +1141,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     /**
-     * @param commentDelim   the comment delim
-     * @param comment        the comment
+     * @param commentDelim the comment delim
+     * @param comment the comment
      * @param placeOnNewline the place on newline
      */
     public void writeComment(String commentDelim, String comment, boolean placeOnNewline) {
