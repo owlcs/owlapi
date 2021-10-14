@@ -696,7 +696,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 SectionMap<Object, OWLAxiom> individuals = new SectionMap<>();
                 for (OWLClassAssertionAxiom ax : sortedCollection(
                     ontology.getClassAssertionAxioms(cls))) {
-                    if (isDisplayed(ax) && (renderExtensions || ax.getIndividual().isAnonymous())) {
+                    if (isDisplayed(ax) && renderExtensions) {
                         individuals.put(ax.getIndividual(), ax);
                         axioms.add(ax);
                     }

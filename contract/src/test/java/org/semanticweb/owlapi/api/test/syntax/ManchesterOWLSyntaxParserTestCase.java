@@ -509,4 +509,19 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // then
         assertEquals(cl, expected);
     }
+
+    @Test
+    public void shouldWorkWithAssertions()
+        throws OWLOntologyStorageException, OWLOntologyCreationException {
+        OWLOntology o = getOWLOntology("test");
+        OWLClass c = df.getOWLClass(IRI.create("urn:test:c"));
+        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(c));
+        o.getOWLOntologyManager().addAxiom(o,
+            df.getOWLClassAssertionAxiom(c, df.getOWLAnonymousIndividual()));
+        o.getOWLOntologyManager().addAxiom(o,
+            df.getOWLClassAssertionAxiom(c, df.getOWLNamedIndividual(IRI.create("urn:test:a"))));
+        o.getOWLOntologyManager().addAxiom(o,
+            df.getOWLClassAssertionAxiom(c, df.getOWLAnonymousIndividual()));
+        roundTrip(o, new ManchesterSyntaxDocumentFormat());
+    }
 }
