@@ -87,7 +87,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -530,11 +529,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         if (!isFiltered(AxiomType.CLASS_ASSERTION)) {
             SectionMap<Object, OWLAxiom> individuals = new SectionMap<>();
-            filtersort(o.classAssertionAxioms(cls), ax -> renderExtensions
-                || ((OWLClassAssertionAxiom) ax).getIndividual().isAnonymous()).forEach(ax -> {
-                    individuals.put(ax.getIndividual(), ax);
-                    axioms.add(ax);
-                });
+            filtersort(o.classAssertionAxioms(cls), ax -> renderExtensions).forEach(ax -> {
+                individuals.put(ax.getIndividual(), ax);
+                axioms.add(ax);
+            });
             writeSection(INDIVIDUALS, individuals, ",", true);
         }
         if (!isFiltered(AxiomType.SWRL_RULE)) {
