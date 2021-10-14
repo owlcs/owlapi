@@ -30,8 +30,6 @@ public class IndividualStrictParsingTestCase extends TestBase {
 
     @Test
     public void should() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        System.out.println("IndividualStrictParsingTestCase.should() "
-            + System.getProperty("java.class.path").replace(":", ":\n"));
         OWLOntology o = m.createOntology();
 
         OWLObjectProperty p =
