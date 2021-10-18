@@ -3,21 +3,21 @@ description = 'OWLAPI :: RDF4J Rio'
 dependencies {
     implementation project(':owlapi-rdfformats')
     // 3.0.2 fails tests
-    implementation 'org.eclipse.rdf4j:rdf4j-model:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-api:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-languages:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-datatypes:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-binary:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-n3:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-nquads:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-ntriples:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-rdfjson:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-rdfxml:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-trix:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-turtle:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-hdt:3.7.1'
-    implementation 'org.eclipse.rdf4j:rdf4j-rio-trig:3.7.1'
-    implementation ('org.eclipse.rdf4j:rdf4j-rio-jsonld:3.7.1') {
+    implementation 'org.eclipse.rdf4j:rdf4j-model:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-api:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-languages:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-datatypes:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-binary:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-n3:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-nquads:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-ntriples:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-rdfjson:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-rdfxml:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-trix:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-turtle:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-hdt:3.7.3'
+    implementation 'org.eclipse.rdf4j:rdf4j-rio-trig:3.7.3'
+    implementation ('org.eclipse.rdf4j:rdf4j-rio-jsonld:3.7.3') {
         exclude module: "httpclient-osgi"
         exclude module: "httpcore-osgi"
     }
