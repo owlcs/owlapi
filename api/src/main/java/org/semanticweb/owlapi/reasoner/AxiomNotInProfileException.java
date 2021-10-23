@@ -29,6 +29,7 @@ public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
      * @param profile profile
      */
     public AxiomNotInProfileException(OWLAxiom axiom, IRI profile) {
+        super("Axiom not in profile: axiom " + axiom + " profile " + profile);
         this.axiom = axiom;
         this.profile = profile;
     }
