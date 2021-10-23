@@ -55,6 +55,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
         try {
             LatexWriter w = new LatexWriter(writer);
             w.write("\\documentclass{article}\n");
+            w.write("\\usepackage{breqn}\n");
             w.write("\\parskip 0pt\n");
             w.write("\\parindent 0pt\n");
             w.write("\\oddsidemargin 0cm\n");

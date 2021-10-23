@@ -1,0 +1,20 @@
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+
+Ontology: <http://www.semanticweb.org/owlapi/test3580426871089099>
+
+ObjectProperty: dc:p
+
+Class: <http://www.semanticweb.org/owlapi/test#B>
+
+Class: <http://www.semanticweb.org/owlapi/test#C>
+
+Class: <http://www.semanticweb.org/owlapi/test#D>
+
+    SubClassOf: 
+        dc:p some 
+            (<http://www.semanticweb.org/owlapi/test#B>
+             or <http://www.semanticweb.org/owlapi/test#C>)

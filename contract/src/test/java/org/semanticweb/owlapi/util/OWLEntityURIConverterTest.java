@@ -1,17 +1,18 @@
 package org.semanticweb.owlapi.util;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.Set;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-public class OWLEntityURIConverterTest {
+class OWLEntityURIConverterTest extends TestBase {
 
     private static final String TEST_ONTOLOGY_RESOURCE = "testUriConverterOntology.owl";
     private static final String OLD_NAMESPACE = "http://www.example.org/testOntology#";
@@ -39,9 +40,7 @@ public class OWLEntityURIConverterTest {
             }
             return newIRI;
         };
-        Set<OWLOntology> ontologies = manager.getOntologies();
-        OWLEntityURIConverter converter = new OWLEntityURIConverter(manager, ontologies, strategy);
-        return converter;
+        return new OWLEntityURIConverter(manager, manager.getOntologies(), strategy);
     }
 
     private static void checkEntityNamespace(OWLOntology ontology, String namespace) {
@@ -60,5 +59,4 @@ public class OWLEntityURIConverterTest {
         ontology.getDatatypesInSignature().stream().filter(x -> !x.asOWLDatatype().isBuiltIn())
             .forEach(x -> assertTrue(x.getIRI().toString().contains(namespace)));
     }
-
 }

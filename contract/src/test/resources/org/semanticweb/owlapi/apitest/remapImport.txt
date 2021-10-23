@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<Ontology  ontologyIRI="http://protege.org/ontologies/TestFunnyPizzaImport.owl">
+    <Import>http://test.org/TestPizzaImport.owl</Import>
+</Ontology>

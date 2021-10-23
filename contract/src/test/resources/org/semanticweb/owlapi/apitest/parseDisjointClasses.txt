@@ -1,0 +1,16 @@
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+ Prefix: piz: <http://www.semanticweb.org/owlapi/test#>
+ Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+ Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+ Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+ Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+ Ontology: <http://ns.owl>
+ Class: piz:F
+ Class: piz:E
+ Class: piz:D
+ Class: piz:C
+ DisjointClasses: 
+ ( piz:D or piz:C),
+ (piz:E or piz:C),
+ (piz:F or piz:C)

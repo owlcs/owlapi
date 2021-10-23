@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://purl.org/net/roles#" xml:base="http://purl.org/net/roles" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://purl.org/net/roles"/>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/roles#has_F">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.org/net/roles#is_Ac"/>
+            <rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/social-reality#context"/></rdf:Description>
+            <rdf:Description rdf:about="http://purl.org/net/roles#is_F"/>
+            <rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/roles#plays"/></rdf:Description>
+            <rdf:Description rdf:about="http://purl.org/net/roles#is_Ar"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/roles#has_R">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/social-reality#context"/></rdf:Description>
+            <rdf:Description rdf:about="http://purl.org/net/roles#is_R"/>
+            <rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/roles#plays"/></rdf:Description>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/roles#has_TR">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.org/net/roles#is_Ac"/>
+            <rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/social-reality#context"/></rdf:Description>
+            <rdf:Description rdf:about="http://purl.org/net/roles#is_TR"/>
+            <rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/roles#plays"/></rdf:Description>
+            <rdf:Description rdf:about="http://purl.org/net/roles#is_Ag"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/roles#is_Ac"><rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/roles#is_Ag"><rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/roles#is_Ar"><rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/roles#is_F"><rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/roles#is_R"><rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/roles#is_TR"><rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/roles#plays"><rdfs:subPropertyOf rdf:resource="http://purl.org/net/social-reality#counts-as"/></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/social-reality#context"><rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/social-reality#counts-as"><rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/social-reality#has_OR">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/social-reality#context"/></rdf:Description>
+            <rdf:Description rdf:about="http://purl.org/net/social-reality#is_OR"/>
+            <rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/social-reality#counts-as"/></rdf:Description>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://purl.org/net/social-reality#is_OR"><rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/></owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <owl:Class rdf:about="http://purl.org/net/roles#Ac">
+        <owl:equivalentClass><owl:Restriction><owl:onProperty rdf:resource="http://purl.org/net/roles#is_Ac"/><owl:hasSelf rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:hasSelf></owl:Restriction></owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:Class>
+    <owl:Class rdf:about="http://purl.org/net/roles#Ag">
+        <owl:equivalentClass><owl:Restriction><owl:onProperty rdf:resource="http://purl.org/net/roles#is_Ag"/><owl:hasSelf rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:hasSelf></owl:Restriction></owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:Class>
+    <owl:Class rdf:about="http://purl.org/net/roles#Ar">
+        <owl:equivalentClass><owl:Restriction><owl:onProperty rdf:resource="http://purl.org/net/roles#is_Ar"/><owl:hasSelf rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:hasSelf></owl:Restriction></owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://purl.org/net/roles#F">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction><owl:onProperty rdf:resource="http://purl.org/net/social-reality#context"/><owl:someValuesFrom rdf:resource="http://purl.org/net/roles#Ac"/></owl:Restriction>
+                    <owl:Restriction><owl:onProperty><rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/roles#plays"/></rdf:Description></owl:onProperty><owl:someValuesFrom rdf:resource="http://purl.org/net/roles#Ar"/></owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <owl:equivalentClass><owl:Restriction><owl:onProperty rdf:resource="http://purl.org/net/roles#is_F"/><owl:hasSelf rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:hasSelf></owl:Restriction></owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/social-reality#OR"/>
+    </owl:Class>
+    <owl:Class rdf:about="http://purl.org/net/roles#R">
+        <owl:equivalentClass><owl:Restriction><owl:onProperty><rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/roles#plays"/></rdf:Description></owl:onProperty><owl:someValuesFrom rdf:resource="http://purl.org/net/social-reality#BF"/></owl:Restriction></owl:equivalentClass>
+        <owl:equivalentClass><owl:Restriction><owl:onProperty rdf:resource="http://purl.org/net/roles#is_R"/><owl:hasSelf rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:hasSelf></owl:Restriction></owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/social-reality#OR"/>
+    </owl:Class>
+    <owl:Class rdf:about="http://purl.org/net/roles#TR">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction><owl:onProperty rdf:resource="http://purl.org/net/social-reality#context"/><owl:someValuesFrom rdf:resource="http://purl.org/net/roles#Ac"/></owl:Restriction>
+                    <owl:Restriction><owl:onProperty><rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/roles#plays"/></rdf:Description></owl:onProperty><owl:someValuesFrom rdf:resource="http://purl.org/net/roles#Ag"/></owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <owl:equivalentClass><owl:Restriction><owl:onProperty rdf:resource="http://purl.org/net/roles#is_TR"/><owl:hasSelf rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:hasSelf></owl:Restriction></owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/social-reality#OR"/>
+    </owl:Class>
+    <owl:Class rdf:about="http://purl.org/net/social-reality#BF"/>
+    <owl:Class rdf:about="http://purl.org/net/social-reality#C"/>
+    <owl:Class rdf:about="http://purl.org/net/social-reality#OR">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction><owl:onProperty rdf:resource="http://purl.org/net/social-reality#context"/><owl:someValuesFrom rdf:resource="http://purl.org/net/social-reality#C"/></owl:Restriction>
+                    <owl:Restriction><owl:onProperty><rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/social-reality#counts-as"/></rdf:Description></owl:onProperty><owl:someValuesFrom rdf:resource="http://purl.org/net/social-reality#BF"/></owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <owl:equivalentClass><owl:Restriction><owl:onProperty rdf:resource="http://purl.org/net/social-reality#is_OR"/><owl:hasSelf rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:hasSelf></owl:Restriction></owl:equivalentClass>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction><owl:onProperty rdf:resource="http://purl.org/net/social-reality#context"/><owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality></owl:Restriction>
+                    <owl:Restriction><owl:onProperty><rdf:Description><owl:inverseOf rdf:resource="http://purl.org/net/social-reality#counts-as"/></rdf:Description></owl:onProperty><owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality></owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+</rdf:RDF>

@@ -19,48 +19,29 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
-@SuppressWarnings("javadoc")
-@RunWith(Parameterized.class)
-public class OWLXMLVocabularyTestCase {
+class OWLXMLVocabularyTestCase {
 
-    private final OWLXMLVocabulary vocabulary;
-
-    public OWLXMLVocabularyTestCase(OWLXMLVocabulary vocabulary) {
-        this.vocabulary = vocabulary;
-    }
-
-    @Nonnull
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         List<Object[]> data = new ArrayList<>();
         for (OWLXMLVocabulary v : OWLXMLVocabulary.values()) {
-            data.add(new Object[] { v });
+            data.add(new Object[] {v});
         }
         return data;
     }
 
-    @Test
-    public void getPrefixedNameShouldStartWithOWLXMLPrefixName() {
-        assertThat(vocabulary.getPrefixedName(),
-                startsWith(Namespaces.OWL.getPrefixName()));
-    }
-
-    @Test
-    public void getIRIShouldReturnAnIRIThatStartsWithOWLXMLPrefix() {
-        assertThat(vocabulary.getIRI().toString(),
-                startsWith(Namespaces.OWL.getPrefixIRI()));
+    @ParameterizedTest
+    @MethodSource("getData")
+    void getPrefixedNameShouldStartWithOWLXMLPrefixName(OWLXMLVocabulary vocabulary) {
+        assertThat(vocabulary.getPrefixedName(), startsWith(Namespaces.OWL.getPrefixName()));
+        assertThat(vocabulary.getIRI().toString(), startsWith(Namespaces.OWL.getPrefixIRI()));
     }
 }

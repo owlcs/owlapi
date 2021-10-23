@@ -1,0 +1,17 @@
+Prefix(:=<http://example.org/#>)
+ Ontology(<http://example.org/>
+ SubClassOf(
+:man
+ ObjectSomeValuesFrom(
+ :like
+ ObjectOneOf(
+_:c
+)
+)
+)
+
+ ClassAssertion(
+:car
+_:c
+)
+)

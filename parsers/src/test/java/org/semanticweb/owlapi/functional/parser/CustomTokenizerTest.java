@@ -1,8 +1,8 @@
 package org.semanticweb.owlapi.functional.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,18 +11,17 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("javadoc")
-public class CustomTokenizerTest {
+class CustomTokenizerTest {
 
     static final Logger logger = LoggerFactory.getLogger(CustomTokenizer.class);
 
     @Test
-    public void testParseStringLiteral() {
+    void testParseStringLiteral() {
         validateTokenizationOfString("\"hello world\"", false);
         validateTokenizationOfString("\"hello \\\" world \"", false);
         validateTokenizationOfString("\"hello \\\\ world\"", false);
@@ -30,16 +29,16 @@ public class CustomTokenizerTest {
     }
 
     @Test
-    public void testParseFullURI() {
+    void testParseFullURI() {
         // Good
         validateTokenizationOfString("<http://www.unc.edu/onto#foo>", false);
         // Bad
         validateTokenizationOfString("<http://www.unc.edu/onto#foo", true);
     }
 
-    @Ignore
+    @Disabled
     @Test
-    public void testTokenizeGeneOntology() throws Exception {
+    void testTokenizeGeneOntology() throws Exception {
         String fileName = "/Users/ses/ontologies/GO/go.ofn";
         Reader in = new BufferedReader(new FileReader(fileName));
         Reader in2 = new BufferedReader(new FileReader(fileName));

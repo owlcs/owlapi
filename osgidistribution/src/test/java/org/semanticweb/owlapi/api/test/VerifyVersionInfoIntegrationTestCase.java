@@ -12,24 +12,22 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.semanticweb.owlapi.test.IntegrationTest;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.util.VersionInfo;
 
-@SuppressWarnings("javadoc")
-@Category(IntegrationTest.class)
-public class VerifyVersionInfoIntegrationTestCase {
+@Tag("IntegrationTest")
+class VerifyVersionInfoIntegrationTestCase {
 
     @Test
-    public void checkMatchVersion() {
+    void checkMatchVersion() {
         // This test will fail after setting the release version if the fallback
         // has not been updated.
         VersionInfo info = VersionInfo.getVersionInfo();
-        assertNotNull("info is null??!!?", info);
+        assertNotNull(info);
         String version = info.getVersion();
         assertTrue(version.startsWith("4.5.20"));
     }

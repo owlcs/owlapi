@@ -5,8 +5,8 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.nullValue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
@@ -16,7 +16,7 @@ public class NoOpReadWriteLock_TestCase {
 
     private NoOpReadWriteLock lock;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         lock = new NoOpReadWriteLock();
     }

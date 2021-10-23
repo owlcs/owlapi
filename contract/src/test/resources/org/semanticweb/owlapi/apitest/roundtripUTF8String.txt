@@ -1,0 +1,1 @@
+Ontology(<http://protege.org/UTF8.owl>Declaration(Class(<http://protege.org/UTF8.owl#A>))AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "Chinese=處方"^^<http://www.w3.org/2001/XMLSchema#string>))

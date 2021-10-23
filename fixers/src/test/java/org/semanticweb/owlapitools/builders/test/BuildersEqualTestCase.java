@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,20 +22,191 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Test;
-import org.semanticweb.owlapi.model.*;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIArgument;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.OWLFacet;
-import org.semanticweb.owlapitools.builders.*;
+import org.semanticweb.owlapitools.builders.BuilderAnnotation;
+import org.semanticweb.owlapitools.builders.BuilderAnnotationAssertion;
+import org.semanticweb.owlapitools.builders.BuilderAnnotationProperty;
+import org.semanticweb.owlapitools.builders.BuilderAnnotationPropertyDomain;
+import org.semanticweb.owlapitools.builders.BuilderAnnotationPropertyRange;
+import org.semanticweb.owlapitools.builders.BuilderAnonymousIndividual;
+import org.semanticweb.owlapitools.builders.BuilderAsymmetricObjectProperty;
+import org.semanticweb.owlapitools.builders.BuilderClass;
+import org.semanticweb.owlapitools.builders.BuilderClassAssertion;
+import org.semanticweb.owlapitools.builders.BuilderComplementOf;
+import org.semanticweb.owlapitools.builders.BuilderDataAllValuesFrom;
+import org.semanticweb.owlapitools.builders.BuilderDataComplementOf;
+import org.semanticweb.owlapitools.builders.BuilderDataExactCardinality;
+import org.semanticweb.owlapitools.builders.BuilderDataHasValue;
+import org.semanticweb.owlapitools.builders.BuilderDataIntersectionOf;
+import org.semanticweb.owlapitools.builders.BuilderDataMaxCardinality;
+import org.semanticweb.owlapitools.builders.BuilderDataMinCardinality;
+import org.semanticweb.owlapitools.builders.BuilderDataOneOf;
+import org.semanticweb.owlapitools.builders.BuilderDataProperty;
+import org.semanticweb.owlapitools.builders.BuilderDataPropertyAssertion;
+import org.semanticweb.owlapitools.builders.BuilderDataPropertyDomain;
+import org.semanticweb.owlapitools.builders.BuilderDataPropertyRange;
+import org.semanticweb.owlapitools.builders.BuilderDataSomeValuesFrom;
+import org.semanticweb.owlapitools.builders.BuilderDataUnionOf;
+import org.semanticweb.owlapitools.builders.BuilderDatatype;
+import org.semanticweb.owlapitools.builders.BuilderDatatypeDefinition;
+import org.semanticweb.owlapitools.builders.BuilderDatatypeRestriction;
+import org.semanticweb.owlapitools.builders.BuilderDeclaration;
+import org.semanticweb.owlapitools.builders.BuilderDifferentIndividuals;
+import org.semanticweb.owlapitools.builders.BuilderDisjointClasses;
+import org.semanticweb.owlapitools.builders.BuilderDisjointDataProperties;
+import org.semanticweb.owlapitools.builders.BuilderDisjointObjectProperties;
+import org.semanticweb.owlapitools.builders.BuilderDisjointUnion;
+import org.semanticweb.owlapitools.builders.BuilderEntity;
+import org.semanticweb.owlapitools.builders.BuilderEquivalentClasses;
+import org.semanticweb.owlapitools.builders.BuilderEquivalentDataProperties;
+import org.semanticweb.owlapitools.builders.BuilderEquivalentObjectProperties;
+import org.semanticweb.owlapitools.builders.BuilderFacetRestriction;
+import org.semanticweb.owlapitools.builders.BuilderFunctionalDataProperty;
+import org.semanticweb.owlapitools.builders.BuilderFunctionalObjectProperty;
+import org.semanticweb.owlapitools.builders.BuilderHasKey;
+import org.semanticweb.owlapitools.builders.BuilderImportsDeclaration;
+import org.semanticweb.owlapitools.builders.BuilderInverseFunctionalObjectProperty;
+import org.semanticweb.owlapitools.builders.BuilderInverseObjectProperties;
+import org.semanticweb.owlapitools.builders.BuilderIrreflexiveObjectProperty;
+import org.semanticweb.owlapitools.builders.BuilderLiteral;
+import org.semanticweb.owlapitools.builders.BuilderNamedIndividual;
+import org.semanticweb.owlapitools.builders.BuilderNegativeDataPropertyAssertion;
+import org.semanticweb.owlapitools.builders.BuilderNegativeObjectPropertyAssertion;
+import org.semanticweb.owlapitools.builders.BuilderObjectAllValuesFrom;
+import org.semanticweb.owlapitools.builders.BuilderObjectExactCardinality;
+import org.semanticweb.owlapitools.builders.BuilderObjectHasSelf;
+import org.semanticweb.owlapitools.builders.BuilderObjectHasValue;
+import org.semanticweb.owlapitools.builders.BuilderObjectIntersectionOf;
+import org.semanticweb.owlapitools.builders.BuilderObjectInverseOf;
+import org.semanticweb.owlapitools.builders.BuilderObjectMaxCardinality;
+import org.semanticweb.owlapitools.builders.BuilderObjectMinCardinality;
+import org.semanticweb.owlapitools.builders.BuilderObjectProperty;
+import org.semanticweb.owlapitools.builders.BuilderObjectPropertyAssertion;
+import org.semanticweb.owlapitools.builders.BuilderObjectPropertyDomain;
+import org.semanticweb.owlapitools.builders.BuilderObjectPropertyRange;
+import org.semanticweb.owlapitools.builders.BuilderObjectSomeValuesFrom;
+import org.semanticweb.owlapitools.builders.BuilderOneOf;
+import org.semanticweb.owlapitools.builders.BuilderPropertyChain;
+import org.semanticweb.owlapitools.builders.BuilderReflexiveObjectProperty;
+import org.semanticweb.owlapitools.builders.BuilderSWRLBuiltInAtom;
+import org.semanticweb.owlapitools.builders.BuilderSWRLClassAtom;
+import org.semanticweb.owlapitools.builders.BuilderSWRLDataPropertyAtom;
+import org.semanticweb.owlapitools.builders.BuilderSWRLDataRangeAtom;
+import org.semanticweb.owlapitools.builders.BuilderSWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapitools.builders.BuilderSWRLIndividualArgument;
+import org.semanticweb.owlapitools.builders.BuilderSWRLLiteralArgument;
+import org.semanticweb.owlapitools.builders.BuilderSWRLObjectPropertyAtom;
+import org.semanticweb.owlapitools.builders.BuilderSWRLRule;
+import org.semanticweb.owlapitools.builders.BuilderSWRLSameIndividualAtom;
+import org.semanticweb.owlapitools.builders.BuilderSWRLVariable;
+import org.semanticweb.owlapitools.builders.BuilderSameIndividual;
+import org.semanticweb.owlapitools.builders.BuilderSubAnnotationPropertyOf;
+import org.semanticweb.owlapitools.builders.BuilderSubClass;
+import org.semanticweb.owlapitools.builders.BuilderSubDataProperty;
+import org.semanticweb.owlapitools.builders.BuilderSubObjectProperty;
+import org.semanticweb.owlapitools.builders.BuilderSymmetricObjectProperty;
+import org.semanticweb.owlapitools.builders.BuilderTransitiveObjectProperty;
+import org.semanticweb.owlapitools.builders.BuilderUnionOf;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-@SuppressWarnings({ "javadoc", })
-public class BuildersEqualTestCase {
+class BuildersEqualTestCase {
 
     @Nonnull
     private final OWLDataFactory df = new OWLDataFactoryImpl();
     @Nonnull
-    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI.create("urn:test#ann"));
+    private final OWLAnnotationProperty ap =
+        df.getOWLAnnotationProperty(IRI.create("urn:test#ann"));
     @Nonnull
     private final OWLObjectProperty op = df.getOWLObjectProperty(IRI.create("urn:test#op"));
     @Nonnull
@@ -45,8 +216,8 @@ public class BuildersEqualTestCase {
     @Nonnull
     private final IRI iri = IRI.create("urn:test#iri");
     @Nonnull
-    private final Set<OWLAnnotation> annotations = new HashSet<>(Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral(
-        "test"))));
+    private final Set<OWLAnnotation> annotations =
+        new HashSet<>(Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral("test"))));
     @Nonnull
     private final OWLClass ce = df.getOWLClass(IRI.create("urn:test#c"));
     @Nonnull
@@ -54,23 +225,28 @@ public class BuildersEqualTestCase {
     @Nonnull
     private final OWLDatatype d = df.getBooleanOWLDatatype();
     @Nonnull
-    private final Set<OWLDataProperty> dps = new HashSet<>(Arrays.asList(df.getOWLDataProperty(iri), dp));
+    private final Set<OWLDataProperty> dps =
+        new HashSet<>(Arrays.asList(df.getOWLDataProperty(iri), dp));
     @Nonnull
-    private final Set<OWLObjectProperty> ops = new HashSet<>(Arrays.asList(df.getOWLObjectProperty(iri), op));
+    private final Set<OWLObjectProperty> ops =
+        new HashSet<>(Arrays.asList(df.getOWLObjectProperty(iri), op));
     @Nonnull
     private final Set<OWLClass> classes = new HashSet<>(Arrays.asList(df.getOWLClass(iri), ce));
     @Nonnull
-    private final Set<OWLNamedIndividual> inds = new HashSet<>(Arrays.asList(i, df.getOWLNamedIndividual(iri)));
+    private final Set<OWLNamedIndividual> inds =
+        new HashSet<>(Arrays.asList(i, df.getOWLNamedIndividual(iri)));
     @Nonnull
     private final SWRLDArgument var1 = df.getSWRLVariable(IRI.create("var1"));
     @Nonnull
     private final SWRLIArgument var2 = df.getSWRLVariable(IRI.create("var2"));
     @Nonnull
-    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create("v1"), Arrays.asList((SWRLDArgument) df
-        .getSWRLVariable(IRI.create("var3")), df.getSWRLVariable(IRI.create("var4"))));
+    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create("v1"),
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable(IRI.create("var3")),
+            df.getSWRLVariable(IRI.create("var4"))));
     @Nonnull
-    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create("v2"), Arrays.asList((SWRLDArgument) df
-        .getSWRLVariable(IRI.create("var5")), df.getSWRLVariable(IRI.create("var6"))));
+    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create("v2"),
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable(IRI.create("var5")),
+            df.getSWRLVariable(IRI.create("var6"))));
     @Nonnull
     private final Set<SWRLAtom> body = new HashSet<>(Arrays.asList(v1));
     @Nonnull
@@ -90,7 +266,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildAnnotationAssertion() {
         // given
-        OWLAnnotationAssertionAxiom expected = df.getOWLAnnotationAssertionAxiom(ap, iri, lit, annotations);
+        OWLAnnotationAssertionAxiom expected =
+            df.getOWLAnnotationAssertionAxiom(ap, iri, lit, annotations);
         BuilderAnnotationAssertion builder = new BuilderAnnotationAssertion(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -112,7 +289,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildAnnotationPropertyDomain() {
         // given
-        OWLAnnotationPropertyDomainAxiom expected = df.getOWLAnnotationPropertyDomainAxiom(ap, iri, annotations);
+        OWLAnnotationPropertyDomainAxiom expected =
+            df.getOWLAnnotationPropertyDomainAxiom(ap, iri, annotations);
         BuilderAnnotationPropertyDomain builder = new BuilderAnnotationPropertyDomain(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -123,7 +301,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildAnnotationPropertyRange() {
         // given
-        OWLAnnotationPropertyRangeAxiom expected = df.getOWLAnnotationPropertyRangeAxiom(ap, iri, annotations);
+        OWLAnnotationPropertyRangeAxiom expected =
+            df.getOWLAnnotationPropertyRangeAxiom(ap, iri, annotations);
         BuilderAnnotationPropertyRange builder = new BuilderAnnotationPropertyRange(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -145,7 +324,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildAsymmetricObjectProperty() {
         // given
-        OWLAsymmetricObjectPropertyAxiom expected = df.getOWLAsymmetricObjectPropertyAxiom(op, annotations);
+        OWLAsymmetricObjectPropertyAxiom expected =
+            df.getOWLAsymmetricObjectPropertyAxiom(op, annotations);
         BuilderAsymmetricObjectProperty builder = new BuilderAsymmetricObjectProperty(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -288,7 +468,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildDataPropertyAssertion() {
         // given
-        OWLDataPropertyAssertionAxiom expected = df.getOWLDataPropertyAssertionAxiom(dp, i, lit, annotations);
+        OWLDataPropertyAssertionAxiom expected =
+            df.getOWLDataPropertyAssertionAxiom(dp, i, lit, annotations);
         BuilderDataPropertyAssertion builder = new BuilderDataPropertyAssertion(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -343,8 +524,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildDatatypeDefinition() {
         // given
-        OWLDatatypeDefinitionAxiom expected = df.getOWLDatatypeDefinitionAxiom(d, df.getDoubleOWLDatatype(),
-            annotations);
+        OWLDatatypeDefinitionAxiom expected =
+            df.getOWLDatatypeDefinitionAxiom(d, df.getDoubleOWLDatatype(), annotations);
         BuilderDatatypeDefinition builder = new BuilderDatatypeDefinition(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -389,7 +570,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildDifferentIndividuals() {
         // given
-        OWLDifferentIndividualsAxiom expected = df.getOWLDifferentIndividualsAxiom(i, df.getOWLNamedIndividual(iri));
+        OWLDifferentIndividualsAxiom expected =
+            df.getOWLDifferentIndividualsAxiom(i, df.getOWLNamedIndividual(iri));
         BuilderDifferentIndividuals builder = new BuilderDifferentIndividuals(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -411,7 +593,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildDisjointDataProperties() {
         // given
-        OWLDisjointDataPropertiesAxiom expected = df.getOWLDisjointDataPropertiesAxiom(dps, annotations);
+        OWLDisjointDataPropertiesAxiom expected =
+            df.getOWLDisjointDataPropertiesAxiom(dps, annotations);
         BuilderDisjointDataProperties builder = new BuilderDisjointDataProperties(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -422,7 +605,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildDisjointObjectProperties() {
         // given
-        OWLDisjointObjectPropertiesAxiom expected = df.getOWLDisjointObjectPropertiesAxiom(ops, annotations);
+        OWLDisjointObjectPropertiesAxiom expected =
+            df.getOWLDisjointObjectPropertiesAxiom(ops, annotations);
         BuilderDisjointObjectProperties builder = new BuilderDisjointObjectProperties(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -466,7 +650,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildEquivalentDataProperties() {
         // given
-        OWLEquivalentDataPropertiesAxiom expected = df.getOWLEquivalentDataPropertiesAxiom(dps, annotations);
+        OWLEquivalentDataPropertiesAxiom expected =
+            df.getOWLEquivalentDataPropertiesAxiom(dps, annotations);
         BuilderEquivalentDataProperties builder = new BuilderEquivalentDataProperties(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -477,8 +662,10 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildEquivalentObjectProperties() {
         // given
-        OWLEquivalentObjectPropertiesAxiom expected = df.getOWLEquivalentObjectPropertiesAxiom(ops, annotations);
-        BuilderEquivalentObjectProperties builder = new BuilderEquivalentObjectProperties(expected, df);
+        OWLEquivalentObjectPropertiesAxiom expected =
+            df.getOWLEquivalentObjectPropertiesAxiom(ops, annotations);
+        BuilderEquivalentObjectProperties builder =
+            new BuilderEquivalentObjectProperties(expected, df);
         // when
         OWLObject built = builder.buildObject();
         // then
@@ -499,7 +686,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildFunctionalDataProperty() {
         // given
-        OWLFunctionalDataPropertyAxiom expected = df.getOWLFunctionalDataPropertyAxiom(dp, annotations);
+        OWLFunctionalDataPropertyAxiom expected =
+            df.getOWLFunctionalDataPropertyAxiom(dp, annotations);
         BuilderFunctionalDataProperty builder = new BuilderFunctionalDataProperty(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -510,7 +698,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildFunctionalObjectProperty() {
         // given
-        OWLFunctionalObjectPropertyAxiom expected = df.getOWLFunctionalObjectPropertyAxiom(op, annotations);
+        OWLFunctionalObjectPropertyAxiom expected =
+            df.getOWLFunctionalObjectPropertyAxiom(op, annotations);
         BuilderFunctionalObjectProperty builder = new BuilderFunctionalObjectProperty(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -543,9 +732,10 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildInverseFunctionalObjectProperty() {
         // given
-        OWLInverseFunctionalObjectPropertyAxiom expected = df.getOWLInverseFunctionalObjectPropertyAxiom(op,
-            annotations);
-        BuilderInverseFunctionalObjectProperty builder = new BuilderInverseFunctionalObjectProperty(expected, df);
+        OWLInverseFunctionalObjectPropertyAxiom expected =
+            df.getOWLInverseFunctionalObjectPropertyAxiom(op, annotations);
+        BuilderInverseFunctionalObjectProperty builder =
+            new BuilderInverseFunctionalObjectProperty(expected, df);
         // when
         OWLObject built = builder.buildObject();
         // then
@@ -555,7 +745,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildInverseObjectProperties() {
         // given
-        OWLInverseObjectPropertiesAxiom expected = df.getOWLInverseObjectPropertiesAxiom(op, op, annotations);
+        OWLInverseObjectPropertiesAxiom expected =
+            df.getOWLInverseObjectPropertiesAxiom(op, op, annotations);
         BuilderInverseObjectProperties builder = new BuilderInverseObjectProperties(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -566,8 +757,10 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildIrreflexiveObjectProperty() {
         // given
-        OWLIrreflexiveObjectPropertyAxiom expected = df.getOWLIrreflexiveObjectPropertyAxiom(op, annotations);
-        BuilderIrreflexiveObjectProperty builder = new BuilderIrreflexiveObjectProperty(expected, df);
+        OWLIrreflexiveObjectPropertyAxiom expected =
+            df.getOWLIrreflexiveObjectPropertyAxiom(op, annotations);
+        BuilderIrreflexiveObjectProperty builder =
+            new BuilderIrreflexiveObjectProperty(expected, df);
         // when
         OWLObject built = builder.buildObject();
         // then
@@ -599,9 +792,10 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildNegativeDataPropertyAssertion() {
         // given
-        OWLNegativeDataPropertyAssertionAxiom expected = df.getOWLNegativeDataPropertyAssertionAxiom(dp, i, lit,
-            annotations);
-        BuilderNegativeDataPropertyAssertion builder = new BuilderNegativeDataPropertyAssertion(expected, df);
+        OWLNegativeDataPropertyAssertionAxiom expected =
+            df.getOWLNegativeDataPropertyAssertionAxiom(dp, i, lit, annotations);
+        BuilderNegativeDataPropertyAssertion builder =
+            new BuilderNegativeDataPropertyAssertion(expected, df);
         // when
         OWLObject built = builder.buildObject();
         // then
@@ -611,9 +805,10 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildNegativeObjectPropertyAssertion() {
         // given
-        OWLNegativeObjectPropertyAssertionAxiom expected = df.getOWLNegativeObjectPropertyAssertionAxiom(op, i, i,
-            annotations);
-        BuilderNegativeObjectPropertyAssertion builder = new BuilderNegativeObjectPropertyAssertion(expected, df);
+        OWLNegativeObjectPropertyAssertionAxiom expected =
+            df.getOWLNegativeObjectPropertyAssertionAxiom(op, i, i, annotations);
+        BuilderNegativeObjectPropertyAssertion builder =
+            new BuilderNegativeObjectPropertyAssertion(expected, df);
         // when
         OWLObject built = builder.buildObject();
         // then
@@ -722,7 +917,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildObjectPropertyAssertion() {
         // given
-        OWLObjectPropertyAssertionAxiom expected = df.getOWLObjectPropertyAssertionAxiom(op, i, i, annotations);
+        OWLObjectPropertyAssertionAxiom expected =
+            df.getOWLObjectPropertyAssertionAxiom(op, i, i, annotations);
         BuilderObjectPropertyAssertion builder = new BuilderObjectPropertyAssertion(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -733,7 +929,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildObjectPropertyDomain() {
         // given
-        OWLObjectPropertyDomainAxiom expected = df.getOWLObjectPropertyDomainAxiom(op, ce, annotations);
+        OWLObjectPropertyDomainAxiom expected =
+            df.getOWLObjectPropertyDomainAxiom(op, ce, annotations);
         BuilderObjectPropertyDomain builder = new BuilderObjectPropertyDomain(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -744,7 +941,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildObjectPropertyRange() {
         // given
-        OWLObjectPropertyRangeAxiom expected = df.getOWLObjectPropertyRangeAxiom(op, ce, annotations);
+        OWLObjectPropertyRangeAxiom expected =
+            df.getOWLObjectPropertyRangeAxiom(op, ce, annotations);
         BuilderObjectPropertyRange builder = new BuilderObjectPropertyRange(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -778,7 +976,8 @@ public class BuildersEqualTestCase {
     public void shouldBuildPropertyChain() {
         // given
         List<OWLObjectProperty> chain = new ArrayList<>(ops);
-        OWLSubPropertyChainOfAxiom expected = df.getOWLSubPropertyChainOfAxiom(chain, op, annotations);
+        OWLSubPropertyChainOfAxiom expected =
+            df.getOWLSubPropertyChainOfAxiom(chain, op, annotations);
         BuilderPropertyChain builder = new BuilderPropertyChain(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -789,7 +988,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildReflexiveObjectProperty() {
         // given
-        OWLReflexiveObjectPropertyAxiom expected = df.getOWLReflexiveObjectPropertyAxiom(op, annotations);
+        OWLReflexiveObjectPropertyAxiom expected =
+            df.getOWLReflexiveObjectPropertyAxiom(op, annotations);
         BuilderReflexiveObjectProperty builder = new BuilderReflexiveObjectProperty(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -811,8 +1011,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildSubAnnotationPropertyOf() {
         // given
-        OWLSubAnnotationPropertyOfAxiom expected = df.getOWLSubAnnotationPropertyOfAxiom(ap, df.getRDFSLabel(),
-            annotations);
+        OWLSubAnnotationPropertyOfAxiom expected =
+            df.getOWLSubAnnotationPropertyOfAxiom(ap, df.getRDFSLabel(), annotations);
         BuilderSubAnnotationPropertyOf builder = new BuilderSubAnnotationPropertyOf(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -834,7 +1034,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildSubDataProperty() {
         // given
-        OWLSubDataPropertyOfAxiom expected = df.getOWLSubDataPropertyOfAxiom(dp, df.getOWLTopDataProperty());
+        OWLSubDataPropertyOfAxiom expected =
+            df.getOWLSubDataPropertyOfAxiom(dp, df.getOWLTopDataProperty());
         BuilderSubDataProperty builder = new BuilderSubDataProperty(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -845,8 +1046,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildSubObjectProperty() {
         // given
-        OWLSubObjectPropertyOfAxiom expected = df.getOWLSubObjectPropertyOfAxiom(op, df.getOWLTopObjectProperty(),
-            annotations);
+        OWLSubObjectPropertyOfAxiom expected =
+            df.getOWLSubObjectPropertyOfAxiom(op, df.getOWLTopObjectProperty(), annotations);
         BuilderSubObjectProperty builder = new BuilderSubObjectProperty(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -902,7 +1103,8 @@ public class BuildersEqualTestCase {
     public void shouldBuildSWRLDifferentIndividualsAtom() {
         // given
         SWRLDifferentIndividualsAtom expected = df.getSWRLDifferentIndividualsAtom(var2, var2);
-        BuilderSWRLDifferentIndividualsAtom builder = new BuilderSWRLDifferentIndividualsAtom(expected, df);
+        BuilderSWRLDifferentIndividualsAtom builder =
+            new BuilderSWRLDifferentIndividualsAtom(expected, df);
         // when
         OWLObject built = builder.buildObject();
         // then
@@ -956,8 +1158,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildSWRLSameIndividualAtom() {
         // given
-        SWRLSameIndividualAtom expected = df.getSWRLSameIndividualAtom(df.getSWRLIndividualArgument(i), df
-            .getSWRLIndividualArgument(i));
+        SWRLSameIndividualAtom expected = df.getSWRLSameIndividualAtom(
+            df.getSWRLIndividualArgument(i), df.getSWRLIndividualArgument(i));
         BuilderSWRLSameIndividualAtom builder = new BuilderSWRLSameIndividualAtom(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -979,7 +1181,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildSymmetricObjectProperty() {
         // given
-        OWLSymmetricObjectPropertyAxiom expected = df.getOWLSymmetricObjectPropertyAxiom(op, annotations);
+        OWLSymmetricObjectPropertyAxiom expected =
+            df.getOWLSymmetricObjectPropertyAxiom(op, annotations);
         BuilderSymmetricObjectProperty builder = new BuilderSymmetricObjectProperty(expected, df);
         // when
         OWLObject built = builder.buildObject();
@@ -990,7 +1193,8 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildTransitiveObjectProperty() {
         // given
-        OWLTransitiveObjectPropertyAxiom expected = df.getOWLTransitiveObjectPropertyAxiom(op, annotations);
+        OWLTransitiveObjectPropertyAxiom expected =
+            df.getOWLTransitiveObjectPropertyAxiom(op, annotations);
         BuilderTransitiveObjectProperty builder = new BuilderTransitiveObjectProperty(expected, df);
         // when
         OWLObject built = builder.buildObject();

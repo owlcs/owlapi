@@ -19,48 +19,29 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
-@SuppressWarnings("javadoc")
-@RunWith(Parameterized.class)
-public class DublinCoreVocabularyTestCase {
+class DublinCoreVocabularyTestCase {
 
-    private final DublinCoreVocabulary vocabulary;
-
-    public DublinCoreVocabularyTestCase(DublinCoreVocabulary vocabulary) {
-        this.vocabulary = vocabulary;
-    }
-
-    @Nonnull
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         List<Object[]> data = new ArrayList<>();
         for (DublinCoreVocabulary v : DublinCoreVocabulary.values()) {
-            data.add(new Object[] { v });
+            data.add(new Object[] {v});
         }
         return data;
     }
 
-    @Test
-    public void getPrefixedNameShouldStartWithDublinCorePrefixName() {
-        assertThat(vocabulary.getPrefixedName(),
-                startsWith(Namespaces.DC.getPrefixName()));
-    }
-
-    @Test
-    public void getIRIShouldReturnAnIRIThatStartsWithDublinCorePrefix() {
-        assertThat(vocabulary.getIRI().toString(),
-                startsWith(Namespaces.DC.getPrefixIRI()));
+    @ParameterizedTest
+    @MethodSource("getData")
+    void getPrefixedNameShouldStartWithDublinCorePrefixName(DublinCoreVocabulary vocabulary) {
+        assertThat(vocabulary.getPrefixedName(), startsWith(Namespaces.DC.getPrefixName()));
+        assertThat(vocabulary.getIRI().toString(), startsWith(Namespaces.DC.getPrefixIRI()));
     }
 }

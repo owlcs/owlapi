@@ -2,6 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -12,34 +13,31 @@ import java.util.Arrays;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
-@SuppressWarnings("javadoc")
-@RunWith(MockitoJUnitRunner.class)
-public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
+class Temp implements Serializable {
 
-    private ConcurrentPriorityCollection<T> collection;
-    @Mock
-    private ReadWriteLock readWriteLock;
-    @Mock
-    private Lock readLock, writeLock;
-    @Mock
-    private T element;
+}
+
+
+class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
+
+    private ConcurrentPriorityCollection<Temp> collection;
+    private ReadWriteLock readWriteLock = mock(ReadWriteLock.class);
+    private Lock readLock = mock(Lock.class), writeLock = mock(Lock.class);
+    private Temp element = mock(Temp.class);
     private final PriorityCollectionSorting hasOntologyLoaderConfiguration =
         PriorityCollectionSorting.NEVER;
-    private Iterable<T> iterable;
+    private Iterable<Temp> iterable;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         iterable = Arrays.asList(element);

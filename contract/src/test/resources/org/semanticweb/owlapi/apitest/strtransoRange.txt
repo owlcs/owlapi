@@ -1,0 +1,1 @@
+[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test:test#c>), SubClassOf(owl:Thing ObjectAllValuesFrom(<urn:test:test#op> <http://www.semanticweb.org/ontology#X0>))]

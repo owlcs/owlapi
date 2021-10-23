@@ -19,47 +19,30 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
-@SuppressWarnings("javadoc")
-@RunWith(Parameterized.class)
-public class OWLRDFVocabularyTestCase {
+class OWLRDFVocabularyTestCase {
 
-    private final OWLRDFVocabulary vocabulary;
-
-    public OWLRDFVocabularyTestCase(OWLRDFVocabulary vocabulary) {
-        this.vocabulary = vocabulary;
-    }
-
-    @Nonnull
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         List<Object[]> data = new ArrayList<>();
         for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
-            data.add(new Object[] { v });
+            data.add(new Object[] {v});
         }
         return data;
     }
 
-    @Test
-    public void getPrefixedNameShouldStartWithOWLRDFPrefixName() {
-        assertThat(vocabulary.getPrefixedName(), startsWith(vocabulary
-                .getNamespace().getPrefixName()));
-    }
-
-    @Test
-    public void getIRIShouldReturnAnIRIThatStartsWithOWLRDFPrefix() {
-        assertThat(vocabulary.getIRI().toString(), startsWith(vocabulary
-                .getNamespace().getPrefixIRI()));
+    @ParameterizedTest
+    @MethodSource("getData")
+    void getPrefixedNameShouldStartWithOWLRDFPrefixName(OWLRDFVocabulary vocabulary) {
+        assertThat(vocabulary.getPrefixedName(),
+            startsWith(vocabulary.getNamespace().getPrefixName()));
+        assertThat(vocabulary.getIRI().toString(),
+            startsWith(vocabulary.getNamespace().getPrefixIRI()));
     }
 }

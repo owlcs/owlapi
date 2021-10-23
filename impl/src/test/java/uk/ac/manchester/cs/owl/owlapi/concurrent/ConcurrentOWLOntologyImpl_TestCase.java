@@ -1,6 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -12,18 +13,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-/**
- * Matthew Horridge
- * Stanford Center for Biomedical Informatics Research
- * 10/04/15
- */
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -53,22 +45,17 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 03/04/15
  */
-@SuppressWarnings("javadoc")
-@RunWith(MockitoJUnitRunner.class)
-public class ConcurrentOWLOntologyImpl_TestCase {
+class ConcurrentOWLOntologyImpl_TestCase {
 
-    @Mock
-    private ReentrantReadWriteLock readWriteLock;
-    @Mock
-    private ReentrantReadWriteLock.ReadLock readLock;
-    @Mock
-    private ReentrantReadWriteLock.WriteLock writeLock;
-    @Mock
-    private OWLMutableOntology delegate;
+    private ReentrantReadWriteLock readWriteLock = mock(ReentrantReadWriteLock.class);
+    private ReentrantReadWriteLock.ReadLock readLock = mock(ReentrantReadWriteLock.ReadLock.class);
+    private ReentrantReadWriteLock.WriteLock writeLock =
+        mock(ReentrantReadWriteLock.WriteLock.class);
+    private OWLMutableOntology delegate = mock(OWLMutableOntology.class);
     private ConcurrentOWLOntologyImpl ontology;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         ontology = spy(new ConcurrentOWLOntologyImpl(delegate, readWriteLock));

@@ -1,19 +1,21 @@
 package uk.ac.manchester.cs.owl.owlapi.util.collections;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("javadoc")
-public class SmallSetTest {
+class SmallSetTest {
 
-    @Test(expected = IllegalStateException.class)
-    public void testAddRemoveContains() {
+    @Test
+    void testAddRemoveContains() {
         SmallSet<String> set = new SmallSet<>();
         assertEquals(0, set.size());
         assertFalse(set.contains("a"));
@@ -34,12 +36,12 @@ public class SmallSetTest {
         assertTrue(set.contains("b"));
         assertTrue(set.contains("c"));
         assertEquals(3, set.size());
-        set.add("d");
-        fail("should not be able to add fourth elephant");
+        assertThrows(IllegalStateException.class, () -> set.add("d"),
+            "should not be able to add fourth elephant");
     }
 
     @Test
-    public void testIterator() {
+    void testIterator() {
         List<String> stringList = Arrays.asList("a", "c", "b");
         SmallSet<String> set = new SmallSet<>(stringList);
         HashSet<String> validationSet = new HashSet<>(stringList);
@@ -60,7 +62,7 @@ public class SmallSetTest {
     }
 
     @Test
-    public void testIteratorPostRemoval() {
+    void testIteratorPostRemoval() {
         List<String> stringList = Arrays.asList("a", "c", "b");
         SmallSet<String> set = new SmallSet<>(stringList);
         HashSet<String> validationSet = new HashSet<>(stringList);

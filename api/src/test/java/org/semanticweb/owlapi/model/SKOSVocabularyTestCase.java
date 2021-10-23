@@ -19,47 +19,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group Date: 18/02/2014
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group Date:
+ *         18/02/2014
  */
-@RunWith(Parameterized.class)
-@SuppressWarnings("javadoc")
-public class SKOSVocabularyTestCase {
-
-    private final SKOSVocabulary vocabulary;
-
-    public SKOSVocabularyTestCase(SKOSVocabulary vocabulary) {
-        this.vocabulary = vocabulary;
-    }
-
-    @Nonnull
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
+class SKOSVocabularyTestCase {
+    static Collection<Object[]> getData() {
         List<Object[]> data = new ArrayList<>();
         for (SKOSVocabulary v : SKOSVocabulary.values()) {
-            data.add(new Object[] { v });
+            data.add(new Object[] {v});
         }
         return data;
     }
 
-    @Test
-    public void getPrefixedNameShouldStartWithSkosPrefixName() {
-        assertThat(vocabulary.getPrefixedName(),
-                startsWith(Namespaces.SKOS.getPrefixName()));
-    }
-
-    @Test
-    public void getIRIShouldReturnAnIRIThatStartsWithSkosPrefix() {
-        assertThat(vocabulary.getIRI().toString(),
-                startsWith(Namespaces.SKOS.getPrefixIRI()));
+    @ParameterizedTest
+    @MethodSource("getData")
+    void getPrefixedNameShouldStartWithSkosPrefixName(SKOSVocabulary vocabulary) {
+        assertThat(vocabulary.getPrefixedName(), startsWith(Namespaces.SKOS.getPrefixName()));
+        assertThat(vocabulary.getIRI().toString(), startsWith(Namespaces.SKOS.getPrefixIRI()));
     }
 }

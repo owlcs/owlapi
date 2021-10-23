@@ -1,0 +1,5 @@
+Ontology(<http://x.org/>
+Declaration(Class(<http://x.org/c>))
+AnnotationAssertion(<http://x.org/p> <http://x.org/c> "v1")
+AnnotationAssertion(<http://x.org/p> <http://x.org/c> "orifice")
+AnnotationAssertion(Annotation(<http://x.org/p2> "foo") <http://x.org/p> <http://x.org/c> "v1"))

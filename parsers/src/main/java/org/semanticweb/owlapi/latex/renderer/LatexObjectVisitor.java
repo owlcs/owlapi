@@ -43,6 +43,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     /** HASVALUE */    @Nonnull  public static final String HASVALUE = "\\ensuremath{hasValue}";
     /** MIN */         @Nonnull  public static final String MIN      = "\\ensuremath{\\geq}";
     /** MAX */         @Nonnull  public static final String MAX      = "\\ensuremath{\\leq}";
+    /** MINEX. */      @Nonnull  public static final String MINEX    = "\\ensuremath{>}";
+    /** MAXEX. */      @Nonnull  public static final String MAXEX    = "\\ensuremath{<}";
     /** EQUAL */       @Nonnull  public static final String EQUAL    = "\\ensuremath{=}";
     /** SUBCLASS */    @Nonnull  public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
     /** EQUIV */       @Nonnull  public static final String EQUIV    = "\\ensuremath{\\equiv}";
@@ -51,6 +53,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     /** BOTTOM */      @Nonnull  public static final String BOTTOM   = "\\ensuremath{\\bot}";
     /** SELF */        @Nonnull  public static final String SELF     = "\\ensuremath{\\Self}";
     /** CIRC */        @Nonnull  public static final String CIRC     = "\\ensuremath{\\circ}";
+    /** INVERSE */     @Nonnull  public static final String INVERSE  = "\\ensuremath{^-}";
     //@formatter:on
     private OWLObject subject;
     private final LatexWriter writer;
@@ -115,8 +118,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param prettyPrint
-     *        prettyPrint
+     * @param prettyPrint true to enable pretty print
      */
     public void setPrettyPrint(boolean prettyPrint) {
         this.prettyPrint = prettyPrint;

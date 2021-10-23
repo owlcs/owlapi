@@ -1,0 +1,22 @@
+<html>
+<body>
+<h1>Ontology: 
+OntologyID(OntologyIRI(<urn:test:onto>) VersionIRI(<null>))</h1>
+<h2><a name="A">http://www.semanticweb.org/owlapi/test#A</a></h2>
+<div class="entitybox">
+<div class="axiombox"> 
+A &#8849; &#172; <a href="#B">B</a></div>
+<div class="usage" style="margin-left: 60px; size: tiny">
+<h3>Usages (0)</h3>
+</div>
+</div>
+<h2><a name="B">http://www.semanticweb.org/owlapi/test#B</a></h2>
+<div class="entitybox">
+<div class="usage" style="margin-left: 60px; size: tiny">
+<h3>Usages (0)</h3>
+</div>
+</div>
+<div>
+</div>
+</body>
+</html>

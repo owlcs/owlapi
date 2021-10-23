@@ -19,47 +19,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group Date: 18/02/2014
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group Date:
+ *         18/02/2014
  */
-@SuppressWarnings("javadoc")
-@RunWith(Parameterized.class)
-public class XSDVocabularyTestCase {
-
-    private final XSDVocabulary vocabulary;
-
-    public XSDVocabularyTestCase(XSDVocabulary vocabulary) {
-        this.vocabulary = vocabulary;
-    }
-
-    @Nonnull
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
+class XSDVocabularyTestCase {
+    static Collection<Object[]> getData() {
         List<Object[]> data = new ArrayList<>();
         for (XSDVocabulary v : XSDVocabulary.values()) {
-            data.add(new Object[] { v });
+            data.add(new Object[] {v});
         }
         return data;
     }
 
-    @Test
-    public void getPrefixedNameShouldStartWithXSDPrefixName() {
-        assertThat(vocabulary.getPrefixedName(),
-                startsWith(Namespaces.XSD.getPrefixName()));
-    }
-
-    @Test
-    public void getIRIShouldReturnAnIRIThatStartsWithXSDPrefix() {
-        assertThat(vocabulary.getIRI().toString(),
-                startsWith(Namespaces.XSD.getPrefixIRI()));
+    @ParameterizedTest
+    @MethodSource("getData")
+    void getPrefixedNameShouldStartWithXSDPrefixName(XSDVocabulary vocabulary) {
+        assertThat(vocabulary.getPrefixedName(), startsWith(Namespaces.XSD.getPrefixName()));
+        assertThat(vocabulary.getIRI().toString(), startsWith(Namespaces.XSD.getPrefixIRI()));
     }
 }

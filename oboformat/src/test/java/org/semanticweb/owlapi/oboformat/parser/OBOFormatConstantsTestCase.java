@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.oboformat.parser;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_ALT_ID;
 import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_AUTO_GENERATED_BY;
 import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_BROAD;
@@ -71,12 +71,11 @@ import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TA
 import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_UNION_OF;
 import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_XREF;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("javadoc")
-public class OBOFormatConstantsTestCase {
+class OBOFormatConstantsTestCase {
     @Test
-    public void should() {
+    void should() {
         assertEquals(TAG_FORMAT_VERSION.headerPriority(), 0);
         assertEquals(TAG_ONTOLOGY.headerPriority(), 85);
         assertEquals(TAG_DATA_VERSION.headerPriority(), 10);

@@ -1,0 +1,1 @@
+ObjectInverseOf(<urn:test:test#op>)

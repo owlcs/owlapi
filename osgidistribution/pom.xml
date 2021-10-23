@@ -191,7 +191,7 @@
 					<includes>
 						<include>**/*.java</include>
 					</includes>
-					<groups>org.semanticweb.owlapi.test.IntegrationTest</groups>
+					<groups>IntegrationTest</groups>
 					<forkCount>0</forkCount>
 				</configuration>
 				<executions>

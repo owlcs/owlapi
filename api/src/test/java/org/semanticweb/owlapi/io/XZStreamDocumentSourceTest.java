@@ -1,38 +1,38 @@
 package org.semanticweb.owlapi.io;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by ses on 3/12/15.
  */
-@SuppressWarnings("javadoc")
-public class XZStreamDocumentSourceTest {
+class XZStreamDocumentSourceTest {
 
     @Test
-    public void testReadKoalaDoc() throws IOException {
-        XZStreamDocumentSource source = new XZStreamDocumentSource(
-                getClass().getResourceAsStream("/koala.owl.xz"));
+    void testReadKoalaDoc() throws IOException {
+        XZStreamDocumentSource source =
+            new XZStreamDocumentSource(getClass().getResourceAsStream("/koala.owl.xz"));
 
-        assertTrue("input stream available",source.isInputStreamAvailable());
-        assertTrue("input reader available",source.isReaderAvailable());
+        assertTrue(source.isInputStreamAvailable());
+        assertTrue(source.isReaderAvailable());
         BufferedReader in = new BufferedReader(source.getReader());
 
-        int lineCount=0;
-        int koalaCount=0;
-        String line=null;
-        while((line = in.readLine())!= null) {
+        int lineCount = 0;
+        int koalaCount = 0;
+        String line = null;
+        while ((line = in.readLine()) != null) {
             lineCount++;
-            if(line.contains("Koala")) {
+            if (line.contains("Koala")) {
                 koalaCount++;
             }
         }
-        assertEquals("should have 3 Koalas",3,koalaCount);
-        assertEquals("should have 250 lines",250,lineCount);
+        assertEquals(3, koalaCount);
+        assertEquals(250, lineCount);
         in.close();
     }
 }

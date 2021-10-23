@@ -1,22 +1,22 @@
 package org.semanticweb.owlapi.oboformat.parser;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 
-public class OBOFormatParserTest {
+class OBOFormatParserTest {
 
     private static final String FILE_TEST_NAME1 = "example1.obo";
 
     @Test
-    public void parseTestFile1() throws IOException {
+    void parseTestFile1() throws IOException {
         File oboFile =
             new File(this.getClass().getClassLoader().getResource(FILE_TEST_NAME1).getFile());
         assertNotNull(oboFile);
@@ -27,7 +27,7 @@ public class OBOFormatParserTest {
     }
 
     @Test
-    public void should() throws IOException {
+    void should() throws IOException {
         String in = "format-version: 1.2\n" + "data-version: releases/2018-09-25\n"
             + "saved-by: cooperl\n"
             + "import: http://purl.obolibrary.org/obo/po/imports/ncbitaxon_import.owl\n"

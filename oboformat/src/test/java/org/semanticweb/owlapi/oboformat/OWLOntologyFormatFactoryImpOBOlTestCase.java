@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.oboformat;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
@@ -23,11 +23,10 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  * 
  * @author ignazio
  */
-@SuppressWarnings("javadoc")
-public class OWLOntologyFormatFactoryImpOBOlTestCase {
+class OWLOntologyFormatFactoryImpOBOlTestCase {
 
     @Test
-    public void testOBOOntologyFormat() {
+    void testOBOOntologyFormat() {
         OWLDocumentFormatFactory f = new OBODocumentFormatFactory();
         assertEquals("OBO Format", f.getKey());
         assertEquals(0, f.getMIMETypes().size());

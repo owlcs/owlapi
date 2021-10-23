@@ -1,19 +1,18 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-@SuppressWarnings("javadoc")
-public class InternalizedEntitiesTest {
+class InternalizedEntitiesTest {
 
     @Test
-    public void shouldBeTop() {
+    void shouldBeTop() {
         OWLDataFactoryImpl impl = new OWLDataFactoryImpl();
         assertTrue(impl.getTopDatatype().isTopDatatype());
         OWLDataProperty p = impl.getOWLDataProperty(IRI.create("urn:test:", "p"));

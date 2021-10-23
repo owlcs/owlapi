@@ -4,38 +4,37 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
-@SuppressWarnings("javadoc")
-public class NoOpLock_TestCase {
+class NoOpLock_TestCase {
 
     private NoOpLock lock;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         lock = new NoOpLock();
     }
 
     @Test
-    public void shouldNotReturnNullCondition() {
+    void shouldNotReturnNullCondition() {
         assertThat(lock.newCondition(), is(not(nullValue())));
     }
 
     @Test
-    public void shouldReturn_true_When_tryLock() {
+    void shouldReturn_true_When_tryLock() {
         assertTrue(lock.tryLock());
     }
 
     @Test
-    public void shouldReturn_true_When_tryLockWithTimeOut() {
+    void shouldReturn_true_When_tryLockWithTimeOut() {
         assertTrue(lock.tryLock(3, TimeUnit.MINUTES));
     }
 }

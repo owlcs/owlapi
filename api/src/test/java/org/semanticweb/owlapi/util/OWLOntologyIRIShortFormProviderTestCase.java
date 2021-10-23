@@ -4,110 +4,90 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
-import javax.annotation.Nonnull;
-
 import org.hamcrest.CoreMatchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
-@SuppressWarnings("javadoc")
-public class OWLOntologyIRIShortFormProviderTestCase {
+class OWLOntologyIRIShortFormProviderTestCase {
 
-    private static final String ONT = "ont";
-    @Nonnull
-    public static final String SCHEME_DOMAIN = "http://www.semanticweb.org";
-    private OntologyIRIShortFormProvider sfp;
-
-    @Before
-    public void setUp() {
-        sfp = new OntologyIRIShortFormProvider();
-    }
+    static final String ONT = "ont";
+    static final String ONTOLOGIES = "/ontologies/";
+    static final String SCHEME_DOMAIN = "http://www.semanticweb.org";
+    final OntologyIRIShortFormProvider sfp = new OntologyIRIShortFormProvider();
 
     @Test
-    public void shouldFindLastPathElement() {
-        String input = SCHEME_DOMAIN + "/ontologies/ont";
-        String shortForm = sfp.getShortForm(IRI.create(input));
+    void shouldFindLastPathElement() {
+        String shortForm = sfp.getShortForm(IRI.create(SCHEME_DOMAIN + ONTOLOGIES, ONT));
         assertThat(shortForm, is(equalTo(ONT)));
     }
 
     /*
-     * A test to see if a meaningful short form is returned when the ontology
-     * IRI encodes version information at the end. For example, the dublin core
-     * IRIs do this.
+     * A test to see if a meaningful short form is returned when the ontology IRI encodes version
+     * information at the end. For example, the dublin core IRIs do this.
      */
     @Test
-    public void shouldReturnLastNonNumericPathElement() {
-        String input = SCHEME_DOMAIN + "/ontologies/ont/1.1.11";
-        String shortForm = sfp.getShortForm(IRI.create(input));
+    void shouldReturnLastNonNumericPathElement() {
+        String shortForm =
+            sfp.getShortForm(IRI.create(SCHEME_DOMAIN + "/ontologies/ont/1.1.11", ""));
         assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test
-    public void shouldReturnLastNonVersionPathElement() {
-        String input = SCHEME_DOMAIN + "/ontologies/ont/v1.1.11";
-        String shortForm = sfp.getShortForm(IRI.create(input));
+    void shouldReturnLastNonVersionPathElement() {
+        String shortForm =
+            sfp.getShortForm(IRI.create(SCHEME_DOMAIN + "/ontologies/ont/", "v1.1.11"));
         assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test
-    public void shouldReturnFullIRIForNoPath() {
-        String input = SCHEME_DOMAIN;
-        String shortForm = sfp.getShortForm(IRI.create(input));
+    void shouldReturnFullIRIForNoPath() {
+        String shortForm = sfp.getShortForm(IRI.create(SCHEME_DOMAIN, ""));
         assertThat(shortForm, is(equalTo(SCHEME_DOMAIN)));
     }
 
     @Test
-    public void shouldStripAwayOWLExtension() {
-        String input = SCHEME_DOMAIN + "/ontologies/ont.owl";
-        String shortForm = sfp.getShortForm(IRI.create(input));
+    void shouldStripAwayOWLExtension() {
+        String shortForm = sfp.getShortForm(IRI.create(SCHEME_DOMAIN + ONTOLOGIES, "ont.owl"));
         assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test
-    public void shouldStripAwayRDFExtension() {
-        String input = SCHEME_DOMAIN + "/ontologies/ont.rdf";
-        String shortForm = sfp.getShortForm(IRI.create(input));
+    void shouldStripAwayRDFExtension() {
+        String shortForm = sfp.getShortForm(IRI.create(SCHEME_DOMAIN + ONTOLOGIES, "ont.rdf"));
         assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test
-    public void shouldStripAwayXMLExtension() {
-        String input = SCHEME_DOMAIN + "/ontologies/ont.xml";
-        String shortForm = sfp.getShortForm(IRI.create(input));
+    void shouldStripAwayXMLExtension() {
+        String shortForm = sfp.getShortForm(IRI.create(SCHEME_DOMAIN + ONTOLOGIES, "ont.xml"));
         assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test
-    public void shouldStripAwayOBOExtension() {
-        String input = SCHEME_DOMAIN + "/ontologies/ont.obo";
-        String shortForm = sfp.getShortForm(IRI.create(input));
+    void shouldStripAwayOBOExtension() {
+        String shortForm = sfp.getShortForm(IRI.create(SCHEME_DOMAIN + ONTOLOGIES, "ont.obo"));
         assertThat(shortForm, is(equalTo(ONT)));
     }
 
     @Test
-    public void shouldReturnSkosForSKOSNamespace() {
-        String input = "http://www.w3.org/2004/02/skos/core";
-        String shortForm = sfp.getShortForm(IRI.create(input));
+    void shouldReturnSkosForSKOSNamespace() {
+        String shortForm = sfp.getShortForm(IRI.create("http://www.w3.org/2004/02/skos/", "core"));
         assertThat(shortForm, is(CoreMatchers.equalTo("skos")));
     }
 
     @Test
-    public void shouldReturnDcForDublinCoreNamespace() {
-        String input = "http://purl.org/dc/elements/1.1";
-        String shortForm = sfp.getShortForm(IRI.create(input));
+    void shouldReturnDcForDublinCoreNamespace() {
+        String shortForm = sfp.getShortForm(IRI.create("http://purl.org/dc/elements/1.1", ""));
         assertThat(shortForm, is(CoreMatchers.equalTo("dc")));
     }
 
     @Test
-    public void shouldReturnDcForDublinCoreNamespaceEndingWithSlash() {
-        String input = "http://purl.org/dc/elements/1.1/";
-        String shortForm = sfp.getShortForm(IRI.create(input));
+    void shouldReturnDcForDublinCoreNamespaceEndingWithSlash() {
+        String shortForm = sfp.getShortForm(IRI.create("http://purl.org/dc/elements/1.1/", ""));
         assertThat(shortForm, is(CoreMatchers.equalTo("dc")));
     }
 }

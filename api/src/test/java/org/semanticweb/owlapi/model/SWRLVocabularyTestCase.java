@@ -19,47 +19,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group Date: 18/02/2014
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group Date:
+ *         18/02/2014
  */
-@SuppressWarnings("javadoc")
-@RunWith(Parameterized.class)
-public class SWRLVocabularyTestCase {
-
-    private final SWRLVocabulary vocabulary;
-
-    public SWRLVocabularyTestCase(SWRLVocabulary vocabulary) {
-        this.vocabulary = vocabulary;
-    }
-
-    @Nonnull
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
+class SWRLVocabularyTestCase {
+    static Collection<Object[]> getData() {
         List<Object[]> data = new ArrayList<>();
         for (SWRLVocabulary v : SWRLVocabulary.values()) {
-            data.add(new Object[] { v });
+            data.add(new Object[] {v});
         }
         return data;
     }
 
-    @Test
-    public void getPrefixedNameShouldStartWithSWRLPrefixName() {
-        assertThat(vocabulary.getPrefixedName(),
-                startsWith(Namespaces.SWRL.getPrefixName()));
-    }
-
-    @Test
-    public void getIRIShouldReturnAnIRIThatStartsWithSWRLPrefix() {
-        assertThat(vocabulary.getIRI().toString(),
-                startsWith(Namespaces.SWRL.getPrefixIRI()));
+    @ParameterizedTest
+    @MethodSource("getData")
+    void getPrefixedNameShouldStartWithSWRLPrefixName(SWRLVocabulary vocabulary) {
+        assertThat(vocabulary.getPrefixedName(), startsWith(Namespaces.SWRL.getPrefixName()));
+        assertThat(vocabulary.getIRI().toString(), startsWith(Namespaces.SWRL.getPrefixIRI()));
     }
 }
