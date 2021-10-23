@@ -31,9 +31,9 @@ public class LoadRelaMathTestCase extends TestBase {
         OWLOntology o = m.loadOntology(IRI.create("http://sweetontology.net/relaMath"));
         o.getImportsClosure().stream().forEach(x -> {
             String s = x.getAxioms().stream().filter(ax -> ax.toString().contains("Error1"))
-                .map(Object::toString).collect(Collectors.joining("\n"));
+                .map(Object::toString).collect(Collectors.joining("\t"));
             if (!s.isEmpty()) {
-                System.out.println("LoadSweet.main() " + x.getOntologyID() + "\n" + s);
+                System.out.println(x.getOntologyID() + " contains failure " + s);
             }
         });
         findMultipleDeclarations(o);
