@@ -31,6 +31,7 @@ public class ImportsClosureNotInProfileException extends OWLReasonerRuntimeExcep
      * @param profile profile
      */
     public ImportsClosureNotInProfileException(IRI profile) {
+        super("Imports closure not in profile: " + profile);
         this.profile = profile;
     }
 

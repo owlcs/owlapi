@@ -29,6 +29,8 @@ public class ClassExpressionNotInProfileException extends OWLReasonerRuntimeExce
      * @param profile profile
      */
     public ClassExpressionNotInProfileException(OWLClassExpression classExpression, IRI profile) {
+        super("Class expression not in profile: class expression " + classExpression + " profile "
+            + profile);
         this.classExpression = classExpression;
         this.profile = profile;
     }
