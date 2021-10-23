@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.reasoner;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class IllegalConfigurationException extends OWLReasonerRuntimeException {
@@ -23,45 +22,45 @@ public class IllegalConfigurationException extends OWLReasonerRuntimeException {
     private final OWLReasonerConfiguration configuration;
 
     /**
-     * @param cause
-     *        exception cause
-     * @param configuration
-     *        loading configuration
+     * @param cause exception cause
+     * @param configuration loading configuration
      */
-    public IllegalConfigurationException(Throwable cause,
-            OWLReasonerConfiguration configuration) {
-        super(cause);
+    public IllegalConfigurationException(Throwable cause, OWLReasonerConfiguration configuration) {
+        super(configurationToString(configuration), cause);
         this.configuration = configuration;
     }
 
     /**
-     * @param message
-     *        exception message
-     * @param configuration
-     *        reasoner configuration
+     * @param message exception message
+     * @param configuration reasoner configuration
      */
-    public IllegalConfigurationException(String message,
-            OWLReasonerConfiguration configuration) {
-        super(message);
+    public IllegalConfigurationException(String message, OWLReasonerConfiguration configuration) {
+        super(message + configurationToString(configuration));
         this.configuration = configuration;
     }
 
     /**
-     * @param cause
-     *        exception cause
-     * @param message
-     *        exception message
-     * @param configuration
-     *        reasoner configuration
+     * @param cause exception cause
+     * @param message exception message
+     * @param configuration reasoner configuration
      */
     public IllegalConfigurationException(String message, Throwable cause,
-            OWLReasonerConfiguration configuration) {
-        super(message, cause);
+        OWLReasonerConfiguration configuration) {
+        super(message + configurationToString(configuration), cause);
         this.configuration = configuration;
     }
 
     /** @return reasoner configuration */
     public OWLReasonerConfiguration getConfiguration() {
         return configuration;
+    }
+
+    private static String configurationToString(OWLReasonerConfiguration configuration) {
+        if (configuration == null) {
+            return "";
+        }
+        return "Fresh entity policy: " + configuration.getFreshEntityPolicy()
+            + " Individual node set policy: " + configuration.getIndividualNodeSetPolicy()
+            + " timeout: " + configuration.getTimeOut();
     }
 }

@@ -15,27 +15,24 @@ package org.semanticweb.owlapi.reasoner;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * This exception indicates that the reasoner cannot handle the set of axioms
- * that are in the imports closure of the root ontology because the axioms fall
- * outside of the "largest" OWL profile (i.e. OWL2DL or OWL2EL or OWL2QL or
- * OWL2RL) that the reasoner can handle. The reasoner will indicate in this
- * exception which profile it expects the axioms to be in.
+ * This exception indicates that the reasoner cannot handle the set of axioms that are in the
+ * imports closure of the root ontology because the axioms fall outside of the "largest" OWL profile
+ * (i.e. OWL2DL or OWL2EL or OWL2QL or OWL2RL) that the reasoner can handle. The reasoner will
+ * indicate in this exception which profile it expects the axioms to be in.
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class ImportsClosureNotInProfileException extends
-        OWLReasonerRuntimeException {
+public class ImportsClosureNotInProfileException extends OWLReasonerRuntimeException {
 
     private static final long serialVersionUID = 40000L;
     private final IRI profile;
 
     /**
-     * @param profile
-     *        profile
+     * @param profile profile
      */
     public ImportsClosureNotInProfileException(IRI profile) {
+        super("Imports closure not in profile: " + profile);
         this.profile = profile;
     }
 
