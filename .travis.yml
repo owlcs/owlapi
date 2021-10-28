@@ -4,6 +4,6 @@ cache:
     - $HOME/.m2
 
 language: java
-script: "mvn verify"
+script: "mvn -T 1C verify"
 jdk:
   - openjdk8
