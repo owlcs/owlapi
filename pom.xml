@@ -315,6 +315,9 @@
 					<printSummary>false</printSummary>
 					<!-- <parallel>all</parallel> <threadCount>1</threadCount> <perCoreThreadCount>true</perCoreThreadCount> -->
 					<argLine>-Xmx2G -Djava.awt.headless=true</argLine>
+					<parallel>classes</parallel>
+					<useUnlimitedThreads>true</useUnlimitedThreads>
+
 				</configuration>
 			</plugin>
 			<plugin>
