@@ -68,7 +68,7 @@ class FunctionalSyntaxCommentTestCase extends TestBase {
 
     @Test
     void shouldSaveMultilineComment() {
-        OWLOntology o = getOWLOntology(iri("file:", "test.owl"));
+        OWLOntology o = create(iri("file:", "test.owl"));
         m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(contactInfo.getIRI(),
             Annotation(RDFSLabel(), multiline)));
         m.addAxiom(o, Declaration(city));

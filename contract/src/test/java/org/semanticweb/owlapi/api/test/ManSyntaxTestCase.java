@@ -105,7 +105,7 @@ class ManSyntaxTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource("getData")
     void testAssertion(OWLAxiom object) {
-        OWLOntology o = getOWLOntology(iri("urn:test:", "manchester"));
+        OWLOntology o = create(iri("urn:test:", "manchester"));
         o.getOWLOntologyManager().addAxiom(o, object);
         StringDocumentTarget s = saveOntology(o, new ManchesterSyntaxDocumentFormat());
         loadOntologyFromString(s, new ManchesterSyntaxDocumentFormat());

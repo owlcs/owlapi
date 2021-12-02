@@ -52,7 +52,7 @@ class SearcherTestCase extends TestBase {
     @Test
     void shouldSearch() {
         // given
-        OWLOntology o = getAnonymousOWLOntology();
+        OWLOntology o = createAnon();
         OWLAxiom ax = SubClassOf(C, D);
         o.getOWLOntologyManager().addAxiom(o, ax);
         assertTrue(o.getAxioms(AxiomType.SUBCLASS_OF).contains(ax));
@@ -62,7 +62,7 @@ class SearcherTestCase extends TestBase {
     @Test
     void shouldSearchObjectProperties() {
         // given
-        OWLOntology o = getAnonymousOWLOntology();
+        OWLOntology o = createAnon();
         OWLAxiom ax = SubObjectPropertyOf(c, d);
         OWLAxiom ax2 = ObjectPropertyDomain(c, X);
         OWLAxiom ax3 = ObjectPropertyRange(c, Y);
@@ -90,7 +90,7 @@ class SearcherTestCase extends TestBase {
     @Test
     void shouldSearchDataProperties() {
         // given
-        OWLOntology o = getAnonymousOWLOntology();
+        OWLOntology o = createAnon();
         OWLAxiom ax = SubDataPropertyOf(DP, DQ);
         OWLClass x = Class(iri(URN_TEST, "x"));
         OWLAxiom ax2 = DataPropertyDomain(DP, x);

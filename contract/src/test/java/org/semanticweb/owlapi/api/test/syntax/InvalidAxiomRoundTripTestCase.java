@@ -58,7 +58,7 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @BeforeEach
     void setUpO() {
-        o = getAnonymousOWLOntology();
+        o = createAnon();
     }
 
     static void assertCorrectResult(@Nonnull OWLAxiom wrongAxiom, @Nonnull OWLAxiom validAxiom,

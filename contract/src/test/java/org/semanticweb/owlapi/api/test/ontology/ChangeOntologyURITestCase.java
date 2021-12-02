@@ -34,9 +34,9 @@ class ChangeOntologyURITestCase extends TestBase {
     void testChangeURI() {
         IRI oldIRI = iri("http://www.semanticweb.org/ontologies/", "ontA");
         IRI newIRI = iri("http://www.semanticweb.org/ontologies/", "ontB");
-        OWLOntology ont = getOWLOntology(oldIRI);
+        OWLOntology ont = create(oldIRI);
         OWLOntology importingOnt =
-            getOWLOntology(iri("http://www.semanticweb.org/ontologies/", "ontC"));
+            create(iri("http://www.semanticweb.org/ontologies/", "ontC"));
         m.applyChange(new AddImport(importingOnt,
             df.getOWLImportsDeclaration(ont.getOntologyID().getOntologyIRI().get())));
         assertTrue(m.contains(oldIRI));
@@ -59,9 +59,9 @@ class ChangeOntologyURITestCase extends TestBase {
 
     @Test
     void shouldCheckContents() {
-        OWLOntology o1 = getOWLOntology(IRI.create("http://www.test.com/123"));
+        OWLOntology o1 = create(IRI.create("http://www.test.com/123"));
         assertTrue(o1.getOWLOntologyManager().contains(o1.getOntologyID()));
-        OWLOntology o2 = getAnonymousOWLOntology();
+        OWLOntology o2 = createAnon();
         assertTrue(o2.getOWLOntologyManager().contains(o2.getOntologyID()));
     }
 }

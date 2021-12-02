@@ -38,20 +38,21 @@ class Owl2OboTestCase extends OboFormatTestBasics {
 
     private static void addLabelAndId(OWLNamedObject obj, @Nonnull String label, String id,
         OWLOntology o) {
-        OWLDataFactory f = o.getOWLOntologyManager().getOWLDataFactory();
-        addAnnotation(obj, f.getRDFSLabel(), f.getOWLLiteral(label), o);
-        OWLAnnotationProperty idProp =
-            f.getOWLAnnotationProperty(OWLAPIObo2Owl.trTagToIRI(OboFormatTag.TAG_ID.getTag()));
-        addAnnotation(obj, idProp, f.getOWLLiteral(id), o);
+        OWLDataFactory dfactory = o.getOWLOntologyManager().getOWLDataFactory();
+        addAnnotation(obj, dfactory.getRDFSLabel(), dfactory.getOWLLiteral(label), o);
+        OWLAnnotationProperty idProp = dfactory
+            .getOWLAnnotationProperty(OWLAPIObo2Owl.trTagToIRI(OboFormatTag.TAG_ID.getTag()));
+        addAnnotation(obj, idProp, dfactory.getOWLLiteral(id), o);
     }
 
     private static void setAltId(OWLNamedObject obj, OWLOntology o) {
-        OWLDataFactory f = o.getOWLOntologyManager().getOWLDataFactory();
-        addAnnotation(obj, f.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0100001.getIRI()),
-            f.getOWLLiteral(TEST_0001), o);
-        addAnnotation(obj, f.getOWLAnnotationProperty(Obo2OWLConstants.IRI_IAO_0000231),
+        OWLDataFactory dfactory = o.getOWLOntologyManager().getOWLDataFactory();
+        addAnnotation(obj,
+            dfactory.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0100001.getIRI()),
+            dfactory.getOWLLiteral(TEST_0001), o);
+        addAnnotation(obj, dfactory.getOWLAnnotationProperty(Obo2OWLConstants.IRI_IAO_0000231),
             Obo2OWLConstants.IRI_IAO_0000227, o);
-        addAnnotation(obj, f.getOWLDeprecated(), f.getOWLLiteral(true), o);
+        addAnnotation(obj, dfactory.getOWLDeprecated(), dfactory.getOWLLiteral(true), o);
     }
 
     private static void addAnnotation(OWLNamedObject obj, OWLAnnotationProperty p,
@@ -63,7 +64,7 @@ class Owl2OboTestCase extends OboFormatTestBasics {
     @Test
     void testIRTsConversion() {
         IRI ontologyIRI = iri(OBO, "test.owl");
-        OWLOntology ontology = getOWLOntology(ontologyIRI);
+        OWLOntology ontology = create(ontologyIRI);
         convert(ontology);
         String ontId = OWLAPIOwl2Obo.getOntologyId(ontology);
         assertEquals("test", ontId);
@@ -93,7 +94,7 @@ class Owl2OboTestCase extends OboFormatTestBasics {
 
     @Test
     void testOwl2OboAltIdClass() {
-        OWLOntology simple = getOWLOntology(IRI.generateDocumentIRI());
+        OWLOntology simple = create(IRI.generateDocumentIRI());
         // add class A
         OWLClass classA = df.getOWLClass(iri(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001"));
         m.addAxiom(simple, df.getOWLDeclarationAxiom(classA));
@@ -132,12 +133,12 @@ class Owl2OboTestCase extends OboFormatTestBasics {
     protected Optional<OWLLiteral> findComment(IRI iri, OWLOntology roundTripped) {
         return roundTripped.getAnnotationAssertionAxioms(iri).stream()
             .filter(ax -> ax.getProperty().isComment()).map(ax -> ax.getValue().asLiteral())
-            .filter(l -> l.isPresent()).findAny().orElse(Optional.absent());
+            .filter(literal -> literal.isPresent()).findAny().orElse(Optional.absent());
     }
 
     @Test
     void testOwl2OboProperty() {
-        OWLOntology simple = getOWLOntology(IRI.generateDocumentIRI());
+        OWLOntology simple = create(IRI.generateDocumentIRI());
         // add prop1
         OWLObjectProperty p1 =
             df.getOWLObjectProperty(iri(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001"));

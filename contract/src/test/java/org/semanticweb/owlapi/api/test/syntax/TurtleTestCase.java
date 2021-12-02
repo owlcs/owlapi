@@ -75,8 +75,8 @@ class TurtleTestCase extends TestBase {
     static IRI individualIRI = IRI.create("http://example.com/ontology/x,y");
     static OWLNamedIndividual individual = df.getOWLNamedIndividual(individualIRI);
 
-    private static String normalize(String s) {
-        return s.replaceAll("\r", "").replaceAll("\\n#.*", "").replaceAll("\\n+", "\n").trim();
+    private static String normalize(String string) {
+        return string.replaceAll("\r", "").replaceAll("\\n#.*", "").replaceAll("\\n+", "\n").trim();
     }
 
     @Test
@@ -96,26 +96,24 @@ class TurtleTestCase extends TestBase {
 
     @Test
     void shouldSaveIRIsWithCommasInTurtle() {
-        OWLOntology o = getOWLOntology(iri(TestFiles.NS, ""));
+        OWLOntology o = create(iri(TestFiles.NS, ""));
         OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
         o.getOWLOntologyManager().addAxiom(o, axiom);
         TurtleDocumentFormat turtleFormat = new TurtleDocumentFormat();
         turtleFormat.setDefaultPrefix("http://example.com/ontology/");
-        StringDocumentTarget t = saveOntology(o, turtleFormat);
-        String string = t.toString();
+        String string = saveOntology(o, turtleFormat).toString();
         OWLOntology o1 = loadOntologyFromString(string, new TurtleDocumentFormat());
         equal(o, o1);
     }
 
     @Test
     void shouldSaveIRIsWithCommasInRioTurtle() {
-        OWLOntology o = getOWLOntology(iri(TestFiles.NS, ""));
+        OWLOntology o = create(iri(TestFiles.NS, ""));
         OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
         o.getOWLOntologyManager().addAxiom(o, axiom);
         RioTurtleDocumentFormat turtleFormat = new RioTurtleDocumentFormat();
         turtleFormat.setDefaultPrefix("http://example.com/ontology/");
-        StringDocumentTarget t = saveOntology(o, turtleFormat);
-        String string = t.toString();
+        String string = saveOntology(o, turtleFormat).toString();
         OWLOntology o1 = loadOntologyFromString(string, new RioTurtleDocumentFormat());
         equal(o, o1);
     }
@@ -123,14 +121,13 @@ class TurtleTestCase extends TestBase {
     @Test
     void shouldSaveBaseIRINotOntologyInTurtle() {
         String base = "urn:test:base#";
-        OWLOntology o = getOWLOntology(iri(TestFiles.NS, ""));
+        OWLOntology o = create(iri(TestFiles.NS, ""));
         OWLNamedIndividual ind = df.getOWLNamedIndividual(iri(base, "i"));
         OWLAxiom axiom = df.getOWLDeclarationAxiom(ind);
         o.getOWLOntologyManager().addAxiom(o, axiom);
         TurtleDocumentFormat format = new TurtleDocumentFormat();
         format.setDefaultPrefix(base);
-        StringDocumentTarget t = saveOntology(o, format);
-        String string = normalize(t.toString());
+        String string = normalize(saveOntology(o, format).toString());
         assertEquals(
             "@prefix : <urn:test:base#> .\n" + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
                 + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
@@ -148,14 +145,13 @@ class TurtleTestCase extends TestBase {
     @Test
     void shouldSaveBaseIRINotOntologyInRioTurtle() {
         String base = "urn:test:base#";
-        OWLOntology o = getOWLOntology(iri(TestFiles.NS, ""));
+        OWLOntology o = create(iri(TestFiles.NS, ""));
         OWLNamedIndividual ind = df.getOWLNamedIndividual(iri(base, "i"));
         OWLAxiom axiom = df.getOWLDeclarationAxiom(ind);
         o.getOWLOntologyManager().addAxiom(o, axiom);
         RioTurtleDocumentFormat format = new RioTurtleDocumentFormat();
         format.setDefaultPrefix(base);
-        StringDocumentTarget t = saveOntology(o, format);
-        String string = normalize(t.toString());
+        String string = normalize(saveOntology(o, format).toString());
         assertEquals(
             "@base <urn:test:base#> .\n" + "@prefix : <urn:test:base#> .\n"
                 + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
@@ -171,7 +167,7 @@ class TurtleTestCase extends TestBase {
 
     @Test
     void irisWithQuotesInTurtle() {
-        OWLOntology o = getOWLOntology(iri);
+        OWLOntology o = create(iri);
         m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(IRI.create("urn:test#s't"),
             df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(true))));
         OWLOntology o1 = roundTrip(o, new TurtleDocumentFormat());
@@ -180,7 +176,7 @@ class TurtleTestCase extends TestBase {
 
     @Test
     void irisWithQuotesInRioTurtle() {
-        OWLOntology o = getOWLOntology(iri);
+        OWLOntology o = create(iri);
         m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(IRI.create("urn:test#s't"),
             df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(true))));
         OWLOntology o1 = roundTrip(o, new RioTurtleDocumentFormat());
@@ -334,7 +330,7 @@ class TurtleTestCase extends TestBase {
         OWLOntology in =
             loadOntologyFromString(TestFiles.slashOntologyIRI, new TurtleDocumentFormat());
         String string = "urn:test#test.owl/";
-        OWLOntology ontology = getOWLOntology(iri(string, ""));
+        OWLOntology ontology = create(iri(string, ""));
         m.addAxiom(ontology, df.getOWLSubClassOfAxiom(df.getOWLClass(iri(string, "t")),
             df.getOWLClass(iri(string, "q"))));
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
@@ -371,8 +367,7 @@ class TurtleTestCase extends TestBase {
     void shouldReloadSamePrefixAbbreviations() {
         OWLOntology o =
             loadOntologyFromString(TestFiles.prefixAbbreviations, new RioTurtleDocumentFormat());
-        StringDocumentTarget t = saveOntology(o);
-        assertTrue(t.toString().contains("ABA:10"));
+        assertTrue(saveOntology(o).toString().contains("ABA:10"));
     }
 
     @Test
@@ -390,7 +385,7 @@ class TurtleTestCase extends TestBase {
     void shouldAllowMultipleDotsInIRIs() {
         IRI test1 = IRI.create("http://www.semanticweb.org/ontology#A...");
         IRI test2 = IRI.create("http://www.semanticweb.org/ontology#A...B");
-        OWLOntology o = getOWLOntology(IRI.create("http://www.semanticweb.org/ontology"));
+        OWLOntology o = create(IRI.create("http://www.semanticweb.org/ontology"));
         m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test1)));
         m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test2)));
         TurtleDocumentFormat format = new TurtleDocumentFormat();
@@ -422,7 +417,7 @@ class TurtleTestCase extends TestBase {
     @Test
     void shouldUseRightPrefixesWithPercentURLs() {
         PrefixManager basePrefix = new DefaultPrefixManager("http://www.example.com#");
-        OWLOntology ontology = getOWLOntology(IRI.create("http://www.example.com"));
+        OWLOntology ontology = create(IRI.create("http://www.example.com"));
         OWLObjectProperty owlObjectP = df.getOWLObjectProperty("has%20space", basePrefix);
         OWLClass domain = df.getOWLClass("domain1", basePrefix);
         m.addAxiom(ontology, df.getOWLObjectPropertyDomainAxiom(owlObjectP, domain));

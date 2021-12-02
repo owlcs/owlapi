@@ -41,18 +41,18 @@ class SameIndividualsThreeElementsAxiomAnnotatedRoundTripTestCase extends TestBa
         axioms.add(ax.getAnnotatedAxiom(singleton(anno2)));
         axioms.add(df.getOWLDeclarationAxiom(AP));
         axioms.add(df.getOWLDeclarationAxiom(propP));
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.getOWLOntologyManager().addAxioms(ont, axioms);
         return ont;
     }
 
     @ParameterizedTest
     @MethodSource("formatList")
-    void testSyntaxWithoutNAryAxioms(OWLDocumentFormatFactory f) {
+    void testSyntaxWithoutNAryAxioms(OWLDocumentFormatFactory format) {
         // axioms with three or more elements cannot be represented as one axiom in this syntax
         OWLOntology ont = createOntology();
         OWLOntology o =
-            loadOntologyFromString(saveOntology(ont, f.createFormat()), f.createFormat());
+            loadOntologyFromString(saveOntology(ont, format.createFormat()), format.createFormat());
         assertEquals(6, o.getAxiomCount(AxiomType.SAME_INDIVIDUAL));
         ont.getAxioms(AxiomType.SAME_INDIVIDUAL).stream()
             .map(OWLSameIndividualAxiom::splitToAnnotatedPairs)

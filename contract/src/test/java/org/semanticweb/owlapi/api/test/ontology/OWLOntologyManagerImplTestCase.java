@@ -49,7 +49,7 @@ class OWLOntologyManagerImplTestCase extends TestBase {
 
     @Test
     void testContains() {
-        OWLOntology ont = getOWLOntology(nextOntology());
+        OWLOntology ont = create(nextOntology());
         assertTrue(m.contains(ont.getOntologyID()));
         assertNotNull(m.getOntology(ont.getOntologyID()));
         assertTrue(m.getOntologies().contains(ont));
@@ -64,8 +64,8 @@ class OWLOntologyManagerImplTestCase extends TestBase {
 
     @Test
     void testImports() {
-        OWLOntology ontA = getOWLOntology(nextOntology());
-        OWLOntology ontB = getOWLOntology(nextOntology());
+        OWLOntology ontA = create(nextOntology());
+        OWLOntology ontB = create(nextOntology());
         OWLImportsDeclaration decl =
             df.getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI().get());
         m.applyChange(new AddImport(ontA, decl));
@@ -77,9 +77,9 @@ class OWLOntologyManagerImplTestCase extends TestBase {
     @Test
     void testImportsClosure() {
         // OntA -> OntB -> OntC (-> means imports)
-        OWLOntology ontA = getOWLOntology(nextOntology());
-        OWLOntology ontB = getOWLOntology(nextOntology());
-        OWLOntology ontC = getOWLOntology(nextOntology());
+        OWLOntology ontA = create(nextOntology());
+        OWLOntology ontB = create(nextOntology());
+        OWLOntology ontC = create(nextOntology());
         OWLImportsDeclaration declA =
             df.getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI().get());
         OWLImportsDeclaration declB =
@@ -95,7 +95,7 @@ class OWLOntologyManagerImplTestCase extends TestBase {
 
     @Test
     void testImportsLoad() {
-        OWLOntology ontA = getOWLOntology(iri("urn:test:", "a"));
+        OWLOntology ontA = create(iri("urn:test:", "a"));
         assertEquals(0, ontA.getDirectImports().size());
         IRI b = iri("urn:test:", "b");
         OWLImportsDeclaration declB = df.getOWLImportsDeclaration(b);
@@ -103,7 +103,7 @@ class OWLOntologyManagerImplTestCase extends TestBase {
         Set<IRI> directImportsDocuments = ontA.getDirectImportsDocuments();
         assertEquals(1, directImportsDocuments.size());
         assertTrue(directImportsDocuments.contains(b));
-        OWLOntology ontB = getOWLOntology(b);
+        OWLOntology ontB = create(b);
         directImportsDocuments = ontA.getDirectImportsDocuments();
         assertEquals(1, directImportsDocuments.size());
         assertTrue(directImportsDocuments.contains(b));

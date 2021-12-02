@@ -99,11 +99,11 @@ class OWLDataFactoryImplTestCase extends TestBase {
     OWLLiteral b2 = Literal();
     OWLObjectProperty b3 = OP(IRI());
     OWLDataProperty b4 = DP(IRI());
-    OWLClassExpression c = C(IRI());
     OWLIndividual c1 = I();
     OWLLiteral c2 = Literal();
     OWLObjectProperty c3 = OP(IRI());
     OWLDataProperty c4 = DP(IRI());
+    OWLClassExpression c5 = C(IRI());
     OWLDatatype dt = D(IRI());
     IRI iri = IRI();
     OWLDataProperty left = DP(IRI());
@@ -127,16 +127,16 @@ class OWLDataFactoryImplTestCase extends TestBase {
     OWLClassExpression operandA = C(IRI());
     OWLClassExpression operandB = C(IRI());
 
-    private OWLClass C(IRI iri) {
-        return testSubject.getOWLClass(iri);
+    private OWLClass C(IRI x) {
+        return testSubject.getOWLClass(x);
     }
 
-    private OWLDatatype D(IRI iri) {
-        return testSubject.getOWLDatatype(iri);
+    private OWLDatatype D(IRI x) {
+        return testSubject.getOWLDatatype(x);
     }
 
-    private OWLDataProperty DP(IRI iri) {
-        return testSubject.getOWLDataProperty(iri);
+    private OWLDataProperty DP(IRI x) {
+        return testSubject.getOWLDataProperty(x);
     }
 
     private OWLIndividual I() {
@@ -151,8 +151,8 @@ class OWLDataFactoryImplTestCase extends TestBase {
         return testSubject.getOWLLiteral("A" + COUNTER.getAndIncrement());
     }
 
-    private OWLObjectProperty OP(IRI iri) {
-        return testSubject.getOWLObjectProperty(iri);
+    private OWLObjectProperty OP(IRI x) {
+        return testSubject.getOWLObjectProperty(x);
     }
 
     @Test
@@ -255,10 +255,10 @@ class OWLDataFactoryImplTestCase extends TestBase {
         assertEqualsFromSupplier(() -> testSubject.getOWLDatatypeRestriction(dt,
             testSubject.getOWLFacetRestriction(MAX_EXCLUSIVE, facetValue)));
         assertEqualsFromSupplier(() -> testSubject.getOWLDifferentIndividualsAxiom(a1, b1, c1));
-        assertEqualsFromSupplier(() -> testSubject.getOWLDisjointClassesAxiom(a, b, c));
+        assertEqualsFromSupplier(() -> testSubject.getOWLDisjointClassesAxiom(a, b, c5));
         assertEqualsFromSupplier(() -> testSubject.getOWLDisjointDataPropertiesAxiom(a4, b4, c4));
         assertEqualsFromSupplier(() -> testSubject.getOWLDisjointObjectPropertiesAxiom(a3, b3, c3));
-        assertEqualsFromSupplier(() -> testSubject.getOWLEquivalentClassesAxiom(a, b, c));
+        assertEqualsFromSupplier(() -> testSubject.getOWLEquivalentClassesAxiom(a, b, c5));
         assertEqualsFromSupplier(() -> testSubject.getOWLEquivalentClassesAxiom(classExpressions));
         assertEqualsFromSupplier(() -> testSubject.getOWLEquivalentDataPropertiesAxiom(a4, b4, c4));
         assertEqualsFromSupplier(() -> testSubject.getOWLEquivalentDataPropertiesAxiom(properties));
@@ -284,7 +284,7 @@ class OWLDataFactoryImplTestCase extends TestBase {
             testSubject.getOWLThing()));
         assertEqualsFromSupplier(() -> testSubject.getOWLObjectHasSelf(prop2));
         assertEqualsFromSupplier(() -> testSubject.getOWLObjectHasValue(prop2, filler));
-        assertEqualsFromSupplier(() -> testSubject.getOWLObjectIntersectionOf(a, b, c));
+        assertEqualsFromSupplier(() -> testSubject.getOWLObjectIntersectionOf(a, b, c5));
         assertEqualsFromSupplier(
             () -> testSubject.getOWLObjectMaxCardinality(cardinality, prop2, a));
         assertEqualsFromSupplier(() -> testSubject.getOWLObjectMaxCardinality(cardinality, prop2,
@@ -298,7 +298,7 @@ class OWLDataFactoryImplTestCase extends TestBase {
         assertEqualsFromSupplier(() -> testSubject.getOWLObjectPropertyDomainAxiom(p3, right));
         assertEqualsFromSupplier(() -> testSubject.getOWLObjectPropertyRangeAxiom(p3, right));
         assertEqualsFromSupplier(() -> testSubject.getOWLObjectSomeValuesFrom(prop2, a));
-        assertEqualsFromSupplier(() -> testSubject.getOWLObjectUnionOf(a, b, c));
+        assertEqualsFromSupplier(() -> testSubject.getOWLObjectUnionOf(a, b, c5));
         assertEqualsFromSupplier(() -> testSubject.getOWLReflexiveObjectPropertyAxiom(prop2));
         assertEqualsFromSupplier(() -> testSubject.getOWLSameIndividualAxiom(a1, b1, c1));
         assertEqualsFromSupplier(() -> testSubject.getOWLSubDataPropertyOfAxiom(left, prop));
@@ -431,7 +431,7 @@ class OWLDataFactoryImplTestCase extends TestBase {
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLDifferentIndividualsAxiom(a1, b1),
             () -> testSubject.getOWLDifferentIndividualsAxiom(a1, b1, c1));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLDisjointClassesAxiom(a, b),
-            () -> testSubject.getOWLDisjointClassesAxiom(a, b, c));
+            () -> testSubject.getOWLDisjointClassesAxiom(a, b, c5));
         assertNotEqualsFromSuppliers(
             () -> testSubject.getOWLDisjointDataPropertiesAxiom(a4, b4, c4),
             () -> testSubject.getOWLDisjointDataPropertiesAxiom(a4, b4));
@@ -439,7 +439,7 @@ class OWLDataFactoryImplTestCase extends TestBase {
             () -> testSubject.getOWLDisjointObjectPropertiesAxiom(a3, b3, c3),
             () -> testSubject.getOWLDisjointObjectPropertiesAxiom(a3, b3));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLEquivalentClassesAxiom(a, b),
-            () -> testSubject.getOWLEquivalentClassesAxiom(a, b, c));
+            () -> testSubject.getOWLEquivalentClassesAxiom(a, b, c5));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLEquivalentDataPropertiesAxiom(a4, b4),
             () -> testSubject.getOWLEquivalentDataPropertiesAxiom(a4, b4, c4));
         assertNotEqualsFromSuppliers(
@@ -457,7 +457,7 @@ class OWLDataFactoryImplTestCase extends TestBase {
             () -> testSubject.getOWLObjectExactCardinality(3, prop2, testSubject.getOWLThing()),
             () -> testSubject.getOWLObjectExactCardinality(4, prop2, testSubject.getOWLThing()));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLObjectIntersectionOf(a, b),
-            () -> testSubject.getOWLObjectIntersectionOf(a, b, c));
+            () -> testSubject.getOWLObjectIntersectionOf(a, b, c5));
         assertNotEqualsFromSuppliers(
             () -> testSubject.getOWLObjectMaxCardinality(3, prop2, testSubject.getOWLThing()),
             () -> testSubject.getOWLObjectMaxCardinality(4, prop2, testSubject.getOWLThing()));
@@ -466,7 +466,7 @@ class OWLDataFactoryImplTestCase extends TestBase {
             () -> testSubject.getOWLObjectMinCardinality(4, prop2, testSubject.getOWLThing()));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLObjectOneOf(a1, b1),
             () -> testSubject.getOWLObjectOneOf(a1, b1, c1));
-        assertNotEqualsFromSuppliers(() -> testSubject.getOWLObjectUnionOf(a, b, c),
+        assertNotEqualsFromSuppliers(() -> testSubject.getOWLObjectUnionOf(a, b, c5),
             () -> testSubject.getOWLObjectUnionOf(a, b));
         assertNotEqualsFromSuppliers(() -> testSubject.getOWLSameIndividualAxiom(a1, b1),
             () -> testSubject.getOWLSameIndividualAxiom(a1, b1, c1));

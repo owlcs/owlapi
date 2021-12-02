@@ -56,7 +56,7 @@ class Utf8TestCase extends TestBase {
             new ByteArrayInputStream(TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
         assertThrows(Exception.class,
-            () -> parser.parse(new StreamDocumentSource(in), getAnonymousOWLOntology(), config));
+            () -> parser.parse(new StreamDocumentSource(in), createAnon(), config));
         // expected to fail, but actual exception depends on the parsers in
         // the classpath
     }
@@ -83,7 +83,7 @@ class Utf8TestCase extends TestBase {
     @Test
     void testPositiveUTF8roundTrip() {
         String ns = "http://protege.org/UTF8.owl";
-        OWLOntology ontology = getOWLOntology(IRI(ns));
+        OWLOntology ontology = create(IRI(ns));
         OWLClass a = Class(IRI(ns + "#A"));
         m.addAxiom(ontology, df.getOWLDeclarationAxiom(a));
         OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("Chinese=處方"));
@@ -95,7 +95,7 @@ class Utf8TestCase extends TestBase {
     @Test
     void testRoundTrip() {
         String ns = "http://protege.org/ontologies/UTF8RoundTrip.owl";
-        OWLClass c = Class(iri(ns + "#", "C"));
+        OWLClass cl = Class(iri(ns + "#", "C"));
         /*
          * The two unicode characters entered here are valid and can be found in the code chart
          * http://www.unicode.org/charts/PDF/U4E00.pdf. It has been said that they are chinese and
@@ -105,24 +105,24 @@ class Utf8TestCase extends TestBase {
          */
         String chinese = "Rx\u8655\u65b9";
         System.setProperty("file.encoding", "UTF-8");
-        OWLOntology ontology = createOriginalOntology(ns, c, chinese);
-        checkOntology(ontology, c, chinese);
+        OWLOntology ontology = createOriginalOntology(ns, cl, chinese);
+        checkOntology(ontology, cl, chinese);
         OWLOntology newOntology = roundTrip(ontology, new RDFXMLDocumentFormat());
-        checkOntology(newOntology, c, chinese);
+        checkOntology(newOntology, cl, chinese);
     }
 
     @Nonnull
-    private OWLOntology createOriginalOntology(@Nonnull String ns, @Nonnull OWLClass c,
+    private OWLOntology createOriginalOntology(@Nonnull String ns, @Nonnull OWLClass cl,
         @Nonnull String chinese) {
-        OWLOntology ontology = getOWLOntology(IRI(ns));
-        OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(), Literal(chinese));
+        OWLOntology ontology = create(IRI(ns));
+        OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), cl.getIRI(), Literal(chinese));
         m.addAxiom(ontology, annotationAxiom);
         return ontology;
     }
 
-    private static boolean checkOntology(@Nonnull OWLOntology ontology, @Nonnull OWLClass c,
+    private static boolean checkOntology(@Nonnull OWLOntology ontology, @Nonnull OWLClass cl,
         @Nonnull String chinese) {
-        return getAnnotationObjects(c, ontology).stream().map(Utf8TestCase::literalValue)
+        return getAnnotationObjects(cl, ontology).stream().map(Utf8TestCase::literalValue)
             .anyMatch(chinese::equals);
     }
 

@@ -35,7 +35,7 @@ class GetAxiomsIgnoringAnnotationsTestCase extends TestBase {
         OWLLiteral annoLiteral = Literal("value");
         OWLAnnotation anno = df.getOWLAnnotation(AP, annoLiteral);
         OWLAxiom axiom = df.getOWLSubClassOfAxiom(A, B, singleton(anno));
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = create("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.getAxiomsIgnoreAnnotations(axiom, EXCLUDED).contains(axiom));
         assertFalse(ont.getAxiomsIgnoreAnnotations(axiom, EXCLUDED)

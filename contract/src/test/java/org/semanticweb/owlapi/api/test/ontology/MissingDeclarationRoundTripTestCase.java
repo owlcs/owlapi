@@ -42,7 +42,7 @@ class MissingDeclarationRoundTripTestCase extends TestBase {
 
     @Nonnull
     private OWLOntology createOntology(@Nonnull OWLAnnotationProperty p) {
-        OWLOntology o = getAnonymousOWLOntology();
+        OWLOntology o = createAnon();
         o.getOWLOntologyManager().addAxiom(o, AnnotationAssertion(p, A.getIRI(), Literal("Hello")));
         return o;
     }

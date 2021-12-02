@@ -35,17 +35,18 @@ class IRIShorteningTestCase extends TestBase {
         assertionOnShortening(o, new ManchesterSyntaxDocumentFormatFactory());
     }
 
-    protected void assertionOnShortening(OWLOntology o, OWLDocumentFormatFactory f) {
-        OWLDocumentFormat turtle = f.createFormat();
+    protected void assertionOnShortening(OWLOntology o, OWLDocumentFormatFactory format) {
+        OWLDocumentFormat turtle = format.createFormat();
         turtle.asPrefixOWLOntologyFormat().setPrefix("s", "urn:test:individual#");
         StringDocumentTarget saveOntology = saveOntology(o, turtle);
-        OWLOntology loadOntologyFromString = loadOntologyFromString(saveOntology, f.createFormat());
+        OWLOntology loadOntologyFromString =
+            loadOntologyFromString(saveOntology, format.createFormat());
         assertEquals(o.getAxioms(), loadOntologyFromString.getAxioms());
         roundTrip(o, turtle);
     }
 
     protected OWLOntology ontForShortening() {
-        OWLOntology o = getOWLOntology(iri("urn:ontology:", "testcolons"));
+        OWLOntology o = create(iri("urn:ontology:", "testcolons"));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(
             df.getOWLNamedIndividual(iri("urn:test:individual#colona:", "colonb"))));
         return o;

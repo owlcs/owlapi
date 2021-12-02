@@ -56,18 +56,17 @@ class OWLLiteralCorruptionTestCase extends TestBase {
 
     @Test
     void shouldRoundTripXMLLiteral() {
-        OWLLiteral l = df.getOWLLiteral(TestFiles.literalXMl, OWL2Datatype.RDF_XML_LITERAL);
-        OWLOntology o = o(df.getOWLDataPropertyAssertionAxiom(DP, i, l));
+        OWLLiteral xml = df.getOWLLiteral(TestFiles.literalXMl, OWL2Datatype.RDF_XML_LITERAL);
+        OWLOntology o = o(df.getOWLDataPropertyAssertionAxiom(DP, i, xml));
         String string = saveOntology(o).toString();
         assertTrue(string.contains(TestFiles.literalXMl));
     }
 
     @Test
     void shouldFailOnMalformedXMLLiteral() {
-        OWLLiteral l =
+        OWLLiteral malformed =
             df.getOWLLiteral(TestFiles.literalMalformedXML, OWL2Datatype.RDF_XML_LITERAL);
-        OWLNamedIndividual i = df.getOWLNamedIndividual(iri(URN_TEST, "i"));
-        OWLOntology o = o(df.getOWLDataPropertyAssertionAxiom(DP, I, l));
+        OWLOntology o = o(df.getOWLDataPropertyAssertionAxiom(DP, I, malformed));
         assertThrowsWithCauseMessage(OWLRuntimeException.class, OWLOntologyStorageException.class,
             "XML literal is not self contained", () -> saveOntology(o));
     }
@@ -95,11 +94,11 @@ class OWLLiteralCorruptionTestCase extends TestBase {
                 iri(URN_TEST, "test"), new FunctionalSyntaxDocumentFormat(), null));
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o2);
-        OWLNamedIndividual i =
+        OWLNamedIndividual iC =
             df.getOWLNamedIndividual(iri("http://www.semanticweb.org/owlapi/test#", "c"));
-        assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, i, ZERO_ONE)));
-        assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, i, ONE)));
-        assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, i, ONESHORT)));
+        assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, iC, ZERO_ONE)));
+        assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, iC, ONE)));
+        assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, iC, ONESHORT)));
     }
 
     @Test

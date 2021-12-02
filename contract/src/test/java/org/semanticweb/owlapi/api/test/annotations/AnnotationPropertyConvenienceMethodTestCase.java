@@ -13,16 +13,16 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Filters.subAnnotationWithSuper;
-import static org.semanticweb.owlapi.search.Searcher.*;
+import static org.semanticweb.owlapi.search.Searcher.sub;
+import static org.semanticweb.owlapi.search.Searcher.sup;
 
 import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.search.Filters;
@@ -35,7 +35,7 @@ class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
 
     @Test
     void testGetSuperProperties() {
-        OWLOntology ont = getOWLOntology("OntA");
+        OWLOntology ont = create("OntA");
         ont.getOWLOntologyManager().addAxiom(ont,
             df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,
@@ -51,7 +51,7 @@ class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
 
     @Test
     void testGetSubProperties() {
-        OWLOntology ont = getOWLOntology("OntA");
+        OWLOntology ont = create("OntA");
         ont.getOWLOntologyManager().addAxiom(ont,
             df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,

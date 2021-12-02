@@ -169,7 +169,7 @@ class SerializationTestCase extends TestBase {
         m.addAxiom(o, ax);
     }
 
-    protected OWLAxiom sub(OWLClassExpression cl, OWLClassExpression d) {
-        return df.getOWLSubClassOfAxiom(cl, d);
+    protected OWLAxiom sub(OWLClassExpression cl, OWLClassExpression classExpression) {
+        return df.getOWLSubClassOfAxiom(cl, classExpression);
     }
 }

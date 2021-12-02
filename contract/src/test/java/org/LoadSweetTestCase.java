@@ -39,9 +39,9 @@ public class LoadSweetTestCase extends TestBase {
     }
 
     void shouldMain() {
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        m.getIRIMappers().add(mapper());
-        OWLOntology o = loadOntology(IRI.create("http://sweetontology.net/relaMath"), m);
+        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        man.getIRIMappers().add(mapper());
+        OWLOntology o = loadOntology(IRI.create("http://sweetontology.net/relaMath"), man);
         o.getImportsClosure().stream().forEach(x -> {
             String s = x.getAxioms().stream().filter(ax -> ax.toString().contains("Error1"))
                 .map(Object::toString).collect(Collectors.joining("\n"));

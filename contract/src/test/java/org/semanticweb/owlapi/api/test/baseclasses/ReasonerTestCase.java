@@ -58,7 +58,7 @@ class ReasonerTestCase extends TestBase {
 
     @Nonnull
     private OWLOntology createOntology() {
-        OWLOntology o = getOWLOntology("ont");
+        OWLOntology o = create("ont");
         OWLOntologyManager man = o.getOWLOntologyManager();
         man.addAxiom(o, SubClassOf(G, OWLThing()));
         man.addAxiom(o, SubClassOf(OWLThing(), G));

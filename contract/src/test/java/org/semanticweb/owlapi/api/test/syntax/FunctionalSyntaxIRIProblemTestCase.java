@@ -39,7 +39,7 @@ class FunctionalSyntaxIRIProblemTestCase extends TestBase {
     @Test
     public void testmain() {
         OWLDataFactory factory = m.getOWLDataFactory();
-        OWLOntology ontology = getOWLOntology(iri("urn:testontology:", "o1"));
+        OWLOntology ontology = create(iri("urn:testontology:", "o1"));
         OWLObjectProperty p = factory.getOWLObjectProperty(IRI("http://example.org/A_#part_of"));
         OWLClass a = Class(IRI("http://example.org/A_A"));
         OWLClass b = Class(IRI("http://example.org/A_B"));
@@ -66,7 +66,7 @@ class FunctionalSyntaxIRIProblemTestCase extends TestBase {
 
     @Test
     public void shouldRespectDefaultPrefix() {
-        OWLOntology ontology = getOWLOntology(iri("http://www.dis.uniroma1.it/example/", ""));
+        OWLOntology ontology = create(iri("http://www.dis.uniroma1.it/example/", ""));
         PrefixManager pm = new DefaultPrefixManager();
         pm.setPrefix("example", "http://www.dis.uniroma1.it/example/");
         OWLClass pizza = df.getOWLClass("example:pizza", pm);
@@ -92,7 +92,7 @@ class FunctionalSyntaxIRIProblemTestCase extends TestBase {
     @Test
     public void shouldPreservePrefix() {
         String prefix = "http://www.dis.uniroma1.it/pizza";
-        OWLOntology ontology = getOWLOntology(iri(prefix, ""));
+        OWLOntology ontology = create(iri(prefix, ""));
         PrefixManager pm = new DefaultPrefixManager();
         pm.setPrefix("pizza", prefix);
         OWLClass pizza = df.getOWLClass("pizza:PizzaBase", pm);

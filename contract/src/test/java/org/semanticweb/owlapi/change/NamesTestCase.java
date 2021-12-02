@@ -69,7 +69,7 @@ class NamesTestCase extends TestBase {
         assertEquals("OWLXMLParser", new OWLXMLParser().getName());
         assertEquals("RDFXMLParser", new RDFXMLParser().getName());
         assertEquals("TurtleOntologyParser", new TurtleOntologyParser().getName());
-        OWLOntology createOntology = getAnonymousOWLOntology();
+        OWLOntology createOntology = createAnon();
         assertEquals("Average number of named superclasses",
             new AverageAssertedNamedSuperclassCount(createOntology).getName());
         assertEquals("Axiom", new AxiomCount(createOntology).getName());

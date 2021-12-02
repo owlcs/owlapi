@@ -55,7 +55,7 @@ class AnonymousFunctionalRoundtripTestCase extends TestBase {
     @Test
     void shouldRoundTrip() {
         OWLIndividual anon = AnonymousIndividual();
-        OWLOntology ontology = getOWLOntology(iri(NS, ""));
+        OWLOntology ontology = create(iri(NS, ""));
         List<AddAxiom> changes = new ArrayList<>();
         changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, anon))));
         changes.add(new AddAxiom(ontology, ClassAssertion(D, anon)));

@@ -42,7 +42,7 @@ class ManchesterSyntaxParserTest extends TestBase {
     @MethodSource("data")
     public void testParseDataCardinalityExpression(String input, Object expected) {
         OWLDataProperty hasAge = df.getOWLDataProperty(iri("http://example.org/", "hasAge"));
-        OWLOntology ont = getAnonymousOWLOntology();
+        OWLOntology ont = createAnon();
         m.addAxiom(ont, df.getOWLDeclarationAxiom(hasAge));
         ManchesterOWLSyntaxClassExpressionParser parser =
             new ManchesterOWLSyntaxClassExpressionParser(df, checker(m));

@@ -76,7 +76,7 @@ class OWLOntologyChangeRecordTestCase extends TestBase {
 
     @Test
     void testCreateOntologyChangeEquals() {
-        OWLOntology ontology = getAnonymousOWLOntology();
+        OWLOntology ontology = createAnon();
         OWLOntologyID ontologyID = ontology.getOntologyID();
         AddAxiomData addAxiomData = new AddAxiomData(mockAxiom);
         OWLOntologyChangeRecord changeRecord =

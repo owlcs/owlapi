@@ -46,8 +46,8 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
         StringWriter out = new StringWriter();
         try (BufferedWriter bufferedWriter = new BufferedWriter(out)) {
             OBOFormatWriter.write(cl, bufferedWriter, null);
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+        } catch (IOException ex) {
+            throw new OWLRuntimeException(ex);
         }
         return out.toString().trim();
     }
@@ -101,10 +101,10 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
         int length = oboString.length();
         assertTrue(length > 0);
         int newLineCount = 0;
-        for (int i = length - 1; i >= 0; i--) {
-            char c = oboString.charAt(i);
-            if (Character.isWhitespace(c)) {
-                if (c == '\n') {
+        for (int index = length - 1; index >= 0; index--) {
+            char ch = oboString.charAt(index);
+            if (Character.isWhitespace(ch)) {
+                if (ch == '\n') {
                     newLineCount++;
                 }
             } else {
@@ -133,8 +133,8 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
                 sb.append(line);
                 sb.append('\n');
             }
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+        } catch (IOException ex) {
+            throw new OWLRuntimeException(ex);
         }
         String input = sb.toString();
         OBODoc obodoc = parseOboToString(input);

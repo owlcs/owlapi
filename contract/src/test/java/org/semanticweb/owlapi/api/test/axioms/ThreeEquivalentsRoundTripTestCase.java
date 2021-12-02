@@ -30,7 +30,7 @@ class ThreeEquivalentsRoundTripTestCase extends TestBase {
         // given
         OWLAxiom axiomToAdd =
             EquivalentClasses(A, ObjectSomeValuesFrom(P, B), ObjectSomeValuesFrom(Q, C));
-        OWLOntology ontology = getAnonymousOWLOntology();
+        OWLOntology ontology = createAnon();
         ontology.getOWLOntologyManager().addAxiom(ontology, axiomToAdd);
         // when
         ontology = roundTrip(ontology);

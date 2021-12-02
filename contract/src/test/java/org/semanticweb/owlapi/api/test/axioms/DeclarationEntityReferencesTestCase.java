@@ -47,7 +47,7 @@ class DeclarationEntityReferencesTestCase extends TestBase {
         OWLClass cls = createClass();
         OWLAxiom ax = Declaration(cls);
         OWLOntology ont =
-            getOWLOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
+            create(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getClassesInSignature().contains(cls));
     }
@@ -57,7 +57,7 @@ class DeclarationEntityReferencesTestCase extends TestBase {
         OWLObjectProperty prop = createObjectProperty();
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont =
-            getOWLOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
+            create(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getObjectPropertiesInSignature().contains(prop));
     }
@@ -67,7 +67,7 @@ class DeclarationEntityReferencesTestCase extends TestBase {
         OWLDataProperty prop = createDataProperty();
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont =
-            getOWLOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
+            create(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getDataPropertiesInSignature().contains(prop));
     }
@@ -77,7 +77,7 @@ class DeclarationEntityReferencesTestCase extends TestBase {
         OWLNamedIndividual ind = createIndividual();
         OWLAxiom ax = Declaration(ind);
         OWLOntology ont =
-            getOWLOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
+            create(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getIndividualsInSignature().contains(ind));
     }

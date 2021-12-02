@@ -178,19 +178,19 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void anonymousRoundTripTestCase(OWLDocumentFormat f) {
-        OWLOntology ont1 = getAnonymousOWLOntology();
+    void anonymousRoundTripTestCase(OWLDocumentFormat format) {
+        OWLOntology ont1 = createAnon();
         ont1.getOWLOntologyManager().addAxioms(ont1, anonymousRoundTrip());
-        roundTrip(ont1, f);
+        roundTrip(ont1, format);
     }
 
     static Set<OWLAxiom> anonymousRoundTrip() {
         OWLDataProperty dp = df.getOWLDataProperty(iri("urn:test:anon#", "D"));
         OWLObjectProperty op = df.getOWLObjectProperty(iri("urn:test:anon#", "O"));
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("urn:test:anon#", "A2"));
-        OWLAnonymousIndividual i = df.getOWLAnonymousIndividual("_:b0");
         OWLAnnotation sub1 = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral("z1"));
-        OWLAnnotation an1 = df.getOWLAnnotation(ap, i, Collections.singleton(sub1));
+        OWLAnnotation an1 = df.getOWLAnnotation(ap, df.getOWLAnonymousIndividual("_:b0"),
+            Collections.singleton(sub1));
 
         OWLClassExpression c1 = df.getOWLDataAllValuesFrom(dp, df.getBooleanOWLDatatype());
         OWLClassExpression c2 = df.getOWLObjectSomeValuesFrom(op, df.getOWLThing());
@@ -209,12 +209,12 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void anonymousOntologyAnnotationsTestCase(OWLDocumentFormat f) {
-        roundTrip(anonOntology(), f);
+    void anonymousOntologyAnnotationsTestCase(OWLDocumentFormat format) {
+        roundTrip(anonOntology(), format);
     }
 
     protected OWLOntology anonOntology() {
-        OWLOntology ont = getAnonymousOWLOntology();
+        OWLOntology ont = createAnon();
         OWLAnnotationProperty prop = AnnotationProperty(
             IRI("http://www.semanticweb.org/ontologies/test/annotationont#", "prop"));
         OWLAnnotation annotation = df.getOWLAnnotation(prop, Literal(33));
@@ -230,8 +230,8 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void fileRoudTripWithKnownInputFormatTestCase(OWLDocumentFormat f) {
-        roundTrip(blankNodesTurtleDomain(), f);
+    void fileRoudTripWithKnownInputFormatTestCase(OWLDocumentFormat format) {
+        roundTrip(blankNodesTurtleDomain(), format);
     }
 
     protected OWLOntology blankNodesTurtleDomain() {
@@ -240,8 +240,8 @@ class AbstractRoundTrippingTestCase extends TestBase {
             IRI iri = IRI.create(resource.toURI());
             return loadOntologyFromSource(
                 new IRIDocumentSource(iri, new TurtleDocumentFormat(), null));
-        } catch (URISyntaxException e) {
-            throw new OWLRuntimeException(e);
+        } catch (URISyntaxException ex) {
+            throw new OWLRuntimeException(ex);
         }
     }
 
@@ -252,12 +252,12 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void fileRoundTripNoRioRDFXMLTestCase(OWLDocumentFormat f) {
-        if (RioRDFXMLDocumentFormat.class.isInstance(f)) {
+    void fileRoundTripNoRioRDFXMLTestCase(OWLDocumentFormat format) {
+        if (RioRDFXMLDocumentFormat.class.isInstance(format)) {
             // XML literals managed differently in Rio
             return;
         }
-        roundTrip(loadOntology("XMLLiteral.rdf"), f);
+        roundTrip(loadOntology("XMLLiteral.rdf"), format);
     }
 
     @ParameterizedTest
@@ -330,9 +330,8 @@ class AbstractRoundTrippingTestCase extends TestBase {
     private static Set<OWLAxiom> anonymousIndividuals2() {
         // Originally submitted by Timothy Redmond
         OWLAnonymousIndividual h = AnonymousIndividual();
-        OWLAnonymousIndividual i = AnonymousIndividual();
         return set(AnnotationAssertion(AP, A.getIRI(), h), ClassAssertion(A, h),
-            ObjectPropertyAssertion(Q, h, i),
+            ObjectPropertyAssertion(Q, h, AnonymousIndividual()),
             AnnotationAssertion(RDFSLabel(), h, Literal("Second", "en")));
     }
 
@@ -370,44 +369,45 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     static List<Arguments> fileRoundTrip() {
         List<Arguments> list = new ArrayList<>();
-        FILE_ROUND_TRIP.forEach(file -> formats().forEach(f -> list.add(Arguments.of(file, f))));
+        FILE_ROUND_TRIP
+            .forEach(file -> formats().forEach(format -> list.add(Arguments.of(file, format))));
         // use a different equal method
         Arrays
             .asList("extraBlankNodes.owl", "testBlankNodes2.ttl", "testBlankNodesAssertions.ttl",
                 "owlxml_anonloop.owx")
-            .forEach(file -> formats().forEach(f -> list.add(Arguments.of(file, f))));
+            .forEach(file -> formats().forEach(format -> list.add(Arguments.of(file, format))));
 
         return list;
     }
 
     static List<Arguments> roundTrip() {
         List<Arguments> list = new ArrayList<>();
-        literalWithEscapesNoRioRDFXMLTestCase()
-            .forEach(axioms -> formats().forEach(f -> list.add(Arguments.of(axioms, f))));
-        axiomsRoundTrippingTestCase()
-            .forEach(axioms -> formats().forEach(f -> list.add(Arguments.of(axioms, f))));
-        axiomsRoundTrippingWithEntitiesTestCase()
-            .forEach(axioms -> formats().forEach(f -> list.add(Arguments.of(axioms, f))));
-        relativeURITestCase()
-            .forEach(axioms -> formats().forEach(f -> list.add(Arguments.of(axioms, f))));
+        literalWithEscapesNoRioRDFXMLTestCase().forEach(axioms -> forEachFormat(list, axioms));
+        axiomsRoundTrippingTestCase().forEach(axioms -> forEachFormat(list, axioms));
+        axiomsRoundTrippingWithEntitiesTestCase().forEach(axioms -> forEachFormat(list, axioms));
+        relativeURITestCase().forEach(axioms -> forEachFormat(list, axioms));
         axiomsRoundTrippingNoManchesterSyntaxTestCase()
             .forEach(axioms -> formatsSkip(ManchesterSyntaxDocumentFormat.class)
-                .forEach(f -> list.add(Arguments.of(axioms, f))));
+                .forEach(format -> list.add(Arguments.of(axioms, format))));
         return list;
+    }
+
+    protected static void forEachFormat(List<Arguments> list, Set<OWLAxiom> axioms) {
+        formats().forEach(format -> list.add(Arguments.of(axioms, format)));
     }
 
     static List<Arguments> fileRoundTripNoManSyntax() {
         List<Arguments> list = new ArrayList<>();
         Arrays.asList("AnonymousInverses.rdf", "TestParser08.rdf", "nodeid.rdf")
             .forEach(file -> formatsSkip(ManchesterSyntaxDocumentFormat.class)
-                .forEach(f -> list.add(Arguments.of(file, f))));
+                .forEach(format -> list.add(Arguments.of(file, format))));
         return list;
     }
 
     @ParameterizedTest
     @MethodSource({"fileRoundTrip", "fileRoundTripNoManSyntax"})
-    void fileRoundTripTestCase(String fileName, OWLDocumentFormat f) {
-        roundTrip(loadOntology(fileName), f);
+    void fileRoundTripTestCase(String fileName, OWLDocumentFormat format) {
+        roundTrip(loadOntology(fileName), format);
     }
 
     @Test
@@ -472,8 +472,8 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("roundTrip")
-    void roundTripFormats(Set<OWLAxiom> axioms, OWLDocumentFormat f) {
-        roundTripOntology(o(axioms), f);
+    void roundTripFormats(Set<OWLAxiom> axioms, OWLDocumentFormat format) {
+        roundTripOntology(o(axioms), format);
     }
 
     @ParameterizedTest
@@ -512,8 +512,8 @@ class AbstractRoundTrippingTestCase extends TestBase {
         roundTripOntology(o, new DLSyntaxDocumentFormat());
     }
 
-    protected OWLOntology createOntology(String fileName, OWLDocumentFormat f) {
-        OWLOntology o = ontologyFromClasspathFile(fileName, f);
+    protected OWLOntology createOntology(String fileName, OWLDocumentFormat format) {
+        OWLOntology o = ontologyFromClasspathFile(fileName, format);
         if (logger.isTraceEnabled()) {
             logger.trace("ontology as parsed from input file:");
             o.getAxioms().forEach(ax -> logger.trace(ax.toString()));
@@ -523,16 +523,16 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void literalWithEscapesTestCase(OWLDocumentFormat f) {
-        if (RioRDFXMLDocumentFormat.class.isInstance(f)) {
+    void literalWithEscapesTestCase(OWLDocumentFormat format) {
+        if (RioRDFXMLDocumentFormat.class.isInstance(format)) {
             // Rio normalizes literals differently, got its own test
             return;
         }
 
         Set<OWLAxiom> axioms = literalWithEscapes();
-        OWLOntology o = getAnonymousOWLOntology();
+        OWLOntology o = createAnon();
         o.getOWLOntologyManager().addAxioms(o, axioms);
-        roundTrip(o, f);
+        roundTrip(o, format);
     }
 
     protected static Set<OWLAxiom> literalWithEscapes() {
@@ -570,18 +570,18 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void ontologyAnnotationsTestCase(OWLDocumentFormat f) {
-        if (RDFJsonDocumentFormat.class.isInstance(f)) {
+    void ontologyAnnotationsTestCase(OWLDocumentFormat format) {
+        if (RDFJsonDocumentFormat.class.isInstance(format)) {
             // XXX RDFJsonDocumentFormat ignored. The parser parses the annotation correctly but it
             // is not
             // associated to the ontology.
             return;
         }
-        roundTrip(ontologyAnnotation(), f);
+        roundTrip(ontologyAnnotation(), format);
     }
 
     protected OWLOntology ontologyAnnotation() {
-        OWLOntology ont = getAnonymousOWLOntology();
+        OWLOntology ont = createAnon();
         OWLAnnotationProperty prop = AnnotationProperty(
             IRI("http://www.semanticweb.org/ontologies/test/annotationont#", "prop"));
         OWLLiteral value = Literal(33);
@@ -607,8 +607,9 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void ontologyIRITestCase(OWLDocumentFormat f) {
-        roundTrip(loadOntologyFromString(TestFiles.ontologyIRI, new RDFXMLDocumentFormat()), f);
+    void ontologyIRITestCase(OWLDocumentFormat format) {
+        roundTrip(loadOntologyFromString(TestFiles.ontologyIRI, new RDFXMLDocumentFormat()),
+            format);
     }
 
     @Test
@@ -618,15 +619,15 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void ontologyVersionIRITestCase(OWLDocumentFormat f) {
-        roundTrip(ontologyVersion(), f);
+    void ontologyVersionIRITestCase(OWLDocumentFormat format) {
+        roundTrip(ontologyVersion(), format);
     }
 
     protected OWLOntology ontologyVersion() {
         IRI ontIRI = IRI("http://www.semanticweb.org/owlapi/", "ontology");
         IRI versionIRI = IRI("http://www.semanticweb.org/owlapi/ontology/", "version");
         OWLOntologyID ontologyID = new OWLOntologyID(ontIRI, versionIRI);
-        return getOWLOntology(ontologyID);
+        return create(ontologyID);
     }
 
     @Test
@@ -636,12 +637,12 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void threeLayersOfAnnotationsTestCase(OWLDocumentFormat f) {
-        if (ManchesterSyntaxDocumentFormat.class.isInstance(f)) {
+    void threeLayersOfAnnotationsTestCase(OWLDocumentFormat format) {
+        if (ManchesterSyntaxDocumentFormat.class.isInstance(format)) {
             // not supported in Manchester syntax
             return;
         }
-        roundTrip(threeLayersOfAnnotations(), f);
+        roundTrip(threeLayersOfAnnotations(), format);
     }
 
     @Test
@@ -650,7 +651,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     protected OWLOntology threeLayersOfAnnotations() {
-        OWLOntology o = getOWLOntology(iri("urn:nested:", "ontology"));
+        OWLOntology o = create(iri("urn:nested:", "ontology"));
         OWLClass dbxref = df.getOWLClass(iri("urn:obo:", "DbXref"));
         OWLClass definition = df.getOWLClass(iri("urn:obo:", "Definition"));
         OWLObjectProperty adjacent_to = df.getOWLObjectProperty(iri("urn:obo:", "adjacent_to"));
@@ -739,8 +740,8 @@ class AbstractRoundTrippingTestCase extends TestBase {
     //@formatter:on
     @ParameterizedTest
     @MethodSource("formats")
-    void roundTripOWLXMLToRioTurtleTestCase(OWLDocumentFormat f) {
-        roundTrip(loadOntologyFromString(original, new OWLXMLDocumentFormat()), f);
+    void roundTripOWLXMLToRioTurtleTestCase(OWLDocumentFormat format) {
+        roundTrip(loadOntologyFromString(original, new OWLXMLDocumentFormat()), format);
     }
 
     @Test
@@ -991,7 +992,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     void shouldThrowMeaningfulException() {
-        OWLOntology ontology = getAnonymousOWLOntology();
+        OWLOntology ontology = createAnon();
         RDFXMLParser parser = new RDFXMLParser();
         // on Java 6 for Mac the following assertion does not work: the root
         // exception does not have a message.

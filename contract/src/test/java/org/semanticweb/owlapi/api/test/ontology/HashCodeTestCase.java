@@ -98,7 +98,7 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void shouldHaveSameHashCodeForOntologies() {
-        final OWLOntology ontology = getAnonymousOWLOntology();
+        final OWLOntology ontology = createAnon();
         int hash = ontology.hashCode();
         IRI iri = iri("urn:test:", "ontology");
         m.applyChange(new SetOntologyID(ontology, iri));

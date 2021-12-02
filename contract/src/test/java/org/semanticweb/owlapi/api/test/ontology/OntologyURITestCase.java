@@ -44,7 +44,7 @@ class OntologyURITestCase extends TestBase {
     @Test
     void testNamedOntologyToString() {
         IRI ontIRI = iri("http://owlapi.sourceforge.net/", "ont");
-        OWLOntology ont = getOWLOntology(ontIRI);
+        OWLOntology ont = create(ontIRI);
         String s = ont.toString();
         String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: " + ont.getAxiomCount()
             + " Logical Axioms: " + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
@@ -65,7 +65,7 @@ class OntologyURITestCase extends TestBase {
 
     @Test
     void testOntologyURI() {
-        OWLOntology ont = getOWLOntology(onto);
+        OWLOntology ont = create(onto);
         assertEquals(onto, ont.getOntologyID().getOntologyIRI().get());
         assertTrue(m.contains(onto));
         assertTrue(m.getOntologies().contains(ont));
@@ -76,15 +76,15 @@ class OntologyURITestCase extends TestBase {
     @Test
     void testDuplicateOntologyURI() {
         IRI uri = nextOnt();
-        getOWLOntology(uri);
+        create(uri);
         assertThrowsWithCause(OWLRuntimeException.class, OWLOntologyAlreadyExistsException.class,
-            () -> getOWLOntology(uri));
+            () -> create(uri));
     }
 
     @Test
     void testSetOntologyURI() {
         IRI iri = nextOnt();
-        OWLOntology ont = getOWLOntology(iri);
+        OWLOntology ont = create(iri);
         IRI newIRI = nextOnt();
         SetOntologyID sou = new SetOntologyID(ont, new OWLOntologyID(newIRI, null));
         m.applyChange(sou);
@@ -98,7 +98,7 @@ class OntologyURITestCase extends TestBase {
         IRI ontIRI = nextOnt();
         IRI verIRI =
             OWLOntologyDocumentSourceBase.getNextDocumentIRI(ANOTHER_COM_ONT + "versions/1.0.0");
-        OWLOntology ont = getOWLOntology(new OWLOntologyID(ontIRI, verIRI));
+        OWLOntology ont = create(new OWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
         assertEquals(ont.getOntologyID().getVersionIRI().get(), verIRI);
     }
@@ -107,7 +107,7 @@ class OntologyURITestCase extends TestBase {
     void testNullVersionURI() {
         IRI ontIRI = nextOnt();
         IRI verIRI = null;
-        OWLOntology ont = getOWLOntology(new OWLOntologyID(ontIRI, verIRI));
+        OWLOntology ont = create(new OWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
         assertFalse(ont.getOntologyID().getVersionIRI().isPresent());
     }

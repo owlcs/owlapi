@@ -28,7 +28,7 @@ class HeaderSignatureTestCase extends TestBase {
         OWLDatatype intType = df.getIntegerOWLDatatype();
         OWLDatatype stringType = OWL2Datatype.XSD_STRING.getDatatype(df);
 
-        OWLOntology o = getOWLOntology(IRI.create("http://XXXX"));
+        OWLOntology o = create(IRI.create("http://XXXX"));
         OWLLiteral intLiteral = df.getOWLLiteral("42", intType);
         OWLLiteral stringLiteral = df.getOWLLiteral("xxx", stringType);
         OWLAnnotation a1 = df.getOWLAnnotation(df.getRDFSComment(), stringLiteral);

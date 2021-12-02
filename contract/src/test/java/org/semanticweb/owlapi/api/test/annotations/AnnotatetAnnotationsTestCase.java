@@ -79,7 +79,7 @@ class AnnotatetAnnotationsTestCase extends TestBase {
     @Test
     void shouldAnnotateOntologyAnnotations() {
         IRI create = iri("urn:test:", "onto");
-        OWLOntology o = getOWLOntology(create);
+        OWLOntology o = create(create);
         OWLAnnotation a2 = df.getOWLAnnotation(propP, Literal("value2"), Collections.singleton(df
             .getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("nested ontology annotation"))));
         OWLAnnotation a1 = df.getOWLAnnotation(propQ, Literal("value1"), Collections.singleton(a2));

@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 

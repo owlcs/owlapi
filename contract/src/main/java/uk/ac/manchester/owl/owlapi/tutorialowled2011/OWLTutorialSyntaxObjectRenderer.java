@@ -101,7 +101,6 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings({"javadoc",})
 public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
     private static final boolean TABLES = true;

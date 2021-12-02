@@ -29,7 +29,7 @@ class DeclareAnnotatedEntitiesTestCase extends TestBase {
         Set<OWLDeclarationAxiom> declarations = ontology.getAxioms(AxiomType.DECLARATION);
         Set<OWLAnnotationAssertionAxiom> annotationAssertionAxioms =
             ontology.getAxioms(AxiomType.ANNOTATION_ASSERTION);
-        OWLOntology ontology2 = getAnonymousOWLOntology();
+        OWLOntology ontology2 = createAnon();
         ontology2.getOWLOntologyManager().addAxioms(ontology2, annotationAssertionAxioms);
         OWLOntology o3 = roundTrip(ontology2, new RDFXMLDocumentFormat());
         Set<OWLDeclarationAxiom> reloadedDeclarations = o3.getAxioms(AxiomType.DECLARATION);

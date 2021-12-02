@@ -37,7 +37,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 class LoadAnonymousTestCase extends TestBase {
 
-    private static final String OBO = "http://purl.obolibrary.org/obo/";
     private static final String OBO_UO = "http://purl.obolibrary.org/obo/uo#";
     private static final String OBO_IN_OWL = "http://www.geneontology.org/formats/oboInOwl#";
 

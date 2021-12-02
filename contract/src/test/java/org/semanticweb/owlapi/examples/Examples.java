@@ -128,7 +128,7 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({"javadoc", "unused", "null"})
+@SuppressWarnings({"unused", "null"})
 public class Examples extends TestBase {
 
     /**
@@ -498,9 +498,7 @@ public class Examples extends TestBase {
         // The ontology will now contain references to class A and class B -
         // that is, class A and class B are contained within the SIGNATURE of
         // the ontology let's print them out
-        for (OWLClass c : ontology.getClassesInSignature()) {
-            c.toString();
-        }
+        ontology.getClassesInSignature().forEach(Object::toString);
         // do anything that's necessary, e.g., print them out
         // System.out.println("Referenced class: " + cls);
         // We should also find that B is an ASSERTED superclass of A
@@ -963,10 +961,10 @@ public class Examples extends TestBase {
         // given
         // individual and property.
         // Let's get all properties for all individuals
-        for (OWLNamedIndividual i : ont.getIndividualsInSignature()) {
+        for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
             for (OWLObjectProperty p : ont.getObjectPropertiesInSignature()) {
                 NodeSet<OWLNamedIndividual> individualValues =
-                    reasoner.getObjectPropertyValues(i, p);
+                    reasoner.getObjectPropertyValues(ind, p);
                 Set<OWLNamedIndividual> values = individualValues.getFlattened();
                 // System.out.println("The property values for "+p+" for
                 // individual "+i+" are: ");
@@ -1004,7 +1002,7 @@ public class Examples extends TestBase {
     }
 
     private static void printIndent(int depth) {
-        for (int i = 0; i < depth; i++) {
+        for (int index = 0; index < depth; index++) {
             // System.out.print(" ");
         }
     }

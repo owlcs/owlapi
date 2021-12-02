@@ -17,7 +17,7 @@ class PunningAndDomainsRangesTestCase extends TestBase {
 
     @Test
     void shouldKeepDomainsInFSS() {
-        OWLOntology o = getOWLOntology(IRI.create("urn:testontology"));
+        OWLOntology o = create(IRI.create("urn:testontology"));
         OWLAnnotationProperty ann = df.getOWLAnnotationProperty(DP.getIRI());
         m.addAxiom(o,
             df.getOWLAnnotationPropertyRangeAxiom(ann, OWL2Datatype.RDFS_LITERAL.getIRI()));

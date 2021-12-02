@@ -39,7 +39,7 @@ class DLSyntaxTestCase extends TestBase {
 
     @Test
     void testCommasOnDisjointThreeOntologyHTML() {
-        OWLOntology o = getOWLOntology(iri("urn:test:", "onto"));
+        OWLOntology o = create(iri("urn:test:", "onto"));
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
@@ -49,7 +49,7 @@ class DLSyntaxTestCase extends TestBase {
 
     @Test
     void testCommasOnDisjointTwoOntologyHTML() {
-        OWLOntology o = getOWLOntology(iri("urn:test:", "onto"));
+        OWLOntology o = create(iri("urn:test:", "onto"));
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
@@ -59,7 +59,7 @@ class DLSyntaxTestCase extends TestBase {
 
     @Test
     void testCommasOnDisjointFourOntologyHTML() {
-        OWLOntology o = getOWLOntology(iri("urn:test:", "onto"));
+        OWLOntology o = create(iri("urn:test:", "onto"));
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C, D);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
@@ -69,7 +69,7 @@ class DLSyntaxTestCase extends TestBase {
 
     @Test
     void testCommasOnDisjointThreeOntology() {
-        OWLOntology o = getOWLOntology("onto");
+        OWLOntology o = create("onto");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();
@@ -78,7 +78,7 @@ class DLSyntaxTestCase extends TestBase {
 
     @Test
     void testCommasOnDisjointTwoOntology() {
-        OWLOntology o = getOWLOntology("onto");
+        OWLOntology o = create("onto");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();
@@ -87,7 +87,7 @@ class DLSyntaxTestCase extends TestBase {
 
     @Test
     void testCommasOnDisjointFourOntology() {
-        OWLOntology o = getOWLOntology("onto");
+        OWLOntology o = create("onto");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C, D);
         m.addAxiom(o, ax);
         String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();

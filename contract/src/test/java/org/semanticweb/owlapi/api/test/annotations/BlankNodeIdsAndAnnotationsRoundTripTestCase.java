@@ -39,7 +39,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -109,29 +108,26 @@ class BlankNodeIdsAndAnnotationsRoundTripTestCase extends TestBase {
         // To allow roundtripping to work and help verify the rest of the axioms are accurately
         // written out and parsed, this method adds the lost unannotated axioms.
         if (singleAxiomsLost.contains(ont2.getOWLOntologyManager().getOntologyFormat(ont2))) {
-            OWLIndividual i = ont2.getAxioms(AxiomType.CLASS_ASSERTION).stream()
+            ont2.getAxioms(AxiomType.CLASS_ASSERTION).stream()
                 .filter(x -> x.getAnnotations().stream().anyMatch(ann2::equals))
-                .map(x -> x.getIndividual()).findAny().orElse(null);
-            if (i != null) {
-                ont2.getOWLOntologyManager().addAxioms(ont2,
-                    new HashSet<>(Arrays.asList(df.getOWLClassAssertionAxiom(ce3, i),
-                        df.getOWLClassAssertionAxiom(c4, i),
-                        df.getOWLClassAssertionAxiom(ce4, i))));
-            }
+                .map(x -> x.getIndividual()).findAny()
+                .ifPresent(individual -> ont2.getOWLOntologyManager().addAxioms(ont2,
+                    new HashSet<>(Arrays.asList(df.getOWLClassAssertionAxiom(ce3, individual),
+                        df.getOWLClassAssertionAxiom(c4, individual),
+                        df.getOWLClassAssertionAxiom(ce4, individual)))));
         }
         return super.equal(ont1, ont2);
     }
 
     @ParameterizedTest
     @MethodSource("formats")
-    void testFormat(OWLDocumentFormat d) {
-        roundTripOntology(blankNodeIdsAndAnnotationsRoundTripTestCase(getAnonymousOWLOntology()),
-            d);
+    void testFormat(OWLDocumentFormat format) {
+        roundTripOntology(blankNodeIdsAndAnnotationsRoundTripTestCase(createAnon()), format);
     }
 
     @Test
     void roundTripRDFXMLAndFunctionalShouldBeSame() {
-        OWLOntology o = blankNodeIdsAndAnnotationsRoundTripTestCase(getAnonymousOWLOntology());
+        OWLOntology o = blankNodeIdsAndAnnotationsRoundTripTestCase(createAnon());
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o1);

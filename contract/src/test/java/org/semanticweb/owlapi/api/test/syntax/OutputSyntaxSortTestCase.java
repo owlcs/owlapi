@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -46,11 +44,11 @@ class OutputSyntaxSortTestCase extends TestBase {
                 set.add(saveOntology(o, format).toString());
                 ontologies.add(o);
             }
-            for (int i = 0; i < ontologies.size() - 1; i++) {
-                equal(ontologies.get(i), ontologies.get(i + 1));
+            for (int index = 0; index < ontologies.size() - 1; index++) {
+                equal(ontologies.get(index), ontologies.get(index + 1));
             }
-            for (int i = 0; i < set.size() - 1; i++) {
-                assertEquals(set.get(i), set.get(i + 1));
+            for (int index = 0; index < set.size() - 1; index++) {
+                assertEquals(set.get(index), set.get(index + 1));
             }
         } finally {
             AnonymousIndividualProperties.resetToDefault();

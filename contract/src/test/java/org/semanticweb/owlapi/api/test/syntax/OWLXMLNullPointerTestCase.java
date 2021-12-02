@@ -42,17 +42,17 @@ class OWLXMLNullPointerTestCase extends TestBase {
 
     @Test
     void testRoundTrip() {
-        OWLOntology ontology = getOWLOntology(IRI(NS, ""));
+        OWLOntology ontology = create(IRI(NS, ""));
         OWLClass cheesy = Class(IRI(NS + "#", "CheeseyPizza"));
         OWLClass cheese = Class(IRI(NS + "#", "CheeseTopping"));
         OWLObjectProperty hasTopping = df.getOWLObjectProperty(iri(NS + "#", "hasTopping"));
-        OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
+        OWLAnonymousIndividual anonInd = df.getOWLAnonymousIndividual();
         OWLLiteral lit = df.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION);
-        OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(), i, lit);
-        OWLAxiom classAss = df.getOWLClassAssertionAxiom(cheesy, i);
+        OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(), anonInd, lit);
+        OWLAxiom classAss = df.getOWLClassAssertionAxiom(cheesy, anonInd);
         OWLIndividual j = df.getOWLAnonymousIndividual();
         OWLAxiom classAssj = df.getOWLClassAssertionAxiom(cheese, j);
-        OWLAxiom objAss = df.getOWLObjectPropertyAssertionAxiom(hasTopping, i, j);
+        OWLAxiom objAss = df.getOWLObjectPropertyAssertionAxiom(hasTopping, anonInd, j);
         m.addAxiom(ontology, annAss);
         m.addAxiom(ontology, classAss);
         m.addAxiom(ontology, classAssj);
@@ -62,9 +62,9 @@ class OWLXMLNullPointerTestCase extends TestBase {
 
     @Test
     void shouldParse() {
-        OWLOntology o = getOWLOntology(iri("urn:test:", "test"));
-        OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
-        OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(C, df.getOWLObjectHasValue(P, i));
+        OWLOntology o = create(iri("urn:test:", "test"));
+        OWLSubClassOfAxiom sub =
+            df.getOWLSubClassOfAxiom(C, df.getOWLObjectHasValue(P, df.getOWLAnonymousIndividual()));
         o.getOWLOntologyManager().addAxiom(o, sub);
         OWLOntology roundtrip = roundTrip(o, new OWLXMLDocumentFormat());
         equal(o, roundtrip);

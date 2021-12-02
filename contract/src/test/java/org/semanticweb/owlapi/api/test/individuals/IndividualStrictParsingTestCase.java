@@ -28,18 +28,18 @@ class IndividualStrictParsingTestCase extends TestBase {
 
     @Test
     void should() {
-        OWLOntology o = getAnonymousOWLOntology();
+        OWLOntology o = createAnon();
 
         OWLObjectProperty p =
             df.getOWLObjectProperty(IRI.create("http://purl.obolibrary.org/obo/BFO_0000051"));
-        OWLClass c = df.getOWLClass(IRI.create("http://purl.obolibrary.org/obo/ENVO_00000191"));
+        OWLClass cl = df.getOWLClass(IRI.create("http://purl.obolibrary.org/obo/ENVO_00000191"));
         OWLNamedIndividual individual =
             df.getOWLNamedIndividual(IRI.create("https://www.wikidata.org/wiki/Q2306597"));
 
         m.addAxioms(o,
-            new HashSet<>(Arrays.asList(df.getOWLDeclarationAxiom(p), df.getOWLDeclarationAxiom(c),
+            new HashSet<>(Arrays.asList(df.getOWLDeclarationAxiom(p), df.getOWLDeclarationAxiom(cl),
                 df.getOWLDeclarationAxiom(individual),
-                df.getOWLClassAssertionAxiom(df.getOWLObjectSomeValuesFrom(p, c), individual))));
+                df.getOWLClassAssertionAxiom(df.getOWLObjectSomeValuesFrom(p, cl), individual))));
         OWLOntologyLoaderConfiguration conf = new OWLOntologyLoaderConfiguration().setStrict(true);
         roundTrip(o, new RDFXMLDocumentFormat(), conf);
         roundTrip(o, new RioRDFXMLDocumentFormat(), conf);

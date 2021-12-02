@@ -35,12 +35,12 @@ class AnonymousTestCase extends TestBase {
 
     @Test
     void shouldRoundTrip() {
-        OWLIndividual i = AnonymousIndividual();
-        OWLOntology ontology = getAnonymousOWLOntology();
+        OWLIndividual anonInd = AnonymousIndividual();
+        OWLOntology ontology = createAnon();
         List<OWLOntologyChange> changes = new ArrayList<>();
-        changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, i))));
-        changes.add(new AddAxiom(ontology, ClassAssertion(D, i)));
-        changes.add(new AddAxiom(ontology, DataPropertyAssertion(DPP, i, Literal("hello"))));
+        changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, anonInd))));
+        changes.add(new AddAxiom(ontology, ClassAssertion(D, anonInd)));
+        changes.add(new AddAxiom(ontology, DataPropertyAssertion(DPP, anonInd, Literal("hello"))));
         m.applyChanges(changes);
         OWLOntology ontologyReloaded = loadOntologyFromString(saveOntology(ontology));
         equal(ontology, ontologyReloaded);
@@ -48,7 +48,7 @@ class AnonymousTestCase extends TestBase {
 
     @Test
     void testRoundTripWithAnonymousIndividuals() {
-        OWLOntology ontology = getOWLOntology("ontology.owl");
+        OWLOntology ontology = create("ontology.owl");
         OWLIndividual ind = df.getOWLAnonymousIndividual();
         OWLObjectPropertyAssertionAxiom ax1 = df.getOWLObjectPropertyAssertionAxiom(P, i, ind);
         OWLDataPropertyAssertionAxiom ax2 =

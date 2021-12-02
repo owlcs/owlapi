@@ -13,7 +13,8 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -38,7 +38,7 @@ class AnnotationPropertyReferencesTestCase extends TestBase {
     void testContainsReferenceForAnnotationAssertion() {
         OWLAnnotationSubject subject = A.getIRI();
         OWLAnnotationAssertionAxiom ax = AnnotationAssertion(AP, subject, val);
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = create("Ont");
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(AP.getIRI(), EXCLUDED));
         assertTrue(ont.getAnnotationPropertiesInSignature(EXCLUDED).contains(AP));
@@ -48,7 +48,7 @@ class AnnotationPropertyReferencesTestCase extends TestBase {
     void testContainsReferenceForAxiomAnnotation() {
         OWLAnnotation anno = df.getOWLAnnotation(AP, val);
         OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(A, B, singleton(anno));
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = create("Ont");
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(
             ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI(), EXCLUDED));
@@ -58,7 +58,7 @@ class AnnotationPropertyReferencesTestCase extends TestBase {
     @Test
     void testContainsReferenceForOntologyAnnotation() {
         OWLAnnotation anno = df.getOWLAnnotation(AP, val);
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = create("Ont");
         ont.getOWLOntologyManager().applyChange(new AddOntologyAnnotation(ont, anno));
         assertTrue(ont.containsAnnotationPropertyInSignature(AP.getIRI(), EXCLUDED));
         assertTrue(ont.getAnnotationPropertiesInSignature(EXCLUDED).contains(anno.getProperty()));

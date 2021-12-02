@@ -45,7 +45,7 @@ class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @BeforeEach
     void before() {
-        ont = getOWLOntology("Ont");
+        ont = create("Ont");
     }
 
     @Test

@@ -83,15 +83,15 @@ class ImportsTestCase extends TestBase {
     @Test
     void testImportsClosureUpdate() {
         IRI aIRI = IRI("http://a.com", "");
-        OWLOntology ontA = getOWLOntology(aIRI);
+        OWLOntology ontA = create(aIRI);
         IRI bIRI = IRI("http://b.com", "");
-        OWLOntology ontB = getOWLOntology(bIRI);
+        OWLOntology ontB = create(bIRI);
         ontA.getOWLOntologyManager()
             .applyChange(new AddImport(ontA, df.getOWLImportsDeclaration(bIRI)));
         assertEquals(2, m.getImportsClosure(ontA).size());
         m.removeOntology(ontB);
         assertEquals(1, m.getImportsClosure(ontA).size());
-        getOWLOntology(bIRI);
+        create(bIRI);
         assertEquals(2, m.getImportsClosure(ontA).size());
     }
 
@@ -103,12 +103,12 @@ class ImportsTestCase extends TestBase {
         File ontologyByVersion = new File(folder, "tempversion.owl");
         File ontologyByOtherPath = new File(folder, "tempother.owl");
         OWLOntology ontology =
-            getOWLOntology(new OWLOntologyID(iri(ontologyByName), iri(ontologyByVersion)));
+            create(new OWLOntologyID(iri(ontologyByName), iri(ontologyByVersion)));
         saveOntology(ontology, iri(ontologyByName));
         saveOntology(ontology, iri(ontologyByVersion));
         saveOntology(ontology, iri(ontologyByOtherPath));
-        OWLOntology ontology1 = getOWLOntology(iri(importsBothNameAndVersion));
-        OWLOntology ontology2 = getOWLOntology(iri(importsBothNameAndOther));
+        OWLOntology ontology1 = create(iri(importsBothNameAndVersion));
+        OWLOntology ontology2 = create(iri(importsBothNameAndOther));
         List<AddImport> changes = new ArrayList<>();
         changes.add(new AddImport(ontology1, df.getOWLImportsDeclaration(iri(ontologyByName))));
         changes.add(new AddImport(ontology1, df.getOWLImportsDeclaration(iri(ontologyByVersion))));
@@ -129,7 +129,7 @@ class ImportsTestCase extends TestBase {
 
     @Test
     public void shouldNotLoadWrong() {
-        OWLOntology first = getOWLOntology(iri("urn:test#", "test"));
+        OWLOntology first = create(iri("urn:test#", "test"));
         StringDocumentSource documentSource = new StringDocumentSource(TestFiles.loadRight);
         OWLOntology o = loadOntologyFromSource(documentSource, first.getOWLOntologyManager());
         assertTrue(o.isAnonymous());
@@ -138,9 +138,9 @@ class ImportsTestCase extends TestBase {
 
     @Test
     void testManualImports() {
-        OWLOntology baseOnt = getOWLOntology(IRI("http://semanticweb.org/ontologies/", "base"));
+        OWLOntology baseOnt = create(IRI("http://semanticweb.org/ontologies/", "base"));
         IRI importedIRI = IRI("http://semanticweb.org/ontologies/", "imported");
-        OWLOntology importedOnt = getOWLOntology(importedIRI);
+        OWLOntology importedOnt = create(importedIRI);
         Set<OWLOntology> preImportsClosureCache = baseOnt.getImportsClosure();
         assertTrue(preImportsClosureCache.contains(baseOnt));
         assertFalse(preImportsClosureCache.contains(importedOnt));
@@ -203,8 +203,8 @@ class ImportsTestCase extends TestBase {
      */
     @Test
     void testImportsClosure() {
-        OWLOntology ontA = getOWLOntology();
-        OWLOntology ontB = getOWLOntology();
+        OWLOntology ontA = create();
+        OWLOntology ontB = create();
         assertTrue(ontA.getImportsClosure().contains(ontA));
         OWLImportsDeclaration importsDeclaration =
             ImportsDeclaration(ontB.getOntologyID().getOntologyIRI().get());
@@ -225,7 +225,7 @@ class ImportsTestCase extends TestBase {
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
         when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
         m.getIRIMappers().set(mock);
-        getOWLOntology(remap);
+        create(remap);
         OWLOntology o = loadOntologyFromSource(new StringDocumentSource(TestFiles.remapImport), m);
         assertEquals(1, o.getImportsDeclarations().size());
         verify(mock).getDocumentIRI(testImport);
@@ -238,7 +238,7 @@ class ImportsTestCase extends TestBase {
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
         when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
         m.getIRIMappers().set(mock);
-        getOWLOntology(remap);
+        create(remap);
         OWLOntology o =
             loadOntologyFromSource(new StringDocumentSource(TestFiles.remapImportRdfXml), m);
         assertEquals(1, o.getImportsDeclarations().size());
@@ -247,13 +247,13 @@ class ImportsTestCase extends TestBase {
 
     @Test
     void testImportOntologyByLocation() {
-        File f = new File(folder, "a.owl");
-        createOntologyFile(IRI("http://a.com", ""), f);
+        File file = new File(folder, "a.owl");
+        createFile(IRI("http://a.com", ""), file);
         // have to load an ontology for it to get a document IRI
-        OWLOntology a = loadOntologyFromFile(f, m);
+        OWLOntology a = loadOntologyFromFile(file, m);
         IRI locA = m.getOntologyDocumentIRI(a);
         IRI bIRI = IRI("http://b.com", "");
-        OWLOntology b = getOWLOntology(bIRI);
+        OWLOntology b = create(bIRI);
         // import from the document location of a.owl (rather than the
         // ontology IRI)
         b.getOWLOntologyManager().applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));

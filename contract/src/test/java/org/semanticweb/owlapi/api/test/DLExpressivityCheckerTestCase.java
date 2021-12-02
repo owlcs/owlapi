@@ -277,8 +277,9 @@ import org.semanticweb.owlapi.util.Languages;
 
 class DLExpressivityCheckerTestCase extends TestBase {
 
-    static <T> List<T> l(T... t) {
-        return Arrays.asList(t);
+    @SafeVarargs
+    static <T> List<T> l(T... elements) {
+        return Arrays.asList(elements);
     }
 
     static Collection<Object[]> getData() {
@@ -407,12 +408,12 @@ class DLExpressivityCheckerTestCase extends TestBase {
         List<Construct> constructsFound = testsubject.getConstructs();
         List<Languages> below = new ArrayList<>();
         List<Languages> minimalLanguages = new ArrayList<>();
-        for (Languages c : Languages.values()) {
-            if (testsubject.isWithin(c)) {
-                below.add(c);
+        for (Languages lang : Languages.values()) {
+            if (testsubject.isWithin(lang)) {
+                below.add(lang);
             }
-            if (testsubject.minimal(c)) {
-                minimalLanguages.add(c);
+            if (testsubject.minimal(lang)) {
+                minimalLanguages.add(lang);
             }
         }
         Collection<Languages> expressibleInLanguages = testsubject.expressibleInLanguages();
@@ -437,7 +438,7 @@ class DLExpressivityCheckerTestCase extends TestBase {
     }
 
     Set<OWLOntology> ont(Collection<OWLAxiom> objects) {
-        OWLOntology o = getOWLOntology("test");
+        OWLOntology o = create("test");
         o.getOWLOntologyManager().addAxioms(o, new HashSet<>(objects));
         return Collections.singleton(o);
     }

@@ -93,7 +93,7 @@ class AnnotatedAxiomRoundTripTestCase extends TestBase {
         axioms.add(Declaration(propP));
         axioms.add(ax.getAnnotatedAxiom(singleton(anno1)));
         axioms.add(ax.getAnnotatedAxiom(singleton(anno2)));
-        OWLOntology ont = getAnonymousOWLOntology();
+        OWLOntology ont = createAnon();
         ont.getOWLOntologyManager().addAxioms(ont, axioms);
         ont.getSignature().stream()
             .filter(entity -> !entity.isBuiltIn() && !ont.isDeclared(entity, Imports.INCLUDED))

@@ -25,8 +25,8 @@ class OWLZipSaverTestCase extends TestBase {
     @Test
     void shouldSaveClosureWithYaml() throws IOException, OWLOntologyStorageException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        OWLOntology o1 = getOWLOntology(iri1);
-        OWLOntology o2 = getOWLOntology(iri2);
+        OWLOntology o1 = create(iri1);
+        OWLOntology o2 = create(iri2);
         m.applyChange(new AddImport(o1, df.getOWLImportsDeclaration(iri2)));
         new OWLZipSaver().saveOntologies(Collections.singleton(o1), Collections.singleton(o2), out);
         ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(out.toByteArray()));

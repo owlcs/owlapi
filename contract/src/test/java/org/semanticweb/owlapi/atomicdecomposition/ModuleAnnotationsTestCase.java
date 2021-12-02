@@ -29,18 +29,18 @@ class ModuleAnnotationsTestCase extends TestBase {
     OWLDeclarationAxiom dB = df.getOWLDeclarationAxiom(b);
     OWLAnnotationAssertionAxiom ax =
         df.getOWLAnnotationAssertionAxiom(replaced, a.getIRI(), b.getIRI());
-    Set<OWLEntity> e = new HashSet<>(Arrays.asList(a));
+    Set<OWLEntity> entities = new HashSet<>(Arrays.asList(a));
 
     @Test
     void shouldNotAddAnnotations() {
         Set<OWLAxiom> expected = new HashSet<>();
         IRI iri = IRI.create("urn:test:noanns");
-        OWLOntology o = getOWLOntology(iri);
+        OWLOntology o = create(iri);
         Set<OWLAxiom> axioms = new HashSet<>(Arrays.asList(dR, dA, dB, ax));
         o.getOWLOntologyManager().addAxioms(o, axioms);
         Set<OWLAxiom> module = new SyntacticLocalityModuleExtractor(m,
             m.getOntologyLoaderConfiguration().withSkipModuleAnnotations(true), iri, axioms,
-            uk.ac.manchester.cs.owlapi.modularity.ModuleType.STAR, false).extract(e);
+            uk.ac.manchester.cs.owlapi.modularity.ModuleType.STAR, false).extract(entities);
         assertEquals(expected, module);
     }
 
@@ -50,11 +50,11 @@ class ModuleAnnotationsTestCase extends TestBase {
         expected.add(ax);
         expected.add(dA);
         IRI iri = IRI.create("urn:test:anns");
-        OWLOntology o = getOWLOntology(iri);
+        OWLOntology o = create(iri);
         Set<OWLAxiom> axioms = new HashSet<>(Arrays.asList(dR, dA, dB, ax));
         o.getOWLOntologyManager().addAxioms(o, axioms);
         Set<OWLAxiom> module = new SyntacticLocalityModuleExtractor(m, iri, axioms,
-            uk.ac.manchester.cs.owlapi.modularity.ModuleType.STAR, false).extract(e);
+            uk.ac.manchester.cs.owlapi.modularity.ModuleType.STAR, false).extract(entities);
         assertEquals(expected, module);
     }
 }

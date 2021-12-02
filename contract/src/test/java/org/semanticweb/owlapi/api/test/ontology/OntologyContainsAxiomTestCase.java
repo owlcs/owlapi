@@ -73,7 +73,7 @@ class OntologyContainsAxiomTestCase extends TestBase {
     @Test
     void testOntologyContainsPlainAxiom() {
         OWLAxiom axiom = SubClassOf(A, B);
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = create("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
@@ -84,7 +84,7 @@ class OntologyContainsAxiomTestCase extends TestBase {
         OWLLiteral annoLiteral = Literal("value");
         OWLAnnotation anno = Annotation(AP, annoLiteral);
         OWLAxiom axiom = SubClassOf(A, B, singleton(anno));
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = create("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
@@ -115,12 +115,11 @@ class OntologyContainsAxiomTestCase extends TestBase {
         runTestOntologyContainsAxioms1(format);
     }
 
-    @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms1(@Nonnull OWLDocumentFormat format) {
-        OWLOntology ont1 = getOWLOntology("testont1A");
+        OWLOntology ont1 = create("testont1A");
         @Nonnull
         IRI ont1iri = ont1.getOntologyID().getOntologyIRI().get();
-        OWLOntology ont2 = getOWLOntology("testont2A");
+        OWLOntology ont2 = create("testont2A");
         @Nonnull
         IRI ont2iri = ont2.getOntologyID().getOntologyIRI().get();
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
@@ -182,8 +181,8 @@ class OntologyContainsAxiomTestCase extends TestBase {
             StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
             ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
             return savedLocation1;
-        } catch (Exception e) {
-            throw new OWLRuntimeException(e);
+        } catch (Exception ex) {
+            throw new OWLRuntimeException(ex);
         }
     }
 
@@ -215,11 +214,10 @@ class OntologyContainsAxiomTestCase extends TestBase {
         runTestOntologyContainsAxioms2(createTurtleOntologyFormat());
     }
 
-    @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms2(@Nonnull OWLDocumentFormat format) {
-        OWLOntology ont1 = getOWLOntology("testont1B");
+        OWLOntology ont1 = create("testont1B");
         IRI ont1iri = ont1.getOntologyID().getOntologyIRI().get();
-        OWLOntology ont2 = getOWLOntology("testont2B");
+        OWLOntology ont2 = create("testont2B");
         IRI ont2iri = ont2.getOntologyID().getOntologyIRI().get();
         assert ont1iri != null;
         assert ont2iri != null;

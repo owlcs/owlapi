@@ -37,7 +37,7 @@ class MoveOntologyTestCase extends TestBase {
 
     @BeforeEach
     void setUp() {
-        getOWLOntology(iri("urn:test#", "test"));
+        create(iri("urn:test#", "test"));
     }
 
     @Test
@@ -77,11 +77,11 @@ class MoveOntologyTestCase extends TestBase {
         assertEquals(o.getImportsDeclarations(), copy.getImportsDeclarations());
     }
 
-    protected OWLOntology copy(OWLOntology o, OntologyCopy c) {
+    protected OWLOntology copy(OWLOntology o, OntologyCopy copyParam) {
         try {
-            return m1.copyOntology(o, c);
-        } catch (OWLOntologyCreationException e) {
-            throw new OWLRuntimeException(e);
+            return m1.copyOntology(o, copyParam);
+        } catch (OWLOntologyCreationException ex) {
+            throw new OWLRuntimeException(ex);
         }
     }
 }

@@ -98,11 +98,11 @@ class RoundTripTestCase extends RoundTripTestBasics {
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(m1);
         OWLOntology owlOntology = convert(oboDocSource, bridge);
         OWLDataFactory factory = owlOntology.getOWLOntologyManager().getOWLDataFactory();
-        OWLClass c = factory.getOWLClass(bridge.oboIdToIRI("PR:000027136"));
+        OWLClass cl = factory.getOWLClass(bridge.oboIdToIRI("PR:000027136"));
         // Relations
         boolean foundRel1 = false;
         boolean foundRel2 = false;
-        List<OWLSubClassOfAxiom> axioms = asList(owlOntology.getSubClassAxiomsForSubClass(c));
+        List<OWLSubClassOfAxiom> axioms = asList(owlOntology.getSubClassAxiomsForSubClass(cl));
         assertEquals(3, axioms.size());
         for (OWLSubClassOfAxiom axiom : axioms) {
             OWLClassExpression superClass = axiom.getSuperClass();
@@ -316,8 +316,8 @@ class RoundTripTestCase extends RoundTripTestBasics {
             // check that written frame has line:
             // synonym: "photosynthetic membrane" RELATED []
             assertTrue(line.contains("\nsynonym: \"photosynthetic membrane\" RELATED []\n"));
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+        } catch (IOException ex) {
+            throw new OWLRuntimeException(ex);
         }
     }
 

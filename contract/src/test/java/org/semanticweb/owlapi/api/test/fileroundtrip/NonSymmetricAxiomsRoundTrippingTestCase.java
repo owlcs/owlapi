@@ -43,12 +43,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
 
     static Stream<Arguments> nonSymmetricAxiomsRoundTrippingTestCase() {
-        OWLObjectSomeValuesFrom d = ObjectSomeValuesFrom(P, ObjectIntersectionOf(B, C));
-        OWLDataSomeValuesFrom e = DataSomeValuesFrom(DP, DataIntersectionOf(DTA, DTB));
+        OWLObjectSomeValuesFrom objectSome = ObjectSomeValuesFrom(P, ObjectIntersectionOf(B, C));
+        OWLDataSomeValuesFrom dataSome = DataSomeValuesFrom(DP, DataIntersectionOf(DTA, DTB));
         OWLClassExpression du = ObjectUnionOf(B, C);
         OWLDataUnionOf eu = DataUnionOf(DTA, DTB);
-        return Stream.of(Arguments.of(SubClassOf(A, ObjectIntersectionOf(d, d)), SubClassOf(A, d)),
-            Arguments.of(SubClassOf(A, ObjectUnionOf(e, e)), SubClassOf(A, e)),
+        return Stream.of(
+            Arguments.of(SubClassOf(A, ObjectIntersectionOf(objectSome, objectSome)),
+                SubClassOf(A, objectSome)),
+            Arguments.of(SubClassOf(A, ObjectUnionOf(dataSome, dataSome)), SubClassOf(A, dataSome)),
             Arguments.of(SubClassOf(A, ObjectIntersectionOf(du, du)), SubClassOf(A, du)), Arguments
                 .of(DatatypeDefinition(DTA, DataUnionOf(eu, eu)), DatatypeDefinition(DTA, eu)));
     }
@@ -56,7 +58,7 @@ class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource("nonSymmetricAxiomsRoundTrippingTestCase")
     void shouldRoundTripAReadableVersion(OWLAxiom in, OWLAxiom out) {
-        OWLOntology output = getAnonymousOWLOntology();
+        OWLOntology output = createAnon();
         m.addAxiom(output, in);
         OWLOntology o = roundTrip(output, new FunctionalSyntaxDocumentFormat());
         assertEquals(1, o.getLogicalAxioms().size());

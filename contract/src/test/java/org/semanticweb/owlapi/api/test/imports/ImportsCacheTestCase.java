@@ -27,8 +27,8 @@ class ImportsCacheTestCase extends TestBase {
 
     @BeforeEach
     void setUpOntologies() {
-        ontA = getOWLOntology(iri("http://ont.com/", "ontA"));
-        ontB = getOWLOntology(iri("http://ont.com/", "ontB"));
+        ontA = create(iri("http://ont.com/", "ontA"));
+        ontB = create(iri("http://ont.com/", "ontB"));
         ontBDocIri = iri("http://docs.ont.com/", "ontB");
         ontBDocumentIriImportsDeclaration = df.getOWLImportsDeclaration(ontBDocIri);
     }

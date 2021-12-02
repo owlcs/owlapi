@@ -57,8 +57,8 @@ class NoQNameRoundTripTestCase extends TestBase {
                     IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A", "")),
                 NamedIndividual(
                     IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B", ""))));
-        ont.getSignature().stream().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e))
-            .forEach(e -> ont.getOWLOntologyManager().addAxiom(ont, Declaration(e)));
+        ont.getSignature().stream().filter(entity -> !entity.isBuiltIn() && !ont.isDeclared(entity))
+            .forEach(entity -> ont.getOWLOntologyManager().addAxiom(ont, Declaration(entity)));
         return ont;
     }
 
@@ -67,9 +67,9 @@ class NoQNameRoundTripTestCase extends TestBase {
         try {
             roundTripOntology(noQNameRoundTripTestCase(), new RDFXMLDocumentFormat());
             fail("Expected an exception specifying that a QName could not be generated");
-        } catch (OWLRuntimeException e) {
-            if (!(e.getCause().getCause() instanceof IllegalElementNameException)) {
-                throw e;
+        } catch (OWLRuntimeException ex) {
+            if (!(ex.getCause().getCause() instanceof IllegalElementNameException)) {
+                throw ex;
             }
         }
     }
@@ -79,13 +79,13 @@ class NoQNameRoundTripTestCase extends TestBase {
         try {
             roundTripOntology(noQNameRoundTripTestCase(), new RioRDFXMLDocumentFormat());
             fail("Expected an exception specifying that a QName could not be generated");
-        } catch (OWLRuntimeException e) {
-            Throwable ex = e.getCause();
+        } catch (OWLRuntimeException exc) {
+            Throwable ex = exc.getCause();
             while (ex != null && !(ex instanceof RDFHandlerException)) {
                 ex = ex.getCause();
             }
             if (ex == null || !ex.getMessage().contains("http://example.com/place/123")) {
-                throw e;
+                throw exc;
             }
         }
     }
@@ -100,7 +100,7 @@ class NoQNameRoundTripTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("noQNameFormats")
-    void testFormat(OWLDocumentFormat d) {
-        roundTripOntology(noQNameRoundTripTestCase(), d);
+    void testFormat(OWLDocumentFormat format) {
+        roundTripOntology(noQNameRoundTripTestCase(), format);
     }
 }

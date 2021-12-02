@@ -20,7 +20,6 @@ import static org.semanticweb.owlapi.search.Searcher.annotationObjects;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -109,7 +108,6 @@ import org.slf4j.LoggerFactory;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
-@SuppressWarnings({"javadoc"})
 public class TutorialSnippetsTestCase {
 
     @Nonnull
@@ -239,8 +237,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
-    void testIRIMapper()
-        throws OWLOntologyCreationException, IOException, OWLOntologyStorageException {
+    void testIRIMapper() throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         // map the ontology IRI to a physical IRI (files for example)
         // Create the document IRI for our ontology

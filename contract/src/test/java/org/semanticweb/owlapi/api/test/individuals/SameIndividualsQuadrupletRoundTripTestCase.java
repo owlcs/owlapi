@@ -49,8 +49,9 @@ class SameIndividualsQuadrupletRoundTripTestCase extends TestBase {
 
     OWLOntology sameIndividualsQuadrupletRoundTripTestCase() {
         OWLOntology ont = o(axiom1, axiom2, axiom3, axiom4);
-        ont.getSignature().stream().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
-            .forEach(e -> ont.getOWLOntologyManager().addAxiom(ont, Declaration(e)));
+        ont.getSignature().stream()
+            .filter(entity -> !entity.isBuiltIn() && !ont.isDeclared(entity, INCLUDED))
+            .forEach(entity -> ont.getOWLOntologyManager().addAxiom(ont, Declaration(entity)));
         return ont;
     }
 
@@ -83,8 +84,8 @@ class SameIndividualsQuadrupletRoundTripTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void testFormat(OWLDocumentFormat df) {
-        roundTripOntology(sameIndividualsQuadrupletRoundTripTestCase(), df);
+    void testFormat(OWLDocumentFormat format) {
+        roundTripOntology(sameIndividualsQuadrupletRoundTripTestCase(), format);
     }
 
     @Test

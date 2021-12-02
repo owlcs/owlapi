@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
 public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
 
     /* Collected axioms */

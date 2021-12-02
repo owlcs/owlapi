@@ -72,7 +72,7 @@ class OWLObjectWalkerTest extends TestBase {
 
     @Nonnull
     private OWLOntology getOwlOntology() {
-        OWLOntology o = getOWLOntology("foo");
+        OWLOntology o = create("foo");
         m.applyChange(new AddOntologyAnnotation(o, hello));
         addAxiom(o, df.getOWLDeclarationAxiom(AP, singleton(goodbye)));
         return o;

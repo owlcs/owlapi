@@ -68,7 +68,7 @@ class TestPlainLiteralTestCase extends TestBase {
 
     @Test
     void testPlainLiteralSerialization() {
-        OWLOntology o = getAnonymousOWLOntology();
+        OWLOntology o = createAnon();
         m.addAxiom(o, df.getOWLDataPropertyAssertionAxiom(TEST_DP, df.getOWLNamedIndividual(IRI),
             OWL_LITERAL));
         StringDocumentTarget out = saveOntology(o);
@@ -80,7 +80,7 @@ class TestPlainLiteralTestCase extends TestBase {
 
     @Test
     void testPlainLiteralSerializationComments() {
-        OWLOntology o = getAnonymousOWLOntology();
+        OWLOntology o = createAnon();
         m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(),
             df.getOWLNamedIndividual(IRI).getIRI(), OWL_LITERAL));
         StringDocumentTarget out = saveOntology(o);
@@ -92,7 +92,7 @@ class TestPlainLiteralTestCase extends TestBase {
 
     @Test
     void testPlainLiteralSerializationComments2() {
-        OWLOntology o = getAnonymousOWLOntology();
+        OWLOntology o = createAnon();
         OWLAnnotation a = df.getOWLAnnotation(df.getRDFSComment(), OWL_LITERAL);
         m.applyChange(new AddOntologyAnnotation(o, a));
         StringDocumentTarget out = saveOntology(o);

@@ -61,19 +61,19 @@ class EquivalentAndSubclassTestCase extends TestBase {
                 // we only relax in cases where the equivalence is between one
                 // named and one anon expression
                 if (!x.isAnonymous()) {
-                    OWLClass c = (OWLClass) x;
+                    OWLClass cClass = (OWLClass) x;
                     // ax = EquivalentClasses(x y1 y2 ...)
-                    for (OWLClassExpression y : ax.getClassExpressionsMinus(c)) {
+                    for (OWLClassExpression y : ax.getClassExpressionsMinus(cClass)) {
                         // limited structural reasoning:
                         // return (P some Z), if:
                         // - y is of the form (P some Z)
                         // - y is of the form ((P some Z) and ...),
                         // or any level of nesting
                         for (OWLObjectSomeValuesFrom svf : getSomeValuesFromAncestor(y, df)) {
-                            newAxioms.add(df.getOWLSubClassOfAxiom(c, svf));
+                            newAxioms.add(df.getOWLSubClassOfAxiom(cClass, svf));
                         }
-                        for (OWLClass z : getNamedAncestors(y)) {
-                            newAxioms.add(df.getOWLSubClassOfAxiom(c, z));
+                        for (OWLClass zClass : getNamedAncestors(y)) {
+                            newAxioms.add(df.getOWLSubClassOfAxiom(cClass, zClass));
                         }
                     }
                 }

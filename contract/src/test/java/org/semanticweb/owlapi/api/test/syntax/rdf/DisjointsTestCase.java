@@ -72,7 +72,7 @@ class DisjointsTestCase extends TestBase {
 
     @Test
     void testAnonDisjoints() {
-        OWLOntology ontA = getOWLOntology("ontology");
+        OWLOntology ontA = create("ontology");
         OWLClass clsA = createClass();
         OWLClass clsB = createClass();
         OWLObjectProperty prop = createObjectProperty();
@@ -90,10 +90,12 @@ class DisjointsTestCase extends TestBase {
     @Test
     void shouldAcceptSingleDisjointAxiom() {
         // The famous idiomatic use of DisjointClasses with one operand
-        OWLClass t = df.getOWLClass(iri("urn:test:", "class"));
-        OWLDisjointClassesAxiom ax = df.getOWLDisjointClassesAxiom(Collections.singleton(t));
+        OWLClass testClass = df.getOWLClass(iri("urn:test:", "class"));
+        OWLDisjointClassesAxiom ax =
+            df.getOWLDisjointClassesAxiom(Collections.singleton(testClass));
         assertEquals(
-            df.getOWLDisjointClassesAxiom(new HashSet<>(Arrays.asList(t, df.getOWLThing()))),
+            df.getOWLDisjointClassesAxiom(
+                new HashSet<>(Arrays.asList(testClass, df.getOWLThing()))),
             ax.getAxiomWithoutAnnotations());
         OWLLiteral value = df.getOWLLiteral(
             "DisjointClasses(<urn:test:class>) replaced by DisjointClasses(<urn:test:class> owl:Thing)");

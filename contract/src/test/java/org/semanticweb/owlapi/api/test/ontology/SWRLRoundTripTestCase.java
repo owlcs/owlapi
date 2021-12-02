@@ -52,7 +52,7 @@ class SWRLRoundTripTestCase extends TestBase {
 
     @Test
     void shouldDoCompleteRoundtrip() {
-        OWLOntology ontology = getOWLOntology(iri(NS, ""));
+        OWLOntology ontology = create(iri(NS, ""));
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(DP, vx, vy));
         body.add(df.getSWRLDataRangeAtom(df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), vy));
@@ -67,7 +67,7 @@ class SWRLRoundTripTestCase extends TestBase {
 
     @Test
     void shouldDoCompleteRoundtripManchesterOWLSyntax() {
-        OWLOntology ontology = getOWLOntology(iri(NS, ""));
+        OWLOntology ontology = create(iri(NS, ""));
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(DP, vx, vy));
         body.add(df.getSWRLDataRangeAtom(df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), vy));
@@ -83,8 +83,8 @@ class SWRLRoundTripTestCase extends TestBase {
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsOWLXML() {
         OWLOntology ontology = prepareOntology();
-        OWLXMLDocumentFormat f = new OWLXMLDocumentFormat();
-        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
+        OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
+        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, format));
         equal(ontology, ontology2);
         assertions(ontology2);
     }
@@ -97,32 +97,32 @@ class SWRLRoundTripTestCase extends TestBase {
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsTurtle() {
         OWLOntology ontology = prepareOntology();
-        OWLDocumentFormat f = new TurtleDocumentFormat();
-        OWLOntology ontology2 = equalRoundtrip(ontology, f);
+        OWLDocumentFormat format = new TurtleDocumentFormat();
+        OWLOntology ontology2 = equalRoundtrip(ontology, format);
         assertions(ontology2);
     }
 
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsFunctional() {
         OWLOntology ontology = prepareOntology();
-        OWLDocumentFormat f = new FunctionalSyntaxDocumentFormat();
-        OWLOntology ontology2 = equalRoundtrip(ontology, f);
+        OWLDocumentFormat format = new FunctionalSyntaxDocumentFormat();
+        OWLOntology ontology2 = equalRoundtrip(ontology, format);
         assertions(ontology2);
     }
 
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsRDFXML() {
         OWLOntology ontology = prepareOntology();
-        OWLDocumentFormat f = new RDFXMLDocumentFormat();
-        OWLOntology ontology2 = equalRoundtrip(ontology, f);
+        OWLDocumentFormat format = new RDFXMLDocumentFormat();
+        OWLOntology ontology2 = equalRoundtrip(ontology, format);
         assertions(ontology2);
     }
 
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsDatatypeRDFXML() {
         OWLOntology ontology = prepareOntology1();
-        OWLDocumentFormat f = new RDFXMLDocumentFormat();
-        OWLOntology ontology2 = equalRoundtrip(ontology, f);
+        OWLDocumentFormat format = new RDFXMLDocumentFormat();
+        OWLOntology ontology2 = equalRoundtrip(ontology, format);
         ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION).forEach(r -> assertFalse(noLabel(r)));
     }
 
@@ -134,13 +134,13 @@ class SWRLRoundTripTestCase extends TestBase {
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsMan() {
         OWLOntology ontology = prepareOntology();
-        OWLDocumentFormat f = new ManchesterSyntaxDocumentFormat();
-        OWLOntology ontology2 = equalRoundtrip(ontology, f);
+        OWLDocumentFormat format = new ManchesterSyntaxDocumentFormat();
+        OWLOntology ontology2 = equalRoundtrip(ontology, format);
         assertions(ontology2);
     }
 
-    protected OWLOntology equalRoundtrip(OWLOntology ontology, OWLDocumentFormat f) {
-        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f), f);
+    protected OWLOntology equalRoundtrip(OWLOntology ontology, OWLDocumentFormat format) {
+        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, format), format);
         equal(ontology, ontology2);
         return ontology2;
     }
@@ -151,7 +151,7 @@ class SWRLRoundTripTestCase extends TestBase {
      */
     @Nonnull
     OWLOntology prepareOntology() {
-        OWLOntology ontology = getOWLOntology(iri(NS, ""));
+        OWLOntology ontology = create(iri(NS, ""));
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(DP, vx, vy));
         body.add(df.getSWRLDataRangeAtom(df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), vy));
@@ -170,7 +170,7 @@ class SWRLRoundTripTestCase extends TestBase {
 
     @Nonnull
     OWLOntology prepareOntology1() {
-        OWLOntology ontology = getOWLOntology(iri(NS, ""));
+        OWLOntology ontology = create(iri(NS, ""));
         OWLDatatypeDefinitionAxiom def =
             df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype(iri("urn:my#", "datatype")),
                 df.getOWLDatatypeMaxExclusiveRestriction(200D), singleton(

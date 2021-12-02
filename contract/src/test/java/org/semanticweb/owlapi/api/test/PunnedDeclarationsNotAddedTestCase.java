@@ -29,7 +29,7 @@ class PunnedDeclarationsNotAddedTestCase extends TestBase {
     }
 
     protected OWLOntology getOntologyWithPunnedInvalidDeclarations() {
-        OWLOntology o = getOWLOntology(iri("urn:test:", "forbiddenPunningNotRedeclared"));
+        OWLOntology o = create(iri("urn:test:", "forbiddenPunningNotRedeclared"));
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(P.getIRI());
         m.addAxiom(o, df.getOWLDeclarationAxiom(P));
         m.addAxiom(o, df.getOWLTransitiveObjectPropertyAxiom(P));
@@ -41,7 +41,7 @@ class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
     @Nonnull
     protected OWLOntology getOntologyWithMissingDeclarations() {
-        OWLOntology o = getOWLOntology(iri("urn:test:", "missingDeclarations"));
+        OWLOntology o = create(iri("urn:test:", "missingDeclarations"));
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(AP.getIRI());
         m.addAxiom(o, df.getOWLTransitiveObjectPropertyAxiom(P));
         OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"),

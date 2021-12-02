@@ -37,7 +37,7 @@ class OntologyMutationTestCase extends TestBase {
 
     @Test
     void testAddAxiom() {
-        OWLOntology ont = getOWLOntology("OntA");
+        OWLOntology ont = create("OntA");
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.getOWLOntologyManager().addAxiom(ont, ax);
@@ -47,7 +47,7 @@ class OntologyMutationTestCase extends TestBase {
 
     @Test
     void testAddAxioms() {
-        OWLOntology ont = getOWLOntology("OntB");
+        OWLOntology ont = create("OntB");
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.getOWLOntologyManager().addAxioms(ont, singleton(ax));
@@ -57,7 +57,7 @@ class OntologyMutationTestCase extends TestBase {
 
     @Test
     void testApplyChange() {
-        OWLOntology ont = getOWLOntology("OntC");
+        OWLOntology ont = create("OntC");
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.getOWLOntologyManager().applyChange(new AddAxiom(ont, ax));
@@ -67,7 +67,7 @@ class OntologyMutationTestCase extends TestBase {
 
     @Test
     void testApplyChanges() {
-        OWLOntology ont = getOWLOntology("OntD");
+        OWLOntology ont = create("OntD");
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.getOWLOntologyManager().applyChange(new AddAxiom(ont, ax));

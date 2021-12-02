@@ -71,13 +71,13 @@ class NamespacesTestCase extends TestBase {
     void shouldSetPrefix() {
         OWLClass item = df.getOWLClass(iri("http://test.owl/test#", "item"));
         OWLDeclarationAxiom declaration = df.getOWLDeclarationAxiom(item);
-        OWLOntology o1 = getAnonymousOWLOntology();
+        OWLOntology o1 = createAnon();
         FunctionalSyntaxDocumentFormat pm1 = new FunctionalSyntaxDocumentFormat();
         pm1.setPrefix(":", NS);
         o1.getOWLOntologyManager().setOntologyFormat(o1, pm1);
         o1.getOWLOntologyManager().addAxiom(o1, declaration);
         StringDocumentTarget t1 = saveOntology(o1);
-        OWLOntology o2 = getAnonymousOWLOntology();
+        OWLOntology o2 = createAnon();
         FunctionalSyntaxDocumentFormat pm2 = new FunctionalSyntaxDocumentFormat();
         pm2.setPrefix(":", NS);
         o2.getOWLOntologyManager().setOntologyFormat(o2, pm2);

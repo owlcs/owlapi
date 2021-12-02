@@ -60,15 +60,15 @@ class AnnotationAccessorsTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("getData")
-    void testClassAccessor(OWLPrimitive e) {
-        OWLOntology ont = getAnonymousOWLOntology();
+    void testClassAccessor(OWLPrimitive entity) {
+        OWLOntology ont = createAnon();
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.getAnnotationAssertionAxioms(subject()).stream().anyMatch(ax::equals));
-        if (e instanceof OWLEntity) {
-            assertTrue(ont.getAnnotationAssertionAxioms(((OWLEntity) e).getIRI()).stream()
+        if (entity instanceof OWLEntity) {
+            assertTrue(ont.getAnnotationAssertionAxioms(((OWLEntity) entity).getIRI()).stream()
                 .anyMatch(ax::equals));
-            assertTrue(EntitySearcher.getAnnotationObjects((OWLEntity) e, ont)
+            assertTrue(EntitySearcher.getAnnotationObjects((OWLEntity) entity, ont)
                 .contains(ax.getAnnotation()));
         }
     }

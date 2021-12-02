@@ -14,18 +14,14 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -38,7 +34,7 @@ class OntologyChangeListenerTestCase extends TestBase {
 
     @Test
     void testOntologyChangeListener() {
-        OWLOntology ont = getOWLOntology("ont");
+        OWLOntology ont = create("ont");
         OWLSubClassOfAxiom ax = SubClassOf(A, B);
         final Set<OWLAxiom> impendingAdditions = new HashSet<>();
         final Set<OWLAxiom> impendingRemovals = new HashSet<>();

@@ -67,7 +67,7 @@ class RioRendererTestCase extends TestBase {
         // storerRegistry, parserRegistry);
         m.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
             new RioTurtleStorerFactory());
-        testOntologyEmpty = getOWLOntology(testOntologyUri1);
+        testOntologyEmpty = create(testOntologyUri1);
         testOntologyKoala = loadOntologyFrom(getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();

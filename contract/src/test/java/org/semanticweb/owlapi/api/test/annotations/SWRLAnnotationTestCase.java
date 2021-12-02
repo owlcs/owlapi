@@ -65,7 +65,7 @@ class SWRLAnnotationTestCase extends TestBase {
     }
 
     OWLOntology createOntology() {
-        OWLOntology ontology = getOWLOntology(iri(NS, ""));
+        OWLOntology ontology = create(iri(NS, ""));
         List<AddAxiom> changes = new ArrayList<>();
         changes.add(new AddAxiom(ontology, axiom));
         m.applyChanges(changes);

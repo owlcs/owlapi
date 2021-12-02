@@ -41,7 +41,7 @@ class OWLOntologyManagerTestCase extends TestBase {
 
     @Test
     void testCreateAnonymousOntology() {
-        OWLOntology ontology = getAnonymousOWLOntology();
+        OWLOntology ontology = createAnon();
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertFalse(ontology.getOntologyID().getDefaultDocumentIRI().isPresent());
@@ -53,7 +53,7 @@ class OWLOntologyManagerTestCase extends TestBase {
     @Test
     void testCreateOntologyWithIRI() {
         IRI ontologyIRI = next(NS);
-        OWLOntology ontology = getOWLOntology(ontologyIRI);
+        OWLOntology ontology = create(ontologyIRI);
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertEquals(ontologyIRI, ontology.getOntologyID().getDefaultDocumentIRI().get());
@@ -66,7 +66,7 @@ class OWLOntologyManagerTestCase extends TestBase {
     void testCreateOntologyWithIRIAndVersionIRI() {
         IRI ontologyIRI = next(NS);
         IRI versionIRI = next(NS + "/version");
-        OWLOntology ontology = getOWLOntology(new OWLOntologyID(ontologyIRI, versionIRI));
+        OWLOntology ontology = create(new OWLOntologyID(ontologyIRI, versionIRI));
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertEquals(versionIRI, ontology.getOntologyID().getDefaultDocumentIRI().get());
@@ -81,7 +81,7 @@ class OWLOntologyManagerTestCase extends TestBase {
         IRI documentIRI = next("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
         m.getIRIMappers().add(mapper);
-        OWLOntology ontology = getOWLOntology(ontologyIRI);
+        OWLOntology ontology = create(ontologyIRI);
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertEquals(ontologyIRI, ontology.getOntologyID().getDefaultDocumentIRI().get());
@@ -97,7 +97,7 @@ class OWLOntologyManagerTestCase extends TestBase {
         IRI documentIRI = next("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(versionIRI, documentIRI);
         m.getIRIMappers().add(mapper);
-        OWLOntology ontology = getOWLOntology(new OWLOntologyID(ontologyIRI, versionIRI));
+        OWLOntology ontology = create(new OWLOntologyID(ontologyIRI, versionIRI));
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertEquals(versionIRI, ontology.getOntologyID().getDefaultDocumentIRI().get());
@@ -109,18 +109,18 @@ class OWLOntologyManagerTestCase extends TestBase {
     @Test
     void testCreateDuplicateOntologyWithIRI() {
         IRI ontologyIRI = next(NS);
-        getOWLOntology(ontologyIRI);
+        create(ontologyIRI);
         assertThrowsWithCause(OWLRuntimeException.class, OWLOntologyAlreadyExistsException.class,
-            () -> getOWLOntology(ontologyIRI));
+            () -> create(ontologyIRI));
     }
 
     @Test
     void testCreateDuplicateOntologyWithIRIAndVersionIRI() {
         IRI ontologyIRI = next(NS);
         IRI versionIRI = next(NS);
-        getOWLOntology(new OWLOntologyID(ontologyIRI, versionIRI));
+        create(new OWLOntologyID(ontologyIRI, versionIRI));
         assertThrowsWithCause(OWLRuntimeException.class, OWLOntologyAlreadyExistsException.class,
-            () -> getOWLOntology(new OWLOntologyID(ontologyIRI, versionIRI)));
+            () -> create(new OWLOntologyID(ontologyIRI, versionIRI)));
     }
 
     @Test
@@ -130,9 +130,9 @@ class OWLOntologyManagerTestCase extends TestBase {
         IRI documentIRI = next("file:documentIRI");
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI, documentIRI));
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI2, documentIRI));
-        getOWLOntology(new OWLOntologyID(ontologyIRI, null));
+        create(new OWLOntologyID(ontologyIRI, null));
         assertThrowsWithCause(OWLRuntimeException.class,
             OWLOntologyDocumentAlreadyExistsException.class,
-            () -> getOWLOntology(new OWLOntologyID(ontologyIRI2, null)));
+            () -> create(new OWLOntologyID(ontologyIRI2, null)));
     }
 }

@@ -104,7 +104,7 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     void shouldRoundTrip() {
         // given
-        OWLOntology ontology = getOWLOntology(IRI("http://protege.org/ontologies"));
+        OWLOntology ontology = create(IRI("http://protege.org/ontologies"));
         m.addAxiom(ontology, Declaration(DP));
         // when
         ontology = roundTrip(ontology);
@@ -115,7 +115,7 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     void shouldRenderCorrectly() {
         // given
-        OWLOntology o = getOWLOntology(IRI("http://protege.org/ontologies"));
+        OWLOntology o = create(IRI("http://protege.org/ontologies"));
         OWLObjectSomeValuesFrom r = df.getOWLObjectSomeValuesFrom(P, df.getOWLObjectUnionOf(B, C));
         OWLSubClassOfAxiom axiom = df.getOWLSubClassOfAxiom(D, r);
         m.addAxiom(o, axiom);
@@ -128,8 +128,8 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     void shouldNotAddDCToPrefixes() {
         OWLOntology o =
             loadOntologyFromString(TestFiles.noDC, new ManchesterSyntaxDocumentFormat());
-        OWLDocumentFormat f = o.getOWLOntologyManager().getOntologyFormat(o);
-        assertFalse(f.asPrefixOWLOntologyFormat().containsPrefixMapping("dc:"));
+        OWLDocumentFormat format = o.getOWLOntologyManager().getOntologyFormat(o);
+        assertFalse(format.asPrefixOWLOntologyFormat().containsPrefixMapping("dc:"));
     }
 
     @Test
@@ -140,8 +140,8 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // Fix is to add it lazily if necessary
         OWLOntology o =
             loadOntologyFromString(TestFiles.lazyDC, new ManchesterSyntaxDocumentFormat());
-        OWLDocumentFormat f = o.getOWLOntologyManager().getOntologyFormat(o);
-        assertTrue(f.asPrefixOWLOntologyFormat().containsPrefixMapping("dc:"));
+        OWLDocumentFormat format = o.getOWLOntologyManager().getOntologyFormat(o);
+        assertTrue(format.asPrefixOWLOntologyFormat().containsPrefixMapping("dc:"));
     }
 
     @Test
@@ -225,8 +225,8 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     @Nonnull
-    OWLAxiom annotation(@Nonnull OWLEntity e, @Nonnull String s) {
-        return df.getOWLAnnotationAssertionAxiom(e.getIRI(),
+    OWLAxiom annotation(@Nonnull OWLEntity entity, @Nonnull String s) {
+        return df.getOWLAnnotationAssertionAxiom(entity.getIRI(),
             df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(s)));
     }
 

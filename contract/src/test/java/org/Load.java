@@ -24,9 +24,9 @@ public class Load extends TestBase {
             + "</skos:ConceptScheme>" + "</rdf:RDF>";
         OWLOntology o = loadOntologyFromString(in);
         o.getAxioms().forEach(System.out::println);
-        o.getIndividualsInSignature().forEach(i -> o.getReferencingAxioms(i)
-            .forEach(ax -> System.out.println("Individual " + i.getIRI() + " has axiom " + ax)));
-        o.getIndividualsInSignature().forEach(i -> o.getAnnotationAssertionAxioms(i.getIRI())
-            .forEach(ax -> System.out.println("Iri " + i.getIRI() + " is annotated with " + ax)));
+        o.getIndividualsInSignature().forEach(ind -> o.getReferencingAxioms(ind)
+            .forEach(ax -> System.out.println("Individual " + ind.getIRI() + " has axiom " + ax)));
+        o.getIndividualsInSignature().forEach(ind -> o.getAnnotationAssertionAxioms(ind.getIRI())
+            .forEach(ax -> System.out.println("Iri " + ind.getIRI() + " is annotated with " + ax)));
     }
 }

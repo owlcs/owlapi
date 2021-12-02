@@ -59,13 +59,13 @@ class SWRLAtomOrderingRoundTripTestCase extends TestBase {
         SWRLVariable varA = df.getSWRLVariable(iri("http://other.com/A/", "VarA"));
         SWRLVariable varB = df.getSWRLVariable(iri("http://other.com/A/", "VarB"));
         SWRLVariable varC = df.getSWRLVariable(iri("http://other.com/A/", "VarC"));
-        SWRLClassAtom t = df.getSWRLClassAtom(clsC, varA);
-        body.add(t);
+        SWRLClassAtom atom = df.getSWRLClassAtom(clsC, varA);
+        body.add(atom);
         body.add(df.getSWRLClassAtom(clsB, varB));
         body.add(df.getSWRLClassAtom(clsA, varC));
         head.add(df.getSWRLClassAtom(clsE, varA));
         head.add(df.getSWRLClassAtom(clsD, varA));
-        head.add(t);
+        head.add(atom);
         rule = df.getSWRLRule(body, head);
     }
 
@@ -85,7 +85,7 @@ class SWRLAtomOrderingRoundTripTestCase extends TestBase {
     }
 
     private void roundTrip(@Nonnull OWLDocumentFormat ontologyFormat) {
-        OWLOntology ont = getAnonymousOWLOntology();
+        OWLOntology ont = createAnon();
         m.addAxiom(ont, rule);
         StringDocumentTarget documentTarget = saveOntology(ont, ontologyFormat);
         OWLOntology ont2 =

@@ -44,16 +44,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
 class SharedBlankNodeTestCase extends TestBase {
 
     String NS = "urn:test";
-    OWLAnonymousIndividual i = AnonymousIndividual();
-    OWLNamedIndividual ind = NamedIndividual(IRI(NS + "#", "test"));
+    OWLAnonymousIndividual indAnon = AnonymousIndividual();
+    OWLNamedIndividual indTest = NamedIndividual(IRI(NS + "#", "test"));
 
     static void testAnnotation(OWLOntology o) {
-        for (OWLIndividual i : o.getIndividualsInSignature()) {
-            assertEquals(2, o.getObjectPropertyAssertionAxioms(i).size());
+        for (OWLIndividual individual : o.getIndividualsInSignature()) {
+            assertEquals(2, o.getObjectPropertyAssertionAxioms(individual).size());
         }
         for (OWLAnnotation annotation : o.getAnnotations()) {
-            OWLIndividual i = (OWLIndividual) annotation.getValue();
-            assertEquals(1, o.getDataPropertyAssertionAxioms(i).size());
+            OWLIndividual individual = (OWLIndividual) annotation.getValue();
+            assertEquals(1, o.getDataPropertyAssertionAxioms(individual).size());
         }
     }
 
@@ -74,11 +74,12 @@ class SharedBlankNodeTestCase extends TestBase {
     }
 
     OWLOntology createOntology() {
-        OWLOntology ontology = getOWLOntology(iri(NS, ""));
-        annotate(ontology, NS + "#ann", i);
+        OWLOntology ontology = create(iri(NS, ""));
+        annotate(ontology, NS + "#ann", indAnon);
         ontology.getOWLOntologyManager().addAxioms(ontology,
-            set(dataAssertion(NS + "#p", i, "hello world"), objectAssertion(NS + "#p1", ind, i),
-                objectAssertion(NS + "#p2", ind, i)));
+            set(dataAssertion(NS + "#p", indAnon, "hello world"),
+                objectAssertion(NS + "#p1", indTest, indAnon),
+                objectAssertion(NS + "#p2", indTest, indAnon)));
         return ontology;
     }
 
@@ -87,12 +88,12 @@ class SharedBlankNodeTestCase extends TestBase {
             .applyChange(new AddOntologyAnnotation(o, Annotation(AnnotationProperty(IRI(p)), v)));
     }
 
-    private static OWLAxiom dataAssertion(String p, OWLIndividual i, String l) {
-        return DataPropertyAssertion(DataProperty(IRI(p)), i, Literal(l));
+    private static OWLAxiom dataAssertion(String p, OWLIndividual individual, String litForm) {
+        return DataPropertyAssertion(DataProperty(IRI(p)), individual, Literal(litForm));
     }
 
-    private static OWLAxiom objectAssertion(String p, OWLIndividual i, OWLIndividual j) {
-        return ObjectPropertyAssertion(ObjectProperty(IRI(p)), i, j);
+    private static OWLAxiom objectAssertion(String p, OWLIndividual iindividual, OWLIndividual j) {
+        return ObjectPropertyAssertion(ObjectProperty(IRI(p)), iindividual, j);
     }
 
     @Test

@@ -146,21 +146,21 @@ class IRITestCase extends TestBase {
 
     @Test
     void shouldOutputNamedGraph() {
-        OWLDocumentFormat f = new TrigDocumentFormat();
+        OWLDocumentFormat format = new TrigDocumentFormat();
         IRI iri = iri("urn:test:", "ontology");
-        OWLOntology o = getOWLOntology(iri);
+        OWLOntology o = create(iri);
         o.getOWLOntologyManager().getOntologyLoaderConfiguration().withNamedGraphIRIEnabled(true);
-        StringDocumentTarget saved = saveOntology(o, f);
+        StringDocumentTarget saved = saveOntology(o, format);
         assertTrue(saved.toString().contains(iri.toQuotedString() + " {"));
     }
 
     @Test
     void shouldOutputOverriddenNamedGraph() {
-        OWLDocumentFormat f = new TrigDocumentFormat();
+        OWLDocumentFormat format = new TrigDocumentFormat();
         String value = "urn:test:onto";
-        f.setParameter("namedGraphOverride", value);
-        OWLOntology o = getOWLOntology(iri("urn:test:", "ontology"));
-        StringDocumentTarget saved = saveOntology(o, f);
+        format.setParameter("namedGraphOverride", value);
+        OWLOntology o = create(iri("urn:test:", "ontology"));
+        StringDocumentTarget saved = saveOntology(o, format);
         assertTrue(saved.toString().contains("<" + value + ">"));
     }
 
@@ -216,10 +216,10 @@ class IRITestCase extends TestBase {
         roundTrip(new FunctionalSyntaxDocumentFormat(), BAD_FUNCTIONAL);
     }
 
-    protected void roundTrip(OWLDocumentFormat f, String bad) {
+    protected void roundTrip(OWLDocumentFormat format, String bad) {
         String good = bad.replace(" https://example.org/bad-url", "https://example.org/bad-url");
-        OWLOntology o1 = loadOntologyFromString(bad, f);
-        OWLOntology o2 = loadOntologyFromString(good, f);
+        OWLOntology o1 = loadOntologyFromString(bad, format);
+        OWLOntology o2 = loadOntologyFromString(good, format);
         equal(o1, o2);
     }
 }
