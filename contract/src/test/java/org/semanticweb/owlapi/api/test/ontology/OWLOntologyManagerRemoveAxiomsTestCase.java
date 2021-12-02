@@ -12,31 +12,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-@SuppressWarnings("javadoc")
-public class OWLOntologyManagerRemoveAxiomsTestCase extends TestBase {
+class OWLOntologyManagerRemoveAxiomsTestCase extends TestBase {
 
     @Test
-    public void testRemove() throws OWLOntologyCreationException {
-        String premise = "Prefix(:=<http://example.org/>)\n"
-                + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-                + "Ontology(\n" + "  Declaration(NamedIndividual(:a))\n"
-                + "  Declaration(DataProperty(:dp1))\n"
-                + "  Declaration(DataProperty(:dp2))\n"
-                + "  Declaration(Class(:A))\n"
-                + "  DisjointDataProperties(:dp1 :dp2) \n"
-                + "  DataPropertyAssertion(:dp1 :a \"10\"^^xsd:integer)\n"
-                + "  SubClassOf(:A DataSomeValuesFrom(:dp2 \n"
-                + "    DatatypeRestriction(xsd:integer \n"
-                + "      xsd:minInclusive \"18\"^^xsd:integer \n"
-                + "      xsd:maxInclusive \"18\"^^xsd:integer)\n" + "    )\n"
-                + "  )\n" + "  ClassAssertion(:A :a)\n" + ')';
-        OWLOntology o = loadOntologyFromString(premise);
+    void testRemove() {
+        OWLOntology o =
+            loadOntologyFromString(TestFiles.premiseOntology, new FunctionalSyntaxDocumentFormat());
         m.removeAxioms(o, o.getAxioms(AxiomType.DECLARATION));
     }
 }

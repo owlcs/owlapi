@@ -12,38 +12,38 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.util.QNameShortFormProvider;
 
-@SuppressWarnings("javadoc")
-public class ShortFormProviderTestCase {
+class ShortFormProviderTestCase extends TestBase {
 
     @Test
-    public void shouldFindShortForm() {
-        OWLClass c = Class(IRI("http://www.ebi.ac.uk/fgpt/ontologies/test/TEST_00001> test:TEST_00001"));
+    void shouldFindShortForm() {
+        OWLClass c = Class(iri("http://www.ebi.ac.uk/fgpt/ontologies/test/", "TEST_00001"));
         QNameShortFormProvider shortener = new QNameShortFormProvider();
         String shortform = shortener.getShortForm(c);
         assertEquals("test:TEST_00001", shortform);
     }
 
     @Test
-    public void shouldFindShortFormForWoman() {
-        OWLClass c = Class(IRI("http://www.example.org/#Woman"));
+    void shouldFindShortFormForWoman() {
+        OWLClass c = Class(iri("http://www.example.org/#", "Woman"));
         QNameShortFormProvider shortener = new QNameShortFormProvider();
         String shortform = shortener.getShortForm(c);
         assertEquals("www:Woman", shortform);
     }
 
     @Test
-    public void shouldFindShortFormForSetPRefix() {
-        OWLClass c = Class(IRI("http://www.example.org/#Woman"));
+    void shouldFindShortFormForSetPRefix() {
+        OWLClass c = Class(iri("http://www.example.org/#", "Woman"));
         Map<String, String> prefixes = new HashMap<>();
         prefixes.put("test", "http://www.example.org/#");
         QNameShortFormProvider shortener = new QNameShortFormProvider(prefixes);

@@ -12,12 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
@@ -32,24 +34,9 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
-@SuppressWarnings("javadoc")
-public class ManchesterParseErrorTestCase extends TestBase {
+class ManchesterParseErrorTestCase extends TestBase {
 
-    @Test(expected = ParserException.class)
-    public void shouldNotParse() {
-        parse("p some rdfs:Literal");
-        String text1 = "p some Litera";
-        parse(text1);
-    }
-
-    @Test(expected = ParserException.class)
-    public void shouldNotParseToo() {
-        parse("p some rdfs:Literal");
-        String text1 = "p some Literal";
-        parse(text1);
-    }
-
-    private OWLClassExpression parse(@Nonnull String text) {
+    static OWLClassExpression parse(@Nonnull String text) {
         MockEntityChecker checker = new MockEntityChecker(df);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text);
@@ -57,11 +44,24 @@ public class ManchesterParseErrorTestCase extends TestBase {
         return parser.parseClassExpression();
     }
 
+    @Test
+    void shouldNotParse() {
+        parse("p some rdfs:Literal");
+        String text1 = "p some Litera";
+        assertThrows(ParserException.class, () -> parse(text1));
+    }
+
+    @Test
+    void shouldNotParseToo() {
+        parse("p some rdfs:Literal");
+        String text1 = "p some Literal";
+        assertThrows(ParserException.class, () -> parse(text1));
+    }
+
     /**
-     * A very simple entity checker that only understands that "p" is a property
-     * and rdfs:Literal is a datatype. He is an extreme simplification of the
-     * entity checker that runs when Protege is set to render entities as
-     * qnames.
+     * A very simple entity checker that only understands that "p" is a property and rdfs:Literal is
+     * a datatype. He is an extreme simplification of the entity checker that runs when Protege is
+     * set to render entities as qnames.
      * 
      * @author tredmond
      */
@@ -89,8 +89,7 @@ public class ManchesterParseErrorTestCase extends TestBase {
         @Override
         public OWLDataProperty getOWLDataProperty(@Nullable String name) {
             if ("p".equals(name)) {
-                return factory
-                        .getOWLDataProperty(IRI("http://protege.org/Test.owl#p"));
+                return factory.getOWLDataProperty(iri("http://protege.org/Test.owl#", "p"));
             } else {
                 return null;
             }

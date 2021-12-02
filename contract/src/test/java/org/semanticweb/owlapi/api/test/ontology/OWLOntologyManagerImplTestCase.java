@@ -12,17 +12,22 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
@@ -30,84 +35,75 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc", })
-public class OWLOntologyManagerImplTestCase {
+class OWLOntologyManagerImplTestCase extends TestBase {
 
-    private static final String URN_TESTONTOLOGY = "urn:testontology";
-    private OWLOntologyManager manager;
-
-    @Before
-    public void setUp() {
-        manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl(), new ReentrantReadWriteLock());
-        OWLOntologyBuilder builder = new OWLOntologyBuilder() {
-
-            @Nonnull
-            @Override
-            public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-                @Nonnull OWLOntologyID ontologyID) {
-                return new OWLOntologyImpl(manager, ontologyID);
-            }
-        };
-        manager.getOntologyFactories().add(new OWLOntologyFactoryImpl(builder));
+    @BeforeEach
+    void setUpManager() {
+        m = new OWLOntologyManagerImpl(new OWLDataFactoryImpl(), new ReentrantReadWriteLock());
+        m.getOntologyFactories()
+            .add(new OWLOntologyFactoryImpl((om, id) -> new OWLOntologyImpl(om, id)));
     }
 
     @Test
-    public void testContains() throws OWLOntologyCreationException {
-        OWLOntology ont = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
-        assertTrue(manager.contains(ont.getOntologyID()));
-        assertNotNull("ontology should not be null", manager.getOntology(ont.getOntologyID()));
-        assertTrue(manager.getOntologies().contains(ont));
-        assertNotNull("IRI should not be null", manager.getOntologyDocumentIRI(ont));
-        manager.removeOntology(ont);
-        assertFalse(manager.contains(ont.getOntologyID()));
+    void testContains() {
+        OWLOntology ont = getOWLOntology(nextOntology());
+        assertTrue(m.contains(ont.getOntologyID()));
+        assertNotNull(m.getOntology(ont.getOntologyID()));
+        assertTrue(m.getOntologies().contains(ont));
+        assertNotNull(m.getOntologyDocumentIRI(ont));
+        m.removeOntology(ont);
+        assertFalse(m.contains(ont.getOntologyID()));
+    }
+
+    protected IRI nextOntology() {
+        return OWLOntologyDocumentSourceBase.getNextDocumentIRI("urn:testontology");
     }
 
     @Test
-    public void testImports() throws OWLOntologyCreationException {
-        OWLOntology ontA = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
-        OWLOntology ontB = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
-        OWLImportsDeclaration decl = manager.getOWLDataFactory().getOWLImportsDeclaration(ontB.getOntologyID()
-            .getOntologyIRI().get());
-        manager.applyChange(new AddImport(ontA, decl));
-        assertTrue(manager.getDirectImports(ontA).contains(ontB));
-        manager.removeOntology(ontB);
-        assertFalse(manager.getDirectImports(ontA).contains(ontB));
+    void testImports() {
+        OWLOntology ontA = getOWLOntology(nextOntology());
+        OWLOntology ontB = getOWLOntology(nextOntology());
+        OWLImportsDeclaration decl =
+            df.getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI().get());
+        m.applyChange(new AddImport(ontA, decl));
+        assertTrue(m.getDirectImports(ontA).contains(ontB));
+        m.removeOntology(ontB);
+        assertFalse(m.getDirectImports(ontA).contains(ontB));
     }
 
     @Test
-    public void testImportsClosure() throws OWLException {
+    void testImportsClosure() {
         // OntA -> OntB -> OntC (-> means imports)
-        OWLOntology ontA = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
-        OWLOntology ontB = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
-        OWLOntology ontC = manager.createOntology(OWLOntologyDocumentSourceBase.getNextDocumentIRI(URN_TESTONTOLOGY));
-        OWLImportsDeclaration declA = manager.getOWLDataFactory().getOWLImportsDeclaration(ontB.getOntologyID()
-            .getOntologyIRI().get());
-        OWLImportsDeclaration declB = manager.getOWLDataFactory().getOWLImportsDeclaration(ontC.getOntologyID()
-            .getOntologyIRI().get());
-        manager.applyChange(new AddImport(ontA, declA));
-        manager.applyChange(new AddImport(ontB, declB));
-        assertTrue(manager.getImportsClosure(ontA).contains(ontA));
-        assertTrue(manager.getImportsClosure(ontA).contains(ontB));
-        assertTrue(manager.getImportsClosure(ontA).contains(ontC));
-        assertTrue(manager.getImportsClosure(ontB).contains(ontB));
-        assertTrue(manager.getImportsClosure(ontB).contains(ontC));
+        OWLOntology ontA = getOWLOntology(nextOntology());
+        OWLOntology ontB = getOWLOntology(nextOntology());
+        OWLOntology ontC = getOWLOntology(nextOntology());
+        OWLImportsDeclaration declA =
+            df.getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI().get());
+        OWLImportsDeclaration declB =
+            df.getOWLImportsDeclaration(ontC.getOntologyID().getOntologyIRI().get());
+        m.applyChange(new AddImport(ontA, declA));
+        m.applyChange(new AddImport(ontB, declB));
+        assertTrue(m.getImportsClosure(ontA).contains(ontA));
+        assertTrue(m.getImportsClosure(ontA).contains(ontB));
+        assertTrue(m.getImportsClosure(ontA).contains(ontC));
+        assertTrue(m.getImportsClosure(ontB).contains(ontB));
+        assertTrue(m.getImportsClosure(ontB).contains(ontC));
     }
 
     @Test
-    public void testImportsLoad() throws OWLException {
-        OWLOntology ontA = manager.createOntology(IRI.create("a"));
-        assertTrue(ontA.getDirectImports().size() == 0);
-        IRI b = IRI.create("b");
-        OWLImportsDeclaration declB = manager.getOWLDataFactory().getOWLImportsDeclaration(b);
-        manager.applyChange(new AddImport(ontA, declB));
+    void testImportsLoad() {
+        OWLOntology ontA = getOWLOntology(iri("urn:test:", "a"));
+        assertEquals(0, ontA.getDirectImports().size());
+        IRI b = iri("urn:test:", "b");
+        OWLImportsDeclaration declB = df.getOWLImportsDeclaration(b);
+        m.applyChange(new AddImport(ontA, declB));
         Set<IRI> directImportsDocuments = ontA.getDirectImportsDocuments();
         assertEquals(1, directImportsDocuments.size());
         assertTrue(directImportsDocuments.contains(b));
-        OWLOntology ontB = manager.createOntology(b);
+        OWLOntology ontB = getOWLOntology(b);
         directImportsDocuments = ontA.getDirectImportsDocuments();
         assertEquals(1, directImportsDocuments.size());
         assertTrue(directImportsDocuments.contains(b));

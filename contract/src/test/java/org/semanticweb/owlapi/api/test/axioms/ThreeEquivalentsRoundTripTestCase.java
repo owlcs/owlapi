@@ -12,43 +12,32 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.axioms;
 
-import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** test for 3178902 adapted from the report Timothy provided. */
-@SuppressWarnings("javadoc")
-public class ThreeEquivalentsRoundTripTestCase extends TestBase {
+class ThreeEquivalentsRoundTripTestCase extends TestBase {
 
     @Test
-    public void shouldRoundTrip() throws Exception {
+    void shouldRoundTrip() {
         // given
-        String ns = "http://protege.org/ontologies";
-        OWLClass b = Class(IRI(ns + "#B"));
-        OWLClass c = Class(IRI(ns + "#C"));
-        OWLObjectProperty p = ObjectProperty(IRI(ns + "#p"));
-        OWLObjectProperty q = ObjectProperty(IRI(ns + "#q"));
-        OWLAxiom axiomToAdd = EquivalentClasses(Class(IRI(ns + "#A")), ObjectSomeValuesFrom(p, b),
-            ObjectSomeValuesFrom(q, c));
-        OWLOntology ontology = m.createOntology();
+        OWLAxiom axiomToAdd =
+            EquivalentClasses(A, ObjectSomeValuesFrom(P, B), ObjectSomeValuesFrom(Q, C));
+        OWLOntology ontology = getAnonymousOWLOntology();
         ontology.getOWLOntologyManager().addAxiom(ontology, axiomToAdd);
         // when
         ontology = roundTrip(ontology);
         // then
-        assertTrue(ontology.containsObjectPropertyInSignature(p.getIRI(), EXCLUDED));
-        assertTrue(ontology.containsObjectPropertyInSignature(q.getIRI(), EXCLUDED));
-        assertTrue(ontology.containsClassInSignature(b.getIRI(), EXCLUDED));
-        assertTrue(ontology.containsClassInSignature(c.getIRI(), EXCLUDED));
+        assertTrue(ontology.containsObjectPropertyInSignature(P.getIRI(), EXCLUDED));
+        assertTrue(ontology.containsObjectPropertyInSignature(Q.getIRI(), EXCLUDED));
+        assertTrue(ontology.containsClassInSignature(B.getIRI(), EXCLUDED));
+        assertTrue(ontology.containsClassInSignature(C.getIRI(), EXCLUDED));
     }
 }

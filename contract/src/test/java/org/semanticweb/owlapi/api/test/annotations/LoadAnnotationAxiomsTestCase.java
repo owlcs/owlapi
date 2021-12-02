@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSComment;
@@ -27,7 +26,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
@@ -39,14 +38,11 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
@@ -54,27 +50,24 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
-public class LoadAnnotationAxiomsTestCase extends TestBase {
+class LoadAnnotationAxiomsTestCase extends TestBase {
 
     @Test
-    public void testIgnoreAnnotations() throws Exception {
-        OWLOntology ont = m.createOntology();
-        OWLClass clsA = Class(IRI("http://ont.com#A"));
-        OWLClass clsB = Class(IRI("http://ont.com#B"));
-        OWLSubClassOfAxiom sca = SubClassOf(clsA, clsB);
+    void testIgnoreAnnotations() {
+        OWLOntology ont = getAnonymousOWLOntology();
+        OWLSubClassOfAxiom sca = SubClassOf(A, B);
         m.addAxiom(ont, sca);
         OWLAnnotationProperty rdfsComment = RDFSComment();
         OWLLiteral lit = Literal("Hello world");
-        OWLAnnotationAssertionAxiom annoAx1 = AnnotationAssertion(rdfsComment, clsA.getIRI(), lit);
+        OWLAnnotationAssertionAxiom annoAx1 = AnnotationAssertion(rdfsComment, A.getIRI(), lit);
         m.addAxiom(ont, annoAx1);
         OWLAnnotationPropertyDomainAxiom annoAx2 =
-            df.getOWLAnnotationPropertyDomainAxiom(rdfsComment, clsA.getIRI());
+            df.getOWLAnnotationPropertyDomainAxiom(rdfsComment, A.getIRI());
         m.addAxiom(ont, annoAx2);
         OWLAnnotationPropertyRangeAxiom annoAx3 =
-            df.getOWLAnnotationPropertyRangeAxiom(rdfsComment, clsB.getIRI());
+            df.getOWLAnnotationPropertyRangeAxiom(rdfsComment, B.getIRI());
         m.addAxiom(ont, annoAx3);
-        OWLAnnotationProperty myComment = AnnotationProperty(IRI("http://ont.com#myComment"));
+        OWLAnnotationProperty myComment = AnnotationProperty(IRI("http://ont.com#", "myComment"));
         OWLSubAnnotationPropertyOfAxiom annoAx4 =
             df.getOWLSubAnnotationPropertyOfAxiom(myComment, rdfsComment);
         m.addAxiom(ont, annoAx4);
@@ -84,8 +77,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         reload(ont, new FunctionalSyntaxDocumentFormat());
     }
 
-    private void reload(@Nonnull OWLOntology ontology, @Nonnull OWLDocumentFormat format)
-        throws OWLOntologyStorageException, OWLOntologyCreationException {
+    private void reload(@Nonnull OWLOntology ontology, @Nonnull OWLDocumentFormat format) {
         Set<OWLAxiom> annotationAxioms = new HashSet<>();
         Set<OWLAxiom> axioms = ontology.getAxioms();
         for (OWLAxiom ax : axioms) {
@@ -106,8 +98,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
     }
 
     private OWLOntology reload(@Nonnull OWLOntology ontology, @Nonnull OWLDocumentFormat format,
-        @Nonnull OWLOntologyLoaderConfiguration configuration)
-        throws OWLOntologyStorageException, OWLOntologyCreationException {
+        @Nonnull OWLOntologyLoaderConfiguration configuration) {
         OWLOntology reloaded =
             loadOntologyWithConfig(saveOntology(ontology, format), configuration);
         HashSet<OWLDeclarationAxiom> declarations =

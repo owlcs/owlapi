@@ -12,43 +12,37 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
-public class GetAxiomsIgnoringAnnotationsTestCase extends TestBase {
+class GetAxiomsIgnoringAnnotationsTestCase extends TestBase {
 
     @Test
-    public void testGetAxiomsIgnoringAnnoations() {
+    void testGetAxiomsIgnoringAnnoations() {
         OWLLiteral annoLiteral = Literal("value");
-        OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
-        OWLAnnotation anno = df.getOWLAnnotation(annoProp, annoLiteral);
-        OWLAxiom axiom = df.getOWLSubClassOfAxiom(Class(iri("A")),
-                Class(iri("B")), singleton(anno));
+        OWLAnnotation anno = df.getOWLAnnotation(AP, annoLiteral);
+        OWLAxiom axiom = df.getOWLSubClassOfAxiom(A, B, singleton(anno));
         OWLOntology ont = getOWLOntology("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
-        assertTrue(ont.getAxiomsIgnoreAnnotations(axiom, EXCLUDED).contains(
-                axiom));
-        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom, EXCLUDED).contains(
-                axiom.getAxiomWithoutAnnotations()));
-        assertTrue(ont.getAxiomsIgnoreAnnotations(
-                axiom.getAxiomWithoutAnnotations(), EXCLUDED).contains(axiom));
-        assertFalse(ont.getAxiomsIgnoreAnnotations(
-                axiom.getAxiomWithoutAnnotations(), EXCLUDED).contains(
-                axiom.getAxiomWithoutAnnotations()));
+        assertTrue(ont.getAxiomsIgnoreAnnotations(axiom, EXCLUDED).contains(axiom));
+        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom, EXCLUDED)
+            .contains(axiom.getAxiomWithoutAnnotations()));
+        assertTrue(ont.getAxiomsIgnoreAnnotations(axiom.getAxiomWithoutAnnotations(), EXCLUDED)
+            .contains(axiom));
+        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom.getAxiomWithoutAnnotations(), EXCLUDED)
+            .contains(axiom.getAxiomWithoutAnnotations()));
     }
 }

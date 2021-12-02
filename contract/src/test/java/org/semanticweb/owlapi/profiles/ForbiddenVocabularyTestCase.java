@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForAnnotationPropertyIRI;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
@@ -65,12 +64,9 @@ class ForbiddenVocabularyTestCase extends TestBase {
     }
 
     @Test
-    void shouldCauseViolationsWithUseOfPropertyInChain() throws OWLOntologyCreationException {
-        OWLOntology o = m.createOntology();
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(father));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(brother));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(uncle));
+    void shouldCauseViolationsWithUseOfPropertyInChain() {
+        OWLOntology o = o(df.getOWLDeclarationAxiom(father), df.getOWLDeclarationAxiom(brother),
+            df.getOWLDeclarationAxiom(child), df.getOWLDeclarationAxiom(uncle));
         OWLSubPropertyChainOfAxiom brokenAxiom1 =
             df.getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother), uncle);
         OWLSubPropertyChainOfAxiom brokenAxiom2 =
@@ -92,12 +88,9 @@ class ForbiddenVocabularyTestCase extends TestBase {
     }
 
     @Test
-    void shouldNotCauseViolations() throws OWLOntologyCreationException {
-        OWLOntology o = m.createOntology();
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(father));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(brother));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(uncle));
+    void shouldNotCauseViolations() {
+        OWLOntology o = o(df.getOWLDeclarationAxiom(father), df.getOWLDeclarationAxiom(brother),
+            df.getOWLDeclarationAxiom(child), df.getOWLDeclarationAxiom(uncle));
         OWLSubPropertyChainOfAxiom brokenAxiom1 =
             df.getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother), uncle);
         OWLObjectPropertyManager manager =

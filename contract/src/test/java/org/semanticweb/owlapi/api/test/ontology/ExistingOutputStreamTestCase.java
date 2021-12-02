@@ -16,9 +16,7 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
@@ -28,22 +26,19 @@ import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * API writers/storers/renderers should not close streams if they didn't open
- * them.
- * 
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * API writers/storers/renderers should not close streams if they didn't open them.
+ *
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.3
  */
-@SuppressWarnings("javadoc")
-public class ExistingOutputStreamTestCase extends TestBase {
+class ExistingOutputStreamTestCase extends TestBase {
 
     @Test
-    public void testOutputStreamRemainsOpen() throws Exception {
-        OWLOntology ontology = m.createOntology();
+    void testOutputStreamRemainsOpen() {
+        OWLOntology ontology = getOWLOntology("streamStaysOpen");
         saveOntology(ontology, new RDFXMLDocumentFormat());
         saveOntology(ontology, new OWLXMLDocumentFormat());
         saveOntology(ontology, new TurtleDocumentFormat());
@@ -52,21 +47,15 @@ public class ExistingOutputStreamTestCase extends TestBase {
     }
 
     // test that the stream is not closed by adding a comment at the end
-    @Nonnull
     @Override
-    protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o,
-            OWLDocumentFormat format) throws OWLOntologyStorageException {
-        BufferedOutputStream os = new BufferedOutputStream(
-                new ByteArrayOutputStream());
-        o.getOWLOntologyManager().saveOntology(o, format, os);
-        try {
+    protected StringDocumentTarget saveOntology(OWLOntology o, OWLDocumentFormat format) {
+        try (BufferedOutputStream os = new BufferedOutputStream(new ByteArrayOutputStream());
+            OutputStreamWriter w = new OutputStreamWriter(os)) {
+            o.saveOntology(format, os);
             os.flush();
-            OutputStreamWriter w = new OutputStreamWriter(os);
             w.write("<!-- Comment -->");
-            w.flush();
-            w.close();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
         return new StringDocumentTarget();
     }

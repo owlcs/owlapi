@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Set;
 
@@ -40,7 +41,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
@@ -52,11 +52,10 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  * signature of some ontology. DLQueryPrinter - This takes a string class expression and prints out
  * the sub/super/equivalent classes and the instances of the specified class expression.
  * DLQueryParser - this parses the specified class expression string
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings({"javadoc",})
 public class DLQueryExample {
 
     private DLQueryExample() {}
@@ -112,7 +111,7 @@ public class DLQueryExample {
     private static String readInput() throws IOException {
         InputStream is = System.in;
         InputStreamReader reader;
-        reader = new InputStreamReader(is, "UTF-8");
+        reader = new InputStreamReader(is, StandardCharsets.UTF_8);
         BufferedReader br = new BufferedReader(reader);
         return br.readLine();
     }
@@ -143,7 +142,7 @@ class DLQueryEngine {
     /**
      * Constructs a DLQueryEngine. This will answer "DL queries" using the specified reasoner. A
      * short form provider specifies how entities are rendered.
-     * 
+     *
      * @param reasoner The reasoner to be used for answering the queries.
      * @param shortFormProvider A short form provider.
      */
@@ -155,7 +154,7 @@ class DLQueryEngine {
 
     /**
      * Gets the superclasses of a class expression parsed from a string.
-     * 
+     *
      * @param classExpressionString The string from which the class expression will be parsed.
      * @param direct Specifies whether direct superclasses should be returned or not.
      * @return The superclasses of the specified class expression If there was a problem parsing the
@@ -164,7 +163,7 @@ class DLQueryEngine {
     @Nonnull
     public Set<OWLClass> getSuperClasses(@Nonnull String classExpressionString, boolean direct) {
         if (classExpressionString.trim().isEmpty()) {
-            return CollectionFactory.emptySet();
+            return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser.parseClassExpression(classExpressionString);
         NodeSet<OWLClass> superClasses = reasoner.getSuperClasses(classExpression, direct);
@@ -173,7 +172,7 @@ class DLQueryEngine {
 
     /**
      * Gets the equivalent classes of a class expression parsed from a string.
-     * 
+     *
      * @param classExpressionString The string from which the class expression will be parsed.
      * @return The equivalent classes of the specified class expression If there was a problem
      *         parsing the class expression.
@@ -181,7 +180,7 @@ class DLQueryEngine {
     @Nonnull
     public Set<OWLClass> getEquivalentClasses(@Nonnull String classExpressionString) {
         if (classExpressionString.trim().isEmpty()) {
-            return CollectionFactory.emptySet();
+            return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser.parseClassExpression(classExpressionString);
         Node<OWLClass> equivalentClasses = reasoner.getEquivalentClasses(classExpression);
@@ -196,7 +195,7 @@ class DLQueryEngine {
 
     /**
      * Gets the subclasses of a class expression parsed from a string.
-     * 
+     *
      * @param classExpressionString The string from which the class expression will be parsed.
      * @param direct Specifies whether direct subclasses should be returned or not.
      * @return The subclasses of the specified class expression If there was a problem parsing the
@@ -214,7 +213,7 @@ class DLQueryEngine {
 
     /**
      * Gets the instances of a class expression parsed from a string.
-     * 
+     *
      * @param classExpressionString The string from which the class expression will be parsed.
      * @param direct Specifies whether direct instances should be returned or not.
      * @return The instances of the specified class expression If there was a problem parsing the
@@ -243,7 +242,7 @@ class DLQueryParser {
     /**
      * Constructs a DLQueryParser using the specified ontology and short form provider to map entity
      * IRIs to short names.
-     * 
+     *
      * @param rootOntology The root ontology. This essentially provides the domain vocabulary for
      *        the query.
      * @param shortFormProvider A short form provider to be used for mapping back and forth between
@@ -262,7 +261,7 @@ class DLQueryParser {
 
     /**
      * Parses a class expression string to obtain a class expression.
-     * 
+     *
      * @param classExpressionString The class expression string
      * @return The corresponding class expression if the class expression string is malformed or
      *         contains unknown entity names.

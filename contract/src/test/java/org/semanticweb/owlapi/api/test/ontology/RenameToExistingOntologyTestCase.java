@@ -12,14 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.SetOntologyID;
@@ -28,16 +28,16 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
-public class RenameToExistingOntologyTestCase extends TestBase {
+class RenameToExistingOntologyTestCase extends TestBase {
 
-    @Test(expected = OWLOntologyRenameException.class)
-    public void testRenameToExistingOntology() throws OWLOntologyCreationException {
-        IRI ontologyAIRI = IRI("http://www.semanticweb.org/ontologies/ontologyA");
-        OWLOntology onto = m.createOntology(ontologyAIRI);
-        m.addAxiom(onto, df.getOWLDeclarationAxiom(Class(IRI("urn:test:testclass"))));
-        IRI ontologyBIRI = IRI("http://www.semanticweb.org/ontologies/ontologyB");
-        OWLOntology ontologyB = m.createOntology(ontologyBIRI);
-        m.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(ontologyAIRI, null)));
+    @Test
+    void testRenameToExistingOntology() {
+        IRI ontologyAIRI = iri("http://www.semanticweb.org/ontologies/", "ontologyA");
+        OWLOntology onto = getOWLOntology(ontologyAIRI);
+        m.addAxiom(onto, df.getOWLDeclarationAxiom(Class(iri("urn:test:", "testclass"))));
+        IRI ontologyBIRI = iri("http://www.semanticweb.org/ontologies/", "ontologyB");
+        OWLOntology ontologyB = getOWLOntology(ontologyBIRI);
+        assertThrows(OWLOntologyRenameException.class, () -> m
+            .applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(ontologyAIRI, null))));
     }
 }

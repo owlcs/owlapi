@@ -42,21 +42,22 @@ class EntitySearcherTestCase extends TestBase {
 
     @Test
     void shouldReturnSuperProperty() {
-        Collection<OWLProperty> supers = EntitySearcher.getSuperProperties((OWLProperty) subProperty, ontologies);
+        Collection<OWLProperty> supers =
+            EntitySearcher.getSuperProperties((OWLProperty) subProperty, ontologies);
         assertThat(supers, hasItem(superProperty));
     }
 
     @Test
     void shouldWorkWithInverse() {
         Set<OWLObjectPropertyExpression> expressions = new HashSet<>();
-        EntitySearcher.getSuperProperties(subProperty, ontologies)
-            .forEach(expressions::add);
+        EntitySearcher.getSuperProperties(subProperty, ontologies).forEach(expressions::add);
         assertEquals(2, expressions.size());
     }
 
     @Test
     void shouldReturnSubProperty() {
-        Collection<OWLProperty> subs = EntitySearcher.getSubProperties((OWLProperty) superProperty, ontologies);
+        Collection<OWLProperty> subs =
+            EntitySearcher.getSubProperties((OWLProperty) superProperty, ontologies);
         assertThat(subs, hasItem(subProperty));
     }
 }

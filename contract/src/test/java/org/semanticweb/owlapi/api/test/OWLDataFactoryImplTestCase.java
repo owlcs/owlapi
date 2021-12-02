@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
 
@@ -24,7 +24,8 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -48,8 +49,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc"})
-public class OWLDataFactoryImplTestCase {
+class OWLDataFactoryImplTestCase extends TestBase {
     private static final String LANG = "LANG";
     private static final String TEST = "TEST";
     private static final String URN_TEST = "urn:test#";
@@ -88,7 +88,7 @@ public class OWLDataFactoryImplTestCase {
 
     int cardinality = 3;
     private final OWLDataFactory testSubject = new OWLDataFactoryImpl();
-    private static final AtomicInteger counter = new AtomicInteger(1);
+    private static final AtomicInteger COUNTER = new AtomicInteger(1);
     OWLClassExpression a = C(IRI());
     OWLIndividual a1 = I();
     OWLLiteral a2 = Literal();
@@ -120,23 +120,23 @@ public class OWLDataFactoryImplTestCase {
     OWLLiteral filler1 = Literal();
     OWLIndividual filler = I();
     OWLLiteral facetValue = testSubject.getOWLLiteral("3", D(IRI()));
-    OWLClass clsA = testSubject.getOWLClass(IRI.create(URN_TEST, "A"));
-    OWLClass clsB = testSubject.getOWLClass(IRI.create(URN_TEST, "B"));
-    OWLClass clsC = testSubject.getOWLClass(IRI.create(URN_TEST, "C"));
-    OWLClass clsD = testSubject.getOWLClass(IRI.create(URN_TEST, "D"));
+    OWLClass clsA = testSubject.getOWLClass(iri(URN_TEST, "A"));
+    OWLClass clsB = testSubject.getOWLClass(iri(URN_TEST, "B"));
+    OWLClass clsC = testSubject.getOWLClass(iri(URN_TEST, "C"));
+    OWLClass clsD = testSubject.getOWLClass(iri(URN_TEST, "D"));
     OWLClassExpression operandA = C(IRI());
     OWLClassExpression operandB = C(IRI());
 
-    private OWLClass C(IRI i) {
-        return testSubject.getOWLClass(i);
+    private OWLClass C(IRI iri) {
+        return testSubject.getOWLClass(iri);
     }
 
-    private OWLDatatype D(IRI i) {
-        return testSubject.getOWLDatatype(i);
+    private OWLDatatype D(IRI iri) {
+        return testSubject.getOWLDatatype(iri);
     }
 
-    private OWLDataProperty DP(IRI i) {
-        return testSubject.getOWLDataProperty(i);
+    private OWLDataProperty DP(IRI iri) {
+        return testSubject.getOWLDataProperty(iri);
     }
 
     private OWLIndividual I() {
@@ -144,19 +144,19 @@ public class OWLDataFactoryImplTestCase {
     }
 
     private static IRI IRI() {
-        return IRI.create("urn:test#A" + counter.incrementAndGet());
+        return iri("urn:test#", "A" + COUNTER.incrementAndGet());
     }
 
     private OWLLiteral Literal() {
-        return testSubject.getOWLLiteral("A" + counter.getAndIncrement());
+        return testSubject.getOWLLiteral("A" + COUNTER.getAndIncrement());
     }
 
-    private OWLObjectProperty OP(IRI i) {
-        return testSubject.getOWLObjectProperty(i);
+    private OWLObjectProperty OP(IRI iri) {
+        return testSubject.getOWLObjectProperty(iri);
     }
 
     @Test
-    public void shouldFindInternalisedSame() {
+    void shouldFindInternalisedSame() {
         assertSameFromSupplier(testSubject::getRDFPlainLiteral);
         assertSameFromSupplier(testSubject::getTopDatatype);
         assertSameFromSupplier(testSubject::getBooleanOWLDatatype);
@@ -178,8 +178,8 @@ public class OWLDataFactoryImplTestCase {
     }
 
     @Test
-    public void shouldHaveSWRLRulesEqual() {
-        SWRLVariable var = testSubject.getSWRLVariable(IRI.create(URN_TEST, "x"));
+    void shouldHaveSWRLRulesEqual() {
+        SWRLVariable var = testSubject.getSWRLVariable(iri(URN_TEST, "x"));
         Set<SWRLClassAtom> body1 =
             new LinkedHashSet<>(Arrays.asList(testSubject.getSWRLClassAtom(clsA, var),
                 testSubject.getSWRLClassAtom(clsC, var)));
@@ -197,7 +197,7 @@ public class OWLDataFactoryImplTestCase {
     }
 
     @Test
-    public void shouldHaveSWRLRulesWithAnnotationsEqual() {
+    void shouldHaveSWRLRulesWithAnnotationsEqual() {
         Set<OWLAnnotation> ann1 = new LinkedHashSet<>(Arrays.asList(
             testSubject.getOWLAnnotation(testSubject.getRDFSComment(),
                 testSubject.getOWLLiteral("test1")),
@@ -208,7 +208,7 @@ public class OWLDataFactoryImplTestCase {
                 testSubject.getOWLLiteral("test2")),
             testSubject.getOWLAnnotation(testSubject.getRDFSComment(),
                 testSubject.getOWLLiteral("test1"))));
-        SWRLVariable var = testSubject.getSWRLVariable(IRI.create(URN_TEST, "x"));
+        SWRLVariable var = testSubject.getSWRLVariable(iri(URN_TEST, "x"));
         Set<SWRLClassAtom> body1 =
             new LinkedHashSet<>(Arrays.asList(testSubject.getSWRLClassAtom(clsA, var),
                 testSubject.getSWRLClassAtom(clsC, var)));
@@ -226,7 +226,7 @@ public class OWLDataFactoryImplTestCase {
     }
 
     @Test
-    public void testAsSubAxiomsEquivalentClasses() {
+    void testAsSubAxiomsEquivalentClasses() {
         assertEqualsFromSupplier(() -> C(iri));
         assertEqualsFromSupplier(() -> D(iri));
         assertEqualsFromSupplier(() -> DP(iri));

@@ -12,27 +12,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
-public class BlankNodeTestCase extends TestBase {
+class BlankNodeTestCase extends TestBase {
 
     @Test
-    public void testBlankNodes() throws OWLOntologyCreationException {
-        m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                "_:foo <http://example.com/> _:bar .",
-                OWLOntologyDocumentSourceBase
-                        .getNextDocumentIRI("string:ontology"),
-                new TurtleDocumentFormat(), null));
+    void testBlankNodes() {
+        loadOntologyFromString(TestFiles.anonTurtle, new TurtleDocumentFormat());
     }
 }

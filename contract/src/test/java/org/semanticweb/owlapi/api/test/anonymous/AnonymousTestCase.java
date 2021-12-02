@@ -12,59 +12,47 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ClassAssertion;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectHasValue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
-@SuppressWarnings("javadoc")
-public class AnonymousTestCase extends TestBase {
+class AnonymousTestCase extends TestBase {
 
     @Test
-    public void shouldRoundTrip() throws Exception {
-        OWLClass c = Class(IRI("urn:test#C"));
-        OWLClass d = Class(IRI("urn:test#D"));
-        OWLObjectProperty p = ObjectProperty(IRI("urn:test#p"));
-        OWLDataProperty q = DataProperty(IRI("urn:test#q"));
+    void shouldRoundTrip() {
         OWLIndividual i = AnonymousIndividual();
-        OWLOntology ontology = m.createOntology();
+        OWLOntology ontology = getAnonymousOWLOntology();
         List<OWLOntologyChange> changes = new ArrayList<>();
-        changes.add(new AddAxiom(ontology, SubClassOf(c, ObjectHasValue(p, i))));
-        changes.add(new AddAxiom(ontology, ClassAssertion(d, i)));
-        changes.add(new AddAxiom(ontology, DataPropertyAssertion(q, i,
-                Literal("hello"))));
+        changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, i))));
+        changes.add(new AddAxiom(ontology, ClassAssertion(D, i)));
+        changes.add(new AddAxiom(ontology, DataPropertyAssertion(DPP, i, Literal("hello"))));
         m.applyChanges(changes);
         OWLOntology ontologyReloaded = loadOntologyFromString(saveOntology(ontology));
         equal(ontology, ontologyReloaded);
     }
 
     @Test
-    public void testRoundTripWithAnonymousIndividuals() throws Exception {
-        String ns = "http://test.com/genid#";
-        IRI ont = IRI.create(ns + "ontology.owl");
-        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create(ns, "i"));
-        OWLObjectProperty p = df.getOWLObjectProperty(IRI.create(ns, "p"));
-        OWLDataProperty q = df.getOWLDataProperty(IRI.create(ns, "q"));
-        OWLOntology ontology = m.createOntology(ont);
+    void testRoundTripWithAnonymousIndividuals() {
+        OWLOntology ontology = getOWLOntology("ontology.owl");
         OWLIndividual ind = df.getOWLAnonymousIndividual();
-        OWLObjectPropertyAssertionAxiom ax1 = df
-                .getOWLObjectPropertyAssertionAxiom(p, i, ind);
-        OWLDataPropertyAssertionAxiom ax2 = df
-                .getOWLDataPropertyAssertionAxiom(q, ind, df.getOWLLiteral(5));
+        OWLObjectPropertyAssertionAxiom ax1 = df.getOWLObjectPropertyAssertionAxiom(P, i, ind);
+        OWLDataPropertyAssertionAxiom ax2 =
+            df.getOWLDataPropertyAssertionAxiom(DPP, ind, df.getOWLLiteral(5));
         m.addAxiom(ontology, ax1);
         m.addAxiom(ontology, ax2);
         OWLOntology reload = roundTrip(ontology);

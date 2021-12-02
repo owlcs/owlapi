@@ -1,13 +1,13 @@
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
@@ -27,22 +26,22 @@ import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-public class IsAnonymousTestCase extends TestBase {
+class IsAnonymousTestCase extends TestBase {
 
     @Test
-    public void shouldCheckAnonymous() throws OWLOntologyCreationException {
-        IRI i = IRI.create("urn:test:i");
-        IRI j = IRI.create("urn:test:j");
+    void shouldCheckAnonymous() {
+        IRI i = iri("urn:test:", "i");
+        IRI j = iri("urn:test:", "j");
         OWLClass c = df.getOWLClass(i);
-        OWLClass c1 = df.getOWLClass(IRI.create("urn:test:c1"));
-        OWLClass c2 = df.getOWLClass(IRI.create("urn:test:c2"));
+        OWLClass c1 = df.getOWLClass(iri("urn:test:", "c1"));
+        OWLClass c2 = df.getOWLClass(iri("urn:test:", "c2"));
         OWLDataProperty dp = df.getOWLDataProperty(i);
-        OWLDataProperty dp1 = df.getOWLDataProperty(IRI.create("urn:test:dp1"));
+        OWLDataProperty dp1 = df.getOWLDataProperty(iri("urn:test:", "dp1"));
         OWLObjectProperty op = df.getOWLObjectProperty(i);
-        OWLObjectProperty op1 = df.getOWLObjectProperty(IRI.create("urn:test:op1"));
-        OWLObjectProperty op2 = df.getOWLObjectProperty(IRI.create("urn:test:op2"));
+        OWLObjectProperty op1 = df.getOWLObjectProperty(iri("urn:test:", "op1"));
+        OWLObjectProperty op2 = df.getOWLObjectProperty(iri("urn:test:", "op2"));
         OWLNamedIndividual ind = df.getOWLNamedIndividual(i);
-        OWLNamedIndividual ind1 = df.getOWLNamedIndividual(IRI.create("urn:test:ind1"));
+        OWLNamedIndividual ind1 = df.getOWLNamedIndividual(iri("urn:test:", "ind1"));
         OWLAnnotation label = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("label"));
         OWLLiteral l = df.getOWLLiteral("literal");
         SWRLClassAtom sc =
@@ -53,9 +52,9 @@ public class IsAnonymousTestCase extends TestBase {
         OWLDatatype itype = df.getIntegerOWLDatatype();
         OWLDatatype dtype = df.getDoubleOWLDatatype();
         assertFalse(new OWLOntologyID(i, i).isAnonymous());
-        OWLOntology o = m.createOntology(i);
+        OWLOntology o = getOWLOntology(i);
         assertFalse(o.isAnonymous());
-        OWLOntology o1 = m.createOntology();
+        OWLOntology o1 = getAnonymousOWLOntology();
         assertTrue(o1.isAnonymous());
         // entities
         assertFalse(c.isAnonymous());
@@ -91,7 +90,7 @@ public class IsAnonymousTestCase extends TestBase {
         assertTrue(label.isAnonymous());
         assertTrue(
             df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral("comment")).isAnonymous());
-        assertTrue(df.getSWRLVariable(IRI.create("urn:swrl:variable")).isAnonymous());
+        assertTrue(df.getSWRLVariable(iri("urn:swrl:", "variable")).isAnonymous());
         assertTrue(df.getSWRLVariable(i).isAnonymous());
         assertTrue(new OWLOntologyID().isAnonymous());
         assertTrue(df.getOWLAnonymousIndividual().isAnonymous());

@@ -14,7 +14,9 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -44,9 +46,7 @@ import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -88,7 +88,6 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
@@ -104,9 +103,9 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
@@ -227,7 +226,15 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     protected void render(Set<? extends OWLObject> objects) {
-        for (Iterator<? extends OWLObject> it = sortOptionally(objects).iterator(); it.hasNext();) {
+        render(objects, true);
+    }
+
+    protected void render(Collection<? extends OWLObject> objects, boolean sort) {
+        Collection<? extends OWLObject> sorted = objects;
+        if (sort) {
+            sorted = sortOptionally(objects);
+        }
+        for (Iterator<? extends OWLObject> it = sorted.iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 sb.append(' ');
@@ -327,7 +334,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("EquivalentObjectProperties(");
         writeAnnotations(axiom);
         render(axiom.getProperties());
-        sb.append(" )");
+        sb.append(')');
     }
 
     @Override
@@ -347,7 +354,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("DifferentIndividuals(");
         writeAnnotations(axiom);
         render(axiom.getIndividuals());
-        sb.append(" )");
+        sb.append(')');
     }
 
     @Override
@@ -355,7 +362,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("DisjointDataProperties(");
         writeAnnotations(axiom);
         render(axiom.getProperties());
-        sb.append(" )");
+        sb.append(')');
     }
 
     @Override
@@ -363,7 +370,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("DisjointObjectProperties(");
         writeAnnotations(axiom);
         render(axiom.getProperties());
-        sb.append(" )");
+        sb.append(')');
     }
 
     @Override
@@ -413,7 +420,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         axiom.getOWLClass().accept(this);
         insertSpace();
         render(axiom.getClassExpressions());
-        sb.append(" )");
+        sb.append(')');
     }
 
     @Override
@@ -481,7 +488,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("EquivalentDataProperties(");
         writeAnnotations(axiom);
         render(axiom.getProperties());
-        sb.append(" )");
+        sb.append(')');
     }
 
     @Override
@@ -499,7 +506,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("EquivalentClasses(");
         writeAnnotations(axiom);
         render(axiom.getClassExpressions());
-        sb.append(" )");
+        sb.append(')');
     }
 
     @Override
@@ -553,7 +560,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("SameIndividual(");
         writeAnnotations(axiom);
         render(axiom.getIndividuals());
-        sb.append(" )");
+        sb.append(')');
     }
 
     @Override
@@ -561,11 +568,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("SubObjectPropertyOf(");
         writeAnnotations(axiom);
         sb.append("ObjectPropertyChain(");
-        for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
-            insertSpace();
-            prop.accept(this);
-        }
-        sb.append(" )");
+        render(axiom.getPropertyChain(), false);
+        sb.append(')');
         insertSpace();
         axiom.getSuperProperty().accept(this);
         sb.append(')');
@@ -747,12 +751,12 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLDataOneOf node) {
         sb.append("DataOneOf(");
         render(node.getValues());
-        sb.append(" )");
+        sb.append(')');
     }
 
     @Override
     public void visit(OWLDatatypeRestriction node) {
-        sb.append("DataRangeRestriction(");
+        sb.append("DatatypeRestriction(");
         node.getDatatype().accept(this);
         for (OWLFacetRestriction restriction : node.getFacetRestrictions()) {
             insertSpace();
@@ -823,36 +827,23 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         writeAnnotations(axiom);
         axiom.getClassExpression().accept(this);
         sb.append(" (");
-        for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
-            prop.accept(this);
-            sb.append(' ');
-        }
+        render(axiom.getObjectPropertyExpressions());
         sb.append(") (");
-        for (OWLDataPropertyExpression prop : axiom.getDataPropertyExpressions()) {
-            prop.accept(this);
-            sb.append(' ');
-        }
-        sb.append(')');
-        sb.append(')');
+        render(axiom.getDataPropertyExpressions());
+        sb.append("))");
     }
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
         sb.append("DataIntersectionOf(");
-        for (OWLDataRange rng : node.getOperands()) {
-            rng.accept(this);
-            sb.append(' ');
-        }
+        render(node.getOperands());
         sb.append(')');
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
         sb.append("DataUnionOf(");
-        for (OWLDataRange rng : node.getOperands()) {
-            rng.accept(this);
-            sb.append(' ');
-        }
+        render(node.getOperands());
         sb.append(')');
     }
 
@@ -864,6 +855,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         sb.append("AnnotationPropertyDomain(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         sb.append(' ');
         axiom.getDomain().accept(this);
@@ -873,6 +865,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         sb.append("AnnotationPropertyRange(");
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         sb.append(' ');
         axiom.getRange().accept(this);
@@ -918,23 +911,11 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(SWRLRule rule) {
         sb.append("DLSafeRule(");
         writeAnnotations(rule);
-        sb.append(" Body(");
-        for (Iterator<? extends OWLObject> it = rule.getBody().iterator(); it.hasNext();) {
-            it.next().accept(this);
-            if (it.hasNext()) {
-                sb.append(' ');
-            }
-        }
-        sb.append(')');
-        sb.append(" Head(");
-        for (Iterator<? extends OWLObject> it = rule.getHead().iterator(); it.hasNext();) {
-            it.next().accept(this);
-            if (it.hasNext()) {
-                sb.append(' ');
-            }
-        }
-        sb.append(')');
-        sb.append(" )");
+        sb.append("Body(");
+        render(rule.getBody(), false);
+        sb.append(") Head(");
+        render(rule.getHead(), false);
+        sb.append("))");
     }
 
     @Override
@@ -1000,9 +981,12 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("BuiltInAtom(");
         sb.append(getShortForm(node.getPredicate()));
         sb.append(' ');
-        for (SWRLArgument arg : node.getArguments()) {
-            arg.accept(this);
-            sb.append(' ');
+        List<SWRLDArgument> arguments = node.getArguments();
+        for (int i = 0; i < arguments.size(); i++) {
+            if (i > 0) {
+                sb.append(' ');
+            }
+            arguments.get(i).accept(this);
         }
         sb.append(')');
     }

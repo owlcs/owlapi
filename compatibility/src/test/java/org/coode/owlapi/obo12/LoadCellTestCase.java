@@ -1,10 +1,11 @@
 package org.coode.owlapi.obo12;
 
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.coode.owlapi.obo12.parser.OBO12DocumentFormat;
 import org.coode.owlapi.obo12.parser.OBO12ParserFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;

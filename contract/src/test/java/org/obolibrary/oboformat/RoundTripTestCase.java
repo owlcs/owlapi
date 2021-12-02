@@ -6,10 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collection;
 import java.util.List;
@@ -31,7 +29,6 @@ import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
@@ -51,8 +48,7 @@ import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
@@ -78,7 +74,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
     }
 
     @Test
-    void testAltIds() throws Exception {
+    void testAltIds() {
         OBODoc input = parseOBOFile("alt_id_test.obo");
         OWLOntology owl = convert(input);
         // check round trip
@@ -95,12 +91,12 @@ class RoundTripTestCase extends RoundTripTestBasics {
     }
 
     @Test
-    void testRoundTripCardinality() throws Exception {
+    void testRoundTripCardinality() {
         // create minimal ontology
         OBODoc oboDocSource = parseOBOFile("roundtrip_cardinality.obo");
         // convert to OWL and retrieve def
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(m1);
-        OWLOntology owlOntology = bridge.convert(oboDocSource);
+        OWLOntology owlOntology = convert(oboDocSource, bridge);
         OWLDataFactory factory = owlOntology.getOWLOntologyManager().getOWLDataFactory();
         OWLClass c = factory.getOWLClass(bridge.oboIdToIRI("PR:000027136"));
         // Relations
@@ -148,7 +144,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
     }
 
     @Test
-    void testRoundTripLabeledXrefs() throws Exception {
+    void testRoundTripLabeledXrefs() {
         OBODoc source = parseOBOFile("labeled_xrefs.obo");
         String written = renderOboToString(source);
         OBODoc parsed = parseOboToString(written);
@@ -176,26 +172,24 @@ class RoundTripTestCase extends RoundTripTestBasics {
     }
 
     @Test
-    void testWriteNamespaceIdRule() throws Exception {
+    void testWriteNamespaceIdRule() {
         OBODoc oboDoc = parseOBOFile("namespace-id-rule.obo");
         String oboString = renderOboToString(oboDoc);
         assertTrue(oboString.contains("\nnamespace-id-rule: * test:$sequence(7,0,9999999)$\n"));
     }
 
     @Test
-    void testWriteReadConvertedOWLNamespaceIdRule() throws Exception {
+    void testWriteReadConvertedOWLNamespaceIdRule() {
         OBODoc oboDoc = parseOBOFile("namespace-id-rule.obo");
         OWLOntology owlOntology = convert(oboDoc);
-        StringDocumentTarget documentTarget = new StringDocumentTarget();
-        owlOntology.saveOntology(new OWLXMLDocumentFormat(), documentTarget);
+        StringDocumentTarget documentTarget = saveOntology(owlOntology, new OWLXMLDocumentFormat());
         String owlString = documentTarget.toString();
         OWLOntology reloadedOwl = loadOntologyFromString(owlString, new OWLXMLDocumentFormat());
         assertEquals(owlOntology.getAxiomCount(), reloadedOwl.getAxiomCount());
     }
 
     @Test
-    void shouldRoundTripVersionInfo()
-        throws OWLOntologyStorageException, IOException, OWLOntologyCreationException {
+    void shouldRoundTripVersionInfo() {
         String in = "Prefix(:=<http://purl.obolibrary.org/obo/myont.owl#>)\n"
             + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
             + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
@@ -220,8 +214,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
         String actual = renderOboToString(oboDoc1).trim();
         assertEquals(expected, actual);
         // parse OBO
-        OBOFormatParser p = new OBOFormatParser();
-        OBODoc oboDoc2 = p.parse(new BufferedReader(new StringReader(actual)));
+        OBODoc oboDoc2 = parseOboToString(actual);
         assertEquals(expected, renderOboToString(oboDoc2).trim());
 
         List<Diff> diffs = OBODocDiffer.getDiffs(oboDoc1, oboDoc2);
@@ -233,14 +226,13 @@ class RoundTripTestCase extends RoundTripTestBasics {
      * round-trip back into OWL.
      */
     @Test
-    void testRoundTripOWLRO() throws Exception {
+    void testRoundTripOWLRO() {
         OWLOntology oo1 = parseOWLFile("ro.owl");
         OBODoc oboDoc1 = convert(oo1);
         // write OBO
         String oboString = renderOboToString(oboDoc1);
         // parse OBO
-        OBOFormatParser p = new OBOFormatParser();
-        OBODoc oboDoc2 = p.parse(new BufferedReader(new StringReader(oboString)));
+        OBODoc oboDoc2 = parseOboToString(oboString);
         // check that the annotations are pre-served on the property values
         Frame typedefFrame = oboDoc2.getTypedefFrame("RO:0002224");
         assert typedefFrame != null;
@@ -269,7 +261,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
     }
 
     @Test
-    void testOBOIsInferredAnnotation() throws Exception {
+    void testOBOIsInferredAnnotation() {
         OBODoc input = parseOBOFile("is_inferred_annotation.obo");
         OWLOntology owl = convert(input);
         // check round trip
@@ -308,22 +300,25 @@ class RoundTripTestCase extends RoundTripTestBasics {
     }
 
     @Test
-    void testRequireEmptyXrefList() throws Exception {
+    void testRequireEmptyXrefList() {
         OBODoc obo = parseOBOFile("synonym_test.obo");
         // Get synonym clause with an empty xref list
         Frame frame = obo.getTermFrame("GO:0009579");
         assertNotNull(frame);
         // write frame
-        StringWriter stringWriter = new StringWriter();
-        BufferedWriter bufferedWriter = new BufferedWriter(stringWriter);
-        OBOFormatWriter oboWriter = new OBOFormatWriter();
-        oboWriter.write(frame, bufferedWriter, null);
-        bufferedWriter.flush();
-        // get written frame
-        String line = stringWriter.getBuffer().toString();
-        // check that written frame has line:
-        // synonym: "photosynthetic membrane" RELATED []
-        assertTrue(line.contains("\nsynonym: \"photosynthetic membrane\" RELATED []\n"));
+        try (StringWriter stringWriter = new StringWriter();
+            BufferedWriter bufferedWriter = new BufferedWriter(stringWriter)) {
+            OBOFormatWriter oboWriter = new OBOFormatWriter();
+            oboWriter.write(frame, bufferedWriter, null);
+            bufferedWriter.flush();
+            // get written frame
+            String line = stringWriter.getBuffer().toString();
+            // check that written frame has line:
+            // synonym: "photosynthetic membrane" RELATED []
+            assertTrue(line.contains("\nsynonym: \"photosynthetic membrane\" RELATED []\n"));
+        } catch (IOException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     @Test
@@ -372,7 +367,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
     }
 
     @Test
-    void shouldRoundtripAll() throws OWLOntologyStorageException, OWLOntologyCreationException {
+    void shouldRoundtripAll() {
         String in = "Prefix(:=<http://purl.obolibrary.org/obo/uni.obo#>)\n"
             + "Ontology(<http://purl.obolibrary.org/obo/uni.obo.owl>\n" + "Declaration(Class(:A))\n"
             + "Declaration(Class(:B))\n" + "Declaration(ObjectProperty(:part_of))\n"

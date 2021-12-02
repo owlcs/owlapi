@@ -21,7 +21,7 @@ xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
 <owl:Ontology/>
     <owl:Class rdf:about="http://example.com/Person">
         <owl:hasKey rdf:parseType="Collection">
-            <owl:ObjectProperty rdf:about="http://example.com/objectPoperty"/>
+            <owl:ObjectProperty rdf:about="http://example.com/objectProperty"/>
             <owl:DatatypeProperty rdf:about="http://example.com/dataProperty"/>
         </owl:hasKey>
     </owl:Class>

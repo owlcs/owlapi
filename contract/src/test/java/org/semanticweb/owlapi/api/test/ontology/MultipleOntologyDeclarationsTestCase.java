@@ -12,10 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -28,29 +30,22 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class MultipleOntologyDeclarationsTestCase extends TestBase {
-    private static final String input = "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
-        + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n" + "\n"
-        + "<urn:test:Ontology1> rdf:type owl:Ontology ;\n"
-        + "  rdfs:label \"Two ontologies each with versions.\"^^xsd:string ;\n"
-        + "  rdfs:comment \"This file has two ontologies each with versions.\"^^xsd:string .\n"
-        + "\n" + "<urn:test:Ontology2> rdf:type owl:Ontology ;\n"
-        + "  owl:versionIRI <urn:test:Ontology2Version1> .\n" + "\n"
-        + "<urn:test:Ontology1> owl:versionIRI <urn:test:Ontology1Version1> .";
+class MultipleOntologyDeclarationsTestCase extends TestBase {
 
     @Test
-    public void shouldLoadFirstOfMultipleOntologyDeclarationsRdfXml() throws Exception {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input,
-            IRI.create("urn:test:t1"), new TurtleDocumentFormat(), null));
+    void shouldLoadFirstOfMultipleOntologyDeclarationsRdfXml() {
+        OWLOntology o = loadOntologyFromSource(new StringDocumentSource(TestFiles.doubleOntology,
+            iri("urn:test:", "t1"), new TurtleDocumentFormat(), null));
         assertEquals(o.getOntologyID(), new OWLOntologyID(IRI.create("urn:test:Ontology1"),
-            IRI.create("urn:test:Ontology1Version1")));
+            iri("urn:test:", "Ontology1Version1")));
     }
 
-    @Test(expected = UnparsableOntologyException.class)
-    public void shouldNotLoadMultipleOntologyDeclarationsRioRdfXml() throws Exception {
-        m.loadOntologyFromOntologyDocument(
-            new StringDocumentSource(input, IRI.create("urn:test:t1"),
-                new RioTurtleDocumentFormat(), null),
-            new OWLOntologyLoaderConfiguration().setStrict(true));
+    @Test
+    void shouldNotLoadMultipleOntologyDeclarationsRioRdfXml() {
+        assertThrows(UnparsableOntologyException.class,
+            () -> m.loadOntologyFromOntologyDocument(
+                new StringDocumentSource(TestFiles.doubleOntology, iri("urn:test:", "t1"),
+                    new RioTurtleDocumentFormat(), null),
+                new OWLOntologyLoaderConfiguration().setStrict(true)));
     }
 }

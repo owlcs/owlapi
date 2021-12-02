@@ -1,15 +1,16 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 
-@SuppressWarnings("javadoc")
-public class BFOTestCase extends TestBase {
+class BFOTestCase extends TestBase {
 
     @Test
-    public void shouldparseBFO() {
+    void shouldparseBFO() {
         m.getOntologyParsers().set(new RDFXMLParserFactory());
-        loadOntology("bforeduced.owl");
+        loadOntologyFromString(TestFiles.BFO, new RDFXMLDocumentFormat());
     }
 }

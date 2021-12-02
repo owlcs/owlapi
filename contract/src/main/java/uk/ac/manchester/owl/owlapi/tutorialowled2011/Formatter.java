@@ -28,7 +28,6 @@ public final class Formatter {
     private Formatter() {}
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Formatter.main() " + Long.MAX_VALUE / (1000 * 86000 * 365));
         Map<String, String> specials = new HashMap<>();
         specials.put("public void test", "\\begin{beamerboxesrounded}{");
         specials.put("() throws Exception \\{", "}\n\\scriptsize");
@@ -44,12 +43,12 @@ public final class Formatter {
                 System.out.println("\\end{beamerboxesrounded}\n\n");
             } else {
                 line = line.replace("{", "\\{").replace("}", "\\}").replace("_", "\\_");
-                if (line.startsWith("//")) {
+                if (line.trim().startsWith("//")) {
                     System.out.println("\\codecomment{" + line + "}\\\\");
                 } else {
                     // regular code
-                    for (String s : specials.keySet()) {
-                        line = line.replace(s, specials.get(s));
+                    for (Map.Entry<String, String> e : specials.entrySet()) {
+                        line = line.replace(e.getKey(), e.getValue());
                     }
                     for (String s : keywords) {
                         line = line.replace(s, "\\codekeyword{" + s + '}');

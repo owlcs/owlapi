@@ -12,26 +12,26 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.literals;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.apitest.TestFiles;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-@SuppressWarnings("javadoc")
-public class TestCornerCasesTestCase extends TestBase {
+class TestCornerCasesTestCase extends TestBase {
 
     @Test
-    public void testFloatZeros() {
+    void testFloatZeros() {
         // +0 and -0 are not equal
         OWLDatatype type = df.getFloatOWLDatatype();
         OWLLiteral lit1 = df.getOWLLiteral("0.0", type);
@@ -40,7 +40,7 @@ public class TestCornerCasesTestCase extends TestBase {
     }
 
     @Test
-    public void testIntegerRange() {
+    void testIntegerRange() {
         String expected = "2147483648";
         OWLDatatype type = df.getIntegerOWLDatatype();
         OWLLiteral lit = df.getOWLLiteral(expected, type);
@@ -48,7 +48,7 @@ public class TestCornerCasesTestCase extends TestBase {
     }
 
     @Test
-    public void testIntegerWithBlank() {
+    void testIntegerWithBlank() {
         String expected = "";
         OWLDatatype type = df.getIntegerOWLDatatype();
         OWLLiteral lit = df.getOWLLiteral(expected, type);
@@ -56,13 +56,13 @@ public class TestCornerCasesTestCase extends TestBase {
     }
 
     @Test
-    public void testEnumInt() {
+    void testEnumInt() {
         OWLDatatype type = df.getIntegerOWLDatatype();
         df.getOWLLiteral("1000000000000000000000000000000000000000", type);
     }
 
     @Test
-    public void testGetDataPropertyValues() {
+    void testGetDataPropertyValues() {
         OWLDatatype type = df.getIntegerOWLDatatype();
         OWLLiteral lit1 = df.getOWLLiteral("01", type);
         OWLLiteral lit2 = df.getOWLLiteral("1", type);
@@ -70,58 +70,21 @@ public class TestCornerCasesTestCase extends TestBase {
     }
 
     @Test
-    public void testWebOnt() throws OWLOntologyCreationException {
-        String s = "<!DOCTYPE rdf:RDF [\n"
-            + "   <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\">\n"
-            + "   <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n" + "]>\n"
-            + "<rdf:RDF\n" + " xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
-            + " xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-            + " xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-            + " xmlns:first=\"http://www.w3.org/2002/03owlt/oneOf/premises004#\"\n"
-            + " xml:base=\"http://www.w3.org/2002/03owlt/oneOf/premises004\" >\n"
-            + " <owl:Ontology/>\n" + " <owl:DatatypeProperty rdf:ID=\"p\">\n" + "  <rdfs:range>\n"
-            + "   <owl:DataRange>\n" + "    <owl:oneOf>\n" + "     <rdf:List>\n"
-            + "      <rdf:first rdf:datatype=\"&xsd;integer\">1</rdf:first>\n"
-            + "      <rdf:rest>\n" + "       <rdf:List>\n"
-            + "        <rdf:first rdf:datatype=\"&xsd;integer\">2</rdf:first>\n"
-            + "        <rdf:rest>\n" + "         <rdf:List>\n"
-            + "          <rdf:first rdf:datatype=\"&xsd;integer\">3</rdf:first>\n"
-            + "          <rdf:rest>\n" + "           <rdf:List>\n"
-            + "            <rdf:first rdf:datatype=\"&xsd;integer\">4</rdf:first>\n"
-            + "            <rdf:rest rdf:resource=\"&rdf;nil\"/>\n" + "           </rdf:List>\n"
-            + "          </rdf:rest>\n" + "         </rdf:List>\n" + "        </rdf:rest>\n"
-            + "       </rdf:List>\n" + "      </rdf:rest>\n" + "     </rdf:List>\n"
-            + "    </owl:oneOf>\n" + "   </owl:DataRange>\n" + "  </rdfs:range>\n"
-            + "  <rdfs:range>\n" + "   <owl:DataRange>\n" + "    <owl:oneOf>\n"
-            + "     <rdf:List>\n" + "      <rdf:first rdf:datatype=\"&xsd;integer\">4</rdf:first>\n"
-            + "      <rdf:rest>\n" + "       <rdf:List>\n"
-            + "        <rdf:first rdf:datatype=\"&xsd;integer\">5</rdf:first>\n"
-            + "        <rdf:rest>\n" + "         <rdf:List>\n"
-            + "          <rdf:first rdf:datatype=\"&xsd;integer\">6</rdf:first>\n"
-            + "          <rdf:rest rdf:resource=\"&rdf;nil\"/>\n" + "         </rdf:List>\n"
-            + "        </rdf:rest>\n" + "       </rdf:List>\n" + "      </rdf:rest>\n"
-            + "     </rdf:List>\n" + "    </owl:oneOf>\n" + "   </owl:DataRange>\n"
-            + "  </rdfs:range>\n" + " </owl:DatatypeProperty>\n" + " <owl:Thing rdf:ID=\"i\">\n"
-            + "  <rdf:type>\n" + "   <owl:Restriction>\n"
-            + "    <owl:onProperty rdf:resource=\"#p\"/>\n"
-            + "    <owl:minCardinality rdf:datatype=\"&xsd;int\">1</owl:minCardinality>\n"
-            + "   </owl:Restriction>\n" + "  </rdf:type>\n" + " </owl:Thing>\n" + "</rdf:RDF>";
+    void testWebOnt() {
         Set<String> expectedResult = new TreeSet<>();
         expectedResult.add(
-            "DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"1\"^^xsd:integer \"2\"^^xsd:integer \"3\"^^xsd:integer \"4\"^^xsd:integer ))");
+            "DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"1\"^^xsd:integer \"2\"^^xsd:integer \"3\"^^xsd:integer \"4\"^^xsd:integer))");
         expectedResult
             .add("Declaration(DataProperty(<http://www.w3.org/2002/03owlt/oneOf/premises004#p>))");
         expectedResult
             .add("ClassAssertion(owl:Thing <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
         expectedResult.add(
-            "DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"4\"^^xsd:integer \"5\"^^xsd:integer \"6\"^^xsd:integer ))");
+            "DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"4\"^^xsd:integer \"5\"^^xsd:integer \"6\"^^xsd:integer))");
         expectedResult.add(
             "ClassAssertion(DataMinCardinality(1 <http://www.w3.org/2002/03owlt/oneOf/premises004#p> rdfs:Literal) <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
-        OWLOntology o = loadOntologyFromString(s);
+        OWLOntology o = loadOntologyFromString(TestFiles.webOnt, new RDFXMLDocumentFormat());
         Set<String> result = new TreeSet<>();
-        for (OWLAxiom ax : o.getAxioms()) {
-            result.add(ax.toString());
-        }
+        o.getAxioms().forEach(ax -> result.add(ax.toString()));
         if (!result.equals(expectedResult)) {
             Set<String> intersection = new TreeSet<>(result);
             intersection.retainAll(expectedResult);
@@ -130,40 +93,22 @@ public class TestCornerCasesTestCase extends TestBase {
             Set<String> s2 = new TreeSet<>(expectedResult);
             s2.removeAll(intersection);
         }
-        assertEquals("Sets were supposed to be equal", result, expectedResult);
+        assertEquals(result, expectedResult);
     }
 
     @Test
-    public void testMinusInf() throws Exception {
-        String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
-            + "Prefix(:=<http://test.org/test#>)\n"
-            + "Ontology(\nDeclaration(NamedIndividual(:a))\n" + "Declaration(DataProperty(:dp))\n"
-            + "Declaration(Class(:A))\n" + "SubClassOf(:A DataAllValuesFrom(:dp owl:real))"
-            + "\nSubClassOf(:A \n"
-            + "DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))"
-            + "\n)\nClassAssertion(:A :a))";
-        OWLOntology o = loadOntologyFromString(input);
+    void testMinusInf() {
+        OWLOntology o =
+            loadOntologyFromString(TestFiles.minusInf, new FunctionalSyntaxDocumentFormat());
         assertTrue(saveOntology(o).toString().contains("-INF"));
-        OWLOntology o1 = roundTrip(o);
-        assertEquals("Obtologies were supposed to be the same", o.getLogicalAxioms(),
-            o1.getLogicalAxioms());
+        equal(o, roundTrip(o));
     }
 
     @Test
-    public void testLargeInteger() throws Exception {
-        String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
-            + "Prefix(:=<http://test.org/test#>)\n"
-            + "Ontology(\nDeclaration(NamedIndividual(:a))\n" + "Declaration(DataProperty(:dp))\n"
-            + "Declaration(Class(:A))\n" + "SubClassOf(:A DataAllValuesFrom(:dp owl:real))"
-            + "\nSubClassOf(:A \n"
-            + "DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))" + "\n)"
-            + '\n' + "ClassAssertion(:A :a)" + "\n)";
-        OWLOntology o = loadOntologyFromString(input);
+    void testLargeInteger() {
+        OWLOntology o =
+            loadOntologyFromString(TestFiles.largeInteger, new FunctionalSyntaxDocumentFormat());
         assertTrue(saveOntology(o).toString().contains("-INF"));
-        OWLOntology o1 = roundTrip(o);
-        assertEquals("Obtologies were supposed to be the same", o.getLogicalAxioms(),
-            o1.getLogicalAxioms());
+        equal(o, roundTrip(o));
     }
 }

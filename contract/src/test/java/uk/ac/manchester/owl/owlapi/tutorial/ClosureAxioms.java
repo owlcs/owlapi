@@ -27,40 +27,31 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * This class demonstrates some aspects of the OWL API. Given a class in an
- * ontology, it will determine the subclass axioms that define the class. For
- * each of these, if the superclass is a conjunction of existential
- * restrictions, then an additional subclass axiom will be added to the
+ * This class demonstrates some aspects of the OWL API. Given a class in an ontology, it will
+ * determine the subclass axioms that define the class. For each of these, if the superclass is a
+ * conjunction of existential restrictions, then an additional subclass axiom will be added to the
  * ontology, "closing" the restrictions.
- * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ *
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
 public class ClosureAxioms {
 
-    @Nonnull
-    private final OWLOntologyManager manager;
     @Nonnull
     private final OWLOntology ontology;
     private final OWLDataFactory factory;
 
-    public ClosureAxioms(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntology ontology) {
-        this.manager = manager;
+    public ClosureAxioms(@Nonnull OWLOntology ontology) {
         this.ontology = ontology;
-        factory = manager.getOWLDataFactory();
+        factory = ontology.getOWLOntologyManager().getOWLDataFactory();
     }
 
     public void addClosureAxioms(@Nonnull OWLClass clazz) {
         /* Get the class axioms */
-        Set<OWLSubClassOfAxiom> axioms = ontology
-                .getAxioms(AxiomType.SUBCLASS_OF);
+        Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
         /* Collect those that assert superclasses of the class */
         SubClassCollector collector = new SubClassCollector(clazz);
         for (OWLClassAxiom axiom : axioms) {
@@ -86,14 +77,13 @@ public class ClosureAxioms {
             /* Create a union of the fillers */
             OWLClassExpression union = factory.getOWLObjectUnionOf(fillers);
             /* Create a universal restriction */
-            OWLClassExpression universal = factory.getOWLObjectAllValuesFrom(
-                    prop, union);
+            OWLClassExpression universal = factory.getOWLObjectAllValuesFrom(prop, union);
             /* Create a new axiom */
             OWLAxiom newAxiom = factory.getOWLSubClassOfAxiom(clazz, universal);
             /* Now add the axiom to the ontology */
             AddAxiom addAxiom = new AddAxiom(ontology, newAxiom);
             /* Use the manager to apply the change */
-            manager.applyChange(addAxiom);
+            ontology.getOWLOntologyManager().applyChange(addAxiom);
         }
     }
 }

@@ -12,46 +12,38 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-@SuppressWarnings("javadoc")
-public class MissingDeclarationRoundTripTestCase extends TestBase {
+class MissingDeclarationRoundTripTestCase extends TestBase {
 
     @Test
-    public void shouldFindOneAxiom() throws Exception {
-        OWLAnnotationProperty p = AnnotationProperty(IRI("http://test.org/MissingDeclaration.owl#p"));
-        OWLOntology ontology = createOntology(p);
-        assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI(),
-                EXCLUDED));
+    void shouldFindOneAxiom() {
+        OWLOntology ontology = createOntology(AP);
+        assertTrue(ontology.containsAnnotationPropertyInSignature(AP.getIRI()));
         assertEquals(1, ontology.getAxiomCount());
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         format.setAddMissingTypes(false);
-        ontology = loadOntologyStrict(saveOntology(ontology, format));
-        assertFalse(ontology.containsAnnotationPropertyInSignature(p.getIRI(),
-                EXCLUDED));
+        ontology = loadOntologyStrict(saveOntology(ontology, format), format);
+        assertFalse(ontology.containsAnnotationPropertyInSignature(AP.getIRI()));
         assertEquals(0, ontology.getAxiomCount());
     }
 
     @Nonnull
-    private OWLOntology createOntology(@Nonnull OWLAnnotationProperty p)
-            throws OWLOntologyCreationException {
-        OWLClass a = Class(IRI("http://test.org/MissingDeclaration.owl#A"));
-        OWLOntology ontology = m.createOntology();
-        OWLAxiom axiom = AnnotationAssertion(p, a.getIRI(), Literal("Hello"));
-        m.addAxiom(ontology, axiom);
-        return ontology;
+    private OWLOntology createOntology(@Nonnull OWLAnnotationProperty p) {
+        OWLOntology o = getAnonymousOWLOntology();
+        o.getOWLOntologyManager().addAxiom(o, AnnotationAssertion(p, A.getIRI(), Literal("Hello")));
+        return o;
     }
 }

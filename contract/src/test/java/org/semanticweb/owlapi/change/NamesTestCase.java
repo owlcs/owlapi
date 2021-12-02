@@ -18,15 +18,6 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.change.AddAxiomData;
-import org.semanticweb.owlapi.change.AddImportData;
-import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
-import org.semanticweb.owlapi.change.OWLOntologyChangeData;
-import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
-import org.semanticweb.owlapi.change.RemoveAxiomData;
-import org.semanticweb.owlapi.change.RemoveImportData;
-import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
-import org.semanticweb.owlapi.change.SetOntologyIDData;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
 import org.semanticweb.owlapi.krss1.parser.KRSSOWLParser;
 import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParser;
@@ -38,12 +29,10 @@ import org.semanticweb.owlapi.metrics.ImportClosureSize;
 import org.semanticweb.owlapi.metrics.MaximumNumberOfNamedSuperclasses;
 import org.semanticweb.owlapi.metrics.NumberOfClassesWithMultipleInheritance;
 import org.semanticweb.owlapi.metrics.UnsatisfiableClassCountMetric;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
@@ -55,7 +44,7 @@ import com.google.common.base.Optional;
 class NamesTestCase extends TestBase {
 
     @Test
-    void shoudReturnRightName() throws OWLOntologyCreationException {
+    void shoudReturnRightName() {
         assertEquals("AddAxiomData", new AddAxiomData(mock(OWLAxiom.class)).getName());
         assertEquals("AddImportData",
             new AddImportData(mock(OWLImportsDeclaration.class)).getName());
@@ -80,7 +69,7 @@ class NamesTestCase extends TestBase {
         assertEquals("OWLXMLParser", new OWLXMLParser().getName());
         assertEquals("RDFXMLParser", new RDFXMLParser().getName());
         assertEquals("TurtleOntologyParser", new TurtleOntologyParser().getName());
-        OWLOntology createOntology = m.createOntology();
+        OWLOntology createOntology = getAnonymousOWLOntology();
         assertEquals("Average number of named superclasses",
             new AverageAssertedNamedSuperclassCount(createOntology).getName());
         assertEquals("Axiom", new AxiomCount(createOntology).getName());

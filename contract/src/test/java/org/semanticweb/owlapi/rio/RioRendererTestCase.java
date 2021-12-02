@@ -53,7 +53,7 @@ class RioRendererTestCase extends TestBase {
     private RDFWriter testNTriplesRioWriter;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         vf = new ValueFactoryImpl();
         // limit the storers to known Rio OntologyStorers to minimise false
         // negative results
@@ -67,9 +67,8 @@ class RioRendererTestCase extends TestBase {
         // storerRegistry, parserRegistry);
         m.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
             new RioTurtleStorerFactory());
-        testOntologyEmpty = m.createOntology(testOntologyUri1);
-        testOntologyKoala =
-            m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
+        testOntologyEmpty = getOWLOntology(testOntologyUri1);
+        testOntologyKoala = loadOntologyFrom(getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
         testOntologyEmptyStatement =
@@ -140,7 +139,7 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRenderKoalaRdfXmlWriter() throws Exception {
+    void testRenderKoalaRdfXmlWriter() throws IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testRdfXmlRioWriter, null);
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
@@ -168,7 +167,7 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRenderKoalaTurtleWriter() throws Exception {
+    void testRenderKoalaTurtleWriter() throws IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testTurtleRioWriter, null);
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
@@ -192,7 +191,7 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRenderKoalaNTriplesWriter() throws Exception {
+    void testRenderKoalaNTriplesWriter() throws IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testNTriplesRioWriter, null);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
@@ -218,7 +217,7 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRioOWLRDFParser() throws Exception {
+    void testRioOWLRDFParser() throws IOException {
         RDFParser parser = new RioManchesterSyntaxParserFactory().getParser();
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(TestFiles.inputManSyntax),

@@ -6,8 +6,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.lang.reflect.Field;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -20,29 +20,29 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyImpl;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
-@SuppressWarnings("javadoc")
-public class OWLManagerTestCase extends TestBase {
+class OWLManagerTestCase extends TestBase {
 
     private OWLOntology ontology;
-    OWLOntologyManager manager = OWLManager.createConcurrentOWLOntologyManager();
+    OWLOntologyManager manager = setupManager();
 
-    @Before
-    public void setUp() throws OWLOntologyCreationException {
+    @BeforeEach
+    void setUp() throws OWLOntologyCreationException {
         ontology = manager.createOntology();
     }
 
     @Test
-    public void shouldCreateOntologyWithCorrectManager() {
+    void shouldCreateOntologyWithCorrectManager() {
         assertThat(ontology.getOWLOntologyManager(), is(manager));
     }
 
     @Test
-    public void shouldCreateConcurrentOntologyByDefault() {
+    void shouldCreateConcurrentOntologyByDefault() {
         assertThat(ontology, is(instanceOf(ConcurrentOWLOntologyImpl.class)));
     }
 
     @Test
-    public void shouldShareReadWriteLockOnConcurrentManager() throws Exception {
+    void shouldShareReadWriteLockOnConcurrentManager() throws OWLOntologyCreationException,
+        NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         // Nasty, but not sure of another way to do this without exposing it in
         // the interface
         manager = OWLManager.createConcurrentOWLOntologyManager();

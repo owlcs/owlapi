@@ -12,65 +12,57 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
-@SuppressWarnings("javadoc")
-public class ManchesterImportTestCase extends TestBase {
+class ManchesterImportTestCase extends TestBase {
 
-    @Nonnull private final String str = "http://owlapitestontologies.com/thesuperont";
-    @Nonnull private final String superpath = "/imports/thesuperont.omn";
+    final IRI str = IRI("http://owlapitestontologies.com/", "thesuperont");
+    final String superpath = "/imports/thesuperont.omn";
 
     @Test
-    public void testManualImports() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = getManager();
-        manager.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
-        assertNotNull(manager.getOntology(IRI(str)));
+    void testManualImports() {
+        OWLOntology o = loadOntologyFromFile(new File(RESOURCES, superpath));
+        assertNotNull(o.getOWLOntologyManager().getOntology(str));
     }
 
-    private static OWLOntologyManager getManager() {
-        OWLOntologyManager manager = setupManager();
+    OWLOntologyManager getManager() {
         AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
-        manager.getIRIMappers().add(mapper);
-        return manager;
+        m.getIRIMappers().add(mapper);
+        return m;
     }
 
     @Test
-    public void testRemoteIsParseable() throws OWLOntologyCreationException {
+    void testRemoteIsParseable() {
         OWLOntologyManager manager = getManager();
-        IRI iri = IRI(str);
-        OWLOntology ontology = manager.loadOntology(iri);
+        OWLOntology ontology = loadOntology(str, manager);
         assertEquals(1, ontology.getAxioms().size());
-        assertEquals(ontology.getOntologyID().getOntologyIRI().get(), iri);
-        assertNotNull(manager.getOntology(iri));
+        assertEquals(ontology.getOntologyID().getOntologyIRI().get(), str);
+        assertNotNull(manager.getOntology(str));
     }
 
     @Test
-    public void testEquivalentLoading() throws OWLOntologyCreationException {
-        OWLOntologyManager managerStart = getManager();
-        OWLOntology manualImport = managerStart.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
+    void testEquivalentLoading() {
+        OWLOntology manualImport = loadOntologyFromFile(new File(RESOURCES, superpath));
         OWLOntologyManager managerTest = getManager();
-        OWLOntology iriImport = managerTest.loadOntology(IRI(str));
+        OWLOntology iriImport = loadOntology(str, managerTest);
         assertEquals(manualImport.getAxioms(), iriImport.getAxioms());
         assertEquals(manualImport.getOntologyID(), iriImport.getOntologyID());
     }
 
     @Test
-    public void testImports() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = getManager();
+    void testImports() {
         String subpath = "/imports/thesubont.omn";
-        manager.loadOntologyFromOntologyDocument(new File(RESOURCES, subpath));
+        loadOntologyFromFile(new File(RESOURCES, subpath), getManager());
     }
 }

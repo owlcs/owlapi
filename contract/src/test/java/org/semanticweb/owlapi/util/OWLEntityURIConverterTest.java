@@ -3,13 +3,11 @@ package org.semanticweb.owlapi.util;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
-import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 class OWLEntityURIConverterTest extends TestBase {
@@ -19,15 +17,14 @@ class OWLEntityURIConverterTest extends TestBase {
     private static final String NEW_NAMESPACE = "http://www.example.org/newTestOntology#";
 
     @Test
-    public void test() throws OWLOntologyCreationException {
+    public void test() {
         File ontologyFile = new File(
             this.getClass().getClassLoader().getResource(TEST_ONTOLOGY_RESOURCE).getFile());
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ontologyFile);
+        OWLOntology ontology = loadOntologyFromFile(ontologyFile);
         checkEntityNamespace(ontology, OLD_NAMESPACE);
-        OWLEntityURIConverter converter =
-            getOWLEntityNamespaceConverter(manager, OLD_NAMESPACE, NEW_NAMESPACE);
-        manager.applyChanges(converter.getChanges());
+        OWLEntityURIConverter converter = getOWLEntityNamespaceConverter(
+            ontology.getOWLOntologyManager(), OLD_NAMESPACE, NEW_NAMESPACE);
+        ontology.getOWLOntologyManager().applyChanges(converter.getChanges());
         checkEntityNamespace(ontology, NEW_NAMESPACE);
     }
 

@@ -7,28 +7,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory;
 
 public class LoadRelaMathTestCase extends TestBase {
 
     @Test
-    public void should() throws OWLOntologyCreationException {
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+    public void should() {
         m.getOntologyParsers().set(new TurtleOntologyParserFactory());
         m.getIRIMappers().add(mapper());
-        OWLOntology o = m.loadOntology(IRI.create("http://sweetontology.net/relaMath"));
+        OWLOntology o = loadOntology(IRI.create("http://sweetontology.net/relaMath"), m);
         o.getImportsClosure().stream().forEach(x -> {
             String s = x.getAxioms().stream().filter(ax -> ax.toString().contains("Error1"))
                 .map(Object::toString).collect(Collectors.joining("\t"));

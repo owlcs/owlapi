@@ -22,11 +22,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 /**
- * A visitor that simply collects any subclass axioms that have the given class
- * as the subclass.
+ * A visitor that simply collects any subclass axioms that have the given class as the subclass.
  * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")

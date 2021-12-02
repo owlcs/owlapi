@@ -87,6 +87,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -135,7 +136,7 @@ public class Examples extends TestBase {
      * 
      * @throws Exception exception
      */
-    public void shouldLoad() throws Exception {
+    public void shouldLoad() throws OWLOntologyCreationException {
         // Get hold of an ontology manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = load(manager);
@@ -175,10 +176,12 @@ public class Examples extends TestBase {
      * This example shows how an ontology can be saved in various formats to various locations and
      * streams.
      * 
-     * @throws Exception exception
+     * @throws OWLOntologyCreationException exception
+     * @throws OWLOntologyStorageException exception
      */
     @Test
-    public void shouldSaveOntologies() throws Exception {
+    public void shouldSaveOntologies()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // Get hold of an ontology manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = load(manager);
@@ -223,7 +226,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldAccessEntities() throws Exception {
+    public void shouldAccessEntities()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // In order to create objects that represent entities we need a
         // data factory.
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -273,7 +277,8 @@ public class Examples extends TestBase {
      * This example shows how to create dataranges.
      */
     @Test
-    public void shouldBuildDataRanges() throws Exception {
+    public void shouldBuildDataRanges()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // OWLDataRange is the superclass of all data ranges in the OWL API.
         // Data ranges are used as the types of literals, as the ranges for data
         // properties, as filler for data reatrictions. Get hold of a manager to
@@ -350,7 +355,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldUseDataranges() throws Exception {
+    public void shouldUseDataranges()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         String base = "http://org.semanticweb.datarangeexample";
         OWLOntology ontology = manager.createOntology(IRI.create(base));
@@ -419,7 +425,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldLoadAndSave() throws Exception {
+    public void shouldLoadAndSave()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // A simple example of how to load and save an ontology We first need to
         // obtain a copy of an OWLOntologyManager, which, as the name suggests,
         // manages a set of ontologies. An ontology is unique within an ontology
@@ -443,7 +450,7 @@ public class Examples extends TestBase {
     }
 
     @Test
-    public void shouldAddAxiom() throws Exception {
+    public void shouldAddAxiom() throws OWLOntologyCreationException, OWLOntologyStorageException {
         // Create the manager that we will use to load ontologies.
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // Ontologies can have an IRI, which is used to identify the ontology.
@@ -511,7 +518,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreateOntology() throws Exception {
+    public void shouldCreateOntology()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // We first need to create an OWLOntologyManager, which will provide a
         // point for creating, loading and saving ontologies. We can create a
         // default ontology manager with the OWLManager class. This provides a
@@ -578,7 +586,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreatePropertyAssertions() throws Exception {
+    public void shouldCreatePropertyAssertions()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // We can specify the properties of an individual using property
         // assertions Get a copy of an ontology manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -623,7 +632,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldAddClassAssertion() throws Exception {
+    public void shouldAddClassAssertion()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // For more information on classes and instances see the OWL 2 Primer
         // http://www.w3.org/TR/2009/REC-owl2-primer-20091027/#Classes_and_Instances
         // In order to say that an individual is an instance of a class (in an
@@ -658,7 +668,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreateAndSaveOntology() throws Exception {
+    public void shouldCreateAndSaveOntology()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // Let's create an ontology and name it
         // "http://www.co-ode.org/ontologies/testont.owl" We need to set up a
@@ -706,7 +717,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldAddObjectPropertyAssertions() throws Exception {
+    public void shouldAddObjectPropertyAssertions()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         String base = "http://www.semanticweb.org/ontologies/individualsexample";
         OWLOntology ont = man.createOntology(IRI.create(base));
@@ -750,7 +762,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldDeleteIndividuals() throws Exception {
+    public void shouldDeleteIndividuals()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // The Koala ontology contains an individual of type Degree.
         // In this example we will delete it..
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
@@ -800,7 +813,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreateRestrictions() throws Exception {
+    public void shouldCreateRestrictions()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         String base = "http://org.semanticweb.restrictionexample";
         OWLOntology ont = man.createOntology(IRI.create(base));
@@ -840,7 +854,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldUseReasoner() throws Exception {
+    public void shouldUseReasoner()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // Create our ontology manager in the usual way.
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ont = load(manager);
@@ -1015,7 +1030,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldLookAtRestrictions() throws Exception {
+    public void shouldLookAtRestrictions()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // Create our manager
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         // Load the Koala ontology
@@ -1097,7 +1113,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreateAndReadAnnotations() throws Exception {
+    public void shouldCreateAndReadAnnotations()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // Create our manager
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         // Load the Koala ontology
@@ -1166,7 +1183,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreateInferredAxioms() throws Exception {
+    public void shouldCreateInferredAxioms()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // Create a reasoner factory.
         // See Profiles for a list of known reasoner factories; note that you
         // will need to add the reasoner and any dependency to the classpath for
@@ -1211,7 +1229,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldMergeOntologies() throws Exception {
+    public void shouldMergeOntologies()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // Just load two arbitrary ontologies for the purposes of this example
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         load(man);
@@ -1235,7 +1254,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldWalkOntology() throws Exception {
+    public void shouldWalkOntology()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // This example shows how to use an ontology walker to walk the asserted
         // structure of an ontology. Suppose we want to find the axioms that use
         // a some values from (existential restriction) we can use the walker to
@@ -1276,7 +1296,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldQueryWithReasoner() throws Exception {
+    public void shouldQueryWithReasoner()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // We will load the Koala ontology and query it using a reasoner
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         OWLOntology ont = load(man);
@@ -1330,7 +1351,8 @@ public class Examples extends TestBase {
      */
     @Disabled("This test is ignored. We do not want to fetch stuff from the network just to run a unit test for an example")
     @Test
-    public void shouldUseIRIMappers() throws Exception {
+    public void shouldUseIRIMappers()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         IRI mgedOntologyIri = IRI.create("http://mged.sourceforge.net/ontologies/MGEDOntology.owl");
         IRI protegeOntologyIri = IRI.create("http://protege.stanford.edu/plugins/owl/protege");
         IRI tonesRepositoryIri = IRI.create("http://owl.cs.manchester.ac.uk/repository/download");
@@ -1431,7 +1453,8 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldExtractModules() throws Exception {
+    public void shouldExtractModules()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // Create our manager
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
@@ -1485,7 +1508,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void owlPrimer() throws Exception {
+    public void owlPrimer() throws OWLOntologyCreationException, OWLOntologyStorageException {
         // The OWLOntologyManager is at the heart of the OWL API, we can create
         // an instance of this using the OWLManager class, which will set up
         // commonly used options (such as which parsers are registered etc.

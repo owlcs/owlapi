@@ -12,19 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.model.IRI;
 
-@SuppressWarnings("javadoc")
-public class RdfGraphComparatorTestCase {
+class RdfGraphComparatorTestCase extends TestBase {
 
     @Test
-    public void shouldSort() {
-        RDFResourceIRI iri1 = new RDFResourceIRI(IRI.create("urn:test:1"));
+    void shouldSort() {
+        RDFResourceIRI iri1 = new RDFResourceIRI(iri("urn:test#", "a1"));
         RDFTriple first = new RDFTriple(iri1, iri1, iri1);
         RDFTriple second = new RDFTriple(iri1, iri1, iri1);
         assertEquals(0, first.compareTo(second));

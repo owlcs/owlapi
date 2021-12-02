@@ -19,21 +19,24 @@ import java.io.PrintStream;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 
 /**
- * Simple example. Read an ontology, and display the class hierarchy. May use a
- * reasoner to calculate the hierarchy.
+ * Simple example. Read an ontology, and display the class hierarchy. May use a reasoner to
+ * calculate the hierarchy.
  * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
 public final class SimpleHierarchyExample {
 
     private static final int INDENT = 4;
@@ -43,18 +46,18 @@ public final class SimpleHierarchyExample {
     private final OWLOntology ontology;
     private final PrintStream out;
 
-    private SimpleHierarchyExample(@Nonnull OWLReasonerFactory reasonerFactory, @Nonnull OWLOntology inputOntology) {
+    private SimpleHierarchyExample(@Nonnull OWLReasonerFactory reasonerFactory,
+        @Nonnull OWLOntology inputOntology) {
         this.reasonerFactory = reasonerFactory;
         ontology = inputOntology;
         out = System.out;
     }
 
     /**
-     * Print the class hierarchy for the given ontology from this class down,
-     * assuming this class is at the given level. Makes no attempt to deal
-     * sensibly with multiple inheritance.
+     * Print the class hierarchy for the given ontology from this class down, assuming this class is
+     * at the given level. Makes no attempt to deal sensibly with multiple inheritance.
      */
-    private void printHierarchy(@Nonnull OWLClass clazz) throws OWLException {
+    private void printHierarchy(@Nonnull OWLClass clazz) {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ontology);
         printHierarchy(reasoner, clazz, 0);
         /* Now print out any unsatisfiable classes */
@@ -84,14 +87,12 @@ public final class SimpleHierarchyExample {
     }
 
     /**
-     * Print the class hierarchy from this class down, assuming this class is at
-     * the given level. Makes no attempt to deal sensibly with multiple
-     * inheritance.
+     * Print the class hierarchy from this class down, assuming this class is at the given level.
+     * Makes no attempt to deal sensibly with multiple inheritance.
      */
-    private void printHierarchy(@Nonnull OWLReasoner reasoner, @Nonnull OWLClass clazz, int level) throws OWLException {
+    private void printHierarchy(@Nonnull OWLReasoner reasoner, @Nonnull OWLClass clazz, int level) {
         /*
-         * Only print satisfiable classes -- otherwise we end up with bottom
-         * everywhere
+         * Only print satisfiable classes -- otherwise we end up with bottom everywhere
          */
         if (reasoner.isSatisfiable(clazz)) {
             for (int i = 0; i < level * INDENT; i++) {
@@ -107,8 +108,8 @@ public final class SimpleHierarchyExample {
         }
     }
 
-    public static void main(String[] args) throws OWLException, InstantiationException, IllegalAccessException,
-        ClassNotFoundException {
+    public static void main(String[] args) throws OWLOntologyCreationException,
+        InstantiationException, IllegalAccessException, ClassNotFoundException {
         String reasonerFactoryClassName = null;
         // We first need to obtain a copy of an
         // OWLOntologyManager, which, as the name
@@ -128,8 +129,8 @@ public final class SimpleHierarchyExample {
         System.out.println("Ontology : " + ontology.getOntologyID());
         System.out.println("Format      : " + manager.getOntologyFormat(ontology));
         // / Create a new SimpleHierarchy object with the given reasoner.
-        SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample((OWLReasonerFactory) Class.forName(
-            reasonerFactoryClassName).newInstance(), ontology);
+        SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample(
+            (OWLReasonerFactory) Class.forName(reasonerFactoryClassName).newInstance(), ontology);
         // Get Thing
         OWLClass clazz = manager.getOWLDataFactory().getOWLThing();
         System.out.println("Class       : " + clazz);

@@ -128,6 +128,8 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
             for (int j = i + 1; j < list.size(); j++) {
                 result.add(new OWLSubClassOfAxiomImpl(list.get(i), list.get(j).getObjectComplementOf(),
                     NO_ANNOTATIONS));
+                result.add(new OWLSubClassOfAxiomImpl(list.get(j), list.get(i).getObjectComplementOf(),
+                    NO_ANNOTATIONS));
             }
         }
         return result;

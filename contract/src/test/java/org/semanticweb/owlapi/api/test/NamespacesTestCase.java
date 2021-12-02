@@ -12,74 +12,77 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.EnumSet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-@SuppressWarnings("javadoc")
-public class NamespacesTestCase extends TestBase {
+class NamespacesTestCase extends TestBase {
+
+    static final String NS = "http://test.owl/test#";
 
     @Test
-    public void shouldFindInNamespace() {
-        EnumSet<Namespaces> reserved = EnumSet.of(Namespaces.OWL,
-                Namespaces.RDF, Namespaces.RDFS, Namespaces.XSD);
+    void shouldFindInNamespace() {
+        EnumSet<Namespaces> reserved =
+            EnumSet.of(Namespaces.OWL, Namespaces.RDF, Namespaces.RDFS, Namespaces.XSD);
         for (Namespaces n : Namespaces.values()) {
-            IRI iri = IRI.create(n.getPrefixIRI(), "test");
+            IRI iri = iri(n.getPrefixIRI(), "test");
             boolean reservedVocabulary = iri.isReservedVocabulary();
-            assertEquals(iri + " reserved? Should be " + reserved.contains(n)
-                    + " but is " + reservedVocabulary, reservedVocabulary,
-                    reserved.contains(n));
+            assertEquals(reservedVocabulary, reserved.contains(n), iri + " reserved? Should be "
+                + reserved.contains(n) + " but is " + reservedVocabulary);
         }
     }
 
     @Test
-    public void shouldParseXSDSTRING() {
+    void shouldParseXSDSTRING() {
         // given
         String s = "xsd:string";
         // when
         XSDVocabulary v = XSDVocabulary.parseShortName(s);
         // then
         assertEquals(XSDVocabulary.STRING, v);
-        assertEquals(OWL2Datatype.XSD_STRING.getDatatype(df),
-                df.getOWLDatatype(v.getIRI()));
+        assertEquals(OWL2Datatype.XSD_STRING.getDatatype(df), df.getOWLDatatype(v.getIRI()));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailToParseInvalidString() {
+    @Test
+    void shouldFailToParseInvalidString() {
         // given
         String s = "xsd:st";
         // when
-        XSDVocabulary.parseShortName(s);
+        assertThrows(IllegalArgumentException.class, () -> XSDVocabulary.parseShortName(s));
         // then
         // an exception should have been thrown
     }
 
     @Test
-    public void shouldSetPrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLClass item = df.getOWLClass(IRI.create("http://test.owl/test#item"));
+    void shouldSetPrefix() {
+        OWLClass item = df.getOWLClass(iri("http://test.owl/test#", "item"));
         OWLDeclarationAxiom declaration = df.getOWLDeclarationAxiom(item);
-        OWLOntology o1 = m.createOntology();
+        OWLOntology o1 = getAnonymousOWLOntology();
         FunctionalSyntaxDocumentFormat pm1 = new FunctionalSyntaxDocumentFormat();
-        pm1.setPrefix(":", "http://test.owl/test#");
-        m.setOntologyFormat(o1, pm1);
-        m.addAxiom(o1, declaration);
-        StringDocumentTarget t1 = new StringDocumentTarget();
-        m.saveOntology(o1, t1);
-        OWLOntology o2 = m1.createOntology();
+        pm1.setPrefix(":", NS);
+        o1.getOWLOntologyManager().setOntologyFormat(o1, pm1);
+        o1.getOWLOntologyManager().addAxiom(o1, declaration);
+        StringDocumentTarget t1 = saveOntology(o1);
+        OWLOntology o2 = getAnonymousOWLOntology();
         FunctionalSyntaxDocumentFormat pm2 = new FunctionalSyntaxDocumentFormat();
-        pm2.setPrefix(":", "http://test.owl/test#");
-        m1.addAxiom(o2, declaration);
-        StringDocumentTarget t2 = new StringDocumentTarget();
-        m1.saveOntology(o1, pm2, t2);
+        pm2.setPrefix(":", NS);
+        o2.getOWLOntologyManager().setOntologyFormat(o2, pm2);
+        o2.getOWLOntologyManager().addAxiom(o2, declaration);
+        StringDocumentTarget t2 = saveOntology(o2, pm2);
         assertTrue(t2.toString().contains("Declaration(Class(:item))"));
         assertEquals(t1.toString(), t2.toString());
     }

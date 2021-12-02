@@ -3,7 +3,7 @@ package org.semanticweb.owlapi.api.test.individuals;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
@@ -22,26 +22,24 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-public class IndividualStrictParsingTestCase extends TestBase {
+class IndividualStrictParsingTestCase extends TestBase {
 
     @Test
-    public void should() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology();
+    void should() {
+        OWLOntology o = getAnonymousOWLOntology();
 
         OWLObjectProperty p =
             df.getOWLObjectProperty(IRI.create("http://purl.obolibrary.org/obo/BFO_0000051"));
         OWLClass c = df.getOWLClass(IRI.create("http://purl.obolibrary.org/obo/ENVO_00000191"));
-        OWLNamedIndividual i =
+        OWLNamedIndividual individual =
             df.getOWLNamedIndividual(IRI.create("https://www.wikidata.org/wiki/Q2306597"));
 
         m.addAxioms(o,
             new HashSet<>(Arrays.asList(df.getOWLDeclarationAxiom(p), df.getOWLDeclarationAxiom(c),
-                df.getOWLDeclarationAxiom(i),
-                df.getOWLClassAssertionAxiom(df.getOWLObjectSomeValuesFrom(p, c), i))));
+                df.getOWLDeclarationAxiom(individual),
+                df.getOWLClassAssertionAxiom(df.getOWLObjectSomeValuesFrom(p, c), individual))));
         OWLOntologyLoaderConfiguration conf = new OWLOntologyLoaderConfiguration().setStrict(true);
         roundTrip(o, new RDFXMLDocumentFormat(), conf);
         roundTrip(o, new RioRDFXMLDocumentFormat(), conf);

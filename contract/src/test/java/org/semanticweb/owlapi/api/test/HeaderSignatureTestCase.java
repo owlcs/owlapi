@@ -1,11 +1,11 @@
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -15,21 +15,20 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * Created by @ssz on 29.08.2020.
  */
-public class HeaderSignatureTestCase extends TestBase {
+class HeaderSignatureTestCase extends TestBase {
 
     @Test
-    public void testContainsAnnotationPropertyIssue928() throws OWLOntologyCreationException {
+    void testContainsAnnotationPropertyIssue928() {
         OWLAnnotationProperty seeAlso = df.getRDFSSeeAlso();
         OWLDatatype intType = df.getIntegerOWLDatatype();
         OWLDatatype stringType = OWL2Datatype.XSD_STRING.getDatatype(df);
 
-        OWLOntology o = m.createOntology(IRI.create("http://XXXX"));
+        OWLOntology o = getOWLOntology(IRI.create("http://XXXX"));
         OWLLiteral intLiteral = df.getOWLLiteral("42", intType);
         OWLLiteral stringLiteral = df.getOWLLiteral("xxx", stringType);
         OWLAnnotation a1 = df.getOWLAnnotation(df.getRDFSComment(), stringLiteral);
@@ -41,12 +40,12 @@ public class HeaderSignatureTestCase extends TestBase {
         assertTrue(o.containsEntityInSignature(seeAlso));
         assertEquals(2, o.getAnnotationPropertiesInSignature().size());
 
-        assertTrue(o.getSignature().toString(), o.containsEntityInSignature(intType));
+        assertTrue(o.containsEntityInSignature(intType));
         assertTrue(o.containsEntityInSignature(stringType));
     }
 
     @Test
-    public void testContainsDatatypesInHeaderIssue965() throws OWLOntologyCreationException {
+    void testContainsDatatypesInHeaderIssue965() {
         String s = "@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
             + "@prefix owl:   <http://www.w3.org/2002/07/owl#> .\n"
             + "@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n"

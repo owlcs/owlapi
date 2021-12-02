@@ -10,7 +10,7 @@
             <!-- Missing rdf:type owl:Restriction triple -->
             <!-- Missing rdf:type triple for property -->
             <rdf:Description>
-                <owl:onProperty rdf:resource="#P"/>
+                <owl:onProperty rdf:resource="#p"/>
                 <!-- Missing rdf:type triple for filler -->
                 <owl:someValuesFrom rdf:resource="#C"/>
             </rdf:Description>

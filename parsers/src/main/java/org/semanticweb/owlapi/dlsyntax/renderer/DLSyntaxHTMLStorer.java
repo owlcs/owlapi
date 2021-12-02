@@ -110,7 +110,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     @Override
     protected void endWritingAxiom(OWLAxiom axiom, PrintWriter writer) {
         checkNotNull(axiom, "axiom cannot be null");
-        checkWriterNotNull(writer).println(" </div>");
+        checkWriterNotNull(writer).println("</div>");
     }
 
     @Override

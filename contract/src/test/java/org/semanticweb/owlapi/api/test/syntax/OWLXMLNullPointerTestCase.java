@@ -12,14 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -30,49 +30,41 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
-public class OWLXMLNullPointerTestCase extends TestBase {
+class OWLXMLNullPointerTestCase extends TestBase {
 
     @Nonnull
-    private static final String NS = "urn:test";
+    static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
     @Nonnull
-    public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
+    static final String NS = "urn:test";
 
     @Test
-    public void testRoundTrip() throws Exception {
-        OWLOntology ontology = m.createOntology(IRI(NS));
-        OWLClass cheesy = Class(IRI(NS + "#CheeseyPizza"));
-        OWLClass cheese = Class(IRI(NS + "#CheeseTopping"));
-        OWLObjectProperty hasTopping = df.getOWLObjectProperty(IRI(NS
-                + "#hasTopping"));
+    void testRoundTrip() {
+        OWLOntology ontology = getOWLOntology(IRI(NS, ""));
+        OWLClass cheesy = Class(IRI(NS + "#", "CheeseyPizza"));
+        OWLClass cheese = Class(IRI(NS + "#", "CheeseTopping"));
+        OWLObjectProperty hasTopping = df.getOWLObjectProperty(iri(NS + "#", "hasTopping"));
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
         OWLLiteral lit = df.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION);
-        OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(),
-                i, lit);
-        m.addAxiom(ontology, annAss);
+        OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(), i, lit);
         OWLAxiom classAss = df.getOWLClassAssertionAxiom(cheesy, i);
-        m.addAxiom(ontology, classAss);
         OWLIndividual j = df.getOWLAnonymousIndividual();
         OWLAxiom classAssj = df.getOWLClassAssertionAxiom(cheese, j);
+        OWLAxiom objAss = df.getOWLObjectPropertyAssertionAxiom(hasTopping, i, j);
+        m.addAxiom(ontology, annAss);
+        m.addAxiom(ontology, classAss);
         m.addAxiom(ontology, classAssj);
-        OWLAxiom objAss = df.getOWLObjectPropertyAssertionAxiom(hasTopping, i,
-                j);
         m.addAxiom(ontology, objAss);
         roundTrip(ontology, new OWLXMLDocumentFormat());
     }
 
     @Test
-    public void shouldParse() throws Exception {
-        OWLOntology o = m.createOntology(IRI.create("urn:test"));
-        OWLClass c = df.getOWLClass(IRI.create("urn:c"));
-        OWLObjectProperty p = df.getOWLObjectProperty(IRI.create("urn:p"));
+    void shouldParse() {
+        OWLOntology o = getOWLOntology(iri("urn:test:", "test"));
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
-        OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(c,
-                df.getOWLObjectHasValue(p, i));
+        OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(C, df.getOWLObjectHasValue(P, i));
         o.getOWLOntologyManager().addAxiom(o, sub);
         OWLOntology roundtrip = roundTrip(o, new OWLXMLDocumentFormat());
         equal(o, roundtrip);

@@ -818,6 +818,18 @@ public final class OWLFunctionalSyntaxFactory {
     }
 
     @Nonnull
+    public static OWLDifferentIndividualsAxiom DifferentIndividuals(
+        Set<OWLNamedIndividual> individuals) {
+        return DF.getOWLDifferentIndividualsAxiom(individuals);
+    }
+
+    @Nonnull
+    public static OWLDifferentIndividualsAxiom DifferentIndividuals(
+        Set<OWLNamedIndividual> individuals, Set<OWLAnnotation> anns) {
+        return DF.getOWLDifferentIndividualsAxiom(individuals, anns);
+    }
+
+    @Nonnull
     public static OWLClassAssertionAxiom ClassAssertion(
             @Nonnull OWLClassExpression ce, @Nonnull OWLIndividual ind,
             @Nonnull Set<OWLAnnotation> a) {
@@ -907,6 +919,20 @@ public final class OWLFunctionalSyntaxFactory {
             @Nonnull OWLAnnotationSubject subject,
             @Nonnull OWLAnnotationValue value) {
         return DF.getOWLAnnotationAssertionAxiom(property, subject, value);
+    }
+
+    @Nonnull
+    public static OWLAnnotationAssertionAxiom AnnotationAssertion(
+        @Nonnull OWLAnnotationProperty property, @Nonnull OWLAnnotationSubject subject,
+        @Nonnull OWLAnnotationValue value, OWLAnnotation... anns) {
+        return DF.getOWLAnnotationAssertionAxiom(property, subject, value,
+            new HashSet<>(Arrays.asList(anns)));
+    }
+
+    @Nonnull
+    public static OWLAnnotation Annotation(@Nonnull OWLAnnotationProperty property,
+        @Nonnull OWLAnnotationValue value, OWLAnnotation... anns) {
+        return DF.getOWLAnnotation(property, value, new HashSet<>(Arrays.asList(anns)));
     }
 
     @Nonnull

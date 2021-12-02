@@ -12,32 +12,31 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.fail;
+import java.net.URISyntaxException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings({ "javadoc", })
-public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
+class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
 
     private static final String ONTOLOGY_A = "ImportsTestOntologyA.owl";
     private static final String ONTOLOGY_A_EMPTY = "ImportsTestOntologyAEmpty.owl";
 
-    @Test(expected = OWLOntologyAlreadyExistsException.class)
-    public void testDifferentPhysicalURISameOntologyIRI() throws Exception {
-        IRI ontologyADocumentIRI = IRI.create(DifferentPhysicalURISameOntologyIRITestCase.class.getResource('/'
-            + ONTOLOGY_A).toURI());
-        IRI ontologyADocumentIRIB = IRI.create(DifferentPhysicalURISameOntologyIRITestCase.class.getResource('/'
-            + ONTOLOGY_A_EMPTY).toURI());
-        m.loadOntologyFromOntologyDocument(ontologyADocumentIRI);
-        m.loadOntologyFromOntologyDocument(ontologyADocumentIRIB);
-        fail("Expected an exception to say that the ontology already exists");
+    @Test
+    void testDifferentPhysicalURISameOntologyIRI() throws URISyntaxException {
+        IRI ontologyADocumentIRI = IRI.create(DifferentPhysicalURISameOntologyIRITestCase.class
+            .getResource('/' + ONTOLOGY_A).toURI());
+        IRI ontologyADocumentIRIB = IRI.create(DifferentPhysicalURISameOntologyIRITestCase.class
+            .getResource('/' + ONTOLOGY_A_EMPTY).toURI());
+        loadOntology(ontologyADocumentIRI, m);
+        assertThrowsWithCause(OWLRuntimeException.class, OWLOntologyAlreadyExistsException.class,
+            () -> loadOntology(ontologyADocumentIRIB, m));
     }
 }

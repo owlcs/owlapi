@@ -3,7 +3,7 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.eclipse.rdf4j.model.BNode;
 import org.eclipse.rdf4j.model.Literal;
@@ -11,7 +11,7 @@ import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.URI;
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.ValueFactoryImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.RDFLiteral;
@@ -54,9 +54,9 @@ class RioUtilsTestCase extends TestBase {
         RDFLiteral testOwlApiObjectTypedLiteral1 =
             new RDFLiteral(TEST_LITERAL, null, iri("urn:test:datatype:1", ""));
         RDFResourceBlankNode testOwlApiSubjectBNode1 =
-            new RDFResourceBlankNode(iri("subjectBnode1", ""), true, true, false);
+            new RDFResourceBlankNode(iri("subjectBnode1", ""), true, false, false);
         RDFResourceBlankNode testOwlApiObjectBNode1 =
-            new RDFResourceBlankNode(iri("objectBnode1", ""), true, true, false);
+            new RDFResourceBlankNode(iri("objectBnode1", ""), true, false, false);
         testOwlApiTripleAllIRI =
             new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1, testOwlApiObjectUri1);
         testOwlApiTriplePlainLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,

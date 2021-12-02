@@ -1,16 +1,13 @@
 package org;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 public class Load extends TestBase {
 
     @Test
-    public void should() throws OWLOntologyCreationException {
+    public void should() {
         String in = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<rdf:RDF xml:base=\"http://www.eionet.europa.eu/gemet/\"\n"
             + " xmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n"
@@ -25,8 +22,7 @@ public class Load extends TestBase {
             + "    <rdfs:label>GEMET - Concepts, version 4.0.1, 2017-06-28T14:17:23.117209+00:00</rdfs:label>\n"
             + "    <dcterms:licence rdf:resource=\"http://creativecommons.org/licenses/by/2.5/dk/\"/>\n"
             + "</skos:ConceptScheme>" + "</rdf:RDF>";
-        OWLOntology o = OWLManager.createOWLOntologyManager()
-            .loadOntologyFromOntologyDocument(new StringDocumentSource(in));
+        OWLOntology o = loadOntologyFromString(in);
         o.getAxioms().forEach(System.out::println);
         o.getIndividualsInSignature().forEach(i -> o.getReferencingAxioms(i)
             .forEach(ax -> System.out.println("Individual " + i.getIRI() + " has axiom " + ax)));

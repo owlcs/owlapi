@@ -12,76 +12,67 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3.0
  */
-@SuppressWarnings("javadoc")
-public class IRICharSequenceTestCase {
+class IRICharSequenceTestCase extends TestBase {
+
+    static final String abcString = "http://owlapi.sourceforge.net#ABC";
+    static final IRI abc = iri("http://owlapi.sourceforge.net#", "ABC");
 
     @Test
-    public void testCharAt() {
-        String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI(str);
-        for (int i = 0; i < str.length(); i++) {
-            assertEquals(str.charAt(i), iri.charAt(i));
+    void testCharAt() {
+        for (int v = 0; v < abcString.length(); v++) {
+            assertEquals(abcString.charAt(v), abc.charAt(v));
         }
     }
 
     @Test
-    public void testCharAtNoRemainder() {
+    void testCharAtNoRemainder() {
         String str = "http://owlapi.sourceforge.net";
-        IRI iri = IRI(str);
-        for (int i = 0; i < str.length(); i++) {
-            assertEquals(str.charAt(i), iri.charAt(i));
+        IRI iri = iri(str, "");
+        for (int v = 0; v < str.length(); v++) {
+            assertEquals(str.charAt(v), iri.charAt(v));
         }
     }
 
     @Test
-    public void testCharAtNoPrefix() {
+    void testCharAtNoPrefix() {
         String str = "#ABC";
-        IRI iri = IRI(str);
-        for (int i = 0; i < str.length(); i++) {
-            assertEquals(str.charAt(i), iri.charAt(i));
+        IRI iri = iri("#", "ABC");
+        for (int v = 0; v < str.length(); v++) {
+            assertEquals(str.charAt(v), iri.charAt(v));
         }
     }
 
     @Test
-    public void testSubSequence() {
-        String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI(str);
-        for (int i = 0; i < str.length(); i++) {
-            for (int j = i; j < str.length(); j++) {
-                assertEquals(str.subSequence(i, j), iri.subSequence(i, j));
+    void testSubSequence() {
+        for (int v = 0; v < abcString.length(); v++) {
+            for (int j = v; j < abcString.length(); j++) {
+                assertEquals(abcString.subSequence(v, j), abc.subSequence(v, j));
             }
         }
     }
 
     @Test
-    public void testLength() {
-        String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI(str);
-        assertEquals(str.length(), iri.length());
+    void testLength() {
+        assertEquals(33, abc.length());
     }
 
     @Test
-    public void testLengthNoRemainder() {
-        String str = "http://owlapi.sourceforge.net";
-        IRI iri = IRI(str);
-        assertEquals(str.length(), iri.length());
+    void testLengthNoRemainder() {
+        assertEquals(29, iri("http://owlapi.sourceforge.net", "").length());
     }
 
     @Test
-    public void testLengthNoPrefix() {
-        String str = "#ABC";
-        IRI iri = IRI(str);
-        assertEquals(str.length(), iri.length());
+    void testLengthNoPrefix() {
+        assertEquals(4, iri("#", "ABC").length());
     }
 }

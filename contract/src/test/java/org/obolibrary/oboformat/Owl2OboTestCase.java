@@ -23,16 +23,18 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+
+import com.google.common.base.Optional;
 
 class Owl2OboTestCase extends OboFormatTestBasics {
 
     private static final String TEST_0001 = "TEST:0001";
     private static final String TEST1 = "test1";
     private static final String COMMENT = "Comment";
-
 
     private static void addLabelAndId(OWLNamedObject obj, @Nonnull String label, String id,
         OWLOntology o) {
@@ -59,9 +61,9 @@ class Owl2OboTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    void testIRTsConversion() throws Exception {
+    void testIRTsConversion() {
         IRI ontologyIRI = iri(OBO, "test.owl");
-        OWLOntology ontology = m.createOntology(ontologyIRI);
+        OWLOntology ontology = getOWLOntology(ontologyIRI);
         convert(ontology);
         String ontId = OWLAPIOwl2Obo.getOntologyId(ontology);
         assertEquals("test", ontId);
@@ -90,8 +92,8 @@ class Owl2OboTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testOwl2OboAltIdClass() throws Exception {
-        OWLOntology simple = m.createOntology(IRI.generateDocumentIRI());
+    void testOwl2OboAltIdClass() {
+        OWLOntology simple = getOWLOntology(IRI.generateDocumentIRI());
         // add class A
         OWLClass classA = df.getOWLClass(iri(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001"));
         m.addAxiom(simple, df.getOWLDeclarationAxiom(classA));
@@ -117,26 +119,25 @@ class Owl2OboTestCase extends OboFormatTestBasics {
         String altId = altIdClauses.iterator().next().getValue(String.class);
         assertEquals("TEST:0002", altId);
         // roundtrip back to OWL, check that comment is still there
-        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(m1);
-        OWLOntology roundTripped = obo2owl.convert(oboDoc);
+        OWLOntology roundTripped = convert(oboDoc);
         Set<OWLAnnotationAssertionAxiom> annotations =
             roundTripped.getAnnotationAssertionAxioms(classB.getIRI());
         assertEquals(4, annotations.size()); // three for the alt-id plus one
-                                             // for the comment
-        String comment = null;
-        for (OWLAnnotationAssertionAxiom ax : annotations) {
-            if (ax.getProperty().isComment()) {
-                if (ax.getValue().asLiteral().isPresent()) {
-                    comment = ax.getValue().asLiteral().get().getLiteral();
-                }
-            }
-        }
-        assertEquals(COMMENT, comment);
+        // for the comment
+        Optional<OWLLiteral> comment = findComment(classB.getIRI(), roundTripped);
+        assertTrue(comment.isPresent());
+        assertEquals(COMMENT, comment.get().getLiteral());
+    }
+
+    protected Optional<OWLLiteral> findComment(IRI iri, OWLOntology roundTripped) {
+        return roundTripped.getAnnotationAssertionAxioms(iri).stream()
+            .filter(ax -> ax.getProperty().isComment()).map(ax -> ax.getValue().asLiteral())
+            .filter(l -> l.isPresent()).findAny().orElse(Optional.absent());
     }
 
     @Test
-    void testOwl2OboProperty() throws Exception {
-        OWLOntology simple = m.createOntology(IRI.generateDocumentIRI());
+    void testOwl2OboProperty() {
+        OWLOntology simple = getOWLOntology(IRI.generateDocumentIRI());
         // add prop1
         OWLObjectProperty p1 =
             df.getOWLObjectProperty(iri(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001"));
@@ -164,20 +165,14 @@ class Owl2OboTestCase extends OboFormatTestBasics {
         String altId = altIdClauses.iterator().next().getValue(String.class);
         assertEquals("TEST:0002", altId);
         // roundtrip back to OWL, check that comment is still there
-        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(m1);
-        OWLOntology roundTripped = obo2owl.convert(oboDoc);
+        OWLOntology roundTripped = convert(oboDoc);
         Set<OWLAnnotationAssertionAxiom> annotations =
             roundTripped.getAnnotationAssertionAxioms(p2.getIRI());
         assertEquals(4, annotations.size());
 
-        String comment = null;
-        for (OWLAnnotationAssertionAxiom ax : annotations) {
-            if (ax.getProperty().isComment()) {
-                if (ax.getValue().asLiteral().isPresent()) {
-                    comment = ax.getValue().asLiteral().get().getLiteral();
-                }
-            }
-        }
-        assertEquals(COMMENT, comment);
+        // for the comment
+        Optional<OWLLiteral> comment = findComment(p2.getIRI(), roundTripped);
+        assertTrue(comment.isPresent());
+        assertEquals(COMMENT, comment.get().getLiteral());
     }
 }

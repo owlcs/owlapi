@@ -12,16 +12,24 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplBoolean;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplDouble;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplFloat;
@@ -29,23 +37,18 @@ import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplInteger;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings("javadoc")
-public class HashCodeTestCase {
+class HashCodeTestCase extends TestBase {
 
     private static final String THREE = "3.0";
 
     @Test
-    public void testSetContainsInt() {
-        OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_INTEGER.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3", null,
-                datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3", null,
-                datatype);
+    void testSetContainsInt() {
+        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
+        OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3", null, datatype);
+        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3", null, datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplInteger(3, datatype);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -55,13 +58,10 @@ public class HashCodeTestCase {
     }
 
     @Test
-    public void testSetContainsDouble() {
-        OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_DOUBLE.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImplNoCompression(THREE, null,
-                datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression(THREE, null,
-                datatype);
+    void testSetContainsDouble() {
+        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_DOUBLE.getIRI());
+        OWLLiteral litNoComp = new OWLLiteralImplNoCompression(THREE, null, datatype);
+        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression(THREE, null, datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplDouble(3.0D, datatype);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -71,13 +71,10 @@ public class HashCodeTestCase {
     }
 
     @Test
-    public void testSetContainsFloat() {
-        OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_FLOAT.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImplNoCompression(THREE, null,
-                datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression(THREE, null,
-                datatype);
+    void testSetContainsFloat() {
+        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_FLOAT.getIRI());
+        OWLLiteral litNoComp = new OWLLiteralImplNoCompression(THREE, null, datatype);
+        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression(THREE, null, datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplFloat(3.0F, datatype);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -87,18 +84,35 @@ public class HashCodeTestCase {
     }
 
     @Test
-    public void testSetContainsBoolean() {
-        OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_BOOLEAN.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImplNoCompression("true", null,
-                datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("true", null,
-                datatype);
+    void testSetContainsBoolean() {
+        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_BOOLEAN.getIRI());
+        OWLLiteral litNoComp = new OWLLiteralImplNoCompression("true", null, datatype);
+        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("true", null, datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplBoolean(true, datatype);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
         lncset.add(litNoComp);
         assertTrue(lncset.contains(litNoComp2));
         assertTrue(lncset.contains(litIntImpl));
+    }
+
+    @Test
+    void shouldHaveSameHashCodeForOntologies() {
+        final OWLOntology ontology = getAnonymousOWLOntology();
+        int hash = ontology.hashCode();
+        IRI iri = iri("urn:test:", "ontology");
+        m.applyChange(new SetOntologyID(ontology, iri));
+        int otherHash = ontology.hashCode();
+        assertNotEquals(hash, otherHash);
+        assertNotNull(m.getOntology(iri));
+        assertNotNull(m.getOntology(ontology.getOntologyID()));
+    }
+
+    @Test
+    void shouldHaveSameHashCodeForOntologies1() {
+        OWLOntologyID id1 = new OWLOntologyID(IRI.create("http://purl.org/dc/elements/1.1/"));
+        OWLOntologyID id2 = new OWLOntologyID(IRI.create("http://purl.org/dc/elements/1.1/"));
+        assertEquals(id1, id2);
+        assertEquals(id1.hashCode(), id2.hashCode());
     }
 }

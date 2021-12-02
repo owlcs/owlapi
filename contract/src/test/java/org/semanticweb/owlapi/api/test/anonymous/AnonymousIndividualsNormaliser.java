@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 
@@ -30,22 +31,18 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
 
     private final Map<OWLAnonymousIndividual, OWLAnonymousIndividual> renamingMap = new HashMap<>();
-    private int counter = 0;
+    private final AtomicInteger counter = new AtomicInteger(0);
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory.
+     * Creates an object duplicator that duplicates objects using the specified data factory.
      * 
-     * @param dataFactory
-     *        The data factory to be used for the duplication.
+     * @param dataFactory The data factory to be used for the duplication.
      */
     public AnonymousIndividualsNormaliser(@Nonnull OWLDataFactory dataFactory) {
         super(dataFactory);
@@ -68,8 +65,7 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     public void visit(OWLAnonymousIndividual individual) {
         OWLAnonymousIndividual ind = renamingMap.get(individual);
         if (ind == null) {
-            counter++;
-            ind = AnonymousIndividual("anon-ind-" + counter);
+            ind = AnonymousIndividual("anon-ind-" + counter.incrementAndGet());
             renamingMap.put(individual, ind);
         }
         setLastObject(ind);

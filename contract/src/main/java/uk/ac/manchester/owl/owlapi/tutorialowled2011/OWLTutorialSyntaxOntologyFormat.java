@@ -17,8 +17,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormatImpl;
 
 /**
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 public class OWLTutorialSyntaxOntologyFormat extends PrefixDocumentFormatImpl {

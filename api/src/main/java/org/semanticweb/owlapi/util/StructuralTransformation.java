@@ -443,8 +443,8 @@ public class StructuralTransformation implements Serializable {
             List<OWLDataPropertyExpression> props = new ArrayList<>(axiom.getProperties());
             for (int i = 0; i < props.size(); i++) {
                 for (int j = i + 1; j < props.size(); j++) {
-                    axioms.add(df.getOWLDisjointDataPropertiesAxiom(props.get(i), props.get(j)));
-                    axioms.add(df.getOWLDisjointDataPropertiesAxiom(props.get(j), props.get(i)));
+                    axioms.add(df.getOWLEquivalentDataPropertiesAxiom(props.get(i), props.get(j)));
+                    axioms.add(df.getOWLEquivalentDataPropertiesAxiom(props.get(j), props.get(i)));
                 }
             }
             return axioms;
@@ -456,8 +456,10 @@ public class StructuralTransformation implements Serializable {
             List<OWLObjectPropertyExpression> props = new ArrayList<>(axiom.getProperties());
             for (int i = 0; i < props.size(); i++) {
                 for (int j = i + 1; j < props.size(); j++) {
-                    axioms.add(df.getOWLDisjointObjectPropertiesAxiom(props.get(i), props.get(j)));
-                    axioms.add(df.getOWLDisjointObjectPropertiesAxiom(props.get(j), props.get(i)));
+                    axioms
+                        .add(df.getOWLEquivalentObjectPropertiesAxiom(props.get(i), props.get(j)));
+                    axioms
+                        .add(df.getOWLEquivalentObjectPropertiesAxiom(props.get(j), props.get(i)));
                 }
             }
             return axioms;

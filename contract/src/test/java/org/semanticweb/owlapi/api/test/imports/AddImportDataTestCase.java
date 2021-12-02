@@ -12,24 +12,23 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.imports;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.change.AddImportData;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", })
-public class AddImportDataTestCase {
+class AddImportDataTestCase {
 
     @Nonnull
     private final OWLImportsDeclaration mockDeclaration = mock(OWLImportsDeclaration.class);
@@ -42,7 +41,7 @@ public class AddImportDataTestCase {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         AddImportData data1 = createData();
         AddImportData data2 = createData();
         assertEquals(data1, data2);
@@ -50,20 +49,20 @@ public class AddImportDataTestCase {
     }
 
     @Test
-    public void testGettersReturnNotNull() {
+    void testGettersReturnNotNull() {
         AddImportData data = createData();
         assertNotNull(data.getDeclaration());
         assertNotNull(data.createOntologyChange(mockOntology));
     }
 
     @Test
-    public void testGettersEquals() {
+    void testGettersEquals() {
         AddImportData data = createData();
         assertEquals(mockDeclaration, data.getDeclaration());
     }
 
     @Test
-    public void testCreateOntologyChange() {
+    void testCreateOntologyChange() {
         AddImportData data = createData();
         AddImport change = data.createOntologyChange(mockOntology);
         assertEquals(mockOntology, change.getOntology());
@@ -71,7 +70,7 @@ public class AddImportDataTestCase {
     }
 
     @Test
-    public void testOntologyChangeSymmetry() {
+    void testOntologyChangeSymmetry() {
         AddImportData data = createData();
         AddImport change = new AddImport(mockOntology, mockDeclaration);
         assertEquals(change.getChangeData(), data);

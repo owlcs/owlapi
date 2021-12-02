@@ -6,11 +6,11 @@
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:ontology="http://owlapi.sourceforge.net/ontology#">
+     xmlns:ontology="http://www.semanticweb.org/owlapi/test#">
     <owl:Ontology rdf:about="http://www.semanticweb.org/owlapi/test224612089629142"/>
-    <owl:DatatypeProperty rdf:about="http://owlapi.sourceforge.net/ontology#prop"/>
-    <owl:Thing rdf:about="http://owlapi.sourceforge.net/ontology#A">
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/owlapi/test#p"/>
+    <owl:Thing rdf:about="http://www.semanticweb.org/owlapi/test#a">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-        <ontology:prop>test url</ontology:prop>
+        <ontology:p>test url</ontology:p>
     </owl:Thing>
 </rdf:RDF>

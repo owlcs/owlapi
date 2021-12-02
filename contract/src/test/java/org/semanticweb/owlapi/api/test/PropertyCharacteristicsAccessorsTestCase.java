@@ -12,105 +12,95 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.search.EntitySearcher.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalDataProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseFunctionalObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IrreflexiveObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ReflexiveObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
+import static org.semanticweb.owlapi.search.EntitySearcher.isAsymmetric;
+import static org.semanticweb.owlapi.search.EntitySearcher.isFunctional;
+import static org.semanticweb.owlapi.search.EntitySearcher.isInverseFunctional;
+import static org.semanticweb.owlapi.search.EntitySearcher.isIrreflexive;
+import static org.semanticweb.owlapi.search.EntitySearcher.isReflexive;
+import static org.semanticweb.owlapi.search.EntitySearcher.isSymmetric;
+import static org.semanticweb.owlapi.search.EntitySearcher.isTransitive;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
-public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
+class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
-    private static final String ONT2 = "Ont";
-    private static final String PROP2 = "prop";
+    OWLOntology ont;
 
-    @Test
-    public void testTransitive() {
-        OWLOntology ont = getOWLOntology(ONT2);
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        assertFalse(isTransitive(prop, ont));
-        OWLAxiom ax = TransitiveObjectProperty(prop);
-        m.addAxiom(ont, ax);
-        assertTrue(isTransitive(prop, ont));
+    @BeforeEach
+    void before() {
+        ont = getOWLOntology("Ont");
     }
 
     @Test
-    public void testSymmetric() {
-        OWLOntology ont = getOWLOntology(ONT2);
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        assertFalse(isSymmetric(prop, ont));
-        OWLAxiom ax = SymmetricObjectProperty(prop);
-        m.addAxiom(ont, ax);
-        assertTrue(isSymmetric(prop, ont));
+    void testTransitive() {
+        assertFalse(isTransitive(P, ont));
+        m.addAxiom(ont, TransitiveObjectProperty(P));
+        assertTrue(isTransitive(P, ont));
     }
 
     @Test
-    public void testAsymmetric() {
-        OWLOntology ont = getOWLOntology(ONT2);
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        assertFalse(isAsymmetric(prop, ont));
-        OWLAxiom ax = AsymmetricObjectProperty(prop);
-        m.addAxiom(ont, ax);
-        assertTrue(isAsymmetric(prop, ont));
+    void testSymmetric() {
+        assertFalse(isSymmetric(P, ont));
+        m.addAxiom(ont, SymmetricObjectProperty(P));
+        assertTrue(isSymmetric(P, ont));
     }
 
     @Test
-    public void testReflexive() {
-        OWLOntology ont = getOWLOntology(ONT2);
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        assertFalse(isReflexive(prop, ont));
-        OWLAxiom ax = ReflexiveObjectProperty(prop);
-        m.addAxiom(ont, ax);
-        assertTrue(isReflexive(prop, ont));
+    void testAsymmetric() {
+        assertFalse(isAsymmetric(P, ont));
+        m.addAxiom(ont, AsymmetricObjectProperty(P));
+        assertTrue(isAsymmetric(P, ont));
     }
 
     @Test
-    public void testIrreflexive() {
-        OWLOntology ont = getOWLOntology(ONT2);
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        assertFalse(isIrreflexive(prop, ont));
-        OWLAxiom ax = IrreflexiveObjectProperty(prop);
-        m.addAxiom(ont, ax);
-        assertTrue(isIrreflexive(prop, ont));
+    void testReflexive() {
+        assertFalse(isReflexive(P, ont));
+        m.addAxiom(ont, ReflexiveObjectProperty(P));
+        assertTrue(isReflexive(P, ont));
     }
 
     @Test
-    public void testFunctional() {
-        OWLOntology ont = getOWLOntology(ONT2);
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        assertFalse(isFunctional(prop, ont));
-        OWLAxiom ax = FunctionalObjectProperty(prop);
-        m.addAxiom(ont, ax);
-        assertTrue(isFunctional(prop, ont));
+    void testIrreflexive() {
+        assertFalse(isIrreflexive(P, ont));
+        m.addAxiom(ont, IrreflexiveObjectProperty(P));
+        assertTrue(isIrreflexive(P, ont));
     }
 
     @Test
-    public void testInverseFunctional() {
-        OWLOntology ont = getOWLOntology(ONT2);
-        OWLObjectProperty prop = ObjectProperty(iri(PROP2));
-        assertFalse(isInverseFunctional(prop, ont));
-        OWLAxiom ax = InverseFunctionalObjectProperty(prop);
-        m.addAxiom(ont, ax);
-        assertTrue(isInverseFunctional(prop, ont));
+    void testFunctional() {
+        assertFalse(isFunctional(P, ont));
+        m.addAxiom(ont, FunctionalObjectProperty(P));
+        assertTrue(isFunctional(P, ont));
     }
 
     @Test
-    public void testFunctionalDataProperty() {
-        OWLOntology ont = getOWLOntology(ONT2);
-        OWLDataProperty prop = DataProperty(iri(PROP2));
-        assertFalse(isFunctional(prop, ont));
-        OWLAxiom ax = FunctionalDataProperty(prop);
-        m.addAxiom(ont, ax);
-        assertTrue(isFunctional(prop, ont));
+    void testInverseFunctional() {
+        assertFalse(isInverseFunctional(P, ont));
+        m.addAxiom(ont, InverseFunctionalObjectProperty(P));
+        assertTrue(isInverseFunctional(P, ont));
+    }
+
+    @Test
+    void testFunctionalDataProperty() {
+        assertFalse(isFunctional(DP, ont));
+        m.addAxiom(ont, FunctionalDataProperty(DP));
+        assertTrue(isFunctional(DP, ont));
     }
 }

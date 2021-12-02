@@ -72,6 +72,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
@@ -112,6 +113,7 @@ import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
@@ -778,12 +780,22 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(SWRLDifferentIndividualsAtom node) {
+        SWRLPredicate predicate = node.getPredicate();
+        if (predicate instanceof OWLObject) {
+            ((OWLObject) predicate).accept(this);
+        }
         node.getFirstArgument().accept(this);
+        node.getSecondArgument().accept(this);
         return objects;
     }
 
     @Override
     public Collection<OWLEntity> visit(SWRLSameIndividualAtom node) {
+        SWRLPredicate predicate = node.getPredicate();
+        if (predicate instanceof OWLObject) {
+            ((OWLObject) predicate).accept(this);
+        }
+        node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
         return objects;
     }

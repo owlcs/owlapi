@@ -12,19 +12,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSComment;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -32,33 +32,23 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-@SuppressWarnings({ "javadoc", "null" })
-public class SWRLAnnotationTestCase extends TestBase {
+class SWRLAnnotationTestCase extends TestBase {
 
-    @Nonnull
     private static final String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
-    @Nonnull
-    OWLClass a = Class(IRI(NS + "#A"));
-    @Nonnull
-    OWLClass b = Class(IRI(NS + "#B"));
-    @Nonnull
-    OWLAxiom axiom;
+    protected OWLAxiom axiom;
 
-    @Before
-    public void setUp() {
-        SWRLVariable x = df.getSWRLVariable(IRI(NS + "#x"));
-        SWRLAtom atom1 = df.getSWRLClassAtom(a, x);
-        SWRLAtom atom2 = df.getSWRLClassAtom(b, x);
+    @BeforeEach
+    void setUpAtoms() {
+        SWRLVariable x = df.getSWRLVariable(iri(NS + "#", "x"));
+        SWRLAtom atom1 = df.getSWRLClassAtom(A, x);
+        SWRLAtom atom2 = df.getSWRLClassAtom(B, x);
         Set<SWRLAtom> consequent = new TreeSet<>();
         consequent.add(atom1);
-        OWLAnnotation annotation = df.getOWLAnnotation(RDFSComment(),
-                Literal("Not a great rule"));
+        OWLAnnotation annotation = df.getOWLAnnotation(RDFSComment(), Literal("Not a great rule"));
         Set<OWLAnnotation> annotations = new TreeSet<>();
         annotations.add(annotation);
         Set<SWRLAtom> body = new TreeSet<>();
@@ -67,15 +57,15 @@ public class SWRLAnnotationTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripAnnotation() throws Exception {
+    void shouldRoundTripAnnotation() {
         OWLOntology ontology = createOntology();
         assertTrue(ontology.containsAxiom(axiom));
         ontology = loadOntologyFromString(saveOntology(ontology));
         assertTrue(ontology.containsAxiom(axiom));
     }
 
-    public OWLOntology createOntology() throws OWLOntologyCreationException {
-        OWLOntology ontology = m.createOntology(IRI(NS));
+    OWLOntology createOntology() {
+        OWLOntology ontology = getOWLOntology(iri(NS, ""));
         List<AddAxiom> changes = new ArrayList<>();
         changes.add(new AddAxiom(ontology, axiom));
         m.applyChanges(changes);
@@ -83,122 +73,19 @@ public class SWRLAnnotationTestCase extends TestBase {
     }
 
     @Test
-    public void replicateFailure() throws Exception {
-        String input = "<?xml version=\"1.0\"?>\n"
-                + "<rdf:RDF\n"
-                + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
-                + "    xmlns:protege=\"http://protege.stanford.edu/plugins/owl/protege#\"\n"
-                + "    xmlns=\"urn:test#\"\n"
-                + "    xmlns:xsp=\"http://www.owl-ontologies.com/2005/08/07/xsp.owl#\"\n"
-                + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-                + "    xmlns:sqwrl=\"http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#\"\n"
-                + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-                + "    xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
-                + "    xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n"
-                + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-                + "    xmlns:swrla=\"http://swrl.stanford.edu/ontologies/3.3/swrla.owl#\"\n"
-                + "  xml:base=\"urn:test\">\n"
-                + "  <owl:Ontology rdf:about=\"\">\n"
-                + "  </owl:Ontology>\n"
-                + "  <owl:AnnotationProperty rdf:about=\"http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled\"/>\n"
-                + "  <owl:ObjectProperty rdf:ID=\"hasDriver\">\n"
-                + "    <owl:inverseOf>\n"
-                + "      <owl:ObjectProperty rdf:ID=\"drives\"/>\n"
-                + "    </owl:inverseOf>\n"
-                + "  </owl:ObjectProperty>\n"
-                + "  <owl:ObjectProperty rdf:about=\"#drives\">\n"
-                + "    <owl:inverseOf rdf:resource=\"#hasDriver\"/>\n"
-                + "  </owl:ObjectProperty>\n"
-                + "  <swrl:Imp rdf:ID=\"test-table5-prp-inv2-rule\">\n"
-                + "    <swrl:body>\n"
-                + "      <swrl:AtomList/>\n"
-                + "    </swrl:body>\n"
-                + "    <swrl:head>\n"
-                + "      <swrl:AtomList>\n"
-                + "        <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
-                + "        <rdf:first>\n"
-                + "          <swrl:IndividualPropertyAtom>\n"
-                + "            <swrl:argument2>\n"
-                + "              <Person rdf:ID=\"i62\"/>\n"
-                + "            </swrl:argument2>\n"
-                + "            <swrl:argument1>\n"
-                + "              <Person rdf:ID=\"i61\"/>\n"
-                + "            </swrl:argument1>\n"
-                + "            <swrl:propertyPredicate rdf:resource=\"#drives\"/>\n"
-                + "          </swrl:IndividualPropertyAtom>\n"
-                + "        </rdf:first>\n"
-                + "      </swrl:AtomList>\n"
-                + "    </swrl:head>\n"
-                + "    <swrla:isRuleEnabled rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\"\n"
-                + "    >true</swrla:isRuleEnabled>\n"
-                + "    <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\"\n"
-                + "    >:i62, :i61</rdfs:comment>\n" + "  </swrl:Imp>\n"
-                + "</rdf:RDF>";
-        OWLOntology ontology = loadOntologyFromString(new StringDocumentSource(
-                input, IRI.create("test"), new RDFXMLDocumentFormat(), null));
-        assertTrue(ontology
-                .getAxioms(AxiomType.SWRL_RULE)
-                .toString()
-                .contains(
-                        "DLSafeRule(Annotation(<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> \"true\"^^xsd:boolean) Annotation(rdfs:comment \":i62, :i61\"^^xsd:string)  Body() Head(ObjectPropertyAtom(<#drives> <#i61> <#i62>)) )"));
+    void replicateFailure() {
+        String input = TestFiles.HEAD + " rdf:ID=\"test-table5-prp-inv2-rule\"" + TestFiles.TAIL;
+
+        OWLOntology ontology = loadOntologyFromString(
+            new StringDocumentSource(input, IRI.create("test"), new RDFXMLDocumentFormat(), null));
+        assertTrue(ontology.getAxioms(AxiomType.SWRL_RULE).toString().contains(TestFiles.DL_RULE));
     }
 
     @Test
-    public void replicateSuccess() throws Exception {
-        String input = "<?xml version=\"1.0\"?>\n"
-                + "<rdf:RDF\n"
-                + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
-                + "    xmlns:protege=\"http://protege.stanford.edu/plugins/owl/protege#\"\n"
-                + "    xmlns=\"urn:test#\"\n"
-                + "    xmlns:xsp=\"http://www.owl-ontologies.com/2005/08/07/xsp.owl#\"\n"
-                + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-                + "    xmlns:sqwrl=\"http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#\"\n"
-                + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-                + "    xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
-                + "    xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n"
-                + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-                + "    xmlns:swrla=\"http://swrl.stanford.edu/ontologies/3.3/swrla.owl#\"\n"
-                + "  xml:base=\"urn:test\">\n"
-                + "  <owl:Ontology rdf:about=\"\">\n"
-                + "  </owl:Ontology>\n"
-                + "  <owl:AnnotationProperty rdf:about=\"http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled\"/>\n"
-                + "  <owl:ObjectProperty rdf:ID=\"hasDriver\">\n"
-                + "    <owl:inverseOf>\n"
-                + "      <owl:ObjectProperty rdf:ID=\"drives\"/>\n"
-                + "    </owl:inverseOf>\n"
-                + "  </owl:ObjectProperty>\n"
-                + "  <owl:ObjectProperty rdf:about=\"#drives\">\n"
-                + "    <owl:inverseOf rdf:resource=\"#hasDriver\"/>\n"
-                + "  </owl:ObjectProperty>\n"
-                + "  <swrl:Imp>\n"
-                + "    <swrl:body>\n"
-                + "      <swrl:AtomList/>\n"
-                + "    </swrl:body>\n"
-                + "    <swrl:head>\n"
-                + "      <swrl:AtomList>\n"
-                + "        <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
-                + "        <rdf:first>\n"
-                + "          <swrl:IndividualPropertyAtom>\n"
-                + "            <swrl:argument2>\n"
-                + "              <Person rdf:ID=\"i62\"/>\n"
-                + "            </swrl:argument2>\n"
-                + "            <swrl:argument1>\n"
-                + "              <Person rdf:ID=\"i61\"/>\n"
-                + "            </swrl:argument1>\n"
-                + "            <swrl:propertyPredicate rdf:resource=\"#drives\"/>\n"
-                + "          </swrl:IndividualPropertyAtom>\n"
-                + "        </rdf:first>\n"
-                + "      </swrl:AtomList>\n"
-                + "    </swrl:head>\n"
-                + "    <swrla:isRuleEnabled rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">true</swrla:isRuleEnabled>\n"
-                + "    <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">:i62, :i61</rdfs:comment>\n"
-                + "  </swrl:Imp>\n" + "</rdf:RDF>";
-        OWLOntology ontology = loadOntologyFromString(new StringDocumentSource(
-                input, IRI.create("test"), new RDFXMLDocumentFormat(), null));
-        assertTrue(ontology
-                .getAxioms(AxiomType.SWRL_RULE)
-                .toString()
-                .contains(
-                        "DLSafeRule(Annotation(<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> \"true\"^^xsd:boolean) Annotation(rdfs:comment \":i62, :i61\"^^xsd:string)  Body() Head(ObjectPropertyAtom(<#drives> <#i61> <#i62>)) )"));
+    void replicateSuccess() {
+        String input = TestFiles.HEAD + TestFiles.TAIL;
+        OWLOntology ontology = loadOntologyFromString(
+            new StringDocumentSource(input, IRI.create("test"), new RDFXMLDocumentFormat(), null));
+        assertTrue(ontology.getAxioms(AxiomType.SWRL_RULE).toString().contains(TestFiles.DL_RULE));
     }
 }

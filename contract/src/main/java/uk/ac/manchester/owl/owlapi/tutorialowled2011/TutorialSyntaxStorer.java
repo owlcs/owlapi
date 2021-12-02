@@ -18,15 +18,14 @@ import java.io.Writer;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
+import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @HasPriority(-1)
@@ -40,9 +39,8 @@ public class TutorialSyntaxStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
+    protected void storeOntology(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
+        OWLDocumentFormat format) throws OWLRendererIOException {
         try {
             OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
             renderer.render(ontology, writer);

@@ -12,17 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.change.SetOntologyIDData;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
@@ -31,18 +31,17 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc"})
-public class SetOntologyIDDataTestCase {
+class SetOntologyIDDataTestCase extends TestBase {
 
     @Nonnull
     private final OWLOntology mockOntology = mock(OWLOntology.class);
     @Nonnull
     private final OWLOntologyID mockOntologyID = new OWLOntologyID();
 
-    @Before
-    public void setUp() {
-        when(mockOntology.getOntologyID()).thenReturn(
-            new OWLOntologyID(IRI.create("urn:test:onto1"), IRI.create("urn:test:onto1_1")));
+    @BeforeEach
+    void setUp() {
+        when(mockOntology.getOntologyID())
+            .thenReturn(new OWLOntologyID(iri("urn:test:", "onto1"), iri("urn:test:", "onto1_1")));
     }
 
     @Nonnull
@@ -51,7 +50,7 @@ public class SetOntologyIDDataTestCase {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         SetOntologyIDData data1 = createData();
         SetOntologyIDData data2 = createData();
         assertEquals(data1, data2);
@@ -59,20 +58,20 @@ public class SetOntologyIDDataTestCase {
     }
 
     @Test
-    public void testGettersReturnNotNull() {
+    void testGettersReturnNotNull() {
         SetOntologyIDData data = createData();
         assertNotNull(data.getNewId());
         assertNotNull(data.createOntologyChange(mockOntology));
     }
 
     @Test
-    public void testGettersEquals() {
+    void testGettersEquals() {
         SetOntologyIDData data = createData();
         assertEquals(mockOntologyID, data.getNewId());
     }
 
     @Test
-    public void testCreateOntologyChange() {
+    void testCreateOntologyChange() {
         SetOntologyIDData data = createData();
         SetOntologyID change = data.createOntologyChange(mockOntology);
         assertEquals(mockOntology, change.getOntology());
@@ -80,7 +79,7 @@ public class SetOntologyIDDataTestCase {
     }
 
     @Test
-    public void testOntologyChangeSymmetry() {
+    void testOntologyChangeSymmetry() {
         SetOntologyIDData data = createData();
         SetOntologyID change = new SetOntologyID(mockOntology, mockOntologyID);
         assertEquals(change.getChangeData(), data);

@@ -12,101 +12,64 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-@SuppressWarnings("javadoc")
-public class OntologyMutationTestCase extends TestBase {
+class OntologyMutationTestCase extends TestBase {
+
+    static final OWLAxiom ax = SubClassOf(A, OWLThing());
 
     @Test
-    public void testAddAxiom() {
+    void testAddAxiom() {
         OWLOntology ont = getOWLOntology("OntA");
-        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
-        final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(
-                new OWLOntologyChangeListener() {
-
-                    @Override
-                    public void ontologiesChanged(
-                            @Nonnull List<? extends OWLOntologyChange> changes) {
-                        chgs.addAll(changes);
-                    }
-                });
+        List<OWLOntologyChange> chgs = new ArrayList<>();
+        ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
 
     @Test
-    public void testAddAxioms() {
+    void testAddAxioms() {
         OWLOntology ont = getOWLOntology("OntB");
-        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
-        final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(
-                new OWLOntologyChangeListener() {
-
-                    @Override
-                    public void ontologiesChanged(
-                            @Nonnull List<? extends OWLOntologyChange> changes) {
-                        chgs.addAll(changes);
-                    }
-                });
+        List<OWLOntologyChange> chgs = new ArrayList<>();
+        ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.getOWLOntologyManager().addAxioms(ont, singleton(ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
 
     @Test
-    public void testApplyChange() {
+    void testApplyChange() {
         OWLOntology ont = getOWLOntology("OntC");
-        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
-        final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(
-                new OWLOntologyChangeListener() {
-
-                    @Override
-                    public void ontologiesChanged(
-                            @Nonnull List<? extends OWLOntologyChange> changes) {
-                        chgs.addAll(changes);
-                    }
-                });
+        List<OWLOntologyChange> chgs = new ArrayList<>();
+        ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.getOWLOntologyManager().applyChange(new AddAxiom(ont, ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
 
     @Test
-    public void testApplyChanges() {
+    void testApplyChanges() {
         OWLOntology ont = getOWLOntology("OntD");
-        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
-        final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(
-                new OWLOntologyChangeListener() {
-
-                    @Override
-                    public void ontologiesChanged(
-                            @Nonnull List<? extends OWLOntologyChange> changes) {
-                        chgs.addAll(changes);
-                    }
-                });
+        List<OWLOntologyChange> chgs = new ArrayList<>();
+        ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.getOWLOntologyManager().applyChange(new AddAxiom(ont, ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));

@@ -14,59 +14,53 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
 
 /**
- * This class demonstrates some aspects of the OWL API. It expects three
- * arguments:
+ * This class demonstrates some aspects of the OWL API. It expects three arguments:
  * <ol>
  * <li>The URI of an ontology</li>
  * <li>The URI of destination</li>
  * <li>The URI of a class</li>
  * </ol>
- * When executed, the class will find all subclass axioms that form part of the
- * definition of the given class. For each of these, if the superclass is a
- * conjunction of existential restrictions, then an additional subclass axiom
- * will be added to the ontology, "closing" the restrictions.
- * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ * When executed, the class will find all subclass axioms that form part of the definition of the
+ * given class. For each of these, if the superclass is a conjunction of existential restrictions,
+ * then an additional subclass axiom will be added to the ontology, "closing" the restrictions.
+ *
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-public class ClosureAxiomsExample extends TestBase {
+public class ClosureAxiomsExample {
 
     /**
-     * @param inputOntology
-     *        input ontology IRI
-     * @param outputOntology
-     *        output ontology IRI
-     * @param classToClose
-     *        the class to compute the closure of
-     * @throws OWLException
-     *         if an exception is raised
+     * @param inputOntology input ontology IRI
+     * @param outputOntology output ontology IRI
+     * @param classToClose the class to compute the closure of
      */
-    public void closure(@Nonnull String inputOntology, @Nonnull String outputOntology, @Nonnull String classToClose)
-        throws OWLException {
+    public void closure(String inputOntology, String outputOntology, String classToClose)
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         /* Create and Ontology Manager */
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         IRI documentIRI = IRI.create(inputOntology);
         IRI classIRI = IRI.create(classToClose);
         IRI outputDocumentIRI = IRI.create(outputOntology);
         /* Load an ontology */
         System.out.println("Loading: " + documentIRI);
-        OWLOntology ontology = m.loadOntologyFromOntologyDocument(documentIRI);
+        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
         System.out.println("Ontology Loaded...");
         System.out.println("Logical URI : " + documentIRI);
         System.out.println("Document IRI: " + ontology.getOntologyID());
-        System.out.println("Format      : " + m.getOntologyFormat(ontology));
-        ClosureAxioms closureAxioms = new ClosureAxioms(m, ontology);
+        System.out.println(
+            "Format      : " + ontology.getOWLOntologyManager().getOntologyFormat(ontology));
+        ClosureAxioms closureAxioms = new ClosureAxioms(ontology);
         OWLClass clazz = Class(classIRI);
         System.out.println("Class URI   : " + classIRI);
         System.out.println(clazz);
@@ -74,11 +68,11 @@ public class ClosureAxiomsExample extends TestBase {
         closureAxioms.addClosureAxioms(clazz);
         /* Now save a copy to another location */
         System.out.println("Saving: " + outputDocumentIRI);
-        m.saveOntology(ontology, outputDocumentIRI);
+        manager.saveOntology(ontology, outputDocumentIRI);
         System.out.println("Ontology Saved...");
         System.out.println("Document IRI : " + outputDocumentIRI);
         /* Remove the ontology from the manager */
-        m.removeOntology(ontology);
+        manager.removeOntology(ontology);
         System.out.println("Done");
     }
 }

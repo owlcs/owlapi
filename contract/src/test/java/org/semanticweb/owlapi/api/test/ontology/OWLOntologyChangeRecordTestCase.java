@@ -12,62 +12,75 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.change.AddAxiomData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", })
-public class OWLOntologyChangeRecordTestCase extends TestBase {
+class OWLOntologyChangeRecordTestCase extends TestBase {
 
-    @Nonnull private final OWLOntologyID mockOntologyID = new OWLOntologyID();
-    @Nonnull private final OWLOntologyChangeData mockChangeData = mock(OWLOntologyChangeData.class);
-    @Nonnull private final OWLAxiom mockAxiom = mock(OWLAxiom.class);
+    @Nonnull
+    private final OWLOntologyID mockOntologyID = new OWLOntologyID();
+    @Nonnull
+    private final OWLOntologyChangeData mockChangeData = mock(OWLOntologyChangeData.class);
+    @Nonnull
+    private final OWLAxiom mockAxiom = mock(OWLAxiom.class);
 
     @Test
-    public void testEquals() {
-        OWLOntologyChangeRecord record1 = new OWLOntologyChangeRecord(mockOntologyID, mockChangeData);
-        OWLOntologyChangeRecord record2 = new OWLOntologyChangeRecord(mockOntologyID, mockChangeData);
+    void testEquals() {
+        OWLOntologyChangeRecord record1 =
+            new OWLOntologyChangeRecord(mockOntologyID, mockChangeData);
+        OWLOntologyChangeRecord record2 =
+            new OWLOntologyChangeRecord(mockOntologyID, mockChangeData);
         assertEquals(record1, record2);
     }
 
     @Test
-    public void testGettersNotNull() {
-        OWLOntologyChangeRecord record = new OWLOntologyChangeRecord(mockOntologyID, mockChangeData);
+    void testGettersNotNull() {
+        OWLOntologyChangeRecord record =
+            new OWLOntologyChangeRecord(mockOntologyID, mockChangeData);
         assertNotNull(record.getOntologyID());
     }
 
     @Test
-    public void testGetterEqual() {
-        OWLOntologyChangeRecord record = new OWLOntologyChangeRecord(mockOntologyID, mockChangeData);
+    void testGetterEqual() {
+        OWLOntologyChangeRecord record =
+            new OWLOntologyChangeRecord(mockOntologyID, mockChangeData);
         assertEquals(mockOntologyID, record.getOntologyID());
         assertEquals(mockChangeData, record.getData());
     }
 
-    @Test(expected = UnknownOWLOntologyException.class)
-    public void testCreateOntologyChange() {
-        OWLOntologyChangeRecord changeRecord = new OWLOntologyChangeRecord(mockOntologyID, mockChangeData);
-        changeRecord.createOntologyChange(m);
+    @Test
+    void testCreateOntologyChange() {
+        OWLOntologyChangeRecord changeRecord =
+            new OWLOntologyChangeRecord(mockOntologyID, mockChangeData);
+        assertThrows(UnknownOWLOntologyException.class, () -> changeRecord.createOntologyChange(m));
     }
 
     @Test
-    public void testCreateOntologyChangeEquals() throws OWLOntologyCreationException {
-        OWLOntology ontology = m.createOntology();
+    void testCreateOntologyChangeEquals() {
+        OWLOntology ontology = getAnonymousOWLOntology();
         OWLOntologyID ontologyID = ontology.getOntologyID();
         AddAxiomData addAxiomData = new AddAxiomData(mockAxiom);
-        OWLOntologyChangeRecord changeRecord = new OWLOntologyChangeRecord(ontologyID, addAxiomData);
+        OWLOntologyChangeRecord changeRecord =
+            new OWLOntologyChangeRecord(ontologyID, addAxiomData);
         OWLOntologyChange change = changeRecord.createOntologyChange(m);
         assertNotNull(change);
         assertEquals(change.getOntology().getOntologyID(), ontologyID);

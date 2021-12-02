@@ -107,7 +107,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
@@ -343,8 +342,8 @@ class OWLProfileTestCase extends TestBase {
 
     @Test
     @Tests(method = "Object visit(OWLOntology ontology)")
-    void shouldCreateViolationForOWLOntologyInOWL2DLProfile() throws OWLOntologyCreationException {
-        o = m.createOntology(new OWLOntologyID(IRI(START, TEST), IRI(START, "test1")));
+    void shouldCreateViolationForOWLOntologyInOWL2DLProfile() {
+        o = getOWLOntology(new OWLOntologyID(IRI(START, TEST), IRI(START, "test1")));
         int expected = 2;
         runAssert(o, Profiles.OWL2_DL, expected, UseOfReservedVocabularyForOntologyIRI.class,
             UseOfReservedVocabularyForVersionIRI.class);
@@ -619,8 +618,8 @@ class OWLProfileTestCase extends TestBase {
     // applicable. A warning will be logged.
     // @Test
     @Tests(method = "Object visit(OWLOntology ont)")
-    void shouldCreateViolationForOWLOntologyInOWL2Profile() throws OWLOntologyCreationException {
-        o = m.createOntology(new OWLOntologyID(IRI(TEST), IRI("test1")));
+    void shouldCreateViolationForOWLOntologyInOWL2Profile() {
+        o = getOWLOntology(new OWLOntologyID(IRI(TEST), IRI("test1")));
         int expected = 2;
         runAssert(o, Profiles.OWL2_FULL, expected, OntologyIRINotAbsolute.class,
             OntologyVersionIRINotAbsolute.class);

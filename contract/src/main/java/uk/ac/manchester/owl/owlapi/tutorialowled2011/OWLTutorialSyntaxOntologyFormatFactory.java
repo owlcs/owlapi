@@ -20,12 +20,10 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
-public class OWLTutorialSyntaxOntologyFormatFactory extends
-        OWLDocumentFormatFactoryImpl {
+public class OWLTutorialSyntaxOntologyFormatFactory extends OWLDocumentFormatFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
