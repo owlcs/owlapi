@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 class UndeclaredAnnotationTestCase extends TestBase {
 
     @Test
-    void testRDFXMLUsingUndeclaredAnnotationProperty() throws OWLOntologyCreationException {
+    void testRDFXMLUsingUndeclaredAnnotationProperty() {
         OWLOntology oo = loadOntologyFromString(TestFiles.undeclaredAnnotationProperty,
             new RDFXMLDocumentFormat());
         RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) oo.getNonnullFormat();

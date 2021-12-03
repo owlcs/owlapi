@@ -28,7 +28,29 @@ class OWLZipClosureIRIMapperTestCase extends TestBase {
     }
 
     @Test
-    void shouldMapIRIsWithAutoIRIMapper() throws OWLOntologyCreationException {
+    void shouldLoadClosureWithCatalog() throws OWLOntologyCreationException, IOException {
+        File file2 = new File(RESOURCES, "owlzipwithcatalog.zip");
+        m1.getIRIMappers().add(new AutoIRIMapper(imports(), true));
+        OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
+        OWLZipClosureIRIMapper source = new OWLZipClosureIRIMapper(file2);
+        m.getIRIMappers().add(source);
+        OWLOntology loadOntology = m.loadOntology(dIRI);
+        equal(loadOntology, test);
+    }
+
+    @Test
+    void shouldMapIRIsWithoutIndex() throws OWLOntologyCreationException, IOException {
+        File file2 = new File(RESOURCES, "owlzipnoindex.zip");
+        m1.getIRIMappers().add(new AutoIRIMapper(imports(), true));
+        OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
+        OWLZipClosureIRIMapper source = new OWLZipClosureIRIMapper(file2);
+        m.getIRIMappers().add(source);
+        OWLOntology loadOntology = m.loadOntology(dIRI);
+        equal(loadOntology, test);
+    }
+
+    @Test
+    void shouldMapIRIsWithAutoIRIMapper() throws OWLOntologyCreationException, IOException {
         File file2 = new File(RESOURCES, "owlzipnoindex.zip");
         m1.getIRIMappers().add(new AutoIRIMapper(imports(), true));
         OWLOntology test = m1.loadOntologyFromOntologyDocument(d());

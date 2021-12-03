@@ -16,12 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.PlainLiteral;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
 
 import java.util.Collections;
-import java.util.stream.Stream;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -29,14 +32,15 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplString;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -45,6 +49,27 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 class LiteralTestCase extends TestBase {
 
     private static final String ABC = "abc";
+
+    protected Set<? extends OWLAxiom> createAxioms() {
+        OWLLiteral literalWithLang = Literal(ABC, "en");
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(AP, A.getIRI(), literalWithLang);
+        Set<OWLAxiom> axioms = new HashSet<>();
+        axioms.add(ax);
+        axioms.add(Declaration(A));
+        return axioms;
+    }
+
+    @Test
+    public void shouldMatchHashCode() {
+        OWLLiteral l1 = new OWLLiteralImpl("123", "", OWL2Datatype.XSD_STRING.getDatatype(df));
+        OWLLiteral l2 = new OWLLiteralImplString("123");
+        OWLLiteral l3 =
+            new OWLLiteralImplNoCompression("123", "", OWL2Datatype.XSD_STRING.getDatatype(df));
+        assertEquals(l1, l2);
+        assertEquals(l1.hashCode(), l2.hashCode());
+        assertEquals(l1, l3);
+        assertEquals(l1.hashCode(), l3.hashCode());
+    }
 
     @Test
     void testHasLangMethod() {
@@ -152,36 +177,31 @@ class LiteralTestCase extends TestBase {
     }
 
     @Test
-    void shouldStoreTagsCorrectly() throws OWLOntologyStorageException {
+    void shouldStoreTagsCorrectly() {
         String in = "See more at <a href=\"http://abc.com\">abc</a>";
-        OWLOntology o = getOWLOntology();
-        OWLAnnotationAssertionAxiom ax =
+        OWLAxiom ax =
             df.getOWLAnnotationAssertionAxiom(createIndividual().getIRI(), df.getRDFSComment(in));
-        o.add(ax);
+        OWLOntology o = o(ax);
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         assertTrue(o1.containsAxiom(ax));
         equal(o, o1);
     }
 
     @Test
-    void shouldFindReferencingAxiomsForIntLiteral() throws OWLOntologyCreationException {
+    void shouldFindReferencingAxiomsForIntLiteral() {
         OWLLiteral x = df.getOWLLiteral(32);
-        OWLClass c = df.getOWLClass("C");
-        OWLAxiom a = df.getOWLSubClassOfAxiom(c, df.getOWLThing(),
-            Collections.singleton(df.getRDFSLabel("x", Stream.of(df.getRDFSComment(x)))));
-        OWLOntology o = m.createOntology();
-        o.add(a);
+        OWLAxiom a = df.getOWLSubClassOfAxiom(A, df.getOWLThing(),
+            Collections.singleton(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("x"),
+                Collections.singleton(df.getOWLAnnotation(df.getRDFSComment(), x)))));
+        OWLOntology o = o(a);
         assertEquals(1, o.referencingAxioms(x).count());
     }
 
     @Test
-    void shouldFindReferencingAxiomsForBooleanLiteral() throws OWLOntologyCreationException {
+    void shouldFindReferencingAxiomsForBooleanLiteral() {
         OWLLiteral x = df.getOWLLiteral(true);
-        OWLClass c = df.getOWLClass("C");
-        OWLAxiom a =
-            df.getOWLSubClassOfAxiom(c, df.getOWLDataHasValue(df.getOWLDataProperty("P"), x));
-        OWLOntology o = m.createOntology();
-        o.add(a);
+        OWLAxiom a = df.getOWLSubClassOfAxiom(A, df.getOWLDataHasValue(DP, x));
+        OWLOntology o = o(a);
         assertEquals(1, o.referencingAxioms(x).count());
     }
 }

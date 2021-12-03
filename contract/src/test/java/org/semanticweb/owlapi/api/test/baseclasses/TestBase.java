@@ -22,6 +22,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annot
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Datatype;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
@@ -51,6 +52,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -72,7 +74,9 @@ import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TrigDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -90,6 +94,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
@@ -102,6 +107,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -136,7 +142,6 @@ public abstract class TestBase {
     public static final OWLClass C4 = Class(iri(OBO, "TEST_4"));
     public static final OWLClass C5 = Class(iri(OBO, "TEST_5"));
 
-
     public static final OWLDataProperty DR = DataProperty(iri("r"));
     public static final OWLObjectProperty R = ObjectProperty(iri("r"));
     public static final OWLClass B = Class(iri("B"));
@@ -148,6 +153,10 @@ public abstract class TestBase {
     public static final OWLDataProperty DP = DataProperty(iri("p"));
     public static final OWLDataProperty DPP = DataProperty(iri("dp"));
     public static final OWLObjectProperty P = ObjectProperty(iri("p"));
+    public static final OWLDataProperty dp1 = DataProperty(iri("dp1"));
+    public static final OWLDataProperty dp2 = DataProperty(iri("dp2"));
+    public static final OWLObjectProperty op1 = ObjectProperty(iri("op1"));
+    public static final OWLObjectProperty op2 = ObjectProperty(iri("op2"));
     public static final OWLNamedIndividual J = NamedIndividual(iri("j"));
     public static final OWLNamedIndividual I = NamedIndividual(iri("i"));
     public static final OWLNamedIndividual indA = NamedIndividual(iri("a"));
@@ -156,6 +165,9 @@ public abstract class TestBase {
     public static final OWLObjectComplementOf notA = ObjectComplementOf(A);
     public static final OWLNamedIndividual i = NamedIndividual(iri("I"));
     public static final OWLAnnotationProperty AP = AnnotationProperty(iri("propA"));
+    public static final OWLAnnotationProperty propP = AnnotationProperty(iri("propP"));
+    public static final OWLAnnotationProperty propQ = AnnotationProperty(iri("propQ"));
+    public static final OWLAnnotationProperty propR = AnnotationProperty(iri("propR"));
     public static final OWLDataProperty PD = DataProperty(iri("propD"));
     public static final OWLDatatype DT = Datatype(iri("DT"));
     public static final OWLAnnotationProperty areaTotal =
@@ -164,7 +176,7 @@ public abstract class TestBase {
     public static final OWLLiteral oneMillionth = Literal("1.0E-7", OWL2Datatype.XSD_DOUBLE);
 
     protected static OntologyConfigurator masterConfigurator;
-    protected final File RESOURCES = resources();
+    protected static final File RESOURCES = resources();
     protected OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
     protected OWLOntologyManager m = setupManager();
     protected OWLOntologyManager m1 = setupManager();
@@ -529,7 +541,7 @@ public abstract class TestBase {
         return false;
     }
 
-    public OWLOntology getOWLOntology() {
+    public OWLOntology create() {
         try {
             return m.createOntology(IRI.getNextDocumentIRI(uriBase));
         } catch (OWLOntologyCreationException e) {
@@ -537,7 +549,15 @@ public abstract class TestBase {
         }
     }
 
-    public OWLOntology getOWLOntology(IRI iri) {
+    public OWLOntology create(String s) {
+        try {
+            return m.createOntology(IRI.getNextDocumentIRI(s));
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    public OWLOntology create(IRI iri) {
         try {
             return m.createOntology(iri);
         } catch (OWLOntologyCreationException e) {
@@ -545,7 +565,7 @@ public abstract class TestBase {
         }
     }
 
-    public OWLOntology getOWLOntology(OWLOntologyID iri) {
+    public OWLOntology create(OWLOntologyID iri) {
         try {
             return m.createOntology(iri);
         } catch (OWLOntologyCreationException e) {
@@ -553,7 +573,7 @@ public abstract class TestBase {
         }
     }
 
-    public OWLOntology getAnonymousOWLOntology() {
+    public OWLOntology createAnon() {
         try {
             return m.createOntology();
         } catch (OWLOntologyCreationException e) {
@@ -645,6 +665,64 @@ public abstract class TestBase {
         }
     }
 
+    protected OWLOntology loadOntologyFrom(InputStream input) {
+        try {
+            return setupManager().loadOntologyFromOntologyDocument(input);
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    @Nonnull
+    protected OWLOntology loadOntologyFromSource(OWLOntologyDocumentSource input) {
+        return loadOntologyFromSource(input, setupManager());
+    }
+
+    @Nonnull
+    protected OWLOntology loadOntologyFromSource(OWLOntologyDocumentSource input,
+        OWLOntologyManager manager) {
+        try {
+            return manager.loadOntologyFromOntologyDocument(input);
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    @Nonnull
+    protected OWLOntology loadOntologyFromSource(OWLOntologyDocumentSource input,
+        OWLOntologyLoaderConfiguration c) {
+        try {
+            return setupManager().loadOntologyFromOntologyDocument(input, c);
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+
+    @Nonnull
+    protected OWLOntology loadOntologyFromFile(File input) {
+        return loadOntologyFromFile(input, setupManager());
+    }
+
+    @Nonnull
+    protected OWLOntology loadOntologyFromFile(File input, OWLOntologyManager manager) {
+        try {
+            return manager.loadOntologyFromOntologyDocument(input);
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    @Nonnull
+    protected OWLOntology loadOntologyFromFile(File input, OWLDocumentFormat format,
+        OWLOntologyManager manager) {
+        try {
+            return manager.loadOntologyFromOntologyDocument(new FileDocumentSource(input, format));
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
     protected OWLOntology loadOntologyFromString(String input) {
         try {
             return setupManager().loadOntologyFromOntologyDocument(new StringDocumentSource(input));
@@ -655,8 +733,20 @@ public abstract class TestBase {
         }
     }
 
-    protected OWLOntology loadOntologyFromString(String input, IRI i, OWLDocumentFormat f) {
-        StringDocumentSource documentSource = new StringDocumentSource(input, i, f, null);
+    protected OWLOntology loadOntologyFromString(IRI input) {
+        return loadOntologyFromString(input, setupManager());
+    }
+
+    protected OWLOntology loadOntologyFromString(IRI input, OWLOntologyManager manager) {
+        try {
+            return manager.loadOntology(input);
+        } catch (OWLException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    protected OWLOntology loadOntologyFromString(String input, IRI iri, OWLDocumentFormat f) {
+        StringDocumentSource documentSource = new StringDocumentSource(input, iri, f, null);
         try {
             return setupManager().loadOntologyFromOntologyDocument(documentSource);
         } catch (OWLOntologyCreationException e) {
@@ -768,5 +858,22 @@ public abstract class TestBase {
 
     protected interface AxiomBuilder {
         List<OWLAxiom> build();
+    }
+
+    protected OWLOntology o(OWLAxiom... a) {
+        return o(Arrays.asList(a));
+    }
+
+    protected OWLOntology o(OWLAxiom a) {
+        return o(Collections.singleton(a));
+    }
+
+    protected OWLOntology o(Collection<OWLAxiom> a) {
+        OWLOntology ont = createAnon();
+        ont.getOWLOntologyManager().addAxioms(ont, a);
+        ont.getSignature().stream()
+            .filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, Imports.INCLUDED))
+            .forEach(e -> ont.getOWLOntologyManager().addAxiom(ont, Declaration(e)));
+        return ont;
     }
 }

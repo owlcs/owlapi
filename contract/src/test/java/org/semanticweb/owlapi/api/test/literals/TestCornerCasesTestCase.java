@@ -71,33 +71,33 @@ class TestCornerCasesTestCase extends TestBase {
 
     @Test
     void testWebOnt() {
-        Set<String> expected = new TreeSet<>();
-        expected.add(
+        Set<String> expectedResult = new TreeSet<>();
+        expectedResult.add(
             "DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"1\"^^xsd:integer \"2\"^^xsd:integer \"3\"^^xsd:integer \"4\"^^xsd:integer))");
-        expected
+        expectedResult
             .add("Declaration(DataProperty(<http://www.w3.org/2002/03owlt/oneOf/premises004#p>))");
-        expected
+        expectedResult
             .add("ClassAssertion(owl:Thing <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
-        expected.add(
+        expectedResult.add(
             "DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"4\"^^xsd:integer \"5\"^^xsd:integer \"6\"^^xsd:integer))");
-        expected.add(
+        expectedResult.add(
             "ClassAssertion(DataMinCardinality(1 <http://www.w3.org/2002/03owlt/oneOf/premises004#p> rdfs:Literal) <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
         OWLOntology o = loadOntologyFromString(TestFiles.webOnt, new RDFXMLDocumentFormat());
         Set<String> result = new TreeSet<>();
         o.axioms().forEach(ax -> result.add(ax.toString()));
-        if (!result.equals(expected)) {
+        if (!result.equals(expectedResult)) {
             Set<String> intersection = new TreeSet<>(result);
-            intersection.retainAll(expected);
+            intersection.retainAll(expectedResult);
             Set<String> s1 = new TreeSet<>(result);
             s1.removeAll(intersection);
-            Set<String> s2 = new TreeSet<>(expected);
+            Set<String> s2 = new TreeSet<>(expectedResult);
             s2.removeAll(intersection);
         }
-        assertEquals(expected, result);
+        assertEquals(result, expectedResult);
     }
 
     @Test
-    void testMinusInf() throws Exception {
+    void testMinusInf(){
         OWLOntology o =
             loadOntologyFromString(TestFiles.minusInf, new FunctionalSyntaxDocumentFormat());
         assertTrue(saveOntology(o).toString().contains("-INF"));
@@ -105,7 +105,7 @@ class TestCornerCasesTestCase extends TestBase {
     }
 
     @Test
-    void testLargeInteger() throws Exception {
+    void testLargeInteger(){
         OWLOntology o =
             loadOntologyFromString(TestFiles.largeInteger, new FunctionalSyntaxDocumentFormat());
         assertTrue(saveOntology(o).toString().contains("-INF"));

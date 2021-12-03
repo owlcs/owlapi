@@ -12,8 +12,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 class PunningAndDomainsRangesTestCase extends TestBase {
@@ -21,8 +19,8 @@ class PunningAndDomainsRangesTestCase extends TestBase {
     private static final String URN_TEST = "urn:test#";
 
     @Test
-    void shouldKeepDomainsInFSS() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(iri(URN_TEST, "ontology"));
+    void shouldKeepDomainsInFSS() {
+        OWLOntology o = create("urn:testontology");
         OWLAnnotationProperty p1 = df.getOWLAnnotationProperty(iri("urn:property#", "p"));
         OWLDataProperty p2 = df.getOWLDataProperty(iri("urn:property#", "p"));
         o.addAxiom(df.getOWLAnnotationPropertyRangeAxiom(p1, OWL2Datatype.RDFS_LITERAL.getIRI()));
@@ -32,11 +30,10 @@ class PunningAndDomainsRangesTestCase extends TestBase {
     }
 
     @Test
-    void shouldSupportPunningClassesAndPropertiesInManchesterSyntax()
-        throws OWLOntologyCreationException {
+    void shouldSupportPunningClassesAndPropertiesInManchesterSyntax() {
         OWLClass b = df.getOWLClass(iri(URN_TEST, "B"));
         OWLClass a = df.getOWLClass(iri(URN_TEST, "A"));
-        OWLOntology o = m.createOntology();
+        OWLOntology o = createAnon();
         o.addAxiom(df.getOWLDeclarationAxiom(df.getOWLObjectProperty(iri(URN_TEST, "B"))));
         o.addAxiom(df.getOWLDeclarationAxiom(b));
         o.addAxiom(df.getOWLDeclarationAxiom(a));

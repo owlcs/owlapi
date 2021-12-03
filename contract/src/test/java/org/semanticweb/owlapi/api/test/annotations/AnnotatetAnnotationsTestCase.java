@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 class AnnotatetAnnotationsTestCase extends TestBase {
 
@@ -84,9 +83,9 @@ class AnnotatetAnnotationsTestCase extends TestBase {
     }
 
     @Test
-    void shouldAnnotateOntologyAnnotations() throws OWLOntologyCreationException {
+    void shouldAnnotateOntologyAnnotations() {
         IRI create = iri("urn:test:", "onto");
-        OWLOntology o = m.createOntology(create);
+        OWLOntology o = create(create);
         OWLAnnotation a2 = df.getOWLAnnotation(AnnotationProperty(iri("p2")), Literal("value2"),
             df.getRDFSLabel("nested ontology annotation"));
         OWLAnnotation a1 =

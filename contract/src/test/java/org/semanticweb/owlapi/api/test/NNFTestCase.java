@@ -13,85 +13,200 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectAllValuesFrom;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectComplementOf;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectHasValue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectIntersectionOf;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectMaxCardinality;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectMinCardinality;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectOneOf;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectUnionOf;
 
-import java.util.stream.Stream;
-
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.apitest.TestFiles;
-import org.semanticweb.owlapi.model.OWLAxiom;
+import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.util.NNF;
 
-class NNFTestCase {
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @since 3.0.0
+ */
+class NNFTestCase extends TestBase {
 
-    static Stream<Arguments> getData() {
-        Builder b = new Builder();
-        return Stream.of(Arguments.of(b.dRange(), TestFiles.nnfdRange),
-            Arguments.of(b.dDef(), TestFiles.nnfdDef), Arguments.of(b.decC(), TestFiles.nnfdecC),
-            Arguments.of(b.decOp(), TestFiles.nnfdecOp),
-            Arguments.of(b.decDp(), TestFiles.nnfdecDp),
-            Arguments.of(b.decDt(), TestFiles.nnfdecDt),
-            Arguments.of(b.decAp(), TestFiles.nnfdecAp), Arguments.of(b.decI(), TestFiles.nnfdecI),
-            Arguments.of(b.assDi(), TestFiles.nnfassDi), Arguments.of(b.dc(), TestFiles.nnfdc),
-            Arguments.of(b.dDp(), TestFiles.nnfdDp), Arguments.of(b.dOp(), TestFiles.nnfdOp),
-            Arguments.of(b.du(), TestFiles.nnfdu), Arguments.of(b.ec(), TestFiles.nnfec),
-            Arguments.of(b.eDp(), TestFiles.nnfeDp), Arguments.of(b.eOp(), TestFiles.nnfeOp),
-            Arguments.of(b.fdp(), TestFiles.nnffdp), Arguments.of(b.fop(), TestFiles.nnffop),
-            Arguments.of(b.ifp(), TestFiles.nnfifp), Arguments.of(b.iop(), TestFiles.nnfiop),
-            Arguments.of(b.irr(), TestFiles.nnfirr), Arguments.of(b.ndp(), TestFiles.nnfndp),
-            Arguments.of(b.nop(), TestFiles.nnfnop), Arguments.of(b.opa(), TestFiles.nnfopa),
-            Arguments.of(b.opaInv(), TestFiles.nnfopaInv),
-            Arguments.of(b.opaInvj(), TestFiles.nnfopaInvj),
-            Arguments.of(b.oDom(), TestFiles.nnfoDom),
-            Arguments.of(b.oRange(), TestFiles.nnfoRange),
-            Arguments.of(b.chain(), TestFiles.nnfchain), Arguments.of(b.ref(), TestFiles.nnfref),
-            Arguments.of(b.same(), TestFiles.nnfsame),
-            Arguments.of(b.subAnn(), TestFiles.nnfsubAnn),
-            Arguments.of(b.subClass(), TestFiles.nnfsubClass),
-            Arguments.of(b.subData(), TestFiles.nnfsubData),
-            Arguments.of(b.subObject(), TestFiles.nnfsubObject),
-            Arguments.of(b.rule(), TestFiles.nnfrule), Arguments.of(b.symm(), TestFiles.nnfsymm),
-            Arguments.of(b.trans(), TestFiles.nnftrans),
-            Arguments.of(b.hasKey(), TestFiles.nnfhasKey),
-            Arguments.of(b.bigRule(), TestFiles.nnfbigRule),
-            Arguments.of(b.ann(), TestFiles.nnfann), Arguments.of(b.asymm(), TestFiles.nnfasymm),
-            Arguments.of(b.annDom(), TestFiles.nnfannDom),
-            Arguments.of(b.annRange(), TestFiles.nnfannRange),
-            Arguments.of(b.ass(), TestFiles.nnfass), Arguments.of(b.assAnd(), TestFiles.nnfassAnd),
-            Arguments.of(b.assOr(), TestFiles.nnfassOr),
-            Arguments.of(b.dRangeAnd(), TestFiles.nnfdRangeAnd),
-            Arguments.of(b.dRangeOr(), TestFiles.nnfdRangeOr),
-            Arguments.of(b.assNot(), TestFiles.nnfassNot),
-            Arguments.of(b.assNotAnon(), TestFiles.nnfassNotAnon),
-            Arguments.of(b.assSome(), TestFiles.nnfassSome),
-            Arguments.of(b.assAll(), TestFiles.nnfassAll),
-            Arguments.of(b.assHas(), TestFiles.nnfassHas),
-            Arguments.of(b.assMin(), TestFiles.nnfassMin),
-            Arguments.of(b.assMax(), TestFiles.nnfassMax),
-            Arguments.of(b.assEq(), TestFiles.nnfassEq),
-            Arguments.of(b.assHasSelf(), TestFiles.nnfassHasSelf),
-            Arguments.of(b.assOneOf(), TestFiles.nnfassOneOf),
-            Arguments.of(b.assDSome(), TestFiles.nnfassDSome),
-            Arguments.of(b.assDAll(), TestFiles.nnfassDAll),
-            Arguments.of(b.assDHas(), TestFiles.nnfassDHas),
-            Arguments.of(b.assDMin(), TestFiles.nnfassDMin),
-            Arguments.of(b.assDMax(), TestFiles.nnfassDMax),
-            Arguments.of(b.assDEq(), TestFiles.nnfassDEq),
-            Arguments.of(b.dOneOf(), TestFiles.nnfdOneOf),
-            Arguments.of(b.dNot(), TestFiles.nnfdNot),
-            Arguments.of(b.dRangeRestrict(), TestFiles.nnfdRangeRestrict),
-            Arguments.of(b.assD(), TestFiles.nnfassD),
-            Arguments.of(b.assDPlain(), TestFiles.nnfassDPlain),
-            Arguments.of(b.dDom(), TestFiles.nnfdDom));
+    static OWLClassExpression getNNF(OWLClassExpression classExpression) {
+        NNF nnf = new NNF(df);
+        return classExpression.accept(nnf.getClassVisitor());
     }
 
-    @ParameterizedTest
-    @MethodSource("getData")
-    void testAssertion(OWLAxiom object, String expected) {
-        NNF testsubject = new NNF(OWLManager.getOWLDataFactory());
-        String result = object.accept(testsubject).toString();
-        assertEquals(expected, result);
+    @Test
+    void testPosOWLClass() {
+        assertEquals(A, A.getNNF());
+    }
+
+    @Test
+    void testNegOWLClass() {
+        assertEquals(notA, notA.getNNF());
+    }
+
+    @Test
+    void testPosAllValuesFrom() {
+        OWLClassExpression cls = ObjectAllValuesFrom(P, A);
+        assertEquals(cls.getNNF(), cls);
+    }
+
+    @Test
+    void testNegAllValuesFrom() {
+        OWLClassExpression cls = ObjectAllValuesFrom(P, A).getObjectComplementOf();
+        OWLClassExpression nnf = ObjectSomeValuesFrom(P, A.getObjectComplementOf());
+        assertEquals(cls.getNNF(), nnf);
+    }
+
+    @Test
+    void testPosSomeValuesFrom() {
+        OWLClassExpression cls = ObjectSomeValuesFrom(P, A);
+        assertEquals(cls.getNNF(), cls);
+    }
+
+    @Test
+    void testNegSomeValuesFrom() {
+        OWLClassExpression cls = ObjectComplementOf(ObjectSomeValuesFrom(P, A));
+        OWLClassExpression nnf = ObjectAllValuesFrom(P, ObjectComplementOf(A));
+        assertEquals(cls.getNNF(), nnf);
+    }
+
+    @Test
+    void testPosObjectIntersectionOf() {
+        OWLClassExpression cls = ObjectIntersectionOf(A, B, C);
+        assertEquals(cls.getNNF(), cls);
+    }
+
+    @Test
+    void testNegObjectIntersectionOf() {
+        OWLClassExpression cls = ObjectComplementOf(ObjectIntersectionOf(A, B, C));
+        OWLClassExpression nnf = ObjectUnionOf(notA, notB, notC);
+        assertEquals(cls.getNNF(), nnf);
+    }
+
+    @Test
+    void testPosObjectUnionOf() {
+        OWLClassExpression cls = ObjectUnionOf(A, B, C);
+        assertEquals(cls.getNNF(), cls);
+    }
+
+    @Test
+    void testNegObjectUnionOf() {
+        OWLClassExpression cls = ObjectComplementOf(ObjectUnionOf(A, B, C));
+        OWLClassExpression nnf = ObjectIntersectionOf(notA, notB, notC);
+        assertEquals(cls.getNNF(), nnf);
+    }
+
+    @Test
+    void testPosObjectMinCardinality() {
+        OWLClassExpression cls = ObjectMinCardinality(3, P, A);
+        assertEquals(cls.getNNF(), cls);
+    }
+
+    @Test
+    void testNegObjectMinCardinality() {
+        OWLClassExpression cls = ObjectMinCardinality(3, P, A).getObjectComplementOf();
+        OWLClassExpression nnf = ObjectMaxCardinality(2, P, A);
+        assertEquals(cls.getNNF(), nnf);
+    }
+
+    @Test
+    void testPosObjectMaxCardinality() {
+        OWLClassExpression cls = ObjectMaxCardinality(3, P, A);
+        assertEquals(cls.getNNF(), cls);
+    }
+
+    @Test
+    void testNegObjectMaxCardinality() {
+        OWLClassExpression cls = ObjectMaxCardinality(3, P, A).getObjectComplementOf();
+        OWLClassExpression nnf = ObjectMinCardinality(4, P, A);
+        assertEquals(cls.getNNF(), nnf);
+    }
+
+    @Test
+    void testNamedClass() {
+        assertEquals(A, getNNF(A));
+    }
+
+    @Test
+    void testObjectIntersectionOf() {
+        OWLClassExpression nnf = ObjectUnionOf(ObjectComplementOf(A), ObjectComplementOf(B));
+        OWLClassExpression comp = getNNF(ObjectComplementOf(ObjectIntersectionOf(A, B)));
+        assertEquals(nnf, comp);
+    }
+
+    @Test
+    void testObjectUnionOf() {
+        OWLClassExpression neg = ObjectComplementOf(ObjectUnionOf(A, B));
+        OWLClassExpression nnf = ObjectIntersectionOf(ObjectComplementOf(A), ObjectComplementOf(B));
+        assertEquals(nnf, getNNF(neg));
+    }
+
+    @Test
+    void testDoubleNegation() {
+        assertEquals(A, getNNF(ObjectComplementOf(ObjectComplementOf(A))));
+    }
+
+    @Test
+    void testTripleNegation() {
+        OWLClassExpression desc = ObjectComplementOf(ObjectComplementOf(A));
+        assertEquals(ObjectComplementOf(A), getNNF(ObjectComplementOf(desc)));
+    }
+
+    @Test
+    void testObjectSome() {
+        OWLClassExpression desc = ObjectSomeValuesFrom(P, A);
+        OWLClassExpression nnf = ObjectAllValuesFrom(P, ObjectComplementOf(A));
+        assertEquals(nnf, getNNF(ObjectComplementOf(desc)));
+    }
+
+    @Test
+    void testObjectAll() {
+        OWLClassExpression desc = ObjectAllValuesFrom(P, A);
+        OWLClassExpression nnf = ObjectSomeValuesFrom(P, ObjectComplementOf(A));
+        assertEquals(nnf, getNNF(ObjectComplementOf(desc)));
+    }
+
+    @Test
+    void testObjectHasValue() {
+        OWLClassExpression desc = ObjectHasValue(P, indA);
+        OWLClassExpression nnf = ObjectAllValuesFrom(P, ObjectComplementOf(ObjectOneOf(indA)));
+        assertEquals(nnf, getNNF(ObjectComplementOf(desc)));
+    }
+
+    @Test
+    void testObjectMin() {
+        OWLClassExpression desc = ObjectMinCardinality(3, P, A);
+        OWLClassExpression nnf = ObjectMaxCardinality(2, P, A);
+        assertEquals(nnf, getNNF(ObjectComplementOf(desc)));
+    }
+
+    @Test
+    void testObjectMax() {
+        OWLClassExpression desc = ObjectMaxCardinality(3, P, A);
+        OWLClassExpression nnf = ObjectMinCardinality(4, P, A);
+        assertEquals(nnf, getNNF(ObjectComplementOf(desc)));
+    }
+
+    @Test
+    void testNestedA() {
+        OWLClassExpression opA = ObjectSomeValuesFrom(P, ObjectUnionOf(A, B));
+        OWLClassExpression desc = ObjectUnionOf(opA, B);
+        OWLClassExpression nnf = ObjectIntersectionOf(ObjectComplementOf(B), ObjectAllValuesFrom(P,
+            ObjectIntersectionOf(ObjectComplementOf(A), ObjectComplementOf(B))));
+        assertEquals(getNNF(ObjectComplementOf(desc)), nnf);
+    }
+
+    @Test
+    void testNestedB() {
+        OWLClassExpression desc = ObjectIntersectionOf(ObjectIntersectionOf(A, B),
+            ObjectComplementOf(ObjectUnionOf(C, D)));
+        OWLClassExpression nnf = ObjectUnionOf(
+            ObjectUnionOf(ObjectComplementOf(A), ObjectComplementOf(B)), ObjectUnionOf(C, D));
+        assertEquals(getNNF(ObjectComplementOf(desc)), nnf);
     }
 }

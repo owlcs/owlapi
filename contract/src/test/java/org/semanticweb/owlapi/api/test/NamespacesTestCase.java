@@ -26,8 +26,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -70,22 +68,21 @@ class NamespacesTestCase extends TestBase {
     }
 
     @Test
-    void shouldSetPrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    void shouldSetPrefix() {
         OWLClass item = df.getOWLClass(NS, "item");
         OWLDeclarationAxiom declaration = df.getOWLDeclarationAxiom(item);
-        OWLOntology o1 = m.createOntology();
+        OWLOntology o1 = createAnon();
         FunctionalSyntaxDocumentFormat pm1 = new FunctionalSyntaxDocumentFormat();
         pm1.setPrefix(":", NS);
         m.setOntologyFormat(o1, pm1);
         o1.addAxiom(declaration);
-        StringDocumentTarget t1 = new StringDocumentTarget();
-        o1.saveOntology(t1);
-        OWLOntology o2 = m1.createOntology();
+        StringDocumentTarget t1 = saveOntology(o1);
+        OWLOntology o2 = createAnon();
         FunctionalSyntaxDocumentFormat pm2 = new FunctionalSyntaxDocumentFormat();
         pm2.setPrefix(":", NS);
+        o2.getOWLOntologyManager().setOntologyFormat(o2, pm2);
         o2.addAxiom(declaration);
-        StringDocumentTarget t2 = new StringDocumentTarget();
-        o1.saveOntology(pm2, t2);
+        StringDocumentTarget t2 = saveOntology(o2, pm2);
         assertTrue(t2.toString().contains("Declaration(Class(:item))"));
         assertEquals(t1.toString(), t2.toString());
     }

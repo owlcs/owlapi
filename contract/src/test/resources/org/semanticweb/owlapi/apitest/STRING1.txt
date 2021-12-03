@@ -5,10 +5,10 @@ Prefix: xml: <http://www.w3.org/XML/1998/namespace>
 Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 Ontology: <http://www.semanticweb.org/owlapi/test224612089629142>
 Datatype: xsd:string
-DataProperty: <http://owlapi.sourceforge.net/ontology#prop>
+DataProperty: <http://www.semanticweb.org/owlapi/test#p>
 Class: owl:Thing
-Individual: <http://owlapi.sourceforge.net/ontology#A>
+Individual: <http://www.semanticweb.org/owlapi/test#a>
     Types: 
         owl:Thing
     Facts:  
-     <http://owlapi.sourceforge.net/ontology#prop>  "test url"
+     <http://www.semanticweb.org/owlapi/test#p>  "test url"

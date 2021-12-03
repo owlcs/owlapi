@@ -30,7 +30,7 @@ class PunnedDeclarationsNotAddedTestCase extends TestBase {
     }
 
     protected OWLOntology getOntologyWithPunnedInvalidDeclarations() {
-        OWLOntology o = getOWLOntology();
+        OWLOntology o = create();
         OWLObjectProperty op = df.getOWLObjectProperty(iri("testProperty"));
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
         o.add(df.getOWLDeclarationAxiom(op));
@@ -42,7 +42,7 @@ class PunnedDeclarationsNotAddedTestCase extends TestBase {
     }
 
     protected OWLOntology getOntologyWithMissingDeclarations() {
-        OWLOntology o = getOWLOntology();
+        OWLOntology o = create();
         OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testAnnotationProperty"));
         o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
@@ -54,8 +54,7 @@ class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("data")
-    void shouldNotAddDeclarationsForIllegalPunnings(OWLDocumentFormat format)
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    void shouldNotAddDeclarationsForIllegalPunnings(OWLDocumentFormat format) {
         OWLOntology o = getOntologyWithPunnedInvalidDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
@@ -65,8 +64,7 @@ class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("data")
-    void shouldDeclareMissingEntities(OWLDocumentFormat format)
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    void shouldDeclareMissingEntities(OWLDocumentFormat format) {
         OWLOntology o = getOntologyWithMissingDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
         OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));

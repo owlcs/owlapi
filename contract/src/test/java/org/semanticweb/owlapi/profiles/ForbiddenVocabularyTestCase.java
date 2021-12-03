@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForAnnotationPropertyIRI;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
@@ -65,8 +64,8 @@ class ForbiddenVocabularyTestCase extends TestBase {
     }
 
     @Test
-    void shouldCauseViolationsWithUseOfPropertyInChain() throws OWLOntologyCreationException {
-        OWLOntology o = m.createOntology();
+    void shouldCauseViolationsWithUseOfPropertyInChain() {
+        OWLOntology o = createAnon();
         o.addAxiom(df.getOWLDeclarationAxiom(father));
         o.addAxiom(df.getOWLDeclarationAxiom(brother));
         o.addAxiom(df.getOWLDeclarationAxiom(child));
@@ -91,8 +90,8 @@ class ForbiddenVocabularyTestCase extends TestBase {
     }
 
     @Test
-    void shouldNotCauseViolations() throws OWLOntologyCreationException {
-        OWLOntology o = m.createOntology();
+    void shouldNotCauseViolations() {
+        OWLOntology o = createAnon();
         o.addAxiom(df.getOWLDeclarationAxiom(father));
         o.addAxiom(df.getOWLDeclarationAxiom(brother));
         o.addAxiom(df.getOWLDeclarationAxiom(child));

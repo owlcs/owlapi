@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -29,13 +29,13 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-class DefaultPrefixManagerTestCase {
+class DefaultPrefixManagerTestCase extends TestBase {
 
     @Test
     void getPrefixIRIEmpty() {
         DefaultPrefixManager pm = new DefaultPrefixManager();
         pm.setPrefix("foaf:", "http://xmlns.com/foaf/0.1/");
-        assertEquals("foaf:", pm.getPrefixIRI(IRI("http://xmlns.com/foaf/0.1/", "")));
+        assertEquals("foaf:", pm.getPrefixIRI(iri("http://xmlns.com/foaf/0.1/", "")));
     }
 
     @Test
@@ -43,7 +43,7 @@ class DefaultPrefixManagerTestCase {
         DefaultPrefixManager pm = new DefaultPrefixManager();
         pm.setPrefix("foaf:", "http://xmlns.com/foaf/0.1/");
         assertEquals("foaf:test:test",
-            pm.getPrefixIRIIgnoreQName(IRI("http://xmlns.com/foaf/0.1/test:test")));
+            pm.getPrefixIRIIgnoreQName(iri("http://xmlns.com/foaf/0.1/test:", "test")));
     }
 
     @Test

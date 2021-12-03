@@ -39,10 +39,7 @@ class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
 
     @Test
     void testGetSuperProperties() {
-        OWLOntology ont = getOWLOntology();
-        OWLAnnotationProperty propP = AnnotationProperty(iri("propP"));
-        OWLAnnotationProperty propQ = AnnotationProperty(iri("propQ"));
-        OWLAnnotationProperty propR = AnnotationProperty(iri("propR"));
+        OWLOntology ont = create();
         ont.addAxioms(df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ),
             df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
         Collection<OWLAxiom> axioms =
@@ -56,10 +53,7 @@ class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
 
     @Test
     void testGetSubProperties() {
-        OWLOntology ont = getOWLOntology();
-        OWLAnnotationProperty propP = AnnotationProperty(iri("propP"));
-        OWLAnnotationProperty propQ = AnnotationProperty(iri("propQ"));
-        OWLAnnotationProperty propR = AnnotationProperty(iri("propR"));
+        OWLOntology ont = create();
         ont.addAxioms(df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ),
             df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
         assertTrue(contains(sub(ont.axioms(subAnnotationWithSuper, propQ, INCLUDED)), propP));

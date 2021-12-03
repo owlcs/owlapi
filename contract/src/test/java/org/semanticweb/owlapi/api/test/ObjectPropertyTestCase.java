@@ -52,7 +52,7 @@ class ObjectPropertyTestCase extends TestBase {
 
     @Test
     void testInverse() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLAxiom ax = InverseObjectProperties(P, Q);
         ont.addAxiom(ax);
         assertTrue(contains(inverse(ont.inverseObjectPropertyAxioms(P), P), Q));
@@ -61,7 +61,7 @@ class ObjectPropertyTestCase extends TestBase {
 
     @Test
     void testInverseSelf() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLAxiom ax = InverseObjectProperties(P, P);
         ont.addAxiom(ax);
         assertTrue(contains(inverse(ont.inverseObjectPropertyAxioms(P), P), P));

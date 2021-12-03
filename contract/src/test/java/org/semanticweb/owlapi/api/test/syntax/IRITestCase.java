@@ -57,7 +57,7 @@ class IRITestCase extends TestBase {
     void shouldOutputNamedGraph() {
         OWLDocumentFormat f = new TrigDocumentFormat();
         IRI iri = iri("urn:test:", "ontology");
-        OWLOntology o = getOWLOntology(iri);
+        OWLOntology o = create(iri);
         o.getOWLOntologyManager().getOntologyConfigurator().withNamedGraphIRIEnabled(true);
         StringDocumentTarget saved = saveOntology(o, f);
         assertTrue(saved.toString().contains(iri.toQuotedString() + " {"));
@@ -68,7 +68,7 @@ class IRITestCase extends TestBase {
         OWLDocumentFormat f = new TrigDocumentFormat();
         String value = "urn:test:onto";
         f.setParameter("namedGraphOverride", value);
-        OWLOntology o = getOWLOntology(iri("urn:test:", "ontology"));
+        OWLOntology o = create(iri("urn:test:", "ontology"));
         StringDocumentTarget saved = saveOntology(o, f);
         assertTrue(saved.toString().contains("<" + value + ">"));
     }

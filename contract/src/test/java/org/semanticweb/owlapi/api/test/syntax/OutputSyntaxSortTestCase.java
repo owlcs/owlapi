@@ -20,8 +20,6 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 class OutputSyntaxSortTestCase extends TestBase {
 
@@ -34,8 +32,7 @@ class OutputSyntaxSortTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("getData")
-    void shouldOutputAllInSameOrder(OWLDocumentFormat format)
-        throws OWLOntologyStorageException, OWLOntologyCreationException {
+    void shouldOutputAllInSameOrder(OWLDocumentFormat format) {
         masterConfigurator.withRemapAllAnonymousIndividualsIds(false);
         try {
             List<OWLOntology> ontologies = new ArrayList<>();

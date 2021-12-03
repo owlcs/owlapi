@@ -65,7 +65,7 @@ class SWRLAnnotationTestCase extends TestBase {
     }
 
     OWLOntology createOntology() {
-        OWLOntology ontology = getOWLOntology();
+        OWLOntology ontology = create();
         ontology.add(axiom);
         return ontology;
     }

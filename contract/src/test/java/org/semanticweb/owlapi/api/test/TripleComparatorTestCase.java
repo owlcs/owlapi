@@ -98,7 +98,7 @@ class TripleComparatorTestCase extends TestBase {
             triple(624417224),
             triple("MoleOfRadonAtom"),
             triple(1556170233),
-            new RDFTriple(g, subtype, r(IRI(ns, "MoleOfAtom"))),
+            new RDFTriple(g, subtype, r(iri(ns, "MoleOfAtom"))),
             triple("MoleOfSeleniumAtom"),
             triple("MoleOfNeonAtom"),
             triple("MoleOfKryptonAtom"),
@@ -117,7 +117,7 @@ class TripleComparatorTestCase extends TestBase {
     }
 
     private RDFTriple triple(String n) {
-        return new RDFTriple(g, d, r(IRI(ns, n)));
+        return new RDFTriple(g, d, r(iri(ns, n)));
     }
 
     private RDFTriple triple(OWLRDFVocabulary p, OWLRDFVocabulary n) {

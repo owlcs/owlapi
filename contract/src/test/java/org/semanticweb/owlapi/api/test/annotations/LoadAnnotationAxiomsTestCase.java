@@ -52,7 +52,7 @@ class LoadAnnotationAxiomsTestCase extends TestBase {
 
     @Test
     void testIgnoreAnnotations() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLSubClassOfAxiom sca = SubClassOf(A, B);
         ont.add(sca);
         OWLAnnotationProperty rdfsComment = RDFSComment();

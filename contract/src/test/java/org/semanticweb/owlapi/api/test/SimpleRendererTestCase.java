@@ -22,7 +22,7 @@ class SimpleRendererTestCase extends TestBase {
     @Test
     void shouldCopyPrefixesFromFormat() {
         RDFXMLDocumentFormat f = new RDFXMLDocumentFormat();
-        OWLOntology o = getOWLOntology();
+        OWLOntology o = create();
         o.getOWLOntologyManager().setOntologyFormat(o, f);
         f.setPrefix("test", URN_TEST);
         testSubject.setPrefixesFromOntologyFormat(o, true);

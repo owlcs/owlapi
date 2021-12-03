@@ -266,7 +266,6 @@ class DLQueryParser {
     }
 }
 
-
 class DLQueryPrinter {
 
     private final DLQueryEngine dlQueryEngine;

@@ -33,20 +33,20 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 class MultipleOntologyDeclarationsTestCase extends TestBase {
 
     @Test
-    void shouldLoadFirstOfMultipleOntologyDeclarationsRdfXml() throws Exception {
+    void shouldLoadFirstOfMultipleOntologyDeclarationsRdfXml() {
         OWLOntology o =
-            m.loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.doubleOntology,
+            loadOntologyFromSource(new StringDocumentSource(TestFiles.doubleOntology,
                 "urn:test:t1", new TurtleDocumentFormat(), null));
         assertEquals(o.getOntologyID(), new OWLOntologyID(IRI.create("urn:test:Ontology1"),
-            IRI.create("urn:test:Ontology1Version1")));
+            iri("urn:test:", "Ontology1Version1")));
     }
 
     @Test
-    void shouldNotLoadMultipleOntologyDeclarationsRioRdfXml() throws Exception {
+    void shouldNotLoadMultipleOntologyDeclarationsRioRdfXml() {
         assertThrows(UnparsableOntologyException.class,
             () -> m.loadOntologyFromOntologyDocument(
-                new StringDocumentSource(TestFiles.doubleOntology, "urn:test:t1",
-                    new RioTurtleDocumentFormat(), null),
+                new StringDocumentSource(TestFiles.doubleOntology,
+                    "urn:test:t1", new RioTurtleDocumentFormat(), null),
                 new OWLOntologyLoaderConfiguration().setStrict(true)));
     }
 }

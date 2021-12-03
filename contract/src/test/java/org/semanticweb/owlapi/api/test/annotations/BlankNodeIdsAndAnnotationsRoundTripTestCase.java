@@ -113,12 +113,12 @@ class BlankNodeIdsAndAnnotationsRoundTripTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource("formats")
     void testFormat(OWLDocumentFormat d) {
-        roundTripOntology(blankNodeIdsAndAnnotationsRoundTripTestCase(getOWLOntology()), d);
+        roundTripOntology(blankNodeIdsAndAnnotationsRoundTripTestCase(create()), d);
     }
 
     @Test
     void roundTripRDFXMLAndFunctionalShouldBeSame() {
-        OWLOntology o = blankNodeIdsAndAnnotationsRoundTripTestCase(getOWLOntology());
+        OWLOntology o = blankNodeIdsAndAnnotationsRoundTripTestCase(create());
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o1);

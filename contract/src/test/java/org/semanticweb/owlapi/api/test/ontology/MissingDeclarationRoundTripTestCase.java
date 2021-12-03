@@ -22,13 +22,12 @@ import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 class MissingDeclarationRoundTripTestCase extends TestBase {
 
     @Test
-    void shouldFindOneAxiom() throws Exception {
+    void shouldFindOneAxiom() {
         OWLOntology ontology = createOntology(AP);
         assertTrue(ontology.containsAnnotationPropertyInSignature(AP.getIRI()));
         assertEquals(1, ontology.getAxiomCount());
@@ -40,9 +39,9 @@ class MissingDeclarationRoundTripTestCase extends TestBase {
     }
 
     private OWLOntology createOntology(OWLAnnotationProperty p) {
-        OWLOntology ontology = getOWLOntology();
-        OWLAxiom axiom = AnnotationAssertion(p, A.getIRI(), Literal("Hello"));
-        ontology.add(axiom);
-        return ontology;
+        OWLOntology ont = createAnon();
+        ont.getOWLOntologyManager().addAxiom(ont,
+            AnnotationAssertion(p, A.getIRI(), Literal("Hello")));
+        return ont;
     }
 }

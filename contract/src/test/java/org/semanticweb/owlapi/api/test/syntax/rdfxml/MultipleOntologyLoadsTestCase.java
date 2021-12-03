@@ -40,9 +40,9 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
  */
 class MultipleOntologyLoadsTestCase extends TestBase {
 
-    private static final IRI CREATEV1 = IRI("http://test.example.org/ontology/0139/version:1", "");
-    private static final IRI CREATEV2 = IRI("http://test.example.org/ontology/0139/version:2", "");
-    private static final IRI CREATE0139 = IRI("http://test.example.org/ontology/0139", "");
+    static final IRI CREATEV1 = iri("http://test.example.org/ontology/0139/version:1", "");
+    static final IRI CREATEV2 = iri("http://test.example.org/ontology/0139/version:2", "");
+    static final IRI CREATE0139 = iri("http://test.example.org/ontology/0139", "");
 
     @Test
     void testMultipleVersionLoadChangeIRI() {
@@ -51,7 +51,7 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntologyID expected = new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
         OWLOntologyID initialUniqueOWLOntologyID =
             new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
-        OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
+        OWLOntology initialOntology = create(initialUniqueOWLOntologyID);
         parseOnto(initialDocumentSource, initialOntology);
         OWLOntologyID secondUniqueOWLOntologyID =
             new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
@@ -59,7 +59,7 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         assertThrowsWithCausePredicate(OWLRuntimeException.class,
             OWLOntologyAlreadyExistsException.class,
             e -> assertEquals(expected, ((OWLOntologyAlreadyExistsException) e).getOntologyID()),
-            () -> getOWLOntology(secondUniqueOWLOntologyID));
+            () -> create(secondUniqueOWLOntologyID));
     }
 
     @Test
@@ -69,7 +69,7 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntologyID expected = new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
         OWLOntologyID initialUniqueOWLOntologyID =
             new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
-        OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
+        OWLOntology initialOntology = create(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
         OWLOntologyID secondUniqueOWLOntologyID =
             new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
@@ -77,7 +77,7 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         assertThrowsWithCausePredicate(OWLRuntimeException.class,
             OWLOntologyAlreadyExistsException.class,
             e -> assertEquals(expected, ((OWLOntologyAlreadyExistsException) e).getOntologyID()),
-            () -> getOWLOntology(secondUniqueOWLOntologyID));
+            () -> create(secondUniqueOWLOntologyID));
     }
 
     @Test
@@ -90,9 +90,9 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntologyID secondUniqueOWLOntologyID =
             new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
         // when
-        OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
+        OWLOntology initialOntology = create(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
-        OWLOntology secondOntology = getOWLOntology(secondUniqueOWLOntologyID);
+        OWLOntology secondOntology = create(secondUniqueOWLOntologyID);
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139, initialOntology.getOntologyID().getOntologyIRI().get());
@@ -109,9 +109,9 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntologyID secondUniqueOWLOntologyID =
             new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
         // when
-        OWLOntology initialOntology = getAnonymousOWLOntology();
+        OWLOntology initialOntology = createAnon();
         parseOnto(documentSource, initialOntology);
-        OWLOntology secondOntology = getOWLOntology(secondUniqueOWLOntologyID);
+        OWLOntology secondOntology = create(secondUniqueOWLOntologyID);
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139, initialOntology.getOntologyID().getOntologyIRI().get());
@@ -130,9 +130,9 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntologyID secondUniqueOWLOntologyID =
             new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
         // when
-        OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
+        OWLOntology initialOntology = create(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
-        OWLOntology secondOntology = getOWLOntology(secondUniqueOWLOntologyID);
+        OWLOntology secondOntology = create(secondUniqueOWLOntologyID);
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139, initialOntology.getOntologyID().getOntologyIRI().get());
@@ -148,7 +148,7 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntologyID secondUniqueOWLOntologyID =
             new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
         // when
-        OWLOntology secondOntology = getOWLOntology(secondUniqueOWLOntologyID);
+        OWLOntology secondOntology = create(secondUniqueOWLOntologyID);
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139, secondOntology.getOntologyID().getOntologyIRI().get());
@@ -162,7 +162,7 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntologyID initialUniqueOWLOntologyID =
             new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
         // when
-        OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
+        OWLOntology initialOntology = create(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
         // then
         assertEquals(CREATE0139, initialOntology.getOntologyID().getOntologyIRI().get());

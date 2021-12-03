@@ -13,9 +13,9 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 
@@ -23,11 +23,11 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-class SimpleIRIShortFormProviderTestCase {
+class SimpleIRIShortFormProviderTestCase extends TestBase {
 
     @Test
     void testFragmentShortForm() {
-        IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/x#", "A");
+        IRI iri = iri("http://owl.cs.manchester.ac.uk/ontology/x#", "A");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
         String shortForm = sfp.getShortForm(iri);
         assertEquals("A", shortForm);
@@ -35,7 +35,7 @@ class SimpleIRIShortFormProviderTestCase {
 
     @Test
     void testLastPathShortForm() {
-        IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/", "x");
+        IRI iri = iri("http://owl.cs.manchester.ac.uk/ontology/", "x");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
         String shortForm = sfp.getShortForm(iri);
         assertEquals("x", shortForm);
@@ -43,7 +43,7 @@ class SimpleIRIShortFormProviderTestCase {
 
     @Test
     void testEmptyPathShortForm() {
-        IRI iri = IRI("http://owl.cs.manchester.ac.uk/", "");
+        IRI iri = iri("http://owl.cs.manchester.ac.uk/", "");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
         String shortForm = sfp.getShortForm(iri);
         assertEquals("<http://owl.cs.manchester.ac.uk/>", shortForm);

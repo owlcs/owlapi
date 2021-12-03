@@ -21,7 +21,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataM
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Datatype;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
@@ -39,14 +38,13 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 class FunctionalSyntaxCommentTestCase extends TestBase {
 
-    static final OWLDataProperty city = DataProperty(IRI("urn:test.owl#", "city"));
-    static final OWLClass contactInfo = Class(IRI("urn:test.owl#", "ContactInformation"));
+    static final OWLDataProperty city = DataProperty(iri("urn:test.owl#", "city"));
+    static final OWLClass contactInfo = Class(iri("urn:test.owl#", "ContactInformation"));
     static final OWLLiteral multiline = Literal("blah \nblah");
     static final String plainOnto =
         "Prefix(:=<http://www.example.org/#>)\nOntology(<http://example.org/>\nSubClassOf(:a :b) )";
@@ -65,15 +63,14 @@ class FunctionalSyntaxCommentTestCase extends TestBase {
     }
 
     @Test
-    void shouldSaveMultilineComment() throws OWLOntologyCreationException {
-        OWLOntology o = m.createOntology(iri("file:test.owl", ""));
-        o.addAxiom(df.getOWLAnnotationAssertionAxiom(IRI("urn:test.owl#", "ContactInformation"),
-            df.getRDFSLabel(multiline)));
+    void shouldSaveMultilineComment() {
+        OWLOntology o = create(iri("file:", "test.owl"));
+        o.addAxiom(
+            df.getOWLAnnotationAssertionAxiom(contactInfo.getIRI(), df.getRDFSLabel(multiline)));
         o.addAxiom(Declaration(city));
         o.addAxiom(SubClassOf(contactInfo,
             DataMaxCardinality(1, city, Datatype(OWL2Datatype.XSD_STRING.getIRI()))));
-        o.addAxiom(Declaration(Class(IRI("urn:test.owl#ContactInformation")),
-            Collections.singleton(df.getRDFSLabel(multiline))));
+        o.addAxiom(Declaration(contactInfo, Collections.singleton(df.getRDFSLabel(multiline))));
         StringDocumentTarget saveOntology = saveOntology(o, new FunctionalSyntaxDocumentFormat());
         assertEquals(TestFiles.parseMultilineComment, saveOntology.toString());
         OWLOntology loadOntologyFromString =

@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.io.OWLParserFactory;
  *
  * @author ignazio
  */
-class FormatsMimeTestcase {
+class FormatsMimeTestCase {
     public static Stream<Arguments> params() {
         return Stream.of(
         //@formatter:off

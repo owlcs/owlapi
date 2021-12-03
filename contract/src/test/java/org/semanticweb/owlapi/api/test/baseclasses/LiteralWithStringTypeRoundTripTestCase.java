@@ -23,6 +23,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -35,16 +36,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  */
 class LiteralWithStringTypeRoundTripTestCase extends TestBase {
 
-    protected OWLOntology literalWithStringTypeRoundTripTestCase() {
-        try {
-            return m.createOntology(Stream.of(df.getOWLDataPropertyAssertionAxiom(
-                df.getOWLDataProperty("http://owlapi.sourceforge.net/ontology#prop"),
-                df.getOWLNamedIndividual("http://owlapi.sourceforge.net/ontology#A"),
-                df.getOWLLiteral("test url"))));
-        } catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    OWLAxiom ax = df.getOWLDataPropertyAssertionAxiom(DP, indA, df.getOWLLiteral("test url"));
 
     @Override
     public OWLOntology roundTripOntology(OWLOntology ont, OWLDocumentFormat format) {
@@ -54,29 +46,27 @@ class LiteralWithStringTypeRoundTripTestCase extends TestBase {
         return super.roundTripOntology(ont, format);
     }
 
-    @Test
-    void shouldParseInputWithoutExplicitString() {
-        OWLDataPropertyAssertionAxiom ax = df.getOWLDataPropertyAssertionAxiom(
-            df.getOWLDataProperty("http://owlapi.sourceforge.net/ontology#prop"),
-            df.getOWLNamedIndividual("http://owlapi.sourceforge.net/ontology#A"),
-            df.getOWLLiteral("test url"));
-        Arrays
-            .asList(TestFiles.STRING1, TestFiles.STRING2, TestFiles.STRING3, TestFiles.STRING4,
-                TestFiles.STRING5, TestFiles.STRING6, TestFiles.STRING7, TestFiles.STRING8,
-                TestFiles.STRING9)
-            .forEach(s -> assertTrue(loadOntologyFromString(s).containsAxiom(ax)));
+    static Stream<String> dataWithTestUrl() {
+        return Stream.of(TestFiles.STRING1, TestFiles.STRING2, TestFiles.STRING3, TestFiles.STRING4,
+            TestFiles.STRING5, TestFiles.STRING6, TestFiles.STRING7, TestFiles.STRING8,
+            TestFiles.STRING9);
+    }
+
+    @ParameterizedTest
+    @MethodSource("dataWithTestUrl")
+    void shouldParseInputWithoutExplicitString(String s) {
+        assertTrue(loadOntologyFromString(s).containsAxiom(ax), s);
     }
 
     @ParameterizedTest
     @MethodSource("formats")
-    void testFormat(OWLDocumentFormat d) throws Exception {
-        roundTripOntology(literalWithStringTypeRoundTripTestCase(), d);
+    void testFormat(OWLDocumentFormat format) {
+        roundTripOntology(o(ax), format);
     }
 
     @Test
-    void roundTripRDFXMLAndFunctionalShouldBeSame()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = literalWithStringTypeRoundTripTestCase();
+    void roundTripRDFXMLAndFunctionalShouldBeSame() {
+        OWLOntology o = o(ax);
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o1);

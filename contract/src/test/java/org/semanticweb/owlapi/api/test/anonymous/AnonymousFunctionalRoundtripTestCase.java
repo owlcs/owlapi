@@ -37,7 +37,7 @@ class AnonymousFunctionalRoundtripTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundTripBroken() throws Exception {
+    void shouldRoundTripBroken(){
         OWLOntology o = loadOntologyFromString(TestFiles.BROKEN, new RDFXMLDocumentFormat());
         FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         format.setDefaultPrefix(NS + '#');
@@ -46,9 +46,9 @@ class AnonymousFunctionalRoundtripTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundTrip() throws Exception {
+    void shouldRoundTrip(){
         OWLIndividual i = AnonymousIndividual();
-        OWLOntology ontology = getOWLOntology();
+        OWLOntology ontology = create();
         ontology.add(SubClassOf(C, ObjectHasValue(P, i)), ClassAssertion(D, i),
             DataPropertyAssertion(DP, i, Literal("hello")));
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();

@@ -22,14 +22,13 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 class IndividualStrictParsingTestCase extends TestBase {
 
     @Test
-    void should() throws OWLOntologyCreationException {
-        OWLOntology o = m.createOntology();
+    void should() {
+        OWLOntology o = createAnon();
 
         OWLObjectProperty p =
             df.getOWLObjectProperty(IRI.create("http://purl.obolibrary.org/obo/BFO_0000051"));

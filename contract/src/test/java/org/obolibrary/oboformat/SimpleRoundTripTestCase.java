@@ -21,7 +21,7 @@ class SimpleRoundTripTestCase extends RoundTripTestBasics {
          * @see TrailingQualifierTest
          */
         "trailing_qualifier_roundtrip.obo"})
-    void roundTrip(String file) throws Exception {
+    void roundTrip(String file) {
         roundTripOBOFile(file, true);
     }
 }

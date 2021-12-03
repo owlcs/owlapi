@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class OntologyVersionIsOntologyTestCase extends TestBase {
 
     @Test
-    void testLoad() throws Exception {
+    void testLoad(){
         OWLOntology o =
             loadOntologyFromString(TestFiles.ontologyVersionParse, new RioTurtleDocumentFormat());
         StringDocumentTarget saveOntology = saveOntology(o, new RioTurtleDocumentFormat());

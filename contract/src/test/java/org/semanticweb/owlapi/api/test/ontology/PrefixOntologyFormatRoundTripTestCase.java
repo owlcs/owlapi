@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 class PrefixOntologyFormatRoundTripTestCase extends TestBase {
 
     protected OWLOntology prefixOntologyFormatRoundTripTestCase() {
-        OWLOntology ont = getAnonymousOWLOntology();
+        OWLOntology ont = createAnon();
         PrefixDocumentFormat format = (PrefixDocumentFormat) ont.getNonnullFormat();
         format.setDefaultPrefix("http://default.com");
         format.setPrefix("a", "http://ontology.com/a#");
@@ -60,13 +60,13 @@ class PrefixOntologyFormatRoundTripTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void testFormat(OWLDocumentFormat d) throws Exception {
+    void testFormat(OWLDocumentFormat d){
         roundTripOntology(prefixOntologyFormatRoundTripTestCase(), d);
     }
 
     @Test
     void roundTripRDFXMLAndFunctionalShouldBeSame()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+       {
         OWLOntology o = prefixOntologyFormatRoundTripTestCase();
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());

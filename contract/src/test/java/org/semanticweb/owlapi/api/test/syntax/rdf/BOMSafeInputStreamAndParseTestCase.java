@@ -20,21 +20,26 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 class BOMSafeInputStreamAndParseTestCase extends TestBase {
 
-    static final String RESEARCHER = "<http://www.example.org/ISA14#Researcher>";
-    static final String ISA14_O = "http://www.example.org/ISA14#o";
+    private static final String RESEARCHER = "Researcher";
+    private static final String ISA14 = "http://www.example.org/ISA14#";
+    private static final String PREFIX_XML =
+        "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"";
+    private static final String PREFIX_TURTLE =
+        "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n";
+    static final String RESEARCHER_IRI = "<" + ISA14 + RESEARCHER + ">";
+    static final String ISA14_O = ISA14 + "o";
 
     static Collection<Arguments> data() {
         List<Arguments> toReturn = new ArrayList<>();
-        List<String> list = Arrays.asList("<Ontology xml:base=\"" + IRI.getNextDocumentIRI(ISA14_O)
-            + "\" ontologyIRI=\"http://www.example.org/ISA14#\"> <Declaration><Class IRI=\"Researcher\"/></Declaration></Ontology>",
-            "Ontology: <" + IRI.getNextDocumentIRI(ISA14_O) + ">\nClass: " + RESEARCHER,
-            "Ontology(<" + IRI.getNextDocumentIRI(ISA14_O) + ">\nDeclaration(Class(" + RESEARCHER
-                + ")))",
-            "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n<"
-                + IRI.getNextDocumentIRI(ISA14_O) + "> rdf:type owl:Ontology .\n" + RESEARCHER
-                + " rdf:type owl:Class .",
-            "<rdf:RDF xml:base=\"" + IRI.getNextDocumentIRI(ISA14_O)
-                + "\" xmlns:owl =\"http://www.w3.org/2002/07/owl#\" xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" ><owl:Ontology rdf:about=\"#\" /><owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/></rdf:RDF>");
+        List<String> list = Arrays.asList(
+        //@formatter:off
+            "<Ontology xml:base=\"" + nextISA() + "\" ontologyIRI=\"" + ISA14 + "\"> <Declaration><Class IRI=\"" + RESEARCHER + "\"/></Declaration></Ontology>",
+            "Ontology: <" + nextISA() + ">\nClass: " + RESEARCHER_IRI,
+            "Ontology(<" + nextISA() + ">\nDeclaration(Class(" + RESEARCHER_IRI + ")))",
+            PREFIX_TURTLE + "<" + nextISA() + "> rdf:type owl:Ontology .\n" + RESEARCHER_IRI + " rdf:type owl:Class .",
+            "<rdf:RDF xml:base=\"" + nextISA() + "\" " + PREFIX_XML + " ><owl:Ontology rdf:about=\"#\" /><owl:Class rdf:about=\"" + ISA14 + RESEARCHER + "\"/></rdf:RDF>"
+            //@formatter:on    
+        );
         List<int[]> prefixes =
             Arrays.asList(new int[] {0x00, 0x00, 0xFE, 0xFF}, new int[] {0xFF, 0xFE, 0x00, 0x00},
                 new int[] {0xFF, 0xFE}, new int[] {0xFE, 0xFF}, new int[] {0xEF, 0xBB, 0xBF});
@@ -46,10 +51,14 @@ class BOMSafeInputStreamAndParseTestCase extends TestBase {
         return toReturn;
     }
 
+    protected static IRI nextISA() {
+        return IRI.getNextDocumentIRI(ISA14_O);
+    }
+
     private static InputStream in(int[] b, String s) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        for (int i : b) {
-            out.write(i);
+        for (int v : b) {
+            out.write(v);
         }
         out.write(s.getBytes());
         byte[] byteArray = out.toByteArray();
@@ -64,15 +73,18 @@ class BOMSafeInputStreamAndParseTestCase extends TestBase {
     // EF BB BF |UTF-8
     @ParameterizedTest
     @MethodSource("data")
-    void testBOMError32big(int[] b, String input) throws OWLOntologyCreationException, IOException {
-        m.loadOntologyFromOntologyDocument(in(b, input));
+    void testBOMError32big(int[] b, String input) throws IOException {
+        try (InputStream in = in(b, input)) {
+            loadOntologyFrom(in);
+        }
     }
 
     @ParameterizedTest
     @MethodSource("data")
     void testBOMError32bigReader(int[] b, String input)
         throws OWLOntologyCreationException, IOException {
-        m.loadOntologyFromOntologyDocument(
-            new ReaderDocumentSource(new InputStreamReader(in(b, input))));
+        try (InputStream in = in(b, input); InputStreamReader r = new InputStreamReader(in)) {
+            m.loadOntologyFromOntologyDocument(new ReaderDocumentSource(r));
+        }
     }
 }

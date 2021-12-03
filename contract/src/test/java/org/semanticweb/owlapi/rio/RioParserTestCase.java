@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
 /**
@@ -42,18 +43,16 @@ class RioParserTestCase extends TestBase {
      * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
     @Test
-    void testParse() throws Exception {
-        OWLOntology owlapiOntologyPrimer = getAnonymousOWLOntology();
+    void testParse() {
+        OWLOntology owlapiOntologyPrimer = createAnon();
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLDocumentFormat format =
             owlapiParser.parse(getStream("/koala.owl"), owlapiOntologyPrimer, config);
         assertEquals(70, owlapiOntologyPrimer.getAxiomCount());
         assertEquals(new RDFXMLDocumentFormat(), format);
         RioParserImpl rioParser = new RioParserImpl(new RioRDFXMLDocumentFormatFactory());
-        // OWLOntology ontology = OWLOntologyManagerFactoryRegistry
-        // .createOWLOntologyManager().createOntology(
-        OWLOntology ontology = m1.createOntology(
-            iri("http://protege.stanford.edu/plugins/owl/owl-library/", "koala.owl"));
+        OWLOntology ontology =
+            m.getOntology(iri("http://protege.stanford.edu/plugins/owl/owl-library/", "koala.owl"));
         OWLDocumentFormat rioOntologyFormat =
             rioParser.parse(getStream("/koala.owl"), ontology, config);
         assertEquals(new RioRDFXMLDocumentFormat(), rioOntologyFormat);
@@ -67,16 +66,14 @@ class RioParserTestCase extends TestBase {
      * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
     @Test
-    void testParsePrimer() throws Exception {
-        OWLOntology owlapiOntologyPrimer = getAnonymousOWLOntology();
+    void testParsePrimer() throws OWLOntologyCreationException {
+        OWLOntology owlapiOntologyPrimer = createAnon();
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLDocumentFormat format =
             owlapiParser.parse(getStream("/primer.rdfxml.xml"), owlapiOntologyPrimer, config);
         assertEquals(93, owlapiOntologyPrimer.getAxiomCount());
         assertEquals(new RDFXMLDocumentFormat(), format);
         RioParserImpl rioParser = new RioParserImpl(new RioRDFXMLDocumentFormatFactory());
-        // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
-        // .createOWLOntologyManager()
         OWLOntology rioOntologyPrimer =
             m1.createOntology(iri("http://example.com/owl/", "families"));
         OWLDocumentFormat rioOntologyFormat =
@@ -99,7 +96,7 @@ class RioParserTestCase extends TestBase {
      * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
     @Test
-    void testParsePrimerSubset() throws Exception {
+    void testParsePrimerSubset() {
         // XXX this test does not work yet
         // output:
         // Rio:
@@ -110,17 +107,14 @@ class RioParserTestCase extends TestBase {
         // DatatypeDefinition(<http://example.com/owl/families/majorAge>
         // DataIntersectionOf(<http://example.com/owl/families/personAge>
         // DataComplementOf(<http://example.com/owl/families/minorAge>) ))]
-        OWLOntology owlapiOntologyPrimer = getAnonymousOWLOntology();
+        OWLOntology owlapiOntologyPrimer = createAnon();
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLDocumentFormat format =
             owlapiParser.parse(getStream(MINIMAL_RDF), owlapiOntologyPrimer, config);
         assertEquals(4, owlapiOntologyPrimer.getAxiomCount());
         assertEquals(new RDFXMLDocumentFormat(), format);
         RioParserImpl rioParser = new RioParserImpl(new RioRDFXMLDocumentFormatFactory());
-        // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
-        // .createOWLOntologyManager().createOntology(
-        OWLOntology rioOntologyPrimer =
-            m1.createOntology(iri("http://example.com/owl/", "families"));
+        OWLOntology rioOntologyPrimer = m.getOntology(iri("http://example.com/owl/", "families"));
         OWLDocumentFormat rioOntologyFormat =
             rioParser.parse(getStream(MINIMAL_RDF), rioOntologyPrimer, config);
         assertEquals(new RioRDFXMLDocumentFormat(), rioOntologyFormat);
@@ -134,8 +128,8 @@ class RioParserTestCase extends TestBase {
      * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
     @Test
-    void testParsePrimerMinimalSubset() throws Exception {
-        OWLOntology owlapiOntologyPrimer = getAnonymousOWLOntology();
+    void testParsePrimerMinimalSubset() {
+        OWLOntology owlapiOntologyPrimer = createAnon();
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLDocumentFormat format =
             owlapiParser.parse(getStream(MINIMAL_RDF), owlapiOntologyPrimer, config);
@@ -144,8 +138,7 @@ class RioParserTestCase extends TestBase {
         RioParserImpl rioParser = new RioParserImpl(new RioRDFXMLDocumentFormatFactory());
         // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager().createOntology(
-        OWLOntology rioOntologyPrimer =
-            m1.createOntology(iri("http://example.com/owl/", "families"));
+        OWLOntology rioOntologyPrimer = m.getOntology(iri("http://example.com/owl/", "families"));
         OWLDocumentFormat rioOntologyFormat =
             rioParser.parse(getStream(MINIMAL_RDF), rioOntologyPrimer, config);
         assertEquals(new RioRDFXMLDocumentFormat(), rioOntologyFormat);

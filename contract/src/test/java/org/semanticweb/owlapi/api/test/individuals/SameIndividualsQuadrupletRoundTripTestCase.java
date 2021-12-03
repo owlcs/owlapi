@@ -78,7 +78,7 @@ class SameIndividualsQuadrupletRoundTripTestCase extends TestBase {
         EquivalentDataProperties(p, q, r, s);
 
     protected OWLOntology o(Collection<OWLAxiom> axioms) {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.add(axioms);
         ont.unsortedSignature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
             .forEach(e -> ont.add(Declaration(e)));

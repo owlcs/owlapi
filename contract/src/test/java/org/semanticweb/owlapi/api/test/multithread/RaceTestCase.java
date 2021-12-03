@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 class RaceTestCase {
 
     @Test
-    void testSubClassLHS() throws Exception {
+    void testSubClassLHS() throws OWLOntologyCreationException, InterruptedException {
         final int totalRepetitions = 200;
         int repetitions = 0;
         RaceTestCaseRunner r;
@@ -177,7 +177,10 @@ class RaceTestCase {
 
             @Override
             public void race() {
-                ontology.subClassAxiomsForSubClass(factory.getOWLClass("http://www.race.org#", "testclass")).forEach(this::lose);
+                ontology
+                    .subClassAxiomsForSubClass(
+                        factory.getOWLClass("http://www.race.org#", "testclass"))
+                    .forEach(this::lose);
             }
 
             private void lose(@SuppressWarnings("unused") Object o) {

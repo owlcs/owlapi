@@ -14,20 +14,20 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.util.QNameShortFormProvider;
 
-class ShortFormProviderTestCase {
+class ShortFormProviderTestCase extends TestBase {
 
     @Test
     void shouldFindShortForm() {
-        OWLClass c = Class(IRI("http://www.ebi.ac.uk/fgpt/ontologies/test/", "TEST_00001"));
+        OWLClass c = Class(iri("http://www.ebi.ac.uk/fgpt/ontologies/test/", "TEST_00001"));
         QNameShortFormProvider shortener = new QNameShortFormProvider();
         String shortform = shortener.getShortForm(c);
         assertEquals("test:TEST_00001", shortform);
@@ -35,7 +35,7 @@ class ShortFormProviderTestCase {
 
     @Test
     void shouldFindShortFormForWoman() {
-        OWLClass c = Class(IRI("http://www.example.org/#", "Woman"));
+        OWLClass c = Class(iri("http://www.example.org/#", "Woman"));
         QNameShortFormProvider shortener = new QNameShortFormProvider();
         String shortform = shortener.getShortForm(c);
         assertEquals("www:Woman", shortform);
@@ -43,7 +43,7 @@ class ShortFormProviderTestCase {
 
     @Test
     void shouldFindShortFormForSetPRefix() {
-        OWLClass c = Class(IRI("http://www.example.org/#", "Woman"));
+        OWLClass c = Class(iri("http://www.example.org/#", "Woman"));
         Map<String, String> prefixes = new HashMap<>();
         prefixes.put("test", "http://www.example.org/#");
         QNameShortFormProvider shortener = new QNameShortFormProvider(prefixes);

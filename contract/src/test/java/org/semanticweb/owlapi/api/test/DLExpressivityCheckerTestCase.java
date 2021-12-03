@@ -293,7 +293,7 @@ class DLExpressivityCheckerTestCase extends TestBase {
         Builder b = new Builder();
         return Arrays.asList(
         //@formatter:off
-            new Object[] {"0 AL",        "UNIVRESTR" , l(UNIVERSAL_RESTRICTION),                              l(FL0),                 belowUniversal(),      l(FL0) ,                l(b.assAll())},
+            new Object[] {"0 AL",        "UNIVRESTR" , l(UNIVERSAL_RESTRICTION),                              l(FL0),                 belowUniversal(),      l(FL0),                 l(b.assAll())},
             new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.dDef())},
             new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.decC())},
             new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.decOp())},
@@ -445,7 +445,7 @@ class DLExpressivityCheckerTestCase extends TestBase {
     }
 
     Set<OWLOntology> ont(Collection<OWLAxiom> objects) {
-        OWLOntology o = getOWLOntology();
+        OWLOntology o = create();
         o.add(objects);
         return Collections.singleton(o);
     }

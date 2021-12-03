@@ -14,17 +14,14 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 class OWLXMLTestCase extends TestBase {
 
     @Test
-    void shouldFindExpectedAxiomsForBlankNodes() throws OWLOntologyCreationException {
+    void shouldFindExpectedAxiomsForBlankNodes() {
         OWLObjectProperty r = ObjectProperty(
             iri("http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
-        OWLOntology o =
-            m.loadOntologyFromOntologyDocument(new File(RESOURCES, "owlxml_anonloop.owx"));
+        OWLOntology o = loadOntologyFromFile(new File(RESOURCES, "owlxml_anonloop.owx"), m);
         o.axioms(AxiomType.CLASS_ASSERTION).forEach(ax -> {
             OWLAxiom expected =
                 df.getOWLObjectPropertyAssertionAxiom(r, ax.getIndividual(), ax.getIndividual());
@@ -33,7 +30,7 @@ class OWLXMLTestCase extends TestBase {
     }
 
     @Test
-    void shouldParseSWRLVariables() throws OWLOntologyStorageException {
+    void shouldParseSWRLVariables() {
         OWLOntology o =
             loadOntologyFromString(TestFiles.parseSWRLVariable, new OWLXMLDocumentFormat());
         o.axioms(AxiomType.SWRL_RULE).forEach(r -> assertEquals(

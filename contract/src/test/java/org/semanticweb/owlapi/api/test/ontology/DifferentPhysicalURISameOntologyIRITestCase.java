@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.net.URISyntaxException;
+
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
@@ -29,13 +31,13 @@ class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
     private static final String ONTOLOGY_A_EMPTY = "ImportsTestOntologyAEmpty.owl";
 
     @Test
-    void testDifferentPhysicalURISameOntologyIRI() throws Exception {
+    void testDifferentPhysicalURISameOntologyIRI() throws URISyntaxException {
         IRI ontologyADocumentIRI = IRI.create(DifferentPhysicalURISameOntologyIRITestCase.class
             .getResource('/' + ONTOLOGY_A).toURI());
         IRI ontologyADocumentIRIB = IRI.create(DifferentPhysicalURISameOntologyIRITestCase.class
             .getResource('/' + ONTOLOGY_A_EMPTY).toURI());
-        m.loadOntologyFromOntologyDocument(ontologyADocumentIRI);
+        loadOntologyFromString(ontologyADocumentIRI, m);
         assertThrows(OWLOntologyAlreadyExistsException.class,
-            () -> m.loadOntologyFromOntologyDocument(ontologyADocumentIRIB));
+            () -> m.loadOntology(ontologyADocumentIRIB));
     }
 }

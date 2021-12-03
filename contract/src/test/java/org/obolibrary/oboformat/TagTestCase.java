@@ -1,6 +1,7 @@
 package org.obolibrary.oboformat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
@@ -50,6 +51,7 @@ class TagTestCase extends OboFormatTestBasics {
         assertEquals(4, obodoc.getTermFrames().size());
         assertEquals(1, obodoc.getTypedefFrames().size());
         Frame frame = obodoc.getTermFrame("X:1");
+        assertNotNull(frame);
         assert frame != null;
         assertEquals("x1", frame.getTagValue(OboFormatTag.TAG_NAME));
     }

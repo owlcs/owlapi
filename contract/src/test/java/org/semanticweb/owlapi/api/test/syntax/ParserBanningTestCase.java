@@ -5,14 +5,13 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 class ParserBanningTestCase extends TestBase {
 
     @Test
-    void shouldFailWithBanningOfTriX() throws OWLOntologyCreationException {
+    void shouldFailWithBanningOfTriX() {
         // This ontology is malformed RDF/XML but does not fail under a regular
         // parsing because the
         // TriX parser does not throw an exception reading it (although it does

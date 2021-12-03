@@ -67,7 +67,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 class OwlOntologyMultipleThreadsTest extends TestBase {
 
@@ -267,10 +266,10 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
     }
 
     @Test
-    public void testLockingOwlOntologyImpl() throws OWLOntologyCreationException {
+    public void testLockingOwlOntologyImpl() {
         OWLOntology o = loadOntologyFromString(TestFiles.KOALA, new RDFXMLDocumentFormat());
         MultiThreadChecker checker = new MultiThreadChecker(5);
-        checker.check(new TestCallback(o, m.createOntology()));
+        checker.check(new TestCallback(o, createAnon()));
         String trace = checker.getTrace();
         System.out.println(trace);
     }

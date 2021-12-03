@@ -11,12 +11,12 @@
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Declaration><DataProperty IRI="http://owlapi.sourceforge.net/ontology#prop"/></Declaration>
-    <Declaration><NamedIndividual IRI="http://owlapi.sourceforge.net/ontology#A"/></Declaration>
-    <ClassAssertion><Class abbreviatedIRI="owl:Thing"/><NamedIndividual IRI="http://owlapi.sourceforge.net/ontology#A"/></ClassAssertion>
+    <Declaration><DataProperty IRI="http://www.semanticweb.org/owlapi/test#p"/></Declaration>
+    <Declaration><NamedIndividual IRI="http://www.semanticweb.org/owlapi/test#a"/></Declaration>
+    <ClassAssertion><Class abbreviatedIRI="owl:Thing"/><NamedIndividual IRI="http://www.semanticweb.org/owlapi/test#a"/></ClassAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="http://owlapi.sourceforge.net/ontology#prop"/>
-        <NamedIndividual IRI="http://owlapi.sourceforge.net/ontology#A"/>
+        <DataProperty IRI="http://www.semanticweb.org/owlapi/test#p"/>
+        <NamedIndividual IRI="http://www.semanticweb.org/owlapi/test#a"/>
         <Literal>test url</Literal>
     </DataPropertyAssertion>
 </Ontology>

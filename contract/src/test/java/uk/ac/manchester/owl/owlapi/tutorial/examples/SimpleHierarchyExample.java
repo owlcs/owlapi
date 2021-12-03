@@ -15,15 +15,17 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 
 import java.io.PrintStream;
-import javax.annotation.Nonnull;
+import java.lang.reflect.InvocationTargetException;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+
 import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 
 /**
@@ -92,7 +94,9 @@ public final class SimpleHierarchyExample {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws InstantiationException, IllegalAccessException,
+        IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
+        SecurityException, ClassNotFoundException, OWLOntologyCreationException {
         String reasonerFactoryClassName = null;
         // We first need to obtain a copy of an
         // OWLOntologyManager, which, as the name

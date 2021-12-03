@@ -83,8 +83,7 @@ class AddOntologyAnnotationDataTestCase extends TestBase {
         assertFalse(o1.annotationsAsList().isEmpty());
         assertEquals(o1.annotationsAsList(), o2.annotationsAsList());
         OWLOntology o3 = loadOntologyFromString(TestFiles.ontFirst, new RioTurtleDocumentFormat());
-        OWLOntology o4 =
-            loadOntologyFromString(TestFiles.labelFirst, new RioTurtleDocumentFormat());
+        OWLOntology o4 = loadOntologyFromString(TestFiles.labelFirst, new RioTurtleDocumentFormat());
         assertEquals(o3.annotationsAsList(), o4.annotationsAsList());
     }
 }

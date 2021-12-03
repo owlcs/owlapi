@@ -70,24 +70,7 @@ import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLEntityRenamer;
 
 /**
@@ -122,7 +105,7 @@ class RenameEntityTestCase extends TestBase {
 
     @Test
     void testRenameClass() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         Set<OWLAxiom> axioms1 = new HashSet<>();
         axioms1.add(SubClassOf(CA1, CB));
         axioms1.add(EquivalentClasses(CA1, CC));
@@ -154,7 +137,7 @@ class RenameEntityTestCase extends TestBase {
 
     @Test
     void testRenameObjectProperty() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         Set<OWLAxiom> axioms1 = new HashSet<>();
         axioms1.add(SubObjectPropertyOf(PA, PBI));
         axioms1.add(EquivalentObjectProperties(PA, PBI));
@@ -200,7 +183,7 @@ class RenameEntityTestCase extends TestBase {
 
     @Test
     void testRenameDataProperty() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         Set<OWLAxiom> axioms1 = new HashSet<>();
         axioms1.add(SubDataPropertyOf(DPA, DPB));
         axioms1.add(EquivalentDataProperties(DPA, DPB));
@@ -234,7 +217,7 @@ class RenameEntityTestCase extends TestBase {
 
     @Test
     void testRenameIndividual() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLAnnotationAssertionAxiom aX = AnnotationAssertion(AP, DPA.getIRI(), X);
         ont.add(set(ca(A), dpa(A), ndpa(A), aX, opa(A, B), nopa(A, B)));
         OWLEntityRenamer entityRenamer =
@@ -269,7 +252,7 @@ class RenameEntityTestCase extends TestBase {
 
     @Test
     void testRenameDatatype() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         Set<OWLAxiom> axioms1 = new TreeSet<>();
         axioms1.add(DataPropertyRange(DPA, DataIntersectionOf(DTA, DTB)));
         axioms1.add(DataPropertyRange(DPA, DataUnionOf(DTA, DTB)));
@@ -291,7 +274,7 @@ class RenameEntityTestCase extends TestBase {
 
     @Test
     void testRenameAnnotationProperty() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         Set<OWLAxiom> axioms1 = new HashSet<>();
         axioms1.add(Declaration(AP));
         axioms1.add(AnnotationAssertion(AP, A.getIRI(), B.getIRI()));

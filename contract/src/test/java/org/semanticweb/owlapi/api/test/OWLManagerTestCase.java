@@ -8,8 +8,10 @@ import java.lang.reflect.Field;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
@@ -18,20 +20,19 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyImpl;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
-class OWLManagerTestCase {
+class OWLManagerTestCase extends TestBase {
 
-    private OWLOntologyManager manager;
     private OWLOntology ontology;
+    OWLOntologyManager manager = setupManager();
 
     @BeforeEach
-    void setUp() throws Exception {
-        manager = OWLManager.createOWLOntologyManager();
-        ontology = manager.createOntology();
+    void setUp() {
+        ontology = createAnon();
     }
 
     @Test
     void shouldCreateOntologyWithCorrectManager() {
-        assertThat(ontology.getOWLOntologyManager(), is(manager));
+        assertThat(createAnon().getOWLOntologyManager(), is(m));
     }
 
     @Test
@@ -40,7 +41,8 @@ class OWLManagerTestCase {
     }
 
     @Test
-    void shouldShareReadWriteLockOnConcurrentManager() throws Exception {
+    void shouldShareReadWriteLockOnConcurrentManager() throws OWLOntologyCreationException,
+        NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         // Nasty, but not sure of another way to do this without exposing it in
         // the interface
         manager = OWLManager.createConcurrentOWLOntologyManager();

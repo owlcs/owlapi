@@ -6,6 +6,7 @@ package org.semanticweb.owlapi.rio;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashSet;
@@ -15,6 +16,8 @@ import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.vocabulary.OWL;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
 import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFHandlerException;
+import org.eclipse.rdf4j.rio.RDFParseException;
 import org.eclipse.rdf4j.rio.RDFParser;
 import org.eclipse.rdf4j.rio.RDFWriter;
 import org.eclipse.rdf4j.rio.Rio;
@@ -48,13 +51,12 @@ class RioRendererTestCase extends TestBase {
     private final RioRDFXMLDocumentFormat format = new RioRDFXMLDocumentFormat();
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         vf = SimpleValueFactory.getInstance();
         m.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
             new RioTurtleStorerFactory());
-        testOntologyEmpty = m.createOntology(testOntologyUri1);
-        testOntologyKoala =
-            m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
+        testOntologyEmpty = create(testOntologyUri1);
+        testOntologyKoala = loadOntologyFrom(getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
         testOntologyEmptyStatement =
@@ -125,7 +127,7 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRenderKoalaRdfXmlWriter() throws Exception {
+    void testRenderKoalaRdfXmlWriter() throws RDFParseException, RDFHandlerException, IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testRdfXmlRioWriter, null);
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
@@ -153,7 +155,7 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRenderKoalaTurtleWriter() throws Exception {
+    void testRenderKoalaTurtleWriter() throws RDFParseException, RDFHandlerException, IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testTurtleRioWriter, null);
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
@@ -177,7 +179,8 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRenderKoalaNTriplesWriter() throws Exception {
+    void testRenderKoalaNTriplesWriter()
+        throws RDFParseException, RDFHandlerException, IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testNTriplesRioWriter, null);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
@@ -203,7 +206,7 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRioOWLRDFParser() throws Exception {
+    void testRioOWLRDFParser() throws RDFParseException, RDFHandlerException, IOException {
         RDFParser parser = new RioManchesterSyntaxParserFactory().getParser();
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(TestFiles.inputManSyntax),

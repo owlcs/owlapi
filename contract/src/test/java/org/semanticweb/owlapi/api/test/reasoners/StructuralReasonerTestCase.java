@@ -67,7 +67,7 @@ class StructuralReasonerTestCase extends TestBase {
 
     @Test
     void testClassHierarchy() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.addAxiom(EquivalentClasses(OWLThing(), C));
         ont.addAxiom(SubClassOf(B, A));
         ont.addAxiom(EquivalentClasses(A, D));

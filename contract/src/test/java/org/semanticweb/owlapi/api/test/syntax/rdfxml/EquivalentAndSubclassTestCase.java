@@ -41,7 +41,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 class EquivalentAndSubclassTestCase extends TestBase {
 
     @Test
-    void testRoundtrip() throws Exception {
+    void testRoundtrip() {
         // given
         OWLOntology o = loadOntologyFromString(TestFiles.equivalentAndSubclasses,
             new ManchesterSyntaxDocumentFormat());

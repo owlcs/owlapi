@@ -34,7 +34,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 class LoadAnonymousTestCase extends TestBase {
@@ -61,7 +60,7 @@ class LoadAnonymousTestCase extends TestBase {
     }
 
     @Test
-    void shouldLoad() throws OWLOntologyCreationException {
+    void shouldLoad() {
         OWLOntologyLoaderConfiguration loaderConfig = new OWLOntologyLoaderConfiguration()
             .setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
         OWLOntology ontology = loadOntologyFromString(TestFiles.loadOboAnonymous,

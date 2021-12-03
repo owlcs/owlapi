@@ -27,10 +27,8 @@ import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
@@ -51,8 +49,8 @@ class OWLOntologyManagerImplTestCase extends TestBase {
     }
 
     @Test
-    void testContains() throws OWLOntologyCreationException {
-        OWLOntology ont = m.createOntology(nextOntology());
+    void testContains() {
+        OWLOntology ont = create(nextOntology());
         assertTrue(m.contains(ont.getOntologyID()));
         assertNotNull(m.getOntology(ont.getOntologyID()));
         assertTrue(contains(m.ontologies(), ont));
@@ -66,11 +64,11 @@ class OWLOntologyManagerImplTestCase extends TestBase {
     }
 
     @Test
-    void testImports() throws OWLOntologyCreationException {
-        OWLOntology ontA = m.createOntology(nextOntology());
-        OWLOntology ontB = m.createOntology(nextOntology());
-        OWLImportsDeclaration decl = m.getOWLDataFactory()
-            .getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
+    void testImports() {
+        OWLOntology ontA = create(nextOntology());
+        OWLOntology ontB = create(nextOntology());
+        OWLImportsDeclaration decl =
+            df.getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
         ontA.applyChange(new AddImport(ontA, decl));
         assertTrue(contains(m.directImports(ontA), ontB));
         m.removeOntology(ontB);
@@ -78,15 +76,15 @@ class OWLOntologyManagerImplTestCase extends TestBase {
     }
 
     @Test
-    void testImportsClosure() throws OWLException {
+    void testImportsClosure() {
         // OntA -> OntB -> OntC (-> means imports)
-        OWLOntology ontA = m.createOntology(nextOntology());
-        OWLOntology ontB = m.createOntology(nextOntology());
-        OWLOntology ontC = m.createOntology(nextOntology());
-        OWLImportsDeclaration declA = m.getOWLDataFactory()
-            .getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
-        OWLImportsDeclaration declB = m.getOWLDataFactory()
-            .getOWLImportsDeclaration(get(ontC.getOntologyID().getOntologyIRI()));
+        OWLOntology ontA = create(nextOntology());
+        OWLOntology ontB = create(nextOntology());
+        OWLOntology ontC = create(nextOntology());
+        OWLImportsDeclaration declA =
+            df.getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
+        OWLImportsDeclaration declB =
+            df.getOWLImportsDeclaration(get(ontC.getOntologyID().getOntologyIRI()));
         ontA.applyChanges(new AddImport(ontA, declA));
         ontB.applyChanges(new AddImport(ontB, declB));
         assertTrue(contains(m.importsClosure(ontA), ontA));
@@ -97,16 +95,16 @@ class OWLOntologyManagerImplTestCase extends TestBase {
     }
 
     @Test
-    void testImportsLoad() throws OWLException {
-        OWLOntology ontA = m.createOntology(iri("urn:test:", "a"));
+    void testImportsLoad() {
+        OWLOntology ontA = create(iri("urn:test:", "a"));
         assertEquals(0L, ontA.directImports().count());
         IRI b = iri("urn:test:", "b");
-        OWLImportsDeclaration declB = m.getOWLDataFactory().getOWLImportsDeclaration(b);
+        OWLImportsDeclaration declB = df.getOWLImportsDeclaration(b);
         ontA.applyChange(new AddImport(ontA, declB));
         Set<IRI> directImportsDocuments = asUnorderedSet(ontA.directImportsDocuments());
         assertEquals(1, directImportsDocuments.size());
         assertTrue(directImportsDocuments.contains(b));
-        OWLOntology ontB = m.createOntology(b);
+        OWLOntology ontB = create(b);
         directImportsDocuments = asUnorderedSet(ontA.directImportsDocuments());
         assertEquals(1, directImportsDocuments.size());
         assertTrue(directImportsDocuments.contains(b));

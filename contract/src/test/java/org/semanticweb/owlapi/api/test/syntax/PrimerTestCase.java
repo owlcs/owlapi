@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 
 class PrimerTestCase extends TestBase {
@@ -36,7 +35,7 @@ class PrimerTestCase extends TestBase {
     }
 
     @Test
-    void shouldManchBeEquivalent() throws OWLOntologyCreationException {
+    void shouldManchBeEquivalent() {
         OWLOntology manch = loadOntologyFromString(TestFiles.MANCHESTER,
             iri(URN_PRIMER, "manchester"), new ManchesterSyntaxDocumentFormat());
         assertTrue(profile.checkOntology(manch).getViolations().isEmpty());
@@ -60,8 +59,8 @@ class PrimerTestCase extends TestBase {
                 df.getOWLObjectMaxCardinality(1, hasChild));
         manch.addAxiom(
             df.getOWLSubClassOfAxiom(df.getOWLObjectIntersectionOf(female, oneOf), superClass));
-        OWLOntology replacement =
-            m.createOntology(manch.axioms(), get(manch.getOntologyID().getOntologyIRI()));
+        OWLOntology replacement = create(get(manch.getOntologyID().getOntologyIRI()));
+        replacement.getOWLOntologyManager().addAxioms(replacement, manch.axioms());
         equal(func, replacement);
     }
 

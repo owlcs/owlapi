@@ -23,13 +23,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 class DeclareAnnotatedEntitiesTestCase extends TestBase {
 
     @Test
-    void shouldDeclareAllDatatypes() throws Exception {
+    void shouldDeclareAllDatatypes() {
         OWLOntology ontology =
             loadOntologyFromString(TestFiles.declareDatatypes, new OWLXMLDocumentFormat());
         Set<OWLDeclarationAxiom> declarations = asSet(ontology.axioms(AxiomType.DECLARATION));
         Set<OWLAnnotationAssertionAxiom> annotationAssertionAxioms =
             asSet(ontology.axioms(AxiomType.ANNOTATION_ASSERTION));
-        OWLOntology ontology2 = m1.createOntology();
+        OWLOntology ontology2 = createAnon();
         ontology2.add(annotationAssertionAxioms);
         OWLOntology o3 = roundTrip(ontology2, new RDFXMLDocumentFormat());
         Set<OWLDeclarationAxiom> reloadedDeclarations = asSet(o3.axioms(AxiomType.DECLARATION));

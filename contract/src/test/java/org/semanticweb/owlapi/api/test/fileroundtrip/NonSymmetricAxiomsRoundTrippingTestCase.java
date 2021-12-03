@@ -47,7 +47,7 @@ class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource("nonSymmetricAxiomsRoundTrippingTestCase")
     void shouldRoundTripAReadableVersion(OWLAxiom in, OWLAxiom out) {
-        OWLOntology output = getOWLOntology();
+        OWLOntology output = create();
         output.add(in);
         OWLOntology o = roundTrip(output, new FunctionalSyntaxDocumentFormat());
         assertEquals(1, o.logicalAxioms().count());

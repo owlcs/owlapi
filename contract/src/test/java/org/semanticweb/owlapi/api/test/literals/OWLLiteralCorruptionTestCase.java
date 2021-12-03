@@ -24,11 +24,9 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -58,23 +56,18 @@ class OWLLiteralCorruptionTestCase extends TestBase {
 
     @Test
     void shouldRoundTripXMLLiteral() {
-        OWLOntology o = getOWLOntology();
-        OWLDataProperty p = df.getOWLDataProperty(iri(URN_TEST, "p"));
         OWLLiteral l = df.getOWLLiteral(TestFiles.literalXMl, OWL2Datatype.RDF_XML_LITERAL);
-        OWLNamedIndividual i = df.getOWLNamedIndividual(iri(URN_TEST, "i"));
-        o.add(df.getOWLDataPropertyAssertionAxiom(p, i, l));
+        OWLOntology o = o(df.getOWLDataPropertyAssertionAxiom(DP, i, l));
         String string = saveOntology(o).toString();
         assertTrue(string.contains(TestFiles.literalXMl));
     }
 
     @Test
-    void shouldFailOnMalformedXMLLiteral() throws OWLOntologyCreationException {
-        OWLOntology o = m.createOntology();
-        OWLDataProperty p = df.getOWLDataProperty(iri(URN_TEST, "p"));
+    void shouldFailOnMalformedXMLLiteral() {
         OWLLiteral l =
             df.getOWLLiteral(TestFiles.literalMalformedXML, OWL2Datatype.RDF_XML_LITERAL);
         OWLNamedIndividual i = df.getOWLNamedIndividual(iri(URN_TEST, "i"));
-        o.add(df.getOWLDataPropertyAssertionAxiom(p, i, l));
+        OWLOntology o = o(df.getOWLDataPropertyAssertionAxiom(DP, I, l));
         assertThrowsWithCauseMessage(OWLRuntimeException.class, OWLOntologyStorageException.class,
             "XML literal is not self contained", () -> saveOntology(o));
     }

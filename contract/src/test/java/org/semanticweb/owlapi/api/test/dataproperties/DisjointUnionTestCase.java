@@ -13,25 +13,16 @@
 package org.semanticweb.owlapi.api.test.dataproperties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointUnion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 class DisjointUnionTestCase extends TestBase {
 
-    static final String NS = "http://protege.org/protege/DisjointUnion.owl";
-    static final OWLClass A = Class(IRI(NS + "#", "A"));
-    static final OWLClass B = Class(IRI(NS + "#", "B"));
-    static final OWLClass C = Class(IRI(NS + "#", "C"));
-
     @Test
     void testDisjointUnion() {
-        OWLOntology ontology = getOWLOntology();
+        OWLOntology ontology = create();
         ontology.add(DisjointUnion(A, B, C));
         assertEquals(1, ontology.disjointUnionAxioms(A).count());
         assertEquals(0, ontology.disjointUnionAxioms(B).count());

@@ -33,14 +33,13 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 
 class Utf8TestCase extends TestBase {
 
     @Test
-    void testUTF8roundTrip() throws Exception {
+    void testUTF8roundTrip() {
         saveOntology(loadOntologyFromString(TestFiles.roundtripUTF8String,
             new FunctionalSyntaxDocumentFormat()));
     }
@@ -54,19 +53,19 @@ class Utf8TestCase extends TestBase {
             new ByteArrayInputStream(TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
         assertThrows(Exception.class,
-            () -> parser.parse(new StreamDocumentSource(in), getOWLOntology(), config));
+            () -> parser.parse(new StreamDocumentSource(in), createAnon(), config));
         // expected to fail, but actual exception depends on the parsers in
         // the classpath
     }
 
     @Test
-    void testInvalidUTF8roundTripWithInputStream() throws OWLOntologyCreationException {
+    void testInvalidUTF8roundTripWithInputStream() {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
         ByteArrayInputStream in =
             new ByteArrayInputStream(TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
-        m.loadOntologyFromOntologyDocument(in);
+        loadOntologyFrom(in);
     }
 
     @Test
@@ -79,9 +78,9 @@ class Utf8TestCase extends TestBase {
     }
 
     @Test
-    void testPositiveUTF8roundTrip() throws Exception {
+    void testPositiveUTF8roundTrip() {
         String ns = "http://protege.org/UTF8.owl";
-        OWLOntology ontology = getOWLOntology();
+        OWLOntology ontology = create();
         OWLClass a = Class(IRI(ns + "#", "A"));
         ontology.add(df.getOWLDeclarationAxiom(a));
         OWLAnnotation ann = df.getRDFSLabel("Chinese=處方");
@@ -91,9 +90,9 @@ class Utf8TestCase extends TestBase {
     }
 
     @Test
-    void testRoundTrip() throws Exception {
+    void testRoundTrip() {
         String ns = "http://protege.org/ontologies/UTF8RoundTrip.owl";
-        OWLClass c = Class(IRI(ns + "#", "C"));
+        OWLClass c = Class(iri(ns + "#", "C"));
         /*
          * The two unicode characters entered here are valid and can be found in the code chart
          * http://www.unicode.org/charts/PDF/U4E00.pdf. It has been said that they are chinese and
@@ -110,7 +109,7 @@ class Utf8TestCase extends TestBase {
     }
 
     private OWLOntology createOriginalOntology(String ns, OWLClass c, String chinese) {
-        OWLOntology ontology = getOWLOntology(IRI(ns, ""));
+        OWLOntology ontology = create(IRI(ns, ""));
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(), Literal(chinese));
         ontology.add(annotationAxiom);
         return ontology;

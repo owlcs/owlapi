@@ -2,8 +2,6 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -17,50 +15,42 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  * Created by ses on 5/13/14.
  */
 class AnnotatedPunningTestCase extends TestBase {
 
-    static OWLOntology makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
-        OWLAnnotationProperty annotationProperty, OWLOntologyManager manager,
-        List<OWLEntity> entities) throws OWLOntologyCreationException {
+    OWLOntology makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
+        OWLAnnotationProperty annotationProperty, List<OWLEntity> entities) {
         Set<OWLAxiom> axioms = new HashSet<>();
-        OWLDataFactory dataFactory = manager.getOWLDataFactory();
-        axioms.add(dataFactory.getOWLDeclarationAxiom(annotationProperty));
+        axioms.add(df.getOWLDeclarationAxiom(annotationProperty));
         for (OWLEntity entity : entities) {
-            axioms.add(dataFactory.getOWLAnnotationAssertionAxiom(annotationProperty,
-                entity.getIRI(), dataFactory.getOWLAnonymousIndividual()));
-            axioms.add(dataFactory.getOWLDeclarationAxiom(entity));
+            axioms.add(df.getOWLAnnotationAssertionAxiom(annotationProperty, entity.getIRI(),
+                df.getOWLAnonymousIndividual()));
+            axioms.add(df.getOWLDeclarationAxiom(entity));
         }
-        return manager.createOntology(axioms);
+        return o(axioms);
     }
 
-    static ByteArrayInputStream saveForRereading(OWLOntology o, OWLDocumentFormat format)
-        throws OWLOntologyStorageException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        o.saveOntology(format, out);
-        return new ByteArrayInputStream(out.toByteArray());
+    String saveForRereading(OWLOntology o, OWLDocumentFormat format) {
+        StringDocumentTarget out = saveOntology(o, format);
+        return out.toString();
     }
 
     static List<Arguments> allTests() {
-        List<? extends OWLEntity> entities = Arrays.asList(df.getOWLClass("http://localhost#", "a"),
-            df.getOWLDatatype("http://localhost#", "a"),
-            df.getOWLAnnotationProperty("http://localhost#", "a"),
-            df.getOWLDataProperty("http://localhost#", "a"),
-            df.getOWLObjectProperty("http://localhost#", "a"),
-            df.getOWLNamedIndividual("http://localhost#", "a"));
+        IRI iri = iri("http://localhost#", "a");
+        List<? extends OWLEntity> entities = Arrays.asList(df.getOWLClass(iri),
+            df.getOWLDatatype(iri), df.getOWLAnnotationProperty(iri), df.getOWLDataProperty(iri),
+            df.getOWLObjectProperty(iri), df.getOWLNamedIndividual(iri));
         return Arrays.asList(Arguments.of(new RDFXMLDocumentFormat(), entities),
             Arguments.of(new TurtleDocumentFormat(), entities),
             Arguments.of(new FunctionalSyntaxDocumentFormat(), entities),
@@ -70,12 +60,12 @@ class AnnotatedPunningTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource("allTests")
     void runTestForAnnotationsOnPunnedEntitiesForFormat(OWLDocumentFormat format,
-        List<OWLEntity> entities) throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = makeOwlOntologyWithDeclarationsAndAnnotationAssertions(AP, m, entities);
+        List<OWLEntity> entities) {
+        OWLOntology o = makeOwlOntologyWithDeclarationsAndAnnotationAssertions(AP, entities);
         for (int counter = 0; counter < 10; counter++) {
-            ByteArrayInputStream in = saveForRereading(o, format);
+            String in = saveForRereading(o, format);
             m.removeOntology(o);
-            o = m.loadOntologyFromOntologyDocument(in);
+            o = loadOntologyFromString(in);
         }
         assertEquals(entities.size(), o.axioms(AxiomType.ANNOTATION_ASSERTION).count());
     }

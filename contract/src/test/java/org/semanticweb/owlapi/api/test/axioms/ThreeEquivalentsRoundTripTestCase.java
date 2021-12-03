@@ -30,11 +30,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
 class ThreeEquivalentsRoundTripTestCase extends TestBase {
 
     @Test
-    void shouldRoundTrip() throws Exception {
+    void shouldRoundTrip(){
         // given
         OWLAxiom axiomToAdd =
             EquivalentClasses(A, ObjectSomeValuesFrom(P, B), ObjectSomeValuesFrom(Q, C));
-        OWLOntology ontology = getOWLOntology();
+        OWLOntology ontology = create();
         ontology.addAxiom(axiomToAdd);
         // when
         ontology = roundTrip(ontology);

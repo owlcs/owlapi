@@ -25,7 +25,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Disjo
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentDataProperties;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLNothing;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
@@ -48,21 +47,20 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 class InvalidAxiomRoundTripTestCase extends TestBase {
 
-    static final IRI t3 = IRI("urn:tes#", "t3");
-    static final IRI t2 = IRI("urn:tes#", "t2");
-    static final IRI t1 = IRI("urn:tes#", "t1");
+    static final IRI t3 = iri("urn:tes#", "t3");
+    static final IRI t2 = iri("urn:tes#", "t2");
+    static final IRI t1 = iri("urn:tes#", "t1");
     OWLOntology o;
 
     @BeforeEach
     void setUpO() {
-        o = getOWLOntology();
+        o = createAnon();
     }
 
-    private static void assertCorrectResult(OWLAxiom wrongAxiom, OWLAxiom validAxiom,
+    static void assertCorrectResult(OWLAxiom wrongAxiom, OWLAxiom validAxiom,
         OWLOntology reloaded) {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
@@ -70,12 +68,12 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
         assertEquals(1, reloaded.getLogicalAxiomCount());
     }
 
-    private OWLOntology saveAndReload() throws OWLOntologyStorageException {
+    private OWLOntology saveAndReload() {
         return roundTrip(o, new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
-    void shouldRoundTripInvalidDifferentIndividuals() throws OWLOntologyStorageException {
+    void shouldRoundTripInvalidDifferentIndividuals() {
         // given
         OWLNamedIndividual e1 = NamedIndividual(t1);
         OWLNamedIndividual e2 = NamedIndividual(t2);
@@ -90,7 +88,7 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundTripInvalidDisjointObjectProperties() throws OWLOntologyStorageException {
+    void shouldRoundTripInvalidDisjointObjectProperties() {
         // given
         OWLObjectProperty e1 = ObjectProperty(t1);
         OWLObjectProperty e2 = ObjectProperty(t2);
@@ -109,7 +107,7 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundTripInvalidDisjointClasses() throws Exception {
+    void shouldRoundTripInvalidDisjointClasses() {
         // given
         OWLClass e1 = Class(t1);
         OWLClass e2 = Class(t2);
@@ -146,7 +144,7 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundTripInvalidDisjointDataProperties() throws OWLOntologyStorageException {
+    void shouldRoundTripInvalidDisjointDataProperties() {
         // given
         OWLDataProperty e1 = DataProperty(t1);
         OWLDataProperty e2 = DataProperty(t2);
@@ -165,7 +163,7 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundTripInvalidSameIndividuals() throws OWLOntologyStorageException {
+    void shouldRoundTripInvalidSameIndividuals() {
         // given
         OWLNamedIndividual e1 = NamedIndividual(t1);
         OWLNamedIndividual e2 = NamedIndividual(t2);
@@ -180,7 +178,7 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundTripInvalidEquivalentClasses() throws OWLOntologyStorageException {
+    void shouldRoundTripInvalidEquivalentClasses() {
         // given
         OWLClass e1 = Class(t1);
         OWLClass e2 = Class(t2);
@@ -199,7 +197,7 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundTripInvalidEquivalentObjectProperties() throws OWLOntologyStorageException {
+    void shouldRoundTripInvalidEquivalentObjectProperties() {
         // given
         OWLObjectProperty e1 = ObjectProperty(t1);
         OWLObjectProperty e2 = ObjectProperty(t2);
@@ -218,7 +216,7 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundTripInvalidEquivalentDataProperties() throws OWLOntologyStorageException {
+    void shouldRoundTripInvalidEquivalentDataProperties() {
         // given
         OWLDataProperty e1 = DataProperty(t1);
         OWLDataProperty e2 = DataProperty(t2);

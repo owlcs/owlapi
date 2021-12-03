@@ -37,9 +37,10 @@ class MapperlessOntologyManagerTestCase extends TestBase {
 
     private static final IRI ONTOLOGY_IRI = IRI("http://test.com/", "ont");
 
-    private OWLOntologyManager createManager() {
-        m.getIRIMappers().clear();
-        return m;
+    private static OWLOntologyManager createManager() {
+        OWLOntologyManager manager = setupManager();
+        manager.getIRIMappers().clear();
+        return manager;
     }
 
     @Test
@@ -68,7 +69,7 @@ class MapperlessOntologyManagerTestCase extends TestBase {
     @Test
     void testCreateOntologyWithIdWithVersionIRI() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        IRI versionIRI = IRI("http://version/1", "");
+        IRI versionIRI = iri("http://version/1", "");
         OWLOntologyID id = new OWLOntologyID(optional(ONTOLOGY_IRI), optional(versionIRI));
         OWLOntology ontology = manager.createOntology(id);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI().get());

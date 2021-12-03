@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
@@ -67,7 +66,7 @@ class SWRLAtomOrderingRoundTripTestCase extends TestBase {
     }
 
     @Test
-    void individualsShouldNotGetSWRLVariableTypes() throws OWLOntologyStorageException {
+    void individualsShouldNotGetSWRLVariableTypes() {
         OWLOntology o = loadOntologyFromString(TestFiles.individualSWRLTest,
             iri("urn:test#", "test"), new RDFXMLDocumentFormat());
         String string = saveOntology(o).toString();
@@ -77,15 +76,14 @@ class SWRLAtomOrderingRoundTripTestCase extends TestBase {
     }
 
     @Test
-    void shouldPreserveOrderingInRDFXMLRoundTrip() throws Exception {
+    void shouldPreserveOrderingInRDFXMLRoundTrip() {
         roundTrip(new RDFXMLDocumentFormat());
     }
 
-    private void roundTrip(OWLDocumentFormat ontologyFormat) throws OWLOntologyStorageException {
-        OWLOntology ont = getOWLOntology();
+    private void roundTrip(OWLDocumentFormat ontologyFormat) {
+        OWLOntology ont = createAnon();
         ont.add(rule);
-        StringDocumentTarget documentTarget = new StringDocumentTarget();
-        ont.saveOntology(ontologyFormat, documentTarget);
+        StringDocumentTarget documentTarget = saveOntology(ont, ontologyFormat);
         OWLOntology ont2 = loadOntologyFromString(documentTarget, ontologyFormat);
         Set<SWRLRule> rules = asUnorderedSet(ont2.axioms(AxiomType.SWRL_RULE));
         assertEquals(1, rules.size());
@@ -100,17 +98,17 @@ class SWRLAtomOrderingRoundTripTestCase extends TestBase {
     }
 
     @Test
-    void shouldPreserveOrderingInTurtleRoundTrip() throws OWLOntologyStorageException {
+    void shouldPreserveOrderingInTurtleRoundTrip() {
         roundTrip(new TurtleDocumentFormat());
     }
 
     @Test
-    void shouldPreserveOrderingInManchesterSyntaxRoundTrip() throws OWLOntologyStorageException {
+    void shouldPreserveOrderingInManchesterSyntaxRoundTrip() {
         roundTrip(new ManchesterSyntaxDocumentFormat());
     }
 
     @Test
-    void shouldPreserveOrderingInOWLXMLRoundTrip() throws OWLOntologyStorageException {
+    void shouldPreserveOrderingInOWLXMLRoundTrip() {
         roundTrip(new OWLXMLDocumentFormat());
     }
 }

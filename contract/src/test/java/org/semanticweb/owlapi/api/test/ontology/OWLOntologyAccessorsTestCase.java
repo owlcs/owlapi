@@ -62,7 +62,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void shouldFindExpectedIRIOccurrences() {
-        OWLOntology o = getOWLOntology();
+        OWLOntology o = create();
         IRI query = iri("urn:test:", "someIRI");
         OWLAnnotationProperty ap1 = df.getOWLAnnotationProperty("urn:test:AP1");
         OWLAnnotationProperty ap2 = df.getOWLAnnotationProperty("urn:test:AP2");
@@ -78,7 +78,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testSubClassOfAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLSubClassOfAxiom ax = SubClassOf(A, B);
         ont.addAxiom(ax);
         OWLSubClassOfAxiom ax2 = SubClassOf(A, ObjectSomeValuesFrom(P, B));
@@ -93,7 +93,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testEquivalentClassesAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLEquivalentClassesAxiom ax = EquivalentClasses(A, B, C, ObjectSomeValuesFrom(P, D));
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -107,7 +107,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testDisjointClassesAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLDisjointClassesAxiom ax = DisjointClasses(A, B, C, ObjectSomeValuesFrom(P, D));
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -121,7 +121,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testSubObjectPropertyOfAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLSubObjectPropertyOfAxiom ax = SubObjectPropertyOf(P, Q);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -132,7 +132,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testEquivalentObjectPropertiesAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLEquivalentObjectPropertiesAxiom ax = EquivalentObjectProperties(P, Q, R);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -146,7 +146,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testDisjointObjectPropertiesAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLDisjointObjectPropertiesAxiom ax = DisjointObjectProperties(P, Q, R);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -160,7 +160,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testObjectPropertyDomainAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLObjectPropertyDomainAxiom ax = ObjectPropertyDomain(P, A);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -171,7 +171,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testObjectPropertyRangeAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLObjectPropertyRangeAxiom ax = ObjectPropertyRange(P, A);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -182,7 +182,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testFunctionalObjectPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLFunctionalObjectPropertyAxiom ax = FunctionalObjectProperty(P);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -193,7 +193,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testInverseFunctionalObjectPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLInverseFunctionalObjectPropertyAxiom ax = InverseFunctionalObjectProperty(P);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -204,7 +204,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testTransitiveObjectPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLTransitiveObjectPropertyAxiom ax = TransitiveObjectProperty(P);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -215,7 +215,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testSymmetricObjectPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLSymmetricObjectPropertyAxiom ax = SymmetricObjectProperty(P);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -226,7 +226,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testAsymmetricObjectPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLAsymmetricObjectPropertyAxiom ax = AsymmetricObjectProperty(P);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -237,7 +237,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testReflexiveObjectPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLReflexiveObjectPropertyAxiom ax = ReflexiveObjectProperty(P);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -248,7 +248,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testIrreflexiveObjectPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLIrreflexiveObjectPropertyAxiom ax = IrreflexiveObjectProperty(P);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -259,7 +259,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testSubDataPropertyOfAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLSubDataPropertyOfAxiom ax = SubDataPropertyOf(DP, DQ);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -270,7 +270,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testEquivalentDataPropertiesAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLEquivalentDataPropertiesAxiom ax = EquivalentDataProperties(DP, DQ, DR);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -284,7 +284,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testDisjointDataPropertiesAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLDisjointDataPropertiesAxiom ax = DisjointDataProperties(DP, DQ, DR);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -298,7 +298,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testDataPropertyDomainAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLDataPropertyDomainAxiom ax = DataPropertyDomain(DP, A);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -309,7 +309,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testDataPropertyRangeAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLDatatype dt = Datatype(iri("dt"));
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(DP, dt);
         ont.addAxiom(ax);
@@ -321,7 +321,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testFunctionalDataPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLFunctionalDataPropertyAxiom ax = FunctionalDataProperty(DP);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -332,7 +332,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testClassAssertionAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLClassAssertionAxiom ax = ClassAssertion(A, indA);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -345,7 +345,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testObjectPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLObjectPropertyAssertionAxiom ax = ObjectPropertyAssertion(P, indA, indB);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -355,7 +355,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testNegativeObjectPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLNegativeObjectPropertyAssertionAxiom ax = NegativeObjectPropertyAssertion(P, indA, indB);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -365,7 +365,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testDataPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLLiteral lit = Literal(3);
         OWLDataPropertyAssertionAxiom ax = DataPropertyAssertion(DP, indA, lit);
         ont.addAxiom(ax);
@@ -376,7 +376,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testNegativeDataPropertyAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLLiteral lit = Literal(3);
         OWLNegativeDataPropertyAssertionAxiom ax = NegativeDataPropertyAssertion(DP, indA, lit);
         ont.addAxiom(ax);
@@ -387,7 +387,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testSameIndividualAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLSameIndividualAxiom ax = SameIndividual(indA, indB, indC);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);
@@ -403,7 +403,7 @@ class OWLOntologyAccessorsTestCase extends TestBase {
 
     @Test
     void testDifferentIndividualsAxiomAccessors() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLDifferentIndividualsAxiom ax = DifferentIndividuals(indA, indB, indC);
         ont.addAxiom(ax);
         performAxiomTests(ont, ax);

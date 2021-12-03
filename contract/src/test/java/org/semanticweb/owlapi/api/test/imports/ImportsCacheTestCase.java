@@ -1,7 +1,10 @@
 package org.semanticweb.owlapi.api.test.imports;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+
+import java.io.File;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +13,8 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10 Jul 16
@@ -22,9 +27,9 @@ class ImportsCacheTestCase extends TestBase {
     private OWLImportsDeclaration ontBDocumentIriImportsDeclaration;
 
     @BeforeEach
-    void setUpOntologies() throws Exception {
-        ontA = m.createOntology(iri("http://ont.com/", "ontA"));
-        ontB = m.createOntology(iri("http://ont.com/", "ontB"));
+    void setUpOntologies() {
+        ontA = create(iri("http://ont.com/", "ontA"));
+        ontB = create(iri("http://ont.com/", "ontB"));
         ontBDocIri = iri("http://docs.ont.com/ontB");
         ontBDocumentIriImportsDeclaration = df.getOWLImportsDeclaration(ontBDocIri);
     }
@@ -55,5 +60,23 @@ class ImportsCacheTestCase extends TestBase {
         m.setOntologyDocumentIRI(ontB, ontBDocIri);
         assertTrue(contains(ontA.importsClosure(), ontA));
         assertTrue(contains(ontA.importsClosure(), ontB));
+    }
+
+    @Test
+    void testImportsWhenRemovingAndReloading() {
+        OWLOntologyManager man = setupManager();
+        File rootDirectory = new File(RESOURCES, "imports");
+        AutoIRIMapper mapper = new AutoIRIMapper(rootDirectory, true);
+        man.getIRIMappers().add(mapper);
+        String name = "thesubont.omn";
+        File subont = new File(rootDirectory, name);
+        OWLOntology root = loadOntologyFromFile(subont, man);
+        assertEquals(1, root.getImports().size());
+        for (OWLOntology ontology : man.getOntologies()) {
+            man.removeOntology(ontology);
+        }
+        assertEquals(0, man.getOntologies().size());
+        root = loadOntologyFromFile(subont, man);
+        assertEquals(1, root.getImports().size());
     }
 }

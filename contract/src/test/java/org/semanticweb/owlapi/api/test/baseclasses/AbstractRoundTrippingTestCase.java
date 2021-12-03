@@ -137,6 +137,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
@@ -152,24 +153,6 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * @since 2.2.0
  */
 class AbstractRoundTrippingTestCase extends TestBase {
-    private static final String ONTOLOGY_IRI_TEST_CASE = "<?xml version=\"1.0\"?>\n"
-        + "<!DOCTYPE rdf:RDF [\n" + "        <!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >\n"
-        + "        <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
-        + "        <!ENTITY owl2xml \"http://www.w3.org/2006/12/owl2-xml#\" >\n"
-        + "        <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\n"
-        + "        <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >\n"
-        + "        ]>\n" + "<rdf:RDF xmlns=\"http://www.test.com/Ambiguous.owl#\"\n"
-        + "         xml:base=\"http://www.test.com/Ambiguous.owl\"\n"
-        + "         xmlns:owl2xml=\"http://www.w3.org/2006/12/owl2-xml#\"\n"
-        + "         xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-        + "         xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-        + "         xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
-        + "         xmlns:owl=\"http://www.w3.org/2002/07/owl#\">\n"
-        + "    <owl:Ontology rdf:about=\"http://www.test.com/wrong.owl\"/>\n"
-        + "    <owl:OntologyProperty rdf:about=\"p\"/>\n"
-        + "    <owl:Ontology rdf:about=\"http://www.test.com/right.owl\">\n" + "        <p>\n"
-        + "            <owl:Ontology rdf:about=\"http://www.test.com/wrong.owl\"/>\n"
-        + "        </p>\n" + "    </owl:Ontology>\n" + "</rdf:RDF>";
 
     static List<List<OWLAxiom>> literalWithEscapesNoRioRDFXMLTestCase() {
         OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#", "A"));
@@ -201,7 +184,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource("formats")
     void anonymousRoundTripTestCase(OWLDocumentFormat f) {
-        OWLOntology ont1 = getOWLOntology();
+        OWLOntology ont1 = create();
         ont1.add(anonymousRoundTrip());
         roundTrip(ont1, f);
     }
@@ -237,7 +220,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     protected OWLOntology anonOntology() {
-        OWLOntology ont = getAnonymousOWLOntology();
+        OWLOntology ont = createAnon();
         OWLAnnotationProperty prop = AnnotationProperty(
             IRI("http://www.semanticweb.org/ontologies/test/annotationont#", "prop"));
         OWLAnnotation annotation = df.getOWLAnnotation(prop, Literal(33));
@@ -247,24 +230,25 @@ class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     @Test
-    void roundTripRDFXMLAndFunctionalShouldBeSameBlankNodesTurtleDomain()
-        throws OWLOntologyCreationException, URISyntaxException {
+    void roundTripRDFXMLAndFunctionalShouldBeSameBlankNodesTurtleDomain() {
         plainEqual(blankNodesTurtleDomain(), true);
     }
 
     @ParameterizedTest
     @MethodSource("formats")
-    void fileRoudTripWithKnownInputFormatTestCase(OWLDocumentFormat f)
-        throws URISyntaxException, OWLOntologyCreationException {
+    void fileRoudTripWithKnownInputFormatTestCase(OWLDocumentFormat f) {
         roundTrip(blankNodesTurtleDomain(), f);
     }
 
-    protected OWLOntology blankNodesTurtleDomain()
-        throws URISyntaxException, OWLOntologyCreationException {
-        URL resource = getClass().getResource('/' + "testBlankNodesDomain.ttl");
-        IRI iri = IRI.create(resource.toURI());
-        return m.loadOntologyFromOntologyDocument(
-            new IRIDocumentSource(iri, new TurtleDocumentFormat(), null));
+    protected OWLOntology blankNodesTurtleDomain() {
+        try {
+            URL resource = getClass().getResource('/' + "testBlankNodesDomain.ttl");
+            IRI iri = IRI.create(resource.toURI());
+            return m.loadOntologyFromOntologyDocument(
+                new IRIDocumentSource(iri, new TurtleDocumentFormat(), null));
+        } catch (OWLOntologyCreationException | URISyntaxException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     @Test
@@ -450,12 +434,11 @@ class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     @Test
-    void fileRoundTripSubClassOfUntypedOWLClassStrictTestCase()
-        throws OWLOntologyCreationException {
+    void fileRoundTripSubClassOfUntypedOWLClassStrictTestCase() {
         config = config.setStrict(true);
         URL url = getClass().getResource("/SubClassOfUntypedOWLClass.rdf");
-        OWLOntology ont = m.loadOntologyFromOntologyDocument(
-            new IRIDocumentSource(IRI.create(url), null, null), config.setReportStackTraces(true));
+        OWLOntology ont = loadOntologyFromSource(new IRIDocumentSource(IRI.create(url), null, null),
+            config.setReportStackTraces(true));
         assertEquals(0, ont.axioms(AxiomType.SUBCLASS_OF).count());
         OWLDocumentFormat format = ont.getFormat();
         assertTrue(format instanceof RDFXMLDocumentFormat);
@@ -468,7 +451,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     // ongoing work to use OBO as one of the roundtripping formats
     // @Test
-    // void testOBO(OWLOntology o) throws Exception {
+    // void testOBO(OWLOntology o){
     // createOntology.applyChange(new SetOntologyID(o,
     // IRI.create("http://purl.obolibrary.org/obo/test.owl")));
     // StringDocumentTarget saveOntology =
@@ -572,7 +555,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
         }
 
         List<OWLAxiom> axioms = literalWithEscapes();
-        OWLOntology o = getOWLOntology();
+        OWLOntology o = create();
         o.add(axioms);
         roundTrip(o, f);
     }
@@ -622,7 +605,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     protected OWLOntology ontologyAnnotation() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLAnnotationProperty prop = AnnotationProperty(
             IRI("http://www.semanticweb.org/ontologies/test/annotationont#", "prop"));
         OWLLiteral value = Literal(33);
@@ -641,8 +624,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     void testCorrectOntologyIRI() {
-        OWLOntology ont =
-            loadOntologyFromString(ONTOLOGY_IRI_TEST_CASE, new RDFXMLDocumentFormat());
+        OWLOntology ont = loadOntologyFromString(TestFiles.ontologyIRI, new RDFXMLDocumentFormat());
         OWLOntologyID id = ont.getOntologyID();
         assertEquals("http://www.test.com/right.owl", id.getOntologyIRI().get().toString());
     }
@@ -650,13 +632,12 @@ class AbstractRoundTrippingTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource("formats")
     void ontologyIRITestCase(OWLDocumentFormat f) {
-        roundTrip(loadOntologyFromString(ONTOLOGY_IRI_TEST_CASE, new RDFXMLDocumentFormat()), f);
+        roundTrip(loadOntologyFromString(TestFiles.ontologyIRI, new RDFXMLDocumentFormat()), f);
     }
 
     @Test
     void roundTripRDFXMLAndFunctionalShouldBeSameOntologyIRI() {
-        plainEqual(loadOntologyFromString(ONTOLOGY_IRI_TEST_CASE, new RDFXMLDocumentFormat()),
-            true);
+        plainEqual(loadOntologyFromString(TestFiles.ontologyIRI, new RDFXMLDocumentFormat()), true);
     }
 
     @ParameterizedTest
@@ -669,7 +650,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
         IRI ontIRI = IRI("http://www.semanticweb.org/owlapi/", "ontology");
         IRI versionIRI = IRI("http://www.semanticweb.org/owlapi/ontology/", "version");
         OWLOntologyID ontologyID = new OWLOntologyID(optional(ontIRI), optional(versionIRI));
-        return getOWLOntology(ontologyID);
+        return create(ontologyID);
     }
 
     @Test
@@ -693,7 +674,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     protected OWLOntology threeLayersOfAnnotations() {
-        OWLOntology o = getOWLOntology(iri("urn:nested:", "ontology"));
+        OWLOntology o = create(iri("urn:nested:", "ontology"));
         OWLClass dbxref = df.getOWLClass(iri("urn:obo:", "DbXref"));
         OWLClass definition = df.getOWLClass(iri("urn:obo:", "Definition"));
         OWLObjectProperty adjacent_to = df.getOWLObjectProperty(iri("urn:obo:", "adjacent_to"));
@@ -827,16 +808,18 @@ class AbstractRoundTrippingTestCase extends TestBase {
             target2.toString().replaceAll("_:genid[0-9]+", "_:genid"));
     }
 
+    @Override
     protected OWLOntology o(OWLAxiom a) {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.add(a);
         ont.unsortedSignature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
             .forEach(e -> ont.add(Declaration(e)));
         return ont;
     }
 
+    @Override
     protected OWLOntology o(Collection<OWLAxiom> a) {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.add(a);
         ont.unsortedSignature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
             .forEach(e -> ont.add(Declaration(e)));
@@ -1084,7 +1067,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     void shouldThrowMeaningfulException() {
-        OWLOntology ontology = getOWLOntology();
+        OWLOntology ontology = create();
         RDFXMLParser parser = new RDFXMLParser();
         // on Java 6 for Mac the following assertion does not work: the root
         // exception does not have a message.

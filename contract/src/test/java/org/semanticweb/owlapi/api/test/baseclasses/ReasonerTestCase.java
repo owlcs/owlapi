@@ -54,7 +54,7 @@ class ReasonerTestCase extends TestBase {
     private OWLReasoner reasoner;
 
     private OWLOntology createOntology() {
-        OWLOntology o = getOWLOntology();
+        OWLOntology o = create();
         o.add(SubClassOf(G, OWLThing()), SubClassOf(OWLThing(), G), EquivalentClasses(A, B),
             SubClassOf(C, B), SubClassOf(D, A), SubClassOf(D, F), SubClassOf(F, D),
             SubClassOf(E, C), SubClassOf(K, D), EquivalentClasses(K, OWLNothing()),

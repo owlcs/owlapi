@@ -38,31 +38,28 @@ class AnnotationPropertyReferencesTestCase extends TestBase {
     void testContainsReferenceForAnnotationAssertion() {
         OWLAnnotationSubject subject = A.getIRI();
         OWLAnnotationAssertionAxiom ax = AnnotationAssertion(AP, subject, val);
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.addAxiom(ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(AP.getIRI()));
-        assertTrue(ont.annotationPropertiesInSignature().anyMatch(a -> a.equals(AP)));
+        assertTrue(ont.annotationPropertiesInSignature().anyMatch(AP::equals));
     }
 
     @Test
     void testContainsReferenceForAxiomAnnotation() {
         OWLAnnotation anno = df.getOWLAnnotation(AP, val);
         OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(A, B, singleton(anno));
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.addAxiom(ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI()));
-        assertTrue(
-            ont.annotationPropertiesInSignature().anyMatch(a -> a.equals(anno.getProperty())));
+        assertTrue(ont.annotationPropertiesInSignature().anyMatch(AP::equals));
     }
 
     @Test
     void testContainsReferenceForOntologyAnnotation() {
         OWLAnnotation anno = df.getOWLAnnotation(AP, val);
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.applyChange(new AddOntologyAnnotation(ont, anno));
-        assertTrue(
-            ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI(), EXCLUDED));
-        assertTrue(ont.annotationPropertiesInSignature(EXCLUDED)
-            .anyMatch(a -> a.equals(anno.getProperty())));
+        assertTrue(ont.containsAnnotationPropertyInSignature(AP.getIRI(), EXCLUDED));
+        assertTrue(ont.annotationPropertiesInSignature(EXCLUDED).anyMatch(AP::equals));
     }
 }

@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 class Owl2OboTestCase extends OboFormatTestBasics {
 
     private static final String TEST_0001 = "TEST:0001";
-    private static final String OBO = "http://purl.obolibrary.org/obo/";
     private static final String COMMENT = "Comment";
 
     private static void addLabelAndId(OWLNamedObject obj, String label, String id, OWLOntology o) {
@@ -54,16 +53,9 @@ class Owl2OboTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    void testConversion() throws Exception {
-        OWLOntology ontology = convert(parseOBOFile("caro.obo"));
-        OBODoc doc = convert(ontology);
-        writeOBO(doc);
-    }
-
-    @Test
-    void testIRTsConversion() throws Exception {
+    void testIRTsConversion() {
         IRI ontologyIRI = iri(OBO, "test.owl");
-        OWLOntology ontology = m.createOntology(ontologyIRI);
+        OWLOntology ontology = create(ontologyIRI);
         convert(ontology);
         String ontId = OWLAPIOwl2Obo.getOntologyId(ontology);
         assertEquals("test", ontId);
@@ -92,8 +84,8 @@ class Owl2OboTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    void testOwl2OboAltIdClass() throws Exception {
-        OWLOntology simple = getOWLOntology();
+    void testOwl2OboAltIdClass() {
+        OWLOntology simple = create();
         // add class A
         OWLClass classA = df.getOWLClass(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001");
         simple.add(df.getOWLDeclarationAxiom(classA));
@@ -119,8 +111,7 @@ class Owl2OboTestCase extends OboFormatTestBasics {
         String altId = altIdClauses.iterator().next().getValue(String.class);
         assertEquals("TEST:0002", altId);
         // roundtrip back to OWL, check that comment is still there
-        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(m1);
-        OWLOntology roundTripped = obo2owl.convert(oboDoc);
+        OWLOntology roundTripped = convert(oboDoc);
         // three for the alt-id plus one
         assertEquals(4, roundTripped.annotationAssertionAxioms(classB.getIRI()).count());
         // for the comment
@@ -136,8 +127,8 @@ class Owl2OboTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    void testOwl2OboProperty() throws Exception {
-        OWLOntology simple = getOWLOntology();
+    void testOwl2OboProperty() {
+        OWLOntology simple = create();
         // add prop1
         OWLObjectProperty p1 =
             df.getOWLObjectProperty(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001");
@@ -165,8 +156,7 @@ class Owl2OboTestCase extends OboFormatTestBasics {
         String altId = altIdClauses.iterator().next().getValue(String.class);
         assertEquals("TEST:0002", altId);
         // roundtrip back to OWL, check that comment is still there
-        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(m1);
-        OWLOntology roundTripped = obo2owl.convert(oboDoc);
+        OWLOntology roundTripped = convert(oboDoc);
         // three for the alt-id plus one for the comment
         assertEquals(4, roundTripped.annotationAssertionAxioms(p2.getIRI()).count());
         // for the comment

@@ -15,7 +15,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
  * Created by @ssz on 29.08.2020.
@@ -23,12 +22,12 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 class HeaderSignatureTestCase extends TestBase {
 
     @Test
-    void testContainsAnnotationPropertyIssue928() throws OWLOntologyCreationException {
+    void testContainsAnnotationPropertyIssue928() {
         OWLAnnotationProperty seeAlso = df.getRDFSSeeAlso();
         OWLDatatype intType = df.getIntegerOWLDatatype();
         OWLDatatype stringType = df.getStringOWLDatatype();
 
-        OWLOntology o = m.createOntology(IRI.create("http://XXXX"));
+        OWLOntology o = create(IRI.create("http://XXXX"));
         o.applyChange(
             new AddOntologyAnnotation(o, df.getRDFSComment(df.getOWLLiteral("xxx", stringType))));
         o.applyChange(new AddOntologyAnnotation(o,

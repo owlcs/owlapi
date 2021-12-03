@@ -13,11 +13,9 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxClassExpressionParser;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
@@ -43,10 +41,9 @@ class ManchesterSyntaxParserTest extends TestBase {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void testParseDataCardinalityExpression(String input, Object expected)
-        throws OWLOntologyCreationException {
+    public void testParseDataCardinalityExpression(String input, Object expected) {
         OWLDataProperty hasAge = df.getOWLDataProperty(iri("http://example.org/", "hasAge"));
-        OWLOntology ont = m.createOntology();
+        OWLOntology ont = createAnon();
         ont.addAxiom(df.getOWLDeclarationAxiom(hasAge));
         ManchesterOWLSyntaxClassExpressionParser parser =
             new ManchesterOWLSyntaxClassExpressionParser(df, checker(m));

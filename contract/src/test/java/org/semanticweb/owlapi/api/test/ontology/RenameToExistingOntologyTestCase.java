@@ -34,11 +34,11 @@ class RenameToExistingOntologyTestCase extends TestBase {
 
     @Test
     void testRenameToExistingOntology() {
-        IRI ontologyAIRI = IRI("http://www.semanticweb.org/ontologies/", "ontologyA");
-        OWLOntology onto = getOWLOntology(ontologyAIRI);
-        onto.add(df.getOWLDeclarationAxiom(Class(IRI("urn:test:", "testclass"))));
-        IRI ontologyBIRI = IRI("http://www.semanticweb.org/ontologies/", "ontologyB");
-        OWLOntology ontologyB = getOWLOntology(ontologyBIRI);
+        IRI ontologyAIRI = iri("http://www.semanticweb.org/ontologies/", "ontologyA");
+        OWLOntology onto = create(ontologyAIRI);
+        onto.add(df.getOWLDeclarationAxiom(Class(iri("urn:test:", "testclass"))));
+        IRI ontologyBIRI = iri("http://www.semanticweb.org/ontologies/", "ontologyB");
+        OWLOntology ontologyB = create(ontologyBIRI);
         assertThrows(OWLOntologyRenameException.class,
             () -> ontologyB.applyChange(new SetOntologyID(ontologyB,
                 new OWLOntologyID(optional(ontologyAIRI), emptyOptional(IRI.class)))));

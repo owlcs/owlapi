@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
@@ -19,6 +20,7 @@ import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * Tests for {@link OBOFormatWriter}.
@@ -34,12 +36,14 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
         return clauses;
     }
 
-    private static String writeObsolete(Object value) throws Exception {
+    private static String writeObsolete(Object value){
         Clause cl = new Clause(OboFormatTag.TAG_IS_OBSELETE);
         cl.addValue(value);
         StringWriter out = new StringWriter();
         try (BufferedWriter bufferedWriter = new BufferedWriter(out)) {
             OBOFormatWriter.write(cl, bufferedWriter, null);
+        } catch (IOException e) {
+            throw new OWLRuntimeException(e);
         }
         return out.toString().trim();
     }
@@ -76,7 +80,7 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    void testWriteObsolete() throws Exception {
+    void testWriteObsolete() {
         assertEquals("", writeObsolete(Boolean.FALSE));
         assertEquals("", writeObsolete(Boolean.FALSE.toString()));
         assertEquals("is_obsolete: true", writeObsolete(Boolean.TRUE));
@@ -87,7 +91,7 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
      * Test that the OBO format writer only writes one new-line at the end of the file.
      */
     @Test
-    void testWriteEndOfFile() throws Exception {
+    void testWriteEndOfFile() {
         OBODoc oboDoc = parseOBOFile("caro.obo");
         String oboString = renderOboToString(oboDoc);
         int length = oboString.length();
@@ -107,7 +111,7 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    void testWriteOpaqueIdsAsComments() throws Exception {
+    void testWriteOpaqueIdsAsComments() {
         OBODoc oboDoc = parseOBOFile("opaque_ids_test.obo");
         String oboString = renderOboToString(oboDoc);
         assertTrue(Arrays.stream(oboString.split("\n")).anyMatch(
@@ -115,7 +119,7 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    void testPropertyValueOrder() throws Exception {
+    void testPropertyValueOrder() {
         StringBuilder sb = new StringBuilder();
         try (InputStream inputStream = new FileInputStream(getFile("tag_order_test.obo"));
             InputStreamReader in = new InputStreamReader(inputStream);
@@ -125,6 +129,8 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
                 sb.append(line);
                 sb.append('\n');
             }
+        } catch (IOException e) {
+            throw new OWLRuntimeException(e);
         }
         String input = sb.toString();
         OBODoc obodoc = parseOboToString(input);

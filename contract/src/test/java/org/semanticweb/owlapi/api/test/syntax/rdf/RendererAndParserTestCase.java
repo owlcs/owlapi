@@ -74,7 +74,7 @@ class RendererAndParserTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource("getData")
     void testSaveAndReload(OWLAxiom axioms) {
-        OWLOntology ontA = getOWLOntology();
+        OWLOntology ontA = create();
         ontA.add(axioms);
         OWLOntology ontB = roundTrip(ontA);
         Set<OWLLogicalAxiom> aMinusB = asUnorderedSet(ontA.logicalAxioms());

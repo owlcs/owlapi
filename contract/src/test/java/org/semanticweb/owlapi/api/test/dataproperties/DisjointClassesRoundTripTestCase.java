@@ -46,7 +46,7 @@ class DisjointClassesRoundTripTestCase extends TestBase {
     }
 
     private OWLOntology buildOntology() {
-        OWLOntology ontology = getOWLOntology(iri(NS, ""));
+        OWLOntology ontology = create(iri(NS, ""));
         ontology
             .add(DisjointClasses(ObjectUnionOf(C, D), ObjectUnionOf(C, E), ObjectUnionOf(C, F)));
         return ontology;

@@ -15,7 +15,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
@@ -24,7 +23,7 @@ class ModuleAnnotationsTestCase extends TestBase {
     private final OWLAnnotationProperty a = df.getOWLAnnotationProperty(IRI.create("urn:test:a"));
     private final OWLAnnotationProperty b = df.getOWLAnnotationProperty(IRI.create("urn:test:b"));
     private final OWLAnnotationProperty replaced =
-        df.getOWLAnnotationProperty("urn:test:term_replaced_by");
+        df.getOWLAnnotationProperty(iri("urn:test:", "term_replaced_by"));
     OWLDeclarationAxiom dA = df.getOWLDeclarationAxiom(a);
     OWLDeclarationAxiom dR = df.getOWLDeclarationAxiom(replaced);
     OWLDeclarationAxiom dB = df.getOWLDeclarationAxiom(b);
@@ -33,10 +32,10 @@ class ModuleAnnotationsTestCase extends TestBase {
     Set<OWLEntity> e = new HashSet<>(Arrays.asList(a));
 
     @Test
-    void shouldNotAddAnnotations() throws OWLOntologyCreationException {
+    void shouldNotAddAnnotations() {
         Set<OWLAxiom> expected = new HashSet<>();
         IRI iri = IRI.create("urn:test:noanns");
-        OWLOntology o = m.createOntology(iri);
+        OWLOntology o = create(iri);
         Set<OWLAxiom> axioms = new HashSet<>(Arrays.asList(dR, dA, dB, ax));
         o.add(axioms);
         Set<OWLAxiom> module = new SyntacticLocalityModuleExtractor(m,
@@ -46,12 +45,12 @@ class ModuleAnnotationsTestCase extends TestBase {
     }
 
     @Test
-    void shouldAddAnnotations() throws OWLOntologyCreationException {
+    void shouldAddAnnotations() {
         Set<OWLAxiom> expected = new HashSet<>();
         expected.add(ax);
         expected.add(dA);
         IRI iri = IRI.create("urn:test:anns");
-        OWLOntology o = m.createOntology(iri);
+        OWLOntology o = create(iri);
         Set<OWLAxiom> axioms = new HashSet<>(Arrays.asList(dR, dA, dB, ax));
         o.add(axioms);
         Set<OWLAxiom> module = new SyntacticLocalityModuleExtractor(m, axioms.stream(),

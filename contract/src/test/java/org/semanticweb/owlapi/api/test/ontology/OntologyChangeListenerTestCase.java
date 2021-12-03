@@ -36,7 +36,7 @@ class OntologyChangeListenerTestCase extends TestBase {
 
     @Test
     void testOntologyChangeListener() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLSubClassOfAxiom ax = SubClassOf(A, B);
         final Set<OWLAxiom> impendingAdditions = new HashSet<>();
         final Set<OWLAxiom> impendingRemovals = new HashSet<>();

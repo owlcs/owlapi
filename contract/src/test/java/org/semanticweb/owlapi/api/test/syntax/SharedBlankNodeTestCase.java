@@ -36,8 +36,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  * test for 3294629 - currently disabled. Not clear whether structure sharing is allowed or
@@ -57,15 +55,14 @@ class SharedBlankNodeTestCase extends TestBase {
     }
 
     @Test
-    void shouldSaveOneIndividual() throws Exception {
+    void shouldSaveOneIndividual() {
         OWLOntology ontology = createOntology();
         StringDocumentTarget s = saveOntology(ontology, new RDFXMLDocumentFormat());
         StringDocumentTarget functionalSyntax =
             saveOntology(ontology, new FunctionalSyntaxDocumentFormat());
         testAnnotation(
             loadOntologyFromString(functionalSyntax, new FunctionalSyntaxDocumentFormat()));
-        OWLOntology o1 = loadOntologyFromString(s, new RDFXMLDocumentFormat());
-        testAnnotation(o1);
+        testAnnotation(loadOntologyFromString(s, new RDFXMLDocumentFormat()));
     }
 
     @Test
@@ -73,8 +70,8 @@ class SharedBlankNodeTestCase extends TestBase {
         testAnnotation(loadOntologyFromString(TestFiles.oneIndividual, new RDFXMLDocumentFormat()));
     }
 
-    OWLOntology createOntology() throws OWLOntologyCreationException {
-        OWLOntology ontology = m.createOntology(IRI(NS, ""));
+    OWLOntology createOntology() {
+        OWLOntology ontology = create(NS);
         annotate(ontology, NS + "#ann", i);
         ontology.add(
             //
@@ -86,7 +83,7 @@ class SharedBlankNodeTestCase extends TestBase {
         return ontology;
     }
 
-    private static void annotate(OWLOntology o, String p, OWLAnnotationValue v) {
+    static void annotate(OWLOntology o, String p, OWLAnnotationValue v) {
         o.applyChange(new AddOntologyAnnotation(o, Annotation(AnnotationProperty(IRI(p)), v)));
     }
 
@@ -99,7 +96,7 @@ class SharedBlankNodeTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundtripBlankNodeAnnotations() throws OWLOntologyStorageException {
+    void shouldRoundtripBlankNodeAnnotations() {
         OWLOntology o =
             loadOntologyFromString(TestFiles.oneAnonIndividuall, new RDFXMLDocumentFormat());
         OWLOntology o1 =
@@ -108,7 +105,7 @@ class SharedBlankNodeTestCase extends TestBase {
         OWLOntology o2 = loadOntologyFromString(saveOntology(o1, new RDFXMLDocumentFormat()),
             new RDFXMLDocumentFormat());
         assertEquals(1L, o2.annotationAssertionAxioms(IRI("http://E", "")).count());
-        Stream<OWLAnnotationSubject> s = o2.annotationAssertionAxioms(IRI("http://E", ""))
+        Stream<OWLAnnotationSubject> s = o2.annotationAssertionAxioms(iri("http://E", ""))
             .map(a -> (OWLAnnotationSubject) a.getValue());
         s.forEach(a -> assertEquals(1L, o2.annotationAssertionAxioms(a).count()));
     }
@@ -160,7 +157,7 @@ class SharedBlankNodeTestCase extends TestBase {
     }
 
     @Test
-    void shouldNotOutputNodeIdWhenNotNeeded() throws OWLOntologyStorageException {
+    void shouldNotOutputNodeIdWhenNotNeeded() {
         OWLOntology o1 =
             loadOntologyFromString(TestFiles.noRemapOnRead, new RDFXMLDocumentFormat());
         StringDocumentTarget result = saveOntology(o1, new RDFXMLDocumentFormat());
@@ -168,7 +165,7 @@ class SharedBlankNodeTestCase extends TestBase {
     }
 
     @Test
-    void shouldOutputNodeIdEvenIfNotNeeded() throws OWLOntologyStorageException {
+    void shouldOutputNodeIdEvenIfNotNeeded() {
         OWLOntology o1 =
             loadOntologyFromString(TestFiles.unconditionalId, new RDFXMLDocumentFormat());
         masterConfigurator.withSaveIdsForAllAnonymousIndividuals(true);
@@ -185,7 +182,7 @@ class SharedBlankNodeTestCase extends TestBase {
     }
 
     @Test
-    void shouldOutputNodeIdWhenNeeded() throws OWLOntologyStorageException {
+    void shouldOutputNodeIdWhenNeeded() {
         OWLOntology o1 =
             loadOntologyFromString(TestFiles.conditionalId, new RDFXMLDocumentFormat());
         StringDocumentTarget result = saveOntology(o1, new RDFXMLDocumentFormat());

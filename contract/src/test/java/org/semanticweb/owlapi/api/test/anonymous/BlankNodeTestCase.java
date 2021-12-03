@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 class BlankNodeTestCase extends TestBase {
 
     @Test
-    void testBlankNodes() throws OWLOntologyCreationException {
+    void testBlankNodes() {
         loadOntologyFromString(TestFiles.anonTurtle, new TurtleDocumentFormat());
     }
 }

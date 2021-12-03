@@ -48,8 +48,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 class DisjointsTestCase extends TestBase {
 
     @Test
-    void testAnonDisjoints() throws Exception {
-        OWLOntology ontA = getOWLOntology();
+    void testAnonDisjoints(){
+        OWLOntology ontA = create();
         OWLClass clsA = createClass();
         OWLClass clsB = createClass();
         OWLObjectProperty prop = createObjectProperty();
@@ -67,7 +67,7 @@ class DisjointsTestCase extends TestBase {
     @Test
     void shouldAcceptSingleDisjointAxiom() {
         // The famous idiomatic use of DisjointClasses with one operand
-        OWLClass t = df.getOWLClass("urn:test:class");
+        OWLClass t = df.getOWLClass("urn:test:", "class");
         OWLDisjointClassesAxiom ax = df.getOWLDisjointClassesAxiom(Arrays.asList(t));
         assertEquals(df.getOWLDisjointClassesAxiom(Arrays.asList(t, df.getOWLThing())),
             ax.getAxiomWithoutAnnotations());

@@ -64,7 +64,7 @@ class AnnotationAccessorsTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource("getData")
     void testClassAccessor(OWLPrimitive e) {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
         ont.addAxiom(ax);
         assertTrue(ont.annotationAssertionAxioms(subject()).anyMatch(a -> a.equals(ax)));

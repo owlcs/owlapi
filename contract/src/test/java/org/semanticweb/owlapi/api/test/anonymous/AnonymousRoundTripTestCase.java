@@ -13,48 +13,36 @@
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ClassAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
 class AnonymousRoundTripTestCase extends TestBase {
 
     @Test
-    void shouldNotFailOnAnonymousOntologySearch() throws OWLOntologyCreationException {
-        m.createOntology(new OWLOntologyID());
-        assertNull(m.getOntology(new OWLOntologyID()));
+    void shouldNotFailOnAnonymousOntologySearch() {
+        OWLOntology o = create(new OWLOntologyID());
+        assertNull(o.getOWLOntologyManager().getOntology(new OWLOntologyID()));
     }
 
     @Test
     void testRoundTrip() {
-        String ns = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
-        OWLClass a = Class(IRI(ns + "#", "A"));
         OWLAnonymousIndividual h = AnonymousIndividual();
         OWLAnonymousIndividual i = AnonymousIndividual();
-        OWLAnnotationProperty p = AnnotationProperty(IRI(ns + "#", "p"));
-        OWLObjectProperty q = ObjectProperty(IRI(ns + "#", "q"));
-        OWLOntology ontology = getOWLOntology();
-        OWLAnnotation annotation1 = df.getOWLAnnotation(p, h);
+        OWLOntology ontology = create();
+        OWLAnnotation annotation1 = df.getOWLAnnotation(AP, h);
         OWLAnnotation annotation2 = df.getRDFSLabel(Literal("Second", "en"));
-        ontology.add(df.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1),
-            ClassAssertion(a, h), ObjectPropertyAssertion(q, h, i),
+        ontology.add(df.getOWLAnnotationAssertionAxiom(A.getIRI(), annotation1),
+            ClassAssertion(A, h), ObjectPropertyAssertion(P, h, i),
             df.getOWLAnnotationAssertionAxiom(h, annotation2));
         OWLOntology o = roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
         equal(ontology, o);

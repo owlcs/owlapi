@@ -22,8 +22,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
 
 /**
@@ -33,12 +31,11 @@ import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
 class ChangeOntologyURITestCase extends TestBase {
 
     @Test
-    void testChangeURI() throws OWLOntologyCreationException {
+    void testChangeURI() {
         IRI oldIRI = iri("http://www.semanticweb.org/ontologies/", "ontA");
         IRI newIRI = iri("http://www.semanticweb.org/ontologies/", "ontB");
-        OWLOntology ont = m.createOntology(oldIRI);
-        OWLOntology importingOnt =
-            m.createOntology(iri("http://www.semanticweb.org/ontologies/", "ontC"));
+        OWLOntology ont = create(oldIRI);
+        OWLOntology importingOnt = create(iri("http://www.semanticweb.org/ontologies/", "ontC"));
         importingOnt.applyChange(new AddImport(importingOnt,
             df.getOWLImportsDeclaration(get(ont.getOntologyID().getOntologyIRI()))));
         assertTrue(m.contains(oldIRI));
@@ -60,9 +57,10 @@ class ChangeOntologyURITestCase extends TestBase {
     }
 
     @Test
-    void shouldCheckContents() throws OWLOntologyCreationException {
-        m.createOntology(iri("http://www.test.com/", "123"));
-        OWLOntologyID anonymousId = m1.createOntology().getOntologyID();
-        m.contains(anonymousId);
+    void shouldCheckContents() {
+        OWLOntology o1 = create(IRI.create("http://www.test.com/123"));
+        assertTrue(o1.getOWLOntologyManager().contains(o1.getOntologyID()));
+        OWLOntology o2 = createAnon();
+        assertFalse(o2.getOWLOntologyManager().contains(o2.getOntologyID()));
     }
 }

@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.allPairs;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.minimalPairs;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
 
 import java.util.Collection;
@@ -39,10 +40,10 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
     Stream<C> operands();
 
     /**
-     * Gets this axiom as a set of pairwise axioms; if the axiom contains only two operands, 
-     * the axiom itself is returned unchanged, including its annotations. Note that, aside 
-     * from this exception, annotations on this axiom will not be copied to each axiom 
-     * returned in the set of pairwise axioms.<br>
+     * Gets this axiom as a set of pairwise axioms; if the axiom contains only two operands, the
+     * axiom itself is returned unchanged, including its annotations. Note that, aside from this
+     * exception, annotations on this axiom will not be copied to each axiom returned in the set of
+     * pairwise axioms.<br>
      * Note: This will contain all pairs, i.e., for the set "a, b, c" the pairs "a, b", "a, c", "b,
      * c" will be returned. For some applications, only "a, b", "b, c" are required.
      *
@@ -57,7 +58,8 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
      * @return collection of all visitor return values that are not null
      */
     default <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, C> visitor) {
-        return asList(pairs(operands()).map(v -> visitor.visit(v.i, v.j)).filter(Objects::nonNull));
+        return asList(
+            minimalPairs(operands()).map(v -> visitor.visit(v.i, v.j)).filter(Objects::nonNull));
     }
 
     /**

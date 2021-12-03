@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
@@ -126,8 +125,7 @@ class OldModularisationEquivalenceTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource("params")
     @Disabled
-    void testModularizationWithAtomicDecompositionStar(Set<OWLEntity> signature)
-        throws OWLException {
+    void testModularizationWithAtomicDecompositionStar(Set<OWLEntity> signature) {
         OWLOntology o = loadOntologyFromString(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
             asList(getADModule1(o, signature, ModuleType.STAR).stream().sorted());
@@ -138,8 +136,7 @@ class OldModularisationEquivalenceTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("params")
-    void testModularizationWithAtomicDecompositionTop(Set<OWLEntity> signature)
-        throws OWLException {
+    void testModularizationWithAtomicDecompositionTop(Set<OWLEntity> signature) {
         OWLOntology o = loadOntologyFromString(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
             asList(getADModule1(o, signature, ModuleType.TOP).stream().sorted());
@@ -150,8 +147,7 @@ class OldModularisationEquivalenceTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("params")
-    void testModularizationWithAtomicDecompositionBottom(Set<OWLEntity> signature)
-        throws OWLException {
+    void testModularizationWithAtomicDecompositionBottom(Set<OWLEntity> signature) {
         OWLOntology o = loadOntologyFromString(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
             asList(getADModule1(o, signature, ModuleType.BOT).stream().sorted());

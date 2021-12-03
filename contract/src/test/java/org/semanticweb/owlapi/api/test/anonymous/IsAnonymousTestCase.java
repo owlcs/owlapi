@@ -16,7 +16,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
@@ -26,19 +25,19 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 class IsAnonymousTestCase extends TestBase {
 
     @Test
-    void shouldCheckAnonymous() throws OWLOntologyCreationException {
+    void shouldCheckAnonymous() {
         IRI i = iri("urn:test:", "i");
         IRI j = iri("urn:test:", "j");
         OWLClass c = df.getOWLClass(i);
-        OWLClass c1 = df.getOWLClass("urn:test:c1");
-        OWLClass c2 = df.getOWLClass("urn:test:c2");
+        OWLClass c1 = df.getOWLClass(iri("urn:test:", "c1"));
+        OWLClass c2 = df.getOWLClass(iri("urn:test:", "c2"));
         OWLDataProperty dp = df.getOWLDataProperty(i);
-        OWLDataProperty dp1 = df.getOWLDataProperty("urn:test:dp1");
+        OWLDataProperty dp1 = df.getOWLDataProperty(iri("urn:test:", "dp1"));
         OWLObjectProperty op = df.getOWLObjectProperty(i);
-        OWLObjectProperty op1 = df.getOWLObjectProperty("urn:test:op1");
-        OWLObjectProperty op2 = df.getOWLObjectProperty("urn:test:op2");
+        OWLObjectProperty op1 = df.getOWLObjectProperty(iri("urn:test:", "op1"));
+        OWLObjectProperty op2 = df.getOWLObjectProperty(iri("urn:test:", "op2"));
         OWLNamedIndividual ind = df.getOWLNamedIndividual(i);
-        OWLNamedIndividual ind1 = df.getOWLNamedIndividual("urn:test:ind1");
+        OWLNamedIndividual ind1 = df.getOWLNamedIndividual(iri("urn:test:", "ind1"));
         OWLAnnotation label = df.getRDFSLabel("label");
         OWLLiteral l = df.getOWLLiteral("literal");
         SWRLClassAtom sc =
@@ -49,9 +48,9 @@ class IsAnonymousTestCase extends TestBase {
         OWLDatatype itype = df.getIntegerOWLDatatype();
         OWLDatatype dtype = df.getDoubleOWLDatatype();
         assertFalse(new OWLOntologyID(i, i).isAnonymous());
-        OWLOntology o = m.createOntology(i);
+        OWLOntology o = create(i);
         assertFalse(o.isAnonymous());
-        OWLOntology o1 = m.createOntology();
+        OWLOntology o1 = createAnon();
         assertTrue(o1.isAnonymous());
         // entities
         assertFalse(c.isAnonymous());

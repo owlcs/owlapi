@@ -35,10 +35,10 @@ import org.semanticweb.owlapi.util.OWLEntityRenamer;
 class RelativeIRIsRoundTripTestCase extends TestBase {
     private final String ns = "";
     // "urn:test:ns#";
-    private final OWLDataProperty d = df.getOWLDataProperty(ns + "d");
-    private final OWLObjectProperty o = df.getOWLObjectProperty(ns + "o");
-    private final OWLAnnotationProperty x = df.getOWLAnnotationProperty(ns + "X");
-    private final OWLAnnotationProperty y = df.getOWLAnnotationProperty(ns + "Y");
+    private final OWLDataProperty d = df.getOWLDataProperty(iri(ns, "d"));
+    private final OWLObjectProperty o = df.getOWLObjectProperty(iri(ns, "o"));
+    private final OWLAnnotationProperty x = df.getOWLAnnotationProperty(iri(ns, "X"));
+    private final OWLAnnotationProperty y = df.getOWLAnnotationProperty(iri(ns, "Y"));
     private final OWLAnnotation ann1 = df.getOWLAnnotation(x, df.getOWLLiteral("x"));
     private final OWLAnnotation ann2 = df.getOWLAnnotation(y, df.getOWLLiteral("y"));
 
@@ -46,7 +46,7 @@ class RelativeIRIsRoundTripTestCase extends TestBase {
         OWLClassExpression c1 = df.getOWLDataAllValuesFrom(d, df.getBooleanOWLDatatype());
         OWLClassExpression c2 = df.getOWLObjectSomeValuesFrom(o, df.getOWLThing());
         OWLAxiom a = df.getOWLSubClassOfAxiom(c1, c2, Arrays.asList(ann1, ann2));
-        OWLOntology ont1 = getOWLOntology(iri("http://www.semanticweb.org/owlapi/", ""));
+        OWLOntology ont1 = create(iri("http://www.semanticweb.org/owlapi/", ""));
         ont1.add(a);
         return ont1;
     }

@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test.syntax;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
 
@@ -23,52 +22,51 @@ import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 class ManchesterImportTestCase extends TestBase {
 
-    private final IRI str = IRI("http://owlapitestontologies.com/", "thesuperont");
-    private final String superpath = "/imports/thesuperont.omn";
+    final IRI str = iri("http://owlapitestontologies.com/", "thesuperont");
+    final String superpath = "/imports/thesuperont.omn";
 
     @Test
-    void testManualImports() throws OWLOntologyCreationException {
+    void testManualImports() {
         OWLOntologyManager manager = getManager();
-        manager.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
+        loadOntologyFromFile(new File(RESOURCES, superpath), manager);
         assertNotNull(manager.getOntology(str));
     }
 
-    private OWLOntologyManager getManager() {
+    OWLOntologyManager getManager() {
         AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
         m.getIRIMappers().add(mapper);
         return m;
     }
 
     @Test
-    void testRemoteIsParseable() throws OWLOntologyCreationException {
+    void testRemoteIsParseable() {
         OWLOntologyManager manager = getManager();
-        OWLOntology ontology = manager.loadOntology(str);
+        OWLOntology ontology = loadOntologyFromString(str, manager);
         assertEquals(1, ontology.getAxiomCount());
         assertEquals(ontology.getOntologyID().getOntologyIRI().get(), str);
         assertNotNull(manager.getOntology(str));
     }
 
     @Test
-    void testEquivalentLoading() throws OWLOntologyCreationException {
+    void testEquivalentLoading() {
         OWLOntologyManager managerStart = getManager();
         OWLOntology manualImport =
-            managerStart.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
+            loadOntologyFromFile(new File(RESOURCES, superpath), managerStart);
         OWLOntologyManager managerTest = getManager();
-        OWLOntology iriImport = managerTest.loadOntology(str);
+        OWLOntology iriImport = loadOntologyFromString(str, managerTest);
         assertTrue(manualImport.equalAxioms(iriImport));
         assertEquals(manualImport.getOntologyID(), iriImport.getOntologyID());
     }
 
     @Test
-    void testImports() throws OWLOntologyCreationException {
+    void testImports() {
         OWLOntologyManager manager = getManager();
         String subpath = "/imports/thesubont.omn";
-        manager.loadOntologyFromOntologyDocument(new File(RESOURCES, subpath));
+        loadOntologyFromFile(new File(RESOURCES, subpath), manager);
     }
 }

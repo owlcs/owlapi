@@ -55,9 +55,9 @@ class OntologyIDTestCase extends TestBase {
     @Test
     void testUnequalIdsUnequal() {
         OWLOntologyID id1 =
-            new OWLOntologyID(optional(IRI("http://www.w3.org/", "foo")), emptyOptional(IRI.class));
+            new OWLOntologyID(optional(iri("http://www.w3.org/", "foo")), emptyOptional(IRI.class));
         OWLOntologyID id2 =
-            new OWLOntologyID(optional(IRI("http://www.w3.org/", "bar")), emptyOptional(IRI.class));
+            new OWLOntologyID(optional(iri("http://www.w3.org/", "bar")), emptyOptional(IRI.class));
         assertNotEquals(id1.hashCode(), id2.hashCode());
         assertNotEquals(id1, id2);
     }

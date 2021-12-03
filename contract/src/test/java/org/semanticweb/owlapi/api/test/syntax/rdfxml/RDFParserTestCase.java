@@ -26,9 +26,7 @@ import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
 /**
@@ -44,11 +42,11 @@ class RDFParserTestCase extends TestBase {
     }
 
     @Test
-    void testOWLAPI() throws Exception {
+    void testOWLAPI() throws URISyntaxException {
         parseFiles("/owlapi/");
     }
 
-    private void parseFiles(String base) throws URISyntaxException, OWLOntologyCreationException {
+    private void parseFiles(String base) throws URISyntaxException {
         URL url = getClass().getResource(base);
         File file = new File(url.toURI());
         for (File testSuiteFolder : file.listFiles()) {
@@ -56,7 +54,7 @@ class RDFParserTestCase extends TestBase {
                 for (File ontologyFile : testSuiteFolder.listFiles()) {
                     if (ontologyFile.getName().endsWith(".rdf")
                         || ontologyFile.getName().endsWith(".owlapi")) {
-                        OWLOntology ont = m.loadOntologyFromOntologyDocument(ontologyFile);
+                        OWLOntology ont = loadOntologyFromFile(ontologyFile, m);
                         m.removeOntology(ont);
                     }
                 }
@@ -81,7 +79,7 @@ class RDFParserTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundTripLhsSubsetOfRHS() throws OWLException {
+    void shouldRoundTripLhsSubsetOfRHS() {
         OWLOntology o =
             loadOntologyFromString(TestFiles.lhsSubsetofRhs, new FunctionalSyntaxDocumentFormat());
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());

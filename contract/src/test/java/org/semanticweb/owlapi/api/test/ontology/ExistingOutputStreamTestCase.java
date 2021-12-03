@@ -38,7 +38,7 @@ class ExistingOutputStreamTestCase extends TestBase {
 
     @Test
     void testOutputStreamRemainsOpen() {
-        OWLOntology ontology = getOWLOntology();
+        OWLOntology ontology = create();
         saveOntology(ontology, new RDFXMLDocumentFormat());
         saveOntology(ontology, new OWLXMLDocumentFormat());
         saveOntology(ontology, new TurtleDocumentFormat());

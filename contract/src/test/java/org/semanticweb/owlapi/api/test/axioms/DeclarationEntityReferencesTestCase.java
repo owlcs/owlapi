@@ -43,7 +43,7 @@ class DeclarationEntityReferencesTestCase extends TestBase {
     void testOWLClassDeclarationAxiom() {
         OWLClass cls = createClass();
         OWLAxiom ax = Declaration(cls);
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.add(ax);
         assertTrue(contains(ont.classesInSignature(), cls));
     }
@@ -52,7 +52,7 @@ class DeclarationEntityReferencesTestCase extends TestBase {
     void testOWLObjectPropertyDeclarationAxiom() {
         OWLObjectProperty prop = createObjectProperty();
         OWLAxiom ax = Declaration(prop);
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.add(ax);
         assertTrue(contains(ont.objectPropertiesInSignature(), prop));
     }
@@ -61,7 +61,7 @@ class DeclarationEntityReferencesTestCase extends TestBase {
     void testOWLDataPropertyDeclarationAxiom() {
         OWLDataProperty prop = createDataProperty();
         OWLAxiom ax = Declaration(prop);
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.add(ax);
         assertTrue(contains(ont.dataPropertiesInSignature(), prop));
     }
@@ -70,7 +70,7 @@ class DeclarationEntityReferencesTestCase extends TestBase {
     void testOWLIndividualDeclarationAxiom() {
         OWLNamedIndividual ind = createIndividual();
         OWLAxiom ax = Declaration(ind);
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.add(ax);
         assertTrue(contains(ont.individualsInSignature(), ind));
     }

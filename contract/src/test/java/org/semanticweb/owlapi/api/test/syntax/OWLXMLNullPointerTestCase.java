@@ -37,8 +37,8 @@ class OWLXMLNullPointerTestCase extends TestBase {
     static final String NS = "urn:test";
 
     @Test
-    void testRoundTrip() throws Exception {
-        OWLOntology ontology = getOWLOntology(IRI(NS, ""));
+    void testRoundTrip(){
+        OWLOntology ontology = create(IRI(NS, ""));
         OWLClass cheesy = Class(IRI(NS + "#", "CheeseyPizza"));
         OWLClass cheese = Class(IRI(NS + "#", "CheeseTopping"));
         OWLObjectProperty hasTopping = df.getOWLObjectProperty(NS + "#", "hasTopping");
@@ -54,12 +54,10 @@ class OWLXMLNullPointerTestCase extends TestBase {
     }
 
     @Test
-    void shouldParse() throws Exception {
-        OWLOntology o = getOWLOntology();
-        OWLClass c = df.getOWLClass("urn:test#", "c");
-        OWLObjectProperty p = df.getOWLObjectProperty("urn:test#", "p");
+    void shouldParse(){
+        OWLOntology o = create("urn:test");
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
-        OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(c, df.getOWLObjectHasValue(p, i));
+        OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(C, df.getOWLObjectHasValue(P, i));
         o.addAxiom(sub);
         OWLOntology roundtrip = roundTrip(o, new OWLXMLDocumentFormat());
         equal(o, roundtrip);

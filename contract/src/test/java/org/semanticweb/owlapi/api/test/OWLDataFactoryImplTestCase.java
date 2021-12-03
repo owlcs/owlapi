@@ -87,7 +87,7 @@ class OWLDataFactoryImplTestCase {
 
     int cardinality = 3;
     private final OWLDataFactory testSubject = new OWLDataFactoryImpl();
-    private final AtomicInteger counter = new AtomicInteger(1);
+    private static final AtomicInteger COUNTER = new AtomicInteger(1);
     OWLClassExpression a = C(IRI());
     OWLIndividual a1 = I();
     OWLLiteral a2 = Literal();
@@ -147,7 +147,7 @@ class OWLDataFactoryImplTestCase {
     }
 
     private OWLLiteral Literal() {
-        return testSubject.getOWLLiteral("A" + counter.getAndIncrement());
+        return testSubject.getOWLLiteral("A" + COUNTER.getAndIncrement());
     }
 
     private OWLObjectProperty OP(IRI i) {

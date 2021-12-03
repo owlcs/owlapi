@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 class ManchesterParseErrorTestCase extends TestBase {
 
-    private static OWLClassExpression parse(String text) {
+    static OWLClassExpression parse(String text) {
         MockEntityChecker checker = new MockEntityChecker(df);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text);

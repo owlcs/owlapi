@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.OWLLiteralReplacer;
 import org.semanticweb.owlapi.util.OWLObjectTransformer;
@@ -45,18 +44,16 @@ class TypedLiteralsTestCase extends TestBase {
 
     OWLNamedIndividual ind = NamedIndividual(iri("i"));
 
-    protected OWLOntology createAxioms() throws OWLOntologyCreationException {
-        OWLOntology o = m.createOntology();
-        o.add(DataPropertyAssertion(DP, ind, Literal(3)));
-        o.add(DataPropertyAssertion(DP, ind, Literal(33.3)));
-        o.add(DataPropertyAssertion(DP, ind, Literal(true)));
-        o.add(DataPropertyAssertion(DP, ind, Literal(33.3f)));
-        o.add(DataPropertyAssertion(DP, ind, Literal("33.3")));
-        return o;
+    protected OWLOntology createAxioms() {
+        return o(DataPropertyAssertion(DP, ind, Literal(3)),
+            DataPropertyAssertion(DP, ind, Literal(33.3)),
+            DataPropertyAssertion(DP, ind, Literal(true)),
+            DataPropertyAssertion(DP, ind, Literal(33.3f)),
+            DataPropertyAssertion(DP, ind, Literal("33.3")));
     }
 
     @Test
-    void shouldReplaceLiterals() throws OWLOntologyCreationException {
+    void shouldReplaceLiterals() {
         OWLOntology o = createAxioms();
         OWLLiteralReplacer replacer =
             new OWLLiteralReplacer(o.getOWLOntologyManager(), Collections.singleton(o));
@@ -76,19 +73,13 @@ class TypedLiteralsTestCase extends TestBase {
     }
 
     @Test
-    void shouldReplaceLiteralsWithTransformer() throws OWLOntologyCreationException {
+    void shouldReplaceLiteralsWithTransformer() {
         OWLOntology o = createAxioms();
         final Map<OWLLiteral, OWLLiteral> replacements = new HashMap<>();
         replacements.put(Literal(true), Literal(false));
         replacements.put(Literal(3), Literal(4));
         OWLObjectTransformer<OWLLiteral> replacer =
-            new OWLObjectTransformer<>((x) -> true, (input) -> {
-                OWLLiteral l = replacements.get(input);
-                if (l == null) {
-                    return input;
-                }
-                return l;
-            }, df, OWLLiteral.class);
+            new OWLObjectTransformer<>(x -> true, input -> replacements.getOrDefault(input, input), df, OWLLiteral.class);
         List<OWLOntologyChange> results = replacer.change(o);
         assertResults(o, results);
     }

@@ -15,12 +15,10 @@ package org.semanticweb.owlapi.api.test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalDataProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseFunctionalObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IrreflexiveObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ReflexiveObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
@@ -34,9 +32,6 @@ import static org.semanticweb.owlapi.search.EntitySearcher.isTransitive;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -45,9 +40,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
+    OWLOntology ont = create();
+
     @Test
     void testTransitive() {
-        OWLOntology ont = getOWLOntology();
         assertFalse(isTransitive(P, ont));
         ont.add(TransitiveObjectProperty(P));
         assertTrue(isTransitive(P, ont));
@@ -55,7 +51,6 @@ class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     void testSymmetric() {
-        OWLOntology ont = getOWLOntology();
         assertFalse(isSymmetric(P, ont));
         ont.add(SymmetricObjectProperty(P));
         assertTrue(isSymmetric(P, ont));
@@ -63,7 +58,6 @@ class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     void testAsymmetric() {
-        OWLOntology ont = getOWLOntology();
         assertFalse(isAsymmetric(P, ont));
         ont.add(AsymmetricObjectProperty(P));
         assertTrue(isAsymmetric(P, ont));
@@ -71,7 +65,6 @@ class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     void testReflexive() {
-        OWLOntology ont = getOWLOntology();
         assertFalse(isReflexive(P, ont));
         ont.add(ReflexiveObjectProperty(P));
         assertTrue(isReflexive(P, ont));
@@ -79,7 +72,6 @@ class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     void testIrreflexive() {
-        OWLOntology ont = getOWLOntology();
         assertFalse(isIrreflexive(P, ont));
         ont.add(IrreflexiveObjectProperty(P));
         assertTrue(isIrreflexive(P, ont));
@@ -87,7 +79,6 @@ class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     void testFunctional() {
-        OWLOntology ont = getOWLOntology();
         assertFalse(isFunctional(P, ont));
         ont.add(FunctionalObjectProperty(P));
         assertTrue(isFunctional(P, ont));
@@ -95,7 +86,6 @@ class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     void testInverseFunctional() {
-        OWLOntology ont = getOWLOntology();
         assertFalse(isInverseFunctional(P, ont));
         ont.add(InverseFunctionalObjectProperty(P));
         assertTrue(isInverseFunctional(P, ont));
@@ -103,7 +93,6 @@ class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     void testFunctionalDataProperty() {
-        OWLOntology ont = getOWLOntology();
         assertFalse(isFunctional(DP, ont));
         ont.add(FunctionalDataProperty(DP));
         assertTrue(isFunctional(DP, ont));

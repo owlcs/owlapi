@@ -20,19 +20,18 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.LatexDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 class LatexRendererTestCase extends TestBase {
 
     @Test
-    void shouldRenderEscapingUnderscores() throws Exception {
+    void shouldRenderEscapingUnderscores() {
         OWLOntology o =
             loadOntologyFromString(TestFiles.latexWithUnderscores, new LatexDocumentFormat());
         assertTrue(saveOntology(o, new LatexDocumentFormat()).toString().contains("C\\_Test"));
     }
 
     @Test
-    void shouldSaveInverses() throws OWLOntologyStorageException {
+    void shouldSaveInverses() {
         OWLOntology o =
             loadOntologyFromString(TestFiles.latexWithInverse, new LatexDocumentFormat());
         assertEquals(TestFiles.latexExpectedOutput,

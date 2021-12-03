@@ -37,7 +37,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -53,7 +52,7 @@ class ProfileValidationTestCase extends TestBase {
     }
 
     @Test
-    void testProfiles() throws OWLOntologyCreationException {
+    void testProfiles() {
         String ns = "http://www.w3.org/2007/OWL/testOntology#";
         IRI profile = IRI(ns, "ProfileIdentificationTest");
         IRI species = IRI(ns, "species");
@@ -65,7 +64,7 @@ class ProfileValidationTestCase extends TestBase {
         IRI premiseIRI = IRI(ns, "rdfXmlPremiseOntology");
         URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
         IRI allTestURI = IRI.create(resourceURL);
-        OWLOntology testCasesOntology = m.loadOntologyFromOntologyDocument(allTestURI);
+        OWLOntology testCasesOntology = loadOntologyFromString(allTestURI);
         OWLClass profileIdentificationTestClass = Class(profile);
         OWLNamedIndividual el = df.getOWLNamedIndividual(elIRI);
         OWLNamedIndividual ql = df.getOWLNamedIndividual(qlIRI);
@@ -130,7 +129,7 @@ class ProfileValidationTestCase extends TestBase {
 
     @Test
     void shouldNotFailELBecauseOfBoolean() {
-        OWLOntology o = getOWLOntology();
+        OWLOntology o = create();
         OWLAnnotation ann = df.getRDFSLabel(df.getOWLLiteral(true));
         OWLAnnotationAssertionAxiom ax =
             df.getOWLAnnotationAssertionAxiom(iri("urn:test#", "ELProfile"), ann);

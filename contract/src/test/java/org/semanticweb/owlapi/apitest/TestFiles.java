@@ -46,6 +46,7 @@ public class TestFiles {
         }
     }
 
+    public static String ontologyIRI = string("ontologyIRI.rdf");
     public static String ontFirst = string("ontFirst.txt");
     public static String labelFirst = string("labelFirst.txt");
     public static String nestedAnnotations = string("nestedAnnotations.txt");

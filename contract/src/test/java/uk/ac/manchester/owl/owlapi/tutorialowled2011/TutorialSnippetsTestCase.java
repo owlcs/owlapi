@@ -67,6 +67,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -175,7 +176,7 @@ class TutorialSnippetsTestCase {
     }
 
     @Test
-    void testSaveOntology() throws Exception {
+    void testSaveOntology() throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         assertNotNull(o);
@@ -196,7 +197,7 @@ class TutorialSnippetsTestCase {
     }
 
     @Test
-    void testIRIMapper() throws Exception {
+    void testIRIMapper() throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         // map the ontology IRI to a physical IRI (files for example)
         // Create the document IRI for our ontology

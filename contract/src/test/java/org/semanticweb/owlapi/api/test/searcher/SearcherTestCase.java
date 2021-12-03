@@ -13,26 +13,9 @@
 package org.semanticweb.owlapi.api.test.searcher;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Boolean;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyDomain;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyRange;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentDataProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyDomain;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyRange;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubDataPropertyOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.search.Searcher.domain;
-import static org.semanticweb.owlapi.search.Searcher.equivalent;
-import static org.semanticweb.owlapi.search.Searcher.range;
-import static org.semanticweb.owlapi.search.Searcher.sub;
-import static org.semanticweb.owlapi.search.Searcher.sup;
+import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
@@ -58,7 +41,7 @@ class SearcherTestCase extends TestBase {
     @Test
     void shouldSearch() {
         // given
-        OWLOntology o = getOWLOntology();
+        OWLOntology o = createAnon();
         OWLAxiom ax = SubClassOf(C, D);
         o.addAxiom(ax);
         assertTrue(contains(o.axioms(AxiomType.SUBCLASS_OF), ax));
@@ -68,13 +51,13 @@ class SearcherTestCase extends TestBase {
     @Test
     void shouldSearchObjectProperties() {
         // given
-        OWLOntology o = getOWLOntology();
-        OWLObjectProperty c = ObjectProperty(IRI(URN_TEST, "c"));
-        OWLObjectProperty d = ObjectProperty(IRI(URN_TEST, "d"));
-        OWLObjectProperty e = ObjectProperty(IRI(URN_TEST, "e"));
-        OWLObjectProperty f = ObjectProperty(IRI(URN_TEST, "f"));
-        OWLClass x = Class(IRI(URN_TEST, "x"));
-        OWLClass y = Class(IRI(URN_TEST, "Y"));
+        OWLOntology o = createAnon();
+        OWLObjectProperty c = ObjectProperty(iri(URN_TEST, "c"));
+        OWLObjectProperty d = ObjectProperty(iri(URN_TEST, "d"));
+        OWLObjectProperty e = ObjectProperty(iri(URN_TEST, "e"));
+        OWLObjectProperty f = ObjectProperty(iri(URN_TEST, "f"));
+        OWLClass x = Class(iri(URN_TEST, "x"));
+        OWLClass y = Class(iri(URN_TEST, "Y"));
         OWLAxiom ax = SubObjectPropertyOf(c, d);
         OWLAxiom ax2 = ObjectPropertyDomain(c, x);
         OWLAxiom ax3 = ObjectPropertyRange(c, y);
@@ -102,12 +85,12 @@ class SearcherTestCase extends TestBase {
     @Test
     void shouldSearchDataProperties() {
         // given
-        OWLOntology o = getOWLOntology();
-        OWLDataProperty c = DataProperty(IRI(URN_TEST, "c"));
-        OWLDataProperty d = DataProperty(IRI(URN_TEST, "d"));
-        OWLDataProperty e = DataProperty(IRI(URN_TEST, "e"));
+        OWLOntology o = createAnon();
+        OWLDataProperty c = DataProperty(iri(URN_TEST, "c"));
+        OWLDataProperty d = DataProperty(iri(URN_TEST, "d"));
+        OWLDataProperty e = DataProperty(iri(URN_TEST, "e"));
         OWLAxiom ax = SubDataPropertyOf(c, d);
-        OWLClass x = Class(IRI(URN_TEST, "x"));
+        OWLClass x = Class(iri(URN_TEST, "x"));
         OWLAxiom ax2 = DataPropertyDomain(c, x);
         OWLAxiom ax3 = DataPropertyRange(c, Boolean());
         OWLAxiom ax4 = EquivalentDataProperties(c, e);

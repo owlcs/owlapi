@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 
 /**
@@ -36,15 +37,14 @@ import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 class MoveOntologyTestCase extends TestBase {
 
     @BeforeEach
-    void setUp() throws OWLOntologyCreationException {
-        m.createOntology(iri("urn:test#", "test"));
+    void setUp() {
+        create(iri("urn:test#", "test"));
     }
 
     @Test
-    void testMove() throws OWLOntologyCreationException {
-        OWLOntology o =
-            m.loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest));
-        OWLOntology copy = m1.copyOntology(o, OntologyCopy.MOVE);
+    void testMove() {
+        OWLOntology o = loadOntologyFromSource(new StringDocumentSource(TestFiles.moveTest), m);
+        OWLOntology copy = copy(o, OntologyCopy.MOVE);
         assertSame(o, copy);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertFalse(m.contains(o));
@@ -54,10 +54,9 @@ class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    void testShallow() throws OWLOntologyCreationException {
-        OWLOntology o =
-            m.loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest));
-        OWLOntology copy = m1.copyOntology(o, OntologyCopy.SHALLOW);
+    void testShallow() {
+        OWLOntology o = loadOntologyFromSource(new StringDocumentSource(TestFiles.moveTest), m);
+        OWLOntology copy = copy(o, OntologyCopy.SHALLOW);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
         assertTrue(m1.contains(copy));
@@ -67,10 +66,9 @@ class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    void testDeep() throws OWLOntologyCreationException {
-        OWLOntology o =
-            m.loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest));
-        OWLOntology copy = m1.copyOntology(o, OntologyCopy.DEEP);
+    void testDeep() {
+        OWLOntology o = loadOntologyFromSource(new StringDocumentSource(TestFiles.moveTest), m);
+        OWLOntology copy = copy(o, OntologyCopy.DEEP);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
         assertTrue(m1.contains(copy));
@@ -78,5 +76,13 @@ class MoveOntologyTestCase extends TestBase {
         assertNotNull(m1.getOntologyFormat(o));
         assertEquals(asSet(o.annotations()), asSet(copy.annotations()));
         assertEquals(asSet(o.importsDeclarations()), asSet(copy.importsDeclarations()));
+    }
+
+    protected OWLOntology copy(OWLOntology o, OntologyCopy c) {
+        try {
+            return m1.copyOntology(o, c);
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 }

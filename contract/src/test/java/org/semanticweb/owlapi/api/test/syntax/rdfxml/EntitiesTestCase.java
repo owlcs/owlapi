@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 class EntitiesTestCase extends TestBase {
 
     @Test
-    void shouldRoundtripEntities() throws Exception {
+    void shouldRoundtripEntities() {
         OWLOntology o = loadOntologyFromString(new StringDocumentSource(TestFiles.roundtripEntities,
             iri("urn:test#", "test"), new RDFXMLDocumentFormat(), null));
         o.getOWLOntologyManager().getOntologyConfigurator().withUseNamespaceEntities(true);
@@ -22,10 +22,10 @@ class EntitiesTestCase extends TestBase {
     }
 
     @Test
-    void shouldNotIncludeExternalEntities() throws Exception {
+    void shouldNotIncludeExternalEntities() {
         OWLOntology o = loadOntologyFromString(TestFiles.doNotIncludeExternalEntities,
             new RDFXMLDocumentFormat());
-        OWLOntology o1 = m.createOntology();
+        OWLOntology o1 = createAnon();
         o1.add(df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), iri("urn:test:", "i"),
             df.getOWLLiteral("")));
         equal(o, o1);

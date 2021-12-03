@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException;
 class NoQNameRoundTripTestCase extends TestBase {
 
     OWLOntology noQNameRoundTripTestCase() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create();
         ont.add(ObjectPropertyAssertion(ObjectProperty(IRI("http://example.com/place/123", "")),
             NamedIndividual(
                 IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A", "")),

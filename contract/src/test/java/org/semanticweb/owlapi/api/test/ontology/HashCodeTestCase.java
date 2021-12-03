@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -115,8 +114,8 @@ class HashCodeTestCase extends TestBase {
     }
 
     @Test
-    void shouldHaveSameHashCodeForOntologies() throws OWLOntologyCreationException {
-        final OWLOntology ontology = m.createOntology();
+    void shouldHaveSameHashCodeForOntologies() {
+        final OWLOntology ontology = createAnon();
         int hash = ontology.hashCode();
         IRI iri = iri("urn:test:", "ontology");
         ontology.applyChange(new SetOntologyID(ontology, iri));
