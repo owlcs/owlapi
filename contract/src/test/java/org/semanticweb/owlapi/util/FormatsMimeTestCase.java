@@ -58,7 +58,7 @@ class FormatsMimeTestCase {
 
     @ParameterizedTest
     @MethodSource("params")
-    public void shouldMatchExpectedValues(OWLParserFactory f, String key, String defaultmime,
+    void shouldMatchExpectedValues(OWLParserFactory f, String key, String defaultmime,
         List<String> mimes) {
         assertEquals(key, f.getSupportedFormat().getKey());
         assertEquals(mimes, f.getMIMETypes());

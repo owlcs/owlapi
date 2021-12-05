@@ -38,7 +38,7 @@ class OntologyURITestCase extends TestBase {
         return OWLOntologyDocumentSourceBase.getNextDocumentIRI(ANOTHER_COM_ONT);
     }
 
-    static final IRI version = iri(ANOTHER_COM_ONT, "version");
+    static final IRI version = iri(ANOTHER_COM_ONT + "/", "version");
     static final IRI onto = iri("http://www.another.com/", "ont");
 
     @Test

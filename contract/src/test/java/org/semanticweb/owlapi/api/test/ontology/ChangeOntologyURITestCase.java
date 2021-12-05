@@ -35,8 +35,7 @@ class ChangeOntologyURITestCase extends TestBase {
         IRI oldIRI = iri("http://www.semanticweb.org/ontologies/", "ontA");
         IRI newIRI = iri("http://www.semanticweb.org/ontologies/", "ontB");
         OWLOntology ont = create(oldIRI);
-        OWLOntology importingOnt =
-            create(iri("http://www.semanticweb.org/ontologies/", "ontC"));
+        OWLOntology importingOnt = create(iri("http://www.semanticweb.org/ontologies/", "ontC"));
         m.applyChange(new AddImport(importingOnt,
             df.getOWLImportsDeclaration(ont.getOntologyID().getOntologyIRI().get())));
         assertTrue(m.contains(oldIRI));

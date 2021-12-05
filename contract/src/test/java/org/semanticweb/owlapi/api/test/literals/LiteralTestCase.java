@@ -63,7 +63,7 @@ class LiteralTestCase extends TestBase {
     }
 
     @Test
-    public void shouldMatchHashCode() {
+    void shouldMatchHashCode() {
         OWLLiteral l1 = new OWLLiteralImpl("123", "", OWL2Datatype.XSD_STRING.getDatatype(df));
         OWLLiteral l2 = new OWLLiteralImplString("123");
         OWLLiteral l3 =

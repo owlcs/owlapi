@@ -2,9 +2,9 @@
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
  * 
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General License for more details.
- * You should have received a copy of the GNU General License along with this program.  If not, see http://www.gnu.org/licenses/.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
  *
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0 in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
@@ -165,7 +165,8 @@ class OWLProfileTestCase extends TestBase {
     private static final String URN_DATATYPE = "urn:datatype#";
 
     @Nonnull
-    Comparator<Class<?>> comp = (o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName());
+    protected static final Comparator<Class<?>> comp =
+        (o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName());
     @Nonnull
     private static final String START = OWLThing().getIRI().getNamespace();
     @Nonnull
@@ -199,7 +200,7 @@ class OWLProfileTestCase extends TestBase {
     OWLOntology o;
 
     @BeforeEach
-    public void setupOntology() {
+    void setupOntology() {
         o = create(onto);
     }
 
@@ -209,12 +210,11 @@ class OWLProfileTestCase extends TestBase {
         }
     }
 
-    public void declare(@Nonnull OWLEntity... entities) {
+    void declare(@Nonnull OWLEntity... entities) {
         Stream.of(entities).forEach(entity -> add(Declaration(entity)));
     }
 
-    public void checkInCollection(@Nonnull List<OWLProfileViolation> violations,
-        Class<?>[] inputList) {
+    void checkInCollection(@Nonnull List<OWLProfileViolation> violations, Class<?>[] inputList) {
         List<Class<?>> list = new ArrayList<>(Arrays.asList(inputList));
         List<Class<?>> list1 = new ArrayList<>();
         for (OWLProfileViolation v : violations) {
@@ -225,8 +225,7 @@ class OWLProfileTestCase extends TestBase {
         assertEquals(list, list1, list1.toString());
     }
 
-    public void runAssert(@Nonnull OWLProfile profile, int expected,
-        Class<?>... expectedViolations) {
+    void runAssert(@Nonnull OWLProfile profile, int expected, Class<?>... expectedViolations) {
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         assertEquals(expected, violations.size(), violations.toString());
         checkInCollection(violations, expectedViolations);

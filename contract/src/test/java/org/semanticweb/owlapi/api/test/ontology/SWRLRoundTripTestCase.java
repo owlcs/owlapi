@@ -185,7 +185,6 @@ class SWRLRoundTripTestCase extends TestBase {
         OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(
             df.getOWLDatatype(iri("urn:my#", "datatype")), df.getDoubleOWLDatatype(), singleton(
                 df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(DATATYPE_DEFINITION, ""))));
-        System.out.println("SWRLRoundTripTestCase.shouldParse() \n" + o + "\n\n" + def);
         assertTrue(o.getAxioms().contains(def));
     }
 

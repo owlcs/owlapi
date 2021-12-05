@@ -142,6 +142,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -255,10 +256,15 @@ class OWLObjectComponentCollectorTestCase {
 
     @ParameterizedTest
     @MethodSource("getData")
-    void testAssertion(OWLAxiom object, Set<String> expected) {
+    void testAssertion(OWLAxiom object, Set<Object> expected) {
         OWLObjectComponentCollector testsubject = new OWLObjectComponentCollector();
         Collection<OWLObject> components = testsubject.getComponents(object);
         Set<String> strings = components.stream().map(Object::toString).collect(Collectors.toSet());
-        assertEquals(expected, strings);
+        assertEquals(str(expected), str(strings));
+    }
+
+    protected String str(Set<?> expected) {
+        return new TreeSet<>(expected.stream().map(Object::toString).collect(Collectors.toList()))
+            .toString().replace(", ", "\n");
     }
 }

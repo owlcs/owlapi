@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
 
@@ -27,7 +26,7 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 class ManchesterImportTestCase extends TestBase {
 
-    final IRI str = IRI("http://owlapitestontologies.com/", "thesuperont");
+    final IRI str = iri("http://owlapitestontologies.com/", "thesuperont");
     final String superpath = "/imports/thesuperont.omn";
 
     @Test

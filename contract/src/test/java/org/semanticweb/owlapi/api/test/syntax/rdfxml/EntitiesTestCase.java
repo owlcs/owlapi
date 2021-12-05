@@ -8,7 +8,6 @@ import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterPreferences;
 
@@ -18,7 +17,7 @@ class EntitiesTestCase extends TestBase {
     void shouldRoundtripEntities() {
         XMLWriterPreferences.getInstance().setUseNamespaceEntities(true);
         OWLOntology o = loadOntologyFromString(new StringDocumentSource(TestFiles.roundtripEntities,
-            IRI.create("urn:test"), new RDFXMLDocumentFormat(), null));
+            iri("urn:test#", "test"), new RDFXMLDocumentFormat(), null));
         StringDocumentTarget o2 = saveOntology(o);
         assertTrue(o2.toString().contains("<owl:priorVersion rdf:resource=\"&vin;test\"/>"));
     }

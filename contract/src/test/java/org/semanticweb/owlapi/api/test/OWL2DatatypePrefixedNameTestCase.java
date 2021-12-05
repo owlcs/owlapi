@@ -27,10 +27,8 @@ class OWL2DatatypePrefixedNameTestCase {
         assertEquals("xsd:NMTOKEN", OWL2Datatype.XSD_NMTOKEN.getPrefixedName());
         assertEquals("xsd:decimal", OWL2Datatype.XSD_DECIMAL.getPrefixedName());
         assertEquals("xsd:integer", OWL2Datatype.XSD_INTEGER.getPrefixedName());
-        assertEquals("xsd:nonNegativeInteger",
-            OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.getPrefixedName());
-        assertEquals("xsd:nonPositiveInteger",
-            OWL2Datatype.XSD_NON_POSITIVE_INTEGER.getPrefixedName());
+        assertEquals("xsd:nonNegativeInteger", OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.getPrefixedName());
+        assertEquals("xsd:nonPositiveInteger", OWL2Datatype.XSD_NON_POSITIVE_INTEGER.getPrefixedName());
         assertEquals("xsd:positiveInteger", OWL2Datatype.XSD_POSITIVE_INTEGER.getPrefixedName());
         assertEquals("xsd:negativeInteger", OWL2Datatype.XSD_NEGATIVE_INTEGER.getPrefixedName());
         assertEquals("xsd:long", OWL2Datatype.XSD_LONG.getPrefixedName());

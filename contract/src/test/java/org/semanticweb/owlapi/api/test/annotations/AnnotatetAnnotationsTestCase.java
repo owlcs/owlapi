@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annotation;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSLabel;
 
@@ -66,10 +67,10 @@ class AnnotatetAnnotationsTestCase extends TestBase {
         OWLLiteral v = Literal("value");
         OWLLiteral ann1 = Literal("value1");
         OWLLiteral ann2 = Literal("value2");
-        OWLAnnotationAssertionAxiom ax1 = df.getOWLAnnotationAssertionAxiom(AP, I.getIRI(), v,
-            singleton(Annotation(RDFSLabel(), ann1)));
-        OWLAnnotationAssertionAxiom ax2 = df.getOWLAnnotationAssertionAxiom(AP, I.getIRI(), v,
-            singleton(Annotation(RDFSLabel(), ann2)));
+        OWLAnnotationAssertionAxiom ax1 =
+            AnnotationAssertion(AP, I.getIRI(), v, Annotation(RDFSLabel(), ann1));
+        OWLAnnotationAssertionAxiom ax2 =
+            AnnotationAssertion(AP, I.getIRI(), v, Annotation(RDFSLabel(), ann2));
         Set<OWLAnnotationAssertionAxiom> set = new TreeSet<>();
         set.add(ax1);
         set.add(ax2);

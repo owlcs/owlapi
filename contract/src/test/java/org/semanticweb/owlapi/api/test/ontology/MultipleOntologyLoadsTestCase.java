@@ -54,9 +54,9 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         + "</rdf:RDF>";
 
     @Test
-    void testMultipleVersionLoadChangeIRI() throws IOException, OWLOntologyCreationException {
+    void testMultipleVersionLoadChangeIRI() throws IOException {
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(i139, v2);
-        OWLOntology initialOntology = m.createOntology(initialUniqueOWLOntologyID);
+        OWLOntology initialOntology = create(initialUniqueOWLOntologyID);
         OWLParser initialParser = new RDFXMLParser();
         initialParser.parse(new StringDocumentSource(INPUT), initialOntology, config);
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(i139, v2);

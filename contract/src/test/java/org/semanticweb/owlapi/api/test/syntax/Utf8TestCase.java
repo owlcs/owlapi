@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test.syntax;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSLabel;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
@@ -83,8 +82,8 @@ class Utf8TestCase extends TestBase {
     @Test
     void testPositiveUTF8roundTrip() {
         String ns = "http://protege.org/UTF8.owl";
-        OWLOntology ontology = create(IRI(ns));
-        OWLClass a = Class(IRI(ns + "#A"));
+        OWLOntology ontology = create(iri(ns, ""));
+        OWLClass a = Class(iri(ns + "#", "A"));
         m.addAxiom(ontology, df.getOWLDeclarationAxiom(a));
         OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("Chinese=處方"));
         OWLAxiom axiom = df.getOWLAnnotationAssertionAxiom(a.getIRI(), ann);
@@ -114,7 +113,7 @@ class Utf8TestCase extends TestBase {
     @Nonnull
     private OWLOntology createOriginalOntology(@Nonnull String ns, @Nonnull OWLClass cl,
         @Nonnull String chinese) {
-        OWLOntology ontology = create(IRI(ns));
+        OWLOntology ontology = create(iri(ns, ""));
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), cl.getIRI(), Literal(chinese));
         m.addAxiom(ontology, annotationAxiom);
         return ontology;

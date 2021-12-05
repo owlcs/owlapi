@@ -98,7 +98,7 @@ class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsNoOntologyIDFirstTime()
+    void testMultipleVersionLoadsNoOntologyIDFirstTime()
         throws IOException, OWLOntologyCreationException {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
@@ -150,7 +150,7 @@ class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadNoChange() throws IOException {
+    void testSingleVersionLoadNoChange() throws IOException {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(CREATE0139, CREATEV1);

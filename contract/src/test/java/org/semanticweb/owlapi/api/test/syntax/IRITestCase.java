@@ -146,11 +146,10 @@ class IRITestCase extends TestBase {
 
     @Test
     void shouldOutputNamedGraph() {
-        OWLDocumentFormat format = new TrigDocumentFormat();
         IRI iri = iri("urn:test:", "ontology");
         OWLOntology o = create(iri);
         o.getOWLOntologyManager().getOntologyLoaderConfiguration().withNamedGraphIRIEnabled(true);
-        StringDocumentTarget saved = saveOntology(o, format);
+        StringDocumentTarget saved = saveOntology(o, new TrigDocumentFormat());
         assertTrue(saved.toString().contains(iri.toQuotedString() + " {"));
     }
 

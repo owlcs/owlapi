@@ -26,11 +26,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubDa
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.search.Searcher.domain;
-import static org.semanticweb.owlapi.search.Searcher.equivalent;
-import static org.semanticweb.owlapi.search.Searcher.range;
-import static org.semanticweb.owlapi.search.Searcher.sub;
-import static org.semanticweb.owlapi.search.Searcher.sup;
+import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.util.Collection;
 

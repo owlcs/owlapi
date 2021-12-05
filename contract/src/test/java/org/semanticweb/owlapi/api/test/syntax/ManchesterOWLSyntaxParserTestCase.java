@@ -104,7 +104,7 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     void shouldRoundTrip() {
         // given
-        OWLOntology ontology = create(IRI("http://protege.org/ontologies"));
+        OWLOntology ontology = create(iri("http://protege.org/ontologies", ""));
         m.addAxiom(ontology, Declaration(DP));
         // when
         ontology = roundTrip(ontology);
@@ -115,7 +115,7 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     void shouldRenderCorrectly() {
         // given
-        OWLOntology o = create(IRI("http://protege.org/ontologies"));
+        OWLOntology o = create(iri("http://protege.org/ontologies", ""));
         OWLObjectSomeValuesFrom r = df.getOWLObjectSomeValuesFrom(P, df.getOWLObjectUnionOf(B, C));
         OWLSubClassOfAxiom axiom = df.getOWLSubClassOfAxiom(D, r);
         m.addAxiom(o, axiom);
@@ -146,8 +146,7 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
 
     @Test
     void shouldRoundtripDisjointUnion() {
-        OWLOntology o = o(DisjointUnion(A, B, C, D), Declaration(A), Declaration(B), Declaration(C),
-            Declaration(D));
+        OWLOntology o = o(DisjointUnion(A, B, C, D));
         OWLOntology roundtripped = roundTrip(o, new ManchesterSyntaxDocumentFormat());
         assertEquals(o.getAxioms(), roundtripped.getAxioms());
     }
@@ -283,7 +282,7 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
             df.getOWLDataOneOf(df.getOWLLiteral("1.2", OWL2Datatype.XSD_DECIMAL)));
         String input =
             "Ontology:\n DataProperty: " + DP.getIRI().toQuotedString() + "\n Range: {1.2}";
-        OWLOntology o = loadOntologyFromString(input);
+        OWLOntology o = loadOntologyFromString(input, new ManchesterSyntaxDocumentFormat());
         Set<OWLLogicalAxiom> axioms = o.getLogicalAxioms();
         for (OWLLogicalAxiom ax : axioms) {
             assertEquals(expected, ax);
@@ -305,9 +304,7 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     protected ManchesterOWLSyntaxParser setupParser(String text1, OWLClassExpression expected) {
-        OWLOntology o = o(df.getOWLDeclarationAxiom(A), df.getOWLDeclarationAxiom(B),
-            df.getOWLDeclarationAxiom(C), df.getOWLDeclarationAxiom(D),
-            df.getOWLSubClassOfAxiom(expected, D));
+        OWLOntology o = o(df.getOWLSubClassOfAxiom(expected, D));
         // select a short form provider that uses annotations
         ShortFormProvider sfp =
             new AnnotationValueShortFormProvider(Arrays.asList(df.getRDFSLabel()),
@@ -381,7 +378,7 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     @Test
-    public void shouldWorkWithAssertions() {
+    void shouldWorkWithAssertions() {
         OWLOntology o = o(df.getOWLDeclarationAxiom(C),
             df.getOWLClassAssertionAxiom(C, df.getOWLAnonymousIndividual()),
             df.getOWLClassAssertionAxiom(C, indA),

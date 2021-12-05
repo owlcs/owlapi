@@ -39,11 +39,7 @@ class SameIndividualsThreeElementsAxiomAnnotatedRoundTripTestCase extends TestBa
         axioms.add(ax.getAnnotatedAxiom(set(anno1, anno2)));
         axioms.add(ax.getAnnotatedAxiom(singleton(anno1)));
         axioms.add(ax.getAnnotatedAxiom(singleton(anno2)));
-        axioms.add(df.getOWLDeclarationAxiom(AP));
-        axioms.add(df.getOWLDeclarationAxiom(propP));
-        OWLOntology ont = create();
-        ont.getOWLOntologyManager().addAxioms(ont, axioms);
-        return ont;
+        return o(axioms);
     }
 
     @ParameterizedTest

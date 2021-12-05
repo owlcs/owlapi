@@ -151,7 +151,6 @@ public abstract class TestBase {
     public static final OWLClass C4 = Class(iri(OBO, "TEST_4"));
     public static final OWLClass C5 = Class(iri(OBO, "TEST_5"));
 
-
     public static final OWLObjectProperty c = ObjectProperty(iri("c"));
     public static final OWLObjectProperty d = ObjectProperty(iri("d"));
     public static final OWLObjectProperty e = ObjectProperty(iri("e"));
@@ -301,7 +300,7 @@ public abstract class TestBase {
     }
 
     @BeforeEach
-    public void setupManagersClean() {
+    void setupManagersClean() {
         m = setupManager();
         m1 = setupManager();
     }
@@ -440,7 +439,7 @@ public abstract class TestBase {
      * equivalent entity axioms with more than two entities are broken up by RDF syntaxes. Ensure
      * they are still recognized as correct roundtripping
      */
-    public void applyEquivalentsRoundtrip(Set<OWLAxiom> axioms1, Set<OWLAxiom> axioms2,
+    void applyEquivalentsRoundtrip(Set<OWLAxiom> axioms1, Set<OWLAxiom> axioms2,
         OWLDocumentFormat destination) {
         if (!axioms1.equals(axioms2)) {
             // remove axioms that differ only because of n-ary equivalence
@@ -614,7 +613,7 @@ public abstract class TestBase {
         }
     }
 
-    public void addAxiom(OWLOntology ont, OWLAxiom ax) {
+    protected void addAxiom(OWLOntology ont, OWLAxiom ax) {
         m.addAxiom(ont, ax);
     }
 
@@ -670,7 +669,7 @@ public abstract class TestBase {
         }
     }
 
-    public void checkVerify() {
+    protected void checkVerify() {
         OWLDataProperty tTest = df.getOWLDataProperty(iri("urn:test#", "t"));
         Set<OWLAxiom> ax1 = new HashSet<>();
         ax1.add(df.getOWLDataPropertyAssertionAxiom(tTest, df.getOWLAnonymousIndividual(),

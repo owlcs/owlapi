@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-public class Load extends TestBase {
+class Load extends TestBase {
 
     @Test
-    public void should() {
+    void should() {
         String in = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<rdf:RDF xml:base=\"http://www.eionet.europa.eu/gemet/\"\n"
             + " xmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n"

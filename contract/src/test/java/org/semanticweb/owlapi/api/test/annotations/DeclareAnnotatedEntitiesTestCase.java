@@ -12,7 +12,6 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -71,7 +70,7 @@ class DeclareAnnotatedEntitiesTestCase extends TestBase {
         // this declaration was excluded on purpose - add it to be able to use equal
         o1.getOWLOntologyManager().addAxiom(o1,
             df.getOWLDeclarationAxiom(df.getOWLAnnotationProperty(
-                IRI.create("http://www.geneontology.org/formats/oboInOwl#source"))));
+                iri("http://www.geneontology.org/formats/oboInOwl#", "source"))));
         equal(o, o1);
     }
 
@@ -82,7 +81,7 @@ class DeclareAnnotatedEntitiesTestCase extends TestBase {
         // this declaration was excluded on purpose - add it to be able to use equal
         o1.getOWLOntologyManager().addAxiom(o1,
             df.getOWLDeclarationAxiom(df.getOWLAnnotationProperty(
-                IRI.create("http://www.geneontology.org/formats/oboInOwl#source"))));
+                iri("http://www.geneontology.org/formats/oboInOwl#", "source"))));
         equal(o, o1);
     }
 }

@@ -41,7 +41,7 @@ class RemoveImportDataTestCase {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         RemoveImportData data1 = createData();
         RemoveImportData data2 = createData();
         assertEquals(data1, data2);
@@ -49,20 +49,20 @@ class RemoveImportDataTestCase {
     }
 
     @Test
-    public void testGettersReturnNotNull() {
+    void testGettersReturnNotNull() {
         RemoveImportData data = createData();
         assertNotNull(data.getDeclaration());
         assertNotNull(data.createOntologyChange(mockOntology));
     }
 
     @Test
-    public void testGettersEquals() {
+    void testGettersEquals() {
         RemoveImportData data = createData();
         assertEquals(mockDeclaration, data.getDeclaration());
     }
 
     @Test
-    public void testCreateOntologyChange() {
+    void testCreateOntologyChange() {
         RemoveImportData data = createData();
         RemoveImport change = data.createOntologyChange(mockOntology);
         assertEquals(mockOntology, change.getOntology());
@@ -70,7 +70,7 @@ class RemoveImportDataTestCase {
     }
 
     @Test
-    public void testOntologyChangeSymmetry() {
+    void testOntologyChangeSymmetry() {
         RemoveImportData data = createData();
         RemoveImport change = new RemoveImport(mockOntology, mockDeclaration);
         assertEquals(change.getChangeData(), data);

@@ -84,7 +84,7 @@ class MultipleDistinctOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsExplicitOntologyIDs()
+    void testMultipleVersionLoadsExplicitOntologyIDs()
         throws IOException, OWLOntologyCreationException {
         OWLOntologyDocumentSource documentSource = getDocument();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(jb, v1);

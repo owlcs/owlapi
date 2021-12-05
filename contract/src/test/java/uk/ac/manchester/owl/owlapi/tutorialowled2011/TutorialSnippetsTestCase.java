@@ -852,7 +852,7 @@ public class TutorialSnippetsTestCase {
      * Print the class hierarchy for the given ontology from this class down, assuming this class is
      * at the given level. Makes no attempt to deal sensibly with multiple inheritance.
      */
-    public void printHierarchy(@Nonnull OWLOntology o, @Nonnull OWLClass clazz) {
+    void printHierarchy(@Nonnull OWLOntology o, @Nonnull OWLClass clazz) {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
         printHierarchy(reasoner, clazz, 0, new HashSet<OWLClass>());
         /* Now print out any unsatisfiable classes */
@@ -916,7 +916,7 @@ public class TutorialSnippetsTestCase {
         return clazz.getIRI().toString();
     }
 
-    public void printHierarchy(@Nonnull OWLReasoner reasoner, @Nonnull OWLClass clazz, int level,
+    void printHierarchy(@Nonnull OWLReasoner reasoner, @Nonnull OWLClass clazz, int level,
         @Nonnull Set<OWLClass> visited) {
         // Only print satisfiable classes to skip Nothing
         if (!visited.contains(clazz) && reasoner.isSatisfiable(clazz)) {
@@ -965,7 +965,7 @@ public class TutorialSnippetsTestCase {
         OWLProfileReport report = profile.checkOntology(o);
         for (OWLProfileViolation v : report.getViolations()) {
             // deal with violations
-            System.out.println(v);
+            // System.out.println(v);
         }
     }
 }

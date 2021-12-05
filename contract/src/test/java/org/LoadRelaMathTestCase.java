@@ -18,10 +18,10 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory;
 
-public class LoadRelaMathTestCase extends TestBase {
+class LoadRelaMathTestCase extends TestBase {
 
     @Test
-    public void should() {
+    void should() {
         m.getOntologyParsers().set(new TurtleOntologyParserFactory());
         m.getIRIMappers().add(mapper());
         OWLOntology o = loadOntology(IRI.create("http://sweetontology.net/relaMath"), m);

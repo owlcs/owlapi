@@ -113,8 +113,6 @@ class RioParserTestCase extends TestBase {
         assertEquals(4, owlapiOntologyPrimer.getAxiomCount());
         assertEquals(new RDFXMLDocumentFormat(), format);
         RioParserImpl rioParser = new RioParserImpl(new RioRDFXMLDocumentFormatFactory());
-        // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
-        // .createOWLOntologyManager().createOntology(
         OWLOntology rioOntologyPrimer = m.getOntology(iri("http://example.com/owl/", "families"));
         OWLDocumentFormat rioOntologyFormat =
             rioParser.parse(getStream(MINIMAL_RDF), rioOntologyPrimer, config);

@@ -17,14 +17,14 @@ class OWLEntityURIConverterTest extends TestBase {
     private static final String NEW_NAMESPACE = "http://www.example.org/newTestOntology#";
 
     @Test
-    public void test() {
+    void test() {
         File ontologyFile = new File(
             this.getClass().getClassLoader().getResource(TEST_ONTOLOGY_RESOURCE).getFile());
-        OWLOntology ontology = loadOntologyFromFile(ontologyFile);
+        OWLOntology ontology = loadOntologyFromFile(ontologyFile, m);
         checkEntityNamespace(ontology, OLD_NAMESPACE);
-        OWLEntityURIConverter converter = getOWLEntityNamespaceConverter(
-            ontology.getOWLOntologyManager(), OLD_NAMESPACE, NEW_NAMESPACE);
-        ontology.getOWLOntologyManager().applyChanges(converter.getChanges());
+        OWLEntityURIConverter converter =
+            getOWLEntityNamespaceConverter(m, OLD_NAMESPACE, NEW_NAMESPACE);
+        m.applyChanges(converter.getChanges());
         checkEntityNamespace(ontology, NEW_NAMESPACE);
     }
 

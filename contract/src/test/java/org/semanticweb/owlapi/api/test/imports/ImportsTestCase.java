@@ -128,7 +128,7 @@ class ImportsTestCase extends TestBase {
     }
 
     @Test
-    public void shouldNotLoadWrong() {
+    void shouldNotLoadWrong() {
         OWLOntology first = create(iri("urn:test#", "test"));
         StringDocumentSource documentSource = new StringDocumentSource(TestFiles.loadRight);
         OWLOntology o = loadOntologyFromSource(documentSource, first.getOWLOntologyManager());

@@ -37,7 +37,7 @@ class RioRendererTestCase extends TestBase {
 
     private static final String DUPLICATE_STATEMENTS = "Duplicate statements were emitted";
     @Nonnull
-    private final IRI testOntologyUri1 = IRI.create("urn:test:ontology:uri:1");
+    private final IRI testOntologyUri1 = iri("urn:test:ontology:uri:1", "");
     private ValueFactory vf;
     @Nonnull
     private OWLOntology testOntologyEmpty;
@@ -55,16 +55,6 @@ class RioRendererTestCase extends TestBase {
     @BeforeEach
     void setUp() {
         vf = new ValueFactoryImpl();
-        // limit the storers to known Rio OntologyStorers to minimise false
-        // negative results
-        // use all parsers for renderer test
-        // OWLParserFactoryRegistry parserRegistry = new
-        // OWLParserFactoryRegistry();
-        // XXX update registry
-        // testManager = OWLOntologyManagerFactoryRegistry
-        // .createOWLOntologyManager(
-        // OWLOntologyManagerFactoryRegistry.getOWLDataFactory(),
-        // storerRegistry, parserRegistry);
         m.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
             new RioTurtleStorerFactory());
         testOntologyEmpty = create(testOntologyUri1);

@@ -92,9 +92,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.semanticweb.owlapi.apitest.TestFiles;
-import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonDocumentFormat;
@@ -235,8 +233,8 @@ class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     protected OWLOntology blankNodesTurtleDomain() {
-        URL resource = getClass().getResource('/' + "testBlankNodesDomain.ttl");
         try {
+            URL resource = getClass().getResource('/' + "testBlankNodesDomain.ttl");
             IRI iri = IRI.create(resource.toURI());
             return loadOntologyFromSource(
                 new IRIDocumentSource(iri, new TurtleDocumentFormat(), null));
@@ -305,7 +303,7 @@ class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     private static Set<OWLAxiom> classAssertionWithAnonymousIndividual() {
-        return set(ClassAssertion(A, i), Declaration(A));
+        return set(ClassAssertion(A, AnonymousIndividual("a")), Declaration(A));
     }
 
     private static Set<OWLAxiom> chainedAnonymousIndividuals() {
@@ -500,18 +498,6 @@ class AbstractRoundTrippingTestCase extends TestBase {
         equal(o1, o2);
     }
 
-    public void testKRSS2(OWLOntology o) {
-        roundTripOntology(o, new KRSS2DocumentFormat());
-    }
-
-    public void testKRSS(OWLOntology o) {
-        roundTripOntology(o, new KRSS2DocumentFormat());
-    }
-
-    public void testDLSyntax(OWLOntology o) {
-        roundTripOntology(o, new DLSyntaxDocumentFormat());
-    }
-
     protected OWLOntology createOntology(String fileName, OWLDocumentFormat format) {
         OWLOntology o = ontologyFromClasspathFile(fileName, format);
         if (logger.isTraceEnabled()) {
@@ -558,7 +544,6 @@ class AbstractRoundTrippingTestCase extends TestBase {
             AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\n")),
             AnnotationAssertion(prop, cls.getIRI(), Literal("\n" + "End")),
             AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\n" + "End")),
-
 
             AnnotationAssertion(prop, cls.getIRI(), Literal("\'")),
             AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\'")),

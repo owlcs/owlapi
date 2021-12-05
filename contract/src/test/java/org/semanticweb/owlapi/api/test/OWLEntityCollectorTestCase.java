@@ -14,36 +14,33 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
-class OWLEntityCollectorTestCase {
+class OWLEntityCollectorTestCase extends TestBase {
 
-    static Collection<Object[]> getData() {
+    static Stream<Arguments> getData() {
         Builder b = new Builder();
-        Map<OWLAxiom, String[]> map = new LinkedHashMap<>();
         String ann = "<urn:test:test#ann>";
         String string = "http://www.w3.org/2001/XMLSchema#string";
         String datatype = "<urn:test:test#datatype>";
         String dp = "<urn:test:test#dp>";
         String iri = "<urn:test:test#iri>";
         String doubl = "http://www.w3.org/2001/XMLSchema#double";
-        String c = "<urn:test:test#c>";
+        String ciri = "<urn:test:test#c>";
         String op = "<urn:test:test#op>";
         String bool = "http://www.w3.org/2001/XMLSchema#boolean";
-        String i = "<urn:test:test#i>";
+        String iIri = "<urn:test:test#i>";
         String j = "<urn:test:test#j>";
         String label = "rdfs:label";
         String thing = "owl:Thing";
@@ -53,92 +50,84 @@ class OWLEntityCollectorTestCase {
         String same = "owl:sameAs";
         String lang = "http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral";
 
-
-        map.put(b.dRange(), new String[] {ann, string, datatype, dp});
-        map.put(b.dDef(), new String[] {ann, string, doubl, datatype});
-        map.put(b.decC(), new String[] {ann, string, c});
-        map.put(b.decOp(), new String[] {ann, op, string});
-        map.put(b.decDp(), new String[] {ann, string, dp});
-        map.put(b.decDt(), new String[] {ann, string, datatype});
-        map.put(b.decAp(), new String[] {ann, string});
-        map.put(b.decI(), new String[] {i, ann, string});
-        map.put(b.assDi(), new String[] {i, iri});
-        map.put(b.dc(), new String[] {c, iri});
-        map.put(b.dDp(), new String[] {ann, string, iri, dp});
-        map.put(b.dOp(), new String[] {ann, iri, op, string});
-        map.put(b.du(), new String[] {ann, string, c, iri});
-        map.put(b.ec(), new String[] {ann, string, c, iri});
-        map.put(b.eDp(), new String[] {ann, string, iri, dp});
-        map.put(b.eOp(), new String[] {ann, iri, op, string});
-        map.put(b.fdp(), new String[] {ann, string, dp});
-        map.put(b.fop(), new String[] {ann, op, string});
-        map.put(b.ifp(), new String[] {ann, op, string});
-        map.put(b.iop(), new String[] {ann, op, string});
-        map.put(b.irr(), new String[] {ann, op, string});
-        map.put(b.ndp(), new String[] {i, ann, bool, string, dp});
-        map.put(b.nop(), new String[] {i, ann, op, string});
-        map.put(b.opa(), new String[] {i, ann, op, string});
-        map.put(b.opaInv(), new String[] {i, ann, op, string});
-        map.put(b.opaInvj(), new String[] {j, i, ann, op, string});
-        map.put(b.oDom(), new String[] {ann, op, string, c});
-        map.put(b.oRange(), new String[] {ann, op, string, c});
-        map.put(b.chain(), new String[] {ann, iri, op, string});
-        map.put(b.ref(), new String[] {ann, op, string});
-        map.put(b.same(), new String[] {i, ann, string, iri});
-        map.put(b.subAnn(), new String[] {ann, string, label});
-        map.put(b.subClass(), new String[] {ann, thing, string, c});
-        map.put(b.subData(), new String[] {topData, dp});
-        map.put(b.subObject(), new String[] {ann, op, string, topObject});
-        map.put(b.rule(), new String[] {});
-        map.put(b.symm(), new String[] {ann, op, string});
-        map.put(b.trans(), new String[] {ann, op, string});
-        map.put(b.hasKey(), new String[] {ann, iri, op, string, c, dp});
-        map.put(b.bigRule(),
-            new String[] {i, ann, diff, bool, op, string, c, datatype, iri, same, dp});
-        map.put(b.ann(), new String[] {ann, bool, string});
-        map.put(b.asymm(), new String[] {ann, op, string});
-        map.put(b.annDom(), new String[] {ann, string});
-        map.put(b.annRange(), new String[] {ann, string});
-        map.put(b.ass(), new String[] {i, ann, string, c});
-        map.put(b.assAnd(), new String[] {i, ann, string, c, iri});
-        map.put(b.assOr(), new String[] {i, ann, string, c, iri});
-        map.put(b.dRangeAnd(), new String[] {ann, bool, string, datatype, dp});
-        map.put(b.dRangeOr(), new String[] {ann, bool, string, datatype, dp});
-        map.put(b.assNot(), new String[] {i, ann, string, c});
-        map.put(b.assNotAnon(), new String[] {ann, string, c});
-        map.put(b.assSome(), new String[] {i, ann, op, string, c});
-        map.put(b.assAll(), new String[] {i, ann, op, string, c});
-        map.put(b.assHas(), new String[] {i, ann, op, string});
-        map.put(b.assMin(), new String[] {i, ann, op, string, c});
-        map.put(b.assMax(), new String[] {i, ann, op, string, c});
-        map.put(b.assEq(), new String[] {i, ann, op, string, c});
-        map.put(b.assHasSelf(), new String[] {i, ann, op, string});
-        map.put(b.assOneOf(), new String[] {i, ann, string});
-        map.put(b.assDSome(), new String[] {i, ann, string, datatype, dp});
-        map.put(b.assDAll(), new String[] {i, ann, string, datatype, dp});
-        map.put(b.assDHas(), new String[] {i, ann, bool, string, dp});
-        map.put(b.assDMin(), new String[] {i, ann, string, datatype, dp});
-        map.put(b.assDMax(), new String[] {i, ann, string, datatype, dp});
-        map.put(b.assDEq(), new String[] {i, ann, string, datatype, dp});
-        map.put(b.dOneOf(), new String[] {ann, bool, string, dp});
-        map.put(b.dNot(), new String[] {ann, bool, string, dp});
-        map.put(b.dRangeRestrict(), new String[] {ann, string, doubl, dp});
-        map.put(b.assD(), new String[] {i, ann, bool, string, dp});
-        map.put(b.assDPlain(), new String[] {i, ann, lang, string, dp});
-        map.put(b.dDom(), new String[] {ann, string, c, dp});
-        Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
-        return toReturn;
+        return Stream.of(Arguments.of(b.dRange(), set(ann, string, datatype, dp)),
+            Arguments.of(b.dDef(), set(ann, string, doubl, datatype)),
+            Arguments.of(b.decC(), set(ann, string, ciri)),
+            Arguments.of(b.decOp(), set(ann, op, string)),
+            Arguments.of(b.decDp(), set(ann, string, dp)),
+            Arguments.of(b.decDt(), set(ann, string, datatype)),
+            Arguments.of(b.decAp(), set(ann, string)),
+            Arguments.of(b.decI(), set(iIri, ann, string)), Arguments.of(b.assDi(), set(iIri, iri)),
+            Arguments.of(b.dc(), set(ciri, iri)), Arguments.of(b.dDp(), set(ann, string, iri, dp)),
+            Arguments.of(b.dOp(), set(ann, iri, op, string)),
+            Arguments.of(b.du(), set(ann, string, ciri, iri)),
+            Arguments.of(b.ec(), set(ann, string, ciri, iri)),
+            Arguments.of(b.eDp(), set(ann, string, iri, dp)),
+            Arguments.of(b.eOp(), set(ann, iri, op, string)),
+            Arguments.of(b.fdp(), set(ann, string, dp)),
+            Arguments.of(b.fop(), set(ann, op, string)),
+            Arguments.of(b.ifp(), set(ann, op, string)),
+            Arguments.of(b.iop(), set(ann, op, string)),
+            Arguments.of(b.irr(), set(ann, op, string)),
+            Arguments.of(b.ndp(), set(iIri, ann, bool, string, dp)),
+            Arguments.of(b.nop(), set(iIri, ann, op, string)),
+            Arguments.of(b.opa(), set(iIri, ann, op, string)),
+            Arguments.of(b.opaInv(), set(iIri, ann, op, string)),
+            Arguments.of(b.opaInvj(), set(j, iIri, ann, op, string)),
+            Arguments.of(b.oDom(), set(ann, op, string, ciri)),
+            Arguments.of(b.oRange(), set(ann, op, string, ciri)),
+            Arguments.of(b.chain(), set(ann, iri, op, string)),
+            Arguments.of(b.ref(), set(ann, op, string)),
+            Arguments.of(b.same(), set(iIri, ann, string, iri)),
+            Arguments.of(b.subAnn(), set(ann, string, label)),
+            Arguments.of(b.subClass(), set(ann, thing, string, ciri)),
+            Arguments.of(b.subData(), set(topData, dp)),
+            Arguments.of(b.subObject(), set(ann, op, string, topObject)),
+            Arguments.of(b.rule(), set()), Arguments.of(b.symm(), set(ann, op, string)),
+            Arguments.of(b.trans(), set(ann, op, string)),
+            Arguments.of(b.hasKey(), set(ann, iri, op, string, ciri, dp)),
+            Arguments.of(b.bigRule(),
+                set(iIri, ann, diff, bool, op, string, ciri, datatype, iri, same, dp)),
+            Arguments.of(b.ann(), set(ann, bool, string)),
+            Arguments.of(b.asymm(), set(ann, op, string)),
+            Arguments.of(b.annDom(), set(ann, string)),
+            Arguments.of(b.annRange(), set(ann, string)),
+            Arguments.of(b.ass(), set(iIri, ann, string, ciri)),
+            Arguments.of(b.assAnd(), set(iIri, ann, string, ciri, iri)),
+            Arguments.of(b.assOr(), set(iIri, ann, string, ciri, iri)),
+            Arguments.of(b.dRangeAnd(), set(ann, bool, string, datatype, dp)),
+            Arguments.of(b.dRangeOr(), set(ann, bool, string, datatype, dp)),
+            Arguments.of(b.assNot(), set(iIri, ann, string, ciri)),
+            Arguments.of(b.assNotAnon(), set(ann, string, ciri)),
+            Arguments.of(b.assSome(), set(iIri, ann, op, string, ciri)),
+            Arguments.of(b.assAll(), set(iIri, ann, op, string, ciri)),
+            Arguments.of(b.assHas(), set(iIri, ann, op, string)),
+            Arguments.of(b.assMin(), set(iIri, ann, op, string, ciri)),
+            Arguments.of(b.assMax(), set(iIri, ann, op, string, ciri)),
+            Arguments.of(b.assEq(), set(iIri, ann, op, string, ciri)),
+            Arguments.of(b.assHasSelf(), set(iIri, ann, op, string)),
+            Arguments.of(b.assOneOf(), set(iIri, ann, string)),
+            Arguments.of(b.assDSome(), set(iIri, ann, string, datatype, dp)),
+            Arguments.of(b.assDAll(), set(iIri, ann, string, datatype, dp)),
+            Arguments.of(b.assDHas(), set(iIri, ann, bool, string, dp)),
+            Arguments.of(b.assDMin(), set(iIri, ann, string, datatype, dp)),
+            Arguments.of(b.assDMax(), set(iIri, ann, string, datatype, dp)),
+            Arguments.of(b.assDEq(), set(iIri, ann, string, datatype, dp)),
+            Arguments.of(b.dOneOf(), set(ann, bool, string, dp)),
+            Arguments.of(b.dNot(), set(ann, bool, string, dp)),
+            Arguments.of(b.dRangeRestrict(), set(ann, string, doubl, dp)),
+            Arguments.of(b.assD(), set(iIri, ann, bool, string, dp)),
+            Arguments.of(b.assDPlain(), set(iIri, ann, lang, string, dp)),
+            Arguments.of(b.dDom(), set(ann, string, ciri, dp)));
     }
 
     @ParameterizedTest
     @MethodSource("getData")
-    void testAssertion(OWLAxiom object, String[] expected) {
+    void testAssertion(OWLAxiom object, Set<String> expected) {
         Set<OWLEntity> sig = new HashSet<>();
         OWLEntityCollector testsubject = new OWLEntityCollector(sig);
         object.accept(testsubject);
         Set<String> result = sig.stream().map(Object::toString).collect(Collectors.toSet());
-        Set<String> l = new HashSet<>(Arrays.asList(expected));
-        assertEquals(l, result);
+        assertEquals(expected, result);
     }
 }

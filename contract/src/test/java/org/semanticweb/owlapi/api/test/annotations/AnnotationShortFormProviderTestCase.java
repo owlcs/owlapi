@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test.annotations;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Ontology;
@@ -25,8 +24,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -45,6 +42,13 @@ import org.semanticweb.owlapi.util.StringAnnotationVisitor;
  * @since 3.1.0
  */
 class AnnotationShortFormProviderTestCase extends TestBase {
+
+    class AnnVisitor extends StringAnnotationVisitor {
+        @Override
+        public String visit(OWLLiteral literal) {
+            return '"' + literal.getLiteral() + '"';
+        }
+    }
 
     private static final String IND = "ind";
     protected PrefixManager pm =
@@ -85,7 +89,7 @@ class AnnotationShortFormProviderTestCase extends TestBase {
     void testIRIValue() {
         OWLNamedIndividual root = NamedIndividual(IND, pm);
         Ontology(m, AnnotationAssertion(prop, root.getIRI(),
-            IRI("http://org.semanticweb.owlapi/ont#myIRI")));
+            iri("http://org.semanticweb.owlapi/ont#", "myIRI")));
         AnnotationValueShortFormProvider sfp =
             new AnnotationValueShortFormProvider(props, langMap, m);
         assertEquals("myIRI", sfp.getShortForm(root));
@@ -98,16 +102,7 @@ class AnnotationShortFormProviderTestCase extends TestBase {
         Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(m,
             new SimpleShortFormProvider(), new SimpleIRIShortFormProvider(), props, langMap);
-        sfp.setLiteralRenderer(new StringAnnotationVisitor() {
-
-            private static final long serialVersionUID = 1L;
-
-            @Nonnull
-            @Override
-            public String visit(@Nonnull OWLLiteral literal) {
-                return '"' + literal.getLiteral() + '"';
-            }
-        });
+        sfp.setLiteralRenderer(new AnnVisitor());
         String shortForm2 = sfp.getShortForm(root);
         assertEquals(shortForm2, '"' + shortForm + '"');
     }

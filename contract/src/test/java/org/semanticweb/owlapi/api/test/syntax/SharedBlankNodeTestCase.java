@@ -92,8 +92,8 @@ class SharedBlankNodeTestCase extends TestBase {
         return DataPropertyAssertion(DataProperty(IRI(p)), individual, Literal(litForm));
     }
 
-    private static OWLAxiom objectAssertion(String p, OWLIndividual iindividual, OWLIndividual j) {
-        return ObjectPropertyAssertion(ObjectProperty(IRI(p)), iindividual, j);
+    private static OWLAxiom objectAssertion(String p, OWLIndividual individual, OWLIndividual j) {
+        return ObjectPropertyAssertion(ObjectProperty(IRI(p)), individual, j);
     }
 
     @Test

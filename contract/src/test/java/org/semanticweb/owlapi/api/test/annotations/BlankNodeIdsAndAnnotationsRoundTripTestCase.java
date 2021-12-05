@@ -73,7 +73,6 @@ class BlankNodeIdsAndAnnotationsRoundTripTestCase extends TestBase {
     private final OWLClassExpression ce4 =
         df.getOWLObjectIntersectionOf(df.getOWLObjectExactCardinality(2, op),
             df.getOWLDataExactCardinality(3, dp), df.getOWLObjectComplementOf(ce3), ce3);
-
     private final Set<OWLDocumentFormat> singleAxiomsLost =
         new HashSet<>(Arrays.asList(new TrigDocumentFormat(), new RDFJsonLDDocumentFormat(),
             new NTriplesDocumentFormat(), new RDFXMLDocumentFormat(), new RDFJsonDocumentFormat(),

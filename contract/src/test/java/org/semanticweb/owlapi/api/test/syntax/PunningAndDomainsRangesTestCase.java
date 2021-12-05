@@ -7,7 +7,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -17,7 +16,7 @@ class PunningAndDomainsRangesTestCase extends TestBase {
 
     @Test
     void shouldKeepDomainsInFSS() {
-        OWLOntology o = create(IRI.create("urn:testontology"));
+        OWLOntology o = create(iri("urn:testontology", ""));
         OWLAnnotationProperty ann = df.getOWLAnnotationProperty(DP.getIRI());
         m.addAxiom(o,
             df.getOWLAnnotationPropertyRangeAxiom(ann, OWL2Datatype.RDFS_LITERAL.getIRI()));

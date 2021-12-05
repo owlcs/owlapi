@@ -20,10 +20,10 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
-public class LoadSweetTestCase extends TestBase {
+class LoadSweetTestCase extends TestBase {
 
     @Test
-    public void should() {
+    void should() {
         m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
         OWLOntology o =
             loadOntology(IRI.create(new File(RESOURCES, "importscyclic/relaMath.owl")), m);

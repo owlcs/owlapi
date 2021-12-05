@@ -64,16 +64,18 @@ class ImportsCacheTestCase extends TestBase {
     @Test
     void testImportsWhenRemovingAndReloading() {
         OWLOntologyManager man = setupManager();
-        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        File rootDirectory = new File(RESOURCES, "imports");
+        AutoIRIMapper mapper = new AutoIRIMapper(rootDirectory, true);
         man.getIRIMappers().add(mapper);
-        String name = "/imports/thesubont.omn";
-        OWLOntology root = loadOntologyFrom(getClass().getResourceAsStream(name), man);
+        String name = "thesubont.omn";
+        File subont = new File(rootDirectory, name);
+        OWLOntology root = loadOntologyFromFile(subont, man);
         assertEquals(1, root.getImports().size());
         for (OWLOntology ontology : man.getOntologies()) {
             man.removeOntology(ontology);
         }
         assertEquals(0, man.getOntologies().size());
-        root = loadOntologyFrom(getClass().getResourceAsStream(name), man);
+        root = loadOntologyFromFile(subont, man);
         assertEquals(1, root.getImports().size());
     }
 }

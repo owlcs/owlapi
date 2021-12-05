@@ -159,10 +159,7 @@ class AnnotatedAxiomRoundTripTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource({"annotatedOntologies"})
     void testRDFXML(Function<Set<OWLAnnotation>, OWLAxiom> function, OWLDocumentFormat format) {
-        OWLOntology o = annotatedAxiom(function);
-        System.out
-            .println("AnnotatedAxiomRoundTripTestCase.testRDFXML() \n" + saveOntology(o, format));
-        roundTripOntology(o, format);
+        roundTripOntology(annotatedAxiom(function), format);
     }
 
     @ParameterizedTest

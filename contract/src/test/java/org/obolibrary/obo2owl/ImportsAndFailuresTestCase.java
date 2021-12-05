@@ -44,7 +44,7 @@ class ImportsAndFailuresTestCase extends TestBase {
         m1.createOntology(TEST_IMPORT);
         OWLOntology o = loadOntologyFromSource(inputSource(EMPTY_IMPORT), m1);
         saveOntology(o, new OBODocumentFormat());
-        m.createOntology(TEST_IMPORT);
+        create(TEST_IMPORT);
         OWLOntology o1 = loadOntologyFromSource(inputSource(EMPTY_IMPORT), m);
         equal(o, o1);
     }
