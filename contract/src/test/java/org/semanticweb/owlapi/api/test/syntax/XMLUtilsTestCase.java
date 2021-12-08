@@ -60,7 +60,8 @@ class XMLUtilsTestCase extends TestBase {
 
     @Test
     void testEndsWithNCName() {
-        assertEquals("abc" + CODE_POINT_STRING, XMLUtils.getNCNameSuffix("1abc" + CODE_POINT_STRING));
+        assertEquals("abc" + CODE_POINT_STRING,
+            XMLUtils.getNCNameSuffix("1abc" + CODE_POINT_STRING));
         assertTrue(XMLUtils.hasNCNameSuffix("1abc" + CODE_POINT_STRING));
         assertNull(XMLUtils.getNCNameSuffix(CODE_POINT_STRING + "p1:123"));
         assertFalse(XMLUtils.hasNCNameSuffix(CODE_POINT_STRING + "p1:123"));
@@ -77,7 +78,7 @@ class XMLUtilsTestCase extends TestBase {
 
     @Test
     void testmissingTypes() {
-        OWLOntology o = loadOntologyFromString(TestFiles.missingTypes,
+        OWLOntology o = loadFrom(TestFiles.missingTypes,
             IRI.getNextDocumentIRI("testuriwithblankspace"), new RDFXMLDocumentFormat());
         assertEquals(15, o.getAxiomCount());
     }

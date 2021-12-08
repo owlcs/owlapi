@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
@@ -43,9 +42,9 @@ class OWLOntologyManagerImplTestCase extends TestBase {
 
     @BeforeEach
     void setUpManager() {
-        m = new OWLOntologyManagerImpl(new OWLDataFactoryImpl(), new ReentrantReadWriteLock());
+        m = new OWLOntologyManagerImpl(df, new ReentrantReadWriteLock());
         m.getOntologyFactories()
-            .add(new OWLOntologyFactoryImpl((om, id) -> new OWLOntologyImpl(om, id)));
+            .add(new OWLOntologyFactoryImpl((om, ontID) -> new OWLOntologyImpl(om, ontID)));
     }
 
     @Test
@@ -68,7 +67,7 @@ class OWLOntologyManagerImplTestCase extends TestBase {
         OWLOntology ontA = create(nextOntology());
         OWLOntology ontB = create(nextOntology());
         OWLImportsDeclaration decl =
-            df.getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
+            ImportsDeclaration(ontB.getOntologyID().getOntologyIRI().orElse(null));
         ontA.applyChange(new AddImport(ontA, decl));
         assertTrue(contains(m.directImports(ontA), ontB));
         m.removeOntology(ontB);
@@ -82,9 +81,9 @@ class OWLOntologyManagerImplTestCase extends TestBase {
         OWLOntology ontB = create(nextOntology());
         OWLOntology ontC = create(nextOntology());
         OWLImportsDeclaration declA =
-            df.getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
+            ImportsDeclaration(ontB.getOntologyID().getOntologyIRI().orElse(null));
         OWLImportsDeclaration declB =
-            df.getOWLImportsDeclaration(get(ontC.getOntologyID().getOntologyIRI()));
+            ImportsDeclaration(ontC.getOntologyID().getOntologyIRI().orElse(null));
         ontA.applyChanges(new AddImport(ontA, declA));
         ontB.applyChanges(new AddImport(ontB, declB));
         assertTrue(contains(m.importsClosure(ontA), ontA));
@@ -99,7 +98,7 @@ class OWLOntologyManagerImplTestCase extends TestBase {
         OWLOntology ontA = create(iri("urn:test:", "a"));
         assertEquals(0L, ontA.directImports().count());
         IRI b = iri("urn:test:", "b");
-        OWLImportsDeclaration declB = df.getOWLImportsDeclaration(b);
+        OWLImportsDeclaration declB = ImportsDeclaration(b);
         ontA.applyChange(new AddImport(ontA, declB));
         Set<IRI> directImportsDocuments = asUnorderedSet(ontA.directImportsDocuments());
         assertEquals(1, directImportsDocuments.size());

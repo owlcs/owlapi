@@ -14,88 +14,87 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.StructuralTransformation;
 
-class StructuralTransformationTestCase {
-    public static final String strtranssame = "[]";
+class StructuralTransformationTestCase extends TestBase {
+    public static final String strtranssame = "";
 
-    static Collection<Object[]> getData() {
+    static Stream<Arguments> getData() {
         Builder b = new Builder();
-        Map<OWLAxiom, String> map = new LinkedHashMap<>();
-        map.put(b.dRange(), TestFiles.strtransdRange);
-        map.put(b.dDef(), TestFiles.strtransdDef);
-        map.put(b.decC(), TestFiles.strtransdecC);
-        map.put(b.decOp(), TestFiles.strtransdecOp);
-        map.put(b.decDp(), TestFiles.strtransdecDp);
-        map.put(b.decDt(), TestFiles.strtransdecDt);
-        map.put(b.decAp(), TestFiles.strtransdecAp);
-        map.put(b.decI(), TestFiles.strtransdecI);
-        map.put(b.dDp(), TestFiles.strtransdDp);
-        map.put(b.dOp(), TestFiles.strtransdOp);
-        map.put(b.eDp(), TestFiles.strtranseDp);
-        map.put(b.eOp(), TestFiles.strtranseOp);
-        map.put(b.fdp(), TestFiles.strtransfdp);
-        map.put(b.fop(), TestFiles.strtransfop);
-        map.put(b.ifp(), TestFiles.strtransifp);
-        map.put(b.iop(), TestFiles.strtransiop);
-        map.put(b.irr(), TestFiles.strtransirr);
-        map.put(b.opa(), TestFiles.strtransopa);
-        map.put(b.opaInv(), TestFiles.strtransopaInv);
-        map.put(b.opaInvj(), TestFiles.strtransopaInvj);
-        map.put(b.oDom(), TestFiles.strtransoDom);
-        map.put(b.oRange(), TestFiles.strtransoRange);
-        map.put(b.chain(), TestFiles.strtranschain);
-        map.put(b.ref(), TestFiles.strtransref);
-        map.put(b.same(), strtranssame);
-        map.put(b.subAnn(), TestFiles.strtranssubAnn);
-        map.put(b.subClass(), TestFiles.strtranssubClass);
-        map.put(b.subData(), TestFiles.strtranssubData);
-        map.put(b.subObject(), TestFiles.strtranssubObject);
-        map.put(b.rule(), TestFiles.strtransrule);
-        map.put(b.symm(), TestFiles.strtranssymm);
-        map.put(b.trans(), TestFiles.strtranstrans);
-        map.put(b.hasKey(), TestFiles.strtranshasKey);
-        map.put(b.bigRule(), TestFiles.strtransbigRule);
-        map.put(b.ann(), TestFiles.strtransann);
-        map.put(b.asymm(), TestFiles.strtransasymm);
-        map.put(b.annDom(), TestFiles.strtransannDom);
-        map.put(b.annRange(), TestFiles.strtransannRange);
-        map.put(b.dRangeAnd(), TestFiles.strtransdRangeAnd);
-        map.put(b.dRangeOr(), TestFiles.strtransdRangeOr);
-        map.put(b.dOneOf(), TestFiles.strtransdOneOf);
-        map.put(b.dNot(), TestFiles.strtransdNot);
-        map.put(b.dRangeRestrict(), TestFiles.strtransdRangeRestrict);
-        map.put(b.assD(), TestFiles.strtransassD);
-        map.put(b.assDPlain(), TestFiles.strtransassDPlain);
-        map.put(b.dDom(), TestFiles.strtransdDom);
-        map.put(b.dc(), TestFiles.strtransdc);
-        map.put(b.du(), TestFiles.strtransdu);
-        map.put(b.ec(), TestFiles.strtransec);
-        Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
-        return toReturn;
+        return Stream.of(Arguments.of(b.dRange(), TestFiles.strtransdRange),
+            Arguments.of(b.dDef(), TestFiles.strtransdDef),
+            Arguments.of(b.decC(), TestFiles.strtransdecC),
+            Arguments.of(b.decOp(), TestFiles.strtransdecOp),
+            Arguments.of(b.decDp(), TestFiles.strtransdecDp),
+
+            Arguments.of(b.decDt(), TestFiles.strtransdecDt),
+            Arguments.of(b.decAp(), TestFiles.strtransdecAp),
+            Arguments.of(b.decI(), TestFiles.strtransdecI),
+            Arguments.of(b.dDp(), TestFiles.strtransdDp),
+            Arguments.of(b.dOp(), TestFiles.strtransdOp),
+
+            Arguments.of(b.eDp(), TestFiles.strtranseDp),
+            Arguments.of(b.eOp(), TestFiles.strtranseOp),
+            Arguments.of(b.fdp(), TestFiles.strtransfdp),
+            Arguments.of(b.fop(), TestFiles.strtransfop),
+            Arguments.of(b.ifp(), TestFiles.strtransifp),
+
+            Arguments.of(b.iop(), TestFiles.strtransiop),
+            Arguments.of(b.irr(), TestFiles.strtransirr),
+            Arguments.of(b.opa(), TestFiles.strtransopa),
+            Arguments.of(b.opaInv(), TestFiles.strtransopaInv),
+            Arguments.of(b.opaInvj(), TestFiles.strtransopaInvj),
+
+            Arguments.of(b.oDom(), TestFiles.strtransoDom),
+            Arguments.of(b.oRange(), TestFiles.strtransoRange),
+            Arguments.of(b.chain(), TestFiles.strtranschain),
+            Arguments.of(b.ref(), TestFiles.strtransref), Arguments.of(b.same(), strtranssame),
+
+            Arguments.of(b.subAnn(), TestFiles.strtranssubAnn),
+            Arguments.of(b.subClass(), TestFiles.strtranssubClass),
+            Arguments.of(b.subData(), TestFiles.strtranssubData),
+            Arguments.of(b.subObject(), TestFiles.strtranssubObject),
+            Arguments.of(b.rule(), TestFiles.strtransrule),
+
+            Arguments.of(b.symm(), TestFiles.strtranssymm),
+            Arguments.of(b.trans(), TestFiles.strtranstrans),
+            Arguments.of(b.hasKey(), TestFiles.strtranshasKey),
+            Arguments.of(b.bigRule(), TestFiles.strtransbigRule),
+            Arguments.of(b.ann(), TestFiles.strtransann),
+
+            Arguments.of(b.asymm(), TestFiles.strtransasymm),
+            Arguments.of(b.annDom(), TestFiles.strtransannDom),
+            Arguments.of(b.annRange(), TestFiles.strtransannRange),
+            Arguments.of(b.dRangeAnd(), TestFiles.strtransdRangeAnd),
+            Arguments.of(b.dRangeOr(), TestFiles.strtransdRangeOr),
+
+            Arguments.of(b.dOneOf(), TestFiles.strtransdOneOf),
+            Arguments.of(b.dNot(), TestFiles.strtransdNot),
+            Arguments.of(b.dRangeRestrict(), TestFiles.strtransdRangeRestrict),
+            Arguments.of(b.assD(), TestFiles.strtransassD),
+            Arguments.of(b.assDPlain(), TestFiles.strtransassDPlain),
+
+            Arguments.of(b.dDom(), TestFiles.strtransdDom),
+            Arguments.of(b.dc(), TestFiles.strtransdc), Arguments.of(b.du(), TestFiles.strtransdu),
+            Arguments.of(b.ec(), TestFiles.strtransec));
     }
 
     @ParameterizedTest
     @MethodSource("getData")
-    void testAssertion(OWLAxiom object, String expected) {
-        StructuralTransformation testsubject =
-            new StructuralTransformation(OWLManager.getOWLDataFactory());
-        Set<OWLAxiom> singleton = Collections.singleton(object);
-        String result = new TreeSet<>(testsubject.getTransformedAxioms(singleton)).toString();
-        assertEquals(expected.replace(",", ",\n"), result.replace(",", ",\n"));
+    void testAssertion(OWLAxiom ax, String expected) {
+        StructuralTransformation testsubject = new StructuralTransformation(df);
+        Set<OWLAxiom> singleton = Collections.singleton(ax);
+        String result = str(testsubject.getTransformedAxioms(singleton));
+        assertEquals(expected, result);
     }
 }

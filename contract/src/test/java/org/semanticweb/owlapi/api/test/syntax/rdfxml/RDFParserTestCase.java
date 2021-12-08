@@ -54,7 +54,7 @@ class RDFParserTestCase extends TestBase {
                 for (File ontologyFile : testSuiteFolder.listFiles()) {
                     if (ontologyFile.getName().endsWith(".rdf")
                         || ontologyFile.getName().endsWith(".owlapi")) {
-                        OWLOntology ont = loadOntologyFromFile(ontologyFile, m);
+                        OWLOntology ont = loadFrom(ontologyFile, m);
                         m.removeOntology(ont);
                     }
                 }
@@ -64,24 +64,22 @@ class RDFParserTestCase extends TestBase {
 
     @Test
     void shouldParseDataProperty() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.parseDataProperty, new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.parseDataProperty, new RDFXMLDocumentFormat());
         assertFalse(o.containsObjectPropertyInSignature(
             iri("http://www.loa-cnr.it/ontologies/Plans.owl#", "iteration-cardinality")));
     }
 
     @Test
     void shouldLoadSubPropertiesAsObjectProperties() {
-        OWLOntology o = loadOntologyFromString(TestFiles.subPropertiesAsObjectProperties,
-            new RDFXMLDocumentFormat());
+        OWLOntology o =
+            loadFrom(TestFiles.subPropertiesAsObjectProperties, new RDFXMLDocumentFormat());
         assertEquals(0, o.axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF).count());
         assertEquals(1, o.axioms(AxiomType.SUB_OBJECT_PROPERTY).count());
     }
 
     @Test
     void shouldRoundTripLhsSubsetOfRHS() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.lhsSubsetofRhs, new FunctionalSyntaxDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.lhsSubsetofRhs, new FunctionalSyntaxDocumentFormat());
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         equal(o, o1);
     }

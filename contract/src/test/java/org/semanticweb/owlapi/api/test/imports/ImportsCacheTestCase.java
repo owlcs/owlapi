@@ -9,6 +9,7 @@ import java.io.File;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFilenames;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
@@ -30,8 +31,8 @@ class ImportsCacheTestCase extends TestBase {
     void setUpOntologies() {
         ontA = create(iri("http://ont.com/", "ontA"));
         ontB = create(iri("http://ont.com/", "ontB"));
-        ontBDocIri = iri("http://docs.ont.com/ontB");
-        ontBDocumentIriImportsDeclaration = df.getOWLImportsDeclaration(ontBDocIri);
+        ontBDocIri = iri("http://docs.ont.com/", "ontB");
+        ontBDocumentIriImportsDeclaration = ImportsDeclaration(ontBDocIri);
     }
 
     /**
@@ -68,15 +69,14 @@ class ImportsCacheTestCase extends TestBase {
         File rootDirectory = new File(RESOURCES, "imports");
         AutoIRIMapper mapper = new AutoIRIMapper(rootDirectory, true);
         man.getIRIMappers().add(mapper);
-        String name = "thesubont.omn";
-        File subont = new File(rootDirectory, name);
-        OWLOntology root = loadOntologyFromFile(subont, man);
+        File subont = new File(rootDirectory, TestFilenames.THESUBONT_OMN);
+        OWLOntology root = loadFrom(subont, man);
         assertEquals(1, root.getImports().size());
         for (OWLOntology ontology : man.getOntologies()) {
             man.removeOntology(ontology);
         }
         assertEquals(0, man.getOntologies().size());
-        root = loadOntologyFromFile(subont, man);
+        root = loadFrom(subont, man);
         assertEquals(1, root.getImports().size());
     }
 }

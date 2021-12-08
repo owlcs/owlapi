@@ -13,6 +13,7 @@
 package uk.ac.manchester.owl.owlapi.tutorial;
 
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -39,6 +40,9 @@ public class LabelExtractor implements OWLAnnotationObjectVisitor {
         }
     }
 
+    /**
+     * @return result
+     */
     public @Nullable String getResult() {
         return result;
     }

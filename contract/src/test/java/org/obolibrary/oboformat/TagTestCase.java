@@ -12,9 +12,11 @@ import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
+import org.semanticweb.owlapi.apitest.TestFilenames;
 
 class TagTestCase extends OboFormatTestBasics {
 
+    private static final String FOO = "foo";
     private static final String A_B_C = "a b c";
 
     private static Clause parseLine(String line) {
@@ -25,8 +27,8 @@ class TagTestCase extends OboFormatTestBasics {
         return p.parseTermFrameClause();
     }
 
-    private static OBODoc parseFrames(String s) {
-        StringReader sr = new StringReader(s);
+    private static OBODoc parseFrames(String content) {
+        StringReader sr = new StringReader(content);
         OBOFormatParser p = new OBOFormatParser();
         BufferedReader br = new BufferedReader(sr);
         p.setReader(br);
@@ -35,8 +37,8 @@ class TagTestCase extends OboFormatTestBasics {
         return obodoc;
     }
 
-    private static OBODoc parseOBODoc(String s) {
-        StringReader sr = new StringReader(s);
+    private static OBODoc parseOBODoc(String content) {
+        StringReader sr = new StringReader(content);
         OBOFormatParser p = new OBOFormatParser();
         BufferedReader br = new BufferedReader(sr);
         p.setReader(br);
@@ -47,7 +49,7 @@ class TagTestCase extends OboFormatTestBasics {
 
     @Test
     void testParseOBOFile() {
-        OBODoc obodoc = parseOBOFile("tag_test.obo");
+        OBODoc obodoc = parseOBOFile(TestFilenames.TAG_TEST_OBO);
         assertEquals(4, obodoc.getTermFrames().size());
         assertEquals(1, obodoc.getTypedefFrames().size());
         Frame frame = obodoc.getTermFrame("X:1");
@@ -58,7 +60,7 @@ class TagTestCase extends OboFormatTestBasics {
 
     @Test
     void testParseOBOFile2() {
-        OBODoc obodoc = parseOBOFile("testqvs.obo");
+        OBODoc obodoc = parseOBOFile(TestFilenames.TESTQVS_OBO);
         assertEquals(4, obodoc.getTermFrames().size());
         assertEquals(1, obodoc.getTypedefFrames().size());
     }
@@ -69,7 +71,7 @@ class TagTestCase extends OboFormatTestBasics {
         assertEquals(2, obodoc.getTermFrames().size());
         Frame frame = obodoc.getTermFrame("x");
         assert frame != null;
-        assertEquals("foo", frame.getTagValue(OboFormatTag.TAG_NAME));
+        assertEquals(FOO, frame.getTagValue(OboFormatTag.TAG_NAME));
     }
 
     @Test
@@ -77,7 +79,7 @@ class TagTestCase extends OboFormatTestBasics {
         OBODoc obodoc = parseFrames("[Term]\nid: x\nname: foo");
         assertEquals(1, obodoc.getTermFrames().size());
         Frame frame = obodoc.getTermFrames().iterator().next();
-        assertEquals("foo", frame.getTagValue(OboFormatTag.TAG_NAME));
+        assertEquals(FOO, frame.getTagValue(OboFormatTag.TAG_NAME));
     }
 
     @Test
@@ -119,7 +121,7 @@ class TagTestCase extends OboFormatTestBasics {
     void testParseNamespaceTag() {
         Clause cl = parseLine("namespace: foo");
         assertEquals(cl.getTag(), OboFormatTag.TAG_NAMESPACE.getTag());
-        assertEquals("foo", cl.getValue());
+        assertEquals(FOO, cl.getValue());
     }
 
     @Test

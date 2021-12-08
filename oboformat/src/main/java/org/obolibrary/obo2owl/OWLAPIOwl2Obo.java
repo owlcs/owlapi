@@ -1453,7 +1453,7 @@ public class OWLAPIOwl2Obo {
                 if (Namespaces.XSD.inNamespace(dataTypeIri)) {
                     clause.addValue(dataTypeIri.prefixedBy("xsd:"));
                 } else if (dataTypeIri.isPlainLiteral()) {
-                    clause.addValue("xsd:string");
+                    clause.addValue(OWL2Datatype.XSD_STRING.getPrefixedName());
                 } else {
                     clause.addValue(dataTypeIri.toString());
                 }

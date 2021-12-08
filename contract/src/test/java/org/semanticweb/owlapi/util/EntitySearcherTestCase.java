@@ -2,12 +2,7 @@ package org.semanticweb.owlapi.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectInverseOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Ontology;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -37,7 +32,7 @@ class EntitySearcherTestCase extends TestBase {
         inverseProperty = ObjectInverseOf(ObjectProperty("inverseProperty", pm));
         OWLOntology ontology = Ontology(m, SubObjectPropertyOf(subProperty, superProperty),
             SubObjectPropertyOf(subProperty, inverseProperty));
-        ontologies = Collections.singleton(ontology);
+        ontologies = set(ontology);
     }
 
     @Test

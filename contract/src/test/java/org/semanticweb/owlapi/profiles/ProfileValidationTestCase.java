@@ -13,9 +13,6 @@
 package org.semanticweb.owlapi.profiles;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.search.Searcher.negValues;
 import static org.semanticweb.owlapi.search.Searcher.values;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
@@ -27,8 +24,6 @@ import java.util.Collection;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -37,7 +32,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -54,25 +48,25 @@ class ProfileValidationTestCase extends TestBase {
     @Test
     void testProfiles() {
         String ns = "http://www.w3.org/2007/OWL/testOntology#";
-        IRI profile = IRI(ns, "ProfileIdentificationTest");
-        IRI species = IRI(ns, "species");
-        IRI fullIRI = IRI(ns, "FULL");
-        IRI dlIRI = IRI(ns, "DL");
-        IRI elIRI = IRI(ns, "EL");
-        IRI qlIRI = IRI(ns, "QL");
-        IRI rlIRI = IRI(ns, "RL");
-        IRI premiseIRI = IRI(ns, "rdfXmlPremiseOntology");
+        IRI profile = iri(ns, "ProfileIdentificationTest");
+        IRI species = iri(ns, "species");
+        IRI fullIRI = iri(ns, "FULL");
+        IRI dlIRI = iri(ns, "DL");
+        IRI elIRI = iri(ns, "EL");
+        IRI qlIRI = iri(ns, "QL");
+        IRI rlIRI = iri(ns, "RL");
+        IRI premiseIRI = iri(ns, "rdfXmlPremiseOntology");
         URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
         IRI allTestURI = IRI.create(resourceURL);
-        OWLOntology testCasesOntology = loadOntologyFromString(allTestURI);
+        OWLOntology testCasesOntology = loadFrom(allTestURI);
         OWLClass profileIdentificationTestClass = Class(profile);
-        OWLNamedIndividual el = df.getOWLNamedIndividual(elIRI);
-        OWLNamedIndividual ql = df.getOWLNamedIndividual(qlIRI);
-        OWLNamedIndividual rl = df.getOWLNamedIndividual(rlIRI);
-        OWLObjectProperty speciesProperty = df.getOWLObjectProperty(species);
-        OWLNamedIndividual full = df.getOWLNamedIndividual(fullIRI);
-        OWLNamedIndividual dl = df.getOWLNamedIndividual(dlIRI);
-        OWLDataProperty rdfXMLPremiseOntologyProperty = df.getOWLDataProperty(premiseIRI);
+        OWLNamedIndividual el = NamedIndividual(elIRI);
+        OWLNamedIndividual ql = NamedIndividual(qlIRI);
+        OWLNamedIndividual rl = NamedIndividual(rlIRI);
+        OWLObjectProperty speciesProperty = ObjectProperty(species);
+        OWLNamedIndividual full = NamedIndividual(fullIRI);
+        OWLNamedIndividual dl = NamedIndividual(dlIRI);
+        OWLDataProperty rdfXMLPremiseOntologyProperty = DataProperty(premiseIRI);
         for (OWLClassAssertionAxiom ax : asList(
             testCasesOntology.classAssertionAxioms(profileIdentificationTestClass))) {
             OWLIndividual ind = ax.getIndividual();
@@ -83,7 +77,7 @@ class ProfileValidationTestCase extends TestBase {
                 continue;
             }
             String ontologySerialisation = vals.iterator().next().getLiteral();
-            OWLOntology ontology = loadOntologyFromString(ontologySerialisation);
+            OWLOntology ontology = loadFrom(ontologySerialisation);
             // FULL?
             Collection<OWLIndividual> finder = asUnorderedSet(
                 values(testCasesOntology.objectPropertyAssertionAxioms(ind), speciesProperty));
@@ -129,11 +123,8 @@ class ProfileValidationTestCase extends TestBase {
 
     @Test
     void shouldNotFailELBecauseOfBoolean() {
-        OWLOntology o = create();
-        OWLAnnotation ann = df.getRDFSLabel(df.getOWLLiteral(true));
-        OWLAnnotationAssertionAxiom ax =
-            df.getOWLAnnotationAssertionAxiom(iri("urn:test#", "ELProfile"), ann);
-        o.add(ax, Declaration(OWL2Datatype.XSD_BOOLEAN.getDatatype(df)));
+        OWLOntology o =
+            o(AnnotationAssertion(RDFSLabel(), iri("urn:test#", "ELProfile"), LIT_TRUE));
         checkProfile(o, new OWL2ELProfile(), true);
     }
 }

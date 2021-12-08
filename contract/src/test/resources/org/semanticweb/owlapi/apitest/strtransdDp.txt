@@ -1,1 +1,1 @@
-[DisjointDataProperties(<urn:test:test#dp> <urn:test:test#iri>)]
+DisjointDataProperties(<http://www.semanticweb.org/owlapi/test#iri> <http://www.semanticweb.org/owlapi/test#p>)

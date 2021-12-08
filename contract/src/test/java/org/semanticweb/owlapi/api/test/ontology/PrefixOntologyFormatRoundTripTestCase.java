@@ -24,8 +24,6 @@ import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -60,13 +58,12 @@ class PrefixOntologyFormatRoundTripTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void testFormat(OWLDocumentFormat d){
-        roundTripOntology(prefixOntologyFormatRoundTripTestCase(), d);
+    void testFormat(OWLDocumentFormat format) {
+        roundTripOntology(prefixOntologyFormatRoundTripTestCase(), format);
     }
 
     @Test
-    void roundTripRDFXMLAndFunctionalShouldBeSame()
-       {
+    void roundTripRDFXMLAndFunctionalShouldBeSame() {
         OWLOntology o = prefixOntologyFormatRoundTripTestCase();
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());

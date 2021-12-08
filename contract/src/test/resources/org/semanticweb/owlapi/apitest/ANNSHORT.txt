@@ -1,1 +1,1 @@
-urn:test:test#ann
+http://www.semanticweb.org/owlapi/test#ann

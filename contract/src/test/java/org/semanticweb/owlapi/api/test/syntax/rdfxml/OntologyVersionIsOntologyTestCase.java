@@ -19,15 +19,13 @@ import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-public class OntologyVersionIsOntologyTestCase extends TestBase {
+class OntologyVersionIsOntologyTestCase extends TestBase {
 
     @Test
-    void testLoad(){
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.ontologyVersionParse, new RioTurtleDocumentFormat());
+    void testLoad() {
+        OWLOntology o = loadFrom(TestFiles.ontologyVersionParse, new RioTurtleDocumentFormat());
         StringDocumentTarget saveOntology = saveOntology(o, new RioTurtleDocumentFormat());
-        OWLOntology o1 =
-            loadOntologyFromString(saveOntology.toString(), new RioTurtleDocumentFormat());
+        OWLOntology o1 = loadFrom(saveOntology.toString(), new RioTurtleDocumentFormat());
         equal(o, o1);
     }
 }

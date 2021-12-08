@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,7 +30,7 @@ class BOMSafeInputStreamAndParseTestCase extends TestBase {
 
     static Collection<Arguments> data() {
         List<Arguments> toReturn = new ArrayList<>();
-        List<String> list = Arrays.asList(
+        List<String> list = l(
         //@formatter:off
             "<Ontology xml:base=\"" + nextISA() + "\" ontologyIRI=\"" + ISA14 + "\"> <Declaration><Class IRI=\"" + RESEARCHER + "\"/></Declaration></Ontology>",
             "Ontology: <" + nextISA() + ">\nClass: " + RESEARCHER_IRI,
@@ -41,11 +40,11 @@ class BOMSafeInputStreamAndParseTestCase extends TestBase {
             //@formatter:on    
         );
         List<int[]> prefixes =
-            Arrays.asList(new int[] {0x00, 0x00, 0xFE, 0xFF}, new int[] {0xFF, 0xFE, 0x00, 0x00},
+            l(new int[] {0x00, 0x00, 0xFE, 0xFF}, new int[] {0xFF, 0xFE, 0x00, 0x00},
                 new int[] {0xFF, 0xFE}, new int[] {0xFE, 0xFF}, new int[] {0xEF, 0xBB, 0xBF});
         for (int[] p : prefixes) {
-            for (String s : list) {
-                toReturn.add(Arguments.of(p, s));
+            for (String onto : list) {
+                toReturn.add(Arguments.of(p, onto));
             }
         }
         return toReturn;
@@ -55,12 +54,12 @@ class BOMSafeInputStreamAndParseTestCase extends TestBase {
         return IRI.getNextDocumentIRI(ISA14_O);
     }
 
-    private static InputStream in(int[] b, String s) throws IOException {
+    private static InputStream in(int[] b, String content) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        for (int v : b) {
-            out.write(v);
+        for (int index : b) {
+            out.write(index);
         }
-        out.write(s.getBytes());
+        out.write(content.getBytes());
         byte[] byteArray = out.toByteArray();
         return new ByteArrayInputStream(byteArray);
     }
@@ -75,7 +74,7 @@ class BOMSafeInputStreamAndParseTestCase extends TestBase {
     @MethodSource("data")
     void testBOMError32big(int[] b, String input) throws IOException {
         try (InputStream in = in(b, input)) {
-            loadOntologyFrom(in);
+            loadFrom(in);
         }
     }
 

@@ -205,7 +205,7 @@ class OWL2DatatypeTestCase extends TestBase {
 
     @Test
     void getSignature() {
-        assertEquals(asUnorderedSet(plainLiteral.signature()), singleton(plainLiteral));
+        assertEquals(asUnorderedSet(plainLiteral.signature()), set(plainLiteral));
     }
 
     @Test
@@ -253,7 +253,7 @@ class OWL2DatatypeTestCase extends TestBase {
     void contains() {
         IRI iri = XSD_BYTE.getIRI();
         Set<OWLDatatype> datatypes = new HashSet<>();
-        OWLDatatype dtImpl = df.getOWLDatatype(iri);
+        OWLDatatype dtImpl = Datatype(iri);
         OWLDatatype dt2Impl = XSD_BYTE.getDatatype(df);
         assertEquals(dtImpl, dt2Impl);
         datatypes.add(dt2Impl);

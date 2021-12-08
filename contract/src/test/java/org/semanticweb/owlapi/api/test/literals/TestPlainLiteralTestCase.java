@@ -15,10 +15,6 @@ package org.semanticweb.owlapi.api.test.literals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSComment;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -28,7 +24,6 @@ import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -38,30 +33,27 @@ class TestPlainLiteralTestCase extends TestBase {
 
     static final String URN_TEST = "urn:test#";
     static final String TEST = "test";
-    private static final OWLLiteral OWL_LITERAL =
-        df.getOWLLiteral(TEST, OWL2Datatype.RDF_PLAIN_LITERAL);
-    static final OWLDataProperty TEST_DP = df.getOWLDataProperty(iri(URN_TEST, "p"));
-    static final IRI IRI = IRI(URN_TEST, "ind");
+    private static final OWLLiteral OWL_LITERAL = Literal(TEST, OWL2Datatype.RDF_PLAIN_LITERAL);
+    static final IRI IRI = iri(URN_TEST, "ind");
 
     @Test
     void testPlainLiteral() {
-        IRI iri = iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "PlainLiteral");
+        IRI iri = OWL2Datatype.RDF_PLAIN_LITERAL.getIRI();
         assertTrue(iri.isPlainLiteral());
-        assertNotNull(df.getRDFPlainLiteral());
+        assertNotNull(RDFPlainLiteral());
         assertNotNull(OWL2Datatype.getDatatype(iri));
     }
 
     @Test
     void shouldParsePlainLiteral() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.parsePlainLiteral, new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.parsePlainLiteral, new RDFXMLDocumentFormat());
         assertEquals(o.annotationAssertionAxioms(IRI).iterator().next(),
             AnnotationAssertion(RDFSComment(), IRI, Literal(TEST, OWL2Datatype.RDF_PLAIN_LITERAL)));
     }
 
     @Test
     void testPlainLiteralFromEvren() {
-        OWLDatatype node = df.getRDFPlainLiteral();
+        OWLDatatype node = RDFPlainLiteral();
         assertTrue(node.isBuiltIn());
         assertNotNull(node.getBuiltInDatatype());
     }
@@ -69,8 +61,7 @@ class TestPlainLiteralTestCase extends TestBase {
     @Test
     void testPlainLiteralSerialization() {
         OWLOntology o = createAnon();
-        o.add(df.getOWLDataPropertyAssertionAxiom(TEST_DP, df.getOWLNamedIndividual(IRI),
-            OWL_LITERAL));
+        o.add(DataPropertyAssertion(DP, NamedIndividual(IRI), OWL_LITERAL));
         StringDocumentTarget out = saveOntology(o);
         String expectedStart = "<test:p";
         String expectedEnd = ">test</test:p>";
@@ -81,8 +72,7 @@ class TestPlainLiteralTestCase extends TestBase {
     @Test
     void testPlainLiteralSerializationComments() {
         OWLOntology o = createAnon();
-        o.add(df.getOWLAnnotationAssertionAxiom(df.getOWLNamedIndividual(IRI).getIRI(),
-            df.getRDFSComment(OWL_LITERAL)));
+        o.add(AnnotationAssertion(RDFSComment(), IRI, OWL_LITERAL));
         StringDocumentTarget out = saveOntology(o);
         String expectedStart = "<rdfs:comment";
         String expectedEnd = ">test</rdfs:comment>";
@@ -93,7 +83,7 @@ class TestPlainLiteralTestCase extends TestBase {
     @Test
     void testPlainLiteralSerializationComments2() {
         OWLOntology o = createAnon();
-        OWLAnnotation a = df.getRDFSComment(OWL_LITERAL);
+        OWLAnnotation a = RDFSComment(OWL_LITERAL);
         o.applyChange(new AddOntologyAnnotation(o, a));
         StringDocumentTarget out = saveOntology(o);
         String expectedStart = "<rdfs:comment";

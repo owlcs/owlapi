@@ -1,1 +1,1 @@
-ClassAssertion(Annotation(<urn:test:test#ann> "test"^^xsd:string) DataMaxCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)
+ClassAssertion(Annotation(<http://www.semanticweb.org/owlapi/test#ann> "test"^^xsd:string) DataMaxCardinality(1 <http://www.semanticweb.org/owlapi/test#p> <http://www.semanticweb.org/owlapi/test#DT>) <http://www.semanticweb.org/owlapi/test#i>)

@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Collection;
@@ -22,6 +21,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
+import org.semanticweb.owlapi.api.test.baseclasses.DF;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -45,10 +45,18 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
         super(m);
     }
 
+    /**
+     * @param axioms axioms to normalise
+     * @return normalised axioms
+     */
     public Set<OWLAxiom> getNormalisedAxioms(Collection<OWLAxiom> axioms) {
         return getNormalisedAxioms(axioms.stream());
     }
 
+    /**
+     * @param axioms axioms to normalise
+     * @return normalised axioms
+     */
     public Set<OWLAxiom> getNormalisedAxioms(Stream<OWLAxiom> axioms) {
         return asSet(axioms.map(this::t));
     }
@@ -56,6 +64,6 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     @Override
     public OWLAnonymousIndividual visit(OWLAnonymousIndividual individual) {
         return renamingMap.computeIfAbsent(individual,
-            x -> AnonymousIndividual("anon-ind-" + counter.incrementAndGet()));
+            x -> DF.AnonymousIndividual("anon-ind-" + counter.incrementAndGet()));
     }
 }

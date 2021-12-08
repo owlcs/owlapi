@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
@@ -58,7 +57,7 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         // when
         assertThrowsWithCausePredicate(OWLRuntimeException.class,
             OWLOntologyAlreadyExistsException.class,
-            e -> assertEquals(expected, ((OWLOntologyAlreadyExistsException) e).getOntologyID()),
+            ex -> assertEquals(expected, ((OWLOntologyAlreadyExistsException) ex).getOntologyID()),
             () -> create(secondUniqueOWLOntologyID));
     }
 
@@ -76,7 +75,7 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         // when
         assertThrowsWithCausePredicate(OWLRuntimeException.class,
             OWLOntologyAlreadyExistsException.class,
-            e -> assertEquals(expected, ((OWLOntologyAlreadyExistsException) e).getOntologyID()),
+            ex -> assertEquals(expected, ((OWLOntologyAlreadyExistsException) ex).getOntologyID()),
             () -> create(secondUniqueOWLOntologyID));
     }
 
@@ -179,8 +178,8 @@ class MultipleOntologyLoadsTestCase extends TestBase {
         try {
             return new FileDocumentSource(
                 new File(getClass().getResource("/owlapi/multipleOntologyLoadsTest.rdf").toURI()));
-        } catch (URISyntaxException e) {
-            throw new OWLRuntimeException(e);
+        } catch (URISyntaxException ex) {
+            throw new OWLRuntimeException(ex);
         }
     }
 }

@@ -1,1 +1,1 @@
-[SymmetricObjectProperty(Annotation(<urn:test:test#ann> "test"^^xsd:string) <urn:test:test#op>)]
+SymmetricObjectProperty(Annotation(<http://www.semanticweb.org/owlapi/test#ann> "test"^^xsd:string) <http://example.com/objectProperty>)

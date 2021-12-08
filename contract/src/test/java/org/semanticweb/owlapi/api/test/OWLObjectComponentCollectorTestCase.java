@@ -45,8 +45,6 @@ import static org.semanticweb.owlapi.apitest.TestFiles.APD;
 import static org.semanticweb.owlapi.apitest.TestFiles.APR;
 import static org.semanticweb.owlapi.apitest.TestFiles.ASELF;
 import static org.semanticweb.owlapi.apitest.TestFiles.BLN;
-import static org.semanticweb.owlapi.apitest.TestFiles.C;
-import static org.semanticweb.owlapi.apitest.TestFiles.CI;
 import static org.semanticweb.owlapi.apitest.TestFiles.CNOT;
 import static org.semanticweb.owlapi.apitest.TestFiles.DALL;
 import static org.semanticweb.owlapi.apitest.TestFiles.DAND;
@@ -66,8 +64,6 @@ import static org.semanticweb.owlapi.apitest.TestFiles.DNOT;
 import static org.semanticweb.owlapi.apitest.TestFiles.DONEOF;
 import static org.semanticweb.owlapi.apitest.TestFiles.DOP;
 import static org.semanticweb.owlapi.apitest.TestFiles.DOR;
-import static org.semanticweb.owlapi.apitest.TestFiles.DP;
-import static org.semanticweb.owlapi.apitest.TestFiles.DPI;
 import static org.semanticweb.owlapi.apitest.TestFiles.DPR;
 import static org.semanticweb.owlapi.apitest.TestFiles.DPRAND;
 import static org.semanticweb.owlapi.apitest.TestFiles.DPRNOT;
@@ -76,9 +72,7 @@ import static org.semanticweb.owlapi.apitest.TestFiles.DRA;
 import static org.semanticweb.owlapi.apitest.TestFiles.DSJC;
 import static org.semanticweb.owlapi.apitest.TestFiles.DSJOP;
 import static org.semanticweb.owlapi.apitest.TestFiles.DSOME;
-import static org.semanticweb.owlapi.apitest.TestFiles.DT;
 import static org.semanticweb.owlapi.apitest.TestFiles.DTD;
-import static org.semanticweb.owlapi.apitest.TestFiles.DTI;
 import static org.semanticweb.owlapi.apitest.TestFiles.DU;
 import static org.semanticweb.owlapi.apitest.TestFiles.EQC;
 import static org.semanticweb.owlapi.apitest.TestFiles.EQDP;
@@ -87,9 +81,7 @@ import static org.semanticweb.owlapi.apitest.TestFiles.FDP;
 import static org.semanticweb.owlapi.apitest.TestFiles.FOP;
 import static org.semanticweb.owlapi.apitest.TestFiles.HAS;
 import static org.semanticweb.owlapi.apitest.TestFiles.HASKEY;
-import static org.semanticweb.owlapi.apitest.TestFiles.I;
 import static org.semanticweb.owlapi.apitest.TestFiles.IFP;
-import static org.semanticweb.owlapi.apitest.TestFiles.II;
 import static org.semanticweb.owlapi.apitest.TestFiles.INVERSE;
 import static org.semanticweb.owlapi.apitest.TestFiles.IOP;
 import static org.semanticweb.owlapi.apitest.TestFiles.IRI;
@@ -104,12 +96,9 @@ import static org.semanticweb.owlapi.apitest.TestFiles.NOT;
 import static org.semanticweb.owlapi.apitest.TestFiles.OEQ;
 import static org.semanticweb.owlapi.apitest.TestFiles.OMIN;
 import static org.semanticweb.owlapi.apitest.TestFiles.ONE;
-import static org.semanticweb.owlapi.apitest.TestFiles.OP;
 import static org.semanticweb.owlapi.apitest.TestFiles.OPD;
-import static org.semanticweb.owlapi.apitest.TestFiles.OPI;
 import static org.semanticweb.owlapi.apitest.TestFiles.OPR;
 import static org.semanticweb.owlapi.apitest.TestFiles.OR;
-import static org.semanticweb.owlapi.apitest.TestFiles.R;
 import static org.semanticweb.owlapi.apitest.TestFiles.SAME;
 import static org.semanticweb.owlapi.apitest.TestFiles.SELF;
 import static org.semanticweb.owlapi.apitest.TestFiles.SHORTRULE;
@@ -138,23 +127,21 @@ import static org.semanticweb.owlapi.apitest.TestFiles.v3;
 import static org.semanticweb.owlapi.apitest.TestFiles.v34;
 import static org.semanticweb.owlapi.apitest.TestFiles.var2;
 import static org.semanticweb.owlapi.apitest.TestFiles.var236;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.OWLObjectComponentCollector;
 
-class OWLObjectComponentCollectorTestCase {
+class OWLObjectComponentCollectorTestCase extends TestBase {
 
     private static final String FALSE = "\"false\"^^xsd:boolean";
     static final String FIVE = "\"5.0\"^^xsd:double";
@@ -171,98 +158,92 @@ class OWLObjectComponentCollectorTestCase {
     static final String var5 = "Variable(<urn:swrl:var#var5>)";
     static final String v4 = "Variable(<urn:swrl:var#var4>)";
 
-    static Collection<Object[]> getData() {
+    static Stream<Arguments> getData() {
         Builder b = new Builder();
-        Map<OWLAxiom, String[]> map = new LinkedHashMap<>();
-        map.put(b.assDPlain(), new String[] {plain, DP, I, DPI, II, adp, plain, "\"string\"@en"});
-        map.put(b.dRange(), new String[] {DT, DP, DPI, DPR, DTI});
-        map.put(b.dDef(), new String[] {DB, DT, DTD, DB, DTI});
-        map.put(b.decC(), new String[] {C, CI, DC});
-        map.put(b.decOp(), new String[] {OP, OPI, DOP});
-        map.put(b.decDp(), new String[] {DP, DPI, DDP});
-        map.put(b.decDt(), new String[] {DT, DD, DTI});
-        map.put(b.decAp(), new String[] {ANNSHORT, ANNI, DANN});
-        map.put(b.decI(), new String[] {I, II, DIND});
-        map.put(b.assDi(), new String[] {I, IRI, II, IRII, DIFF});
-        map.put(b.dc(), new String[] {C, IRI, CI, IRII, DSJC});
-        map.put(b.dDp(), new String[] {DP, IRI, DPI, IRII, DISJDP});
-        map.put(b.dOp(), new String[] {IRI, OP, IRII, OPI, DSJOP});
-        map.put(b.du(), new String[] {C, IRI, CI, IRII, DU});
-        map.put(b.ec(), new String[] {C, IRI, CI, IRII, EQC});
-        map.put(b.eDp(), new String[] {DP, IRI, DPI, IRII, EQDP});
-        map.put(b.eOp(), new String[] {IRI, OP, IRII, OPI, EQOP});
-        map.put(b.fdp(), new String[] {DP, DPI, FDP});
-        map.put(b.fop(), new String[] {OP, OPI, FOP});
-        map.put(b.ifp(), new String[] {OP, OPI, IFP});
-        map.put(b.iop(), new String[] {OP, OPI, IOP});
-        map.put(b.irr(), new String[] {OP, OPI, IRR});
-        map.put(b.ndp(), new String[] {BLN, DP, I, DPI, II, ANDP, FALSE, BLN});
-        map.put(b.nop(), new String[] {I, OP, OPI, II, ANOP});
-        map.put(b.opa(), new String[] {I, OP, OPI, II, AOP});
-        map.put(b.opaInv(), new String[] {I, OP, OPI, INVERSE, II, AOINV});
-        map.put(b.opaInvj(),
-            new String[] {I, "urn:test:test#j", OP, OPI, INVERSE, II, "<urn:test:test#j>", AOPJ});
-        map.put(b.oDom(), new String[] {C, OP, CI, OPI, OPD});
-        map.put(b.oRange(), new String[] {C, OP, CI, OPI, OPR});
-        map.put(b.chain(), new String[] {IRI, OP, IRII, OPI, SUBO});
-        map.put(b.ref(), new String[] {OP, OPI, R});
-        map.put(b.same(), new String[] {I, IRI, II, IRII, SAME});
-        map.put(b.subAnn(), new String[] {LABEL, ANNSHORT, LAB, ANNI, SUBA});
-        map.put(b.subClass(), new String[] {TOP, C, THING, CI, SUBC});
-        map.put(b.subData(), new String[] {TOPDT, DP, TDT, DPI, SUBD});
-        map.put(b.subObject(), new String[] {TOPOP, OP, TOPO, OPI, SUBOP});
-        map.put(b.rule(), new String[] {SHORTRULE, v34, var236, v3, v4, var5, var6});
-        map.put(b.symm(), new String[] {OP, OPI, SYMM});
-        map.put(b.trans(), new String[] {OP, OPI, T});
-        map.put(b.hasKey(), new String[] {C, DP, IRI, OP, CI, IRII, OPI, DPI, HASKEY});
-        map.put(b.ann(), new String[] {IRI, AANN});
-        map.put(b.asymm(), new String[] {OP, OPI, asymmetric});
-        map.put(b.annDom(), new String[] {ANNSHORT, IRI, ANNI, APD});
-        map.put(b.annRange(), new String[] {ANNSHORT, IRI, ANNI, APR});
-        map.put(b.ass(), new String[] {C, I, CI, II, ACL});
-        map.put(b.assAnd(), new String[] {C, I, IRI, CI, IRII, II, ACLAND, AND});
-        map.put(b.assOr(), new String[] {C, I, IRI, CI, IRII, II, ACLOR, OR});
-        map.put(b.dRangeAnd(),
-            new String[] {BLN, DT, DP, DPI, DPRAND, DTI, DONEOF, DAND, FALSE, BLN});
-        map.put(b.dRangeOr(), new String[] {BLN, DT, DP, DPI, DOR, DPROR, DTI, DONEOF, FALSE, BLN});
-        map.put(b.assNot(), new String[] {C, I, CI, II, CNOT, NOT});
-        map.put(b.assNotAnon(), new String[] {C, CI, "_:id", ACNOT, NOT});
-        map.put(b.assSome(), new String[] {C, I, OP, CI, OPI, II, ACSOME, SOME});
-        map.put(b.assAll(), new String[] {C, I, OP, CI, OPI, II, ACALL, ALL});
-        map.put(b.assHas(), new String[] {I, OP, OPI, II, ACHAS, HAS});
-        map.put(b.assMin(), new String[] {C, I, OP, CI, OPI, II, AOMIN, OMIN});
-        map.put(b.assMax(), new String[] {C, I, OP, CI, OPI, II, AOMAX, MAX});
-        map.put(b.assEq(), new String[] {C, I, OP, CI, OPI, II, AOEQ, OEQ});
-        map.put(b.assHasSelf(), new String[] {I, OP, OPI, II, ASELF, SELF});
-        map.put(b.assOneOf(), new String[] {I, II, AONE, ONE});
-        map.put(b.assDSome(), new String[] {DP, I, DPI, II, ADSOME, DSOME});
-        map.put(b.assDAll(), new String[] {DP, I, DPI, II, ADALL, DALL});
-        map.put(b.assDHas(), new String[] {DP, I, DPI, II, ADHAS, DHAS});
-        map.put(b.assDMin(), new String[] {DP, I, DPI, II, ADMIN, DMIN});
-        map.put(b.assDMax(), new String[] {DP, I, DPI, II, ADMAX, DMAX});
-        map.put(b.assDEq(), new String[] {DP, I, DPI, II, ADEQ, DEQ});
-        map.put(b.dOneOf(), new String[] {BLN, DP, DPI, ADONEOF, FALSE, BLN, DONEOF});
-        map.put(b.dNot(), new String[] {BLN, DP, DPI, DPRNOT, DNOT, FALSE, BLN, DONEOF});
-        map.put(b.dRangeRestrict(),
-            new String[] {DB, DP, DPI, MINMAX, MINMXSIX, MIN5, MAXSIX, FIVE, SIX, DB});
-        map.put(b.assD(), new String[] {BLN, DP, I, DPI, II, dpafalse, FALSE, BLN});
-        map.put(b.assDPlain(), new String[] {plain, DP, I, DPI, II, adp, plain, "\"string\"@en"});
-        map.put(b.dDom(), new String[] {DP, DPI, dpdomain});
-        map.put(b.bigRule(),
-            new String[] {FALSE, var6, var5, v1, v4, v34, v3, v2, var2, OPI, var236, FALSE,
-                diffvar2, DP, VAR1, CI, DT, BLN, IRII, opavar2, DRA, II, BLN, dpvar2, OP, C, IRI,
-                classvar2, IRII, I, dlsaferule, DTI, II, DPI});
-        Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
-        return toReturn;
+        String II = I.getIRI().toString();
+        String DPI = DP.getIRI().toString();
+        String DTI = DT.getIRI().toString();
+        String CI = C.getIRI().toString();
+        String OPI = OP.getIRI().toString();
+        return Stream.of(
+            Arguments.of(b.assDPlain(), l(plain, DP, I, DPI, II, adp, "\"string\"@en")),
+            Arguments.of(b.dRange(), l(DT, DP, DPI, DPR, DTI)),
+            Arguments.of(b.dDef(), l(DB, DT, DTD, DTI)), Arguments.of(b.decC(), l(C, CI, DC)),
+            Arguments.of(b.decOp(), l(OP, OPI, DOP)), Arguments.of(b.decDp(), l(DP, DPI, DDP)),
+            Arguments.of(b.decDt(), l(DT, DD, DTI)),
+            Arguments.of(b.decAp(), l(ANNSHORT, ANNI, DANN)),
+            Arguments.of(b.decI(), l(I, II, DIND)),
+            Arguments.of(b.assDi(), l(I, IRI, II, IRII, DIFF)),
+            Arguments.of(b.dc(), l(C, IRI, CI, IRII, DSJC)),
+            Arguments.of(b.dDp(), l(DP, IRI, DPI, IRII, DISJDP)),
+            Arguments.of(b.dOp(), l(IRI, OP, IRII, OPI, DSJOP)),
+            Arguments.of(b.du(), l(C, IRI, CI, IRII, DU)),
+            Arguments.of(b.ec(), l(C, IRI, CI, IRII, EQC)),
+            Arguments.of(b.eDp(), l(DP, IRI, DPI, IRII, EQDP)),
+            Arguments.of(b.eOp(), l(IRI, OP, IRII, OPI, EQOP)),
+            Arguments.of(b.fdp(), l(DP, DPI, FDP)), Arguments.of(b.fop(), l(OP, OPI, FOP)),
+            Arguments.of(b.ifp(), l(OP, OPI, IFP)), Arguments.of(b.iop(), l(OP, OPI, IOP)),
+            Arguments.of(b.irr(), l(OP, OPI, IRR)),
+            Arguments.of(b.ndp(), l(BLN, DP, I, DPI, II, ANDP, FALSE)),
+            Arguments.of(b.nop(), l(I, OP, OPI, II, ANOP)),
+            Arguments.of(b.opa(), l(I, OP, OPI, II, AOP)),
+            Arguments.of(b.opaInv(), l(I, OP, OPI, INVERSE, II, AOINV)),
+            Arguments.of(b.opaInvj(),
+                l(I, J.getIRI().toString(), OP, OPI, INVERSE, II, J.toString(), AOPJ)),
+            Arguments.of(b.oDom(), l(C, OP, CI, OPI, OPD)),
+            Arguments.of(b.oRange(), l(C, OP, CI, OPI, OPR)),
+            Arguments.of(b.chain(), l(IRI, OP, IRII, OPI, SUBO)),
+            Arguments.of(b.ref(), l(OP, OPI, TestFiles.R)),
+            Arguments.of(b.same(), l(I, IRI, II, IRII, SAME)),
+            Arguments.of(b.subAnn(), l(LABEL, ANNSHORT, LAB, ANNI, SUBA)),
+            Arguments.of(b.subClass(), l(TOP, C, THING, CI, SUBC)),
+            Arguments.of(b.subData(), l(TOPDT, DP, TDT, DPI, SUBD)),
+            Arguments.of(b.subObject(), l(TOPOP, OP, TOPO, OPI, SUBOP)),
+            Arguments.of(b.rule(), l(SHORTRULE, v34, var236, v3, v4, var5, var6)),
+            Arguments.of(b.symm(), l(OP, OPI, SYMM)), Arguments.of(b.trans(), l(OP, OPI, T)),
+            Arguments.of(b.hasKey(), l(C, DP, IRI, OP, CI, IRII, OPI, DPI, HASKEY)),
+            Arguments.of(b.ann(), l(IRI, AANN)), Arguments.of(b.asymm(), l(OP, OPI, asymmetric)),
+            Arguments.of(b.annDom(), l(ANNSHORT, IRI, ANNI, APD)),
+            Arguments.of(b.annRange(), l(ANNSHORT, IRI, ANNI, APR)),
+            Arguments.of(b.ass(), l(C, I, CI, II, ACL)),
+            Arguments.of(b.assAnd(), l(C, I, IRI, CI, IRII, II, ACLAND, AND)),
+            Arguments.of(b.assOr(), l(C, I, IRI, CI, IRII, II, ACLOR, OR)),
+            Arguments.of(b.dRangeAnd(), l(BLN, DT, DP, DPI, DPRAND, DTI, DONEOF, DAND, FALSE)),
+            Arguments.of(b.dRangeOr(), l(BLN, DT, DP, DPI, DOR, DPROR, DTI, DONEOF, FALSE)),
+            Arguments.of(b.assNot(), l(C, I, CI, II, CNOT, NOT)),
+            Arguments.of(b.assNotAnon(), l(C, CI, "_:id", ACNOT, NOT)),
+            Arguments.of(b.assSome(), l(C, I, OP, CI, OPI, II, ACSOME, SOME)),
+            Arguments.of(b.assAll(), l(C, I, OP, CI, OPI, II, ACALL, ALL)),
+            Arguments.of(b.assHas(), l(I, OP, OPI, II, ACHAS, HAS)),
+            Arguments.of(b.assMin(), l(C, I, OP, CI, OPI, II, AOMIN, OMIN)),
+            Arguments.of(b.assMax(), l(C, I, OP, CI, OPI, II, AOMAX, MAX)),
+            Arguments.of(b.assEq(), l(C, I, OP, CI, OPI, II, AOEQ, OEQ)),
+            Arguments.of(b.assHasSelf(), l(I, OP, OPI, II, ASELF, SELF)),
+            Arguments.of(b.assOneOf(), l(I, II, AONE, ONE)),
+            Arguments.of(b.assDSome(), l(DP, I, DPI, II, ADSOME, DSOME)),
+            Arguments.of(b.assDAll(), l(DP, I, DPI, II, ADALL, DALL)),
+            Arguments.of(b.assDHas(), l(DP, I, DPI, II, ADHAS, DHAS)),
+            Arguments.of(b.assDMin(), l(DP, I, DPI, II, ADMIN, DMIN)),
+            Arguments.of(b.assDMax(), l(DP, I, DPI, II, ADMAX, DMAX)),
+            Arguments.of(b.assDEq(), l(DP, I, DPI, II, ADEQ, DEQ)),
+            Arguments.of(b.dOneOf(), l(BLN, DP, DPI, ADONEOF, FALSE, DONEOF)),
+            Arguments.of(b.dNot(), l(BLN, DP, DPI, DPRNOT, DNOT, FALSE, DONEOF)),
+            Arguments.of(b.dRangeRestrict(),
+                l(DB, DP, DPI, MINMAX, MINMXSIX, MIN5, MAXSIX, FIVE, SIX)),
+            Arguments.of(b.assD(), l(BLN, DP, I, DPI, II, dpafalse, FALSE)),
+            Arguments.of(b.assDPlain(), l(plain, DP, I, DPI, II, adp, plain, "\"string\"@en")),
+            Arguments.of(b.dDom(), l(DP, DPI, dpdomain)),
+            Arguments.of(b.bigRule(),
+                l(FALSE, var6, var5, v1, v4, v34, v3, v2, var2, OPI, var236, FALSE, diffvar2, DP,
+                    VAR1, CI, DT, BLN, IRII, opavar2, DRA, II, BLN, dpvar2, OP, C, IRI, classvar2,
+                    IRII, I, dlsaferule, DTI, II, DPI)));
     }
 
     @ParameterizedTest
     @MethodSource("getData")
-    void testAssertion(OWLAxiom object, String[] expected) {
+    void testAssertion(OWLAxiom ax, List<String> expected) {
         OWLObjectComponentCollector testsubject = new OWLObjectComponentCollector();
-        Collection<OWLObject> components = testsubject.getComponents(object);
-        Set<String> strings = asUnorderedSet(components.stream().map(Object::toString));
-        assertEquals(new HashSet<>(Arrays.asList(expected)), strings);
+        Collection<OWLObject> components = testsubject.getComponents(ax);
+        assertEquals(str(expected), str(components));
     }
 }

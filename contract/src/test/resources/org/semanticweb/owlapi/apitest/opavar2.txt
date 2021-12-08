@@ -1,1 +1,1 @@
-ObjectPropertyAtom(<urn:test:test#op> Variable(<urn:swrl:var#var2>) Variable(<urn:swrl:var#var2>))
+ObjectPropertyAtom(<http://example.com/objectProperty> Variable(<urn:swrl:var#var2>) Variable(<urn:swrl:var#var2>))

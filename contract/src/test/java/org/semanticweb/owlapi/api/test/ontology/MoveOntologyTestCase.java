@@ -38,12 +38,12 @@ class MoveOntologyTestCase extends TestBase {
 
     @BeforeEach
     void setUp() {
-        create(iri("urn:test#", "test"));
+        create(iriTest);
     }
 
     @Test
     void testMove() {
-        OWLOntology o = loadOntologyFromSource(new StringDocumentSource(TestFiles.moveTest), m);
+        OWLOntology o = loadFrom(new StringDocumentSource(TestFiles.moveTest), m);
         OWLOntology copy = copy(o, OntologyCopy.MOVE);
         assertSame(o, copy);
         assertEquals(m1, copy.getOWLOntologyManager());
@@ -55,7 +55,7 @@ class MoveOntologyTestCase extends TestBase {
 
     @Test
     void testShallow() {
-        OWLOntology o = loadOntologyFromSource(new StringDocumentSource(TestFiles.moveTest), m);
+        OWLOntology o = loadFrom(new StringDocumentSource(TestFiles.moveTest), m);
         OWLOntology copy = copy(o, OntologyCopy.SHALLOW);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
@@ -67,7 +67,7 @@ class MoveOntologyTestCase extends TestBase {
 
     @Test
     void testDeep() {
-        OWLOntology o = loadOntologyFromSource(new StringDocumentSource(TestFiles.moveTest), m);
+        OWLOntology o = loadFrom(new StringDocumentSource(TestFiles.moveTest), m);
         OWLOntology copy = copy(o, OntologyCopy.DEEP);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
@@ -78,11 +78,11 @@ class MoveOntologyTestCase extends TestBase {
         assertEquals(asSet(o.importsDeclarations()), asSet(copy.importsDeclarations()));
     }
 
-    protected OWLOntology copy(OWLOntology o, OntologyCopy c) {
+    protected OWLOntology copy(OWLOntology o, OntologyCopy copyParam) {
         try {
-            return m1.copyOntology(o, c);
-        } catch (OWLOntologyCreationException e) {
-            throw new OWLRuntimeException(e);
+            return m1.copyOntology(o, copyParam);
+        } catch (OWLOntologyCreationException ex) {
+            throw new OWLRuntimeException(ex);
         }
     }
 }

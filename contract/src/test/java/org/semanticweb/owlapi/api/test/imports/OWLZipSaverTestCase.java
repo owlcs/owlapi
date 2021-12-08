@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
@@ -30,8 +29,8 @@ class OWLZipSaverTestCase extends TestBase {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         OWLOntology o1 = m.createOntology(iri1);
         OWLOntology o2 = m.createOntology(iri2);
-        o1.applyChange(new AddImport(o1, df.getOWLImportsDeclaration(iri2)));
-        new OWLZipSaver().saveOntologies(Collections.singleton(o1), Collections.singleton(o2), out);
+        o1.applyChange(new AddImport(o1, ImportsDeclaration(iri2)));
+        new OWLZipSaver().saveOntologies(l(o1), l(o2), out);
         ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(out.toByteArray()));
         ZipEntry nextEntry = in.getNextEntry();
         assertEquals("owlzip.yaml", nextEntry.getName());

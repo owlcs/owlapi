@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -26,6 +25,6 @@ class BlankNodeTestCase extends TestBase {
 
     @Test
     void testBlankNodes() {
-        loadOntologyFromString(TestFiles.anonTurtle, new TurtleDocumentFormat());
+        loadFrom(TestFiles.anonTurtle, new TurtleDocumentFormat());
     }
 }

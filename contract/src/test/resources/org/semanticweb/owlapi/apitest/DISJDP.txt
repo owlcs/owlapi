@@ -1,1 +1,1 @@
-DisjointDataProperties(Annotation(<urn:test:test#ann> "test"^^xsd:string) <urn:test:test#dp> <urn:test:test#iri>)
+DisjointDataProperties(Annotation(<http://www.semanticweb.org/owlapi/test#ann> "test"^^xsd:string) <http://www.semanticweb.org/owlapi/test#iri> <http://www.semanticweb.org/owlapi/test#p>)

@@ -49,28 +49,28 @@ class NamespacesTestCase extends TestBase {
     @Test
     void shouldParseXSDSTRING() {
         // given
-        String s = "xsd:string";
+        String shortVersion = "xsd:string";
         // when
-        XSDVocabulary v = XSDVocabulary.parseShortName(s);
+        XSDVocabulary value = XSDVocabulary.parseShortName(shortVersion);
         // then
-        assertEquals(XSDVocabulary.STRING, v);
-        assertEquals(OWL2Datatype.XSD_STRING.getDatatype(df), df.getOWLDatatype(v));
+        assertEquals(XSDVocabulary.STRING, value);
+        assertEquals(OWL2Datatype.XSD_STRING.getDatatype(df), Datatype(value.getIRI()));
     }
 
     @Test
     void shouldFailToParseInvalidString() {
         // given
-        String s = "xsd:st";
+        String st = "xsd:st";
         // when
-        assertThrows(IllegalArgumentException.class, () -> XSDVocabulary.parseShortName(s));
+        assertThrows(IllegalArgumentException.class, () -> XSDVocabulary.parseShortName(st));
         // then
         // an exception should have been thrown
     }
 
     @Test
     void shouldSetPrefix() {
-        OWLClass item = df.getOWLClass(NS, "item");
-        OWLDeclarationAxiom declaration = df.getOWLDeclarationAxiom(item);
+        OWLClass item = Class(NS, "item");
+        OWLDeclarationAxiom declaration = Declaration(item);
         OWLOntology o1 = createAnon();
         FunctionalSyntaxDocumentFormat pm1 = new FunctionalSyntaxDocumentFormat();
         pm1.setPrefix(":", NS);

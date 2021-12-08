@@ -16,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -31,25 +31,25 @@ import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 
 class ForbiddenVocabularyTestCase extends TestBase {
 
-    private static final String URN_TEST = "urn:test:";
-    OWLObjectProperty father = df.getOWLObjectProperty(URN_TEST, "hasFather");
-    OWLObjectProperty brother = df.getOWLObjectProperty(URN_TEST, "hasBrother");
-    OWLObjectProperty child = df.getOWLObjectProperty(URN_TEST, "hasChild");
-    OWLObjectProperty uncle = df.getOWLObjectProperty(URN_TEST, "hasUncle");
+    static final String URN_TEST = "urn:test:";
+    static final OWLObjectProperty father = ObjectProperty(iri(URN_TEST, "hasFather"));
+    static final OWLObjectProperty brother = ObjectProperty(iri(URN_TEST, "hasBrother"));
+    static final OWLObjectProperty child = ObjectProperty(iri(URN_TEST, "hasChild"));
+    static final OWLObjectProperty uncle = ObjectProperty(iri(URN_TEST, "hasUncle"));
 
     @Test
     void shouldFindViolation() {
-        OWLOntology o = loadOntologyFromString(TestFiles.violation, new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.violation, new RDFXMLDocumentFormat());
         OWL2DLProfile p = new OWL2DLProfile();
         OWLProfileReport checkOntology = p.checkOntology(o);
         assertEquals(1, checkOntology.getViolations().size());
-        OWLProfileViolation v = checkOntology.getViolations().get(0);
-        assertTrue(v instanceof UseOfReservedVocabularyForAnnotationPropertyIRI);
+        OWLProfileViolation violation = checkOntology.getViolations().get(0);
+        assertTrue(violation instanceof UseOfReservedVocabularyForAnnotationPropertyIRI);
     }
 
     @Test
     void testGenIdGalenFragment() {
-        OWLOntology o = loadOntologyFromString(TestFiles.galenFragment, new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.galenFragment, new RDFXMLDocumentFormat());
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(o);
         assertTrue(report.isInProfile());
@@ -57,7 +57,7 @@ class ForbiddenVocabularyTestCase extends TestBase {
 
     @Test
     void testOWLEL() {
-        OWLOntology o = loadOntologyFromString(TestFiles.ontology, new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.ontology, new RDFXMLDocumentFormat());
         OWL2RLProfile p = new OWL2RLProfile();
         OWLProfileReport report = p.checkOntology(o);
         assertTrue(report.getViolations().isEmpty());
@@ -65,18 +65,10 @@ class ForbiddenVocabularyTestCase extends TestBase {
 
     @Test
     void shouldCauseViolationsWithUseOfPropertyInChain() {
-        OWLOntology o = createAnon();
-        o.addAxiom(df.getOWLDeclarationAxiom(father));
-        o.addAxiom(df.getOWLDeclarationAxiom(brother));
-        o.addAxiom(df.getOWLDeclarationAxiom(child));
-        o.addAxiom(df.getOWLDeclarationAxiom(uncle));
-        OWLSubPropertyChainOfAxiom brokenAxiom1 =
-            df.getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother), uncle);
-        OWLSubPropertyChainOfAxiom brokenAxiom2 =
-            df.getOWLSubPropertyChainOfAxiom(Arrays.asList(child, uncle), brother);
+        OWLAxiom brokenAxiom1 = SubPropertyChainOf(l(father, brother), uncle);
+        OWLAxiom brokenAxiom2 = SubPropertyChainOf(l(child, uncle), brother);
+        OWLOntology o = o(brokenAxiom1, brokenAxiom2);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(o);
-        o.addAxiom(brokenAxiom1);
-        o.addAxiom(brokenAxiom2);
         assertTrue(manager.isLessThan(brother, uncle));
         assertTrue(manager.isLessThan(uncle, brother));
         assertTrue(manager.isLessThan(brother, brother));
@@ -84,35 +76,25 @@ class ForbiddenVocabularyTestCase extends TestBase {
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         assertFalse(violations.isEmpty());
-        for (OWLProfileViolation v : violations) {
-            assertTrue(brokenAxiom1.equals(v.getAxiom()) || brokenAxiom2.equals(v.getAxiom()));
-        }
+        violations.forEach(violation -> assertTrue(brokenAxiom1.equals(violation.getAxiom())
+            || brokenAxiom2.equals(violation.getAxiom())));
     }
 
     @Test
     void shouldNotCauseViolations() {
-        OWLOntology o = createAnon();
-        o.addAxiom(df.getOWLDeclarationAxiom(father));
-        o.addAxiom(df.getOWLDeclarationAxiom(brother));
-        o.addAxiom(df.getOWLDeclarationAxiom(child));
-        o.addAxiom(df.getOWLDeclarationAxiom(uncle));
-        OWLSubPropertyChainOfAxiom brokenAxiom1 =
-            df.getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother), uncle);
+        OWLSubPropertyChainOfAxiom brokenAxiom1 = SubPropertyChainOf(l(father, brother), uncle);
+        OWLOntology o = o(brokenAxiom1);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(o);
-        o.addAxiom(brokenAxiom1);
         assertTrue(manager.isLessThan(brother, uncle));
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         assertTrue(violations.isEmpty());
-        for (OWLProfileViolation v : violations) {
-            assertEquals(brokenAxiom1, v.getAxiom());
-        }
+        violations.forEach(violation -> assertEquals(brokenAxiom1, violation.getAxiom()));
     }
 
     @Test
     void shouldNotCauseViolationsInput1() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.forbiddenInput1, new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.forbiddenInput1, new RDFXMLDocumentFormat());
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         assertTrue(violations.isEmpty());
@@ -120,8 +102,7 @@ class ForbiddenVocabularyTestCase extends TestBase {
 
     @Test
     void shouldNotCauseViolationsInput2() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.forbiddenInput2, new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.forbiddenInput2, new RDFXMLDocumentFormat());
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         assertTrue(violations.isEmpty());

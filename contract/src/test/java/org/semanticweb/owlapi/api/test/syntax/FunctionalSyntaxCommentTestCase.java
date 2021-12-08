@@ -16,15 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataMaxCardinality;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Datatype;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
-import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -39,23 +31,18 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 class FunctionalSyntaxCommentTestCase extends TestBase {
 
     static final OWLDataProperty city = DataProperty(iri("urn:test.owl#", "city"));
     static final OWLClass contactInfo = Class(iri("urn:test.owl#", "ContactInformation"));
     static final OWLLiteral multiline = Literal("blah \nblah");
-    static final String plainOnto =
-        "Prefix(:=<http://www.example.org/#>)\nOntology(<http://example.org/>\nSubClassOf(:a :b) )";
 
     @Test
     void shouldParseCommentAndSkipIt() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.parseComment, new FunctionalSyntaxDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.parseComment, new FunctionalSyntaxDocumentFormat());
         OWLAxiom ax1 = Declaration(city);
-        OWLAxiom ax2 = SubClassOf(contactInfo,
-            DataMaxCardinality(1, city, Datatype(OWL2Datatype.XSD_STRING.getIRI())));
+        OWLAxiom ax2 = SubClassOf(contactInfo, DataMaxCardinality(1, city, String()));
         OWLAxiom ax3 = Declaration(contactInfo);
         assertTrue(o.containsAxiom(ax1));
         assertTrue(o.containsAxiom(ax2));
@@ -65,31 +52,27 @@ class FunctionalSyntaxCommentTestCase extends TestBase {
     @Test
     void shouldSaveMultilineComment() {
         OWLOntology o = create(iri("file:", "test.owl"));
-        o.addAxiom(
-            df.getOWLAnnotationAssertionAxiom(contactInfo.getIRI(), df.getRDFSLabel(multiline)));
+        o.addAxiom(AnnotationAssertion(RDFSLabel(), contactInfo.getIRI(), multiline));
         o.addAxiom(Declaration(city));
-        o.addAxiom(SubClassOf(contactInfo,
-            DataMaxCardinality(1, city, Datatype(OWL2Datatype.XSD_STRING.getIRI()))));
-        o.addAxiom(Declaration(contactInfo, Collections.singleton(df.getRDFSLabel(multiline))));
+        o.addAxiom(SubClassOf(contactInfo, DataMaxCardinality(1, city, String())));
+        o.addAxiom(Declaration(RDFSLabel(multiline), contactInfo));
         StringDocumentTarget saveOntology = saveOntology(o, new FunctionalSyntaxDocumentFormat());
         assertEquals(TestFiles.parseMultilineComment, saveOntology.toString());
         OWLOntology loadOntologyFromString =
-            loadOntologyFromString(saveOntology.toString(), new FunctionalSyntaxDocumentFormat());
+            loadFrom(saveOntology.toString(), new FunctionalSyntaxDocumentFormat());
         equal(o, loadOntologyFromString);
     }
 
     @Test
     void shouldParseCardinalityRestrictionWithMoreThanOneDigitRange() {
-        OWLOntology o = loadOntologyFromString(TestFiles.cardMultipleDigits,
-            new FunctionalSyntaxDocumentFormat());
-        assertTrue(o.containsAxiom(df.getOWLSubClassOfAxiom(A,
-            df.getOWLDataMinCardinality(257, DPP, OWL2Datatype.RDFS_LITERAL.getDatatype(df)))));
+        OWLOntology o =
+            loadFrom(TestFiles.cardMultipleDigits, new FunctionalSyntaxDocumentFormat());
+        assertTrue(o.containsAxiom(SubClassOf(A, DataMinCardinality(257, DPP, RDFSLiteral()))));
     }
 
     @Test
     void testConvertGetLoadedOntology() {
-        OWLOntology origOnt =
-            loadOntologyFromString(plainOnto, new FunctionalSyntaxDocumentFormat());
+        OWLOntology origOnt = loadFrom(TestFiles.plainOnto, new FunctionalSyntaxDocumentFormat());
         assertNotNull(origOnt);
         OWLOntologyManager manager = origOnt.getOWLOntologyManager();
         assertEquals(1, manager.ontologies().count());
@@ -97,7 +80,7 @@ class FunctionalSyntaxCommentTestCase extends TestBase {
         assertTrue(origOnt.getAxiomCount() > 0);
         Optional<IRI> ontologyIRI = origOnt.getOntologyID().getOntologyIRI();
         assertTrue(ontologyIRI.isPresent());
-        OWLOntology newOnt = manager.getOntology(get(ontologyIRI));
+        OWLOntology newOnt = manager.getOntology(ontologyIRI.orElse(null));
         assertNotNull(newOnt);
     }
 }

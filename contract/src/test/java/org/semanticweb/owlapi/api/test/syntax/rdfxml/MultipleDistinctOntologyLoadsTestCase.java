@@ -53,8 +53,8 @@ class MultipleDistinctOntologyLoadsTestCase extends TestBase {
         final OWLOntologyID secondUniqueOWLOntologyID =
             new OWLOntologyID(optional(jb), optional(v2));
         assertThrowsWithPredicate(OWLOntologyAlreadyExistsException.class,
-            e -> assertEquals(secondUniqueOWLOntologyID,
-                ((OWLOntologyAlreadyExistsException) e).getOntologyID()),
+            ex -> assertEquals(secondUniqueOWLOntologyID,
+                ((OWLOntologyAlreadyExistsException) ex).getOntologyID()),
             () -> m.createOntology(secondUniqueOWLOntologyID));
     }
 
@@ -62,8 +62,8 @@ class MultipleDistinctOntologyLoadsTestCase extends TestBase {
         try {
             return new FileDocumentSource(
                 new File(getClass().getResource("/owlapi/multipleOntologyLoadsTest.rdf").toURI()));
-        } catch (URISyntaxException e) {
-            throw new OWLRuntimeException(e);
+        } catch (URISyntaxException ex) {
+            throw new OWLRuntimeException(ex);
         }
     }
 
@@ -77,7 +77,7 @@ class MultipleDistinctOntologyLoadsTestCase extends TestBase {
         parser.parse(documentSource, initialOntology, config);
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(optional(jb), optional(v1));
         assertThrowsWithPredicate(OWLOntologyAlreadyExistsException.class,
-            e -> assertEquals(expected, ((OWLOntologyAlreadyExistsException) e).getOntologyID()),
+            ex -> assertEquals(expected, ((OWLOntologyAlreadyExistsException) ex).getOntologyID()),
             () -> m.createOntology(secondUniqueOWLOntologyID));
     }
 
@@ -120,7 +120,7 @@ class MultipleDistinctOntologyLoadsTestCase extends TestBase {
     @Test
     void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() {
         OWLOntologyDocumentSource documentSource = getDocument();
-        IRI iri = IRI.create("http://test.example.org/ontology/0139");
+        IRI iri = iri("http://test.example.org/ontology/", "0139");
         OWLOntologyID initialUniqueOWLOntologyID =
             new OWLOntologyID(optional(iri), emptyOptional(IRI.class));
         OWLOntology initialOntology = create(initialUniqueOWLOntologyID);

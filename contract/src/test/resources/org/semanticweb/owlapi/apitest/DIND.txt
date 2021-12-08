@@ -1,1 +1,1 @@
-Declaration(Annotation(<urn:test:test#ann> "test"^^xsd:string) NamedIndividual(<urn:test:test#i>))
+Declaration(Annotation(<http://www.semanticweb.org/owlapi/test#ann> "test"^^xsd:string) NamedIndividual(<http://www.semanticweb.org/owlapi/test#i>))

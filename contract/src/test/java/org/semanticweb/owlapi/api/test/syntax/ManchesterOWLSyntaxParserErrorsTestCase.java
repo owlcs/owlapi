@@ -46,8 +46,7 @@ class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
         when(entityChecker.getOWLDataProperty("dP")).thenReturn(mock(OWLDataProperty.class));
         when(entityChecker.getOWLAnnotationProperty("aP"))
             .thenReturn(mock(OWLAnnotationProperty.class));
-        when(entityChecker.getOWLAnnotationProperty("rdfs:comment"))
-            .thenReturn(df.getRDFSComment());
+        when(entityChecker.getOWLAnnotationProperty("rdfs:comment")).thenReturn(RDFSComment());
         OWLNamedIndividual ind = mock(OWLNamedIndividual.class);
         when(entityChecker.getOWLIndividual("ind")).thenReturn(ind);
         when(ind.asOWLNamedIndividual()).thenReturn(ind);
@@ -473,11 +472,11 @@ class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
         try {
             parser.parse(input);
             fail();
-        } catch (ParserException e) {
-            assertEquals(index, e.getStartPos());
-            assertEquals(currentToken, e.getCurrentToken());
-            assertTrue(!e.getTokenSequence().isEmpty());
-            assertEquals(currentToken, e.getTokenSequence().get(0));
+        } catch (ParserException ex) {
+            assertEquals(index, ex.getStartPos());
+            assertEquals(currentToken, ex.getCurrentToken());
+            assertTrue(!ex.getTokenSequence().isEmpty());
+            assertEquals(currentToken, ex.getTokenSequence().get(0));
         }
     }
 

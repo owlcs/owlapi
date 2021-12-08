@@ -7,7 +7,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <owl:Ontology rdf:about="urn:testcopy"><owl:imports rdf:resource="urn:test#test"/></owl:Ontology>
+    <owl:Ontology rdf:about="urn:testcopy"><owl:imports rdf:resource="http://www.semanticweb.org/owlapi/test#test"/></owl:Ontology>
     <rdfs:Datatype rdf:about="urn:mydatatype">
         <owl:equivalentClass>
             <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#double"/>

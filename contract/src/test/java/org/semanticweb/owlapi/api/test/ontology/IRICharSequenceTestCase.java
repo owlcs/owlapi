@@ -29,8 +29,8 @@ class IRICharSequenceTestCase extends TestBase {
 
     @Test
     void testCharAt() {
-        for (int v = 0; v < abcString.length(); v++) {
-            assertEquals(abcString.charAt(v), abc.charAt(v));
+        for (int index = 0; index < abcString.length(); index++) {
+            assertEquals(abcString.charAt(index), abc.charAt(index));
         }
     }
 
@@ -38,8 +38,8 @@ class IRICharSequenceTestCase extends TestBase {
     void testCharAtNoRemainder() {
         String str = "http://owlapi.sourceforge.net";
         IRI iri = iri(str, "");
-        for (int v = 0; v < str.length(); v++) {
-            assertEquals(str.charAt(v), iri.charAt(v));
+        for (int index = 0; index < str.length(); index++) {
+            assertEquals(str.charAt(index), iri.charAt(index));
         }
     }
 
@@ -47,16 +47,16 @@ class IRICharSequenceTestCase extends TestBase {
     void testCharAtNoPrefix() {
         String str = "#ABC";
         IRI iri = iri("#", "ABC");
-        for (int v = 0; v < str.length(); v++) {
-            assertEquals(str.charAt(v), iri.charAt(v));
+        for (int index = 0; index < str.length(); index++) {
+            assertEquals(str.charAt(index), iri.charAt(index));
         }
     }
 
     @Test
     void testSubSequence() {
-        for (int v = 0; v < abcString.length(); v++) {
-            for (int j = v; j < abcString.length(); j++) {
-                assertEquals(abcString.subSequence(v, j), abc.subSequence(v, j));
+        for (int index = 0; index < abcString.length(); index++) {
+            for (int j = index; j < abcString.length(); j++) {
+                assertEquals(abcString.subSequence(index, j), abc.subSequence(index, j));
             }
         }
     }

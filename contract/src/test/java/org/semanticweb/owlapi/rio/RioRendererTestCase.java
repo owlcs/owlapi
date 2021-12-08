@@ -26,7 +26,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apitest.TestFiles;
-import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -35,6 +34,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 class RioRendererTestCase extends TestBase {
 
+    private static final java.lang.String RESULT_LENGTH = "result.length()=";
+    private static final java.lang.String WAS_NOT_INSIDE_THE_EXPECTED_BOUNDS = " was not inside the expected bounds";
+    private static final java.lang.String RESULT_WAS_LARGER_THAN_EXPECTED = "Result was larger than expected:";
+    private static final java.lang.String RESULT_WAS_SMALLER_THAN_EXPECTED = "Result was smaller than expected:";
     private static final String DUPLICATE_STATEMENTS = "Duplicate statements were emitted";
     private final IRI testOntologyUri1 = iri("urn:test:ontology:uri:1", "");
     private SimpleValueFactory vf;
@@ -48,7 +51,6 @@ class RioRendererTestCase extends TestBase {
     private RDFWriter testTurtleRioWriter;
     private StringWriter testNTriplesStringWriter;
     private RDFWriter testNTriplesRioWriter;
-    private final RioRDFXMLDocumentFormat format = new RioRDFXMLDocumentFormat();
 
     @BeforeEach
     void setUp() {
@@ -56,7 +58,7 @@ class RioRendererTestCase extends TestBase {
         m.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
             new RioTurtleStorerFactory());
         testOntologyEmpty = create(testOntologyUri1);
-        testOntologyKoala = loadOntologyFrom(getClass().getResourceAsStream("/koala.owl"));
+        testOntologyKoala = loadFrom(getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
         testOntologyEmptyStatement =
@@ -89,8 +91,8 @@ class RioRendererTestCase extends TestBase {
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
         String result = testRdfXmlStringWriter.toString();
-        assertTrue(result.length() > 560, "Result was smaller than expected:" + result);
-        assertTrue(result.length() < 590, "Result was larger than expected:" + result);
+        assertTrue(result.length() > 560, RESULT_WAS_SMALLER_THAN_EXPECTED + result);
+        assertTrue(result.length() < 590, RESULT_WAS_LARGER_THAN_EXPECTED + result);
     }
 
     @Test
@@ -99,8 +101,8 @@ class RioRendererTestCase extends TestBase {
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
         String result = testTurtleStringWriter.toString();
-        assertTrue(result.length() > 420, "Result was smaller than expected:" + result);
-        assertTrue(result.length() < 450, "Result was larger than expected:" + result);
+        assertTrue(result.length() > 420, RESULT_WAS_SMALLER_THAN_EXPECTED + result);
+        assertTrue(result.length() < 450, RESULT_WAS_LARGER_THAN_EXPECTED + result);
     }
 
     @Test
@@ -109,8 +111,8 @@ class RioRendererTestCase extends TestBase {
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();
-        assertTrue(result.length() > 190, "Result was smaller than expected:" + result);
-        assertTrue(result.length() < 220, "Result was larger than expected:" + result);
+        assertTrue(result.length() > 190, RESULT_WAS_SMALLER_THAN_EXPECTED + result);
+        assertTrue(result.length() < 220, RESULT_WAS_LARGER_THAN_EXPECTED + result);
     }
 
     @Test
@@ -136,9 +138,9 @@ class RioRendererTestCase extends TestBase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue(result.length() > 24000,
-            "result.length()=" + result.length() + " was not inside the expected bounds");
+            RESULT_LENGTH + result.length() + WAS_NOT_INSIDE_THE_EXPECTED_BOUNDS);
         assertTrue(result.length() < 26000,
-            "result.length()=" + result.length() + " was not inside the expected bounds");
+            RESULT_LENGTH + result.length() + WAS_NOT_INSIDE_THE_EXPECTED_BOUNDS);
         RDFParser parser = Rio.createParser(RDFFormat.RDFXML, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -164,9 +166,9 @@ class RioRendererTestCase extends TestBase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue(result.length() > 8000,
-            "result.length()=" + result.length() + " was not inside the expected bounds");
+            RESULT_LENGTH + result.length() + WAS_NOT_INSIDE_THE_EXPECTED_BOUNDS);
         assertTrue(result.length() < 9500,
-            "result.length()=" + result.length() + " was not inside the expected bounds");
+            RESULT_LENGTH + result.length() + WAS_NOT_INSIDE_THE_EXPECTED_BOUNDS);
         RDFParser parser = Rio.createParser(RDFFormat.TURTLE, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -189,9 +191,9 @@ class RioRendererTestCase extends TestBase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue(result.length() > 26200,
-            "result.length()=" + result.length() + " was not inside the expected bounds");
+            RESULT_LENGTH + result.length() + WAS_NOT_INSIDE_THE_EXPECTED_BOUNDS);
         assertTrue(result.length() < 27500,
-            "result.length()=" + result.length() + " was not inside the expected bounds");
+            RESULT_LENGTH + result.length() + WAS_NOT_INSIDE_THE_EXPECTED_BOUNDS);
         RDFParser parser = Rio.createParser(RDFFormat.NTRIPLES, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");

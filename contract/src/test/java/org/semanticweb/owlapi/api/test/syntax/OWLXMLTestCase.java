@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 
 import java.io.File;
 
@@ -21,18 +20,16 @@ class OWLXMLTestCase extends TestBase {
     void shouldFindExpectedAxiomsForBlankNodes() {
         OWLObjectProperty r = ObjectProperty(
             iri("http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
-        OWLOntology o = loadOntologyFromFile(new File(RESOURCES, "owlxml_anonloop.owx"), m);
+        OWLOntology o = loadFrom(new File(RESOURCES, "owlxml_anonloop.owx"), m);
         o.axioms(AxiomType.CLASS_ASSERTION).forEach(ax -> {
-            OWLAxiom expected =
-                df.getOWLObjectPropertyAssertionAxiom(r, ax.getIndividual(), ax.getIndividual());
+            OWLAxiom expected = ObjectPropertyAssertion(r, ax.getIndividual(), ax.getIndividual());
             assertTrue(o.containsAxiom(expected), expected + " not found");
         });
     }
 
     @Test
     void shouldParseSWRLVariables() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.parseSWRLVariable, new OWLXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.parseSWRLVariable, new OWLXMLDocumentFormat());
         o.axioms(AxiomType.SWRL_RULE).forEach(r -> assertEquals(
             "DLSafeRule(Body(SameAsAtom(Variable(<urn:swrl:var#x>) Variable(<urn:swrl:var#y>))) Head())",
             r.toString()));

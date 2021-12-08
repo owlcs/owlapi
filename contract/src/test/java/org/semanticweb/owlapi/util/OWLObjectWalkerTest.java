@@ -6,8 +6,6 @@ import static org.semanticweb.owlapi.util.AnnotationWalkingControl.WALK_ANNOTATI
 import static org.semanticweb.owlapi.util.AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -40,7 +38,7 @@ class OWLObjectWalkerTest extends TestBase {
                 visitedAnnotations.add(node);
             }
         };
-        Set<? extends OWLObject> ontologySet = Collections.singleton(o);
+        Set<? extends OWLObject> ontologySet = set(o);
         OWLObjectWalker<? extends OWLObject> walker;
         if (walkFlag == WALK_ONTOLOGY_ANNOTATIONS_ONLY) {
             walker = new OWLObjectWalker<>(ontologySet);
@@ -53,25 +51,24 @@ class OWLObjectWalkerTest extends TestBase {
 
     @BeforeEach
     void setUp() {
-        cruelWorld = df.getOWLAnnotation(AP, df.getOWLLiteral("cruel world"));
-        goodbye = df.getOWLAnnotation(AP, df.getOWLLiteral("goodbye"), singleton(cruelWorld));
-        world = df.getOWLAnnotation(AP, df.getOWLLiteral("world"));
-        hello = df.getOWLAnnotation(AP, df.getOWLLiteral("hello"), singleton(world));
+        cruelWorld = Annotation(AP, Literal("cruel world"));
+        goodbye = Annotation(cruelWorld, AP, Literal("goodbye"));
+        world = Annotation(AP, Literal("world"));
+        hello = Annotation(world, AP, Literal("hello"));
     }
 
     @Test
     void testWalkAnnotations() {
         OWLOntology o = getOwlOntology();
-        List<OWLAnnotation> emptyAnnotationList = Collections.emptyList();
-        checkWalkWithFlags(o, DONT_WALK_ANNOTATIONS, emptyAnnotationList);
-        checkWalkWithFlags(o, WALK_ONTOLOGY_ANNOTATIONS_ONLY, Arrays.asList(hello));
-        checkWalkWithFlags(o, WALK_ANNOTATIONS, Arrays.asList(hello, world, goodbye, cruelWorld));
+        checkWalkWithFlags(o, DONT_WALK_ANNOTATIONS, l());
+        checkWalkWithFlags(o, WALK_ONTOLOGY_ANNOTATIONS_ONLY, l(hello));
+        checkWalkWithFlags(o, WALK_ANNOTATIONS, l(hello, world, goodbye, cruelWorld));
     }
 
     private OWLOntology getOwlOntology() {
-        OWLOntology o = create();
+        OWLOntology o = create("foo");
         o.applyChange(new AddOntologyAnnotation(o, hello));
-        o.addAxiom(df.getOWLDeclarationAxiom(AP, singleton(goodbye)));
+        o.addAxiom(Declaration(goodbye, AP));
         return o;
     }
 }

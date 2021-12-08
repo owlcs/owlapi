@@ -1,1 +1,1 @@
-Declaration(Annotation(<urn:test:test#ann> "test"^^xsd:string) ObjectProperty(<urn:test:test#op>))
+Declaration(Annotation(<http://www.semanticweb.org/owlapi/test#ann> "test"^^xsd:string) ObjectProperty(<http://example.com/objectProperty>))

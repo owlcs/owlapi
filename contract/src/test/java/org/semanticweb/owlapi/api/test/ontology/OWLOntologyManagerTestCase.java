@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyDocumentAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -137,6 +136,5 @@ class OWLOntologyManagerTestCase extends TestBase {
         assertThrowsWithCause(OWLRuntimeException.class,
             OWLOntologyDocumentAlreadyExistsException.class,
             () -> create(new OWLOntologyID(optional(ontologyIRI2), optional((IRI) null))));
-
     }
 }

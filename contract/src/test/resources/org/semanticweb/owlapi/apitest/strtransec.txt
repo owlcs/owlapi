@@ -1,1 +1,2 @@
-[SubClassOf(owl:Thing <urn:test:test#c>), SubClassOf(owl:Thing <urn:test:test#iri>)]
+SubClassOf(owl:Thing <http://www.semanticweb.org/owlapi/test#C>)
+SubClassOf(owl:Thing <http://www.semanticweb.org/owlapi/test#iri>)

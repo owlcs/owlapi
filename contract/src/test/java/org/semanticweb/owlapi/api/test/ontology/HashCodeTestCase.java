@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplBoolean;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplDouble;
@@ -47,7 +46,7 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void testSetContainsLong() {
-        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_LONG.getIRI());
+        OWLDatatype datatype = Long();
         OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3", null, datatype);
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3", null, datatype);
         OWLLiteral litLongImpl = new OWLLiteralImplLong(3);
@@ -63,9 +62,8 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void testSetContainsInt() {
-        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3", null, datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3", null, datatype);
+        OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3", null, Integer());
+        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3", null, Integer());
         OWLLiteral litIntImpl = new OWLLiteralImplInteger(3);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -76,9 +74,8 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void testSetContainsDouble() {
-        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_DOUBLE.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImplNoCompression(THREE, null, datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression(THREE, null, datatype);
+        OWLLiteral litNoComp = new OWLLiteralImplNoCompression(THREE, null, Double());
+        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression(THREE, null, Double());
         OWLLiteral litIntImpl = new OWLLiteralImplDouble(3.0D);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -89,9 +86,8 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void testSetContainsFloat() {
-        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_FLOAT.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImplNoCompression(THREE, null, datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression(THREE, null, datatype);
+        OWLLiteral litNoComp = new OWLLiteralImplNoCompression(THREE, null, Float());
+        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression(THREE, null, Float());
         OWLLiteral litIntImpl = new OWLLiteralImplFloat(3.0F);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -102,9 +98,8 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void testSetContainsBoolean() {
-        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_BOOLEAN.getIRI());
-        OWLLiteral litNoComp = new OWLLiteralImplNoCompression("true", null, datatype);
-        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("true", null, datatype);
+        OWLLiteral litNoComp = new OWLLiteralImplNoCompression("true", null, Boolean());
+        OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("true", null, Boolean());
         OWLLiteral litIntImpl = new OWLLiteralImplBoolean(true);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -127,8 +122,8 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void shouldHaveSameHashCodeForOntologies1() {
-        OWLOntologyID id1 = new OWLOntologyID(IRI.create("http://purl.org/dc/elements/1.1/"));
-        OWLOntologyID id2 = new OWLOntologyID(IRI.create("http://purl.org/dc/elements/1.1/"));
+        OWLOntologyID id1 = new OWLOntologyID(iri(""));
+        OWLOntologyID id2 = new OWLOntologyID(iri(""));
         assertEquals(id1, id2);
         assertEquals(id1.hashCode(), id2.hashCode());
     }

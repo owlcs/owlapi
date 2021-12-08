@@ -12,13 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ClassAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectHasValue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
-
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apitest.TestFiles;
@@ -33,12 +26,12 @@ class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
     @Test
     void shouldRoundTripFixed() {
-        loadOntologyFromString(TestFiles.FIXED, new FunctionalSyntaxDocumentFormat());
+        loadFrom(TestFiles.FIXED, new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
-    void shouldRoundTripBroken(){
-        OWLOntology o = loadOntologyFromString(TestFiles.BROKEN, new RDFXMLDocumentFormat());
+    void shouldRoundTripBroken() {
+        OWLOntology o = loadFrom(TestFiles.BROKEN, new RDFXMLDocumentFormat());
         FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         format.setDefaultPrefix(NS + '#');
         OWLOntology o1 = roundTrip(o, format);
@@ -46,11 +39,11 @@ class AnonymousFunctionalRoundtripTestCase extends TestBase {
     }
 
     @Test
-    void shouldRoundTrip(){
-        OWLIndividual i = AnonymousIndividual();
-        OWLOntology ontology = create();
-        ontology.add(SubClassOf(C, ObjectHasValue(P, i)), ClassAssertion(D, i),
-            DataPropertyAssertion(DP, i, Literal("hello")));
+    void shouldRoundTrip() {
+        OWLIndividual anon = AnonymousIndividual();
+        OWLOntology ontology = create(iri(NS, ""));
+        ontology.add(SubClassOf(C, ObjectHasValue(P, anon)), ClassAssertion(D, anon),
+            DataPropertyAssertion(DP, anon, Literal("hello")));
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         format.setDefaultPrefix(NS + '#');
         ontology = roundTrip(ontology, format);

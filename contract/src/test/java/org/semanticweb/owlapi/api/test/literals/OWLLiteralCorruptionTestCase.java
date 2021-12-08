@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test.literals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -25,7 +24,6 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -34,10 +32,9 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 class OWLLiteralCorruptionTestCase extends TestBase {
 
     static final String URN_TEST = "urn:test#";
-    static final OWLLiteral ONESHORT =
-        df.getOWLLiteral("1", OWL2Datatype.XSD_SHORT.getDatatype(df));
-    static final OWLLiteral ZERO_ONE = df.getOWLLiteral("01", df.getIntegerOWLDatatype());
-    static final OWLLiteral ONE = df.getOWLLiteral("1", df.getIntegerOWLDatatype());
+    static final OWLLiteral ONESHORT = Literal("1", Datatype(OWL2Datatype.XSD_SHORT.getIRI()));
+    static final OWLLiteral ZERO_ONE = Literal("01", Integer());
+    static final OWLLiteral ONE = Literal("1", Integer());
 
     @Test
     void shouldroundTripLiteral() {
@@ -50,24 +47,21 @@ class OWLLiteralCorruptionTestCase extends TestBase {
             sb.append('\n');
         }
         testString = sb.toString();
-        OWLLiteral literal = Literal(testString);
-        assertEquals(literal.getLiteral(), testString, "Out = in ? false");
+        assertEquals(Literal(testString).getLiteral(), testString, "Out = in ? false");
     }
 
     @Test
     void shouldRoundTripXMLLiteral() {
-        OWLLiteral l = df.getOWLLiteral(TestFiles.literalXMl, OWL2Datatype.RDF_XML_LITERAL);
-        OWLOntology o = o(df.getOWLDataPropertyAssertionAxiom(DP, i, l));
+        OWLLiteral xml = Literal(TestFiles.literalXMl, OWL2Datatype.RDF_XML_LITERAL);
+        OWLOntology o = o(DataPropertyAssertion(DP, i, xml));
         String string = saveOntology(o).toString();
         assertTrue(string.contains(TestFiles.literalXMl));
     }
 
     @Test
     void shouldFailOnMalformedXMLLiteral() {
-        OWLLiteral l =
-            df.getOWLLiteral(TestFiles.literalMalformedXML, OWL2Datatype.RDF_XML_LITERAL);
-        OWLNamedIndividual i = df.getOWLNamedIndividual(iri(URN_TEST, "i"));
-        OWLOntology o = o(df.getOWLDataPropertyAssertionAxiom(DP, I, l));
+        OWLLiteral malformed = Literal(TestFiles.literalMalformedXML, OWL2Datatype.RDF_XML_LITERAL);
+        OWLOntology o = o(DataPropertyAssertion(DP, I, malformed));
         assertThrowsWithCauseMessage(OWLRuntimeException.class, OWLOntologyStorageException.class,
             "XML literal is not self contained", () -> saveOntology(o));
     }
@@ -78,11 +72,9 @@ class OWLLiteralCorruptionTestCase extends TestBase {
         // produced.
         // They should be understood in input and saved correctly on roundtrip
         String input = TestFiles.preamble + TestFiles.wrong + TestFiles.closure;
-        OWLOntology o =
-            loadOntologyFromString(input, IRI.generateDocumentIRI(), new RDFXMLDocumentFormat());
-        OWLOntology o1 =
-            loadOntologyFromString(TestFiles.preamble + TestFiles.correct + TestFiles.closure,
-                IRI.generateDocumentIRI(), new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(input, IRI.generateDocumentIRI(), new RDFXMLDocumentFormat());
+        OWLOntology o1 = loadFrom(TestFiles.preamble + TestFiles.correct + TestFiles.closure,
+            IRI.generateDocumentIRI(), new RDFXMLDocumentFormat());
         equal(o, o1);
         assertTrue(
             saveOntology(o, new RDFXMLDocumentFormat()).toString().contains(TestFiles.correct));
@@ -90,16 +82,13 @@ class OWLLiteralCorruptionTestCase extends TestBase {
 
     @Test
     void shouldRoundtripPaddedLiterals() {
-        OWLOntology o =
-            loadOntologyFromString(new StringDocumentSource(TestFiles.roundtripPaddedLiterals,
-                iri(URN_TEST, "test"), new FunctionalSyntaxDocumentFormat(), null));
+        OWLOntology o = loadFrom(new StringDocumentSource(TestFiles.roundtripPaddedLiterals,
+            iriTest, new FunctionalSyntaxDocumentFormat(), null));
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o2);
-        OWLNamedIndividual i =
-            df.getOWLNamedIndividual(iri("http://www.semanticweb.org/owlapi/test#", "c"));
-        assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, i, ZERO_ONE)));
-        assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, i, ONE)));
-        assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, i, ONESHORT)));
+        assertTrue(o.containsAxiom(DataPropertyAssertion(DP, indC, ZERO_ONE)));
+        assertTrue(o.containsAxiom(DataPropertyAssertion(DP, indC, ONE)));
+        assertTrue(o.containsAxiom(DataPropertyAssertion(DP, indC, ONESHORT)));
     }
 
     @Test

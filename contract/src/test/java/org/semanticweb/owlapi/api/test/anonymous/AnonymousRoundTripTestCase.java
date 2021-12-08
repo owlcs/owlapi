@@ -13,15 +13,10 @@
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ClassAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -36,14 +31,11 @@ class AnonymousRoundTripTestCase extends TestBase {
 
     @Test
     void testRoundTrip() {
-        OWLAnonymousIndividual h = AnonymousIndividual();
-        OWLAnonymousIndividual i = AnonymousIndividual();
+        OWLAnonymousIndividual anonInd = AnonymousIndividual();
         OWLOntology ontology = create();
-        OWLAnnotation annotation1 = df.getOWLAnnotation(AP, h);
-        OWLAnnotation annotation2 = df.getRDFSLabel(Literal("Second", "en"));
-        ontology.add(df.getOWLAnnotationAssertionAxiom(A.getIRI(), annotation1),
-            ClassAssertion(A, h), ObjectPropertyAssertion(P, h, i),
-            df.getOWLAnnotationAssertionAxiom(h, annotation2));
+        ontology.add(AnnotationAssertion(AP, A.getIRI(), anonInd), ClassAssertion(A, anonInd),
+            ObjectPropertyAssertion(P, anonInd, AnonymousIndividual()),
+            AnnotationAssertion(RDFSLabel(), anonInd, Literal("Second", "en")));
         OWLOntology o = roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
         equal(ontology, o);
     }

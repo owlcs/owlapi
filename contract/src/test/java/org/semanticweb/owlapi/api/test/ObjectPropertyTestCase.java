@@ -16,15 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseObjectProperties;
 import static org.semanticweb.owlapi.search.Searcher.inverse;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -52,28 +48,21 @@ class ObjectPropertyTestCase extends TestBase {
 
     @Test
     void testInverse() {
-        OWLOntology ont = create();
-        OWLAxiom ax = InverseObjectProperties(P, Q);
-        ont.addAxiom(ax);
+        OWLOntology ont = o(InverseObjectProperties(P, Q));
         assertTrue(contains(inverse(ont.inverseObjectPropertyAxioms(P), P), Q));
         assertFalse(contains(inverse(ont.inverseObjectPropertyAxioms(P), P), P));
     }
 
     @Test
     void testInverseSelf() {
-        OWLOntology ont = create();
-        OWLAxiom ax = InverseObjectProperties(P, P);
-        ont.addAxiom(ax);
+        OWLOntology ont = o(InverseObjectProperties(P, P));
         assertTrue(contains(inverse(ont.inverseObjectPropertyAxioms(P), P), P));
     }
 
     @Test
     void testCompareRoleChains() {
-        OWLObjectPropertyExpression p = df.getOWLObjectProperty("_:", "p");
-        OWLObjectPropertyExpression q = df.getOWLObjectProperty("_:", "q");
-        OWLObjectPropertyExpression r = df.getOWLObjectProperty("_:", "r");
-        OWLSubPropertyChainOfAxiom ax1 = df.getOWLSubPropertyChainOfAxiom(Arrays.asList(p, q), r);
-        OWLSubPropertyChainOfAxiom ax2 = df.getOWLSubPropertyChainOfAxiom(Arrays.asList(p, p), r);
+        OWLSubPropertyChainOfAxiom ax1 = SubPropertyChainOf(l(P, Q), R);
+        OWLSubPropertyChainOfAxiom ax2 = SubPropertyChainOf(l(P, P), R);
         assertNotEquals(ax1, ax2, "role chains should not be equal");
         int comparisonResult = ax1.compareTo(ax2);
         assertNotEquals(0, comparisonResult);

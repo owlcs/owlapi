@@ -14,14 +14,6 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalDataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseFunctionalObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IrreflexiveObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ReflexiveObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
 import static org.semanticweb.owlapi.search.EntitySearcher.isAsymmetric;
 import static org.semanticweb.owlapi.search.EntitySearcher.isFunctional;
 import static org.semanticweb.owlapi.search.EntitySearcher.isInverseFunctional;
@@ -30,6 +22,7 @@ import static org.semanticweb.owlapi.search.EntitySearcher.isReflexive;
 import static org.semanticweb.owlapi.search.EntitySearcher.isSymmetric;
 import static org.semanticweb.owlapi.search.EntitySearcher.isTransitive;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -40,7 +33,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
-    OWLOntology ont = create();
+    OWLOntology ont;
+
+    @BeforeEach
+    void before() {
+        ont = create("Ont");
+    }
 
     @Test
     void testTransitive() {

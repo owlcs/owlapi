@@ -1,1 +1,1 @@
-[SubObjectPropertyOf(<urn:test:test#op> ObjectInverseOf(<urn:test:test#op>))]
+SubObjectPropertyOf(<http://example.com/objectProperty> ObjectInverseOf(<http://example.com/objectProperty>))

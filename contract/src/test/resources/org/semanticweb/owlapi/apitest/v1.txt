@@ -1,1 +1,1 @@
-BuiltInAtom(<urn:test:test#iri> Variable(<urn:swrl:var#var1>))
+BuiltInAtom(<http://www.semanticweb.org/owlapi/test#iri> Variable(<urn:swrl:var#var1>))

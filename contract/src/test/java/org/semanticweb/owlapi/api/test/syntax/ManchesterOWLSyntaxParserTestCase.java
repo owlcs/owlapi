@@ -16,15 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointUnion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,7 +38,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
@@ -63,38 +56,21 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 class ManchesterOWLSyntaxParserTestCase extends TestBase {
 
     static final String URN_TEST = "urn:test#";
-    static final OWLClass MAN = Class(IRI("http://example.com/owl/families/", "Man"));
-    static final OWLClass PERSON = Class(IRI("http://example.com/owl/families/", "Person"));
-    static final OWLDatatype dateTime = df.getOWLDatatype(XSDVocabulary.DATE_TIME);
-    static final String opClassPunning =
-        "Prefix: : <http://x.org/>\n" + "Ontology: <http://x.org>\n" + "Individual: x\n"
-            + "Class: creator_of\n" + "ObjectProperty: creator_of\n" + "Class: Test\n"
-            + "  EquivalentClasses: creator_of value x, creator_of";
-    static final String manSyntaxParserRuleTest = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
-        + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-        + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
-        + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
-        + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
-        + "Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>\n"
-        + "Datatype: xsd:decimal\n Datatype: xsd:int\n Datatype: xsd:dateTime\n"
-        + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>\n Characteristics: \n Functional\n Range: \n xsd:int\n"
-        + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasDate>\n Range: \n xsd:dateTime\n"
-        + "Class: <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
-        + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n Types: \n <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
-        + "Rule: \n xsd:decimal(?<urn:swrl:var#x>), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?<urn:swrl:var#p>, ?<urn:swrl:var#x>) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?<urn:swrl:var#p>)";
+    static final OWLClass MAN = Class(iri("http://example.com/owl/families/", "Man"));
+    static final OWLClass FAMILY_PERSON = Class(iri("http://example.com/owl/families/", "Person"));
+    static final OWLDatatype dateTime = Datatype(XSDVocabulary.DATE_TIME.getIRI());
 
     @Test
     void shouldRoundtripAnnotationAssertionsWithAnnotations() {
-        OWLOntology o = loadOntologyFromString(TestFiles.annotatedAnnotationMansyntax,
-            new ManchesterSyntaxDocumentFormat());
+        OWLOntology o =
+            loadFrom(TestFiles.annotatedAnnotationMansyntax, new ManchesterSyntaxDocumentFormat());
         OWLOntology o2 = roundTrip(o);
         equal(o, o2);
     }
 
     @Test
     void shouldAcceptOPClassPunning() {
-        OWLOntology o =
-            loadOntologyFromString(opClassPunning, new ManchesterSyntaxDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.opClassPunning, new ManchesterSyntaxDocumentFormat());
         OWLOntology o2 = roundTrip(o);
         equal(o, o2);
     }
@@ -102,7 +78,7 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     void shouldRoundTrip() {
         // given
-        OWLOntology ontology = create();
+        OWLOntology ontology = create(iri("http://protege.org/ontologies", ""));
         ontology.add(Declaration(DP));
         // when
         ontology = roundTrip(ontology);
@@ -113,9 +89,9 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     void shouldRenderCorrectly() {
         // given
-        OWLOntology o = create();
-        OWLObjectSomeValuesFrom r = df.getOWLObjectSomeValuesFrom(P, df.getOWLObjectUnionOf(B, C));
-        OWLSubClassOfAxiom axiom = df.getOWLSubClassOfAxiom(D, r);
+        OWLOntology o = create(iri("http://protege.org/ontologies", ""));
+        OWLObjectSomeValuesFrom r = ObjectSomeValuesFrom(P, ObjectUnionOf(B, C));
+        OWLSubClassOfAxiom axiom = SubClassOf(D, r);
         o.add(axiom);
         StringDocumentTarget target = saveOntology(o, new ManchesterSyntaxDocumentFormat());
         assertFalse(target.toString().contains(
@@ -124,10 +100,9 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
 
     @Test
     void shouldNotAddDCToPrefixes() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.noDC, new ManchesterSyntaxDocumentFormat());
-        OWLDocumentFormat f = o.getOWLOntologyManager().getOntologyFormat(o);
-        assertFalse(f.asPrefixOWLDocumentFormat().containsPrefixMapping("dc:"));
+        OWLOntology o = loadFrom(TestFiles.noDC, new ManchesterSyntaxDocumentFormat());
+        OWLDocumentFormat format = o.getOWLOntologyManager().getOntologyFormat(o);
+        assertFalse(format.asPrefixOWLDocumentFormat().containsPrefixMapping("dc:"));
     }
 
     @Test
@@ -136,18 +111,14 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // The behaviour was removed, but this would stop ontologies from
         // loading if they relied on the prefix appearing by default
         // Fix is to add it lazily if necessary
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.lazyDC, new ManchesterSyntaxDocumentFormat());
-        OWLDocumentFormat f = o.getOWLOntologyManager().getOntologyFormat(o);
-        assertTrue(f.asPrefixOWLDocumentFormat().containsPrefixMapping("dc:"));
+        OWLOntology o = loadFrom(TestFiles.lazyDC, new ManchesterSyntaxDocumentFormat());
+        OWLDocumentFormat format = o.getOWLOntologyManager().getOntologyFormat(o);
+        assertTrue(format.asPrefixOWLDocumentFormat().containsPrefixMapping("dc:"));
     }
 
     @Test
     void shouldRoundtripDisjointUnion() {
-        OWLOntology o = createAnon();
-        OWLDisjointUnionAxiom axiom = DisjointUnion(A, B, C, D);
-        o.add(axiom);
-        o.add(Declaration(A), Declaration(B), Declaration(C), Declaration(D));
+        OWLOntology o = o(DisjointUnion(A, B, C, D));
         OWLOntology roundtripped = roundTrip(o, new ManchesterSyntaxDocumentFormat());
         assertEquals(asUnorderedSet(o.axioms()), asUnorderedSet(roundtripped.axioms()));
     }
@@ -155,8 +126,7 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     void testManSyntaxEditorParser() {
         String expression = "yearValue some ";
-        OWLOntology wine =
-            loadOntologyFromString(TestFiles.manSyntaxParserTest, new RDFXMLDocumentFormat());
+        OWLOntology wine = loadFrom(TestFiles.manSyntaxParserTest, new RDFXMLDocumentFormat());
         List<OWLOntology> ontologies = asList(m.ontologies());
         ShortFormProvider sfp =
             new ManchesterOWLSyntaxPrefixNameShortFormProvider(wine.getFormat());
@@ -172,26 +142,24 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     void shouldParseRuleInManSyntax() {
         OWLOntology o =
-            loadOntologyFromString(manSyntaxParserRuleTest, new ManchesterSyntaxDocumentFormat());
+            loadFrom(TestFiles.manSyntaxParserRuleTest, new ManchesterSyntaxDocumentFormat());
         OWLOntology o1 = roundTrip(o, new ManchesterSyntaxDocumentFormat());
         equal(o, o1);
     }
 
     @Test
     void shouldParseRuleInManSimpleSyntax() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.manSyntaxInput, new ManchesterSyntaxDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.manSyntaxInput, new ManchesterSyntaxDocumentFormat());
         OWLOntology o1 = roundTrip(o, new ManchesterSyntaxDocumentFormat());
         assertEquals(asUnorderedSet(o.logicalAxioms()), asUnorderedSet(o1.logicalAxioms()));
     }
 
     @Test
     void shouldAnnotateAndRoundTrip() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.roundtripTest, new ManchesterSyntaxDocumentFormat());
-        assertTrue(o.containsAxiom(Declaration(PERSON)));
+        OWLOntology o = loadFrom(TestFiles.roundtripTest, new ManchesterSyntaxDocumentFormat());
+        assertTrue(o.containsAxiom(Declaration(FAMILY_PERSON)));
         assertTrue(o.containsAxiom(Declaration(MAN)));
-        assertTrue(o.containsAxiom(SubClassOf(MAN, PERSON)));
+        assertTrue(o.containsAxiom(SubClassOf(MAN, FAMILY_PERSON)));
     }
 
     @Test
@@ -199,17 +167,16 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // given
         String text1 =
             "'GWAS study' and  has_publication_date some dateTime[< \"2009-01-01T00:00:00+00:00\"^^dateTime]";
-        OWLClassExpression expected = df.getOWLObjectIntersectionOf(A,
-            df.getOWLDataSomeValuesFrom(DP, df.getOWLDatatypeRestriction(dateTime,
-                OWLFacet.MAX_EXCLUSIVE, df.getOWLLiteral("2009-01-01T00:00:00+00:00", dateTime))));
+        OWLClassExpression expected = ObjectIntersectionOf(A,
+            DataSomeValuesFrom(DP,
+                DatatypeRestriction(dateTime, FacetRestriction(OWLFacet.MAX_EXCLUSIVE,
+                    Literal("2009-01-01T00:00:00+00:00", dateTime)))));
         // ontology creation including labels - this is the input ontology
-        OWLOntology o = o(df.getOWLDeclarationAxiom(A), df.getOWLDeclarationAxiom(DP),
-            df.getOWLDeclarationAxiom(dateTime), annotation(A, "'GWAS study'"),
-            annotation(DP, "has_publication_date"), annotation(dateTime, "dateTime"));
+        OWLOntology o =
+            o(Declaration(A), Declaration(DP), Declaration(dateTime), annotation(A, "'GWAS study'"),
+                annotation(DP, "has_publication_date"), annotation(dateTime, "dateTime"));
         // select a short form provider that uses annotations
-        ShortFormProvider sfp =
-            new AnnotationValueShortFormProvider(Arrays.asList(df.getRDFSLabel()),
-                Collections.<OWLAnnotationProperty, List<String>>emptyMap(), m);
+        ShortFormProvider sfp = shortFormProvider();
         BidirectionalShortFormProvider shortFormProvider =
             new BidirectionalShortFormProviderAdapter(asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
@@ -224,16 +191,15 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
         assertEquals(expected, dsvf);
     }
 
-    OWLAxiom annotation(OWLEntity e, String s) {
-        return df.getOWLAnnotationAssertionAxiom(e.getIRI(), df.getRDFSLabel(s));
+    OWLAxiom annotation(OWLEntity entity, String litform) {
+        return AnnotationAssertion(RDFSLabel(), entity.getIRI(), Literal(litform));
     }
 
     @Test
     void shouldDoPrecedenceWithParentheses() {
         // given
         String text1 = "(A and B) or C";
-        OWLClassExpression expected =
-            df.getOWLObjectUnionOf(df.getOWLObjectIntersectionOf(A, B), C);
+        OWLClassExpression expected = ObjectUnionOf(ObjectIntersectionOf(A, B), C);
         ManchesterOWLSyntaxParser parser = setupParser(text1, expected);
         // when
         // finally parse
@@ -246,20 +212,15 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     void shouldParseCorrectlydecimal() {
         // given
         String text1 = "p some decimal[<=2.0, >= 1.0]";
-        OWLDatatype decimal = df.getOWLDatatype(OWL2Datatype.XSD_DECIMAL);
-        OWLFacetRestriction max =
-            df.getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, df.getOWLLiteral("2.0", decimal));
-        OWLFacetRestriction min =
-            df.getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, df.getOWLLiteral("1.0", decimal));
+        OWLDatatype decimal = Datatype(OWL2Datatype.XSD_DECIMAL.getIRI());
+        OWLFacetRestriction max = FacetRestriction(OWLFacet.MAX_INCLUSIVE, Literal("2.0", decimal));
+        OWLFacetRestriction min = FacetRestriction(OWLFacet.MIN_INCLUSIVE, Literal("1.0", decimal));
         OWLClassExpression expected =
-            df.getOWLDataSomeValuesFrom(DP, df.getOWLDatatypeRestriction(decimal, max, min));
+            DataSomeValuesFrom(DP, DatatypeRestriction(decimal, max, min));
         // ontology creation including labels - this is the input ontology
-        OWLOntology o = o(df.getOWLDeclarationAxiom(DP), df.getOWLDeclarationAxiom(decimal),
-            annotation(DP, "p"));
+        OWLOntology o = o(Declaration(DP), Declaration(decimal), annotation(DP, "p"));
         // select a short form provider that uses annotations
-        ShortFormProvider sfp =
-            new AnnotationValueShortFormProvider(Arrays.asList(df.getRDFSLabel()),
-                Collections.<OWLAnnotationProperty, List<String>>emptyMap(), m);
+        ShortFormProvider sfp = shortFormProvider();
         BidirectionalShortFormProvider shortFormProvider =
             new BidirectionalShortFormProviderAdapter(asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
@@ -277,11 +238,11 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     void shouldParseCorrectlydecimalNotSpecified() {
         // given
-        OWLAxiom expected = df.getOWLDataPropertyRangeAxiom(DP,
-            df.getOWLDataOneOf(df.getOWLLiteral("1.2", OWL2Datatype.XSD_DECIMAL)));
+        OWLAxiom expected =
+            DataPropertyRange(DP, DataOneOf(Literal("1.2", OWL2Datatype.XSD_DECIMAL)));
         String input =
             "Ontology:\n DataProperty: " + DP.getIRI().toQuotedString() + "\n Range: {1.2}";
-        OWLOntology o = loadOntologyFromString(input, new ManchesterSyntaxDocumentFormat());
+        OWLOntology o = loadFrom(input, new ManchesterSyntaxDocumentFormat());
         o.logicalAxioms().forEach(ax -> assertEquals(expected, ax));
     }
 
@@ -289,8 +250,7 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     void shouldDoPrecedenceWithoutParentheses() {
         // given
         String text1 = "A and B or C";
-        OWLClassExpression expected =
-            df.getOWLObjectUnionOf(df.getOWLObjectIntersectionOf(A, B), C);
+        OWLClassExpression expected = ObjectUnionOf(ObjectIntersectionOf(A, B), C);
         ManchesterOWLSyntaxParser parser = setupParser(text1, expected);
         // when
         // finally parse
@@ -300,14 +260,9 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     protected ManchesterOWLSyntaxParser setupParser(String text1, OWLClassExpression expected) {
-        OWLOntology o = create();
-        o.add(df.getOWLDeclarationAxiom(A), df.getOWLDeclarationAxiom(B),
-            df.getOWLDeclarationAxiom(C), df.getOWLDeclarationAxiom(D),
-            df.getOWLSubClassOfAxiom(expected, D));
+        OWLOntology o = o(SubClassOf(expected, D));
         // select a short form provider that uses annotations
-        ShortFormProvider sfp =
-            new AnnotationValueShortFormProvider(Arrays.asList(df.getRDFSLabel()),
-                Collections.<OWLAnnotationProperty, List<String>>emptyMap(), m);
+        ShortFormProvider sfp = shortFormProvider();
         BidirectionalShortFormProvider shortFormProvider =
             new BidirectionalShortFormProviderAdapter(asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
@@ -320,8 +275,8 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
 
     @Test
     void shouldNotFailOnAnnotations() {
-        OWLOntology o = loadOntologyFromString(TestFiles.annotationTestCase,
-            new FunctionalSyntaxDocumentFormat());
+        OWLOntology o =
+            loadFrom(TestFiles.annotationTestCase, new FunctionalSyntaxDocumentFormat());
         OWLOntology result = roundTrip(o, new ManchesterSyntaxDocumentFormat());
         o.axioms().forEach(ax -> assertTrue(result.containsAxiom(ax)));
     }
@@ -330,11 +285,8 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     void shouldNotFailSubclass() {
         // given
         String in = "A SubClassOf B";
-        OWLOntology o = o(df.getOWLDeclarationAxiom(A), df.getOWLDeclarationAxiom(B));
-        // select a short form provider that uses annotations
-        ShortFormProvider sfp =
-            new AnnotationValueShortFormProvider(Arrays.asList(df.getRDFSLabel()),
-                Collections.<OWLAnnotationProperty, List<String>>emptyMap(), m);
+        OWLOntology o = o(Declaration(A), Declaration(B));
+        ShortFormProvider sfp = shortFormProvider();
         BidirectionalShortFormProvider shortFormProvider =
             new BidirectionalShortFormProviderAdapter(asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
@@ -346,19 +298,15 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // finally parse
         OWLAxiom axiom = parser.parseAxiom();
         // then
-        assertEquals(df.getOWLSubClassOfAxiom(A, B), axiom);
+        assertEquals(SubClassOf(A, B), axiom);
     }
 
     @Test
     void shouldNotFailOWLReal() {
         String in = "p max 1 owl:real";
-        OWLOntology o = createAnon();
-        o.addAxiom(df.getOWLDeclarationAxiom(DP));
-        o.addAxiom(df.getOWLDeclarationAxiom(B));
+        OWLOntology o = o(Declaration(DP), Declaration(B));
         // select a short form provider that uses annotations
-        ShortFormProvider sfp =
-            new AnnotationValueShortFormProvider(Arrays.asList(df.getRDFSLabel()),
-                Collections.<OWLAnnotationProperty, List<String>>emptyMap(), m);
+        ShortFormProvider sfp = shortFormProvider();
         BidirectionalShortFormProvider shortFormProvider =
             new BidirectionalShortFormProviderAdapter(asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
@@ -369,25 +317,27 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // when
         // finally parse
         OWLClassExpression expected =
-            df.getOWLDataMaxCardinality(1, DP, OWL2Datatype.OWL_REAL.getDatatype(df));
+            DataMaxCardinality(1, DP, Datatype(OWL2Datatype.OWL_REAL.getIRI()));
         OWLClassExpression cl = parser.parseClassExpression();
         // then
         assertEquals(cl, expected);
     }
 
+    protected ShortFormProvider shortFormProvider() {
+        return new AnnotationValueShortFormProvider(l(RDFSLabel()),
+            Collections.<OWLAnnotationProperty, List<String>>emptyMap(), m);
+    }
+
     @Test
-    public void shouldWorkWithAssertions() {
-        OWLOntology o = o(df.getOWLDeclarationAxiom(C),
-            df.getOWLClassAssertionAxiom(C, df.getOWLAnonymousIndividual()),
-            df.getOWLClassAssertionAxiom(C, indA),
-            df.getOWLClassAssertionAxiom(C, df.getOWLAnonymousIndividual()));
+    void shouldWorkWithAssertions() {
+        OWLOntology o = o(Declaration(C), ClassAssertion(C, AnonymousIndividual()),
+            ClassAssertion(C, indA), ClassAssertion(C, AnonymousIndividual()));
         roundTrip(o, new ManchesterSyntaxDocumentFormat());
     }
 
     @Test
     void shouldParseRuleInManSyntaxOldNamespace() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.manSyntaxRule, new ManchesterSyntaxDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.manSyntaxRule, new ManchesterSyntaxDocumentFormat());
         OWLOntology o1 = roundTrip(o, new ManchesterSyntaxDocumentFormat());
         equal(o, o1);
     }

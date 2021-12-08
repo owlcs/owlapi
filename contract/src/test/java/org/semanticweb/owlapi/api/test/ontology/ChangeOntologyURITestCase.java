@@ -37,19 +37,19 @@ class ChangeOntologyURITestCase extends TestBase {
         OWLOntology ont = create(oldIRI);
         OWLOntology importingOnt = create(iri("http://www.semanticweb.org/ontologies/", "ontC"));
         importingOnt.applyChange(new AddImport(importingOnt,
-            df.getOWLImportsDeclaration(get(ont.getOntologyID().getOntologyIRI()))));
+            ImportsDeclaration(ont.getOntologyID().getOntologyIRI().orElse(null))));
         assertTrue(m.contains(oldIRI));
         OWLOntologyIRIChanger changer = new OWLOntologyIRIChanger(m);
         m.applyChanges(changer.getChanges(ont, newIRI));
         assertFalse(m.contains(oldIRI));
         assertTrue(m.contains(newIRI));
-        assertTrue(m.ontologies().anyMatch(o -> o.equals(ont)));
-        assertTrue(m.directImports(importingOnt).anyMatch(o -> o.equals(ont)));
+        assertTrue(m.ontologies().anyMatch(ont::equals));
+        assertTrue(m.directImports(importingOnt).anyMatch(ont::equals));
         OWLOntology ontology = m.getOntology(newIRI);
         assertNotNull(ontology);
         assertEquals(ontology, ont);
         assertEquals(ontology.getOntologyID().getOntologyIRI().get(), newIRI);
-        assertTrue(m.importsClosure(importingOnt).anyMatch(o -> o.equals(ont)));
+        assertTrue(m.importsClosure(importingOnt).anyMatch(ont::equals));
         assertNotNull(m.getOntologyDocumentIRI(ont));
         // Document IRI will still be the same (in this case the old ont URI)
         assertEquals(m.getOntologyDocumentIRI(ont), oldIRI);
@@ -58,7 +58,7 @@ class ChangeOntologyURITestCase extends TestBase {
 
     @Test
     void shouldCheckContents() {
-        OWLOntology o1 = create(IRI.create("http://www.test.com/123"));
+        OWLOntology o1 = create(iri("http://www.test.com/", "123"));
         assertTrue(o1.getOWLOntologyManager().contains(o1.getOntologyID()));
         OWLOntology o2 = createAnon();
         assertFalse(o2.getOWLOntologyManager().contains(o2.getOntologyID()));

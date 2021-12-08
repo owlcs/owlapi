@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
@@ -41,17 +40,16 @@ class OntologyURITestCase extends TestBase {
         return IRI.getNextDocumentIRI(ANOTHER_COM_ONT);
     }
 
-    static final IRI version = IRI(ANOTHER_COM_ONT + "/", "version");
-    static final IRI onto = IRI("http://www.another.com/", "ont");
+    static final IRI version = iri(ANOTHER_COM_ONT + "/", "version");
+    static final IRI onto = iri("http://www.another.com/", "ont");
 
     @Test
     void testNamedOntologyToString() {
-        IRI ontIRI = IRI("http://owlapi.sourceforge.net/", "ont");
+        IRI ontIRI = iri("http://owlapi.sourceforge.net/", "ont");
         OWLOntology ont = create(ontIRI);
-        String s = ont.toString();
         String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: " + ont.getAxiomCount()
             + " Logical Axioms: " + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
-        assertEquals(expected, s);
+        assertEquals(expected, ont.toString());
     }
 
     @Test

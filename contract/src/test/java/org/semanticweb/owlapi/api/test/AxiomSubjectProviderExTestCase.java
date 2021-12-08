@@ -26,25 +26,25 @@ import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 
 class AxiomSubjectProviderExTestCase {
 
-    private static final String TEST_IRI = "urn:test:test#iri";
+    private static final String TEST_IRI = "http://www.semanticweb.org/owlapi/test#iri";
     private static final String BUILT_IN_ATOM =
         "BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>))";
-    private static final String IRI = "<urn:test:test#iri>";
-    private static final String I = "<urn:test:test#i>";
-    private static final String C = "<urn:test:test#c>";
-    private static final String DP = "<urn:test:test#dp>";
-    private static final String ANN = "<urn:test:test#ann>";
-    private static final String OP = "<urn:test:test#op>";
+    private static final String IRI = "<http://www.semanticweb.org/owlapi/test#iri>";
+    private static final String I = "<http://www.semanticweb.org/owlapi/test#i>";
+    private static final String C = "<http://www.semanticweb.org/owlapi/test#C>";
+    private static final String DP = "<http://www.semanticweb.org/owlapi/test#p>";
+    private static final String ANN = "<http://www.semanticweb.org/owlapi/test#ann>";
+    private static final String OP = "<http://example.com/objectProperty>";
 
     static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLAxiom, String> map = new LinkedHashMap<>();
-        map.put(b.dDp(), DP);
-        map.put(b.dOp(), IRI);
+        map.put(b.dDp(), IRI);
+        map.put(b.dOp(), OP);
         map.put(b.du(), C);
         map.put(b.ec(), C);
-        map.put(b.eDp(), DP);
-        map.put(b.eOp(), IRI);
+        map.put(b.eDp(), IRI);
+        map.put(b.eOp(), OP);
         map.put(b.fdp(), DP);
         map.put(b.fop(), OP);
         map.put(b.ifp(), OP);
@@ -105,7 +105,7 @@ class AxiomSubjectProviderExTestCase {
         map.put(b.decC(), C);
         map.put(b.decOp(), OP);
         map.put(b.decDp(), DP);
-        map.put(b.decDt(), "<urn:test:test#datatype>");
+        map.put(b.decDt(), "<http://www.semanticweb.org/owlapi/test#DT>");
         map.put(b.decAp(), ANN);
         map.put(b.decI(), I);
         map.put(b.assDi(), I);

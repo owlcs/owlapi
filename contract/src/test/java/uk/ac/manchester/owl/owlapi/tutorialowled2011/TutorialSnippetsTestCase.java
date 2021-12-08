@@ -732,6 +732,9 @@ class TutorialSnippetsTestCase {
     /**
      * Print the class hierarchy for the given ontology from this class down, assuming this class is
      * at the given level. Makes no attempt to deal sensibly with multiple inheritance.
+     * 
+     * @param o ontology
+     * @param clazz class
      */
     public void printHierarchy(OWLOntology o, OWLClass clazz) {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
@@ -791,9 +794,9 @@ class TutorialSnippetsTestCase {
         // Available profiles: DL, EL, QL, RL, OWL2 (Full)
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(o);
-        for (OWLProfileViolation v : report.getViolations()) {
+        for (OWLProfileViolation violation : report.getViolations()) {
             // deal with violations
-            System.out.println(v);
+            // System.out.println(v);
         }
     }
 

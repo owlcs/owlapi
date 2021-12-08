@@ -28,13 +28,7 @@ class RioParserTestCase extends TestBase {
     void setUpManager() {
         // Use non-Rio storers
         // limit to Rio parsers for RioParserImpl Test
-        // testManager = OWLOntologyManagerFactoryRegistry
-        // .createOWLOntologyManager(
-        // OWLOntologyManagerFactoryRegistry.getOWLDataFactory(),
-        // storerRegistry, parserRegistry);
         m.getOntologyParsers().set(new RioRDFXMLParserFactory());
-        // testOntologyKoala =
-        // testManager.loadOntologyFromOntologyDocument(this.getClass().getResourceAsStream("/koala.owl"));
     }
 
     /*
@@ -83,9 +77,6 @@ class RioParserTestCase extends TestBase {
         assertEquals(93, rioOntologyPrimer.getAxiomCount());
     }
 
-    /**
-     * @return stream
-     */
     StreamDocumentSource getStream(String name) {
         return new StreamDocumentSource(getClass().getResourceAsStream(name));
     }
@@ -136,8 +127,6 @@ class RioParserTestCase extends TestBase {
         assertEquals(4, owlapiOntologyPrimer.getAxiomCount());
         assertEquals(new RDFXMLDocumentFormat(), format);
         RioParserImpl rioParser = new RioParserImpl(new RioRDFXMLDocumentFormatFactory());
-        // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
-        // .createOWLOntologyManager().createOntology(
         OWLOntology rioOntologyPrimer = m.getOntology(iri("http://example.com/owl/", "families"));
         OWLDocumentFormat rioOntologyFormat =
             rioParser.parse(getStream(MINIMAL_RDF), rioOntologyPrimer, config);

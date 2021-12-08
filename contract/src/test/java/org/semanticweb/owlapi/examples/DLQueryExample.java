@@ -62,6 +62,9 @@ public class DLQueryExample {
 
     private DLQueryExample() {}
 
+    /**
+     * @param args args
+     */
     public static void main(String[] args) {
         try {
             // Load the KOALA example ontology defined before as a constant.
@@ -181,7 +184,8 @@ class DLQueryEngine {
         }
         OWLClassExpression classExpression = parser.parseClassExpression(classExpressionString);
         Node<OWLClass> equivalentClasses = reasoner.getEquivalentClasses(classExpression);
-        return asUnorderedSet(equivalentClasses.entities().filter(c -> !c.equals(classExpression)));
+        return asUnorderedSet(
+            equivalentClasses.entities().filter(cl -> !cl.equals(classExpression)));
     }
 
     /**
@@ -265,6 +269,7 @@ class DLQueryParser {
         return parser.parseClassExpression();
     }
 }
+
 
 class DLQueryPrinter {
 

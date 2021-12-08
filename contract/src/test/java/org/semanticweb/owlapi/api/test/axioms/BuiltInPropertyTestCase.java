@@ -14,13 +14,9 @@ package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -30,12 +26,12 @@ class BuiltInPropertyTestCase extends TestBase {
 
     @Test
     void testTopObjectPropertyPositive() {
-        assertTrue(df.getOWLTopObjectProperty().isOWLTopObjectProperty());
+        assertTrue(TopObjectProperty().isOWLTopObjectProperty());
     }
 
     @Test
     void testBottomObjectPropertyPositive() {
-        assertTrue(df.getOWLBottomObjectProperty().isOWLBottomObjectProperty());
+        assertTrue(BottomObjectProperty().isOWLBottomObjectProperty());
     }
 
     @Test
@@ -50,12 +46,12 @@ class BuiltInPropertyTestCase extends TestBase {
 
     @Test
     void testTopDataPropertyPositive() {
-        assertTrue(df.getOWLTopDataProperty().isOWLTopDataProperty());
+        assertTrue(TopDataProperty().isOWLTopDataProperty());
     }
 
     @Test
     void testBottomDataPropertyPositive() {
-        assertTrue(df.getOWLBottomDataProperty().isOWLBottomDataProperty());
+        assertTrue(BottomDataProperty().isOWLBottomDataProperty());
     }
 
     @Test

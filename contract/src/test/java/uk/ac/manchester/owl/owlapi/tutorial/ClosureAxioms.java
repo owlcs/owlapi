@@ -15,7 +15,7 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import org.semanticweb.owlapi.model.AddAxiom;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -23,7 +23,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
@@ -40,11 +39,17 @@ public class ClosureAxioms {
     private final OWLOntology ontology;
     private final OWLDataFactory factory;
 
+    /**
+     * @param ontology ontology to use
+     */
     public ClosureAxioms(OWLOntology ontology) {
         this.ontology = ontology;
         factory = ontology.getOWLOntologyManager().getOWLDataFactory();
     }
 
+    /**
+     * @param clazz class to add
+     */
     public void addClosureAxioms(OWLClass clazz) {
         /* Get the class axioms */
         /* Collect those that assert superclasses of the class */

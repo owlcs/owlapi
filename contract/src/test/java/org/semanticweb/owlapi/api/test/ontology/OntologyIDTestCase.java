@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
@@ -69,19 +68,19 @@ class OntologyIDTestCase extends TestBase {
         assertEquals(iri1.hashCode(), iri2.hashCode());
         assertEquals(iri1, iri2);
         OWLOntologyID unversionedID = new OWLOntologyID(optional(iri1), emptyOptional(IRI.class));
-        IRI version1IRI = IRI(TEST_ONTOLOGY_IRI_STRING + "/", "version1");
+        IRI version1IRI = iri(TEST_ONTOLOGY_IRI_STRING + "/", "version1");
         OWLOntologyID version1ID = new OWLOntologyID(optional(iri2), optional(version1IRI));
         assertEquals(unversionedID.getOntologyIRI(), version1ID.getOntologyIRI());
         assertNotEquals(unversionedID.getVersionIRI(), version1ID.getVersionIRI());
         assertNotEquals(unversionedID.hashCode(), version1ID.hashCode());
         assertNotEquals(unversionedID, version1ID);
         OWLOntologyID duplicateVersion1ID =
-            new OWLOntologyID(optional(IRI(TEST_ONTOLOGY_IRI_STRING, "")), optional(version1IRI));
+            new OWLOntologyID(optional(iri(TEST_ONTOLOGY_IRI_STRING, "")), optional(version1IRI));
         assertEquals(version1ID, duplicateVersion1ID);
         OWLOntologyID differentBasedVersion1ID = new OWLOntologyID(
-            optional(IRI(TEST_ONTOLOGY_IRI_STRING + "-of-doom", "")), optional(version1IRI));
+            optional(iri(TEST_ONTOLOGY_IRI_STRING + "-of-doom", "")), optional(version1IRI));
         assertNotEquals(version1ID, differentBasedVersion1ID);
-        IRI version2IRI = IRI(TEST_ONTOLOGY_IRI_STRING + "/", "version2");
+        IRI version2IRI = iri(TEST_ONTOLOGY_IRI_STRING + "/", "version2");
         IRI iri3 = iri();
         OWLOntologyID version2ID = new OWLOntologyID(optional(iri3), optional(version2IRI));
         assertNotEquals(version1ID.hashCode(), version2ID.hashCode());
@@ -89,6 +88,6 @@ class OntologyIDTestCase extends TestBase {
     }
 
     protected IRI iri() {
-        return IRI(TEST_ONTOLOGY_IRI_STRING, "");
+        return iri(TEST_ONTOLOGY_IRI_STRING, "");
     }
 }

@@ -1,1 +1,1 @@
-[SubClassOf(owl:Thing DataAllValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>))]
+SubClassOf(owl:Thing DataAllValuesFrom(<http://www.semanticweb.org/owlapi/test#p> <http://www.semanticweb.org/owlapi/test#DT>))

@@ -1,1 +1,1 @@
-ObjectIntersectionOf(<urn:test:test#c> <urn:test:test#iri>)
+ObjectIntersectionOf(<http://www.semanticweb.org/owlapi/test#C> <http://www.semanticweb.org/owlapi/test#iri>)

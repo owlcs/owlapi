@@ -18,10 +18,10 @@ class OWLEntityURIConverterTest extends TestBase {
     private static final String NEW_NAMESPACE = "http://www.example.org/newTestOntology#";
 
     @Test
-    public void test() {
+    void test() {
         File ontologyFile = new File(
             this.getClass().getClassLoader().getResource(TEST_ONTOLOGY_RESOURCE).getFile());
-        OWLOntology ontology = loadOntologyFromFile(ontologyFile, m);
+        OWLOntology ontology = loadFrom(ontologyFile, m);
         checkEntityNamespace(ontology, OLD_NAMESPACE);
         OWLEntityURIConverter converter =
             getOWLEntityNamespaceConverter(m, OLD_NAMESPACE, NEW_NAMESPACE);
@@ -43,18 +43,18 @@ class OWLEntityURIConverterTest extends TestBase {
 
     private static void checkEntityNamespace(OWLOntology ontology, String namespace) {
         ontology.classesInSignature()
-            .forEach(x -> assertTrue(x.getIRI().toString().contains(namespace)));
+            .forEach(cl -> assertTrue(cl.getIRI().toString().contains(namespace)));
         ontology.individualsInSignature()
-            .forEach(x -> assertTrue(x.getIRI().toString().contains(namespace)));
+            .forEach(ind -> assertTrue(ind.getIRI().toString().contains(namespace)));
         ontology.objectPropertiesInSignature()
-            .filter(x -> !x.asOWLObjectProperty().isOWLTopObjectProperty())
-            .forEach(x -> assertTrue(x.getIRI().toString().contains(namespace)));
+            .filter(op -> !op.asOWLObjectProperty().isOWLTopObjectProperty())
+            .forEach(op -> assertTrue(op.getIRI().toString().contains(namespace)));
         ontology.dataPropertiesInSignature()
-            .filter(x -> !x.asOWLDataProperty().isOWLTopDataProperty())
-            .forEach(x -> assertTrue(x.getIRI().toString().contains(namespace)));
+            .filter(dp -> !dp.asOWLDataProperty().isOWLTopDataProperty())
+            .forEach(dp -> assertTrue(dp.getIRI().toString().contains(namespace)));
         ontology.annotationPropertiesInSignature()
-            .forEach(x -> assertTrue(x.getIRI().toString().contains(namespace)));
-        ontology.datatypesInSignature().filter(x -> !x.asOWLDatatype().isBuiltIn())
-            .forEach(x -> assertTrue(x.getIRI().toString().contains(namespace)));
+            .forEach(ap -> assertTrue(ap.getIRI().toString().contains(namespace)));
+        ontology.datatypesInSignature().filter(dtype -> !dtype.asOWLDatatype().isBuiltIn())
+            .forEach(dtype -> assertTrue(dtype.getIRI().toString().contains(namespace)));
     }
 }

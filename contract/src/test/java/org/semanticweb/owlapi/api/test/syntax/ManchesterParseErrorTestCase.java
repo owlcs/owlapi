@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import javax.annotation.Nullable;
 
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,6 @@ import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -34,7 +32,7 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 class ManchesterParseErrorTestCase extends TestBase {
 
     static OWLClassExpression parse(String text) {
-        MockEntityChecker checker = new MockEntityChecker(df);
+        MockEntityChecker checker = new MockEntityChecker();
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text);
         parser.setOWLEntityChecker(checker);
@@ -64,11 +62,7 @@ class ManchesterParseErrorTestCase extends TestBase {
      */
     private static class MockEntityChecker implements OWLEntityChecker {
 
-        private final OWLDataFactory factory;
-
-        MockEntityChecker(OWLDataFactory factory) {
-            this.factory = factory;
-        }
+        MockEntityChecker() {}
 
         @Override
         public @Nullable OWLClass getOWLClass(String name) {
@@ -83,7 +77,7 @@ class ManchesterParseErrorTestCase extends TestBase {
         @Override
         public @Nullable OWLDataProperty getOWLDataProperty(@Nullable String name) {
             if ("p".equals(name)) {
-                return factory.getOWLDataProperty("http://protege.org/Test.owl#", "p");
+                return DataProperty(iri("http://protege.org/Test.owl#", "p"));
             } else {
                 return null;
             }
@@ -102,7 +96,7 @@ class ManchesterParseErrorTestCase extends TestBase {
         @Override
         public @Nullable OWLDatatype getOWLDatatype(@Nullable String name) {
             if ("rdfs:Literal".equals(name)) {
-                return factory.getTopDatatype();
+                return TopDatatype();
             } else {
                 return null;
             }

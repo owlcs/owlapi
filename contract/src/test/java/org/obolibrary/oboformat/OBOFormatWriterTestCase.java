@@ -11,7 +11,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -20,6 +19,7 @@ import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
+import org.semanticweb.owlapi.apitest.TestFilenames;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
@@ -36,14 +36,14 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
         return clauses;
     }
 
-    private static String writeObsolete(Object value){
+    private static String writeObsolete(Object value) {
         Clause cl = new Clause(OboFormatTag.TAG_IS_OBSELETE);
         cl.addValue(value);
         StringWriter out = new StringWriter();
         try (BufferedWriter bufferedWriter = new BufferedWriter(out)) {
             OBOFormatWriter.write(cl, bufferedWriter, null);
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+        } catch (IOException ex) {
+            throw new OWLRuntimeException(ex);
         }
         return out.toString().trim();
     }
@@ -54,7 +54,7 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
      */
     @Test
     void testSortTermClausesIntersectionOf() {
-        OBODoc oboDoc = parseOBOFile("equivtest.obo");
+        OBODoc oboDoc = parseOBOFile(TestFilenames.EQUIVTEST_OBO);
         Frame frame = oboDoc.getTermFrame("X:1");
         assert frame != null;
         List<Clause> clauses = new ArrayList<>(frame.getClauses(OboFormatTag.TAG_INTERSECTION_OF));
@@ -92,15 +92,15 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
      */
     @Test
     void testWriteEndOfFile() {
-        OBODoc oboDoc = parseOBOFile("caro.obo");
+        OBODoc oboDoc = parseOBOFile(TestFilenames.CARO_OBO);
         String oboString = renderOboToString(oboDoc);
         int length = oboString.length();
         assertTrue(length > 0);
         int newLineCount = 0;
-        for (int i = length - 1; i >= 0; i--) {
-            char c = oboString.charAt(i);
-            if (Character.isWhitespace(c)) {
-                if (c == '\n') {
+        for (int index = length - 1; index >= 0; index--) {
+            char ch = oboString.charAt(index);
+            if (Character.isWhitespace(ch)) {
+                if (ch == '\n') {
                     newLineCount++;
                 }
             } else {
@@ -112,16 +112,18 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
 
     @Test
     void testWriteOpaqueIdsAsComments() {
-        OBODoc oboDoc = parseOBOFile("opaque_ids_test.obo");
+        OBODoc oboDoc = parseOBOFile(TestFilenames.OPAQUE_IDS_TEST_OBO);
         String oboString = renderOboToString(oboDoc);
-        assertTrue(Arrays.stream(oboString.split("\n")).anyMatch(
+        assertTrue(l(oboString.split("\n")).stream().anyMatch(
             line -> line.startsWith("relationship:") && line.contains("named relation y1")));
     }
 
     @Test
     void testPropertyValueOrder() {
         StringBuilder sb = new StringBuilder();
-        try (InputStream inputStream = new FileInputStream(getFile("tag_order_test.obo"));
+        try (
+            InputStream inputStream =
+                new FileInputStream(getFile(TestFilenames.TAG_ORDER_TEST_OBO));
             InputStreamReader in = new InputStreamReader(inputStream);
             BufferedReader reader = new BufferedReader(in);) {
             String line;
@@ -129,8 +131,8 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
                 sb.append(line);
                 sb.append('\n');
             }
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+        } catch (IOException ex) {
+            throw new OWLRuntimeException(ex);
         }
         String input = sb.toString();
         OBODoc obodoc = parseOboToString(input);

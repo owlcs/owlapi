@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
@@ -35,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 class MapperlessOntologyManagerTestCase extends TestBase {
 
-    private static final IRI ONTOLOGY_IRI = IRI("http://test.com/", "ont");
+    private static final IRI ONTOLOGY_IRI = iri("http://test.com/", "ont");
 
     private static OWLOntologyManager createManager() {
         OWLOntologyManager manager = setupManager();
@@ -70,8 +69,8 @@ class MapperlessOntologyManagerTestCase extends TestBase {
     void testCreateOntologyWithIdWithVersionIRI() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         IRI versionIRI = iri("http://version/1", "");
-        OWLOntologyID id = new OWLOntologyID(optional(ONTOLOGY_IRI), optional(versionIRI));
-        OWLOntology ontology = manager.createOntology(id);
+        OWLOntologyID ontID = new OWLOntologyID(optional(ONTOLOGY_IRI), optional(versionIRI));
+        OWLOntology ontology = manager.createOntology(ontID);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI().get());
         assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI().get());
         assertEquals(versionIRI, manager.getOntologyDocumentIRI(ontology));
@@ -80,8 +79,8 @@ class MapperlessOntologyManagerTestCase extends TestBase {
     @Test
     void testCreateOntologyWithId() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        OWLOntologyID id = new OWLOntologyID(optional(ONTOLOGY_IRI), emptyOptional(IRI.class));
-        OWLOntology ontology = manager.createOntology(id);
+        OWLOntologyID ontID = new OWLOntologyID(optional(ONTOLOGY_IRI), emptyOptional(IRI.class));
+        OWLOntology ontology = manager.createOntology(ontID);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI().get());
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));
     }

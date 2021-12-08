@@ -31,6 +31,8 @@ import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.apitest.TestFilenames;
+import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
@@ -41,7 +43,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -53,6 +54,9 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
 class RoundTripTestCase extends RoundTripTestBasics {
 
+
+    public static final String PR_000027136 = "PR:000027136";
+    public static final String PR_000005116 = "PR:000005116";
     private static final String REGULATES = "regulates";
 
     private static void checkAsAltId(IRI iri, OWLOntology ont, String replacedBy) {
@@ -71,12 +75,12 @@ class RoundTripTestCase extends RoundTripTestBasics {
 
     @Test
     void testAltIds() {
-        OBODoc input = parseOBOFile("alt_id_test.obo");
+        OBODoc input = parseOBOFile(TestFilenames.ALT_ID_TEST_OBO);
         OWLOntology owl = convert(input);
         // check round trip
         OBODoc output = convert(owl);
         String outObo = renderOboToString(output);
-        assertEquals(readResource("alt_id_test.obo").trim(), outObo.trim());
+        assertEquals(readResource(TestFilenames.ALT_ID_TEST_OBO).trim(), outObo.trim());
         // check owl
         // check that both alt_id is declared as deprecated class and has
         // appropriate annotations
@@ -89,16 +93,15 @@ class RoundTripTestCase extends RoundTripTestBasics {
     @Test
     void testRoundTripCardinality() {
         // create minimal ontology
-        OBODoc oboDocSource = parseOBOFile("roundtrip_cardinality.obo");
+        OBODoc oboDocSource = parseOBOFile(TestFilenames.ROUNDTRIP_CARDINALITY_OBO);
         // convert to OWL and retrieve def
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(m1);
         OWLOntology owlOntology = convert(oboDocSource, bridge);
-        OWLDataFactory factory = owlOntology.getOWLOntologyManager().getOWLDataFactory();
-        OWLClass c = factory.getOWLClass(bridge.oboIdToIRI("PR:000027136"));
+        OWLClass cl = Class(bridge.oboIdToIRI(PR_000027136));
         // Relations
         boolean foundRel1 = false;
         boolean foundRel2 = false;
-        List<OWLSubClassOfAxiom> axioms = asList(owlOntology.subClassAxiomsForSubClass(c));
+        List<OWLSubClassOfAxiom> axioms = asList(owlOntology.subClassAxiomsForSubClass(cl));
         assertEquals(3, axioms.size());
         for (OWLSubClassOfAxiom axiom : axioms) {
             OWLClassExpression superClass = axiom.getSuperClass();
@@ -107,7 +110,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
                 OWLClassExpression filler = cardinality.getFiller();
                 assertFalse(filler.isAnonymous());
                 IRI iri = filler.asOWLClass().getIRI();
-                if (iri.equals(bridge.oboIdToIRI("PR:000005116"))) {
+                if (iri.equals(bridge.oboIdToIRI(PR_000005116))) {
                     foundRel1 = true;
                     assertEquals(1, cardinality.getCardinality());
                 } else if (iri.equals(bridge.oboIdToIRI("PR:000027122"))) {
@@ -121,7 +124,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
         // convert back to OBO
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
         OBODoc convertedOboDoc = owl2Obo.convert(owlOntology);
-        Frame convertedFrame = convertedOboDoc.getTermFrame("PR:000027136");
+        Frame convertedFrame = convertedOboDoc.getTermFrame(PR_000027136);
         assert convertedFrame != null;
         Collection<Clause> clauses = convertedFrame.getClauses(OboFormatTag.TAG_RELATIONSHIP);
         // check that round trip still contains relationships
@@ -131,7 +134,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
             assertEquals(1, qualifierValues.size());
             QualifierValue value = qualifierValues.iterator().next();
             assertEquals("cardinality", value.getQualifier());
-            if (clause.getValue2().equals("PR:000005116")) {
+            if (clause.getValue2().equals(PR_000005116)) {
                 assertEquals("1", value.getValue());
             } else if (clause.getValue2().equals("PR:000027122")) {
                 assertEquals("2", value.getValue());
@@ -141,7 +144,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
 
     @Test
     void testRoundTripLabeledXrefs() {
-        OBODoc source = parseOBOFile("labeled_xrefs.obo");
+        OBODoc source = parseOBOFile(TestFilenames.LABELED_XREFS_OBO);
         String written = renderOboToString(source);
         OBODoc parsed = parseOboToString(written);
         List<Diff> diffs = OBODocDiffer.getDiffs(source, parsed);
@@ -150,17 +153,15 @@ class RoundTripTestCase extends RoundTripTestBasics {
 
     @Test
     void testDefinitionsMultipleDefXref() {
-        OWLAnnotationProperty hasDbXref = df
-            .getOWLAnnotationProperty("http://www.geneontology.org/formats/oboInOwl#", "hasDbXref");
-        OWLOntology owlOnt = convertOBOFile("multiple_def_xref_test.obo");
+        OWLOntology owlOnt = convertOBOFile(TestFilenames.MULTIPLE_DEF_XREF_TEST_OBO);
         AtomicInteger n = new AtomicInteger(0);
         owlOnt.axioms().forEach(ax -> ax.annotations(hasDbXref).forEach(a -> {
-            OWLLiteral v = (OWLLiteral) a.getValue();
+            OWLLiteral lit = (OWLLiteral) a.getValue();
             // expect this twice, as we have annotations on synonyms
-            if (v.getLiteral().equals("BTO:0001750")) {
+            if (lit.getLiteral().equals("BTO:0001750")) {
                 n.incrementAndGet();
             }
-            if (v.getLiteral().equals("Wikipedia:Mandibular_condyle")) {
+            if (lit.getLiteral().equals("Wikipedia:Mandibular_condyle")) {
                 n.incrementAndGet();
             }
         }));
@@ -169,49 +170,36 @@ class RoundTripTestCase extends RoundTripTestBasics {
 
     @Test
     void testWriteNamespaceIdRule() {
-        OBODoc oboDoc = parseOBOFile("namespace-id-rule.obo");
+        OBODoc oboDoc = parseOBOFile(TestFilenames.NAMESPACE_ID_RULE_OBO);
         String oboString = renderOboToString(oboDoc);
         assertTrue(oboString.contains("\nnamespace-id-rule: * test:$sequence(7,0,9999999)$\n"));
     }
 
     @Test
     void testWriteReadConvertedOWLNamespaceIdRule() {
-        OBODoc oboDoc = parseOBOFile("namespace-id-rule.obo");
+        OBODoc oboDoc = parseOBOFile(TestFilenames.NAMESPACE_ID_RULE_OBO);
         OWLOntology owlOntology = convert(oboDoc);
         StringDocumentTarget documentTarget = saveOntology(owlOntology, new OWLXMLDocumentFormat());
         String owlString = documentTarget.toString();
-        OWLOntology reloadedOwl = loadOntologyFromString(owlString, new OWLXMLDocumentFormat());
+        OWLOntology reloadedOwl = loadFrom(owlString, new OWLXMLDocumentFormat());
         assertEquals(owlOntology.getAxiomCount(), reloadedOwl.getAxiomCount());
     }
 
     @Test
     void shouldRoundTripVersionInfo() {
-        String in = "Prefix(:=<http://purl.obolibrary.org/obo/myont.owl#>)\n"
-            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
-            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
-            + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
-            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n\n"
-            + "Ontology(<http://purl.obolibrary.org/obo/myont.owl>\n"
-            + "Annotation(<http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion> \"1.2\")\n"
-            + "Annotation(owl:versionInfo \"2020-06-30\")\n"
-            + "Declaration(AnnotationProperty(<http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion>))\n"
-            + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion> \"has_obo_format_version\")\n)";
-
-        OWLOntology o = loadOntologyFromString(in, new FunctionalSyntaxDocumentFormat());
+        OWLOntology o =
+            loadFrom(TestFiles.ROUND_TRIP_VERSION_INFO, new FunctionalSyntaxDocumentFormat());
         StringDocumentTarget saved = saveOntology(o, new OBODocumentFormat());
-        OWLOntology o1 = loadOntologyFromString(saved, new OBODocumentFormat());
+        OWLOntology o1 = loadFrom(saved, new OBODocumentFormat());
         equal(o, o1);
 
         OBODoc oboDoc1 = convert(o);
         // write OBO
-        String expected = "format-version: 1.2\n" + "ontology: myont\n"
-            + "property_value: owl:versionInfo \"2020-06-30\" xsd:string";
         String actual = renderOboToString(oboDoc1).trim();
-        assertEquals(expected, actual);
+        assertEquals(TestFiles.ROUND_TRIP_VERSION_INFO_OBO, actual);
         // parse OBO
         OBODoc oboDoc2 = parseOboToString(actual);
-        assertEquals(expected, renderOboToString(oboDoc2).trim());
+        assertEquals(TestFiles.ROUND_TRIP_VERSION_INFO_OBO, renderOboToString(oboDoc2).trim());
 
         List<Diff> diffs = OBODocDiffer.getDiffs(oboDoc1, oboDoc2);
         assertEquals(0, diffs.size(), diffs.toString());
@@ -223,7 +211,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
      */
     @Test
     void testRoundTripOWLRO() {
-        OWLOntology oo1 = parseOWLFile("ro.owl");
+        OWLOntology oo1 = parseOWLFile(TestFilenames.RO_OWL);
         OBODoc oboDoc1 = convert(oo1);
         // write OBO
         String oboString = renderOboToString(oboDoc1);
@@ -258,18 +246,18 @@ class RoundTripTestCase extends RoundTripTestBasics {
 
     @Test
     void testOBOIsInferredAnnotation() {
-        OBODoc input = parseOBOFile("is_inferred_annotation.obo");
+        OBODoc input = parseOBOFile(TestFilenames.IS_INFERRED_ANNOTATION_OBO);
         OWLOntology owl = convert(input);
         // check round trip
         OBODoc output = convert(owl);
         String outObo = renderOboToString(output);
-        assertEquals(readResource("is_inferred_annotation.obo"), outObo);
+        assertEquals(readResource(TestFilenames.IS_INFERRED_ANNOTATION_OBO), outObo);
         // check owl
         IRI t1 = iri(OBO, "TEST_0001");
         IRI t3 = iri(OBO, "TEST_0003");
         IRI isInferredIRI = iri(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_inferred");
         AtomicBoolean hasAnnotation = new AtomicBoolean(false);
-        OWLAnnotationProperty infIRI = df.getOWLAnnotationProperty(isInferredIRI);
+        OWLAnnotationProperty infIRI = AnnotationProperty(isInferredIRI);
         owl.axioms(AxiomType.SUBCLASS_OF).forEach(axiom -> {
             OWLClassExpression superClassCE = axiom.getSuperClass();
             OWLClassExpression subClassCE = axiom.getSubClass();
@@ -277,12 +265,12 @@ class RoundTripTestCase extends RoundTripTestBasics {
                 OWLClass superClass = (OWLClass) superClassCE;
                 OWLClass subClass = (OWLClass) subClassCE;
                 if (superClass.getIRI().equals(t1) && subClass.getIRI().equals(t3)) {
-                    axiom.annotations(infIRI).map(OWLAnnotation::getValue).forEach(v -> {
-                        if (v instanceof OWLLiteral) {
-                            assertEquals("true", ((OWLLiteral) v).getLiteral());
+                    axiom.annotations(infIRI).map(OWLAnnotation::getValue).forEach(annValue -> {
+                        if (annValue instanceof OWLLiteral) {
+                            assertEquals("true", ((OWLLiteral) annValue).getLiteral());
                         } else {
                             fail("The value is not the expected type, expected OWLiteral but was: "
-                                + v.getClass().getName());
+                                + annValue.getClass().getName());
                         }
                         hasAnnotation.set(true);
                     });
@@ -295,7 +283,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
 
     @Test
     void testRequireEmptyXrefList() {
-        OBODoc obo = parseOBOFile("synonym_test.obo");
+        OBODoc obo = parseOBOFile(TestFilenames.SYNONYM_TEST_OBO);
         // Get synonym clause with an empty xref list
         Frame frame = obo.getTermFrame("GO:0009579");
         assertNotNull(frame);
@@ -310,23 +298,23 @@ class RoundTripTestCase extends RoundTripTestBasics {
             // check that written frame has line:
             // synonym: "photosynthetic membrane" RELATED []
             assertTrue(line.contains("\nsynonym: \"photosynthetic membrane\" RELATED []\n"));
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+        } catch (IOException ex) {
+            throw new OWLRuntimeException(ex);
         }
     }
 
     @Test
     void testConvertVersionIRI() {
-        OWLOntology owlOnt = convertOBOFile("version_iri_test.obo");
+        OWLOntology owlOnt = convertOBOFile(TestFilenames.VERSION_IRI_TEST_OBO);
         assertNotNull(owlOnt);
-        IRI v = owlOnt.getOntologyID().getVersionIRI().get();
-        assertEquals("http://purl.obolibrary.org/obo/go/2012-01-01/go.owl", v.toString());
+        IRI verson = owlOnt.getOntologyID().getVersionIRI().get();
+        assertEquals("http://purl.obolibrary.org/obo/go/2012-01-01/go.owl", verson.toString());
     }
 
     @Test
     void testConvertTransitiveOver() {
         // PARSE TEST FILE, CONVERT TO OWL
-        OWLOntology ontology = convert(parseOBOFile("relation_shorthand_test.obo"));
+        OWLOntology ontology = convert(parseOBOFile(TestFilenames.RELATION_SHORTHAND_TEST_OBO));
         // TEST CONTENTS OF OWL ONTOLOGY
         IRI regulatesIRI = getIriByLabel(ontology, REGULATES);
         assertNotNull(regulatesIRI);
@@ -363,13 +351,9 @@ class RoundTripTestCase extends RoundTripTestBasics {
 
     @Test
     void shouldRoundtripAll() {
-        String in = "Prefix(:=<http://purl.obolibrary.org/obo/uni.obo#>)\n"
-            + "Ontology(<http://purl.obolibrary.org/obo/uni.obo.owl>\n" + "Declaration(Class(:A))\n"
-            + "Declaration(Class(:B))\n" + "Declaration(ObjectProperty(:part_of))\n"
-            + "SubClassOf(:A ObjectAllValuesFrom(:part_of :B)))";
-        OWLOntology o1 = loadOntologyFromString(in, new FunctionalSyntaxDocumentFormat());
+        OWLOntology o1 = loadFrom(TestFiles.ROUND_TRIP_ALL, new FunctionalSyntaxDocumentFormat());
         StringDocumentTarget saveOntology = saveOntology(o1, new OBODocumentFormat());
-        OWLOntology o2 = loadOntologyFromString(saveOntology, new OBODocumentFormat());
+        OWLOntology o2 = loadFrom(saveOntology, new OBODocumentFormat());
         assertEquals(asSet(o1.logicalAxioms()), asSet(o2.logicalAxioms()));
     }
 }

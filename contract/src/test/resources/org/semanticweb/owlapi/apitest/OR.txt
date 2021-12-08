@@ -1,1 +1,1 @@
-ObjectUnionOf(<urn:test:test#c> <urn:test:test#iri>)
+ObjectUnionOf(<http://www.semanticweb.org/owlapi/test#C> <http://www.semanticweb.org/owlapi/test#iri>)

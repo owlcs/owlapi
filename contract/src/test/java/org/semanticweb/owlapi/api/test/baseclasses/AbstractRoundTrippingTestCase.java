@@ -15,67 +15,6 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annotation;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationPropertyDomain;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationPropertyRange;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ClassAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataComplementOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataExactCardinality;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataIntersectionOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataMaxCardinality;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataMinCardinality;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyDomain;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyRange;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataUnionOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Datatype;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DatatypeDefinition;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DatatypeRestriction;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DifferentIndividuals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointClasses;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointDataProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointObjectProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentDataProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FacetRestriction;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalDataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.HasKey;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Integer;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseFunctionalObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseObjectProperties;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IrreflexiveObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NegativeDataPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NegativeObjectPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyDomain;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyRange;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSComment;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSLabel;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ReflexiveObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SameIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubAnnotationPropertyOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubDataPropertyOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubPropertyChainOf;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TopDatatype;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
@@ -85,7 +24,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -96,10 +34,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.semanticweb.owlapi.apitest.TestFilenames;
 import org.semanticweb.owlapi.apitest.TestFiles;
-import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonDocumentFormat;
@@ -128,14 +65,12 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.SWRLAtom;
@@ -155,57 +90,34 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 class AbstractRoundTrippingTestCase extends TestBase {
 
     static List<List<OWLAxiom>> literalWithEscapesNoRioRDFXMLTestCase() {
-        OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#", "A"));
-        OWLAnnotationProperty prop =
-            AnnotationProperty(IRI("http://owlapi.sourceforge.net/ontology#", "prop"));
-        return Collections.singletonList(set(AnnotationAssertion(prop, cls.getIRI(), Literal("\\")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\\")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\\" + "End")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\\" + "End")),
+        return l(l(ann("\\"), ann("Start\\"), ann("\\End"), ann("Start\\End"), ann("\""),
+            ann("Start\""), ann("\"End"), ann("Start\"End"), ann("<"), ann("Start<"), ann("<End"),
+            ann("Start<End"), ann("\'"), ann("Start\'"), ann("\'End"), ann("Start\'End"),
+            Declaration(A)));
+    }
 
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\"")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\"")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\"" + "End")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\"" + "End")),
-
-            AnnotationAssertion(prop, cls.getIRI(), Literal("<")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "<")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("<" + "End")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "<" + "End")),
-
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\'")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\'")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\'" + "End")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\'" + "End")),
-
-            Declaration(cls)));
+    protected static OWLAnnotationAssertionAxiom ann(String al) {
+        return AnnotationAssertion(AP, A.getIRI(), Literal(al));
     }
 
     @ParameterizedTest
     @MethodSource("formats")
-    void anonymousRoundTripTestCase(OWLDocumentFormat f) {
-        OWLOntology ont1 = create();
+    void anonymousRoundTripTestCase(OWLDocumentFormat format) {
+        OWLOntology ont1 = createAnon();
         ont1.add(anonymousRoundTrip());
-        roundTrip(ont1, f);
+        roundTrip(ont1, format);
     }
 
     static List<OWLAxiom> anonymousRoundTrip() {
-        OWLDataProperty dp = df.getOWLDataProperty("urn:test:anon#D");
-        OWLObjectProperty op = df.getOWLObjectProperty("urn:test:anon#O");
-        OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:test:anon#A2");
-        OWLAnonymousIndividual i = df.getOWLAnonymousIndividual("_:b0");
-        OWLAnnotation sub1 = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral("z1"));
-        OWLAnnotation an1 = df.getOWLAnnotation(ap, i, Collections.singletonList(sub1));
+        OWLAnnotation an1 = Annotation(RDFSComment(Literal("z1")), AP, AnonymousIndividual("_:b0"));
+        OWLClassExpression c1 = DataAllValuesFrom(DP, Boolean());
+        OWLClassExpression c2 = ObjectSomeValuesFrom(op1, OWLThing());
 
-        OWLClassExpression c1 = df.getOWLDataAllValuesFrom(dp, df.getBooleanOWLDatatype());
-        OWLClassExpression c2 = df.getOWLObjectSomeValuesFrom(op, df.getOWLThing());
-
-        return Collections
-            .singletonList(df.getOWLSubClassOfAxiom(c1, c2, Collections.singletonList(an1)));
+        return l(SubClassOf(an1, c1, c2));
     }
 
     static List<List<OWLAxiom>> xmlAndFunctional() {
-        return Arrays.asList(anonymousRoundTrip(), literalWithEscapes());
+        return l(anonymousRoundTrip(), literalWithEscapes());
     }
 
     @Test
@@ -215,17 +127,15 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void anonymousOntologyAnnotationsTestCase(OWLDocumentFormat f) {
-        roundTrip(anonOntology(), f);
+    void anonymousOntologyAnnotationsTestCase(OWLDocumentFormat format) {
+        roundTrip(anonOntology(), format);
     }
 
     protected OWLOntology anonOntology() {
         OWLOntology ont = createAnon();
-        OWLAnnotationProperty prop = AnnotationProperty(
-            IRI("http://www.semanticweb.org/ontologies/test/annotationont#", "prop"));
-        OWLAnnotation annotation = df.getOWLAnnotation(prop, Literal(33));
+        OWLAnnotation annotation = Annotation(AP, Literal(33));
         ont.applyChange(new AddOntologyAnnotation(ont, annotation));
-        ont.add(Declaration(prop));
+        ont.add(Declaration(AP));
         return ont;
     }
 
@@ -236,55 +146,54 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void fileRoudTripWithKnownInputFormatTestCase(OWLDocumentFormat f) {
-        roundTrip(blankNodesTurtleDomain(), f);
+    void fileRoudTripWithKnownInputFormatTestCase(OWLDocumentFormat format) {
+        roundTrip(blankNodesTurtleDomain(), format);
     }
 
     protected OWLOntology blankNodesTurtleDomain() {
         try {
-            URL resource = getClass().getResource('/' + "testBlankNodesDomain.ttl");
+            URL resource = getClass().getResource('/' + TestFilenames.TEST_BLANK_NODES_DOMAIN_TTL);
             IRI iri = IRI.create(resource.toURI());
-            return m.loadOntologyFromOntologyDocument(
-                new IRIDocumentSource(iri, new TurtleDocumentFormat(), null));
-        } catch (OWLOntologyCreationException | URISyntaxException e) {
-            throw new OWLRuntimeException(e);
+            return loadFrom(new IRIDocumentSource(iri, new TurtleDocumentFormat(), null));
+        } catch (URISyntaxException ex) {
+            throw new OWLRuntimeException(ex);
         }
     }
 
     @Test
     void roundTripRDFXMLAndFunctionalShouldBeSameXmlLiteral() {
-        plainEqual(loadOntology("XMLLiteral.rdf"), true);
+        plainEqual(load(TestFilenames.XML_LITERAL_RDF), true);
     }
 
     @ParameterizedTest
     @MethodSource("formats")
-    void fileRoundTripNoRioRDFXMLTestCase(OWLDocumentFormat f) {
-        if (RioRDFXMLDocumentFormat.class.isInstance(f)) {
+    void fileRoundTripNoRioRDFXMLTestCase(OWLDocumentFormat format) {
+        if (RioRDFXMLDocumentFormat.class.isInstance(format)) {
             // XML literals managed differently in Rio
             return;
         }
-        roundTrip(loadOntology("XMLLiteral.rdf"), f);
+        roundTrip(load(TestFilenames.XML_LITERAL_RDF), format);
     }
 
     @ParameterizedTest
-    @ValueSource(
-        strings = {"AnonymousInverses.rdf", "TestParser08.rdf", "nodeid.rdf", "extraBlankNodes.owl",
-            "testBlankNodes2.ttl", "testBlankNodesAssertions.ttl", "owlxml_anonloop.owx"})
+    @ValueSource(strings = {TestFilenames.ANONYMOUS_INVERSES_RDF, TestFilenames.TEST_PARSER08_RDF,
+        TestFilenames.NODEID_RDF, TestFilenames.EXTRA_BLANK_NODES_OWL,
+        TestFilenames.TEST_BLANK_NODES2_TTL, TestFilenames.TEST_BLANK_NODES_ASSERTIONS_TTL,
+        TestFilenames.OWLXML_ANONLOOP_OWX})
     void roundTripsRDFXMLAndFunctionalShouldBeSame(String fileName) {
-        plainEqual(loadOntology(fileName), false);
+        plainEqual(load(fileName), false);
     }
 
     @ParameterizedTest
-    @MethodSource({"axiomsRoundTrippingUsingEqualTestCase"})
+    @MethodSource({TestFilenames.AXIOMS_ROUND_TRIPPING_USING_EQUAL_TEST_CASE})
     void roundTripsRDFXMLAndFunctionalShouldBeSame(List<OWLAxiom> axioms) {
         plainEqual(o(axioms), false);
     }
 
     static List<List<OWLAxiom>> axiomsRoundTrippingUsingEqualTestCase() {
-        return Arrays.asList(anonymousIndividualRoundtrip(), anonymousIndividuals2(),
-            anonymousIndividuals(), chainedAnonymousIndividuals(),
-            classAssertionWithAnonymousIndividual(), differentIndividualsAnonymous(),
-            differentIndividualsPairwiseAnonymous(),
+        return l(anonymousIndividualRoundtrip(), anonymousIndividuals2(), anonymousIndividuals(),
+            chainedAnonymousIndividuals(), classAssertionWithAnonymousIndividual(),
+            differentIndividualsAnonymous(), differentIndividualsPairwiseAnonymous(),
             objectPropertyAssertionWithAnonymousIndividuals(), sameIndividualsAnonymous());
     }
 
@@ -292,100 +201,85 @@ class AbstractRoundTrippingTestCase extends TestBase {
         // Can't round trip more than two in RDF! Also, same
         // individuals axiom with anon individuals is not allowed
         // in OWL 2, but it should at least round trip
-        return set(SameIndividual(AnonymousIndividual(), AnonymousIndividual()));
+        return l(SameIndividual(AnonymousIndividual(), AnonymousIndividual()));
     }
 
     private static List<OWLAxiom> objectPropertyAssertionWithAnonymousIndividuals() {
-        OWLIndividual subject = AnonymousIndividual();
-        OWLIndividual object = AnonymousIndividual();
-        OWLObjectProperty prop = ObjectProperty(iri("prop"));
-        return set(ObjectPropertyAssertion(prop, subject, object), Declaration(prop));
+        return l(ObjectPropertyAssertion(P, AnonymousIndividual(), AnonymousIndividual()),
+            Declaration(P));
     }
 
     private static List<OWLAxiom> differentIndividualsPairwiseAnonymous() {
-        return set(DifferentIndividuals(AnonymousIndividual(), AnonymousIndividual()));
+        return l(DifferentIndividuals(AnonymousIndividual(), AnonymousIndividual()));
     }
 
     private static List<OWLAxiom> differentIndividualsAnonymous() {
-        return set(DifferentIndividuals(AnonymousIndividual(), AnonymousIndividual(),
+        return l(DifferentIndividuals(AnonymousIndividual(), AnonymousIndividual(),
             AnonymousIndividual()));
     }
 
     private static List<OWLAxiom> classAssertionWithAnonymousIndividual() {
-        OWLIndividual ind = AnonymousIndividual("a");
-        OWLClass cls = Class(iri("A"));
-        return set(ClassAssertion(A, i), Declaration(A));
+        return l(ClassAssertion(A, AnonymousIndividual("a")), Declaration(A));
     }
 
     private static List<OWLAxiom> chainedAnonymousIndividuals() {
-        IRI annoPropIRI = IRI("http://owlapi.sourceforge.net/ontology#", "annoProp");
-        OWLAnnotationProperty property = AnnotationProperty(annoPropIRI);
-        IRI subject = IRI("http://owlapi.sourceforge.net/ontology#", "subject");
-        OWLAnonymousIndividual individual1 = AnonymousIndividual();
-        OWLAnonymousIndividual individual2 = AnonymousIndividual();
-        OWLAnonymousIndividual individual3 = AnonymousIndividual();
-        OWLAnnotationAssertionAxiom annoAssertion1 =
-            AnnotationAssertion(property, subject, individual1);
-        OWLAnnotationAssertionAxiom annoAssertion2 =
-            AnnotationAssertion(property, individual1, individual2);
-        OWLAnnotationAssertionAxiom annoAssertion3 =
-            AnnotationAssertion(property, individual2, individual3);
-        return set(Declaration(NamedIndividual(subject)), annoAssertion1, annoAssertion2,
-            annoAssertion3);
+        OWLAnonymousIndividual ind1 = AnonymousIndividual();
+        OWLAnonymousIndividual ind2 = AnonymousIndividual();
+        OWLAnonymousIndividual ind3 = AnonymousIndividual();
+        OWLAnnotationAssertionAxiom assertion1 = AnnotationAssertion(AP, subject.getIRI(), ind1);
+        OWLAnnotationAssertionAxiom assertion2 = AnnotationAssertion(AP, ind1, ind2);
+        OWLAnnotationAssertionAxiom assertion3 = AnnotationAssertion(AP, ind2, ind3);
+        return l(Declaration(NamedIndividual(subject.getIRI())), assertion1, assertion2,
+            assertion3);
     }
 
     private static List<OWLAxiom> anonymousIndividuals() {
         OWLAnonymousIndividual ind = AnonymousIndividual();
-        OWLObjectProperty p = ObjectProperty(iri("p"));
-        return set(ObjectPropertyAssertion(p, NamedIndividual(iri("i1")), ind),
-            ObjectPropertyAssertion(p, ind, NamedIndividual(iri("i2"))));
+        return l(ObjectPropertyAssertion(P, I, ind), ObjectPropertyAssertion(P, ind, J));
     }
 
     private static List<OWLAxiom> anonymousIndividuals2() {
         // Originally submitted by Timothy Redmond
-        String ns = "http://another.com/ont";
-        OWLClass a = Class(IRI(ns + "#", "A"));
-        OWLAnnotationProperty p = AnnotationProperty(IRI(ns + "#", "p"));
-        OWLObjectProperty q = ObjectProperty(IRI(ns + "#", "q"));
-        OWLAnonymousIndividual h = AnonymousIndividual();
-        OWLAnonymousIndividual i = AnonymousIndividual();
-        return set(AnnotationAssertion(p, a.getIRI(), h), ClassAssertion(a, h),
-            ObjectPropertyAssertion(q, h, i),
-            AnnotationAssertion(RDFSLabel(), h, Literal("Second", "en")));
+        OWLAnonymousIndividual hAnon = AnonymousIndividual();
+        return l(AnnotationAssertion(AP, A.getIRI(), hAnon), ClassAssertion(A, hAnon),
+            ObjectPropertyAssertion(Q, hAnon, AnonymousIndividual()),
+            AnnotationAssertion(RDFSLabel(), hAnon, Literal("Second", "en")));
     }
 
     private static List<OWLAxiom> anonymousIndividualRoundtrip() {
         OWLAnonymousIndividual ind = AnonymousIndividual();
-        OWLClass cls = Class(iri("A"));
-        OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
-        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, cls.getIRI(), ind);
-        OWLObjectProperty p = ObjectProperty(iri("p"));
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(AP, A.getIRI(), ind);
         OWLAnonymousIndividual anon1 = AnonymousIndividual();
         OWLAnonymousIndividual anon2 = AnonymousIndividual();
-        OWLNamedIndividual ind1 = NamedIndividual(iri("j"));
-        OWLNamedIndividual ind2 = NamedIndividual(iri("i"));
-        return set(ax, Declaration(cls), Declaration(p),
-            df.getOWLObjectPropertyAssertionAxiom(p, ind1, ind2),
-            df.getOWLObjectPropertyAssertionAxiom(p, anon1, anon1),
-            df.getOWLObjectPropertyAssertionAxiom(p, anon2, ind2),
-            df.getOWLObjectPropertyAssertionAxiom(p, ind2, anon2));
+        return l(ax, Declaration(A), Declaration(P), ObjectPropertyAssertion(P, J, I),
+            ObjectPropertyAssertion(P, anon1, anon1), ObjectPropertyAssertion(P, anon2, I),
+            ObjectPropertyAssertion(P, I, anon2));
     }
 
-    static final List<String> FILE_ROUND_TRIP = Arrays.asList("AnnotatedPropertyAssertions.rdf",
-        "ComplexSubProperty.rdf", "DataAllValuesFrom.rdf", "cardinalitywithwhitespace.owl",
-        "DataComplementOf.rdf", "DataHasValue.rdf", "DataIntersectionOf.rdf",
-        "DataMaxCardinality.rdf", "DataMinCardinality.rdf", "DataOneOf.rdf",
-        "DataSomeValuesFrom.rdf", "DataUnionOf.rdf", "DatatypeRestriction.rdf",
-        "TestDeclarations.rdf", "Deprecated.rdf", "DisjointClasses.rdf", "HasKey.rdf",
-        "InverseOf.rdf", "ObjectAllValuesFrom.rdf", "ObjectCardinality.rdf",
-        "ObjectComplementOf.rdf", "ObjectHasSelf.rdf", "ObjectHasValue.rdf",
-        "ObjectIntersectionOf.rdf", "ObjectMaxCardinality.rdf", "ObjectMaxQualifiedCardinality.rdf",
-        "ObjectMinCardinality.rdf", "ObjectMinQualifiedCardinality.rdf", "ObjectOneOf.rdf",
-        "ObjectQualifiedCardinality.rdf", "ObjectSomeValuesFrom.rdf", "ObjectUnionOf.rdf",
-        "primer.functionalsyntax.txt", "primer.owlxml.xml", "primer.rdfxml.xml", "RDFSClass.rdf",
-        "koala.owl", "SubClassOf.rdf", "TestParser06.rdf", "TestParser07.rdf", "TestParser10.rdf",
-        "annotatedpropertychain.ttl.rdf", "UntypedSubClassOf.rdf", "SubClassOfUntypedOWLClass.rdf",
-        "SubClassOfUntypedSomeValuesFrom.rdf");
+    static final List<String> FILE_ROUND_TRIP = l(TestFilenames.ANNOTATED_PROPERTY_ASSERTIONS_RDF,
+        TestFilenames.COMPLEX_SUB_PROPERTY_RDF, TestFilenames.DATA_ALL_VALUES_FROM_RDF,
+        TestFilenames.CARDINALITYWITHWHITESPACE_OWL, TestFilenames.DATA_COMPLEMENT_OF_RDF,
+        TestFilenames.DATA_HAS_VALUE_RDF, TestFilenames.DATA_INTERSECTION_OF_RDF,
+        TestFilenames.DATA_MAX_CARDINALITY_RDF, TestFilenames.DATA_MIN_CARDINALITY_RDF,
+        TestFilenames.DATA_ONE_OF_RDF, TestFilenames.DATA_SOME_VALUES_FROM_RDF,
+        TestFilenames.DATA_UNION_OF_RDF, TestFilenames.DATATYPE_RESTRICTION_RDF,
+        TestFilenames.TEST_DECLARATIONS_RDF, TestFilenames.DEPRECATED_RDF,
+        TestFilenames.DISJOINT_CLASSES_RDF, TestFilenames.HAS_KEY_RDF, TestFilenames.INVERSE_OF_RDF,
+        TestFilenames.OBJECT_ALL_VALUES_FROM_RDF, TestFilenames.OBJECT_CARDINALITY_RDF,
+        TestFilenames.OBJECT_COMPLEMENT_OF_RDF, TestFilenames.OBJECT_HAS_SELF_RDF,
+        TestFilenames.OBJECT_HAS_VALUE_RDF, TestFilenames.OBJECT_INTERSECTION_OF_RDF,
+        TestFilenames.OBJECT_MAX_CARDINALITY_RDF,
+        TestFilenames.OBJECT_MAX_QUALIFIED_CARDINALITY_RDF,
+        TestFilenames.OBJECT_MIN_CARDINALITY_RDF,
+        TestFilenames.OBJECT_MIN_QUALIFIED_CARDINALITY_RDF, TestFilenames.OBJECT_ONE_OF_RDF,
+        TestFilenames.OBJECT_QUALIFIED_CARDINALITY_RDF, TestFilenames.OBJECT_SOME_VALUES_FROM_RDF,
+        TestFilenames.OBJECT_UNION_OF_RDF, TestFilenames.PRIMER_FUNCTIONALSYNTAX_TXT,
+        TestFilenames.PRIMER_OWLXML_XML, TestFilenames.PRIMER_RDFXML_XML,
+        TestFilenames.RDFS_CLASS_RDF, TestFilenames.KOALA_OWL, TestFilenames.SUB_CLASS_OF_RDF,
+        TestFilenames.TEST_PARSER06_RDF, TestFilenames.TEST_PARSER07_RDF,
+        TestFilenames.TEST_PARSER10_RDF, TestFilenames.ANNOTATEDPROPERTYCHAIN_TTL_RDF,
+        TestFilenames.UNTYPED_SUB_CLASS_OF_RDF, TestFilenames.SUB_CLASS_OF_UNTYPED_OWL_CLASS_RDF,
+        TestFilenames.SUB_CLASS_OF_UNTYPED_SOME_VALUES_FROM_RDF);
 
     static List<String> fileRoundTripOnly() {
         return FILE_ROUND_TRIP;
@@ -393,51 +287,53 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     static List<Arguments> fileRoundTrip() {
         List<Arguments> list = new ArrayList<>();
-        FILE_ROUND_TRIP.forEach(file -> formats().forEach(f -> list.add(Arguments.of(file, f))));
+        FILE_ROUND_TRIP
+            .forEach(file -> formats().forEach(format -> list.add(Arguments.of(file, format))));
         // use a different equal method
         Arrays
-            .asList("extraBlankNodes.owl", "testBlankNodes2.ttl", "testBlankNodesAssertions.ttl",
-                "owlxml_anonloop.owx")
-            .forEach(file -> formats().forEach(f -> list.add(Arguments.of(file, f))));
+            .asList(TestFilenames.EXTRA_BLANK_NODES_OWL, TestFilenames.TEST_BLANK_NODES2_TTL,
+                TestFilenames.TEST_BLANK_NODES_ASSERTIONS_TTL, TestFilenames.OWLXML_ANONLOOP_OWX)
+            .forEach(file -> formats().forEach(format -> list.add(Arguments.of(file, format))));
 
         return list;
     }
 
     static List<Arguments> roundTrip() {
         List<Arguments> list = new ArrayList<>();
-        literalWithEscapesNoRioRDFXMLTestCase()
-            .forEach(axioms -> formats().forEach(f -> list.add(Arguments.of(axioms, f))));
-        axiomsRoundTrippingTestCase()
-            .forEach(axioms -> formats().forEach(f -> list.add(Arguments.of(axioms, f))));
-        axiomsRoundTrippingWithEntitiesTestCase()
-            .forEach(axioms -> formats().forEach(f -> list.add(Arguments.of(axioms, f))));
-        relativeURITestCase()
-            .forEach(axioms -> formats().forEach(f -> list.add(Arguments.of(axioms, f))));
+        literalWithEscapesNoRioRDFXMLTestCase().forEach(axioms -> forEachFormat(list, axioms));
+        axiomsRoundTrippingTestCase().forEach(axioms -> forEachFormat(list, axioms));
+        axiomsRoundTrippingWithEntitiesTestCase().forEach(axioms -> forEachFormat(list, axioms));
+        relativeURITestCase().forEach(axioms -> forEachFormat(list, axioms));
         axiomsRoundTrippingNoManchesterSyntaxTestCase()
             .forEach(axioms -> formatsSkip(ManchesterSyntaxDocumentFormat.class)
-                .forEach(f -> list.add(Arguments.of(axioms, f))));
+                .forEach(format -> list.add(Arguments.of(axioms, format))));
         return list;
+    }
+
+    protected static void forEachFormat(List<Arguments> list, List<OWLAxiom> axioms) {
+        formats().forEach(format -> list.add(Arguments.of(axioms, format)));
     }
 
     static List<Arguments> fileRoundTripNoManSyntax() {
         List<Arguments> list = new ArrayList<>();
-        Arrays.asList("AnonymousInverses.rdf", "TestParser08.rdf", "nodeid.rdf")
-            .forEach(file -> formatsSkip(ManchesterSyntaxDocumentFormat.class)
-                .forEach(f -> list.add(Arguments.of(file, f))));
+        l(TestFilenames.ANONYMOUS_INVERSES_RDF, TestFilenames.TEST_PARSER08_RDF,
+            TestFilenames.NODEID_RDF)
+                .forEach(file -> formatsSkip(ManchesterSyntaxDocumentFormat.class)
+                    .forEach(format -> list.add(Arguments.of(file, format))));
         return list;
     }
 
     @ParameterizedTest
     @MethodSource({"fileRoundTrip", "fileRoundTripNoManSyntax"})
-    void fileRoundTripTestCase(String fileName, OWLDocumentFormat f) {
-        roundTrip(loadOntology(fileName), f);
+    void fileRoundTripTestCase(String fileName, OWLDocumentFormat format) {
+        roundTrip(load(fileName), format);
     }
 
     @Test
     void fileRoundTripSubClassOfUntypedOWLClassStrictTestCase() {
         config = config.setStrict(true);
-        URL url = getClass().getResource("/SubClassOfUntypedOWLClass.rdf");
-        OWLOntology ont = loadOntologyFromSource(new IRIDocumentSource(IRI.create(url), null, null),
+        URL url = getClass().getResource("/" + TestFilenames.SUB_CLASS_OF_UNTYPED_OWL_CLASS_RDF);
+        OWLOntology ont = loadFrom(new IRIDocumentSource(IRI.create(url), null, null),
             config.setReportStackTraces(true));
         assertEquals(0, ont.axioms(AxiomType.SUBCLASS_OF).count());
         OWLDocumentFormat format = ont.getFormat();
@@ -466,20 +362,20 @@ class AbstractRoundTrippingTestCase extends TestBase {
     // //
     // .replace("http://www.semanticweb.org/ontologies/test/annotationont#",
     // "http://purl.obolibrary.org/obo/test#");
-    // createOntology = loadOntologyFromString(s, new FunctionalSyntaxDocumentFormat());
+    // createOntology = loadFrom(s, new FunctionalSyntaxDocumentFormat());
     // createOntology.removeAxioms(asList(createOntology.axioms(AxiomType.CLASS_ASSERTION)
     // .filter(ax -> ax.getClassExpression().isOWLThing())));
     // OBODocumentFormat format = new OBODocumentFormat();
     // StringDocumentTarget target = saveOntology(createOntology, format);
-    // OWLOntology o1 = loadOntologyFromString(target, format);
+    // OWLOntology o1 = loadFrom(target, format);
     // createOntology.removeAxioms(asList(createOntology.axioms(AxiomType.CLASS_ASSERTION).filter(
     // ax -> ax.getClassExpression().isOWLThing() || ax.getIndividual().isAnonymous())));
     // o1.removeAxioms(asList(o1.axioms(AxiomType.CLASS_ASSERTION).filter(
     // ax -> ax.getClassExpression().isOWLThing() || ax.getIndividual().isAnonymous())));
-    // OWLAnnotationProperty version = df.getOWLAnnotationProperty(
+    // OWLAnnotationProperty version = AnnotationProperty(
     // "http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion");
     // OWLAnnotationProperty id =
-    // df.getOWLAnnotationProperty("http://www.geneontology.org/formats/oboInOwl#id");
+    // AnnotationProperty("http://www.geneontology.org/formats/oboInOwl#id");
     // createOntology.remove(asList(createOntology.axioms(AxiomType.ANNOTATION_ASSERTION)));
     // o1.remove(asList(o1.axioms(AxiomType.ANNOTATION_ASSERTION)));
     // o1.applyChanges(asList(o1.annotations().filter(a -> a.getProperty().equals(version))
@@ -497,8 +393,8 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("roundTrip")
-    void roundTripFormats(List<OWLAxiom> axioms, OWLDocumentFormat f) {
-        roundTripOntology(o(axioms), f);
+    void roundTripFormats(List<OWLAxiom> axioms, OWLDocumentFormat format) {
+        roundTripOntology(o(axioms), format);
     }
 
     @ParameterizedTest
@@ -511,9 +407,10 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("fileRoundTripOnly")
-    @ValueSource(strings = {"AnonymousInverses.rdf", "TestParser08.rdf", "nodeid.rdf"})
+    @ValueSource(strings = {TestFilenames.ANONYMOUS_INVERSES_RDF, TestFilenames.TEST_PARSER08_RDF,
+        TestFilenames.NODEID_RDF})
     void roundTripRDFXMLAndFunctionalShouldBeSame(String name) {
-        plainEqual(loadOntology(name), true);
+        plainEqual(load(name), true);
     }
 
     protected void plainEqual(OWLOntology ont, boolean compareInput) {
@@ -525,20 +422,8 @@ class AbstractRoundTrippingTestCase extends TestBase {
         equal(o1, o2);
     }
 
-    public void testKRSS2(OWLOntology o) {
-        roundTripOntology(o, new KRSS2DocumentFormat());
-    }
-
-    public void testKRSS(OWLOntology o) {
-        roundTripOntology(o, new KRSS2DocumentFormat());
-    }
-
-    public void testDLSyntax(OWLOntology o) {
-        roundTripOntology(o, new DLSyntaxDocumentFormat());
-    }
-
-    protected OWLOntology createOntology(String fileName, OWLDocumentFormat f) {
-        OWLOntology o = ontologyFromClasspathFile(fileName, f);
+    protected OWLOntology createOntology(String fileName, OWLDocumentFormat format) {
+        OWLOntology o = ontologyFromClasspathFile(fileName, format);
         if (logger.isTraceEnabled()) {
             logger.trace("ontology as parsed from input file:");
             o.axioms().forEach(ax -> logger.trace(ax.toString()));
@@ -548,72 +433,48 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void literalWithEscapesTestCase(OWLDocumentFormat f) {
-        if (RioRDFXMLDocumentFormat.class.isInstance(f)) {
+    void literalWithEscapesTestCase(OWLDocumentFormat format) {
+        if (RioRDFXMLDocumentFormat.class.isInstance(format)) {
             // Rio normalizes literals differently, got its own test
             return;
         }
 
         List<OWLAxiom> axioms = literalWithEscapes();
-        OWLOntology o = create();
+        OWLOntology o = createAnon();
         o.add(axioms);
-        roundTrip(o, f);
+        roundTrip(o, format);
     }
 
     protected static List<OWLAxiom> literalWithEscapes() {
-        OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#", "A"));
-        OWLAnnotationProperty prop =
-            AnnotationProperty(IRI("http://owlapi.sourceforge.net/ontology#", "prop"));
-        List<OWLAxiom> axioms = set(AnnotationAssertion(prop, cls.getIRI(), Literal("\\")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\\")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\\" + "End")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\\" + "End")),
-
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\"")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\"")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\"" + "End")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\"" + "End")),
-
-            AnnotationAssertion(prop, cls.getIRI(), Literal("<")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "<")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("<" + "End")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "<" + "End")),
-
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\n")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\n")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\n" + "End")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\n" + "End")),
-
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\'")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\'")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("\'" + "End")),
-            AnnotationAssertion(prop, cls.getIRI(), Literal("Start" + "\'" + "End")),
-            Declaration(cls));
+        OWLClass cls = A;
+        List<OWLAxiom> axioms =
+            l(ann("\\"), ann("Start\\"), ann("\\End"), ann("Start\\End"), ann("\""), ann("Start\""),
+                ann("\"End"), ann("Start\"End"), ann("<"), ann("Start<"), ann("<End"),
+                ann("Start<End"), ann("\n"), ann("Start\n"), ann("\nEnd"), ann("Start\nEnd"),
+                ann("\'"), ann("Start\'"), ann("\'End"), ann("Start\'End"), Declaration(cls));
         return axioms;
     }
 
     @ParameterizedTest
     @MethodSource("formats")
-    void ontologyAnnotationsTestCase(OWLDocumentFormat f) {
-        if (RDFJsonDocumentFormat.class.isInstance(f)) {
+    void ontologyAnnotationsTestCase(OWLDocumentFormat format) {
+        if (RDFJsonDocumentFormat.class.isInstance(format)) {
             // XXX RDFJsonDocumentFormat ignored. The parser parses the annotation correctly but it
             // is not
             // associated to the ontology.
             return;
         }
-        roundTrip(ontologyAnnotation(), f);
+        roundTrip(ontologyAnnotation(), format);
     }
 
     protected OWLOntology ontologyAnnotation() {
-        OWLOntology ont = create();
-        OWLAnnotationProperty prop = AnnotationProperty(
-            IRI("http://www.semanticweb.org/ontologies/test/annotationont#", "prop"));
+        OWLOntology ont = createAnon();
         OWLLiteral value = Literal(33);
-        OWLAnnotation annotation = Annotation(prop, value);
-        OWLAnnotation builtin = Annotation(df.getOWLVersionInfo(), df.getOWLLiteral("x"));
+        OWLAnnotation annotation = Annotation(AP, value);
+        OWLAnnotation builtin = Annotation(VersionInfo(), Literal("x"));
         ont.applyChange(new AddOntologyAnnotation(ont, annotation));
         ont.applyChange(new AddOntologyAnnotation(ont, builtin));
-        ont.addAxiom(Declaration(prop));
+        ont.addAxiom(Declaration(AP));
         return ont;
     }
 
@@ -624,31 +485,31 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     void testCorrectOntologyIRI() {
-        OWLOntology ont = loadOntologyFromString(TestFiles.ontologyIRI, new RDFXMLDocumentFormat());
-        OWLOntologyID id = ont.getOntologyID();
-        assertEquals("http://www.test.com/right.owl", id.getOntologyIRI().get().toString());
+        OWLOntology ont = loadFrom(TestFiles.ontologyIRI, new RDFXMLDocumentFormat());
+        OWLOntologyID ontid = ont.getOntologyID();
+        assertEquals("http://www.test.com/right.owl", ontid.getOntologyIRI().get().toString());
     }
 
     @ParameterizedTest
     @MethodSource("formats")
-    void ontologyIRITestCase(OWLDocumentFormat f) {
-        roundTrip(loadOntologyFromString(TestFiles.ontologyIRI, new RDFXMLDocumentFormat()), f);
+    void ontologyIRITestCase(OWLDocumentFormat format) {
+        roundTrip(loadFrom(TestFiles.ontologyIRI, new RDFXMLDocumentFormat()), format);
     }
 
     @Test
     void roundTripRDFXMLAndFunctionalShouldBeSameOntologyIRI() {
-        plainEqual(loadOntologyFromString(TestFiles.ontologyIRI, new RDFXMLDocumentFormat()), true);
+        plainEqual(loadFrom(TestFiles.ontologyIRI, new RDFXMLDocumentFormat()), true);
     }
 
     @ParameterizedTest
     @MethodSource("formats")
-    void ontologyVersionIRITestCase(OWLDocumentFormat f) {
-        roundTrip(ontologyVersion(), f);
+    void ontologyVersionIRITestCase(OWLDocumentFormat format) {
+        roundTrip(ontologyVersion(), format);
     }
 
     protected OWLOntology ontologyVersion() {
-        IRI ontIRI = IRI("http://www.semanticweb.org/owlapi/", "ontology");
-        IRI versionIRI = IRI("http://www.semanticweb.org/owlapi/ontology/", "version");
+        IRI ontIRI = iri("http://www.semanticweb.org/owlapi/", "ontology");
+        IRI versionIRI = iri("http://www.semanticweb.org/owlapi/ontology/", "version");
         OWLOntologyID ontologyID = new OWLOntologyID(optional(ontIRI), optional(versionIRI));
         return create(ontologyID);
     }
@@ -660,12 +521,12 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void threeLayersOfAnnotationsTestCase(OWLDocumentFormat f) {
-        if (ManchesterSyntaxDocumentFormat.class.isInstance(f)) {
+    void threeLayersOfAnnotationsTestCase(OWLDocumentFormat format) {
+        if (ManchesterSyntaxDocumentFormat.class.isInstance(format)) {
             // not supported in Manchester syntax
             return;
         }
-        roundTrip(threeLayersOfAnnotations(), f);
+        roundTrip(threeLayersOfAnnotations(), format);
     }
 
     @Test
@@ -675,111 +536,48 @@ class AbstractRoundTrippingTestCase extends TestBase {
 
     protected OWLOntology threeLayersOfAnnotations() {
         OWLOntology o = create(iri("urn:nested:", "ontology"));
-        OWLClass dbxref = df.getOWLClass(iri("urn:obo:", "DbXref"));
-        OWLClass definition = df.getOWLClass(iri("urn:obo:", "Definition"));
-        OWLObjectProperty adjacent_to = df.getOWLObjectProperty(iri("urn:obo:", "adjacent_to"));
-        OWLAnnotationProperty hasDefinition =
-            df.getOWLAnnotationProperty(iri("urn:obo:", "hasDefinition"));
-        OWLAnnotationProperty hasdbxref = df.getOWLAnnotationProperty(iri("urn:obo:", "hasDbXref"));
-        OWLDataProperty hasuri = df.getOWLDataProperty(iri("urn:obo:", "hasURI"));
-        OWLAnonymousIndividual ind1 = df.getOWLAnonymousIndividual();
-        o.add(df.getOWLClassAssertionAxiom(dbxref, ind1));
-        o.add(df.getOWLDataPropertyAssertionAxiom(hasuri, ind1,
-            df.getOWLLiteral("urn:SO:SO_ke", OWL2Datatype.XSD_ANY_URI)));
-        OWLAnonymousIndividual ind2 = df.getOWLAnonymousIndividual();
-        o.add(df.getOWLClassAssertionAxiom(definition, ind2));
-        o.add(df.getOWLAnnotationAssertionAxiom(hasdbxref, ind2, ind1));
-        o.add(df.getOWLAnnotationAssertionAxiom(hasDefinition, adjacent_to.getIRI(), ind2));
+        OWLClass dbxref = Class(iri("urn:obo:", "DbXref"));
+        OWLClass definition = Class(iri("urn:obo:", "Definition"));
+        OWLObjectProperty adjacent_to = ObjectProperty(iri("urn:obo:", "adjacent_to"));
+        OWLAnnotationProperty hasDefinition = AnnotationProperty(iri("urn:obo:", "hasDefinition"));
+        OWLAnnotationProperty hasdbxref = AnnotationProperty(iri("urn:obo:", "hasDbXref"));
+        OWLDataProperty hasuri = DataProperty(iri("urn:obo:", "hasURI"));
+        OWLAnonymousIndividual ind1 = AnonymousIndividual();
+        o.add(ClassAssertion(dbxref, ind1));
+        o.add(
+            DataPropertyAssertion(hasuri, ind1, Literal("urn:SO:SO_ke", OWL2Datatype.XSD_ANY_URI)));
+        OWLAnonymousIndividual ind2 = AnonymousIndividual();
+        o.add(ClassAssertion(definition, ind2));
+        o.add(AnnotationAssertion(hasdbxref, ind2, ind1));
+        o.add(AnnotationAssertion(hasDefinition, adjacent_to.getIRI(), ind2));
         return o;
     }
 
     //@formatter:off
-    private static final String original = "<?xml version=\"1.0\"?>\n" +
-        "<Ontology xmlns=\"http://www.w3.org/2002/07/owl#\"\n" +
-        "     xml:base=\"http://www.derivo.de/ontologies/examples/nested_annotations\"\n" +
-        "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" +
-        "     xmlns:xml=\"http://www.w3.org/XML/1998/namespace\"\n" +
-        "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n" +
-        "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n" +
-        "     ontologyIRI=\"http://www.derivo.de/ontologies/examples/nested_annotations\">\n" +
-        "    <Prefix name=\"owl\" IRI=\"http://www.w3.org/2002/07/owl#\"/>\n" +
-        "    <Prefix name=\"rdf\" IRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"/>\n" +
-        "    <Prefix name=\"xml\" IRI=\"http://www.w3.org/XML/1998/namespace\"/>\n" +
-        "    <Prefix name=\"xsd\" IRI=\"http://www.w3.org/2001/XMLSchema#\"/>\n" +
-        "    <Prefix name=\"rdfs\" IRI=\"http://www.w3.org/2000/01/rdf-schema#\"/>\n" +
-        "    <Declaration>\n" +
-        "        <NamedIndividual IRI=\"#b\"/>\n" +
-        "    </Declaration>\n" +
-        "    <Declaration>\n" +
-        "        <NamedIndividual IRI=\"#c\"/>\n" +
-        "    </Declaration>\n" +
-        "    <Declaration>\n" +
-        "        <NamedIndividual IRI=\"#a\"/>\n" +
-        "    </Declaration>\n" +
-        "    <Declaration>\n" +
-        "        <ObjectProperty IRI=\"#r\"/>\n" +
-        "    </Declaration>\n" +
-        "    <Declaration>\n" +
-        "        <AnnotationProperty abbreviatedIRI=\"rdfs:commment\"/>\n" +
-        "    </Declaration>\n" +
-        "    <ObjectPropertyAssertion>\n" +
-        "        <Annotation>\n" +
-        "            <Annotation>\n" +
-        "                <AnnotationProperty abbreviatedIRI=\"rdfs:commment\"/>\n" +
-        "                <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">comment for one</Literal>\n" + 
-        "            </Annotation>\n" +
-        "            <AnnotationProperty abbreviatedIRI=\"rdfs:label\"/>\n" +
-        "            <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">one</Literal>\n" + 
-        "        </Annotation>\n" +
-        "        <Annotation>\n" +
-        "            <Annotation>\n" +
-        "                <AnnotationProperty abbreviatedIRI=\"rdfs:commment\"/>\n" +
-        "                <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">comment for two</Literal>\n" + 
-        "            </Annotation>\n" +
-        "            <AnnotationProperty abbreviatedIRI=\"rdfs:label\"/>\n" +
-        "            <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">two</Literal>\n" + 
-        "        </Annotation>\n" +
-        "        <ObjectProperty IRI=\"#r\"/>\n" +
-        "        <NamedIndividual IRI=\"#a\"/>\n" +
-        "        <NamedIndividual IRI=\"#b\"/>\n" +
-        "    </ObjectPropertyAssertion>\n" +
-        "    <ObjectPropertyAssertion>\n" +
-        "        <Annotation>\n" +
-        "            <Annotation>\n" +
-        "                <AnnotationProperty abbreviatedIRI=\"rdfs:commment\"/>\n" +
-        "                <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">comment for three</Literal>\n" + 
-        "            </Annotation>\n" +
-        "            <AnnotationProperty abbreviatedIRI=\"rdfs:label\"/>\n" +
-        "            <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">three</Literal>\n" + 
-        "        </Annotation>\n" +
-        "        <ObjectProperty IRI=\"#r\"/>\n" +
-        "        <NamedIndividual IRI=\"#b\"/>\n" +
-        "        <NamedIndividual IRI=\"#c\"/>\n" +
-        "    </ObjectPropertyAssertion>\n" +
-        "</Ontology>";
+
 
     //@formatter:on
     @ParameterizedTest
     @MethodSource("formats")
-    void roundTripOWLXMLToRioTurtleTestCase(OWLDocumentFormat f) {
-        roundTrip(loadOntologyFromString(original, new OWLXMLDocumentFormat()), f);
+    void roundTripOWLXMLToRioTurtleTestCase(OWLDocumentFormat format) {
+        roundTrip(loadFrom(TestFiles.original, new OWLXMLDocumentFormat()), format);
     }
 
     @Test
     void roundTripRDFXMLAndFunctionalShouldBeSameOWLXMLToTurtle() {
-        plainEqual(loadOntologyFromString(original, new OWLXMLDocumentFormat()), true);
+        plainEqual(loadFrom(TestFiles.original, new OWLXMLDocumentFormat()), true);
     }
 
     @Test
     void shouldRoundTripThroughOWLXML() {
         OWLOntology ontology = original();
         StringDocumentTarget targetOWLXML = saveOntology(ontology, new OWLXMLDocumentFormat());
-        OWLOntology o1 = loadOntologyFromString(targetOWLXML, new OWLXMLDocumentFormat());
+        OWLOntology o1 = loadFrom(targetOWLXML, new OWLXMLDocumentFormat());
         equal(ontology, o1);
     }
 
     protected OWLOntology original() {
-        return loadOntologyFromString(original, new OWLXMLDocumentFormat());
+        return loadFrom(TestFiles.original, new OWLXMLDocumentFormat());
     }
 
     @Test
@@ -812,8 +610,9 @@ class AbstractRoundTrippingTestCase extends TestBase {
     protected OWLOntology o(OWLAxiom a) {
         OWLOntology ont = create();
         ont.add(a);
-        ont.unsortedSignature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
-            .forEach(e -> ont.add(Declaration(e)));
+        ont.unsortedSignature()
+            .filter(entity -> !entity.isBuiltIn() && !ont.isDeclared(entity, INCLUDED))
+            .forEach(entity -> ont.add(Declaration(entity)));
         return ont;
     }
 
@@ -821,253 +620,214 @@ class AbstractRoundTrippingTestCase extends TestBase {
     protected OWLOntology o(Collection<OWLAxiom> a) {
         OWLOntology ont = create();
         ont.add(a);
-        ont.unsortedSignature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
-            .forEach(e -> ont.add(Declaration(e)));
+        ont.unsortedSignature()
+            .filter(entity -> !entity.isBuiltIn() && !ont.isDeclared(entity, INCLUDED))
+            .forEach(entity -> ont.add(Declaration(entity)));
         return ont;
     }
 
     static List<List<OWLAxiom>> axiomsRoundTrippingNoManchesterSyntaxTestCase() {
         // no valid Manchester OWL Syntax roundtrip
-        OWLObjectPropertyExpression p = ObjectProperty(iri("p")).getInverseProperty();
-        OWLObjectPropertyExpression q = ObjectProperty(iri("q")).getInverseProperty();
-        OWLClass clsA = Class(iri("A"));
-        return Arrays.asList(set(AsymmetricObjectProperty(p)),
-            set(EquivalentObjectProperties(p, q)), set(FunctionalObjectProperty(p)),
-            set(InverseFunctionalObjectProperty(p)), set(IrreflexiveObjectProperty(p)),
-            set(ObjectPropertyDomain(p, clsA)), set(ObjectPropertyRange(p, clsA)),
-            set(ReflexiveObjectProperty(p)), set(SubObjectPropertyOf(p, q)),
-            set(SymmetricObjectProperty(p)), set(TransitiveObjectProperty(p)));
+        OWLObjectPropertyExpression p = P.getInverseProperty();
+        OWLObjectPropertyExpression q = Q.getInverseProperty();
+        return l(l(AsymmetricObjectProperty(p)), l(EquivalentObjectProperties(p, q)),
+            l(FunctionalObjectProperty(p)), l(InverseFunctionalObjectProperty(p)),
+            l(IrreflexiveObjectProperty(p)), l(ObjectPropertyDomain(p, A)),
+            l(ObjectPropertyRange(p, A)), l(ReflexiveObjectProperty(p)),
+            l(SubObjectPropertyOf(p, q)), l(SymmetricObjectProperty(p)),
+            l(TransitiveObjectProperty(p)));
     }
 
     static List<List<OWLAxiom>> axiomsRoundTrippingTestCase() {
         String HTTP_WWW_OWLAPI = "http://www.owlapi#";
-        IRI iriA = iri("A");
-        OWLClass clsA = Class(iriA);
-        OWLClass clsB = Class(iri("B"));
-        OWLDataProperty dp = DataProperty(iri("p"));
-        OWLDataProperty dq = DataProperty(iri("q"));
-        OWLObjectProperty op = ObjectProperty(iri("op"));
-        OWLObjectProperty oq = ObjectProperty(iri("oq"));
-        OWLDataProperty dpA = DataProperty(iri("dpropA"));
-        OWLDataProperty dpB = DataProperty(iri("dpropB"));
-        OWLDataProperty dpC = DataProperty(iri("dpropC"));
-        OWLObjectProperty propA = ObjectProperty(iri("propA"));
-        OWLObjectProperty propB = ObjectProperty(iri("propB"));
-        OWLObjectProperty propC = ObjectProperty(iri("propC"));
-        OWLObjectProperty propD = ObjectProperty(iri("propD"));
-        OWLAnnotationProperty apropA = AnnotationProperty(iri("apropA"));
-        OWLAnnotationProperty apropB = AnnotationProperty(iri("apropB"));
-        OWLNamedIndividual ind = NamedIndividual(iri("i"));
-        OWLNamedIndividual indj = NamedIndividual(iri("j"));
-        OWLEntity peter = NamedIndividual(IRI("http://www.another.com/ont#", "peter"));
-        OWLAnnotation ann1 = Annotation(RDFSLabel(), Literal("Annotation 1"));
-        OWLAnnotation ann2 = Annotation(RDFSLabel(), Literal("Annotation 2"));
-        OWLAnnotation eAnn1 = Annotation(RDFSLabel(), Literal("EntityAnnotation 1"));
-        OWLAnnotation eAnn2 = Annotation(RDFSLabel(), Literal("EntityAnnotation 2"));
-        OWLDatatype datatype = Datatype(IRI("http://www.ont.com/myont/", "mydatatype"));
+        OWLEntity peter = NamedIndividual(iri("http://www.another.com/ont#", "peter"));
+        OWLAnnotation ann1 = RDFSLabel("Annotation 1");
+        OWLAnnotation ann2 = RDFSLabel("Annotation 2");
+        OWLAnnotation eAnn1 = RDFSLabel("EntityAnnotation 1");
+        OWLAnnotation eAnn2 = RDFSLabel("EntityAnnotation 2");
+        OWLDatatype datatype = Datatype(iri("http://www.ont.com/myont/", "mydatatype"));
         OWLAnnotation annoOuterOuter1 = Annotation(AnnotationProperty(iri("myOuterOuterLabel1")),
             Literal("Outer Outer label 1"));
         OWLAnnotation annoOuterOuter2 = Annotation(AnnotationProperty(iri("myOuterOuterLabel2")),
             Literal("Outer Outer label 2"));
-        OWLDatatype dt = Datatype(IRI("file:/c/test.owlapi#", "SSN"));
+        OWLDatatype ssnDT = Datatype(iri("file:/c/test.owlapi#", "SSN"));
         OWLFacetRestriction fr =
             FacetRestriction(OWLFacet.PATTERN, Literal("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
         OWLDataRange dr =
-            DatatypeRestriction(Datatype(IRI("http://www.w3.org/2001/XMLSchema#", "string")), fr);
-        OWLDataIntersectionOf disj1 = DataIntersectionOf(DataComplementOf(dr), dt);
-        OWLDataIntersectionOf disj2 = DataIntersectionOf(DataComplementOf(dt), dr);
+            DatatypeRestriction(Datatype(iri("http://www.w3.org/2001/XMLSchema#", "string")), fr);
+        OWLDataIntersectionOf disj1 = DataIntersectionOf(DataComplementOf(dr), ssnDT);
+        OWLDataIntersectionOf disj2 = DataIntersectionOf(DataComplementOf(ssnDT), dr);
         OWLAnnotation annoOuter = Annotation(AnnotationProperty(iri("myOuterLabel")),
             Literal("Outer label"), annoOuterOuter1, annoOuterOuter2);
         OWLAnnotation annoInner =
             Annotation(AnnotationProperty(iri("myLabel")), Literal("Label"), annoOuter);
 
         List<List<OWLAxiom>> list = new ArrayList<>();
-        list.add(swrlRuleAlternateNS(HTTP_WWW_OWLAPI, dp, op, ind, indj));
+        list.add(swrlRuleAlternateNS(HTTP_WWW_OWLAPI, DP, op1, I, J));
         list.add(swrlRule());
-        list.add(set(SubPropertyChainOf(Arrays.asList(propA, propB, propC), propD)));
-        list.add(set(AsymmetricObjectProperty(op)));
-        list.add(set(DifferentIndividuals(createIndividual(), createIndividual(),
+        list.add(l(SubPropertyChainOf(l(t, u, w), z)));
+        list.add(l(AsymmetricObjectProperty(op1)));
+        list.add(l(DifferentIndividuals(createIndividual(), createIndividual(), createIndividual(),
             createIndividual(), createIndividual(), createIndividual(), createIndividual(),
-            createIndividual(), createIndividual(), createIndividual(), createIndividual())));
-        list.add(set(SubClassOf(clsA, ObjectSomeValuesFrom(op, ObjectSomeValuesFrom(op, clsB))),
-            Declaration(clsA), Declaration(clsB)));
-        list.add(set(Declaration(RDFSLabel()), Declaration(peter),
+            createIndividual(), createIndividual(), createIndividual())));
+        list.add(l(SubClassOf(A, ObjectSomeValuesFrom(op1, ObjectSomeValuesFrom(op1, B))),
+            Declaration(A), Declaration(B)));
+        list.add(l(Declaration(RDFSLabel()), Declaration(peter),
             AnnotationAssertion(RDFSLabel(), peter.getIRI(), Literal("X", "en"), ann1, ann2)));
-        list.add(set(Declaration(RDFSLabel()), Declaration(peter, eAnn1, eAnn2),
+        list.add(l(Declaration(RDFSLabel()), Declaration(peter, eAnn1, eAnn2),
             AnnotationAssertion(RDFSLabel(), peter.getIRI(), Literal("X", "en"), ann1, ann2)));
-        list.add(set(InverseObjectProperties(oq, op)));
-        list.add(set(InverseObjectProperties(op, oq)));
-        list.add(set(Declaration(clsA), AnnotationAssertion(apropA, clsA.getIRI(),
-            IRI("http://www.semanticweb.org/owlapi#", "object"))));
-        list.add(set(SubClassOf(clsA, clsB, singleton(annoInner))));
-        list.add(set(AnnotationPropertyDomain(RDFSComment(), iriA)));
-        list.add(set(AnnotationPropertyRange(RDFSComment(), iriA)));
-        list.add(set(SubAnnotationPropertyOf(apropA, RDFSLabel())));
-        list.add(set(SubClassOf(clsA, DataMaxCardinality(3, dp, Integer()))));
-        list.add(set(SubClassOf(clsA, DataMinCardinality(3, dp, Integer()))));
-        list.add(set(SubClassOf(clsA, DataExactCardinality(3, dp, Integer()))));
-        list.add(set(DataPropertyRange(dp, DataUnionOf(disj1, disj2))));
-        list.add(set(
-            HasKey(singleton(Annotation(apropA, Literal("Test", ""))), clsA, propA, propB, propC),
-            Declaration(apropA), Declaration(propA), Declaration(propB), Declaration(propC)));
+        list.add(l(InverseObjectProperties(op2, op1)));
+        list.add(l(InverseObjectProperties(op1, op2)));
+        list.add(l(Declaration(A), AnnotationAssertion(propP, A.getIRI(),
+            iri("http://www.semanticweb.org/owlapi#", "object"))));
+        list.add(l(SubClassOf(annoInner, A, B)));
+        list.add(l(AnnotationPropertyDomain(RDFSComment(), A.getIRI())));
+        list.add(l(AnnotationPropertyRange(RDFSComment(), A.getIRI())));
+        list.add(l(SubAnnotationPropertyOf(propP, RDFSLabel())));
+        list.add(l(SubClassOf(A, DataMaxCardinality(3, DP, Integer()))));
+        list.add(l(SubClassOf(A, DataMinCardinality(3, DP, Integer()))));
+        list.add(l(SubClassOf(A, DataExactCardinality(3, DP, Integer()))));
+        list.add(l(DataPropertyRange(DP, DataUnionOf(disj1, disj2))));
+        list.add(l(HasKey(Annotation(propP, val), A, t, u, w), Declaration(propP), Declaration(t),
+            Declaration(u), Declaration(w)));
         list.add(
-            set(DisjointClasses(asUnorderedSet(Stream.generate(() -> createClass()).limit(6000)))));
-        list.add(set(SubClassOf(clsB, ObjectSomeValuesFrom(op.getInverseProperty(), clsA))));
-        list.add(set(SubDataPropertyOf(dp, dq)));
-        list.add(set(DataPropertyAssertion(dp, ind, Literal(33.3))));
-        list.add(set(NegativeDataPropertyAssertion(dp, ind, Literal(33.3)),
-            NegativeDataPropertyAssertion(dp, ind, Literal("weasel", "")),
-            NegativeDataPropertyAssertion(dp, ind, Literal("weasel"))));
-        list.add(set(FunctionalDataProperty(dp)));
-        list.add(set(DataPropertyDomain(dp, Class(iri("A")))));
-        list.add(set(DataPropertyRange(dp, TopDatatype())));
-        list.add(set(DisjointDataProperties(dpA, dpB, dpC), Declaration(dpA), Declaration(dpB),
-            Declaration(dpC)));
-        list.add(set(DisjointDataProperties(dpA, dpB)));
-        list.add(set(EquivalentDataProperties(dp, dq)));
-        list.add(set(AsymmetricObjectProperty(op)));
+            l(DisjointClasses(asUnorderedSet(Stream.generate(() -> createClass()).limit(6000)))));
+        list.add(l(SubClassOf(B, ObjectSomeValuesFrom(op1.getInverseProperty(), A))));
+        list.add(l(SubDataPropertyOf(DP, DQ)));
+        list.add(l(DataPropertyAssertion(DP, I, Literal(33.3))));
+        list.add(l(NegativeDataPropertyAssertion(DP, I, Literal(33.3)),
+            NegativeDataPropertyAssertion(DP, I, Literal("weasel", "")),
+            NegativeDataPropertyAssertion(DP, I, Literal("weasel"))));
+        list.add(l(FunctionalDataProperty(DP)));
+        list.add(l(DataPropertyDomain(DP, A)));
+        list.add(l(DataPropertyRange(DP, TopDatatype())));
+        list.add(l(DisjointDataProperties(dp1, dp2, dp3), Declaration(dp1), Declaration(dp2),
+            Declaration(dp3)));
+        list.add(l(DisjointDataProperties(dp1, dp2)));
+        list.add(l(EquivalentDataProperties(DP, DQ)));
+        list.add(l(AsymmetricObjectProperty(op1)));
         list.add(
-            set(DatatypeDefinition(datatype, DataComplementOf(Integer())), Declaration(datatype)));
-        list.add(set(DifferentIndividuals(ind, indj),
-            DifferentIndividuals(ind, NamedIndividual(iri("k")))));
-        list.add(set(
-            DifferentIndividuals(ind, indj, NamedIndividual(iri("k")), NamedIndividual(iri("l")))));
-        list.add(set(DisjointObjectProperties(propA, propB, propC), Declaration(propA),
-            Declaration(propB), Declaration(propC)));
-        list.add(set(DisjointObjectProperties(propA, propB)));
+            l(DatatypeDefinition(datatype, DataComplementOf(Integer())), Declaration(datatype)));
+        list.add(l(DifferentIndividuals(I, J), DifferentIndividuals(I, k)));
+        list.add(l(DifferentIndividuals(I, J, k, l)));
         list.add(
-            set(EquivalentObjectProperties(propA, propB), Declaration(propA), Declaration(propB)));
-        list.add(set(FunctionalObjectProperty(op)));
-        list.add(set(InverseFunctionalObjectProperty(op)));
-        list.add(set(IrreflexiveObjectProperty(op)));
-        list.add(set(DifferentIndividuals(
+            l(DisjointObjectProperties(t, u, w), Declaration(t), Declaration(u), Declaration(w)));
+        list.add(l(DisjointObjectProperties(t, u)));
+        list.add(l(EquivalentObjectProperties(t, u), Declaration(t), Declaration(u)));
+        list.add(l(FunctionalObjectProperty(op1)));
+        list.add(l(InverseFunctionalObjectProperty(op1)));
+        list.add(l(IrreflexiveObjectProperty(op1)));
+        list.add(l(DifferentIndividuals(
             asUnorderedSet(Stream.generate(() -> createIndividual()).limit(1000)))));
-        list.add(set(AnnotationAssertion(apropA, clsA.getIRI(), Literal("abc", "en")),
-            Declaration(clsA)));
-        list.add(set(AnnotationAssertion(apropA, iriA, Literal("abc", "en")),
-            AnnotationAssertion(apropA, iriA, Literal("abcd", "")),
-            AnnotationAssertion(apropA, iriA, Literal("abcde")),
-            AnnotationAssertion(apropA, iriA, Literal("abcdef", OWL2Datatype.XSD_STRING)),
-            Declaration(clsA)));
-        list.add(set(NegativeObjectPropertyAssertion(op, ind, indj)));
-        list.add(set(ObjectPropertyAssertion(op, ind, indj)));
-        list.add(set(SubPropertyChainOf(Arrays.asList(propA, propB, propC), propD, set(
-            Annotation(apropA, Literal("Test", "en")), Annotation(apropB, Literal("Test", ""))))));
-        list.add(set(ObjectPropertyDomain(op, clsA)));
-        list.add(set(ObjectPropertyRange(op, clsA)));
-        list.add(set(Declaration(Class(IRI("http://www.test.com/ontology#", "Class%37A"))),
-            Declaration(ObjectProperty(IRI("http://www.test.com/ontology#", "prop%37A")))));
-        list.add(set(ReflexiveObjectProperty(op)));
-        list.add(set(SameIndividual(ind, indj)));
-        list.add(set(DataPropertyAssertion(dp, ind, Literal("Test \"literal\"\nStuff"))));
-        list.add(set(DataPropertyAssertion(dp, ind, Literal("Test \"literal\"")),
-            DataPropertyAssertion(dp, ind, Literal("Test 'literal'")),
-            DataPropertyAssertion(dp, ind, Literal("Test \"\"\"literal\"\"\""))));
-        list.add(set(SubObjectPropertyOf(op, oq)));
-        list.add(set(SymmetricObjectProperty(op)));
-        list.add(set(TransitiveObjectProperty(op)));
-        list.add(set(DataPropertyAssertion(dp, ind, Literal(3)),
-            DataPropertyAssertion(dp, ind, Literal(33.3)),
-            DataPropertyAssertion(dp, ind, Literal(true)),
-            DataPropertyAssertion(dp, ind, Literal(33.3f)),
-            DataPropertyAssertion(dp, ind, Literal("33.3"))));
+        list.add(l(AnnotationAssertion(propP, A.getIRI(), Literal("abc", "en")), Declaration(A)));
+        list.add(l(AnnotationAssertion(propP, A.getIRI(), Literal("abc", "en")),
+            AnnotationAssertion(propP, A.getIRI(), Literal("abcd", "")),
+            AnnotationAssertion(propP, A.getIRI(), Literal("abcde")),
+            AnnotationAssertion(propP, A.getIRI(), Literal("abcdef", OWL2Datatype.XSD_STRING)),
+            Declaration(A)));
+        list.add(l(NegativeObjectPropertyAssertion(op1, I, J)));
+        list.add(l(ObjectPropertyAssertion(op1, I, J)));
+        list.add(l(SubPropertyChainOf(
+            l(Annotation(propP, Literal("Test", "en")), Annotation(propQ, val)), l(t, u, w), z)));
+        list.add(l(ObjectPropertyDomain(op1, A)));
+        list.add(l(ObjectPropertyRange(op1, A)));
+        list.add(l(Declaration(Class(iri("http://www.test.com/ontology#", "Class%37A"))),
+            Declaration(ObjectProperty(iri("http://www.test.com/ontology#", "prop%37A")))));
+        list.add(l(ReflexiveObjectProperty(op1)));
+        list.add(l(SameIndividual(I, J)));
+        list.add(l(DataPropertyAssertion(DP, I, Literal("Test \"literal\"\nStuff"))));
+        list.add(l(DataPropertyAssertion(DP, I, Literal("Test \"literal\"")),
+            DataPropertyAssertion(DP, I, Literal("Test 'literal'")),
+            DataPropertyAssertion(DP, I, Literal("Test \"\"\"literal\"\"\""))));
+        list.add(l(SubObjectPropertyOf(op1, op2)));
+        list.add(l(SymmetricObjectProperty(op1)));
+        list.add(l(TransitiveObjectProperty(op1)));
+        list.add(l(DataPropertyAssertion(DP, I, LIT_THREE),
+            DataPropertyAssertion(DP, I, Literal(33.3)), DataPropertyAssertion(DP, I, LIT_TRUE),
+            DataPropertyAssertion(DP, I, Literal(33.3f)),
+            DataPropertyAssertion(DP, I, Literal("33.3"))));
         return list;
     }
 
     protected static List<OWLAxiom> swrlRule() {
         String HTTP_WWW_OWLAPI = "http://www.owlapi#";
-        OWLDataProperty dp = DataProperty(iri("p"));
-        OWLObjectProperty op = ObjectProperty(iri("op"));
-        OWLNamedIndividual ind = NamedIndividual(iri("i"));
-        OWLNamedIndividual indj = NamedIndividual(iri("j"));
-
         String URN_SWRL_VAR = "urn:swrl:var#";
-        SWRLVariable varX = df.getSWRLVariable(URN_SWRL_VAR, "x");
-        SWRLVariable varY = df.getSWRLVariable(URN_SWRL_VAR, "y");
-        SWRLVariable varZ = df.getSWRLVariable(URN_SWRL_VAR, "z");
+        SWRLVariable varX = SWRLVariable(URN_SWRL_VAR, "x");
+        SWRLVariable varY = SWRLVariable(URN_SWRL_VAR, "y");
+        SWRLVariable varZ = SWRLVariable(URN_SWRL_VAR, "z");
         Set<SWRLAtom> body = new HashSet<>();
-        body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
-        SWRLIndividualArgument indIArg = df.getSWRLIndividualArgument(ind);
-        SWRLIndividualArgument indJArg = df.getSWRLIndividualArgument(indj);
-        body.add(df.getSWRLClassAtom(Class(iri("D")), indIArg));
-        body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
-        SWRLVariable varQ = df.getSWRLVariable(URN_SWRL_VAR, "q");
-        SWRLVariable varR = df.getSWRLVariable(URN_SWRL_VAR, "r");
-        body.add(df.getSWRLDataPropertyAtom(dp, varX, varQ));
+        body.add(SWRLClassAtom(A, varX));
+        SWRLIndividualArgument indIArg = SWRLIndividualArgument(I);
+        SWRLIndividualArgument indJArg = SWRLIndividualArgument(J);
+        body.add(SWRLClassAtom(D, indIArg));
+        body.add(SWRLClassAtom(B, varX));
+        SWRLVariable varQ = SWRLVariable(URN_SWRL_VAR, "q");
+        SWRLVariable varR = SWRLVariable(URN_SWRL_VAR, "r");
+        body.add(SWRLDataPropertyAtom(DP, varX, varQ));
         OWLLiteral lit = Literal(33);
-        SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);
-        body.add(df.getSWRLDataPropertyAtom(dp, varY, litArg));
+        SWRLLiteralArgument litArg = SWRLLiteralArgument(lit);
+        body.add(SWRLDataPropertyAtom(DP, varY, litArg));
         Set<SWRLAtom> head = new HashSet<>();
-        head.add(df.getSWRLClassAtom(Class(iri("C")), varX));
-        head.add(df.getSWRLObjectPropertyAtom(op, varY, varZ));
-        head.add(df.getSWRLSameIndividualAtom(varX, varY));
-        head.add(df.getSWRLSameIndividualAtom(indIArg, indJArg));
-        head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
-        head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
-        head.add(df.getSWRLDifferentIndividualsAtom(indIArg, indJArg));
-        OWLObjectSomeValuesFrom svf = ObjectSomeValuesFrom(op, Class(iri("A")));
-        head.add(df.getSWRLClassAtom(svf, varX));
-        List<SWRLDArgument> args = new ArrayList<>();
-        args.add(varQ);
-        args.add(varR);
-        args.add(litArg);
-        head.add(df.getSWRLBuiltInAtom(IRI(HTTP_WWW_OWLAPI, "myBuiltIn"), args));
-        return set(df.getSWRLRule(body, head));
+        head.add(SWRLClassAtom(C, varX));
+        head.add(SWRLObjectPropertyAtom(op1, varY, varZ));
+        head.add(SWRLSameIndividualAtom(varX, varY));
+        head.add(SWRLSameIndividualAtom(indIArg, indJArg));
+        head.add(SWRLDifferentIndividualsAtom(varX, varZ));
+        head.add(SWRLDifferentIndividualsAtom(varX, varZ));
+        head.add(SWRLDifferentIndividualsAtom(indIArg, indJArg));
+        OWLObjectSomeValuesFrom svf = ObjectSomeValuesFrom(op1, A);
+        head.add(SWRLClassAtom(svf, varX));
+        head.add(SWRLBuiltInAtom(iri(HTTP_WWW_OWLAPI, "myBuiltIn"), varQ, varR, litArg));
+        return l(SWRLRule(body, head));
     }
 
     protected static List<OWLAxiom> swrlRuleAlternateNS(String HTTP_WWW_OWLAPI, OWLDataProperty dp,
         OWLObjectProperty op, OWLNamedIndividual ind, OWLNamedIndividual indj) {
-        SWRLVariable varX = df.getSWRLVariable(HTTP_WWW_OWLAPI, "x");
-        SWRLVariable varY = df.getSWRLVariable(HTTP_WWW_OWLAPI, "y");
-        SWRLVariable varZ = df.getSWRLVariable(HTTP_WWW_OWLAPI, "z");
+        SWRLVariable varX = SWRLVariable(HTTP_WWW_OWLAPI, "x");
+        SWRLVariable varY = SWRLVariable(HTTP_WWW_OWLAPI, "y");
+        SWRLVariable varZ = SWRLVariable(HTTP_WWW_OWLAPI, "z");
         Set<SWRLAtom> body = new HashSet<>();
-        body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
-        SWRLIndividualArgument indIArg = df.getSWRLIndividualArgument(ind);
-        SWRLIndividualArgument indJArg = df.getSWRLIndividualArgument(indj);
-        body.add(df.getSWRLClassAtom(Class(iri("D")), indIArg));
-        body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
-        SWRLVariable varQ = df.getSWRLVariable(HTTP_WWW_OWLAPI, "q");
-        SWRLVariable varR = df.getSWRLVariable(HTTP_WWW_OWLAPI, "r");
-        body.add(df.getSWRLDataPropertyAtom(dp, varX, varQ));
+        body.add(SWRLClassAtom(A, varX));
+        SWRLIndividualArgument indIArg = SWRLIndividualArgument(ind);
+        SWRLIndividualArgument indJArg = SWRLIndividualArgument(indj);
+        body.add(SWRLClassAtom(D, indIArg));
+        body.add(SWRLClassAtom(B, varX));
+        SWRLVariable varQ = SWRLVariable(HTTP_WWW_OWLAPI, "q");
+        SWRLVariable varR = SWRLVariable(HTTP_WWW_OWLAPI, "r");
+        body.add(SWRLDataPropertyAtom(dp, varX, varQ));
         OWLLiteral lit = Literal(33);
-        SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);
-        body.add(df.getSWRLDataPropertyAtom(dp, varY, litArg));
+        SWRLLiteralArgument litArg = SWRLLiteralArgument(lit);
+        body.add(SWRLDataPropertyAtom(dp, varY, litArg));
         Set<SWRLAtom> head = new HashSet<>();
-        head.add(df.getSWRLClassAtom(Class(iri("C")), varX));
-        head.add(df.getSWRLObjectPropertyAtom(op, varY, varZ));
-        head.add(df.getSWRLSameIndividualAtom(varX, varY));
-        head.add(df.getSWRLSameIndividualAtom(indIArg, indJArg));
-        head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
-        head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
-        head.add(df.getSWRLDifferentIndividualsAtom(indIArg, indJArg));
-        OWLObjectSomeValuesFrom svf = ObjectSomeValuesFrom(op, Class(iri("A")));
-        head.add(df.getSWRLClassAtom(svf, varX));
+        head.add(SWRLClassAtom(C, varX));
+        head.add(SWRLObjectPropertyAtom(op, varY, varZ));
+        head.add(SWRLSameIndividualAtom(varX, varY));
+        head.add(SWRLSameIndividualAtom(indIArg, indJArg));
+        head.add(SWRLDifferentIndividualsAtom(varX, varZ));
+        head.add(SWRLDifferentIndividualsAtom(varX, varZ));
+        head.add(SWRLDifferentIndividualsAtom(indIArg, indJArg));
+        OWLObjectSomeValuesFrom svf = ObjectSomeValuesFrom(op, A);
+        head.add(SWRLClassAtom(svf, varX));
         List<SWRLDArgument> args = new ArrayList<>();
         args.add(varQ);
         args.add(varR);
         args.add(litArg);
-        head.add(df.getSWRLBuiltInAtom(IRI(HTTP_WWW_OWLAPI, "myBuiltIn"), args));
-        return set(df.getSWRLRule(body, head));
+        head.add(SWRLBuiltInAtom(iri(HTTP_WWW_OWLAPI, "myBuiltIn"), args));
+        return l(SWRLRule(body, head));
     }
 
     static List<List<OWLAxiom>> axiomsRoundTrippingWithEntitiesTestCase() {
-        IRI iriA = iri("A");
-        OWLClass clsA = Class(iriA);
-        OWLAnnotationProperty apropA = AnnotationProperty(iri("apropA"));
-        OWLAnnotationProperty apropB = AnnotationProperty(iri("apropB"));
-        return Collections.singletonList(
-            set(Declaration(clsA), AnnotationAssertion(apropA, clsA.getIRI(), Literal("value1")),
-                AnnotationAssertion(apropB, clsA.getIRI(), Literal("value2"))));
+        return l(l(Declaration(A), AnnotationAssertion(propP, A.getIRI(), Literal("value1")),
+            AnnotationAssertion(propQ, A.getIRI(), Literal("value2"))));
     }
 
     static List<List<OWLAxiom>> relativeURITestCase() {
-        return Collections.singletonList(
-            set(Declaration(Class(IRI(IRI.getNextDocumentIRI(uriBase) + "/", "Office")))));
+        return l(l(Declaration(Class(iri(IRI.getNextDocumentIRI(uriBase) + "/", "Office")))));
     }
 
     @Test
     void shouldThrowMeaningfulException() {
-        OWLOntology ontology = create();
+        OWLOntology ontology = createAnon();
         RDFXMLParser parser = new RDFXMLParser();
         // on Java 6 for Mac the following assertion does not work: the root
         // exception does not have a message.

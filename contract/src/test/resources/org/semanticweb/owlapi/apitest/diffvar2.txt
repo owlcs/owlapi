@@ -1,1 +1,1 @@
-DifferentFromAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#i>)
+DifferentFromAtom(Variable(<urn:swrl:var#var2>) <http://www.semanticweb.org/owlapi/test#i>)

@@ -1,1 +1,1 @@
-[SubDataPropertyOf(<urn:test:test#dp> owl:topDataProperty)]
+SubDataPropertyOf(<http://www.semanticweb.org/owlapi/test#p> owl:topDataProperty)

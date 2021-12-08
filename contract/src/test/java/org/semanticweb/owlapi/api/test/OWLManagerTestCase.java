@@ -26,13 +26,13 @@ class OWLManagerTestCase extends TestBase {
     OWLOntologyManager manager = setupManager();
 
     @BeforeEach
-    void setUp() {
-        ontology = createAnon();
+    void setUp() throws OWLOntologyCreationException {
+        ontology = manager.createOntology();
     }
 
     @Test
     void shouldCreateOntologyWithCorrectManager() {
-        assertThat(createAnon().getOWLOntologyManager(), is(m));
+        assertThat(ontology.getOWLOntologyManager(), is(manager));
     }
 
     @Test

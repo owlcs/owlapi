@@ -1,1 +1,1 @@
-ObjectHasSelf(<urn:test:test#op>)
+ObjectHasSelf(<http://example.com/objectProperty>)

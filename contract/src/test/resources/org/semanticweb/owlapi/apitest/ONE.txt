@@ -1,1 +1,1 @@
-ObjectOneOf(<urn:test:test#i>)
+ObjectOneOf(<http://www.semanticweb.org/owlapi/test#i>)

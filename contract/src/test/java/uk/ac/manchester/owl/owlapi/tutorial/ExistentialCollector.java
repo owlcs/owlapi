@@ -15,6 +15,7 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
@@ -35,6 +36,9 @@ public class ExistentialCollector implements OWLClassExpressionVisitor {
     /* Collected axioms */
     private final Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;
 
+    /**
+     * @param restrictions collector
+     */
     public ExistentialCollector(
         Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
         this.restrictions = restrictions;

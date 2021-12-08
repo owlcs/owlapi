@@ -1,1 +1,1 @@
-InverseObjectProperties(Annotation(<urn:test:test#ann> "test"^^xsd:string) <urn:test:test#op> <urn:test:test#op>)
+InverseObjectProperties(Annotation(<http://www.semanticweb.org/owlapi/test#ann> "test"^^xsd:string) <http://example.com/objectProperty> <http://example.com/objectProperty>)

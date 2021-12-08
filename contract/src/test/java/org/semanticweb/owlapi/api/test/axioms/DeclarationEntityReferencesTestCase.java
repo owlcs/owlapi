@@ -13,20 +13,10 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createDataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -41,37 +31,25 @@ class DeclarationEntityReferencesTestCase extends TestBase {
 
     @Test
     void testOWLClassDeclarationAxiom() {
-        OWLClass cls = createClass();
-        OWLAxiom ax = Declaration(cls);
-        OWLOntology ont = create();
-        ont.add(ax);
-        assertTrue(contains(ont.classesInSignature(), cls));
+        OWLOntology ont = o(Declaration(A));
+        assertTrue(contains(ont.classesInSignature(), A));
     }
 
     @Test
     void testOWLObjectPropertyDeclarationAxiom() {
-        OWLObjectProperty prop = createObjectProperty();
-        OWLAxiom ax = Declaration(prop);
-        OWLOntology ont = create();
-        ont.add(ax);
-        assertTrue(contains(ont.objectPropertiesInSignature(), prop));
+        OWLOntology ont = o(Declaration(P));
+        assertTrue(contains(ont.objectPropertiesInSignature(), P));
     }
 
     @Test
     void testOWLDataPropertyDeclarationAxiom() {
-        OWLDataProperty prop = createDataProperty();
-        OWLAxiom ax = Declaration(prop);
-        OWLOntology ont = create();
-        ont.add(ax);
-        assertTrue(contains(ont.dataPropertiesInSignature(), prop));
+        OWLOntology ont = o(Declaration(DP));
+        assertTrue(contains(ont.dataPropertiesInSignature(), DP));
     }
 
     @Test
     void testOWLIndividualDeclarationAxiom() {
-        OWLNamedIndividual ind = createIndividual();
-        OWLAxiom ax = Declaration(ind);
-        OWLOntology ont = create();
-        ont.add(ax);
-        assertTrue(contains(ont.individualsInSignature(), ind));
+        OWLOntology ont = o(Declaration(i));
+        assertTrue(contains(ont.individualsInSignature(), i));
     }
 }

@@ -1,1 +1,1 @@
-ObjectHasValue(<urn:test:test#op> <urn:test:test#i>)
+ObjectHasValue(<http://example.com/objectProperty> <http://www.semanticweb.org/owlapi/test#i>)

@@ -32,9 +32,8 @@ class ManchesterImportTestCase extends TestBase {
 
     @Test
     void testManualImports() {
-        OWLOntologyManager manager = getManager();
-        loadOntologyFromFile(new File(RESOURCES, superpath), manager);
-        assertNotNull(manager.getOntology(str));
+        OWLOntology o = loadFrom(new File(RESOURCES, superpath));
+        assertNotNull(o.getOWLOntologyManager().getOntology(str));
     }
 
     OWLOntologyManager getManager() {
@@ -46,7 +45,7 @@ class ManchesterImportTestCase extends TestBase {
     @Test
     void testRemoteIsParseable() {
         OWLOntologyManager manager = getManager();
-        OWLOntology ontology = loadOntologyFromString(str, manager);
+        OWLOntology ontology = loadFrom(str, manager);
         assertEquals(1, ontology.getAxiomCount());
         assertEquals(ontology.getOntologyID().getOntologyIRI().get(), str);
         assertNotNull(manager.getOntology(str));
@@ -55,18 +54,16 @@ class ManchesterImportTestCase extends TestBase {
     @Test
     void testEquivalentLoading() {
         OWLOntologyManager managerStart = getManager();
-        OWLOntology manualImport =
-            loadOntologyFromFile(new File(RESOURCES, superpath), managerStart);
+        OWLOntology manualImport = loadFrom(new File(RESOURCES, superpath), managerStart);
         OWLOntologyManager managerTest = getManager();
-        OWLOntology iriImport = loadOntologyFromString(str, managerTest);
+        OWLOntology iriImport = loadFrom(str, managerTest);
         assertTrue(manualImport.equalAxioms(iriImport));
         assertEquals(manualImport.getOntologyID(), iriImport.getOntologyID());
     }
 
     @Test
     void testImports() {
-        OWLOntologyManager manager = getManager();
         String subpath = "/imports/thesubont.omn";
-        loadOntologyFromFile(new File(RESOURCES, subpath), manager);
+        loadFrom(new File(RESOURCES, subpath), getManager());
     }
 }

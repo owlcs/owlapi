@@ -13,8 +13,6 @@
 package org.semanticweb.owlapi.api.test.dataproperties;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointClasses;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectUnionOf;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import org.junit.jupiter.api.Test;
@@ -31,8 +29,8 @@ class DisjointClassesRoundTripTestCase extends TestBase {
     @Test
     void shouldParse() {
         OWLOntology ontology = buildOntology();
-        OWLOntology roundtripped = loadOntologyFromString(TestFiles.parseDisjointClasses,
-            new ManchesterSyntaxDocumentFormat());
+        OWLOntology roundtripped =
+            loadFrom(TestFiles.parseDisjointClasses, new ManchesterSyntaxDocumentFormat());
         equal(ontology, roundtripped);
     }
 

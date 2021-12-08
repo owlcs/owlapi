@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -34,10 +33,9 @@ class MultipleOntologyDeclarationsTestCase extends TestBase {
 
     @Test
     void shouldLoadFirstOfMultipleOntologyDeclarationsRdfXml() {
-        OWLOntology o =
-            loadOntologyFromSource(new StringDocumentSource(TestFiles.doubleOntology,
-                "urn:test:t1", new TurtleDocumentFormat(), null));
-        assertEquals(o.getOntologyID(), new OWLOntologyID(IRI.create("urn:test:Ontology1"),
+        OWLOntology o = loadFrom(new StringDocumentSource(TestFiles.doubleOntology, "urn:test:t1",
+            new TurtleDocumentFormat(), null));
+        assertEquals(o.getOntologyID(), new OWLOntologyID(iri("urn:test:", "Ontology1"),
             iri("urn:test:", "Ontology1Version1")));
     }
 
@@ -45,8 +43,8 @@ class MultipleOntologyDeclarationsTestCase extends TestBase {
     void shouldNotLoadMultipleOntologyDeclarationsRioRdfXml() {
         assertThrows(UnparsableOntologyException.class,
             () -> m.loadOntologyFromOntologyDocument(
-                new StringDocumentSource(TestFiles.doubleOntology,
-                    "urn:test:t1", new RioTurtleDocumentFormat(), null),
+                new StringDocumentSource(TestFiles.doubleOntology, "urn:test:t1",
+                    new RioTurtleDocumentFormat(), null),
                 new OWLOntologyLoaderConfiguration().setStrict(true)));
     }
 }

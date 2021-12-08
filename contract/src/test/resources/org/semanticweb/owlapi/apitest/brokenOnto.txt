@@ -1,1 +1,1 @@
-@prefix f:    <urn:test/> . f:r f:p f: .
+@prefix f:    <http://www.semanticweb.org/owlapi/test#> . f:r f:propA f: .

@@ -1,1 +1,1 @@
-ObjectMaxCardinality(1 <urn:test:test#op> <urn:test:test#c>)
+ObjectMaxCardinality(1 <http://example.com/objectProperty> <http://www.semanticweb.org/owlapi/test#C>)

@@ -14,11 +14,6 @@ package org.semanticweb.owlapi.api.test.reasoners;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLNothing;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -62,12 +57,12 @@ class StructuralReasonerTestCase extends TestBase {
         assertTrue(supersOfA.containsEntity(OWLThing()));
         Node<OWLClass> equivsOfTop = reasoner.getEquivalentClasses(OWLThing());
         assertEquals(2, equivsOfTop.entities().count());
-        assertTrue(equivsOfTop.entities().anyMatch(x -> x.equals(C)));
+        assertTrue(equivsOfTop.entities().anyMatch(C::equals));
     }
 
     @Test
     void testClassHierarchy() {
-        OWLOntology ont = create();
+        OWLOntology ont = create("ont");
         ont.addAxiom(EquivalentClasses(OWLThing(), C));
         ont.addAxiom(SubClassOf(B, A));
         ont.addAxiom(EquivalentClasses(A, D));

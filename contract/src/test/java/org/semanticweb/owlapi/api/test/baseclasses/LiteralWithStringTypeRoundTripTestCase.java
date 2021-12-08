@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
@@ -24,11 +23,8 @@ import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -36,7 +32,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  */
 class LiteralWithStringTypeRoundTripTestCase extends TestBase {
 
-    OWLAxiom ax = df.getOWLDataPropertyAssertionAxiom(DP, indA, df.getOWLLiteral("test url"));
+    OWLAxiom ax = DataPropertyAssertion(DP, indA, Literal("test url"));
 
     @Override
     public OWLOntology roundTripOntology(OWLOntology ont, OWLDocumentFormat format) {
@@ -54,8 +50,8 @@ class LiteralWithStringTypeRoundTripTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("dataWithTestUrl")
-    void shouldParseInputWithoutExplicitString(String s) {
-        assertTrue(loadOntologyFromString(s).containsAxiom(ax), s);
+    void shouldParseInputWithoutExplicitString(String input) {
+        assertTrue(loadFrom(input).containsAxiom(ax), input);
     }
 
     @ParameterizedTest

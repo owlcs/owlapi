@@ -32,6 +32,6 @@ class ParserBanningTestCase extends TestBase {
         String name = "org.semanticweb.owlapi.rio.RioTrixParserFactory";
         manager.getOntologyConfigurator().withBannedParsers(name);
         assertThrowsWithCause(OWLRuntimeException.class, UnparsableOntologyException.class,
-            () -> loadOntologyFromString(TestFiles.failWhenTrixBanned, new RDFXMLDocumentFormat()));
+            () -> loadFrom(TestFiles.failWhenTrixBanned, new RDFXMLDocumentFormat()));
     }
 }

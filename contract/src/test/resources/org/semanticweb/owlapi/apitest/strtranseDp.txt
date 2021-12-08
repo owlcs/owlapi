@@ -1,1 +1,1 @@
-[EquivalentDataProperties(<urn:test:test#dp> <urn:test:test#iri>)]
+EquivalentDataProperties(<http://www.semanticweb.org/owlapi/test#iri> <http://www.semanticweb.org/owlapi/test#p>)

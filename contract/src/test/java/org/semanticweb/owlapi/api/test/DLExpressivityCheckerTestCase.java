@@ -258,7 +258,6 @@ import static org.semanticweb.owlapi.util.Languages.SRrQ;
 import static org.semanticweb.owlapi.util.Languages.SRrQD;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -277,21 +276,9 @@ import org.semanticweb.owlapi.util.Languages;
 
 class DLExpressivityCheckerTestCase extends TestBase {
 
-    static List<Construct> l(Construct... t) {
-        return Arrays.asList(t);
-    }
-
-    static List<Languages> l(Languages... t) {
-        return Arrays.asList(t);
-    }
-
-    static List<OWLAxiom> l(OWLAxiom... t) {
-        return Arrays.asList(t);
-    }
-
     static Collection<Object[]> getData() {
         Builder b = new Builder();
-        return Arrays.asList(
+        return l(
         //@formatter:off
             new Object[] {"0 AL",        "UNIVRESTR" , l(UNIVERSAL_RESTRICTION),                              l(FL0),                 belowUniversal(),      l(FL0),                 l(b.assAll())},
             new Object[] {"1  AL",       ""          , empty(),                                               l(FL0, EL, ELPLUSPLUS), l(Languages.values()), l(FL0, EL, ELPLUSPLUS), l(b.dDef())},
@@ -415,12 +402,12 @@ class DLExpressivityCheckerTestCase extends TestBase {
         List<Construct> constructsFound = testsubject.getConstructs();
         List<Languages> below = new ArrayList<>();
         List<Languages> minimalLanguages = new ArrayList<>();
-        for (Languages c : Languages.values()) {
-            if (testsubject.isWithin(c)) {
-                below.add(c);
+        for (Languages lang : Languages.values()) {
+            if (testsubject.isWithin(lang)) {
+                below.add(lang);
             }
-            if (testsubject.minimal(c)) {
-                minimalLanguages.add(c);
+            if (testsubject.minimal(lang)) {
+                minimalLanguages.add(lang);
             }
         }
         Collection<Languages> expressibleInLanguages = testsubject.expressibleInLanguages();
@@ -445,8 +432,6 @@ class DLExpressivityCheckerTestCase extends TestBase {
     }
 
     Set<OWLOntology> ont(Collection<OWLAxiom> objects) {
-        OWLOntology o = create();
-        o.add(objects);
-        return Collections.singleton(o);
+        return set(o(iriTest, objects));
     }
 }

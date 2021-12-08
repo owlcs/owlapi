@@ -1,1 +1,1 @@
-DifferentIndividuals(<urn:test:test#i> <urn:test:test#iri>)
+DifferentIndividuals(<http://www.semanticweb.org/owlapi/test#i> <http://www.semanticweb.org/owlapi/test#iri>)

@@ -13,14 +13,8 @@
 package org.semanticweb.owlapi.api.test.individuals;
 
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.rdf4j.rio.RDFHandlerException;
@@ -42,7 +36,6 @@ import org.semanticweb.owlapi.formats.TrigDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException;
 
@@ -53,14 +46,15 @@ import org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException;
 class NoQNameRoundTripTestCase extends TestBase {
 
     OWLOntology noQNameRoundTripTestCase() {
-        OWLOntology ont = create();
-        ont.add(ObjectPropertyAssertion(ObjectProperty(IRI("http://example.com/place/123", "")),
-            NamedIndividual(
-                IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A", "")),
-            NamedIndividual(
-                IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B", ""))));
-        ont.unsortedSignature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
-            .forEach(e -> ont.add(Declaration(e)));
+        OWLOntology ont =
+            o(ObjectPropertyAssertion(ObjectProperty(iri("http://example.com/place/123", "")),
+                NamedIndividual(
+                    iri("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A", "")),
+                NamedIndividual(
+                    iri("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B", ""))));
+        ont.unsortedSignature()
+            .filter(entity -> !entity.isBuiltIn() && !ont.isDeclared(entity, INCLUDED))
+            .forEach(entity -> ont.add(Declaration(entity)));
         return ont;
     }
 
@@ -69,9 +63,9 @@ class NoQNameRoundTripTestCase extends TestBase {
         try {
             roundTripOntology(noQNameRoundTripTestCase(), new RDFXMLDocumentFormat());
             fail("Expected an exception specifying that a QName could not be generated");
-        } catch (OWLRuntimeException e) {
-            if (!(e.getCause().getCause() instanceof IllegalElementNameException)) {
-                throw e;
+        } catch (OWLRuntimeException ex) {
+            if (!(ex.getCause().getCause() instanceof IllegalElementNameException)) {
+                throw ex;
             }
         }
     }
@@ -81,19 +75,19 @@ class NoQNameRoundTripTestCase extends TestBase {
         try {
             roundTripOntology(noQNameRoundTripTestCase(), new RioRDFXMLDocumentFormat());
             fail("Expected an exception specifying that a QName could not be generated");
-        } catch (OWLRuntimeException e) {
-            Throwable ex = e.getCause();
+        } catch (OWLRuntimeException exc) {
+            Throwable ex = exc.getCause();
             while (ex != null && !(ex instanceof RDFHandlerException)) {
                 ex = ex.getCause();
             }
             if (ex == null || !ex.getMessage().contains("http://example.com/place/123")) {
-                throw e;
+                throw exc;
             }
         }
     }
 
     static List<OWLDocumentFormat> noQNameFormats() {
-        return Arrays.asList(new RDFJsonDocumentFormat(), new OWLXMLDocumentFormat(),
+        return l(new RDFJsonDocumentFormat(), new OWLXMLDocumentFormat(),
             new FunctionalSyntaxDocumentFormat(), new TurtleDocumentFormat(),
             new RioTurtleDocumentFormat(), new ManchesterSyntaxDocumentFormat(),
             new TrigDocumentFormat(), new RDFJsonLDDocumentFormat(), new NTriplesDocumentFormat(),
@@ -102,7 +96,7 @@ class NoQNameRoundTripTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("noQNameFormats")
-    void testFormat(OWLDocumentFormat d) {
-        roundTripOntology(noQNameRoundTripTestCase(), d);
+    void testFormat(OWLDocumentFormat format) {
+        roundTripOntology(noQNameRoundTripTestCase(), format);
     }
 }

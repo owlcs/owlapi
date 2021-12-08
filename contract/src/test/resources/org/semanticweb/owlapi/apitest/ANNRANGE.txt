@@ -1,1 +1,1 @@
-AnnotationPropertyRange(Annotation(<urn:test:test#ann> "test"^^xsd:string) <urn:test:test#ann> <urn:test:test#iri>)
+AnnotationPropertyRange(Annotation(<http://www.semanticweb.org/owlapi/test#ann> "test"^^xsd:string) <http://www.semanticweb.org/owlapi/test#ann> <http://www.semanticweb.org/owlapi/test#iri>)

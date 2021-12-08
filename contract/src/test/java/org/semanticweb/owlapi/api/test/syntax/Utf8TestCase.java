@@ -13,11 +13,6 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSLabel;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 
 import java.io.ByteArrayInputStream;
@@ -29,7 +24,6 @@ import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -40,8 +34,7 @@ class Utf8TestCase extends TestBase {
 
     @Test
     void testUTF8roundTrip() {
-        saveOntology(loadOntologyFromString(TestFiles.roundtripUTF8String,
-            new FunctionalSyntaxDocumentFormat()));
+        saveOntology(loadFrom(TestFiles.roundtripUTF8String, new FunctionalSyntaxDocumentFormat()));
     }
 
     @Test
@@ -65,7 +58,7 @@ class Utf8TestCase extends TestBase {
         // not with a reader
         ByteArrayInputStream in =
             new ByteArrayInputStream(TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
-        loadOntologyFrom(in);
+        loadFrom(in);
     }
 
     @Test
@@ -74,17 +67,15 @@ class Utf8TestCase extends TestBase {
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
         assertThrows(OWLRuntimeException.class,
-            () -> loadOntologyFromString(TestFiles.INVALID_UTF8, new RDFXMLDocumentFormat()));
+            () -> loadFrom(TestFiles.INVALID_UTF8, new RDFXMLDocumentFormat()));
     }
 
     @Test
     void testPositiveUTF8roundTrip() {
         String ns = "http://protege.org/UTF8.owl";
-        OWLOntology ontology = create();
-        OWLClass a = Class(IRI(ns + "#", "A"));
-        ontology.add(df.getOWLDeclarationAxiom(a));
-        OWLAnnotation ann = df.getRDFSLabel("Chinese=處方");
-        OWLAxiom axiom = df.getOWLAnnotationAssertionAxiom(a.getIRI(), ann);
+        OWLOntology ontology = create(iri(ns, ""));
+        ontology.add(Declaration(A));
+        OWLAxiom axiom = AnnotationAssertion(RDFSLabel(), A.getIRI(), Literal("Chinese=處方"));
         ontology.add(axiom);
         ontology = roundTrip(ontology, new FunctionalSyntaxDocumentFormat());
     }
@@ -92,7 +83,6 @@ class Utf8TestCase extends TestBase {
     @Test
     void testRoundTrip() {
         String ns = "http://protege.org/ontologies/UTF8RoundTrip.owl";
-        OWLClass c = Class(iri(ns + "#", "C"));
         /*
          * The two unicode characters entered here are valid and can be found in the code chart
          * http://www.unicode.org/charts/PDF/U4E00.pdf. It has been said that they are chinese and
@@ -102,21 +92,21 @@ class Utf8TestCase extends TestBase {
          */
         String chinese = "Rx\u8655\u65b9";
         System.setProperty("file.encoding", "UTF-8");
-        OWLOntology ontology = createOriginalOntology(ns, c, chinese);
-        checkOntology(ontology, c, chinese);
+        OWLOntology ontology = createOriginalOntology(ns, C, chinese);
+        checkOntology(ontology, C, chinese);
         OWLOntology newOntology = roundTrip(ontology, new RDFXMLDocumentFormat());
-        checkOntology(newOntology, c, chinese);
+        checkOntology(newOntology, C, chinese);
     }
 
-    private OWLOntology createOriginalOntology(String ns, OWLClass c, String chinese) {
-        OWLOntology ontology = create(IRI(ns, ""));
-        OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(), Literal(chinese));
+    private OWLOntology createOriginalOntology(String ns, OWLClass cl, String chinese) {
+        OWLOntology ontology = create(iri(ns, ""));
+        OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), cl.getIRI(), Literal(chinese));
         ontology.add(annotationAxiom);
         return ontology;
     }
 
-    private static boolean checkOntology(OWLOntology ontology, OWLClass c, String chinese) {
-        return getAnnotationObjects(c, ontology)
+    private static boolean checkOntology(OWLOntology ontology, OWLClass cl, String chinese) {
+        return getAnnotationObjects(cl, ontology)
             .anyMatch(a -> a.getValue().asLiteral().get().getLiteral().equals(chinese));
     }
 }

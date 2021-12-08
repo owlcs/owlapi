@@ -13,29 +13,19 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** test for 3178902 adapted from the report Timothy provided. */
 class ThreeEquivalentsRoundTripTestCase extends TestBase {
 
     @Test
-    void shouldRoundTrip(){
+    void shouldRoundTrip() {
         // given
-        OWLAxiom axiomToAdd =
-            EquivalentClasses(A, ObjectSomeValuesFrom(P, B), ObjectSomeValuesFrom(Q, C));
-        OWLOntology ontology = create();
-        ontology.addAxiom(axiomToAdd);
+        OWLOntology ontology =
+            o(EquivalentClasses(A, ObjectSomeValuesFrom(P, B), ObjectSomeValuesFrom(Q, C)));
         // when
         ontology = roundTrip(ontology);
         // then

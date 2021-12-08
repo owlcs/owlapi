@@ -28,25 +28,36 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.vocab.XSDVocabulary;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLVariable;
 
 class SWRLRoundTripTestCase extends TestBase {
 
-    static final Set<OWLAnnotation> LABEL_DATATYPE_DEFINITION =
-        singleton(df.getRDFSLabel("datatype definition"));
-    static final SWRLVariable vy = df.getSWRLVariable("urn:test" + "#", "Y");
-    static final SWRLVariable vx = df.getSWRLVariable("urn:test" + "#", "X");
+    private static final OWLDatatype MY_DATATYPE = Datatype(iri("urn:my#", "datatype"));
+    static final String DATATYPE_DEFINITION = "datatype definition";
+    static final String NS = "urn:test";
+    static final OWLAnnotation LABEL_DATATYPE_DEFINITION = RDFSLabel(DATATYPE_DEFINITION);
+    static final SWRLVariable vy = SWRLVariable("urn:test#", "Y");
+    static final SWRLVariable vx = SWRLVariable("urn:test#", "X");
 
     @Test
     void shouldDoCompleteRoundtrip() {
-        OWLOntology ontology = create();
+        OWLOntology ontology = create(iri(NS, ""));
         Set<SWRLAtom> body = new TreeSet<>();
-        body.add(df.getSWRLDataPropertyAtom(DP, vx, vy));
-        body.add(df.getSWRLDataRangeAtom(df.getOWLDatatype(XSDVocabulary.STRING), vy));
+        body.add(SWRLDataPropertyAtom(DP, vx, vy));
+        body.add(SWRLDataRangeAtom(String(), vy));
         Set<SWRLAtom> head = new TreeSet<>();
-        head.add(df.getSWRLClassAtom(A, vx));
-        SWRLRule rule = df.getSWRLRule(body, head);
+        head.add(SWRLClassAtom(A, vx));
+        SWRLRule rule = SWRLRule(body, head);
         ontology.addAxiom(rule);
         ontology = roundTrip(ontology, new OWLXMLDocumentFormat());
         OWLOntology onto2 = roundTrip(ontology, new OWLXMLDocumentFormat());
@@ -55,13 +66,13 @@ class SWRLRoundTripTestCase extends TestBase {
 
     @Test
     void shouldDoCompleteRoundtripManchesterOWLSyntax() {
-        OWLOntology ontology = create();
+        OWLOntology ontology = create(iri(NS, ""));
         Set<SWRLAtom> body = new TreeSet<>();
-        body.add(df.getSWRLDataPropertyAtom(DP, vx, vy));
-        body.add(df.getSWRLDataRangeAtom(df.getOWLDatatype(XSDVocabulary.STRING), vy));
+        body.add(SWRLDataPropertyAtom(DP, vx, vy));
+        body.add(SWRLDataRangeAtom(String(), vy));
         Set<SWRLAtom> head = new TreeSet<>();
-        head.add(df.getSWRLClassAtom(A, vx));
-        SWRLRule rule = df.getSWRLRule(body, head);
+        head.add(SWRLClassAtom(A, vx));
+        SWRLRule rule = SWRLRule(body, head);
         ontology.addAxiom(rule);
         ontology = roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
         OWLOntology onto2 = roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
@@ -71,8 +82,8 @@ class SWRLRoundTripTestCase extends TestBase {
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsOWLXML() {
         OWLOntology ontology = prepareOntology();
-        OWLXMLDocumentFormat f = new OWLXMLDocumentFormat();
-        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f), f);
+        OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
+        OWLOntology ontology2 = loadFrom(saveOntology(ontology, format));
         equal(ontology, ontology2);
         assertions(ontology2);
     }
@@ -85,97 +96,90 @@ class SWRLRoundTripTestCase extends TestBase {
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsTurtle() {
         OWLOntology ontology = prepareOntology();
-        OWLDocumentFormat f = new TurtleDocumentFormat();
-        OWLOntology ontology2 = equalRoundtrip(ontology, f);
+        OWLDocumentFormat format = new TurtleDocumentFormat();
+        OWLOntology ontology2 = equalRoundtrip(ontology, format);
         assertions(ontology2);
     }
 
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsFunctional() {
         OWLOntology ontology = prepareOntology();
-        OWLDocumentFormat f = new FunctionalSyntaxDocumentFormat();
-        OWLOntology ontology2 = equalRoundtrip(ontology, f);
+        OWLDocumentFormat format = new FunctionalSyntaxDocumentFormat();
+        OWLOntology ontology2 = equalRoundtrip(ontology, format);
         assertions(ontology2);
     }
 
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsRDFXML() {
         OWLOntology ontology = prepareOntology();
-        OWLDocumentFormat f = new RDFXMLDocumentFormat();
-        OWLOntology ontology2 = equalRoundtrip(ontology, f);
+        OWLDocumentFormat format = new RDFXMLDocumentFormat();
+        OWLOntology ontology2 = equalRoundtrip(ontology, format);
         assertions(ontology2);
     }
 
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsDatatypeRDFXML() {
         OWLOntology ontology = prepareOntology1();
-        OWLDocumentFormat f = new RDFXMLDocumentFormat();
-        OWLOntology ontology2 = equalRoundtrip(ontology, f);
+        OWLDocumentFormat format = new RDFXMLDocumentFormat();
+        OWLOntology ontology2 = equalRoundtrip(ontology, format);
         ontology2.axioms(AxiomType.DATATYPE_DEFINITION).forEach(r -> assertFalse(noLabel(r)));
     }
 
     protected boolean noLabel(OWLAxiom r) {
-        return r.annotations(df.getRDFSLabel()).count() == 0;
+        return r.annotations(RDFSLabel()).count() == 0;
     }
 
     @Disabled("man syntax does not like annotations")
     @Test
     void shouldDoCompleteRoundtripWithAnnotationsMan() {
         OWLOntology ontology = prepareOntology();
-        OWLDocumentFormat f = new ManchesterSyntaxDocumentFormat();
-        OWLOntology ontology2 = equalRoundtrip(ontology, f);
+        OWLDocumentFormat format = new ManchesterSyntaxDocumentFormat();
+        OWLOntology ontology2 = equalRoundtrip(ontology, format);
         assertions(ontology2);
     }
 
-    protected OWLOntology equalRoundtrip(OWLOntology ontology, OWLDocumentFormat f) {
-        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f), f);
+    protected OWLOntology equalRoundtrip(OWLOntology ontology, OWLDocumentFormat format) {
+        OWLOntology ontology2 = loadFrom(saveOntology(ontology, format), format);
         equal(ontology, ontology2);
         return ontology2;
     }
 
-    /**
-     * @return
-     * @throws OWLOntologyCreationException
-     */
     OWLOntology prepareOntology() {
-        OWLOntology ontology = create();
+        OWLOntology ontology = create(iri(NS, ""));
         Set<SWRLAtom> body = new TreeSet<>();
-        body.add(df.getSWRLDataPropertyAtom(DP, vx, vy));
-        body.add(df.getSWRLDataRangeAtom(df.getOWLDatatype(XSDVocabulary.STRING), vy));
+        body.add(SWRLDataPropertyAtom(DP, vx, vy));
+        body.add(SWRLDataRangeAtom(String(), vy));
         Set<SWRLAtom> head = new TreeSet<>();
-        head.add(df.getSWRLClassAtom(A, vx));
-        SWRLRule rule = df.getSWRLRule(body, head, singleton(df.getRDFSLabel("test")));
+        head.add(SWRLClassAtom(A, vx));
+        SWRLRule rule = SWRLRule(RDFSLabel("test"), body, head);
         ontology.addAxiom(rule);
-        OWLDatatypeDefinitionAxiom def =
-            df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"),
-                df.getOWLDatatypeMaxExclusiveRestriction(200D), LABEL_DATATYPE_DEFINITION);
+        OWLDatatypeDefinitionAxiom def = DatatypeDefinition(LABEL_DATATYPE_DEFINITION, MY_DATATYPE,
+            DatatypeMaxExclusiveRestriction(200D));
         ontology.addAxiom(def);
         return ontology;
     }
 
     OWLOntology prepareOntology1() {
-        OWLOntology ontology = create();
-        OWLDatatypeDefinitionAxiom def =
-            df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"),
-                df.getOWLDatatypeMaxExclusiveRestriction(200D), LABEL_DATATYPE_DEFINITION);
+        OWLOntology ontology = create(iri(NS, ""));
+        OWLDatatypeDefinitionAxiom def = DatatypeDefinition(LABEL_DATATYPE_DEFINITION, MY_DATATYPE,
+            DatatypeMaxExclusiveRestriction(200D));
         ontology.addAxiom(def);
         return ontology;
     }
 
     @Test
     void shouldParse() {
-        OWLOntology o = loadOntologyFromString(TestFiles.parseSWRL, new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.parseSWRL, new RDFXMLDocumentFormat());
         OWLDatatypeDefinitionAxiom def =
-            df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"),
-                df.getDoubleOWLDatatype(), LABEL_DATATYPE_DEFINITION);
+            DatatypeDefinition(LABEL_DATATYPE_DEFINITION, MY_DATATYPE, Double());
         assertTrue(contains(o.axioms(), def));
     }
 
     @Test
     void shouldParse2() {
-        OWLOntology o = loadOntologyFromString(TestFiles.parseSWRL2, new RDFXMLDocumentFormat());
-        OWLSubClassOfAxiom def = df.getOWLSubClassOfAxiom(df.getOWLClass("urn:test#", "myClass"),
-            df.getOWLClass("urn:test#", "test"), LABEL_DATATYPE_DEFINITION);
+        OWLOntology o = loadFrom(TestFiles.parseSWRL2, new RDFXMLDocumentFormat());
+        OWLSubClassOfAxiom def = SubClassOf(LABEL_DATATYPE_DEFINITION,
+            Class("http://www.semanticweb.org/owlapi/test#", "myClass"), Class(iriTest));
         assertTrue(contains(o.axioms(), def));
     }
 }

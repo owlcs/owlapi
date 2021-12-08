@@ -43,6 +43,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.rio.RDFHandler;
@@ -85,7 +87,7 @@ public class RioRenderer extends RDFRendererBase {
      * @param contexts contexts
      */
     public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
-        final OWLDocumentFormat format, final Resource... contexts) {
+        @Nullable OWLDocumentFormat format, final Resource... contexts) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;

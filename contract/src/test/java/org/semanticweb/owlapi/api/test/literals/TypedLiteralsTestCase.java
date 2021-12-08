@@ -14,12 +14,7 @@ package org.semanticweb.owlapi.api.test.literals;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +22,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -42,33 +35,29 @@ import org.semanticweb.owlapi.util.OWLObjectTransformer;
  */
 class TypedLiteralsTestCase extends TestBase {
 
-    OWLNamedIndividual ind = NamedIndividual(iri("i"));
-
     protected OWLOntology createAxioms() {
-        return o(DataPropertyAssertion(DP, ind, Literal(3)),
-            DataPropertyAssertion(DP, ind, Literal(33.3)),
-            DataPropertyAssertion(DP, ind, Literal(true)),
-            DataPropertyAssertion(DP, ind, Literal(33.3f)),
-            DataPropertyAssertion(DP, ind, Literal("33.3")));
+        return o(DataPropertyAssertion(DP, I, LIT_THREE),
+            DataPropertyAssertion(DP, I, Literal(33.3)), DataPropertyAssertion(DP, I, LIT_TRUE),
+            DataPropertyAssertion(DP, I, Literal(33.3f)),
+            DataPropertyAssertion(DP, I, Literal("33.3")));
     }
 
     @Test
     void shouldReplaceLiterals() {
         OWLOntology o = createAxioms();
-        OWLLiteralReplacer replacer =
-            new OWLLiteralReplacer(o.getOWLOntologyManager(), Collections.singleton(o));
+        OWLLiteralReplacer replacer = new OWLLiteralReplacer(o.getOWLOntologyManager(), set(o));
         Map<OWLLiteral, OWLLiteral> replacements = new HashMap<>();
-        replacements.put(Literal(true), Literal(false));
-        replacements.put(Literal(3), Literal(4));
+        replacements.put(LIT_TRUE, LIT_FALSE);
+        replacements.put(LIT_THREE, LIT_FOUR);
         List<OWLOntologyChange> results = replacer.changeLiterals(replacements);
         assertResults(o, results);
     }
 
     protected void assertResults(OWLOntology o, List<OWLOntologyChange> r) {
-        assertTrue(r.contains(new AddAxiom(o, DataPropertyAssertion(DP, ind, Literal(4)))));
-        assertTrue(r.contains(new AddAxiom(o, DataPropertyAssertion(DP, ind, Literal(false)))));
-        assertTrue(r.contains(new RemoveAxiom(o, DataPropertyAssertion(DP, ind, Literal(3)))));
-        assertTrue(r.contains(new RemoveAxiom(o, DataPropertyAssertion(DP, ind, Literal(true)))));
+        assertTrue(r.contains(new AddAxiom(o, DataPropertyAssertion(DP, I, LIT_FOUR))));
+        assertTrue(r.contains(new AddAxiom(o, DataPropertyAssertion(DP, I, LIT_FALSE))));
+        assertTrue(r.contains(new RemoveAxiom(o, DataPropertyAssertion(DP, I, LIT_THREE))));
+        assertTrue(r.contains(new RemoveAxiom(o, DataPropertyAssertion(DP, I, LIT_TRUE))));
         assertEquals(4, r.size());
     }
 
@@ -76,10 +65,10 @@ class TypedLiteralsTestCase extends TestBase {
     void shouldReplaceLiteralsWithTransformer() {
         OWLOntology o = createAxioms();
         final Map<OWLLiteral, OWLLiteral> replacements = new HashMap<>();
-        replacements.put(Literal(true), Literal(false));
-        replacements.put(Literal(3), Literal(4));
-        OWLObjectTransformer<OWLLiteral> replacer =
-            new OWLObjectTransformer<>(x -> true, input -> replacements.getOrDefault(input, input), df, OWLLiteral.class);
+        replacements.put(LIT_TRUE, LIT_FALSE);
+        replacements.put(LIT_THREE, LIT_FOUR);
+        OWLObjectTransformer<OWLLiteral> replacer = new OWLObjectTransformer<>(in -> true,
+            input -> replacements.getOrDefault(input, input), df, OWLLiteral.class);
         List<OWLOntologyChange> results = replacer.change(o);
         assertResults(o, results);
     }

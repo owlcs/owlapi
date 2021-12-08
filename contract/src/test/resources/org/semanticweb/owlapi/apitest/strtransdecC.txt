@@ -1,1 +1,1 @@
-[Declaration(Annotation(<urn:test:test#ann> "test"^^xsd:string) Class(<urn:test:test#c>))]
+Declaration(Annotation(<http://www.semanticweb.org/owlapi/test#ann> "test"^^xsd:string) Class(<http://www.semanticweb.org/owlapi/test#C>))

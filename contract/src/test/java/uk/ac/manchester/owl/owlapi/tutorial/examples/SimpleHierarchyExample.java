@@ -15,13 +15,11 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 
 import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
@@ -51,6 +49,8 @@ public final class SimpleHierarchyExample {
     /**
      * Print the class hierarchy for the given ontology from this class down, assuming this class is
      * at the given level. Makes no attempt to deal sensibly with multiple inheritance.
+     * 
+     * @param clazz class
      */
     private void printHierarchy(OWLClass clazz) {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ontology);
@@ -78,6 +78,10 @@ public final class SimpleHierarchyExample {
     /**
      * Print the class hierarchy from this class down, assuming this class is at the given level.
      * Makes no attempt to deal sensibly with multiple inheritance.
+     * 
+     * @param reasoner reasoner
+     * @param clazz class
+     * @param level level
      */
     private void printHierarchy(OWLReasoner reasoner, OWLClass clazz, int level) {
         /*
@@ -94,9 +98,11 @@ public final class SimpleHierarchyExample {
         }
     }
 
-    public static void main(String[] args) throws InstantiationException, IllegalAccessException,
-        IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
-        SecurityException, ClassNotFoundException, OWLOntologyCreationException {
+    /**
+     * @param args args
+     * @throws Exception exception
+     */
+    public static void main(String[] args) throws Exception {
         String reasonerFactoryClassName = null;
         // We first need to obtain a copy of an
         // OWLOntologyManager, which, as the name

@@ -12,16 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CLASS;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISJOINT_WITH;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUBCLASS_OF;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,13 +34,13 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 class TripleComparatorTestCase extends TestBase {
 
     private final String ns = "http://www.co-ode.org/roberts/pto.owl#";
-    private final RDFResourceIRI g = r(Class(IRI(ns, "MoleOfGoldAtom")));
-    private final RDFResourceIRI d = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
+    private final RDFResourceIRI gold = r(Class(iri(ns, "MoleOfGoldAtom")));
+    private final RDFResourceIRI disjoint = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
     private final RDFResourceIRI subtype = r(RDFS_SUBCLASS_OF.getIRI());
 
     @Test
     void shouldSort() {
-        List<RDFTriple> list = new ArrayList<>(Arrays.asList(
+        List<RDFTriple> list = new ArrayList<>(l(
         //@formatter:off
             triple("MoleOfNiobiumAtom"),
             triple("MoleOfMercuryAtom"),
@@ -98,7 +94,7 @@ class TripleComparatorTestCase extends TestBase {
             triple(624417224),
             triple("MoleOfRadonAtom"),
             triple(1556170233),
-            new RDFTriple(g, subtype, r(iri(ns, "MoleOfAtom"))),
+            new RDFTriple(gold, subtype, r(iri(ns, "MoleOfAtom"))),
             triple("MoleOfSeleniumAtom"),
             triple("MoleOfNeonAtom"),
             triple("MoleOfKryptonAtom"),
@@ -117,26 +113,26 @@ class TripleComparatorTestCase extends TestBase {
     }
 
     private RDFTriple triple(String n) {
-        return new RDFTriple(g, d, r(iri(ns, n)));
+        return new RDFTriple(gold, disjoint, r(iri(ns, n)));
     }
 
     private RDFTriple triple(OWLRDFVocabulary p, OWLRDFVocabulary n) {
-        return new RDFTriple(g, r(p.getIRI()), r(n.getIRI()));
+        return new RDFTriple(gold, r(p.getIRI()), r(n.getIRI()));
     }
 
     private RDFTriple triple(int n) {
-        return new RDFTriple(g, subtype, r(n));
+        return new RDFTriple(gold, subtype, r(n));
     }
 
-    private static RDFResourceIRI r(OWLEntity e) {
-        return new RDFResourceIRI(e.getIRI());
+    private static RDFResourceIRI r(OWLEntity entity) {
+        return new RDFResourceIRI(entity.getIRI());
     }
 
-    private static RDFResourceIRI r(IRI e) {
-        return new RDFResourceIRI(e);
+    private static RDFResourceIRI r(IRI iri) {
+        return new RDFResourceIRI(iri);
     }
 
-    private static RDFNode r(int s) {
-        return new RDFResourceBlankNode(Integer.valueOf(s), false, false, false);
+    private static RDFNode r(int anonid) {
+        return new RDFResourceBlankNode(Integer.valueOf(anonid), false, false, false);
     }
 }

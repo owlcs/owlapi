@@ -13,7 +13,7 @@ class AnnotationStreamTestCase extends TestBase {
     @Test
     void shouldFindUniqueProperties() {
         OWLOntology ontology =
-            loadOntologyFromString(TestFiles.uniquePropertiesTurtle, new TurtleDocumentFormat());
+            loadFrom(TestFiles.uniquePropertiesTurtle, new TurtleDocumentFormat());
         assertEquals(ontology.annotationPropertiesInSignature().distinct().count(),
             ontology.annotationPropertiesInSignature().count());
     }

@@ -1,1 +1,1 @@
-[SubClassOf(owl:Thing DataMaxCardinality(1 <urn:test:test#dp> rdfs:Literal))]
+SubClassOf(owl:Thing DataMaxCardinality(1 <http://www.semanticweb.org/owlapi/test#p> rdfs:Literal))

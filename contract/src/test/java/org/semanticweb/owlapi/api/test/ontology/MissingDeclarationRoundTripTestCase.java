@@ -15,9 +15,6 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -33,15 +30,14 @@ class MissingDeclarationRoundTripTestCase extends TestBase {
         assertEquals(1, ontology.getAxiomCount());
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         format.setAddMissingTypes(false);
-        ontology = loadOntologyStrict(saveOntology(ontology, format).toString(), format);
+        ontology = loadStrict(saveOntology(ontology, format).toString(), format);
         assertFalse(ontology.containsAnnotationPropertyInSignature(AP.getIRI()));
         assertEquals(0, ontology.getAxiomCount());
     }
 
     private OWLOntology createOntology(OWLAnnotationProperty p) {
-        OWLOntology ont = createAnon();
-        ont.getOWLOntologyManager().addAxiom(ont,
-            AnnotationAssertion(p, A.getIRI(), Literal("Hello")));
-        return ont;
+        OWLOntology o = createAnon();
+        o.addAxiom(AnnotationAssertion(p, A.getIRI(), Literal("Hello")));
+        return o;
     }
 }

@@ -12,44 +12,32 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ClassAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectHasValue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
-
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 class AnonymousTestCase extends TestBase {
 
-    private static final String URN_TEST = "urn:test#";
-
     @Test
     void shouldRoundTrip() {
-        OWLIndividual i = AnonymousIndividual();
-        OWLOntology ontology = create();
-        ontology.add(SubClassOf(C, ObjectHasValue(P, i)), ClassAssertion(D, i),
-            DataPropertyAssertion(DQ, i, Literal("hello")));
+        OWLIndividual anonInd = AnonymousIndividual();
+        OWLOntology ontology = createAnon();
+        ontology.add(SubClassOf(C, ObjectHasValue(P, anonInd)), ClassAssertion(D, anonInd),
+            DataPropertyAssertion(DPP, anonInd, Literal("hello")));
         OWLOntology ontologyReloaded =
-            loadOntologyFromString(saveOntology(ontology), ontology.getNonnullFormat());
+            loadFrom(saveOntology(ontology), ontology.getNonnullFormat());
         equal(ontology, ontologyReloaded);
     }
 
     @Test
     void testRoundTripWithAnonymousIndividuals() {
-        OWLNamedIndividual i = df.getOWLNamedIndividual(URN_TEST, "i");
-        OWLOntology ontology = create();
-        OWLIndividual ind = df.getOWLAnonymousIndividual();
-        OWLObjectPropertyAssertionAxiom ax1 = df.getOWLObjectPropertyAssertionAxiom(P, i, ind);
-        OWLDataPropertyAssertionAxiom ax2 =
-            df.getOWLDataPropertyAssertionAxiom(DQ, ind, df.getOWLLiteral(5));
+        OWLOntology ontology = create("ontology.owl");
+        OWLIndividual ind = AnonymousIndividual();
+        OWLObjectPropertyAssertionAxiom ax1 = ObjectPropertyAssertion(P, i, ind);
+        OWLDataPropertyAssertionAxiom ax2 = DataPropertyAssertion(DPP, ind, Literal(5));
         ontology.add(ax1, ax2);
         OWLOntology reload = roundTrip(ontology);
         equal(ontology, reload);

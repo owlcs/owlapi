@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 
+@SuppressWarnings("javadoc")
 public class TestFiles {
 
     private static String string(String name) {
@@ -46,12 +47,272 @@ public class TestFiles {
         }
     }
 
-    public static String ontologyIRI = string("ontologyIRI.rdf");
-    public static String ontFirst = string("ontFirst.txt");
-    public static String labelFirst = string("labelFirst.txt");
-    public static String nestedAnnotations = string("nestedAnnotations.txt");
-    public static String annotatedAnnotation = string("annotatedAnnotation.txt");
-    public static String anonOneOf = string("anonOneOf.txt");
+    public static final String CREATED_BY_WITH_SPACE =
+        "ontology: test\n[Typedef]\nid: R:1\nname: r1\ncreated_by: John Doe";
+    public static final String IRI = "http://www.semanticweb.org/owlapi/test#iri";
+    public static final String IRII = "<http://www.semanticweb.org/owlapi/test#iri>";
+    public static final String PREFIX = "http://example.com/ontology/";
+    public static final String XY = "http://example.com/ontology/x,y";
+    public static final String NS = "http://example.com/ontology";
+    public static final String wrong =
+        "rdf:datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral\"";
+
+
+    public static final String NO_INPUT =
+        "ontology: uberon\n" + "[Term]\nid: X:1\nname: x1\nrelationship: part_of X:2\n\n"
+            + "[Typedef]\nid: part_of\nxref: BFO:0000050";
+
+    public static final String UBERON_CORE = "format-version: 1.2\n" + "ontology: uberon/core\n\n"
+        + "[Term]\nid: UBERON:0004138\n" + "name: somitomeric trunk muscle\n"
+        + "property_value: seeAlso \"string\"\n" + "\n" + "[Typedef]\n" + "id: seeAlso\n"
+        + "name: seeAlso\n" + "is_metadata_tag: true\n" + "is_class_level: true";
+
+    public static final String UBERON_PATO =
+        "format-version: 1.2\n" + "import: http://purl.obolibrary.org/obo/uberon/pato_import.owl\n"
+            + "ontology: uberon/core\n" + "\n" + "[Term]\n" + "id: UBERON:0004138\n"
+            + "name: somitomeric trunk muscle\n" + "property_value: seeAlso \"string\"\n" + "\n"
+            + "[Typedef]\n" + "id: seeAlso\n" + "name: seeAlso\n" + "is_metadata_tag: true\n"
+            + "is_class_level: true";
+
+    public static final String EMPTY_IMPORT =
+        "ontology: uberon\n" + "import: http://purl.obolibrary.org/obo/uberon/test_import.owl\n\n"
+            + "[Term]\nid: X:1\nname: x1\nrelationship: part_of X:2\n\n"
+            + "[Typedef]\nid: part_of\nxref: BFO:0000050";
+    public static final String PROPERTY_VALUE_QUOTES_OBO = "format-version: 1.2\nontology: test\n\n"
+        + "[Term]\nid: X:1\nproperty_value: rdfs:seeAlso \"xx\" xsd:string\n\n"
+        + "[Term]\nid: X:2\nproperty_value: rdfs:seeAlso \"1\" xsd:int\n\n";
+    public static final String PROPERTY_VALUE_QUOTES =
+        "Prefix(:=<http://purl.obolibrary.org/obo/test.owl#>)\n"
+            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+            + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
+            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n\n"
+            + "Ontology(<http://purl.obolibrary.org/obo/test.owl>\n"
+            + "Declaration(Class(<http://purl.obolibrary.org/obo/X_1>))\n"
+            + "Declaration(Class(<http://purl.obolibrary.org/obo/X_2>))\n"
+            + "AnnotationAssertion(<http://purl.obolibrary.org/obo/rdfs_seeAlso> <http://purl.obolibrary.org/obo/X_1> \"xx\"^^xsd:string)\n\n"
+            + "AnnotationAssertion(<http://purl.obolibrary.org/obo/rdfs_seeAlso> <http://purl.obolibrary.org/obo/X_2> \"1\"^^xsd:int)\n\n"
+            + ")";
+    public static String objectSomeTemplate =
+        "ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> <http://purl.obolibrary.org/obo/TEST_%s>)))";
+    public static final String COMMENT_IN_DATE_1 = "format-version: 1.2\n"
+        + "data-version: beta2 ! WSIO Beta 2\n" + "date: 19:06:2014 18:57 ! CE(S)T";
+    public static final String COMMENT_IN_DATE_2 = "format-version: 1.2\n"
+        + "date: 19:06:2014 18:57 ! CE(S)T" + "data-version: beta2 ! WSIO Beta 2\n";
+    public static final String ROUND_TRIP_ALL =
+        "Prefix(:=<http://purl.obolibrary.org/obo/uni.obo#>)\n"
+            + "Ontology(<http://purl.obolibrary.org/obo/uni.obo.owl>\n" + "Declaration(Class(:A))\n"
+            + "Declaration(Class(:B))\n" + "Declaration(ObjectProperty(:part_of))\n"
+            + "SubClassOf(:A ObjectAllValuesFrom(:part_of :B)))";
+    public static final String ROUND_TRIP_VERSION_INFO_OBO = "format-version: 1.2\n"
+        + "ontology: myont\n" + "property_value: owl:versionInfo \"2020-06-30\" xsd:string";
+    public static final String ROUND_TRIP_VERSION_INFO =
+        "Prefix(:=<http://purl.obolibrary.org/obo/myont.owl#>)\n"
+            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+            + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
+            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n\n"
+            + "Ontology(<http://purl.obolibrary.org/obo/myont.owl>\n"
+            + "Annotation(<http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion> \"1.2\")\n"
+            + "Annotation(owl:versionInfo \"2020-06-30\")\n"
+            + "Declaration(AnnotationProperty(<http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion>))\n"
+            + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion> \"has_obo_format_version\")\n)";
+    public static final String DECLARED_ANNOTATIONS =
+        "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+            + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+            + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+            + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+            + "@prefix oio: <http://www.geneontology.org/formats/oboInOwl#> .\n"
+            + "@prefix obo: <http://purl.obolibrary.org/obo/> .\n\n"
+            + "# omitting this line loses the axiom annotation in roundtrip\n"
+            + "oio:source rdf:type owl:AnnotationProperty .\n\n\n"
+            + "rdfs:comment rdf:type owl:AnnotationProperty .\n\n\n" + "obo:MONDO_0009025\n"
+            + "    a owl:Class ;\n" + "    oio:hasDbXref \"UMLS:C1415737\" .\n" + "\n"
+            + "[ a owl:Axiom ;\n" + "    rdfs:comment \"Some comment\";\n"
+            + "  oio:source \"MONDO:notFoundInSource\" ;\n"
+            + "  owl:annotatedProperty oio:hasDbXref ;\n"
+            + "  owl:annotatedSource obo:MONDO_0009025 ;\n"
+            + "  owl:annotatedTarget \"UMLS:C1415737\"\n" + "] .";
+    public static final String UNDECLARED_ANNOTATIONS =
+        "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+            + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+            + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+            + "@prefix oio: <http://www.geneontology.org/formats/oboInOwl#> .\n"
+            + "@prefix obo: <http://purl.obolibrary.org/obo/> .\n\n" + "obo:MONDO_0009025\n"
+            + "    a owl:Class ;\n" + "    oio:hasDbXref \"UMLS:C1415737\" .\n" + "\n"
+            + "[ a owl:Axiom ;\n" + "    rdfs:comment \"Some comment\";\n"
+            + "   oio:source \"MONDO:notFoundInSource\" ;\n"
+            + "  owl:annotatedProperty oio:hasDbXref ;\n"
+            + "  owl:annotatedSource obo:MONDO_0009025 ;\n"
+            + "  owl:annotatedTarget \"UMLS:C1415737\"\n" + "] .";
+    public static final String INPUT_VERSION_LOAD_CHANGE = "<?xml version=\"1.0\"?>\n"
+        + "<rdf:RDF\n" + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
+        + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+        + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+        + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\">\n"
+        + "  <rdf:Description rdf:about=\"http://test.example.org/ontology/0139\">\n"
+        + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#Ontology\" />\n"
+        + "    <owl:versionIRI rdf:resource=\"http://test.example.org/ontology/0139/version:1\" />\n"
+        + "  </rdf:Description>  \n" + "</rdf:RDF>";
+    public static final String plainOnto =
+        "Prefix(:=<http://www.example.org/#>)\nOntology(<http://example.org/>\nSubClassOf(:a :b) )";
+    public static final String ContainsDatatypesInHeader =
+        "@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+            + "@prefix owl:   <http://www.w3.org/2002/07/owl#> .\n"
+            + "@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n"
+            + "<http://xxx>    a             owl:Ontology ;  " + "rdfs:comment  \"the_comment\" . ";
+    public static final String opClassPunning =
+        "Prefix: : <http://x.org/>\n" + "Ontology: <http://x.org>\n" + "Individual: x\n"
+            + "Class: creator_of\n" + "ObjectProperty: creator_of\n" + "Class: Test\n"
+            + "  EquivalentClasses: creator_of value x, creator_of";
+    public static final String manSyntaxParserRuleTest =
+        "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
+            + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+            + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
+            + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+            + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+            + "Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>\n"
+            + "Datatype: xsd:decimal\n Datatype: xsd:int\n Datatype: xsd:dateTime\n"
+            + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>\n Characteristics: \n Functional\n Range: \n xsd:int\n"
+            + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasDate>\n Range: \n xsd:dateTime\n"
+            + "Class: <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
+            + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n Types: \n <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
+            + "Rule: \n xsd:decimal(?<urn:swrl:var#x>), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?<urn:swrl:var#p>, ?<urn:swrl:var#x>) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?<urn:swrl:var#p>)";
+    public static final String SaveBaseIRINotOntologyInTurtle = "@prefix : <urn:test:base#> .\n"
+        + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+        + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+        + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+        + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+        + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n" + "@base <urn:test:base#> .\n"
+        + "<http://example.com/ontology> rdf:type owl:Ontology .\n"
+        + ":i rdf:type owl:NamedIndividual .";
+    public static final String ParseQuotedTripleQuotesLitvalue =
+        "Diadenosine 5',5'''-P1,P4-tetraphosphate phosphorylase";
+    public static final String ParseQuotedTripleQuotesWorking =
+        "@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .\n "
+            + "@prefix foaf:    <http://xmlns.com/foaf/0.1/> .\n foaf:fundedBy "
+            + "rdfs:label \"\"\"" + ParseQuotedTripleQuotesLitvalue + "\"\"\"@en .";
+    public static final String SaveBaseIRINotOntologyInRioTurtle = "@base <urn:test:base#> .\n"
+        + "@prefix : <urn:test:base#> .\n" + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+        + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+        + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+        + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+        + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+        + "<http://example.com/ontology> a owl:Ontology .\n" + ":i a owl:NamedIndividual .";
+    public static final String BAD_TURTLE =
+        "@prefix : <http://x.org#> .\n" + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+            + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+            + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+            + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+            + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+            + "@base <http://x.org#> .\n" + "<http://x.org> rdf:type owl:Ontology .\n"
+            + "<http://x.org/myprop> rdf:type owl:AnnotationProperty .\n"
+            + "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .";
+    public static final String BAD_FUNCTIONAL = "Prefix(:=<http://x.org#>)\n"
+        + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+        + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+        + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
+        + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+        + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + "Ontology(<http://x.org>\n"
+        + "Declaration(AnnotationProperty(<http://x.org/myprop>))\n"
+        + "AnnotationAssertion(<http://x.org/myprop> <http://x.org/myobj> < https://example.org/bad-url>)\n)";
+    public static final String BAD_RDFXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        + "<rdf:RDF xmlns=\"http://x.org#\"\n" + "     xml:base=\"http://x.org\"\n"
+        + "     xmlns:x=\"http://x.org/\"\n" + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+        + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
+        + "     xmlns:xml=\"http://www.w3.org/XML/1998/namespace\"\n"
+        + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+        + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
+        + "    <owl:Ontology rdf:about=\"http://x.org\"/>\n"
+        + "    <owl:AnnotationProperty rdf:about=\"http://x.org/myprop\"/>\n"
+        + "    <rdf:Description rdf:about=\"http://x.org/myobj\">\n"
+        + "        <x:myprop rdf:resource=\" https://example.org/bad-url\"/>\n"
+        + "    </rdf:Description>\n" + "</rdf:RDF>";
+    public static final String BAD_OWLXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        + "<Ontology xmlns=\"http://www.w3.org/2002/07/owl#\"\n"
+        + "     xml:base=\"http://x.org\"\n"
+        + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
+        + "     xmlns:xml=\"http://www.w3.org/XML/1998/namespace\"\n"
+        + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+        + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+        + "     ontologyIRI=\"http://x.org\">\n"
+        + "    <Prefix name=\"owl\" IRI=\"http://www.w3.org/2002/07/owl#\"/>\n"
+        + "    <Prefix name=\"rdf\" IRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"/>\n"
+        + "    <Prefix name=\"xml\" IRI=\"http://www.w3.org/XML/1998/namespace\"/>\n"
+        + "    <Prefix name=\"xsd\" IRI=\"http://www.w3.org/2001/XMLSchema#\"/>\n"
+        + "    <Prefix name=\"rdfs\" IRI=\"http://www.w3.org/2000/01/rdf-schema#\"/>\n"
+        + "    <Declaration>\n" + "        <AnnotationProperty IRI=\"/myprop\"/>\n"
+        + "    </Declaration>\n" + "    <AnnotationAssertion>\n"
+        + "        <AnnotationProperty IRI=\"/myprop\"/>\n" + "        <IRI>/myobj</IRI>\n"
+        + "        <IRI> https://example.org/bad-url</IRI>\n" + "    </AnnotationAssertion>\n"
+        + "</Ontology>";
+    public static final String BAD_JSON_LD = "[ {\n" + "  \"@id\" : \"http://x.org\",\n"
+        + "  \"@type\" : [ \"http://www.w3.org/2002/07/owl#Ontology\" ]\n" + "}, {\n"
+        + "  \"@id\" : \"http://x.org/myobj\",\n" + "  \"http://x.org/myprop\" : [ {\n"
+        + "    \"@id\" : \" https://example.org/bad-url\"\n" + "  } ]\n" + "}, {\n"
+        + "  \"@id\" : \"http://x.org/myprop\",\n"
+        + "  \"@type\" : [ \"http://www.w3.org/2002/07/owl#AnnotationProperty\" ]\n" + "} ]";
+    public static final String BAD_RIO_TURTLE = "@prefix : <http://x.org#> .\n"
+        + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+        + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+        + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+        + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+        + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+        + "<http://x.org> a owl:Ontology .\n" + "<http://x.org/myprop> a owl:AnnotationProperty .\n"
+        + "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .";
+    public static final String BAD_RIO_RDF = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        + "<rdf:RDF\n" + "    xmlns=\"http://x.org#\"\n"
+        + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+        + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
+        + "    xmlns:xml=\"http://www.w3.org/XML/1998/namespace\"\n"
+        + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+        + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
+        + "<rdf:Description rdf:about=\"http://x.org\">\n"
+        + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#Ontology\"/>\n"
+        + "</rdf:Description>\n" + "<rdf:Description rdf:about=\"http://x.org/myprop\">\n"
+        + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#AnnotationProperty\"/>\n"
+        + "</rdf:Description>\n" + "<rdf:Description rdf:about=\"http://x.org/myobj\">\n"
+        + "    <myprop xmlns=\"http://x.org/\" rdf:resource=\" https://example.org/bad-url\"/>\n"
+        + "</rdf:Description>\n" + "</rdf:RDF>";
+    public static final String BAD_NTRIPLES =
+        "<http://x.org> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .\n"
+            + "<http://x.org/myprop> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n"
+            + "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .";
+    public static final String BAD_RDFJSON = "{\n" + "  \"http://x.org\" : {\n"
+        + "    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\" : [\n" + "      {\n"
+        + "        \"value\" : \"http://www.w3.org/2002/07/owl#Ontology\",\n"
+        + "        \"type\" : \"uri\"\n" + "      }\n" + "    ]\n" + "  },\n"
+        + "  \"http://x.org/myobj\" : {\n" + "    \"http://x.org/myprop\" : [\n" + "      {\n"
+        + "        \"value\" : \" https://example.org/bad-url\",\n" + "        \"type\" : \"uri\"\n"
+        + "      }\n" + "    ]\n" + "  },\n" + "  \"http://x.org/myprop\" : {\n"
+        + "    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\" : [\n" + "      {\n"
+        + "        \"value\" : \"http://www.w3.org/2002/07/owl#AnnotationProperty\",\n"
+        + "        \"type\" : \"uri\"\n" + "      }\n" + "    ]\n" + "  }\n" + "}";
+    public static final String BAD_TRIG = "@prefix : <http://x.org#> .\n"
+        + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+        + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+        + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+        + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+        + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n" + "\n" + "{\n"
+        + "  <http://x.org> a owl:Ontology .\n"
+        + "  <http://x.org/myprop> a owl:AnnotationProperty .\n"
+        + "  <http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .\n" + "}";
+    public static final String BAD_MANCHESTER = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
+        + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+        + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+        + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
+        + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n" + "Prefix: : <http://x.org>\n"
+        + "Ontology: <http://x.org>\n" + "AnnotationProperty: < https://example.org/bad-url>";
+
+
+    public static final String ontologyIRI = string("ontologyIRI.rdf");
+    public static final String ontFirst = string("ontFirst.txt");
+    public static final String labelFirst = string("labelFirst.txt");
+    public static final String nestedAnnotations = string("nestedAnnotations.txt");
+    public static final String annotatedAnnotation = string("annotatedAnnotation.txt");
+    public static final String anonOneOf = string("anonOneOf.txt");
     public static final String anonTurtle = string("anonTurtle.txt");
     public static final String opa = string("opa.txt");
     public static final String nop = string("nop.txt");
@@ -125,18 +386,14 @@ public class TestFiles {
     public static final String ONTO = string("ONTO.txt");
     public static final String BIGRULE = string("BIGRULE.txt");
     public static final String RULE = string("RULE.txt");
-    public static final String CI = string("CI.txt");
     public static final String C = string("C.txt");
     public static final String DTD = string("DTD.txt");
     public static final String DB = string("DB.txt");
     public static final String DT = string("DT.txt");
     public static final String DP = string("DP.txt");
-    public static final String DPI = string("DPI.txt");
-    public static final String DTI = string("DTI.txt");
     public static final String DPR = string("DPR.txt");
     public static final String DC = string("DC.txt");
     public static final String OP = string("OP.txt");
-    public static final String OPI = string("OPI.txt");
     public static final String DOP = string("DOP.txt");
     public static final String ANNSHORT = string("ANNSHORT.txt");
     public static final String ANNI = string("ANNI.txt");
@@ -150,12 +407,9 @@ public class TestFiles {
     public static final String DIND = string("DIND.txt");
     public static final String DIFF = string("DIFF.txt");
     public static final String DSJC = string("DSJC.txt");
-    public static final String IRI = string("IRI.txt");
-    public static final String IRII = string("IRII.txt");
     public static final String I = string("I.txt");
     public static final String DISJDP = string("DISJDP.txt");
     public static final String DSJOP = string("DSJOP.txt");
-    public static final String II = string("II.txt");
     public static final String plain = string("plain.txt");
     public static final String adp = string("adp.txt");
     public static final String dpdomain = string("dpdomain.txt");
@@ -251,7 +505,7 @@ public class TestFiles {
     public static final String var236 = string("var236.txt");
     public static final String SHORTRULE = string("SHORTRULE.txt");
     public static final String BFO = string("BFO.txt");
-    public static String declareDatatypes = string("declareDatatypes.txt");
+    public static final String declareDatatypes = string("declareDatatypes.txt");
     public static final String original = string("original.txt");
     public static final String HEAD = string("HEAD.txt");
     public static final String TAIL = string("TAIL.txt");
@@ -330,7 +584,7 @@ public class TestFiles {
     public static final String FUNCTIONAL = string("FUNCTIONAL.txt");
     public static final String MANCHESTER = string("MANCHESTER.txt");
     public static final String TURTLE = string("TURTLE.txt");
-    public static String[] inputSorting = strings("inputSorting.txt");
+    public static final String[] inputSorting = strings("inputSorting.txt");
     public static final String quotes1 = string("quotes1.txt");
     public static final String quotes6 = string("quotes6.txt");
     public static final String quotes2 = string("quotes2.txt");
@@ -356,9 +610,6 @@ public class TestFiles {
     public static final String axiomsForBlankNodes = string("axiomsForBlankNodes.txt");
     public static final String correctPrefix = string("correctPrefix.txt");
     public static final String slashPrefix = string("slashPrefix.txt");
-    public static final String PREFIX = "http://example.com/ontology/";
-    public static final String XY = "http://example.com/ontology/x,y";
-    public static final String NS = "http://example.com/ontology";
     public static final String nnfdRange = string("nnfdRange.txt");
     public static final String nnfdDef = string("nnfdDef.txt");
     public static final String nnfdecC = string("nnfdecC.txt");
@@ -434,30 +685,30 @@ public class TestFiles {
     public static final String allowInstanceStanza = string("allowInstanceStanza.txt");
     public static final String forbiddenInput1 = string("forbiddenInput1.txt");
     public static final String forbiddenInput2 = string("forbiddenInput2.txt");
-    public static String ontology = string("ontology.txt");
-    public static String galenFragment = string("galenFragment.txt");
-    public static String violation = string("violation.txt");
-    public static String[] profileFullTestCases = strings("profileFullTestCases.txt");
-    public static String[] profileDLTestCases = strings("profileDLTestCases.txt");
-    public static String[] profileAllTestCases = strings("profileAllTestCases.txt");
-    public static String[] profileELDLTestCases = strings("profileELDLTestCases.txt");
-    public static String[] profileRLDLTestCases = strings("profileRLDLTestCases.txt");
-    public static String[] profileQLDLTestCases = strings("profileQLDLTestCases.txt");
-    public static String[] profileNOQLTestCases = strings("profileNOQLTestCases.txt");
-    public static String[] profileNORLTestCases = strings("profileNORLTestCases.txt");
-    public static String[] profileNOELTestCases = strings("profileNOELTestCases.txt");
+    public static final String ontology = string("ontology.txt");
+    public static final String galenFragment = string("galenFragment.txt");
+    public static final String violation = string("violation.txt");
+    public static final String[] profileFullTestCases = strings("profileFullTestCases.txt");
+    public static final String[] profileDLTestCases = strings("profileDLTestCases.txt");
+    public static final String[] profileAllTestCases = strings("profileAllTestCases.txt");
+    public static final String[] profileELDLTestCases = strings("profileELDLTestCases.txt");
+    public static final String[] profileRLDLTestCases = strings("profileRLDLTestCases.txt");
+    public static final String[] profileQLDLTestCases = strings("profileQLDLTestCases.txt");
+    public static final String[] profileNOQLTestCases = strings("profileNOQLTestCases.txt");
+    public static final String[] profileNORLTestCases = strings("profileNORLTestCases.txt");
+    public static final String[] profileNOELTestCases = strings("profileNOELTestCases.txt");
     public static final String disjoint4InHTML = string("disjoint4InHTML.txt");
     public static final String disjointTwoInHTML = string("disjointTwoInHTML.txt");
     public static final String disjointInHTML = string("disjointInHTML.txt");
-    public static String renameApUsages = string("renameApUsages.txt");
-    public static String distinctMembers1 = string("distinctMembers1.txt");
-    public static String distinctMembers2 = string("distinctMembers2.txt");
+    public static final String renameApUsages = string("renameApUsages.txt");
+    public static final String distinctMembers1 = string("distinctMembers1.txt");
+    public static final String distinctMembers2 = string("distinctMembers2.txt");
     public static final String IRITestCase = string("IRITestCase.txt");
-    public static String parseSWRL = string("parseSWRL.txt");
-    public static String parseSWRL2 = string("parseSWRL2.txt");
-    public static String individualSWRLTest = string("individualSWRLTest.txt");
-    public static String parseDataProperty = string("parseDataProperty.txt");
-    public static String subPropertiesAsObjectProperties =
+    public static final String parseSWRL = string("parseSWRL.txt");
+    public static final String parseSWRL2 = string("parseSWRL2.txt");
+    public static final String individualSWRLTest = string("individualSWRLTest.txt");
+    public static final String parseDataProperty = string("parseDataProperty.txt");
+    public static final String subPropertiesAsObjectProperties =
         string("subPropertiesAsObjectProperties.txt");
     public static String lhsSubsetofRhs = string("lhsSubsetofRhs.txt");
     public static String swrlParser = string("swrlParser.txt");
@@ -480,17 +731,15 @@ public class TestFiles {
     public static final String largeInteger = string("largeInteger.txt");
     public static final String minusInf = string("minusInf.txt");
     public static final String webOnt = string("webOnt.txt");
-    public static String wrong =
-        "rdf:datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral\"";
-    public static String correct = "rdf:parseType=\"Literal\"";
-    public static String preamble = string("preamble.txt");
-    public static String closure = string("closure.txt");
-    public static String literalMalformedXML = string("literalMalformedXML.txt");
-    public static String literalXMl = string("literalXMl.txt");
+    public static final String correct = "rdf:parseType=\"Literal\"";
+    public static final String preamble = string("preamble.txt");
+    public static final String closure = string("closure.txt");
+    public static final String literalMalformedXML = string("literalMalformedXML.txt");
+    public static final String literalXMl = string("literalXMl.txt");
     public static final String roundtripPaddedLiterals = string("roundtripPaddedLiterals.txt");
     public static final String missingTypes = string("missingTypes.txt");
     public static final String loadOboAnonymous = string("loadOboAnonymous.txt");
-    public static String inputManSyntax = string("inputManSyntax.txt");
+    public static final String inputManSyntax = string("inputManSyntax.txt");
     public static final String failWhenTrixBanned = string("failWhenTrixBanned.txt");
     public static final String roundtripUTF8String = string("roundtripUTF8String.txt");
     public static final String INVALID_UTF8 = string("INVALID_UTF8.txt");
@@ -502,12 +751,12 @@ public class TestFiles {
     public static final String roundtripEntities = string("roundtripEntities.txt");
     public static final String convertToFunctional = string("convertToFunctional.txt");
     public static final String roundtripRIWithQuery = string("roundtripRIWithQuery.txt");
-    public final static String moveTest = string("moveTest.txt");
+    public static final String moveTest = string("moveTest.txt");
     public static final String parsePlainLiteral = string("parsePlainLiteral.txt");
-    public static String rdfContentForException = string("rdfContentForException.txt");
-    public static String parseDisjointClasses = string("parseDisjointClasses.txt");
-    public static String ontologyVersionParse = string("ontologyVersionParse.txt");
-    public static String uniquePropertiesTurtle = string("uniquePropertiesTurtle.txt");
-    public static String equivalentAndSubclasses = string("equivalentAndSubclasses.txt");
-    public static String premiseOntology = string("premiseOntology.txt");
+    public static final String rdfContentForException = string("rdfContentForException.txt");
+    public static final String parseDisjointClasses = string("parseDisjointClasses.txt");
+    public static final String ontologyVersionParse = string("ontologyVersionParse.txt");
+    public static final String uniquePropertiesTurtle = string("uniquePropertiesTurtle.txt");
+    public static final String equivalentAndSubclasses = string("equivalentAndSubclasses.txt");
+    public static final String premiseOntology = string("premiseOntology.txt");
 }

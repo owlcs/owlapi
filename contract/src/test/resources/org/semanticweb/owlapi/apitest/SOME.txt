@@ -1,1 +1,1 @@
-ObjectSomeValuesFrom(<urn:test:test#op> <urn:test:test#c>)
+ObjectSomeValuesFrom(<http://example.com/objectProperty> <http://www.semanticweb.org/owlapi/test#C>)

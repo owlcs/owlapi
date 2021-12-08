@@ -24,49 +24,38 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 class TestCornerCasesTestCase extends TestBase {
 
+    private static final java.lang.String INF = "-INF";
+
     @Test
     void testFloatZeros() {
         // +0 and -0 are not equal
-        OWLDatatype type = df.getFloatOWLDatatype();
-        OWLLiteral lit1 = df.getOWLLiteral("0.0", type);
-        OWLLiteral lit2 = df.getOWLLiteral("-0.0", type);
-        assertFalse(lit1.equals(lit2));
+        assertFalse(Literal("0.0", Float()).equals(Literal("-0.0", Float())));
     }
 
     @Test
     void testIntegerRange() {
         String expected = "2147483648";
-        OWLDatatype type = df.getIntegerOWLDatatype();
-        OWLLiteral lit = df.getOWLLiteral(expected, type);
-        assertEquals(expected, lit.getLiteral());
+        assertEquals(expected, Literal(expected, Integer()).getLiteral());
     }
 
     @Test
     void testIntegerWithBlank() {
         String expected = "";
-        OWLDatatype type = df.getIntegerOWLDatatype();
-        OWLLiteral lit = df.getOWLLiteral(expected, type);
-        assertEquals(expected, lit.getLiteral());
+        assertEquals(expected, Literal(expected, Integer()).getLiteral());
     }
 
     @Test
     void testEnumInt() {
-        OWLDatatype type = df.getIntegerOWLDatatype();
-        df.getOWLLiteral("1000000000000000000000000000000000000000", type);
+        Literal("1000000000000000000000000000000000000000", Integer());
     }
 
     @Test
     void testGetDataPropertyValues() {
-        OWLDatatype type = df.getIntegerOWLDatatype();
-        OWLLiteral lit1 = df.getOWLLiteral("01", type);
-        OWLLiteral lit2 = df.getOWLLiteral("1", type);
-        assertFalse(lit1.equals(lit2));
+        assertFalse(Literal("01", Integer()).equals(Literal("1", Integer())));
     }
 
     @Test
@@ -82,33 +71,21 @@ class TestCornerCasesTestCase extends TestBase {
             "DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"4\"^^xsd:integer \"5\"^^xsd:integer \"6\"^^xsd:integer))");
         expectedResult.add(
             "ClassAssertion(DataMinCardinality(1 <http://www.w3.org/2002/03owlt/oneOf/premises004#p> rdfs:Literal) <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
-        OWLOntology o = loadOntologyFromString(TestFiles.webOnt, new RDFXMLDocumentFormat());
-        Set<String> result = new TreeSet<>();
-        o.axioms().forEach(ax -> result.add(ax.toString()));
-        if (!result.equals(expectedResult)) {
-            Set<String> intersection = new TreeSet<>(result);
-            intersection.retainAll(expectedResult);
-            Set<String> s1 = new TreeSet<>(result);
-            s1.removeAll(intersection);
-            Set<String> s2 = new TreeSet<>(expectedResult);
-            s2.removeAll(intersection);
-        }
-        assertEquals(result, expectedResult);
+        OWLOntology o = loadFrom(TestFiles.webOnt, new RDFXMLDocumentFormat());
+        assertEquals(str(expectedResult.stream()), str(o.axioms()));
     }
 
     @Test
-    void testMinusInf(){
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.minusInf, new FunctionalSyntaxDocumentFormat());
-        assertTrue(saveOntology(o).toString().contains("-INF"));
+    void testMinusInf() {
+        OWLOntology o = loadFrom(TestFiles.minusInf, new FunctionalSyntaxDocumentFormat());
+        assertTrue(saveOntology(o).toString().contains(INF));
         equal(o, roundTrip(o));
     }
 
     @Test
-    void testLargeInteger(){
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.largeInteger, new FunctionalSyntaxDocumentFormat());
-        assertTrue(saveOntology(o).toString().contains("-INF"));
+    void testLargeInteger() {
+        OWLOntology o = loadFrom(TestFiles.largeInteger, new FunctionalSyntaxDocumentFormat());
+        assertTrue(saveOntology(o).toString().contains(INF));
         equal(o, roundTrip(o));
     }
 }

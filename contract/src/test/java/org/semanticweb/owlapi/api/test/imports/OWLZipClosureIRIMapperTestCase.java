@@ -50,7 +50,7 @@ class OWLZipClosureIRIMapperTestCase extends TestBase {
     }
 
     @Test
-    void shouldMapIRIsWithAutoIRIMapper() throws OWLOntologyCreationException, IOException {
+    void shouldMapIRIsWithAutoIRIMapper() throws OWLOntologyCreationException {
         File file2 = new File(RESOURCES, "owlzipnoindex.zip");
         m1.getIRIMappers().add(new AutoIRIMapper(imports(), true));
         OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
@@ -59,11 +59,11 @@ class OWLZipClosureIRIMapperTestCase extends TestBase {
         equal(loadOntology, test);
     }
 
-    private File imports() {
+    private static File imports() {
         return new File(RESOURCES, "imports");
     }
 
-    private File d() {
+    private static File d() {
         return new File(RESOURCES, "/imports/D.owl");
     }
 }

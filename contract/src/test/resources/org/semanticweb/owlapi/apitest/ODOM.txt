@@ -1,1 +1,1 @@
-ObjectPropertyDomain(Annotation(<urn:test:test#ann> "test"^^xsd:string) <urn:test:test#op> <urn:test:test#c>)
+ObjectPropertyDomain(Annotation(<http://www.semanticweb.org/owlapi/test#ann> "test"^^xsd:string) <http://example.com/objectProperty> <http://www.semanticweb.org/owlapi/test#C>)

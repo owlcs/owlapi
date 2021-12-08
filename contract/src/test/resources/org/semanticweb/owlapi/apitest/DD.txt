@@ -1,1 +1,1 @@
-Declaration(Annotation(<urn:test:test#ann> "test"^^xsd:string) Datatype(<urn:test:test#datatype>))
+Declaration(Annotation(<http://www.semanticweb.org/owlapi/test#ann> "test"^^xsd:string) Datatype(<http://www.semanticweb.org/owlapi/test#DT>))

@@ -1,1 +1,1 @@
-ObjectComplementOf(<urn:test:test#c>)
+ObjectComplementOf(<http://www.semanticweb.org/owlapi/test#C>)

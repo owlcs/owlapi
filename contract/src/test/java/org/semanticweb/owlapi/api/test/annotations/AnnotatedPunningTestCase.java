@@ -2,10 +2,8 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,9 +13,7 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -31,27 +27,25 @@ class AnnotatedPunningTestCase extends TestBase {
 
     OWLOntology makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
         OWLAnnotationProperty annotationProperty, List<OWLEntity> entities) {
-        Set<OWLAxiom> axioms = new HashSet<>();
-        axioms.add(df.getOWLDeclarationAxiom(annotationProperty));
+        List<OWLAxiom> axioms = new ArrayList<>();
+        axioms.add(Declaration(annotationProperty));
         for (OWLEntity entity : entities) {
-            axioms.add(df.getOWLAnnotationAssertionAxiom(annotationProperty, entity.getIRI(),
-                df.getOWLAnonymousIndividual()));
-            axioms.add(df.getOWLDeclarationAxiom(entity));
+            axioms.add(
+                AnnotationAssertion(annotationProperty, entity.getIRI(), AnonymousIndividual()));
+            axioms.add(Declaration(entity));
         }
         return o(axioms);
     }
 
     String saveForRereading(OWLOntology o, OWLDocumentFormat format) {
-        StringDocumentTarget out = saveOntology(o, format);
-        return out.toString();
+        return saveOntology(o, format).toString();
     }
 
     static List<Arguments> allTests() {
-        IRI iri = iri("http://localhost#", "a");
-        List<? extends OWLEntity> entities = Arrays.asList(df.getOWLClass(iri),
-            df.getOWLDatatype(iri), df.getOWLAnnotationProperty(iri), df.getOWLDataProperty(iri),
-            df.getOWLObjectProperty(iri), df.getOWLNamedIndividual(iri));
-        return Arrays.asList(Arguments.of(new RDFXMLDocumentFormat(), entities),
+        List<? extends OWLEntity> entities =
+            l(A, Datatype(A.getIRI()), AnnotationProperty(A.getIRI()), DataProperty(A.getIRI()),
+                ObjectProperty(A.getIRI()), NamedIndividual(A.getIRI()));
+        return l(Arguments.of(new RDFXMLDocumentFormat(), entities),
             Arguments.of(new TurtleDocumentFormat(), entities),
             Arguments.of(new FunctionalSyntaxDocumentFormat(), entities),
             Arguments.of(new ManchesterSyntaxDocumentFormat(), entities));
@@ -65,7 +59,7 @@ class AnnotatedPunningTestCase extends TestBase {
         for (int counter = 0; counter < 10; counter++) {
             String in = saveForRereading(o, format);
             m.removeOntology(o);
-            o = loadOntologyFromString(in);
+            o = loadFrom(in);
         }
         assertEquals(entities.size(), o.axioms(AxiomType.ANNOTATION_ASSERTION).count());
     }

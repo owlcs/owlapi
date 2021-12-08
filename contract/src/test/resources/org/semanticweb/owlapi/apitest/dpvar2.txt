@@ -1,1 +1,1 @@
-DataPropertyAtom(<urn:test:test#dp> Variable(<urn:swrl:var#var2>) "false"^^xsd:boolean)
+DataPropertyAtom(<http://www.semanticweb.org/owlapi/test#p> Variable(<urn:swrl:var#var2>) "false"^^xsd:boolean)

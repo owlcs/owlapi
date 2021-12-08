@@ -1,1 +1,1 @@
-ClassAtom(<urn:test:test#c> Variable(<urn:swrl:var#var2>))
+ClassAtom(<http://www.semanticweb.org/owlapi/test#C> Variable(<urn:swrl:var#var2>))

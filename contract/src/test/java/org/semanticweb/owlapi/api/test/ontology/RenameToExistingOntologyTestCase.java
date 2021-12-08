@@ -13,8 +13,6 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
@@ -36,7 +34,7 @@ class RenameToExistingOntologyTestCase extends TestBase {
     void testRenameToExistingOntology() {
         IRI ontologyAIRI = iri("http://www.semanticweb.org/ontologies/", "ontologyA");
         OWLOntology onto = create(ontologyAIRI);
-        onto.add(df.getOWLDeclarationAxiom(Class(iri("urn:test:", "testclass"))));
+        onto.add(Declaration(Class(iri("urn:test:", "testclass"))));
         IRI ontologyBIRI = iri("http://www.semanticweb.org/ontologies/", "ontologyB");
         OWLOntology ontologyB = create(ontologyBIRI);
         assertThrows(OWLOntologyRenameException.class,

@@ -14,9 +14,6 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +34,7 @@ class OntologyMutationTestCase extends TestBase {
 
     @Test
     void testAddAxiom() {
-        OWLOntology ont = create();
+        OWLOntology ont = create("OntA");
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.add(ax);
@@ -47,7 +44,7 @@ class OntologyMutationTestCase extends TestBase {
 
     @Test
     void testAddAxioms() {
-        OWLOntology ont = create();
+        OWLOntology ont = create("OntB");
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.add(ax);
@@ -57,7 +54,7 @@ class OntologyMutationTestCase extends TestBase {
 
     @Test
     void testApplyChange() {
-        OWLOntology ont = create();
+        OWLOntology ont = create("OntC");
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.applyChange(new AddAxiom(ont, ax));
@@ -67,7 +64,7 @@ class OntologyMutationTestCase extends TestBase {
 
     @Test
     void testApplyChanges() {
-        OWLOntology ont = create();
+        OWLOntology ont = create("OntD");
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.applyChange(new AddAxiom(ont, ax));

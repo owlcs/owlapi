@@ -104,14 +104,14 @@ class VisitorsTestCase extends TestBase {
         map.put(b.trans(), TestFiles.TRANS);
         map.put(b.hasKey(), TestFiles.HASKEY);
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
+        map.forEach((key, value) -> toReturn.add(new Object[] {key, value}));
         return toReturn;
     }
 
     @ParameterizedTest
     @MethodSource("getData")
-    void testAssertion(OWLObject object, String expected) {
-        String render = new SimpleRenderer().render(object);
+    void testAssertion(OWLObject ax, String expected) {
+        String render = new SimpleRenderer().render(ax);
         assertEquals(expected, render);
     }
 }

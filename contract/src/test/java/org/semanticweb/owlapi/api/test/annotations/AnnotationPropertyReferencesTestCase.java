@@ -13,8 +13,6 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import org.junit.jupiter.api.Test;
@@ -22,23 +20,18 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 class AnnotationPropertyReferencesTestCase extends TestBase {
-    static final OWLLiteral val = Literal("Test", "");
 
     @Test
     void testContainsReferenceForAnnotationAssertion() {
-        OWLAnnotationSubject subject = A.getIRI();
-        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(AP, subject, val);
-        OWLOntology ont = create();
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(AP, A.getIRI(), val);
+        OWLOntology ont = create("Ont");
         ont.addAxiom(ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(AP.getIRI()));
         assertTrue(ont.annotationPropertiesInSignature().anyMatch(AP::equals));
@@ -46,18 +39,17 @@ class AnnotationPropertyReferencesTestCase extends TestBase {
 
     @Test
     void testContainsReferenceForAxiomAnnotation() {
-        OWLAnnotation anno = df.getOWLAnnotation(AP, val);
-        OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(A, B, singleton(anno));
-        OWLOntology ont = create();
-        ont.addAxiom(ax);
+        OWLAnnotation anno = Annotation(AP, val);
+        OWLOntology ont = create("Ont");
+        ont.addAxiom(SubClassOf(anno, A, B));
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI()));
         assertTrue(ont.annotationPropertiesInSignature().anyMatch(AP::equals));
     }
 
     @Test
     void testContainsReferenceForOntologyAnnotation() {
-        OWLAnnotation anno = df.getOWLAnnotation(AP, val);
-        OWLOntology ont = create();
+        OWLAnnotation anno = Annotation(AP, val);
+        OWLOntology ont = create("Ont");
         ont.applyChange(new AddOntologyAnnotation(ont, anno));
         assertTrue(ont.containsAnnotationPropertyInSignature(AP.getIRI(), EXCLUDED));
         assertTrue(ont.annotationPropertiesInSignature(EXCLUDED).anyMatch(AP::equals));

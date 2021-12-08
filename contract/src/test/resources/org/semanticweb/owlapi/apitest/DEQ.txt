@@ -1,1 +1,1 @@
-DataExactCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)
+DataExactCardinality(1 <http://www.semanticweb.org/owlapi/test#p> <http://www.semanticweb.org/owlapi/test#DT>)

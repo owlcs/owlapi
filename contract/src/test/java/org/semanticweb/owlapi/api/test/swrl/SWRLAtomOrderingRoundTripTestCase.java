@@ -5,7 +5,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
@@ -24,15 +23,12 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
@@ -46,29 +42,22 @@ class SWRLAtomOrderingRoundTripTestCase extends TestBase {
 
     @BeforeEach
     void setUpPrefixes() {
-        PrefixManager pm = new DefaultPrefixManager(null, null, "http://stuff.com/A/");
-        OWLClass clsA = Class("A", pm);
-        OWLClass clsB = Class("B", pm);
-        OWLClass clsC = Class("C", pm);
-        OWLClass clsD = Class("D", pm);
-        OWLClass clsE = Class("E", pm);
-        SWRLVariable varA = df.getSWRLVariable("http://other.com/A/", "VarA");
-        SWRLVariable varB = df.getSWRLVariable("http://other.com/A/", "VarB");
-        SWRLVariable varC = df.getSWRLVariable("http://other.com/A/", "VarC");
-        SWRLClassAtom t = df.getSWRLClassAtom(clsC, varA);
-        body.add(t);
-        body.add(df.getSWRLClassAtom(clsB, varB));
-        body.add(df.getSWRLClassAtom(clsA, varC));
-        head.add(df.getSWRLClassAtom(clsE, varA));
-        head.add(df.getSWRLClassAtom(clsD, varA));
-        head.add(t);
-        rule = df.getSWRLRule(body, head);
+        SWRLVariable varA = SWRLVariable("http://other.com/A/", "VarA");
+        SWRLVariable varB = SWRLVariable("http://other.com/A/", "VarB");
+        SWRLVariable varC = SWRLVariable("http://other.com/A/", "VarC");
+        SWRLClassAtom atom = SWRLClassAtom(C, varA);
+        body.add(atom);
+        body.add(SWRLClassAtom(B, varB));
+        body.add(SWRLClassAtom(A, varC));
+        head.add(SWRLClassAtom(E, varA));
+        head.add(SWRLClassAtom(D, varA));
+        head.add(atom);
+        rule = SWRLRule(body, head);
     }
 
     @Test
     void individualsShouldNotGetSWRLVariableTypes() {
-        OWLOntology o = loadOntologyFromString(TestFiles.individualSWRLTest,
-            iri("urn:test#", "test"), new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.individualSWRLTest, iriTest, new RDFXMLDocumentFormat());
         String string = saveOntology(o).toString();
         assertFalse(
             string.contains("<rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Variable\"/>"),
@@ -84,7 +73,7 @@ class SWRLAtomOrderingRoundTripTestCase extends TestBase {
         OWLOntology ont = createAnon();
         ont.add(rule);
         StringDocumentTarget documentTarget = saveOntology(ont, ontologyFormat);
-        OWLOntology ont2 = loadOntologyFromString(documentTarget, ontologyFormat);
+        OWLOntology ont2 = loadFrom(documentTarget, ontologyFormat);
         Set<SWRLRule> rules = asUnorderedSet(ont2.axioms(AxiomType.SWRL_RULE));
         assertEquals(1, rules.size());
         SWRLRule parsedRule = rules.iterator().next();

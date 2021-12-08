@@ -13,134 +13,102 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.semanticweb.owlapi.api.test.baseclasses.TestBase.set;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 
 class OWLClassExpressionCollectorTestCase {
 
-    private static final String CI = "<urn:test:test#c>";
-    private static final String IRII = "<urn:test:test#iri>";
-    private static final String AND = "ObjectIntersectionOf(<urn:test:test#c> <urn:test:test#iri>)";
-    private static final String OR = "ObjectUnionOf(<urn:test:test#c> <urn:test:test#iri>)";
-    private static final String NOT = "ObjectComplementOf(<urn:test:test#c>)";
-    private static final String SOME = "ObjectSomeValuesFrom(<urn:test:test#op> <urn:test:test#c>)";
-    private static final String ALL = "ObjectAllValuesFrom(<urn:test:test#op> <urn:test:test#c>)";
-    private static final String HAS = "ObjectHasValue(<urn:test:test#op> <urn:test:test#i>)";
+    private static final String CI = "<http://www.semanticweb.org/owlapi/test#C>";
+    private static final String IRII = "<http://www.semanticweb.org/owlapi/test#iri>";
+    private static final String AND =
+        "ObjectIntersectionOf(<http://www.semanticweb.org/owlapi/test#C> <http://www.semanticweb.org/owlapi/test#iri>)";
+    private static final String OR =
+        "ObjectUnionOf(<http://www.semanticweb.org/owlapi/test#C> <http://www.semanticweb.org/owlapi/test#iri>)";
+    private static final String NOT =
+        "ObjectComplementOf(<http://www.semanticweb.org/owlapi/test#C>)";
+    private static final String SOME =
+        "ObjectSomeValuesFrom(<http://example.com/objectProperty> <http://www.semanticweb.org/owlapi/test#C>)";
+    private static final String ALL =
+        "ObjectAllValuesFrom(<http://example.com/objectProperty> <http://www.semanticweb.org/owlapi/test#C>)";
+    private static final String HAS =
+        "ObjectHasValue(<http://example.com/objectProperty> <http://www.semanticweb.org/owlapi/test#i>)";
     private static final String OMIN =
-        "ObjectMinCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
+        "ObjectMinCardinality(1 <http://example.com/objectProperty> <http://www.semanticweb.org/owlapi/test#C>)";
     private static final String MAX =
-        "ObjectMaxCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
+        "ObjectMaxCardinality(1 <http://example.com/objectProperty> <http://www.semanticweb.org/owlapi/test#C>)";
     private static final String OEQ =
-        "ObjectExactCardinality(1 <urn:test:test#op> <urn:test:test#c>)";
-    private static final String SELF = "ObjectHasSelf(<urn:test:test#op>)";
-    private static final String ONE = "ObjectOneOf(<urn:test:test#i>)";
+        "ObjectExactCardinality(1 <http://example.com/objectProperty> <http://www.semanticweb.org/owlapi/test#C>)";
+    private static final String SELF = "ObjectHasSelf(<http://example.com/objectProperty>)";
+    private static final String ONE = "ObjectOneOf(<http://www.semanticweb.org/owlapi/test#i>)";
     private static final String DSOME =
-        "DataSomeValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>)";
+        "DataSomeValuesFrom(<http://www.semanticweb.org/owlapi/test#p> <http://www.semanticweb.org/owlapi/test#DT>)";
     private static final String DALL =
-        "DataAllValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>)";
-    private static final String DHAS = "DataHasValue(<urn:test:test#dp> \"false\"^^xsd:boolean)";
+        "DataAllValuesFrom(<http://www.semanticweb.org/owlapi/test#p> <http://www.semanticweb.org/owlapi/test#DT>)";
+    private static final String DHAS =
+        "DataHasValue(<http://www.semanticweb.org/owlapi/test#p> \"false\"^^xsd:boolean)";
     private static final String DMIN =
-        "DataMinCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
+        "DataMinCardinality(1 <http://www.semanticweb.org/owlapi/test#p> <http://www.semanticweb.org/owlapi/test#DT>)";
     private static final String DMAX =
-        "DataMaxCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
+        "DataMaxCardinality(1 <http://www.semanticweb.org/owlapi/test#p> <http://www.semanticweb.org/owlapi/test#DT>)";
     private static final String DEQ =
-        "DataExactCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>)";
+        "DataExactCardinality(1 <http://www.semanticweb.org/owlapi/test#p> <http://www.semanticweb.org/owlapi/test#DT>)";
     private static final String THING = "owl:Thing";
 
-    static Collection<Object[]> getData() {
+    static Stream<Arguments> getData() {
         Builder b = new Builder();
-        Map<OWLAxiom, Set<String>> map = new LinkedHashMap<>();
-        Set<String> empty = Collections.emptySet();
-        Set<String> ci = Collections.singleton(CI);
-        Set<String> ciIrii = new HashSet<>(Arrays.asList(CI, IRII));
-        map.put(b.dRange(), empty);
-        map.put(b.dDef(), empty);
-        map.put(b.decC(), ci);
-        map.put(b.decOp(), empty);
-        map.put(b.decDp(), empty);
-        map.put(b.decDt(), empty);
-        map.put(b.decAp(), empty);
-        map.put(b.decI(), empty);
-        map.put(b.assDi(), empty);
-        map.put(b.dc(), ciIrii);
-        map.put(b.dDp(), empty);
-        map.put(b.dOp(), empty);
-        map.put(b.du(), ciIrii);
-        map.put(b.ec(), ciIrii);
-        map.put(b.eDp(), empty);
-        map.put(b.eOp(), empty);
-        map.put(b.fdp(), empty);
-        map.put(b.fop(), empty);
-        map.put(b.ifp(), empty);
-        map.put(b.iop(), empty);
-        map.put(b.irr(), empty);
-        map.put(b.ndp(), empty);
-        map.put(b.nop(), empty);
-        map.put(b.opa(), empty);
-        map.put(b.opaInv(), empty);
-        map.put(b.opaInvj(), empty);
-        map.put(b.oDom(), ci);
-        map.put(b.oRange(), ci);
-        map.put(b.chain(), empty);
-        map.put(b.ref(), empty);
-        map.put(b.same(), empty);
-        map.put(b.subAnn(), empty);
-        map.put(b.subClass(), new HashSet<>(Arrays.asList(THING, CI)));
-        map.put(b.subData(), empty);
-        map.put(b.subObject(), empty);
-        map.put(b.rule(), empty);
-        map.put(b.symm(), empty);
-        map.put(b.trans(), empty);
-        map.put(b.hasKey(), ci);
-        map.put(b.ann(), empty);
-        map.put(b.asymm(), empty);
-        map.put(b.annDom(), empty);
-        map.put(b.annRange(), empty);
-        map.put(b.ass(), ci);
-        map.put(b.assAnd(), new HashSet<>(Arrays.asList(CI, IRII, AND)));
-        map.put(b.assOr(), new HashSet<>(Arrays.asList(CI, IRII, OR)));
-        map.put(b.dRangeAnd(), empty);
-        map.put(b.dRangeOr(), empty);
-        map.put(b.assNot(), new HashSet<>(Arrays.asList(CI, NOT)));
-        map.put(b.assNotAnon(), new HashSet<>(Arrays.asList(CI, NOT)));
-        map.put(b.assSome(), new HashSet<>(Arrays.asList(CI, SOME)));
-        map.put(b.assAll(), new HashSet<>(Arrays.asList(CI, ALL)));
-        map.put(b.assHas(), Collections.singleton(HAS));
-        map.put(b.assMin(), new HashSet<>(Arrays.asList(CI, OMIN)));
-        map.put(b.assMax(), new HashSet<>(Arrays.asList(CI, MAX)));
-        map.put(b.assEq(), new HashSet<>(Arrays.asList(CI, OEQ)));
-        map.put(b.assHasSelf(), Collections.singleton(SELF));
-        map.put(b.assOneOf(), Collections.singleton(ONE));
-        map.put(b.assDSome(), Collections.singleton(DSOME));
-        map.put(b.assDAll(), Collections.singleton(DALL));
-        map.put(b.assDHas(), Collections.singleton(DHAS));
-        map.put(b.assDMin(), Collections.singleton(DMIN));
-        map.put(b.assDMax(), Collections.singleton(DMAX));
-        map.put(b.assDEq(), Collections.singleton(DEQ));
-        map.put(b.dOneOf(), empty);
-        map.put(b.dNot(), empty);
-        map.put(b.dRangeRestrict(), empty);
-        map.put(b.assD(), empty);
-        map.put(b.assDPlain(), empty);
-        map.put(b.dDom(), ci);
-        map.put(b.bigRule(), ci);
-        Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
-        return toReturn;
+        Set<String> empty = set();
+        Set<String> ci = TestBase.set(CI);
+        Set<String> ciIrii = set(CI, IRII);
+        return Stream.of(Arguments.of(b.assSome(), set(CI, SOME)),
+            Arguments.of(b.assAll(), set(CI, ALL)), Arguments.of(b.assHas(), set(HAS)),
+            Arguments.of(b.assMin(), set(CI, OMIN)), Arguments.of(b.assMax(), set(CI, MAX)),
+            Arguments.of(b.assEq(), set(CI, OEQ)), Arguments.of(b.assHasSelf(), set(SELF)),
+            Arguments.of(b.assOneOf(), set(ONE)), Arguments.of(b.assDSome(), set(DSOME)),
+            Arguments.of(b.assDAll(), set(DALL)), Arguments.of(b.assDHas(), set(DHAS)),
+            Arguments.of(b.assDMin(), set(DMIN)), Arguments.of(b.assDMax(), set(DMAX)),
+            Arguments.of(b.assDEq(), set(DEQ)), Arguments.of(b.dOneOf(), empty),
+            Arguments.of(b.dNot(), empty), Arguments.of(b.dRangeRestrict(), empty),
+            Arguments.of(b.assD(), empty), Arguments.of(b.assDPlain(), empty),
+            Arguments.of(b.dDom(), ci), Arguments.of(b.bigRule(), ci),
+            //
+            Arguments.of(b.dRange(), empty), Arguments.of(b.dDef(), empty),
+            Arguments.of(b.decC(), ci), Arguments.of(b.decOp(), empty),
+            Arguments.of(b.decDp(), empty), Arguments.of(b.decDt(), empty),
+            Arguments.of(b.decAp(), empty), Arguments.of(b.decI(), empty),
+            Arguments.of(b.assDi(), empty), Arguments.of(b.dc(), ciIrii),
+            Arguments.of(b.dDp(), empty), Arguments.of(b.dOp(), empty),
+            Arguments.of(b.du(), ciIrii), Arguments.of(b.ec(), ciIrii),
+            Arguments.of(b.eDp(), empty), Arguments.of(b.eOp(), empty),
+            Arguments.of(b.fdp(), empty), Arguments.of(b.fop(), empty),
+            Arguments.of(b.ifp(), empty), Arguments.of(b.iop(), empty),
+            Arguments.of(b.irr(), empty), Arguments.of(b.ndp(), empty),
+            Arguments.of(b.nop(), empty), Arguments.of(b.opa(), empty),
+            Arguments.of(b.opaInv(), empty), Arguments.of(b.opaInvj(), empty),
+            Arguments.of(b.oDom(), ci), Arguments.of(b.oRange(), ci),
+            Arguments.of(b.chain(), empty), Arguments.of(b.ref(), empty),
+            Arguments.of(b.same(), empty), Arguments.of(b.subAnn(), empty),
+            Arguments.of(b.subClass(), set(THING, CI)), Arguments.of(b.subData(), empty),
+            Arguments.of(b.subObject(), empty), Arguments.of(b.rule(), empty),
+            Arguments.of(b.symm(), empty), Arguments.of(b.trans(), empty),
+            Arguments.of(b.hasKey(), ci), Arguments.of(b.ann(), empty),
+            Arguments.of(b.asymm(), empty), Arguments.of(b.annDom(), empty),
+            Arguments.of(b.annRange(), empty), Arguments.of(b.ass(), ci),
+            Arguments.of(b.assAnd(), set(CI, IRII, AND)),
+            Arguments.of(b.assOr(), set(CI, IRII, OR)), Arguments.of(b.dRangeAnd(), empty),
+            Arguments.of(b.dRangeOr(), empty), Arguments.of(b.assNot(), set(CI, NOT)),
+            Arguments.of(b.assNotAnon(), set(CI, NOT)));
     }
 
     @ParameterizedTest

@@ -1,1 +1,1 @@
-ClassAssertion(Annotation(<urn:test:test#ann> "test"^^xsd:string) ObjectUnionOf(<urn:test:test#c> <urn:test:test#iri>) <urn:test:test#i>)
+ClassAssertion(Annotation(<http://www.semanticweb.org/owlapi/test#ann> "test"^^xsd:string) ObjectUnionOf(<http://www.semanticweb.org/owlapi/test#C> <http://www.semanticweb.org/owlapi/test#iri>) <http://www.semanticweb.org/owlapi/test#i>)

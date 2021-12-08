@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PrepareForRelease {
+class PrepareForRelease {
     public static void main(String[] args) throws IOException {
         String newVersion = "5.1.19";
         String[] toReplace = new String[] {"5.1.19-SNAPSHOT"};

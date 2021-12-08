@@ -1,1 +1,1 @@
-DataRangeAtom(<urn:test:test#datatype> Variable(<urn:swrl:var#var1>))
+DataRangeAtom(<http://www.semanticweb.org/owlapi/test#DT> Variable(<urn:swrl:var#var1>))
