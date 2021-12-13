@@ -26,11 +26,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 class Owl2OboTestCase extends OboFormatTestBasics {
 
-    private static final java.lang.String TEST1 = "test1";
-    private static final java.lang.String TEST_00022 = "TEST:0002";
-    private static final java.lang.String TEST_0002 = "TEST_0002";
-    private static final java.lang.String TEST_00012 = "TEST_0001";
-    private static final java.lang.String TERMID = "termid";
+    private static final String TEST1 = "test1";
+    private static final String TEST_00022 = "TEST:0002";
+    private static final String TEST_0002 = "TEST_0002";
+    private static final String TEST_00012 = "TEST_0001";
+    private static final String TERMID = "termid";
     private static final String MY_ONT = "http://purl.obolibrary.org/obo/MyOnt#";
     private static final String TEST_0001 = "TEST:0001";
     private static final String COMMENT = "Comment";
@@ -133,14 +133,12 @@ class Owl2OboTestCase extends OboFormatTestBasics {
     void testOwl2OboProperty() {
         OWLOntology simple = create();
         // add prop1
-        OWLObjectProperty p1 =
-            ObjectProperty(iri(Obo2OWLConstants.DEFAULT_IRI_PREFIX, TEST_00012));
+        OWLObjectProperty p1 = ObjectProperty(iri(Obo2OWLConstants.DEFAULT_IRI_PREFIX, TEST_00012));
         simple.add(Declaration(p1));
         // add label and OBO style id for
         addLabelAndId(p1, "prop1", TEST_0001, simple);
         // add deprecated prop 2 as an alternate ID for prop 1
-        OWLObjectProperty p2 =
-            ObjectProperty(iri(Obo2OWLConstants.DEFAULT_IRI_PREFIX, TEST_0002));
+        OWLObjectProperty p2 = ObjectProperty(iri(Obo2OWLConstants.DEFAULT_IRI_PREFIX, TEST_0002));
         simple.add(Declaration(p2));
         setAltId(p2, simple);
         // add comment to alt_id class, which is not expressible in OBO

@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 class TestCornerCasesTestCase extends TestBase {
 
-    private static final java.lang.String INF = "-INF";
+    private static final String INF = "-INF";
 
     @Test
     void testFloatZeros() {

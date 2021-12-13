@@ -34,10 +34,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 class RioRendererTestCase extends TestBase {
 
-    private static final java.lang.String RESULT_LENGTH = "result.length()=";
-    private static final java.lang.String WAS_NOT_INSIDE_THE_EXPECTED_BOUNDS = " was not inside the expected bounds";
-    private static final java.lang.String RESULT_WAS_LARGER_THAN_EXPECTED = "Result was larger than expected:";
-    private static final java.lang.String RESULT_WAS_SMALLER_THAN_EXPECTED = "Result was smaller than expected:";
+    private static final String RESULT_LENGTH = "result.length()=";
+    private static final String WAS_NOT_INSIDE_THE_EXPECTED_BOUNDS = " was not inside the expected bounds";
+    private static final String RESULT_WAS_LARGER_THAN_EXPECTED = "Result was larger than expected:";
+    private static final String RESULT_WAS_SMALLER_THAN_EXPECTED = "Result was smaller than expected:";
     private static final String DUPLICATE_STATEMENTS = "Duplicate statements were emitted";
     private final IRI testOntologyUri1 = iri("urn:test:ontology:uri:1", "");
     private SimpleValueFactory vf;
