@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
@@ -36,14 +35,15 @@ class PrefixManagerImplTestCase extends TestBase {
     void getPrefixIRIEmpty() {
         PrefixManager pm =
             new PrefixManagerImpl().withPrefix("foaf:", "http://xmlns.com/foaf/0.1/");
-        assertEquals("foaf:", pm.getPrefixIRI(IRI("http://xmlns.com/foaf/0.1/", "")));
+        assertEquals("foaf:", pm.getPrefixIRI(iri("http://xmlns.com/foaf/0.1/", "")));
     }
 
     @Test
     void getPrefixIRIIgnoreQName() {
         PrefixManager pm =
             new PrefixManagerImpl().withPrefix("foaf:", "http://xmlns.com/foaf/0.1/");
-        assertEquals("foaf:test:test", pm.getPrefixIRIIgnoreQName(IRI("http://xmlns.com/foaf/0.1/test:", "test")));
+        assertEquals("foaf:test:test",
+            pm.getPrefixIRIIgnoreQName(iri("http://xmlns.com/foaf/0.1/test:", "test")));
     }
 
     @Test

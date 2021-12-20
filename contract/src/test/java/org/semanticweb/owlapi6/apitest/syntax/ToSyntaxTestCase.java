@@ -1,6 +1,11 @@
 package org.semanticweb.owlapi6.apitest.syntax;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.semanticweb.owlapi6.apitest.TestFiles.TO_DL;
+import static org.semanticweb.owlapi6.apitest.TestFiles.TO_FUNCTIONAL;
+import static org.semanticweb.owlapi6.apitest.TestFiles.TO_LATEX;
+import static org.semanticweb.owlapi6.apitest.TestFiles.TO_MANCHESTER;
+import static org.semanticweb.owlapi6.apitest.TestFiles.TO_MANCHESTER_PREFIX;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
@@ -12,41 +17,33 @@ import org.semanticweb.owlapi6.utilities.PrefixManagerImpl;
 
 class ToSyntaxTestCase extends TestBase {
 
-    OWLClassExpression c = df.getOWLObjectIntersectionOf(df.getOWLObjectAllValuesFrom(P, A),
-        df.getOWLObjectSomeValuesFrom(Q, B));
+    OWLClassExpression expression = ObjectIntersectionOf(ObjectAllValuesFrom(OBJPROPS.P, CLASSES.A),
+        ObjectSomeValuesFrom(OBJPROPS.Q, CLASSES.B));
 
     @Test
     void shouldFormatToFunctional() {
-        assertEquals(
-            "ObjectIntersectionOf(ObjectSomeValuesFrom(<http://www.semanticweb.org/owlapi/test#q> <http://www.semanticweb.org/owlapi/test#B>) ObjectAllValuesFrom(<http://www.semanticweb.org/owlapi/test#p> <http://www.semanticweb.org/owlapi/test#A>))",
-            c.toFunctionalSyntax());
+        assertEquals(TO_FUNCTIONAL, expression.toFunctionalSyntax());
     }
 
     @Test
     void shouldFormatToDL() {
-        assertEquals("(∃ q.B) ⊓ (∀ p.A)", c.toSyntax(new DLSyntaxDocumentFormat()));
+        assertEquals(TO_DL, expression.toSyntax(new DLSyntaxDocumentFormat()));
     }
 
     @Test
     void shouldFormatToManchester() {
-        assertEquals(
-            "(<http://www.semanticweb.org/owlapi/test#q> some <http://www.semanticweb.org/owlapi/test#B>)\n and (<http://www.semanticweb.org/owlapi/test#p> only <http://www.semanticweb.org/owlapi/test#A>)",
-            c.toManchesterSyntax());
-        PrefixManager pm =
-            new PrefixManagerImpl().withDefaultPrefix("http://www.semanticweb.org/owlapi/test#");
-        assertEquals("(:q some :B)\n and (:p only :A)", c.toManchesterSyntax(pm));
+        assertEquals(TO_MANCHESTER, expression.toManchesterSyntax());
+        PrefixManager pm = new PrefixManagerImpl().withDefaultPrefix(OWLAPI_TEST);
+        assertEquals(TO_MANCHESTER_PREFIX, expression.toManchesterSyntax(pm));
     }
 
     @Test
     void shouldFormatToLatex() {
-        assertEquals("\\ensuremath{\\exists}q.B~\\ensuremath{\\sqcap}~\\ensuremath{\\forall}p.A",
-            c.toSyntax(new LatexDocumentFormat()));
+        assertEquals(TO_LATEX, expression.toSyntax(new LatexDocumentFormat()));
     }
 
     @Test
     void shouldFormatToSimple() {
-        assertEquals(
-            "ObjectIntersectionOf(ObjectSomeValuesFrom(<http://www.semanticweb.org/owlapi/test#q> <http://www.semanticweb.org/owlapi/test#B>) ObjectAllValuesFrom(<http://www.semanticweb.org/owlapi/test#p> <http://www.semanticweb.org/owlapi/test#A>))",
-            c.toString());
+        assertEquals(TO_FUNCTIONAL, expression.toString());
     }
 }

@@ -1,1 +1,0 @@
-DataIntersectionOf(<urn:test:test#datatype> DataOneOf("false"^^xsd:boolean))

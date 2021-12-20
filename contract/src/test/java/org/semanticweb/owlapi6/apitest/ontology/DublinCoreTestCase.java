@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi6.model.parameters.Imports.EXCLUDED;
 
 import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi6.apitest.TestFilenames;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.vocab.DublinCoreVocabulary;
@@ -28,11 +29,9 @@ class DublinCoreTestCase extends TestBase {
 
     @Test
     void testAnnotationProperties() {
-        OWLOntology ontology = ontologyFromClasspathFile("dublincore.rdf");
-        for (DublinCoreVocabulary vocabulary : DublinCoreVocabulary.values()) {
-            assertTrue(
-                ontology.containsAnnotationPropertyInSignature(vocabulary.getIRI(), EXCLUDED),
-                vocabulary.getIRI().toString());
+        OWLOntology ontology = ontologyFromClasspathFile(TestFilenames.DUBLINCORE_RDF);
+        for (DublinCoreVocabulary voc : DublinCoreVocabulary.values()) {
+            assertTrue(ontology.containsAnnotationPropertyInSignature(voc.getIRI(), EXCLUDED));
         }
     }
 }

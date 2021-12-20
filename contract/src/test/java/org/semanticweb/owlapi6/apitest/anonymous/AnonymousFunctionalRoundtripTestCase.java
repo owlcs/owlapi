@@ -12,26 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest.anonymous;
 
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.AnonymousIndividual;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ClassAssertion;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectHasValue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SubClassOf;
-
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.TestFiles;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi6.model.OWLClass;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLIndividual;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
 class AnonymousFunctionalRoundtripTestCase extends TestBase {
@@ -40,12 +26,12 @@ class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
     @Test
     void shouldRoundTripFixed() {
-        loadOntologyFromString(TestFiles.FIXED, new FunctionalSyntaxDocumentFormat());
+        loadFrom(TestFiles.FIXED, new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
     void shouldRoundTripBroken() {
-        OWLOntology o = loadOntologyFromString(TestFiles.BROKEN, new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.BROKEN, new RDFXMLDocumentFormat());
         FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         o.getPrefixManager().withDefaultPrefix(NS + '#');
         OWLOntology o1 = roundTrip(o, format);
@@ -54,14 +40,11 @@ class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
     @Test
     void shouldRoundTrip() {
-        OWLClass c = Class(IRI(NS + "#", "C"));
-        OWLClass d = Class(IRI(NS + "#", "D"));
-        OWLObjectProperty p = ObjectProperty(IRI(NS + "#", "p"));
-        OWLDataProperty q = DataProperty(IRI(NS + "#", "q"));
-        OWLIndividual i = AnonymousIndividual();
-        OWLOntology ontology = getOWLOntology();
-        ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i),
-            DataPropertyAssertion(q, i, Literal("hello")));
+        OWLIndividual anon = AnonymousIndividual();
+        OWLOntology ontology = create(iri(NS, ""));
+        ontology.add(SubClassOf(CLASSES.C, ObjectHasValue(OBJPROPS.P, anon)),
+            ClassAssertion(CLASSES.D, anon),
+            DataPropertyAssertion(DATAPROPS.DP, anon, Literal("hello")));
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         ontology.getPrefixManager().withDefaultPrefix(NS + '#');
         ontology = roundTrip(ontology, format);

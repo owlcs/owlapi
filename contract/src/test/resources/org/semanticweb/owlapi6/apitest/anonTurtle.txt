@@ -1,1 +1,0 @@
-_:foo <http://example.com/> _:bar .

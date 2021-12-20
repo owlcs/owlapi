@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
-import org.semanticweb.owlapi6.apibinding.OWLManager;
+import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.functional.parser.OWLFunctionalSyntaxOWLParserFactory;
 import org.semanticweb.owlapi6.io.OWLParserFactory;
 import org.semanticweb.owlapi6.krss2.parser.KRSS2OWLParserFactory;
@@ -31,7 +31,7 @@ import org.semanticweb.owlapi6.utilities.PriorityCollection;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-class OWLParserFactoryRegistryTestCase {
+class OWLParserFactoryRegistryTestCase extends TestBase {
 
     @Test
     void setUp() {
@@ -59,8 +59,7 @@ class OWLParserFactoryRegistryTestCase {
         factories.add(RioRDFXMLParserFactory.class);
         factories.add(RioTrixParserFactory.class);
         factories.add(RioRDFaParserFactory.class);
-        PriorityCollection<OWLParserFactory> ontologyParsers =
-            OWLManager.createOWLOntologyManager().getOntologyParsers();
+        PriorityCollection<OWLParserFactory> ontologyParsers = setupManager().getOntologyParsers();
         Set<Class<? extends OWLParserFactory>> found = new HashSet<>();
         for (OWLParserFactory p : ontologyParsers) {
             found.add(p.getClass());

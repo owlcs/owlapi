@@ -14,12 +14,6 @@ package org.semanticweb.owlapi6.apitest.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Annotation;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ImportsDeclaration;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SubClassOf;
 import static org.semanticweb.owlapi6.model.parameters.AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS;
 import static org.semanticweb.owlapi6.model.parameters.AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS;
 import static org.semanticweb.owlapi6.model.parameters.Imports.EXCLUDED;
@@ -38,13 +32,11 @@ import org.semanticweb.owlapi6.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi6.model.AddImport;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
-import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi6.model.OWLLiteral;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyManager;
+import org.semanticweb.owlapi6.model.OWLRuntimeException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -62,8 +54,8 @@ class OntologyContainsAxiomTestCase extends TestBase {
 
     @Test
     void testOntologyContainsPlainAxiom() {
-        OWLAxiom axiom = SubClassOf(A, B);
-        OWLOntology ont = getOWLOntology();
+        OWLAxiom axiom = SubClassOf(CLASSES.A, CLASSES.B);
+        OWLOntology ont = create("testont");
         ont.addAxiom(axiom);
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
@@ -71,11 +63,9 @@ class OntologyContainsAxiomTestCase extends TestBase {
 
     @Test
     void testOntologyContainsAnnotatedAxiom() {
-        OWLLiteral annoLiteral = Literal("value");
-        OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
-        OWLAnnotation anno = Annotation(annoProp, annoLiteral);
-        OWLAxiom axiom = SubClassOf(A, B, singleton(anno));
-        OWLOntology ont = getOWLOntology();
+        OWLAxiom axiom =
+            SubClassOf(Annotation(ANNPROPS.AP, Literal("value")), CLASSES.A, CLASSES.B);
+        OWLOntology ont = create("testont");
         ont.addAxiom(axiom);
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
@@ -85,94 +75,96 @@ class OntologyContainsAxiomTestCase extends TestBase {
     }
 
     @Test
-    void testOntologyContainsAxiomsForRDFXML1() throws Exception {
+    void testOntologyContainsAxiomsForRDFXML1() {
         RDFXMLDocumentFormat format = createRDFXMLFormat();
         runTestOntologyContainsAxioms1(format);
     }
 
     @Test
-    void testOntologyContainsAxiomsForOWLXML1() throws Exception {
+    void testOntologyContainsAxiomsForOWLXML1() {
         runTestOntologyContainsAxioms1(new OWLXMLDocumentFormat());
     }
 
     @Test
-    void testOntologyContainsAxiomsForOWLFunctionalSyntax1() throws Exception {
+    void testOntologyContainsAxiomsForOWLFunctionalSyntax1() {
         runTestOntologyContainsAxioms1(new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
-    void testOntologyContainsAxiomsForTurtleSyntax1() throws Exception {
+    void testOntologyContainsAxiomsForTurtleSyntax1() {
         TurtleDocumentFormat format = createTurtleOntologyFormat();
         runTestOntologyContainsAxioms1(format);
     }
 
-    private void runTestOntologyContainsAxioms1(OWLDocumentFormat format) throws Exception {
-        OWLOntology ont1 = getOWLOntology();
+    private void runTestOntologyContainsAxioms1(OWLDocumentFormat format) {
+        OWLOntology ont1 = create(iri("urn:test:", "testont1A"));
         // This test case relies on certain declarations being in certain
         // ontologies. The default
         // behaviour is to add missing declarations. Therefore, this needs to be
         // turned off.
         ont1.getOWLOntologyManager().getOntologyConfigurator().withAddMissingTypes(false);
-        IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
-        OWLOntology ont2 = getOWLOntology();
-        IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
+        IRI ont1iri = ont1.getOntologyID().getOntologyIRI().orElse(null);
+        OWLOntology ont2 = create(iri("urn:test:", "testont2A"));
+        IRI ont2iri = ont2.getOntologyID().getOntologyIRI().orElse(null);
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
         ont1.applyChange(new AddImport(ont2, ont2import));
-        OWLAxiom axannoPropdecl = Declaration(AP);
-        ont1.addAxiom(axannoPropdecl);
-        OWLAnnotation inont1anno = Annotation(AP, ont1iri);
-        OWLAnnotation inont2anno = Annotation(AP, ont2iri);
-        OWLAxiom axAdecl = Declaration(A, singleton(inont1anno));
-        ont1.addAxiom(axAdecl);
-        OWLAxiom axBdecl = Declaration(B, singleton(inont2anno));
-        ont2.addAxiom(axBdecl);
-        OWLAxiom axAsubB = SubClassOf(A, B, singleton(inont2anno));
-        ont2.addAxiom(axAsubB);
+        OWLAxiom annoPropdecl = Declaration(ANNPROPS.AP);
+        ont1.addAxiom(annoPropdecl);
+        OWLAnnotation inont1anno = Annotation(ANNPROPS.AP, ont1iri);
+        OWLAnnotation inont2anno = Annotation(ANNPROPS.AP, ont2iri);
+        OWLAxiom adecl = Declaration(inont1anno, CLASSES.A);
+        ont1.addAxiom(adecl);
+        OWLAxiom bdecl = Declaration(inont2anno, CLASSES.B);
+        ont2.addAxiom(bdecl);
+        OWLAxiom asubB = SubClassOf(inont2anno, CLASSES.B, CLASSES.A);
+        ont2.addAxiom(asubB);
         // annoProp is in ont1 and in the import closure of ont2
-        assertTrue(containsConsiderEx(ont1, axannoPropdecl));
-        assertFalse(containsConsiderEx(ont2, axannoPropdecl));
-        assertTrue(containsConsider(ont2, axannoPropdecl));
+        assertTrue(containsConsiderEx(ont1, annoPropdecl));
+        assertFalse(containsConsiderEx(ont2, annoPropdecl));
+        assertTrue(containsConsider(ont2, annoPropdecl));
         // A is in ont1 and in the import closure of ont2
-        assertTrue(containsConsiderEx(ont1, axAdecl));
-        assertFalse(containsConsiderEx(ont2, axAdecl));
-        assertTrue(containsConsider(ont2, axAdecl));
+        assertTrue(containsConsiderEx(ont1, adecl));
+        assertFalse(containsConsiderEx(ont2, adecl));
+        assertTrue(containsConsider(ont2, adecl));
         // B is in only in ont2
-        assertFalse(containsConsider(ont1, axBdecl));
-        assertTrue(containsConsiderEx(ont2, axBdecl));
-        assertTrue(containsConsider(ont2, axBdecl));
+        assertFalse(containsConsider(ont1, bdecl));
+        assertTrue(containsConsiderEx(ont2, bdecl));
+        assertTrue(containsConsider(ont2, bdecl));
         // A is a subclass of B is in only in ont2
-        assertFalse(containsConsider(ont1, axAsubB));
-        assertTrue(containsConsiderEx(ont2, axAsubB));
-        assertTrue(containsConsider(ont2, axAsubB));
-        File savedLocation1 = new File(folder, "testont1A.owl");
+        assertFalse(containsConsider(ont1, asubB));
+        assertTrue(containsConsiderEx(ont2, asubB));
+        assertTrue(containsConsider(ont2, asubB));
+        File savedLocation1 = save(format, ont1, "testont1A.owl");
+        File savedLocation2 = save(format, ont2, "testont2A.owl");
+        OWLOntology ont1L = loadFrom(savedLocation1, m1);
+        OWLOntology ont2L = loadFrom(savedLocation2, m1);
+        // annoProp is in ont1 and in the import closure of ont2
+        assertTrue(containsConsiderEx(ont1L, annoPropdecl));
+        assertFalse(containsConsiderEx(ont2L, annoPropdecl));
+        assertTrue(containsConsider(ont2L, annoPropdecl));
+        // A is in ont1 and in the import closure of ont2
+        assertTrue(containsConsiderEx(ont1L, adecl));
+        assertFalse(containsConsiderEx(ont2L, adecl));
+        assertTrue(containsConsider(ont2L, adecl));
+        // B is in only in ont2
+        assertFalse(containsConsider(ont1L, bdecl));
+        assertTrue(containsConsiderEx(ont2L, bdecl));
+        assertTrue(containsConsider(ont2L, bdecl));
+        // A is a subclass of B is in only in ont2
+        assertFalse(containsConsider(ont1L, asubB));
+        assertTrue(containsConsiderEx(ont2L, asubB));
+        assertTrue(containsConsider(ont2L, asubB));
+    }
+
+    protected File save(OWLDocumentFormat format, OWLOntology ont1, String name) {
+        File savedLocation1 = new File(folder, name);
         try (FileOutputStream out1 = new FileOutputStream(savedLocation1)) {
             StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
             ont1.saveOntology(format, writer1);
+            return savedLocation1;
+        } catch (Exception ex) {
+            throw new OWLRuntimeException(ex);
         }
-        File savedLocation2 = new File(folder, "testont2A.owl");
-        try (FileOutputStream out2 = new FileOutputStream(savedLocation2)) {
-            StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
-            ont2.saveOntology(format, writer2);
-        }
-        OWLOntologyManager man = setupManager();
-        OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
-        OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
-        // annoProp is in ont1 and in the import closure of ont2
-        assertTrue(containsConsiderEx(ont1L, axannoPropdecl));
-        assertFalse(containsConsiderEx(ont2L, axannoPropdecl));
-        assertTrue(containsConsider(ont2L, axannoPropdecl));
-        // A is in ont1 and in the import closure of ont2
-        assertTrue(containsConsiderEx(ont1L, axAdecl));
-        assertFalse(containsConsiderEx(ont2L, axAdecl));
-        assertTrue(containsConsider(ont2L, axAdecl));
-        // B is in only in ont2
-        assertFalse(containsConsider(ont1L, axBdecl));
-        assertTrue(containsConsiderEx(ont2L, axBdecl));
-        assertTrue(containsConsider(ont2L, axBdecl));
-        // A is a subclass of B is in only in ont2
-        assertFalse(containsConsider(ont1L, axAsubB));
-        assertTrue(containsConsiderEx(ont2L, axAsubB));
-        assertTrue(containsConsider(ont2L, axAsubB));
     }
 
     boolean containsConsider(OWLOntology o, OWLAxiom ax) {
@@ -184,76 +176,67 @@ class OntologyContainsAxiomTestCase extends TestBase {
     }
 
     @Test
-    void testOntologyContainsAxiomsForRDFXML2() throws Exception {
+    void testOntologyContainsAxiomsForRDFXML2() {
         runTestOntologyContainsAxioms2(createRDFXMLFormat());
     }
 
     @Test
-    void testOntologyContainsAxiomsForOWLXML2() throws Exception {
+    void testOntologyContainsAxiomsForOWLXML2() {
         runTestOntologyContainsAxioms2(new OWLXMLDocumentFormat());
     }
 
     @Test
-    void testOntologyContainsAxiomsForOWLFunctionalSyntax2() throws Exception {
+    void testOntologyContainsAxiomsForOWLFunctionalSyntax2() {
         runTestOntologyContainsAxioms2(new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
-    void testOntologyContainsAxiomsForTurtleSyntax2() throws Exception {
+    void testOntologyContainsAxiomsForTurtleSyntax2() {
         runTestOntologyContainsAxioms2(createTurtleOntologyFormat());
     }
 
-    private void runTestOntologyContainsAxioms2(OWLDocumentFormat format) throws Exception {
-        OWLOntology ont1 = getOWLOntology();
+    private void runTestOntologyContainsAxioms2(OWLDocumentFormat format) {
+        OWLOntology ont1 = create(iri("urn:test:", "testont1B"));
         // This test case relies on certain declarations being in certain
         // ontologies. The default
         // behaviour is to add missing declarations. Therefore, this needs to be
         // turned off.
         ont1.getOWLOntologyManager().getOntologyConfigurator().withAddMissingTypes(false);
-        IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
-        OWLOntology ont2 = getOWLOntology();
-        IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
+        IRI ont1iri = ont1.getOntologyID().getOntologyIRI().orElse(null);
+        OWLOntology ont2 = create(iri("urn:test:", "testont2B"));
+        IRI ont2iri = ont2.getOntologyID().getOntologyIRI().orElse(null);
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
         ont2.applyChange(new AddImport(ont2, ont2import));
-        OWLAxiom axAnnoPropDecl = Declaration(AP);
-        ont1.addAxiom(axAnnoPropDecl);
-        OWLAnnotation inOnt1Anno = Annotation(AP, ont1iri);
-        OWLAnnotation inOnt2Anno = Annotation(AP, ont2iri);
-        OWLAxiom axADecl = Declaration(A, singleton(inOnt1Anno));
-        ont1.addAxiom(axADecl);
-        OWLAxiom axBDecl = Declaration(B, singleton(inOnt2Anno));
-        ont2.addAxiom(axBDecl);
-        OWLAxiom axAsubB = SubClassOf(A, B, singleton(inOnt2Anno));
-        ont2.addAxiom(axAsubB);
+        OWLAxiom annoPropdecl = Declaration(ANNPROPS.AP);
+        ont1.addAxiom(annoPropdecl);
+        OWLAnnotation inont1anno = Annotation(ANNPROPS.AP, ont1iri);
+        OWLAnnotation inont2anno = Annotation(ANNPROPS.AP, ont2iri);
+        OWLAxiom adecl = Declaration(inont1anno, CLASSES.A);
+        ont1.addAxiom(adecl);
+        OWLAxiom bdecl = Declaration(inont2anno, CLASSES.B);
+        ont2.addAxiom(bdecl);
+        OWLAxiom asubB = SubClassOf(inont2anno, CLASSES.A, CLASSES.B);
+        ont2.addAxiom(asubB);
         // annoProp is in ont1 and in the import closure of ont2
-        assertTrue(containsConsiderEx(ont1, axAnnoPropDecl));
-        assertFalse(containsConsiderEx(ont2, axAnnoPropDecl));
-        assertTrue(containsConsider(ont2, axAnnoPropDecl));
+        assertTrue(containsConsiderEx(ont1, annoPropdecl));
+        assertFalse(containsConsiderEx(ont2, annoPropdecl));
+        assertTrue(containsConsider(ont2, annoPropdecl));
         // A is in ont1 and in the import closure of ont2
-        assertTrue(containsConsiderEx(ont1, axADecl));
-        assertFalse(containsConsiderEx(ont2, axADecl));
-        assertTrue(containsConsider(ont2, axADecl));
+        assertTrue(containsConsiderEx(ont1, adecl));
+        assertFalse(containsConsiderEx(ont2, adecl));
+        assertTrue(containsConsider(ont2, adecl));
         // B is in only in ont2
-        assertFalse(containsConsider(ont1, axBDecl));
-        assertTrue(containsConsiderEx(ont2, axBDecl));
-        assertTrue(containsConsider(ont2, axBDecl));
+        assertFalse(containsConsider(ont1, bdecl));
+        assertTrue(containsConsiderEx(ont2, bdecl));
+        assertTrue(containsConsider(ont2, bdecl));
         // A is a subclass of B is in only in ont2
-        assertFalse(containsConsider(ont1, axAsubB));
-        assertTrue(containsConsiderEx(ont2, axAsubB));
-        assertTrue(containsConsider(ont2, axAsubB));
-        File savedLocation1 = new File(folder, "testont1B.owl");
-        try (FileOutputStream out1 = new FileOutputStream(savedLocation1)) {
-            StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
-            ont1.saveOntology(format, writer1);
-        }
-        File savedLocation2 = new File(folder, "testont2B.owl");
-        try (FileOutputStream out2 = new FileOutputStream(savedLocation2)) {
-            StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
-            ont2.saveOntology(format, writer2);
-        }
-        OWLOntologyManager man = setupManager();
-        man.loadOntologyFromOntologyDocument(savedLocation1);
-        OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
+        assertFalse(containsConsider(ont1, asubB));
+        assertTrue(containsConsiderEx(ont2, asubB));
+        assertTrue(containsConsider(ont2, asubB));
+        File savedLocation1 = save(format, ont1, "testont1B.owl");
+        File savedLocation2 = save(format, ont2, "testont2B.owl");
+        loadFrom(savedLocation1, m1);
+        OWLOntology ont2L = loadFrom(savedLocation2, m1);
         ont2L.imports().forEach(o -> o.axioms().forEach(ax -> {
             assertTrue(containsConsiderEx(o, ax));
             assertFalse(containsConsiderEx(ont2L, ax));

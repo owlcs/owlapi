@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi6.apitest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.of;
 import static org.semanticweb.owlapi6.model.MissingImportHandlingStrategy.THROW_EXCEPTION;
 import static org.semanticweb.owlapi6.model.MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
 import static org.semanticweb.owlapi6.model.PriorityCollectionSorting.ON_SET_INJECTION_ONLY;
@@ -31,19 +32,16 @@ import org.semanticweb.owlapi6.model.parameters.ConfigurationOptions;
 class ConfigurationOptionsTestCase {
 
     static Stream<Arguments> values() {
-        return Stream.of(Arguments.of(CONNECTION_TIMEOUT, Integer.valueOf(20000)),
-            Arguments.of(INDENT_SIZE, Integer.valueOf(4)), Arguments.of(INDENTING, Boolean.TRUE),
-            Arguments.of(LABELS_AS_BANNER, Boolean.FALSE),
-            Arguments.of(LOAD_ANNOTATIONS, Boolean.TRUE),
-            Arguments.of(PARSE_WITH_STRICT_CONFIGURATION, Boolean.FALSE),
-            Arguments.of(MISSING_IMPORT_HANDLING_STRATEGY, THROW_EXCEPTION),
-            Arguments.of(MISSING_ONTOLOGY_HEADER_STRATEGY, INCLUDE_GRAPH),
-            Arguments.of(PRIORITY_COLLECTION_SORTING, ON_SET_INJECTION_ONLY),
-            Arguments.of(REMAP_IDS, Boolean.TRUE), Arguments.of(REPORT_STACK_TRACES, Boolean.TRUE),
-            Arguments.of(RETRIES_TO_ATTEMPT, Integer.valueOf(5)),
-            Arguments.of(SAVE_IDS, Boolean.FALSE),
-            Arguments.of(TREAT_DUBLINCORE_AS_BUILTIN, Boolean.TRUE),
-            Arguments.of(USE_NAMESPACE_ENTITIES, Boolean.FALSE));
+        return Stream.of(of(CONNECTION_TIMEOUT, Integer.valueOf(20000)),
+            of(INDENT_SIZE, Integer.valueOf(4)), of(INDENTING, Boolean.TRUE),
+            of(LABELS_AS_BANNER, Boolean.FALSE), of(LOAD_ANNOTATIONS, Boolean.TRUE),
+            of(PARSE_WITH_STRICT_CONFIGURATION, Boolean.FALSE),
+            of(MISSING_IMPORT_HANDLING_STRATEGY, THROW_EXCEPTION),
+            of(MISSING_ONTOLOGY_HEADER_STRATEGY, INCLUDE_GRAPH),
+            of(PRIORITY_COLLECTION_SORTING, ON_SET_INJECTION_ONLY), of(REMAP_IDS, Boolean.TRUE),
+            of(REPORT_STACK_TRACES, Boolean.TRUE), of(RETRIES_TO_ATTEMPT, Integer.valueOf(5)),
+            of(SAVE_IDS, Boolean.FALSE), of(TREAT_DUBLINCORE_AS_BUILTIN, Boolean.TRUE),
+            of(USE_NAMESPACE_ENTITIES, Boolean.FALSE));
     }
 
     @ParameterizedTest

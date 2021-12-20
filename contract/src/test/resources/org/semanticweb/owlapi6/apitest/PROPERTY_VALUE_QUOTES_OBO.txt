@@ -1,0 +1,11 @@
+format-version: 1.2
+ontology: test
+
+[Term]
+id: X:1
+property_value: rdfs:seeAlso "xx" xsd:string
+
+[Term]
+id: X:2
+property_value: rdfs:seeAlso "1" xsd:int
+

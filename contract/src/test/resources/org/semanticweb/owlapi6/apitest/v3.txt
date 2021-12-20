@@ -1,1 +1,0 @@
-Variable(<urn:swrl:var#var3>)

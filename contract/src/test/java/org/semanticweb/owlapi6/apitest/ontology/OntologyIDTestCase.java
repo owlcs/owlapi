@@ -14,7 +14,6 @@ package org.semanticweb.owlapi6.apitest.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
@@ -36,24 +35,24 @@ class OntologyIDTestCase extends TestBase {
     @Test
     void shouldFindSameHashCodeForIDs() {
         assertEquals(iri1.hashCode(), iri2.hashCode());
-        OWLOntologyID id1 = df.getOWLOntologyID(iri1);
-        OWLOntologyID id2 = df.getOWLOntologyID(iri2);
+        OWLOntologyID id1 = OntologyID(iri1);
+        OWLOntologyID id2 = OntologyID(iri2);
         assertEquals(id1.hashCode(), id2.hashCode());
     }
 
     @Test
     void shouldFindSameHashCodeForIDs2() {
         assertEquals(iri1.hashCode(), iri2.hashCode());
-        OWLOntologyID id1 = df.getOWLOntologyID(iri1);
-        OWLOntologyID id2 = df.getOWLOntologyID(iri2);
+        OWLOntologyID id1 = OntologyID(iri1);
+        OWLOntologyID id2 = OntologyID(iri2);
         assertEquals(id1.hashCode(), id2.hashCode());
         assertEquals(id1, id2);
     }
 
     @Test
     void testUnequalIdsUnequal() {
-        OWLOntologyID id1 = df.getOWLOntologyID(IRI("http://www.w3.org/", "foo"));
-        OWLOntologyID id2 = df.getOWLOntologyID(IRI("http://www.w3.org/", "bar"));
+        OWLOntologyID id1 = OntologyID(iri("http://www.w3.org/", "foo"));
+        OWLOntologyID id2 = OntologyID(iri("http://www.w3.org/", "bar"));
         assertNotEquals(id1.hashCode(), id2.hashCode());
         assertNotEquals(id1, id2);
     }
@@ -64,26 +63,26 @@ class OntologyIDTestCase extends TestBase {
     void testVersionedIDComparisons() {
         assertEquals(iri1.hashCode(), iri2.hashCode());
         assertEquals(iri1, iri2);
-        OWLOntologyID unversionedID = df.getOWLOntologyID(iri1);
-        IRI version1IRI = IRI(TEST_ONTOLOGY_IRI_STRING + "/", "version1");
-        OWLOntologyID version1ID = df.getOWLOntologyID(iri2, version1IRI);
+        OWLOntologyID unversionedID = OntologyID(iri1);
+        IRI version1IRI = iri(TEST_ONTOLOGY_IRI_STRING + "/", "version1");
+        OWLOntologyID version1ID = OntologyID(iri2, version1IRI);
         assertEquals(unversionedID.getOntologyIRI(), version1ID.getOntologyIRI());
         assertNotEquals(unversionedID.getVersionIRI(), version1ID.getVersionIRI());
         assertNotEquals(unversionedID.hashCode(), version1ID.hashCode());
         assertNotEquals(unversionedID, version1ID);
-        OWLOntologyID duplicateVersion1ID = df.getOWLOntologyID(iri(), version1IRI);
+        OWLOntologyID duplicateVersion1ID = OntologyID(iri(), version1IRI);
         assertEquals(version1ID, duplicateVersion1ID);
         OWLOntologyID differentBasedVersion1ID =
-            df.getOWLOntologyID(IRI(TEST_ONTOLOGY_IRI_STRING + "-of-doom", ""), version1IRI);
+            OntologyID(iri(TEST_ONTOLOGY_IRI_STRING + "-of-doom", ""), version1IRI);
         assertNotEquals(version1ID, differentBasedVersion1ID);
-        IRI version2IRI = IRI(TEST_ONTOLOGY_IRI_STRING + "/", "version2");
+        IRI version2IRI = iri(TEST_ONTOLOGY_IRI_STRING + "/", "version2");
         IRI iri3 = iri();
-        OWLOntologyID version2ID = df.getOWLOntologyID(iri3, version2IRI);
+        OWLOntologyID version2ID = OntologyID(iri3, version2IRI);
         assertNotEquals(version1ID.hashCode(), version2ID.hashCode());
         assertNotEquals(version1ID, version2ID);
     }
 
     protected IRI iri() {
-        return IRI(TEST_ONTOLOGY_IRI_STRING, "");
+        return iri(TEST_ONTOLOGY_IRI_STRING, "");
     }
 }

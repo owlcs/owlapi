@@ -54,7 +54,7 @@ public final class SimpleHierarchyExample {
         printHierarchy(reasoner, clazz, 0);
         /* Now print out any unsatisfiable classes */
         ontology.classesInSignature().filter(c -> !reasoner.isSatisfiable(c))
-        .forEach(c -> out.println("XXX: " + labelFor(c)));
+            .forEach(c -> out.println("XXX: " + labelFor(c)));
         reasoner.dispose();
     }
 
@@ -87,7 +87,7 @@ public final class SimpleHierarchyExample {
             out.println(labelFor(clazz));
             /* Find the children and recurse */
             reasoner.getSubClasses(clazz, true).entities().filter(c -> !c.equals(clazz))
-            .forEach(c -> printHierarchy(reasoner, c, level + 1));
+                .forEach(c -> printHierarchy(reasoner, c, level + 1));
         }
     }
 

@@ -26,41 +26,41 @@ class BuiltInPropertyTestCase extends TestBase {
 
     @Test
     void testTopObjectPropertyPositive() {
-        assertTrue(df.getOWLTopObjectProperty().isOWLTopObjectProperty());
+        assertTrue(TopObjectProperty().isOWLTopObjectProperty());
     }
 
     @Test
     void testBottomObjectPropertyPositive() {
-        assertTrue(df.getOWLBottomObjectProperty().isOWLBottomObjectProperty());
+        assertTrue(BottomObjectProperty().isOWLBottomObjectProperty());
     }
 
     @Test
     void testTopObjectPropertyNegative() {
-        assertFalse(PROP.isOWLTopObjectProperty());
+        assertFalse(OBJPROPS.PROP.isOWLTopObjectProperty());
     }
 
     @Test
     void testBottomObjectPropertyNegative() {
-        assertFalse(PROP.isOWLBottomObjectProperty());
+        assertFalse(OBJPROPS.PROP.isOWLBottomObjectProperty());
     }
 
     @Test
     void testTopDataPropertyPositive() {
-        assertTrue(df.getOWLTopDataProperty().isOWLTopDataProperty());
+        assertTrue(TopDataProperty().isOWLTopDataProperty());
     }
 
     @Test
     void testBottomDataPropertyPositive() {
-        assertTrue(df.getOWLBottomDataProperty().isOWLBottomDataProperty());
+        assertTrue(BottomDataProperty().isOWLBottomDataProperty());
     }
 
     @Test
     void testTopDataPropertyNegative() {
-        assertFalse(DPROP.isOWLTopDataProperty());
+        assertFalse(DATAPROPS.DPROP.isOWLTopDataProperty());
     }
 
     @Test
     void testBottomDataPropertyNegative() {
-        assertFalse(DPROP.isOWLBottomDataProperty());
+        assertFalse(DATAPROPS.DPROP.isOWLBottomDataProperty());
     }
 }

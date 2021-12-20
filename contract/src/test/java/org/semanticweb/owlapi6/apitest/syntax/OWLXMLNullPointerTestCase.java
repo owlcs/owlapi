@@ -12,20 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest.syntax;
 
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IRI;
-
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi6.model.OWLAxiom;
-import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLIndividual;
 import org.semanticweb.owlapi6.model.OWLLiteral;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -33,34 +27,24 @@ import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
  */
 class OWLXMLNullPointerTestCase extends TestBase {
 
-    static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
-    static final String NS = "urn:test";
-
     @Test
     void testRoundTrip() {
-        OWLOntology ontology = getOWLOntology(IRI(NS, ""));
-        OWLClass cheesy = Class(IRI(NS + "#", "CheeseyPizza"));
-        OWLClass cheese = Class(IRI(NS + "#", "CheeseTopping"));
-        OWLObjectProperty hasTopping = df.getOWLObjectProperty(NS + "#", "hasTopping");
-        OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
-        OWLLiteral lit = df.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION);
-        OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(i, df.getRDFSLabel(lit));
-        OWLAxiom classAss = df.getOWLClassAssertionAxiom(cheesy, i);
-        OWLIndividual j = df.getOWLAnonymousIndividual();
-        OWLAxiom classAssj = df.getOWLClassAssertionAxiom(cheese, j);
-        OWLAxiom objAss = df.getOWLObjectPropertyAssertionAxiom(hasTopping, i, j);
+        OWLOntology ontology = create(iri("urn:test", ""));
+        OWLAnonymousIndividual anonInd = AnonymousIndividual();
+        OWLLiteral lit = Literal("Anonymous individual for testing");
+        OWLAxiom annAss = AnnotationAssertion(RDFSLabel(), anonInd, lit);
+        OWLAxiom classAss = ClassAssertion(CLASSES.cheesy, anonInd);
+        OWLIndividual j = AnonymousIndividual();
+        OWLAxiom classAssj = ClassAssertion(CLASSES.cheese, j);
+        OWLAxiom objAss = ObjectPropertyAssertion(OBJPROPS.hasTopping, anonInd, j);
         ontology.add(annAss, classAss, classAssj, objAss);
         roundTrip(ontology, new OWLXMLDocumentFormat());
     }
 
     @Test
     void shouldParse() {
-        OWLOntology o = getOWLOntology();
-        OWLClass c = df.getOWLClass("urn:test#", "c");
-        OWLObjectProperty p = df.getOWLObjectProperty("urn:test#", "p");
-        OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
-        OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(c, df.getOWLObjectHasValue(p, i));
-        o.addAxiom(sub);
+        OWLOntology o = create(IRIS.iriTest);
+        o.addAxiom(SubClassOf(CLASSES.C, ObjectHasValue(OBJPROPS.P, AnonymousIndividual())));
         OWLOntology roundtrip = roundTrip(o, new OWLXMLDocumentFormat());
         equal(o, roundtrip);
     }

@@ -1,0 +1,15 @@
+Prefix(:=<http://purl.obolibrary.org/obo/test.owl#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+Ontology(<http://purl.obolibrary.org/obo/test.owl>
+Declaration(Class(<http://purl.obolibrary.org/obo/X_1>))
+Declaration(Class(<http://purl.obolibrary.org/obo/X_2>))
+AnnotationAssertion(<http://purl.obolibrary.org/obo/rdfs_seeAlso> <http://purl.obolibrary.org/obo/X_1> "xx"^^xsd:string)
+
+AnnotationAssertion(<http://purl.obolibrary.org/obo/rdfs_seeAlso> <http://purl.obolibrary.org/obo/X_2> "1"^^xsd:int)
+
+)

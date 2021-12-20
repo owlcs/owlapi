@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest.anonymous;
 
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.AnonymousIndividual;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.Collection;
@@ -23,6 +22,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
+import org.semanticweb.owlapi6.apitest.baseclasses.DF;
 import org.semanticweb.owlapi6.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
@@ -57,6 +57,6 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     @Override
     public OWLAnonymousIndividual visit(OWLAnonymousIndividual individual) {
         return renamingMap.computeIfAbsent(individual,
-            x -> AnonymousIndividual("anon-ind-" + counter.incrementAndGet()));
+            x -> DF.AnonymousIndividual("anon-ind-" + counter.incrementAndGet()));
     }
 }

@@ -8,43 +8,34 @@ import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 
 class PunningAndDomainsRangesTestCase extends TestBase {
 
-    private static final String URN_TEST = "urn:test#";
-
     @Test
-    void shouldKeepDomainsInFSS() throws OWLOntologyCreationException {
-        OWLOntology o = m.createOntology(iri(URN_TEST, "ontology"));
-        OWLAnnotationProperty p1 = df.getOWLAnnotationProperty(iri("urn:property#", "p"));
-        OWLDataProperty p2 = df.getOWLDataProperty(iri("urn:property#", "p"));
-        o.addAxiom(df.getOWLAnnotationPropertyRangeAxiom(p1, OWL2Datatype.RDFS_LITERAL.getIRI()));
-        o.addAxiom(df.getOWLDataPropertyRangeAxiom(p2, OWL2Datatype.RDFS_LITERAL.getDatatype(df)));
+    void shouldKeepDomainsInFSS() {
+        OWLOntology o = create(iri("ontology"));
+        OWLAnnotationProperty ann = AnnotationProperty(DATAPROPS.DP.getIRI());
+        o.addAxiom(AnnotationPropertyRange(ann, OWL2Datatype.RDFS_LITERAL.getIRI()));
+        o.addAxiom(DataPropertyRange(DATAPROPS.DP, RDFSLiteral()));
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o2);
     }
 
     @Test
-    void shouldSupportPunningClassesAndPropertiesInManchesterSyntax()
-        throws OWLOntologyCreationException {
-        OWLClass b = df.getOWLClass(iri(URN_TEST, "B"));
-        OWLClass a = df.getOWLClass(iri(URN_TEST, "A"));
-        OWLOntology o = m.createOntology();
-        o.addAxiom(df.getOWLDeclarationAxiom(df.getOWLObjectProperty(iri(URN_TEST, "B"))));
-        o.addAxiom(df.getOWLDeclarationAxiom(b));
-        o.addAxiom(df.getOWLDeclarationAxiom(a));
+    void shouldSupportPunningClassesAndPropertiesInManchesterSyntax() {
+        OWLOntology o = createAnon();
+        o.addAxiom(Declaration(ObjectProperty(CLASSES.B.getIRI())));
+        o.addAxiom(Declaration(CLASSES.B));
+        o.addAxiom(Declaration(CLASSES.A));
         ManchesterOWLSyntaxParserImpl parser =
             (ManchesterOWLSyntaxParserImpl) OWLManager.createManchesterParser();
-        parser.getPrefixManager().withDefaultPrefix(URN_TEST);
+        parser.getPrefixManager().withDefaultPrefix(OWLAPI_TEST);
         parser.setDefaultOntology(o);
         parser.setStringToParse(":A or :B");
         OWLClassExpression parseClassExpression = parser.parseClassExpression();
-        assertEquals(parseClassExpression, df.getOWLObjectUnionOf(a, b));
+        assertEquals(parseClassExpression, ObjectUnionOf(CLASSES.A, CLASSES.B));
     }
 }

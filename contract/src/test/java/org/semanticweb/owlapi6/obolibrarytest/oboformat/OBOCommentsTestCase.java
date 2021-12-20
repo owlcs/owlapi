@@ -12,19 +12,13 @@ class OBOCommentsTestCase extends TestBase {
 
     @Test
     void shouldAllowCommentInDate() {
-        String in1 = "format-version: 1.2\n" + "data-version: beta2 ! WSIO Beta 2\n"
-            + "date: 19:06:2014 18:57 ! CE(S)T";
-        OWLOntology o1 =
-            loadOntologyFromString(in1, iri("urn:test#", "test1"), new OBODocumentFormat());
-        String in2 = "format-version: 1.2\n" + "date: 19:06:2014 18:57 ! CE(S)T"
-            + "data-version: beta2 ! WSIO Beta 2\n";
-        OWLOntology o2 =
-            loadOntologyFromString(in2, iri("urn:test#", "test2"), new OBODocumentFormat());
+        OWLOntology o1 = loadFrom(TestFiles.COMMENT_IN_DATE_1, new OBODocumentFormat());
+        OWLOntology o2 = loadFrom(TestFiles.COMMENT_IN_DATE_2, new OBODocumentFormat());
         assertTrue(o1.equalAxioms(o2));
     }
 
     @Test
     void shouldAllowInstanceStanza() {
-        loadOntologyFromString(TestFiles.allowInstanceStanza, iri("urn:test#", "test"), new OBODocumentFormat());
+        loadFrom(TestFiles.allowInstanceStanza, IRIS.iriTest, new OBODocumentFormat());
     }
 }

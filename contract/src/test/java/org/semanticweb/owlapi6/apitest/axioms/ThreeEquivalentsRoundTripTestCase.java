@@ -13,12 +13,9 @@
 package org.semanticweb.owlapi6.apitest.axioms;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
-import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
 /** test for 3178902 adapted from the report Timothy provided. */
@@ -27,16 +24,15 @@ class ThreeEquivalentsRoundTripTestCase extends TestBase {
     @Test
     void shouldRoundTrip() {
         // given
-        OWLAxiom axiomToAdd =
-            EquivalentClasses(A, ObjectSomeValuesFrom(P, B), ObjectSomeValuesFrom(Q, C));
-        OWLOntology ontology = getOWLOntology();
-        ontology.addAxiom(axiomToAdd);
+        OWLOntology ontology =
+            o(EquivalentClasses(CLASSES.A, ObjectSomeValuesFrom(OBJPROPS.P, CLASSES.B),
+                ObjectSomeValuesFrom(OBJPROPS.Q, CLASSES.C)));
         // when
         ontology = roundTrip(ontology);
         // then
-        assertTrue(ontology.containsObjectPropertyInSignature(P.getIRI()));
-        assertTrue(ontology.containsObjectPropertyInSignature(Q.getIRI()));
-        assertTrue(ontology.containsClassInSignature(B.getIRI()));
-        assertTrue(ontology.containsClassInSignature(C.getIRI()));
+        assertTrue(ontology.containsObjectPropertyInSignature(OBJPROPS.P.getIRI()));
+        assertTrue(ontology.containsObjectPropertyInSignature(OBJPROPS.Q.getIRI()));
+        assertTrue(ontology.containsClassInSignature(CLASSES.B.getIRI()));
+        assertTrue(ontology.containsClassInSignature(CLASSES.C.getIRI()));
     }
 }

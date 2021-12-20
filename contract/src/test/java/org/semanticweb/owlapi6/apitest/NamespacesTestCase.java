@@ -26,67 +26,60 @@ import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi6.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi6.vocab.Namespaces;
-import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 import org.semanticweb.owlapi6.vocab.XSDVocabulary;
 
 class NamespacesTestCase extends TestBase {
-
-    static final String NS = "http://test.owl/test#";
 
     @Test
     void shouldFindInNamespace() {
         EnumSet<Namespaces> reserved =
             EnumSet.of(Namespaces.OWL, Namespaces.RDF, Namespaces.RDFS, Namespaces.XSD);
         for (Namespaces n : Namespaces.values()) {
-            IRI iri = iri(n.getPrefixIRI(), "test");
-            boolean reservedVocabulary = iri.isReservedVocabulary();
-            assertTrue(reservedVocabulary == reserved.contains(n), iri + " reserved? Should be "
-                + reserved.contains(n) + " but is " + reservedVocabulary);
+            IRI iriNamespace = iri(n.getPrefixIRI(), "test");
+            boolean reservedVocabulary = iriNamespace.isReservedVocabulary();
+            assertTrue(reservedVocabulary == reserved.contains(n), iriNamespace
+                + " reserved? Should be " + reserved.contains(n) + " but is " + reservedVocabulary);
         }
     }
 
     @Test
     void shouldParseXSDSTRING() {
         // given
-        String s = "xsd:string";
+        String shortVersion = "xsd:string";
         // when
-        XSDVocabulary v = XSDVocabulary.parseShortName(s);
+        XSDVocabulary value = XSDVocabulary.parseShortName(shortVersion);
         // then
-        assertEquals(XSDVocabulary.STRING, v);
-        assertEquals(OWL2Datatype.XSD_STRING.getDatatype(df), df.getOWLDatatype(v));
+        assertEquals(XSDVocabulary.STRING, value);
+        assertEquals(String(), Datatype(value.getIRI()));
     }
 
     @Test
     void shouldFailToParseInvalidString() {
         // given
-        String s = "xsd:st";
+        String st = "xsd:st";
         // when
-        assertThrows(IllegalArgumentException.class, () -> XSDVocabulary.parseShortName(s));
+        assertThrows(IllegalArgumentException.class, () -> XSDVocabulary.parseShortName(st));
         // then
         // an exception should have been thrown
     }
 
     @Test
-    void shouldSetPrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLClass item = df.getOWLClass(NS, "item");
-        OWLDeclarationAxiom declaration = df.getOWLDeclarationAxiom(item);
-        OWLOntology o1 = m.createOntology();
+    void shouldSetPrefix() {
+        OWLClass item = Class("http://test.owl/test#", "item");
+        OWLDeclarationAxiom declaration = Declaration(item);
+        OWLOntology o1 = createAnon();
         FunctionalSyntaxDocumentFormat pm1 = new FunctionalSyntaxDocumentFormat();
-        o1.getPrefixManager().withPrefix(":", NS);
+        o1.getPrefixManager().withPrefix(":", "http://test.owl/test#");
         m.setOntologyFormat(o1, pm1);
         o1.addAxiom(declaration);
-        StringDocumentTarget t1 = new StringDocumentTarget();
-        o1.saveOntology(t1);
-        OWLOntology o2 = m1.createOntology();
+        StringDocumentTarget target1 = saveOntology(o1);
+        OWLOntology o2 = createAnon();
         FunctionalSyntaxDocumentFormat pm2 = new FunctionalSyntaxDocumentFormat();
-        o2.getPrefixManager().withPrefix(":", NS);
+        o2.getPrefixManager().withPrefix(":", "http://test.owl/test#");
         o2.addAxiom(declaration);
-        StringDocumentTarget t2 = new StringDocumentTarget();
-        o1.saveOntology(pm2, t2);
-        assertTrue(t2.toString().contains("Declaration(Class(:item))"));
-        assertEquals(t1.toString(), t2.toString());
+        StringDocumentTarget target2 = saveOntology(o2, pm2);
+        assertTrue(target2.toString().contains("Declaration(Class(:item))"));
+        assertEquals(target1.toString(), target2.toString());
     }
 }

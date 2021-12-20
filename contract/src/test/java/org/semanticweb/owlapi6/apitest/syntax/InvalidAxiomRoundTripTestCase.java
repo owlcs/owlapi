@@ -16,21 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DifferentIndividuals;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DisjointClasses;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DisjointDataProperties;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DisjointObjectProperties;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentDataProperties;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.NamedIndividual;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.OWLNothing;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.OWLThing;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SameIndividual;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
@@ -39,26 +24,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi6.model.OWLNamedIndividual;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
 class InvalidAxiomRoundTripTestCase extends TestBase {
 
-    static final IRI t3 = IRI("urn:tes#", "t3");
-    static final IRI t2 = IRI("urn:tes#", "t2");
-    static final IRI t1 = IRI("urn:tes#", "t1");
     OWLOntology o;
 
     @BeforeEach
     void setUpO() {
-        o = getOWLOntology();
+        o = createAnon();
     }
 
     private static void assertCorrectResult(OWLAxiom wrongAxiom, OWLAxiom validAxiom,
@@ -76,12 +54,8 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     @Test
     void shouldRoundTripInvalidDifferentIndividuals() {
         // given
-        OWLNamedIndividual e1 = NamedIndividual(t1);
-        OWLNamedIndividual e2 = NamedIndividual(t2);
-        OWLNamedIndividual e3 = NamedIndividual(t3);
-        // given
-        OWLAxiom wrongAxiom = DifferentIndividuals(e1);
-        OWLAxiom validAxiom = DifferentIndividuals(e2, e3);
+        OWLAxiom wrongAxiom = DifferentIndividuals(INDIVIDUALS.IT1);
+        OWLAxiom validAxiom = DifferentIndividuals(INDIVIDUALS.IT2, INDIVIDUALS.IT3);
         // when
         o.add(wrongAxiom, validAxiom);
         // then
@@ -91,12 +65,8 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     @Test
     void shouldRoundTripInvalidDisjointObjectProperties() {
         // given
-        OWLObjectProperty e1 = ObjectProperty(t1);
-        OWLObjectProperty e2 = ObjectProperty(t2);
-        OWLObjectProperty e3 = ObjectProperty(t3);
-        // given
-        OWLAxiom wrongAxiom = DisjointObjectProperties(e1);
-        OWLAxiom validAxiom = DisjointObjectProperties(e2, e3);
+        OWLAxiom wrongAxiom = DisjointObjectProperties(OBJPROPS.OPT1);
+        OWLAxiom validAxiom = DisjointObjectProperties(OBJPROPS.OPT2, OBJPROPS.OPT3);
         // when
         o.add(wrongAxiom, validAxiom);
         OWLOntology reloaded = saveAndReload();
@@ -110,18 +80,15 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     @Test
     void shouldRoundTripInvalidDisjointClasses() {
         // given
-        OWLClass e1 = Class(t1);
-        OWLClass e2 = Class(t2);
-        OWLClass e3 = Class(t3);
         // The implementation now checks for classes that only have a single
         // distinct element
         // Note: we cannot distinguish between a self-disjoint axiom and an
         // FSS/API etc created single element axiom.
         // but this is coding around a problem in the spec.
-        checkSingletonDisjointFixup(e1, DisjointClasses(e1, e1));
-        OWLDisjointClassesAxiom singleClassDisjointAxiom = DisjointClasses(e1);
-        checkSingletonDisjointFixup(e1, singleClassDisjointAxiom);
-        OWLAxiom validAxiom = DisjointClasses(e2, e3);
+        checkSingletonDisjointFixup(CLASSES.CT1, DisjointClasses(CLASSES.CT1, CLASSES.CT1));
+        OWLDisjointClassesAxiom singleClassDisjointAxiom = DisjointClasses(CLASSES.CT1);
+        checkSingletonDisjointFixup(CLASSES.CT1, singleClassDisjointAxiom);
+        OWLAxiom validAxiom = DisjointClasses(CLASSES.CT2, CLASSES.CT3);
         // when
         o.add(singleClassDisjointAxiom, validAxiom);
         OWLOntology reloaded = roundTrip(o, new FunctionalSyntaxDocumentFormat());
@@ -147,12 +114,8 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     @Test
     void shouldRoundTripInvalidDisjointDataProperties() {
         // given
-        OWLDataProperty e1 = DataProperty(t1);
-        OWLDataProperty e2 = DataProperty(t2);
-        OWLDataProperty e3 = DataProperty(t3);
-        // given
-        OWLAxiom wrongAxiom = DisjointDataProperties(e1);
-        OWLAxiom validAxiom = DisjointDataProperties(e2, e3);
+        OWLAxiom wrongAxiom = DisjointDataProperties(DATAPROPS.DPT1);
+        OWLAxiom validAxiom = DisjointDataProperties(DATAPROPS.DPT2, DATAPROPS.DPT3);
         // when
         o.add(wrongAxiom, validAxiom);
         OWLOntology reloaded = saveAndReload();
@@ -166,12 +129,8 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     @Test
     void shouldRoundTripInvalidSameIndividuals() {
         // given
-        OWLNamedIndividual e1 = NamedIndividual(t1);
-        OWLNamedIndividual e2 = NamedIndividual(t2);
-        OWLNamedIndividual e3 = NamedIndividual(t3);
-        // given
-        OWLAxiom wrongAxiom = SameIndividual(e1);
-        OWLAxiom validAxiom = SameIndividual(e2, e3);
+        OWLAxiom wrongAxiom = SameIndividual(INDIVIDUALS.IT1);
+        OWLAxiom validAxiom = SameIndividual(INDIVIDUALS.IT2, INDIVIDUALS.IT3);
         // when
         o.add(wrongAxiom, validAxiom);
         // then
@@ -181,12 +140,8 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     @Test
     void shouldRoundTripInvalidEquivalentClasses() {
         // given
-        OWLClass e1 = Class(t1);
-        OWLClass e2 = Class(t2);
-        OWLClass e3 = Class(t3);
-        // given
-        OWLAxiom wrongAxiom = EquivalentClasses(e1);
-        OWLAxiom validAxiom = EquivalentClasses(e2, e3);
+        OWLAxiom wrongAxiom = EquivalentClasses(CLASSES.CT1);
+        OWLAxiom validAxiom = EquivalentClasses(CLASSES.CT2, CLASSES.CT3);
         // when
         o.add(wrongAxiom, validAxiom);
         OWLOntology reloaded = saveAndReload();
@@ -200,12 +155,8 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     @Test
     void shouldRoundTripInvalidEquivalentObjectProperties() {
         // given
-        OWLObjectProperty e1 = ObjectProperty(t1);
-        OWLObjectProperty e2 = ObjectProperty(t2);
-        OWLObjectProperty e3 = ObjectProperty(t3);
-        // given
-        OWLAxiom wrongAxiom = EquivalentObjectProperties(e1);
-        OWLAxiom validAxiom = EquivalentObjectProperties(e2, e3);
+        OWLAxiom wrongAxiom = EquivalentObjectProperties(OBJPROPS.OPT1);
+        OWLAxiom validAxiom = EquivalentObjectProperties(OBJPROPS.OPT2, OBJPROPS.OPT3);
         // when
         o.add(wrongAxiom, validAxiom);
         OWLOntology reloaded = saveAndReload();
@@ -219,12 +170,8 @@ class InvalidAxiomRoundTripTestCase extends TestBase {
     @Test
     void shouldRoundTripInvalidEquivalentDataProperties() {
         // given
-        OWLDataProperty e1 = DataProperty(t1);
-        OWLDataProperty e2 = DataProperty(t2);
-        OWLDataProperty e3 = DataProperty(t3);
-        // given
-        OWLAxiom wrongAxiom = EquivalentDataProperties(e1);
-        OWLAxiom validAxiom = EquivalentDataProperties(e2, e3);
+        OWLAxiom wrongAxiom = EquivalentDataProperties(DATAPROPS.DPT1);
+        OWLAxiom validAxiom = EquivalentDataProperties(DATAPROPS.DPT2, DATAPROPS.DPT3);
         // when
         o.add(wrongAxiom, validAxiom);
         OWLOntology reloaded = saveAndReload();

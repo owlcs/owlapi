@@ -1,1 +1,0 @@
-@prefix f:    <urn:test/> . f:r f:p f: .

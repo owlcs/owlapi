@@ -1,0 +1,14 @@
+format-version: 1.2
+import: http://purl.obolibrary.org/obo/uberon/pato_import.owl
+ontology: uberon/core
+
+[Term]
+id: UBERON:0004138
+name: somitomeric trunk muscle
+property_value: seeAlso "string"
+
+[Typedef]
+id: seeAlso
+name: seeAlso
+is_metadata_tag: true
+is_class_level: true

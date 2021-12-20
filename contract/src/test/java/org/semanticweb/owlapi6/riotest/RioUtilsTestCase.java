@@ -47,8 +47,7 @@ class RioUtilsTestCase extends TestBase {
             new RDFResourceIRI(iri("urn:test:subject:uri:1", ""));
         RDFResourceIRI testOwlApiPredicateUri1 =
             new RDFResourceIRI(iri("urn:test:predicate:uri:1", ""));
-        RDFResourceIRI testOwlApiObjectUri1 =
-            new RDFResourceIRI(iri("urn:test:object:uri:1", ""));
+        RDFResourceIRI testOwlApiObjectUri1 = new RDFResourceIRI(iri("urn:test:object:uri:1", ""));
         RDFLiteral testOwlApiObjectPlainLiteral1 = new RDFLiteral(TEST_LITERAL, "", null);
         RDFLiteral testOwlApiObjectLangLiteral1 = new RDFLiteral(TEST_LITERAL, "en", null);
         RDFLiteral testOwlApiObjectTypedLiteral1 =

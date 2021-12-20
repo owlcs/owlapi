@@ -13,13 +13,8 @@
 package org.semanticweb.owlapi6.apitest.syntax.rdf;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.createClass;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.createDataProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.createIndividual;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.createObjectProperty;
 import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -40,28 +35,26 @@ import org.semanticweb.owlapi6.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 class RendererAndParserTestCase extends TestBase {
 
     static List<OWLAxiom> getData() {
-        return Arrays.asList(
+        return l(
             // AnonymousIndividual
-            df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(createClass()),
-                createIndividual()),
+            ClassAssertion(ObjectComplementOf(createClass()), createIndividual()),
             // ClassAssertionAxioms
-            df.getOWLClassAssertionAxiom(createClass(), createIndividual()),
+            ClassAssertion(createClass(), createIndividual()),
             // DifferentIndividualsAxiom
-            df.getOWLDifferentIndividualsAxiom(createIndividual(), createIndividual(),
-                createIndividual(), createIndividual(), createIndividual()),
-            // EquivalentClasses
-            df.getOWLEquivalentClassesAxiom(createClass(),
-                df.getOWLObjectSomeValuesFrom(createObjectProperty(), df.getOWLThing())),
-            // NegativeDataPropertyAssertionAxiom
-            df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(), createIndividual(),
-                df.getOWLLiteral("TestConstant")),
-            // NegativeObjectPropertyAssertionAxiom
-            df.getOWLNegativeObjectPropertyAssertionAxiom(createObjectProperty(),
+            DifferentIndividuals(createIndividual(), createIndividual(), createIndividual(),
                 createIndividual(), createIndividual()),
+            // EquivalentClasses
+            EquivalentClasses(createClass(),
+                ObjectSomeValuesFrom(createObjectProperty(), OWLThing())),
+            // NegativeDataPropertyAssertionAxiom
+            NegativeDataPropertyAssertion(createDataProperty(), createIndividual(),
+                Literal("TestConstant")),
+            // NegativeObjectPropertyAssertionAxiom
+            NegativeObjectPropertyAssertion(createObjectProperty(), createIndividual(),
+                createIndividual()),
             // QCR
-            df.getOWLSubClassOfAxiom(createClass(),
-                df.getOWLObjectMinCardinality(3, createObjectProperty(),
-                    df.getOWLObjectIntersectionOf(createClass(), createClass()))));
+            SubClassOf(createClass(), ObjectMinCardinality(3, createObjectProperty(),
+                ObjectIntersectionOf(createClass(), createClass()))));
     }
 
     @BeforeEach
@@ -73,7 +66,7 @@ class RendererAndParserTestCase extends TestBase {
     @ParameterizedTest
     @MethodSource("getData")
     void testSaveAndReload(OWLAxiom axioms) {
-        OWLOntology ontA = getOWLOntology();
+        OWLOntology ontA = create();
         ontA.add(axioms);
         OWLOntology ontB = roundTrip(ontA);
         Set<OWLLogicalAxiom> aMinusB = asUnorderedSet(ontA.logicalAxioms());

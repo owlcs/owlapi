@@ -15,15 +15,15 @@ package org.semanticweb.owlapi6.builders.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.builders.Builder;
 import org.semanticweb.owlapi6.builders.BuilderAnnotation;
 import org.semanticweb.owlapi6.builders.BuilderAnnotationAssertion;
@@ -109,260 +109,144 @@ import org.semanticweb.owlapi6.builders.BuilderSubObjectProperty;
 import org.semanticweb.owlapi6.builders.BuilderSymmetricObjectProperty;
 import org.semanticweb.owlapi6.builders.BuilderTransitiveObjectProperty;
 import org.semanticweb.owlapi6.builders.BuilderUnionOf;
-import org.semanticweb.owlapi6.impl.OWLDataFactoryImpl;
-import org.semanticweb.owlapi6.impl.OWLOntologyFactoryImpl;
-import org.semanticweb.owlapi6.impl.OWLOntologyImpl;
-import org.semanticweb.owlapi6.impl.OWLOntologyManagerImpl;
 import org.semanticweb.owlapi6.model.EntityType;
-import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
-import org.semanticweb.owlapi6.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi6.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi6.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi6.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi6.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.OWLAxiom;
-import org.semanticweb.owlapi6.model.OWLClass;
-import org.semanticweb.owlapi6.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi6.model.OWLDataComplementOf;
-import org.semanticweb.owlapi6.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi6.model.OWLDataFactory;
-import org.semanticweb.owlapi6.model.OWLDataHasValue;
-import org.semanticweb.owlapi6.model.OWLDataIntersectionOf;
-import org.semanticweb.owlapi6.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi6.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi6.model.OWLDataOneOf;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
-import org.semanticweb.owlapi6.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi6.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi6.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi6.model.OWLDataUnionOf;
-import org.semanticweb.owlapi6.model.OWLDatatype;
-import org.semanticweb.owlapi6.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi6.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi6.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi6.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi6.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi6.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi6.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi6.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi6.model.OWLEntity;
-import org.semanticweb.owlapi6.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi6.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi6.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi6.model.OWLFacetRestriction;
-import org.semanticweb.owlapi6.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi6.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi6.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi6.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLLiteral;
-import org.semanticweb.owlapi6.model.OWLNamedIndividual;
-import org.semanticweb.owlapi6.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi6.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi6.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi6.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi6.model.OWLObjectHasValue;
-import org.semanticweb.owlapi6.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi6.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi6.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi6.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi6.model.OWLObjectOneOf;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
-import org.semanticweb.owlapi6.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi6.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi6.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi6.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi6.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi6.model.OWLOntologyManager;
-import org.semanticweb.owlapi6.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi6.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi6.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi6.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi6.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi6.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi6.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi6.model.SWRLAtom;
-import org.semanticweb.owlapi6.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi6.model.SWRLClassAtom;
 import org.semanticweb.owlapi6.model.SWRLDArgument;
-import org.semanticweb.owlapi6.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi6.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi6.model.SWRLDifferentIndividualsAtom;
 import org.semanticweb.owlapi6.model.SWRLIArgument;
-import org.semanticweb.owlapi6.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi6.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi6.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi6.model.SWRLRule;
-import org.semanticweb.owlapi6.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi6.model.SWRLVariable;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 import org.semanticweb.owlapi6.vocab.OWLFacet;
 
-class BuildersTestCase<Q> {
+class BuildersTestCase extends TestBase {
 
-    static final String URN_TEST = "urn:test#";
+    static final SWRLAtom v1 = SWRLBuiltInAtom(iri("urn:test#", "v1"), SWRL.var3, SWRL.var4);
+    static final SWRLAtom v2 = SWRLBuiltInAtom(iri("urn:test#", "v2"), SWRL.var5, SWRL.var6);
+    static final Set<SWRLAtom> body = set(v1);
+    static final Set<SWRLAtom> head = set(v2);
     static final String TEST = "test";
-    //@formatter:off
-    static final OWLDataFactory df = new OWLDataFactoryImpl();
-    static final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(URN_TEST, "ann");
-    static final OWLObjectProperty op = df.getOWLObjectProperty(URN_TEST, "op");
-    static final OWLDataProperty dp = df.getOWLDataProperty(URN_TEST, "dp");
-    static final OWLLiteral lit = df.getOWLLiteral(false);
-    static final IRI iri = df.getIRI(URN_TEST, "iri");
-    static final Set<OWLAnnotation> anns = new HashSet<>(Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral(TEST))));
-    static final OWLClass ce = df.getOWLClass(URN_TEST, "c");
-    static final OWLNamedIndividual i = df.getOWLNamedIndividual(URN_TEST, "i");
-    static final OWLDatatype d = df.getBooleanOWLDatatype();
-    static final Set<OWLDataProperty> dps = new HashSet<>(Arrays.asList(df.getOWLDataProperty(iri), dp));
-    static final Set<OWLObjectProperty> ops = new HashSet<>(Arrays.asList(df.getOWLObjectProperty(iri), op));
-    static final Set<OWLClass> classes = new HashSet<>(Arrays.asList(df.getOWLClass(iri), ce));
-    static final Set<OWLNamedIndividual> inds = new HashSet<>(Arrays.asList(i, df.getOWLNamedIndividual(iri)));
-    static final SWRLDArgument var1 = df.getSWRLVariable(URN_TEST, "var1");
-    static final SWRLIArgument var2 = df.getSWRLVariable(URN_TEST, "var2");
-    static final SWRLAtom v1 = df.getSWRLBuiltInAtom(df.getIRI(URN_TEST, "v1"), Arrays.asList((SWRLDArgument) df.getSWRLVariable(URN_TEST, "var3"), df.getSWRLVariable(URN_TEST, "var4")));
-    static final SWRLAtom v2 = df.getSWRLBuiltInAtom(df.getIRI(URN_TEST, "v2"), Arrays.asList((SWRLDArgument) df.getSWRLVariable(URN_TEST, "var5"), df.getSWRLVariable(URN_TEST, "var6")));
-    static final Set<SWRLAtom> body = new HashSet<>(Arrays.asList(v1));
-    static final Set<SWRLAtom> head = new HashSet<>(Arrays.asList(v2));
-    //@formatter:on
-    final OWLOntologyManager m = getManager();
+    static final Set<OWLAnnotation> anns = set(Annotation(ANNPROPS.ap, Literal(TEST)));
 
-    static Collection<Object[]> getData() {
-        Collection<Object[]> toReturn = new ArrayList<>();
-        //@formatter:off
-        toReturn.add(new Object[] {(Prepare<OWLAnnotation>)                             x->new BuilderAnnotation(x, df),                     new BuilderAnnotation(df).withProperty(ap).withValue(lit),                                                                     df.getOWLAnnotation(ap, lit)});
-        toReturn.add(new Object[] {(Prepare<OWLAnnotationAssertionAxiom>)               x->new BuilderAnnotationAssertion(x,df),             new BuilderAnnotationAssertion(df).withAnnotations(anns).withProperty(ap).withSubject(iri).withValue(lit),              df.getOWLAnnotationAssertionAxiom(ap, iri, lit, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLAnnotationProperty>)                     x->new BuilderAnnotationProperty(x,df),              new BuilderAnnotationProperty(df).withIRI(iri),                                                                                df.getOWLAnnotationProperty(iri)});
-        toReturn.add(new Object[] {(Prepare<OWLAnnotationPropertyDomainAxiom>)          x->new BuilderAnnotationPropertyDomain(x,df),        new BuilderAnnotationPropertyDomain(df).withProperty(ap).withDomain(iri).withAnnotations(anns),                         df.getOWLAnnotationPropertyDomainAxiom(ap, iri, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLAnnotationPropertyRangeAxiom>)           x->new BuilderAnnotationPropertyRange(x,df),         new BuilderAnnotationPropertyRange(df).withProperty(ap).withRange(iri).withAnnotations(anns),                           df.getOWLAnnotationPropertyRangeAxiom(ap, iri, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLAnonymousIndividual>)                    x->new BuilderAnonymousIndividual(x,df),             new BuilderAnonymousIndividual(df).withId("id"),                                                                               df.getOWLAnonymousIndividual("id")});
-        toReturn.add(new Object[] {(Prepare<OWLAsymmetricObjectPropertyAxiom>)          x->new BuilderAsymmetricObjectProperty(x,df),        new BuilderAsymmetricObjectProperty(df).withProperty(op).withAnnotations(anns),                                         df.getOWLAsymmetricObjectPropertyAxiom(op, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLClass>)                                  x->new BuilderClass(x,df),                           new BuilderClass(df).withIRI(iri),                                                                                             df.getOWLClass(iri)});
-        toReturn.add(new Object[] {(Prepare<OWLClassAssertionAxiom>)                    x->new BuilderClassAssertion(x,df),                  new BuilderClassAssertion(df).withClass(ce).withIndividual(i).withAnnotations(anns),                                    df.getOWLClassAssertionAxiom(ce, i, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectComplementOf>)                     x->new BuilderComplementOf(x,df),                    new BuilderComplementOf(df).withClass(ce),                                                                                     df.getOWLObjectComplementOf(ce)});
-        toReturn.add(new Object[] {(Prepare<OWLDataAllValuesFrom>)                      x->new BuilderDataAllValuesFrom(x,df),               new BuilderDataAllValuesFrom(df).withProperty(dp).withRange(d),                                                                df.getOWLDataAllValuesFrom(dp, d)});
-        toReturn.add(new Object[] {(Prepare<OWLDataComplementOf>)                       x->new BuilderDataComplementOf(x,df),                new BuilderDataComplementOf(df).withRange(d),                                                                                  df.getOWLDataComplementOf(d)});
-        toReturn.add(new Object[] {(Prepare<OWLDataExactCardinality>)                   x->new BuilderDataExactCardinality(x,df),            new BuilderDataExactCardinality(df).withCardinality(1).withProperty(dp).withRange(d),                                          df.getOWLDataExactCardinality(1, dp, d)});
-        toReturn.add(new Object[] {(Prepare<OWLDataHasValue>)                           x->new BuilderDataHasValue(x,df),                    new BuilderDataHasValue(df).withProperty(dp).withLiteral(lit),                                                                 df.getOWLDataHasValue(dp, lit)});
-        toReturn.add(new Object[] {(Prepare<OWLDataIntersectionOf>)                     x->new BuilderDataIntersectionOf(x,df),              new BuilderDataIntersectionOf(df).withItem(d).withItem(df.getFloatOWLDatatype()),                                              df.getOWLDataIntersectionOf(d, df.getFloatOWLDatatype())});
-        toReturn.add(new Object[] {(Prepare<OWLDataMaxCardinality>)                     x->new BuilderDataMaxCardinality(x,df),              new BuilderDataMaxCardinality(df).withCardinality(1).withProperty(dp).withRange(d),                                            df.getOWLDataMaxCardinality(1, dp, d)});
-        toReturn.add(new Object[] {(Prepare<OWLDataMinCardinality>)                     x->new BuilderDataMinCardinality(x,df),              new BuilderDataMinCardinality(df).withCardinality(1).withProperty(dp).withRange(d),                                            df.getOWLDataMinCardinality(1, dp, d)});
-        toReturn.add(new Object[] {(Prepare<OWLDataOneOf>)                              x->new BuilderDataOneOf(x,df),                       new BuilderDataOneOf(df).withItem(lit),                                                                                        df.getOWLDataOneOf(lit)});
-        toReturn.add(new Object[] {(Prepare<OWLDataProperty>)                           x->new BuilderDataProperty(x,df),                    new BuilderDataProperty(df).withIRI(iri),                                                                                      df.getOWLDataProperty(iri)});
-        toReturn.add(new Object[] {(Prepare<OWLDataPropertyAssertionAxiom>)             x->new BuilderDataPropertyAssertion(x,df),           new BuilderDataPropertyAssertion(df).withProperty(dp).withSubject(i).withValue(lit).withAnnotations(anns),              df.getOWLDataPropertyAssertionAxiom(dp, i, lit, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLDataPropertyDomainAxiom>)                x->new BuilderDataPropertyDomain(x,df),              new BuilderDataPropertyDomain(df).withProperty(dp).withDomain(ce).withAnnotations(anns),                                df.getOWLDataPropertyDomainAxiom(dp, ce, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLDataPropertyRangeAxiom>)                 x->new BuilderDataPropertyRange(x,df),               new BuilderDataPropertyRange(df).withProperty(dp).withRange(d).withAnnotations(anns),                                   df.getOWLDataPropertyRangeAxiom(dp, d, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLDataSomeValuesFrom>)                     x->new BuilderDataSomeValuesFrom(x,df),              new BuilderDataSomeValuesFrom(df).withProperty(dp).withRange(d),                                                               df.getOWLDataSomeValuesFrom(dp, d)});
-        toReturn.add(new Object[] {(Prepare<OWLDatatype>)                               x->new BuilderDatatype(x,df),                        new BuilderDatatype(df).withIRI(iri).withAnnotations(anns),                                                             df.getOWLDatatype(iri)});
-        toReturn.add(new Object[] {(Prepare<OWLDatatypeDefinitionAxiom>)                x->new BuilderDatatypeDefinition(x,df),              new BuilderDatatypeDefinition(df).with(df.getOWLDatatype("urn:test:datatype1")).withType(df.getOWLDatatype("urn:test:datatype2")).withAnnotations(anns), df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:test:datatype1"), df.getOWLDatatype("urn:test:datatype2"), anns)});
-        toReturn.add(new Object[] {(Prepare<OWLDatatypeRestriction>)                    x->new BuilderDatatypeRestriction(x,df),             new BuilderDatatypeRestriction(df).withItem(df.getOWLFacetRestriction(OWLFacet.MAX_LENGTH, lit)).withDatatype(d),              df.getOWLDatatypeRestriction(d, df.getOWLFacetRestriction(OWLFacet.MAX_LENGTH, lit))});
-        toReturn.add(new Object[] {(Prepare<OWLDataUnionOf>)                            x->new BuilderDataUnionOf(x,df),                     new BuilderDataUnionOf(df).withItem(d).withItem(df.getDoubleOWLDatatype()),                                                    df.getOWLDataUnionOf(d, df.getDoubleOWLDatatype())});
-        toReturn.add(new Object[] {(Prepare<OWLDeclarationAxiom>)                       x->new BuilderDeclaration(x,df),                     new BuilderDeclaration(df).withEntity(ce).withAnnotations(anns),                                                        df.getOWLDeclarationAxiom(ce, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLDifferentIndividualsAxiom>)              x->new BuilderDifferentIndividuals(x,df),            new BuilderDifferentIndividuals(df).withItem(i).withItem(df.getOWLNamedIndividual(iri)),                                       df.getOWLDifferentIndividualsAxiom(i, df.getOWLNamedIndividual(iri))});
-        toReturn.add(new Object[] {(Prepare<OWLDisjointClassesAxiom>)                   x->new BuilderDisjointClasses(x,df),                 new BuilderDisjointClasses(df).withItem(ce).withItem(df.getOWLClass(iri)),                                                     df.getOWLDisjointClassesAxiom(ce, df.getOWLClass(iri))});
-        toReturn.add(new Object[] {(Prepare<OWLDisjointDataPropertiesAxiom>)            x->new BuilderDisjointDataProperties(x,df),          new BuilderDisjointDataProperties(df).withItems(dps).withAnnotations(anns),                                             df.getOWLDisjointDataPropertiesAxiom(dps, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLDisjointObjectPropertiesAxiom>)          x->new BuilderDisjointObjectProperties(x,df),        new BuilderDisjointObjectProperties(df).withItems(ops).withAnnotations(anns),                                           df.getOWLDisjointObjectPropertiesAxiom(ops, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLDisjointUnionAxiom>)                     x->new BuilderDisjointUnion(x,df),                   new BuilderDisjointUnion(df).withClass(ce).withItems(classes).withAnnotations(anns),                                    df.getOWLDisjointUnionAxiom(ce, classes, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLEntity>)                                 x->new BuilderEntity(x,df),                          new BuilderEntity(df).withIRI(iri).withType(EntityType.CLASS),                                                                 df.getOWLClass(iri)});
-        toReturn.add(new Object[] {(Prepare<OWLEquivalentClassesAxiom>)                 x->new BuilderEquivalentClasses(x,df),               new BuilderEquivalentClasses(df).withItems(classes).withAnnotations(anns),                                              df.getOWLEquivalentClassesAxiom(classes, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLEquivalentDataPropertiesAxiom>)          x->new BuilderEquivalentDataProperties(x,df),        new BuilderEquivalentDataProperties(df).withItems(dps).withAnnotations(anns),                                           df.getOWLEquivalentDataPropertiesAxiom(dps, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLEquivalentObjectPropertiesAxiom>)        x->new BuilderEquivalentObjectProperties(x,df),      new BuilderEquivalentObjectProperties(df).withItems(ops).withAnnotations(anns),                                         df.getOWLEquivalentObjectPropertiesAxiom(ops, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLFacetRestriction>)                       x->new BuilderFacetRestriction(x,df),                new BuilderFacetRestriction(df).withLiteral(lit).withFacet(OWLFacet.MAX_EXCLUSIVE),                                            df.getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, lit)});
-        toReturn.add(new Object[] {(Prepare<OWLFunctionalDataPropertyAxiom>)            x->new BuilderFunctionalDataProperty(x,df),          new BuilderFunctionalDataProperty(df).withProperty(dp).withAnnotations(anns),                                           df.getOWLFunctionalDataPropertyAxiom(dp, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLFunctionalObjectPropertyAxiom>)          x->new BuilderFunctionalObjectProperty(x,df),        new BuilderFunctionalObjectProperty(df).withProperty(op).withAnnotations(anns),                                         df.getOWLFunctionalObjectPropertyAxiom(op, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLHasKeyAxiom>)                            x->new BuilderHasKey(x,df),                          new BuilderHasKey(df).withAnnotations(anns).withClass(ce).withItems(ops),                                               df.getOWLHasKeyAxiom(ce, ops, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLImportsDeclaration>)                     x->new BuilderImportsDeclaration(x,df),              new BuilderImportsDeclaration(df).withImportedOntology(iri),                                                                   df.getOWLImportsDeclaration(iri)});
-        toReturn.add(new Object[] {(Prepare<OWLInverseFunctionalObjectPropertyAxiom>)   x->new BuilderInverseFunctionalObjectProperty(x,df), new BuilderInverseFunctionalObjectProperty(df).withProperty(op).withAnnotations(anns),                                  df.getOWLInverseFunctionalObjectPropertyAxiom(op, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLInverseObjectPropertiesAxiom>)           x->new BuilderInverseObjectProperties(x,df),         new BuilderInverseObjectProperties(df).withProperty(op).withInverseProperty(op).withAnnotations(anns),                  df.getOWLInverseObjectPropertiesAxiom(op, op, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLIrreflexiveObjectPropertyAxiom>)         x->new BuilderIrreflexiveObjectProperty(x,df),       new BuilderIrreflexiveObjectProperty(df).withProperty(op).withAnnotations(anns),                                        df.getOWLIrreflexiveObjectPropertyAxiom(op, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withValue(true).withAnnotations(anns),                                                           df.getOWLLiteral(true)});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withValue(1).withAnnotations(anns),                                                              df.getOWLLiteral(1)});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withValue(1L).withAnnotations(anns),                                                             df.getOWLLiteral(1L)});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withValue(1.1D).withAnnotations(anns),                                                           df.getOWLLiteral(1.1D)});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withValue(1.2F).withAnnotations(anns),                                                           df.getOWLLiteral(1.2F)});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withLiteralForm(TEST).withAnnotations(anns),                                                   df.getOWLLiteral(TEST)});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withLiteralForm(TEST).withLanguage("en").withAnnotations(anns),                                df.getOWLLiteral(TEST, "en")});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withLiteralForm(TEST).withDatatype(OWL2Datatype.XSD_STRING).withAnnotations(anns),             df.getOWLLiteral(TEST, OWL2Datatype.XSD_STRING)});
-        toReturn.add(new Object[] {(Prepare<OWLLiteral>)                                x->new BuilderLiteral(x,df),                         new BuilderLiteral(df).withLiteralForm("3.14").withDatatype(OWL2Datatype.OWL_REAL).withAnnotations(anns),               df.getOWLLiteral("3.14", OWL2Datatype.OWL_REAL)});
-        toReturn.add(new Object[] {(Prepare<OWLNamedIndividual>)                        x->new BuilderNamedIndividual(x,df),                 new BuilderNamedIndividual(df).withIRI(iri),                                                                                   df.getOWLNamedIndividual(iri)});
-        toReturn.add(new Object[] {(Prepare<OWLNegativeDataPropertyAssertionAxiom>)     x->new BuilderNegativeDataPropertyAssertion(x,df),   new BuilderNegativeDataPropertyAssertion(df).withAnnotations(anns).withProperty(dp).withValue(lit).withSubject(i),      df.getOWLNegativeDataPropertyAssertionAxiom(dp, i, lit, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLNegativeObjectPropertyAssertionAxiom>)   x->new BuilderNegativeObjectPropertyAssertion(x,df), new BuilderNegativeObjectPropertyAssertion(df).withAnnotations(anns).withProperty(op).withValue(i).withSubject(i),      df.getOWLNegativeObjectPropertyAssertionAxiom(op, i, i, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectAllValuesFrom>)                    x->new BuilderObjectAllValuesFrom(x,df),             new BuilderObjectAllValuesFrom(df).withProperty(op).withRange(ce),                                                             df.getOWLObjectAllValuesFrom(op, ce)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectExactCardinality>)                 x->new BuilderObjectExactCardinality(x,df),          new BuilderObjectExactCardinality(df).withCardinality(1).withProperty(op).withRange(ce),                                       df.getOWLObjectExactCardinality(1, op, ce)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectHasSelf>)                          x->new BuilderObjectHasSelf(x,df),                   new BuilderObjectHasSelf(df).withProperty(op),                                                                                 df.getOWLObjectHasSelf(op)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectHasValue>)                         x->new BuilderObjectHasValue(x,df),                  new BuilderObjectHasValue(df).withProperty(op).withValue(i),                                                                   df.getOWLObjectHasValue(op, i)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectIntersectionOf>)                   x->new BuilderObjectIntersectionOf(x,df),            new BuilderObjectIntersectionOf(df).withItems(classes),                                                                        df.getOWLObjectIntersectionOf(classes)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectInverseOf>)                        x->new BuilderObjectInverseOf(x,df),                 new BuilderObjectInverseOf(df).withProperty(op),                                                                               df.getOWLObjectInverseOf(op)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectMaxCardinality>)                   x->new BuilderObjectMaxCardinality(x,df),            new BuilderObjectMaxCardinality(df).withCardinality(1).withProperty(op).withRange(ce),                                         df.getOWLObjectMaxCardinality(1, op, ce)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectMinCardinality>)                   x->new BuilderObjectMinCardinality(x,df),            new BuilderObjectMinCardinality(df).withCardinality(1).withProperty(op).withRange(ce),                                         df.getOWLObjectMinCardinality(1, op, ce)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectProperty>)                         x->new BuilderObjectProperty(x,df),                  new BuilderObjectProperty(df).withIRI(iri),                                                                                    df.getOWLObjectProperty(iri)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectPropertyAssertionAxiom>)           x->new BuilderObjectPropertyAssertion(x,df),         new BuilderObjectPropertyAssertion(df).withProperty(op).withSubject(i).withValue(i).withAnnotations(anns),              df.getOWLObjectPropertyAssertionAxiom(op, i, i, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectPropertyDomainAxiom>)              x->new BuilderObjectPropertyDomain(x,df),            new BuilderObjectPropertyDomain(df).withDomain(ce).withProperty(op).withAnnotations(anns),                              df.getOWLObjectPropertyDomainAxiom(op, ce, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectPropertyRangeAxiom>)               x->new BuilderObjectPropertyRange(x,df),             new BuilderObjectPropertyRange(df).withProperty(op).withRange(ce).withAnnotations(anns),                                df.getOWLObjectPropertyRangeAxiom(op, ce, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectSomeValuesFrom>)                   x->new BuilderObjectSomeValuesFrom(x,df),            new BuilderObjectSomeValuesFrom(df).withProperty(op).withRange(ce),                                                            df.getOWLObjectSomeValuesFrom(op, ce)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectOneOf>)                            x->new BuilderOneOf(x,df),                           new BuilderOneOf(df).withItem(i),                                                                                              df.getOWLObjectOneOf(i)});
-        toReturn.add(new Object[] {(Prepare<OWLSubPropertyChainOfAxiom>)                x->new BuilderPropertyChain(x,df),                   new BuilderPropertyChain(df).withProperty(op).withAnnotations(anns).withPropertiesInChain(new ArrayList<OWLObjectPropertyExpression>(ops)), df.getOWLSubPropertyChainOfAxiom(new ArrayList<OWLObjectPropertyExpression>(ops), op, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLReflexiveObjectPropertyAxiom>)           x->new BuilderReflexiveObjectProperty(x,df),         new BuilderReflexiveObjectProperty(df).withProperty(op).withAnnotations(anns),                                          df.getOWLReflexiveObjectPropertyAxiom(op, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLSameIndividualAxiom>)                    x->new BuilderSameIndividual(x,df),                  new BuilderSameIndividual(df).withItems(inds).withAnnotations(anns),                                                    df.getOWLSameIndividualAxiom(inds, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLSubAnnotationPropertyOfAxiom>)           x->new BuilderSubAnnotationPropertyOf(x,df),         new BuilderSubAnnotationPropertyOf(df).withSub(ap).withSup(df.getRDFSLabel()).withAnnotations(anns),                    df.getOWLSubAnnotationPropertyOfAxiom(ap, df.getRDFSLabel(), anns)});
-        toReturn.add(new Object[] {(Prepare<OWLSubClassOfAxiom>)                        x->new BuilderSubClass(x,df),                        new BuilderSubClass(df).withAnnotations(anns).withSub(ce).withSup(df.getOWLThing()),                                    df.getOWLSubClassOfAxiom(ce, df.getOWLThing(), anns)});
-        toReturn.add(new Object[] {(Prepare<OWLSubDataPropertyOfAxiom>)                 x->new BuilderSubDataProperty(x,df),                 new BuilderSubDataProperty(df).withSub(dp).withSup(df.getOWLTopDataProperty()),                                                df.getOWLSubDataPropertyOfAxiom(dp, df.getOWLTopDataProperty())});
-        toReturn.add(new Object[] {(Prepare<OWLSubObjectPropertyOfAxiom>)               x->new BuilderSubObjectProperty(x,df),               new BuilderSubObjectProperty(df).withSub(op).withSup(df.getOWLTopObjectProperty()).withAnnotations(anns),               df.getOWLSubObjectPropertyOfAxiom(op, df.getOWLTopObjectProperty(), anns)});
-        toReturn.add(new Object[] {(Prepare<SWRLBuiltInAtom>)                           x->new BuilderSWRLBuiltInAtom(x,df),                 new BuilderSWRLBuiltInAtom(df).with(iri).with(var1),                                                                           df.getSWRLBuiltInAtom(iri, Arrays.asList(var1))});
-        toReturn.add(new Object[] {(Prepare<SWRLClassAtom>)                             x->new BuilderSWRLClassAtom(x,df),                   new BuilderSWRLClassAtom(df).with(ce).with(var2),                                                                              df.getSWRLClassAtom(ce, var2)});
-        toReturn.add(new Object[] {(Prepare<SWRLDataPropertyAtom>)                      x->new BuilderSWRLDataPropertyAtom(x,df),            new BuilderSWRLDataPropertyAtom(df).withProperty(dp).with(var2).with(var1),                                                    df.getSWRLDataPropertyAtom(dp, var2, var1)});
-        toReturn.add(new Object[] {(Prepare<SWRLDataRangeAtom>)                         x->new BuilderSWRLDataRangeAtom(x,df),               new BuilderSWRLDataRangeAtom(df).with(d).with(var1),                                                                           df.getSWRLDataRangeAtom(d, var1)});
-        toReturn.add(new Object[] {(Prepare<SWRLDifferentIndividualsAtom>)              x->new BuilderSWRLDifferentIndividualsAtom(x,df),    new BuilderSWRLDifferentIndividualsAtom(df).withArg0(var2).withArg1(var2).withAnnotations(anns),                        df.getSWRLDifferentIndividualsAtom(var2, var2)});
-        toReturn.add(new Object[] {(Prepare<SWRLIndividualArgument>)                    x->new BuilderSWRLIndividualArgument(x,df),          new BuilderSWRLIndividualArgument(df).with(i),                                                                                 df.getSWRLIndividualArgument(i)});
-        toReturn.add(new Object[] {(Prepare<SWRLLiteralArgument>)                       x->new BuilderSWRLLiteralArgument(x,df),             new BuilderSWRLLiteralArgument(df).with(lit),                                                                                  df.getSWRLLiteralArgument(lit)});
-        toReturn.add(new Object[] {(Prepare<SWRLObjectPropertyAtom>)                    x->new BuilderSWRLObjectPropertyAtom(x,df),          new BuilderSWRLObjectPropertyAtom(df).withProperty(op).withArg0(var2).withArg1(var2),                                          df.getSWRLObjectPropertyAtom(op, var2, var2)});
-        toReturn.add(new Object[] {(Prepare<SWRLRule>)                                  x->new BuilderSWRLRule(x,df),                        new BuilderSWRLRule(df).withBody(v1).withHead(v2).withAnnotations(anns),                                                df.getSWRLRule(body, head, anns)});
-        toReturn.add(new Object[] {(Prepare<SWRLSameIndividualAtom>)                    x->new BuilderSWRLSameIndividualAtom(x,df),          new BuilderSWRLSameIndividualAtom(df).withArg0(df.getSWRLIndividualArgument(i)).withArg1(df.getSWRLIndividualArgument(i)),     df.getSWRLSameIndividualAtom(df.getSWRLIndividualArgument(i), df.getSWRLIndividualArgument(i))});
-        toReturn.add(new Object[] {(Prepare<SWRLVariable>)                              x->new BuilderSWRLVariable(x,df),                    new BuilderSWRLVariable(df).with(iri),                                                                                         df.getSWRLVariable(iri)});
-        toReturn.add(new Object[] {(Prepare<OWLSymmetricObjectPropertyAxiom>)           x->new BuilderSymmetricObjectProperty(x,df),         new BuilderSymmetricObjectProperty(df).withProperty(op).withAnnotations(anns),                                          df.getOWLSymmetricObjectPropertyAxiom(op, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLTransitiveObjectPropertyAxiom>)          x->new BuilderTransitiveObjectProperty(x,df),        new BuilderTransitiveObjectProperty(df).withProperty(op).withAnnotations(anns),                                         df.getOWLTransitiveObjectPropertyAxiom(op, anns)});
-        toReturn.add(new Object[] {(Prepare<OWLObjectUnionOf>)                          x->new BuilderUnionOf(x,df),                         new BuilderUnionOf(df).withItems(classes),                                                                                     df.getOWLObjectUnionOf(classes)});
-        //@formatter:on
-        return toReturn;
+    @BeforeEach
+    void setup() {
+        m = setupConcurrentManager();
     }
 
-    // no parsers and storers injected
-    private static OWLOntologyManager getManager() {
-        OWLOntologyManager instance = new OWLOntologyManagerImpl(df, new ReentrantReadWriteLock());
-        instance.getOntologyFactories()
-        .set(new OWLOntologyFactoryImpl((o, id, c) -> new OWLOntologyImpl(o, id, c)));
-        return instance;
+    static Stream<Arguments> getData() {
+        return Stream.of(
+        //@formatter:off
+            of(value->new BuilderAnnotation(value, df),                      new BuilderAnnotation(df).withProperty(ANNPROPS.ap).withValue(LITERALS.lit),                                                               Annotation(ANNPROPS.ap, LITERALS.lit)),
+            of(value->new BuilderAnnotationAssertion(value, df),             new BuilderAnnotationAssertion(df).withAnnotations(anns).withProperty(ANNPROPS.ap).withSubject(IRIS.iri).withValue(LITERALS.lit),          AnnotationAssertion(anns, ANNPROPS.ap, IRIS.iri, LITERALS.lit)),
+            of(value->new BuilderAnnotationProperty(value, df),              new BuilderAnnotationProperty(df).withIRI(IRIS.iri),                                                                                       ANNPROPS.IRI_AP),
+            of(value->new BuilderAnnotationPropertyDomain(value, df),        new BuilderAnnotationPropertyDomain(df).withProperty(ANNPROPS.ap).withDomain(IRIS.iri).withAnnotations(anns),                              AnnotationPropertyDomain(anns, ANNPROPS.ap, IRIS.iri)),
+            of(value->new BuilderAnnotationPropertyRange(value, df),         new BuilderAnnotationPropertyRange(df).withProperty(ANNPROPS.ap).withRange(IRIS.iri).withAnnotations(anns),                                AnnotationPropertyRange(anns, ANNPROPS.ap, IRIS.iri)),
+            of(value->new BuilderAnonymousIndividual(value, df),             new BuilderAnonymousIndividual(df).withId("id"),                                                                                           AnonymousIndividual("id")),
+            of(value->new BuilderAsymmetricObjectProperty(value, df),        new BuilderAsymmetricObjectProperty(df).withProperty(OBJPROPS.op).withAnnotations(anns),                                                   AsymmetricObjectProperty(anns, OBJPROPS.op)),
+            of(value->new BuilderClass(value, df),                           new BuilderClass(df).withIRI(IRIS.iri),                                                                                                    CLASSES.IRI_CLASS),
+            of(value->new BuilderClassAssertion(value, df),                  new BuilderClassAssertion(df).withClass(CLASSES.ce).withIndividual(INDIVIDUALS.i).withAnnotations(anns),                                   ClassAssertion(anns, CLASSES.ce, INDIVIDUALS.i)),
+            of(value->new BuilderComplementOf(value, df),                    new BuilderComplementOf(df).withClass(CLASSES.ce),                                                                                         ObjectComplementOf(CLASSES.ce)),
+            of(value->new BuilderDataAllValuesFrom(value, df),               new BuilderDataAllValuesFrom(df).withProperty(DATAPROPS.dp).withRange(Boolean()),                                                          DataAllValuesFrom(DATAPROPS.dp, Boolean())),
+            of(value->new BuilderDataComplementOf(value, df),                new BuilderDataComplementOf(df).withRange(Boolean()),                                                                                      DataComplementOf(Boolean())),
+            of(value->new BuilderDataExactCardinality(value, df),            new BuilderDataExactCardinality(df).withCardinality(1).withProperty(DATAPROPS.dp).withRange(Boolean()),                                    DataExactCardinality(1, DATAPROPS.dp, Boolean())),
+            of(value->new BuilderDataHasValue(value, df),                    new BuilderDataHasValue(df).withProperty(DATAPROPS.dp).withLiteral(LITERALS.lit),                                                          DataHasValue(DATAPROPS.dp, LITERALS.lit)),
+            of(value->new BuilderDataIntersectionOf(value, df),              new BuilderDataIntersectionOf(df).withItem(Boolean()).withItem(Float()),                                                                   DataIntersectionOf(Boolean(), Float())),
+            of(value->new BuilderDataMaxCardinality(value, df),              new BuilderDataMaxCardinality(df).withCardinality(1).withProperty(DATAPROPS.dp).withRange(Boolean()),                                      DataMaxCardinality(1, DATAPROPS.dp, Boolean())),
+            of(value->new BuilderDataMinCardinality(value, df),              new BuilderDataMinCardinality(df).withCardinality(1).withProperty(DATAPROPS.dp).withRange(Boolean()),                                      DataMinCardinality(1, DATAPROPS.dp, Boolean())),
+            of(value->new BuilderDataOneOf(value, df),                       new BuilderDataOneOf(df).withItem(LITERALS.lit),                                                                                           DataOneOf(LITERALS.lit)),
+            of(value->new BuilderDataProperty(value, df),                    new BuilderDataProperty(df).withIRI(IRIS.iri),                                                                                             DATAPROPS.IRI_DP),
+            of(value->new BuilderDataPropertyAssertion(value, df),           new BuilderDataPropertyAssertion(df).withProperty(DATAPROPS.dp).withSubject(INDIVIDUALS.i).withValue(LITERALS.lit).withAnnotations(anns),  DataPropertyAssertion(anns, DATAPROPS.dp, INDIVIDUALS.i, LITERALS.lit)),
+            of(value->new BuilderDataPropertyDomain(value, df),              new BuilderDataPropertyDomain(df).withProperty(DATAPROPS.dp).withDomain(CLASSES.ce).withAnnotations(anns),                                 DataPropertyDomain(anns, DATAPROPS.dp, CLASSES.ce)),
+            of(value->new BuilderDataPropertyRange(value, df),               new BuilderDataPropertyRange(df).withProperty(DATAPROPS.dp).withRange(Boolean()).withAnnotations(anns),                                    DataPropertyRange(anns, DATAPROPS.dp, Boolean())),
+            of(value->new BuilderDataSomeValuesFrom(value, df),              new BuilderDataSomeValuesFrom(df).withProperty(DATAPROPS.dp).withRange(Boolean()),                                                         DataSomeValuesFrom(DATAPROPS.dp, Boolean())),
+            of(value->new BuilderDatatype(value, df),                        new BuilderDatatype(df).withIRI(IRIS.iri).withAnnotations(anns),                                                                           DATATYPES.IRI_DT),
+            of(value->new BuilderDatatypeDefinition(value, df),              new BuilderDatatypeDefinition(df).with(DATATYPES.DT1).withType(DATATYPES.DT2).withAnnotations(anns),                                       DatatypeDefinition(anns, DATATYPES.DT1, DATATYPES.DT2)),
+            of(value->new BuilderDatatypeRestriction(value, df),             new BuilderDatatypeRestriction(df).withItem(FacetRestriction(OWLFacet.MAX_LENGTH, LITERALS.lit)).withDatatype(Boolean()),                  DatatypeRestriction(Boolean(), FacetRestriction(OWLFacet.MAX_LENGTH, LITERALS.lit))),
+            of(value->new BuilderDataUnionOf(value, df),                     new BuilderDataUnionOf(df).withItem(Boolean()).withItem(Double()),                                                                         DataUnionOf(Boolean(), Double())),
+            of(value->new BuilderDeclaration(value, df),                     new BuilderDeclaration(df).withEntity(CLASSES.ce).withAnnotations(anns),                                                                   Declaration(anns, CLASSES.ce)),
+            of(value->new BuilderDifferentIndividuals(value, df),            new BuilderDifferentIndividuals(df).withItem(INDIVIDUALS.i).withItem(INDIVIDUALS.IRI_IND),                                                 DifferentIndividuals(INDIVIDUALS.i, INDIVIDUALS.IRI_IND)),
+            of(value->new BuilderDisjointClasses(value, df),                 new BuilderDisjointClasses(df).withItem(CLASSES.ce).withItem(CLASSES.IRI_CLASS),                                                           DisjointClasses(CLASSES.ce, CLASSES.IRI_CLASS)),
+            of(value->new BuilderDisjointDataProperties(value, df),          new BuilderDisjointDataProperties(df).withItems(DATAPROPS.IRI_DP, DATAPROPS.dp).withAnnotations(anns),                                     DisjointDataProperties(anns, DATAPROPS.IRI_DP, DATAPROPS.dp)),
+            of(value->new BuilderDisjointObjectProperties(value, df),        new BuilderDisjointObjectProperties(df).withItems(OBJPROPS.P, OBJPROPS.op).withAnnotations(anns),                                          DisjointObjectProperties(anns, OBJPROPS.P, OBJPROPS.op)),
+            of(value->new BuilderDisjointUnion(value, df),                   new BuilderDisjointUnion(df).withClass(CLASSES.ce).withItems(CLASSES.IRI_CLASS, CLASSES.ce).withAnnotations(anns),                         DisjointUnion(anns, CLASSES.ce, CLASSES.IRI_CLASS, CLASSES.ce)),
+            of(value->new BuilderEntity(value, df),                          new BuilderEntity(df).withIRI(IRIS.iri).withType(EntityType.CLASS),                                                                        CLASSES.IRI_CLASS),
+            of(value->new BuilderEquivalentClasses(value, df),               new BuilderEquivalentClasses(df).withItems(CLASSES.IRI_CLASS, CLASSES.ce).withAnnotations(anns),                                           EquivalentClasses(anns, CLASSES.IRI_CLASS, CLASSES.ce)),
+            of(value->new BuilderEquivalentDataProperties(value, df),        new BuilderEquivalentDataProperties(df).withItems(DATAPROPS.IRI_DP, DATAPROPS.dp).withAnnotations(anns),                                   EquivalentDataProperties(anns, DATAPROPS.IRI_DP, DATAPROPS.dp)),
+            of(value->new BuilderEquivalentObjectProperties(value, df),      new BuilderEquivalentObjectProperties(df).withItems(OBJPROPS.P, OBJPROPS.op).withAnnotations(anns),                                        EquivalentObjectProperties(anns, OBJPROPS.P, OBJPROPS.op)),
+            of(value->new BuilderFacetRestriction(value, df),                new BuilderFacetRestriction(df).withLiteral(LITERALS.lit).withFacet(OWLFacet.MAX_EXCLUSIVE),                                               FacetRestriction(OWLFacet.MAX_EXCLUSIVE, LITERALS.lit)),
+            of(value->new BuilderFunctionalDataProperty(value, df),          new BuilderFunctionalDataProperty(df).withProperty(DATAPROPS.dp).withAnnotations(anns),                                                    FunctionalDataProperty(anns, DATAPROPS.dp)),
+            of(value->new BuilderFunctionalObjectProperty(value, df),        new BuilderFunctionalObjectProperty(df).withProperty(OBJPROPS.op).withAnnotations(anns),                                                   FunctionalObjectProperty(anns, OBJPROPS.op)),
+            of(value->new BuilderHasKey(value, df),                          new BuilderHasKey(df).withAnnotations(anns).withClass(CLASSES.ce).withItems(OBJPROPS.P, OBJPROPS.op),                                      HasKey(anns, CLASSES.ce, OBJPROPS.P, OBJPROPS.op)),
+            of(value->new BuilderImportsDeclaration(value, df),              new BuilderImportsDeclaration(df).withImportedOntology(IRIS.iri),                                                                          ImportsDeclaration(IRIS.iri)),
+            of(value->new BuilderInverseFunctionalObjectProperty(value, df), new BuilderInverseFunctionalObjectProperty(df).withProperty(OBJPROPS.op).withAnnotations(anns),                                            InverseFunctionalObjectProperty(anns, OBJPROPS.op)),
+            of(value->new BuilderInverseObjectProperties(value, df),         new BuilderInverseObjectProperties(df).withProperty(OBJPROPS.op).withInverseProperty(OBJPROPS.op).withAnnotations(anns),                   InverseObjectProperties(anns, OBJPROPS.op, OBJPROPS.op)),
+            of(value->new BuilderIrreflexiveObjectProperty(value, df),       new BuilderIrreflexiveObjectProperty(df).withProperty(OBJPROPS.op).withAnnotations(anns),                                                  IrreflexiveObjectProperty(anns, OBJPROPS.op)),
+            of(value->new BuilderLiteral(value, df),                         new BuilderLiteral(df).withValue(true).withAnnotations(anns),                                                                              Literal(true)),
+            of(value->new BuilderLiteral(value, df),                         new BuilderLiteral(df).withValue(1).withAnnotations(anns),                                                                                 Literal(1)),
+            of(value->new BuilderLiteral(value, df),                         new BuilderLiteral(df).withValue(1L).withAnnotations(anns),                                                                                Literal(1L)),
+            of(value->new BuilderLiteral(value, df),                         new BuilderLiteral(df).withValue(1.1D).withAnnotations(anns),                                                                              Literal(1.1D)),
+            of(value->new BuilderLiteral(value, df),                         new BuilderLiteral(df).withValue(1.2F).withAnnotations(anns),                                                                              Literal(1.2F)),
+            of(value->new BuilderLiteral(value, df),                         new BuilderLiteral(df).withLiteralForm(TEST).withAnnotations(anns),                                                                        Literal(TEST)),
+            of(value->new BuilderLiteral(value, df),                         new BuilderLiteral(df).withLiteralForm(TEST).withLanguage("en").withAnnotations(anns),                                                     Literal(TEST, "en")),
+            of(value->new BuilderLiteral(value, df),                         new BuilderLiteral(df).withLiteralForm(TEST).withDatatype(OWL2Datatype.XSD_STRING).withAnnotations(anns),                                  Literal(TEST, OWL2Datatype.XSD_STRING)),
+            of(value->new BuilderLiteral(value, df),                         new BuilderLiteral(df).withLiteralForm("3.14").withDatatype(OWL2Datatype.OWL_REAL).withAnnotations(anns),                                  Literal("3.14", OWL2Datatype.OWL_REAL)),
+            of(value->new BuilderNamedIndividual(value, df),                 new BuilderNamedIndividual(df).withIRI(IRIS.iri),                                                                                          INDIVIDUALS.IRI_IND),
+            of(value->new BuilderNegativeDataPropertyAssertion(value, df),   new BuilderNegativeDataPropertyAssertion(df).withAnnotations(anns).withProperty(DATAPROPS.dp).withValue(LITERALS.lit).withSubject(INDIVIDUALS.i), NegativeDataPropertyAssertion(anns, DATAPROPS.dp, INDIVIDUALS.i, LITERALS.lit)),
+            of(value->new BuilderNegativeObjectPropertyAssertion(value, df), new BuilderNegativeObjectPropertyAssertion(df).withAnnotations(anns).withProperty(OBJPROPS.op).withValue(INDIVIDUALS.i).withSubject(INDIVIDUALS.i), NegativeObjectPropertyAssertion(anns, OBJPROPS.op, INDIVIDUALS.i, INDIVIDUALS.i)),
+            of(value->new BuilderObjectAllValuesFrom(value, df),             new BuilderObjectAllValuesFrom(df).withProperty(OBJPROPS.op).withRange(CLASSES.ce),                                                        ObjectAllValuesFrom(OBJPROPS.op, CLASSES.ce)),
+            of(value->new BuilderObjectExactCardinality(value, df),          new BuilderObjectExactCardinality(df).withCardinality(1).withProperty(OBJPROPS.op).withRange(CLASSES.ce),                                  ObjectExactCardinality(1, OBJPROPS.op, CLASSES.ce)),
+            of(value->new BuilderObjectHasSelf(value, df),                   new BuilderObjectHasSelf(df).withProperty(OBJPROPS.op),                                                                                    ObjectHasSelf(OBJPROPS.op)),
+            of(value->new BuilderObjectHasValue(value, df),                  new BuilderObjectHasValue(df).withProperty(OBJPROPS.op).withValue(INDIVIDUALS.i),                                                          ObjectHasValue(OBJPROPS.op, INDIVIDUALS.i)),
+            of(value->new BuilderObjectIntersectionOf(value, df),            new BuilderObjectIntersectionOf(df).withItems(CLASSES.ce, CLASSES.IRI_CLASS),                                                              ObjectIntersectionOf(CLASSES.ce, CLASSES.IRI_CLASS)),
+            of(value->new BuilderObjectInverseOf(value, df),                 new BuilderObjectInverseOf(df).withProperty(OBJPROPS.op),                                                                                  ObjectInverseOf(OBJPROPS.op)),
+            of(value->new BuilderObjectMaxCardinality(value, df),            new BuilderObjectMaxCardinality(df).withCardinality(1).withProperty(OBJPROPS.op).withRange(CLASSES.ce),                                    ObjectMaxCardinality(1, OBJPROPS.op, CLASSES.ce)),
+            of(value->new BuilderObjectMinCardinality(value, df),            new BuilderObjectMinCardinality(df).withCardinality(1).withProperty(OBJPROPS.op).withRange(CLASSES.ce),                                    ObjectMinCardinality(1, OBJPROPS.op, CLASSES.ce)),
+            of(value->new BuilderObjectProperty(value, df),                  new BuilderObjectProperty(df).withIRI(OBJPROPS.P.getIRI()),                                                                                OBJPROPS.P),
+            of(value->new BuilderObjectPropertyAssertion(value, df),         new BuilderObjectPropertyAssertion(df).withProperty(OBJPROPS.op).withSubject(INDIVIDUALS.i).withValue(INDIVIDUALS.i).withAnnotations(anns),ObjectPropertyAssertion(anns, OBJPROPS.op, INDIVIDUALS.i, INDIVIDUALS.i)),
+            of(value->new BuilderObjectPropertyDomain(value, df),            new BuilderObjectPropertyDomain(df).withDomain(CLASSES.ce).withProperty(OBJPROPS.op).withAnnotations(anns),                                ObjectPropertyDomain(anns, OBJPROPS.op, CLASSES.ce)),
+            of(value->new BuilderObjectPropertyRange(value, df),             new BuilderObjectPropertyRange(df).withProperty(OBJPROPS.op).withRange(CLASSES.ce).withAnnotations(anns),                                  ObjectPropertyRange(anns, OBJPROPS.op, CLASSES.ce)),
+            of(value->new BuilderObjectSomeValuesFrom(value, df),            new BuilderObjectSomeValuesFrom(df).withProperty(OBJPROPS.op).withRange(CLASSES.ce),                                                       ObjectSomeValuesFrom(OBJPROPS.op, CLASSES.ce)),
+            of(value->new BuilderOneOf(value, df),                           new BuilderOneOf(df).withItem(INDIVIDUALS.i),                                                                                              ObjectOneOf(INDIVIDUALS.i)),
+            of(value->new BuilderPropertyChain(value, df),                   new BuilderPropertyChain(df).withProperty(OBJPROPS.op).withAnnotations(anns).withPropertiesInChain(l(OBJPROPS.P, OBJPROPS.op)),            SubPropertyChainOf(anns, l(OBJPROPS.P, OBJPROPS.op), OBJPROPS.op)),
+            of(value->new BuilderReflexiveObjectProperty(value, df),         new BuilderReflexiveObjectProperty(df).withProperty(OBJPROPS.op).withAnnotations(anns),                                                    ReflexiveObjectProperty(anns, OBJPROPS.op)),
+            of(value->new BuilderSameIndividual(value, df),                  new BuilderSameIndividual(df).withItems(INDIVIDUALS.i, INDIVIDUALS.IRI_IND).withAnnotations(anns),                                         SameIndividual(anns, INDIVIDUALS.i, INDIVIDUALS.IRI_IND)),
+            of(value->new BuilderSubAnnotationPropertyOf(value, df),         new BuilderSubAnnotationPropertyOf(df).withSub(ANNPROPS.ap).withSup(RDFSLabel()).withAnnotations(anns),                                    SubAnnotationPropertyOf(anns, ANNPROPS.ap, RDFSLabel())),
+            of(value->new BuilderSubClass(value, df),                        new BuilderSubClass(df).withAnnotations(anns).withSub(CLASSES.ce).withSup(OWLThing()),                                                     SubClassOf(anns, CLASSES.ce, OWLThing())),
+            of(value->new BuilderSubDataProperty(value, df),                 new BuilderSubDataProperty(df).withSub(DATAPROPS.dp).withSup(TopDataProperty()),                                                           SubDataPropertyOf(DATAPROPS.dp, TopDataProperty())),
+            of(value->new BuilderSubObjectProperty(value, df),               new BuilderSubObjectProperty(df).withSub(OBJPROPS.op).withSup(TopObjectProperty()).withAnnotations(anns),                                  SubObjectPropertyOf(anns, OBJPROPS.op, TopObjectProperty())),
+            of(value->new BuilderSWRLBuiltInAtom(value, df),                 new BuilderSWRLBuiltInAtom(df).with(IRIS.iri).with(SWRL.var1),                                                                             SWRLBuiltInAtom(IRIS.iri, SWRL.var1)),
+            of(value->new BuilderSWRLClassAtom(value, df),                   new BuilderSWRLClassAtom(df).with(CLASSES.ce).with(SWRL.var2),                                                                             SWRLClassAtom(CLASSES.ce, SWRL.var2)),
+            of(value->new BuilderSWRLDataPropertyAtom(value, df),            new BuilderSWRLDataPropertyAtom(df).withProperty(DATAPROPS.dp).with((SWRLIArgument)SWRL.var2).with((SWRLDArgument)SWRL.var1),              SWRLDataPropertyAtom(DATAPROPS.dp, SWRL.var2, SWRL.var1)),
+            of(value->new BuilderSWRLDataRangeAtom(value, df),               new BuilderSWRLDataRangeAtom(df).with(Boolean()).with(SWRL.var1),                                                                          SWRLDataRangeAtom(Boolean(), SWRL.var1)),
+            of(value->new BuilderSWRLDifferentIndividualsAtom(value, df),    new BuilderSWRLDifferentIndividualsAtom(df).withArg0(SWRL.var2).withArg1(SWRL.var2).withAnnotations(anns),                                 SWRLDifferentIndividualsAtom(SWRL.var2, SWRL.var2)),
+            of(value->new BuilderSWRLIndividualArgument(value, df),          new BuilderSWRLIndividualArgument(df).with(INDIVIDUALS.i),                                                                                 SWRLIndividualArgument(INDIVIDUALS.i)),
+            of(value->new BuilderSWRLLiteralArgument(value, df),             new BuilderSWRLLiteralArgument(df).with(LITERALS.lit),                                                                                     SWRLLiteralArgument(LITERALS.lit)),
+            of(value->new BuilderSWRLObjectPropertyAtom(value, df),          new BuilderSWRLObjectPropertyAtom(df).withProperty(OBJPROPS.op).withArg0(SWRL.var2).withArg1(SWRL.var2),                                   SWRLObjectPropertyAtom(OBJPROPS.op, SWRL.var2, SWRL.var2)),
+            of(value->new BuilderSWRLRule(value, df),                        new BuilderSWRLRule(df).withBody(v1).withHead(v2).withAnnotations(anns),                                                                   SWRLRule(anns, body, head)),
+            of(value->new BuilderSWRLSameIndividualAtom(value, df),          new BuilderSWRLSameIndividualAtom(df).withArg0(SWRLIndividualArgument(INDIVIDUALS.i)).withArg1(SWRLIndividualArgument(INDIVIDUALS.i)),     SWRLSameIndividualAtom(SWRLIndividualArgument(INDIVIDUALS.i), SWRLIndividualArgument(INDIVIDUALS.i))),
+            of(value->new BuilderSWRLVariable(value, df),                    new BuilderSWRLVariable(df).with(IRIS.iri),                                                                                                SWRLVariable(IRIS.iri)),
+            of(value->new BuilderSymmetricObjectProperty(value, df),         new BuilderSymmetricObjectProperty(df).withProperty(OBJPROPS.op).withAnnotations(anns),                                                    SymmetricObjectProperty(anns, OBJPROPS.op)),
+            of(value->new BuilderTransitiveObjectProperty(value, df),        new BuilderTransitiveObjectProperty(df).withProperty(OBJPROPS.op).withAnnotations(anns),                                                   TransitiveObjectProperty(anns, OBJPROPS.op)),
+            of(value->new BuilderUnionOf(value, df),                         new BuilderUnionOf(df).withItems(CLASSES.ce, CLASSES.IRI_CLASS),                                                                           ObjectUnionOf(CLASSES.ce, CLASSES.IRI_CLASS)));
+        //@formatter:on
+    }
+
+    static <Q> Arguments of(Function<Q, Builder<Q>> p, Builder<Q> b, Q expected) {
+        return Arguments.of(p, b, expected);
     }
 
     @ParameterizedTest
     @MethodSource("getData")
-    void shouldTest(Prepare<Q> p, Builder<Q> b, Q expected) throws OWLOntologyCreationException {
+    <Q> void shouldTest(Function<Q, Builder<Q>> p, Builder<Q> b, Q expected) {
         assertEquals(expected, b.buildObject());
         if (expected instanceof OWLAxiom) {
-            OWLOntology o = m.createOntology();
+            OWLOntology o = createAnon();
             b.applyChanges(o);
             assertTrue(o.containsAxiom((OWLAxiom) expected),
                 expected.toString() + " but " + o.toString());
         }
-        Q created = p.build(expected).buildObject();
+        Q created = p.apply(expected).buildObject();
         assertEquals(expected.hashCode(), created.hashCode());
         assertEquals(expected, created);
-    }
-
-    private static interface Prepare<T> {
-
-        Builder<T> build(T t);
     }
 }

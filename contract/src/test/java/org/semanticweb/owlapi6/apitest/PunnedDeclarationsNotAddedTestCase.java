@@ -3,7 +3,6 @@ package org.semanticweb.owlapi6.apitest;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,35 +16,31 @@ import org.semanticweb.owlapi6.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
 class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
     static Collection<OWLDocumentFormat> data() {
-        return Arrays.asList(new FunctionalSyntaxDocumentFormat(), new OWLXMLDocumentFormat(),
+        return l(new FunctionalSyntaxDocumentFormat(), new OWLXMLDocumentFormat(),
             new RDFXMLDocumentFormat(), new TurtleDocumentFormat());
     }
 
     protected OWLOntology getOntologyWithPunnedInvalidDeclarations() {
-        OWLOntology o = getOWLOntology();
-        OWLObjectProperty op = df.getOWLObjectProperty(iri("testProperty"));
-        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
-        o.add(df.getOWLDeclarationAxiom(op));
-        o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
-        OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"),
-            df.getOWLAnnotation(ap, iri("otherTest")));
+        OWLOntology o = create(iri("urn:test:", "forbiddenPunningNotRedeclared"));
+        OWLAnnotationProperty pun = AnnotationProperty(OBJPROPS.P.getIRI());
+        o.add(Declaration(OBJPROPS.P));
+        o.add(TransitiveObjectProperty(OBJPROPS.P));
+        OWLAnnotationAssertionAxiom assertion =
+            AnnotationAssertion(pun, IRIS.iriTest1, IRIS.iriTest2);
         o.add(assertion);
         return o;
     }
 
     protected OWLOntology getOntologyWithMissingDeclarations() {
-        OWLOntology o = getOWLOntology();
-        OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));
-        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testAnnotationProperty"));
-        o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
-        OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"),
-            df.getOWLAnnotation(ap, iri("otherTest")));
+        OWLOntology o = create(iri("urn:test:", "missingDeclarations"));
+        o.add(TransitiveObjectProperty(OBJPROPS.P));
+        OWLAnnotationAssertionAxiom assertion =
+            AnnotationAssertion(ANNPROPS.AP, IRIS.iriTest1, IRIS.iriTest2);
         o.add(assertion);
         return o;
     }
@@ -55,8 +50,7 @@ class PunnedDeclarationsNotAddedTestCase extends TestBase {
     void shouldNotAddDeclarationsForIllegalPunnings(OWLDocumentFormat format) {
         OWLOntology o = getOntologyWithPunnedInvalidDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
-        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
-        OWLDeclarationAxiom ax = df.getOWLDeclarationAxiom(ap);
+        OWLDeclarationAxiom ax = Declaration(ANNPROPS.AP);
         assertFalse(reloaded.containsAxiom(ax), "Property should not have been declared");
     }
 
@@ -65,9 +59,7 @@ class PunnedDeclarationsNotAddedTestCase extends TestBase {
     void shouldDeclareMissingEntities(OWLDocumentFormat format) {
         OWLOntology o = getOntologyWithMissingDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
-        OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));
-        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testAnnotationProperty"));
-        assertTrue(reloaded.containsAxiom(df.getOWLDeclarationAxiom(ap)));
-        assertTrue(reloaded.containsAxiom(df.getOWLDeclarationAxiom(op)));
+        assertTrue(reloaded.containsAxiom(Declaration(ANNPROPS.AP)));
+        assertTrue(reloaded.containsAxiom(Declaration(OBJPROPS.P)));
     }
 }

@@ -13,19 +13,6 @@
 package org.semanticweb.owlapi6.apitest.individuals;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentDataProperties;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.NamedIndividual;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SameIndividual;
-import static org.semanticweb.owlapi6.model.parameters.Imports.INCLUDED;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,14 +21,10 @@ import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLAxiom;
-import org.semanticweb.owlapi6.model.OWLClass;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
 import org.semanticweb.owlapi6.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi6.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi6.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi6.model.OWLNamedIndividual;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLSameIndividualAxiom;
 
@@ -51,42 +34,17 @@ import org.semanticweb.owlapi6.model.OWLSameIndividualAxiom;
  */
 class SameIndividualsQuadrupletRoundTripTestCase extends TestBase {
 
-    private static final OWLClass a = Class(iri("a"));
-    private static final OWLClass b = Class(iri("b"));
-    private static final OWLClass c = Class(iri("c"));
-    private static final OWLClass d = Class(iri("d"));
-
-    private static final OWLDataProperty p = DataProperty(iri("p"));
-    private static final OWLDataProperty q = DataProperty(iri("q"));
-    private static final OWLDataProperty r = DataProperty(iri("r"));
-    private static final OWLDataProperty s = DataProperty(iri("s"));
-
-    private static final OWLObjectProperty t = ObjectProperty(iri("t"));
-    private static final OWLObjectProperty u = ObjectProperty(iri("u"));
-    private static final OWLObjectProperty w = ObjectProperty(iri("w"));
-    private static final OWLObjectProperty z = ObjectProperty(iri("z"));
-
-    private static final OWLNamedIndividual i = NamedIndividual(iri("i"));
-    private static final OWLNamedIndividual j = NamedIndividual(iri("j"));
-    private static final OWLNamedIndividual k = NamedIndividual(iri("k"));
-    private static final OWLNamedIndividual l = NamedIndividual(iri("l"));
-    private static final OWLSameIndividualAxiom axiom1 = SameIndividual(i, j, k, l);
-    private static final OWLEquivalentClassesAxiom axiom2 = EquivalentClasses(a, b, c, d);
+    private static final OWLSameIndividualAxiom axiom1 =
+        SameIndividual(INDIVIDUALS.I, INDIVIDUALS.J, INDIVIDUALS.k, INDIVIDUALS.l);
+    private static final OWLEquivalentClassesAxiom axiom2 =
+        EquivalentClasses(CLASSES.A, CLASSES.B, CLASSES.C, CLASSES.D);
     private static final OWLEquivalentObjectPropertiesAxiom axiom3 =
-        EquivalentObjectProperties(t, u, w, z);
+        EquivalentObjectProperties(OBJPROPS.t, OBJPROPS.u, OBJPROPS.w, OBJPROPS.z);
     private static final OWLEquivalentDataPropertiesAxiom axiom4 =
-        EquivalentDataProperties(p, q, r, s);
-
-    protected OWLOntology o(Collection<OWLAxiom> axioms) {
-        OWLOntology ont = getOWLOntology();
-        ont.add(axioms);
-        ont.unsortedSignature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
-        .forEach(e -> ont.add(Declaration(e)));
-        return ont;
-    }
+        EquivalentDataProperties(DATAPROPS.DP, DATAPROPS.DQ, DATAPROPS.DR, DATAPROPS.DS);
 
     OWLOntology sameIndividualsQuadrupletRoundTripTestCase() {
-        return o(Arrays.asList(axiom1, axiom2, axiom3, axiom4));
+        return o(l(axiom1, axiom2, axiom3, axiom4));
     }
 
     @Override
@@ -118,8 +76,8 @@ class SameIndividualsQuadrupletRoundTripTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void testFormat(OWLDocumentFormat df) {
-        roundTripOntology(sameIndividualsQuadrupletRoundTripTestCase(), df);
+    void testFormat(OWLDocumentFormat format) {
+        roundTripOntology(sameIndividualsQuadrupletRoundTripTestCase(), format);
     }
 
     @Test

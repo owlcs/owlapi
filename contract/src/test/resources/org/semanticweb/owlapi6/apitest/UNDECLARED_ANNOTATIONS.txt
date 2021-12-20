@@ -1,0 +1,17 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix oio: <http://www.geneontology.org/formats/oboInOwl#> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+
+obo:MONDO_0009025
+    a owl:Class ;
+    oio:hasDbXref "UMLS:C1415737" .
+
+[ a owl:Axiom ;
+    rdfs:comment "Some comment";
+   oio:source "MONDO:notFoundInSource" ;
+  owl:annotatedProperty oio:hasDbXref ;
+  owl:annotatedSource obo:MONDO_0009025 ;
+  owl:annotatedTarget "UMLS:C1415737"
+] .

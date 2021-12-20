@@ -18,7 +18,7 @@
 
     <owl:DatatypeProperty rdf:about="#dp"/>
 
-    <owl:NamedIndividual rdf:about="#ni"/>
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/owlapi/test#i"/>
 
     <owl:AnnotationProperty rdf:about="#ap"/>
 

@@ -1,1 +1,0 @@
-SameAsAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#iri>)

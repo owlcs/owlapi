@@ -7,11 +7,7 @@ import org.semanticweb.owlapi6.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi6.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi6.model.OWLClass;
-import org.semanticweb.owlapi6.model.OWLNamedIndividual;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OntologyConfigurator;
 import org.semanticweb.owlapi6.rioformats.NQuadsDocumentFormat;
 import org.semanticweb.owlapi6.rioformats.NTriplesDocumentFormat;
@@ -24,17 +20,9 @@ import org.semanticweb.owlapi6.rioformats.TrigDocumentFormat;
 class IndividualStrictParsingTestCase extends TestBase {
 
     @Test
-    void should() throws OWLOntologyCreationException {
-        OWLOntology o = m.createOntology();
-
-        OWLObjectProperty p = df.getOWLObjectProperty("http://purl.obolibrary.org/obo/BFO_0000051");
-        OWLClass c = df.getOWLClass("http://purl.obolibrary.org/obo/ENVO_00000191");
-        OWLNamedIndividual individual =
-            df.getOWLNamedIndividual("https://www.wikidata.org/wiki/Q2306597");
-
-        o.add(df.getOWLDeclarationAxiom(p), df.getOWLDeclarationAxiom(c),
-            df.getOWLDeclarationAxiom(individual),
-            df.getOWLClassAssertionAxiom(df.getOWLObjectSomeValuesFrom(p, c), individual));
+    void should() {
+        OWLOntology o =
+            o(ClassAssertion(ObjectSomeValuesFrom(OBJPROPS.P, CLASSES.C), INDIVIDUALS.I));
         OntologyConfigurator conf = new OntologyConfigurator().setStrict(true);
         roundTrip(o, new RDFXMLDocumentFormat(), conf);
         roundTrip(o, new RioRDFXMLDocumentFormat(), conf);

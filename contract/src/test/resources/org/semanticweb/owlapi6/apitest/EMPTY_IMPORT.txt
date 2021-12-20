@@ -1,0 +1,11 @@
+ontology: uberon
+import: http://purl.obolibrary.org/obo/uberon/test_import.owl
+
+[Term]
+id: X:1
+name: x1
+relationship: part_of X:2
+
+[Typedef]
+id: part_of
+xref: BFO:0000050

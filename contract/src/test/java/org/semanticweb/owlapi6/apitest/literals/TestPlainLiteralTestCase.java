@@ -15,65 +15,51 @@ package org.semanticweb.owlapi6.apitest.literals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.AnnotationAssertion;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.RDFSComment;
-
-import java.io.ByteArrayOutputStream;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.TestFiles;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
+import org.semanticweb.owlapi6.documents.StringDocumentTarget;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDatatype;
-import org.semanticweb.owlapi6.model.OWLIndividual;
 import org.semanticweb.owlapi6.model.OWLLiteral;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 
 class TestPlainLiteralTestCase extends TestBase {
 
-    static final String URN_TEST = "urn:test#";
-    static final String TEST = "test";
+    private static final OWLLiteral OWL_LITERAL = Literal("test", OWL2Datatype.RDF_PLAIN_LITERAL);
 
     @Test
     void testPlainLiteral() {
-        IRI iri = IRI("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "PlainLiteral");
-        assertTrue(iri.isPlainLiteral());
-        assertNotNull(df.getRDFPlainLiteral());
-        assertNotNull(OWL2Datatype.getDatatype(iri));
+        IRI plain = OWL2Datatype.RDF_PLAIN_LITERAL.getIRI();
+        assertTrue(plain.isPlainLiteral());
+        assertNotNull(RDFPlainLiteral());
+        assertNotNull(OWL2Datatype.getDatatype(plain));
     }
 
     @Test
     void shouldParsePlainLiteral() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.parsePlainLiteral, new RDFXMLDocumentFormat());
-        IRI i = IRI(URN_TEST, "ind");
-        assertEquals(o.annotationAssertionAxioms(i).iterator().next(),
-            AnnotationAssertion(RDFSComment(), i, Literal(TEST, OWL2Datatype.RDF_PLAIN_LITERAL)));
+        OWLOntology o = loadFrom(TestFiles.parsePlainLiteral, new RDFXMLDocumentFormat());
+        assertEquals(o.annotationAssertionAxioms(INDIVIDUALS.I.getIRI()).iterator().next(),
+            AnnotationAssertion(RDFSComment(), INDIVIDUALS.I.getIRI(), OWL_LITERAL));
     }
 
     @Test
     void testPlainLiteralFromEvren() {
-        OWLDatatype node = df.getRDFPlainLiteral();
+        OWLDatatype node = RDFPlainLiteral();
         assertTrue(node.isBuiltIn());
         assertNotNull(node.getBuiltInDatatype());
     }
 
     @Test
-    void testPlainLiteralSerialization() throws Exception {
-        OWLOntology o = getOWLOntology();
-        OWLDataProperty p = df.getOWLDataProperty(URN_TEST, "p");
-        OWLIndividual i = df.getOWLNamedIndividual(URN_TEST, "ind");
-        OWLLiteral l = df.getOWLLiteral(TEST, OWL2Datatype.RDF_PLAIN_LITERAL);
-        o.add(df.getOWLDataPropertyAssertionAxiom(p, i, l));
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        o.saveOntology(out);
+    void testPlainLiteralSerialization() {
+        OWLOntology o = createAnon();
+        o.add(DataPropertyAssertion(DATAPROPS.DP, INDIVIDUALS.I, OWL_LITERAL));
+        StringDocumentTarget out = saveOntology(o);
         String expectedStart = "<test:p";
         String expectedEnd = ">test</test:p>";
         assertTrue(out.toString().contains(expectedStart), out.toString());
@@ -81,14 +67,10 @@ class TestPlainLiteralTestCase extends TestBase {
     }
 
     @Test
-    void testPlainLiteralSerializationComments() throws Exception {
-        OWLOntology o = getOWLOntology();
-        OWLIndividual i = df.getOWLNamedIndividual(URN_TEST, "ind");
-        OWLLiteral l = df.getOWLLiteral(TEST, OWL2Datatype.RDF_PLAIN_LITERAL);
-        o.add(df.getOWLAnnotationAssertionAxiom(i.asOWLNamedIndividual().getIRI(),
-            df.getRDFSComment(l)));
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        o.saveOntology(out);
+    void testPlainLiteralSerializationComments() {
+        OWLOntology o = createAnon();
+        o.add(AnnotationAssertion(RDFSComment(), INDIVIDUALS.I.getIRI(), OWL_LITERAL));
+        StringDocumentTarget out = saveOntology(o);
         String expectedStart = "<rdfs:comment";
         String expectedEnd = ">test</rdfs:comment>";
         assertTrue(out.toString().contains(expectedStart), out.toString());
@@ -96,13 +78,11 @@ class TestPlainLiteralTestCase extends TestBase {
     }
 
     @Test
-    void testPlainLiteralSerializationComments2() throws Exception {
-        OWLOntology o = getOWLOntology();
-        OWLLiteral l = df.getOWLLiteral(TEST, OWL2Datatype.RDF_PLAIN_LITERAL);
-        OWLAnnotation a = df.getRDFSComment(l);
+    void testPlainLiteralSerializationComments2() {
+        OWLOntology o = createAnon();
+        OWLAnnotation a = RDFSComment(OWL_LITERAL);
         o.applyChange(new AddOntologyAnnotation(o, a));
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        o.saveOntology(out);
+        StringDocumentTarget out = saveOntology(o);
         String expectedStart = "<rdfs:comment";
         String expectedEnd = ">test</rdfs:comment>";
         assertTrue(out.toString().contains(expectedStart), out.toString());

@@ -16,13 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.InverseObjectProperties;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.OWLNothing;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.OWLThing;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SubClassOf;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,12 +44,15 @@ class ReasonerTestCase extends TestBase {
     private OWLReasoner reasoner;
 
     private OWLOntology createOntology() {
-        OWLOntology o = getOWLOntology();
-        o.add(SubClassOf(G, OWLThing()), SubClassOf(OWLThing(), G), EquivalentClasses(A, B),
-            SubClassOf(C, B), SubClassOf(D, A), SubClassOf(D, F), SubClassOf(F, D),
-            SubClassOf(E, C), SubClassOf(K, D), EquivalentClasses(K, OWLNothing()),
-            EquivalentObjectProperties(P, Q), SubObjectPropertyOf(P, R),
-            InverseObjectProperties(R, S));
+        OWLOntology o = create("ont");
+        o.add(SubClassOf(CLASSES.G, OWLThing()), SubClassOf(OWLThing(), CLASSES.G),
+            EquivalentClasses(CLASSES.A, CLASSES.B), SubClassOf(CLASSES.C, CLASSES.B),
+            SubClassOf(CLASSES.D, CLASSES.A), SubClassOf(CLASSES.D, CLASSES.F),
+            SubClassOf(CLASSES.F, CLASSES.D), SubClassOf(CLASSES.E, CLASSES.C),
+            SubClassOf(CLASSES.K, CLASSES.D), EquivalentClasses(CLASSES.K, OWLNothing()),
+            EquivalentObjectProperties(OBJPROPS.P, OBJPROPS.Q),
+            SubObjectPropertyOf(OBJPROPS.P, OBJPROPS.R),
+            InverseObjectProperties(OBJPROPS.R, OBJPROPS.S));
         return o;
     }
 
@@ -86,11 +82,11 @@ class ReasonerTestCase extends TestBase {
         assertTrue(node.isTopNode());
         assertFalse(node.isBottomNode());
         assertTrue(node.contains(OWLThing()));
-        assertTrue(node.contains(G));
+        assertTrue(node.contains(CLASSES.G));
         assertEquals(2, node.getSize());
         assertEquals(2, node.entities().count());
         assertEquals(1, node.getEntitiesMinusTop().size());
-        assertTrue(node.getEntitiesMinusTop().contains(G));
+        assertTrue(node.getEntitiesMinusTop().contains(CLASSES.G));
     }
 
     @Test
@@ -99,11 +95,11 @@ class ReasonerTestCase extends TestBase {
         assertTrue(node.isBottomNode());
         assertFalse(node.isTopNode());
         assertTrue(node.contains(OWLNothing()));
-        assertTrue(node.contains(K));
+        assertTrue(node.contains(CLASSES.K));
         assertEquals(2, node.getSize());
         assertEquals(2, node.entities().count());
         assertEquals(1, node.getEntitiesMinusBottom().size());
-        assertTrue(node.getEntitiesMinusBottom().contains(K));
+        assertTrue(node.getEntitiesMinusBottom().contains(CLASSES.K));
     }
 
     @Test
@@ -112,55 +108,55 @@ class ReasonerTestCase extends TestBase {
         assertNotNull(nTop);
         assertEquals(2, nTop.getSize());
         assertTrue(nTop.contains(OWLThing()));
-        assertTrue(nTop.contains(G));
-        Node<OWLClass> nG = reasoner.getEquivalentClasses(G);
+        assertTrue(nTop.contains(CLASSES.G));
+        Node<OWLClass> nG = reasoner.getEquivalentClasses(CLASSES.G);
         assertNotNull(nG);
         assertEquals(2, nG.getSize());
         assertTrue(nG.contains(OWLThing()));
-        assertTrue(nG.contains(G));
+        assertTrue(nG.contains(CLASSES.G));
         assertEquals(nTop, nG);
-        Node<OWLClass> nA = reasoner.getEquivalentClasses(A);
+        Node<OWLClass> nA = reasoner.getEquivalentClasses(CLASSES.A);
         assertNotNull(nA);
         assertEquals(2, nA.getSize());
-        assertTrue(nA.contains(A));
-        assertTrue(nA.contains(B));
-        Node<OWLClass> nB = reasoner.getEquivalentClasses(B);
+        assertTrue(nA.contains(CLASSES.A));
+        assertTrue(nA.contains(CLASSES.B));
+        Node<OWLClass> nB = reasoner.getEquivalentClasses(CLASSES.B);
         assertNotNull(nB);
         assertEquals(2, nB.getSize());
-        assertTrue(nB.contains(A));
-        assertTrue(nB.contains(B));
+        assertTrue(nB.contains(CLASSES.A));
+        assertTrue(nB.contains(CLASSES.B));
         assertEquals(nA, nB);
-        Node<OWLClass> nC = reasoner.getEquivalentClasses(C);
+        Node<OWLClass> nC = reasoner.getEquivalentClasses(CLASSES.C);
         assertNotNull(nC);
         assertEquals(1, nC.getSize());
-        assertTrue(nC.contains(C));
-        assertEquals(C, nC.getRepresentativeElement());
-        Node<OWLClass> nE = reasoner.getEquivalentClasses(E);
+        assertTrue(nC.contains(CLASSES.C));
+        assertEquals(CLASSES.C, nC.getRepresentativeElement());
+        Node<OWLClass> nE = reasoner.getEquivalentClasses(CLASSES.E);
         assertNotNull(nE);
         assertEquals(1, nE.getSize());
-        assertTrue(nE.contains(E));
-        assertEquals(E, nE.getRepresentativeElement());
-        Node<OWLClass> nD = reasoner.getEquivalentClasses(D);
+        assertTrue(nE.contains(CLASSES.E));
+        assertEquals(CLASSES.E, nE.getRepresentativeElement());
+        Node<OWLClass> nD = reasoner.getEquivalentClasses(CLASSES.D);
         assertNotNull(nD);
         assertEquals(2, nD.getSize());
-        assertTrue(nD.contains(D));
-        assertTrue(nD.contains(F));
-        Node<OWLClass> nF = reasoner.getEquivalentClasses(F);
+        assertTrue(nD.contains(CLASSES.D));
+        assertTrue(nD.contains(CLASSES.F));
+        Node<OWLClass> nF = reasoner.getEquivalentClasses(CLASSES.F);
         assertNotNull(nF);
         assertEquals(2, nF.getSize());
-        assertTrue(nF.contains(D));
-        assertTrue(nF.contains(F));
+        assertTrue(nF.contains(CLASSES.D));
+        assertTrue(nF.contains(CLASSES.F));
         assertEquals(nD, nF);
         Node<OWLClass> nBot = reasoner.getEquivalentClasses(OWLNothing());
         assertNotNull(nBot);
         assertEquals(2, nBot.getSize());
         assertTrue(nBot.contains(OWLNothing()));
-        assertTrue(nBot.contains(K));
-        Node<OWLClass> nK = reasoner.getEquivalentClasses(K);
+        assertTrue(nBot.contains(CLASSES.K));
+        Node<OWLClass> nK = reasoner.getEquivalentClasses(CLASSES.K);
         assertNotNull(nK);
         assertEquals(2, nK.getSize());
         assertTrue(nBot.contains(OWLNothing()));
-        assertTrue(nBot.contains(K));
+        assertTrue(nBot.contains(CLASSES.K));
         assertEquals(nBot, nK);
     }
 
@@ -169,53 +165,53 @@ class ReasonerTestCase extends TestBase {
         NodeSet<OWLClass> nsSupTop = reasoner.getSuperClasses(OWLThing(), true);
         assertNotNull(nsSupTop);
         assertTrue(nsSupTop.isEmpty());
-        NodeSet<OWLClass> nsSupG = reasoner.getSuperClasses(G, true);
+        NodeSet<OWLClass> nsSupG = reasoner.getSuperClasses(CLASSES.G, true);
         assertNotNull(nsSupG);
         assertTrue(nsSupG.isEmpty());
-        NodeSet<OWLClass> nsSupA = reasoner.getSuperClasses(A, true);
+        NodeSet<OWLClass> nsSupA = reasoner.getSuperClasses(CLASSES.A, true);
         assertNotNull(nsSupA);
         assertFalse(nsSupA.isEmpty());
         assertEquals(1, nsSupA.nodes().count());
         assertTrue(nsSupA.containsEntity(OWLThing()));
-        assertTrue(nsSupA.containsEntity(G));
+        assertTrue(nsSupA.containsEntity(CLASSES.G));
         assertTrue(nsSupA.isTopSingleton());
-        NodeSet<OWLClass> nsSupB = reasoner.getSuperClasses(B, true);
+        NodeSet<OWLClass> nsSupB = reasoner.getSuperClasses(CLASSES.B, true);
         assertNotNull(nsSupB);
         assertEquals(1, nsSupB.nodes().count());
         assertTrue(nsSupB.containsEntity(OWLThing()));
-        assertTrue(nsSupB.containsEntity(G));
+        assertTrue(nsSupB.containsEntity(CLASSES.G));
         assertTrue(nsSupB.isTopSingleton());
-        NodeSet<OWLClass> nsSupC = reasoner.getSuperClasses(C, true);
+        NodeSet<OWLClass> nsSupC = reasoner.getSuperClasses(CLASSES.C, true);
         assertNotNull(nsSupC);
         assertEquals(1, nsSupC.nodes().count());
-        assertTrue(nsSupC.containsEntity(A));
-        assertTrue(nsSupC.containsEntity(B));
-        NodeSet<OWLClass> nsSupE = reasoner.getSuperClasses(E, true);
+        assertTrue(nsSupC.containsEntity(CLASSES.A));
+        assertTrue(nsSupC.containsEntity(CLASSES.B));
+        NodeSet<OWLClass> nsSupE = reasoner.getSuperClasses(CLASSES.E, true);
         assertNotNull(nsSupE);
         assertEquals(1, nsSupE.nodes().count());
-        assertTrue(nsSupE.containsEntity(C));
-        NodeSet<OWLClass> nsSupD = reasoner.getSuperClasses(D, true);
+        assertTrue(nsSupE.containsEntity(CLASSES.C));
+        NodeSet<OWLClass> nsSupD = reasoner.getSuperClasses(CLASSES.D, true);
         assertNotNull(nsSupD);
         assertEquals(1, nsSupD.nodes().count());
-        assertTrue(nsSupD.containsEntity(A));
-        assertTrue(nsSupD.containsEntity(B));
-        NodeSet<OWLClass> nsSupF = reasoner.getSuperClasses(F, true);
+        assertTrue(nsSupD.containsEntity(CLASSES.A));
+        assertTrue(nsSupD.containsEntity(CLASSES.B));
+        NodeSet<OWLClass> nsSupF = reasoner.getSuperClasses(CLASSES.F, true);
         assertNotNull(nsSupF);
         assertEquals(1, nsSupF.nodes().count());
-        assertTrue(nsSupF.containsEntity(A));
-        assertTrue(nsSupF.containsEntity(B));
-        NodeSet<OWLClass> nsSupK = reasoner.getSuperClasses(K, true);
+        assertTrue(nsSupF.containsEntity(CLASSES.A));
+        assertTrue(nsSupF.containsEntity(CLASSES.B));
+        NodeSet<OWLClass> nsSupK = reasoner.getSuperClasses(CLASSES.K, true);
         assertNotNull(nsSupK);
         assertEquals(2, nsSupK.nodes().count());
-        assertTrue(nsSupK.containsEntity(E));
-        assertTrue(nsSupK.containsEntity(D));
-        assertTrue(nsSupK.containsEntity(F));
+        assertTrue(nsSupK.containsEntity(CLASSES.E));
+        assertTrue(nsSupK.containsEntity(CLASSES.D));
+        assertTrue(nsSupK.containsEntity(CLASSES.F));
         NodeSet<OWLClass> nsSupBot = reasoner.getSuperClasses(OWLNothing(), true);
         assertNotNull(nsSupBot);
         assertEquals(2, nsSupBot.nodes().count());
-        assertTrue(nsSupBot.containsEntity(E));
-        assertTrue(nsSupBot.containsEntity(D));
-        assertTrue(nsSupBot.containsEntity(F));
+        assertTrue(nsSupBot.containsEntity(CLASSES.E));
+        assertTrue(nsSupBot.containsEntity(CLASSES.D));
+        assertTrue(nsSupBot.containsEntity(CLASSES.F));
     }
 
     @Test
@@ -223,72 +219,72 @@ class ReasonerTestCase extends TestBase {
         NodeSet<OWLClass> nsSupTop = reasoner.getSuperClasses(OWLThing(), false);
         assertNotNull(nsSupTop);
         assertTrue(nsSupTop.isEmpty());
-        NodeSet<OWLClass> nsSupG = reasoner.getSuperClasses(G, false);
+        NodeSet<OWLClass> nsSupG = reasoner.getSuperClasses(CLASSES.G, false);
         assertNotNull(nsSupG);
         assertTrue(nsSupG.isEmpty());
-        NodeSet<OWLClass> nsSupA = reasoner.getSuperClasses(A, false);
+        NodeSet<OWLClass> nsSupA = reasoner.getSuperClasses(CLASSES.A, false);
         assertNotNull(nsSupA);
         assertFalse(nsSupA.isEmpty());
         assertEquals(1, nsSupA.nodes().count());
         assertTrue(nsSupA.containsEntity(OWLThing()));
-        assertTrue(nsSupA.containsEntity(G));
+        assertTrue(nsSupA.containsEntity(CLASSES.G));
         assertTrue(nsSupA.isTopSingleton());
-        NodeSet<OWLClass> nsSupB = reasoner.getSuperClasses(B, false);
+        NodeSet<OWLClass> nsSupB = reasoner.getSuperClasses(CLASSES.B, false);
         assertNotNull(nsSupB);
         assertEquals(1, nsSupB.nodes().count());
         assertTrue(nsSupB.containsEntity(OWLThing()));
-        assertTrue(nsSupB.containsEntity(G));
+        assertTrue(nsSupB.containsEntity(CLASSES.G));
         assertTrue(nsSupB.isTopSingleton());
-        NodeSet<OWLClass> nsSupC = reasoner.getSuperClasses(C, false);
+        NodeSet<OWLClass> nsSupC = reasoner.getSuperClasses(CLASSES.C, false);
         assertNotNull(nsSupC);
         assertEquals(2, nsSupC.nodes().count());
         assertTrue(nsSupC.containsEntity(OWLThing()));
-        assertTrue(nsSupC.containsEntity(G));
-        assertTrue(nsSupC.containsEntity(A));
-        assertTrue(nsSupC.containsEntity(B));
-        NodeSet<OWLClass> nsSupE = reasoner.getSuperClasses(E, false);
+        assertTrue(nsSupC.containsEntity(CLASSES.G));
+        assertTrue(nsSupC.containsEntity(CLASSES.A));
+        assertTrue(nsSupC.containsEntity(CLASSES.B));
+        NodeSet<OWLClass> nsSupE = reasoner.getSuperClasses(CLASSES.E, false);
         assertNotNull(nsSupE);
         assertEquals(3, nsSupE.nodes().count());
-        assertTrue(nsSupE.containsEntity(C));
-        assertTrue(nsSupE.containsEntity(A));
-        assertTrue(nsSupE.containsEntity(B));
-        assertTrue(nsSupE.containsEntity(G));
+        assertTrue(nsSupE.containsEntity(CLASSES.C));
+        assertTrue(nsSupE.containsEntity(CLASSES.A));
+        assertTrue(nsSupE.containsEntity(CLASSES.B));
+        assertTrue(nsSupE.containsEntity(CLASSES.G));
         assertTrue(nsSupE.containsEntity(OWLThing()));
-        NodeSet<OWLClass> nsSupD = reasoner.getSuperClasses(D, false);
+        NodeSet<OWLClass> nsSupD = reasoner.getSuperClasses(CLASSES.D, false);
         assertNotNull(nsSupD);
         assertEquals(2, nsSupD.nodes().count());
-        assertTrue(nsSupD.containsEntity(A));
-        assertTrue(nsSupD.containsEntity(B));
-        assertTrue(nsSupD.containsEntity(G));
+        assertTrue(nsSupD.containsEntity(CLASSES.A));
+        assertTrue(nsSupD.containsEntity(CLASSES.B));
+        assertTrue(nsSupD.containsEntity(CLASSES.G));
         assertTrue(nsSupD.containsEntity(OWLThing()));
-        NodeSet<OWLClass> nsSupF = reasoner.getSuperClasses(F, false);
+        NodeSet<OWLClass> nsSupF = reasoner.getSuperClasses(CLASSES.F, false);
         assertNotNull(nsSupF);
         assertEquals(2, nsSupF.nodes().count());
-        assertTrue(nsSupF.containsEntity(A));
-        assertTrue(nsSupF.containsEntity(B));
-        assertTrue(nsSupF.containsEntity(G));
+        assertTrue(nsSupF.containsEntity(CLASSES.A));
+        assertTrue(nsSupF.containsEntity(CLASSES.B));
+        assertTrue(nsSupF.containsEntity(CLASSES.G));
         assertTrue(nsSupF.containsEntity(OWLThing()));
-        NodeSet<OWLClass> nsSupK = reasoner.getSuperClasses(K, false);
+        NodeSet<OWLClass> nsSupK = reasoner.getSuperClasses(CLASSES.K, false);
         assertNotNull(nsSupK);
         assertEquals(5, nsSupK.nodes().count());
-        assertTrue(nsSupK.containsEntity(E));
-        assertTrue(nsSupK.containsEntity(D));
-        assertTrue(nsSupK.containsEntity(F));
-        assertTrue(nsSupK.containsEntity(C));
-        assertTrue(nsSupK.containsEntity(A));
-        assertTrue(nsSupK.containsEntity(B));
-        assertTrue(nsSupK.containsEntity(G));
+        assertTrue(nsSupK.containsEntity(CLASSES.E));
+        assertTrue(nsSupK.containsEntity(CLASSES.D));
+        assertTrue(nsSupK.containsEntity(CLASSES.F));
+        assertTrue(nsSupK.containsEntity(CLASSES.C));
+        assertTrue(nsSupK.containsEntity(CLASSES.A));
+        assertTrue(nsSupK.containsEntity(CLASSES.B));
+        assertTrue(nsSupK.containsEntity(CLASSES.G));
         assertTrue(nsSupK.containsEntity(OWLThing()));
         NodeSet<OWLClass> nsSupBot = reasoner.getSuperClasses(OWLNothing(), false);
         assertNotNull(nsSupBot);
         assertEquals(5, nsSupBot.nodes().count());
-        assertTrue(nsSupBot.containsEntity(E));
-        assertTrue(nsSupBot.containsEntity(D));
-        assertTrue(nsSupBot.containsEntity(F));
-        assertTrue(nsSupBot.containsEntity(C));
-        assertTrue(nsSupBot.containsEntity(A));
-        assertTrue(nsSupBot.containsEntity(B));
-        assertTrue(nsSupBot.containsEntity(G));
+        assertTrue(nsSupBot.containsEntity(CLASSES.E));
+        assertTrue(nsSupBot.containsEntity(CLASSES.D));
+        assertTrue(nsSupBot.containsEntity(CLASSES.F));
+        assertTrue(nsSupBot.containsEntity(CLASSES.C));
+        assertTrue(nsSupBot.containsEntity(CLASSES.A));
+        assertTrue(nsSupBot.containsEntity(CLASSES.B));
+        assertTrue(nsSupBot.containsEntity(CLASSES.G));
         assertTrue(nsSupBot.containsEntity(OWLThing()));
     }
 
@@ -297,46 +293,46 @@ class ReasonerTestCase extends TestBase {
         NodeSet<OWLClass> nsSubTop = reasoner.getSubClasses(OWLThing(), true);
         assertNotNull(nsSubTop);
         assertEquals(1, nsSubTop.nodes().count());
-        assertTrue(nsSubTop.containsEntity(A));
-        assertTrue(nsSubTop.containsEntity(B));
-        NodeSet<OWLClass> nsSubG = reasoner.getSubClasses(G, true);
+        assertTrue(nsSubTop.containsEntity(CLASSES.A));
+        assertTrue(nsSubTop.containsEntity(CLASSES.B));
+        NodeSet<OWLClass> nsSubG = reasoner.getSubClasses(CLASSES.G, true);
         assertNotNull(nsSubG);
         assertEquals(1, nsSubG.nodes().count());
-        assertTrue(nsSubG.containsEntity(A));
-        assertTrue(nsSubG.containsEntity(B));
-        NodeSet<OWLClass> nsSubA = reasoner.getSubClasses(A, true);
+        assertTrue(nsSubG.containsEntity(CLASSES.A));
+        assertTrue(nsSubG.containsEntity(CLASSES.B));
+        NodeSet<OWLClass> nsSubA = reasoner.getSubClasses(CLASSES.A, true);
         assertNotNull(nsSubA);
         assertFalse(nsSubG.isEmpty());
         assertEquals(2, nsSubA.nodes().count());
-        assertTrue(nsSubA.containsEntity(C));
-        assertTrue(nsSubA.containsEntity(D));
-        assertTrue(nsSubA.containsEntity(F));
-        NodeSet<OWLClass> nsSubB = reasoner.getSubClasses(B, true);
+        assertTrue(nsSubA.containsEntity(CLASSES.C));
+        assertTrue(nsSubA.containsEntity(CLASSES.D));
+        assertTrue(nsSubA.containsEntity(CLASSES.F));
+        NodeSet<OWLClass> nsSubB = reasoner.getSubClasses(CLASSES.B, true);
         assertNotNull(nsSubB);
         assertEquals(2, nsSubB.nodes().count());
-        assertTrue(nsSubB.containsEntity(C));
-        assertTrue(nsSubB.containsEntity(D));
-        assertTrue(nsSubB.containsEntity(F));
-        NodeSet<OWLClass> nsSubC = reasoner.getSubClasses(C, true);
+        assertTrue(nsSubB.containsEntity(CLASSES.C));
+        assertTrue(nsSubB.containsEntity(CLASSES.D));
+        assertTrue(nsSubB.containsEntity(CLASSES.F));
+        NodeSet<OWLClass> nsSubC = reasoner.getSubClasses(CLASSES.C, true);
         assertNotNull(nsSubC);
         assertEquals(1, nsSubC.nodes().count());
-        assertTrue(nsSubC.containsEntity(E));
-        NodeSet<OWLClass> nsSubE = reasoner.getSubClasses(E, true);
+        assertTrue(nsSubC.containsEntity(CLASSES.E));
+        NodeSet<OWLClass> nsSubE = reasoner.getSubClasses(CLASSES.E, true);
         assertNotNull(nsSubE);
         assertEquals(1, nsSubE.nodes().count());
-        assertTrue(nsSubE.containsEntity(K));
+        assertTrue(nsSubE.containsEntity(CLASSES.K));
         assertTrue(nsSubE.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> nsSubD = reasoner.getSubClasses(D, true);
+        NodeSet<OWLClass> nsSubD = reasoner.getSubClasses(CLASSES.D, true);
         assertNotNull(nsSubD);
         assertEquals(1, nsSubD.nodes().count());
-        assertTrue(nsSubD.containsEntity(K));
+        assertTrue(nsSubD.containsEntity(CLASSES.K));
         assertTrue(nsSubD.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> nsSubF = reasoner.getSubClasses(F, true);
+        NodeSet<OWLClass> nsSubF = reasoner.getSubClasses(CLASSES.F, true);
         assertNotNull(nsSubF);
         assertEquals(1, nsSubF.nodes().count());
-        assertTrue(nsSubF.containsEntity(K));
+        assertTrue(nsSubF.containsEntity(CLASSES.K));
         assertTrue(nsSubF.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> nsSubK = reasoner.getSubClasses(K, true);
+        NodeSet<OWLClass> nsSubK = reasoner.getSubClasses(CLASSES.K, true);
         assertNotNull(nsSubK);
         assertTrue(nsSubK.isEmpty());
         NodeSet<OWLClass> nsSubBot = reasoner.getSubClasses(OWLNothing(), true);
@@ -349,66 +345,66 @@ class ReasonerTestCase extends TestBase {
         NodeSet<OWLClass> nsSubTop = reasoner.getSubClasses(OWLThing(), false);
         assertNotNull(nsSubTop);
         assertEquals(5, nsSubTop.nodes().count());
-        assertTrue(nsSubTop.containsEntity(A));
-        assertTrue(nsSubTop.containsEntity(B));
-        assertTrue(nsSubTop.containsEntity(C));
-        assertTrue(nsSubTop.containsEntity(D));
-        assertTrue(nsSubTop.containsEntity(F));
-        assertTrue(nsSubTop.containsEntity(E));
-        assertTrue(nsSubTop.containsEntity(K));
+        assertTrue(nsSubTop.containsEntity(CLASSES.A));
+        assertTrue(nsSubTop.containsEntity(CLASSES.B));
+        assertTrue(nsSubTop.containsEntity(CLASSES.C));
+        assertTrue(nsSubTop.containsEntity(CLASSES.D));
+        assertTrue(nsSubTop.containsEntity(CLASSES.F));
+        assertTrue(nsSubTop.containsEntity(CLASSES.E));
+        assertTrue(nsSubTop.containsEntity(CLASSES.K));
         assertTrue(nsSubTop.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> nsSubG = reasoner.getSubClasses(G, false);
+        NodeSet<OWLClass> nsSubG = reasoner.getSubClasses(CLASSES.G, false);
         assertNotNull(nsSubG);
         assertEquals(5, nsSubG.nodes().count());
-        assertTrue(nsSubG.containsEntity(A));
-        assertTrue(nsSubG.containsEntity(B));
-        assertTrue(nsSubG.containsEntity(C));
-        assertTrue(nsSubG.containsEntity(D));
-        assertTrue(nsSubG.containsEntity(F));
-        assertTrue(nsSubG.containsEntity(E));
-        assertTrue(nsSubG.containsEntity(K));
+        assertTrue(nsSubG.containsEntity(CLASSES.A));
+        assertTrue(nsSubG.containsEntity(CLASSES.B));
+        assertTrue(nsSubG.containsEntity(CLASSES.C));
+        assertTrue(nsSubG.containsEntity(CLASSES.D));
+        assertTrue(nsSubG.containsEntity(CLASSES.F));
+        assertTrue(nsSubG.containsEntity(CLASSES.E));
+        assertTrue(nsSubG.containsEntity(CLASSES.K));
         assertTrue(nsSubG.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> nsSubA = reasoner.getSubClasses(A, false);
+        NodeSet<OWLClass> nsSubA = reasoner.getSubClasses(CLASSES.A, false);
         assertNotNull(nsSubA);
         assertFalse(nsSubG.isEmpty());
         assertEquals(4, nsSubA.nodes().count());
-        assertTrue(nsSubA.containsEntity(C));
-        assertTrue(nsSubA.containsEntity(D));
-        assertTrue(nsSubA.containsEntity(F));
-        assertTrue(nsSubA.containsEntity(E));
-        assertTrue(nsSubA.containsEntity(K));
+        assertTrue(nsSubA.containsEntity(CLASSES.C));
+        assertTrue(nsSubA.containsEntity(CLASSES.D));
+        assertTrue(nsSubA.containsEntity(CLASSES.F));
+        assertTrue(nsSubA.containsEntity(CLASSES.E));
+        assertTrue(nsSubA.containsEntity(CLASSES.K));
         assertTrue(nsSubA.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> nsSubB = reasoner.getSubClasses(B, false);
+        NodeSet<OWLClass> nsSubB = reasoner.getSubClasses(CLASSES.B, false);
         assertNotNull(nsSubB);
         assertEquals(4, nsSubB.nodes().count());
-        assertTrue(nsSubB.containsEntity(C));
-        assertTrue(nsSubB.containsEntity(D));
-        assertTrue(nsSubB.containsEntity(F));
-        assertTrue(nsSubB.containsEntity(E));
-        assertTrue(nsSubB.containsEntity(K));
+        assertTrue(nsSubB.containsEntity(CLASSES.C));
+        assertTrue(nsSubB.containsEntity(CLASSES.D));
+        assertTrue(nsSubB.containsEntity(CLASSES.F));
+        assertTrue(nsSubB.containsEntity(CLASSES.E));
+        assertTrue(nsSubB.containsEntity(CLASSES.K));
         assertTrue(nsSubB.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> nsSubC = reasoner.getSubClasses(C, false);
+        NodeSet<OWLClass> nsSubC = reasoner.getSubClasses(CLASSES.C, false);
         assertNotNull(nsSubC);
         assertEquals(2, nsSubC.nodes().count());
-        assertTrue(nsSubC.containsEntity(E));
-        assertTrue(nsSubC.containsEntity(K));
+        assertTrue(nsSubC.containsEntity(CLASSES.E));
+        assertTrue(nsSubC.containsEntity(CLASSES.K));
         assertTrue(nsSubC.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> nsSubE = reasoner.getSubClasses(E, false);
+        NodeSet<OWLClass> nsSubE = reasoner.getSubClasses(CLASSES.E, false);
         assertNotNull(nsSubE);
         assertEquals(1, nsSubE.nodes().count());
-        assertTrue(nsSubE.containsEntity(K));
+        assertTrue(nsSubE.containsEntity(CLASSES.K));
         assertTrue(nsSubE.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> nsSubD = reasoner.getSubClasses(D, false);
+        NodeSet<OWLClass> nsSubD = reasoner.getSubClasses(CLASSES.D, false);
         assertNotNull(nsSubD);
         assertEquals(1, nsSubD.nodes().count());
-        assertTrue(nsSubD.containsEntity(K));
+        assertTrue(nsSubD.containsEntity(CLASSES.K));
         assertTrue(nsSubD.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> nsSubF = reasoner.getSubClasses(F, false);
+        NodeSet<OWLClass> nsSubF = reasoner.getSubClasses(CLASSES.F, false);
         assertNotNull(nsSubF);
         assertEquals(1, nsSubF.nodes().count());
-        assertTrue(nsSubF.containsEntity(K));
+        assertTrue(nsSubF.containsEntity(CLASSES.K));
         assertTrue(nsSubF.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> nsSubK = reasoner.getSubClasses(K, false);
+        NodeSet<OWLClass> nsSubK = reasoner.getSubClasses(CLASSES.K, false);
         assertNotNull(nsSubK);
         assertTrue(nsSubK.isEmpty());
         NodeSet<OWLClass> nsSubBot = reasoner.getSubClasses(OWLNothing(), false);
@@ -419,14 +415,14 @@ class ReasonerTestCase extends TestBase {
     @Test
     void testIsSatisfiable() {
         assertTrue(reasoner.isSatisfiable(OWLThing()));
-        assertTrue(reasoner.isSatisfiable(G));
-        assertTrue(reasoner.isSatisfiable(A));
-        assertTrue(reasoner.isSatisfiable(B));
-        assertTrue(reasoner.isSatisfiable(C));
-        assertTrue(reasoner.isSatisfiable(D));
-        assertTrue(reasoner.isSatisfiable(E));
+        assertTrue(reasoner.isSatisfiable(CLASSES.G));
+        assertTrue(reasoner.isSatisfiable(CLASSES.A));
+        assertTrue(reasoner.isSatisfiable(CLASSES.B));
+        assertTrue(reasoner.isSatisfiable(CLASSES.C));
+        assertTrue(reasoner.isSatisfiable(CLASSES.D));
+        assertTrue(reasoner.isSatisfiable(CLASSES.E));
         assertFalse(reasoner.isSatisfiable(OWLNothing()));
-        assertFalse(reasoner.isSatisfiable(K));
+        assertFalse(reasoner.isSatisfiable(CLASSES.K));
     }
 
     @Test
@@ -452,113 +448,121 @@ class ReasonerTestCase extends TestBase {
     @Test
     void testGetSubObjectPropertiesDirect() {
         NodeSet<OWLObjectPropertyExpression> nsSubTop =
-            reasoner.getSubObjectProperties(df.getOWLTopObjectProperty(), true);
+            reasoner.getSubObjectProperties(TopObjectProperty(), true);
         assertNotNull(nsSubTop);
         assertEquals(2, nsSubTop.nodes().count());
-        assertTrue(nsSubTop.containsEntity(R));
-        assertTrue(nsSubTop.containsEntity(S));
-        assertTrue(nsSubTop.containsEntity(R.getInverseProperty()));
-        assertTrue(nsSubTop.containsEntity(S.getInverseProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubR = reasoner.getSubObjectProperties(R, true);
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.R));
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.S));
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.R.getInverseProperty()));
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.S.getInverseProperty()));
+        NodeSet<OWLObjectPropertyExpression> nsSubR =
+            reasoner.getSubObjectProperties(OBJPROPS.R, true);
         assertNotNull(nsSubR);
         assertEquals(1, nsSubR.nodes().count());
-        assertTrue(nsSubR.containsEntity(P));
-        assertTrue(nsSubR.containsEntity(Q));
+        assertTrue(nsSubR.containsEntity(OBJPROPS.P));
+        assertTrue(nsSubR.containsEntity(OBJPROPS.Q));
         NodeSet<OWLObjectPropertyExpression> nsSubRMinus =
-            reasoner.getSubObjectProperties(R.getInverseProperty(), true);
+            reasoner.getSubObjectProperties(OBJPROPS.R.getInverseProperty(), true);
         assertNotNull(nsSubRMinus);
         assertEquals(1, nsSubRMinus.nodes().count());
-        assertTrue(nsSubRMinus.containsEntity(P.getInverseProperty()));
-        assertTrue(nsSubRMinus.containsEntity(Q.getInverseProperty()));
+        assertTrue(nsSubRMinus.containsEntity(OBJPROPS.P.getInverseProperty()));
+        assertTrue(nsSubRMinus.containsEntity(OBJPROPS.Q.getInverseProperty()));
         NodeSet<OWLObjectPropertyExpression> nsSubSMinus =
-            reasoner.getSubObjectProperties(S.getInverseProperty(), true);
+            reasoner.getSubObjectProperties(OBJPROPS.S.getInverseProperty(), true);
         assertNotNull(nsSubSMinus);
         assertEquals(1, nsSubSMinus.nodes().count());
-        assertTrue(nsSubSMinus.containsEntity(P));
-        assertTrue(nsSubSMinus.containsEntity(Q));
-        NodeSet<OWLObjectPropertyExpression> nsSubS = reasoner.getSubObjectProperties(S, true);
+        assertTrue(nsSubSMinus.containsEntity(OBJPROPS.P));
+        assertTrue(nsSubSMinus.containsEntity(OBJPROPS.Q));
+        NodeSet<OWLObjectPropertyExpression> nsSubS =
+            reasoner.getSubObjectProperties(OBJPROPS.S, true);
         assertNotNull(nsSubS);
         assertEquals(1, nsSubS.nodes().count());
-        assertTrue(nsSubS.containsEntity(P.getInverseProperty()));
-        assertTrue(nsSubS.containsEntity(Q.getInverseProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubP = reasoner.getSubObjectProperties(P, true);
+        assertTrue(nsSubS.containsEntity(OBJPROPS.P.getInverseProperty()));
+        assertTrue(nsSubS.containsEntity(OBJPROPS.Q.getInverseProperty()));
+        NodeSet<OWLObjectPropertyExpression> nsSubP =
+            reasoner.getSubObjectProperties(OBJPROPS.P, true);
         assertNotNull(nsSubP);
         assertEquals(1, nsSubP.nodes().count());
-        assertTrue(nsSubP.containsEntity(df.getOWLBottomObjectProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubQ = reasoner.getSubObjectProperties(Q, true);
+        assertTrue(nsSubP.containsEntity(BottomObjectProperty()));
+        NodeSet<OWLObjectPropertyExpression> nsSubQ =
+            reasoner.getSubObjectProperties(OBJPROPS.Q, true);
         assertNotNull(nsSubQ);
         assertEquals(1, nsSubQ.nodes().count());
-        assertTrue(nsSubQ.containsEntity(df.getOWLBottomObjectProperty()));
+        assertTrue(nsSubQ.containsEntity(BottomObjectProperty()));
         NodeSet<OWLObjectPropertyExpression> nsSubPMinus =
-            reasoner.getSubObjectProperties(P.getInverseProperty(), true);
+            reasoner.getSubObjectProperties(OBJPROPS.P.getInverseProperty(), true);
         assertNotNull(nsSubPMinus);
         assertEquals(1, nsSubPMinus.nodes().count());
-        assertTrue(nsSubPMinus.containsEntity(df.getOWLBottomObjectProperty()));
+        assertTrue(nsSubPMinus.containsEntity(BottomObjectProperty()));
         NodeSet<OWLObjectPropertyExpression> nsSubQMinus =
-            reasoner.getSubObjectProperties(Q.getInverseProperty(), true);
+            reasoner.getSubObjectProperties(OBJPROPS.Q.getInverseProperty(), true);
         assertNotNull(nsSubQMinus);
         assertEquals(1, nsSubQMinus.nodes().count());
-        assertTrue(nsSubQMinus.containsEntity(df.getOWLBottomObjectProperty()));
+        assertTrue(nsSubQMinus.containsEntity(BottomObjectProperty()));
     }
 
     @Test
     void testGetSubObjectProperties() {
         NodeSet<OWLObjectPropertyExpression> nsSubTop =
-            reasoner.getSubObjectProperties(df.getOWLTopObjectProperty(), false);
+            reasoner.getSubObjectProperties(TopObjectProperty(), false);
         assertNotNull(nsSubTop);
         assertEquals(5, nsSubTop.nodes().count());
-        assertTrue(nsSubTop.containsEntity(R));
-        assertTrue(nsSubTop.containsEntity(S));
-        assertTrue(nsSubTop.containsEntity(P));
-        assertTrue(nsSubTop.containsEntity(Q));
-        assertTrue(nsSubTop.containsEntity(R.getInverseProperty()));
-        assertTrue(nsSubTop.containsEntity(R.getInverseProperty()));
-        assertTrue(nsSubTop.containsEntity(P.getInverseProperty()));
-        assertTrue(nsSubTop.containsEntity(Q.getInverseProperty()));
-        assertTrue(nsSubTop.containsEntity(df.getOWLBottomObjectProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubR = reasoner.getSubObjectProperties(R, false);
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.R));
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.S));
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.P));
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.Q));
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.R.getInverseProperty()));
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.R.getInverseProperty()));
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.P.getInverseProperty()));
+        assertTrue(nsSubTop.containsEntity(OBJPROPS.Q.getInverseProperty()));
+        assertTrue(nsSubTop.containsEntity(BottomObjectProperty()));
+        NodeSet<OWLObjectPropertyExpression> nsSubR =
+            reasoner.getSubObjectProperties(OBJPROPS.R, false);
         assertNotNull(nsSubR);
         assertEquals(2, nsSubR.nodes().count());
-        assertTrue(nsSubR.containsEntity(P));
-        assertTrue(nsSubR.containsEntity(Q));
-        assertTrue(nsSubR.containsEntity(df.getOWLBottomObjectProperty()));
+        assertTrue(nsSubR.containsEntity(OBJPROPS.P));
+        assertTrue(nsSubR.containsEntity(OBJPROPS.Q));
+        assertTrue(nsSubR.containsEntity(BottomObjectProperty()));
         NodeSet<OWLObjectPropertyExpression> nsSubRMinus =
-            reasoner.getSubObjectProperties(R.getInverseProperty(), false);
+            reasoner.getSubObjectProperties(OBJPROPS.R.getInverseProperty(), false);
         assertNotNull(nsSubRMinus);
         assertEquals(2, nsSubRMinus.nodes().count());
-        assertTrue(nsSubRMinus.containsEntity(P.getInverseProperty()));
-        assertTrue(nsSubRMinus.containsEntity(Q.getInverseProperty()));
-        assertTrue(nsSubRMinus.containsEntity(df.getOWLBottomObjectProperty()));
+        assertTrue(nsSubRMinus.containsEntity(OBJPROPS.P.getInverseProperty()));
+        assertTrue(nsSubRMinus.containsEntity(OBJPROPS.Q.getInverseProperty()));
+        assertTrue(nsSubRMinus.containsEntity(BottomObjectProperty()));
         NodeSet<OWLObjectPropertyExpression> nsSubSMinus =
-            reasoner.getSubObjectProperties(S.getInverseProperty(), false);
+            reasoner.getSubObjectProperties(OBJPROPS.S.getInverseProperty(), false);
         assertNotNull(nsSubSMinus);
         assertEquals(2, nsSubSMinus.nodes().count());
-        assertTrue(nsSubRMinus.containsEntity(P.getInverseProperty()));
-        assertTrue(nsSubRMinus.containsEntity(Q.getInverseProperty()));
-        assertTrue(nsSubRMinus.containsEntity(df.getOWLBottomObjectProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubS = reasoner.getSubObjectProperties(S, false);
+        assertTrue(nsSubRMinus.containsEntity(OBJPROPS.P.getInverseProperty()));
+        assertTrue(nsSubRMinus.containsEntity(OBJPROPS.Q.getInverseProperty()));
+        assertTrue(nsSubRMinus.containsEntity(BottomObjectProperty()));
+        NodeSet<OWLObjectPropertyExpression> nsSubS =
+            reasoner.getSubObjectProperties(OBJPROPS.S, false);
         assertNotNull(nsSubS);
         assertEquals(2, nsSubS.nodes().count());
-        assertTrue(nsSubS.containsEntity(P.getInverseProperty()));
-        assertTrue(nsSubS.containsEntity(Q.getInverseProperty()));
-        assertTrue(nsSubS.containsEntity(df.getOWLBottomObjectProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubP = reasoner.getSubObjectProperties(P, false);
+        assertTrue(nsSubS.containsEntity(OBJPROPS.P.getInverseProperty()));
+        assertTrue(nsSubS.containsEntity(OBJPROPS.Q.getInverseProperty()));
+        assertTrue(nsSubS.containsEntity(BottomObjectProperty()));
+        NodeSet<OWLObjectPropertyExpression> nsSubP =
+            reasoner.getSubObjectProperties(OBJPROPS.P, false);
         assertNotNull(nsSubP);
         assertEquals(1, nsSubP.nodes().count());
-        assertTrue(nsSubP.containsEntity(df.getOWLBottomObjectProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubQ = reasoner.getSubObjectProperties(Q, false);
+        assertTrue(nsSubP.containsEntity(BottomObjectProperty()));
+        NodeSet<OWLObjectPropertyExpression> nsSubQ =
+            reasoner.getSubObjectProperties(OBJPROPS.Q, false);
         assertNotNull(nsSubQ);
         assertEquals(1, nsSubQ.nodes().count());
-        assertTrue(nsSubQ.containsEntity(df.getOWLBottomObjectProperty()));
+        assertTrue(nsSubQ.containsEntity(BottomObjectProperty()));
         NodeSet<OWLObjectPropertyExpression> nsSubPMinus =
-            reasoner.getSubObjectProperties(P.getInverseProperty(), false);
+            reasoner.getSubObjectProperties(OBJPROPS.P.getInverseProperty(), false);
         assertNotNull(nsSubPMinus);
         assertEquals(1, nsSubPMinus.nodes().count());
-        assertTrue(nsSubPMinus.containsEntity(df.getOWLBottomObjectProperty()));
+        assertTrue(nsSubPMinus.containsEntity(BottomObjectProperty()));
         NodeSet<OWLObjectPropertyExpression> nsSubQMinus =
-            reasoner.getSubObjectProperties(Q.getInverseProperty(), false);
+            reasoner.getSubObjectProperties(OBJPROPS.Q.getInverseProperty(), false);
         assertNotNull(nsSubQMinus);
         assertEquals(1, nsSubQMinus.nodes().count());
-        assertTrue(nsSubQMinus.containsEntity(df.getOWLBottomObjectProperty()));
+        assertTrue(nsSubQMinus.containsEntity(BottomObjectProperty()));
     }
 }

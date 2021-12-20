@@ -19,152 +19,113 @@ import static org.semanticweb.owlapi6.utilities.OWLAPIStreamUtils.asSet;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.AddImport;
 import org.semanticweb.owlapi6.model.IRI;
-import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi6.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi6.model.OWLAnnotationValue;
 import org.semanticweb.owlapi6.model.OWLAxiom;
-import org.semanticweb.owlapi6.model.OWLClassExpression;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
-import org.semanticweb.owlapi6.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi6.model.OWLDataRange;
-import org.semanticweb.owlapi6.model.OWLDatatype;
 import org.semanticweb.owlapi6.model.OWLIndividual;
-import org.semanticweb.owlapi6.model.OWLLiteral;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi6.model.OWLOntology;
-import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
-import org.semanticweb.owlapi6.model.OWLPropertyExpression;
 import org.semanticweb.owlapi6.model.PrefixManager;
 import org.semanticweb.owlapi6.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi6.utility.AutoIRIMapper;
-import org.semanticweb.owlapi6.vocab.OWL2Datatype;
 import org.semanticweb.owlapi6.vocab.OWLFacet;
 
 class SerializationTestCase extends TestBase {
 
-    private static final String NS = "urn:test#";
-    private final OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
-    private final OWLDataProperty dp = df.getOWLDataProperty(NS, "dp");
-    private final OWLDataProperty dp1 = df.getOWLDataProperty(NS, "dp1");
-    private final OWLDataProperty dp2 = df.getOWLDataProperty(NS, "dp2");
-    private final OWLObjectProperty op = df.getOWLObjectProperty(NS, "op");
-    private final OWLObjectProperty op1 = df.getOWLObjectProperty(NS, "op1");
-    private final OWLObjectProperty op2 = df.getOWLObjectProperty(NS, "op2");
-    private final IRI iri = iri(NS, "iri");
-    private final OWLLiteral owlliteral = df.getOWLLiteral(true);
-    private final OWLAnnotationSubject as = iri(NS, "i");
-    private final OWLDatatype owldatatype = df.getOWLDatatype(owl2datatype);
-    private final OWLDataRange dr = df.getOWLDatatypeRestriction(owldatatype);
-    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(NS, "ap");
-    private final OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
+    private final OWLDataRange dr = DatatypeRestriction(Integer());
     private final String string = "testString";
-    private final OWLClassExpression c = df.getOWLClass(NS, "classexpression");
     private final PrefixManager prefixmanager = new PrefixManagerImpl();
-    private final OWLIndividual ai = df.getOWLAnonymousIndividual();
-    private final OWLIndividual i1 = df.getOWLNamedIndividual(NS, "i1");
-    private final OWLIndividual i2 = df.getOWLNamedIndividual(NS, "i2");
-    private final OWLAnnotationValue owlannotationvalue = owlliteral;
-    private final List<OWLObjectPropertyExpression> setop = Arrays.asList(op1, op2);
-    private final List<OWLDataPropertyExpression> setdp = Arrays.asList(dp1, dp2);
-    private final List<OWLObjectPropertyExpression> listowlobjectproperties = Arrays.asList(op, op);
-    private final List<OWLIndividual> setowlindividual = Arrays.asList(i1, i2);
-    private final Set<OWLPropertyExpression> setowlpropertyexpression =
-        new HashSet<>(Arrays.asList(op, op));
+    private final OWLIndividual ai = AnonymousIndividual();
+    private final List<OWLObjectPropertyExpression> listowlobjectproperties =
+        l(OBJPROPS.P, OBJPROPS.op1);
     protected OWLOntology o;
     IRI ontologyIRI;
 
     @BeforeEach
-    void setUp() throws OWLOntologyCreationException, URISyntaxException {
+    void setUp() throws URISyntaxException {
         m.getIRIMappers().add(new AutoIRIMapper(new File("."), false, df));
-        o = m.loadOntologyFromOntologyDocument(
-            new File(getClass().getResource("/pizza.owl").toURI()));
+        o = loadFrom(new File(getClass().getResource("/" + TestFilenames.PIZZA_OWL).toURI()), m);
         ontologyIRI = o.getOntologyID().getOntologyIRI().get();
     }
 
     @Test
-    void testrun() throws Exception {
-        o.applyChange(new AddImport(o, df.getOWLImportsDeclaration(iri)));
-        o.add(df.getOWLDeclarationAxiom(df.getOWLClass(iri)));
-        o.add(sub(c, df.getOWLClass(string, prefixmanager)));
-        o.add(df.getOWLEquivalentClassesAxiom(df.getOWLClass(iri), c));
-        o.add(df.getOWLDisjointClassesAxiom(df.getOWLClass(iri), c));
-        o.add(df.getOWLSubObjectPropertyOfAxiom(op, op));
-        o.add(df.getOWLSubPropertyChainOfAxiom(listowlobjectproperties, op));
-        o.add(df.getOWLEquivalentObjectPropertiesAxiom(setop));
-        o.add(df.getOWLDisjointObjectPropertiesAxiom(setop));
-        o.add(df.getOWLInverseObjectPropertiesAxiom(op, op));
-        o.add(df.getOWLObjectPropertyDomainAxiom(op, c));
-        o.add(df.getOWLObjectPropertyRangeAxiom(op, c));
-        o.add(df.getOWLFunctionalObjectPropertyAxiom(op));
-        o.add(df.getOWLAnnotationAssertionAxiom(ap, as, owlannotationvalue));
-        o.add(df.getOWLAnnotationPropertyDomainAxiom(ap, iri));
-        o.add(df.getOWLAnnotationPropertyRangeAxiom(ap, iri));
-        o.add(df.getOWLSubAnnotationPropertyOfAxiom(ap, ap));
-        o.add(df.getOWLInverseFunctionalObjectPropertyAxiom(op));
-        o.add(df.getOWLReflexiveObjectPropertyAxiom(op));
-        o.add(df.getOWLIrreflexiveObjectPropertyAxiom(op));
-        o.add(df.getOWLSymmetricObjectPropertyAxiom(op));
-        o.add(df.getOWLAsymmetricObjectPropertyAxiom(op));
-        o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
-        o.add(df.getOWLSubDataPropertyOfAxiom(dp, dp));
-        o.add(df.getOWLEquivalentDataPropertiesAxiom(setdp));
-        o.add(df.getOWLDisjointDataPropertiesAxiom(setdp));
-        o.add(df.getOWLDataPropertyDomainAxiom(dp, c));
-        o.add(df.getOWLDataPropertyRangeAxiom(dp, dr));
-        o.add(df.getOWLFunctionalDataPropertyAxiom(dp));
-        o.add(df.getOWLHasKeyAxiom(c, setowlpropertyexpression));
-        o.add(df.getOWLDatatypeDefinitionAxiom(owldatatype, dr));
-        o.add(df.getOWLSameIndividualAxiom(setowlindividual));
-        o.add(df.getOWLDifferentIndividualsAxiom(setowlindividual));
-        o.add(df.getOWLClassAssertionAxiom(c, ai));
-        o.add(df.getOWLObjectPropertyAssertionAxiom(op, ai, ai));
-        o.add(df.getOWLNegativeObjectPropertyAssertionAxiom(op, ai, ai));
-        o.add(df.getOWLDataPropertyAssertionAxiom(dp, ai, owlliteral));
-        o.add(df.getOWLNegativeDataPropertyAssertionAxiom(dp, ai, owlliteral));
-        o.add(df.getOWLInverseObjectPropertiesAxiom(op, df.getOWLObjectInverseOf(op)));
-        o.add(sub(c, df.getOWLDataExactCardinality(1, dp)));
-        o.add(sub(c, df.getOWLDataMaxCardinality(1, dp)));
-        o.add(sub(c, df.getOWLDataMinCardinality(1, dp)));
-        o.add(sub(c, df.getOWLObjectExactCardinality(1, op)));
-        o.add(sub(c, df.getOWLObjectMaxCardinality(1, op)));
-        o.add(sub(c, df.getOWLObjectMinCardinality(1, op)));
-        o.add(df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDatatype(string, prefixmanager)));
-        o.add(df.getOWLDataPropertyAssertionAxiom(dp, ai, df.getOWLLiteral(string, owldatatype)));
-        o.add(df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataOneOf(owlliteral)));
-        o.add(df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataUnionOf(dr)));
-        o.add(df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataIntersectionOf(dr)));
-        o.add(df.getOWLDataPropertyRangeAxiom(dp,
-            df.getOWLDatatypeRestriction(owldatatype, owlfacet, owlliteral)));
-        o.add(df.getOWLDataPropertyRangeAxiom(dp,
-            df.getOWLDatatypeRestriction(owldatatype, df.getOWLFacetRestriction(owlfacet, 1))));
-        o.add(sub(c, df.getOWLObjectIntersectionOf(c, df.getOWLClass(string, prefixmanager))));
-        o.add(sub(c, df.getOWLDataSomeValuesFrom(dp, dr)));
-        o.add(sub(c, df.getOWLDataAllValuesFrom(dp, dr)));
-        o.add(sub(c, df.getOWLDataHasValue(dp, owlliteral)));
-        o.add(sub(c, df.getOWLObjectComplementOf(df.getOWLClass(iri))));
-        o.add(sub(c, df.getOWLObjectOneOf(df.getOWLNamedIndividual(iri))));
-        o.add(sub(c, df.getOWLObjectAllValuesFrom(op, c)));
-        o.add(sub(c, df.getOWLObjectSomeValuesFrom(op, c)));
-        o.add(sub(c, df.getOWLObjectHasValue(op, ai)));
-        o.add(sub(c, df.getOWLObjectUnionOf(df.getOWLClass(iri))));
-        o.add(df.getOWLAnnotationAssertionAxiom(iri, df.getOWLAnnotation(ap, owlannotationvalue)));
-        o.add(df.getOWLAnnotationAssertionAxiom(df.getOWLNamedIndividual(iri).getIRI(),
-            df.getOWLAnnotation(ap, owlannotationvalue)));
+    void testrun() throws IOException, ClassNotFoundException {
+        add(Declaration(Class(IRIS.iriTest)));
+        add(SubClassOf(CLASSES.C, Class(string, prefixmanager)));
+        add(EquivalentClasses(Class(IRIS.iriTest), CLASSES.C));
+        add(DisjointClasses(Class(IRIS.iriTest), CLASSES.C));
+        add(SubObjectPropertyOf(OBJPROPS.op1, OBJPROPS.op2));
+        add(SubPropertyChainOf(listowlobjectproperties, OBJPROPS.op1));
+        add(EquivalentObjectProperties(OBJPROPS.op1, OBJPROPS.op2));
+        add(DisjointObjectProperties(OBJPROPS.op1, OBJPROPS.op2));
+        add(InverseObjectProperties(OBJPROPS.op1, OBJPROPS.op2));
+        add(ObjectPropertyDomain(OBJPROPS.P, CLASSES.C));
+        add(ObjectPropertyRange(OBJPROPS.P, CLASSES.C));
+        add(FunctionalObjectProperty(OBJPROPS.P));
+        add(AnnotationAssertion(ANNPROPS.AP, INDIVIDUALS.I.getIRI(), LITERALS.LIT_TRUE));
+        o.applyChange(new AddImport(o, ImportsDeclaration(IRIS.iriTest)));
+        add(AnnotationPropertyDomain(ANNPROPS.AP, IRIS.iriTest));
+        add(AnnotationPropertyRange(ANNPROPS.AP, IRIS.iriTest));
+        add(SubAnnotationPropertyOf(ANNPROPS.AP, ANNPROPS.AP));
+        add(InverseFunctionalObjectProperty(OBJPROPS.P));
+        add(ReflexiveObjectProperty(OBJPROPS.P));
+        add(IrreflexiveObjectProperty(OBJPROPS.P));
+        add(SymmetricObjectProperty(OBJPROPS.P));
+        add(AsymmetricObjectProperty(OBJPROPS.P));
+        add(TransitiveObjectProperty(OBJPROPS.P));
+        add(SubDataPropertyOf(DATAPROPS.DP, DATAPROPS.DP));
+        add(EquivalentDataProperties(DATAPROPS.dp1, DATAPROPS.dp2));
+        add(DisjointDataProperties(DATAPROPS.dp1, DATAPROPS.dp2));
+        add(DataPropertyDomain(DATAPROPS.DP, CLASSES.C));
+        add(DataPropertyRange(DATAPROPS.DP, dr));
+        add(FunctionalDataProperty(DATAPROPS.DP));
+        add(HasKey(CLASSES.C, OBJPROPS.P, OBJPROPS.op1));
+        add(DatatypeDefinition(DATATYPES.DT, dr));
+        add(SameIndividual(INDIVIDUALS.I, INDIVIDUALS.J));
+        add(DifferentIndividuals(INDIVIDUALS.I, INDIVIDUALS.J));
+        add(ClassAssertion(CLASSES.C, ai));
+        add(ObjectPropertyAssertion(OBJPROPS.P, ai, ai));
+        add(NegativeObjectPropertyAssertion(OBJPROPS.P, ai, ai));
+        add(DataPropertyAssertion(DATAPROPS.DP, ai, LITERALS.LIT_TRUE));
+        add(NegativeDataPropertyAssertion(DATAPROPS.DP, ai, LITERALS.LIT_TRUE));
+        add(InverseObjectProperties(OBJPROPS.P, ObjectInverseOf(OBJPROPS.P)));
+        add(SubClassOf(CLASSES.C, DataExactCardinality(1, DATAPROPS.DP)));
+        add(SubClassOf(CLASSES.C, DataMaxCardinality(1, DATAPROPS.DP)));
+        add(SubClassOf(CLASSES.C, DataMinCardinality(1, DATAPROPS.DP)));
+        add(SubClassOf(CLASSES.C, ObjectExactCardinality(1, OBJPROPS.P, OWLThing())));
+        add(SubClassOf(CLASSES.C, ObjectMaxCardinality(1, OBJPROPS.P, OWLThing())));
+        add(SubClassOf(CLASSES.C, ObjectMinCardinality(1, OBJPROPS.P, OWLThing())));
+        add(DataPropertyRange(DATAPROPS.DP, Datatype(prefixmanager.getIRI(string, df))));
+        add(DataPropertyAssertion(DATAPROPS.DP, ai, Literal(string, DATATYPES.DT)));
+        add(DataPropertyRange(DATAPROPS.DP, DataOneOf(LITERALS.LIT_TRUE)));
+        add(DataPropertyRange(DATAPROPS.DP, DataUnionOf(dr)));
+        add(DataPropertyRange(DATAPROPS.DP, DataIntersectionOf(dr)));
+        add(DataPropertyRange(DATAPROPS.DP, DatatypeRestriction(DATATYPES.DT,
+            FacetRestriction(OWLFacet.MIN_EXCLUSIVE, LITERALS.LIT_TRUE))));
+        add(DataPropertyRange(DATAPROPS.DP, DatatypeRestriction(DATATYPES.DT,
+            FacetRestriction(OWLFacet.MIN_EXCLUSIVE, LITERALS.LIT_ONE))));
+        add(SubClassOf(CLASSES.C, ObjectIntersectionOf(CLASSES.C, Class(string, prefixmanager))));
+        add(SubClassOf(CLASSES.C, DataSomeValuesFrom(DATAPROPS.DP, dr)));
+        add(SubClassOf(CLASSES.C, DataAllValuesFrom(DATAPROPS.DP, dr)));
+        add(SubClassOf(CLASSES.C, DataHasValue(DATAPROPS.DP, LITERALS.LIT_TRUE)));
+        add(SubClassOf(CLASSES.C, ObjectComplementOf(Class(IRIS.iriTest))));
+        add(SubClassOf(CLASSES.C, ObjectOneOf(NamedIndividual(IRIS.iriTest))));
+        add(SubClassOf(CLASSES.C, ObjectAllValuesFrom(OBJPROPS.P, CLASSES.C)));
+        add(SubClassOf(CLASSES.C, ObjectSomeValuesFrom(OBJPROPS.P, CLASSES.C)));
+        add(SubClassOf(CLASSES.C, ObjectHasValue(OBJPROPS.P, ai)));
+        add(SubClassOf(CLASSES.C, ObjectUnionOf(Class(IRIS.iriTest))));
+        add(AnnotationAssertion(ANNPROPS.AP, IRIS.iriTest, LITERALS.LIT_TRUE));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ObjectOutputStream stream = new ObjectOutputStream(out);
         stream.writeObject(m);
@@ -182,7 +143,7 @@ class SerializationTestCase extends TestBase {
         assertEquals(o.getOntologyID(), o1.getOntologyID());
     }
 
-    protected OWLAxiom sub(OWLClassExpression cl, OWLClassExpression d) {
-        return df.getOWLSubClassOfAxiom(cl, d);
+    protected void add(OWLAxiom ax) {
+        o.add(ax);
     }
 }

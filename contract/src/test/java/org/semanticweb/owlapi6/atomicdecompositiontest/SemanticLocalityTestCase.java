@@ -2,9 +2,6 @@ package org.semanticweb.owlapi6.atomicdecompositiontest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,19 +11,9 @@ import org.semanticweb.owlapi6.apibinding.OWLManager;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.atomicdecomposition.AxiomWrapper;
 import org.semanticweb.owlapi6.atomicdecomposition.SemanticLocalityChecker;
-import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLAxiom;
-import org.semanticweb.owlapi6.model.OWLClass;
-import org.semanticweb.owlapi6.model.OWLClassExpression;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
-import org.semanticweb.owlapi6.model.OWLDatatype;
-import org.semanticweb.owlapi6.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi6.model.OWLEntity;
-import org.semanticweb.owlapi6.model.OWLLiteral;
-import org.semanticweb.owlapi6.model.OWLNamedIndividual;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi6.model.SWRLAtom;
 import org.semanticweb.owlapi6.reasoner.structural.StructuralReasonerFactory;
 
 @Disabled
@@ -38,215 +25,211 @@ class SemanticLocalityTestCase extends TestBase {
     @Test
     void shouldBeLocalowlDeclarationAxiom() {
         // declare a
-        axiom = df.getOWLDeclarationAxiom(A);
+        axiom = Declaration(CLASSES.A);
         // signature intersects
-        test(axiom, true, A);
+        test(axiom, true, CLASSES.A);
         // signature does not intersect
-        test(axiom, true, B);
+        test(axiom, true, CLASSES.B);
     }
 
     @Test
     void shouldBeLocalowlEquivalentClassesAxiom() {
-        axiom = df.getOWLEquivalentClassesAxiom(A, B);
+        axiom = EquivalentClasses(CLASSES.A, CLASSES.B);
         // signature intersects
-        test(axiom, false, A);
+        test(axiom, false, CLASSES.A);
         // signature does not intersect
         // test(axiom, true, c);
         // illegal axiom
-        test(df.getOWLEquivalentClassesAxiom(A), true, A);
+        test(EquivalentClasses(CLASSES.A), true, CLASSES.A);
         // include bottom
-        test(df.getOWLEquivalentClassesAxiom(owlNothing, A, B), false, A);
+        test(EquivalentClasses(OWLNothing(), CLASSES.A, CLASSES.B), false, CLASSES.A);
         // include top
-        test(df.getOWLEquivalentClassesAxiom(owlThing, A, B), false, A);
+        test(EquivalentClasses(OWLThing(), CLASSES.A, CLASSES.B), false, CLASSES.A);
         // include bottom and top
-        test(df.getOWLEquivalentClassesAxiom(owlNothing, owlThing, A, B), false, A);
+        test(EquivalentClasses(OWLNothing(), OWLThing(), CLASSES.A, CLASSES.B), false, CLASSES.A);
     }
 
     @Test
     void shouldBeLocalowlDisjointClassesAxiom() {
-        axiom = df.getOWLDisjointClassesAxiom(A, B);
+        axiom = DisjointClasses(CLASSES.A, CLASSES.B);
         // signature intersects
         // test(axiom, true, a);
         // signature does not intersect
         // test(axiom, true, c);
-        axiom = df.getOWLDisjointClassesAxiom(A, B, C);
+        axiom = DisjointClasses(CLASSES.A, CLASSES.B, CLASSES.C);
         // signature intersects
-        test(axiom, false, A, B);
+        test(axiom, false, CLASSES.A, CLASSES.B);
         // signature does not intersect
         // test(axiom, true, d);
         // include top
-        test(df.getOWLDisjointClassesAxiom(owlThing, A, B), false, A);
+        test(DisjointClasses(OWLThing(), CLASSES.A, CLASSES.B), false, CLASSES.A);
     }
 
     @Test
     void shouldBeLocalowlDisjointUnionAxiom() {
-        axiom = disjointUnion(A, B, C);
+        axiom = DisjointUnion(CLASSES.A, CLASSES.B, CLASSES.C);
         // signature intersects
-        test(axiom, false, A);
+        test(axiom, false, CLASSES.A);
         // signature does not intersect
         // test(axiom, true, d);
         // partition top
-        axiom = disjointUnion(owlThing, B, C);
+        axiom = DisjointUnion(OWLThing(), CLASSES.B, CLASSES.C);
         // signature intersects
-        test(axiom, false, B);
+        test(axiom, false, CLASSES.B);
         // partition top
-        axiom = disjointUnion(owlThing, B, owlThing);
+        axiom = DisjointUnion(OWLThing(), CLASSES.B, OWLThing());
         // signature intersects
-        test(axiom, false, B);
-    }
-
-    /** @return disjoint union of superclass and classes */
-    private OWLDisjointUnionAxiom disjointUnion(OWLClass superclass, OWLClass... classes) {
-        return df.getOWLDisjointUnionAxiom(superclass,
-            new HashSet<OWLClassExpression>(Arrays.asList(classes)));
+        test(axiom, false, CLASSES.B);
     }
 
     @Test
     void shouldBeLocalowlEquivalentObjectPropertiesAxiom() {
-        axiom = df.getOWLEquivalentObjectPropertiesAxiom(P, Q);
+        axiom = EquivalentObjectProperties(OBJPROPS.P, OBJPROPS.Q);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
         // test(axiom, true, r);
         // illegal axiom
-        test(df.getOWLEquivalentObjectPropertiesAxiom(Q), true, Q);
+        test(EquivalentObjectProperties(OBJPROPS.Q), true, OBJPROPS.Q);
     }
 
     @Test
     void shouldBeLocalowlEquivalentDataPropertiesAxiom() {
-        axiom = df.getOWLEquivalentDataPropertiesAxiom(s, t);
+        axiom = EquivalentDataProperties(DATAPROPS.s, DATAPROPS.dt);
         // signature intersects
-        test(axiom, false, s);
+        test(axiom, false, DATAPROPS.s);
         // signature does not intersect
         // test(axiom, true, v);
         // illegal axiom
-        test(df.getOWLEquivalentDataPropertiesAxiom(v), true, v);
+        test(EquivalentDataProperties(DATAPROPS.v), true, DATAPROPS.v);
     }
 
     @Test
     void shouldBeLocalowlDisjointObjectPropertiesAxiom() {
-        axiom = df.getOWLDisjointObjectPropertiesAxiom(P, Q);
+        axiom = DisjointObjectProperties(OBJPROPS.P, OBJPROPS.Q);
         // signature intersects
         // test(axiom, true, p);
-        test(axiom, false, true, P);
+        test(axiom, false, true, OBJPROPS.P);
         // signature does not intersect
-        test(axiom, false, true, R);
+        test(axiom, false, true, OBJPROPS.R);
         // top locality sig
-        test(df.getOWLDisjointObjectPropertiesAxiom(P, Q), false, true, P);
+        test(DisjointObjectProperties(OBJPROPS.P, OBJPROPS.Q), false, true, OBJPROPS.P);
         // top property
-        test(df.getOWLDisjointObjectPropertiesAxiom(P, Q, topObject), false, P);
+        test(DisjointObjectProperties(OBJPROPS.P, OBJPROPS.Q, TopObjectProperty()), false,
+            OBJPROPS.P);
         // bottom property
-        // test(df.getOWLDisjointObjectPropertiesAxiom(p, q, bottomObject),
+        // test(DisjointObjectProperties(p, q, BottomObjectProperty()),
         // true, p);
     }
 
     @Test
     void shouldBeLocalowlDisjointDataPropertiesAxiom() {
-        axiom = df.getOWLDisjointDataPropertiesAxiom(s, t);
+        axiom = DisjointDataProperties(DATAPROPS.s, DATAPROPS.dt);
         // signature intersects
         // test(axiom, true, s);
         // signature does not intersect
         // test(axiom, true, v);
         // top locality
-        test(axiom, false, true, P);
+        test(axiom, false, true, OBJPROPS.P);
         // top property
-        test(df.getOWLDisjointDataPropertiesAxiom(topData, s, t), false, s);
+        test(DisjointDataProperties(TopDataProperty(), DATAPROPS.s, DATAPROPS.dt), false,
+            DATAPROPS.s);
     }
 
     @Test
     void shouldBeLocalowlSameIndividualAxiom() {
-        axiom = df.getOWLSameIndividualAxiom(x, y);
+        axiom = SameIndividual(INDIVIDUALS.x, INDIVIDUALS.y);
         // signature intersects
-        test(axiom, false, x);
+        test(axiom, false, INDIVIDUALS.x);
         // signature does not intersect
-        test(axiom, false, z);
+        test(axiom, false, INDIVIDUALS.indz);
     }
 
     @Test
     void shouldBeLocalowlDifferentIndividualsAxiom() {
-        axiom = df.getOWLDifferentIndividualsAxiom(x, y);
+        axiom = DifferentIndividuals(INDIVIDUALS.x, INDIVIDUALS.y);
         // signature intersects
-        test(axiom, false, x);
+        test(axiom, false, INDIVIDUALS.x);
         // signature does not intersect
-        test(axiom, false, z);
+        test(axiom, false, INDIVIDUALS.indz);
     }
 
     @Test
     void shouldBeLocalowlInverseObjectPropertiesAxiom() {
-        axiom = df.getOWLInverseObjectPropertiesAxiom(P, Q);
+        axiom = InverseObjectProperties(OBJPROPS.P, OBJPROPS.Q);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
         // test(axiom, true, r);
         // top property
-        axiom = df.getOWLInverseObjectPropertiesAxiom(P, topObject);
+        axiom = InverseObjectProperties(OBJPROPS.P, TopObjectProperty());
         // test(axiom, false, true, p);
-        axiom = df.getOWLInverseObjectPropertiesAxiom(topObject, P);
-        test(axiom, false, true, P);
+        axiom = InverseObjectProperties(TopObjectProperty(), OBJPROPS.P);
+        test(axiom, false, true, OBJPROPS.P);
     }
 
     @Test
     void shouldBeLocalowlSubObjectPropertyOfAxiom() {
-        axiom = df.getOWLSubObjectPropertyOfAxiom(P, Q);
+        axiom = SubObjectPropertyOf(OBJPROPS.P, OBJPROPS.Q);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
         // test(axiom, true, r);
         // top property
-        axiom = df.getOWLSubObjectPropertyOfAxiom(P, topObject);
-        test(axiom, true, P);
-        axiom = df.getOWLSubObjectPropertyOfAxiom(topObject, P);
-        test(axiom, false, P);
+        axiom = SubObjectPropertyOf(OBJPROPS.P, TopObjectProperty());
+        test(axiom, true, OBJPROPS.P);
+        axiom = SubObjectPropertyOf(TopObjectProperty(), OBJPROPS.P);
+        test(axiom, false, OBJPROPS.P);
     }
 
     @Test
     void shouldBeLocalowlSubDataPropertyOfAxiom() {
-        axiom = df.getOWLSubDataPropertyOfAxiom(s, t);
+        axiom = SubDataPropertyOf(DATAPROPS.s, DATAPROPS.dt);
         // signature intersects
-        test(axiom, false, s);
+        test(axiom, false, DATAPROPS.s);
         // signature does not intersect
         // test(axiom, true, v);
         // top property
-        axiom = df.getOWLSubDataPropertyOfAxiom(v, topData);
+        axiom = SubDataPropertyOf(DATAPROPS.v, TopDataProperty());
         // signature intersects
-        test(axiom, true, v);
-        axiom = df.getOWLSubDataPropertyOfAxiom(topData, v);
-        test(axiom, false, v);
+        test(axiom, true, DATAPROPS.v);
+        axiom = SubDataPropertyOf(TopDataProperty(), DATAPROPS.v);
+        test(axiom, false, DATAPROPS.v);
     }
 
     @Test
     void shouldBeLocalowlObjectPropertyDomainAxiom() {
-        axiom = df.getOWLObjectPropertyDomainAxiom(P, A);
+        axiom = ObjectPropertyDomain(OBJPROPS.P, CLASSES.A);
         // signature intersects
-        test(axiom, true, A);
+        test(axiom, true, CLASSES.A);
         // signature does not intersect
-        test(axiom, true, D);
+        test(axiom, true, CLASSES.D);
         // top class
-        axiom = df.getOWLObjectPropertyDomainAxiom(P, owlThing);
-        test(axiom, true, P);
+        axiom = ObjectPropertyDomain(OBJPROPS.P, OWLThing());
+        test(axiom, true, OBJPROPS.P);
         // bottom property
-        axiom = df.getOWLObjectPropertyDomainAxiom(bottomObject, A);
-        test(axiom, true, A);
+        axiom = ObjectPropertyDomain(BottomObjectProperty(), CLASSES.A);
+        test(axiom, true, CLASSES.A);
     }
 
     @Test
     void shouldBeLocalowlDataPropertyDomainAxiom() {
-        axiom = df.getOWLDataPropertyDomainAxiom(s, A);
+        axiom = DataPropertyDomain(DATAPROPS.s, CLASSES.A);
         // signature intersects
-        test(axiom, true, A);
+        test(axiom, true, CLASSES.A);
         // signature does not intersect
-        test(axiom, true, D);
+        test(axiom, true, CLASSES.D);
         // top class
-        axiom = df.getOWLDataPropertyDomainAxiom(v, owlThing);
-        test(axiom, true, v);
+        axiom = DataPropertyDomain(DATAPROPS.v, OWLThing());
+        test(axiom, true, DATAPROPS.v);
         // bottom property
-        axiom = df.getOWLDataPropertyDomainAxiom(bottomData, owlThing);
-        test(axiom, true, A);
+        axiom = DataPropertyDomain(BottomDataProperty(), OWLThing());
+        test(axiom, true, CLASSES.A);
     }
 
     @Test
     void shouldBeLocalowlObjectPropertyRangeAxiom() {
-        axiom = df.getOWLObjectPropertyRangeAxiom(P, A);
+        axiom = ObjectPropertyRange(OBJPROPS.P, CLASSES.A);
         // signature intersects
         // test(axiom, true, a);
         // signature does not intersect
@@ -255,7 +238,7 @@ class SemanticLocalityTestCase extends TestBase {
 
     @Test
     void shouldBeLocalowlDataPropertyRangeAxiom() {
-        axiom = df.getOWLDataPropertyRangeAxiom(s, i);
+        axiom = DataPropertyRange(DATAPROPS.s, DATATYPES.DT);
         // signature intersects
         // test(axiom, false, s);
         // signature does not intersect
@@ -264,194 +247,193 @@ class SemanticLocalityTestCase extends TestBase {
 
     @Test
     void shouldBeLocalowlTransitiveObjectPropertyAxiom() {
-        axiom = df.getOWLTransitiveObjectPropertyAxiom(P);
+        axiom = TransitiveObjectProperty(OBJPROPS.P);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
         // test(axiom, true, q);
     }
 
     @Test
     void shouldBeLocalowlReflexiveObjectPropertyAxiom() {
-        axiom = df.getOWLReflexiveObjectPropertyAxiom(P);
+        axiom = ReflexiveObjectProperty(OBJPROPS.P);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
-        test(axiom, false, Q);
+        test(axiom, false, OBJPROPS.Q);
     }
 
     @Test
     void shouldBeLocalowlIrreflexiveObjectPropertyAxiom() {
-        axiom = df.getOWLIrreflexiveObjectPropertyAxiom(P);
+        axiom = IrreflexiveObjectProperty(OBJPROPS.P);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
         // test(axiom, true, q);
     }
 
     @Test
     void shouldBeLocalowlSymmetricObjectPropertyAxiom() {
-        axiom = df.getOWLSymmetricObjectPropertyAxiom(P);
+        axiom = SymmetricObjectProperty(OBJPROPS.P);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
         // test(axiom, true, q);
     }
 
     @Test
     void shouldBeLocalowlAsymmetricObjectPropertyAxiom() {
-        axiom = df.getOWLAsymmetricObjectPropertyAxiom(P);
+        axiom = AsymmetricObjectProperty(OBJPROPS.P);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
         // test(axiom, true, q);
     }
 
     @Test
     void shouldBeLocalowlFunctionalObjectPropertyAxiom() {
-        axiom = df.getOWLFunctionalObjectPropertyAxiom(P);
+        axiom = FunctionalObjectProperty(OBJPROPS.P);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
         // test(axiom, true, q);
     }
 
     @Test
     void shouldBeLocalowlFunctionalDataPropertyAxiom() {
-        axiom = df.getOWLFunctionalDataPropertyAxiom(s);
+        axiom = FunctionalDataProperty(DATAPROPS.s);
         // signature intersects
-        test(axiom, false, s);
+        test(axiom, false, DATAPROPS.s);
         // signature does not intersect
         // test(axiom, true, t);
     }
 
     @Test
     void shouldBeLocalowlInverseFunctionalObjectPropertyAxiom() {
-        axiom = df.getOWLInverseFunctionalObjectPropertyAxiom(P);
+        axiom = InverseFunctionalObjectProperty(OBJPROPS.P);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
         // test(axiom, true, q);
     }
 
     @Test
     void shouldBeLocalowlSubClassOfAxiom() {
-        axiom = df.getOWLSubClassOfAxiom(A, B);
+        axiom = SubClassOf(CLASSES.A, CLASSES.B);
         // signature intersects
-        test(axiom, false, A);
+        test(axiom, false, CLASSES.A);
         // signature does not intersect
         // test(axiom, true, d);
     }
 
     @Test
     void shouldBeLocalowlClassAssertionAxiom() {
-        axiom = df.getOWLClassAssertionAxiom(A, x);
+        axiom = ClassAssertion(CLASSES.A, INDIVIDUALS.x);
         // signature intersects
-        test(axiom, false, A);
+        test(axiom, false, CLASSES.A);
         // signature does not intersect
-        test(axiom, false, D);
+        test(axiom, false, CLASSES.D);
     }
 
     @Test
     void shouldBeLocalowlObjectPropertyAssertionAxiom() {
-        axiom = df.getOWLObjectPropertyAssertionAxiom(P, y, z);
+        axiom = ObjectPropertyAssertion(OBJPROPS.P, INDIVIDUALS.y, INDIVIDUALS.indz);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
-        test(axiom, false, x);
+        test(axiom, false, INDIVIDUALS.x);
     }
 
     @Test
     void shouldBeLocalowlNegativeObjectPropertyAssertionAxiom() {
-        axiom = df.getOWLNegativeObjectPropertyAssertionAxiom(P, x, y);
+        axiom = NegativeObjectPropertyAssertion(OBJPROPS.P, INDIVIDUALS.x, INDIVIDUALS.y);
         // signature intersects
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
         // signature does not intersect
         // test(axiom, true, z);
     }
 
     @Test
     void shouldBeLocalowlDataPropertyAssertionAxiom() {
-        axiom = df.getOWLDataPropertyAssertionAxiom(s, x, l);
+        axiom = DataPropertyAssertion(DATAPROPS.s, INDIVIDUALS.x, LITERALS.lit1);
         // signature intersects
-        test(axiom, false, s);
+        test(axiom, false, DATAPROPS.s);
         // signature does not intersect
-        test(axiom, false, P);
+        test(axiom, false, OBJPROPS.P);
     }
 
     @Test
     void shouldBeLocalowlNegativeDataPropertyAssertionAxiom() {
-        axiom = df.getOWLNegativeDataPropertyAssertionAxiom(s, x, j);
+        axiom = NegativeDataPropertyAssertion(DATAPROPS.s, INDIVIDUALS.x, LITERALS.LIT_TRUE);
         // signature intersects
-        test(axiom, false, s);
+        test(axiom, false, DATAPROPS.s);
         // signature does not intersect
         // test(axiom, true, p);
     }
 
     @Test
     void shouldBeLocalowlAnnotationAssertionAxiom() {
-        axiom = df.getOWLAnnotationAssertionAxiom(A.getIRI(), df.getOWLAnnotation(g, l));
+        axiom = AnnotationAssertion(ANNPROPS.g, CLASSES.A.getIRI(), LITERALS.lit1);
         // signature intersects
-        test(axiom, true, g);
+        test(axiom, true, ANNPROPS.g);
         // signature does not intersect
-        test(axiom, true, B);
+        test(axiom, true, CLASSES.B);
     }
 
     @Test
     void shouldBeLocalowlSubAnnotationPropertyOfAxiom() {
-        axiom = df.getOWLSubAnnotationPropertyOfAxiom(g, h);
+        axiom = SubAnnotationPropertyOf(ANNPROPS.g, ANNPROPS.h);
         // signature intersects
-        test(axiom, true, g);
+        test(axiom, true, ANNPROPS.g);
         // signature does not intersect
-        test(axiom, true, P);
+        test(axiom, true, OBJPROPS.P);
     }
 
     @Test
     void shouldBeLocalowlAnnotationPropertyDomainAxiom() {
-        axiom = df.getOWLAnnotationPropertyDomainAxiom(g, A.getIRI());
+        axiom = AnnotationPropertyDomain(ANNPROPS.g, CLASSES.A.getIRI());
         // signature intersects
-        test(axiom, true, g);
+        test(axiom, true, ANNPROPS.g);
         // signature does not intersect
-        test(axiom, true, h);
+        test(axiom, true, ANNPROPS.h);
     }
 
     @Test
     void shouldBeLocalowlAnnotationPropertyRangeAxiom() {
-        axiom = df.getOWLAnnotationPropertyRangeAxiom(g, A.getIRI());
+        axiom = AnnotationPropertyRange(ANNPROPS.g, CLASSES.A.getIRI());
         // signature intersects
-        test(axiom, true, g);
+        test(axiom, true, ANNPROPS.g);
         // signature does not intersect
-        test(axiom, true, h);
+        test(axiom, true, ANNPROPS.h);
     }
 
     @Test
     void shouldBeLocalowlSubPropertyChainOfAxiom() {
-        axiom = df.getOWLSubPropertyChainOfAxiom(Arrays.asList(P, Q), R);
+        axiom = SubPropertyChainOf(l(OBJPROPS.P, OBJPROPS.Q), OBJPROPS.R);
         // signature intersects
         // test(axiom, true, p);
         // signature does not intersect
         // test(axiom, true, s);
         // signature equals
-        test(axiom, false, P, Q, R);
+        test(axiom, false, OBJPROPS.P, OBJPROPS.Q, OBJPROPS.R);
         // top property
-        axiom = df.getOWLSubPropertyChainOfAxiom(Arrays.asList(P, Q), topObject);
+        axiom = SubPropertyChainOf(l(OBJPROPS.P, OBJPROPS.Q), TopObjectProperty());
         // signature intersects
-        test(axiom, true, P);
+        test(axiom, true, OBJPROPS.P);
     }
 
     @Test
     void shouldBeLocalowlHasKeyAxiom() {
-        axiom = df.getOWLHasKeyAxiom(A, P, s);
+        axiom = HasKey(CLASSES.A, OBJPROPS.P, DATAPROPS.s);
         // signature intersects
-        test(axiom, true, A);
+        test(axiom, true, CLASSES.A);
         // signature does not intersect
-        test(axiom, true, Q);
+        test(axiom, true, OBJPROPS.Q);
     }
 
     @Test
     void shouldBeLocalowlDatatypeDefinitionAxiom() {
-        axiom =
-            df.getOWLDatatypeDefinitionAxiom(i, df.getOWLDatatypeMinMaxExclusiveRestriction(1, 3));
+        axiom = DatatypeDefinition(DATATYPES.DT, DatatypeMinMaxExclusiveRestriction(1, 3));
         // signature intersects
         // test(axiom, true, i);
         // signature does not intersect
@@ -460,41 +442,19 @@ class SemanticLocalityTestCase extends TestBase {
 
     @Test
     void shouldBeLocalswrlRule() {
-        Set<SWRLAtom> head =
-            new HashSet<>(Arrays.asList(df.getSWRLClassAtom(A, df.getSWRLIndividualArgument(x))));
-        Set<SWRLAtom> body =
-            new HashSet<>(Arrays.asList(df.getSWRLClassAtom(B, df.getSWRLIndividualArgument(y))));
-        axiom = df.getSWRLRule(head, body);
+        axiom = SWRLRule(l(SWRLClassAtom(CLASSES.A, SWRLIndividualArgument(INDIVIDUALS.x))),
+            l(SWRLClassAtom(CLASSES.B, SWRLIndividualArgument(INDIVIDUALS.y))));
         // signature intersects
-        test(axiom, true, A);
+        test(axiom, true, CLASSES.A);
         // signature does not intersect
-        test(axiom, true, D);
+        test(axiom, true, CLASSES.D);
     }
 
     @Test
     void shouldResetSignature() {
-        OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(A, B);
-        testSubject.preprocessOntology(Arrays.asList(new AxiomWrapper(ax)));
+        OWLSubClassOfAxiom ax = SubClassOf(CLASSES.A, CLASSES.B);
+        testSubject.preprocessOntology(l(new AxiomWrapper(ax)));
     }
-
-    static final String NS = "urn:test#";
-    static final OWLAnnotationProperty g = df.getOWLAnnotationProperty(df.getIRI(NS, "g"));
-    static final OWLAnnotationProperty h = df.getOWLAnnotationProperty(df.getIRI(NS, "h"));
-    static final OWLDatatype i = df.getOWLDatatype(df.getIRI(NS, "i"));
-    static final OWLLiteral j = df.getOWLLiteral(true);
-    static final OWLLiteral l = df.getOWLLiteral(3.5D);
-    static final OWLDataProperty s = df.getOWLDataProperty(df.getIRI(NS, "s"));
-    static final OWLDataProperty t = df.getOWLDataProperty(df.getIRI(NS, "t"));
-    static final OWLDataProperty v = df.getOWLDataProperty(df.getIRI(NS, "v"));
-    static final OWLNamedIndividual x = df.getOWLNamedIndividual(df.getIRI(NS, "x"));
-    static final OWLNamedIndividual y = df.getOWLNamedIndividual(df.getIRI(NS, "y"));
-    static final OWLNamedIndividual z = df.getOWLNamedIndividual(df.getIRI(NS, "z"));
-    static final OWLClass owlNothing = df.getOWLNothing();
-    static final OWLClass owlThing = df.getOWLThing();
-    static final OWLDataProperty bottomData = df.getOWLBottomDataProperty();
-    static final OWLDataProperty topData = df.getOWLTopDataProperty();
-    static final OWLObjectProperty bottomObject = df.getOWLBottomObjectProperty();
-    static final OWLObjectProperty topObject = df.getOWLTopObjectProperty();
 
     @BeforeEach
     void setUp() {
@@ -508,14 +468,14 @@ class SemanticLocalityTestCase extends TestBase {
     }
 
     private void test(OWLAxiom ax, boolean expected, OWLEntity... entities) {
-        testSubject.preprocessOntology(Arrays.asList(new AxiomWrapper(ax)));
+        testSubject.preprocessOntology(l(new AxiomWrapper(ax)));
         set(entities);
         boolean local = testSubject.local(ax);
         assertEquals(Boolean.valueOf(expected), Boolean.valueOf(local));
     }
 
     private void test(OWLAxiom ax, boolean expected, boolean locality, OWLEntity... entities) {
-        testSubject.preprocessOntology(Arrays.asList(new AxiomWrapper(ax)));
+        testSubject.preprocessOntology(l(new AxiomWrapper(ax)));
         set(entities);
         testSubject.getSignature().setLocality(locality);
         boolean local = testSubject.local(ax);

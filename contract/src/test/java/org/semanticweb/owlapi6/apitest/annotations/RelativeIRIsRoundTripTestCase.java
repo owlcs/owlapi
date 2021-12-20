@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest.annotations;
 
-import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,55 +23,46 @@ import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.model.HasIRI;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
-import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDocumentFormat;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.utility.OWLEntityRenamer;
 
 class RelativeIRIsRoundTripTestCase extends TestBase {
-    private final String ns = "";
-    // "urn:test:ns#";
-    private final OWLDataProperty d = df.getOWLDataProperty(ns + "d");
-    private final OWLObjectProperty o = df.getOWLObjectProperty(ns + "o");
-    private final OWLAnnotationProperty x = df.getOWLAnnotationProperty(ns + "X");
-    private final OWLAnnotationProperty y = df.getOWLAnnotationProperty(ns + "Y");
-    private final OWLAnnotation ann1 = df.getOWLAnnotation(x, df.getOWLLiteral("x"));
-    private final OWLAnnotation ann2 = df.getOWLAnnotation(y, df.getOWLLiteral("y"));
+    private static final List<OWLAnnotation> ANNS =
+        l(Annotation(ANNPROPS.AP, Literal("x")), Annotation(ANNPROPS.propP, Literal("y")));
 
     protected OWLOntology relativeIRIsRoundTripTestCase() {
-        OWLClassExpression c1 = df.getOWLDataAllValuesFrom(d, df.getBooleanOWLDatatype());
-        OWLClassExpression c2 = df.getOWLObjectSomeValuesFrom(o, df.getOWLThing());
-        OWLAxiom a = df.getOWLSubClassOfAxiom(c1, c2, Arrays.asList(ann1, ann2));
-        OWLOntology ont1 = getOWLOntology(iri("http://www.semanticweb.org/owlapi/", ""));
+        OWLClassExpression c1 = DataAllValuesFrom(DATAPROPS.DP, Boolean());
+        OWLClassExpression c2 = ObjectSomeValuesFrom(OBJPROPS.P, OWLThing());
+        OWLAxiom a = SubClassOf(ANNS, c1, c2);
+        OWLOntology ont1 = create(iri("http://www.semanticweb.org/owlapi/", ""));
         ont1.add(a);
         return ont1;
     }
 
     @Override
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
-        if (!ont2.containsDataPropertyInSignature(d.getIRI())) {
-            OWLEntityRenamer renamer =
-                new OWLEntityRenamer(ont2.getOWLOntologyManager(), Arrays.asList(ont2));
-            ont2.applyChanges(renamer.changeIRI(relativise(d), d.getIRI()));
-            ont2.applyChanges(renamer.changeIRI(relativise(o), o.getIRI()));
-            ont2.applyChanges(renamer.changeIRI(relativise(x), x.getIRI()));
-            ont2.applyChanges(renamer.changeIRI(relativise(y), y.getIRI()));
+        if (!ont2.containsDataPropertyInSignature(DATAPROPS.DP.getIRI())) {
+            OWLEntityRenamer renamer = new OWLEntityRenamer(ont2.getOWLOntologyManager(), l(ont2));
+            ont2.applyChanges(renamer.changeIRI(relativise(DATAPROPS.DP), DATAPROPS.DP.getIRI()));
+            ont2.applyChanges(renamer.changeIRI(relativise(OBJPROPS.P), OBJPROPS.P.getIRI()));
+            ont2.applyChanges(renamer.changeIRI(relativise(ANNPROPS.AP), ANNPROPS.AP.getIRI()));
+            ont2.applyChanges(
+                renamer.changeIRI(relativise(ANNPROPS.propP), ANNPROPS.propP.getIRI()));
         }
         return super.equal(ont1, ont2);
     }
 
-    protected IRI relativise(HasIRI e) {
-        return iri("http://www.semanticweb.org/owlapi/", e.getIRI().toString());
+    protected IRI relativise(HasIRI entity) {
+        return iri("http://www.semanticweb.org/owlapi/", entity.getIRI().toString());
     }
 
     @ParameterizedTest
     @MethodSource("formats")
-    void testFormat(OWLDocumentFormat d) {
-        roundTripOntology(relativeIRIsRoundTripTestCase(), d);
+    void testFormat(OWLDocumentFormat format) {
+        roundTripOntology(relativeIRIsRoundTripTestCase(), format);
     }
 
     @Test

@@ -13,13 +13,12 @@
 package org.semanticweb.owlapi6.apitest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.of;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLObject;
@@ -27,90 +26,49 @@ import org.semanticweb.owlapi6.utility.SimpleRenderer;
 
 class VisitorsTestCase extends TestBase {
 
-    static Collection<Object[]> getData() {
-        Builder b = new Builder();
-        Map<OWLObject, String> map = new LinkedHashMap<>();
-        map.put(b.rule(), TestFiles.RULE);
-        map.put(b.bigRule(), TestFiles.BIGRULE);
-        map.put(b.onto(), TestFiles.ONTO);
-        map.put(b.ann(), TestFiles.ANN);
-        map.put(b.asymm(), TestFiles.ASYMM);
-        map.put(b.annDom(), TestFiles.ANNDOM);
-        map.put(b.annRange(), TestFiles.ANNRANGE);
-        map.put(b.ass(), TestFiles.ASS);
-        map.put(b.assAnd(), TestFiles.ASSAND);
-        map.put(b.assOr(), TestFiles.ASSOR);
-        map.put(b.dRangeAnd(), TestFiles.DRANGEAND);
-        map.put(b.dRangeOr(), TestFiles.DRANGEOR);
-        map.put(b.assNot(), TestFiles.ASSNOT);
-        map.put(b.assNotAnon(), TestFiles.ASSNOTANON);
-        map.put(b.assSome(), TestFiles.ASSSOME);
-        map.put(b.assAll(), TestFiles.ASSALL);
-        map.put(b.assHas(), TestFiles.ASSHAS);
-        map.put(b.assMin(), TestFiles.ASSMIN);
-        map.put(b.assMax(), TestFiles.ASSMAX);
-        map.put(b.assEq(), TestFiles.ASSEQ);
-        map.put(b.assHasSelf(), TestFiles.ASSHASSELF);
-        map.put(b.assOneOf(), TestFiles.ASSONEOF);
-        map.put(b.assDSome(), TestFiles.assDSome);
-        map.put(b.assDAll(), TestFiles.assDAll);
-        map.put(b.assDHas(), TestFiles.assDHas);
-        map.put(b.assDMin(), TestFiles.assDMin);
-        map.put(b.assDMax(), TestFiles.assDMax);
-        map.put(b.assDEq(), TestFiles.assDEq);
-        map.put(b.dOneOf(), TestFiles.dataOneOf);
-        map.put(b.dNot(), TestFiles.dataNot);
-        map.put(b.dRangeRestrict(), TestFiles.dRangeRestrict);
-        map.put(b.assD(), TestFiles.assD);
-        map.put(b.assDPlain(), TestFiles.assDPlain);
-        map.put(b.dDom(), TestFiles.dDom);
-        map.put(b.dRange(), TestFiles.dRange);
-        map.put(b.dDef(), TestFiles.dDef);
-        map.put(b.decC(), TestFiles.decC);
-        map.put(b.decOp(), TestFiles.decOp);
-        map.put(b.decDp(), TestFiles.decDp);
-        map.put(b.decDt(), TestFiles.decDt);
-        map.put(b.decAp(), TestFiles.decAp);
-        map.put(b.decI(), TestFiles.decI);
-        map.put(b.assDi(), TestFiles.assDi);
-        map.put(b.dc(), TestFiles.disjointClasses);
-        map.put(b.dDp(), TestFiles.disjointDp);
-        map.put(b.dOp(), TestFiles.disjointOp);
-        map.put(b.du(), TestFiles.disjointu);
-        map.put(b.ec(), TestFiles.ec);
-        map.put(b.eDp(), TestFiles.eDp);
-        map.put(b.eOp(), TestFiles.eOp);
-        map.put(b.fdp(), TestFiles.functionaldp);
-        map.put(b.fop(), TestFiles.functionalop);
-        map.put(b.ifp(), TestFiles.inversefp);
-        map.put(b.iop(), TestFiles.inverseop);
-        map.put(b.irr(), TestFiles.irreflexive);
-        map.put(b.ndp(), TestFiles.ndp);
-        map.put(b.nop(), TestFiles.nop);
-        map.put(b.opa(), TestFiles.opa);
-        map.put(b.opaInv(), TestFiles.OPAINV);
-        map.put(b.opaInvj(), TestFiles.OPAINVJ);
-        map.put(b.oDom(), TestFiles.ODOM);
-        map.put(b.oRange(), TestFiles.ORANGE);
-        map.put(b.chain(), TestFiles.CHAIN);
-        map.put(b.ref(), TestFiles.REF);
-        map.put(b.same(), TestFiles.SAME);
-        map.put(b.subAnn(), TestFiles.SUBANN);
-        map.put(b.subClass(), TestFiles.SUBCLASS);
-        map.put(b.subData(), TestFiles.SUBDATA);
-        map.put(b.subObject(), TestFiles.SUBOBJECT);
-        map.put(b.symm(), TestFiles.SYMM);
-        map.put(b.trans(), TestFiles.TRANS);
-        map.put(b.hasKey(), TestFiles.HASKEY);
-        Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
-        return toReturn;
+    static Stream<Arguments> getData() {
+        return Stream.of(of(Builder.rule, TestFiles.RULE), of(Builder.bigRule, TestFiles.BIGRULE),
+            of(Builder.onto, TestFiles.ONTO), of(Builder.ann, TestFiles.ANN),
+            of(Builder.asymm, TestFiles.ASYMM), of(Builder.annDom, TestFiles.ANNDOM),
+            of(Builder.annRange, TestFiles.ANNRANGE), of(Builder.ass, TestFiles.ASS),
+            of(Builder.assAnd, TestFiles.ASSAND), of(Builder.assOr, TestFiles.ASSOR),
+            of(Builder.dRangeAnd, TestFiles.DRANGEAND), of(Builder.dRangeOr, TestFiles.DRANGEOR),
+            of(Builder.assNot, TestFiles.ASSNOT), of(Builder.assNotAnon, TestFiles.ASSNOTANON),
+            of(Builder.assSome, TestFiles.ASSSOME), of(Builder.assAll, TestFiles.ASSALL),
+            of(Builder.assHas, TestFiles.ASSHAS), of(Builder.assMin, TestFiles.ASSMIN),
+            of(Builder.assMax, TestFiles.ASSMAX), of(Builder.assEq, TestFiles.ASSEQ),
+            of(Builder.assHasSelf, TestFiles.ASSHASSELF), of(Builder.assOneOf, TestFiles.ASSONEOF),
+            of(Builder.assDSome, TestFiles.assDSome), of(Builder.assDAll, TestFiles.assDAll),
+            of(Builder.assDHas, TestFiles.assDHas), of(Builder.assDMin, TestFiles.assDMin),
+            of(Builder.assDMax, TestFiles.assDMax), of(Builder.assDEq, TestFiles.assDEq),
+            of(Builder.dOneOf, TestFiles.dataOneOf), of(Builder.dNot, TestFiles.dataNot),
+            of(Builder.dRangeRestrict, TestFiles.dRangeRestrict), of(Builder.assD, TestFiles.assD),
+            of(Builder.assDPlain, TestFiles.assDPlain), of(Builder.dDom, TestFiles.dDom),
+            of(Builder.dRange, TestFiles.dRange), of(Builder.dDef, TestFiles.dDef),
+            of(Builder.decC, TestFiles.decC), of(Builder.decOp, TestFiles.decOp),
+            of(Builder.decDp, TestFiles.decDp), of(Builder.decDt, TestFiles.decDt),
+            of(Builder.decAp, TestFiles.decAp), of(Builder.decI, TestFiles.decI),
+            of(Builder.assDi, TestFiles.assDi), of(Builder.dc, TestFiles.disjointClasses),
+            of(Builder.dDp, TestFiles.disjointDp), of(Builder.dOp, TestFiles.disjointOp),
+            of(Builder.du, TestFiles.disjointu), of(Builder.ec, TestFiles.ec),
+            of(Builder.eDp, TestFiles.eDp), of(Builder.eOp, TestFiles.eOp),
+            of(Builder.fdp, TestFiles.functionaldp), of(Builder.fop, TestFiles.functionalop),
+            of(Builder.ifp, TestFiles.inversefp), of(Builder.iop, TestFiles.inverseop),
+            of(Builder.irr, TestFiles.irreflexive), of(Builder.ndp, TestFiles.ndp),
+            of(Builder.nop, TestFiles.nop), of(Builder.opa, TestFiles.opa),
+            of(Builder.opaInv, TestFiles.OPAINV), of(Builder.opaInvj, TestFiles.OPAINVJ),
+            of(Builder.oDom, TestFiles.ODOM), of(Builder.oRange, TestFiles.ORANGE),
+            of(Builder.chain, TestFiles.CHAIN), of(Builder.ref, TestFiles.REF),
+            of(Builder.same, TestFiles.SAME), of(Builder.subAnn, TestFiles.SUBANN),
+            of(Builder.subClass, TestFiles.SUBCLASS), of(Builder.subData, TestFiles.SUBDATA),
+            of(Builder.subObject, TestFiles.SUBOBJECT), of(Builder.symm, TestFiles.SYMM),
+            of(Builder.trans, TestFiles.TRANS), of(Builder.hasKey, TestFiles.HASKEY));
     }
 
     @ParameterizedTest
     @MethodSource("getData")
-    void testAssertion(OWLObject object, String expected) {
-        String render = new SimpleRenderer().render(object);
+    void testAssertion(OWLObject ax, String expected) {
+        String render = new SimpleRenderer().render(ax);
         assertEquals(expected, render);
     }
 }

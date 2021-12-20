@@ -23,11 +23,9 @@ class OntologyVersionIsOntologyTestCase extends TestBase {
 
     @Test
     void testLoad() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.ontologyVersionParse, new RioTurtleDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.ontologyVersionParse, new RioTurtleDocumentFormat());
         StringDocumentTarget saveOntology = saveOntology(o, new RioTurtleDocumentFormat());
-        OWLOntology o1 =
-            loadOntologyFromString(saveOntology.toString(), new RioTurtleDocumentFormat());
+        OWLOntology o1 = loadFrom(saveOntology.toString(), new RioTurtleDocumentFormat());
         equal(o, o1);
     }
 }

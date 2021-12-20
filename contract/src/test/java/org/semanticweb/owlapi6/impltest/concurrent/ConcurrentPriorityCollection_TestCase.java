@@ -26,7 +26,7 @@ class Temp implements Serializable {
 }
 
 
-class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
+class ConcurrentPriorityCollection_TestCase {
 
     private final PriorityCollectionSorting hasOntologyLoaderConfiguration =
         PriorityCollectionSorting.NEVER;

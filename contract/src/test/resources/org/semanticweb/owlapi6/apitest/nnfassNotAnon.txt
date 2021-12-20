@@ -1,1 +1,0 @@
-ClassAssertion(ObjectComplementOf(<urn:test:test#c>) _:id)

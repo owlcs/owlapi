@@ -13,15 +13,7 @@
 package org.semanticweb.owlapi6.apitest.fileroundtrip;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DataIntersectionOf;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DataSomeValuesFrom;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DataUnionOf;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Datatype;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DatatypeDefinition;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectIntersectionOf;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectUnionOf;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SubClassOf;
+import static org.junit.jupiter.params.provider.Arguments.of;
 
 import java.util.stream.Stream;
 
@@ -34,7 +26,6 @@ import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
 import org.semanticweb.owlapi6.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi6.model.OWLDataUnionOf;
-import org.semanticweb.owlapi6.model.OWLDatatype;
 import org.semanticweb.owlapi6.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
@@ -45,23 +36,26 @@ import org.semanticweb.owlapi6.model.OWLOntology;
 class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
 
     static Stream<Arguments> nonSymmetricAxiomsRoundTrippingTestCase() {
-        OWLDatatype dataD = Datatype(iri("D"));
-        OWLDatatype dataE = Datatype(iri("E"));
-        OWLObjectSomeValuesFrom d = ObjectSomeValuesFrom(P, ObjectIntersectionOf(B, C));
-        OWLDataSomeValuesFrom e = DataSomeValuesFrom(DP, DataIntersectionOf(dataD, dataE));
-        OWLClassExpression du = ObjectUnionOf(B, C);
-        OWLDataUnionOf eu = DataUnionOf(dataD, dataE);
+        OWLObjectSomeValuesFrom objectSome =
+            ObjectSomeValuesFrom(OBJPROPS.P, ObjectIntersectionOf(CLASSES.B, CLASSES.C));
+        OWLDataSomeValuesFrom dataSome =
+            DataSomeValuesFrom(DATAPROPS.DP, DataIntersectionOf(DATATYPES.DTA, DATATYPES.DTB));
+        OWLClassExpression du = ObjectUnionOf(CLASSES.B, CLASSES.C);
+        OWLDataUnionOf eu = DataUnionOf(DATATYPES.DTA, DATATYPES.DTB);
         return Stream.of(
-            Arguments.of(SubClassOf(A, ObjectIntersectionOf(d, d)), SubClassOf(A, d)),
-            Arguments.of(SubClassOf(A, ObjectUnionOf(e, e)), SubClassOf(A, e)),
-            Arguments.of(SubClassOf(A, ObjectIntersectionOf(du, du)), SubClassOf(A, du)),
-            Arguments.of(DatatypeDefinition(dataD, DataUnionOf(eu, eu)), DatatypeDefinition(dataD, eu)));
+            of(SubClassOf(CLASSES.A, ObjectIntersectionOf(objectSome, objectSome)),
+                SubClassOf(CLASSES.A, objectSome)),
+            of(SubClassOf(CLASSES.A, ObjectUnionOf(dataSome, dataSome)),
+                SubClassOf(CLASSES.A, dataSome)),
+            of(SubClassOf(CLASSES.A, ObjectIntersectionOf(du, du)), SubClassOf(CLASSES.A, du)),
+            of(DatatypeDefinition(DATATYPES.DTA, DataUnionOf(eu, eu)),
+                DatatypeDefinition(DATATYPES.DTA, eu)));
     }
 
     @ParameterizedTest
     @MethodSource("nonSymmetricAxiomsRoundTrippingTestCase")
     void shouldRoundTripAReadableVersion(OWLAxiom in, OWLAxiom out) {
-        OWLOntology output = getOWLOntology();
+        OWLOntology output = createAnon();
         output.add(in);
         OWLOntology o = roundTrip(output, new FunctionalSyntaxDocumentFormat());
         assertEquals(1, o.logicalAxioms().count());

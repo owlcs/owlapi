@@ -13,8 +13,6 @@
 package org.semanticweb.owlapi6.apitest.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -24,12 +22,10 @@ import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.TestFiles;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.documents.StringDocumentSource;
-import org.semanticweb.owlapi6.documents.StringDocumentTarget;
 import org.semanticweb.owlapi6.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi6.model.AxiomType;
 import org.semanticweb.owlapi6.model.OWLAnnotation;
 import org.semanticweb.owlapi6.model.OWLAxiom;
-import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.SWRLAtom;
 import org.semanticweb.owlapi6.model.SWRLVariable;
@@ -37,36 +33,33 @@ import org.semanticweb.owlapi6.model.SWRLVariable;
 class SWRLAnnotationTestCase extends TestBase {
 
     private static final String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
-    protected OWLClass a = Class(IRI(NS + "#", "A"));
-    protected OWLClass b = Class(IRI(NS + "#", "B"));
     protected OWLAxiom axiom;
 
     @BeforeEach
     void setUpAtoms() {
-        SWRLVariable x = df.getSWRLVariable(NS + "#", "x");
-        SWRLAtom atom1 = df.getSWRLClassAtom(a, x);
-        SWRLAtom atom2 = df.getSWRLClassAtom(b, x);
+        SWRLVariable xVariable = SWRLVariable(NS + "#", "x");
+        SWRLAtom atom1 = SWRLClassAtom(CLASSES.A, xVariable);
+        SWRLAtom atom2 = SWRLClassAtom(CLASSES.B, xVariable);
         Set<SWRLAtom> consequent = new TreeSet<>();
         consequent.add(atom1);
-        OWLAnnotation annotation = df.getRDFSComment("Not a great rule");
+        OWLAnnotation annotation = RDFSComment("Not a great rule");
         Set<OWLAnnotation> annotations = new TreeSet<>();
         annotations.add(annotation);
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(atom2);
-        axiom = df.getSWRLRule(body, consequent, annotations);
+        axiom = SWRLRule(annotations, body, consequent);
     }
 
     @Test
     void shouldRoundTripAnnotation() {
         OWLOntology ontology = createOntology();
         assertTrue(ontology.containsAxiom(axiom));
-        StringDocumentTarget saveOntology = saveOntology(ontology);
-        ontology = loadOntologyFromString(saveOntology, ontology.getNonnullFormat());
+        ontology = loadFrom(saveOntology(ontology), ontology.getNonnullFormat());
         assertTrue(ontology.containsAxiom(axiom));
     }
 
     OWLOntology createOntology() {
-        OWLOntology ontology = getOWLOntology();
+        OWLOntology ontology = create();
         ontology.add(axiom);
         return ontology;
     }
@@ -74,8 +67,8 @@ class SWRLAnnotationTestCase extends TestBase {
     @Test
     void replicateFailure() {
         String input = TestFiles.HEAD + " rdf:ID=\"test-table5-prp-inv2-rule\"" + TestFiles.TAIL;
-        OWLOntology ontology = loadOntologyFromString(
-            new StringDocumentSource(input, "test", new RDFXMLDocumentFormat(), null));
+        OWLOntology ontology =
+            loadFrom(new StringDocumentSource(input, "test", new RDFXMLDocumentFormat(), null));
         assertTrue(ontology.axioms(AxiomType.SWRL_RULE)
             .anyMatch(ax -> ax.toString().contains(TestFiles.DL_RULE)));
     }
@@ -83,8 +76,8 @@ class SWRLAnnotationTestCase extends TestBase {
     @Test
     void replicateSuccess() {
         String input = TestFiles.HEAD + TestFiles.TAIL;
-        OWLOntology ontology = loadOntologyFromString(
-            new StringDocumentSource(input, "test", new RDFXMLDocumentFormat(), null));
+        OWLOntology ontology =
+            loadFrom(new StringDocumentSource(input, "test", new RDFXMLDocumentFormat(), null));
         assertTrue(ontology.axioms(AxiomType.SWRL_RULE)
             .anyMatch(ax -> ax.toString().contains(TestFiles.DL_RULE)));
     }

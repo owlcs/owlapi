@@ -14,8 +14,6 @@ package org.semanticweb.owlapi6.apitest.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.OWLThing;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SubClassOf;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +31,13 @@ import org.semanticweb.owlapi6.model.OWLOntologyChange;
  */
 class OntologyMutationTestCase extends TestBase {
 
-    static OWLAxiom ax = SubClassOf(A, OWLThing());
+    static final OWLAxiom ax = SubClassOf(CLASSES.A, OWLThing());
 
     @Test
     void testAddAxiom() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create("OntA");
         List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
+        ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.add(ax);
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
@@ -47,9 +45,9 @@ class OntologyMutationTestCase extends TestBase {
 
     @Test
     void testAddAxioms() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create("OntB");
         List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
+        ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.add(ax);
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
@@ -57,9 +55,9 @@ class OntologyMutationTestCase extends TestBase {
 
     @Test
     void testApplyChange() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create("OntC");
         List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
+        ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.applyChange(new AddAxiom(ont, ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
@@ -67,9 +65,9 @@ class OntologyMutationTestCase extends TestBase {
 
     @Test
     void testApplyChanges() {
-        OWLOntology ont = getOWLOntology();
+        OWLOntology ont = create("OntD");
         List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
+        ont.getOWLOntologyManager().addOntologyChangeListener(chgs::addAll);
         ont.applyChange(new AddAxiom(ont, ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));

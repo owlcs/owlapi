@@ -7,25 +7,33 @@ OntologyID(OntologyIRI(<urn:test:onto>) VersionIRI(<null>))</h1>
 <div class="axiombox"> 
 A &#8849; &#172; <a href="#B">B</a>, A &#8849; &#172; <a href="#C">C</a>, A &#8849; &#172; <a href="#D">D</a>, <a href="#B">B</a> &#8849; &#172; <a href="#C">C</a>, <a href="#B">B</a> &#8849; &#172; <a href="#D">D</a>, <a href="#C">C</a> &#8849; &#172; <a href="#D">D</a></div>
 <div class="usage" style="margin-left: 60px; size: tiny">
-<h3>Usages (0)</h3>
+<h3>Usages (1)</h3>
+<div class="axiombox"> 
+</div>
 </div>
 </div>
 <h2><a name="B">http://www.semanticweb.org/owlapi/test#B</a></h2>
 <div class="entitybox">
 <div class="usage" style="margin-left: 60px; size: tiny">
-<h3>Usages (0)</h3>
+<h3>Usages (1)</h3>
+<div class="axiombox"> 
+</div>
 </div>
 </div>
 <h2><a name="C">http://www.semanticweb.org/owlapi/test#C</a></h2>
 <div class="entitybox">
 <div class="usage" style="margin-left: 60px; size: tiny">
-<h3>Usages (0)</h3>
+<h3>Usages (1)</h3>
+<div class="axiombox"> 
+</div>
 </div>
 </div>
 <h2><a name="D">http://www.semanticweb.org/owlapi/test#D</a></h2>
 <div class="entitybox">
 <div class="usage" style="margin-left: 60px; size: tiny">
-<h3>Usages (0)</h3>
+<h3>Usages (1)</h3>
+<div class="axiombox"> 
+</div>
 </div>
 </div>
 <div>

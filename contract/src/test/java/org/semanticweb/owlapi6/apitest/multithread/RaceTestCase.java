@@ -53,18 +53,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apibinding.OWLManager;
+import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.model.OWLClass;
-import org.semanticweb.owlapi6.model.OWLDataFactory;
 import org.semanticweb.owlapi6.model.OWLOntology;
 import org.semanticweb.owlapi6.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi6.model.OWLOntologyManager;
 import org.semanticweb.owlapi6.model.OWLSubClassOfAxiom;
 
-class RaceTestCase {
+class RaceTestCase extends TestBase {
 
     @Test
-    void testSubClassLHS() throws Exception {
+    void testSubClassLHS() throws OWLOntologyCreationException, InterruptedException {
         final int totalRepetitions = 200;
         int repetitions = 0;
         RaceTestCaseRunner r;
@@ -118,18 +118,12 @@ class RaceTestCase {
         static class SubClassLHSCallback implements RaceCallback {
 
             private final AtomicInteger counter = new AtomicInteger();
-            OWLDataFactory factory;
             OWLOntologyManager manager;
             OWLOntology ontology;
-            OWLClass x;
-            OWLClass y;
 
             SubClassLHSCallback() throws OWLOntologyCreationException {
                 manager = OWLManager.createConcurrentOWLOntologyManager();
-                factory = manager.getOWLDataFactory();
                 ontology = manager.createOntology();
-                x = factory.getOWLClass(NS, "X");
-                y = factory.getOWLClass(NS, "Y");
             }
 
             @Override
@@ -146,12 +140,12 @@ class RaceTestCase {
             }
 
             public long computeSize() {
-                return ontology.subClassAxiomsForSubClass(x).count();
+                return ontology.subClassAxiomsForSubClass(CLASSES.xClass).count();
             }
 
             public Set<OWLAxiom> computeChanges(OWLClass middle) {
-                OWLAxiom axiom1 = factory.getOWLSubClassOfAxiom(x, middle);
-                OWLAxiom axiom2 = factory.getOWLSubClassOfAxiom(middle, y);
+                OWLAxiom axiom1 = SubClassOf(CLASSES.xClass, middle);
+                OWLAxiom axiom2 = SubClassOf(middle, CLASSES.yClass);
                 Set<OWLAxiom> axioms = new HashSet<>();
                 axioms.add(axiom1);
                 axioms.add(axiom2);
@@ -161,12 +155,12 @@ class RaceTestCase {
             @Override
             public void diagnose() {
                 List<OWLSubClassOfAxiom> axiomsFound =
-                    asList(ontology.subClassAxiomsForSubClass(x));
+                    asList(ontology.subClassAxiomsForSubClass(CLASSES.xClass));
                 System.out.println("Expected getSubClassAxiomsForSubClass to return " + counter
                     + " axioms but it only found " + axiomsFound.size());
-                for (int i = 0; i < counter.get(); i++) {
-                    OWLAxiom checkMe = factory.getOWLSubClassOfAxiom(x, createMiddleClass(i));
-                    if (!contains(ontology.subClassAxiomsForSubClass(x), checkMe)
+                for (int index = 0; index < counter.get(); index++) {
+                    OWLAxiom checkMe = SubClassOf(CLASSES.xClass, createMiddleClass(index));
+                    if (!contains(ontology.subClassAxiomsForSubClass(CLASSES.xClass), checkMe)
                         && ontology.containsAxiom(checkMe)) {
                         System.out.println(checkMe.toString()
                             + " is an axiom in the ontology that is not found by getSubClassAxiomsForSubClass");
@@ -177,15 +171,16 @@ class RaceTestCase {
 
             @Override
             public void race() {
-                ontology.subClassAxiomsForSubClass(factory.getOWLClass("http://www.race.org#", "testclass")).forEach(this::lose);
+                ontology.subClassAxiomsForSubClass(Class("http://www.race.org#", "testclass"))
+                    .forEach(this::lose);
             }
 
             private void lose(@SuppressWarnings("unused") Object o) {
                 // no op
             }
 
-            public OWLClass createMiddleClass(int i) {
-                return factory.getOWLClass(NS, "P" + i);
+            public OWLClass createMiddleClass(int index) {
+                return Class(NS, "P" + index);
             }
         }
     }

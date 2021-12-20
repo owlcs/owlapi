@@ -1,1 +1,0 @@
-ClassAssertion(Annotation(<urn:test:test#ann> "test"^^xsd:string) DataSomeValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)

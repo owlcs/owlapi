@@ -12,7 +12,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -66,7 +65,7 @@ class OWLOntologyManager_Concurrent_TestCase extends TestBase {
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         manager = new OWLOntologyManagerImpl(df, readWriteLock);
         mockAndAddOntologyFactory();
-        IRI iri = df.getIRI(HTTP_OWLAPI, "ont");
+        IRI iri = iri(HTTP_OWLAPI, "ont");
         ontology = manager.createOntology(iri);
         manager.setOntologyDocumentIRI(ontology, iri);
         reset(readLock, writeLock, readWriteLock);
@@ -77,22 +76,25 @@ class OWLOntologyManager_Concurrent_TestCase extends TestBase {
         OWLOntologyFactory ontologyFactory = mock(OWLOntologyFactory.class);
         when(ontologyFactory.canCreateFromDocumentIRI(any(IRI.class))).thenReturn(Boolean.TRUE);
         when(ontologyFactory.canAttemptLoading(any(OWLOntologyDocumentSource.class)))
-        .thenReturn(Boolean.TRUE);
+            .thenReturn(Boolean.TRUE);
         final OWLOntology owlOntology =
-            new OWLOntologyImpl(manager, df.getOWLOntologyID(), manager.getOntologyConfigurator());
+            new OWLOntologyImpl(manager, OntologyID(), manager.getOntologyConfigurator());
         when(ontologyFactory.createOWLOntology(any(OWLOntologyManager.class),
             any(OWLOntologyID.class), any(IRI.class),
             any(OWLOntologyFactory.OWLOntologyCreationHandler.class),
-            any(OntologyConfigurator.class))).thenAnswer(i -> notify(3, i, owlOntology));
+            any(OntologyConfigurator.class)))
+                .thenAnswer(invocation -> notify(3, invocation, owlOntology));
         when(ontologyFactory.loadOWLOntology(any(OWLOntologyManager.class),
             any(OWLOntologyDocumentSource.class),
             any(OWLOntologyFactory.OWLOntologyCreationHandler.class),
-            any(OntologyConfigurator.class))).thenAnswer(i -> notify(2, i, owlOntology));
+            any(OntologyConfigurator.class)))
+                .thenAnswer(invocation -> notify(2, invocation, owlOntology));
         manager.setOntologyFactories(Collections.singleton(ontologyFactory));
     }
 
-    private static OWLOntology notify(int i, InvocationOnMock o, OWLOntology ont) {
-        ((OWLOntologyFactory.OWLOntologyCreationHandler) o.getArguments()[i]).ontologyCreated(ont);
+    private static OWLOntology notify(int index, InvocationOnMock o, OWLOntology ont) {
+        ((OWLOntologyFactory.OWLOntologyCreationHandler) o.getArguments()[index])
+            .ontologyCreated(ont);
         return ont;
     }
 
@@ -105,7 +107,7 @@ class OWLOntologyManager_Concurrent_TestCase extends TestBase {
 
     @Test
     void shouldCall_contains_with_readLock_2() {
-        OWLOntologyID arg0 = df.getOWLOntologyID(df.getIRI("urn:test:", "ontology"));
+        OWLOntologyID arg0 = OntologyID(iri("urn:test:", "ontology"));
         manager.contains(arg0);
         verifyReadLock_LockUnlock();
     }
@@ -113,7 +115,7 @@ class OWLOntologyManager_Concurrent_TestCase extends TestBase {
     @Test
     void shouldCall_contains_with_no_readLock_onAnonymous() {
         // anonymous ontology ids are never contained, no need to engage locks
-        OWLOntologyID arg0 = df.getOWLOntologyID();
+        OWLOntologyID arg0 = OntologyID();
         manager.contains(arg0);
         verify(readLock, never()).lock();
         verify(readLock, never()).unlock();
@@ -136,7 +138,7 @@ class OWLOntologyManager_Concurrent_TestCase extends TestBase {
 
     @Test
     void shouldCall_getOntology_with_readLock() {
-        OWLOntologyID arg0 = df.getOWLOntologyID();
+        OWLOntologyID arg0 = OntologyID();
         manager.getOntology(arg0);
         verifyReadLock_LockUnlock();
     }
@@ -149,12 +151,12 @@ class OWLOntologyManager_Concurrent_TestCase extends TestBase {
     }
 
     private static IRI mockIRI() {
-        return df.getIRI("http://owlapi.sourceforge.net/", "stuff");
+        return iri("http://owlapi.sourceforge.net/", "stuff");
     }
 
     @Test
     void shouldCall_getImportedOntology_with_readLock() {
-        OWLImportsDeclaration arg0 = new OWLImportsDeclarationImpl(df.getIRI(HTTP_OWLAPI, "ont"));
+        OWLImportsDeclaration arg0 = new OWLImportsDeclarationImpl(iri(HTTP_OWLAPI, "ont"));
         manager.getImportedOntology(arg0);
         verifyReadLock_LockUnlock();
     }
@@ -174,7 +176,7 @@ class OWLOntologyManager_Concurrent_TestCase extends TestBase {
 
     @Test
     void shouldCall_createOntology_with_writeLock_2() throws OWLOntologyCreationException {
-        OWLOntologyID arg0 = df.getOWLOntologyID();
+        OWLOntologyID arg0 = OntologyID();
         manager.createOntology(arg0);
         verifyWriteLock_LockUnlock();
     }
@@ -435,7 +437,7 @@ class OWLOntologyManager_Concurrent_TestCase extends TestBase {
     @Test
     void shouldCall_makeLoadImportRequest_with_writeLock() {
         OWLImportsDeclaration arg0 = mock(OWLImportsDeclaration.class);
-        when(arg0.getIRI()).thenReturn(df.getIRI(HTTP_OWLAPI, "other"));
+        when(arg0.getIRI()).thenReturn(iri(HTTP_OWLAPI, "other"));
         OntologyConfigurator arg1 = mock(OntologyConfigurator.class);
         manager.makeLoadImportRequest(arg0, arg1);
         verifyWriteLock_LockUnlock();
@@ -443,8 +445,7 @@ class OWLOntologyManager_Concurrent_TestCase extends TestBase {
 
     @Test
     void shouldCall_makeLoadImportRequest_with_writeLock_2() {
-        OWLImportsDeclaration arg0 =
-            new OWLImportsDeclarationImpl(df.getIRI(HTTP_OWLAPI, "otheront"));
+        OWLImportsDeclaration arg0 = new OWLImportsDeclarationImpl(iri(HTTP_OWLAPI, "otheront"));
         manager.makeLoadImportRequest(arg0);
         verifyWriteLock_LockUnlock();
     }
@@ -494,8 +495,7 @@ class OWLOntologyManager_Concurrent_TestCase extends TestBase {
     // XXX use reflection instead of enumerating all methods
     protected OWLMutableOntology mockOntology() {
         OWLMutableOntology mock = mock(OWLMutableOntology.class);
-        when(mock.getOntologyID()).thenReturn(df.getOWLOntologyID(
-            Optional.ofNullable(df.getIRI("urn:mock:", "ontology")), Optional.empty()));
+        when(mock.getOntologyID()).thenReturn(OntologyID(iri("urn:mock:", "ontology")));
         return mock;
     }
 

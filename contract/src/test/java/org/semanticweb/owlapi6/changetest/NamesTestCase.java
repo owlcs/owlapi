@@ -66,9 +66,9 @@ class NamesTestCase extends TestBase {
             new RemoveImportData(mock(OWLImportsDeclaration.class)).getName());
         assertEquals("RemoveOntologyAnnotationData",
             new RemoveOntologyAnnotationData(mock(OWLAnnotation.class)).getName());
-        assertEquals("SetOntologyIDData", new SetOntologyIDData(
-            df.getOWLOntologyID(df.getIRI("urn:test#", "test1"), df.getIRI("urn:test#", "test2")))
-            .getName());
+        assertEquals("SetOntologyIDData",
+            new SetOntologyIDData(OntologyID(iri("urn:test#", "test1"), iri("urn:test#", "test2")))
+                .getName());
         assertEquals("KRSS2OWLParser", new KRSS2OWLParser().getName());
         assertEquals("KRSSOWLParser", new KRSSOWLParser().getName());
         assertEquals("OWLFunctionalSyntaxOWLParser", new OWLFunctionalSyntaxOWLParser().getName());

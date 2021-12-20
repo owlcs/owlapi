@@ -14,14 +14,6 @@ package org.semanticweb.owlapi6.apitest;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.FunctionalDataProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.FunctionalObjectProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.InverseFunctionalObjectProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IrreflexiveObjectProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ReflexiveObjectProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
 import static org.semanticweb.owlapi6.search.Searcher.isAsymmetric;
 import static org.semanticweb.owlapi6.search.Searcher.isFunctional;
 import static org.semanticweb.owlapi6.search.Searcher.isInverseFunctional;
@@ -30,6 +22,7 @@ import static org.semanticweb.owlapi6.search.Searcher.isReflexive;
 import static org.semanticweb.owlapi6.search.Searcher.isSymmetric;
 import static org.semanticweb.owlapi6.search.Searcher.isTransitive;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLOntology;
@@ -40,67 +33,66 @@ import org.semanticweb.owlapi6.model.OWLOntology;
  */
 class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
+    OWLOntology ont;
+
+    @BeforeEach
+    void before() {
+        ont = create("Ont");
+    }
+
     @Test
     void testTransitive() {
-        OWLOntology ont = getOWLOntology();
-        assertFalse(isTransitive(P, ont));
-        ont.add(TransitiveObjectProperty(P));
-        assertTrue(isTransitive(P, ont));
+        assertFalse(isTransitive(OBJPROPS.P, ont));
+        ont.add(TransitiveObjectProperty(OBJPROPS.P));
+        assertTrue(isTransitive(OBJPROPS.P, ont));
     }
 
     @Test
     void testSymmetric() {
-        OWLOntology ont = getOWLOntology();
-        assertFalse(isSymmetric(P, ont));
-        ont.add(SymmetricObjectProperty(P));
-        assertTrue(isSymmetric(P, ont));
+        assertFalse(isSymmetric(OBJPROPS.P, ont));
+        ont.add(SymmetricObjectProperty(OBJPROPS.P));
+        assertTrue(isSymmetric(OBJPROPS.P, ont));
     }
 
     @Test
     void testAsymmetric() {
-        OWLOntology ont = getOWLOntology();
-        assertFalse(isAsymmetric(P, ont));
-        ont.add(AsymmetricObjectProperty(P));
-        assertTrue(isAsymmetric(P, ont));
+        assertFalse(isAsymmetric(OBJPROPS.P, ont));
+        ont.add(AsymmetricObjectProperty(OBJPROPS.P));
+        assertTrue(isAsymmetric(OBJPROPS.P, ont));
     }
 
     @Test
     void testReflexive() {
-        OWLOntology ont = getOWLOntology();
-        assertFalse(isReflexive(P, ont));
-        ont.add(ReflexiveObjectProperty(P));
-        assertTrue(isReflexive(P, ont));
+        assertFalse(isReflexive(OBJPROPS.P, ont));
+        ont.add(ReflexiveObjectProperty(OBJPROPS.P));
+        assertTrue(isReflexive(OBJPROPS.P, ont));
     }
 
     @Test
     void testIrreflexive() {
-        OWLOntology ont = getOWLOntology();
-        assertFalse(isIrreflexive(P, ont));
-        ont.add(IrreflexiveObjectProperty(P));
-        assertTrue(isIrreflexive(P, ont));
+        assertFalse(isIrreflexive(OBJPROPS.P, ont));
+        ont.add(IrreflexiveObjectProperty(OBJPROPS.P));
+        assertTrue(isIrreflexive(OBJPROPS.P, ont));
     }
 
     @Test
     void testFunctional() {
-        OWLOntology ont = getOWLOntology();
-        assertFalse(isFunctional(P, ont));
-        ont.add(FunctionalObjectProperty(P));
-        assertTrue(isFunctional(P, ont));
+        assertFalse(isFunctional(OBJPROPS.P, ont));
+        ont.add(FunctionalObjectProperty(OBJPROPS.P));
+        assertTrue(isFunctional(OBJPROPS.P, ont));
     }
 
     @Test
     void testInverseFunctional() {
-        OWLOntology ont = getOWLOntology();
-        assertFalse(isInverseFunctional(P, ont));
-        ont.add(InverseFunctionalObjectProperty(P));
-        assertTrue(isInverseFunctional(P, ont));
+        assertFalse(isInverseFunctional(OBJPROPS.P, ont));
+        ont.add(InverseFunctionalObjectProperty(OBJPROPS.P));
+        assertTrue(isInverseFunctional(OBJPROPS.P, ont));
     }
 
     @Test
     void testFunctionalDataProperty() {
-        OWLOntology ont = getOWLOntology();
-        assertFalse(isFunctional(DP, ont));
-        ont.add(FunctionalDataProperty(DP));
-        assertTrue(isFunctional(DP, ont));
+        assertFalse(isFunctional(DATAPROPS.DP, ont));
+        ont.add(FunctionalDataProperty(DATAPROPS.DP));
+        assertTrue(isFunctional(DATAPROPS.DP, ont));
     }
 }

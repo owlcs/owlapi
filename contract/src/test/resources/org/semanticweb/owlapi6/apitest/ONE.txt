@@ -1,1 +1,0 @@
-ObjectOneOf(<urn:test:test#i>)

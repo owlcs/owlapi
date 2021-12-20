@@ -509,8 +509,8 @@ class TutorialSnippetsTestCase {
         // Get the annotations on the class that use the label property
         Predicate<? super OWLAnnotation> portugueseLabelsOnly =
             a -> a.getValue().asLiteral().isPresent()
-            && a.getValue().asLiteral().get().hasLang("pt");
-            o.classesInSignature().flatMap(c -> getAnnotationObjects(c, o, df.getRDFSLabel()))
+                && a.getValue().asLiteral().get().hasLang("pt");
+        o.classesInSignature().flatMap(c -> getAnnotationObjects(c, o, df.getRDFSLabel()))
             .filter(portugueseLabelsOnly)
             .forEach(a -> assertNotNull(a.getValue().asLiteral().get().getLiteral()));
     }
@@ -739,7 +739,7 @@ class TutorialSnippetsTestCase {
         printHierarchy(reasoner, clazz, 0, new HashSet<OWLClass>());
         /* Now print out any unsatisfiable classes */
         o.classesInSignature().filter(cl -> !reasoner.isSatisfiable(cl))
-        .forEach(cl -> assertNotNull(labelFor(cl, o)));
+            .forEach(cl -> assertNotNull(labelFor(cl, o)));
         reasoner.dispose();
     }
 
@@ -760,7 +760,7 @@ class TutorialSnippetsTestCase {
             /* Find the children and recurse */
             NodeSet<OWLClass> subClasses = reasoner.getSubClasses(clazz, true);
             subClasses.entities()
-            .forEach(child -> printHierarchy(reasoner, child, level + 1, visited));
+                .forEach(child -> printHierarchy(reasoner, child, level + 1, visited));
         }
     }
 
@@ -826,7 +826,7 @@ class TutorialSnippetsTestCase {
                 processedClasses.add(ce);
                 for (OWLOntology ont : onts) {
                     ont.subClassAxiomsForSubClass(ce)
-                    .forEach(ax -> ax.getSuperClass().accept(this));
+                        .forEach(ax -> ax.getSuperClass().accept(this));
                 }
             }
         }

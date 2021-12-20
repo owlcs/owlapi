@@ -1,1 +1,3 @@
-[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test:test#c>), SubClassOf(<http://www.semanticweb.org/ontology#X1> DataAllValuesFrom(<urn:test:test#dp> DataComplementOf(rdfs:Literal))), SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))]
+SubClassOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/owlapi/test#C>)
+SubClassOf(<http://www.semanticweb.org/ontology#X1> DataAllValuesFrom(<http://www.semanticweb.org/owlapi/test#p> DataComplementOf(rdfs:Literal)))
+SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))

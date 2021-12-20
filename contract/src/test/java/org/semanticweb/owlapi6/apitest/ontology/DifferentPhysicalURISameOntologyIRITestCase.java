@@ -14,7 +14,10 @@ package org.semanticweb.owlapi6.apitest.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.net.URISyntaxException;
+
 import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi6.apitest.TestFilenames;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.IRI;
 import org.semanticweb.owlapi6.model.OWLOntologyAlreadyExistsException;
@@ -25,17 +28,14 @@ import org.semanticweb.owlapi6.model.OWLOntologyAlreadyExistsException;
  */
 class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
 
-    private static final String ONTOLOGY_A = "ImportsTestOntologyA.owl";
-    private static final String ONTOLOGY_A_EMPTY = "ImportsTestOntologyAEmpty.owl";
-
     @Test
-    void testDifferentPhysicalURISameOntologyIRI() throws Exception {
-        IRI ontologyADocumentIRI = df.getIRI(DifferentPhysicalURISameOntologyIRITestCase.class
-            .getResource('/' + ONTOLOGY_A).toURI());
-        IRI ontologyADocumentIRIB = df.getIRI(DifferentPhysicalURISameOntologyIRITestCase.class
-            .getResource('/' + ONTOLOGY_A_EMPTY).toURI());
-        m.loadOntologyFromOntologyDocument(ontologyADocumentIRI);
+    void testDifferentPhysicalURISameOntologyIRI() throws URISyntaxException {
+        IRI ontologyADocumentIRI =
+            iri(getClass().getResource('/' + TestFilenames.ONTOLOGY_A).toURI());
+        IRI ontologyADocumentIRIB =
+            iri(getClass().getResource('/' + TestFilenames.ONTOLOGY_A_EMPTY).toURI());
+        loadFrom(ontologyADocumentIRI, m);
         assertThrows(OWLOntologyAlreadyExistsException.class,
-            () -> m.loadOntologyFromOntologyDocument(ontologyADocumentIRIB));
+            () -> m.loadOntology(ontologyADocumentIRIB));
     }
 }

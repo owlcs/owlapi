@@ -13,88 +13,61 @@
 package org.semanticweb.owlapi6.apitest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.of;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.semanticweb.owlapi6.apibinding.OWLManager;
+import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.utility.StructuralTransformation;
 
-class StructuralTransformationTestCase {
-    public static final String strtranssame = "[]";
+class StructuralTransformationTestCase extends TestBase {
+    public static final String strtranssame = "";
 
-    static Collection<Object[]> getData() {
-        Builder b = new Builder();
-        Map<OWLAxiom, String> map = new LinkedHashMap<>();
-        map.put(b.dRange(), TestFiles.strtransdRange);
-        map.put(b.dDef(), TestFiles.strtransdDef);
-        map.put(b.decC(), TestFiles.strtransdecC);
-        map.put(b.decOp(), TestFiles.strtransdecOp);
-        map.put(b.decDp(), TestFiles.strtransdecDp);
-        map.put(b.decDt(), TestFiles.strtransdecDt);
-        map.put(b.decAp(), TestFiles.strtransdecAp);
-        map.put(b.decI(), TestFiles.strtransdecI);
-        map.put(b.dDp(), TestFiles.strtransdDp);
-        map.put(b.dOp(), TestFiles.strtransdOp);
-        map.put(b.eDp(), TestFiles.strtranseDp);
-        map.put(b.eOp(), TestFiles.strtranseOp);
-        map.put(b.fdp(), TestFiles.strtransfdp);
-        map.put(b.fop(), TestFiles.strtransfop);
-        map.put(b.ifp(), TestFiles.strtransifp);
-        map.put(b.iop(), TestFiles.strtransiop);
-        map.put(b.irr(), TestFiles.strtransirr);
-        map.put(b.opa(), TestFiles.strtransopa);
-        map.put(b.opaInv(), TestFiles.strtransopaInv);
-        map.put(b.opaInvj(), TestFiles.strtransopaInvj);
-        map.put(b.oDom(), TestFiles.strtransoDom);
-        map.put(b.oRange(), TestFiles.strtransoRange);
-        map.put(b.chain(), TestFiles.strtranschain);
-        map.put(b.ref(), TestFiles.strtransref);
-        map.put(b.same(), strtranssame);
-        map.put(b.subAnn(), TestFiles.strtranssubAnn);
-        map.put(b.subClass(), TestFiles.strtranssubClass);
-        map.put(b.subData(), TestFiles.strtranssubData);
-        map.put(b.subObject(), TestFiles.strtranssubObject);
-        map.put(b.rule(), TestFiles.strtransrule);
-        map.put(b.symm(), TestFiles.strtranssymm);
-        map.put(b.trans(), TestFiles.strtranstrans);
-        map.put(b.hasKey(), TestFiles.strtranshasKey);
-        map.put(b.bigRule(), TestFiles.strtransbigRule);
-        map.put(b.ann(), TestFiles.strtransann);
-        map.put(b.asymm(), TestFiles.strtransasymm);
-        map.put(b.annDom(), TestFiles.strtransannDom);
-        map.put(b.annRange(), TestFiles.strtransannRange);
-        map.put(b.dRangeAnd(), TestFiles.strtransdRangeAnd);
-        map.put(b.dRangeOr(), TestFiles.strtransdRangeOr);
-        map.put(b.dOneOf(), TestFiles.strtransdOneOf);
-        map.put(b.dNot(), TestFiles.strtransdNot);
-        map.put(b.dRangeRestrict(), TestFiles.strtransdRangeRestrict);
-        map.put(b.assD(), TestFiles.strtransassD);
-        map.put(b.assDPlain(), TestFiles.strtransassDPlain);
-        map.put(b.dDom(), TestFiles.strtransdDom);
-        map.put(b.dc(), TestFiles.strtransdc);
-        map.put(b.du(), TestFiles.strtransdu);
-        map.put(b.ec(), TestFiles.strtransec);
-        Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
-        return toReturn;
+    static Stream<Arguments> getData() {
+        return Stream.of(of(Builder.dRange, TestFiles.strtransdRange),
+            of(Builder.dDef, TestFiles.strtransdDef), of(Builder.decC, TestFiles.strtransdecC),
+            of(Builder.decOp, TestFiles.strtransdecOp), of(Builder.decDp, TestFiles.strtransdecDp),
+            of(Builder.decDt, TestFiles.strtransdecDt), of(Builder.decAp, TestFiles.strtransdecAp),
+            of(Builder.decI, TestFiles.strtransdecI), of(Builder.dDp, TestFiles.strtransdDp),
+            of(Builder.dOp, TestFiles.strtransdOp), of(Builder.eDp, TestFiles.strtranseDp),
+            of(Builder.eOp, TestFiles.strtranseOp), of(Builder.fdp, TestFiles.strtransfdp),
+            of(Builder.fop, TestFiles.strtransfop), of(Builder.ifp, TestFiles.strtransifp),
+            of(Builder.iop, TestFiles.strtransiop), of(Builder.irr, TestFiles.strtransirr),
+            of(Builder.opa, TestFiles.strtransopa), of(Builder.opaInv, TestFiles.strtransopaInv),
+            of(Builder.opaInvj, TestFiles.strtransopaInvj),
+            of(Builder.oDom, TestFiles.strtransoDom), of(Builder.oRange, TestFiles.strtransoRange),
+            of(Builder.chain, TestFiles.strtranschain), of(Builder.ref, TestFiles.strtransref),
+            of(Builder.same, strtranssame), of(Builder.subAnn, TestFiles.strtranssubAnn),
+            of(Builder.subClass, TestFiles.strtranssubClass),
+            of(Builder.subData, TestFiles.strtranssubData),
+            of(Builder.subObject, TestFiles.strtranssubObject),
+            of(Builder.rule, TestFiles.strtransrule), of(Builder.symm, TestFiles.strtranssymm),
+            of(Builder.trans, TestFiles.strtranstrans),
+            of(Builder.hasKey, TestFiles.strtranshasKey),
+            of(Builder.bigRule, TestFiles.strtransbigRule), of(Builder.ann, TestFiles.strtransann),
+            of(Builder.asymm, TestFiles.strtransasymm),
+            of(Builder.annDom, TestFiles.strtransannDom),
+            of(Builder.annRange, TestFiles.strtransannRange),
+            of(Builder.dRangeAnd, TestFiles.strtransdRangeAnd),
+            of(Builder.dRangeOr, TestFiles.strtransdRangeOr),
+            of(Builder.dOneOf, TestFiles.strtransdOneOf), of(Builder.dNot, TestFiles.strtransdNot),
+            of(Builder.dRangeRestrict, TestFiles.strtransdRangeRestrict),
+            of(Builder.assD, TestFiles.strtransassD),
+            of(Builder.assDPlain, TestFiles.strtransassDPlain),
+            of(Builder.dDom, TestFiles.strtransdDom), of(Builder.dc, TestFiles.strtransdc),
+            of(Builder.du, TestFiles.strtransdu), of(Builder.ec, TestFiles.strtransec));
     }
 
     @ParameterizedTest
     @MethodSource("getData")
-    void testAssertion(OWLAxiom object, String expected) {
-        StructuralTransformation testsubject =
-            new StructuralTransformation(OWLManager.getOWLDataFactory());
-        Set<OWLAxiom> singleton = Collections.singleton(object);
-        String result = new TreeSet<>(testsubject.getTransformedAxioms(singleton)).toString();
-        assertEquals(expected.replace(",", ",\n"), result.replace(",", ",\n"));
+    void testAssertion(OWLAxiom ax, String expected) {
+        StructuralTransformation testsubject = new StructuralTransformation(df);
+        Set<OWLAxiom> transformedAxioms = testsubject.getTransformedAxioms(set(ax));
+        assertEquals(expected, str(transformedAxioms));
     }
 }

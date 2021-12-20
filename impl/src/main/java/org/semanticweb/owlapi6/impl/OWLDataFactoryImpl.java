@@ -43,7 +43,6 @@ import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNul
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -832,7 +831,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
                     "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.");
             }
             List<OWLClassExpression> modifiedClassExpressions =
-                Arrays.asList(OWL_THING, classExpression);
+                OWLAPIStreamUtils.asList(Stream.of(OWL_THING, classExpression).sorted());
             return new OWLDisjointClassesAxiomImpl(modifiedClassExpressions,
                 makeSingletonDisjoinClassWarningAnnotation(anns, classExpression, OWL_THING));
         }

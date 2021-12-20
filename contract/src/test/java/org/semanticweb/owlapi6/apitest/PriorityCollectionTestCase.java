@@ -2,10 +2,10 @@ package org.semanticweb.owlapi6.apitest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi6.functional.renderer.FunctionalSyntaxStorerFactory;
 import org.semanticweb.owlapi6.io.OWLStorer;
 import org.semanticweb.owlapi6.krss2.renderer.KRSS2OWLSyntaxStorerFactory;
@@ -28,12 +28,12 @@ import org.semanticweb.owlapi6.rio.RioTrixStorerFactory;
 import org.semanticweb.owlapi6.rio.RioTurtleStorerFactory;
 import org.semanticweb.owlapi6.utilities.PriorityCollection;
 
-class PriorityCollectionTestCase {
+class PriorityCollectionTestCase extends TestBase {
 
     @Test
     void shouldStoreStorers() {
         List<OWLStorer> storers =
-            Arrays.asList(new RioBinaryRdfStorerFactory().get(), new RioJsonLDStorerFactory().get(),
+            l(new RioBinaryRdfStorerFactory().get(), new RioJsonLDStorerFactory().get(),
                 new RioJsonStorerFactory().get(), new RioN3StorerFactory().get(),
                 new RioNQuadsStorerFactory().get(), new RioNTriplesStorerFactory().get(),
                 new RioRDFXMLStorerFactory().get(), new RioTrigStorerFactory().get(),

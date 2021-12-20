@@ -13,59 +13,50 @@
 package org.semanticweb.owlapi6.apitest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.of;
 
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.semanticweb.owlapi6.apitest.baseclasses.DF;
 import org.semanticweb.owlapi6.model.OWLAxiom;
 import org.semanticweb.owlapi6.utility.AxiomSubjectProviderEx;
 
 class AxiomSubjectProviderExTestCase {
 
-    private static final String TEST_IRI = "urn:test:test#iri";
-    private static final String BUILT_IN_ATOM =
-        "BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>))";
-    private static final String IRI = "<urn:test:test#iri>";
-    private static final String I = "<urn:test:test#i>";
-    private static final String C = "<urn:test:test#c>";
-    private static final String DP = "<urn:test:test#dp>";
-    private static final String ANN = "<urn:test:test#ann>";
-    private static final String OP = "<urn:test:test#op>";
 
     static Stream<Arguments> getData() {
-        Builder b = new Builder();
-        return Stream.of(Arguments.of(b.dDp(), DP), Arguments.of(b.dOp(), IRI),
-            Arguments.of(b.du(), C), Arguments.of(b.ec(), C), Arguments.of(b.eDp(), DP),
-            Arguments.of(b.eOp(), IRI), Arguments.of(b.fdp(), DP), Arguments.of(b.fop(), OP),
-            Arguments.of(b.ifp(), OP), Arguments.of(b.iop(), OP), Arguments.of(b.irr(), OP),
-            Arguments.of(b.ndp(), I), Arguments.of(b.nop(), I), Arguments.of(b.opa(), I),
-            Arguments.of(b.opaInv(), I), Arguments.of(b.opaInvj(), I), Arguments.of(b.oDom(), OP),
-            Arguments.of(b.oRange(), OP), Arguments.of(b.chain(), OP), Arguments.of(b.ref(), OP),
-            Arguments.of(b.same(), I), Arguments.of(b.subAnn(), ANN), Arguments.of(b.subClass(), C),
-            Arguments.of(b.subData(), DP), Arguments.of(b.subObject(), OP),
-            Arguments.of(b.rule(), BUILT_IN_ATOM), Arguments.of(b.symm(), OP),
-            Arguments.of(b.trans(), OP), Arguments.of(b.hasKey(), C),
-            Arguments.of(b.bigRule(), BUILT_IN_ATOM), Arguments.of(b.ann(), TEST_IRI),
-            Arguments.of(b.asymm(), OP), Arguments.of(b.annDom(), ANN),
-            Arguments.of(b.annRange(), ANN), Arguments.of(b.ass(), I), Arguments.of(b.assAnd(), I),
-            Arguments.of(b.assOr(), I), Arguments.of(b.dRangeAnd(), DP),
-            Arguments.of(b.dRangeOr(), DP), Arguments.of(b.assNot(), I),
-            Arguments.of(b.assNotAnon(), "_:id"), Arguments.of(b.assSome(), I),
-            Arguments.of(b.assAll(), I), Arguments.of(b.assHas(), I), Arguments.of(b.assMin(), I),
-            Arguments.of(b.assMax(), I), Arguments.of(b.assEq(), I),
-            Arguments.of(b.assHasSelf(), I), Arguments.of(b.assOneOf(), I),
-            Arguments.of(b.assDSome(), I), Arguments.of(b.assDAll(), I),
-            Arguments.of(b.assDHas(), I), Arguments.of(b.assDMin(), I),
-            Arguments.of(b.assDMax(), I), Arguments.of(b.assDEq(), I), Arguments.of(b.dOneOf(), DP),
-            Arguments.of(b.dNot(), DP), Arguments.of(b.dRangeRestrict(), DP),
-            Arguments.of(b.assD(), I), Arguments.of(b.assDPlain(), I), Arguments.of(b.dDom(), DP),
-            Arguments.of(b.dRange(), DP),
-            Arguments.of(b.dDef(), "http://www.w3.org/2001/XMLSchema#double"),
-            Arguments.of(b.decC(), C), Arguments.of(b.decOp(), OP), Arguments.of(b.decDp(), DP),
-            Arguments.of(b.decDt(), "<urn:test:test#datatype>"), Arguments.of(b.decAp(), ANN),
-            Arguments.of(b.decI(), I), Arguments.of(b.assDi(), I), Arguments.of(b.dc(), C));
+        String I = DF.INDIVIDUALS.I.getIRI().toQuotedString();
+        String DP = DF.DATAPROPS.DP.getIRI().toQuotedString();
+        String ANN = DF.ANNPROPS.ap.getIRI().toQuotedString();
+        String OP = DF.OBJPROPS.OP.getIRI().toQuotedString();
+        String c = DF.CLASSES.C.getIRI().toQuotedString();
+        return Stream.of(of(Builder.dDp, DF.IRIS.iri.toQuotedString()), of(Builder.dOp, OP),
+            of(Builder.du, c), of(Builder.ec, c), of(Builder.eDp, DF.IRIS.iri.toQuotedString()),
+            of(Builder.eOp, OP), of(Builder.fdp, DP), of(Builder.fop, OP), of(Builder.ifp, OP),
+            of(Builder.iop, OP), of(Builder.irr, OP), of(Builder.ndp, I), of(Builder.nop, I),
+            of(Builder.opa, I), of(Builder.opaInv, I), of(Builder.opaInvj, I), of(Builder.oDom, OP),
+            of(Builder.oRange, OP), of(Builder.chain, OP), of(Builder.ref, OP), of(Builder.same, I),
+            of(Builder.subAnn, ANN), of(Builder.subClass, c), of(Builder.subData, DP),
+            of(Builder.subObject, OP), of(Builder.rule, TestFiles.BUILT_IN_ATOM),
+            of(Builder.symm, OP), of(Builder.trans, OP), of(Builder.hasKey, c),
+            of(Builder.bigRule, TestFiles.BUILT_IN_ATOM), of(Builder.ann, DF.IRIS.iri.toString()),
+            of(Builder.asymm, OP), of(Builder.annDom, ANN), of(Builder.annRange, ANN),
+            of(Builder.ass, I), of(Builder.assAnd, I), of(Builder.assOr, I),
+            of(Builder.dRangeAnd, DP), of(Builder.dRangeOr, DP), of(Builder.assNot, I),
+            of(Builder.assNotAnon, "_:id"), of(Builder.assSome, I), of(Builder.assAll, I),
+            of(Builder.assHas, I), of(Builder.assMin, I), of(Builder.assMax, I),
+            of(Builder.assEq, I), of(Builder.assHasSelf, I), of(Builder.assOneOf, I),
+            of(Builder.assDSome, I), of(Builder.assDAll, I), of(Builder.assDHas, I),
+            of(Builder.assDMin, I), of(Builder.assDMax, I), of(Builder.assDEq, I),
+            of(Builder.dOneOf, DP), of(Builder.dNot, DP), of(Builder.dRangeRestrict, DP),
+            of(Builder.assD, I), of(Builder.assDPlain, I), of(Builder.dDom, DP),
+            of(Builder.dRange, DP), of(Builder.dDef, TestFiles.doubl), of(Builder.decC, c),
+            of(Builder.decOp, OP), of(Builder.decDp, DP),
+            of(Builder.decDt, DF.DATATYPES.DT.getIRI().toQuotedString()), of(Builder.decAp, ANN),
+            of(Builder.decI, I), of(Builder.assDi, I), of(Builder.dc, c));
     }
 
     @ParameterizedTest

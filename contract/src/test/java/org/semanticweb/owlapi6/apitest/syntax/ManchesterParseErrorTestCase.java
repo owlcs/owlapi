@@ -25,7 +25,6 @@ import org.semanticweb.owlapi6.manchestersyntax.parser.ManchesterOWLSyntaxParser
 import org.semanticweb.owlapi6.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi6.model.OWLClass;
 import org.semanticweb.owlapi6.model.OWLClassExpression;
-import org.semanticweb.owlapi6.model.OWLDataFactory;
 import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDatatype;
 import org.semanticweb.owlapi6.model.OWLNamedIndividual;
@@ -34,7 +33,7 @@ import org.semanticweb.owlapi6.model.OWLObjectProperty;
 class ManchesterParseErrorTestCase extends TestBase {
 
     private static OWLClassExpression parse(String text) {
-        MockEntityChecker checker = new MockEntityChecker(df);
+        MockEntityChecker checker = new MockEntityChecker();
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text);
         parser.setOWLEntityChecker(checker);
@@ -64,11 +63,7 @@ class ManchesterParseErrorTestCase extends TestBase {
      */
     private static class MockEntityChecker implements OWLEntityChecker {
 
-        private final OWLDataFactory factory;
-
-        MockEntityChecker(OWLDataFactory factory) {
-            this.factory = factory;
-        }
+        MockEntityChecker() {}
 
         @Override
         public @Nullable OWLClass getOWLClass(String name) {
@@ -83,10 +78,9 @@ class ManchesterParseErrorTestCase extends TestBase {
         @Override
         public @Nullable OWLDataProperty getOWLDataProperty(@Nullable String name) {
             if ("p".equals(name)) {
-                return factory.getOWLDataProperty("http://protege.org/Test.owl#", "p");
-            } else {
-                return null;
+                return DATAPROPS.TEST_DP;
             }
+            return null;
         }
 
         @Override
@@ -102,7 +96,7 @@ class ManchesterParseErrorTestCase extends TestBase {
         @Override
         public @Nullable OWLDatatype getOWLDatatype(@Nullable String name) {
             if ("rdfs:Literal".equals(name)) {
-                return factory.getTopDatatype();
+                return TopDatatype();
             } else {
                 return null;
             }

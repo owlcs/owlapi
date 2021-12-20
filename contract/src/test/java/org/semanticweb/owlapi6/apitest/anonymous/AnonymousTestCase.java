@@ -12,58 +12,34 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi6.apitest.anonymous;
 
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.AnonymousIndividual;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ClassAssertion;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectHasValue;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi6.OWLFunctionalSyntaxFactory.SubClassOf;
-
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi6.apitest.baseclasses.TestBase;
-import org.semanticweb.owlapi6.model.OWLClass;
-import org.semanticweb.owlapi6.model.OWLDataProperty;
 import org.semanticweb.owlapi6.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLIndividual;
-import org.semanticweb.owlapi6.model.OWLNamedIndividual;
-import org.semanticweb.owlapi6.model.OWLObjectProperty;
 import org.semanticweb.owlapi6.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi6.model.OWLOntology;
 
 class AnonymousTestCase extends TestBase {
 
-    private static final String URN_TEST = "urn:test#";
-
     @Test
     void shouldRoundTrip() {
-        OWLClass c = Class(IRI(URN_TEST, "C"));
-        OWLClass d = Class(IRI(URN_TEST, "D"));
-        OWLObjectProperty p = ObjectProperty(IRI(URN_TEST, "p"));
-        OWLDataProperty q = DataProperty(IRI(URN_TEST, "q"));
-        OWLIndividual i = AnonymousIndividual();
-        OWLOntology ontology = getOWLOntology();
-        ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i),
-            DataPropertyAssertion(q, i, Literal("hello")));
+        OWLIndividual anonInd = AnonymousIndividual();
+        OWLOntology ontology = createAnon();
+        ontology.add(SubClassOf(CLASSES.C, ObjectHasValue(OBJPROPS.P, anonInd)),
+            ClassAssertion(CLASSES.D, anonInd),
+            DataPropertyAssertion(DATAPROPS.DPP, anonInd, Literal("hello")));
         OWLOntology ontologyReloaded =
-            loadOntologyFromString(saveOntology(ontology), ontology.getNonnullFormat());
+            loadFrom(saveOntology(ontology), ontology.getNonnullFormat());
         equal(ontology, ontologyReloaded);
     }
 
     @Test
     void testRoundTripWithAnonymousIndividuals() {
-        String ns = "http://test.com/genid#";
-        OWLNamedIndividual i = df.getOWLNamedIndividual(ns, "i");
-        OWLObjectProperty p = df.getOWLObjectProperty(ns, "p");
-        OWLDataProperty q = df.getOWLDataProperty(ns, "q");
-        OWLOntology ontology = getOWLOntology();
-        OWLIndividual ind = df.getOWLAnonymousIndividual();
-        OWLObjectPropertyAssertionAxiom ax1 = df.getOWLObjectPropertyAssertionAxiom(p, i, ind);
-        OWLDataPropertyAssertionAxiom ax2 =
-            df.getOWLDataPropertyAssertionAxiom(q, ind, df.getOWLLiteral(5));
+        OWLOntology ontology = create("ontology.owl");
+        OWLIndividual ind = AnonymousIndividual();
+        OWLObjectPropertyAssertionAxiom ax1 =
+            ObjectPropertyAssertion(OBJPROPS.P, INDIVIDUALS.i, ind);
+        OWLDataPropertyAssertionAxiom ax2 = DataPropertyAssertion(DATAPROPS.DPP, ind, Literal(5));
         ontology.add(ax1, ax2);
         OWLOntology reload = roundTrip(ontology);
         equal(ontology, reload);

@@ -11,6 +11,6 @@ class BFOTestCase extends TestBase {
     @Test
     void shouldparseBFO() {
         m.getOntologyParsers().set(new RDFXMLParserFactory());
-        loadOntologyFromString(TestFiles.BFO, new RDFXMLDocumentFormat());
+        loadFrom(TestFiles.BFO, new RDFXMLDocumentFormat());
     }
 }
