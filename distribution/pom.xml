@@ -34,6 +34,8 @@
 		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.22</version></dependency>
 		<dependency><groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j</artifactId><version>1.7.22</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model-api</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model-vocabulary</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-api</artifactId><version>${inherited.rdf4j.version}</version>
 			<exclusions>
 				<exclusion>
@@ -93,7 +95,7 @@
 						</_exportcontents>
 						<Import-Package>
 							!sun.misc,
-							org.eclipse.rdf4j.*;version="[2.0,3.0)",
+							org.eclipse.rdf4j.*;version="[3.0,4.0)",
 							!javax.annotation,
 							!com.google.inject.internal.*;resolution:=optional,
 							!com.github.jsonldjava.shaded.com.google.common.collect.*;resolution:=optional,
