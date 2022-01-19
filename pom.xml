@@ -24,7 +24,7 @@
 	<properties>
 		<!-- Specify the encoding of the source files. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<rdf4j.version>3.4.3</rdf4j.version>
+		<rdf4j.version>3.7.4</rdf4j.version>
 		<!-- remove this line for releases, if the release process fails because 
 			of missing javadoc jars -->
 		<no-javadoc>false</no-javadoc>
@@ -103,7 +103,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>30.0-jre</version>
+			<version>30.1.1-jre</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>

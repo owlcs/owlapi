@@ -34,6 +34,8 @@
 		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.30</version></dependency>
 		<dependency><groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j</artifactId><version>1.7.30</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model-api</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model-vocabulary</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-api</artifactId><version>${inherited.rdf4j.version}</version>
 			<exclusions>
 				<exclusion>
@@ -64,7 +66,7 @@
 		<dependency><groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version></dependency>
 		<dependency><groupId>commons-io</groupId><artifactId>commons-io</artifactId><version>2.7</version></dependency>
 		<dependency><groupId>com.github.vsonnier</groupId><artifactId>hppcrt</artifactId><version>0.7.5</version></dependency>
-		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>30.0-jre</version></dependency>
+		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>30.1.1-jre</version></dependency>
 		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.8.6</version></dependency>
 		<!--  Disable until updated to use RDF4J
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-sesame</artifactId><version>0.7</version></dependency>
@@ -143,8 +145,9 @@
 							!org.checkerframework.*,
 							net.sf.ehcache.*;resolution:=optional,
 							net.spy.memcached.*;resolution:=optional,
-							com.google.common.base;version=30.0.0.jre;resolution:=optional,
-							com.google.common.collect;version=30.0.0.jre;resolution:=optional,
+							com.google.common.base;version=30.1.1.jre;resolution:=optional,
+							com.google.common.collect;version=30.1.1.jre;resolution:=optional,
+							com.google.common.hash;version=30.1.1.jre;resolution:=optional,
 							javax.inject;version="[1.0,2)",
 							javax.annotation;version=!,
 							*
