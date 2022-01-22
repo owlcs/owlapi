@@ -2075,7 +2075,16 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     private OWLImportsDeclaration parseImportsDeclaration() {
         consumeToken(IMPORT);
-        return df.getOWLImportsDeclaration(parseIRI());
+        if (peekToken().startsWith("<")) {
+            return df.getOWLImportsDeclaration(parseIRI());
+        }
+        IRI iri = getIRI(peekToken());
+        if (iri != null) {
+            consumeToken();
+        } else {
+            throw new ExceptionBuilder().withKeyword("<$IRI$>").build();
+        }
+        return df.getOWLImportsDeclaration(iri);
     }
 
     protected IRI parseIRI() {
@@ -2239,10 +2248,25 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
         IRI ontologyIRI = null;
         IRI versionIRI = null;
+        // Next token can be either a full IRI or an abbreviated/simple IRI, for ontology IRI.
+        // The token after that has the same constraints, for version IRI.
+        // Both can be missing, in which case the ontology is anonymous.
+        // If the next token is a keyword, IRI parsing should not be attempted.
         if (peekToken().startsWith("<")) {
             ontologyIRI = parseIRI();
-            if (peekToken().startsWith("<")) {
-                versionIRI = parseIRI();
+
+        } else if (ManchesterOWLSyntax.parse(peekToken()) == null) {
+            ontologyIRI = getIRI(peekToken());
+            if (ontologyIRI != null) {
+                consumeToken();
+            }
+        }
+        if (peekToken().startsWith("<")) {
+            versionIRI = parseIRI();
+        } else if (ManchesterOWLSyntax.parse(peekToken()) == null) {
+            versionIRI = getIRI(peekToken());
+            if (versionIRI != null) {
+                consumeToken();
             }
         }
         Set<OWLAnnotation> annotations = new HashSet<>();

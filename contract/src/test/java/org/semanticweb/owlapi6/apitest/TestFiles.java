@@ -221,6 +221,7 @@ public class TestFiles {
     public static final String premiseOntology = string("premiseOntology.txt");
     public static final String KOALA_STREAM = string("KOALA_STREAM.txt");
 
+    public static final String manShortOnto = "Prefix: : <urn:shortened#>\nOntology: Role1\nClass: Role";
     public static final String FALSE = "\"false\"^^xsd:boolean";
     public static final String CREATED_BY_WITH_SPACE = "ontology: test\n[Typedef]\nid: R:1\nname: r1\ncreated_by: John Doe";
     public static final String IRI = "http://www.semanticweb.org/owlapi/test#iri";
