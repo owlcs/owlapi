@@ -102,6 +102,13 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     @Test
+    void shouldAcceptShortenedOntologyIRI() {
+        OWLOntology o = loadOntologyFromString(TestFiles.manShortOnto, new ManchesterSyntaxDocumentFormat());
+        OWLOntology o2 = roundTrip(o);
+        equal(o, o2);
+    }
+
+    @Test
     void shouldRoundTrip() {
         // given
         OWLOntology ontology = create(iri("http://protege.org/ontologies", ""));

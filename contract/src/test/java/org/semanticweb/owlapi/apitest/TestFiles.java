@@ -45,7 +45,7 @@ public class TestFiles {
             throw new UncheckedIOException(e);
         }
     }
-
+    public static final String manShortOnto = "Prefix: : <urn:shortened#>\nOntology: Role1\nClass: Role";
     public static String ontologyIRI = string("ontologyIRI.rdf");
     public static String ontFirst = string("ontFirst.txt");
     public static String labelFirst = string("labelFirst.txt");
