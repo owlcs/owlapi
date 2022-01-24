@@ -31,6 +31,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CLASS;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_COMPLEMENT_OF;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATATYPE_COMPLEMENT_OF;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATA_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DIFFERENT_FROM;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISJOINT_UNION_OF;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISJOINT_WITH;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISTINCT_MEMBERS;
@@ -769,11 +770,17 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
-        translateAnonymousNode(axiom);
-        addTriple(axiom, RDF_TYPE.getIRI(), OWL_ALL_DIFFERENT.getIRI());
-        addListTriples(axiom, OWL_DISTINCT_MEMBERS.getIRI(), axiom.getIndividuals());
-        translateAnnotations(axiom);
-        processIfAnonymous(axiom.getIndividuals(), axiom);
+        if (axiom.getIndividuals().size() == 2) {
+            addPairwise(axiom, axiom.getIndividuals(), OWL_DIFFERENT_FROM.getIRI());
+        } else {
+            translateAnonymousNode(axiom);
+            addTriple(axiom, RDF_TYPE.getIRI(), OWL_ALL_DIFFERENT.getIRI());
+            addListTriples(axiom, OWL_DISTINCT_MEMBERS.getIRI(), axiom.getIndividuals());
+            translateAnnotations(axiom);
+            processIfAnonymous(axiom.getIndividuals(), axiom);
+            processIfNotAnonymous(axiom.getIndividualsAsList().stream()
+                .filter(OWLIndividual::isNamed).map(OWLIndividual::asOWLNamedIndividual));
+        }
     }
 
     @Override

@@ -399,6 +399,16 @@ public abstract class RDFRendererBase {
         }
     }
 
+    protected static boolean includeInSingleTriple(OWLAxiom ax, OWLIndividual possibleSubject) {
+        if (ax instanceof OWLDifferentIndividualsAxiom) {
+            OWLDifferentIndividualsAxiom d = (OWLDifferentIndividualsAxiom) ax;
+            List<OWLIndividual> individualsAsList = d.getIndividualsAsList();
+            return individualsAsList.size() == 2
+                && possibleSubject.equals(individualsAsList.get(0));
+        }
+        return true;
+    }
+
     private void renderAnonymousIndividuals() throws IOException {
         for (OWLAnonymousIndividual anonInd : sortOptionally(
             ontology.getReferencedAnonymousIndividuals(EXCLUDED))) {
@@ -406,7 +416,7 @@ public abstract class RDFRendererBase {
             boolean anonRoot = true;
             Set<OWLAxiom> axioms = new TreeSet<>();
             for (OWLAxiom ax : sortOptionally(ontology.getReferencingAxioms(anonInd, EXCLUDED))) {
-                if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
+                if (includeInSingleTriple(ax, anonInd)) {
                     assert ax != null;
                     AxiomSubjectProvider subjectProvider = new AxiomSubjectProvider();
                     OWLObject obj = subjectProvider.getSubject(ax);
@@ -812,7 +822,7 @@ public abstract class RDFRendererBase {
         @Override
         public void visit(OWLNamedIndividual individual) {
             for (OWLAxiom ax : sortOptionally(ontology.getAxioms(individual, EXCLUDED))) {
-                if (!(ax instanceof OWLDifferentIndividualsAxiom) && same(ax, individual)
+                if (includeInSingleTriple(ax, individual) && same(ax, individual)
                     && inverseFirst(ax, individual)) {
                     axioms.add(ax);
                 }
