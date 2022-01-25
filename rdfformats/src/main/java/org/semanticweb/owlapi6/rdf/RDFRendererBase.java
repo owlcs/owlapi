@@ -409,12 +409,21 @@ public abstract class RDFRendererBase {
 
     protected void renderAnon(OWLAnonymousIndividual anonInd) {
         List<OWLAxiom> axioms = new ArrayList<>();
-        if (ontology.referencingAxioms(anonInd)
-            .filter(ax -> !(ax instanceof OWLDifferentIndividualsAxiom))
+        if (ontology.referencingAxioms(anonInd).filter(ax -> includeInSingleTriple(ax, anonInd))
             .noneMatch(ax -> shouldNotRender(anonInd, axioms, ax))) {
             createGraph(axioms);
             renderAnonRoots();
         }
+    }
+
+    protected static boolean includeInSingleTriple(OWLAxiom ax, OWLIndividual possibleSubject) {
+        if (ax instanceof OWLDifferentIndividualsAxiom) {
+            OWLDifferentIndividualsAxiom d = (OWLDifferentIndividualsAxiom) ax;
+            List<OWLIndividual> individualsAsList = d.getOperandsAsList();
+            return individualsAsList.size() == 2
+                && possibleSubject.equals(individualsAsList.get(0));
+        }
+        return true;
     }
 
     protected boolean shouldNotRender(OWLAnonymousIndividual anonInd, List<OWLAxiom> axioms,
@@ -712,8 +721,7 @@ public abstract class RDFRendererBase {
         @Override
         public void visit(OWLNamedIndividual individual) {
             add(axioms,
-                ontology.axioms(individual)
-                    .filter(ax -> !(ax instanceof OWLDifferentIndividualsAxiom))
+                ontology.axioms(individual).filter(ax -> includeInSingleTriple(ax, individual))
                     .filter(ax -> same(ax, individual)).filter(ax -> inverseFirst(ax, individual)));
             // for object property assertion axioms where the property is
             // anonymous and the individual is the object, the renderer will
