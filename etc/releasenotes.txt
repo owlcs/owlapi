@@ -1,3 +1,26 @@
+## 5.1.20 19 February 2022
+
+### Features:
+
+*    Upgraded to RDF4j 3.7.4 and fixed issues with OSGi bundles
+*    Improve MAVEN build Performance
+*    Extend messages for OWL exceptions #1020
+
+### Bug fixes:
+
+*    Fix OWLDifferentIndividuals with two ops rendered with one triple #1031
+*    Fix Abbreviated IRI as OntologyIRI in Manchester syntax #1041
+*    Fix Individuals: anonymous individuals in Manchester syntax #1006
+*    Fix UNPARSED TRIPLES ERROR for class assertions #1023
+
+
+## 5.1.19 31 July 2021
+
+### Bug fixes:
+
+*    vulnerable dependencies update
+
+
 ## 5.1.18 30 July 2021
 
 ### Features:
