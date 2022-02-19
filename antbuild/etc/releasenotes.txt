@@ -1,3 +1,18 @@
+## 4.5.21 19 February 2022
+
+### Features:
+
+*    Improve MAVEN build Performance
+*    Extend messages for OWL exceptions #1020
+
+### Bug fixes:
+
+*    Fix OWLDifferentIndividuals with two ops rendered with one triple #1031
+*    Fix Abbreviated IRI as OntologyIRI in Manchester syntax #1041
+*    Fix Individuals: anonymous individuals in Manchester syntax #1006
+*    Fix UNPARSED TRIPLES ERROR for class assertions #1023
+
+
 ## 4.5.20 31 July 2021
 
 ### Features:
