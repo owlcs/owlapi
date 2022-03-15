@@ -9,14 +9,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -45,21 +46,21 @@ class AnnotatedPunningTestCase extends TestBase {
         List<? extends OWLEntity> entities =
             l(A, Datatype(A.getIRI()), AnnotationProperty(A.getIRI()), DataProperty(A.getIRI()),
                 ObjectProperty(A.getIRI()), NamedIndividual(A.getIRI()));
-        return l(Arguments.of(new RDFXMLDocumentFormat(), entities),
-            Arguments.of(new TurtleDocumentFormat(), entities),
-            Arguments.of(new FunctionalSyntaxDocumentFormat(), entities),
-            Arguments.of(new ManchesterSyntaxDocumentFormat(), entities));
+        return l(Arguments.of(new RDFXMLDocumentFormatFactory(), entities),
+            Arguments.of(new TurtleDocumentFormatFactory(), entities),
+            Arguments.of(new FunctionalSyntaxDocumentFormatFactory(), entities),
+            Arguments.of(new ManchesterSyntaxDocumentFormatFactory(), entities));
     }
 
     @ParameterizedTest
     @MethodSource("allTests")
-    void runTestForAnnotationsOnPunnedEntitiesForFormat(OWLDocumentFormat format,
+    void runTestForAnnotationsOnPunnedEntitiesForFormat(OWLDocumentFormatFactory formatFactory,
         List<OWLEntity> entities) {
         OWLOntology o = makeOwlOntologyWithDeclarationsAndAnnotationAssertions(AP, entities);
         for (int counter = 0; counter < 10; counter++) {
-            String in = saveForRereading(o, format);
+            String in = saveForRereading(o, formatFactory.createFormat());
             m.removeOntology(o);
-            o = loadFrom(in);
+            o = loadFrom(in, formatFactory.createFormat());
         }
         assertEquals(entities.size(), o.axioms(AxiomType.ANNOTATION_ASSERTION).count());
     }
