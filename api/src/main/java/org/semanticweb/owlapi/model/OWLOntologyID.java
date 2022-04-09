@@ -37,15 +37,16 @@ import org.slf4j.LoggerFactory;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, IsAnonymous {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyID.class);
     private static final AtomicInteger COUNTER = new AtomicInteger();
     private static final String ANON_PREFIX = "Anonymous-";
-    private transient Optional<String> internalID = emptyOptional();
-    private transient Optional<IRI> ontologyIRI;
-    private transient Optional<IRI> versionIRI;
-    private int hashCode;
+    protected transient Optional<String> internalID = emptyOptional();
+    protected transient Optional<IRI> ontologyIRI;
+    protected transient Optional<IRI> versionIRI;
+    protected int hashCode;
 
     /**
      * Constructs an ontology identifier specifying the ontology IRI and version IRI. Equivalent to
