@@ -121,7 +121,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          * @param axiom The {@link OWLAxiom}, which entities should be replaced
          * @return The new {@link OWLAxiom} as specified above
          */
-        public @Nonnull OWLAxiom replaceBottom(OWLAxiom axiom) {
+        @Nonnull
+        public OWLAxiom replaceBottom(OWLAxiom axiom) {
             newAxiom = null;
             axiom.accept(this);
             if (newAxiom == null) {
@@ -138,7 +139,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          * @param classExpression The {@link OWLClassExpression}, which entities should be replaced
          * @return The new {@link OWLClassExpression} as specified above
          */
-        public @Nonnull OWLClassExpression replaceBottom(OWLClassExpression classExpression) {
+        @Nonnull
+        public OWLClassExpression replaceBottom(OWLClassExpression classExpression) {
             newClassExpression = null;
             classExpression.accept(this);
             if (newClassExpression == null) {
@@ -156,7 +158,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          *                         replaced
          * @return A {@link Stream} as specified above
          */
-        public @Nonnull Stream<OWLClassExpression> replaceBottom(
+        @Nonnull
+        public Stream<OWLClassExpression> replaceBottom(
             Stream<? extends OWLClassExpression> classExpressions) {
             return classExpressions.map(this::replaceBottom);
         }
@@ -359,7 +362,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          * @param axiom The {@link OWLAxiom}, which entities should be replaced
          * @return The new {@link OWLAxiom} as specified above
          */
-        public @Nonnull OWLAxiom replaceTop(OWLAxiom axiom) {
+        @Nonnull
+        public OWLAxiom replaceTop(OWLAxiom axiom) {
             newAxiom = null;
             axiom.accept(this);
             if (newAxiom == null) {
@@ -376,7 +380,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          * @param classExpression The {@link OWLClassExpression}, which entities should be replaced
          * @return The new {@link OWLClassExpression} as specified above
          */
-        public @Nonnull OWLClassExpression replaceTop(OWLClassExpression classExpression) {
+        @Nonnull
+        public OWLClassExpression replaceTop(OWLClassExpression classExpression) {
             newClassExpression = null;
             classExpression.accept(this);
             if (newClassExpression == null) {
@@ -394,7 +399,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          *                         replaced
          * @return A {@link Stream} as specified above
          */
-        public @Nonnull Stream<OWLClassExpression> replaceTop(
+        @Nonnull
+        public Stream<OWLClassExpression> replaceTop(
             Stream<? extends OWLClassExpression> classExpressions) {
             return classExpressions.map(this::replaceTop);
         }
@@ -556,12 +562,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     /**
      * The used {@link OWLDataFactory}.
      */
-    protected final @Nonnull OWLDataFactory dataFactory;
+    @Nonnull
+    protected final OWLDataFactory dataFactory;
 
     /**
      * The {@link OWLReasoner} to check if axioms are tautologies.
      */
-    private final @Nonnull OWLReasoner reasoner;
+    @Nonnull
+    private final OWLReasoner reasoner;
 
     /**
      * The {@link LocalityClass} to use.
@@ -569,7 +577,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     private final LocalityClass localityClass;
 
     /**
-     * Instantiates a new {@link SemanticLocalityEvaluator}
+     * Instantiates a new SemanticLocalityEvaluator.
      *
      * @param localityClass   The {@link LocalityClass} to use. Must be one of BOTTOM or TOP
      * @param ontologyManager The {@link OWLOntologyManager} to create a reasoner with
@@ -580,7 +588,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         this.localityClass =
             Objects.requireNonNull(localityClass, "The given  locality class may not be null.");
-        if (localityClass != LocalityClass.BOTTOM || localityClass != LocalityClass.TOP) {
+        if (localityClass != LocalityClass.BOTTOM && localityClass != LocalityClass.TOP) {
             throw new IllegalArgumentException(
                 "The given locality class must be one of BOTTOM or TOP");
         }
@@ -596,6 +604,25 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
+    /**
+     * Instantiates a new SemanticLocalityEvaluator
+     *
+     * @param localityClass   The {@link LocalityClass} to use. Must be one of BOTTOM or TOP
+     * @param reasoner        An {@link OWLReasoner} over an empty ontology to check for tautologies
+     */
+    public SemanticLocalityEvaluator(LocalityClass localityClass,
+                                     OWLReasoner reasoner) {
+
+        this.localityClass =
+                Objects.requireNonNull(localityClass, "The given  locality class may not be null.");
+        if (localityClass != LocalityClass.BOTTOM && localityClass != LocalityClass.TOP) {
+            throw new IllegalArgumentException(
+                    "The given locality class must be one of BOTTOM or TOP");
+        }
+        dataFactory = reasoner.getRootOntology().getOWLOntologyManager().getOWLDataFactory();
+        this.reasoner = reasoner;
+    }
+
     @Override
     public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
         return !axiom.isLogicalAxiom() || reasoner.isEntailed(localityClass == LocalityClass.BOTTOM
@@ -603,6 +630,15 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
                 .replaceBottom(Objects.requireNonNull(axiom, "The given axiom may not be null"))
             : new TopReplacer(Objects.requireNonNull(signature, "signature cannot be null"))
                 .replaceTop(Objects.requireNonNull(axiom, "The given axiom may not be null")));
+    }
+
+    /**
+     * Disposes the reasoner that is used to check whether axioms are tautologies via calling {@link OWLReasoner#dispose()}.
+     * Must be called after this SemanticLocalityModuleExtractor is no longer used
+     * to free resources that are allocated by the reasoner.
+     */
+    public void dispose() {
+        reasoner.dispose();
     }
 
 }

@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 
 /**
  * Interface for classes that extract modules based on fixed axiom bases. Implementations of this
- * interface may use precomputation to optimize calculating multiple modules for the same axiom base
+ * interface may use pre-computation to optimize calculating multiple modules for the same axiom base
  * but for differing signatures.
  *
  * @author Marc Robin Nolte
@@ -38,7 +38,7 @@ import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 public interface ModuleExtractor {
 
     /**
-     * Return the axioms all modules of this {@link ModuleExtractor} are computed against, including
+     * Return the axioms all modules of this ModuleExtractor are computed against, including
      * global axioms and tautologies.
      *
      * @return The axioms as specified above
@@ -47,7 +47,7 @@ public interface ModuleExtractor {
     Stream<OWLAxiom> axiomBase();
 
     /**
-     * Returns whether or not the axiom base of this {@link ModuleExtractor} contains the given
+     * Returns whether the axiom base of this ModuleExtractor contains the given
      * {@link OWLAxiom}.
      *
      * @param axiom The axiom to test
@@ -58,12 +58,12 @@ public interface ModuleExtractor {
     }
 
     /**
-     * Returns <code>true</code> if it is guaranteed that the given {@link OWLAxiom} is contained in
-     * every module calculated by the module extraction method this {@link ModuleExtractor} is based
-     * on; <code>false</code> when no such guarantee can be made (Note: This does not mean that
+     * Returns {@code true} if it is guaranteed that the given {@link OWLAxiom} is contained in
+     * every module calculated by the module extraction method this ModuleExtractor is based
+     * on; {@code false} when no such guarantee can be made (Note: This does not mean that
      * there is some module regardless of other axioms or the signature that does not contain the
-     * given axiom). This methods returning <code>true</code> implies that
-     * {@link ModuleExtractor#noModuleContains(OWLAxiom)} returns <code>false</code> for the same
+     * given axiom). This methods returning {@code true} implies that
+     * {@link ModuleExtractor#noModuleContains(OWLAxiom)} returns {@code false} for the same
      * axiom.
      *
      * @param axiom The {@link OWLAxiom} to check
@@ -75,18 +75,19 @@ public interface ModuleExtractor {
 
     /**
      * Extracts a module with respect to the given signature against the axiom base of this
-     * {@link ModuleExtractor}.
+     * ModuleExtractor.
      *
      * @param signature The signature the module should be extracted against
      * @return The axioms of the module with respect to the given signature
      */
-    default @Nonnull Stream<OWLAxiom> extract(Stream<OWLEntity> signature) {
+    @Nonnull
+    default Stream<OWLAxiom> extract(Stream<OWLEntity> signature) {
         return extract(signature, Optional.empty());
     }
 
     /**
      * Extracts a module with respect to the given signature against the subset of the axiom base
-     * this {@link ModuleExtractor}s axiom base that matches the given {@link Predicate}, if any.
+     * this ModuleExtractor's axiom base that matches the given {@link Predicate}, if any.
      *
      * @param signature The signature the module should be extracted against.
      * @param axiomFilter An {@link Optional} {@link Predicate} that filters a subset of the axiom
@@ -99,14 +100,14 @@ public interface ModuleExtractor {
      */
     @Nonnull
     Stream<OWLAxiom> extract(Stream<OWLEntity> signature,
-        Optional<Predicate<OWLAxiom>> axiomFilter);
+                             Optional<Predicate<OWLAxiom>> axiomFilter);
 
     /**
      * Extracts a module with respect to the given signature against the subset of the axiom base
-     * this {@link ModuleExtractor}s axiom base that matches the given {@link Predicate}.
+     * this ModuleExtractor's axiom base that matches the given {@link Predicate}.
      *
      * @param signature The signature the module should be extracted against.
-     * @param axiomFilter An {@link Predicate} that filters a subset of the axiom base to extract
+     * @param axiomFilter A {@link Predicate} that filters a subset of the axiom base to extract
      *        the module against. Note that ignoring some axiom may lead to other axioms not be
      *        contained in the module either. For example, consider the ontology O:= {A⊑B, B⊑C, C⊑D}
      *        and the signature {A,E}. {@link SyntacticLocalityEvaluator} with
@@ -115,7 +116,7 @@ public interface ModuleExtractor {
      * @return The axioms of the module with respect to the given signature
      */
     default @Nonnull Stream<OWLAxiom> extract(Stream<OWLEntity> signature,
-        Predicate<OWLAxiom> axiomFilter) {
+                                              Predicate<OWLAxiom> axiomFilter) {
         return extract(signature, Optional.ofNullable(axiomFilter));
     }
 
@@ -143,7 +144,7 @@ public interface ModuleExtractor {
 
     /**
      * Returns from the axiom base of this extractor exactly those that are guaranteed to be
-     * contained in every module calculated by this {@link ModuleExtractor}. These axioms may be
+     * contained in every module calculated by this ModuleExtractor. These axioms may be
      * precomputed or calculated on every call of this method.
      *
      * @return The axioms as specified above
@@ -153,29 +154,30 @@ public interface ModuleExtractor {
     }
 
     /**
-     * Returns <code>true</code> if it is guaranteed that the given {@link OWLAxiom} is not
+     * Returns {@code true} if it is guaranteed that the given {@link OWLAxiom} is not
      * contained in any module (regardless of other axioms or the signature) calculated by the
-     * module extraction method this {@link ModuleExtractor} is based on; <code>false</code> when no
+     * module extraction method this ModuleExtractor is based on; {@code false} when no
      * such guarantee can be made (Note: This does not mean that there is some module that contains
-     * the given axiom). This methods returning <code>true</code> implies that
-     * {@link ModuleExtractor#everyModuleContains(OWLAxiom)} returns <code>false</code> for the same
+     * the given axiom). This methods returning {@code true} implies that
+     * {@link ModuleExtractor#everyModuleContains(OWLAxiom)} returns {@code false} for the same
      * axiom.
      *
      * @param axiom The {@link OWLAxiom} to check
      * @return A boolean value as specified above
      */
     default boolean noModuleContains(OWLAxiom axiom) {
-        return extract(axiom.signature(), axiom::equals).count() == 0;
+        return !extract(axiom.signature(), axiom::equals).findAny().isPresent();
     }
 
     /**
      * Returns from the axiom base of this extractor exactly those that are guaranteed not to be
-     * contained in any module calculated by this {@link ModuleExtractor}. These axioms may be
+     * contained in any module calculated by this ModuleExtractor. These axioms may be
      * precomputed or calculated on every call of this method.
      *
      * @return The axioms as specified above
      */
-    default @Nonnull Stream<OWLAxiom> tautologies() {
+    @Nonnull
+    default Stream<OWLAxiom> tautologies() {
         return axiomBase().parallel().filter(this::noModuleContains);
     }
 }
