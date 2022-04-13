@@ -15,7 +15,9 @@ package org.semanticweb.owlapi.modularity.locality;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
@@ -27,15 +29,10 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
  */
 public final class SemanticLocalityModuleExtractor extends LocalityModuleExtractor {
 
-    /**
-     * The manager to instantiate an {@link OWLReasoner}.
-     */
-    private final OWLReasonerFactory reasonerFactory;
+   private final OWLReasoner reasoner;
 
-    /**
-     * The factory to instantiate an {@link OWLReasoner}.
-     */
-    private final OWLOntologyManager ontologyManager;
+   private SemanticLocalityEvaluator topEvaluator;
+   private SemanticLocalityEvaluator botEvaluator;
 
     /**
      * Instantiates a new {@link SemanticLocalityEvaluator}.
@@ -49,19 +46,36 @@ public final class SemanticLocalityModuleExtractor extends LocalityModuleExtract
     public SemanticLocalityModuleExtractor(LocalityClass localityClass, Stream<OWLAxiom> axiomBase,
         OWLOntologyManager ontologyManager, OWLReasonerFactory reasonerFactory) {
         super(localityClass, axiomBase);
-        this.ontologyManager = ontologyManager;
-        this.reasonerFactory = reasonerFactory;
+        try {
+            reasoner = reasonerFactory.createReasoner(ontologyManager.createOntology());
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    /**
+     * Disposes the reasoner that is used to check whether axioms are tautologies via calling {@link OWLReasoner#dispose()}.
+     * Must be called after this SemanticLocalityModuleExtractor is no longer used
+     * to free resources that are allocated by the reasoner.
+     */
+    public void dispose() {
+        reasoner.dispose();
     }
 
     @Override
-    protected LocalityEvaluator bottomEvaluator() {
-        return new SemanticLocalityEvaluator(LocalityClass.BOTTOM, ontologyManager,
-            reasonerFactory);
+    protected synchronized LocalityEvaluator bottomEvaluator() {
+        if(botEvaluator == null) {
+            botEvaluator = new SemanticLocalityEvaluator(LocalityClass.BOTTOM, reasoner);
+        }
+        return botEvaluator;
     }
 
     @Override
-    protected LocalityEvaluator topEvaluator() {
-        return new SemanticLocalityEvaluator(LocalityClass.TOP, ontologyManager, reasonerFactory);
+    protected synchronized LocalityEvaluator topEvaluator() {
+        if(topEvaluator == null) {
+            topEvaluator = new SemanticLocalityEvaluator(LocalityClass.TOP, reasoner);
+        }
+        return topEvaluator;
     }
 
 }

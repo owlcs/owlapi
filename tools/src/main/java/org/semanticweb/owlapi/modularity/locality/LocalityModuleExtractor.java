@@ -12,12 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.modularity.locality;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -47,8 +42,8 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
      * @param workingSignature working signature
      * @param evaluator        evaluator to use
      */
-    private static void addNonLocal(OWLAxiom axiom, Set<OWLEntity> signature, Set<OWLAxiom> module,
-        Set<OWLEntity> workingSignature, LocalityEvaluator evaluator) {
+    private static void addNonLocal(OWLAxiom axiom, Set<OWLEntity> signature, Collection<OWLAxiom> module,
+                                    Collection<OWLEntity> workingSignature, LocalityEvaluator evaluator) {
         if (!module.contains(axiom) && !evaluator.isLocal(axiom, signature)) {
             // M ← M ∪ α
             module.add(axiom);
@@ -75,12 +70,12 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
     private @Nonnull final Map<OWLEntity, Set<OWLAxiom>> axiomsContainingEntity = new HashMap<>();
 
     /**
-     * Creates a new {@link LocalityModuleExtractor}.
+     * Creates a new LocalityModuleExtractor.
      *
      * @param localityClass The {@link LocalityClass} to use
-     * @param axiomBase     the axiom base of the new {@link LocalityModuleExtractor}
+     * @param axiomBase     the axiom base of the new LocalityModuleExtractor
      */
-    protected LocalityModuleExtractor(LocalityClass localityClass, Stream<OWLAxiom> axiomBase) {
+    LocalityModuleExtractor(LocalityClass localityClass, Stream<OWLAxiom> axiomBase) {
         this.axiomBase = axiomBase.collect(Collectors.toSet());
         this.localityClass =
             Objects.requireNonNull(localityClass, "The given locality class may not be null.");
@@ -88,7 +83,7 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
     }
 
     @Override
-    public final @Nonnull Stream<OWLAxiom> axiomBase() {
+    public @Nonnull Stream<OWLAxiom> axiomBase() {
         return axiomBase.stream();
     }
 
@@ -104,7 +99,7 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
 
     @Override
     public final Stream<OWLAxiom> extract(Stream<OWLEntity> signature,
-        Optional<Predicate<OWLAxiom>> axiomFilter) {
+                                          Optional<Predicate<OWLAxiom>> axiomFilter) {
         Set<OWLEntity> signatureSet = signature.collect(Collectors.toSet());
         if (localityClass == LocalityClass.STAR) {
             return extractStarModule(signatureSet, axiomFilter).stream();
@@ -125,8 +120,10 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
      * @param evaluator   locality evaluator
      * @return module as a set of axioms
      */
-    protected final @Nonnull Set<OWLAxiom> extractLocalityBasedModule(Set<OWLEntity> signature,
-        Optional<Predicate<OWLAxiom>> axiomFilter, LocalityEvaluator evaluator) {
+    @Nonnull
+    private Set<OWLAxiom> extractLocalityBasedModule(Set<OWLEntity> signature,
+                                                     Optional<Predicate<OWLAxiom>> axiomFilter,
+                                                     LocalityEvaluator evaluator) {
         // Sub axiom base requires to filter the axioms
         Function<OWLEntity, Stream<OWLAxiom>> axiomsOfEntity =
             entity -> axiomsContainingEntity.get(entity).stream();
@@ -157,8 +154,8 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
      * @param axiomFilter optional filter to apply to the axioms
      * @return module as a set of axioms
      */
-    protected final @Nonnull Set<OWLAxiom> extractStarModule(Set<OWLEntity> signature,
-        Optional<Predicate<OWLAxiom>> axiomFilter) {
+    @Nonnull
+    private Set<OWLAxiom> extractStarModule(Set<OWLEntity> signature, Optional<Predicate<OWLAxiom>> axiomFilter) {
         LocalityEvaluator bottom = bottomEvaluator(); // bot or empty_set
         LocalityEvaluator top = topEvaluator(); // top or delta
         // Calculating the initial module
@@ -176,16 +173,17 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
     }
 
     /**
-     * Returns the locality class used by this {@link LocalityModuleExtractor}.
+     * Returns the locality class used by this LocalityModuleExtractor.
      *
-     * @return The locality class used by this {@link LocalityModuleExtractor}
+     * @return The locality class used by this LocalityModuleExtractor
      */
-    public @Nonnull LocalityClass getLocalityClass() {
+    @Nonnull
+    public LocalityClass getLocalityClass() {
         return localityClass;
     }
 
     /**
-     * Initializes this {@link LocalityModuleExtractor}. Precomputes the globals and fills
+     * Initializes this LocalityModuleExtractor. Precomputes the globals and fills
      * {@link LocalityModuleExtractor#axiomsContainingEntity}.
      */
     private void initialize() {
