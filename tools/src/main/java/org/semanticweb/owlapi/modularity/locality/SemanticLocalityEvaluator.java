@@ -604,25 +604,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-    /**
-     * Instantiates a new SemanticLocalityEvaluator
-     *
-     * @param localityClass   The {@link LocalityClass} to use. Must be one of BOTTOM or TOP
-     * @param reasoner        An {@link OWLReasoner} over an empty ontology to check for tautologies
-     */
-    public SemanticLocalityEvaluator(LocalityClass localityClass,
-                                     OWLReasoner reasoner) {
-
-        this.localityClass =
-                Objects.requireNonNull(localityClass, "The given  locality class may not be null.");
-        if (localityClass != LocalityClass.BOTTOM && localityClass != LocalityClass.TOP) {
-            throw new IllegalArgumentException(
-                    "The given locality class must be one of BOTTOM or TOP");
-        }
-        dataFactory = reasoner.getRootOntology().getOWLOntologyManager().getOWLDataFactory();
-        this.reasoner = reasoner;
-    }
-
     @Override
     public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
         return !axiom.isLogicalAxiom() || reasoner.isEntailed(localityClass == LocalityClass.BOTTOM
@@ -633,11 +614,12 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     /**
-     * Disposes the reasoner that is used to check whether axioms are tautologies via calling {@link OWLReasoner#dispose()}.
-     * Must be called after this SemanticLocalityModuleExtractor is no longer used
-     * to free resources that are allocated by the reasoner.
+     * Disposes the reasoner and the empty ontology that is used to check whether axioms are tautologies via calling {@link OWLReasoner#dispose()}.
+     * Must be called after this SemanticLocalityEvaluator is no longer used
+     * to free resources that are allocated by the reasoner and the ontology.
      */
     public void dispose() {
+        reasoner.getRootOntology().getOWLOntologyManager().removeOntology(reasoner.getRootOntology());
         reasoner.dispose();
     }
 
