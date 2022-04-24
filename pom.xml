@@ -30,7 +30,8 @@
 		<no-javadoc>false</no-javadoc>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- 5.0.0 is the earliest release on Maven Central for this series -->
-		<last.japicmp.compare.version>5.0.0</last.japicmp.compare.version>		
+		<last.japicmp.compare.version>5.0.0</last.japicmp.compare.version>
+		<closeTestReports>true</closeTestReports>		
 	</properties>
 
 
@@ -352,6 +353,7 @@
 					<argLine>-Xmx2G -Djava.awt.headless=true</argLine>
 					<parallel>classes</parallel>
 					<useUnlimitedThreads>true</useUnlimitedThreads>
+					<disableXmlReport>${closeTestReports}</disableXmlReport>
 
 				</configuration>
 			</plugin>
