@@ -178,7 +178,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      * @return true if the input id has the same ontology iri
      */
     public boolean match(OWLOntologyID id) {
-        return ontologyIRI.equals(id.getOntologyIRI());
+        return this.equals(id);
     }
 
     /**
