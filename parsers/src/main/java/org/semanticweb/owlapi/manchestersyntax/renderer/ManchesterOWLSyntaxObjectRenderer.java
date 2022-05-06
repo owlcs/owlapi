@@ -169,6 +169,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
@@ -513,7 +514,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
             if (node.hasLang()) {
                 write("@");
                 write(node.getLang());
-            } else if (!node.isRDFPlainLiteral()) {
+            } else if (!node.isRDFPlainLiteral()
+                && !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype())) {
                 write("^^");
                 node.getDatatype().accept(this);
             }

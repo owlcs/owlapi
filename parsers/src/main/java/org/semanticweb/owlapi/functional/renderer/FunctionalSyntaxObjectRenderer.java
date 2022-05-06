@@ -224,6 +224,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
@@ -246,7 +247,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     /**
      * @param ontology the ontology
-     * @param writer   the writer
+     * @param writer the writer
      */
     public FunctionalSyntaxObjectRenderer(@Nonnull OWLOntology ontology, Writer writer) {
         ont = ontology;
@@ -620,9 +621,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     /**
      * Writes of the annotation for the specified entity.
      * 
-     * @param entity               The entity
+     * @param entity The entity
      * @param alreadyWrittenAxioms already written axioms, to be updated with the newly written
-     *                             axioms
+     *        axioms
      */
     protected void writeAnnotations(@Nonnull OWLEntity entity,
         @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
@@ -1258,7 +1259,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         if (node.hasLang()) {
             write("@");
             write(node.getLang());
-        } else if (!node.isRDFPlainLiteral()) {
+        } else if (!node.isRDFPlainLiteral()
+            && !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype())) {
             write("^^");
             write(node.getDatatype().getIRI());
         }

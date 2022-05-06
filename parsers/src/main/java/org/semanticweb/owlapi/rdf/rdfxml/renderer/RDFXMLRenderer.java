@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.VersionInfo;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -280,8 +281,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         if (rdfLiteralNode.hasLang()) {
             writer.writeLangAttribute(rdfLiteralNode.getLang());
         } else if (!rdfLiteralNode.isPlainLiteral()
-        // && !OWL2Datatype.XSD_STRING.getIRI().equals(rdfLiteralNode.getDatatype())
-        ) {
+            && !OWL2Datatype.XSD_STRING.getIRI().equals(rdfLiteralNode.getDatatype())) {
             writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
         }
         writer.writeTextContent(rdfLiteralNode.getLexicalValue());

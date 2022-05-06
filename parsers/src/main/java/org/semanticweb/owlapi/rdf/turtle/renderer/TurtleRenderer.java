@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
@@ -71,8 +72,8 @@ public class TurtleRenderer extends RDFRendererBase {
 
     /**
      * @param ontology ontology
-     * @param writer   writer
-     * @param format   format
+     * @param writer writer
+     * @param format format
      */
     public TurtleRenderer(@Nonnull OWLOntology ontology, Writer writer, OWLDocumentFormat format) {
         super(ontology, format);
@@ -229,8 +230,13 @@ public class TurtleRenderer extends RDFRendererBase {
                 write(node.getLexicalValue());
             } else {
                 writeStringLiteral(node.getLexicalValue());
-                write("^^");
-                write(node.getDatatype());
+                if (node.hasLang()) {
+                    writeAt();
+                    write(node.getLang());
+                } else if (!OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype())) {
+                    write("^^");
+                    write(node.getDatatype());
+                }
             }
         } else {
             writeStringLiteral(node.getLexicalValue());
