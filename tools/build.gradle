@@ -4,12 +4,12 @@ dependencies {
   implementation 'javax.inject:javax.inject:1'
   implementation 'org.apache.commons:commons-rdf-api:0.5.0'
   implementation project(':owlapi-api')
-  implementation 'commons-io:commons-io:2.10.0'
-  implementation ('com.github.ben-manes.caffeine:caffeine:[3.0.2, 4)') {
+  implementation 'commons-io:commons-io:2.11.0'
+  implementation ('com.github.ben-manes.caffeine:caffeine:[3.1.0, 4)') {
     exclude module: "checker-qual"
     exclude module: "error_prone_annotations"
   }
-  implementation 'org.yaml:snakeyaml:1.29'
+  implementation 'org.yaml:snakeyaml:1.30'
   implementation 'org.tukaani:xz:1.9'
   implementation 'com.squareup.okhttp3:okhttp:4.10.0-RC1'
   testImplementation 'org.apache.commons:commons-rdf-api:0.5.0:tests'
