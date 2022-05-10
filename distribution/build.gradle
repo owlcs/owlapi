@@ -51,7 +51,7 @@ configurations.faux.allDependencies.withType(ProjectDependency).each {
     from mainSet.allSource
   }
   javadoc {
-    classpath.add( mainSet.compileClasspath)
+    classpath.add( mainSet.implementationClasspath)
     source mainSet.allJava
   }
   shadowJar {
@@ -59,7 +59,7 @@ configurations.faux.allDependencies.withType(ProjectDependency).each {
     from mainSet.output
     mergeServiceFiles()
   }
-  ResolvedConfiguration resolvedConfiguration = project.configurations.compile.getResolvedConfiguration()
+  ResolvedConfiguration resolvedConfiguration = project.configurations.implementation.getResolvedConfiguration()
   resolvedConfiguration.firstLevelModuleDependencies.each { dep ->
     def fred = prototype.clone()
     fred.groupId = dep.moduleGroup

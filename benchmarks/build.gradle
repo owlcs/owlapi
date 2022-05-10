@@ -7,7 +7,7 @@ plugins {
 }
 dependencies {
     jmh 'org.openjdk.jmh:jmh-core:[1,2)'
-    compile project(':owlapi-apibinding')
+    implementation project(':owlapi-apibinding')
 }
 jmh {
     //include='.*'

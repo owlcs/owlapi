@@ -1,9 +1,9 @@
 
 description = 'OWLAPI :: Default Implementation'
 dependencies {
-  compile 'javax.inject:javax.inject:1'
-  compile 'com.github.vsonnier:hppcrt:0.7.5'
-  compile 'com.github.ben-manes.caffeine:caffeine:[2.6,3)'
-  compile project(':owlapi-api')
-  compile project(':owlapi-tools')
+  implementation 'javax.inject:javax.inject:1'
+  implementation 'com.github.vsonnier:hppcrt:0.7.5'
+  implementation 'com.github.ben-manes.caffeine:caffeine:[2.6,3)'
+  implementation project(':owlapi-api')
+  implementation project(':owlapi-tools')
 }

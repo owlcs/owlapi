@@ -24,24 +24,24 @@ repositories {
 }
 
 dependencies {
-    compile 'biz.aQute.bnd:biz.aQute.bndlib:4.0.0'
-    compile fileTree(dir: 'lib', include: '*.jar')
-    compile 'com.github.siom79.japicmp:japicmp:0.12.0'
-    compile gradleApi()
-    compile localGroovy()
-    compile 'org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.3'
-    compile 'org.sonatype.sisu:sisu-guice:3.2.6'
-    compile 'org.codehaus.plexus:plexus-utils:latest.release'
-    compile 'org.apache.maven:maven-resolver-provider:3.5.2'
-    compile 'org.apache.maven.resolver:maven-resolver-impl:latest.release'
-    compile 'org.apache.maven.resolver:maven-resolver-transport-http:latest.release'
-    compile 'org.apache.maven.resolver:maven-resolver-transport-file:latest.release'
-    compile 'org.apache.maven.resolver:maven-resolver-connector-basic:latest.release'
+    implementation 'biz.aQute.bnd:biz.aQute.bndlib:4.0.0'
+    implementation fileTree(dir: 'lib', include: '*.jar')
+    implementation 'com.github.siom79.japicmp:japicmp:0.12.0'
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.3'
+    implementation 'org.sonatype.sisu:sisu-guice:3.2.6'
+    implementation 'org.codehaus.plexus:plexus-utils:latest.release'
+    implementation 'org.apache.maven:maven-resolver-provider:3.5.2'
+    implementation 'org.apache.maven.resolver:maven-resolver-impl:latest.release'
+    implementation 'org.apache.maven.resolver:maven-resolver-transport-http:latest.release'
+    implementation 'org.apache.maven.resolver:maven-resolver-transport-file:latest.release'
+    implementation 'org.apache.maven.resolver:maven-resolver-connector-basic:latest.release'
 
-    //testCompile localGroovy()
-    //testCompile gradleApi()
-    testCompile 'junit:junit:4.12'
-//    testCompile ('org.spockframework:spock-core:1.0-groovy-2.4') {
+    //testImplementation localGroovy()
+    //testImplementation gradleApi()
+    testImplementation 'junit:junit:4.12'
+//    testImplementation ('org.spockframework:spock-core:1.0-groovy-2.4') {
 //        exclude module: 'groovy-all'
 //        exclude group: 'org.gradle'
 //    }

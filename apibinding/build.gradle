@@ -1,14 +1,14 @@
 
 description = 'OWLAPI :: Binding and Config'
 dependencies {
-  compile project(':owlapi-api')
-  compile project(':owlapi-impl')
-  compile project(':owlapi-tools')
-  compile project(':owlapi-functionalformat')
-  compile project(':owlapi-manchesterformat')
-  compile project(':owlapi-rdfformats')
-  compile project(':owlapi-owlxmlformat')
-  compile project(':owlapi-otherformats')
-  compile project(':owlapi-oboformat')
-  compile project(':owlapi-rio')
+  implementation project(':owlapi-api')
+  implementation project(':owlapi-impl')
+  implementation project(':owlapi-tools')
+  implementation project(':owlapi-functionalformat')
+  implementation project(':owlapi-manchesterformat')
+  implementation project(':owlapi-rdfformats')
+  implementation project(':owlapi-owlxmlformat')
+  implementation project(':owlapi-otherformats')
+  implementation project(':owlapi-oboformat')
+  implementation project(':owlapi-rio')
 }

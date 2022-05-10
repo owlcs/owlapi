@@ -1,6 +1,6 @@
 
 description = 'OWLAPI :: OBO Format'
 dependencies {
-  compile project(':owlapi-functionalformat')
-  compile project(':owlapi-manchesterformat')
+  implementation project(':owlapi-functionalformat')
+  implementation project(':owlapi-manchesterformat')
 }

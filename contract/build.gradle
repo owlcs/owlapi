@@ -1,7 +1,7 @@
 
 description = 'OWLAPI :: Tests and Tutorials'
 dependencies {
-  compile project(':owlapi-apibinding')
-  compile project(':owlapi-tools')
-  testCompile 'org.apache.commons:commons-rdf-api:0.5.0:tests'
+  implementation project(':owlapi-apibinding')
+  implementation project(':owlapi-tools')
+  testImplementation 'org.apache.commons:commons-rdf-api:0.5.0:tests'
 }
