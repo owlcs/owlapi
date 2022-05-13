@@ -19,7 +19,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
@@ -30,7 +29,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 public class RenameToExistingOntologyTestCase extends TestBase {
 
     @Test(expected = OWLOntologyRenameException.class)
-    public void testRenameToExistingOntology() throws OWLOntologyCreationException {
+    public void testRenameToExistingOntology() {
         IRI ontologyAIRI = IRI("http://www.semanticweb.org/ontologies/", "ontologyA");
         OWLOntology onto = getOWLOntology(ontologyAIRI);
         onto.add(df.getOWLDeclarationAxiom(Class(IRI("urn:test:", "testclass"))));

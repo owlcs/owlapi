@@ -34,36 +34,25 @@ public class OntologyIRITestCase extends AbstractRoundTrippingTestCase {
     }
 
     @Override
-    public void testFunctionalSyntax() {
-        // XXX thi is failing for functional syntax
-    }
-
-    @Override
-    public void roundTripRDFXMLAndFunctionalShouldBeSame() {
-        // XXX functional won't work here
-    }
-
-    @Override
     protected OWLOntology createOntology() {
         return loadOntologyFromString("<?xml version=\"1.0\"?>\n" + "<!DOCTYPE rdf:RDF [\n"
-                        + "        <!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >\n"
-                        + "        <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
-                        + "        <!ENTITY owl2xml \"http://www.w3.org/2006/12/owl2-xml#\" >\n"
-                        + "        <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\n"
-                        + "        <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >\n"
-                        + "        ]>\n" + "<rdf:RDF xmlns=\"http://www.test.com/Ambiguous.owl#\"\n"
-                        + "         xml:base=\"http://www.test.com/Ambiguous.owl\"\n"
-                        + "         xmlns:owl2xml=\"http://www.w3.org/2006/12/owl2-xml#\"\n"
-                        + "         xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-                        + "         xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-                        + "         xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
-                        + "         xmlns:owl=\"http://www.w3.org/2002/07/owl#\">\n"
-                        + "    <owl:Ontology rdf:about=\"http://www.test.com/wrong.owl\"/>\n"
-                        + "    <owl:OntologyProperty rdf:about=\"p\"/>\n"
-                        + "    <owl:Ontology rdf:about=\"http://www.test.com/right.owl\">\n"
-                        + "        <p>\n"
-                        + "            <owl:Ontology rdf:about=\"http://www.test.com/wrong.owl\"/>\n"
-                        + "        </p>\n" + "    </owl:Ontology>\n" + "</rdf:RDF>",
-                        new RDFXMLDocumentFormat());
+            + "        <!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >\n"
+            + "        <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
+            + "        <!ENTITY owl2xml \"http://www.w3.org/2006/12/owl2-xml#\" >\n"
+            + "        <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\n"
+            + "        <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >\n"
+            + "        ]>\n" + "<rdf:RDF xmlns=\"http://www.test.com/Ambiguous.owl#\"\n"
+            + "         xml:base=\"http://www.test.com/Ambiguous.owl\"\n"
+            + "         xmlns:owl2xml=\"http://www.w3.org/2006/12/owl2-xml#\"\n"
+            + "         xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+            + "         xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+            + "         xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
+            + "         xmlns:owl=\"http://www.w3.org/2002/07/owl#\">\n"
+            + "    <owl:Ontology rdf:about=\"http://www.test.com/wrong.owl\"/>\n"
+            + "    <owl:OntologyProperty rdf:about=\"p\"/>\n"
+            + "    <owl:Ontology rdf:about=\"http://www.test.com/right.owl\">\n" + "        <p>\n"
+            + "            <owl:Ontology rdf:about=\"http://www.test.com/wrong.owl\"/>\n"
+            + "        </p>\n" + "    </owl:Ontology>\n" + "</rdf:RDF>",
+            new RDFXMLDocumentFormat());
     }
 }

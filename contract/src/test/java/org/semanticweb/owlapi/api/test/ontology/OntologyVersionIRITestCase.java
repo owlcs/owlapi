@@ -17,9 +17,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -32,10 +30,6 @@ public class OntologyVersionIRITestCase extends AbstractRoundTrippingTestCase {
         IRI ontIRI = IRI("http://www.semanticweb.org/owlapi/", "ontology");
         IRI versionIRI = IRI("http://www.semanticweb.org/owlapi/ontology/", "version");
         OWLOntologyID ontologyID = df.getOWLOntologyID(ontIRI, versionIRI);
-        try {
-            return getOWLOntology(ontologyID);
-        } catch (OWLOntologyCreationException e) {
-            throw new OWLRuntimeException(e);
-        }
+        return getOWLOntology(ontologyID);
     }
 }

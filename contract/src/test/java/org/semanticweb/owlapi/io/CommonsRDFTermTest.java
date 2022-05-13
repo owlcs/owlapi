@@ -31,38 +31,23 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
 
     @Ignore
     @Override
-    public void hashCodeBlankNode() {
-        // TODO Auto-generated method stub
-        // super.hashCodeBlankNode();
-    }
+    public void hashCodeBlankNode() {}
 
     @Ignore
     @Override
-    public void hashCodeLiteral() {
-        // TODO Auto-generated method stub
-        // super.hashCodeLiteral();
-    }
+    public void hashCodeLiteral() {}
 
     @Ignore
     @Override
-    public void testCreateGraph() {
-        // TODO Auto-generated method stub
-        // super.testCreateGraph();
-    }
+    public void testCreateGraph() {}
 
     @Ignore
     @Override
-    public void testCreateBlankNodeIdentifierTwiceDifferentFactories() {
-        // TODO Auto-generated method stub
-        // super.testCreateBlankNodeIdentifierTwiceDifferentFactories();
-    }
+    public void testCreateBlankNodeIdentifierTwiceDifferentFactories() {}
 
     @Ignore
     @Override
-    public void hashCodeTriple() {
-        // TODO Auto-generated method stub
-        // super.hashCodeTriple();
-    }
+    public void hashCodeTriple() {}
 
     @Override
     public RDF createFactory() {
@@ -110,9 +95,8 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
 
         @Override
         public RDFResourceBlankNode createBlankNode(@Nullable String name) {
-            org.semanticweb.owlapi.model.IRI iri =
-                createIRI(NodeID.getIRIFromNodeID(verifyNotNull(name)));
-            return new RDFResourceBlankNode(iri, false, false, false);
+            return new RDFResourceBlankNode(createIRI(NodeID.getIRIFromNodeID(verifyNotNull(name))),
+                false, false, false);
         }
 
         @Override
@@ -136,9 +120,7 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
 
         @Override
         public org.semanticweb.owlapi.model.IRI createIRI(@Nullable String iriStr) {
-            org.semanticweb.owlapi.model.IRI innerIri =
-                OWLManager.getOWLDataFactory().getIRI(verifyNotNull(iriStr));
-            return innerIri;
+            return OWLManager.getOWLDataFactory().getIRI(verifyNotNull(iriStr));
             // TODO: What about RDFResourceIRI?
             // return new RDFResourceIRI(innerIri);
         }

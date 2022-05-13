@@ -18,7 +18,9 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.PrefixManager;
 
@@ -127,6 +129,16 @@ public class IRIImpl implements IRI {
     @Override
     public String toManchesterSyntax(PrefixManager pm) {
         return toSyntax(new ManchesterSyntaxDocumentFormat(), pm);
+    }
+
+    @Override
+    public String toSyntax(OWLDocumentFormat format) {
+        return ToStringRenderer.getInstance(format).render(this);
+    }
+
+    @Override
+    public String toSyntax(OWLDocumentFormat format, PrefixManager pm) {
+        return ToStringRenderer.getInstance(format, pm).render(this);
     }
 
     @Override
