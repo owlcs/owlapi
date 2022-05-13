@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -36,35 +34,9 @@ public interface OWLSignature
      * @param imports if INCLUDED, include imports closure.
      * @return the set of classes in the signature, optionally including the import closure. The set
      *         that is returned is a copy of the data.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLClass> getClassesInSignature(Imports imports) {
-        return asSet(classesInSignature(imports));
-    }
-
-    /**
-     * Gets the classes in the signature and optionally the imports closure.
-     *
-     * @param imports if INCLUDED, include imports closure.
-     * @return the set of classes in the signature, optionally including the import closure. The set
-     *         that is returned is a copy of the data.
      */
     default Stream<OWLClass> classesInSignature(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::classesInSignature).distinct().sorted();
-    }
-
-    /**
-     * Gets the object properties in the signature and optionally the imports closure.
-     *
-     * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return the set of object properties in the signature, optionally including the import
-     *         closure. The set that is returned is a copy of the data.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLObjectProperty> getObjectPropertiesInSignature(Imports includeImportsClosure) {
-        return asSet(objectPropertiesInSignature(includeImportsClosure));
     }
 
     /**
@@ -82,19 +54,6 @@ public interface OWLSignature
     /**
      * Gets the data properties in the signature and optionally the imports closure.
      *
-     * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return the set of data properties in the signature, optionally including the import closure.
-     *         The set that is returned is a copy of the data.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLDataProperty> getDataPropertiesInSignature(Imports includeImportsClosure) {
-        return asSet(dataPropertiesInSignature(includeImportsClosure));
-    }
-
-    /**
-     * Gets the data properties in the signature and optionally the imports closure.
-     *
      * @param imports if INCLUDED, include imports closure.
      * @return the set of data properties in the signature, optionally including the import closure.
      *         The set that is returned is a copy of the data.
@@ -102,19 +61,6 @@ public interface OWLSignature
     default Stream<OWLDataProperty> dataPropertiesInSignature(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::dataPropertiesInSignature).distinct()
             .sorted();
-    }
-
-    /**
-     * Gets the named individuals in the signature and optionally the imports closure.
-     *
-     * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return the set of individuals in the signature, optionally including the import closure. The
-     *         set that is returned is a copy of the data.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLNamedIndividual> getIndividualsInSignature(Imports includeImportsClosure) {
-        return asSet(individualsInSignature(includeImportsClosure));
     }
 
     /**
@@ -133,37 +79,12 @@ public interface OWLSignature
      * Gets the referenced anonymous individuals in the signature and optionally the imports
      * closure.
      *
-     * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return The set of referenced anonymous individuals
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
-        Imports includeImportsClosure) {
-        return asSet(referencedAnonymousIndividuals(includeImportsClosure));
-    }
-
-    /**
-     * Gets the referenced anonymous individuals in the signature and optionally the imports
-     * closure.
-     *
      * @param imports if INCLUDED, include imports closure.
      * @return The set of referenced anonymous individuals
      */
     default Stream<OWLAnonymousIndividual> referencedAnonymousIndividuals(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::referencedAnonymousIndividuals).distinct()
             .sorted();
-    }
-
-    /**
-     * Gets the referenced anonymous individuals.
-     *
-     * @return The set of referenced anonymous individuals
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals() {
-        return asSet(referencedAnonymousIndividuals());
     }
 
     /**
@@ -176,39 +97,12 @@ public interface OWLSignature
     /**
      * Gets the datatypes in the signature and optionally the imports closure.
      *
-     * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return the set of datatypes in the signature of this ontology, optionally including the
-     *         import closure. The set that is returned is a copy of the data.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLDatatype> getDatatypesInSignature(Imports includeImportsClosure) {
-        return asSet(datatypesInSignature(includeImportsClosure));
-    }
-
-    /**
-     * Gets the datatypes in the signature and optionally the imports closure.
-     *
      * @param imports if INCLUDED, include imports closure.
      * @return the set of datatypes in the signature of this ontology, optionally including the
      *         import closure. The set that is returned is a copy of the data.
      */
     default Stream<OWLDatatype> datatypesInSignature(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::datatypesInSignature).distinct().sorted();
-    }
-
-    /**
-     * Gets the annotation properties in the signature and optionally the imports closure.
-     *
-     * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return the set of annotation properties in the signature, optionally including the import
-     *         closure. The set that is returned is a copy of the data.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
-        Imports includeImportsClosure) {
-        return asSet(annotationPropertiesInSignature(includeImportsClosure));
     }
 
     /**
@@ -427,20 +321,6 @@ public interface OWLSignature
         Imports includeImportsClosure) {
         return includeImportsClosure.stream(this)
             .anyMatch(o -> o.containsEntitiesOfTypeInSignature(type));
-    }
-
-    /**
-     * Gets the entities in the signature that have the specified IRI.
-     *
-     * @param iri The IRI of the entitied to be retrieved.
-     * @param includeImportsClosure if INCLUDED, include imports closure.
-     * @return the set of entities with the specified IRI, optionally including the ones in the
-     *         import closure.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLEntity> getEntitiesInSignature(IRI iri, Imports includeImportsClosure) {
-        return asSet(entitiesInSignature(iri, includeImportsClosure));
     }
 
     /**

@@ -59,7 +59,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AnnotatedAxiomRountripTestCase extends AnnotatedAxiomRoundTrippingTestCase {
 

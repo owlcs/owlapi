@@ -22,8 +22,8 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
 
     /**
      * Determines if this individual is an instance of
-     * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this method is the dual of
-     * {@link #isAnonymous()}.
+     * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this method is the dual
+     * of {@link #isAnonymous()}.
      *
      * @return {@code true} if this individual is an instance of
      *         {@link org.semanticweb.owlapi.model.OWLNamedIndividual} because it is a named

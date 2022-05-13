@@ -23,7 +23,6 @@ import org.junit.runners.Parameterized.Parameters;
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class FileRoundTripTestCase extends AbstractFileRoundTrippingTestCase {
 

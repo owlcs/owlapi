@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.functional.renderer;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION_ASSERTION;
@@ -934,7 +934,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        List<OWLIndividual> individuals = axiom.getIndividualsAsList();
+        List<OWLIndividual> individuals = axiom.getOperandsAsList();
         if (individuals.size() < 2) {
             LOGGER.warn("{} with less than two elements skipped {}",
                 axiom.getClass().getSimpleName(), axiom);

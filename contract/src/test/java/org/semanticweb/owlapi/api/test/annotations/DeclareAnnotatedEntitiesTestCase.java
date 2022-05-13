@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 
@@ -17,7 +17,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /**
  * Created by vincent on 20.08.15.
  */
-@SuppressWarnings("javadoc")
 public class DeclareAnnotatedEntitiesTestCase extends TestBase {
 
     @Test

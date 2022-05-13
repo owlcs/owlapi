@@ -36,7 +36,6 @@ import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
 public final class SimpleHierarchyExample {
 
     private static final int INDENT = 4;

@@ -134,7 +134,6 @@ public class SmallSet<T> extends AbstractSet<T> {
             }
 
             @Override
-            @SuppressWarnings("null")
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException("No Next Element");

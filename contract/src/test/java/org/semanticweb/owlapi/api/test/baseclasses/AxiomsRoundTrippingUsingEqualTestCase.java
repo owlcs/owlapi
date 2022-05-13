@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBase {
 

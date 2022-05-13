@@ -30,13 +30,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({"javadoc", "null"})
 public class RioRendererTestCase extends TestBase {
 
     private final @Nonnull IRI testOntologyUri1 = df.getIRI("urn:test:ontology:uri:1", "");
     private SimpleValueFactory vf;
-    private @Nonnull OWLOntology testOntologyEmpty;
-    private @Nonnull OWLOntology testOntologyKoala;
+    private OWLOntology testOntologyEmpty;
+    private OWLOntology testOntologyKoala;
     private Statement testOntologyEmptyStatement;
     private StatementCollector testHandlerStatementCollector;
     private StringWriter testRdfXmlStringWriter;
@@ -66,10 +65,6 @@ public class RioRendererTestCase extends TestBase {
         testNTriplesRioWriter = Rio.createWriter(RDFFormat.NTRIPLES, testNTriplesStringWriter);
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     */
     @Test
     public void testRenderEmptyStatementCollector() {
         RioRenderer testRenderer =
@@ -84,10 +79,6 @@ public class RioRendererTestCase extends TestBase {
             testHandlerStatementCollector.getStatements().iterator().next());
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     */
     @Test
     public void testRenderEmptyRdfXmlWriter() {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testRdfXmlRioWriter);
@@ -98,10 +89,6 @@ public class RioRendererTestCase extends TestBase {
         assertTrue("Result was larger than expected:" + result, result.length() < 590);
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     */
     @Test
     public void testRenderEmptyTurtleWriter() {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testTurtleRioWriter);
@@ -112,10 +99,6 @@ public class RioRendererTestCase extends TestBase {
         assertTrue("Result was larger than expected:" + result, result.length() < 450);
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     */
     @Test
     public void testRenderEmptyNTriplesWriter() {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testNTriplesRioWriter);
@@ -126,10 +109,6 @@ public class RioRendererTestCase extends TestBase {
         assertTrue("Result was larger than expected:" + result, result.length() < 220);
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     */
     @Test
     public void testRenderKoalaStatementCollector() {
         RioRenderer testRenderer =
@@ -143,10 +122,6 @@ public class RioRendererTestCase extends TestBase {
         assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     */
     @Test
     public void testRenderKoalaRdfXmlWriter() throws Exception {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testRdfXmlRioWriter);
@@ -175,10 +150,6 @@ public class RioRendererTestCase extends TestBase {
         assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     */
     @Test
     public void testRenderKoalaTurtleWriter() throws Exception {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testTurtleRioWriter);
@@ -203,10 +174,6 @@ public class RioRendererTestCase extends TestBase {
         assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     */
     @Test
     public void testRenderKoalaNTriplesWriter() throws Exception {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testNTriplesRioWriter);

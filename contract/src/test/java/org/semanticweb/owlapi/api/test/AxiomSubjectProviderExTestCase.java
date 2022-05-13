@@ -26,7 +26,6 @@ import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.utility.AxiomSubjectProviderEx;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class AxiomSubjectProviderExTestCase {
 

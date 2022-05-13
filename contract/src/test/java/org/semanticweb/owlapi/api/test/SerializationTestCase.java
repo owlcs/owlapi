@@ -13,7 +13,8 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.junit.Assert.assertNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -53,7 +54,6 @@ import org.semanticweb.owlapi.utility.AutoIRIMapper;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings({"javadoc", "null"})
 public class SerializationTestCase extends TestBase {
 
     private final OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
@@ -165,6 +165,7 @@ public class SerializationTestCase extends TestBase {
         ObjectInputStream inStream = new ObjectInputStream(in);
         OWLOntologyManager copy = (OWLOntologyManager) inStream.readObject();
         OWLOntology o1 = copy.getOntology(ontologyIRI);
+        assertNotNull(o1);
         assertEquals(asSet(o.axioms()), asSet(o1.axioms()));
         assertEquals(o.getAxiomCount(), o1.getAxiomCount());
         assertEquals(o.getLogicalAxiomCount(), o1.getLogicalAxiomCount());

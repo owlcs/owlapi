@@ -22,8 +22,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Disjo
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -61,12 +62,10 @@ import org.semanticweb.owlapi.utilities.ShortFormProvider;
 import org.semanticweb.owlapi.utility.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.utility.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi.utility.BidirectionalShortFormProviderAdapter;
-import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-@SuppressWarnings({"javadoc", "null"})
 public class ManchesterOWLSyntaxParserTestCase extends TestBase {
 
     @Test
@@ -216,8 +215,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     public static final @Nonnull String NS = "http://protege.org/ontologies/Test.owl";
-    protected @Nonnull OWLDataProperty p;
-    protected @Nonnull OWLDatatype dateTime;
+    protected OWLDataProperty p;
+    protected OWLDatatype dateTime;
 
     @Before
     public void setUpPAndDateTime() {
@@ -403,8 +402,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         OWLClass b = Class(IRI("urn:test#B"));
         String in = "name max 1 owl:real";
         OWLOntology o = m.createOntology();
-        m.addAxiom(o, df.getOWLDeclarationAxiom(name));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(b));
+        o.addAxiom(df.getOWLDeclarationAxiom(name));
+        o.addAxiom(df.getOWLDeclarationAxiom(b));
         // select a short form provider that uses annotations
         ShortFormProvider sfp =
             new AnnotationValueShortFormProvider(Arrays.asList(df.getRDFSLabel()),

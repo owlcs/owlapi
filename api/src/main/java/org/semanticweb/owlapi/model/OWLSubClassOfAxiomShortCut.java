@@ -24,9 +24,9 @@ public interface OWLSubClassOfAxiomShortCut {
     /**
      * Gets this axiom as an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}.
      *
-     * @return An {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} that is equivalent to this
-     * axiom. Note that annotations are not copied to the returned {@link
-     * org.semanticweb.owlapi.model.OWLSubClassOfAxiom} axiom.
+     * @return An {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} that is equivalent to
+     *         this axiom. Note that annotations are not copied to the returned
+     *         {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} axiom.
      */
     OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 }

@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc"})
 public class RemoveOntologyAnnotationDataTestCase {
 
     private final OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);

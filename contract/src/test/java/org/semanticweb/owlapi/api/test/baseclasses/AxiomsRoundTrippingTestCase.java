@@ -71,7 +71,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TopDa
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,7 +111,6 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
 

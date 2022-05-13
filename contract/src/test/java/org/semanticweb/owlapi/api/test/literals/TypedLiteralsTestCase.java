@@ -41,7 +41,6 @@ import org.semanticweb.owlapi.utility.OWLObjectTransformer;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public class TypedLiteralsTestCase extends TestBase {
 
     OWLDataProperty prop = DataProperty(iri("p"));

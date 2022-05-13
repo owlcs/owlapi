@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.Collection;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 4.0.0
@@ -33,4 +35,42 @@ public interface HasOntologyChangeListeners {
      * @param listener The listener to be added.
      */
     void addOntologyChangeListener(OWLOntologyChangeListener listener);
+
+    /**
+     * This method is called before the changes are applied.
+     * 
+     * @param changes changes to broadcast
+     */
+    void broadcastImpendingChanges(Collection<? extends OWLOntologyChange> changes);
+
+    /**
+     * Called when changes begin
+     * 
+     * @param size number of changes
+     */
+    void fireBeginChanges(int size);
+
+    /**
+     * @param change change just applied
+     */
+    void fireChangeApplied(OWLOntologyChange change);
+
+    /**
+     * Called when changes end.
+     */
+    void fireEndChanges();
+
+    /**
+     * This method is called after the changes are applied.
+     * 
+     * @param changes changes to broadcast
+     */
+    void broadcastChanges(Collection<? extends OWLOntologyChange> changes);
+
+    /**
+     * @param changes changes that were proposed
+     * @param veto veto on changes
+     */
+    void broadcastOntologyChangesVetoed(Collection<? extends OWLOntologyChange> changes,
+        OWLOntologyChangeVetoException veto);
 }

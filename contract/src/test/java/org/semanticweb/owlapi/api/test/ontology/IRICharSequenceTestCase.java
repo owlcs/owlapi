@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.IRI;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3.0
  */
-@SuppressWarnings("javadoc")
 public class IRICharSequenceTestCase {
 
     @Test

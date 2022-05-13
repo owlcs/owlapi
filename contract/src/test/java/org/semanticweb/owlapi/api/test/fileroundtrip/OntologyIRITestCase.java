@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public class OntologyIRITestCase extends AbstractRoundTrippingTestCase {
 
     @Test

@@ -12,9 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.utility;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-
-import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -37,19 +34,6 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      * @param shortForm The short form of the entities that will be retrieved.
      * @return The set of entities that have the specified short form. If there are no entities
      * which have the specified short form then an empty set will be returned.
-     * @deprecated use {@link #entities(String)}
-     */
-    @Deprecated
-    default Set<OWLEntity> getEntities(String shortForm) {
-        return asSet(entities(shortForm));
-    }
-
-    /**
-     * For a given short form this method obtains the entities which have this short form.
-     *
-     * @param shortForm The short form of the entities that will be retrieved.
-     * @return The set of entities that have the specified short form. If there are no entities
-     * which have the specified short form then an empty set will be returned.
      */
     Stream<OWLEntity> entities(String shortForm);
 
@@ -63,18 +47,6 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      */
     @Nullable
     OWLEntity getEntity(String shortForm);
-
-    /**
-     * Gets all of the short forms that are mapped to entities.
-     *
-     * @return A set, which contains the strings representing the short forms of entities for which
-     * there is a mapping.
-     * @deprecated use {@link #shortForms()}
-     */
-    @Deprecated
-    default Set<String> getShortForms() {
-        return asSet(shortForms());
-    }
 
     /**
      * Gets all of the short forms that are mapped to entities.

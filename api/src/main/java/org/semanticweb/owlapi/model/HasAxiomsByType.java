@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import static java.util.stream.Collectors.toSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -38,23 +36,8 @@ public interface HasAxiomsByType {
     default boolean equalAxioms(HasAxiomsByType o) {
         // using collect(toSet()) to avoid ordering issues and avoid
         // LinkedHashSet cost
-        return AxiomType.AXIOM_TYPES.stream().allMatch(
-            t -> axioms(t).collect(toSet()).equals(o.axioms(t).collect(toSet())));
-    }
-
-    /**
-     * Gets the axioms which are of the specified type.
-     *
-     * @param axiomType The type of axioms to be retrieved.
-     * @param <T> axiom type
-     * @return A set containing the axioms which are of the specified type. The set that is returned
-     * is a copy of the axioms in this object. Modifications to the returned set will not be
-     * reflected in this object.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
-        return asSet(axioms(axiomType));
+        return AxiomType.AXIOM_TYPES.stream()
+            .allMatch(t -> axioms(t).collect(toSet()).equals(o.axioms(t).collect(toSet())));
     }
 
     /**

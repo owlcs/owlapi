@@ -11,7 +11,6 @@ import org.junit.Test;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
-@SuppressWarnings("javadoc")
 public class OWLOntologyIRIShortFormProviderTestCase {
 
     public static final String SCHEME_DOMAIN = "http://www.semanticweb.org";

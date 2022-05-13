@@ -24,7 +24,6 @@ public interface OWLObjectVisitorEx<O> {
      * @param object The object that was visited.
      * @return The default return value
      */
-    @SuppressWarnings("null")
     default O doDefault(@SuppressWarnings("unused") OWLObject object) {
         // no other way to provide a default implementation
         return null;

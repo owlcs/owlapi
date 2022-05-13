@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public abstract class AxiomsRoundTrippingBase extends AbstractRoundTrippingTestCase {
 
     private final AxiomBuilder createAxioms;

@@ -22,8 +22,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Set;
@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-@SuppressWarnings("javadoc")
 public class TurtleTestCase extends TestBase {
 
     private final String iri = "urn:test:literals";
@@ -414,8 +413,8 @@ public class TurtleTestCase extends TestBase {
         IRI test1 = df.getIRI("http://www.semanticweb.org/ontology#A...");
         IRI test2 = df.getIRI("http://www.semanticweb.org/ontology#A...B");
         OWLOntology o = m.createOntology(df.getIRI("http://www.semanticweb.org/ontology"));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test1)));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test2)));
+        o.addAxiom(df.getOWLDeclarationAxiom(df.getOWLClass(test1)));
+        o.addAxiom(df.getOWLDeclarationAxiom(df.getOWLClass(test2)));
         TurtleDocumentFormat format = new TurtleDocumentFormat();
         o.getPrefixManager().withDefaultPrefix("http://www.semanticweb.org/ontology#");
         roundTrip(o, format);

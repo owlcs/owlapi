@@ -226,4 +226,4 @@ package org.semanticweb.owlapi.dlsyntax.parser;
    }
 
 }
-/* JavaCC - OriginalChecksum=b1544a00354a7897f05c2de16f08e4a2 (do not edit this line) */
+/* JavaCC - OriginalChecksum=4c7ea0df8b11bc9930532c65c3b44c63 (do not edit this line) */

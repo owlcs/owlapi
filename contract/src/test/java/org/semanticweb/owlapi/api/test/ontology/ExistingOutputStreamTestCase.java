@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.3
  */
-@SuppressWarnings("javadoc")
 public class ExistingOutputStreamTestCase extends TestBase {
 
     @Test
@@ -53,8 +52,8 @@ public class ExistingOutputStreamTestCase extends TestBase {
     @Override
     protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o, OWLDocumentFormat format) {
         try (BufferedOutputStream os = new BufferedOutputStream(new ByteArrayOutputStream());
-                        OutputStreamWriter w = new OutputStreamWriter(os)) {
-            o.getOWLOntologyManager().saveOntology(o, format, os);
+            OutputStreamWriter w = new OutputStreamWriter(os)) {
+            o.saveOntology(format, os);
             os.flush();
             w.write("<!-- Comment -->");
         } catch (Exception e) {

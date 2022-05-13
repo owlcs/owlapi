@@ -133,7 +133,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -176,7 +175,6 @@ import org.semanticweb.owlapi.utilities.RemappingIndividualProvider;
 import org.semanticweb.owlapi.utilities.XMLUtils;
 import org.semanticweb.owlapi.utility.NamespaceUtil;
 import org.semanticweb.owlapi.utility.OntologyAxiomPair;
-import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -2158,7 +2156,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             changes.add(new AddAxiom(ont, pair.getAxiom()));
         }
         changes.add(new SetOntologyID(ont, ontologyID));
-        ont.getOWLOntologyManager().applyChanges(changes);
+        ont.applyChanges(changes);
         ManchesterSyntaxDocumentFormat format = new ManchesterSyntaxDocumentFormat();
         ont.getPrefixManager().copyPrefixesFrom(pm);
         return format;
@@ -2318,11 +2316,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             .withClass().withObject().withData().withKeyword(OPEN, OPENBRACE, INV, FUNCTIONAL,
                 INVERSE_FUNCTIONAL, SYMMETRIC, ASYMMETRIC, TRANSITIVE, REFLEXIVE, IRREFLEXIVE)
             .build();
-    }
-
-    @Override
-    public OWLClassAxiom parseClassAxiom() {
-        return (OWLClassAxiom) parseAxiom();
     }
 
     private OWLAxiom parseAxiomWithIndividualStart() {

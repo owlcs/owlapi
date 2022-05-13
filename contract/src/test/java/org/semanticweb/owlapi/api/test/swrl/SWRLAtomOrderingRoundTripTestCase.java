@@ -6,8 +6,8 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -39,12 +39,11 @@ import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
  *         04/04/2014
  */
-@SuppressWarnings({"javadoc", "null"})
 public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
 
     private final @Nonnull Set<SWRLAtom> body = new LinkedHashSet<>();
     private final @Nonnull Set<SWRLAtom> head = new LinkedHashSet<>();
-    private @Nonnull SWRLRule rule;
+    private SWRLRule rule;
 
     @Before
     public void setUpPrefixes() {

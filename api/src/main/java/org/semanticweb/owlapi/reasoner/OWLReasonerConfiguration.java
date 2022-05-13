@@ -50,8 +50,8 @@ public interface OWLReasonerConfiguration extends Serializable {
      * many satisfiability (or other basic reasoning task) checks, the sum of which may well exceed
      * the timeout.
      *
-     * @return The time out in milliseconds. By default this is set to the value of {@link
-     * Long#MAX_VALUE}, which means the reasoner SHOULD NOT timeout.
+     * @return The time out in milliseconds. By default this is set to the value of
+     *         {@link Long#MAX_VALUE}, which means the reasoner SHOULD NOT timeout.
      */
     long getTimeOut();
 
@@ -64,13 +64,13 @@ public interface OWLReasonerConfiguration extends Serializable {
     FreshEntityPolicy getFreshEntityPolicy();
 
     /**
-     * Gets the {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy} which determines how
-     * {@code NodeSet}s of named individuals are returned from the reasoner.
+     * Gets the {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy} which determines
+     * how {@code NodeSet}s of named individuals are returned from the reasoner.
      *
      * @return The {@code IndividualNodeSetPolicy} that should be used. By default the policy is
-     * {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy#BY_NAME} i.e. by default
-     * individuals that are the same as each other are not grouped into the same node within a node
-     * set.
+     *         {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy#BY_NAME} i.e. by
+     *         default individuals that are the same as each other are not grouped into the same
+     *         node within a node set.
      */
     IndividualNodeSetPolicy getIndividualNodeSetPolicy();
 }

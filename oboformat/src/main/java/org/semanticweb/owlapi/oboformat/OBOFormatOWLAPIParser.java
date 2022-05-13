@@ -17,9 +17,6 @@ import java.io.Serializable;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import org.obolibrary.obo2owl.OWLAPIObo2Owl;
-import org.obolibrary.oboformat.model.OBODoc;
-import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -27,6 +24,9 @@ import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.obolibrary.obo2owl.OWLAPIObo2Owl;
+import org.semanticweb.owlapi.obolibrary.oboformat.model.OBODoc;
+import org.semanticweb.owlapi.obolibrary.oboformat.parser.OBOFormatParser;
 
 /**
  * OBOformat parser.

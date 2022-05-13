@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.utility;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

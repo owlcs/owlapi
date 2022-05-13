@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-@SuppressWarnings("javadoc")
 public class OntologyMutationTestCase extends TestBase {
 
     @Test
@@ -63,7 +62,7 @@ public class OntologyMutationTestCase extends TestBase {
         OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
-        ont.getOWLOntologyManager().applyChange(new AddAxiom(ont, ax));
+        ont.applyChange(new AddAxiom(ont, ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
@@ -74,7 +73,7 @@ public class OntologyMutationTestCase extends TestBase {
         OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         List<OWLOntologyChange> chgs = new ArrayList<>();
         ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
-        ont.getOWLOntologyManager().applyChange(new AddAxiom(ont, ax));
+        ont.applyChange(new AddAxiom(ont, ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }

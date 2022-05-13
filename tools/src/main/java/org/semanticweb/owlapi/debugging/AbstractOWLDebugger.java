@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -27,7 +26,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * An abstract debugger which provides common infrastructure for finding multiple justification.
@@ -59,9 +57,9 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     private void mergeImportsClosure() {
         OWLOntology o = ontology;
         try {
-                   ontology =
+            ontology =
                 man.createOntology(df.getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"),
-                o.importsClosure(), true);
+                    o.importsClosure(), true);
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -102,13 +100,13 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
      * unsatisfiable class.
      *
      * @param mups The current justification for the current class. This corresponds to a node in
-     * the hitting set tree.
+     *        the hitting set tree.
      * @param allMups All of the MUPS that have been found - this set gets populated over the course
      *        of the tree building process. Initially this should just contain the first
      *        justification
      * @param satPaths Paths that have been completed.
      * @param currentPathContents The contents of the current path. Initially this should be an
-     * empty set.
+     *        empty set.
      * @throws OWLException if there is any problem
      */
     public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
@@ -117,7 +115,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         // with edges for each axiom
         for (OWLAxiom axiom : mups) {
             // Remove the current axiom from the ontology
-            man.applyChange(new RemoveAxiom(ontology, axiom));
+            ontology.remove(axiom);
             currentPathContents.add(axiom);
             boolean earlyTermination = false;
             // Early path termination. If our path contents are the superset of
@@ -132,7 +130,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
             // Back track - go one level up the tree and run for the next axiom
             currentPathContents.remove(axiom);
             // Done with the axiom that was removed. Add it back in
-            man.applyChange(new AddAxiom(ontology, axiom));
+            ontology.add(axiom);
         }
     }
 

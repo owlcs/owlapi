@@ -11,7 +11,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-@SuppressWarnings("javadoc")
 public class ThreeLayersOfAnnotationsTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
@@ -32,13 +31,13 @@ public class ThreeLayersOfAnnotationsTestCase extends AbstractRoundTrippingTestC
             df.getOWLAnnotationProperty(df.getIRI(oboInOwl, "hasDbXref"));
         OWLDataProperty hasuri = df.getOWLDataProperty(df.getIRI(oboInOwl, "hasURI"));
         OWLAnonymousIndividual ind1 = df.getOWLAnonymousIndividual();
-        m.addAxiom(o, df.getOWLClassAssertionAxiom(dbxref, ind1));
-        m.addAxiom(o, df.getOWLDataPropertyAssertionAxiom(hasuri, ind1,
-                        df.getOWLLiteral("urn:SO:SO_ke", OWL2Datatype.XSD_ANY_URI)));
+        o.addAxiom(df.getOWLClassAssertionAxiom(dbxref, ind1));
+        o.addAxiom(df.getOWLDataPropertyAssertionAxiom(hasuri, ind1,
+            df.getOWLLiteral("urn:SO:SO_ke", OWL2Datatype.XSD_ANY_URI)));
         OWLAnonymousIndividual ind2 = df.getOWLAnonymousIndividual();
-        m.addAxiom(o, df.getOWLClassAssertionAxiom(definition, ind2));
-        m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(hasdbxref, ind2, ind1));
-        m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(hasDefinition, adjacent_to.getIRI(), ind2));
+        o.addAxiom(df.getOWLClassAssertionAxiom(definition, ind2));
+        o.addAxiom(df.getOWLAnnotationAssertionAxiom(hasdbxref, ind2, ind1));
+        o.addAxiom(df.getOWLAnnotationAssertionAxiom(hasDefinition, adjacent_to.getIRI(), ind2));
         return o;
     }
 

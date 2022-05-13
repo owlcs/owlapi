@@ -10,7 +10,6 @@ import org.semanticweb.owlapi.utilities.PriorityCollection;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings("javadoc")
 public class OWLOntologyStorerFactoryRegistryTestCase {
 
     private static final int EXPECTED_STORERS = 20;

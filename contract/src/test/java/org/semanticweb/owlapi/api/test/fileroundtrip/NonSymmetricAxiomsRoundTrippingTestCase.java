@@ -53,7 +53,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * @since 3.0.0
  */
 @RunWith(Parameterized.class)
-@SuppressWarnings("javadoc")
 public class NonSymmetricAxiomsRoundTrippingTestCase extends TestBase {
 
     private static final IRI iriA = iri("A");

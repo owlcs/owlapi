@@ -54,7 +54,8 @@ public abstract class OWLOntologyChangeData implements HasSignature, Serializabl
      *
      * @param ontology The {@link OWLOntology} that the change should apply to.
      * @return An {@link OWLOntologyChange} object that applies to {@code ontology} and changes
-     * {@code ontology} in a way that is consistent with this the information held in this {@code
+     *         {@code ontology} in a way that is consistent with this the information held in this
+     *         {@code
      * OWLOntologyChangeData} object.
      **/
     public abstract OWLOntologyChange createOntologyChange(OWLOntology ontology);

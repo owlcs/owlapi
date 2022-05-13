@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 
-import uk.ac.manchester.cs.owl.owlapi.InternalizedEntities;
+import uk.ac.manchester.cs.owlapi.InternalizedEntities;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group

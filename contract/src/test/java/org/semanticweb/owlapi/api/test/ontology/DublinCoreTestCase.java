@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
 public class DublinCoreTestCase extends TestBase {
 
     @Test

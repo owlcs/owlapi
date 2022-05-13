@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc"})
 public class RemoveAxiomDataTestCase {
 
     private final OWLAxiom mockAxiom = mock(OWLAxiom.class);

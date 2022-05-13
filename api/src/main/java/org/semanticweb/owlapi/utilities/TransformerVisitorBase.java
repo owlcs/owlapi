@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.utilities;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.EnumMap;
 import java.util.List;

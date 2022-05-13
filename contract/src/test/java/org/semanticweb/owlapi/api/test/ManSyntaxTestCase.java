@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class ManSyntaxTestCase extends TestBase {
 
@@ -117,7 +116,7 @@ public class ManSyntaxTestCase extends TestBase {
     @Test
     public void testAssertion() throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = setupManager().createOntology(df.getIRI("urn:test:manchester"));
-        o.getOWLOntologyManager().addAxiom(o, object);
+        o.addAxiom(object);
         StringDocumentTarget s = saveOntology(o, new ManchesterSyntaxDocumentFormat());
         loadOntologyFromString(s, new ManchesterSyntaxDocumentFormat());
     }

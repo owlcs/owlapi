@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.utility.OWLClassExpressionCollector;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class OWLClassExpressionCollectorTestCase {
 

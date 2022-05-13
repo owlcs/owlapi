@@ -12,9 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -50,17 +47,6 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
     /**
      * Gets all of the top level class expressions that appear in this axiom.
      *
-     * @return A {@code Set} of class expressions that appear in the axiom.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLClassExpression> getClassExpressions() {
-        return asSet(classExpressions());
-    }
-
-    /**
-     * Gets all of the top level class expressions that appear in this axiom.
-     *
      * @return Sorted stream of class expressions that appear in the axiom.
      */
     Stream<OWLClassExpression> classExpressions();
@@ -68,18 +54,6 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
     @Override
     default Stream<OWLClassExpression> operands() {
         return classExpressions();
-    }
-
-    /**
-     * A convenience method that obtains the class expression returned by the
-     * {@link #getClassExpressions()} method as a list of class expressions.
-     *
-     * @return A list of the class expressions in this axiom.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default List<OWLClassExpression> getClassExpressionsAsList() {
-        return getOperandsAsList();
     }
 
     /**

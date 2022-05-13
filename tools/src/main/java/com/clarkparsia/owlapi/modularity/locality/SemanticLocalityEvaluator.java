@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.modularity.locality;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 import java.util.Set;
@@ -160,7 +160,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         private OWLClassExpression newClassExpression;
         private Collection<OWLEntity> signature;
 
-        @SuppressWarnings("null")
         BottomReplacer() {}
 
         /**
@@ -292,8 +291,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectAllValuesFrom ce) {
             if (signature.contains(ce.getProperty().getNamedProperty())) {
-                newClassExpression = df.getOWLObjectAllValuesFrom(ce.getProperty(),
-                    replaceBottom(ce.getFiller()));
+                newClassExpression =
+                    df.getOWLObjectAllValuesFrom(ce.getProperty(), replaceBottom(ce.getFiller()));
             } else {
                 newClassExpression = df.getOWLThing();
             }
@@ -349,8 +348,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectSomeValuesFrom ce) {
             if (signature.contains(ce.getProperty().getNamedProperty())) {
-                newClassExpression = df.getOWLObjectSomeValuesFrom(ce.getProperty(),
-                    replaceBottom(ce.getFiller()));
+                newClassExpression =
+                    df.getOWLObjectSomeValuesFrom(ce.getProperty(), replaceBottom(ce.getFiller()));
             } else {
                 newClassExpression = df.getOWLNothing();
             }

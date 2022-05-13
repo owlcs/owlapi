@@ -46,7 +46,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.zip.GZIPInputStream;
 
-@SuppressWarnings("javadoc")
 @State(Scope.Thread)
 public class FunctionalSyntaxParsingBenchmark {
 

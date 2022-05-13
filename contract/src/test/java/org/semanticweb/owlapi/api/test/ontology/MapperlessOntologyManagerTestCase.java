@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.3
  */
-@SuppressWarnings("javadoc")
 public class MapperlessOntologyManagerTestCase extends TestBase {
 
     private static final IRI ONTOLOGY_IRI = IRI("http://test.com/", "ont");

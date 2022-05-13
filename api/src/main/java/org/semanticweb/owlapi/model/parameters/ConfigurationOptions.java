@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * This enum handles default values and config file or system property overrides. The config file
  * name is {@code owlapi.properties}; to enable, make sure the file is in the classpath. The
- * property names are {@code "org.semanticweb.owlapi.model.parameters.ConfigurationOptions."+name()}
+ * property names are {@code "org.semanticweb.owlapi.model.parameters.ConfigurationOptions."+name()}.
  * , both in the properties file and in the system properties.
  */
 public enum ConfigurationOptions {

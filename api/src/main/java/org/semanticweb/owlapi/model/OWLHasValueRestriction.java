@@ -34,15 +34,6 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestrict
     }
 
     /**
-     * @return the value
-     * @deprecated use getFiller instead
-     */
-    @Deprecated
-    default V getValue() {
-        return getFiller();
-    }
-
-    /**
      * A convenience method that obtains this restriction as an existential restriction with a
      * nominal filler.
      *

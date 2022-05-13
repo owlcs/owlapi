@@ -34,9 +34,10 @@ public interface LiteralProvider extends DatatypeProvider {
      * @param lexicalValue The lexical value.
      * @param datatype The datatype.
      * @return An OWLLiteral with the specified lexical value and specified datatype. If the
-     * datatype is {@code rdf:PlainLiteral}, and the lexical value contains a language tag then the
-     * language tag will be parsed out of the lexical value. For example, "abc@en"^^rdf:PlainLiteral
-     * would be parsed into a lexical value of "abc" and a language tag of "en".
+     *         datatype is {@code rdf:PlainLiteral}, and the lexical value contains a language tag
+     *         then the language tag will be parsed out of the lexical value. For example,
+     *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value of "abc" and a
+     *         language tag of "en".
      */
     OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
 
@@ -47,9 +48,10 @@ public interface LiteralProvider extends DatatypeProvider {
      * @param lexicalValue The lexical value.
      * @param datatype The datatype.
      * @return An OWLLiteral with the specified lexical value and specified datatype. If the
-     * datatype is {@code rdf:PlainLiteral}, and the lexical value contains a language tag then the
-     * language tag will be parsed out of the lexical value. For example, "abc@en"^^rdf:PlainLiteral
-     * would be parsed into a lexical value of "abc" and a language tag of "en".
+     *         datatype is {@code rdf:PlainLiteral}, and the lexical value contains a language tag
+     *         then the language tag will be parsed out of the lexical value. For example,
+     *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value of "abc" and a
+     *         language tag of "en".
      */
     default OWLLiteral getOWLLiteral(String lexicalValue, OWL2Datatype datatype) {
         checkNotNull(datatype, "datatype cannot be null");
@@ -61,7 +63,7 @@ public interface LiteralProvider extends DatatypeProvider {
      *
      * @param value The value of the literal
      * @return An {@code OWLTypedConstant} whose literal is the lexical value of the integer, and
-     * whose data type is xsd:integer.
+     *         whose data type is xsd:integer.
      */
     OWLLiteral getOWLLiteral(int value);
 
@@ -70,7 +72,7 @@ public interface LiteralProvider extends DatatypeProvider {
      *
      * @param value The value of the literal
      * @return An {@code OWLTypedConstant} whose literal is the lexical value of the double, and
-     * whose data type is xsd:double.
+     *         whose data type is xsd:double.
      */
     OWLLiteral getOWLLiteral(double value);
 
@@ -79,7 +81,7 @@ public interface LiteralProvider extends DatatypeProvider {
      *
      * @param value The value of the literal
      * @return An {@code OWLTypedConstant} whose literal is the lexical value of the boolean, and
-     * whose data type is xsd:boolean.
+     *         whose data type is xsd:boolean.
      */
     OWLLiteral getOWLLiteral(boolean value);
 
@@ -88,7 +90,7 @@ public interface LiteralProvider extends DatatypeProvider {
      *
      * @param value The value of the literal
      * @return An {@code OWLTypedConstant} whose literal is the lexical value of the float, and
-     * whose data type is xsd:float.
+     *         whose data type is xsd:float.
      */
     OWLLiteral getOWLLiteral(float value);
 
@@ -107,13 +109,14 @@ public interface LiteralProvider extends DatatypeProvider {
      *
      * @param literal The string literal.
      * @param lang The language tag. The empty string may be specified to indicate an empty language
-     * tag. Leading and trailing white space will be removed from the tag and the tag will be
-     * normalised to LOWER CASE. If {@code lang} is {@code null} then {@code lang} will be converted
-     * to the empty string (for backwards compatibility). If not empty, the tag is formed according
-     * to <a href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a> but the OWL API will not
-     * check that the tag conforms to this specification - it is up to the caller to ensure this.
+     *        tag. Leading and trailing white space will be removed from the tag and the tag will be
+     *        normalised to LOWER CASE. If {@code lang} is {@code null} then {@code lang} will be
+     *        converted to the empty string (for backwards compatibility). If not empty, the tag is
+     *        formed according to <a href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a>
+     *        but the OWL API will not check that the tag conforms to this specification - it is up
+     *        to the caller to ensure this.
      * @return The OWLLiteral that represents the string literal with a (possibly empty) language
-     * tag.
+     *         tag.
      */
     OWLLiteral getOWLLiteral(String literal, @Nullable String lang);
 }

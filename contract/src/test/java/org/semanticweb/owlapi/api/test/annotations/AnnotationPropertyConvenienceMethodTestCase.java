@@ -19,8 +19,8 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Filters.subAnnotationWithSuper;
 import static org.semanticweb.owlapi.search.Searcher.sub;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
 
@@ -35,7 +35,6 @@ import org.semanticweb.owlapi.search.Filters;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.0
  */
-@SuppressWarnings("javadoc")
 public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
 
     @Test
@@ -44,12 +43,10 @@ public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
         OWLAnnotationProperty propP = AnnotationProperty(iri("propP"));
         OWLAnnotationProperty propQ = AnnotationProperty(iri("propQ"));
         OWLAnnotationProperty propR = AnnotationProperty(iri("propR"));
-        ont.getOWLOntologyManager().addAxiom(ont,
-                        df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
-        ont.getOWLOntologyManager().addAxiom(ont,
-                        df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
+        ont.addAxioms(df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ),
+            df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
         Collection<OWLAxiom> axioms =
-                        asUnorderedSet(ont.axioms(Filters.subAnnotationWithSub, propP, INCLUDED));
+            asUnorderedSet(ont.axioms(Filters.subAnnotationWithSub, propP, INCLUDED));
         assertTrue(contains(sup(axioms.stream()), propQ));
         assertTrue(contains(sup(axioms.stream()), propR));
         axioms = asUnorderedSet(ont.axioms(Filters.subAnnotationWithSub, propP, EXCLUDED));
@@ -63,10 +60,8 @@ public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
         OWLAnnotationProperty propP = AnnotationProperty(iri("propP"));
         OWLAnnotationProperty propQ = AnnotationProperty(iri("propQ"));
         OWLAnnotationProperty propR = AnnotationProperty(iri("propR"));
-        ont.getOWLOntologyManager().addAxiom(ont,
-                        df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
-        ont.getOWLOntologyManager().addAxiom(ont,
-                        df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
+        ont.addAxioms(df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ),
+            df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
         assertTrue(contains(sub(ont.axioms(subAnnotationWithSuper, propQ, INCLUDED)), propP));
         assertTrue(contains(sub(ont.axioms(subAnnotationWithSuper, propQ, EXCLUDED)), propP));
         assertTrue(contains(sub(ont.axioms(subAnnotationWithSuper, propR, INCLUDED)), propP));

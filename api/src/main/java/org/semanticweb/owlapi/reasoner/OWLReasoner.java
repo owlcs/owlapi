@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.util.Version;
+import org.semanticweb.owlapi.utilities.Version;
 
 /**
  * An OWLReasoner reasons over a set of axioms (the set of reasoner axioms) that is based on the
@@ -44,10 +44,10 @@ import org.semanticweb.owlapi.util.Version;
  * <h2>Ontology Change Management (Buffering and Non-Buffering Modes)</h2> At creation time, an
  * OWLReasoner will load the axioms in the root ontology imports closure. It will attach itself as a
  * listener to the {@link org.semanticweb.owlapi.model.OWLOntologyManager} that manages the root
- * ontology. The reasoner will listen to any {@link org.semanticweb.owlapi.model.OWLOntologyChange}s
- * and respond appropriately to them before answering any queries. If the
- * {@link org.semanticweb.owlapi.reasoner.BufferingMode} of the reasoner (the answer to
- * {@link #getBufferingMode()} is
+ * ontology. The reasoner will listen to any
+ * {@link org.semanticweb.owlapi.model.OWLOntologyChange}s and respond appropriately to them before
+ * answering any queries. If the {@link org.semanticweb.owlapi.reasoner.BufferingMode} of the
+ * reasoner (the answer to {@link #getBufferingMode()} is
  * {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING}) the ontology changes are
  * processed by the reasoner immediately so that any queries asked after the changes are answered
  * with respect to the changed ontologies. If the
@@ -83,8 +83,8 @@ import org.semanticweb.owlapi.util.Version;
  * <h2>Hierarchies</h2> A hierachy (class hierachy, object property hierarchy, data property
  * hierarchy) is viewed as a directed acyclic graph (DAG) containing nodes connected via edges. Each
  * node in the hierarchy represents a set of entities that are equivalent to each other. Each
- * hierarchy has a top node (see org.semanticweb.owlapi.reasoner.Node#isTopNode()) and a bottom node
- * (see org.semanticweb.owlapi.reasoner.Node#isBottomNode()). <br>
+ * hierarchy has a top node (see org.semanticweb.owlapi.reasoner.Node#isTopNode()) and a bottom
+ * node (see {@link org.semanticweb.owlapi.reasoner.Node#isBottomNode}). <br>
  * The figure below shows an example class hierarchy. Each box in the hierarchy represents a
  * {@code Node}. In this case the top node contains {@code owl:Thing} and the bottom node contains
  * {@code owl:Nothing} because the nodes in the hierarchy are {@code OWLClass} nodes. In this case,
@@ -506,8 +506,8 @@ public interface OWLReasoner {
      * @param axiomType The axiom type
      * @return {@code true} if entailment checking for the specified axiom type is supported,
      *         otherwise {@code false}. If {@code true} then asking
-     *         {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)} will <em>not</em> throw an
-     *         exception of
+     *         {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)} will <em>not</em> throw
+     *         an exception of
      *         {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException} . If
      *         {@code false} then asking {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)}
      *         <em>will</em> throw an
@@ -524,8 +524,8 @@ public interface OWLReasoner {
      * @return A {@code Node} containing {@code owl:Thing} that is the top node in the class
      *         hierarchy. This {@code Node} is essentially equal to the {@code Node} returned by
      *         calling
-     *         {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)} with a
-     *         parameter of {@code owl:Thing}.
+     *         {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)} with
+     *         a parameter of {@code owl:Thing}.
      */
     Node<OWLClass> getTopClassNode();
 
@@ -536,8 +536,8 @@ public interface OWLReasoner {
      * @return A {@code Node} containing {@code owl:Thing} that is the top node in the class
      *         hierarchy. This {@code Node} is essentially equal to the {@code Node} returned by
      *         calling
-     *         {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)} with a
-     *         parameter of {@code owl:Thing}.
+     *         {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)} with
+     *         a parameter of {@code owl:Thing}.
      */
     default Stream<OWLClass> topClassNode() {
         return getTopClassNode().entities();
@@ -550,8 +550,8 @@ public interface OWLReasoner {
      * @return A {@code Node} containing {@code owl:Nothing} that is the bottom node in the class
      *         hierarchy. This {@code Node} is essentially equal to the {@code Node} that will be
      *         returned by calling
-     *         {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)} with a
-     *         parameter of {@code owl:Nothing}.
+     *         {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)} with
+     *         a parameter of {@code owl:Nothing}.
      */
     Node<OWLClass> getBottomClassNode();
 
@@ -562,8 +562,8 @@ public interface OWLReasoner {
      * @return A {@code Node} containing {@code owl:Nothing} that is the bottom node in the class
      *         hierarchy. This {@code Node} is essentially equal to the {@code Node} that will be
      *         returned by calling
-     *         {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)} with a
-     *         parameter of {@code owl:Nothing}.
+     *         {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)} with
+     *         a parameter of {@code owl:Nothing}.
      */
     default Stream<OWLClass> bottomClassNode() {
         return getBottomClassNode().entities();
@@ -2919,8 +2919,8 @@ public interface OWLReasoner {
     /**
      * Disposes of this reasoner. This frees up any resources used by the reasoner and detaches the
      * reasoner as an {@link org.semanticweb.owlapi.model.OWLOntologyChangeListener} from the
-     * {@link org.semanticweb.owlapi.model.OWLOntologyManager} that manages the ontologies contained
-     * within the reasoner.
+     * {@link org.semanticweb.owlapi.model.OWLOntologyManager} that manages the ontologies
+     * contained within the reasoner.
      */
     void dispose();
 }

@@ -12,9 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -68,18 +65,6 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom, HasOperands<OWLCla
     /**
      * Gets the class expressions which are operands of the disjoint union.
      *
-     * @return A {@code Set} containing the operands of the disjoint union, note that this <b>does
-     *         not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLClassExpression> getClassExpressions() {
-        return asSet(classExpressions());
-    }
-
-    /**
-     * Gets the class expressions which are operands of the disjoint union.
-     *
      * @return Sorted stream containing the operands of the disjoint union, note that this <b>does
      *         not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
      */
@@ -90,7 +75,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom, HasOperands<OWLCla
      *
      * @return The equivalent classes axiom part of this axiom. This is essentially, {@code
      * EquivalentClasses(CE, CEUnion)} where {@code CEUnion} is the union of the classes returned by
-     *         the {@link #getClassExpressions()} method and {@code CE} is the class returned by the
+     *         the {@link #classExpressions()} method and {@code CE} is the class returned by the
      *         {@link #getOWLClass()} method.
      */
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom();
@@ -100,7 +85,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom, HasOperands<OWLCla
      *
      * @return The disjoint classes axiom part of this axiom. This is essentially, {@code
      * DisjointClasses(CE1, ..., CEn)} where {@code CEi in (CE1, ..., CEn)} is contained in the
-     *         classes returned by the {@link #getClassExpressions()} method.
+     *         classes returned by the {@link #classExpressions()} method.
      */
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom();
 

@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * A change broadcast strategy that simple broadcasts all changes made to all ontologies.
@@ -26,7 +26,7 @@ public class DefaultChangeBroadcastStrategy
 
     @Override
     public void broadcastChanges(OWLOntologyChangeListener listener,
-        List<? extends OWLOntologyChange> changes) {
+        Collection<? extends OWLOntologyChange> changes) {
         // Just broadcast all changes
         listener.ontologiesChanged(changes);
     }

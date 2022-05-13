@@ -125,7 +125,92 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.builders.BaseBuilder;
+import org.semanticweb.owlapi.builders.Builder;
+import org.semanticweb.owlapi.builders.BuilderAnnotation;
+import org.semanticweb.owlapi.builders.BuilderAnnotationAssertion;
+import org.semanticweb.owlapi.builders.BuilderAnnotationProperty;
+import org.semanticweb.owlapi.builders.BuilderAnnotationPropertyDomain;
+import org.semanticweb.owlapi.builders.BuilderAnnotationPropertyRange;
+import org.semanticweb.owlapi.builders.BuilderAnonymousIndividual;
+import org.semanticweb.owlapi.builders.BuilderAsymmetricObjectProperty;
+import org.semanticweb.owlapi.builders.BuilderClass;
+import org.semanticweb.owlapi.builders.BuilderClassAssertion;
+import org.semanticweb.owlapi.builders.BuilderComplementOf;
+import org.semanticweb.owlapi.builders.BuilderDataAllValuesFrom;
+import org.semanticweb.owlapi.builders.BuilderDataComplementOf;
+import org.semanticweb.owlapi.builders.BuilderDataExactCardinality;
+import org.semanticweb.owlapi.builders.BuilderDataHasValue;
+import org.semanticweb.owlapi.builders.BuilderDataIntersectionOf;
+import org.semanticweb.owlapi.builders.BuilderDataMaxCardinality;
+import org.semanticweb.owlapi.builders.BuilderDataMinCardinality;
+import org.semanticweb.owlapi.builders.BuilderDataOneOf;
+import org.semanticweb.owlapi.builders.BuilderDataProperty;
+import org.semanticweb.owlapi.builders.BuilderDataPropertyAssertion;
+import org.semanticweb.owlapi.builders.BuilderDataPropertyDomain;
+import org.semanticweb.owlapi.builders.BuilderDataPropertyRange;
+import org.semanticweb.owlapi.builders.BuilderDataSomeValuesFrom;
+import org.semanticweb.owlapi.builders.BuilderDataUnionOf;
+import org.semanticweb.owlapi.builders.BuilderDatatype;
+import org.semanticweb.owlapi.builders.BuilderDatatypeDefinition;
+import org.semanticweb.owlapi.builders.BuilderDatatypeRestriction;
+import org.semanticweb.owlapi.builders.BuilderDeclaration;
+import org.semanticweb.owlapi.builders.BuilderDifferentIndividuals;
+import org.semanticweb.owlapi.builders.BuilderDisjointClasses;
+import org.semanticweb.owlapi.builders.BuilderDisjointDataProperties;
+import org.semanticweb.owlapi.builders.BuilderDisjointObjectProperties;
+import org.semanticweb.owlapi.builders.BuilderDisjointUnion;
+import org.semanticweb.owlapi.builders.BuilderEquivalentClasses;
+import org.semanticweb.owlapi.builders.BuilderEquivalentDataProperties;
+import org.semanticweb.owlapi.builders.BuilderEquivalentObjectProperties;
+import org.semanticweb.owlapi.builders.BuilderFacetRestriction;
+import org.semanticweb.owlapi.builders.BuilderFunctionalDataProperty;
+import org.semanticweb.owlapi.builders.BuilderFunctionalObjectProperty;
+import org.semanticweb.owlapi.builders.BuilderHasKey;
+import org.semanticweb.owlapi.builders.BuilderInverseFunctionalObjectProperty;
+import org.semanticweb.owlapi.builders.BuilderInverseObjectProperties;
+import org.semanticweb.owlapi.builders.BuilderIrreflexiveObjectProperty;
+import org.semanticweb.owlapi.builders.BuilderLiteral;
+import org.semanticweb.owlapi.builders.BuilderNamedIndividual;
+import org.semanticweb.owlapi.builders.BuilderNegativeDataPropertyAssertion;
+import org.semanticweb.owlapi.builders.BuilderNegativeObjectPropertyAssertion;
+import org.semanticweb.owlapi.builders.BuilderObjectAllValuesFrom;
+import org.semanticweb.owlapi.builders.BuilderObjectExactCardinality;
+import org.semanticweb.owlapi.builders.BuilderObjectHasSelf;
+import org.semanticweb.owlapi.builders.BuilderObjectHasValue;
+import org.semanticweb.owlapi.builders.BuilderObjectIntersectionOf;
+import org.semanticweb.owlapi.builders.BuilderObjectInverseOf;
+import org.semanticweb.owlapi.builders.BuilderObjectMaxCardinality;
+import org.semanticweb.owlapi.builders.BuilderObjectMinCardinality;
+import org.semanticweb.owlapi.builders.BuilderObjectProperty;
+import org.semanticweb.owlapi.builders.BuilderObjectPropertyAssertion;
+import org.semanticweb.owlapi.builders.BuilderObjectPropertyDomain;
+import org.semanticweb.owlapi.builders.BuilderObjectPropertyRange;
+import org.semanticweb.owlapi.builders.BuilderObjectSomeValuesFrom;
+import org.semanticweb.owlapi.builders.BuilderOneOf;
+import org.semanticweb.owlapi.builders.BuilderPropertyChain;
+import org.semanticweb.owlapi.builders.BuilderReflexiveObjectProperty;
+import org.semanticweb.owlapi.builders.BuilderSWRLBuiltInAtom;
+import org.semanticweb.owlapi.builders.BuilderSWRLClassAtom;
+import org.semanticweb.owlapi.builders.BuilderSWRLDataPropertyAtom;
+import org.semanticweb.owlapi.builders.BuilderSWRLDataRangeAtom;
+import org.semanticweb.owlapi.builders.BuilderSWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.builders.BuilderSWRLIndividualsAtom;
+import org.semanticweb.owlapi.builders.BuilderSWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.builders.BuilderSWRLRule;
+import org.semanticweb.owlapi.builders.BuilderSWRLSameIndividualAtom;
+import org.semanticweb.owlapi.builders.BuilderSWRLVariable;
+import org.semanticweb.owlapi.builders.BuilderSameIndividual;
+import org.semanticweb.owlapi.builders.BuilderSubAnnotationPropertyOf;
+import org.semanticweb.owlapi.builders.BuilderSubClass;
+import org.semanticweb.owlapi.builders.BuilderSubDataProperty;
+import org.semanticweb.owlapi.builders.BuilderSubObjectProperty;
+import org.semanticweb.owlapi.builders.BuilderSymmetricObjectProperty;
+import org.semanticweb.owlapi.builders.BuilderTransitiveObjectProperty;
+import org.semanticweb.owlapi.builders.BuilderUnionOf;
+import org.semanticweb.owlapi.builders.SettableCardinality;
+import org.semanticweb.owlapi.builders.SettableProperty;
+import org.semanticweb.owlapi.builders.SettableRange;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
@@ -210,92 +295,6 @@ import org.semanticweb.owlapi.utilities.XMLUtils;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
-import org.semanticweb.owlapitools.builders.BaseBuilder;
-import org.semanticweb.owlapitools.builders.Builder;
-import org.semanticweb.owlapitools.builders.BuilderAnnotation;
-import org.semanticweb.owlapitools.builders.BuilderAnnotationAssertion;
-import org.semanticweb.owlapitools.builders.BuilderAnnotationProperty;
-import org.semanticweb.owlapitools.builders.BuilderAnnotationPropertyDomain;
-import org.semanticweb.owlapitools.builders.BuilderAnnotationPropertyRange;
-import org.semanticweb.owlapitools.builders.BuilderAnonymousIndividual;
-import org.semanticweb.owlapitools.builders.BuilderAsymmetricObjectProperty;
-import org.semanticweb.owlapitools.builders.BuilderClass;
-import org.semanticweb.owlapitools.builders.BuilderClassAssertion;
-import org.semanticweb.owlapitools.builders.BuilderComplementOf;
-import org.semanticweb.owlapitools.builders.BuilderDataAllValuesFrom;
-import org.semanticweb.owlapitools.builders.BuilderDataComplementOf;
-import org.semanticweb.owlapitools.builders.BuilderDataExactCardinality;
-import org.semanticweb.owlapitools.builders.BuilderDataHasValue;
-import org.semanticweb.owlapitools.builders.BuilderDataIntersectionOf;
-import org.semanticweb.owlapitools.builders.BuilderDataMaxCardinality;
-import org.semanticweb.owlapitools.builders.BuilderDataMinCardinality;
-import org.semanticweb.owlapitools.builders.BuilderDataOneOf;
-import org.semanticweb.owlapitools.builders.BuilderDataProperty;
-import org.semanticweb.owlapitools.builders.BuilderDataPropertyAssertion;
-import org.semanticweb.owlapitools.builders.BuilderDataPropertyDomain;
-import org.semanticweb.owlapitools.builders.BuilderDataPropertyRange;
-import org.semanticweb.owlapitools.builders.BuilderDataSomeValuesFrom;
-import org.semanticweb.owlapitools.builders.BuilderDataUnionOf;
-import org.semanticweb.owlapitools.builders.BuilderDatatype;
-import org.semanticweb.owlapitools.builders.BuilderDatatypeDefinition;
-import org.semanticweb.owlapitools.builders.BuilderDatatypeRestriction;
-import org.semanticweb.owlapitools.builders.BuilderDeclaration;
-import org.semanticweb.owlapitools.builders.BuilderDifferentIndividuals;
-import org.semanticweb.owlapitools.builders.BuilderDisjointClasses;
-import org.semanticweb.owlapitools.builders.BuilderDisjointDataProperties;
-import org.semanticweb.owlapitools.builders.BuilderDisjointObjectProperties;
-import org.semanticweb.owlapitools.builders.BuilderDisjointUnion;
-import org.semanticweb.owlapitools.builders.BuilderEquivalentClasses;
-import org.semanticweb.owlapitools.builders.BuilderEquivalentDataProperties;
-import org.semanticweb.owlapitools.builders.BuilderEquivalentObjectProperties;
-import org.semanticweb.owlapitools.builders.BuilderFacetRestriction;
-import org.semanticweb.owlapitools.builders.BuilderFunctionalDataProperty;
-import org.semanticweb.owlapitools.builders.BuilderFunctionalObjectProperty;
-import org.semanticweb.owlapitools.builders.BuilderHasKey;
-import org.semanticweb.owlapitools.builders.BuilderInverseFunctionalObjectProperty;
-import org.semanticweb.owlapitools.builders.BuilderInverseObjectProperties;
-import org.semanticweb.owlapitools.builders.BuilderIrreflexiveObjectProperty;
-import org.semanticweb.owlapitools.builders.BuilderLiteral;
-import org.semanticweb.owlapitools.builders.BuilderNamedIndividual;
-import org.semanticweb.owlapitools.builders.BuilderNegativeDataPropertyAssertion;
-import org.semanticweb.owlapitools.builders.BuilderNegativeObjectPropertyAssertion;
-import org.semanticweb.owlapitools.builders.BuilderObjectAllValuesFrom;
-import org.semanticweb.owlapitools.builders.BuilderObjectExactCardinality;
-import org.semanticweb.owlapitools.builders.BuilderObjectHasSelf;
-import org.semanticweb.owlapitools.builders.BuilderObjectHasValue;
-import org.semanticweb.owlapitools.builders.BuilderObjectIntersectionOf;
-import org.semanticweb.owlapitools.builders.BuilderObjectInverseOf;
-import org.semanticweb.owlapitools.builders.BuilderObjectMaxCardinality;
-import org.semanticweb.owlapitools.builders.BuilderObjectMinCardinality;
-import org.semanticweb.owlapitools.builders.BuilderObjectProperty;
-import org.semanticweb.owlapitools.builders.BuilderObjectPropertyAssertion;
-import org.semanticweb.owlapitools.builders.BuilderObjectPropertyDomain;
-import org.semanticweb.owlapitools.builders.BuilderObjectPropertyRange;
-import org.semanticweb.owlapitools.builders.BuilderObjectSomeValuesFrom;
-import org.semanticweb.owlapitools.builders.BuilderOneOf;
-import org.semanticweb.owlapitools.builders.BuilderPropertyChain;
-import org.semanticweb.owlapitools.builders.BuilderReflexiveObjectProperty;
-import org.semanticweb.owlapitools.builders.BuilderSWRLBuiltInAtom;
-import org.semanticweb.owlapitools.builders.BuilderSWRLClassAtom;
-import org.semanticweb.owlapitools.builders.BuilderSWRLDataPropertyAtom;
-import org.semanticweb.owlapitools.builders.BuilderSWRLDataRangeAtom;
-import org.semanticweb.owlapitools.builders.BuilderSWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapitools.builders.BuilderSWRLIndividualsAtom;
-import org.semanticweb.owlapitools.builders.BuilderSWRLObjectPropertyAtom;
-import org.semanticweb.owlapitools.builders.BuilderSWRLRule;
-import org.semanticweb.owlapitools.builders.BuilderSWRLSameIndividualAtom;
-import org.semanticweb.owlapitools.builders.BuilderSWRLVariable;
-import org.semanticweb.owlapitools.builders.BuilderSameIndividual;
-import org.semanticweb.owlapitools.builders.BuilderSubAnnotationPropertyOf;
-import org.semanticweb.owlapitools.builders.BuilderSubClass;
-import org.semanticweb.owlapitools.builders.BuilderSubDataProperty;
-import org.semanticweb.owlapitools.builders.BuilderSubObjectProperty;
-import org.semanticweb.owlapitools.builders.BuilderSymmetricObjectProperty;
-import org.semanticweb.owlapitools.builders.BuilderTransitiveObjectProperty;
-import org.semanticweb.owlapitools.builders.BuilderUnionOf;
-import org.semanticweb.owlapitools.builders.SettableCardinality;
-import org.semanticweb.owlapitools.builders.SettableProperty;
-import org.semanticweb.owlapitools.builders.SettableRange;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -451,7 +450,7 @@ interface ObjectPropertyEH {
 }
 
 
-@SuppressWarnings({"unused", "null"})
+@SuppressWarnings({"unused"})
 abstract class OWLEH<O, B extends Builder<O>> {
 
     final StringBuilder sb = new StringBuilder();
@@ -523,7 +522,7 @@ abstract class OWLEH<O, B extends Builder<O>> {
     void handleChild(AxiomEH<? extends OWLAxiom, ?> h) {
         OWLAxiom axiom = h.getOWLObject();
         if (!axiom.isAnnotationAxiom() || handler.getConfiguration().shouldLoadAnnotations()) {
-            handler.getOWLOntologyManager().applyChange(new AddAxiom(handler.getOntology(), axiom));
+            handler.getOntology().add(axiom);
         }
     }
 
@@ -2110,7 +2109,7 @@ class ImportsEH extends OWLEH<OWLOntology, Builder<OWLOntology>> {
     void endElement() {
         IRI ontIRI = handler.getIRI(getText().trim());
         OWLImportsDeclaration decl = df.getOWLImportsDeclaration(ontIRI);
-        handler.getOWLOntologyManager().applyChange(new AddImport(handler.getOntology(), decl));
+        handler.getOntology().applyChange(new AddImport(handler.getOntology(), decl));
         handler.getOWLOntologyManager().makeLoadImportRequest(decl, handler.getConfiguration());
     }
 

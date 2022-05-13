@@ -12,13 +12,12 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyImpl;
+import uk.ac.manchester.cs.owlapi.OWLOntologyManagerImpl;
+import uk.ac.manchester.cs.owlapi.concurrent.ConcurrentOWLOntologyImpl;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
-@SuppressWarnings({"javadoc"})
 public class OWLManagerTestCase {
 
     private OWLOntologyManager manager;

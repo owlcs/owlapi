@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.model.parameters.OntologyCopy;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({"javadoc"})
 public class MoveOntologyTestCase extends TestBase {
 
     private final static String s = "<?xml version=\"1.0\"?>\n"

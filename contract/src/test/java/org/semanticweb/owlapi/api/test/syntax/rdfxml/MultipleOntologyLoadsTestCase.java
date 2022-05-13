@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({"javadoc"})
 public class MultipleOntologyLoadsTestCase extends TestBase {
 
     private static final IRI CREATEV1 = IRI("http://test.example.org/ontology/0139/version:1", "");

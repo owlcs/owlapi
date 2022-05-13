@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.utility.SimpleIRIMapper;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public class OWLOntologyManagerTestCase extends TestBase {
 
     @Test

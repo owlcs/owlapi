@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
 public class OntologyChangeListenerTestCase extends TestBase {
 
     @Test
@@ -63,7 +62,7 @@ public class OntologyChangeListenerTestCase extends TestBase {
                 }
             }
         });
-        ont.getOWLOntologyManager().addAxiom(ont, ax);
+        ont.addAxiom(ax);
         assertTrue(additions.contains(ax));
         assertTrue(impendingAdditions.contains(ax));
         ont.remove(ax);

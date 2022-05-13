@@ -28,24 +28,22 @@ import org.semanticweb.owlapi.rio.RioTrixStorerFactory;
 import org.semanticweb.owlapi.rio.RioTurtleStorerFactory;
 import org.semanticweb.owlapi.utilities.PriorityCollection;
 
-@SuppressWarnings("javadoc")
 public class PriorityCollectionTestCase {
 
     @Test
     public void shouldStoreStorers() {
-        List<OWLStorer> storers = Arrays.asList(new RioBinaryRdfStorerFactory().get(),
-                        new RioJsonLDStorerFactory().get(), new RioJsonStorerFactory().get(),
-                        new RioN3StorerFactory().get(), new RioNQuadsStorerFactory().get(),
-                        new RioNTriplesStorerFactory().get(), new RioRDFXMLStorerFactory().get(),
-                        new RioTrigStorerFactory().get(), new RioTrixStorerFactory().get(),
-                        new RioTurtleStorerFactory().get(), new OBOFormatStorerFactory().get(),
-                        new RDFXMLStorerFactory().get(), new OWLXMLStorerFactory().get(),
-                        new FunctionalSyntaxStorerFactory().get(),
-                        new ManchesterSyntaxStorerFactory().get(),
-                        new KRSS2OWLSyntaxStorerFactory().get(), new TurtleStorerFactory().get(),
-                        new LatexStorerFactory().get());
+        List<OWLStorer> storers =
+            Arrays.asList(new RioBinaryRdfStorerFactory().get(), new RioJsonLDStorerFactory().get(),
+                new RioJsonStorerFactory().get(), new RioN3StorerFactory().get(),
+                new RioNQuadsStorerFactory().get(), new RioNTriplesStorerFactory().get(),
+                new RioRDFXMLStorerFactory().get(), new RioTrigStorerFactory().get(),
+                new RioTrixStorerFactory().get(), new RioTurtleStorerFactory().get(),
+                new OBOFormatStorerFactory().get(), new RDFXMLStorerFactory().get(),
+                new OWLXMLStorerFactory().get(), new FunctionalSyntaxStorerFactory().get(),
+                new ManchesterSyntaxStorerFactory().get(), new KRSS2OWLSyntaxStorerFactory().get(),
+                new TurtleStorerFactory().get(), new LatexStorerFactory().get());
         PriorityCollection<OWLStorer> pc =
-                        new PriorityCollection<>(PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
+            new PriorityCollection<>(PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
         pc.set(storers);
         assertEquals(pc.toString(), storers.size(), pc.size());
     }

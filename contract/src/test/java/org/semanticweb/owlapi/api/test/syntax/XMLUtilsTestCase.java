@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.utilities.XMLUtils;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.3.0
  */
-@SuppressWarnings({"javadoc"})
 public class XMLUtilsTestCase extends TestBase {
 
     private static final int CODE_POINT = 0xEFFFF;

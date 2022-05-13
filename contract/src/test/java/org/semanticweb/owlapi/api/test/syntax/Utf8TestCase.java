@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 
-@SuppressWarnings("javadoc")
 public class Utf8TestCase extends TestBase {
 
     private static final String INVALID_UTF8 =

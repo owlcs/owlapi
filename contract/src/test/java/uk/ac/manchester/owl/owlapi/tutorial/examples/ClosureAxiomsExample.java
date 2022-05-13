@@ -46,7 +46,7 @@ public class ClosureAxiomsExample {
      * @throws OWLException if an exception is raised
      */
     public void closure(String inputOntology, String outputOntology, String classToClose)
-                    throws OWLException {
+        throws OWLException {
         /* Create and Ontology Manager */
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         IRI documentIRI = manager.getOWLDataFactory().getIRI(inputOntology);
@@ -59,7 +59,7 @@ public class ClosureAxiomsExample {
         System.out.println("Logical URI : " + documentIRI);
         System.out.println("Document IRI: " + ontology.getOntologyID());
         System.out.println("Format      : " + ontology.getFormat());
-        ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
+        ClosureAxioms closureAxioms = new ClosureAxioms(ontology);
         OWLClass clazz = Class(classIRI);
         System.out.println("Class URI   : " + classIRI);
         System.out.println(clazz);
@@ -67,7 +67,7 @@ public class ClosureAxiomsExample {
         closureAxioms.addClosureAxioms(clazz);
         /* Now save a copy to another location */
         System.out.println("Saving: " + outputDocumentIRI);
-        manager.saveOntology(ontology, outputDocumentIRI);
+        ontology.saveOntology(outputDocumentIRI);
         System.out.println("Ontology Saved...");
         System.out.println("Document IRI : " + outputDocumentIRI);
         /* Remove the ontology from the manager */

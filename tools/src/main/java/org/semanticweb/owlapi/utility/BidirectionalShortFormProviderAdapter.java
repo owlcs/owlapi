@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -103,7 +102,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
         }
     }
 
-    void handleChanges(List<? extends OWLOntologyChange> changes) {
+    void handleChanges(Collection<? extends OWLOntologyChange> changes) {
         if (ontologies == null) {
             return;
         }

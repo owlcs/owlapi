@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 
@@ -60,7 +60,6 @@ import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory;
 import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleStorerFactory;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class ParsersStorersTestCase extends TestBase {
 

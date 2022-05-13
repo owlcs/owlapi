@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.search;
 
-import static org.semanticweb.owlapi.model.AxiomType.ANNOTATION_ASSERTION;
 import static org.semanticweb.owlapi.model.AxiomType.ANNOTATION_PROPERTY_DOMAIN;
 import static org.semanticweb.owlapi.model.AxiomType.ANNOTATION_PROPERTY_RANGE;
 import static org.semanticweb.owlapi.model.AxiomType.AXIOM_TYPES;
@@ -30,7 +29,6 @@ import java.util.Collections;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -104,15 +102,6 @@ public class Filters {
      */
     public static final OWLAxiomSearchFilter apDomainFilter = new AxiomFilter<>(
         ANNOTATION_PROPERTY_DOMAIN, OWLAnnotationPropertyDomainAxiom::getProperty);
-    /**
-     * filter returning annotation assertions where the subject matches the input key.
-     *
-     * @deprecated use the OWLOntology:getAnnotationAssertionAxioms() in place of this filter as it
-     *             is much faster, thanks to indexing.
-     */
-    @Deprecated
-    public static final OWLAxiomSearchFilter annotations =
-        new AxiomFilter<>(ANNOTATION_ASSERTION, OWLAnnotationAssertionAxiom::getSubject);
     /**
      * filter returning all axioms included in TBox or RBox. No assertions, nonlogical axioms or
      * SWRL rules.

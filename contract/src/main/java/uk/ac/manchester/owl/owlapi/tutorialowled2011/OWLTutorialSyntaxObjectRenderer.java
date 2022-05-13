@@ -99,7 +99,6 @@ import org.semanticweb.owlapi.utility.QNameShortFormProvider;
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings({"javadoc"})
 public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private final @Nonnull ShortFormProvider shortForms;
@@ -149,8 +148,9 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void header() {
-        write("<html>\n<head>\n<style>\nbody { font-family: sans-serif; }\n.key { color: grey; font-size: 75%; }\n.op { color: grey; }\n.cl { color: #800; }\n.pr { color: #080; }\n.in { color: #008; }\n.box { border: solid 1px grey; padding: 10px; margin: 10px; }\ntable { width: 100%; }\ntd { padding-left: 10px; padding-right: 10px; width: "
-                        + 100 / TABLE_COLUMNS + "%;}\n</style>\n<body>\n");
+        write(
+            "<html>\n<head>\n<style>\nbody { font-family: sans-serif; }\n.key { color: grey; font-size: 75%; }\n.op { color: grey; }\n.cl { color: #800; }\n.pr { color: #080; }\n.in { color: #008; }\n.box { border: solid 1px grey; padding: 10px; margin: 10px; }\ntable { width: 100%; }\ntd { padding-left: 10px; padding-right: 10px; width: "
+                + 100 / TABLE_COLUMNS + "%;}\n</style>\n<body>\n");
     }
 
     public void footer() {
@@ -158,7 +158,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private <T extends OWLObject> OWLTutorialSyntaxObjectRenderer writeCollection(
-                    Stream<T> objects) {
+        Stream<T> objects) {
         if (TABLES) {
             return writeTable(objects);
         }
@@ -202,13 +202,13 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write("<h1>").write(ontology.getOntologyID().toString()).write("</h1>\n");
         write("<div><div class='box'>\n");
         ontology.importsDeclarations()
-                        .forEach(d -> write("Imports: ").write(d.getIRI()).write("\n"));
+            .forEach(d -> write("Imports: ").write(d.getIRI()).write("\n"));
         write("<h2>Classes</h2>\n").writeCollection(ontology.classesInSignature());
         write("</div>\n<div class='box'>\n<h2>Properties</h2>\n")
-                        .writeCollection(ontology.objectPropertiesInSignature())
-                        .writeCollection(ontology.dataPropertiesInSignature());
+            .writeCollection(ontology.objectPropertiesInSignature())
+            .writeCollection(ontology.dataPropertiesInSignature());
         write("</div>\n<div class='box'>\n<h2>Individuals</h2>\n")
-                        .writeCollection(ontology.individualsInSignature()).write("</div>");
+            .writeCollection(ontology.individualsInSignature()).write("</div>");
         write("<div><div class='box'><h2>Axioms</h2>\n");
         writeListStart();
         ontology.axioms().forEach(ax -> {
@@ -229,7 +229,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private OWLTutorialSyntaxObjectRenderer write(Stream<? extends OWLObject> stream,
-                    String separator) {
+        String separator) {
         Iterator<? extends OWLObject> objects = stream.iterator();
         while (objects.hasNext()) {
             objects.next().accept(this);
@@ -259,7 +259,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public OWLTutorialSyntaxObjectRenderer writeAnnotations(
-                    @SuppressWarnings("unused") OWLAxiom ax) {
+        @SuppressWarnings("unused") OWLAxiom ax) {
         return this;
     }
 
@@ -305,7 +305,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @SuppressWarnings("unused")
     public OWLTutorialSyntaxObjectRenderer writePropertyCharacteristic(String str, OWLAxiom ax,
-                    OWLPropertyExpression prop) {
+        OWLPropertyExpression prop) {
         write(keyword(str));
         writeSpace();
         prop.accept(this);
@@ -384,7 +384,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept(this);
         writeSpace().write(keyword("==")).writeSpace().write(axiom.classExpressions(),
-                        keyword("|"));
+            keyword("|"));
     }
 
     @Override
@@ -463,7 +463,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         write("chain").writeOpenBracket().write(axiom.getPropertyChain().stream())
-                        .writeCloseBracket();
+            .writeCloseBracket();
         writeSpace().write(keyword("subProperty")).writeSpace();
         axiom.getSuperProperty().accept(this);
     }
@@ -522,7 +522,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private OWLTutorialSyntaxObjectRenderer writeRestriction(String str,
-                    OWLCardinalityRestriction<?> restriction, OWLPropertyExpression property) {
+        OWLCardinalityRestriction<?> restriction, OWLPropertyExpression property) {
         write(str).writeOpenBracket().write(restriction.getCardinality()).writeSpace();
         property.accept(this);
         if (restriction.isQualified()) {
@@ -534,17 +534,17 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private OWLTutorialSyntaxObjectRenderer writeRestriction(String str,
-                    OWLQuantifiedDataRestriction restriction) {
+        OWLQuantifiedDataRestriction restriction) {
         return writeRestriction(str, restriction.getProperty(), restriction.getFiller());
     }
 
     private OWLTutorialSyntaxObjectRenderer writeRestriction(String str,
-                    OWLQuantifiedObjectRestriction restriction) {
+        OWLQuantifiedObjectRestriction restriction) {
         return writeRestriction(str, restriction.getProperty(), restriction.getFiller());
     }
 
     private OWLTutorialSyntaxObjectRenderer writeRestriction(String str, OWLPropertyExpression prop,
-                    OWLObject filler) {
+        OWLObject filler) {
         write(str).writeOpenBracket();
         prop.accept(this);
         writeSpace();

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.oboformat;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -20,18 +20,18 @@ import java.io.PrintWriter;
 
 import javax.annotation.Nullable;
 
-import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
-import org.obolibrary.oboformat.model.OBODoc;
-import org.obolibrary.oboformat.writer.OBOFormatWriter;
-import org.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider;
-import org.obolibrary.oboformat.writer.OBOFormatWriter.OBODocNameProvider;
-import org.obolibrary.oboformat.writer.OBOFormatWriter.OWLOntologyNameProvider;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.io.OWLStorer;
 import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.obolibrary.obo2owl.OWLAPIOwl2Obo;
+import org.semanticweb.owlapi.obolibrary.oboformat.model.OBODoc;
+import org.semanticweb.owlapi.obolibrary.oboformat.writer.OBOFormatWriter;
+import org.semanticweb.owlapi.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider;
+import org.semanticweb.owlapi.obolibrary.oboformat.writer.OBOFormatWriter.OBODocNameProvider;
+import org.semanticweb.owlapi.obolibrary.oboformat.writer.OBOFormatWriter.OWLOntologyNameProvider;
 
 /**
  * @author Nick Drummond, The University Of Manchester, Bio Health Informatics Group

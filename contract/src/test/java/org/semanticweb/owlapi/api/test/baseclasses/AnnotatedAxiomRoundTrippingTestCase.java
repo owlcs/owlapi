@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public abstract class AnnotatedAxiomRoundTrippingTestCase extends AxiomsRoundTrippingBase {
 
     private static OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));

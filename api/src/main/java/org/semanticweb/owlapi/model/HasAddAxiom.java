@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.model.parameters.ChangeApplied;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 4.0.0
@@ -22,14 +20,24 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 public interface HasAddAxiom {
 
     /**
-     * A convenience method that adds a single axiom to an ontology. The appropriate AddAxiom change
-     * object is automatically generated.
+     * Add an axiom to this object. The appropriate AddAxiom change object is automatically
+     * generated.
      *
-     * @param ont The ontology to add the axiom to.
      * @param axiom The axiom to be added
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
-     * otherwise.
+     * @return ChangeReport containing the results of the change.
      * @throws OWLOntologyChangeException if there was a problem adding the axiom
      */
-    ChangeApplied addAxiom(OWLOntology ont, OWLAxiom axiom);
+    ChangeReport addAxiom(OWLAxiom axiom);
+
+    /**
+     * Add an axiom to this object. The appropriate AddAxiom change object is automatically
+     * generated.
+     *
+     * @param axiom The axiom to be added
+     * @return ChangeReport containing the results of the change.
+     * @throws OWLOntologyChangeException if there was a problem adding the axiom
+     */
+    default ChangeReport add(OWLAxiom axiom) {
+        return addAxiom(axiom);
+    }
 }

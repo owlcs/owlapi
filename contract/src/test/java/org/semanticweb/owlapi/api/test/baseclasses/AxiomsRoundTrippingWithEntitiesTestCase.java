@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public class AxiomsRoundTrippingWithEntitiesTestCase extends AxiomsRoundTrippingBase {
 
     private static final IRI iriA = iri("A");

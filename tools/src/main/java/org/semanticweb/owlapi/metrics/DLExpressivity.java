@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -47,12 +47,7 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange change : changes) {
-            if (change.isAxiomChange() && change.getAxiom().isLogicalAxiom()) {
-                return true;
-            }
-        }
-        return false;
+    protected boolean isMetricInvalidated(Collection<? extends OWLOntologyChange> changes) {
+        return changes.stream().anyMatch(c -> c.isAxiomChange() && c.getAxiom().isLogicalAxiom());
     }
 }

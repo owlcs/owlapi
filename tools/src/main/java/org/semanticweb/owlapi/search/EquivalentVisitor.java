@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.search;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 
 import java.util.stream.Stream;
 

@@ -144,4 +144,4 @@ class TokenMgrException extends org.semanticweb.owlapi.io.OWLParserException
     this(LexicalErr(EOFSeen, lexState, errorLine, errorColumn, errorAfter, curChar), reason);
   }
 }
-/* JavaCC - OriginalChecksum=8fe67c6a6c92d1bc1bed2a582021a0f9 (do not edit this line) */
+/* JavaCC - OriginalChecksum=5741ac7950326ee84e3d53af8398e8d1 (do not edit this line) */

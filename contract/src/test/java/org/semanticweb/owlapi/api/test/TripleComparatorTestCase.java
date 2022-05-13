@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-@SuppressWarnings("javadoc")
 public class TripleComparatorTestCase extends TestBase {
 
     private final String ns = "http://www.co-ode.org/roberts/pto.owl#";
@@ -47,7 +46,7 @@ public class TripleComparatorTestCase extends TestBase {
     @Test
     public void shouldSort() {
         List<RDFTriple> list = new ArrayList<>(Arrays.asList(
-            //@formatter:off
+        //@formatter:off
                 triple("MoleOfNiobiumAtom"), 
                 triple("MoleOfMercuryAtom"),
                 triple("MoleOfHydrogenAtom"), 

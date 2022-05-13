@@ -12,10 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -25,26 +23,6 @@ import java.util.stream.Stream;
  * @since 3.4.6
  */
 public interface HasSignature {
-
-    /**
-     * Gets the signature of this object. The default implementation is an empty, modifiable set.
-     * <p>
-     * For ontologies, the signature of an ontology is the set of entities that are used to build
-     * axioms and annotations in the ontology. (See <a href=
-     * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals" >The
-     * OWL 2 Structural Specification</a>)
-     * <p>
-     * For ontology changes, this is the signature of the axiom being added/removed or the
-     * annotation being added/removed, or empty.
-     *
-     * @return A set of entities that represents the signature of this object. Changes are not
-     * reflected back.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLEntity> getSignature() {
-        return asSet(unsortedSignature());
-    }
 
     /**
      * @return Stream of the signature of this object.

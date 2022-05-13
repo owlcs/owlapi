@@ -22,9 +22,9 @@ import static org.semanticweb.owlapi.search.Filters.subDataPropertyWithSub;
 import static org.semanticweb.owlapi.search.Filters.subDataPropertyWithSuper;
 import static org.semanticweb.owlapi.search.Filters.subObjectPropertyWithSub;
 import static org.semanticweb.owlapi.search.Filters.subObjectPropertyWithSuper;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.formats.LatexDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-@SuppressWarnings("javadoc")
 public class LatexRendererTestCase extends TestBase {
 
     @Test

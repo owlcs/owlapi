@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc"})
 public class AddImportDataTestCase {
 
     private final OWLImportsDeclaration mockDeclaration = mock(OWLImportsDeclaration.class);

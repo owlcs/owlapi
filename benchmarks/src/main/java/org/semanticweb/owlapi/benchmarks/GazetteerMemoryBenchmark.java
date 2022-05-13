@@ -7,7 +7,6 @@ import java.util.Date;
 
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 
-@SuppressWarnings("javadoc")
 public class GazetteerMemoryBenchmark {
 
     public static void main(String[] args) throws Exception {

@@ -20,7 +20,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /**
  * Created by ses on 6/23/14.
  */
-@SuppressWarnings("javadoc")
 public class IRIShorteningTestCase extends TestBase {
 
     @Test

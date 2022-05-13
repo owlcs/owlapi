@@ -20,7 +20,6 @@ import org.semanticweb.owlapi.utilities.PriorityCollection;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings("javadoc")
 public class OWLParserFactoryRegistryTestCase {
 
     @Test

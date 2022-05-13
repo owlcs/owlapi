@@ -12,10 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
@@ -25,30 +24,72 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 public interface HasRemoveAxioms {
 
     /**
-     * A convenience method that removes a set of axioms from an ontology. The appropriate
-     * RemoveAxiom change objects are automatically generated.
+     * Remove axioms from this object. The appropriate RemoveAxiom change objects are automatically
+     * generated.
      *
-     * @param ont The ontology from which the axioms should be removed.
      * @param axioms The axioms to be removed.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
-     * otherwise.
+     * @return ChangeReport containing the results of the change.
      * @throws OWLOntologyChangeException if there was a problem removing the axioms
-     * @deprecated use {@link #removeAxioms(OWLOntology, Collection)}
      */
-    @Deprecated
-    default ChangeApplied removeAxioms(OWLOntology ont, Collection<? extends OWLAxiom> axioms) {
-        return removeAxioms(ont, axioms.stream());
+    ChangeReport removeAxioms(Stream<? extends OWLAxiom> axioms);
+
+    /**
+     * Remove axioms from this object. The appropriate RemoveAxiom change objects are automatically
+     * generated.
+     *
+     * @param axioms The axioms to be removed.
+     * @return ChangeReport containing the results of the change.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
+     */
+    default ChangeReport removeAxioms(OWLAxiom... axioms) {
+        return removeAxioms(Arrays.stream(axioms));
     }
 
     /**
-     * A convenience method that removes a set of axioms from an ontology. The appropriate
-     * RemoveAxiom change objects are automatically generated.
+     * Remove axioms from this object. The appropriate RemoveAxiom change objects are automatically
+     * generated.
      *
-     * @param ont The ontology from which the axioms should be removed.
      * @param axioms The axioms to be removed.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
-     * otherwise.
+     * @return ChangeReport containing the results of the change.
      * @throws OWLOntologyChangeException if there was a problem removing the axioms
      */
-    ChangeApplied removeAxioms(OWLOntology ont, Stream<? extends OWLAxiom> axioms);
+    default ChangeReport removeAxioms(Collection<? extends OWLAxiom> axioms) {
+        return removeAxioms(axioms.stream());
+    }
+
+    /**
+     * Remove axioms from this object. The appropriate RemoveAxiom change objects are automatically
+     * generated.
+     *
+     * @param axioms The axioms to be removed.
+     * @return ChangeReport containing the results of the change.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
+     */
+    default ChangeReport remove(Collection<? extends OWLAxiom> axioms) {
+        return removeAxioms(axioms.stream());
+    }
+
+    /**
+     * Remove axioms from this object. The appropriate RemoveAxiom change objects are automatically
+     * generated.
+     *
+     * @param axioms The axioms to be removed.
+     * @return ChangeReport containing the results of the change.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
+     */
+    default ChangeReport remove(Stream<? extends OWLAxiom> axioms) {
+        return removeAxioms(axioms);
+    }
+
+    /**
+     * Remove axioms from this object. The appropriate RemoveAxiom change objects are automatically
+     * generated.
+     *
+     * @param axioms The axioms to be removed.
+     * @return ChangeReport containing the results of the change.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
+     */
+    default ChangeReport remove(OWLAxiom... axioms) {
+        return removeAxioms(Arrays.stream(axioms));
+    }
 }

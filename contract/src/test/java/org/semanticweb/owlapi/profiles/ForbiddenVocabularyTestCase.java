@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForAnno
 import org.semanticweb.owlapi.utility.CollectionFactory;
 import org.semanticweb.owlapi.utility.OWLObjectPropertyManager;
 
-@SuppressWarnings("javadoc")
 public class ForbiddenVocabularyTestCase extends TestBase {
 //@formatter:off
     private static final String input1 = "<?xml version=\"1.0\"?>\n"
@@ -245,17 +244,17 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         OWLObjectProperty brother = df.getOWLObjectProperty("urn:test:", "hasBrother");
         OWLObjectProperty child = df.getOWLObjectProperty("urn:test:", "hasChild");
         OWLObjectProperty uncle = df.getOWLObjectProperty("urn:test:", "hasUncle");
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(father));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(brother));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(uncle));
+        o.addAxiom(df.getOWLDeclarationAxiom(father));
+        o.addAxiom(df.getOWLDeclarationAxiom(brother));
+        o.addAxiom(df.getOWLDeclarationAxiom(child));
+        o.addAxiom(df.getOWLDeclarationAxiom(uncle));
         OWLSubPropertyChainOfAxiom brokenAxiom1 =
             df.getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother), uncle);
         OWLSubPropertyChainOfAxiom brokenAxiom2 =
             df.getOWLSubPropertyChainOfAxiom(Arrays.asList(child, uncle), brother);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(o);
-        o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);
-        o.getOWLOntologyManager().addAxiom(o, brokenAxiom2);
+        o.addAxiom(brokenAxiom1);
+        o.addAxiom(brokenAxiom2);
         assertTrue(manager.isLessThan(brother, uncle));
         assertTrue(manager.isLessThan(uncle, brother));
         assertTrue(manager.isLessThan(brother, brother));
@@ -275,14 +274,14 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         OWLObjectProperty brother = df.getOWLObjectProperty("urn:test:", "hasBrother");
         OWLObjectProperty child = df.getOWLObjectProperty("urn:test:", "hasChild");
         OWLObjectProperty uncle = df.getOWLObjectProperty("urn:test:", "hasUncle");
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(father));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(brother));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
-        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(uncle));
+        o.addAxiom(df.getOWLDeclarationAxiom(father));
+        o.addAxiom(df.getOWLDeclarationAxiom(brother));
+        o.addAxiom(df.getOWLDeclarationAxiom(child));
+        o.addAxiom(df.getOWLDeclarationAxiom(uncle));
         OWLSubPropertyChainOfAxiom brokenAxiom1 =
             df.getOWLSubPropertyChainOfAxiom(CollectionFactory.list(father, brother), uncle);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(o);
-        o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);
+        o.addAxiom(brokenAxiom1);
         assertTrue(manager.isLessThan(brother, uncle));
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();

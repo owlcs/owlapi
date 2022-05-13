@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.utility.OWLObjectWalker;
 /**
  * Created by ses on 8/15/15.
  */
-@SuppressWarnings({"javadoc", "null"})
 public class OWLObjectWalkerTest extends TestBase {
 
     private OWLAnnotation world;
@@ -76,7 +75,7 @@ public class OWLObjectWalkerTest extends TestBase {
 
     private OWLOntology getOwlOntology() {
         OWLOntology o = getOWLOntology();
-        m.applyChange(new AddOntologyAnnotation(o, hello));
+        o.applyChange(new AddOntologyAnnotation(o, hello));
         o.addAxiom(df.getOWLDeclarationAxiom(ap, singleton(goodbye)));
         return o;
     }

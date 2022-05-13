@@ -51,7 +51,7 @@ public final class SAXParsers {
 
     /**
      * @return a new factory, set up to be namespace aware, non validating and not loading external
-     * dtds.
+     *         dtds.
      */
     public static SAXParserFactory initFactory() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -74,11 +74,12 @@ public final class SAXParsers {
 
     /**
      * @param handler declaration handler, optional. Used for entity detection for reuse in parser
-     * output.
-     * @param expansion entity expansion limit. See {@link org.semanticweb.owlapi.model.parameters.ConfigurationOptions}
-     * for instructions on how to set the value.
+     *        output.
+     * @param expansion entity expansion limit. See
+     *        {@link org.semanticweb.owlapi.model.parameters.ConfigurationOptions} for instructions
+     *        on how to set the value.
      * @return new SaxParser, intialized with optional declaration handler and larger entity
-     * expansion limit
+     *         expansion limit
      */
     public static SAXParser initParserWithOWLAPIStandards(@Nullable DeclHandler handler,
         String expansion) {
@@ -119,7 +120,8 @@ public final class SAXParsers {
             try {
                 parser.setProperty(DECLARATION_HANDLER, handler);
             } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
-                LOGGER.warn(DECLARATION_HANDLER + ERROR_TEMPLATE
+                LOGGER.warn(
+                    DECLARATION_HANDLER + ERROR_TEMPLATE
                         + " Entity declarations will not be roundtripped.",
                     parser.getClass().getName(), e.getMessage());
             }

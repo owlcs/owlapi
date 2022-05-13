@@ -13,7 +13,6 @@ import org.semanticweb.owlapi.utility.OntologyIRIShortFormProvider;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
-@SuppressWarnings("javadoc")
 public class OWLOntologyIRIShortFormProviderTestCase extends TestBase {
 
     public static final String SCHEME_DOMAIN = "http://www.semanticweb.org";

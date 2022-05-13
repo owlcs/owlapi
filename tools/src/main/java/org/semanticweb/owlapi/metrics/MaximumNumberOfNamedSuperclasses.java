@@ -14,8 +14,8 @@ package org.semanticweb.owlapi.metrics;
 
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.OptionalLong;
 import java.util.Set;
 
@@ -58,7 +58,7 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(Collection<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange chg : changes) {
             if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;

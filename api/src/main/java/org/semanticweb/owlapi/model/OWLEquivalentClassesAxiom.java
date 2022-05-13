@@ -12,10 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-
 import java.util.Collection;
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -41,8 +38,8 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      * owl:Thing or owl:Nothing).
      *
      * @return {@code true} if the axiom contains at least one named class otherwise {@code false}.
-     * Note that this method will return {@code false} if the only named classes are owl:Thing or
-     * owl:Nothing.
+     *         Note that this method will return {@code false} if the only named classes are
+     *         owl:Thing or owl:Nothing.
      */
     boolean containsNamedEquivalentClass();
 
@@ -51,22 +48,8 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      * classes axiom.
      *
      * @return A set of classes that represents the named classes that are specified to be
-     * equivalent to some other class (expression), excluding the built in classes owl:Thing and
-     * owl:Nothing
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLClass> getNamedClasses() {
-        return asSet(namedClasses());
-    }
-
-    /**
-     * Gets the named classes (excluding owl:Thing and owl:Nothing) that are in this equivalent
-     * classes axiom.
-     *
-     * @return A set of classes that represents the named classes that are specified to be
-     * equivalent to some other class (expression), excluding the built in classes owl:Thing and
-     * owl:Nothing
+     *         equivalent to some other class (expression), excluding the built in classes owl:Thing
+     *         and owl:Nothing
      */
     Stream<OWLClass> namedClasses();
 

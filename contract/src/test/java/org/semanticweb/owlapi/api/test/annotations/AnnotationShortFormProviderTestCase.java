@@ -42,7 +42,6 @@ import org.semanticweb.owlapi.utility.StringAnnotationVisitor;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
 public class AnnotationShortFormProviderTestCase extends TestBase {
 
     protected PrefixManager pm =

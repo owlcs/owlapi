@@ -33,8 +33,8 @@ import static org.semanticweb.owlapi.search.Searcher.equivalent;
 import static org.semanticweb.owlapi.search.Searcher.range;
 import static org.semanticweb.owlapi.search.Searcher.sub;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
 
@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.search.Filters;
 
-@SuppressWarnings("javadoc")
 public class SearcherTestCase extends TestBase {
 
     @Test
@@ -58,7 +57,7 @@ public class SearcherTestCase extends TestBase {
         OWLClass c = Class(IRI("urn:test#", "c"));
         OWLClass d = Class(IRI("urn:test#", "d"));
         OWLAxiom ax = SubClassOf(c, d);
-        o.getOWLOntologyManager().addAxiom(o, ax);
+        o.addAxiom(ax);
         assertTrue(contains(o.axioms(AxiomType.SUBCLASS_OF), ax));
         assertTrue(contains(o.axioms(c), ax));
     }
@@ -76,13 +75,13 @@ public class SearcherTestCase extends TestBase {
         OWLAxiom ax2 = ObjectPropertyDomain(c, x);
         OWLAxiom ax3 = ObjectPropertyRange(c, y);
         OWLAxiom ax4 = EquivalentObjectProperties(c, e);
-        o.getOWLOntologyManager().addAxiom(o, ax);
-        o.getOWLOntologyManager().addAxiom(o, ax2);
-        o.getOWLOntologyManager().addAxiom(o, ax3);
-        o.getOWLOntologyManager().addAxiom(o, ax4);
+        o.addAxiom(ax);
+        o.addAxiom(ax2);
+        o.addAxiom(ax3);
+        o.addAxiom(ax4);
         assertTrue(contains(o.axioms(AxiomType.SUB_OBJECT_PROPERTY), ax));
         Collection<OWLAxiom> axioms =
-                        asUnorderedSet(o.axioms(Filters.subObjectPropertyWithSuper, d, INCLUDED));
+            asUnorderedSet(o.axioms(Filters.subObjectPropertyWithSuper, d, INCLUDED));
         assertTrue(contains(sub(axioms.stream()), c));
         axioms = asUnorderedSet(o.axioms(Filters.subObjectPropertyWithSub, c, INCLUDED));
         assertTrue(contains(sup(axioms.stream()), d));
@@ -102,14 +101,14 @@ public class SearcherTestCase extends TestBase {
         OWLAxiom ax2 = DataPropertyDomain(c, x);
         OWLAxiom ax3 = DataPropertyRange(c, Boolean());
         OWLAxiom ax4 = EquivalentDataProperties(c, e);
-        o.getOWLOntologyManager().addAxiom(o, ax);
-        o.getOWLOntologyManager().addAxiom(o, ax2);
-        o.getOWLOntologyManager().addAxiom(o, ax3);
-        o.getOWLOntologyManager().addAxiom(o, ax4);
+        o.addAxiom(ax);
+        o.addAxiom(ax2);
+        o.addAxiom(ax3);
+        o.addAxiom(ax4);
         assertTrue(contains(o.axioms(AxiomType.SUB_DATA_PROPERTY), ax));
         assertTrue(contains(sub(o.axioms(Filters.subDataPropertyWithSuper, d, INCLUDED)), c));
         Collection<OWLAxiom> axioms =
-                        asUnorderedSet(o.axioms(Filters.subDataPropertyWithSub, c, INCLUDED));
+            asUnorderedSet(o.axioms(Filters.subDataPropertyWithSub, c, INCLUDED));
         assertTrue(contains(sup(axioms.stream()), d));
         assertTrue(contains(domain(o.dataPropertyDomainAxioms(c)), x));
         assertTrue(contains(range(o.dataPropertyRangeAxioms(c)), Boolean()));

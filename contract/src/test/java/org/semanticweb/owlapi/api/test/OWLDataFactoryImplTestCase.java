@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc"})
 public class OWLDataFactoryImplTestCase {
     private static void assertEqualsFromSupplier(Supplier<?> s) {
         Object s1 = s.get();

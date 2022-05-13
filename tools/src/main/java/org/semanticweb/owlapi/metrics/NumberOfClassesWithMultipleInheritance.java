@@ -13,10 +13,10 @@
 package org.semanticweb.owlapi.metrics;
 
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLClass;
@@ -58,8 +58,8 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 }
                 processed.add(cls);
                 int count = 0;
-                for (OWLClassExpression sup : asList(equivalent(ont.equivalentClassesAxioms(cls),
-                    OWLClassExpression.class))) {
+                for (OWLClassExpression sup : asList(
+                    equivalent(ont.equivalentClassesAxioms(cls), OWLClassExpression.class))) {
                     if (checker.hasNamedConjunct(sup)) {
                         count++;
                     }
@@ -74,7 +74,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(Collection<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange() && change.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;

@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
-import org.semanticweb.owlapi.util.AutoIRIMapper;
+import org.semanticweb.owlapi.utilities.AutoIRIMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,8 +32,7 @@ public class MemoryBenchmark {
 
     private static Logger logger = LoggerFactory.getLogger(MemoryBenchmark.class);
 
-    @SuppressWarnings("javadoc")
-    public static void main(String[] args) throws Exception {
+        public static void main(String[] args) throws Exception {
         if (args.length > 2) {
             System.err.println("usage: " + MemoryBenchmark.class.getCanonicalName()
                 + "<src-ontology> <dest-hprof>");

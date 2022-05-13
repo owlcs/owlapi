@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.3
  */
-@SuppressWarnings("javadoc")
 public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase
     extends AbstractFileRoundTrippingTestCase {
 

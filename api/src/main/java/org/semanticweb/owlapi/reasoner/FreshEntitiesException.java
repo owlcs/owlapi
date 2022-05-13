@@ -66,7 +66,7 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
      * Gets the entities.
      *
      * @return The entities, none of which are contained in the signature of the union of a set of
-     * ontologies.
+     *         ontologies.
      */
     public Collection<OWLEntity> getEntities() {
         return entities;

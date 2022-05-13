@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.model.parameters.ChangeApplied;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
@@ -22,16 +20,24 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 public interface HasRemoveAxiom {
 
     /**
-     * A convenience method that removes a single axiom from an ontology. The appropriate
-     * RemoveAxiom change object is automatically generated.
+     * Remove an axiom from this object. The appropriate RemoveAxiom change objects are automatically
+     * generated.
      *
-     * @param ont The ontology to remove the axiom from.
      * @param axiom The axiom to be removed
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
-     * otherwise.
+     * @return ChangeReport containing the results of the change.
      * @throws OWLOntologyChangeException if there was a problem removing the axiom
-     * @deprecated use {@link OWLOntology#removeAxiom(OWLAxiom)}
      */
-    @Deprecated
-    ChangeApplied removeAxiom(OWLOntology ont, OWLAxiom axiom);
+    ChangeReport removeAxiom(OWLAxiom axiom);
+
+    /**
+     * Remove an axiom from this object. The appropriate RemoveAxiom change objects are automatically
+     * generated.
+     *
+     * @param axiom The axiom to be removed
+     * @return ChangeReport containing the results of the change.
+     * @throws OWLOntologyChangeException if there was a problem removing the axiom
+     */
+    default ChangeReport remove(OWLAxiom axiom) {
+        return removeAxiom(axiom);
+    }
 }

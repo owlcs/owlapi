@@ -23,14 +23,13 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
     @Parameters(name = "{0}")
     public static Collection<OWLDocumentFormat> data() {
         return Arrays.asList(new FunctionalSyntaxDocumentFormat(), new OWLXMLDocumentFormat(),
-                        new RDFXMLDocumentFormat(), new TurtleDocumentFormat());
+            new RDFXMLDocumentFormat(), new TurtleDocumentFormat());
     }
 
     private final OWLDocumentFormat format;
@@ -46,7 +45,7 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
         o.add(df.getOWLDeclarationAxiom(op));
         o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
         OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"),
-                        df.getOWLAnnotation(ap, iri("otherTest")));
+            df.getOWLAnnotation(ap, iri("otherTest")));
         o.add(assertion);
         return o;
     }
@@ -57,7 +56,7 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testAnnotationProperty"));
         o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
         OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"),
-                        df.getOWLAnnotation(ap, iri("otherTest")));
+            df.getOWLAnnotation(ap, iri("otherTest")));
         o.add(assertion);
         return o;
     }

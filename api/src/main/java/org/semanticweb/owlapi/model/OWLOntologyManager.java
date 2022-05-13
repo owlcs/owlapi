@@ -12,12 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.File;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +26,6 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.OWLStorerFactory;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
@@ -44,8 +41,7 @@ import org.semanticweb.owlapi.utilities.PriorityCollection;
  * @since 2.0.0
  */
 public interface OWLOntologyManager
-    extends OWLOntologySetProvider, HasDataFactory, HasGetOntologyById, HasApplyChanges,
-    HasApplyChange, HasAddAxioms, HasAddAxiom, HasRemoveAxioms, HasRemoveAxiom, HasContainsOntology,
+    extends OWLOntologySetProvider, HasDataFactory, HasGetOntologyById, HasContainsOntology,
     HasOntologyChangeListeners, HasOntologyConfigurator, Serializable {
 
     /**
@@ -60,34 +56,9 @@ public interface OWLOntologyManager
      * @param axiom The axioms
      * @return The set of ontologies such that for each ontology, O the specified axiom is contained
      *         in O.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLOntology> getOntologies(OWLAxiom axiom) {
-        return asSet(ontologies(axiom));
-    }
-
-    /**
-     * Gets the ontologies that are managed by this manager that contain the specified axiom.
-     *
-     * @param axiom The axioms
-     * @return The set of ontologies such that for each ontology, O the specified axiom is contained
-     *         in O.
      */
     default Stream<OWLOntology> ontologies(OWLAxiom axiom) {
         return ontologies().filter(o -> o.containsAxiom(axiom));
-    }
-
-    /**
-     * Gets the versions (if any) of the ontology that have the specified IRI
-     *
-     * @param ontology The ontology IRI
-     * @return The set of ontologies that have the specified ontology IRI.
-     * @deprecated use {@link #versions(IRI)}
-     */
-    @Deprecated
-    default Set<OWLOntology> getVersions(IRI ontology) {
-        return asSet(versions(ontology));
     }
 
     /**
@@ -145,19 +116,6 @@ public interface OWLOntologyManager
      * @param ontologyVersionIRI The version IRI to match against all of the known ontologies.
      * @return A set of OWLOntologyIDs where the version matches the given version or the empty set
      *         if none match.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLOntologyID> getOntologyIDsByVersion(IRI ontologyVersionIRI) {
-        return asSet(ontologyIDsByVersion(ontologyVersionIRI));
-    }
-
-    /**
-     * Gets a set of OWLOntologyIDs representing ontologies that are managed by this manager.
-     *
-     * @param ontologyVersionIRI The version IRI to match against all of the known ontologies.
-     * @return A set of OWLOntologyIDs where the version matches the given version or the empty set
-     *         if none match.
      */
     Stream<OWLOntologyID> ontologyIDsByVersion(IRI ontologyVersionIRI);
 
@@ -188,21 +146,6 @@ public interface OWLOntologyManager
     OWLOntology getImportedOntology(OWLImportsDeclaration declaration);
 
     /**
-     * Gets the set of <em>loaded</em> ontologies that the specified ontology is related to via the
-     * directlyImports relation as defined in Section 3.4 of the OWL 2 Structural specification
-     *
-     * @param ontology The ontology whose direct imports are to be retrieved.
-     * @return The set of <em>loaded</em> ontologies that the specified ontology is related to via
-     *         the directlyImports relation. If the ontology is not managed by this manager then the
-     *         empty set will be returned.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLOntology> getDirectImports(OWLOntology ontology) {
-        return asSet(directImports(ontology));
-    }
-
-    /**
      * Stream of <em>loaded</em> ontologies that the specified ontology is related to via the
      * directlyImports relation as defined in Section 3.4 of the OWL 2 Structural specification
      *
@@ -212,22 +155,6 @@ public interface OWLOntologyManager
      *         empty set will be returned.
      */
     Stream<OWLOntology> directImports(OWLOntology ontology);
-
-    /**
-     * Gets the set of ontologies that are in the transitive closure of the directly imports
-     * relation.
-     *
-     * @param ontology The ontology whose imports are to be retrieved.
-     * @return A set of {@code OWLOntology}ies that are in the transitive closure of the directly
-     *         imports relation of this ontology. If, for what ever reason, an imported ontology
-     *         could not be loaded, then it will not be contained in the returned set of ontologies.
-     *         If the ontology is not managed by this manager then the empty set will be returned.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLOntology> getImports(OWLOntology ontology) {
-        return asSet(imports(ontology));
-    }
 
     /**
      * Gets the stream of ontologies that are in the transitive closure of the directly imports
@@ -241,23 +168,6 @@ public interface OWLOntologyManager
      *         returned.
      */
     Stream<OWLOntology> imports(OWLOntology ontology);
-
-    /**
-     * Gets the imports closure for the specified ontology.
-     *
-     * @param ontology The ontology whose imports closure is to be retrieved.
-     * @return A {@code Set} of ontologies that contains the imports closure for the specified
-     *         ontology. This set will also include the specified ontology. Example: if A imports B
-     *         and B imports C, then calling this method with A will return the set consisting of A,
-     *         B and C. If, for what ever reason, an imported ontology could not be loaded, then it
-     *         will not be contained in the returned set of ontologies. If the ontology is not
-     *         managed by this manager then the empty set will be returned.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLOntology> getImportsClosure(OWLOntology ontology) {
-        return asSet(importsClosure(ontology));
-    }
 
     /**
      * Imports closure stream for the specified ontology.
@@ -778,162 +688,6 @@ public interface OWLOntologyManager
     void setOntologyFormat(OWLOntology ontology, OWLDocumentFormat ontologyFormat);
 
     /**
-     * Saves the specified ontology. The ontology will be saved to the location that it was loaded
-     * from, or if it was created programmatically, it will be saved to the location specified by an
-     * ontology IRI mapper at creation time. The ontology will be saved in the same format which it
-     * was loaded from, or the default ontology format if the ontology was created programmatically.
-     *
-     * @param ontology The ontology to be saved.
-     * @throws OWLOntologyStorageException An exception will be thrown if there is a problem with
-     *         saving the ontology, or the ontology can't be saved in the format it was loaded from.
-     * @throws UnknownOWLOntologyException if this manager does not manage the specified ontology
-     */
-    default void saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {
-        saveOntology(ontology, getNonnullOntologyFormat(ontology));
-    }
-
-    /**
-     * Saves the specified ontology, using the specified document IRI to determine where/how the
-     * ontology should be saved.
-     *
-     * @param ontology The ontology to be saved.
-     * @param documentIRI The document IRI where the ontology should be saved to
-     * @throws OWLOntologyStorageException If the ontology cannot be saved
-     * @throws UnknownOWLOntologyException if the specified ontology is not managed by this manager.
-     */
-    default void saveOntology(OWLOntology ontology, IRI documentIRI)
-        throws OWLOntologyStorageException {
-        saveOntology(ontology, getNonnullOntologyFormat(ontology), documentIRI);
-    }
-
-    /**
-     * Saves the specified ontology, to the specified output stream
-     *
-     * @param ontology The ontology to be saved.
-     * @param outputStream The output stream where the ontology will be saved to
-     * @throws OWLOntologyStorageException If there was a problem saving this ontology to the
-     *         specified output stream
-     * @throws UnknownOWLOntologyException if this manager does not manage the specified ontology.
-     */
-    void saveOntology(OWLOntology ontology, OutputStream outputStream)
-        throws OWLOntologyStorageException;
-
-    /**
-     * Saves the specified ontology in the specified ontology format to its document URI.
-     *
-     * @param ontology The ontology to be saved.
-     * @param ontologyFormat The format in which the ontology should be saved.
-     * @throws OWLOntologyStorageException If the ontology cannot be saved.
-     * @throws UnknownOWLOntologyException if the specified ontology is not managed by this manager
-     */
-    default void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat)
-        throws OWLOntologyStorageException {
-        saveOntology(ontology, ontologyFormat, getOntologyDocumentIRI(ontology));
-    }
-
-    /**
-     * Saves the specified ontology to the specified document IRI in the specified ontology format.
-     *
-     * @param ontology The ontology to be saved
-     * @param ontologyFormat The format in which to save the ontology
-     * @param documentIRI The document IRI where the ontology should be saved to
-     * @throws OWLOntologyStorageException If the ontology could not be saved.
-     * @throws UnknownOWLOntologyException if the specified ontology is not managed by the manager.
-     */
-    void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat, IRI documentIRI)
-        throws OWLOntologyStorageException;
-
-    /**
-     * Saves the specified ontology to the specified output stream in the specified ontology format.
-     *
-     * @param ontology The ontology to be saved
-     * @param ontologyFormat The format in which to save the ontology
-     * @param outputStream The output stream where the ontology will be saved to.
-     * @throws OWLOntologyStorageException If the ontology could not be saved.
-     * @throws UnknownOWLOntologyException if the specified ontology is not managed by the manager.
-     */
-    void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat,
-        OutputStream outputStream) throws OWLOntologyStorageException;
-
-    /**
-     * Saves the specified ontology to the specified
-     * {@link org.semanticweb.owlapi.io.OWLOntologyDocumentTarget}.
-     *
-     * @param ontology The ontology to be saved.
-     * @param documentTarget The output target where the ontology will be saved to.
-     * @throws OWLOntologyStorageException If the ontology could not be saved.
-     * @throws UnknownOWLOntologyException if the specified ontology is not managed by this manager.
-     */
-    default void saveOntology(OWLOntology ontology, OWLOntologyDocumentTarget documentTarget)
-        throws OWLOntologyStorageException {
-        saveOntology(ontology, getNonnullOntologyFormat(ontology), documentTarget);
-    }
-
-    /**
-     * Saves the specified ontology to the specified output target in the specified ontology format.
-     *
-     * @param ontology The ontology to be saved.
-     * @param ontologyFormat The output format in which to save the ontology
-     * @param documentTarget The output target where the ontology will be saved to
-     * @throws OWLOntologyStorageException If the ontology could not be saved.
-     * @throws UnknownOWLOntologyException If the specified ontology is not managed by this manager.
-     */
-    void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat,
-        OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException;
-
-    /**
-     * Add an IRI mapper to the manager
-     *
-     * @param mapper the mapper to add
-     * @deprecated use getIRIMappers().add() instead
-     */
-    @Deprecated
-    void addIRIMapper(OWLOntologyIRIMapper mapper);
-
-    /**
-     * Remove an IRI mapper from the manager
-     *
-     * @param mapper the mapper to remove
-     * @deprecated use getIRIMappers().remove() instead
-     */
-    @Deprecated
-    void removeIRIMapper(OWLOntologyIRIMapper mapper);
-
-    /**
-     * Clear the manager mappers
-     *
-     * @deprecated use getIRIMappers().clear() instead
-     */
-    @Deprecated
-    void clearIRIMappers();
-
-    /**
-     * Add astorer to the manager
-     *
-     * @param storer the storer to add
-     * @deprecated use getOntologyStorers().add() instead
-     */
-    @Deprecated
-    void addOntologyStorer(OWLStorerFactory storer);
-
-    /**
-     * Remove a storer from the manager
-     *
-     * @param storer the storer to remove
-     * @deprecated use getOntologyStorers().remove() instead
-     */
-    @Deprecated
-    void removeOntologyStorer(OWLStorerFactory storer);
-
-    /**
-     * Clear the manager storers
-     *
-     * @deprecated use getOntologyStorers().clear() instead
-     */
-    @Deprecated
-    void clearOntologyStorers();
-
-    /**
      * @return the collection of IRI mappers. This allows for iteration and modification of the
      *         list.
      */
@@ -1110,4 +864,18 @@ public interface OWLOntologyManager
      * @param listener The listener to be removed.
      */
     void removeOntologyChangeProgessListener(OWLOntologyChangeProgressListener listener);
+
+    /**
+     * Ontology id changes need to be mirrored in the manager indexes.
+     * 
+     * @param change change to handle
+     */
+    void handleOntologyIDChange(OWLOntologyChange change);
+
+    /**
+     * Changes might invalidate imports caches.
+     * 
+     * @param change change to check
+     */
+    void handleImportsChange(OWLOntologyChange change);
 }

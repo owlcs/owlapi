@@ -12,14 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.flatComponents;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.flatComponents;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -32,19 +30,6 @@ public interface OWLObject
     HasAnonymousIndividuals, HasClassesInSignature, HasObjectPropertiesInSignature,
     HasDataPropertiesInSignature, HasIndividualsInSignature, HasDatatypesInSignature,
     HasAnnotationPropertiesInSignature, HasIndex, HasHashIndex, HasComponents, IsAnonymous {
-
-    /**
-     * Gets all of the nested (includes top level) class expressions that are used in this object.
-     * The default implementation of this method returns an empty, modifiable set.
-     *
-     * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s that represent the
-     *         nested class expressions used in this object.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLClassExpression> getNestedClassExpressions() {
-        return asSet(nestedClassExpressions());
-    }
 
     /**
      * Gets all of the nested (includes top level) class expressions that are used in this object.

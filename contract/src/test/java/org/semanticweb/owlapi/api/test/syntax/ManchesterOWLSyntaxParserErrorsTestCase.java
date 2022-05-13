@@ -6,8 +6,6 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
+import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -23,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * Some tests that ensure the correct token and token position are returned when errors are
@@ -32,12 +30,11 @@ import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
  *         01/04/2014
  */
-@SuppressWarnings({"javadoc", "null"})
 @RunWith(MockitoJUnitRunner.class)
 public class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
 
     @Mock
-    protected @Nonnull OWLEntityChecker entityChecker;
+    protected OWLEntityChecker entityChecker;
     private ParserWrapper parser;
 
     @Before

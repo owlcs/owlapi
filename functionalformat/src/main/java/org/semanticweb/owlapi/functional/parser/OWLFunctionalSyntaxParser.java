@@ -69,7 +69,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     }
 
     protected void applyChange(OWLOntologyChange chg) {
-        man.applyChange(chg);
+        chg.getOntology().applyChange(chg);
     }
 
     protected void addAxiom(OWLAxiom ax) {

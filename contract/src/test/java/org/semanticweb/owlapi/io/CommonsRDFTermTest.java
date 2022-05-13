@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-@SuppressWarnings({"javadoc", "null"})
 public class CommonsRDFTermTest extends AbstractRDFTest {
 
     @Ignore
@@ -198,20 +197,17 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
 
         @Override
         public Graph createGraph() {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @Override
         public Dataset createDataset() {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @Override
-        public Quad createQuad(BlankNodeOrIRI graphName, BlankNodeOrIRI subject, IRI predicate,
-            RDFTerm object) {
-            // TODO Auto-generated method stub
+        public Quad createQuad(@Nullable BlankNodeOrIRI graphName, @Nullable BlankNodeOrIRI subject,
+            @Nullable IRI predicate, @Nullable RDFTerm object) {
             return null;
         }
     }

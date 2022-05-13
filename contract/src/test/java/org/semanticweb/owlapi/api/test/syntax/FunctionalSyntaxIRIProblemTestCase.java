@@ -35,7 +35,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 
-@SuppressWarnings("javadoc")
 public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
 
     @Test
@@ -71,12 +70,12 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
             new PrefixManagerImpl().withPrefix("example", "http://www.dis.uniroma1.it/example/");
         OWLClass pizza = df.getOWLClass("example:pizza", pm);
         OWLDeclarationAxiom declarationAxiom = df.getOWLDeclarationAxiom(pizza);
-        m.addAxiom(ontology, declarationAxiom);
+        ontology.addAxiom(declarationAxiom);
         FunctionalSyntaxDocumentFormat ontoFormat = new FunctionalSyntaxDocumentFormat();
         ontology.getPrefixManager().copyPrefixesFrom(pm);
         m.setOntologyFormat(ontology, ontoFormat);
         StringDocumentTarget documentTarget = new StringDocumentTarget();
-        m.saveOntology(ontology, documentTarget);
+        ontology.saveOntology(documentTarget);
         assertTrue(documentTarget.toString().contains("example:pizza"));
     }
 
@@ -100,12 +99,12 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         OWLClass pizza = df.getOWLClass("pizza:PizzaBase", pm);
         assertEquals(prefix + "PizzaBase", pizza.getIRI().toString());
         OWLDeclarationAxiom declarationAxiom = df.getOWLDeclarationAxiom(pizza);
-        m.addAxiom(ontology, declarationAxiom);
+        ontology.addAxiom(declarationAxiom);
         FunctionalSyntaxDocumentFormat ontoFormat = new FunctionalSyntaxDocumentFormat();
         ontology.getPrefixManager().withPrefix("pizza", prefix);
         m.setOntologyFormat(ontology, ontoFormat);
         OWLOntologyDocumentTarget stream = new StringDocumentTarget();
-        m.saveOntology(ontology, stream);
+        ontology.saveOntology(stream);
         assertTrue(stream.toString().contains("pizza:PizzaBase"));
     }
 

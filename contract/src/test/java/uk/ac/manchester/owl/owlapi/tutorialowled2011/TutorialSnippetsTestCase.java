@@ -16,8 +16,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -111,7 +111,6 @@ import org.slf4j.LoggerFactory;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
-@SuppressWarnings({"javadoc"})
 public class TutorialSnippetsTestCase {
 
     @Nonnull
@@ -155,7 +154,7 @@ public class TutorialSnippetsTestCase {
         OWLDocumentFormat format = verifyNotNull(o.getFormat());
         // save an ontology to a document target which holds all data in memory
         StringDocumentTarget target = new StringDocumentTarget();
-        m.saveOntology(o, target);
+        o.saveOntology(target);
         // remove the ontology from the manager, so it can be loaded again
         m.removeOntology(o);
         // create a document source from a string
@@ -194,12 +193,12 @@ public class TutorialSnippetsTestCase {
         // File output = File.createTempFile("saved_pizza", ".owl");
         IRI documentIRI2 = df.getIRI(output);
         // save in OWL/XML format
-        m.saveOntology(o, new OWLXMLDocumentFormat(), documentIRI2);
+        o.saveOntology(new OWLXMLDocumentFormat(), documentIRI2);
         // save in RDF/XML
-        m.saveOntology(o, documentIRI2);
+        o.saveOntology(documentIRI2);
         // print out the ontology
         StringDocumentTarget target = new StringDocumentTarget();
-        m.saveOntology(o, target);
+        o.saveOntology(target);
         // Remove the ontology from the manager
         m.removeOntology(o);
     }
@@ -225,8 +224,7 @@ public class TutorialSnippetsTestCase {
         // Create the ontology - we use the ontology IRI (not the physical URI)
         OWLOntology o = m.createOntology(EXAMPLE_SAVE_IRI);
         // save the ontology to its physical location - documentIRI
-        m.saveOntology(o);
-        assertNotNull(o);
+        o.saveOntology();
     }
 
     @Test
@@ -241,10 +239,10 @@ public class TutorialSnippetsTestCase {
         // add the axiom to the ontology.
         AddAxiom addAxiom = new AddAxiom(o, axiom);
         // We now use the manager to apply the change
-        m.applyChange(addAxiom);
+        o.applyChange(addAxiom);
         // remove the axiom from the ontology
         RemoveAxiom removeAxiom = new RemoveAxiom(o, axiom);
-        m.applyChange(removeAxiom);
+        o.applyChange(removeAxiom);
     }
 
     @Test
@@ -268,7 +266,7 @@ public class TutorialSnippetsTestCase {
         Set<SWRLClassAtom> body = Collections.singleton(df.getSWRLClassAtom(clsA, var));
         Set<SWRLClassAtom> head = Collections.singleton(df.getSWRLClassAtom(clsB, var));
         SWRLRule rule = df.getSWRLRule(body, head);
-        m.applyChange(new AddAxiom(o, rule));
+        o.applyChange(new AddAxiom(o, rule));
         OWLObjectProperty prop = df.getOWLObjectProperty(EXAMPLE_IRI + "#", "propA");
         OWLObjectProperty propB = df.getOWLObjectProperty(EXAMPLE_IRI + "#", "propB");
         SWRLObjectPropertyAtom propAtom = df.getSWRLObjectPropertyAtom(prop, var, var);
@@ -277,7 +275,7 @@ public class TutorialSnippetsTestCase {
         antecedent.add(propAtom);
         antecedent.add(propAtom2);
         SWRLRule rule2 = df.getSWRLRule(antecedent, Collections.singleton(propAtom));
-        m.applyChange(new AddAxiom(o, rule2));
+        o.applyChange(new AddAxiom(o, rule2));
     }
 
     @Test
@@ -294,12 +292,12 @@ public class TutorialSnippetsTestCase {
             df.getOWLObjectPropertyAssertionAxiom(hasFather, matthew, peter);
         // Finally, add the axiom to our ontology and save
         AddAxiom addAxiomChange = new AddAxiom(o, assertion);
-        m.applyChange(addAxiomChange);
+        o.applyChange(addAxiomChange);
         // matthew is an instance of Person
         OWLClass personClass = df.getOWLClass(EXAMPLE_IRI + "#", "Person");
         OWLClassAssertionAxiom ax = df.getOWLClassAssertionAxiom(personClass, matthew);
         // Add this axiom to our ontology - with a convenience method
-        m.addAxiom(o, ax);
+        o.addAxiom(ax);
     }
 
     @Test
@@ -317,7 +315,7 @@ public class TutorialSnippetsTestCase {
         // Changes needed for removal will be prepared
         o.individualsInSignature().forEach(i -> i.accept(remover));
         // Now apply the changes
-        m.applyChanges(remover.getChanges());
+        o.applyChanges(remover.getChanges());
         long size = o.individualsInSignature().count();
         assertTrue(previousNumberOfIndividuals + " supposed to be larger than " + size,
             previousNumberOfIndividuals > size);
@@ -339,7 +337,7 @@ public class TutorialSnippetsTestCase {
         OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(head, hasPartSomeNose);
         // Add the axiom to our ontology
         AddAxiom addAx = new AddAxiom(o, ax);
-        m.applyChange(addAx);
+        o.applyChange(addAx);
     }
 
     @Test
@@ -356,7 +354,7 @@ public class TutorialSnippetsTestCase {
         OWLClassExpression adultDefinition = df.getOWLDataSomeValuesFrom(hasAge, greaterThan18);
         OWLClass adult = df.getOWLClass(EXAMPLE_IRI + "#", "Adult");
         OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(adult, adultDefinition);
-        m.applyChange(new AddAxiom(o, ax));
+        o.applyChange(new AddAxiom(o, ax));
     }
 
     @Test
@@ -533,7 +531,7 @@ public class TutorialSnippetsTestCase {
         // Specify that the pizza class has an annotation
         OWLAxiom ax = df.getOWLAnnotationAssertionAxiom(quokkaCls.getIRI(), commentAnno);
         // Add the axiom to the ontology
-        m.applyChange(new AddAxiom(o, ax));
+        o.applyChange(new AddAxiom(o, ax));
         // add a version info annotation to the ontology
     }
 
@@ -548,7 +546,7 @@ public class TutorialSnippetsTestCase {
         OWLAnnotation anno = df.getOWLAnnotation(owlAnnotationProperty, lit);
         // Now we can add this as an ontology annotation
         // Apply the change in the usual way
-        m.applyChange(new AddOntologyAnnotation(o, anno));
+        o.applyChange(new AddOntologyAnnotation(o, anno));
     }
 
     @Test
@@ -586,7 +584,7 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o1 = loadPizzaOntology(m);
         OWLOntology o2 = m.createOntology(EXAMPLE_IRI);
-        m.addAxiom(o2, df.getOWLDeclarationAxiom(df.getOWLClass(EXAMPLE_IRI + "#", "Weasel")));
+        o2.addAxiom(df.getOWLDeclarationAxiom(df.getOWLClass(EXAMPLE_IRI + "#", "Weasel")));
         // Create our ontology merger
         OWLOntologyMerger merger = new OWLOntologyMerger(m);
         // We merge all of the loaded ontologies. Since an OWLOntologyManager is
@@ -706,10 +704,10 @@ public class TutorialSnippetsTestCase {
         OWLClassAssertionAxiom classAssertion = df.getOWLClassAssertionAxiom(person, mary);
         OWLOntology o = m.createOntology(df.getIRI(base, ""));
         // Add the class assertion
-        m.addAxiom(o, classAssertion);
+        o.addAxiom(classAssertion);
         // Dump the ontology
         StreamDocumentTarget target = new StreamDocumentTarget(new ByteArrayOutputStream());
-        m.saveOntology(o, target);
+        o.saveOntology(target);
     }
 
     @SuppressWarnings("unused")
@@ -740,16 +738,16 @@ public class TutorialSnippetsTestCase {
         OWLOntology o =
             m.createOntology(df.getIRI("http://www.semanticweb.org/ontologies/", "dataranges"));
         // Add the range axiom to our ontology
-        m.addAxiom(o, rangeAxiom);
+        o.addAxiom(rangeAxiom);
         // Now create a datatype definition axiom
         OWLDatatypeDefinitionAxiom datatypeDef = df.getOWLDatatypeDefinitionAxiom(
             df.getOWLDatatype("http://www.semanticweb.org/ontologies/dataranges#", "age"),
             integerGE18);
         // Add the definition to our ontology
-        m.addAxiom(o, datatypeDef);
+        o.addAxiom(datatypeDef);
         // Dump our ontology
         StreamDocumentTarget target = new StreamDocumentTarget(new ByteArrayOutputStream());
-        m.saveOntology(o, target);
+        o.saveOntology(target);
     }
 
     @Test
@@ -769,7 +767,7 @@ public class TutorialSnippetsTestCase {
         // assertion and add it to the ontology
         OWLObjectPropertyAssertionAxiom propertyAssertion =
             df.getOWLObjectPropertyAssertionAxiom(hasWife, john, mary);
-        m.addAxiom(o, propertyAssertion);
+        o.addAxiom(propertyAssertion);
         // Now let's specify that :John is aged 51.
         // Get hold of a data property called :hasAge
         OWLDataProperty hasAge = df.getOWLDataProperty(":hasAge", pm);
@@ -777,7 +775,7 @@ public class TutorialSnippetsTestCase {
         // assertion and add it to the ontology
         OWLDataPropertyAssertionAxiom dataPropertyAssertion =
             df.getOWLDataPropertyAssertionAxiom(hasAge, john, 51);
-        m.addAxiom(o, dataPropertyAssertion);
+        o.addAxiom(dataPropertyAssertion);
     }
 
     /**
@@ -872,7 +870,7 @@ public class TutorialSnippetsTestCase {
         m.getOntologyStorers().add(new TutorialSyntaxStorerFactory());
         // Save using a different format
         StreamDocumentTarget target = new StreamDocumentTarget(new ByteArrayOutputStream());
-        m.saveOntology(o, new OWLTutorialSyntaxOntologyFormat(), target);
+        o.saveOntology(new OWLTutorialSyntaxOntologyFormat(), target);
     }
 
     @Test

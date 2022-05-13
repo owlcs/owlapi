@@ -75,9 +75,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @param object The object that was visited.
      * @return The default return value
      */
-    default Optional<T> doDefault(@SuppressWarnings("unused") OWLProfileViolation object) {
-        return Optional.empty();
-    }
+    Optional<T> doDefault(OWLProfileViolation object);
 
     /**
      * @param v IllegalPunning to visit

@@ -34,11 +34,11 @@ public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingT
     protected OWLOntology createOntology() {
         OWLOntology ont = getAnonymousOWLOntology();
         OWLAnnotationProperty prop = AnnotationProperty(
-                        IRI("http://www.semanticweb.org/ontologies/test/annotationont#", "prop"));
+            IRI("http://www.semanticweb.org/ontologies/test/annotationont#", "prop"));
         OWLLiteral value = Literal(33);
         OWLAnnotation annotation = df.getOWLAnnotation(prop, value);
         ont.applyChange(new AddOntologyAnnotation(ont, annotation));
-        ont.getOWLOntologyManager().addAxiom(ont, Declaration(prop));
+        ont.addAxiom(Declaration(prop));
         return ont;
     }
 }

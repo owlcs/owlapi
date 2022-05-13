@@ -12,10 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
@@ -25,28 +24,66 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 public interface HasAddAxioms {
 
     /**
-     * A convenience method that adds a set of axioms to an ontology. The appropriate AddAxiom
-     * change objects are automatically generated.
+     * Add axioms to this object. The appropriate AddAxiom change objects are automatically
+     * generated.
      *
-     * @param ont The ontology to which the axioms should be added.
      * @param axioms The axioms to be added.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
-     * otherwise.
-     * @deprecated use {@link #addAxioms(OWLOntology, Stream)} instead.
+     * @return ChangeReport containing the results of the change.
      */
-    @Deprecated
-    default ChangeApplied addAxioms(OWLOntology ont, Collection<? extends OWLAxiom> axioms) {
-        return addAxioms(ont, axioms.stream());
+    ChangeReport addAxioms(Stream<? extends OWLAxiom> axioms);
+
+    /**
+     * Add axioms to this object. The appropriate AddAxiom change objects are automatically
+     * generated.
+     *
+     * @param axioms The axioms to be added.
+     * @return ChangeReport containing the results of the change.
+     */
+    default ChangeReport addAxioms(OWLAxiom... axioms) {
+        return addAxioms(Arrays.stream(axioms));
     }
 
     /**
-     * A convenience method that adds a set of axioms to an ontology. The appropriate AddAxiom
-     * change objects are automatically generated.
+     * Add axioms to this object. The appropriate AddAxiom change objects are automatically
+     * generated.
      *
-     * @param ont The ontology to which the axioms should be added.
      * @param axioms The axioms to be added.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
-     * otherwise.
+     * @return ChangeReport containing the results of the change.
      */
-    ChangeApplied addAxioms(OWLOntology ont, Stream<? extends OWLAxiom> axioms);
+    default ChangeReport add(Collection<? extends OWLAxiom> axioms) {
+        return addAxioms(axioms.stream());
+    }
+
+    /**
+     * Add axioms to this object. The appropriate AddAxiom change objects are automatically
+     * generated.
+     *
+     * @param axioms The axioms to be added.
+     * @return ChangeReport containing the results of the change.
+     */
+    default ChangeReport add(Stream<? extends OWLAxiom> axioms) {
+        return addAxioms(axioms);
+    }
+
+    /**
+     * Add axioms to this object. The appropriate AddAxiom change objects are automatically
+     * generated.
+     *
+     * @param axioms The axioms to be added.
+     * @return ChangeReport containing the results of the change.
+     */
+    default ChangeReport add(OWLAxiom... axioms) {
+        return addAxioms(Arrays.stream(axioms));
+    }
+
+    /**
+     * Add axioms to this object. The appropriate AddAxiom change objects are automatically
+     * generated.
+     *
+     * @param axioms The axioms to be added.
+     * @return ChangeReport containing the results of the change.
+     */
+    default ChangeReport addAxioms(Collection<? extends OWLAxiom> axioms) {
+        return addAxioms(axioms.stream());
+    }
 }

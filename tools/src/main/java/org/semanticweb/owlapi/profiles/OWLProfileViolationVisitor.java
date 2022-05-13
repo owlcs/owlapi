@@ -66,14 +66,6 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
 public interface OWLProfileViolationVisitor {
 
     /**
-     * @param object object to visit @deprecated use doDefault() instead
-     */
-    @Deprecated
-    default void getDefaultReturnValue(OWLProfileViolation object) {
-        doDefault(object);
-    }
-
-    /**
      * Default action for the visitor.
      *
      * @param object The object that was visited.

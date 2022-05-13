@@ -17,12 +17,10 @@ import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.rio.utils.RioUtils;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({"javadoc", "null"})
 public class RioUtilsTestCase extends TestBase {
 
     private static final ValueFactory VF = SimpleValueFactory.getInstance();
@@ -97,11 +95,6 @@ public class RioUtilsTestCase extends TestBase {
             testSesamePredicateUri1, testSesameObjectBNode1);
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.
-     * RDFTriple)}
-     */
     @Test
     public void testTripleAllIRI() {
         Statement tripleAsStatement = RioUtils.tripleAsStatement(testOwlApiTripleAllIRI);
@@ -127,33 +120,18 @@ public class RioUtilsTestCase extends TestBase {
         assertEquals(testSesameTripleSubjectObjectBNode, tripleAsStatement);
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.
-     * RDFTriple)}
-     */
     @Test
     public void testTripleLangLiteral() {
         Statement tripleAsStatement = RioUtils.tripleAsStatement(testOwlApiTripleLangLiteral);
         assertEquals(testSesameTripleLangLiteral, tripleAsStatement);
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.
-     * RDFTriple)}
-     */
     @Test
     public void testTriplePlainLiteral() {
         Statement tripleAsStatement = RioUtils.tripleAsStatement(testOwlApiTriplePlainLiteral);
         assertEquals(testSesameTriplePlainLiteral, tripleAsStatement);
     }
 
-    /*
-     * Test method for {@link
-     * org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.
-     * RDFTriple)}
-     */
     @Test
     public void testTripleTypedLiteral() {
         Statement tripleAsStatement = RioUtils.tripleAsStatement(testOwlApiTripleTypedLiteral);

@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
  * Some ontology utils methods.
@@ -72,23 +71,6 @@ public final class OntologyUtils {
             ont.remove(axiom);
         });
         return modifiedOnts;
-    }
-
-    /**
-     * Add the axiom to all the given ontologies.
-     *
-     * @param axiom the axiom to add
-     * @param ontologies the ontologies to add the axiom to
-     * @param manager the manager for the application
-     * @deprecated use {@link #addAxiom(OWLAxiom, Stream)}
-     */
-    @Deprecated
-    public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies,
-        OWLOntologyManager manager) {
-        checkNotNull(manager, "manager cannot be null");
-        checkNotNull(axiom, AXIOM_CANNOT_BE_NULL);
-        checkNotNull(ontologies, ONTOLOGIES_CANNOT_BE_NULL);
-        addAxiom(axiom, ontologies.stream());
     }
 
     /**

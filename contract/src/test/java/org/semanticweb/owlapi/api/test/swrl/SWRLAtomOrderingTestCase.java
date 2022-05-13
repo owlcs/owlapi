@@ -3,7 +3,7 @@ package org.semanticweb.owlapi.api.test.swrl;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.model.SWRLRule;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
  *         04/04/2014
  */
-@SuppressWarnings({"javadoc", "null"})
 @RunWith(MockitoJUnitRunner.class)
 public class SWRLAtomOrderingTestCase extends TestBase {
 

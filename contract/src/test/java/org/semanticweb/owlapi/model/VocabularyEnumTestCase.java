@@ -16,7 +16,7 @@ import static java.util.Arrays.stream;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.Namespaces.DC;
 import static org.semanticweb.owlapi.vocab.Namespaces.OWL;
 import static org.semanticweb.owlapi.vocab.Namespaces.SKOS;
@@ -44,7 +44,6 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class VocabularyEnumTestCase {
 

@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
 public class LabelExtractor implements OWLAnnotationObjectVisitor {
 
     protected @Nullable String result = null;

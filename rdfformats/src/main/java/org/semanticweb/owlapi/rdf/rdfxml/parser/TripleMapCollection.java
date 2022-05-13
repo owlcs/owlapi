@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createMap;
 

@@ -14,8 +14,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Liter
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -42,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * test for 3294629 - currently disabled. Not clear whether structure sharing is allowed or
  * disallowed. Data is equivalent, ontology annotations are not
  */
-@SuppressWarnings("javadoc")
 public class SharedBlankNodeTestCase extends TestBase {
 
     String NS = "urn:test";
@@ -99,8 +98,8 @@ public class SharedBlankNodeTestCase extends TestBase {
         return ontology;
     }
 
-    private void annotate(OWLOntology o, String p, OWLAnnotationValue v) {
-        m.applyChange(new AddOntologyAnnotation(o, Annotation(AnnotationProperty(IRI(p)), v)));
+    private static void annotate(OWLOntology o, String p, OWLAnnotationValue v) {
+        o.applyChange(new AddOntologyAnnotation(o, Annotation(AnnotationProperty(IRI(p)), v)));
     }
 
     private static OWLAxiom dataAssertion(String p, OWLIndividual i, String l) {

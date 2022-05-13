@@ -18,8 +18,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.creat
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createDataProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +41,6 @@ import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class RendererAndParserTestCase extends TestBase {
 
@@ -54,26 +53,26 @@ public class RendererAndParserTestCase extends TestBase {
     @Parameters
     public static List<AxiomBuilder> getData() {
         return Arrays.asList(
-                        // AnonymousIndividual
+            // AnonymousIndividual
             () -> singletonList(df.getOWLClassAssertionAxiom(
                 df.getOWLObjectComplementOf(createClass()), createIndividual())),
-                        // ClassAssertionAxioms
+            // ClassAssertionAxioms
             () -> singletonList(df.getOWLClassAssertionAxiom(createClass(), createIndividual())),
-                        // DifferentIndividualsAxiom
+            // DifferentIndividualsAxiom
             () -> singletonList(df.getOWLDifferentIndividualsAxiom(createIndividual(),
                 createIndividual(), createIndividual(), createIndividual(), createIndividual())),
-                        // EquivalentClasses
+            // EquivalentClasses
             () -> singletonList(df.getOWLEquivalentClassesAxiom(createClass(),
                 df.getOWLObjectSomeValuesFrom(createObjectProperty(), df.getOWLThing()))),
-                        // NegativeDataPropertyAssertionAxiom
+            // NegativeDataPropertyAssertionAxiom
             () -> singletonList(df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(),
                 createIndividual(), df.getOWLLiteral("TestConstant"))),
-                        // NegativeObjectPropertyAssertionAxiom
+            // NegativeObjectPropertyAssertionAxiom
             () -> singletonList(df.getOWLNegativeObjectPropertyAssertionAxiom(
                 createObjectProperty(), createIndividual(), createIndividual())),
-                        // QCR
+            // QCR
             () -> singletonList(df.getOWLSubClassOfAxiom(createClass(),
-                                        df.getOWLObjectMinCardinality(3, createObjectProperty(),
+                df.getOWLObjectMinCardinality(3, createObjectProperty(),
                     df.getOWLObjectIntersectionOf(createClass(), createClass())))));
     }
 

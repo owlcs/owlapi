@@ -54,14 +54,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public class OntologyContainsAxiomTestCase extends TestBase {
 
     @Test
     public void testOntologyContainsPlainAxiom() {
         OWLAxiom axiom = SubClassOf(Class(iri("A")), Class(iri("B")));
         OWLOntology ont = getOWLOntology();
-        ont.getOWLOntologyManager().addAxiom(ont, axiom);
+        ont.addAxiom(axiom);
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
     }
@@ -73,7 +72,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLAnnotation anno = Annotation(annoProp, annoLiteral);
         OWLAxiom axiom = SubClassOf(Class(iri("A")), Class(iri("B")), singleton(anno));
         OWLOntology ont = getOWLOntology();
-        ont.getOWLOntologyManager().addAxiom(ont, axiom);
+        ont.addAxiom(axiom);
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
         assertFalse(ont.containsAxiom(axiom.getAxiomWithoutAnnotations()));
@@ -124,20 +123,20 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         @Nonnull
         IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
-        ont1.getOWLOntologyManager().applyChange(new AddImport(ont2, ont2import));
+        ont1.applyChange(new AddImport(ont2, ont2import));
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
         OWLAxiom axannoPropdecl = Declaration(annoProp);
-        ont1.getOWLOntologyManager().addAxiom(ont1, axannoPropdecl);
+        ont1.addAxiom(axannoPropdecl);
         OWLAnnotation inont1anno = Annotation(annoProp, ont1iri);
         OWLAnnotation inont2anno = Annotation(annoProp, ont2iri);
         OWLClass a = Class(iri("A"));
         OWLAxiom axAdecl = Declaration(a, singleton(inont1anno));
-        ont1.getOWLOntologyManager().addAxiom(ont1, axAdecl);
+        ont1.addAxiom(axAdecl);
         OWLClass b = Class(iri("B"));
         OWLAxiom axBdecl = Declaration(b, singleton(inont2anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, axBdecl);
+        ont2.addAxiom(axBdecl);
         OWLAxiom axAsubB = SubClassOf(Class(iri("A")), Class(iri("B")), singleton(inont2anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, axAsubB);
+        ont2.addAxiom(axAsubB);
         // annoProp is in ont1 and in the import closure of ont2
         assertTrue(containsConsiderEx(ont1, axannoPropdecl));
         assertFalse(containsConsiderEx(ont2, axannoPropdecl));
@@ -158,13 +157,13 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         File savedLocation1 = folder.newFile("testont1A.owl");
         try (FileOutputStream out1 = new FileOutputStream(savedLocation1)) {
             StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
-            ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
+            ont1.saveOntology(format, writer1);
         }
         @Nonnull
         File savedLocation2 = folder.newFile("testont2A.owl");
         try (FileOutputStream out2 = new FileOutputStream(savedLocation2)) {
             StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
-            ont2.getOWLOntologyManager().saveOntology(ont2, format, writer2);
+            ont2.saveOntology(format, writer2);
         }
         OWLOntologyManager man = setupManager();
         OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
@@ -226,20 +225,20 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLOntology ont2 = getOWLOntology();
         IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
-        ont2.getOWLOntologyManager().applyChange(new AddImport(ont2, ont2import));
+        ont2.applyChange(new AddImport(ont2, ont2import));
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
         OWLAxiom axAnnoPropDecl = Declaration(annoProp);
-        ont1.getOWLOntologyManager().addAxiom(ont1, axAnnoPropDecl);
+        ont1.addAxiom(axAnnoPropDecl);
         OWLAnnotation inOnt1Anno = Annotation(annoProp, ont1iri);
         OWLAnnotation inOnt2Anno = Annotation(annoProp, ont2iri);
         OWLClass a = Class(iri("A"));
         OWLAxiom axADecl = Declaration(a, singleton(inOnt1Anno));
-        ont1.getOWLOntologyManager().addAxiom(ont1, axADecl);
+        ont1.addAxiom(axADecl);
         OWLClass b = Class(iri("B"));
         OWLAxiom axBDecl = Declaration(b, singleton(inOnt2Anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, axBDecl);
+        ont2.addAxiom(axBDecl);
         OWLAxiom axAsubB = SubClassOf(Class(iri("A")), Class(iri("B")), singleton(inOnt2Anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, axAsubB);
+        ont2.addAxiom(axAsubB);
         // annoProp is in ont1 and in the import closure of ont2
         assertTrue(containsConsiderEx(ont1, axAnnoPropDecl));
         assertFalse(containsConsiderEx(ont2, axAnnoPropDecl));
@@ -260,13 +259,13 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         File savedLocation1 = folder.newFile("testont1B.owl");
         try (FileOutputStream out1 = new FileOutputStream(savedLocation1)) {
             StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
-            ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
+            ont1.saveOntology(format, writer1);
         }
         @Nonnull
         File savedLocation2 = folder.newFile("testont2B.owl");
         try (FileOutputStream out2 = new FileOutputStream(savedLocation2)) {
             StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
-            ont2.getOWLOntologyManager().saveOntology(ont2, format, writer2);
+            ont2.saveOntology(format, writer2);
         }
         OWLOntologyManager man = setupManager();
         @SuppressWarnings("unused")

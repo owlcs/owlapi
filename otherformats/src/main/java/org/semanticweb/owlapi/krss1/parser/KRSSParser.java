@@ -27,14 +27,9 @@ class KRSSParser implements KRSSParserConstants {
         return this;
     }
 
-    protected void addAxiom(OWLAxiom ax) throws KRSSOWLParserException {
+    protected void addAxiom(OWLAxiom ax) {
       if (ax == null) { return; }
-        try {
-            ontology.addAxiom(ax);
-        }
-        catch(OWLOntologyChangeException e) {
-            throw new KRSSOWLParserException(e);
-        }
+      ontology.addAxiom(ax);
     }
 
     public IRI getIRI(String s) {
@@ -51,7 +46,7 @@ class KRSSParser implements KRSSParserConstants {
         ignoreAnnotationsAndDeclarations = b;
     }
 
-  final public void parse() throws ParseException, KRSSOWLParserException {OWLAxiom ax;
+  final public void parse() throws ParseException, ParseException {OWLAxiom ax;
     label_1:
     while (true) {
       if (jj_2_1(2)) {
@@ -541,6 +536,43 @@ return Integer.parseInt(t.image);
     finally { jj_save(19, xla); }
   }
 
+  private boolean jj_3_14()
+ {
+    if (jj_3R_15()) return true;
+    return false;
+  }
+
+  private boolean jj_3_13()
+ {
+    if (jj_3R_14()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_21()
+ {
+    if (jj_scan_token(OPENPAR)) return true;
+    if (jj_scan_token(DISTINCT)) return true;
+    return false;
+  }
+
+  private boolean jj_3_12()
+ {
+    if (jj_3R_13()) return true;
+    return false;
+  }
+
+  private boolean jj_3_11()
+ {
+    if (jj_3R_12()) return true;
+    return false;
+  }
+
+  private boolean jj_3_10()
+ {
+    if (jj_3R_11()) return true;
+    return false;
+  }
+
   private boolean jj_3_9()
  {
     if (jj_3R_10()) return true;
@@ -628,17 +660,17 @@ return Integer.parseInt(t.image);
     return false;
   }
 
-  private boolean jj_3R_5()
- {
-    if (jj_scan_token(OPENPAR)) return true;
-    if (jj_scan_token(DEFINEPRIMITIVECONCEPT)) return true;
-    return false;
-  }
-
   private boolean jj_3R_15()
  {
     if (jj_scan_token(OPENPAR)) return true;
     if (jj_scan_token(ATLEAST)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_5()
+ {
+    if (jj_scan_token(OPENPAR)) return true;
+    if (jj_scan_token(DEFINEPRIMITIVECONCEPT)) return true;
     return false;
   }
 
@@ -760,43 +792,6 @@ return Integer.parseInt(t.image);
   private boolean jj_3_15()
  {
     if (jj_3R_16()) return true;
-    return false;
-  }
-
-  private boolean jj_3_14()
- {
-    if (jj_3R_15()) return true;
-    return false;
-  }
-
-  private boolean jj_3_13()
- {
-    if (jj_3R_14()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_21()
- {
-    if (jj_scan_token(OPENPAR)) return true;
-    if (jj_scan_token(DISTINCT)) return true;
-    return false;
-  }
-
-  private boolean jj_3_12()
- {
-    if (jj_3R_13()) return true;
-    return false;
-  }
-
-  private boolean jj_3_11()
- {
-    if (jj_3R_12()) return true;
-    return false;
-  }
-
-  private boolean jj_3_10()
- {
-    if (jj_3R_11()) return true;
     return false;
   }
 

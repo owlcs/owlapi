@@ -35,7 +35,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.3.0
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class LiteralWithEscapesTestCase extends AbstractRoundTrippingTestCase {
 

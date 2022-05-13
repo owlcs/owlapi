@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
 public class OWLXMLNullPointerTestCase extends TestBase {
 
     private static final String NS = "urn:test";
@@ -61,7 +60,7 @@ public class OWLXMLNullPointerTestCase extends TestBase {
         OWLObjectProperty p = df.getOWLObjectProperty("urn:test#", "p");
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
         OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(c, df.getOWLObjectHasValue(p, i));
-        o.getOWLOntologyManager().addAxiom(o, sub);
+        o.addAxiom(sub);
         OWLOntology roundtrip = roundTrip(o, new OWLXMLDocumentFormat());
         equal(o, roundtrip);
     }

@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({"javadoc"})
 public class SetOntologyIDDataTestCase extends TestBase {
 
     private final OWLOntology mockOntology = mock(OWLOntology.class);

@@ -14,8 +14,8 @@ package org.semanticweb.owlapi.metrics;
 
 import static org.semanticweb.owlapi.search.Searcher.sup;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -69,12 +69,8 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange chg : changes) {
-            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
-                return true;
-            }
-        }
-        return false;
+    protected boolean isMetricInvalidated(Collection<? extends OWLOntologyChange> changes) {
+        return changes.stream()
+            .anyMatch(c -> c.isAxiomChange() && c.getAxiom() instanceof OWLSubClassOfAxiom);
     }
 }

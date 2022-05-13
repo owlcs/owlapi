@@ -31,11 +31,9 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLNo
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SameIndividual;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
-
-import javax.annotation.Nonnull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -51,10 +49,9 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-@SuppressWarnings({"javadoc", "null"})
 public class InvalidAxiomRoundTripTestCase extends TestBase {
 
-    private @Nonnull OWLOntology o;
+    private OWLOntology o;
 
     @Before
     public void setUpO() {

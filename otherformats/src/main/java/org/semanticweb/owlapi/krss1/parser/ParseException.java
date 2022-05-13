@@ -213,4 +213,4 @@ package org.semanticweb.owlapi.krss1.parser;
    }
 
 }
-/* JavaCC - OriginalChecksum=81ed304a1bcd7837a1a76470cd8d3c8d (do not edit this line) */
+/* JavaCC - OriginalChecksum=5f792131e4fd4db91dce084a1544dac2 (do not edit this line) */

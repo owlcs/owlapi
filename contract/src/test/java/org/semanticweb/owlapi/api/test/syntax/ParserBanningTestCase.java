@@ -7,7 +7,6 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-@SuppressWarnings("javadoc")
 public class ParserBanningTestCase extends TestBase {
 
     @Test(expected = OWLOntologyCreationException.class)

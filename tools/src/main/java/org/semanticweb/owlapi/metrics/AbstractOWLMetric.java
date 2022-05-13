@@ -16,7 +16,7 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -97,7 +97,7 @@ public abstract class AbstractOWLMetric<M extends Serializable>
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
+    public void ontologiesChanged(Collection<? extends OWLOntologyChange> changes) {
         if (isMetricInvalidated(changes)) {
             setDirty(true);
         }
@@ -130,12 +130,12 @@ public abstract class AbstractOWLMetric<M extends Serializable>
      * invalid.
      *
      * @param changes The list of changes which will be examined to determine if the metric is now
-     * invalid.
+     *        invalid.
      * @return {@code true} if the metric value is invalidated by the specified list of changes, or
-     * {@code false} if the list of changes do not cause the value of this metric to be
-     * invalidated.
+     *         {@code false} if the list of changes do not cause the value of this metric to be
+     *         invalidated.
      */
-    protected abstract boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes);
+    protected abstract boolean isMetricInvalidated(Collection<? extends OWLOntologyChange> changes);
 
     /**
      * Dispose metric.

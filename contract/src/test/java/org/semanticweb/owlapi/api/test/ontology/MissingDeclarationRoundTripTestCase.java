@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class MissingDeclarationRoundTripTestCase extends TestBase {
 
     @Test

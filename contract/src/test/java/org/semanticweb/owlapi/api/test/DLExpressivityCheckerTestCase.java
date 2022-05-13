@@ -280,7 +280,6 @@ import org.semanticweb.owlapi.utility.Construct;
 import org.semanticweb.owlapi.utility.DLExpressivityChecker;
 import org.semanticweb.owlapi.utility.Languages;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class DLExpressivityCheckerTestCase extends TestBase {
 

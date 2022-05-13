@@ -6,7 +6,6 @@ import java.util.Date;
 /**
  * Convenience for NCBI memory benchmark
  */
-@SuppressWarnings("javadoc")
 public class NCBITaxonMemoryBenchmark {
 
     public static void main(String[] args) throws Exception {

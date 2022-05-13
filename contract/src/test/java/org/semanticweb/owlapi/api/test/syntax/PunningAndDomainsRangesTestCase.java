@@ -16,7 +16,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-@SuppressWarnings("javadoc")
 public class PunningAndDomainsRangesTestCase extends TestBase {
 
     @Test
@@ -25,10 +24,8 @@ public class PunningAndDomainsRangesTestCase extends TestBase {
         OWLOntology o = m.createOntology(df.getIRI("urn:test#", "ontology"));
         OWLAnnotationProperty p1 = df.getOWLAnnotationProperty(df.getIRI("urn:property#", "p"));
         OWLDataProperty p2 = df.getOWLDataProperty(df.getIRI("urn:property#", "p"));
-        m.addAxiom(o,
-            df.getOWLAnnotationPropertyRangeAxiom(p1, OWL2Datatype.RDFS_LITERAL.getIRI()));
-        m.addAxiom(o,
-            df.getOWLDataPropertyRangeAxiom(p2, OWL2Datatype.RDFS_LITERAL.getDatatype(df)));
+        o.addAxiom(df.getOWLAnnotationPropertyRangeAxiom(p1, OWL2Datatype.RDFS_LITERAL.getIRI()));
+        o.addAxiom(df.getOWLDataPropertyRangeAxiom(p2, OWL2Datatype.RDFS_LITERAL.getDatatype(df)));
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o2);
     }
@@ -39,10 +36,9 @@ public class PunningAndDomainsRangesTestCase extends TestBase {
         OWLClass b = df.getOWLClass(df.getIRI("urn:test#", "B"));
         OWLClass a = df.getOWLClass(df.getIRI("urn:test#", "A"));
         OWLOntology o = m.createOntology();
-        m.addAxiom(o,
-            df.getOWLDeclarationAxiom(df.getOWLObjectProperty(df.getIRI("urn:test#", "B"))));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(b));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(a));
+        o.addAxiom(df.getOWLDeclarationAxiom(df.getOWLObjectProperty(df.getIRI("urn:test#", "B"))));
+        o.addAxiom(df.getOWLDeclarationAxiom(b));
+        o.addAxiom(df.getOWLDeclarationAxiom(a));
         ManchesterOWLSyntaxParserImpl parser =
             (ManchesterOWLSyntaxParserImpl) OWLManager.createManchesterParser();
         parser.getPrefixManager().withDefaultPrefix("urn:test#");

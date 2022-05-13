@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
 public class SubClassCollector implements OWLAxiomVisitor {
 
     /* Collected axioms */

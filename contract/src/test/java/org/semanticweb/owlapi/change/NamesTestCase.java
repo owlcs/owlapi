@@ -41,7 +41,6 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-@SuppressWarnings({"javadoc"})
 public class NamesTestCase extends TestBase {
 
     @Test

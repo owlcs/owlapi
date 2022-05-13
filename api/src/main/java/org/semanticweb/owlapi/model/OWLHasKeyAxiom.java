@@ -12,9 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -69,17 +66,6 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLProperty
      * Gets the set of property expressions that form the key.
      *
      * @return The set of property expression that form the key
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLPropertyExpression> getPropertyExpressions() {
-        return asSet(propertyExpressions());
-    }
-
-    /**
-     * Gets the set of property expressions that form the key.
-     *
-     * @return The set of property expression that form the key
      */
     Stream<OWLPropertyExpression> propertyExpressions();
 
@@ -87,21 +73,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLProperty
      * Gets the set of object property expressions that make up the key. This is simply a
      * convenience method that filteres out the object property expressions in the key. All of the
      * properties returned by this method are included in the return value of the
-     * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
-     *
-     * @return The set of object property expressions in the key described by this axiom
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
-        return asSet(objectPropertiesInSignature(), OWLObjectPropertyExpression.class);
-    }
-
-    /**
-     * Gets the set of object property expressions that make up the key. This is simply a
-     * convenience method that filteres out the object property expressions in the key. All of the
-     * properties returned by this method are included in the return value of the
-     * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
+     * {@link OWLHasKeyAxiom#propertyExpressions()} method.
      *
      * @return The set of object property expressions in the key described by this axiom
      */
@@ -114,21 +86,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLProperty
      * Gets the set of data property expressions that make up the key. This is simply a convenience
      * method that filteres out the data property expressions in the key. All of the properties
      * returned by this method are included in the return value of the
-     * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
-     *
-     * @return The set of object property expressions in the key described by this axiom
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
-        return asSet(dataPropertyExpressions());
-    }
-
-    /**
-     * Gets the set of data property expressions that make up the key. This is simply a convenience
-     * method that filteres out the data property expressions in the key. All of the properties
-     * returned by this method are included in the return value of the
-     * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
+     * {@link OWLHasKeyAxiom#propertyExpressions()} method.
      *
      * @return The set of object property expressions in the key described by this axiom
      */

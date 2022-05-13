@@ -77,7 +77,7 @@ public interface SWRLProvider {
      * @param predicate The class expression that represents the predicate of the atom
      * @param arg The argument (x)
      * @return The class atom with the specified class expression predicate and the specified
-     * argument.
+     *         argument.
      */
     SWRLClassAtom getSWRLClassAtom(OWLClassExpression predicate, SWRLIArgument arg);
 
@@ -133,7 +133,7 @@ public interface SWRLProvider {
      * @param builtInIRI The builtin predicate IRI
      * @param args A non-empty set of SWRL Arguments.
      * @return A SWRLBuiltInAtom whose predicate is identified by the specified builtInIRI and that
-     * has the specified arguments
+     *         has the specified arguments
      * @throws IllegalArgumentException if the list of arguments is empty
      */
     SWRLBuiltInAtom getSWRLBuiltInAtom(IRI builtInIRI, List<SWRLDArgument> args);

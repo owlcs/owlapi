@@ -33,7 +33,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("javadoc")
-@Category(IntegrationTest.class)
 public class BundleIsLoadableIntegrationTestCase {
     private static Logger logger =
         LoggerFactory.getLogger(BundleIsLoadableIntegrationTestCase.class);

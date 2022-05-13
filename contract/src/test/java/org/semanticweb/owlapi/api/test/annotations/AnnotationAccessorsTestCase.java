@@ -23,7 +23,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Liter
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLPrimitive;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AnnotationAccessorsTestCase extends TestBase {
 
@@ -77,7 +76,7 @@ public class AnnotationAccessorsTestCase extends TestBase {
     public void testClassAccessor() {
         OWLOntology ont = getOWLOntology();
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
-        ont.getOWLOntologyManager().addAxiom(ont, ax);
+        ont.addAxiom(ax);
         IRI subject = df.getIRI("http://owlapi.sourceforge.net/ontologies/test#", "X");
         assertTrue(ont.annotationAssertionAxioms(subject).anyMatch(a -> a.equals(ax)));
         if (e instanceof OWLEntity) {

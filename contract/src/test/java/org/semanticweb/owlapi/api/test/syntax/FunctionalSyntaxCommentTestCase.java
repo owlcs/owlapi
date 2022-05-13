@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-@SuppressWarnings("javadoc")
 public class FunctionalSyntaxCommentTestCase extends TestBase {
 
     @Test
@@ -87,16 +86,13 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
             + "blah\")\n"
             + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n\n\n)";
         OWLOntology o = m.createOntology(df.getIRI("file:test.owl"));
-        m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(IRI("urn:test.owl#ContactInformation"),
+        o.addAxiom(df.getOWLAnnotationAssertionAxiom(IRI("urn:test.owl#ContactInformation"),
             Annotation(RDFSLabel(), Literal("blah \nblah"))));
-        m.addAxiom(o, Declaration(DataProperty(IRI("urn:test.owl#city"))));
-        m.addAxiom(o,
-            SubClassOf(Class(IRI("urn:test.owl#ContactInformation")),
-                DataMaxCardinality(1, DataProperty(IRI("urn:test.owl#city")),
-                    Datatype(OWL2Datatype.XSD_STRING.getIRI()))));
-        m.addAxiom(o,
-            Declaration(Class(IRI("urn:test.owl#ContactInformation")), new HashSet<>(Arrays
-                .asList(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("blah \nblah"))))));
+        o.addAxiom(Declaration(DataProperty(IRI("urn:test.owl#city"))));
+        o.addAxiom(SubClassOf(Class(IRI("urn:test.owl#ContactInformation")), DataMaxCardinality(1,
+            DataProperty(IRI("urn:test.owl#city")), Datatype(OWL2Datatype.XSD_STRING.getIRI()))));
+        o.addAxiom(Declaration(Class(IRI("urn:test.owl#ContactInformation")), new HashSet<>(Arrays
+            .asList(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("blah \nblah"))))));
         StringDocumentTarget saveOntology = saveOntology(o, new FunctionalSyntaxDocumentFormat());
         assertEquals(output, saveOntology.toString());
         OWLOntology loadOntologyFromString =

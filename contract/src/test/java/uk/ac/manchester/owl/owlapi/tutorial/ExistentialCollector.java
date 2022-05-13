@@ -31,14 +31,13 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
 public class ExistentialCollector implements OWLClassExpressionVisitor {
 
     /* Collected axioms */
     private final Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;
 
     public ExistentialCollector(
-                    Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
+        Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
         this.restrictions = restrictions;
     }
 

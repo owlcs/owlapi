@@ -12,9 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-
-import java.util.Collection;
 import java.util.stream.Stream;
 
 /**
@@ -32,17 +29,6 @@ public interface SWRLAtom extends SWRLObject {
      * @return The atom predicate
      */
     SWRLPredicate getPredicate();
-
-    /**
-     * Gets all of the arguments in this atom.
-     *
-     * @return The collection of arguments in this atom
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Collection<SWRLArgument> getAllArguments() {
-        return asList(allArguments());
-    }
 
     /**
      * Gets all of the arguments in this atom.

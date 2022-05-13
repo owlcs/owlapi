@@ -12,12 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.explanation.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -97,7 +97,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
+    public void ontologiesChanged(Collection<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             if (!change.isAxiomChange()
                 || !contains(ontology.importsClosure(), change.getOntology())) {

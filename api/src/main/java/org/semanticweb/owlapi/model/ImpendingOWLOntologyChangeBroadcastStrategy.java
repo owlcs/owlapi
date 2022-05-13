@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -29,5 +29,5 @@ public interface ImpendingOWLOntologyChangeBroadcastStrategy extends Serializabl
      * @param listener The listeners that the changes should be broadcast to
      */
     void broadcastChanges(ImpendingOWLOntologyChangeListener listener,
-        List<? extends OWLOntologyChange> changes);
+        Collection<? extends OWLOntologyChange> changes);
 }

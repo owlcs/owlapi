@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.swing.SwingUtilities;
 
@@ -27,7 +27,7 @@ public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStr
 
     @Override
     public void broadcastChanges(OWLOntologyChangeListener l,
-        List<? extends OWLOntologyChange> changes) throws OWLException {
+        Collection<? extends OWLOntologyChange> changes) throws OWLException {
         try {
             SwingUtilities.invokeLater(() -> l.ontologiesChanged(changes));
         } catch (OWLRuntimeException e) {

@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.utility;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.annotation.Nullable;
 
@@ -68,7 +68,7 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChan
     /**
      * @param changes changes to process
      */
-    public void processChanges(List<? extends OWLOntologyChange> changes) {
+    public void processChanges(Collection<? extends OWLOntologyChange> changes) {
         checkNotNull(changes, "changes cannot be null");
         changes.forEach(c -> c.accept(this));
     }
@@ -98,7 +98,8 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChan
      * Gets the ontology which the current change being visited was applied to.
      *
      * @return The ontology or {@code null} if the filter is not in a change visit cycle. When
-     * called from within a {@code visit} method, the return value is guarenteed not to be {@code
+     *         called from within a {@code visit} method, the return value is guarenteed not to be
+     *         {@code
      * null}.
      */
     @Nullable

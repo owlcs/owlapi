@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 
 /**
  * Tests the loading of a single ontology multiple times, using the same ontologyIRI in the
@@ -37,7 +36,6 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({"javadoc",})
 public class EquivalentAndSubclassTestCase extends TestBase {
 
     String input = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
@@ -92,9 +90,7 @@ public class EquivalentAndSubclassTestCase extends TestBase {
         });
 
         // remove redundant axiom
-        for (OWLAxiom ax : newAxioms) {
-            ontology.getOWLOntologyManager().addAxiom(ontology, ax);
-        }
+        ontology.addAxioms(newAxioms);
     }
 
     private static Set<OWLObjectSomeValuesFrom> getSomeValuesFromAncestor(OWLClassExpression x,

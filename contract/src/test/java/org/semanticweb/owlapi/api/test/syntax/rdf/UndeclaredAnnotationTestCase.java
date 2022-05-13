@@ -2,7 +2,7 @@ package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
 /**
  * Created by ses on 3/10/14.
  */
-@SuppressWarnings("javadoc")
 public class UndeclaredAnnotationTestCase extends TestBase {
 
     @Test

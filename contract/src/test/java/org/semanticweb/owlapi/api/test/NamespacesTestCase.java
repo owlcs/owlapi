@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-@SuppressWarnings("javadoc")
 public class NamespacesTestCase extends TestBase {
 
     @Test
@@ -75,15 +74,15 @@ public class NamespacesTestCase extends TestBase {
         FunctionalSyntaxDocumentFormat pm1 = new FunctionalSyntaxDocumentFormat();
         o1.getPrefixManager().withPrefix(":", "http://test.owl/test#");
         m.setOntologyFormat(o1, pm1);
-        m.addAxiom(o1, declaration);
+        o1.addAxiom(declaration);
         StringDocumentTarget t1 = new StringDocumentTarget();
-        m.saveOntology(o1, t1);
+        o1.saveOntology(t1);
         OWLOntology o2 = m1.createOntology();
         FunctionalSyntaxDocumentFormat pm2 = new FunctionalSyntaxDocumentFormat();
         o2.getPrefixManager().withPrefix(":", "http://test.owl/test#");
-        m1.addAxiom(o2, declaration);
+        o2.addAxiom(declaration);
         StringDocumentTarget t2 = new StringDocumentTarget();
-        m1.saveOntology(o1, pm2, t2);
+        o1.saveOntology(pm2, t2);
         assertTrue(t2.toString().contains("Declaration(Class(:item))"));
         assertEquals(t1.toString(), t2.toString());
     }

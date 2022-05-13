@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({"javadoc"})
 public class RioParserTestCase extends TestBase {
 
     @Before

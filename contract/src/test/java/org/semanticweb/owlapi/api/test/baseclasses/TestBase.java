@@ -18,7 +18,7 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -37,7 +37,6 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.function.ThrowingRunnable;
@@ -80,7 +79,6 @@ import org.slf4j.LoggerFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
-@SuppressWarnings({"javadoc", "null"})
 public abstract class TestBase {
 
     protected interface AxiomBuilder {
@@ -131,21 +129,15 @@ public abstract class TestBase {
     @Rule
     public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
     protected @Nonnull OntologyConfigurator config = new OntologyConfigurator();
-    protected static @Nonnull OWLDataFactory df;
-    protected static @Nonnull OntologyConfigurator masterConfigurator;
-    protected @Nonnull OWLOntologyManager m;
-    protected @Nonnull OWLOntologyManager m1;
+    protected static OWLDataFactory df;
+    protected static OntologyConfigurator masterConfigurator;
+    protected OWLOntologyManager m = setupManager();
+    protected OWLOntologyManager m1 = setupManager();
 
     @BeforeClass
     public static void setupManagers() {
         masterConfigurator = new OntologyConfigurator();
         df = OWLManager.getOWLDataFactory();
-    }
-
-    @Before
-    public void setupManagersClean() {
-        m = setupManager();
-        m1 = setupManager();
     }
 
     protected static OWLOntologyManager setupManager() {
@@ -194,7 +186,7 @@ public abstract class TestBase {
             .getNormalisedAxioms(ont1.axioms());
         axioms2 = new AnonymousIndividualsNormaliser(ont1.getOWLOntologyManager())
             .getNormalisedAxioms(ont2.axioms());
-        OWLDocumentFormat ontologyFormat = ont2.getFormat();
+        OWLDocumentFormat ontologyFormat = ont2.getNonnullFormat();
         applyEquivalentsRoundtrip(axioms1, axioms2, ontologyFormat);
         if (ontologyFormat instanceof ManchesterSyntaxDocumentFormat) {
             // drop GCIs from the expected axioms, they won't be there
@@ -456,7 +448,6 @@ public abstract class TestBase {
             logger.trace(targetForDebug.toString());
         }
         ont.saveOntology(format, target);
-        handleSaved(target, format);
         OWLOntology ont2 = setupManager().loadOntologyFromOntologyDocument(
             new StringDocumentSource(target.toString(), "string:ontology", format, null),
             new OntologyConfigurator().setReportStackTraces(true));
@@ -485,20 +476,6 @@ public abstract class TestBase {
         assertTrue(verifyErrorIsDueToBlankNodesId(ax1, ax2));
     }
 
-    @SuppressWarnings("unused")
-    protected void handleSaved(StringDocumentTarget target, OWLDocumentFormat format) {
-        // System.out.println(target.toString());
-    }
-
-    // protected OWLOntology loadOntologyFromString(String input,
-    // OWLDocumentFormat f) {
-    // try {
-    // return setupManager().loadOntologyFromOntologyDocument(new
-    // StringDocumentSource(input,f));
-    // } catch (OWLOntologyCreationException e) {
-    // throw new OWLRuntimeException(e);
-    // }
-    // }
     protected OWLOntology loadOntologyFromString(String input, IRI i, OWLDocumentFormat f) {
         StringDocumentSource documentSource =
             new StringDocumentSource(input, i.toString(), f, null);
@@ -549,13 +526,13 @@ public abstract class TestBase {
     }
 
     protected StringDocumentTarget saveOntology(OWLOntology o) throws OWLOntologyStorageException {
-        return saveOntology(o, o.getFormat());
+        return saveOntology(o, o.getNonnullFormat());
     }
 
     protected StringDocumentTarget saveOntology(OWLOntology o, OWLDocumentFormat format)
         throws OWLOntologyStorageException {
         StringDocumentTarget t = new StringDocumentTarget();
-        o.getOWLOntologyManager().saveOntology(o, format, t);
+        o.saveOntology(format, t);
         return t;
     }
 

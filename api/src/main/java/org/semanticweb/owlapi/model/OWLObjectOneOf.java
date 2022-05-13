@@ -12,9 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -51,18 +48,6 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression, HasOperands
      * (extension) of this class expression.
      *
      * @return The individiauls that are the values of this {@code ObjectOneOf} class expression.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLIndividual> getIndividuals() {
-        return asSet(individuals());
-    }
-
-    /**
-     * Gets the individuals that are in the oneOf. These individuals represent the exact instances
-     * (extension) of this class expression.
-     *
-     * @return The individiauls that are the values of this {@code ObjectOneOf} class expression.
      */
     Stream<OWLIndividual> individuals();
 
@@ -75,7 +60,7 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression, HasOperands
      * Simplifies this enumeration to a union of singleton nominals.
      *
      * @return This enumeration in a more standard DL form. simp({a}) = {a} simp({a0, ... , {an}) =
-     * unionOf({a0}, ... , {an})
+     *         unionOf({a0}, ... , {an})
      */
     OWLClassExpression asObjectUnionOf();
 

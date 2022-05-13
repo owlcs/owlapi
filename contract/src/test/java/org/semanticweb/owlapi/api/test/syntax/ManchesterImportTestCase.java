@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.utility.AutoIRIMapper;
 
-@SuppressWarnings("javadoc")
 public class ManchesterImportTestCase extends TestBase {
 
     private final IRI str = IRI("http://owlapitestontologies.com/", "thesuperont");

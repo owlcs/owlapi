@@ -11,7 +11,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class DLSyntaxTestCase extends TestBase {
 
     @Test
@@ -54,7 +53,7 @@ public class DLSyntaxTestCase extends TestBase {
         OWLClass b = df.getOWLClass("urn:test:", "B");
         OWLClass c = df.getOWLClass("urn:test:", "C");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b, c);
-        m.addAxiom(o, ax);
+        o.addAxiom(ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
         assertEquals(
             "<html>\n<body>\n<h1>Ontology: \nOntologyID(OntologyIRI(<urn:test:onto>) VersionIRI(<null>))</h1>\n<h2><a name=\"A\">urn:test:A</a></h2>\n"
@@ -73,7 +72,7 @@ public class DLSyntaxTestCase extends TestBase {
         OWLClass a = df.getOWLClass("urn:test:", "A");
         OWLClass b = df.getOWLClass("urn:test:", "B");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b);
-        m.addAxiom(o, ax);
+        o.addAxiom(ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
         assertEquals(
             "<html>\n<body>\n<h1>Ontology: \nOntologyID(OntologyIRI(<urn:test:onto>) VersionIRI(<null>))</h1>\n<h2><a name=\"A\">urn:test:A</a></h2>\n"
@@ -92,7 +91,7 @@ public class DLSyntaxTestCase extends TestBase {
         OWLClass c = df.getOWLClass("urn:test:", "C");
         OWLClass d = df.getOWLClass("urn:test:", "D");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b, c, d);
-        m.addAxiom(o, ax);
+        o.addAxiom(ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
         assertEquals(
             "<html>\n<body>\n<h1>Ontology: \nOntologyID(OntologyIRI(<urn:test:onto>) VersionIRI(<null>))</h1>\n<h2><a name=\"A\">urn:test:A</a></h2>\n"
@@ -114,7 +113,7 @@ public class DLSyntaxTestCase extends TestBase {
         OWLClass b = df.getOWLClass("urn:test:", "B");
         OWLClass c = df.getOWLClass("urn:test:", "C");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b, c);
-        m.addAxiom(o, ax);
+        o.addAxiom(ax);
         String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();
         assertEquals("A ⊑ ¬ B, A ⊑ ¬ C, B ⊑ ¬ C", render);
     }
@@ -125,7 +124,7 @@ public class DLSyntaxTestCase extends TestBase {
         OWLClass a = df.getOWLClass("urn:test:", "A");
         OWLClass b = df.getOWLClass("urn:test:", "B");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b);
-        m.addAxiom(o, ax);
+        o.addAxiom(ax);
         String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();
         assertEquals("A ⊑ ¬ B", render);
     }
@@ -138,7 +137,7 @@ public class DLSyntaxTestCase extends TestBase {
         OWLClass c = df.getOWLClass("urn:test:", "C");
         OWLClass d = df.getOWLClass("urn:test:", "D");
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(a, b, c, d);
-        m.addAxiom(o, ax);
+        o.addAxiom(ax);
         String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();
         assertEquals("A ⊑ ¬ B, A ⊑ ¬ C, A ⊑ ¬ D, B ⊑ ¬ C, B ⊑ ¬ D, C ⊑ ¬ D", render);
     }

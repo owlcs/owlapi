@@ -17,10 +17,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.semanticweb.owlapi.test.IntegrationTest;
-import org.semanticweb.owlapi.util.VersionInfo;
+import org.semanticweb.owlapi.utilities.VersionInfo;
 
 @SuppressWarnings("javadoc")
-@Category(IntegrationTest.class)
 public class VerifyVersionInfoIntegrationTestCase {
 
     @Test

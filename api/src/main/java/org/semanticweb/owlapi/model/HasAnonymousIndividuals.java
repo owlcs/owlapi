@@ -12,10 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -23,18 +21,6 @@ import java.util.stream.Stream;
  * @since 3.4.6
  */
 public interface HasAnonymousIndividuals {
-
-    /**
-     * Gets the anonymous individuals occurring in this object. The set is a copy, changes are not
-     * reflected back. The default implementation of this method returns a modifiable, empty set.
-     *
-     * @return A set of anonymous individuals
-     * @deprecated use {@link #anonymousIndividuals()}
-     */
-    @Deprecated
-    default Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return asSet(anonymousIndividuals());
-    }
 
     /**
      * Gets the anonymous individuals occurring in this object.

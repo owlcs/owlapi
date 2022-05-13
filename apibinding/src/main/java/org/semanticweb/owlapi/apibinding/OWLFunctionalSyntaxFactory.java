@@ -123,7 +123,6 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public final class OWLFunctionalSyntaxFactory {
 
     private static final String URNTESTS_URI = "urn:tests#uri";

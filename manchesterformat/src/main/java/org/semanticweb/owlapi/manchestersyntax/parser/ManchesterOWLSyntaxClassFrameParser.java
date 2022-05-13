@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.utility.OntologyAxiomPair;
-import org.semanticweb.owlapi.utility.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * An expression parser that parses a Manchester OWL Syntax Class Frame to produce a set of axioms

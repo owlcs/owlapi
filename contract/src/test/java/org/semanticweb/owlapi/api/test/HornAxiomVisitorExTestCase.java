@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.utility.HornAxiomVisitorEx;
 
-@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class HornAxiomVisitorExTestCase {
 

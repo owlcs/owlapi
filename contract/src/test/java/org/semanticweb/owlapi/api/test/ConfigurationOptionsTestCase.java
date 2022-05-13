@@ -32,7 +32,6 @@ import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 
 @RunWith(Parameterized.class)
-@SuppressWarnings({"javadoc", "null"})
 public class ConfigurationOptionsTestCase {
 
     @Parameter(0)
@@ -63,8 +62,8 @@ public class ConfigurationOptionsTestCase {
 
     @Test
     public void shouldFindExpectedValue() {
-        assertEquals(value, config.getValue(value.getClass(),
-                        new EnumMap<>(ConfigurationOptions.class)));
+        assertEquals(value,
+            config.getValue(value.getClass(), new EnumMap<>(ConfigurationOptions.class)));
         assertEquals(value, config.getDefaultValue(value.getClass()));
     }
 }

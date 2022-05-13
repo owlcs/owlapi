@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
 public class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
     private static final String NS = "http://namespace.owl";

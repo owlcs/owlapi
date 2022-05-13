@@ -39,8 +39,8 @@
 package org.semanticweb.owlapi.api.test.multithread;
 
 import static org.junit.Assert.fail;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.HashSet;
 import java.util.List;
@@ -61,7 +61,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-@SuppressWarnings("javadoc")
 public class RaceTestCase {
 
     @Test
@@ -162,15 +161,15 @@ public class RaceTestCase {
             @Override
             public void diagnose() {
                 List<OWLSubClassOfAxiom> axiomsFound =
-                                asList(ontology.subClassAxiomsForSubClass(x));
+                    asList(ontology.subClassAxiomsForSubClass(x));
                 System.out.println("Expected getSubClassAxiomsForSubClass to return " + counter
-                                + " axioms but it only found " + axiomsFound.size());
+                    + " axioms but it only found " + axiomsFound.size());
                 for (int i = 0; i < counter.get(); i++) {
                     OWLAxiom checkMe = factory.getOWLSubClassOfAxiom(x, createMiddleClass(i));
                     if (!contains(ontology.subClassAxiomsForSubClass(x), checkMe)
-                                    && ontology.containsAxiom(checkMe)) {
+                        && ontology.containsAxiom(checkMe)) {
                         System.out.println(checkMe.toString()
-                                        + " is an axiom in the ontology that is not found by getSubClassAxiomsForSubClass");
+                            + " is an axiom in the ontology that is not found by getSubClassAxiomsForSubClass");
                         return;
                     }
                 }

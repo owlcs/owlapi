@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public class GetAxiomsIgnoringAnnotationsTestCase extends TestBase {
 
     @Test
@@ -39,10 +38,10 @@ public class GetAxiomsIgnoringAnnotationsTestCase extends TestBase {
         OWLLiteral annoLiteral = Literal("value");
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
         OWLAnnotation anno = df.getOWLAnnotation(annoProp, annoLiteral);
-        OWLAxiom axiom = df.getOWLSubClassOfAxiom(Class(iri("A")), Class(iri("B")),
-                        singleton(anno));
+        OWLAxiom axiom =
+            df.getOWLSubClassOfAxiom(Class(iri("A")), Class(iri("B")), singleton(anno));
         OWLOntology ont = getOWLOntology();
-        ont.getOWLOntologyManager().addAxiom(ont, axiom);
+        ont.addAxiom(axiom);
         assertTrue(contains(ont.axiomsIgnoreAnnotations(axiom), axiom));
         OWLAxiom noAnnotations = axiom.getAxiomWithoutAnnotations();
         assertFalse(contains(ont.axiomsIgnoreAnnotations(axiom), noAnnotations));
