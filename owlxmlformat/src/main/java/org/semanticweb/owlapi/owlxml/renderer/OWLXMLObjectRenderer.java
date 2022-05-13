@@ -99,10 +99,12 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.TRANSITIVE_OBJECT_PR
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.VARIABLE;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.HasAnnotations;
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -112,6 +114,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
@@ -194,9 +197,11 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
@@ -205,17 +210,14 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     private OWLDataFactory df;
 
     /**
-     * @param writer writer
-     * @param df data factory
+     * @param writer
+     *        writer
+     * @param df
+     *        data factory
      */
     public OWLXMLObjectRenderer(OWLXMLWriter writer, OWLDataFactory df) {
         this.writer = checkNotNull(writer, "writer cannot be null");
         this.df = df;
-    }
-
-    private void writeAnnotations(OWLAxiom axiom) {
-        checkNotNull(axiom, "axiom cannot be null");
-        render(axiom.annotations());
     }
 
     @Override
@@ -226,7 +228,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             writer.writeTextContent(decl.getIRI().toString());
             writer.writeEndElement();
         });
-        render(ontology.annotations());
+        ontology.annotationsAsList().forEach(this::accept);
         // treat declarations separately from other axioms
         Set<OWLEntity> declared = asUnorderedSet(ontology.unsortedSignature());
         ontology.axioms(AxiomType.DECLARATION).sorted().forEach(ax -> {
@@ -235,22 +237,82 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         });
         // any undeclared entities?
         if (!declared.isEmpty()) {
-            boolean addMissing =
-                ontology.getOWLOntologyManager().getOntologyConfigurator().shouldAddMissingTypes();
+            boolean addMissing = ontology.getOWLOntologyManager().getOntologyConfigurator().shouldAddMissingTypes();
             if (addMissing) {
                 Collection<IRI> illegalPunnings = ontology.determineIllegalPunnings(addMissing);
                 for (OWLEntity e : declared) {
                     if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI())
                         && !ontology.isDeclared(e, Imports.INCLUDED)) {
-                        ontology.getOWLOntologyManager().getOWLDataFactory()
-                            .getOWLDeclarationAxiom(e).accept(this);
+                        ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(e).accept(this);
                     }
                 }
             }
         }
-        Stream<AxiomType<? extends OWLAxiom>> skipDeclarations =
-            AxiomType.AXIOM_TYPES.stream().filter(t -> !t.equals(AxiomType.DECLARATION));
-        render(skipDeclarations.flatMap(ontology::axioms).distinct().sorted());
+        AxiomType.skipDeclarations().flatMap(ontology::axioms).distinct().sorted().forEach(this::accept);
+    }
+
+    private void accept(OWLObject o) {
+        o.accept(this);
+    }
+
+    private void axiom(OWLXMLVocabulary v, OWLAxiom ax, OWLObject... objects) {
+        writer.writeStartElement(v);
+        ax.annotationsAsList().forEach(this::accept);
+        for (OWLObject o : objects) {
+            accept(o);
+        }
+        writer.writeEndElement();
+    }
+
+    private void ann(OWLXMLVocabulary v, HasAnnotations ax, OWLObject... objects) {
+        writer.writeStartElement(v);
+        ax.annotationsAsList().forEach(this::accept);
+        for (OWLObject o : objects) {
+            accept(o);
+        }
+        writer.writeEndElement();
+    }
+
+    private void axiom(OWLXMLVocabulary v, OWLObject o) {
+        writer.writeStartElement(v);
+        accept(o);
+        writer.writeEndElement();
+    }
+
+    private void axiom(OWLXMLVocabulary v, OWLObject... objects) {
+        writer.writeStartElement(v);
+        for (OWLObject o : objects) {
+            accept(o);
+        }
+        writer.writeEndElement();
+    }
+
+    private void axiom(OWLXMLVocabulary v, List<? extends OWLObject> o) {
+        writer.writeStartElement(v);
+        o.forEach(this::accept);
+        writer.writeEndElement();
+    }
+
+    private void axiom(OWLXMLVocabulary v, OWLAxiom ax, List<? extends OWLObject> o) {
+        writer.writeStartElement(v);
+        ax.annotationsAsList().forEach(this::accept);
+        o.forEach(this::accept);
+        writer.writeEndElement();
+    }
+
+    private void axiom(OWLXMLVocabulary v, OWLAxiom ax, OWLObject o, List<? extends OWLObject> l) {
+        writer.writeStartElement(v);
+        ax.annotationsAsList().forEach(this::accept);
+        accept(o);
+        l.forEach(this::accept);
+        writer.writeEndElement();
+    }
+
+    private void axiom(OWLXMLVocabulary v, OWLObject o, List<? extends OWLObject> l) {
+        writer.writeStartElement(v);
+        accept(o);
+        l.forEach(this::accept);
+        writer.writeEndElement();
     }
 
     @Override
@@ -268,481 +330,313 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        writer.writeStartElement(ASYMMETRIC_OBJECT_PROPERTY);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        writer.writeEndElement();
+        axiom(ASYMMETRIC_OBJECT_PROPERTY, axiom, axiom.getProperty());
     }
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
-        writer.writeStartElement(CLASS_ASSERTION);
-        writeAnnotations(axiom);
-        axiom.getClassExpression().accept(this);
-        axiom.getIndividual().accept(this);
-        writer.writeEndElement();
+        axiom(CLASS_ASSERTION, axiom, axiom.getClassExpression(), axiom.getIndividual());
     }
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
-        writer.writeStartElement(DATA_PROPERTY_ASSERTION);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getSubject().accept(this);
-        axiom.getObject().accept(this);
-        writer.writeEndElement();
+        axiom(DATA_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getObject());
     }
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        writer.writeStartElement(DATA_PROPERTY_DOMAIN);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getDomain().accept(this);
-        writer.writeEndElement();
+        axiom(DATA_PROPERTY_DOMAIN, axiom, axiom.getProperty(), axiom.getDomain());
     }
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
-        writer.writeStartElement(DATA_PROPERTY_RANGE);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getRange().accept(this);
-        writer.writeEndElement();
+        axiom(DATA_PROPERTY_RANGE, axiom, axiom.getProperty(), axiom.getRange());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        writer.writeStartElement(SUB_DATA_PROPERTY_OF);
-        writeAnnotations(axiom);
-        axiom.getSubProperty().accept(this);
-        axiom.getSuperProperty().accept(this);
-        writer.writeEndElement();
+        axiom(SUB_DATA_PROPERTY_OF, axiom, axiom.getSubProperty(), axiom.getSuperProperty());
     }
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
-        writer.writeStartElement(DECLARATION);
-        writeAnnotations(axiom);
-        axiom.getEntity().accept(this);
-        writer.writeEndElement();
+        axiom(DECLARATION, axiom, axiom.getEntity());
     }
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        writer.writeStartElement(DIFFERENT_INDIVIDUALS);
-        writeAnnotations(axiom);
-        render(axiom.individuals());
-        writer.writeEndElement();
+        axiom(DIFFERENT_INDIVIDUALS, axiom, axiom.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        writer.writeStartElement(DISJOINT_CLASSES);
-        writeAnnotations(axiom);
-        render(axiom.classExpressions());
-        writer.writeEndElement();
+        axiom(DISJOINT_CLASSES, axiom, axiom.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        writer.writeStartElement(DISJOINT_DATA_PROPERTIES);
-        writeAnnotations(axiom);
-        render(axiom.properties());
-        writer.writeEndElement();
+        axiom(DISJOINT_DATA_PROPERTIES, axiom, axiom.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        writer.writeStartElement(DISJOINT_OBJECT_PROPERTIES);
-        writeAnnotations(axiom);
-        render(axiom.properties());
-        writer.writeEndElement();
+        axiom(DISJOINT_OBJECT_PROPERTIES, axiom, axiom.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-        writer.writeStartElement(DISJOINT_UNION);
-        writeAnnotations(axiom);
-        axiom.getOWLClass().accept(this);
-        render(axiom.classExpressions());
-        writer.writeEndElement();
+        axiom(DISJOINT_UNION, axiom, axiom.getOWLClass(), axiom.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-        writer.writeStartElement(ANNOTATION_ASSERTION);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getSubject().accept(this);
-        axiom.getValue().accept(this);
-        writer.writeEndElement();
+        axiom(ANNOTATION_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getValue());
     }
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        writer.writeStartElement(EQUIVALENT_CLASSES);
-        writeAnnotations(axiom);
-        render(axiom.classExpressions());
-        writer.writeEndElement();
+        axiom(EQUIVALENT_CLASSES, axiom, axiom.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        writer.writeStartElement(EQUIVALENT_DATA_PROPERTIES);
-        writeAnnotations(axiom);
-        render(axiom.properties());
-        writer.writeEndElement();
+        axiom(EQUIVALENT_DATA_PROPERTIES, axiom, axiom.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        writer.writeStartElement(EQUIVALENT_OBJECT_PROPERTIES);
-        writeAnnotations(axiom);
-        render(axiom.properties());
-        writer.writeEndElement();
+        axiom(EQUIVALENT_OBJECT_PROPERTIES, axiom, axiom.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        writer.writeStartElement(FUNCTIONAL_DATA_PROPERTY);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        writer.writeEndElement();
+        axiom(FUNCTIONAL_DATA_PROPERTY, axiom, axiom.getProperty());
     }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        writer.writeStartElement(FUNCTIONAL_OBJECT_PROPERTY);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        writer.writeEndElement();
+        axiom(FUNCTIONAL_OBJECT_PROPERTY, axiom, axiom.getProperty());
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        writer.writeStartElement(INVERSE_FUNCTIONAL_OBJECT_PROPERTY);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        writer.writeEndElement();
+        axiom(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, axiom, axiom.getProperty());
     }
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        writer.writeStartElement(INVERSE_OBJECT_PROPERTIES);
-        writeAnnotations(axiom);
-        axiom.getFirstProperty().accept(this);
-        axiom.getSecondProperty().accept(this);
-        writer.writeEndElement();
+        axiom(INVERSE_OBJECT_PROPERTIES, axiom, axiom.getFirstProperty(), axiom.getSecondProperty());
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        writer.writeStartElement(IRREFLEXIVE_OBJECT_PROPERTY);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        writer.writeEndElement();
+        axiom(IRREFLEXIVE_OBJECT_PROPERTY, axiom, axiom.getProperty());
     }
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        writer.writeStartElement(NEGATIVE_DATA_PROPERTY_ASSERTION);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getSubject().accept(this);
-        axiom.getObject().accept(this);
-        writer.writeEndElement();
+        axiom(NEGATIVE_DATA_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getObject());
     }
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        writer.writeStartElement(NEGATIVE_OBJECT_PROPERTY_ASSERTION);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getSubject().accept(this);
-        axiom.getObject().accept(this);
-        writer.writeEndElement();
+        axiom(NEGATIVE_OBJECT_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getObject());
     }
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        writer.writeStartElement(OBJECT_PROPERTY_ASSERTION);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getSubject().accept(this);
-        axiom.getObject().accept(this);
-        writer.writeEndElement();
+        axiom(OBJECT_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getObject());
     }
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         writer.writeStartElement(SUB_OBJECT_PROPERTY_OF);
-        writeAnnotations(axiom);
-        writer.writeStartElement(OBJECT_PROPERTY_CHAIN);
-        render(axiom.getPropertyChain().stream());
-        writer.writeEndElement();
-        axiom.getSuperProperty().accept(this);
+        axiom.annotationsAsList().forEach(this::accept);
+        axiom(OBJECT_PROPERTY_CHAIN, axiom.getPropertyChain());
+        accept(axiom.getSuperProperty());
         writer.writeEndElement();
     }
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        writer.writeStartElement(OBJECT_PROPERTY_DOMAIN);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getDomain().accept(this);
-        writer.writeEndElement();
+        axiom(OBJECT_PROPERTY_DOMAIN, axiom, axiom.getProperty(), axiom.getDomain());
     }
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        writer.writeStartElement(OBJECT_PROPERTY_RANGE);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getRange().accept(this);
-        writer.writeEndElement();
+        axiom(OBJECT_PROPERTY_RANGE, axiom, axiom.getProperty(), axiom.getRange());
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        writer.writeStartElement(SUB_OBJECT_PROPERTY_OF);
-        writeAnnotations(axiom);
-        axiom.getSubProperty().accept(this);
-        axiom.getSuperProperty().accept(this);
-        writer.writeEndElement();
+        axiom(SUB_OBJECT_PROPERTY_OF, axiom, axiom.getSubProperty(), axiom.getSuperProperty());
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        writer.writeStartElement(REFLEXIVE_OBJECT_PROPERTY);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        writer.writeEndElement();
+        axiom(REFLEXIVE_OBJECT_PROPERTY, axiom, axiom.getProperty());
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        writer.writeStartElement(SAME_INDIVIDUAL);
-        writeAnnotations(axiom);
-        render(axiom.individuals());
-        writer.writeEndElement();
+        axiom(SAME_INDIVIDUAL, axiom, axiom.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        writer.writeStartElement(SUB_CLASS_OF);
-        writeAnnotations(axiom);
-        axiom.getSubClass().accept(this);
-        axiom.getSuperClass().accept(this);
-        writer.writeEndElement();
+        axiom(SUB_CLASS_OF, axiom, axiom.getSubClass(), axiom.getSuperClass());
     }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        writer.writeStartElement(SYMMETRIC_OBJECT_PROPERTY);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        writer.writeEndElement();
+        axiom(SYMMETRIC_OBJECT_PROPERTY, axiom, axiom.getProperty());
     }
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        writer.writeStartElement(TRANSITIVE_OBJECT_PROPERTY);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
+        axiom(TRANSITIVE_OBJECT_PROPERTY, axiom, axiom.getProperty());
+    }
+
+    private void iri(OWLXMLVocabulary v, HasIRI o) {
+        writer.writeStartElement(v);
+        writer.writeIRIAttribute(o.getIRI());
         writer.writeEndElement();
     }
 
     @Override
     public void visit(OWLClass ce) {
-        writer.writeStartElement(CLASS);
-        writer.writeIRIAttribute(ce.getIRI());
-        writer.writeEndElement();
+        iri(CLASS, ce);
     }
 
     @Override
     public void visit(OWLDataAllValuesFrom ce) {
-        writer.writeStartElement(DATA_ALL_VALUES_FROM);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
-        writer.writeEndElement();
+        axiom(DATA_ALL_VALUES_FROM, ce.getProperty(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLDataExactCardinality ce) {
-        writer.writeStartElement(DATA_EXACT_CARDINALITY);
+        card(DATA_EXACT_CARDINALITY, ce);
+    }
+
+    protected void card(OWLXMLVocabulary v, OWLCardinalityRestriction<? extends OWLObject> ce) {
+        writer.writeStartElement(v);
         writer.writeCardinalityAttribute(ce.getCardinality());
-        ce.getProperty().accept(this);
+        accept(ce.getProperty());
         if (ce.isQualified()) {
-            ce.getFiller().accept(this);
+            accept(ce.getFiller());
         }
         writer.writeEndElement();
     }
 
     @Override
     public void visit(OWLDataMaxCardinality ce) {
-        writer.writeStartElement(DATA_MAX_CARDINALITY);
-        writer.writeCardinalityAttribute(ce.getCardinality());
-        ce.getProperty().accept(this);
-        if (ce.isQualified()) {
-            ce.getFiller().accept(this);
-        }
-        writer.writeEndElement();
+        card(DATA_MAX_CARDINALITY, ce);
     }
 
     @Override
     public void visit(OWLDataMinCardinality ce) {
-        writer.writeStartElement(DATA_MIN_CARDINALITY);
-        writer.writeCardinalityAttribute(ce.getCardinality());
-        ce.getProperty().accept(this);
-        if (ce.isQualified()) {
-            ce.getFiller().accept(this);
-        }
-        writer.writeEndElement();
+        card(DATA_MIN_CARDINALITY, ce);
     }
 
     @Override
     public void visit(OWLDataSomeValuesFrom ce) {
         writer.writeStartElement(DATA_SOME_VALUES_FROM);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
+        accept(ce.getProperty());
+        accept(ce.getFiller());
         writer.writeEndElement();
     }
 
     @Override
     public void visit(OWLDataHasValue ce) {
         writer.writeStartElement(DATA_HAS_VALUE);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
+        accept(ce.getProperty());
+        accept(ce.getFiller());
         writer.writeEndElement();
     }
 
     @Override
     public void visit(OWLObjectAllValuesFrom ce) {
         writer.writeStartElement(OBJECT_ALL_VALUES_FROM);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
+        accept(ce.getProperty());
+        accept(ce.getFiller());
         writer.writeEndElement();
     }
 
     @Override
     public void visit(OWLObjectComplementOf ce) {
-        writer.writeStartElement(OBJECT_COMPLEMENT_OF);
-        ce.getOperand().accept(this);
-        writer.writeEndElement();
+        axiom(OBJECT_COMPLEMENT_OF, ce.getOperand());
     }
 
     @Override
     public void visit(OWLObjectExactCardinality ce) {
-        writer.writeStartElement(OBJECT_EXACT_CARDINALITY);
-        writer.writeCardinalityAttribute(ce.getCardinality());
-        ce.getProperty().accept(this);
-        if (ce.isQualified()) {
-            ce.getFiller().accept(this);
-        }
-        writer.writeEndElement();
+        card(OBJECT_EXACT_CARDINALITY, ce);
     }
 
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
-        writer.writeStartElement(OBJECT_INTERSECTION_OF);
-        render(ce.operands());
-        writer.writeEndElement();
+        axiom(OBJECT_INTERSECTION_OF, ce.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLObjectMaxCardinality ce) {
-        writer.writeStartElement(OBJECT_MAX_CARDINALITY);
-        writer.writeCardinalityAttribute(ce.getCardinality());
-        ce.getProperty().accept(this);
-        if (ce.isQualified()) {
-            ce.getFiller().accept(this);
-        }
-        writer.writeEndElement();
+        card(OBJECT_MAX_CARDINALITY, ce);
     }
 
     @Override
     public void visit(OWLObjectMinCardinality ce) {
-        writer.writeStartElement(OBJECT_MIN_CARDINALITY);
-        writer.writeCardinalityAttribute(ce.getCardinality());
-        ce.getProperty().accept(this);
-        if (ce.isQualified()) {
-            ce.getFiller().accept(this);
-        }
-        writer.writeEndElement();
+        card(OBJECT_MIN_CARDINALITY, ce);
     }
 
     @Override
     public void visit(OWLObjectOneOf ce) {
-        writer.writeStartElement(OBJECT_ONE_OF);
-        render(ce.individuals());
-        writer.writeEndElement();
+        axiom(OBJECT_ONE_OF, ce.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLObjectHasSelf ce) {
-        writer.writeStartElement(OBJECT_HAS_SELF);
-        ce.getProperty().accept(this);
-        writer.writeEndElement();
+        axiom(OBJECT_HAS_SELF, ce.getProperty());
     }
 
     @Override
     public void visit(OWLObjectSomeValuesFrom ce) {
-        writer.writeStartElement(OBJECT_SOME_VALUES_FROM);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
-        writer.writeEndElement();
+        axiom(OBJECT_SOME_VALUES_FROM, ce.getProperty(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
-        writer.writeStartElement(OBJECT_UNION_OF);
-        render(ce.operands());
-        writer.writeEndElement();
+        axiom(OBJECT_UNION_OF, ce.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLObjectHasValue ce) {
-        writer.writeStartElement(OBJECT_HAS_VALUE);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
-        writer.writeEndElement();
+        axiom(OBJECT_HAS_VALUE, ce.getProperty(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLDataComplementOf node) {
-        writer.writeStartElement(DATA_COMPLEMENT_OF);
-        node.getDataRange().accept(this);
-        writer.writeEndElement();
+        axiom(DATA_COMPLEMENT_OF, node.getDataRange());
     }
 
     @Override
     public void visit(OWLDataOneOf node) {
-        writer.writeStartElement(DATA_ONE_OF);
-        render(node.values());
-        writer.writeEndElement();
+        axiom(DATA_ONE_OF, node.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLDatatype node) {
-        writer.writeStartElement(DATATYPE);
-        writer.writeIRIAttribute(node.getIRI());
-        writer.writeEndElement();
+        iri(DATATYPE, node);
     }
 
     @Override
     public void visit(OWLDatatypeRestriction node) {
-        writer.writeStartElement(DATATYPE_RESTRICTION);
-        node.getDatatype().accept(this);
-        render(node.facetRestrictions());
-        writer.writeEndElement();
+        axiom(DATATYPE_RESTRICTION, node.getDatatype(), node.facetRestrictionsAsList());
     }
 
     @Override
     public void visit(OWLFacetRestriction node) {
         writer.writeStartElement(FACET_RESTRICTION);
         writer.writeFacetAttribute(node.getFacet());
-        node.getFacetValue().accept(this);
+        accept(node.getFacetValue());
         writer.writeEndElement();
     }
 
@@ -751,8 +645,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(LITERAL);
         if (node.hasLang()) {
             writer.writeLangAttribute(node.getLang());
-        } else if (!node.isRDFPlainLiteral()
-            && !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype().getIRI())) {
+        } else if (!node.isRDFPlainLiteral() && !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype().getIRI())) {
             writer.writeDatatypeAttribute(node.getDatatype());
         }
         writer.writeTextContent(node.getLiteral());
@@ -761,168 +654,115 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataProperty property) {
-        writer.writeStartElement(DATA_PROPERTY);
-        writer.writeIRIAttribute(property.getIRI());
-        writer.writeEndElement();
+        iri(DATA_PROPERTY, property);
     }
 
     @Override
     public void visit(OWLObjectProperty property) {
-        writer.writeStartElement(OBJECT_PROPERTY);
-        writer.writeIRIAttribute(property.getIRI());
-        writer.writeEndElement();
+        iri(OBJECT_PROPERTY, property);
     }
 
     @Override
     public void visit(OWLObjectInverseOf property) {
-        writer.writeStartElement(OBJECT_INVERSE_OF);
-        property.getInverse().accept(this);
-        writer.writeEndElement();
+        axiom(OBJECT_INVERSE_OF, property.getInverse());
     }
 
     @Override
     public void visit(OWLNamedIndividual individual) {
-        writer.writeStartElement(NAMED_INDIVIDUAL);
-        writer.writeIRIAttribute(individual.getIRI());
-        writer.writeEndElement();
+        iri(NAMED_INDIVIDUAL, individual);
     }
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
         writer.writeStartElement(HAS_KEY);
-        writeAnnotations(axiom);
-        axiom.getClassExpression().accept(this);
-        render(axiom.objectPropertyExpressions());
-        render(axiom.dataPropertyExpressions());
+        axiom.annotationsAsList().forEach(this::accept);
+        accept(axiom.getClassExpression());
+        axiom.objectPropertyExpressions().forEach(this::accept);
+        axiom.dataPropertyExpressions().forEach(this::accept);
         writer.writeEndElement();
     }
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
-        writer.writeStartElement(DATA_INTERSECTION_OF);
-        render(node.operands());
-        writer.writeEndElement();
+        axiom(DATA_INTERSECTION_OF, node.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
-        writer.writeStartElement(DATA_UNION_OF);
-        render(node.operands());
-        writer.writeEndElement();
+        axiom(DATA_UNION_OF, node.getOperandsAsList());
     }
 
     @Override
     public void visit(OWLAnnotationProperty property) {
-        writer.writeStartElement(ANNOTATION_PROPERTY);
-        writer.writeIRIAttribute(property.getIRI());
-        writer.writeEndElement();
+        iri(ANNOTATION_PROPERTY, property);
     }
 
     @Override
     public void visit(OWLAnnotation node) {
-        writer.writeStartElement(ANNOTATION);
-        render(node.annotations());
-        node.getProperty().accept(this);
-        node.getValue().accept(this);
-        writer.writeEndElement();
+        ann(ANNOTATION, node, node.getProperty(), node.getValue());
     }
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        writer.writeStartElement(ANNOTATION_PROPERTY_DOMAIN);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getDomain().accept(this);
-        writer.writeEndElement();
+        axiom(ANNOTATION_PROPERTY_DOMAIN, axiom, axiom.getProperty(), axiom.getDomain());
     }
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        writer.writeStartElement(ANNOTATION_PROPERTY_RANGE);
-        writeAnnotations(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getRange().accept(this);
-        writer.writeEndElement();
+        axiom(ANNOTATION_PROPERTY_RANGE, axiom, axiom.getProperty(), axiom.getRange());
     }
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        writer.writeStartElement(SUB_ANNOTATION_PROPERTY_OF);
-        writeAnnotations(axiom);
-        axiom.getSubProperty().accept(this);
-        axiom.getSuperProperty().accept(this);
-        writer.writeEndElement();
+        axiom(SUB_ANNOTATION_PROPERTY_OF, axiom, axiom.getSubProperty(), axiom.getSuperProperty());
     }
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        writer.writeStartElement(DATATYPE_DEFINITION);
-        writeAnnotations(axiom);
-        axiom.getDatatype().accept(this);
-        axiom.getDataRange().accept(this);
-        writer.writeEndElement();
+        axiom(DATATYPE_DEFINITION, axiom, axiom.getDatatype(), axiom.getDataRange());
     }
 
     @Override
     public void visit(SWRLRule rule) {
         writer.writeStartElement(DL_SAFE_RULE);
-        writeAnnotations(rule);
-        writer.writeStartElement(BODY);
-        render(rule.body());
-        writer.writeEndElement();
-        writer.writeStartElement(HEAD);
-        render(rule.head());
-        writer.writeEndElement();
+        rule.annotationsAsList().forEach(this::accept);
+        axiom(BODY, rule.bodyList());
+        axiom(HEAD, rule.headList());
         writer.writeEndElement();
     }
 
     @Override
     public void visit(SWRLClassAtom node) {
-        writer.writeStartElement(CLASS_ATOM);
-        node.getPredicate().accept(this);
-        node.getArgument().accept(this);
-        writer.writeEndElement();
+        axiom(CLASS_ATOM, node.getPredicate(), node.getArgument());
     }
 
     @Override
     public void visit(SWRLDataRangeAtom node) {
-        writer.writeStartElement(DATA_RANGE_ATOM);
-        node.getPredicate().accept(this);
-        node.getArgument().accept(this);
-        writer.writeEndElement();
+        axiom(DATA_RANGE_ATOM, node.getPredicate(), node.getArgument());
     }
 
     @Override
     public void visit(SWRLObjectPropertyAtom node) {
-        writer.writeStartElement(OBJECT_PROPERTY_ATOM);
-        node.getPredicate().accept(this);
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
-        writer.writeEndElement();
+        axiom(OBJECT_PROPERTY_ATOM, node.getPredicate(), node.getFirstArgument(), node.getSecondArgument());
     }
 
     @Override
     public void visit(SWRLDataPropertyAtom node) {
-        writer.writeStartElement(DATA_PROPERTY_ATOM);
-        node.getPredicate().accept(this);
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
-        writer.writeEndElement();
+        axiom(DATA_PROPERTY_ATOM, node.getPredicate(), node.getFirstArgument(), node.getSecondArgument());
     }
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
         writer.writeStartElement(BUILT_IN_ATOM);
         writer.writeIRIAttribute(node.getPredicate());
-        render(node.arguments());
+        node.getArguments().forEach(this::accept);
         writer.writeEndElement();
     }
 
     @Override
     public void visit(SWRLVariable node) {
         writer.writeStartElement(VARIABLE);
-        if ("urn:swrl:var#".equals(node.getIRI().getNamespace())
-            || "urn:swrl#".equals(node.getIRI().getNamespace())) {
+        if ("urn:swrl:var#".equals(node.getIRI().getNamespace()) || "urn:swrl#".equals(node.getIRI().getNamespace())) {
             writer.writeIRIAttribute(df.getIRI("urn:swrl:var#", node.getIRI().getFragment()));
         } else {
             writer.writeIRIAttribute(node.getIRI());
@@ -932,31 +772,21 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(SWRLIndividualArgument node) {
-        node.getIndividual().accept(this);
+        accept(node.getIndividual());
     }
 
     @Override
     public void visit(SWRLLiteralArgument node) {
-        node.getLiteral().accept(this);
+        accept(node.getLiteral());
     }
 
     @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
-        writer.writeStartElement(DIFFERENT_INDIVIDUALS_ATOM);
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
-        writer.writeEndElement();
+        axiom(DIFFERENT_INDIVIDUALS_ATOM, node.getFirstArgument(), node.getSecondArgument());
     }
 
     @Override
     public void visit(SWRLSameIndividualAtom node) {
-        writer.writeStartElement(SAME_INDIVIDUAL_ATOM);
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
-        writer.writeEndElement();
-    }
-
-    private void render(Stream<? extends OWLObject> objects) {
-        objects.forEach(a -> a.accept(this));
+        axiom(SAME_INDIVIDUAL_ATOM, node.getFirstArgument(), node.getSecondArgument());
     }
 }
