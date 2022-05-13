@@ -436,6 +436,10 @@ public class TripleHandlers {
                     }
                 }
             }
+            // Clears pending annotations; if this triple represents an annotated axiom, then if an axiom was created to annotate,
+            // pending will already be cleared. However, if an axiom was not created (e.g. invalid triple such as misuse of reserved
+            // vocabulary) if annotations are left they will be placed on an incorrect axiom.
+            consumer.getPendingAnnotations();
         }
 
         protected void handle(IRI s, IRI p, OWLLiteral o) {
