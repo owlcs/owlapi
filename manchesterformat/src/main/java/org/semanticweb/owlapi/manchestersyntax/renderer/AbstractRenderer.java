@@ -26,7 +26,8 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.utilities.ShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class AbstractRenderer {
@@ -40,8 +41,10 @@ public class AbstractRenderer {
     private boolean useWrapping = true;
 
     /**
-     * @param writer writer
-     * @param shortFormProvider shortFormProvider
+     * @param writer
+     *        writer
+     * @param shortFormProvider
+     *        shortFormProvider
      */
     protected AbstractRenderer(Writer writer, PrefixManager shortFormProvider) {
         this.writer = writer;
@@ -57,7 +60,8 @@ public class AbstractRenderer {
     }
 
     /**
-     * @param useWrapping useWrapping
+     * @param useWrapping
+     *        useWrapping
      */
     protected void setUseWrapping(boolean useWrapping) {
         this.useWrapping = useWrapping;
@@ -71,7 +75,8 @@ public class AbstractRenderer {
     }
 
     /**
-     * @param useTabbing useTabbing
+     * @param useTabbing
+     *        useTabbing
      */
     protected void setUseTabbing(boolean useTabbing) {
         this.useTabbing = useTabbing;
@@ -80,7 +85,8 @@ public class AbstractRenderer {
     /**
      * Flush.
      *
-     * @throws OWLOntologyStorageException renderer error
+     * @throws OWLOntologyStorageException
+     *         renderer error
      */
     protected void flush() throws OWLOntologyStorageException {
         try {
@@ -117,9 +123,9 @@ public class AbstractRenderer {
         return currentPos - lastNewLinePos - 2;
     }
 
-    protected void write(@Nullable String s) {
+    protected AbstractRenderer write(@Nullable String s) {
         if (s == null) {
-            return;
+            return this;
         }
         int indexOfNewLine = s.indexOf('\n');
         if (indexOfNewLine != -1) {
@@ -131,6 +137,7 @@ public class AbstractRenderer {
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
+        return this;
     }
 
     protected void write(char ch) {

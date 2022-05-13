@@ -12,25 +12,36 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.manchestersyntax.parser;
 
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxTokenizer {
 
+    private static final char SPACE = ' ';
+    private static final char GE = '>';
+    private static final char AT = '@';
+    private static final char LE = '<';
+    private static final char SINGLEQUOTE = '\'';
+    private static final char QUOTE = '\"';
+    private static final char NEWLINE = '\n';
+    private static final char HASH = '#';
     /**
      * EOF.
      */
     public static final String EOFTOKEN = "|EOF|";
     private static final char ESCAPE_CHAR = '\\';
-    protected final Set<Character> skip = new HashSet<>();
-    protected final Set<Character> commentDelimiters = new HashSet<>();
-    protected final Set<Character> delims = new HashSet<>();
+    protected final Set<Character> skip = l(" \n\r\t");
+    protected final Set<Character> commentDelimiters = l("#*");
+    protected final Set<Character> delims = l("()[],{}^@<>=?");
     private final String buffer;
     int startPos = 0;
     int startCol = 1;
@@ -42,33 +53,20 @@ public class ManchesterOWLSyntaxTokenizer {
     private StringBuilder sb = new StringBuilder();
 
     /**
-     * @param buffer buffer
+     * @param buffer
+     *        buffer
      */
     public ManchesterOWLSyntaxTokenizer(String buffer) {
         this.buffer = buffer;
-        skip.add(Character.valueOf(' '));
-        skip.add(Character.valueOf('\n'));
-        skip.add(Character.valueOf('\r'));
-        skip.add(Character.valueOf('\t'));
-        commentDelimiters.add(Character.valueOf('#'));
-        commentDelimiters.add(Character.valueOf('*'));
-        delims.add(Character.valueOf('('));
-        delims.add(Character.valueOf(')'));
-        delims.add(Character.valueOf('['));
-        delims.add(Character.valueOf(']'));
-        delims.add(Character.valueOf(','));
-        delims.add(Character.valueOf('{'));
-        delims.add(Character.valueOf('}'));
-        delims.add(Character.valueOf('^'));
-        delims.add(Character.valueOf('@'));
-        delims.add(Character.valueOf('<'));
-        delims.add(Character.valueOf('>'));
-        delims.add(Character.valueOf('='));
-        delims.add(Character.valueOf('?'));
+    }
+
+    private static Set<Character> l(CharSequence chars) {
+        return asUnorderedSet(chars.chars().mapToObj(c -> Character.valueOf((char) c)));
     }
 
     /**
-     * @param s string to check
+     * @param s
+     *        string to check
      * @return true if EOF
      */
     public static boolean eof(String s) {
@@ -89,16 +87,16 @@ public class ManchesterOWLSyntaxTokenizer {
     /**
      * @return tokens
      */
-    public List<Token> tokenize() {
+    public Stream<Token> tokenize() {
         reset();
         int bufferLen = buffer.length();
-        char lastChar = ' ';
+        char lastChar = SPACE;
         while (pos < bufferLen) {
             lastChar = handleChar(lastChar);
         }
         consumeToken();
         tokens.add(new Token(EOFTOKEN, pos, col, row));
-        return new ArrayList<>(tokens);
+        return tokens.stream();
     }
 
     protected char handleChar(char last) {
@@ -108,22 +106,23 @@ public class ManchesterOWLSyntaxTokenizer {
             lastChar = ch;
             ch = readChar();
         }
-        if (ch == '\"' && lastChar != '\\') {
-            readString('\"', true);
-        } else if (ch == '\'' && lastChar != '\\') {
-            readString('\'', true);
-        } else if (ch == '<') {
+        Character c = Character.valueOf(ch);
+        if (ch == QUOTE && lastChar != ESCAPE_CHAR) {
+            readString(QUOTE, true);
+        } else if (ch == SINGLEQUOTE && lastChar != ESCAPE_CHAR) {
+            readString(SINGLEQUOTE, true);
+        } else if (ch == LE) {
             // Potentially the start of an IRI
             readIRI();
-        } else if (skip.contains(Character.valueOf(ch))) {
+        } else if (skip.contains(c)) {
             consumeToken();
-        } else if (commentDelimiters.contains(Character.valueOf(ch))) {
+        } else if (commentDelimiters.contains(c)) {
             consumeToken();
             readComment();
-        } else if (delims.contains(Character.valueOf(ch))) {
+        } else if (delims.contains(c)) {
             consumeToken();
             sb.append(ch);
-            if (ch != '@') {
+            if (ch != AT) {
                 consumeToken();
             }
         } else {
@@ -144,8 +143,8 @@ public class ManchesterOWLSyntaxTokenizer {
     }
 
     private void readComment() {
-        char ch = '#';
-        while (ch != '\n' && pos < buffer.length()) {
+        char ch = HASH;
+        while (ch != NEWLINE && pos < buffer.length()) {
             ch = readChar();
         }
         consumeToken();
@@ -175,31 +174,31 @@ public class ManchesterOWLSyntaxTokenizer {
     protected void handleEscapeChar(char ch, int j) {
         if (j < buffer.length()) {
             char escapedChar = readChar();
-            if (escapedChar == '\"' || escapedChar == '\'' || escapedChar == '\\') {
+            if (escapedChar == QUOTE || escapedChar == SINGLEQUOTE || escapedChar == ESCAPE_CHAR) {
                 sb.append(escapedChar);
             } else {
                 sb.append(ch);
                 sb.append(escapedChar);
             }
         } else {
-            sb.append('\\');
+            sb.append(ESCAPE_CHAR);
         }
     }
 
     private void readIRI() {
-        sb = new StringBuilder("<");
+        sb = new StringBuilder().append(LE);
         int startPos1 = pos;
         while (pos < buffer.length()) {
             char ch = readChar();
             if (Character.isWhitespace(ch)) {
                 // Not an IRI -- go back to where we started
                 pos = startPos1;
-                sb = new StringBuilder("<");
+                sb = new StringBuilder().append(LE);
                 consumeToken();
                 return;
-            } else if (ch == '>') {
+            } else if (ch == GE) {
                 // End of IRI
-                sb.append('>');
+                sb.append(GE);
                 consumeToken();
                 return;
             } else {
@@ -212,60 +211,39 @@ public class ManchesterOWLSyntaxTokenizer {
         char ch = buffer.charAt(pos);
         pos++;
         col++;
-        if (ch == '\n') {
+        if (ch == NEWLINE) {
             row++;
             col = 0;
         }
         return ch;
     }
 
-    /**
-     * Token.
-     */
-    public static class Token {
+    static class Token {
 
         private final String currentToken;
         private final int pos;
         private final int col;
         private final int row;
 
-        /**
-         * @param token token
-         * @param pos pos
-         * @param col col
-         * @param row row
-         */
-        public Token(String token, int pos, int col, int row) {
+        Token(String token, int pos, int col, int row) {
             currentToken = token;
             this.pos = pos;
             this.col = col;
             this.row = row;
         }
 
-        /**
-         * @return token
-         */
         public String getToken() {
             return currentToken;
         }
 
-        /**
-         * @return position
-         */
-        public int getPos() {
+        public int getPosition() {
             return pos;
         }
 
-        /**
-         * @return column
-         */
-        public int getCol() {
+        public int getColumn() {
             return col;
         }
 
-        /**
-         * @return row
-         */
         public int getRow() {
             return row;
         }
