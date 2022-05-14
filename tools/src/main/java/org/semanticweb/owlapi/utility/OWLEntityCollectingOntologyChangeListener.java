@@ -12,37 +12,33 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.utility;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.OWLAxiomChange;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
 /**
- * A convenience class which is an ontology change listener which collects the entities which are
- * referenced in a set of ontology changes.
+ * A convenience class which is an ontology change listener which collects the
+ * entities which are referenced in a set of ontology changes.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLEntityCollectingOntologyChangeListener
-    implements OWLOntologyChangeListener {
+public abstract class OWLEntityCollectingOntologyChangeListener implements OWLOntologyChangeListener {
 
     private final Set<OWLEntity> entities = new HashSet<>();
 
     @Override
     public void ontologiesChanged(Collection<? extends OWLOntologyChange> changes) {
         entities.clear();
-        for (OWLOntologyChange change : changes) {
-            if (change.isAxiomChange()) {
-                entities.addAll(asList(((OWLAxiomChange) change).signature()));
-            }
-        }
+        changes.stream().filter(OWLOntologyChange::isAxiomChange).forEach(c -> add(entities, c.signature()));
         ontologiesChanged();
     }
 
@@ -54,7 +50,7 @@ public abstract class OWLEntityCollectingOntologyChangeListener
     /**
      * @return the entities which were referenced in the last change set.
      */
-    public Set<OWLEntity> getEntities() {
-        return CollectionFactory.copyMutable(entities);
+    public Stream<OWLEntity> getEntities() {
+        return entities.stream();
     }
 }

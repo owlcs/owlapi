@@ -1,8 +1,8 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi.utility.CollectionFactory.createList;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createMap;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -47,19 +47,20 @@ class MultiMap<K, V> {
     }
 }
 
-
 class AnonMap extends MultiMap<IRI, IRI> {
 
     public AnonMap() {
-        super(x -> createList());
+        super(x -> new ArrayList<>());
     }
 
     /**
-     * Records an annotation on an anonymous node (either an annotation on an annotation, or an
-     * annotation on an axiom).
+     * Records an annotation on an anonymous node (either an annotation on an
+     * annotation, or an annotation on an axiom).
      *
-     * @param subject The subject that the annotation annotates
-     * @param annotation The annotation
+     * @param subject
+     *        The subject that the annotation annotates
+     * @param annotation
+     *        The annotation
      * @return true if added
      */
     protected boolean addAnnotatedSource(IRI subject, IRI annotation) {
@@ -69,7 +70,8 @@ class AnonMap extends MultiMap<IRI, IRI> {
     /**
      * Gets the main nodes of annotations that annotated the specified source.
      *
-     * @param source The source (axiom or annotation main node)
+     * @param source
+     *        The source (axiom or annotation main node)
      * @return The set of main nodes that annotate the specified source
      */
     protected Collection<IRI> getAnnotatedSource(IRI source) {

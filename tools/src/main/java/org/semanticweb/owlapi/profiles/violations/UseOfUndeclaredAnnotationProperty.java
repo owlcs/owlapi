@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,19 +32,22 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
-public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation
-    implements UndeclaredEntityViolation {
+public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation implements UndeclaredEntityViolation {
 
-    @Nullable
-    private final OWLAnnotation annotation;
+    @Nullable private final OWLAnnotation annotation;
 
     /**
-     * @param ontology ontology
-     * @param axiom axiom
-     * @param annotation annotation
-     * @param prop prop
+     * @param ontology
+     *        ontology
+     * @param axiom
+     *        axiom
+     * @param annotation
+     *        annotation
+     * @param prop
+     *        prop
      */
     public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, @Nullable OWLAxiom axiom,
         @Nullable OWLAnnotation annotation, OWLAnnotationProperty prop) {
@@ -84,6 +88,6 @@ public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation
 
     @Override
     public List<OWLOntologyChange> repair() {
-        return list(new AddAxiom(ontology, df.getOWLDeclarationAxiom(getExpression())));
+        return Collections.singletonList(new AddAxiom(ontology, df.getOWLDeclarationAxiom(getExpression())));
     }
 }

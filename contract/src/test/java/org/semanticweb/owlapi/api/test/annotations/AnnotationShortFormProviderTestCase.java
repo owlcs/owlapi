@@ -21,6 +21,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Named
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Ontology;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,21 +34,20 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi.utility.AnnotationValueShortFormProvider;
-import org.semanticweb.owlapi.utility.CollectionFactory;
 import org.semanticweb.owlapi.utility.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 import org.semanticweb.owlapi.utility.StringAnnotationVisitor;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.1.0
  */
 public class AnnotationShortFormProviderTestCase extends TestBase {
 
-    protected PrefixManager pm =
-        new PrefixManagerImpl().withDefaultPrefix("http://org.semanticweb.owlapi/ont#");
+    protected PrefixManager pm = new PrefixManagerImpl().withDefaultPrefix("http://org.semanticweb.owlapi/ont#");
     protected OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
-    protected List<OWLAnnotationProperty> props = CollectionFactory.list(prop);
+    protected List<OWLAnnotationProperty> props = Collections.singletonList(prop);
     protected Map<OWLAnnotationProperty, List<String>> langMap = new HashMap<>();
 
     @Test
@@ -55,8 +55,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String shortForm = "MyLabel";
         Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
-        AnnotationValueShortFormProvider sfp =
-            new AnnotationValueShortFormProvider(props, langMap, m);
+        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(props, langMap, m);
         assertEquals(sfp.getShortForm(root), shortForm);
     }
 
@@ -68,23 +67,19 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
         Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(label1, "ab")),
             AnnotationAssertion(prop, root.getIRI(), Literal(label2, "xy")));
         langMap.put(prop, Arrays.asList("ab", "xy"));
-        AnnotationValueShortFormProvider sfp =
-            new AnnotationValueShortFormProvider(props, langMap, m);
+        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(props, langMap, m);
         assertEquals(sfp.getShortForm(root), label1);
         Map<OWLAnnotationProperty, List<String>> langMap2 = new HashMap<>();
         langMap2.put(prop, Arrays.asList("xy", "ab"));
-        AnnotationValueShortFormProvider sfp2 =
-            new AnnotationValueShortFormProvider(props, langMap2, m);
+        AnnotationValueShortFormProvider sfp2 = new AnnotationValueShortFormProvider(props, langMap2, m);
         assertEquals(sfp2.getShortForm(root), label2);
     }
 
     @Test
     public void testIRIValue() {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
-        Ontology(m, AnnotationAssertion(prop, root.getIRI(),
-            IRI("http://org.semanticweb.owlapi/ont#", "myIRI")));
-        AnnotationValueShortFormProvider sfp =
-            new AnnotationValueShortFormProvider(props, langMap, m);
+        Ontology(m, AnnotationAssertion(prop, root.getIRI(), IRI("http://org.semanticweb.owlapi/ont#", "myIRI")));
+        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(props, langMap, m);
         assertEquals("myIRI", sfp.getShortForm(root));
     }
 
@@ -93,8 +88,8 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String shortForm = "MyLabel";
         Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
-        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(m,
-            new SimpleShortFormProvider(), new SimpleIRIShortFormProvider(), props, langMap);
+        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(m, new SimpleShortFormProvider(),
+            new SimpleIRIShortFormProvider(), props, langMap);
         sfp.setLiteralRenderer(new StringAnnotationVisitor() {
 
             @Override

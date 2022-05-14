@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles.violations;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,20 +25,24 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
 public class OntologyIRINotAbsolute extends OWLProfileViolation {
 
     /**
-     * @param ontology ontology
+     * @param ontology
+     *        ontology
      */
     public OntologyIRINotAbsolute(OWLOntology ontology) {
         this(ontology, ontology.getOntologyID());
     }
 
     /**
-     * @param ontology ontology
-     * @param id id
+     * @param ontology
+     *        ontology
+     * @param id
+     *        id
      */
     public OntologyIRINotAbsolute(OWLOntology ontology, OWLOntologyID id) {
         super(ontology, null, id);
@@ -66,7 +71,7 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation {
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary choice
-        return list(
-            new SetOntologyID(ontology, df.getIRI("urn:profilesrepair:ontology#", "replaced")));
+        return Collections
+            .singletonList(new SetOntologyID(ontology, df.getIRI("urn:profilesrepair:ontology#", "replaced")));
     }
 }

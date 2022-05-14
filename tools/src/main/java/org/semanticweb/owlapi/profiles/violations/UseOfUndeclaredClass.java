@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,14 +30,18 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
 public class UseOfUndeclaredClass extends OWLProfileViolation implements UndeclaredEntityViolation {
 
     /**
-     * @param ontology ontology
-     * @param axiom axiom
-     * @param cls cls
+     * @param ontology
+     *        ontology
+     * @param axiom
+     *        axiom
+     * @param cls
+     *        cls
      */
     public UseOfUndeclaredClass(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLClass cls) {
         super(ontology, axiom, checkNotNull(cls));
@@ -69,6 +74,6 @@ public class UseOfUndeclaredClass extends OWLProfileViolation implements Undecla
 
     @Override
     public List<OWLOntologyChange> repair() {
-        return list(addDeclaration(getExpression()));
+        return Collections.singletonList(addDeclaration(getExpression()));
     }
 }
