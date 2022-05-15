@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -131,208 +132,195 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * Base class for profile violation visitors.
- * 
- * Separates the visiting code from the utility methods used in the visit.
+ * Base class for profile violation visitors. Separates the visiting code from
+ * the utility methods used in the visit.
  * 
  * @author ignazio
- *
  */
 public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
-    private static final OWLClassExpressionVisitorEx<Boolean> superClassExpressionChecker =
-        new OWLClassExpressionVisitorEx<Boolean>() {
 
-            @Override
-            public Boolean doDefault(OWLObject o) {
-                return Boolean.FALSE;
-            }
+    private static final OWLClassExpressionVisitorEx<Boolean> superClassExpressionChecker = new OWLClassExpressionVisitorEx<Boolean>() {
 
-            @Override
-            public Boolean visit(OWLClass ce) {
-                return Boolean.TRUE;
-            }
+        @Override
+        public Boolean doDefault(OWLObject o) {
+            return Boolean.FALSE;
+        }
 
-            @Override
-            public Boolean visit(OWLDataSomeValuesFrom ce) {
-                return Boolean.TRUE;
-            }
+        @Override
+        public Boolean visit(OWLClass ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLObjectComplementOf ce) {
-                return Boolean.valueOf(isOWL2QLSubClassExpression(ce.getOperand()));
-            }
+        @Override
+        public Boolean visit(OWLDataSomeValuesFrom ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLObjectIntersectionOf ce) {
-                return Boolean
-                    .valueOf(ce.operands().noneMatch(e -> e.accept(this) == Boolean.FALSE));
-            }
+        @Override
+        public Boolean visit(OWLObjectComplementOf ce) {
+            return Boolean.valueOf(isOWL2QLSubClassExpression(ce.getOperand()));
+        }
 
-            @Override
-            public Boolean visit(OWLObjectSomeValuesFrom ce) {
-                return Boolean.valueOf(!ce.getFiller().isAnonymous());
-            }
-        };
+        @Override
+        public Boolean visit(OWLObjectIntersectionOf ce) {
+            return Boolean.valueOf(ce.operands().noneMatch(e -> e.accept(this) == Boolean.FALSE));
+        }
 
-    private static final OWLClassExpressionVisitorEx<Boolean> subClassExpressionChecker =
-        new OWLClassExpressionVisitorEx<Boolean>() {
+        @Override
+        public Boolean visit(OWLObjectSomeValuesFrom ce) {
+            return Boolean.valueOf(!ce.getFiller().isAnonymous());
+        }
+    };
+    private static final OWLClassExpressionVisitorEx<Boolean> subClassExpressionChecker = new OWLClassExpressionVisitorEx<Boolean>() {
 
-            @Override
-            public Boolean doDefault(OWLObject o) {
-                return Boolean.FALSE;
-            }
+        @Override
+        public Boolean doDefault(OWLObject o) {
+            return Boolean.FALSE;
+        }
 
-            @Override
-            public Boolean visit(OWLClass ce) {
-                return Boolean.TRUE;
-            }
+        @Override
+        public Boolean visit(OWLClass ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLDataSomeValuesFrom ce) {
-                return Boolean.TRUE;
-            }
+        @Override
+        public Boolean visit(OWLDataSomeValuesFrom ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLObjectSomeValuesFrom ce) {
-                return Boolean.valueOf(ce.getFiller().isOWLThing());
-            }
-        };
-    static final OWLClassExpressionVisitorEx<Boolean> subClassRLExpressionChecker =
-        new OWLClassExpressionVisitorEx<Boolean>() {
+        @Override
+        public Boolean visit(OWLObjectSomeValuesFrom ce) {
+            return Boolean.valueOf(ce.getFiller().isOWLThing());
+        }
+    };
+    static final OWLClassExpressionVisitorEx<Boolean> subClassRLExpressionChecker = new OWLClassExpressionVisitorEx<Boolean>() {
 
-            @Override
-            public Boolean doDefault(OWLObject o) {
-                return Boolean.FALSE;
-            }
+        @Override
+        public Boolean doDefault(OWLObject o) {
+            return Boolean.FALSE;
+        }
 
-            @Override
-            public Boolean visit(OWLClass ce) {
-                return Boolean.valueOf(!ce.isOWLThing());
-            }
+        @Override
+        public Boolean visit(OWLClass ce) {
+            return Boolean.valueOf(!ce.isOWLThing());
+        }
 
-            @Override
-            public Boolean visit(OWLDataHasValue ce) {
-                return Boolean.TRUE;
-            }
+        @Override
+        public Boolean visit(OWLDataHasValue ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLDataSomeValuesFrom ce) {
-                return Boolean.TRUE;
-            }
+        @Override
+        public Boolean visit(OWLDataSomeValuesFrom ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLObjectHasValue ce) {
-                return Boolean.TRUE;
-            }
+        @Override
+        public Boolean visit(OWLObjectHasValue ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLObjectIntersectionOf ce) {
-                return Boolean
-                    .valueOf(ce.operands().allMatch(op -> isOWL2RLSubClassExpression(op)));
-            }
+        @Override
+        public Boolean visit(OWLObjectIntersectionOf ce) {
+            return Boolean.valueOf(ce.operands().allMatch(op -> isOWL2RLSubClassExpression(op)));
+        }
 
-            @Override
-            public Boolean visit(OWLObjectOneOf ce) {
-                return Boolean.TRUE;
-            }
+        @Override
+        public Boolean visit(OWLObjectOneOf ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLObjectSomeValuesFrom ce) {
-                return Boolean.valueOf(
-                    ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce.getFiller()));
-            }
+        @Override
+        public Boolean visit(OWLObjectSomeValuesFrom ce) {
+            return Boolean.valueOf(ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce.getFiller()));
+        }
 
-            @Override
-            public Boolean visit(OWLObjectUnionOf ce) {
-                return Boolean
-                    .valueOf(ce.operands().allMatch(op -> isOWL2RLSubClassExpression(op)));
-            }
-        };
+        @Override
+        public Boolean visit(OWLObjectUnionOf ce) {
+            return Boolean.valueOf(ce.operands().allMatch(op -> isOWL2RLSubClassExpression(op)));
+        }
+    };
+    static final OWLClassExpressionVisitorEx<Boolean> superClassRLExpressionChecker = new OWLClassExpressionVisitorEx<Boolean>() {
 
-    static final OWLClassExpressionVisitorEx<Boolean> superClassRLExpressionChecker =
-        new OWLClassExpressionVisitorEx<Boolean>() {
+        @Override
+        public Boolean doDefault(OWLObject o) {
+            return Boolean.FALSE;
+        }
 
-            @Override
-            public Boolean doDefault(OWLObject o) {
-                return Boolean.FALSE;
-            }
+        @Override
+        public Boolean visit(OWLClass ce) {
+            return Boolean.valueOf(!ce.isOWLThing());
+        }
 
-            @Override
-            public Boolean visit(OWLClass ce) {
-                return Boolean.valueOf(!ce.isOWLThing());
-            }
+        @Override
+        public Boolean visit(OWLDataAllValuesFrom ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLDataAllValuesFrom ce) {
-                return Boolean.TRUE;
-            }
+        @Override
+        public Boolean visit(OWLDataHasValue ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLDataHasValue ce) {
-                return Boolean.TRUE;
-            }
+        @Override
+        public Boolean visit(OWLDataMaxCardinality ce) {
+            return Boolean.valueOf(ce.getCardinality() == 0 || ce.getCardinality() == 1);
+        }
 
-            @Override
-            public Boolean visit(OWLDataMaxCardinality ce) {
-                return Boolean.valueOf(ce.getCardinality() == 0 || ce.getCardinality() == 1);
-            }
+        @Override
+        public Boolean visit(OWLObjectAllValuesFrom ce) {
+            return ce.getFiller().accept(this);
+        }
 
-            @Override
-            public Boolean visit(OWLObjectAllValuesFrom ce) {
-                return ce.getFiller().accept(this);
-            }
+        // XXX difference in subclass and superclass - correct?
+        @Override
+        public Boolean visit(OWLObjectComplementOf ce) {
+            return Boolean.valueOf(isOWL2RLSubClassExpression(ce.getOperand()));
+        }
 
-            // XXX difference in subclass and superclass - correct?
-            @Override
-            public Boolean visit(OWLObjectComplementOf ce) {
-                return Boolean.valueOf(isOWL2RLSubClassExpression(ce.getOperand()));
-            }
+        @Override
+        public Boolean visit(OWLObjectHasValue ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLObjectHasValue ce) {
-                return Boolean.TRUE;
-            }
+        @Override
+        public Boolean visit(OWLObjectIntersectionOf ce) {
+            return Boolean.valueOf(ce.operands().allMatch(e -> e.accept(this).booleanValue()));
+        }
 
-            @Override
-            public Boolean visit(OWLObjectIntersectionOf ce) {
-                return Boolean.valueOf(ce.operands().allMatch(e -> e.accept(this).booleanValue()));
-            }
+        @Override
+        public Boolean visit(OWLObjectMaxCardinality ce) {
+            return Boolean.valueOf((ce.getCardinality() == 0 || ce.getCardinality() == 1)
+                && (ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce.getFiller())));
+        }
+    };
+    static final OWLClassExpressionVisitorEx<Boolean> equivalentClassExpressionChecker = new OWLClassExpressionVisitorEx<Boolean>() {
 
-            @Override
-            public Boolean visit(OWLObjectMaxCardinality ce) {
-                return Boolean.valueOf((ce.getCardinality() == 0 || ce.getCardinality() == 1)
-                    && (ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce.getFiller())));
-            }
-        };
+        @Override
+        public Boolean doDefault(OWLObject o) {
+            return Boolean.FALSE;
+        }
 
-    static final OWLClassExpressionVisitorEx<Boolean> equivalentClassExpressionChecker =
-        new OWLClassExpressionVisitorEx<Boolean>() {
+        @Override
+        public Boolean visit(OWLClass ce) {
+            return Boolean.valueOf(!ce.isOWLThing());
+        }
 
-            @Override
-            public Boolean doDefault(OWLObject o) {
-                return Boolean.FALSE;
-            }
+        @Override
+        public Boolean visit(OWLDataHasValue ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLClass ce) {
-                return Boolean.valueOf(!ce.isOWLThing());
-            }
+        @Override
+        public Boolean visit(OWLObjectHasValue ce) {
+            return Boolean.TRUE;
+        }
 
-            @Override
-            public Boolean visit(OWLDataHasValue ce) {
-                return Boolean.TRUE;
-            }
-
-            @Override
-            public Boolean visit(OWLObjectHasValue ce) {
-                return Boolean.TRUE;
-            }
-
-            @Override
-            public Boolean visit(OWLObjectIntersectionOf ce) {
-                return Boolean.valueOf(ce.operands().allMatch(e -> e.accept(this).booleanValue()));
-            }
-        };
+        @Override
+        public Boolean visit(OWLObjectIntersectionOf ce) {
+            return Boolean.valueOf(ce.operands().allMatch(e -> e.accept(this).booleanValue()));
+        }
+    };
 
     protected static boolean isOWL2QLSubClassExpression(OWLClassExpression ce) {
         return ce.accept(subClassExpressionChecker).booleanValue();
@@ -350,61 +338,58 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
         return ce.accept(superClassRLExpressionChecker).booleanValue();
     }
 
-    protected static final Set<IRI> ALLOWED_RL_DATATYPES =
-        asUnorderedSet(OWL2Datatype.RL_DATATYPES.stream().map(HasIRI::getIRI));
-    protected static final Set<IRI> ALLOWED_EL_DATATYPES =
-        asUnorderedSet(OWL2Datatype.EL_DATATYPES.stream().map(HasIRI::getIRI));
-
-    protected static final Set<IRI> ALLOWED_QL_DATATYPES =
-        asUnorderedSet(OWL2Datatype.EL_DATATYPES.stream().map(HasIRI::getIRI));
-
+    protected static final Set<IRI> ALLOWED_RL_DATATYPES = asUnorderedSet(
+        OWL2Datatype.RL_DATATYPES.stream().map(HasIRI::getIRI));
+    protected static final Set<IRI> ALLOWED_EL_DATATYPES = asUnorderedSet(
+        OWL2Datatype.EL_DATATYPES.stream().map(HasIRI::getIRI));
+    protected static final Set<IRI> ALLOWED_QL_DATATYPES = asUnorderedSet(
+        OWL2Datatype.EL_DATATYPES.stream().map(HasIRI::getIRI));
     protected final Set<Profiles> validating;
     protected Collection<OWLProfileViolation> violations;
-    @Nullable
-    protected OWLObjectPropertyManager propertyManager = null;
+    @Nullable protected OWLObjectPropertyManager propertyManager = null;
 
     /**
-     * @param walker onotlogy walker to use
-     * @param violations collection of violations; the collection is modified during the visit
-     * @param profiles the profiles to check. An empty collection means OWL 2 FULL will be the
-     *        pofile used.
+     * @param walker
+     *        onotlogy walker to use
+     * @param violations
+     *        collection of violations; the collection is modified during the
+     *        visit
+     * @param profiles
+     *        the profiles to check. An empty collection means OWL 2 FULL will
+     *        be the pofile used.
      */
-    protected ProfileVisitorBase(OWLOntologyWalker walker,
-        Collection<OWLProfileViolation> violations, Collection<Profiles> profiles) {
+    protected ProfileVisitorBase(OWLOntologyWalker walker, Collection<OWLProfileViolation> violations,
+        Collection<Profiles> profiles) {
         super(walker);
         this.violations = violations;
         validating = new HashSet<>(profiles);
     }
 
+    protected void runAll(Runnable... runnables) {
+        Arrays.stream(runnables).forEach(Runnable::run);
+    }
+
     protected void dl(Runnable... runnables) {
         if (validating.contains(Profiles.OWL2_DL)) {
-            for (Runnable r : runnables) {
-                r.run();
-            }
+            runAll(runnables);
         }
     }
 
     protected void ql(Runnable... runnables) {
         if (validating.contains(Profiles.OWL2_QL)) {
-            for (Runnable r : runnables) {
-                r.run();
-            }
+            runAll(runnables);
         }
     }
 
     protected void el(Runnable... runnables) {
         if (validating.contains(Profiles.OWL2_EL)) {
-            for (Runnable r : runnables) {
-                r.run();
-            }
+            runAll(runnables);
         }
     }
 
     protected void rl(Runnable... runnables) {
         if (validating.contains(Profiles.OWL2_RL)) {
-            for (Runnable r : runnables) {
-                r.run();
-            }
+            runAll(runnables);
         }
     }
 
@@ -458,8 +443,7 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     }
 
     protected void illegalClass(OWLClassExpression ce) {
-        violations
-            .add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
+        violations.add(new UseOfIllegalClassExpression(getCurrentOntology(), getCurrentAxiom(), ce));
     }
 
     protected void illegalPunning(HasIRI p) {
@@ -468,28 +452,24 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
 
     protected void insufficientOperands(HasOperands<?> node) {
         if (node.getOperandsAsList().size() < 2) {
-            violations.add(new InsufficientOperands(getCurrentOntology(), getCurrentAxiom(),
-                (OWLObject) node));
+            violations.add(new InsufficientOperands(getCurrentOntology(), getCurrentAxiom(), (OWLObject) node));
         }
     }
 
     protected void insufficientProperties(HasOperands<?> node) {
         if (node.getOperandsAsList().size() < 2) {
-            violations
-                .add(new InsufficientPropertyExpressions(getCurrentOntology(), getCurrentAxiom()));
+            violations.add(new InsufficientPropertyExpressions(getCurrentOntology(), getCurrentAxiom()));
         }
     }
 
     protected void emptyProperties(HasOperands<?> node) {
         if (node.getOperandsAsList().isEmpty()) {
-            violations
-                .add(new InsufficientPropertyExpressions(getCurrentOntology(), getCurrentAxiom()));
+            violations.add(new InsufficientPropertyExpressions(getCurrentOntology(), getCurrentAxiom()));
         }
     }
 
     protected void illegalAxiom() {
-        violations
-            .add(new UseOfIllegalAxiom(getCurrentOntology(), verifyNotNull(getCurrentAxiom())));
+        violations.add(new UseOfIllegalAxiom(getCurrentOntology(), verifyNotNull(getCurrentAxiom())));
     }
 
     protected void illegalDataRange(OWLDataRange node) {
@@ -498,56 +478,49 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
 
     protected void nonSimple(OWLObjectCardinalityRestriction ce) {
         if (getPropertyManager().isNonSimple(ce.getProperty())) {
-            violations.add(new UseOfNonSimplePropertyInCardinalityRestriction(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            violations
+                .add(new UseOfNonSimplePropertyInCardinalityRestriction(getCurrentOntology(), getCurrentAxiom(), ce));
         }
     }
 
     protected boolean nonSubclass(OWLClassExpression ce) {
-        return violations.add(new UseOfNonSubClassExpression(getCurrentOntology(),
-            verifyNotNull(getCurrentAxiom()), ce));
+        return violations
+            .add(new UseOfNonSubClassExpression(getCurrentOntology(), verifyNotNull(getCurrentAxiom()), ce));
     }
 
     protected void nonSuper(OWLClassExpression ce) {
-        violations.add(new UseOfNonSuperClassExpression(getCurrentOntology(),
-            verifyNotNull(getCurrentAxiom()), ce));
+        violations.add(new UseOfNonSuperClassExpression(getCurrentOntology(), verifyNotNull(getCurrentAxiom()), ce));
     }
 
     protected void chainCycle(OWLObjectPropertyExpression last) {
-        violations.add(new UseOfPropertyInChainCausesCycle(getCurrentOntology(),
-            verifyNotNull(getCurrentAxiom()), last));
+        violations
+            .add(new UseOfPropertyInChainCausesCycle(getCurrentOntology(), verifyNotNull(getCurrentAxiom()), last));
     }
 
     protected void undeclaredDatatype(OWLDatatype dt) {
-        if (!dt.isTopDatatype() && !dt.isBuiltIn()
-            && !getCurrentOntology().isDeclared(dt, Imports.INCLUDED)) {
-            violations
-                .add(new UseOfUndeclaredDatatype(getCurrentOntology(), getCurrentAxiom(), dt));
+        if (!dt.isTopDatatype() && !dt.isBuiltIn() && !getCurrentOntology().isDeclared(dt, Imports.INCLUDED)) {
+            violations.add(new UseOfUndeclaredDatatype(getCurrentOntology(), getCurrentAxiom(), dt));
         }
     }
 
-    protected boolean rangePresent(OWLClassExpression imposedRange,
-        OWLObjectPropertyExpression lastProperty) {
-        return getCurrentOntology().importsClosure()
-            .flatMap(o -> o.objectPropertyRangeAxioms(lastProperty))
+    protected boolean rangePresent(OWLClassExpression imposedRange, OWLObjectPropertyExpression lastProperty) {
+        return getCurrentOntology().importsClosure().flatMap(o -> o.objectPropertyRangeAxioms(lastProperty))
             .anyMatch(l -> l.getRange().equals(imposedRange));
     }
 
     protected void anonIndividual(OWLAnonymousIndividual individual) {
-        violations
-            .add(new UseOfAnonymousIndividual(getCurrentOntology(), getCurrentAxiom(), individual));
+        violations.add(new UseOfAnonymousIndividual(getCurrentOntology(), getCurrentAxiom(), individual));
     }
 
     protected void nonAtomic(OWLClassAssertionAxiom axiom) {
         if (axiom.getClassExpression().isAnonymous()) {
-            violations.add(new UseOfNonAtomicClassExpression(getCurrentOntology(), axiom,
-                axiom.getClassExpression()));
+            violations.add(new UseOfNonAtomicClassExpression(getCurrentOntology(), axiom, axiom.getClassExpression()));
         }
     }
 
     protected boolean nonEquivalentClass(OWLClassExpression ce) {
-        return violations.add(new UseOfNonEquivalentClassExpression(getCurrentOntology(),
-            verifyNotNull(getCurrentAxiom()), ce));
+        return violations
+            .add(new UseOfNonEquivalentClassExpression(getCurrentOntology(), verifyNotNull(getCurrentAxiom()), ce));
     }
 
     protected void ontologyIRINotAbsolute(OWLOntologyID id) {
@@ -556,27 +529,25 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     }
 
     protected void versionNotAbsolute(OWLOntologyID id) {
-        id.getVersionIRI().filter(v -> !v.isAbsolute()).ifPresent(
-            x -> violations.add(new OntologyVersionIRINotAbsolute(getCurrentOntology(), id)));
+        id.getVersionIRI().filter(v -> !v.isAbsolute())
+            .ifPresent(x -> violations.add(new OntologyVersionIRINotAbsolute(getCurrentOntology(), id)));
     }
 
     protected boolean definedDatatype(OWLDatatypeRestriction node) {
-        return violations.add(new UseOfDefinedDatatypeInDatatypeRestriction(getCurrentOntology(),
-            getCurrentAxiom(), node));
+        return violations
+            .add(new UseOfDefinedDatatypeInDatatypeRestriction(getCurrentOntology(), getCurrentAxiom(), node));
     }
 
-    protected void illegalFacet(OWLDatatypeRestriction node, OWLDatatype datatype,
-        OWLFacetRestriction r) {
+    protected void illegalFacet(OWLDatatypeRestriction node, OWLDatatype datatype, OWLFacetRestriction r) {
         OWL2Datatype dt = datatype.getBuiltInDatatype();
         if (!dt.getFacets().contains(r.getFacet())) {
-            violations.add(new UseOfIllegalFacetRestriction(getCurrentOntology(), getCurrentAxiom(),
-                node, r.getFacet()));
+            violations
+                .add(new UseOfIllegalFacetRestriction(getCurrentOntology(), getCurrentAxiom(), node, r.getFacet()));
         }
     }
 
     protected void chainRange(OWLObjectPropertyRangeAxiom rngAx) {
-        OWLSubPropertyChainOfAxiom axiom =
-            (OWLSubPropertyChainOfAxiom) verifyNotNull(getCurrentAxiom());
+        OWLSubPropertyChainOfAxiom axiom = (OWLSubPropertyChainOfAxiom) verifyNotNull(getCurrentAxiom());
         if (getPropertyManager().isSubPropertyOf(axiom.getSuperProperty(), rngAx.getProperty())) {
             // Imposed range restriction!
             OWLClassExpression imposedRange = rngAx.getRange();
@@ -588,8 +559,7 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
                 OWLObjectPropertyExpression lastProperty = chain.get(chain.size() - 1);
                 boolean rngPresent = rangePresent(imposedRange, lastProperty);
                 if (!rngPresent) {
-                    violations.add(new LastPropertyInChainNotInImposedRange(getCurrentOntology(),
-                        axiom, rngAx));
+                    violations.add(new LastPropertyInChainNotInImposedRange(getCurrentOntology(), axiom, rngAx));
                 }
             }
         }
@@ -603,29 +573,25 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
 
     protected void notInLexicalSpace(OWLLiteral node) {
         if (!node.getDatatype().isBuiltIn()) {
-            violations.add(
-                new UseOfDefinedDatatypeInLiteral(getCurrentOntology(), getCurrentAxiom(), node));
+            violations.add(new UseOfDefinedDatatypeInLiteral(getCurrentOntology(), getCurrentAxiom(), node));
         }
         // Check that the lexical value of the literal is in the lexical
         // space of the literal datatype
         if (node.getDatatype().isBuiltIn()
             && !node.getDatatype().getBuiltInDatatype().isInLexicalSpace(node.getLiteral())) {
-            violations
-                .add(new LexicalNotInLexicalSpace(getCurrentOntology(), getCurrentAxiom(), node));
+            violations.add(new LexicalNotInLexicalSpace(getCurrentOntology(), getCurrentAxiom(), node));
         }
     }
 
     protected void multipleOneOf(OWLObjectOneOf ce) {
         if (ce.getOperandsAsList().size() != 1) {
-            violations.add(new UseOfObjectOneOfWithMultipleIndividuals(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            violations.add(new UseOfObjectOneOfWithMultipleIndividuals(getCurrentOntology(), getCurrentAxiom(), ce));
         }
     }
 
     protected void multipleOneOf(OWLDataOneOf node) {
         if (node.getOperandsAsList().size() != 1) {
-            violations.add(new UseOfDataOneOfWithMultipleLiterals(getCurrentOntology(),
-                getCurrentAxiom(), node));
+            violations.add(new UseOfDataOneOfWithMultipleLiterals(getCurrentOntology(), getCurrentAxiom(), node));
         }
     }
 
@@ -637,14 +603,12 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
 
     protected void topAsSubProperty(OWLSubDataPropertyOfAxiom axiom) {
         if (axiom.getSubProperty().isOWLTopDataProperty()) {
-            violations.add(new UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(
-                getCurrentOntology(), axiom));
+            violations.add(new UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(getCurrentOntology(), axiom));
         }
     }
 
     protected void inverse(OWLObjectInverseOf property) {
-        violations
-            .add(new UseOfObjectPropertyInverse(getCurrentOntology(), getCurrentAxiom(), property));
+        violations.add(new UseOfObjectPropertyInverse(getCurrentOntology(), getCurrentAxiom(), property));
     }
 
     protected void insufficientIndividuals(HasOperands<? extends OWLIndividual> axiom) {
@@ -665,37 +629,34 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     protected void undeclaredAnnotation(OWLAnnotationProperty property) {
         if (!property.isBuiltIn() && !property.getIRI().isReservedVocabulary()
             && !getCurrentOntology().isDeclared(property, INCLUDED)) {
-            violations.add(new UseOfUndeclaredAnnotationProperty(getCurrentOntology(),
-                getCurrentAxiom(), getCurrentAnnotation(), property));
+            violations.add(new UseOfUndeclaredAnnotationProperty(getCurrentOntology(), getCurrentAxiom(),
+                getCurrentAnnotation(), property));
         }
     }
 
     protected void reservedForAnnotation(OWLAnnotationProperty property) {
         if (!property.isBuiltIn() && property.getIRI().isReservedVocabulary()) {
-            violations.add(new UseOfReservedVocabularyForAnnotationPropertyIRI(getCurrentOntology(),
-                getCurrentAxiom(), property));
+            violations.add(
+                new UseOfReservedVocabularyForAnnotationPropertyIRI(getCurrentOntology(), getCurrentAxiom(), property));
         }
     }
 
     protected void punningDatatypeAndClass(HasIRI ce) {
         if (getCurrentOntology().containsClassInSignature(ce.getIRI(), Imports.INCLUDED)
             && getCurrentOntology().containsDatatypeInSignature(ce.getIRI(), Imports.INCLUDED)) {
-            violations.add(new DatatypeIRIAlsoUsedAsClassIRI(getCurrentOntology(),
-                getCurrentAxiom(), ce.getIRI()));
+            violations.add(new DatatypeIRIAlsoUsedAsClassIRI(getCurrentOntology(), getCurrentAxiom(), ce.getIRI()));
         }
     }
 
     protected void undeclaredClass(OWLClass ce) {
-        if (!ce.isBuiltIn() && !ce.getIRI().isReservedVocabulary()
-            && !getCurrentOntology().isDeclared(ce, INCLUDED)) {
+        if (!ce.isBuiltIn() && !ce.getIRI().isReservedVocabulary() && !getCurrentOntology().isDeclared(ce, INCLUDED)) {
             violations.add(new UseOfUndeclaredClass(getCurrentOntology(), getCurrentAxiom(), ce));
         }
     }
 
     protected void reservedForClass(OWLClass ce) {
         if (!ce.isBuiltIn() && ce.getIRI().isReservedVocabulary()) {
-            violations.add(new UseOfReservedVocabularyForClassIRI(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            violations.add(new UseOfReservedVocabularyForClassIRI(getCurrentOntology(), getCurrentAxiom(), ce));
         }
     }
 
@@ -709,8 +670,7 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
         if (getCurrentOntology().containsObjectPropertyInSignature(property.getIRI(), INCLUDED)) {
             illegalPunning(property);
         }
-        if (getCurrentOntology().containsAnnotationPropertyInSignature(property.getIRI(),
-            INCLUDED)) {
+        if (getCurrentOntology().containsAnnotationPropertyInSignature(property.getIRI(), INCLUDED)) {
             illegalPunning(property);
         }
     }
@@ -718,16 +678,15 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     protected void undeclaredDataProperty(OWLDataProperty property) {
         if (!property.isBuiltIn() && !property.getIRI().isReservedVocabulary()
             && !getCurrentOntology().isDeclared(property, INCLUDED)) {
-            violations.add(
-                new UseOfUndeclaredDataProperty(getCurrentOntology(), getCurrentAxiom(), property));
+            violations.add(new UseOfUndeclaredDataProperty(getCurrentOntology(), getCurrentAxiom(), property));
         }
     }
 
     protected void reservedForDataProperty(OWLDataProperty property) {
         if (!property.isOWLTopDataProperty() && !property.isOWLBottomDataProperty()
             && property.getIRI().isReservedVocabulary()) {
-            violations.add(new UseOfReservedVocabularyForDataPropertyIRI(getCurrentOntology(),
-                getCurrentAxiom(), property));
+            violations
+                .add(new UseOfReservedVocabularyForDataPropertyIRI(getCurrentOntology(), getCurrentAxiom(), property));
         }
     }
 
@@ -740,8 +699,7 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
 
     protected void reservedForDatatype(OWLDatatypeDefinitionAxiom axiom) {
         if (axiom.getDatatype().getIRI().isReservedVocabulary()) {
-            violations
-                .add(new UseOfBuiltInDatatypeInDatatypeDefinition(getCurrentOntology(), axiom));
+            violations.add(new UseOfBuiltInDatatypeInDatatypeDefinition(getCurrentOntology(), axiom));
         }
     }
 
@@ -756,58 +714,52 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
         }
     }
 
-    private void getDatatypesInSignature(Set<OWLDatatype> datatypes, OWLObject obj,
-        Set<OWLAxiom> axioms) {
+    private void getDatatypesInSignature(Set<OWLDatatype> datatypes, OWLObject obj, Set<OWLAxiom> axioms) {
         Consumer<? super OWLDatatypeDefinitionAxiom> addAndRecurse = ax -> {
             axioms.add(ax);
             getDatatypesInSignature(datatypes, ax.getDataRange(), axioms);
         };
-        obj.datatypesInSignature().filter(datatypes::add)
-            .forEach(dt -> datatypeDefinitions(dt).forEach(addAndRecurse));
+        obj.datatypesInSignature().filter(datatypes::add).forEach(dt -> datatypeDefinitions(dt).forEach(addAndRecurse));
     }
 
     protected Stream<OWLDatatypeDefinitionAxiom> datatypeDefinitions(OWLDatatype dt) {
-        return Imports.INCLUDED.stream(getCurrentOntology())
-            .flatMap(o -> o.datatypeDefinitions(dt));
+        return Imports.INCLUDED.stream(getCurrentOntology()).flatMap(o -> o.datatypeDefinitions(dt));
     }
 
     protected boolean disjointNonSimple(OWLObjectPropertyExpression p) {
-        return violations.add(new UseOfNonSimplePropertyInDisjointPropertiesAxiom(
-            getCurrentOntology(), verifyNotNull(getCurrentAxiom()), p));
+        return violations.add(new UseOfNonSimplePropertyInDisjointPropertiesAxiom(getCurrentOntology(),
+            verifyNotNull(getCurrentAxiom()), p));
     }
 
     protected void functionalNonSimple(OWLFunctionalObjectPropertyAxiom axiom) {
         if (getPropertyManager().isNonSimple(axiom.getProperty())) {
-            violations.add(
-                new UseOfNonSimplePropertyInFunctionalPropertyAxiom(getCurrentOntology(), axiom));
+            violations.add(new UseOfNonSimplePropertyInFunctionalPropertyAxiom(getCurrentOntology(), axiom));
         }
     }
 
     protected void inverseFunctionalNonSimple(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         if (getPropertyManager().isNonSimple(axiom.getProperty())) {
-            violations.add(new UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom(
-                getCurrentOntology(), axiom));
+            violations
+                .add(new UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom(getCurrentOntology(), axiom));
         }
     }
 
     protected void irreflexiveNonSimple(OWLIrreflexiveObjectPropertyAxiom axiom) {
         if (getPropertyManager().isNonSimple(axiom.getProperty())) {
-            violations.add(
-                new UseOfNonSimplePropertyInIrreflexivePropertyAxiom(getCurrentOntology(), axiom));
+            violations.add(new UseOfNonSimplePropertyInIrreflexivePropertyAxiom(getCurrentOntology(), axiom));
         }
     }
 
     protected void reservedForIndividual(OWLNamedIndividual individual) {
         if (individual.isNamed() && individual.getIRI().isReservedVocabulary()) {
-            violations.add(new UseOfReservedVocabularyForIndividualIRI(getCurrentOntology(),
-                getCurrentAxiom(), individual));
+            violations
+                .add(new UseOfReservedVocabularyForIndividualIRI(getCurrentOntology(), getCurrentAxiom(), individual));
         }
     }
 
     protected void hasSelfNonSimple(OWLObjectHasSelf ce) {
         if (getPropertyManager().isNonSimple(ce.getProperty())) {
-            violations.add(new UseOfNonSimplePropertyInObjectHasSelf(getCurrentOntology(),
-                getCurrentAxiom(), ce));
+            violations.add(new UseOfNonSimplePropertyInObjectHasSelf(getCurrentOntology(), getCurrentAxiom(), ce));
         }
     }
 
@@ -815,8 +767,7 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
         if (getCurrentOntology().containsDataPropertyInSignature(property.getIRI(), INCLUDED)) {
             illegalPunning(property);
         }
-        if (getCurrentOntology().containsAnnotationPropertyInSignature(property.getIRI(),
-            INCLUDED)) {
+        if (getCurrentOntology().containsAnnotationPropertyInSignature(property.getIRI(), INCLUDED)) {
             illegalPunning(property);
         }
     }
@@ -824,8 +775,7 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     protected void undeclaredObjectProperty(OWLObjectProperty property) {
         if (!property.isBuiltIn() && !property.getIRI().isReservedVocabulary()
             && !getCurrentOntology().isDeclared(property, INCLUDED)) {
-            violations.add(new UseOfUndeclaredObjectProperty(getCurrentOntology(),
-                getCurrentAxiom(), property));
+            violations.add(new UseOfUndeclaredObjectProperty(getCurrentOntology(), getCurrentAxiom(), property));
         }
     }
 
@@ -852,8 +802,8 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     protected void reservedForObjectProperty(OWLObjectProperty property) {
         if (!property.isOWLTopObjectProperty() && !property.isOWLBottomObjectProperty()
             && property.getIRI().isReservedVocabulary()) {
-            violations.add(new UseOfReservedVocabularyForObjectPropertyIRI(getCurrentOntology(),
-                getCurrentAxiom(), property));
+            violations.add(
+                new UseOfReservedVocabularyForObjectPropertyIRI(getCurrentOntology(), getCurrentAxiom(), property));
         }
     }
 
@@ -873,13 +823,11 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
 
     protected void asymmetricNonSimple(OWLAsymmetricObjectPropertyAxiom axiom) {
         if (getPropertyManager().isNonSimple(axiom.getProperty())) {
-            violations.add(new UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(
-                getCurrentOntology(), axiom));
+            violations.add(new UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(getCurrentOntology(), axiom));
         }
     }
 
-    protected void checkCenter(OWLObjectPropertyExpression superProp,
-        List<OWLObjectPropertyExpression> chain) {
+    protected void checkCenter(OWLObjectPropertyExpression superProp, List<OWLObjectPropertyExpression> chain) {
         // center part of the chain must be smaller in any case
         for (int i = 1; i < chain.size() - 1; i++) {
             if (getPropertyManager().isLessThan(superProp, chain.get(i))) {
@@ -888,8 +836,8 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
         }
     }
 
-    protected void checkExtremes(OWLObjectPropertyExpression superProp,
-        OWLObjectPropertyExpression first, OWLObjectPropertyExpression last) {
+    protected void checkExtremes(OWLObjectPropertyExpression superProp, OWLObjectPropertyExpression first,
+        OWLObjectPropertyExpression last) {
         if (first.equals(superProp)) {
             // first equals, last must be smaller
             if (getPropertyManager().isLessThan(superProp, last)) {

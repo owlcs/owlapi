@@ -113,6 +113,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     private static final Logger LOGGER = LoggerFactory.getLogger(FunctionalSyntaxObjectRenderer.class);
     protected final Optional<OWLOntology> ont;
     private final PrintWriter writer;
+    private final Writer w;
     protected Optional<AnnotationValueShortFormProvider> labelMaker = Optional.empty();
     private Optional<PrefixManager> prefixManager = Optional.empty();
     private boolean writeEntitiesAsURIs = true;
@@ -136,6 +137,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     public FunctionalSyntaxObjectRenderer(@Nullable OWLOntology ontology, Writer writer) {
         ont = Optional.ofNullable(ontology);
         this.writer = new PrintWriter(writer);
+        w = writer;
         ont.ifPresent(this::initFromOntology);
     }
 
@@ -196,7 +198,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     @Override
     public String render(OWLObject object) {
         accept(object);
-        return writer.toString();
+        writer.flush();
+        return w.toString();
     }
 
     @Override

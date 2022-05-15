@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.manchestersyntax.renderer;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -112,11 +113,12 @@ public class AbstractRenderer {
         tabs.remove(0);
     }
 
-    protected void writeTab() {
+    protected AbstractRenderer writeTab() {
         int tab = tabs.get(0).intValue();
-        for (int i = 0; i < tab; i++) {
-            write(" ");
-        }
+        char[] c = new char[tab];
+        Arrays.fill(c, ' ');
+        write(new String(c));
+        return this;
     }
 
     protected int getIndent() {
@@ -140,37 +142,32 @@ public class AbstractRenderer {
         return this;
     }
 
-    protected void write(char ch) {
-        write(Character.toString(ch));
+    protected AbstractRenderer writeSpace() {
+        return write(" ");
     }
 
-    protected void writeSpace() {
-        write(" ");
+    protected AbstractRenderer write(ManchesterOWLSyntax keyword) {
+        return write(" ", keyword, " ");
     }
 
-    protected void write(ManchesterOWLSyntax keyword) {
-        write(" ", keyword, " ");
+    protected AbstractRenderer writeFrameKeyword(ManchesterOWLSyntax keyword) {
+        return write("", keyword, ": ");
     }
 
-    protected void writeFrameKeyword(ManchesterOWLSyntax keyword) {
-        write("", keyword, ": ");
+    protected AbstractRenderer writeSectionKeyword(ManchesterOWLSyntax keyword) {
+        return write(" ", keyword, ": ");
     }
 
-    protected void writeSectionKeyword(ManchesterOWLSyntax keyword) {
-        write(" ", keyword, ": ");
-    }
-
-    protected void writeNewLine() {
+    protected AbstractRenderer writeNewLine() {
         write("\n");
         if (useTabbing) {
-            writeTab();
+            return writeTab();
         }
+        return this;
     }
 
-    protected void write(String prefix, ManchesterOWLSyntax keyword, String suffix) {
-        write(prefix);
-        write(keyword.toString());
-        write(suffix);
+    protected AbstractRenderer write(String prefix, ManchesterOWLSyntax keyword, String suffix) {
+        return write(prefix).write(keyword.toString()).write(suffix);
     }
 
     protected ShortFormProvider getShortFormProvider() {
@@ -179,5 +176,9 @@ public class AbstractRenderer {
 
     protected void setShortFormProvider(PrefixManager p) {
         prefixManager = p;
+    }
+
+    protected AbstractRenderer writeLiteral(String literal) {
+        return write("\"").write(literal.replace("\\", "\\\\").replace("\"", "\\\"")).write("\"");
     }
 }

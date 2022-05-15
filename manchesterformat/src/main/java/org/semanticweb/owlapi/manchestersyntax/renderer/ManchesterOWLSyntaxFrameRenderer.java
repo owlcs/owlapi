@@ -67,7 +67,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Predicate;
@@ -132,7 +131,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
     private boolean renderExtensions = false;
     private OWLAxiomFilter axiomFilter = axiom -> true;
-    private RenderingDirector renderingDirector = new DefaultRenderingDirector();
+    private RenderingDirector renderingDirector = (a, b) -> false;
     /**
      * The event.
      */
@@ -320,13 +319,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         writeSpace();
         if (o.isNamed()) {
             int indent = getIndent();
-            writeFullURI(o.getOntologyID().getOntologyIRI().map(Object::toString).orElse(""));
-            writeNewLine();
+            write("<").write(o.getOntologyID().getOntologyIRI().map(Object::toString).orElse("")).write(">")
+                .writeNewLine();
             pushTab(indent);
-            Optional<IRI> versionIRI = o.getOntologyID().getVersionIRI();
-            if (versionIRI.isPresent()) {
-                writeFullURI(versionIRI.get().toString());
-            }
+            o.getOntologyID().getVersionIRI().ifPresent(v -> write("<").write(v.toString()).write(">"));
             popTab();
         }
         fireFrameRenderingStarted(ONTOLOGY.toString());
@@ -341,8 +337,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         fireSectionItemPrepared(IMPORT.toString());
         write(IMPORT.toString()).write(": ");
         fireSectionRenderingStarted(IMPORT.toString());
-        writeFullURI(decl.getIRI().toString());
-        writeNewLine();
+        write("<").write(decl.getIRI().toString()).write(">").writeNewLine();
         fireSectionRenderingFinished(IMPORT.toString());
     }
 
@@ -351,25 +346,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      */
     public void writePrefixMap() {
         Map<String, String> prefixMap = prefixManager.getPrefixName2PrefixMap();
-        prefixMap.entrySet().stream().sorted((o1, o2) -> o1.getKey().compareTo(o2.getKey())).forEach(value -> {
-            write(PREFIX.toString()).write(": ").write(value.getKey()).write(" ");
-            writeFullURI(value.getValue());
-            writeNewLine();
-        });
+        prefixMap.entrySet().stream().sorted((o1, o2) -> o1.getKey().compareTo(o2.getKey()))
+            .forEach(value -> write(PREFIX.toString()).write(": ").write(value.getKey()).write(" ").write("<")
+                .write(value.getValue()).write(">").writeNewLine());
         if (!prefixMap.isEmpty()) {
-            writeNewLine();
-            writeNewLine();
+            writeNewLine().writeNewLine();
         }
-    }
-
-    /**
-     * Write full uri.
-     *
-     * @param uri
-     *        the uri
-     */
-    public void writeFullURI(String uri) {
-        write("<").write(uri).write(">");
     }
 
     /**
@@ -828,25 +810,19 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             }
             if (ax instanceof OWLNegativeDataPropertyAssertionAxiom
                 || ax instanceof OWLNegativeObjectPropertyAssertionAxiom) {
-                write(NOT);
-                writeSpace();
+                write(NOT).writeSpace();
             }
-            ax.getProperty().accept(this);
-            writeSpace();
-            writeSpace();
-            ax.getObject().accept(this);
+            accept(ax.getProperty()).writeSpace().writeSpace().accept(ax.getObject());
             if (isNotEmpty) {
                 popTab();
             }
             fireSectionItemFinished(FACTS.toString());
             if (it.hasNext()) {
-                write(",");
-                writeNewLine();
+                write(",").writeNewLine();
             }
         }
         popTab();
-        writeNewLine();
-        writeNewLine();
+        writeNewLine().writeNewLine();
     }
 
     /**
@@ -959,16 +935,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axioms;
     }
 
-    /**
-     * Write section.
-     *
-     * @param keyword
-     *        the keyword
-     */
-    public void writeSection(ManchesterOWLSyntax keyword) {
+    protected ManchesterOWLSyntaxObjectRenderer writeSection(ManchesterOWLSyntax keyword) {
         write("", keyword, "");
         write(":");
-        writeSpace();
+        return writeSpace();
     }
 
     private void writeSection(ManchesterOWLSyntax keyword, SectionMap<Object, OWLAxiom> content, String delimiter,
@@ -984,8 +954,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             sectionObjects(content, delimiter, newline, sec);
             fireSectionRenderingFinished(sec);
             popTab();
-            writeNewLine();
-            writeNewLine();
+            writeNewLine().writeNewLine();
         }
     }
 
@@ -1017,9 +986,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     protected void handleAnnotations(Collection<OWLAnnotation> annos) {
         if (!annos.isEmpty()) {
             incrementTab(4);
-            writeNewLine();
-            write(ManchesterOWLSyntax.ANNOTATIONS.toString());
-            write(": ");
+            writeNewLine().write(ManchesterOWLSyntax.ANNOTATIONS.toString()).write(": ");
             pushTab(getIndent() + 1);
             iterate(annos.iterator());
             popTab();
@@ -1030,7 +997,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     protected void handleObject(String delimiter, boolean newline, Object obj) {
         if (obj instanceof OWLObject) {
-            ((OWLObject) obj).accept(this);
+            accept((OWLObject) obj);
         } else if (obj instanceof Collection) {
             iterate(((Collection<?>) obj).iterator(), this::handleCollectionElement, () -> divider(delimiter, newline));
         } else {
@@ -1087,8 +1054,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             }
             fireSectionRenderingFinished(sec);
             popTab();
-            writeNewLine();
-            writeNewLine();
+            writeNewLine().writeNewLine();
         }
     }
 
@@ -1116,9 +1082,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (placeOnNewline) {
             writeNewLine();
         }
-        write(commentDelim);
-        write(comment);
-        writeNewLine();
+        write(commentDelim).write(comment).writeNewLine();
     }
 
     /**
@@ -1153,9 +1117,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      *        the section
      */
     private void fireFrameRenderingPrepared(String section) {
-        if (listeners.isEmpty()) {
-            return;
-        }
         listeners.forEach(l -> l.frameRenderingPrepared(section, event));
     }
 
@@ -1166,9 +1127,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      *        the section
      */
     private void fireFrameRenderingStarted(String section) {
-        if (listeners.isEmpty()) {
-            return;
-        }
         listeners.forEach(l -> l.frameRenderingStarted(section, event));
     }
 
@@ -1179,9 +1137,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      *        the section
      */
     private void fireFrameRenderingFinished(String section) {
-        if (listeners.isEmpty()) {
-            return;
-        }
         listeners.forEach(l -> l.frameRenderingFinished(section, event));
     }
 
@@ -1192,9 +1147,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      *        the section
      */
     private void fireSectionRenderingPrepared(String section) {
-        if (listeners.isEmpty()) {
-            return;
-        }
         listeners.forEach(l -> l.sectionRenderingPrepared(section, event));
     }
 
@@ -1205,9 +1157,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      *        the section
      */
     private void fireSectionRenderingStarted(String section) {
-        if (listeners.isEmpty()) {
-            return;
-        }
         listeners.forEach(l -> l.sectionRenderingStarted(section, event));
     }
 
@@ -1218,9 +1167,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      *        the section
      */
     private void fireSectionRenderingFinished(String section) {
-        if (listeners.isEmpty()) {
-            return;
-        }
         listeners.forEach(l -> l.sectionRenderingFinished(section, event));
     }
 
@@ -1231,9 +1177,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      *        the section
      */
     private void fireSectionItemPrepared(String section) {
-        if (listeners.isEmpty()) {
-            return;
-        }
         listeners.forEach(l -> l.sectionItemPrepared(section, event));
     }
 
@@ -1244,30 +1187,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      *        the section
      */
     private void fireSectionItemFinished(String section) {
-        if (listeners.isEmpty()) {
-            return;
-        }
         listeners.forEach(l -> l.sectionItemFinished(section, event));
     }
 
     <E extends OWLObject> Collection<E> sortedCollection() {
         return new TreeSet<>(ooc);
-    }
-
-    /**
-     * The Class DefaultRenderingDirector.
-     */
-    private static class DefaultRenderingDirector implements RenderingDirector {
-
-        /**
-         * Instantiates a new default rendering director.
-         */
-        DefaultRenderingDirector() {}
-
-        @Override
-        public boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword, OWLOntology... ontologies) {
-            return false;
-        }
     }
 
     private class SectionMap<O, V extends OWLAxiom> {

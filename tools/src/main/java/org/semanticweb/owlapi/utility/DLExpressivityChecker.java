@@ -36,73 +36,24 @@ import static org.semanticweb.owlapi.utility.Construct.UNIVERSAL_RESTRICTION;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
-import org.semanticweb.owlapi.model.OWLDataComplementOf;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataOneOf;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi.model.OWLObjectHasValue;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectType;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLPropertyRange;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -191,10 +142,14 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         return getOrderedConstructs().stream().map(Object::toString).collect(Collectors.joining());
     }
 
+    private void accept(OWLObject o) {
+        o.accept(this);
+    }
+
     private Set<Construct> getOrderedConstructs() {
         if (constructs == null) {
             constructs = new TreeSet<>();
-            ontologies.stream().flatMap(OWLOntology::logicalAxioms).forEach(ax -> ax.accept(this));
+            ontologies.stream().flatMap(OWLOntology::logicalAxioms).forEach(this::accept);
         }
         Construct.trim(constructs);
         return constructs;
@@ -223,76 +178,87 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         return ontologies.stream().noneMatch(ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
     }
 
-    private void checkCardinality(OWLDataCardinalityRestriction restriction) {
+    private void checkCardinality(OWLCardinalityRestriction<? extends OWLPropertyRange> restriction) {
         if (restriction.isQualified()) {
             addConstruct(Q);
         } else {
             addConstruct(N);
         }
-        restriction.getFiller().accept(this);
-        restriction.getProperty().accept(this);
+        accept(restriction.getFiller());
+        accept(restriction.getProperty());
     }
 
-    private void checkCardinality(OWLObjectCardinalityRestriction restriction) {
-        if (restriction.isQualified()) {
-            addConstruct(Q);
-        } else {
-            addConstruct(N);
+    private static EnumMap<OWLObjectType, List<Construct>> constructMap = constructMap();
+
+    private static List<Construct> l(Construct... c) {
+        return Arrays.asList(c);
+    }
+
+    private static EnumMap<OWLObjectType, List<Construct>> constructMap() {
+        EnumMap<OWLObjectType, List<Construct>> map = new EnumMap<>(OWLObjectType.class);
+        map.put(OWLObjectType.INVERSE_OBJECT, l(ROLE_INVERSE));
+        map.put(OWLObjectType.DATA_PROPERTY, l(D));
+        map.put(OWLObjectType.NOT_DATA, l(D));
+        map.put(OWLObjectType.ONEOF_DATA, l(D));
+        map.put(OWLObjectType.DATATYPE_RESTRICTION, l(D));
+        map.put(OWLObjectType.LITERAL, l(D));
+        map.put(OWLObjectType.FACET_RESTRICTION, l(D));
+        map.put(OWLObjectType.AND_OBJECT, l(CONCEPT_INTERSECTION));
+        map.put(OWLObjectType.OR_OBJECT, l(CONCEPT_UNION));
+        map.put(OWLObjectType.FORALL_DATA, l(UNIVERSAL_RESTRICTION));
+        map.put(OWLObjectType.FORALL_OBJECT, l(UNIVERSAL_RESTRICTION));
+        map.put(OWLObjectType.HASVALUE_OBJECT, l(NOMINALS, FULL_EXISTENTIAL));
+        map.put(OWLObjectType.HASSELF_OBJECT, l(ROLE_COMPLEX));
+        map.put(OWLObjectType.ONEOF_OBJECT, l(CONCEPT_UNION, NOMINALS));
+        map.put(OWLObjectType.SOME_DATA, l(FULL_EXISTENTIAL));
+        map.put(OWLObjectType.HASVALUE_DATA, l(D));
+        map.put(OWLObjectType.ASYMMETRIC, l(ROLE_COMPLEX));
+        map.put(OWLObjectType.REFLEXIVE, l(ROLE_REFLEXIVITY_CHAINS));
+        map.put(OWLObjectType.DISJOINT_CLASSES, l(CONCEPT_COMPLEX_NEGATION));
+        map.put(OWLObjectType.DATA_DOMAIN, l(ROLE_DOMAIN_RANGE, D));
+        map.put(OWLObjectType.OBJECT_DOMAIN, l(ROLE_DOMAIN_RANGE));
+        map.put(OWLObjectType.EQUIVALENT_OBJECT, l(ROLE_HIERARCHY));
+        map.put(OWLObjectType.DIFFERENT_INDIVIDUALS, l(CONCEPT_UNION, NOMINALS, CONCEPT_COMPLEX_NEGATION));
+        map.put(OWLObjectType.DISJOINT_DATA, l(D));
+        map.put(OWLObjectType.DISJOINT_OBJECT, l(ROLE_COMPLEX));
+        map.put(OWLObjectType.OBJECT_RANGE, l(ROLE_DOMAIN_RANGE));
+        map.put(OWLObjectType.FUNCTIONAL_OBJECT, l(F));
+        map.put(OWLObjectType.SUB_OBJECT, l(ROLE_HIERARCHY));
+        map.put(OWLObjectType.DISJOINT_UNION, l(CONCEPT_UNION, CONCEPT_COMPLEX_NEGATION));
+        map.put(OWLObjectType.SYMMETRIC, l(ROLE_INVERSE));
+        map.put(OWLObjectType.DATA_RANGE, l(ROLE_DOMAIN_RANGE, D));
+        map.put(OWLObjectType.FUNCTIONAL_DATA, l(F, D));
+        map.put(OWLObjectType.EQUIVALENT_DATA, l(ROLE_HIERARCHY, D));
+        map.put(OWLObjectType.DATA_ASSERTION, l(D));
+        map.put(OWLObjectType.TRANSITIVE, l(ROLE_TRANSITIVE));
+        map.put(OWLObjectType.IRREFLEXIVE, l(ROLE_COMPLEX));
+        map.put(OWLObjectType.SUB_DATA, l(ROLE_HIERARCHY, D));
+        map.put(OWLObjectType.INVERSE_FUNCTIONAL, l(ROLE_INVERSE, F));
+        map.put(OWLObjectType.SAME_INDIVIDUAL, l(NOMINALS));
+        map.put(OWLObjectType.SUB_PROPERTY_CHAIN, l(ROLE_REFLEXIVITY_CHAINS));
+        map.put(OWLObjectType.INVERSE, l(ROLE_INVERSE));
+        return map;
+    }
+
+    @Override
+    public void doDefault(OWLObject object) {
+        if (object instanceof OWLCardinalityRestriction) {
+            checkCardinality((OWLCardinalityRestriction<? extends OWLPropertyRange>) object);
+            return;
         }
-        restriction.getFiller().accept(this);
-        restriction.getProperty().accept(this);
+        constructMap.getOrDefault(object.type(), Collections.emptyList()).forEach(this::addConstruct);
+        object.componentStream().forEach(this::iterate);
     }
 
-    // Property expression
-    @Override
-    public void visit(OWLObjectInverseOf property) {
-        addConstruct(ROLE_INVERSE);
-    }
-
-    @Override
-    public void visit(OWLDataProperty property) {
-        addConstruct(D);
-    }
-
-    // Data stuff
-    @Override
-    public void visit(OWLDataComplementOf node) {
-        addConstruct(D);
-    }
-
-    @Override
-    public void visit(OWLDataOneOf node) {
-        addConstruct(D);
-    }
-
-    @Override
-    public void visit(OWLDatatypeRestriction node) {
-        addConstruct(D);
-    }
-
-    @Override
-    public void visit(OWLLiteral node) {
-        addConstruct(D);
-    }
-
-    @Override
-    public void visit(OWLFacetRestriction node) {
-        addConstruct(D);
+    protected void iterate(Object o) {
+        if (o instanceof Collection) {
+            ((Collection<? extends OWLObject>) o).forEach(this::accept);
+        } else if (o instanceof OWLObject) {
+            accept((OWLObject) o);
+        }
     }
 
     // class expressions
-    @Override
-    public void visit(OWLObjectIntersectionOf ce) {
-        addConstruct(CONCEPT_INTERSECTION);
-        ce.operands().forEach(o -> o.accept(this));
-    }
-
-    @Override
-    public void visit(OWLObjectUnionOf ce) {
-        addConstruct(CONCEPT_UNION);
-        ce.operands().forEach(o -> o.accept(this));
-    }
-
     @Override
     public void visit(OWLObjectComplementOf ce) {
         if (isAtomic(ce)) {
@@ -300,7 +266,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         } else {
             addConstruct(CONCEPT_COMPLEX_NEGATION);
         }
-        ce.getOperand().accept(this);
+        accept(ce.getOperand());
     }
 
     @Override
@@ -310,274 +276,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         } else {
             addConstruct(FULL_EXISTENTIAL);
         }
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectAllValuesFrom ce) {
-        addConstruct(UNIVERSAL_RESTRICTION);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectHasValue ce) {
-        addConstruct(NOMINALS);
-        addConstruct(FULL_EXISTENTIAL);
-        ce.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectMinCardinality ce) {
-        checkCardinality(ce);
-    }
-
-    @Override
-    public void visit(OWLObjectExactCardinality ce) {
-        checkCardinality(ce);
-    }
-
-    @Override
-    public void visit(OWLObjectMaxCardinality ce) {
-        checkCardinality(ce);
-    }
-
-    @Override
-    public void visit(OWLObjectHasSelf ce) {
-        ce.getProperty().accept(this);
-        addConstruct(ROLE_COMPLEX);
-    }
-
-    @Override
-    public void visit(OWLObjectOneOf ce) {
-        addConstruct(CONCEPT_UNION);
-        addConstruct(NOMINALS);
-    }
-
-    @Override
-    public void visit(OWLDataSomeValuesFrom ce) {
-        addConstruct(FULL_EXISTENTIAL);
-        ce.getFiller().accept(this);
-        ce.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataAllValuesFrom ce) {
-        ce.getFiller().accept(this);
-        ce.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataHasValue ce) {
-        addConstruct(D);
-        ce.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataMinCardinality ce) {
-        checkCardinality(ce);
-    }
-
-    @Override
-    public void visit(OWLDataExactCardinality ce) {
-        checkCardinality(ce);
-    }
-
-    @Override
-    public void visit(OWLDataMaxCardinality ce) {
-        checkCardinality(ce);
-    }
-
-    // Axioms
-    @Override
-    public void visit(OWLSubClassOfAxiom axiom) {
-        axiom.getSubClass().accept(this);
-        axiom.getSuperClass().accept(this);
-    }
-
-    @Override
-    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        addConstruct(ROLE_COMPLEX);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        addConstruct(ROLE_REFLEXIVITY_CHAINS);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDisjointClassesAxiom axiom) {
-        addConstruct(CONCEPT_COMPLEX_NEGATION);
-        axiom.classExpressions().forEach(o -> o.accept(this));
-    }
-
-    @Override
-    public void visit(OWLDataPropertyDomainAxiom axiom) {
-        addConstruct(ROLE_DOMAIN_RANGE);
-        addConstruct(D);
-        axiom.getDomain().accept(this);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        addConstruct(ROLE_DOMAIN_RANGE);
-        axiom.getDomain().accept(this);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        addConstruct(ROLE_HIERARCHY);
-        axiom.properties().forEach(o -> o.accept(this));
-    }
-
-    @Override
-    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDifferentIndividualsAxiom axiom) {
-        addConstruct(CONCEPT_UNION);
-        addConstruct(NOMINALS);
-        addConstruct(CONCEPT_COMPLEX_NEGATION);
-    }
-
-    @Override
-    public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        addConstruct(D);
-        axiom.properties().forEach(prop -> prop.accept(this));
-    }
-
-    @Override
-    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        addConstruct(ROLE_COMPLEX);
-        axiom.properties().forEach(o -> o.accept(this));
-    }
-
-    @Override
-    public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        addConstruct(ROLE_DOMAIN_RANGE);
-        axiom.getRange().accept(this);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        addConstruct(F);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        addConstruct(ROLE_HIERARCHY);
-        axiom.getSubProperty().accept(this);
-        axiom.getSuperProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDisjointUnionAxiom axiom) {
-        addConstruct(CONCEPT_UNION);
-        addConstruct(CONCEPT_COMPLEX_NEGATION);
-        axiom.classExpressions().forEach(o -> o.accept(this));
-    }
-
-    @Override
-    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        addConstruct(ROLE_INVERSE);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataPropertyRangeAxiom axiom) {
-        addConstruct(ROLE_DOMAIN_RANGE);
-        addConstruct(D);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        addConstruct(F);
-        addConstruct(D);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        addConstruct(ROLE_HIERARCHY);
-        addConstruct(D);
-        axiom.properties().forEach(o -> o.accept(this));
-    }
-
-    @Override
-    public void visit(OWLClassAssertionAxiom axiom) {
-        axiom.getClassExpression().accept(this);
-    }
-
-    @Override
-    public void visit(OWLEquivalentClassesAxiom axiom) {
-        axiom.classExpressions().forEach(o -> o.accept(this));
-    }
-
-    @Override
-    public void visit(OWLDataPropertyAssertionAxiom axiom) {
-        addConstruct(D);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        addConstruct(ROLE_TRANSITIVE);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        addConstruct(ROLE_COMPLEX);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        addConstruct(ROLE_HIERARCHY);
-        addConstruct(D);
-    }
-
-    @Override
-    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        addConstruct(ROLE_INVERSE);
-        addConstruct(F);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLSameIndividualAxiom axiom) {
-        addConstruct(NOMINALS);
-    }
-
-    @Override
-    public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        addConstruct(ROLE_REFLEXIVITY_CHAINS);
-        axiom.getPropertyChain().forEach(o -> o.accept(this));
-        axiom.getSuperProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        addConstruct(ROLE_INVERSE);
+        accept(ce.getProperty());
+        accept(ce.getFiller());
     }
 }
