@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createMap;
 
@@ -36,15 +35,14 @@ class TripleMapCollection<T> {
         // if info logging is disabled or all collections are empty, do not
         // output anything
         if (LOGGER.isInfoEnabled() && size() > 0) {
-            map.forEach((p, m) -> m
-                .forEach((s, o) -> LOGGER.info("Unparsed triple: {} -> {} -> {}", s, p, o)));
+            map.forEach((p, m) -> m.forEach((s, o) -> LOGGER.info("Unparsed triple: {} -> {} -> {}", s, p, o)));
         }
     }
 
     public Stream<IRI> keys(IRI subject) {
         Map<IRI, Collection<T>> m = map.get(subject);
         if (m != null) {
-            return asList(m.keySet().stream()).stream();
+            return new ArrayList<>(m.keySet()).stream();
         }
         return Stream.empty();
     }
@@ -117,13 +115,13 @@ class TripleMapCollection<T> {
     }
 
     public boolean add(IRI subject, IRI predicate, T object) {
-        return map.computeIfAbsent(subject, x -> createMap())
-            .computeIfAbsent(predicate, x -> createLinkedSet()).add(object);
+        return map.computeIfAbsent(subject, x -> createMap()).computeIfAbsent(predicate, x -> createLinkedSet())
+            .add(object);
     }
 
     public void iterate(TripleIterator<T> iterator) {
-        new ArrayList<>(map.entrySet()).forEach(
-            e -> new ArrayList<>(e.getValue().entrySet()).forEach(p -> new ArrayList<>(p.getValue())
+        new ArrayList<>(map.entrySet())
+            .forEach(e -> new ArrayList<>(e.getValue().entrySet()).forEach(p -> new ArrayList<>(p.getValue())
                 .forEach(object -> iterator.handleResourceTriple(e.getKey(), p.getKey(), object))));
     }
 }

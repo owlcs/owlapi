@@ -137,6 +137,7 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
     }
 
     protected <Q extends OWLObject> List<Q> t(Stream<Q> c) {
+        // XXX review
         return asList(c.map(this::t));
     }
 
@@ -296,9 +297,9 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
             map.put(OWLObjectType.MAX_DATA,                 (OWLDataMaxCardinality ce)              -> df.getOWLDataMaxCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce.getFiller())));
             map.put(OWLObjectType.DATATYPE,                 (OWLDatatype node)                      -> df.getOWLDatatype(t(node.getIRI())));
             map.put(OWLObjectType.NOT_DATA,                 (OWLDataComplementOf node)              -> df.getOWLDataComplementOf(t(node.getDataRange())));
-            map.put(OWLObjectType.ONEOF_DATA,               (OWLDataOneOf node)                     -> df.getOWLDataOneOf(t(node.operands())));
-            map.put(OWLObjectType.AND_DATA,                 (OWLDataIntersectionOf node)            -> df.getOWLDataIntersectionOf(t(node.operands())));
-            map.put(OWLObjectType.OR_DATA,                  (OWLDataUnionOf node)                   -> df.getOWLDataUnionOf(t(node.operands())));
+            map.put(OWLObjectType.ONEOF_DATA,               (OWLDataOneOf node)                     -> df.getOWLDataOneOf(t(node.getOperandsAsList())));
+            map.put(OWLObjectType.AND_DATA,                 (OWLDataIntersectionOf node)            -> df.getOWLDataIntersectionOf(t(node.getOperandsAsList())));
+            map.put(OWLObjectType.OR_DATA,                  (OWLDataUnionOf node)                   -> df.getOWLDataUnionOf(t(node.getOperandsAsList())));
             map.put(OWLObjectType.DATATYPE_RESTRICTION,     (OWLDatatypeRestriction node)           -> df.getOWLDatatypeRestriction(t(node.getDatatype()), t(node.facetRestrictions())));
             map.put(OWLObjectType.FACET_RESTRICTION,        (OWLFacetRestriction node)              -> df.getOWLFacetRestriction(t(node.getFacet()), t(node.getFacetValue())));
             map.put(OWLObjectType.OBJECT_PROPERTY,          (OWLObjectProperty property)            -> df.getOWLObjectProperty(t(property.getIRI())));
@@ -308,8 +309,8 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
             map.put(OWLObjectType.NAMED_INDIVIDUAL,         (OWLNamedIndividual individual)         -> df.getOWLNamedIndividual(t(individual.getIRI())));
             map.put(OWLObjectType.ANNOTATION,               (OWLAnnotation node)                    -> df.getOWLAnnotation(t(node.getProperty()), t(node.getValue()), t(node.annotations())));
             map.put(OWLObjectType.CLASS,                    (OWLClass ce)                           -> df.getOWLClass(t(ce.getIRI())));
-            map.put(OWLObjectType.AND_OBJECT,               (OWLObjectIntersectionOf ce)            -> df.getOWLObjectIntersectionOf(t(ce.operands())));
-            map.put(OWLObjectType.OR_OBJECT,                (OWLObjectUnionOf ce)                   -> df.getOWLObjectUnionOf(t(ce.operands())));
+            map.put(OWLObjectType.AND_OBJECT,               (OWLObjectIntersectionOf ce)            -> df.getOWLObjectIntersectionOf(t(ce.getOperandsAsList())));
+            map.put(OWLObjectType.OR_OBJECT,                (OWLObjectUnionOf ce)                   -> df.getOWLObjectUnionOf(t(ce.getOperandsAsList())));
             map.put(OWLObjectType.NOT_OBJECT,               (OWLObjectComplementOf ce)              -> df.getOWLObjectComplementOf(t(ce.getOperand())));
             map.put(OWLObjectType.SOME_OBJECT,              (OWLObjectSomeValuesFrom ce)            -> df.getOWLObjectSomeValuesFrom(t(ce.getProperty()), t(ce.getFiller())));
             map.put(OWLObjectType.FORALL_OBJECT,            (OWLObjectAllValuesFrom ce)             -> df.getOWLObjectAllValuesFrom(t(ce.getProperty()), t(ce.getFiller())));
@@ -325,7 +326,7 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
             map.put(OWLObjectType.SWRL_DATA_RANGE,          (SWRLDataRangeAtom node)                -> df.getSWRLDataRangeAtom(t(node.getPredicate()), t(node.getArgument())));
             map.put(OWLObjectType.SWRL_OBJECT_PROPERTY,     (SWRLObjectPropertyAtom node)           -> df.getSWRLObjectPropertyAtom(t(node.getPredicate()), t(node.getFirstArgument()), t(node.getSecondArgument())));
             map.put(OWLObjectType.SWRL_DATA_PROPERTY,       (SWRLDataPropertyAtom node)             -> df.getSWRLDataPropertyAtom(t(node.getPredicate()), t(node.getFirstArgument()), t(node.getSecondArgument())));
-            map.put(OWLObjectType.SWRL_BUILTIN,             (SWRLBuiltInAtom node)                  -> df.getSWRLBuiltInAtom(t(node.getPredicate()), t(node.getArguments())));
+            map.put(OWLObjectType.SWRL_BUILTIN,             (SWRLBuiltInAtom node)                  -> df.getSWRLBuiltInAtom(t(node.getPredicate()), t(node.argumentsAsList())));
             map.put(OWLObjectType.SWRL_VARIABLE,            (SWRLVariable node)                     -> df.getSWRLVariable(t(node.getIRI())));
             map.put(OWLObjectType.SWRL_INDIVIDUAL,          (SWRLIndividualArgument node)           -> df.getSWRLIndividualArgument(t(node.getIndividual())));
             map.put(OWLObjectType.SWRL_LITERAL,             (SWRLLiteralArgument node)              -> df.getSWRLLiteralArgument(t(node.getLiteral())));

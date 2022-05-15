@@ -12,35 +12,35 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.List;
 import java.util.stream.Stream;
 
 /**
  * An interface to objects that have a collection of operands.
  *
- * @param <T> operand type
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
+ * @param <T>
+ *        operand type
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group
  * @since 5.0.0
  */
 @FunctionalInterface
 public interface HasOperands<T extends OWLObject> {
 
     /**
-     * Gets the operands - e.g., the individuals in a sameAs axiom, or the classes in an equivalent
-     * classes axiom.
+     * Gets the operands - e.g., the individuals in a sameAs axiom, or the
+     * classes in an equivalent classes axiom.
      *
      * @return The operands.
      */
-    Stream<T> operands();
+    default Stream<T> operands() {
+        return getOperandsAsList().stream();
+    }
 
     /**
      * Gets the operands as a list.
      *
      * @return The operands.
      */
-    default List<T> getOperandsAsList() {
-        return asList(operands());
-    }
+    List<T> getOperandsAsList();
 }

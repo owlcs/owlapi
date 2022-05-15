@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -21,7 +19,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.utility.DLExpressivityChecker;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.1.0
  */
 public class DLExpressivity extends AbstractOWLMetric<String> {
@@ -29,7 +28,8 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
     /**
      * Instantiates a new dL expressivity.
      *
-     * @param o ontology to use
+     * @param o
+     *        ontology to use
      */
     public DLExpressivity(OWLOntology o) {
         super(o);
@@ -37,7 +37,7 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
 
     @Override
     public String recomputeMetric() {
-        DLExpressivityChecker checker = new DLExpressivityChecker(asList(getOntologies()));
+        DLExpressivityChecker checker = new DLExpressivityChecker(getOntologies());
         return checker.getDescriptionLogicName();
     }
 

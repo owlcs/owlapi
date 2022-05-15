@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.api.test.swrl;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,8 +21,8 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
- *         04/04/2014
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 04/04/2014
  */
 @RunWith(MockitoJUnitRunner.class)
 public class SWRLAtomOrderingTestCase extends TestBase {
@@ -38,25 +37,21 @@ public class SWRLAtomOrderingTestCase extends TestBase {
     @Before
     public void setUp() {
         OWLClass predicate = df.getOWLClass(iri("a"));
-        atomA = df.getSWRLClassAtom(predicate,
-            df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("i"))));
-        atomB = df.getSWRLClassAtom(predicate,
-            df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("j"))));
-        atomC = df.getSWRLClassAtom(predicate,
-            df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("k"))));
-        atomD = df.getSWRLClassAtom(predicate,
-            df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("l"))));
+        atomA = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("i"))));
+        atomB = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("j"))));
+        atomC = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("k"))));
+        atomD = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("l"))));
         body.add(atomC);
         body.add(atomB);
         body.add(atomA);
         Set<SWRLAtom> head = new LinkedHashSet<>();
         head.add(atomD);
-        rule = df.getSWRLRule(body, head, Collections.<OWLAnnotation>emptySet());
+        rule = df.getSWRLRule(body, head, Collections.<OWLAnnotation> emptySet());
     }
 
     @Test
     public void shouldPreserveBodyOrdering() {
-        List<SWRLAtom> ruleImplBody = asList(rule.body());
+        List<SWRLAtom> ruleImplBody = rule.bodyList();
         List<SWRLAtom> specifiedBody = new ArrayList<>(body);
         assertThat(ruleImplBody, is(equalTo(specifiedBody)));
     }

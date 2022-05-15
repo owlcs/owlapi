@@ -127,7 +127,7 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
     @Override
     public void visit(OWLObjectOneOf expr) {
-        value = (int) expr.individuals().count();
+        value = expr.getOperandsAsList().size();
     }
 
     @Override

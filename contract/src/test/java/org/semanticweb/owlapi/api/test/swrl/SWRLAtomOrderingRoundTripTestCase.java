@@ -6,7 +6,6 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
@@ -36,8 +35,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
- *         04/04/2014
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 04/04/2014
  */
 public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
 
@@ -66,57 +65,51 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
 
     @Test
     public void individualsShouldNotGetSWRLVariableTypes() throws OWLOntologyStorageException {
-        String in =
-            "<rdf:RDF xmlns=\"urn:test#\" xml:base=\"urn:test\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\" xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\" xmlns:protege=\"urn:test#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
-                + "    <owl:Ontology rdf:about=\"urn:test\"/>\n"
-                + "    <owl:ObjectProperty rdf:about=\"urn:test#drives\"/>\n"
-                + "    <owl:ObjectProperty rdf:about=\"urn:test#hasDriver\"/>\n"
-                + "    <owl:NamedIndividual rdf:about=\"urn:test#i61\"/>\n"
-                + "    <owl:NamedIndividual rdf:about=\"urn:test#i62\"/>\n"
-                + "    <rdf:Description>\n"
-                + "        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Imp\"/>\n"
-                + "        <swrl:body rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
-                + "        <swrl:head>\n" + "            <rdf:Description>\n"
-                + "                <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#AtomList\"/>\n"
-                + "                <rdf:first>\n" + "                    <rdf:Description>\n"
-                + "                        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#IndividualPropertyAtom\"/>\n"
-                + "                        <swrl:argument1 rdf:resource=\"urn:test#i61\"/>\n"
-                + "                        <swrl:argument2 rdf:resource=\"urn:test#i62\"/>\n"
-                + "                        <swrl:propertyPredicate rdf:resource=\"urn:test#drives\"/>\n"
-                + "                    </rdf:Description>\n" + "                </rdf:first>\n"
-                + "                <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
-                + "            </rdf:Description>\n" + "        </swrl:head>\n"
-                + "    </rdf:Description>\n" + "    <rdf:Description>\n"
-                + "        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Imp\"/>\n"
-                + "        <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">:i62, :i61</rdfs:comment>\n"
-                + "        <swrl:body>\n" + "            <rdf:Description>\n"
-                + "                <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#AtomList\"/>\n"
-                + "                <rdf:first>\n" + "                    <rdf:Description>\n"
-                + "                        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#IndividualPropertyAtom\"/>\n"
-                + "                        <swrl:argument1 rdf:resource=\"urn:test#i62\"/>\n"
-                + "                        <swrl:argument2 rdf:resource=\"urn:test#i61\"/>\n"
-                + "                        <swrl:propertyPredicate rdf:resource=\"urn:test#hasDriver\"/>\n"
-                + "                    </rdf:Description>\n" + "                </rdf:first>\n"
-                + "                <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
-                + "            </rdf:Description>\n" + "        </swrl:body>\n"
-                + "        <swrl:head>\n" + "            <rdf:Description>\n"
-                + "                <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#AtomList\"/>\n"
-                + "                <rdf:first>\n" + "                    <rdf:Description>\n"
-                + "                        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#BuiltinAtom\"/>\n"
-                + "                        <swrl:arguments rdf:parseType=\"Collection\">\n"
-                + "                            <rdf:Description rdf:about=\"urn:test#i62\"/>\n"
-                + "                            <rdf:Description rdf:about=\"urn:test#i61\"/>\n"
-                + "                        </swrl:arguments>\n"
-                + "                        <swrl:builtin rdf:resource=\"http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select\"/>\n"
-                + "                    </rdf:Description>\n" + "                </rdf:first>\n"
-                + "                <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
-                + "            </rdf:Description>\n" + "        </swrl:head>\n"
-                + "    </rdf:Description>\n" + "</rdf:RDF>";
-        OWLOntology o =
-            loadOntologyFromString(in, df.getIRI("urn:test#", "test"), new RDFXMLDocumentFormat());
+        String in = "<rdf:RDF xmlns=\"urn:test#\" xml:base=\"urn:test\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\" xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\" xmlns:protege=\"urn:test#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
+            + "    <owl:Ontology rdf:about=\"urn:test\"/>\n"
+            + "    <owl:ObjectProperty rdf:about=\"urn:test#drives\"/>\n"
+            + "    <owl:ObjectProperty rdf:about=\"urn:test#hasDriver\"/>\n"
+            + "    <owl:NamedIndividual rdf:about=\"urn:test#i61\"/>\n"
+            + "    <owl:NamedIndividual rdf:about=\"urn:test#i62\"/>\n" + "    <rdf:Description>\n"
+            + "        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Imp\"/>\n"
+            + "        <swrl:body rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
+            + "        <swrl:head>\n" + "            <rdf:Description>\n"
+            + "                <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#AtomList\"/>\n"
+            + "                <rdf:first>\n" + "                    <rdf:Description>\n"
+            + "                        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#IndividualPropertyAtom\"/>\n"
+            + "                        <swrl:argument1 rdf:resource=\"urn:test#i61\"/>\n"
+            + "                        <swrl:argument2 rdf:resource=\"urn:test#i62\"/>\n"
+            + "                        <swrl:propertyPredicate rdf:resource=\"urn:test#drives\"/>\n"
+            + "                    </rdf:Description>\n" + "                </rdf:first>\n"
+            + "                <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
+            + "            </rdf:Description>\n" + "        </swrl:head>\n" + "    </rdf:Description>\n"
+            + "    <rdf:Description>\n" + "        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Imp\"/>\n"
+            + "        <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">:i62, :i61</rdfs:comment>\n"
+            + "        <swrl:body>\n" + "            <rdf:Description>\n"
+            + "                <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#AtomList\"/>\n"
+            + "                <rdf:first>\n" + "                    <rdf:Description>\n"
+            + "                        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#IndividualPropertyAtom\"/>\n"
+            + "                        <swrl:argument1 rdf:resource=\"urn:test#i62\"/>\n"
+            + "                        <swrl:argument2 rdf:resource=\"urn:test#i61\"/>\n"
+            + "                        <swrl:propertyPredicate rdf:resource=\"urn:test#hasDriver\"/>\n"
+            + "                    </rdf:Description>\n" + "                </rdf:first>\n"
+            + "                <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
+            + "            </rdf:Description>\n" + "        </swrl:body>\n" + "        <swrl:head>\n"
+            + "            <rdf:Description>\n"
+            + "                <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#AtomList\"/>\n"
+            + "                <rdf:first>\n" + "                    <rdf:Description>\n"
+            + "                        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#BuiltinAtom\"/>\n"
+            + "                        <swrl:arguments rdf:parseType=\"Collection\">\n"
+            + "                            <rdf:Description rdf:about=\"urn:test#i62\"/>\n"
+            + "                            <rdf:Description rdf:about=\"urn:test#i61\"/>\n"
+            + "                        </swrl:arguments>\n"
+            + "                        <swrl:builtin rdf:resource=\"http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select\"/>\n"
+            + "                    </rdf:Description>\n" + "                </rdf:first>\n"
+            + "                <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
+            + "            </rdf:Description>\n" + "        </swrl:head>\n" + "    </rdf:Description>\n" + "</rdf:RDF>";
+        OWLOntology o = loadOntologyFromString(in, df.getIRI("urn:test#", "test"), new RDFXMLDocumentFormat());
         String string = saveOntology(o).toString();
-        assertFalse(string, string
-            .contains("<rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Variable\"/>"));
+        assertFalse(string, string.contains("<rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Variable\"/>"));
     }
 
     @Test
@@ -135,10 +128,10 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
         SWRLRule parsedRule = rules.iterator().next();
         assertThat(parsedRule, is(equalTo(rule)));
         List<SWRLAtom> originalBody = new ArrayList<>(body);
-        List<SWRLAtom> parsedBody = asList(parsedRule.body());
+        List<SWRLAtom> parsedBody = parsedRule.bodyList();
         assertThat(parsedBody, is(equalTo(originalBody)));
         List<SWRLAtom> originalHead = new ArrayList<>(head);
-        List<SWRLAtom> parsedHead = asList(parsedRule.head());
+        List<SWRLAtom> parsedHead = parsedRule.headList();
         assertThat(originalHead, is(equalTo(parsedHead)));
     }
 
@@ -148,8 +141,7 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldPreserveOrderingInManchesterSyntaxRoundTrip()
-        throws OWLOntologyStorageException {
+    public void shouldPreserveOrderingInManchesterSyntaxRoundTrip() throws OWLOntologyStorageException {
         roundTrip(new ManchesterSyntaxDocumentFormat());
     }
 

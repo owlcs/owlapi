@@ -631,7 +631,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected void removeUnnecessaryParsedAnnotations(OWLAnnotationAxiom ax) {
         addOntologyAnnotation(((OWLAnnotationAssertionAxiom) ax).getAnnotation());
-        if (ax.annotations().count() == 0) {
+        if (ax.annotationsAsList().isEmpty()) {
             // axioms with annotations must be preserved, axioms without
             // annotations do not need to be preserved
             // (they exist because of triple ordering in ontology declaration
@@ -642,7 +642,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected void removeUnnecessaryAxiom(OWLAnnotationAssertionAxiom ax) {
         addOntologyAnnotation(ax.getAnnotation());
-        if (ax.annotations().count() == 0) {
+        if (ax.annotationsAsList().isEmpty()) {
             // axioms with annotations must be preserved,
             // axioms without annotations do not need to be preserved
             // (they exist because of triple ordering in ontology

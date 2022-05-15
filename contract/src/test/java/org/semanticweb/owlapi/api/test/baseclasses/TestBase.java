@@ -76,8 +76,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public abstract class TestBase {
@@ -98,10 +97,12 @@ public abstract class TestBase {
         return ontologyFromClasspathFile(fileName, config);
     }
 
-    protected OWLOntology ontologyFromClasspathFile(String fileName, OntologyConfigurator configuration) {
+    protected OWLOntology ontologyFromClasspathFile(String fileName,
+        OntologyConfigurator configuration) {
         try {
             return m1.loadOntologyFromOntologyDocument(
-                new StreamDocumentSource(getClass().getResourceAsStream('/' + fileName)), configuration);
+                new StreamDocumentSource(getClass().getResourceAsStream('/' + fileName)),
+                configuration);
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -109,18 +110,24 @@ public abstract class TestBase {
 
     private static final File resources() {
         try {
-            return new File(TestBase.class.getResource("/owlapi.properties").toURI()).getParentFile();
+            return new File(TestBase.class.getResource("/owlapi.properties").toURI())
+                .getParentFile();
         } catch (URISyntaxException e) {
             throw new OWLRuntimeException("NO RESOURCE FOLDER ACCESSIBLE", e);
         }
     }
 
-    public static void assertThrowsWithMessage(String message, Class<? extends Throwable> c, ThrowingRunnable r) {
+    public static void assertThrowsWithMessage(String message, Class<? extends Throwable> c,
+        ThrowingRunnable r) {
         assertTrue(assertThrows(c, r).getMessage().contains(message));
     }
 
-    @Nonnull @Rule public TemporaryFolder folder = new TemporaryFolder();
-    @Nonnull @Rule public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
+    @Nonnull
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+    @Nonnull
+    @Rule
+    public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
     protected @Nonnull OntologyConfigurator config = new OntologyConfigurator();
     protected static OWLDataFactory df;
     protected static OntologyConfigurator masterConfigurator;
@@ -154,7 +161,7 @@ public abstract class TestBase {
     }
 
     protected boolean isSimpleDeclaration(OWLAxiom ax) {
-        return ax.isOfType(AxiomType.DECLARATION) && ax.annotations().count() == 0;
+        return ax.isOfType(AxiomType.DECLARATION) && ax.annotationsAsList().isEmpty();
     }
 
     private static String str(Stream<?> s) {
@@ -164,7 +171,8 @@ public abstract class TestBase {
 
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (ont1.isNamed() && ont2.isNamed()) {
-            assertEquals("Ontologies supposed to be the same", ont1.getOntologyID(), ont2.getOntologyID());
+            assertEquals("Ontologies supposed to be the same", ont1.getOntologyID(),
+                ont2.getOntologyID());
         }
         if (!Objects.equals(asSet(ont1.annotations()), asSet(ont2.annotations()))) {
             assertEquals(str(ont1.annotations()), str(ont2.annotations()));
@@ -174,8 +182,10 @@ public abstract class TestBase {
         // This isn't great - we normalise axioms by changing the ids of
         // individuals. This relies on the fact that
         // we iterate over objects in the same order for the same set of axioms!
-        axioms1 = new AnonymousIndividualsNormaliser(ont1.getOWLOntologyManager()).getNormalisedAxioms(ont1.axioms());
-        axioms2 = new AnonymousIndividualsNormaliser(ont1.getOWLOntologyManager()).getNormalisedAxioms(ont2.axioms());
+        axioms1 = new AnonymousIndividualsNormaliser(ont1.getOWLOntologyManager())
+            .getNormalisedAxioms(ont1.axioms());
+        axioms2 = new AnonymousIndividualsNormaliser(ont1.getOWLOntologyManager())
+            .getNormalisedAxioms(ont2.axioms());
         OWLDocumentFormat ontologyFormat = ont2.getNonnullFormat();
         applyEquivalentsRoundtrip(axioms1, axioms2, ontologyFormat);
         if (ontologyFormat instanceof ManchesterSyntaxDocumentFormat) {
@@ -223,11 +233,13 @@ public abstract class TestBase {
                 boolean fixed = !verifyErrorIsDueToBlankNodesId(leftOnly, rightOnly);
                 if (fixed) {
                     if (logger.isTraceEnabled()) {
-                        String x = getClass().getSimpleName() + " roundTripOntology() Failing to match axioms: \n" + sb
+                        String x = getClass().getSimpleName()
+                            + " roundTripOntology() Failing to match axioms: \n" + sb
                             + topOfStackTrace();
                         logger.trace(x);
                     }
-                    fail(getClass().getSimpleName() + " roundTripOntology() Failing to match axioms: \n" + sb);
+                    fail(getClass().getSimpleName()
+                        + " roundTripOntology() Failing to match axioms: \n" + sb);
                     return false;
                 } else {
                     return true;
@@ -240,10 +252,11 @@ public abstract class TestBase {
     }
 
     /**
-     * equivalent entity axioms with more than two entities are broken up by RDF
-     * syntaxes. Ensure they are still recognized as correct roundtripping
+     * equivalent entity axioms with more than two entities are broken up by RDF syntaxes. Ensure
+     * they are still recognized as correct roundtripping
      */
-    public void applyEquivalentsRoundtrip(Set<OWLAxiom> axioms1, Set<OWLAxiom> axioms2, OWLDocumentFormat destination) {
+    public void applyEquivalentsRoundtrip(Set<OWLAxiom> axioms1, Set<OWLAxiom> axioms2,
+        OWLDocumentFormat destination) {
         if (!axioms1.equals(axioms2)) {
             // remove axioms that differ only because of n-ary equivalence
             // axioms
@@ -251,7 +264,7 @@ public abstract class TestBase {
             for (OWLAxiom ax : new ArrayList<>(axioms1)) {
                 if (ax instanceof OWLEquivalentClassesAxiom) {
                     OWLEquivalentClassesAxiom ax2 = (OWLEquivalentClassesAxiom) ax;
-                    if (ax2.classExpressions().count() > 2) {
+                    if (ax2.getOperandsAsList().size() > 2) {
                         Collection<OWLEquivalentClassesAxiom> pairs = ax2.splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {
                             axioms1.remove(ax);
@@ -260,17 +273,20 @@ public abstract class TestBase {
                     }
                 } else if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
                     OWLEquivalentDataPropertiesAxiom ax2 = (OWLEquivalentDataPropertiesAxiom) ax;
-                    if (ax2.properties().count() > 2) {
-                        Collection<OWLEquivalentDataPropertiesAxiom> pairs = ax2.splitToAnnotatedPairs();
+                    if (ax2.getOperandsAsList().size() > 2) {
+                        Collection<OWLEquivalentDataPropertiesAxiom> pairs =
+                            ax2.splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {
                             axioms1.remove(ax);
                             axioms2.removeAll(pairs);
                         }
                     }
                 } else if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
-                    OWLEquivalentObjectPropertiesAxiom ax2 = (OWLEquivalentObjectPropertiesAxiom) ax;
-                    if (ax2.properties().count() > 2) {
-                        Collection<OWLEquivalentObjectPropertiesAxiom> pairs = ax2.splitToAnnotatedPairs();
+                    OWLEquivalentObjectPropertiesAxiom ax2 =
+                        (OWLEquivalentObjectPropertiesAxiom) ax;
+                    if (ax2.getOperandsAsList().size() > 2) {
+                        Collection<OWLEquivalentObjectPropertiesAxiom> pairs =
+                            ax2.splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {
                             axioms1.remove(ax);
                             axioms2.removeAll(pairs);
@@ -292,8 +308,8 @@ public abstract class TestBase {
         }
     }
 
-    private boolean removeIfContainsAll(Collection<OWLAxiom> axioms, Collection<? extends OWLAxiom> others,
-        OWLDocumentFormat destination) {
+    private boolean removeIfContainsAll(Collection<OWLAxiom> axioms,
+        Collection<? extends OWLAxiom> others, OWLDocumentFormat destination) {
         if (axioms.containsAll(others)) {
             axioms.removeAll(others);
             return true;
@@ -313,7 +329,8 @@ public abstract class TestBase {
     }
 
     protected OWLAxiom reannotate(OWLAxiom ax) {
-        OWLAxiom reannotated = ax.getAxiomWithoutAnnotations().getAnnotatedAxiom(reannotate(ax.annotations()));
+        OWLAxiom reannotated =
+            ax.getAxiomWithoutAnnotations().getAnnotatedAxiom(reannotate(ax.annotations()));
         return reannotated;
     }
 
@@ -343,26 +360,26 @@ public abstract class TestBase {
      * @param rightOnly
      * @return
      */
-    public static boolean verifyErrorIsDueToBlankNodesId(Set<OWLAxiom> leftOnly, Set<OWLAxiom> rightOnly) {
+    public static boolean verifyErrorIsDueToBlankNodesId(Set<OWLAxiom> leftOnly,
+        Set<OWLAxiom> rightOnly) {
         Set<String> leftOnlyStrings = new HashSet<>();
         Set<String> rightOnlyStrings = new HashSet<>();
         for (OWLAxiom ax : leftOnly) {
-            leftOnlyStrings
-                .add(ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank").replaceAll("_:genid[0-9]+", "blank"));
+            leftOnlyStrings.add(ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank")
+                .replaceAll("_:genid[0-9]+", "blank"));
         }
         for (OWLAxiom ax : rightOnly) {
-            rightOnlyStrings
-                .add(ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank").replaceAll("_:genid[0-9]+", "blank"));
+            rightOnlyStrings.add(ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank")
+                .replaceAll("_:genid[0-9]+", "blank"));
         }
         return rightOnlyStrings.equals(leftOnlyStrings);
     }
 
     /**
-     * ignore declarations of builtins and of named individuals - named
-     * individuals do not /need/ a declaration, but addiong one is not an error.
+     * ignore declarations of builtins and of named individuals - named individuals do not /need/ a
+     * declaration, but addiong one is not an error.
      * 
-     * @param parse
-     *        true if the axiom belongs to the parsed ones, false for the input
+     * @param parse true if the axiom belongs to the parsed ones, false for the input
      * @return true if the axiom can be ignored
      */
     public boolean isIgnorableAxiom(OWLAxiom ax, boolean parse) {
@@ -422,16 +439,13 @@ public abstract class TestBase {
     }
 
     /**
-     * Saves the specified ontology in the specified format and reloads it.
-     * Calling this method from a test will cause the test to fail if the
-     * ontology could not be stored, could not be reloaded, or was reloaded and
-     * the reloaded version is not equal (in terms of ontology URI and axioms)
-     * with the original.
+     * Saves the specified ontology in the specified format and reloads it. Calling this method from
+     * a test will cause the test to fail if the ontology could not be stored, could not be
+     * reloaded, or was reloaded and the reloaded version is not equal (in terms of ontology URI and
+     * axioms) with the original.
      * 
-     * @param ont
-     *        The ontology to be round tripped.
-     * @param format
-     *        The format to use when doing the round trip.
+     * @param ont The ontology to be round tripped.
+     * @param format The format to use when doing the round trip.
      */
     public OWLOntology roundTripOntology(OWLOntology ont, OWLDocumentFormat format)
         throws OWLOntologyStorageException, OWLOntologyCreationException {
@@ -457,17 +471,22 @@ public abstract class TestBase {
     public void checkVerify() {
         OWLDataProperty t = df.getOWLDataProperty("urn:test#", "t");
         Set<OWLAxiom> ax1 = new HashSet<>();
-        ax1.add(df.getOWLDataPropertyAssertionAxiom(t, df.getOWLAnonymousIndividual(), df.getOWLLiteral("test1")));
-        ax1.add(df.getOWLDataPropertyAssertionAxiom(t, df.getOWLAnonymousIndividual(), df.getOWLLiteral("test2")));
+        ax1.add(df.getOWLDataPropertyAssertionAxiom(t, df.getOWLAnonymousIndividual(),
+            df.getOWLLiteral("test1")));
+        ax1.add(df.getOWLDataPropertyAssertionAxiom(t, df.getOWLAnonymousIndividual(),
+            df.getOWLLiteral("test2")));
         Set<OWLAxiom> ax2 = new HashSet<>();
-        ax2.add(df.getOWLDataPropertyAssertionAxiom(t, df.getOWLAnonymousIndividual(), df.getOWLLiteral("test1")));
-        ax2.add(df.getOWLDataPropertyAssertionAxiom(t, df.getOWLAnonymousIndividual(), df.getOWLLiteral("test2")));
+        ax2.add(df.getOWLDataPropertyAssertionAxiom(t, df.getOWLAnonymousIndividual(),
+            df.getOWLLiteral("test1")));
+        ax2.add(df.getOWLDataPropertyAssertionAxiom(t, df.getOWLAnonymousIndividual(),
+            df.getOWLLiteral("test2")));
         assertFalse(ax1.equals(ax2));
         assertTrue(verifyErrorIsDueToBlankNodesId(ax1, ax2));
     }
 
     protected OWLOntology loadOntologyFromString(String input, IRI i, OWLDocumentFormat f) {
-        StringDocumentSource documentSource = new StringDocumentSource(input, i.toString(), f, null);
+        StringDocumentSource documentSource =
+            new StringDocumentSource(input, i.toString(), f, null);
         try {
             return setupManager().loadOntologyFromOntologyDocument(documentSource);
         } catch (OWLOntologyCreationException e) {
@@ -476,7 +495,8 @@ public abstract class TestBase {
     }
 
     protected OWLOntology loadOntologyFromString(String input, OWLDocumentFormat f) {
-        StringDocumentSource documentSource = new StringDocumentSource(input, "uri:owlapi:ontology", f, null);
+        StringDocumentSource documentSource =
+            new StringDocumentSource(input, "uri:owlapi:ontology", f, null);
         try {
             return setupManager().loadOntologyFromOntologyDocument(documentSource);
         } catch (OWLOntologyCreationException e) {
@@ -484,7 +504,8 @@ public abstract class TestBase {
         }
     }
 
-    protected OWLOntology loadOntologyFromString(StringDocumentSource input) throws OWLOntologyCreationException {
+    protected OWLOntology loadOntologyFromString(StringDocumentSource input)
+        throws OWLOntologyCreationException {
         return setupManager().loadOntologyFromOntologyDocument(input);
     }
 
@@ -502,8 +523,8 @@ public abstract class TestBase {
         return loadOntologyWithConfig(o, f, new OntologyConfigurator().setStrict(true));
     }
 
-    protected OWLOntology loadOntologyWithConfig(StringDocumentTarget o, OWLDocumentFormat f, OntologyConfigurator c)
-        throws OWLOntologyCreationException {
+    protected OWLOntology loadOntologyWithConfig(StringDocumentTarget o, OWLDocumentFormat f,
+        OntologyConfigurator c) throws OWLOntologyCreationException {
         return loadOntologyWithConfig(new StringDocumentSource(o, f), c);
     }
 
@@ -532,7 +553,8 @@ public abstract class TestBase {
         return loadOntologyWithConfig(saveOntology(o, format), format, c);
     }
 
-    protected OWLOntology roundTrip(OWLOntology o, OWLDocumentFormat f) throws OWLOntologyStorageException {
+    protected OWLOntology roundTrip(OWLOntology o, OWLDocumentFormat f)
+        throws OWLOntologyStorageException {
         StringDocumentTarget saveOntology = saveOntology(o, f);
         // System.out.println("TestBase.roundTrip() " + saveOntology);
         return loadOntologyFromString(saveOntology, f);

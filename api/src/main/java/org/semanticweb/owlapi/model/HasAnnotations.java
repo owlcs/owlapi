@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 
 import java.util.List;
@@ -22,32 +21,34 @@ import java.util.stream.Stream;
 /**
  * An interface to an object that has annotation.
  *
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group
  * @since 3.4.6
  */
 public interface HasAnnotations {
 
     /**
-     * @return a sorted stream of OWLAnnotations on this object. This will only include the
-     *         annotations contained in this object, not the value of annotation assertion axioms in
-     *         an ontology or in other ontologies. Use the EntitySearcher methods for that purpose.
+     * @return a sorted stream of OWLAnnotations on this object. This will only
+     *         include the annotations contained in this object, not the value
+     *         of annotation assertion axioms in an ontology or in other
+     *         ontologies. Use the EntitySearcher methods for that purpose.
      */
     default Stream<OWLAnnotation> annotations() {
         return empty();
     }
 
     /** @return annotation collection s list */
-    default List<OWLAnnotation> annotationsAsList() {
-        return asList(annotations());
-    }
+    List<OWLAnnotation> annotationsAsList();
 
     /**
-     * @param p filter predicate for annotations. Can be used to match the annotation property or
-     *        the annotation value
-     * @return a stream of OWLAnnotations on this object, with filter applied. This will only
-     *         include the annotations contained in this object, not the value of annotation
-     *         assertion axioms in an ontology or in other ontologies. Use the EntitySearcher
-     *         methods for that purpose.
+     * @param p
+     *        filter predicate for annotations. Can be used to match the
+     *        annotation property or the annotation value
+     * @return a stream of OWLAnnotations on this object, with filter applied.
+     *         This will only include the annotations contained in this object,
+     *         not the value of annotation assertion axioms in an ontology or in
+     *         other ontologies. Use the EntitySearcher methods for that
+     *         purpose.
      */
     default Stream<OWLAnnotation> annotations(Predicate<OWLAnnotation> p) {
         // Default implementation returns a sorted stream already.
@@ -55,11 +56,13 @@ public interface HasAnnotations {
     }
 
     /**
-     * @param p annotation property to filter on
-     * @return a stream of OWLAnnotations on this object, with filter applied. This will only
-     *         include the annotations contained in this object, not the value of annotation
-     *         assertion axioms in an ontology or in other ontologies. Use the EntitySearcher
-     *         methods for that purpose.
+     * @param p
+     *        annotation property to filter on
+     * @return a stream of OWLAnnotations on this object, with filter applied.
+     *         This will only include the annotations contained in this object,
+     *         not the value of annotation assertion axioms in an ontology or in
+     *         other ontologies. Use the EntitySearcher methods for that
+     *         purpose.
      */
     default Stream<OWLAnnotation> annotations(OWLAnnotationProperty p) {
         // Default implementation returns a sorted stream already.

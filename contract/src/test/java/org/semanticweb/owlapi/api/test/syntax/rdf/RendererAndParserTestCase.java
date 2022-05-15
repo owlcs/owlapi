@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.creat
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createDataProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
@@ -38,7 +37,8 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 @RunWith(Parameterized.class)
@@ -54,26 +54,25 @@ public class RendererAndParserTestCase extends TestBase {
     public static List<AxiomBuilder> getData() {
         return Arrays.asList(
             // AnonymousIndividual
-            () -> singletonList(df.getOWLClassAssertionAxiom(
-                df.getOWLObjectComplementOf(createClass()), createIndividual())),
+            () -> singletonList(
+                df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(createClass()), createIndividual())),
             // ClassAssertionAxioms
             () -> singletonList(df.getOWLClassAssertionAxiom(createClass(), createIndividual())),
             // DifferentIndividualsAxiom
-            () -> singletonList(df.getOWLDifferentIndividualsAxiom(createIndividual(),
-                createIndividual(), createIndividual(), createIndividual(), createIndividual())),
+            () -> singletonList(df.getOWLDifferentIndividualsAxiom(createIndividual(), createIndividual(),
+                createIndividual(), createIndividual(), createIndividual())),
             // EquivalentClasses
             () -> singletonList(df.getOWLEquivalentClassesAxiom(createClass(),
                 df.getOWLObjectSomeValuesFrom(createObjectProperty(), df.getOWLThing()))),
             // NegativeDataPropertyAssertionAxiom
-            () -> singletonList(df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(),
-                createIndividual(), df.getOWLLiteral("TestConstant"))),
+            () -> singletonList(df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(), createIndividual(),
+                df.getOWLLiteral("TestConstant"))),
             // NegativeObjectPropertyAssertionAxiom
-            () -> singletonList(df.getOWLNegativeObjectPropertyAssertionAxiom(
-                createObjectProperty(), createIndividual(), createIndividual())),
+            () -> singletonList(df.getOWLNegativeObjectPropertyAssertionAxiom(createObjectProperty(),
+                createIndividual(), createIndividual())),
             // QCR
-            () -> singletonList(df.getOWLSubClassOfAxiom(createClass(),
-                df.getOWLObjectMinCardinality(3, createObjectProperty(),
-                    df.getOWLObjectIntersectionOf(createClass(), createClass())))));
+            () -> singletonList(df.getOWLSubClassOfAxiom(createClass(), df.getOWLObjectMinCardinality(3,
+                createObjectProperty(), df.getOWLObjectIntersectionOf(createClass(), createClass())))));
     }
 
     @Before
@@ -88,9 +87,9 @@ public class RendererAndParserTestCase extends TestBase {
         ontA.add(axioms.build());
         OWLOntology ontB = roundTrip(ontA);
         Set<OWLLogicalAxiom> aMinusB = asUnorderedSet(ontA.logicalAxioms());
-        aMinusB.removeAll(asList(ontB.axioms()));
+        ontB.axioms().forEach(aMinusB::remove);
         Set<OWLLogicalAxiom> bMinusA = asUnorderedSet(ontB.logicalAxioms());
-        bMinusA.removeAll(asList(ontA.axioms()));
+        ontA.axioms().forEach(bMinusA::remove);
         StringBuilder msg = new StringBuilder();
         if (aMinusB.isEmpty() && bMinusA.isEmpty()) {
             msg.append("Ontology save/load roundtrip OK.\n");

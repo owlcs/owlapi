@@ -14,12 +14,9 @@ package org.semanticweb.owlapi.latex.renderer;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Comparator;
+import java.util.Iterator;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -39,10 +36,12 @@ import org.semanticweb.owlapi.utility.OWLEntityComparator;
 import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public class LatexStorer implements OWLStorer {
+
     private final ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
     private final OWLEntityComparator entityComparator = new OWLEntityComparator(shortFormProvider);
 
@@ -50,8 +49,8 @@ public class LatexStorer implements OWLStorer {
         return name.replace("_", "\\_");
     }
 
-    private static Collection<? extends OWLAxiom> sortAxioms(Stream<? extends OWLAxiom> axioms) {
-        return asList(axioms.sorted(new OWLAxiomComparator()));
+    private static Stream<? extends OWLAxiom> sortAxioms(Stream<? extends OWLAxiom> axioms) {
+        return axioms.sorted(LatexStorer::compare);
     }
 
     @Override
@@ -86,15 +85,16 @@ public class LatexStorer implements OWLStorer {
             wr.write("\\textwidth 19cm\n");
             wr.write("\\begin{document}\n\n");
             LatexObjectVisitor renderer = new LatexObjectVisitor(wr);
-            Collection<OWLClass> clses = sortEntities(o.classesInSignature());
-            if (!clses.isEmpty()) {
+            Iterator<OWLClass> clses = o.classesInSignature().sorted(entityComparator).iterator();
+            if (clses.hasNext()) {
                 wr.write("\\subsection*{Classes}\n\n");
-            }
-            for (OWLClass cls : clses) {
-                writeEntity(wr, renderer, cls, sortAxioms(o.axioms(cls)));
+                while (clses.hasNext()) {
+                    OWLClass cls = clses.next();
+                    writeEntity(wr, renderer, cls, sortAxioms(o.axioms(cls)));
+                }
             }
             wr.write("\\section*{Object properties}");
-            sortEntities(o.objectPropertiesInSignature())
+            o.objectPropertiesInSignature().sorted(entityComparator)
                 .forEach(p -> writeEntity(wr, renderer, p, sortAxioms(o.axioms(p))));
             wr.write("\\section*{Data properties}");
             o.dataPropertiesInSignature().sorted(entityComparator)
@@ -103,8 +103,8 @@ public class LatexStorer implements OWLStorer {
             o.individualsInSignature().sorted(entityComparator)
                 .forEach(i -> writeEntity(wr, renderer, i, sortAxioms(o.axioms(i))));
             wr.write("\\section*{Datatypes}");
-            o.datatypesInSignature().sorted(entityComparator).forEach(
-                type -> writeEntity(wr, renderer, type, sortAxioms(o.axioms(type, EXCLUDED))));
+            o.datatypesInSignature().sorted(entityComparator)
+                .forEach(type -> writeEntity(wr, renderer, type, sortAxioms(o.axioms(type, EXCLUDED))));
             wr.write("\\end{document}\n");
             wr.flush();
         } catch (OWLRuntimeException e) {
@@ -113,29 +113,18 @@ public class LatexStorer implements OWLStorer {
     }
 
     protected void writeEntity(LatexWriter w, LatexObjectVisitor renderer, OWLEntity cls,
-        Collection<? extends OWLAxiom> axioms) {
+        Stream<? extends OWLAxiom> axioms) {
         writeEntitySection(cls, w);
-        for (OWLAxiom ax : axioms) {
+        axioms.forEach(ax -> {
             renderer.setSubject(cls);
             ax.accept(renderer);
             w.write("\n\n");
-        }
+        });
     }
 
-    private <T extends OWLEntity> Collection<T> sortEntities(Stream<T> entities) {
-        return asList(entities.sorted(entityComparator));
+    private static int compare(@Nullable OWLAxiom o1, @Nullable OWLAxiom o2) {
+        int index1 = verifyNotNull(o1).getAxiomType().getIndex();
+        int index2 = verifyNotNull(o2).getAxiomType().getIndex();
+        return index1 - index2;
     }
-
-    private static class OWLAxiomComparator implements Comparator<OWLAxiom>, Serializable {
-
-        OWLAxiomComparator() {}
-
-        @Override
-        public int compare(@Nullable OWLAxiom o1, @Nullable OWLAxiom o2) {
-            int index1 = verifyNotNull(o1).getAxiomType().getIndex();
-            int index2 = verifyNotNull(o2).getAxiomType().getIndex();
-            return index1 - index2;
-        }
-    }
-
 }

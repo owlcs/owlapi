@@ -26,7 +26,8 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
@@ -34,14 +35,16 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     private final List<SWRLDArgument> args;
 
     /**
-     * @param predicate predicate
-     * @param args builtin argument
+     * @param predicate
+     *        predicate
+     * @param args
+     *        builtin argument
      */
     public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
         super(predicate);
-        this.args = Collections
-            .unmodifiableList(new ArrayList<>(checkNotNull(args, "args cannot be null")));
-        // Do not sort these. They are arguments for builtins and they are order sensitive.
+        this.args = Collections.unmodifiableList(new ArrayList<>(checkNotNull(args, "args cannot be null")));
+        // Do not sort these. They are arguments for builtins and they are order
+        // sensitive.
     }
 
     @Override
@@ -65,7 +68,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     }
 
     @Override
-    public List<SWRLDArgument> getArguments() {
+    public List<SWRLDArgument> argumentsAsList() {
         return args;
     }
 }

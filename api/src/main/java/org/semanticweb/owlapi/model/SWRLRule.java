@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -33,14 +31,10 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     }
 
     /** @return body as list */
-    default List<SWRLAtom> bodyList() {
-        return asList(body());
-    }
+    List<SWRLAtom> bodyList();
 
     /** @return head as list */
-    default List<SWRLAtom> headList() {
-        return asList(head());
-    }
+    List<SWRLAtom> headList();
 
     /**
      * Gets the atoms in the body of the rule.
@@ -48,7 +42,9 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
      *         of the rule.
      */
-    Stream<SWRLAtom> body();
+    default Stream<SWRLAtom> body() {
+        return bodyList().stream();
+    }
 
     /**
      * Gets the atoms in the head of the rule.
@@ -56,7 +52,9 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the head
      *         of the rule
      */
-    Stream<SWRLAtom> head();
+    default Stream<SWRLAtom> head() {
+        return headList().stream();
+    }
 
     /**
      * If this rule contains atoms that have predicates that are inverse object

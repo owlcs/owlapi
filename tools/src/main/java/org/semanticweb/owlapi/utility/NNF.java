@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.utility;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.stream.Stream;
 
@@ -128,7 +127,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
     @Override
     public OWLAxiom visit(OWLDisjointUnionAxiom axiom) {
         return df.getOWLDisjointUnionAxiom(axiom.getOWLClass(),
-            asList(axiom.classExpressions().map(p -> p.accept(classVisitor))));
+            axiom.classExpressions().map(p -> p.accept(classVisitor)));
     }
 
     @Override
@@ -338,7 +337,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
         @Override
         public OWLClassExpression visit(OWLObjectOneOf ce) {
-            if (ce.individuals().count() == 1) {
+            if (ce.getOperandsAsList().size() == 1) {
                 if (negated) {
                     return getNegation(ce);
                 } else {

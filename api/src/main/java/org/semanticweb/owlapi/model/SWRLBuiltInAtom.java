@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -35,9 +33,7 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
     /**
      * @return list of arguments
      */
-    default List<SWRLDArgument> getArguments() {
-        return asList(arguments());
-    }
+    List<SWRLDArgument> argumentsAsList();
 
     /**
      * @return list of arguments

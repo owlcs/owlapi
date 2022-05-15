@@ -952,7 +952,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("BuiltInAtom(");
         sb.append(getShortForm(node.getPredicate()));
         sb.append(' ');
-        for (SWRLArgument arg : node.getArguments()) {
+        for (SWRLArgument arg : node.argumentsAsList()) {
             arg.accept(this);
             sb.append(' ');
         }

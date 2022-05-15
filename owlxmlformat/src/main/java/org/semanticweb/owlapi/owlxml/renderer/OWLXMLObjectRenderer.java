@@ -200,8 +200,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
@@ -210,10 +209,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     private OWLDataFactory df;
 
     /**
-     * @param writer
-     *        writer
-     * @param df
-     *        data factory
+     * @param writer writer
+     * @param df data factory
      */
     public OWLXMLObjectRenderer(OWLXMLWriter writer, OWLDataFactory df) {
         this.writer = checkNotNull(writer, "writer cannot be null");
@@ -237,18 +234,21 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         });
         // any undeclared entities?
         if (!declared.isEmpty()) {
-            boolean addMissing = ontology.getOWLOntologyManager().getOntologyConfigurator().shouldAddMissingTypes();
+            boolean addMissing =
+                ontology.getOWLOntologyManager().getOntologyConfigurator().shouldAddMissingTypes();
             if (addMissing) {
                 Collection<IRI> illegalPunnings = ontology.determineIllegalPunnings(addMissing);
                 for (OWLEntity e : declared) {
                     if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI())
                         && !ontology.isDeclared(e, Imports.INCLUDED)) {
-                        ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(e).accept(this);
+                        ontology.getOWLOntologyManager().getOWLDataFactory()
+                            .getOWLDeclarationAxiom(e).accept(this);
                     }
                 }
             }
         }
-        AxiomType.skipDeclarations().flatMap(ontology::axioms).distinct().sorted().forEach(this::accept);
+        AxiomType.skipDeclarations().flatMap(ontology::axioms).distinct().sorted()
+            .forEach(this::accept);
     }
 
     private void accept(OWLObject o) {
@@ -340,7 +340,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
-        axiom(DATA_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getObject());
+        axiom(DATA_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(),
+            axiom.getObject());
     }
 
     @Override
@@ -390,7 +391,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-        axiom(ANNOTATION_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getValue());
+        axiom(ANNOTATION_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(),
+            axiom.getValue());
     }
 
     @Override
@@ -425,7 +427,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        axiom(INVERSE_OBJECT_PROPERTIES, axiom, axiom.getFirstProperty(), axiom.getSecondProperty());
+        axiom(INVERSE_OBJECT_PROPERTIES, axiom, axiom.getFirstProperty(),
+            axiom.getSecondProperty());
     }
 
     @Override
@@ -435,17 +438,20 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        axiom(NEGATIVE_DATA_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getObject());
+        axiom(NEGATIVE_DATA_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(),
+            axiom.getObject());
     }
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        axiom(NEGATIVE_OBJECT_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getObject());
+        axiom(NEGATIVE_OBJECT_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(),
+            axiom.getObject());
     }
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        axiom(OBJECT_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getObject());
+        axiom(OBJECT_PROPERTY_ASSERTION, axiom, axiom.getProperty(), axiom.getSubject(),
+            axiom.getObject());
     }
 
     @Override
@@ -645,7 +651,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(LITERAL);
         if (node.hasLang()) {
             writer.writeLangAttribute(node.getLang());
-        } else if (!node.isRDFPlainLiteral() && !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype().getIRI())) {
+        } else if (!node.isRDFPlainLiteral()
+            && !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype().getIRI())) {
             writer.writeDatatypeAttribute(node.getDatatype());
         }
         writer.writeTextContent(node.getLiteral());
@@ -743,26 +750,29 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(SWRLObjectPropertyAtom node) {
-        axiom(OBJECT_PROPERTY_ATOM, node.getPredicate(), node.getFirstArgument(), node.getSecondArgument());
+        axiom(OBJECT_PROPERTY_ATOM, node.getPredicate(), node.getFirstArgument(),
+            node.getSecondArgument());
     }
 
     @Override
     public void visit(SWRLDataPropertyAtom node) {
-        axiom(DATA_PROPERTY_ATOM, node.getPredicate(), node.getFirstArgument(), node.getSecondArgument());
+        axiom(DATA_PROPERTY_ATOM, node.getPredicate(), node.getFirstArgument(),
+            node.getSecondArgument());
     }
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
         writer.writeStartElement(BUILT_IN_ATOM);
         writer.writeIRIAttribute(node.getPredicate());
-        node.getArguments().forEach(this::accept);
+        node.argumentsAsList().forEach(this::accept);
         writer.writeEndElement();
     }
 
     @Override
     public void visit(SWRLVariable node) {
         writer.writeStartElement(VARIABLE);
-        if ("urn:swrl:var#".equals(node.getIRI().getNamespace()) || "urn:swrl#".equals(node.getIRI().getNamespace())) {
+        if ("urn:swrl:var#".equals(node.getIRI().getNamespace())
+            || "urn:swrl#".equals(node.getIRI().getNamespace())) {
             writer.writeIRIAttribute(df.getIRI("urn:swrl:var#", node.getIRI().getFragment()));
         } else {
             writer.writeIRIAttribute(node.getIRI());

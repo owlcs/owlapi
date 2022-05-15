@@ -31,7 +31,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 /**
  * Extracts the variables from rules.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.1.0
  */
 public class SWRLVariableExtractor implements SWRLObjectVisitorEx<Collection<SWRLVariable>> {
@@ -80,7 +81,7 @@ public class SWRLVariableExtractor implements SWRLObjectVisitorEx<Collection<SWR
 
     @Override
     public Collection<SWRLVariable> visit(SWRLBuiltInAtom node) {
-        node.getArguments().forEach(a -> a.accept(this));
+        node.argumentsAsList().forEach(a -> a.accept(this));
         return variables;
     }
 

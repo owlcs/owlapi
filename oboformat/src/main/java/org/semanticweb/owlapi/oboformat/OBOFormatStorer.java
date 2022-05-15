@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.oboformat;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,7 +32,8 @@ import org.semanticweb.owlapi.obolibrary.oboformat.writer.OBOFormatWriter.OBODoc
 import org.semanticweb.owlapi.obolibrary.oboformat.writer.OBOFormatWriter.OWLOntologyNameProvider;
 
 /**
- * @author Nick Drummond, The University Of Manchester, Bio Health Informatics Group
+ * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+ *         Group
  * @since 3.4.10
  */
 public class OBOFormatStorer implements OWLStorer {
@@ -50,14 +49,13 @@ public class OBOFormatStorer implements OWLStorer {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
             final OBODoc result = translator.convert(ontology, storerParameters);
-            boolean hasImports = !asList(ontology.imports()).isEmpty();
+            boolean hasImports = ontology.imports().iterator().hasNext();
             NameProvider nameProvider;
             if (hasImports) {
                 // if the ontology has imports
                 // use it as secondary lookup for labels
                 final NameProvider primary = new OBODocNameProvider(result);
-                final NameProvider secondary =
-                    new OWLOntologyNameProvider(ontology, primary.getDefaultOboNamespace());
+                final NameProvider secondary = new OWLOntologyNameProvider(ontology, primary.getDefaultOboNamespace());
                 // combine primary and secondary name provider
                 nameProvider = new NameProvider() {
 
@@ -81,10 +79,9 @@ public class OBOFormatStorer implements OWLStorer {
                 nameProvider = new OBODocNameProvider(result);
             }
             OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
-            oboFormatWriter.setCheckStructure(storerParameters
-                .getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE).booleanValue());
-            oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)),
-                nameProvider);
+            oboFormatWriter.setCheckStructure(
+                storerParameters.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE).booleanValue());
+            oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)), nameProvider);
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }

@@ -56,7 +56,6 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TRANSITIVE;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TYPES;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.Writer;
 import java.util.ArrayList;
@@ -490,7 +489,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.HAS_KEY)) {
             filtersort(o.hasKeyAxioms(cls)).forEach(ax -> {
                 SectionMap<Object, OWLAxiom> map = new SectionMap<>();
-                map.put(asList(ax.propertyExpressions()), ax);
+                map.put(ax.getOperandsAsList(), ax);
                 writeSection(HAS_KEY, map, ", ", true);
             });
         }
@@ -507,7 +506,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             // XXX used at all?
             Set<OWLAxiom> rules = new HashSet<>();
             filtersort(o.axioms(AxiomType.SWRL_RULE)).forEach(rule -> {
-                for (SWRLAtom atom : asList(rule.head())) {
+                for (SWRLAtom atom : rule.headList()) {
                     if (atom.getPredicate().equals(cls)) {
                         writeSection(RULE, rules.iterator(), ", ", true);
                         break;
@@ -671,7 +670,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.SWRL_RULE)) {
             Collection<OWLAxiom> rules = sortedCollection();
             filtersort(o.axioms(AxiomType.SWRL_RULE)).forEach(rule -> {
-                for (SWRLAtom atom : asList(rule.head())) {
+                for (SWRLAtom atom : rule.headList()) {
                     if (atom.getPredicate().equals(property)) {
                         rules.add(rule);
                         writeSection(RULE, rules.iterator(), ",", true);
@@ -745,7 +744,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             // XXX is rules used?
             List<OWLAxiom> rules = new ArrayList<>();
             filtersort(o.axioms(AxiomType.SWRL_RULE)).forEach(rule -> {
-                for (SWRLAtom atom : asList(rule.head())) {
+                for (SWRLAtom atom : rule.headList()) {
                     if (atom.getPredicate().equals(property)) {
                         writeSection(RULE, rules.iterator(), "", true);
                         break;
@@ -1293,13 +1292,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             return object2Axioms.keySet();
         }
 
-        Collection<Collection<OWLAnnotation>> getAnnotationsForSectionObject(Object sectionObject) {
+        Collection<List<OWLAnnotation>> getAnnotationsForSectionObject(Object sectionObject) {
             Collection<V> axioms = object2Axioms.get(sectionObject);
             if (axioms == null) {
                 return sortedSet();
             }
-            Collection<Collection<OWLAnnotation>> annos = new ArrayList<>();
-            axioms.forEach(ax -> annos.add(asList(ax.annotations().sorted(ooc))));
+            Collection<List<OWLAnnotation>> annos = new ArrayList<>();
+            axioms.forEach(ax -> annos.add(ax.annotationsAsList()));
             return annos;
         }
     }

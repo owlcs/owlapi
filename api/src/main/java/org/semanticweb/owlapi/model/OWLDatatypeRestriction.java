@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -52,7 +50,9 @@ public interface OWLDatatypeRestriction extends OWLDataRange, HasDatatype {
      * @return A {@code Stream} of facet restrictions that apply to this data
      *         range
      */
-    Stream<OWLFacetRestriction> facetRestrictions();
+    default Stream<OWLFacetRestriction> facetRestrictions() {
+        return facetRestrictionsAsList().stream();
+    }
 
     /**
      * Gets the sorted facet restrictions on this data range.
@@ -60,9 +60,7 @@ public interface OWLDatatypeRestriction extends OWLDataRange, HasDatatype {
      * @return A {@code List} of facet restrictions that apply to this data
      *         range
      */
-    default List<OWLFacetRestriction> facetRestrictionsAsList() {
-        return asList(facetRestrictions());
-    }
+    List<OWLFacetRestriction> facetRestrictionsAsList();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {
