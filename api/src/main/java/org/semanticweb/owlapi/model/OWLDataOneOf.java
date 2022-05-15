@@ -12,26 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 /**
- * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Literals" > DataOneOf</a> in
- * the OWL 2 Specification.
+ * Represents
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Literals" >
+ * DataOneOf</a> in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public interface OWLDataOneOf extends OWLDataRange, HasOperands<OWLLiteral> {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(values());
-    }
-
-    @Override
-    default int initHashCode() {
-        return OWLObject.hashIteration(hashIndex(), getOperandsAsList().hashCode());
-    }
 
     @Override
     default OWLObjectType type() {
@@ -42,13 +32,6 @@ public interface OWLDataOneOf extends OWLDataRange, HasOperands<OWLLiteral> {
     default DataRangeType getDataRangeType() {
         return DataRangeType.DATA_ONE_OF;
     }
-
-    /**
-     * Gets the sorted values ({@link OWLLiteral}s) that this data range consists of.
-     *
-     * @return The values that this data range consists of.
-     */
-    Stream<OWLLiteral> values();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

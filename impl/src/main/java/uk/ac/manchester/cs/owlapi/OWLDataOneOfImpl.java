@@ -25,7 +25,8 @@ import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
@@ -33,7 +34,8 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     private final List<OWLLiteral> values;
 
     /**
-     * @param values lierals
+     * @param values
+     *        lierals
      */
     public OWLDataOneOfImpl(Stream<? extends OWLLiteral> values) {
         checkNotNull(values, "values cannot be null");
@@ -41,14 +43,16 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
     /**
-     * @param values lierals
+     * @param values
+     *        lierals
      */
     public OWLDataOneOfImpl(Collection<? extends OWLLiteral> values) {
         this(checkNotNull(values, "values cannot be null").stream());
     }
 
     /**
-     * @param value lieral
+     * @param value
+     *        lieral
      */
     public OWLDataOneOfImpl(OWLLiteral value) {
         checkNotNull(value, "value cannot be null");
@@ -56,13 +60,8 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
     @Override
-    public Stream<OWLLiteral> values() {
-        return streamFromSorted(values);
-    }
-
-    @Override
     public Stream<OWLLiteral> operands() {
-        return values();
+        return streamFromSorted(values);
     }
 
     @Override

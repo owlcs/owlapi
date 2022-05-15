@@ -170,25 +170,26 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
-    implements OWLObjectVisitor {
+public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implements OWLObjectVisitor {
 
     private boolean wrapSave;
     private boolean tabSave;
 
     /**
-     * @param writer writer
-     * @param entityShortFormProvider entityShortFormProvider
+     * @param writer
+     *        writer
+     * @param entityShortFormProvider
+     *        entityShortFormProvider
      */
     public ManchesterOWLSyntaxObjectRenderer(Writer writer, PrefixManager entityShortFormProvider) {
         super(writer, entityShortFormProvider);
     }
 
-    protected void write(Stream<? extends OWLObject> objects, ManchesterOWLSyntax delimiter,
-        boolean newline) {
+    protected void write(Stream<? extends OWLObject> objects, ManchesterOWLSyntax delimiter, boolean newline) {
         pushTab(getIndent());
         iterate(objects.iterator(), () -> divider(delimiter, newline));
         popTab();
@@ -230,18 +231,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         }
     }
 
-    private void writeRestriction(OWLQuantifiedDataRestriction restriction,
-        ManchesterOWLSyntax keyword) {
+    private void writeRestriction(OWLQuantifiedDataRestriction restriction, ManchesterOWLSyntax keyword) {
         pair(restriction.getProperty(), keyword, restriction.getFiller());
     }
 
-    private void writeRestriction(OWLQuantifiedObjectRestriction restriction,
-        ManchesterOWLSyntax keyword) {
+    private void writeRestriction(OWLQuantifiedObjectRestriction restriction, ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
-        boolean conjunctionOrDisjunction =
-            restriction.getFiller() instanceof OWLObjectIntersectionOf
-                || restriction.getFiller() instanceof OWLObjectUnionOf;
+        boolean conjunctionOrDisjunction = restriction.getFiller() instanceof OWLObjectIntersectionOf
+            || restriction.getFiller() instanceof OWLObjectUnionOf;
         if (conjunctionOrDisjunction) {
             incrementTab(4);
             writeNewLine();
@@ -257,9 +255,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         pair(p, VALUE, restriction.getFiller());
     }
 
-    private <F extends OWLPropertyRange> void writeRestriction(
-        OWLCardinalityRestriction<F> restriction, ManchesterOWLSyntax keyword,
-        OWLPropertyExpression p) {
+    private <F extends OWLPropertyRange> void writeRestriction(OWLCardinalityRestriction<F> restriction,
+        ManchesterOWLSyntax keyword, OWLPropertyExpression p) {
         p.accept(this);
         write(keyword);
         write(Integer.toString(restriction.getCardinality()));
@@ -456,7 +453,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(OWLDataOneOf node) {
         write("{");
-        write(node.values(), ONE_OF_DELIMETER, false);
+        write(node.operands(), ONE_OF_DELIMETER, false);
         write("}");
     }
 
@@ -486,8 +483,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     public void visit(OWLLiteral node) {
         // xsd:decimal is the default datatype for literal forms like "33.3"
         // with no specified datatype
-        if (XSDVocabulary.DECIMAL.getIRI().equals(node.getDatatype().getIRI())
-            || node.getDatatype().isInteger() || node.getDatatype().isBoolean()) {
+        if (XSDVocabulary.DECIMAL.getIRI().equals(node.getDatatype().getIRI()) || node.getDatatype().isInteger()
+            || node.getDatatype().isBoolean()) {
             write(node.getLiteral());
         } else if (node.getDatatype().isFloat()) {
             write(node.getLiteral());
@@ -498,8 +495,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
             if (node.hasLang()) {
                 write("@");
                 write(node.getLang());
-            } else if (!node.isRDFPlainLiteral()
-                && !OWL2Datatype.XSD_STRING.matches(node.getDatatype())) {
+            } else if (!node.isRDFPlainLiteral() && !OWL2Datatype.XSD_STRING.matches(node.getDatatype())) {
                 write("^^");
                 node.getDatatype().accept(this);
             }
@@ -579,8 +575,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         restore();
     }
 
-    private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword,
-        Stream<? extends OWLObject> stream, ManchesterOWLSyntax naryKeyword) {
+    private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword, Stream<? extends OWLObject> stream,
+        ManchesterOWLSyntax naryKeyword) {
         List<? extends OWLObject> objects = asList(stream);
         if (objects.size() == 2) {
             pair(objects.get(0), binaryKeyword, objects.get(1));
@@ -956,8 +952,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     public void visit(SWRLVariable node) {
         write("?");
         // do not save the namespace if it's the conventional one
-        if ("urn:swrl:var#".equals(node.getIRI().getNamespace())
-            || "urn:swrl#".equals(node.getIRI().getNamespace())) {
+        if ("urn:swrl:var#".equals(node.getIRI().getNamespace()) || "urn:swrl#".equals(node.getIRI().getNamespace())) {
             write(node.getIRI().prefixedBy(""));
         } else {
             write(node.getIRI().toQuotedString());

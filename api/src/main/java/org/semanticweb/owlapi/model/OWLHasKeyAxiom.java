@@ -15,40 +15,18 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Keys">HasKey</a> axiom in the OWL 2
- * Specification.
+ * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Keys">HasKey</a>
+ * axiom in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
-public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLPropertyExpression> {
+public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLPropertyExpression>, HasClassExpression {
 
     @Override
     @SuppressWarnings("unchecked")
     OWLHasKeyAxiom getAxiomWithoutAnnotations();
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getClassExpression(), getOperandsAsList(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getClassExpression().hashCode());
-        hash = OWLObject.hashIteration(hash, getOperandsAsList().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getClassExpression(), getOperandsAsList());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), getClassExpression(), getOperandsAsList());
-    }
 
     @Override
     default OWLObjectType type() {
@@ -56,10 +34,12 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLProperty
     }
 
     /**
-     * Gets the class expression, instances of which, this axiom acts as the key for.
+     * Gets the class expression, instances of which, this axiom acts as the key
+     * for.
      *
      * @return The class expression
      */
+    @Override
     OWLClassExpression getClassExpression();
 
     /**
@@ -70,12 +50,14 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLProperty
     Stream<OWLPropertyExpression> propertyExpressions();
 
     /**
-     * Gets the set of object property expressions that make up the key. This is simply a
-     * convenience method that filteres out the object property expressions in the key. All of the
-     * properties returned by this method are included in the return value of the
+     * Gets the set of object property expressions that make up the key. This is
+     * simply a convenience method that filteres out the object property
+     * expressions in the key. All of the properties returned by this method are
+     * included in the return value of the
      * {@link OWLHasKeyAxiom#propertyExpressions()} method.
      *
-     * @return The set of object property expressions in the key described by this axiom
+     * @return The set of object property expressions in the key described by
+     *         this axiom
      */
     default Stream<OWLObjectPropertyExpression> objectPropertyExpressions() {
         return propertyExpressions().filter(OWLPropertyExpression::isObjectPropertyExpression)
@@ -83,12 +65,14 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLProperty
     }
 
     /**
-     * Gets the set of data property expressions that make up the key. This is simply a convenience
-     * method that filteres out the data property expressions in the key. All of the properties
-     * returned by this method are included in the return value of the
+     * Gets the set of data property expressions that make up the key. This is
+     * simply a convenience method that filteres out the data property
+     * expressions in the key. All of the properties returned by this method are
+     * included in the return value of the
      * {@link OWLHasKeyAxiom#propertyExpressions()} method.
      *
-     * @return The set of object property expressions in the key described by this axiom
+     * @return The set of object property expressions in the key described by
+     *         this axiom
      */
     default Stream<OWLDataPropertyExpression> dataPropertyExpressions() {
         return propertyExpressions().filter(OWLPropertyExpression::isDataPropertyExpression)

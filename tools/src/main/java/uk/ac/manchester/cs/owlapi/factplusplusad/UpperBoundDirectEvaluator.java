@@ -25,15 +25,16 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
 /**
- * Determine how many instances can an expression have. All methods return minimal n such that
- * expr\in C^{<= n}, n >= 0
+ * Determine how many instances can an expression have. All methods return
+ * minimal n such that expr\in C^{<= n}, n >= 0
  */
 class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
     /**
      * init c'tor
      *
-     * @param s signature
+     * @param s
+     *        signature
      */
     UpperBoundDirectEvaluator(Signature s) {
         super(s);
@@ -183,6 +184,6 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
     @Override
     public void visit(OWLDataOneOf expr) {
-        value = (int) expr.values().count();
+        value = expr.getOperandsAsList().size();
     }
 }

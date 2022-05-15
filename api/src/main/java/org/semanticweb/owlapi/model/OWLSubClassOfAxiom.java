@@ -12,13 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 /**
- * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Subclass_Axioms">SubClassOf</a> axiom in
- * the OWL 2 Specification.
+ * Represents an
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Subclass_Axioms">SubClassOf</a>
+ * axiom in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public interface OWLSubClassOfAxiom extends OWLClassAxiom {
@@ -32,29 +32,6 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
         return OWLObjectType.SUB_CLASS;
     }
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getSubClass(), getSuperClass(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getSubClass().hashCode());
-        hash = OWLObject.hashIteration(hash, getSuperClass().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getSubClass(), getSuperClass());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), getSubClass(), getSuperClass());
-    }
-
     /**
      * Gets the subclass in this axiom.
      *
@@ -65,13 +42,15 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
     /**
      * Gets the superclass in this axiom.
      *
-     * @return The class expression that represents the superclass in this axiom.
+     * @return The class expression that represents the superclass in this
+     *         axiom.
      */
     OWLClassExpression getSuperClass();
 
     /**
-     * Determines if this subclass axiom has a subclass that is anonymous. (if the subclass is
-     * anonymous then the subclass axiom is known as a General Concept Inclusion - GCI).
+     * Determines if this subclass axiom has a subclass that is anonymous. (if
+     * the subclass is anonymous then the subclass axiom is known as a General
+     * Concept Inclusion - GCI).
      *
      * @return {@code true} if this axiom is a GCI, other wise {@code false}.
      */

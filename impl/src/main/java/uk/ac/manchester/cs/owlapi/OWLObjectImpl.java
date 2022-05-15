@@ -14,11 +14,10 @@ package uk.ac.manchester.cs.owlapi;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.compareIterators;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.equalStreams;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.streamFromSorted;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectType;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.utility.OWLClassExpressionCollector;
 
@@ -52,11 +52,11 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImpl
-    implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
+public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
 
     /**
      * a convenience reference for an empty annotation set, saves on typing.
@@ -65,6 +65,7 @@ public abstract class OWLObjectImpl
     // @formatter:off
     protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>>              signatures =                      build(key -> key.addSignatureEntitiesToSet(new TreeSet<>()));
     protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches =                      build(key -> key.addAnonymousIndividualsToSet(new TreeSet<>()));
+    protected static LoadingCache<OWLObjectImpl, Collection<OWLClassExpression>>expressionCaches =              build(key -> key.accept(new OWLClassExpressionCollector()));
     protected static LoadingCache<OWLObjectImpl, List<OWLClass>>              classesSignatures =               build(key -> cacheSig(key, OWLEntity::isOWLClass,               OWLEntity::asOWLClass));
     protected static LoadingCache<OWLObjectImpl, List<OWLDataProperty>>       dataPropertySignatures =          build(key -> cacheSig(key, OWLEntity::isOWLDataProperty,        OWLEntity::asOWLDataProperty));
     protected static LoadingCache<OWLObjectImpl, List<OWLObjectProperty>>     objectPropertySignatures =        build(key -> cacheSig(key, OWLEntity::isOWLObjectProperty,      OWLEntity::asOWLObjectProperty));
@@ -129,7 +130,7 @@ public abstract class OWLObjectImpl
 
     @Override
     public Stream<OWLClassExpression> nestedClassExpressions() {
-        return accept(new OWLClassExpressionCollector()).stream();
+        return verifyNotNull(expressionCaches.get(this)).stream();
     }
 
     @Override
@@ -143,11 +144,7 @@ public abstract class OWLObjectImpl
         if (!(obj instanceof OWLObject)) {
             return false;
         }
-        OWLObject other = (OWLObject) obj;
-        if (typeIndex() != other.typeIndex() || hashCode() != other.hashCode()) {
-            return false;
-        }
-        return equalStreams(components(), other.components());
+        return OWLObjectType.equals(this, (OWLObject) obj);
     }
 
     @Override
@@ -160,35 +157,7 @@ public abstract class OWLObjectImpl
 
     @Override
     public int compareTo(@Nullable OWLObject obj) {
-        OWLObject o = verifyNotNull(obj);
-        if (o == this) {
-            return 0;
-        }
-        int diff = Integer.compare(typeIndex(), o.typeIndex());
-        if (diff != 0) {
-            return diff;
-        }
-        return compareIterators(components().iterator(), o.components().iterator());
-    }
-
-    protected int compareAnnotations(List<OWLAnnotation> l1, List<OWLAnnotation> l2) {
-        int i = 0;
-        for (; i < l1.size() && i < l2.size(); i++) {
-            int diff = l1.get(i).compareTo(l2.get(i));
-            if (diff != 0) {
-                return diff;
-            }
-        }
-        if (i < l2.size()) {
-            // l1 is shorter and a sublist of l2
-            return -1;
-        }
-        if (i < l1.size()) {
-            // l2 is shorter and a sublist of l1
-            return 1;
-        }
-        // lists are identical
-        return 0;
+        return OWLObjectType.compareTo(this, verifyNotNull(obj));
     }
 
     @Override

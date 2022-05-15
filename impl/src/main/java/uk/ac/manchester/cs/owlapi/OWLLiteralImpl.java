@@ -18,14 +18,14 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * Implementation of {@link OWLLiteral} that does not use compact representation for the literal and
- * type.
+ * Implementation of {@link OWLLiteral} that does not use compact representation
+ * for the literal and type.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
@@ -35,9 +35,12 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private final String language;
 
     /**
-     * @param literal actual literal form
-     * @param lang language for literal, can be null
-     * @param datatype datatype for literal
+     * @param literal
+     *        actual literal form
+     * @param lang
+     *        language for literal, can be null
+     * @param datatype
+     *        datatype for literal
      */
     public OWLLiteralImpl(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
         this.literal = checkNotNull(literal, "literal cannot be null");
@@ -49,12 +52,12 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 this.datatype = datatype;
             }
         } else {
-            if (datatype != null && !(datatype.equals(InternalizedEntities.LANGSTRING)
-                || datatype.equals(InternalizedEntities.PLAIN))) {
+            if (datatype != null
+                && !(datatype.equals(InternalizedEntities.LANGSTRING) || datatype.equals(InternalizedEntities.PLAIN))) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from RDF_LANG_STRING or RDF_PLAIN_LITERAL
-                throw new OWLRuntimeException("Error: cannot build a literal with type: "
-                    + datatype.getIRI() + " and language: " + lang);
+                throw new OWLRuntimeException(
+                    "Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
             this.datatype = InternalizedEntities.LANGSTRING;
@@ -142,35 +145,5 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     @Override
     public OWLDatatype getDatatype() {
         return datatype;
-    }
-
-    @Override
-    public int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
-        hash = OWLObject.hashIteration(hash, specificHash(this) * 65536);
-        return OWLObject.hashIteration(hash, getLang().hashCode());
-    }
-
-    static int specificHash(OWLLiteral l) {
-        try {
-            if (l.isInteger()) {
-                return l.parseInteger();
-            }
-            if (l.isDouble()) {
-                return (int) l.parseDouble();
-            }
-            if (l.isFloat()) {
-                return (int) l.parseFloat();
-            }
-            if (l.isBoolean()) {
-                return l.parseBoolean() ? 1 : 0;
-            }
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // it is possible that a literal does not have a value that's valid
-            // for its datatype; not very useful for a consistent ontology but
-            // some W3C reasoner tests use them
-        }
-        return l.getLiteral().hashCode();
     }
 }

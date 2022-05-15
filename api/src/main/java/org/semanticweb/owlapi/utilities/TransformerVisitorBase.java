@@ -107,8 +107,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * A base class for transformations.
  * 
  * @author ignazio
- *
- * @param <T> transformed type
+ * @param <T>
+ *        transformed type
  */
 public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> {
 
@@ -118,8 +118,8 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
     private Class<T> witness;
     private EnumMap<OWLObjectType, UnaryOperator<?>> rebuilders = buildRebuilders();
 
-    protected TransformerVisitorBase(Predicate<Object> predicate, UnaryOperator<T> transformer,
-        OWLDataFactory df, Class<T> witness) {
+    protected TransformerVisitorBase(Predicate<Object> predicate, UnaryOperator<T> transformer, OWLDataFactory df,
+        Class<T> witness) {
         this.predicate = predicate;
         this.transformer = transformer;
         this.df = df;
@@ -147,10 +147,8 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
     @Nullable
     protected <Q> Q check(Q o) {
         if (witness.isInstance(o)) {
-            @SuppressWarnings("unchecked")
-            Q transform = (Q) transformer.apply(witness.cast(o));
-            if (o instanceof OWLAxiom ? update((OWLAxiom) transform, (OWLAxiom) o) == transform
-                : transform != o) {
+            @SuppressWarnings("unchecked") Q transform = (Q) transformer.apply(witness.cast(o));
+            if (o instanceof OWLAxiom ? update((OWLAxiom) transform, (OWLAxiom) o) == transform : transform != o) {
                 return transform;
             }
         }
@@ -172,7 +170,7 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
         return update(apply((OWLAxiom) node), (OWLAxiom) node);
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     protected <Z extends OWLObject> Z apply(Z node) {
         return ((UnaryOperator<Z>) rebuilders.get(node.type())).apply(node);
     }
@@ -298,7 +296,7 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
             map.put(OWLObjectType.MAX_DATA,                 (OWLDataMaxCardinality ce)              -> df.getOWLDataMaxCardinality(ce.getCardinality(), t(ce.getProperty()), t(ce.getFiller())));
             map.put(OWLObjectType.DATATYPE,                 (OWLDatatype node)                      -> df.getOWLDatatype(t(node.getIRI())));
             map.put(OWLObjectType.NOT_DATA,                 (OWLDataComplementOf node)              -> df.getOWLDataComplementOf(t(node.getDataRange())));
-            map.put(OWLObjectType.ONEOF_DATA,               (OWLDataOneOf node)                     -> df.getOWLDataOneOf(t(node.values())));
+            map.put(OWLObjectType.ONEOF_DATA,               (OWLDataOneOf node)                     -> df.getOWLDataOneOf(t(node.operands())));
             map.put(OWLObjectType.AND_DATA,                 (OWLDataIntersectionOf node)            -> df.getOWLDataIntersectionOf(t(node.operands())));
             map.put(OWLObjectType.OR_DATA,                  (OWLDataUnionOf node)                   -> df.getOWLDataUnionOf(t(node.operands())));
             map.put(OWLObjectType.DATATYPE_RESTRICTION,     (OWLDatatypeRestriction node)           -> df.getOWLDatatypeRestriction(t(node.getDatatype()), t(node.facetRestrictions())));

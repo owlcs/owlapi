@@ -42,10 +42,12 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.utilities.OWLObjectDuplicator;
 
 /**
- * Coerces constants to have the same type as the range of a property in axioms where the two are
- * used. For example, given, p value "xyz", the "xyz" constant would be typed with the range of p.
+ * Coerces constants to have the same type as the range of a property in axioms
+ * where the two are used. For example, given, p value "xyz", the "xyz" constant
+ * would be typed with the range of p.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.1.1
  */
 public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntologyChange {
@@ -53,11 +55,13 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
     /**
      * Instantiates a new coerce constants into data property range.
      *
-     * @param m The manager providing data factory and config to be used for the duplication.
-     * @param ontologies the ontologies to use
+     * @param m
+     *        The manager providing data factory and config to be used for the
+     *        duplication.
+     * @param ontologies
+     *        the ontologies to use
      */
-    public CoerceConstantsIntoDataPropertyRange(OWLOntologyManager m,
-        Collection<OWLOntology> ontologies) {
+    public CoerceConstantsIntoDataPropertyRange(OWLOntologyManager m, Collection<OWLOntology> ontologies) {
         super(m.getOWLDataFactory());
         checkNotNull(ontologies, "ontologies cannot be null");
         Map<OWLDataPropertyExpression, OWLDatatype> map = asMap(datatypes(ontologies),
@@ -67,8 +71,10 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
     }
 
     /**
-     * @param ontologies ontologies to inspect
-     * @return datatypes declared in the ontologies (not including OWL 2 standard datatypes)
+     * @param ontologies
+     *        ontologies to inspect
+     * @return datatypes declared in the ontologies (not including OWL 2
+     *         standard datatypes)
      */
     public Stream<OWLDataPropertyRangeAxiom> datatypes(Collection<OWLOntology> ontologies) {
         return ontologies.stream().flatMap(ont -> ont.axioms(AxiomType.DATA_PROPERTY_RANGE))
@@ -88,8 +94,11 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         private final Map<OWLDataPropertyExpression, OWLDatatype> map;
 
         /**
-         * @param m The manager providing data factory and config to be used for the duplication.
-         * @param map the map
+         * @param m
+         *        The manager providing data factory and config to be used for
+         *        the duplication.
+         * @param map
+         *        the map
          */
         OWLConstantReplacer(OWLOntologyManager m, Map<OWLDataPropertyExpression, OWLDatatype> map) {
             super(m);
@@ -97,7 +106,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         }
 
         private OWLDataOneOf process(OWLDataPropertyExpression prop, OWLDataOneOf oneOf) {
-            return df.getOWLDataOneOf(oneOf.values().map(c -> process(prop, c)));
+            return df.getOWLDataOneOf(oneOf.operands().map(c -> process(prop, c)));
         }
 
         private OWLLiteral process(OWLDataPropertyExpression prop, OWLLiteral con) {
@@ -110,8 +119,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
 
         @Override
         public OWLDataHasValue visit(OWLDataHasValue ce) {
-            return df.getOWLDataHasValue(ce.getProperty(),
-                process(ce.getProperty(), ce.getFiller()));
+            return df.getOWLDataHasValue(ce.getProperty(), process(ce.getProperty(), ce.getFiller()));
         }
 
         @Override
@@ -166,10 +174,9 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         }
 
         @Override
-        public OWLNegativeDataPropertyAssertionAxiom visit(
-            OWLNegativeDataPropertyAssertionAxiom axiom) {
-            return df.getOWLNegativeDataPropertyAssertionAxiom(axiom.getProperty(),
-                axiom.getSubject(), process(axiom.getProperty(), axiom.getObject()));
+        public OWLNegativeDataPropertyAssertionAxiom visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+            return df.getOWLNegativeDataPropertyAssertionAxiom(axiom.getProperty(), axiom.getSubject(),
+                process(axiom.getProperty(), axiom.getObject()));
         }
     }
 }

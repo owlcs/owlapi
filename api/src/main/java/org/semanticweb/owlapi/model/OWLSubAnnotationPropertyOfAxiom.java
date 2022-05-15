@@ -12,13 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 /**
- * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Subproperties" >
+ * Represents an
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Subproperties" >
  * SubAnnotationPropertyOf</a> axiom in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
@@ -28,29 +28,6 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
     OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default Stream<?> components() {
-        return Stream.of(getSubProperty(), getSuperProperty(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getSubProperty().hashCode());
-        hash = OWLObject.hashIteration(hash, getSuperProperty().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getSubProperty(), getSuperProperty());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), getSubProperty(), getSuperProperty());
-    }
-
-    @Override
     default OWLObjectType type() {
         return OWLObjectType.SUB_ANNOTATION;
     }
@@ -58,14 +35,16 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
     /**
      * Gets the subproperty of this axiom.
      *
-     * @return The annotation property that represents the subproperty in this axiom.
+     * @return The annotation property that represents the subproperty in this
+     *         axiom.
      */
     OWLAnnotationProperty getSubProperty();
 
     /**
      * Gets the superproperty of this axiom.
      *
-     * @return The annotation property that represents the superproperty in this axiom.
+     * @return The annotation property that represents the superproperty in this
+     *         axiom.
      */
     OWLAnnotationProperty getSuperProperty();
 

@@ -15,20 +15,11 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public interface OWLNaryDataRange extends OWLDataRange, HasOperands<OWLDataRange> {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getOperandsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        return OWLObject.hashIteration(hashIndex(), getOperandsAsList().hashCode());
-    }
 
     /**
      * @return the data ranges

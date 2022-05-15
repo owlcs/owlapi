@@ -15,40 +15,19 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents a <a href= "http://www.w3.org/TR/owl2-syntax/#Disjoint_Union_of_Class_Expressions" >
+ * Represents a <a href=
+ * "http://www.w3.org/TR/owl2-syntax/#Disjoint_Union_of_Class_Expressions" >
  * DisjointUnion</a> axiom in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDisjointUnionAxiom extends OWLClassAxiom, HasOperands<OWLClassExpression> {
+public interface OWLDisjointUnionAxiom extends OWLClassAxiom, HasOperands<OWLClassExpression>, HasClassExpression {
 
     @Override
     @SuppressWarnings("unchecked")
     OWLDisjointUnionAxiom getAxiomWithoutAnnotations();
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getOWLClass(), getOperandsAsList(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getOWLClass().hashCode());
-        hash = OWLObject.hashIteration(hash, getOperandsAsList().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getOWLClass(), getOperandsAsList());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), getOWLClass(), getOperandsAsList());
-    }
 
     @Override
     default OWLObjectType type() {
@@ -58,34 +37,47 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom, HasOperands<OWLCla
     /**
      * Gets the class which is equivalent to the disjoint union.
      *
-     * @return the class that is equivalent to a disjoint union of other classes.
+     * @return the class that is equivalent to a disjoint union of other
+     *         classes.
      */
     OWLClass getOWLClass();
+
+    @Override
+    default OWLClassExpression getClassExpression() {
+        return getOWLClass();
+    }
 
     /**
      * Gets the class expressions which are operands of the disjoint union.
      *
-     * @return Sorted stream containing the operands of the disjoint union, note that this <b>does
-     *         not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
+     * @return Sorted stream containing the operands of the disjoint union, note
+     *         that this <b>does not</b> include the {@code OWLClass} that is
+     *         equivalent to the disjoint union.
      */
     Stream<OWLClassExpression> classExpressions();
 
     /**
-     * Gets the part of this axiom that corresponds to an {@code EquivalentClasses} axiom.
+     * Gets the part of this axiom that corresponds to an
+     * {@code EquivalentClasses} axiom.
      *
-     * @return The equivalent classes axiom part of this axiom. This is essentially, {@code
-     * EquivalentClasses(CE, CEUnion)} where {@code CEUnion} is the union of the classes returned by
-     *         the {@link #classExpressions()} method and {@code CE} is the class returned by the
-     *         {@link #getOWLClass()} method.
+     * @return The equivalent classes axiom part of this axiom. This is
+     *         essentially, {@code
+     * EquivalentClasses(CE, CEUnion)} where {@code CEUnion} is the union of the
+     *         classes returned by the {@link #classExpressions()} method and
+     *         {@code CE} is the class returned by the {@link #getOWLClass()}
+     *         method.
      */
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom();
 
     /**
-     * Gets the part of this axiom that corresponds to an {@code DisjointClasses} axiom.
+     * Gets the part of this axiom that corresponds to an
+     * {@code DisjointClasses} axiom.
      *
-     * @return The disjoint classes axiom part of this axiom. This is essentially, {@code
-     * DisjointClasses(CE1, ..., CEn)} where {@code CEi in (CE1, ..., CEn)} is contained in the
-     *         classes returned by the {@link #classExpressions()} method.
+     * @return The disjoint classes axiom part of this axiom. This is
+     *         essentially, {@code
+     * DisjointClasses(CE1, ..., CEn)} where {@code CEi in (CE1, ..., CEn)} is
+     *         contained in the classes returned by the
+     *         {@link #classExpressions()} method.
      */
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom();
 

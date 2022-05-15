@@ -24,7 +24,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class BuilderDataOneOf extends BaseSetBuilder<OWLDataOneOf, BuilderDataOneOf, OWLLiteral> {
 
     /**
-     * @param df data factory
+     * @param df
+     *        data factory
      */
     @Inject
     public BuilderDataOneOf(OWLDataFactory df) {
@@ -34,12 +35,14 @@ public class BuilderDataOneOf extends BaseSetBuilder<OWLDataOneOf, BuilderDataOn
     /**
      * Builder initialized from an existing object.
      *
-     * @param expected the existing object
-     * @param df data factory
+     * @param expected
+     *        the existing object
+     * @param df
+     *        data factory
      */
     public BuilderDataOneOf(OWLDataOneOf expected, OWLDataFactory df) {
         this(df);
-        withItems(expected.values());
+        withItems(expected.getOperandsAsList());
     }
 
     @Override

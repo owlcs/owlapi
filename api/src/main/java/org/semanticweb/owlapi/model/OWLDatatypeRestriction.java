@@ -18,25 +18,15 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions" >
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions" >
  * DatatypeRestriction</a> data range in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDatatypeRestriction extends OWLDataRange {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getDatatype(), facetRestrictionsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
-        return OWLObject.hashIteration(hash, facetRestrictionsAsList().hashCode());
-    }
+public interface OWLDatatypeRestriction extends OWLDataRange, HasDatatype {
 
     @Override
     default OWLObjectType type() {
@@ -53,19 +43,22 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
      *
      * @return The datatype that is restricted
      */
+    @Override
     OWLDatatype getDatatype();
 
     /**
      * Gets the sorted facet restrictions on this data range.
      *
-     * @return A {@code Stream} of facet restrictions that apply to this data range
+     * @return A {@code Stream} of facet restrictions that apply to this data
+     *         range
      */
     Stream<OWLFacetRestriction> facetRestrictions();
 
     /**
      * Gets the sorted facet restrictions on this data range.
      *
-     * @return A {@code List} of facet restrictions that apply to this data range
+     * @return A {@code List} of facet restrictions that apply to this data
+     *         range
      */
     default List<OWLFacetRestriction> facetRestrictionsAsList() {
         return asList(facetRestrictions());

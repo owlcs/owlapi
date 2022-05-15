@@ -12,33 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group
  * @since 2.0.0
  */
-public interface SWRLIndividualArgument extends SWRLIArgument {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getIndividual());
-    }
-
-    @Override
-    default int initHashCode() {
-        return OWLObject.hashIteration(hashIndex(), getIndividual().hashCode());
-    }
+public interface SWRLIndividualArgument extends SWRLIArgument, HasIndividual {
 
     @Override
     default OWLObjectType type() {
         return OWLObjectType.SWRL_INDIVIDUAL;
     }
-
-    /**
-     * @return the wrapped individual
-     */
-    OWLIndividual getIndividual();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

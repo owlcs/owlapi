@@ -113,10 +113,11 @@ import org.semanticweb.owlapi.utilities.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * A simple renderer that can be used for debugging purposes and provide an implementation of the
- * toString method for different implementations.
+ * A simple renderer that can be used for debugging purposes and provide an
+ * implementation of the toString method for different implementations.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
@@ -132,26 +133,30 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     /**
-     * Resets the short form provider and adds prefix name to prefix mappings based on the specified
-     * ontology's format (if it is a prefix format) and possibly the ontologies in the imports
-     * closure.
+     * Resets the short form provider and adds prefix name to prefix mappings
+     * based on the specified ontology's format (if it is a prefix format) and
+     * possibly the ontologies in the imports closure.
      *
-     * @param ontology The ontology whose format will be used to obtain prefix mappings
-     * @param processImportedOntologies Specifies whether or not the prefix mapping should be
-     *        obtained from imported ontologies.
+     * @param ontology
+     *        The ontology whose format will be used to obtain prefix mappings
+     * @param processImportedOntologies
+     *        Specifies whether or not the prefix mapping should be obtained
+     *        from imported ontologies.
      */
-    public void setPrefixesFromOntologyFormat(OWLOntology ontology,
-        boolean processImportedOntologies) {
+    public void setPrefixesFromOntologyFormat(OWLOntology ontology, boolean processImportedOntologies) {
         shortFormProvider = new PrefixManagerImpl();
         Imports.fromBoolean(processImportedOntologies).stream(ontology)
             .forEach(o -> shortFormProvider.copyPrefixesFrom(o.getPrefixManager()));
     }
 
     /**
-     * Sets a prefix name for a given prefix. Note that prefix names MUST end with a colon.
+     * Sets a prefix name for a given prefix. Note that prefix names MUST end
+     * with a colon.
      *
-     * @param prefixName The prefix name (ending with a colon)
-     * @param prefix The prefix that the prefix name maps to
+     * @param prefixName
+     *        The prefix name (ending with a colon)
+     * @param prefix
+     *        The prefix that the prefix name maps to
      */
     public void setPrefix(String prefixName, String prefix) {
         shortFormProvider.withPrefix(prefixName, prefix);
@@ -168,7 +173,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     /**
-     * @param iri the iri to shorten
+     * @param iri
+     *        the iri to shorten
      * @return the short form
      */
     public String getShortForm(IRI iri) {
@@ -194,9 +200,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLOntology ontology) {
-        sb.append("Ontology(").append(ontology.getOntologyID()).append(" [Axioms: ")
-            .append(ontology.getAxiomCount()).append("] [Logical axioms: ")
-            .append(ontology.getLogicalAxiomCount()).append("])");
+        sb.append("Ontology(").append(ontology.getOntologyID()).append(" [Axioms: ").append(ontology.getAxiomCount())
+            .append("] [Logical axioms: ").append(ontology.getLogicalAxiomCount()).append("])");
     }
 
     private void insertSpace() {
@@ -204,7 +209,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     /**
-     * @param axiom the axiom whose annotations should be written
+     * @param axiom
+     *        the axiom whose annotations should be written
      */
     public void writeAnnotations(OWLAxiom axiom) {
         axiom.annotations().forEach(a -> {
@@ -703,7 +709,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLDataOneOf node) {
         sb.append("DataOneOf(");
-        render(node.values());
+        render(node.operands());
         sb.append(" )");
     }
 
@@ -730,8 +736,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLLiteral node) {
         String literal = EscapeUtils.escapeString(node.getLiteral());
-        if (node.isRDFPlainLiteral()
-            || node.getDatatype().getIRI().equals(OWL2Datatype.RDF_LANG_STRING.getIRI())) {
+        if (node.isRDFPlainLiteral() || node.getDatatype().getIRI().equals(OWL2Datatype.RDF_LANG_STRING.getIRI())) {
             // We can use a syntactic shortcut
             sb.append('"').append(literal).append('"');
             if (node.hasLang()) {

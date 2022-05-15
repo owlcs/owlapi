@@ -18,38 +18,14 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Represent a rule. A rule consists of a head and a body. Both the head and the body consist of a
- * conjunction of atoms.
+ * Represent a rule. A rule consists of a head and a body. Both the head and the
+ * body consist of a conjunction of atoms.
  *
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group
  * @since 2.0.0
  */
 public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(bodyList(), headList(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        // head and body have an order that cannot be changed but it must not affect equals() and
-        // hashCode()
-        hash = OWLObject.hashIteration(hash, body().mapToInt(Object::hashCode).sum());
-        hash = OWLObject.hashIteration(hash, head().mapToInt(Object::hashCode).sum());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(bodyList(), headList());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), bodyList(), headList());
-    }
 
     @Override
     default OWLObjectType type() {
@@ -69,24 +45,27 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     /**
      * Gets the atoms in the body of the rule.
      *
-     * @return A set of {@code SWRLAtom}s, which represent the atoms in the body of the rule.
+     * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
+     *         of the rule.
      */
     Stream<SWRLAtom> body();
 
     /**
      * Gets the atoms in the head of the rule.
      *
-     * @return A set of {@code SWRLAtom}s, which represent the atoms in the head of the rule
+     * @return A set of {@code SWRLAtom}s, which represent the atoms in the head
+     *         of the rule
      */
     Stream<SWRLAtom> head();
 
     /**
-     * If this rule contains atoms that have predicates that are inverse object properties, then
-     * this method creates and returns a rule where the arguments of these atoms are fliped over and
-     * the predicate is the inverse (simplified) property.
+     * If this rule contains atoms that have predicates that are inverse object
+     * properties, then this method creates and returns a rule where the
+     * arguments of these atoms are fliped over and the predicate is the inverse
+     * (simplified) property.
      *
-     * @return The rule such that any atoms of the form inverseOf(p)(x, y) are transformed to p(x,
-     *         y).
+     * @return The rule such that any atoms of the form inverseOf(p)(x, y) are
+     *         transformed to p(x, y).
      */
     SWRLRule getSimplified();
 
@@ -100,16 +79,16 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     /**
      * Determines if this rule uses anonymous class expressions in class atoms.
      *
-     * @return {@code true} if this rule contains anonymous class expression in class atoms,
-     *         otherwise {@code false}.
+     * @return {@code true} if this rule contains anonymous class expression in
+     *         class atoms, otherwise {@code false}.
      */
     boolean containsAnonymousClassExpressions();
 
     /**
      * Gets the predicates of class atoms.
      *
-     * @return A set of class expressions that represent the class class expressions that are
-     *         predicates of class atoms.
+     * @return A set of class expressions that represent the class class
+     *         expressions that are predicates of class atoms.
      */
     Stream<OWLClassExpression> classAtomPredicates();
 

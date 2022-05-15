@@ -12,39 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 /**
- * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Class_Assertions">ClassAssertion </a>
- * axioms in the OWL 2 Specification.
+ * Represents
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Class_Assertions">ClassAssertion
+ * </a> axioms in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLClassAssertionAxiom extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getIndividual(), getClassExpression(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getIndividual().hashCode());
-        hash = OWLObject.hashIteration(hash, getClassExpression().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getIndividual(), getClassExpression());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), getIndividual(), getClassExpression());
-    }
+public interface OWLClassAssertionAxiom
+    extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut, HasClassExpression, HasIndividual {
 
     @Override
     default OWLObjectType type() {
@@ -56,17 +34,12 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom, OWLSubClassO
     OWLClassAssertionAxiom getAxiomWithoutAnnotations();
 
     /**
-     * Gets the individual that is asserted to be an instance of a class expression by this axiom.
-     *
-     * @return The individual
-     */
-    OWLIndividual getIndividual();
-
-    /**
-     * Gets the class expression that is asserted to be a type for an individual by this axiom.
+     * Gets the class expression that is asserted to be a type for an individual
+     * by this axiom.
      *
      * @return The class expression
      */
+    @Override
     OWLClassExpression getClassExpression();
 
     @Override

@@ -12,31 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
- * A facet restriction is used to restrict a particular datatype. For example the set of integers
- * greater than 18 can be obtained by restricting the integer datatype using a minExclusive facet
- * with a value of 18
+ * A facet restriction is used to restrict a particular datatype. For example
+ * the set of integers greater than 18 can be obtained by restricting the
+ * integer datatype using a minExclusive facet with a value of 18
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public interface OWLFacetRestriction extends OWLObject {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getFacet(), getFacetValue());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getFacet().hashCode());
-        return OWLObject.hashIteration(hash, getFacetValue().hashCode());
-    }
 
     @Override
     default OWLObjectType type() {
@@ -58,15 +45,18 @@ public interface OWLFacetRestriction extends OWLObject {
     OWLLiteral getFacetValue();
 
     /**
-     * @param visitor visitor
+     * @param visitor
+     *        visitor
      */
     default void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     /**
-     * @param visitor visitor
-     * @param <O> visitor return type
+     * @param visitor
+     *        visitor
+     * @param <O>
+     *        visitor return type
      * @return visitor return value
      */
     default <O> O accept(OWLDataVisitorEx<O> visitor) {

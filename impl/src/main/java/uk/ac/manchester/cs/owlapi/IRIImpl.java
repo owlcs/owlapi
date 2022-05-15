@@ -27,23 +27,29 @@ import org.semanticweb.owlapi.model.PrefixManager;
 /**
  * Represents International Resource Identifiers.
  *
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 6.0.0
  */
 public class IRIImpl implements IRI {
 
     private final String remainder;
     private final String namespace;
+    private final int hash;
 
     /**
-     * Constructs an IRI which is built from the concatenation of the specified prefix and suffix.
+     * Constructs an IRI which is built from the concatenation of the specified
+     * prefix and suffix.
      *
-     * @param prefix The prefix.
-     * @param suffix The suffix.
+     * @param prefix
+     *        The prefix.
+     * @param suffix
+     *        The suffix.
      */
     protected IRIImpl(String prefix, @Nullable String suffix) {
         namespace = prefix;
         remainder = suffix == null ? "" : suffix;
+        hash = namespace.hashCode() + remainder.hashCode();
     }
 
     @Override
@@ -93,7 +99,7 @@ public class IRIImpl implements IRI {
 
     @Override
     public int hashCode() {
-        return namespace.hashCode() + remainder.hashCode();
+        return hash;
     }
 
     @Override
@@ -110,8 +116,7 @@ public class IRIImpl implements IRI {
         }
         if (obj instanceof IRI) {
             IRI other = (IRI) obj;
-            return getFragment().equals(other.getFragment())
-                && other.getNamespace().equals(getNamespace());
+            return getFragment().equals(other.getFragment()) && other.getNamespace().equals(getNamespace());
         }
         // Commons RDF IRI equals() contract
         if (obj instanceof org.apache.commons.rdf.api.IRI) {
@@ -122,16 +127,6 @@ public class IRIImpl implements IRI {
     }
 
     @Override
-    public String toFunctionalSyntax(PrefixManager pm) {
-        return toSyntax(new FunctionalSyntaxDocumentFormat(), pm);
-    }
-
-    @Override
-    public String toManchesterSyntax(PrefixManager pm) {
-        return toSyntax(new ManchesterSyntaxDocumentFormat(), pm);
-    }
-
-    @Override
     public String toSyntax(OWLDocumentFormat format) {
         return ToStringRenderer.getInstance(format).render(this);
     }
@@ -139,6 +134,16 @@ public class IRIImpl implements IRI {
     @Override
     public String toSyntax(OWLDocumentFormat format, PrefixManager pm) {
         return ToStringRenderer.getInstance(format, pm).render(this);
+    }
+
+    @Override
+    public String toFunctionalSyntax(PrefixManager pm) {
+        return toSyntax(new FunctionalSyntaxDocumentFormat(), pm);
+    }
+
+    @Override
+    public String toManchesterSyntax(PrefixManager pm) {
+        return toSyntax(new ManchesterSyntaxDocumentFormat(), pm);
     }
 
     @Override

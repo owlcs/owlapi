@@ -12,39 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 /**
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Definitions">
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Definitions">
  * DatatypeDefinition</a> axiom in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
-public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getDatatype(), getDataRange(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
-        hash = OWLObject.hashIteration(hash, getDataRange().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getDatatype(), getDataRange());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), getDatatype(), getDataRange());
-    }
+public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom, HasDataRange, HasDatatype {
 
     @Override
     default OWLObjectType type() {
@@ -56,6 +33,7 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
      *
      * @return The datatype
      */
+    @Override
     OWLDatatype getDatatype();
 
     /**
@@ -63,6 +41,7 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
      *
      * @return The defining datarange
      */
+    @Override
     OWLDataRange getDataRange();
 
     @Override

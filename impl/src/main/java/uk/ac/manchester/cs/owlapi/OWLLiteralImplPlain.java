@@ -16,13 +16,12 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * An OWLLiteral whose datatype is RDF_LANG_STRING or XSD_STRING
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
- *         26-Oct-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006
  */
 public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
@@ -31,8 +30,10 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     private final String lang;
 
     /**
-     * @param literal the lexical form
-     * @param lang the language; can be null or empty
+     * @param literal
+     *        the lexical form
+     * @param lang
+     *        the language; can be null or empty
      */
     public OWLLiteralImplPlain(String literal, @Nullable String lang) {
         this.literal = literal;
@@ -76,35 +77,5 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     @Override
     public OWLDatatype getDatatype() {
         return datatype;
-    }
-
-    @Override
-    public int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
-        hash = OWLObject.hashIteration(hash, specificHash() * 65536);
-        return OWLObject.hashIteration(hash, getLang().hashCode());
-    }
-
-    private int specificHash() {
-        try {
-            if (isInteger()) {
-                return parseInteger();
-            }
-            if (isDouble()) {
-                return (int) parseDouble();
-            }
-            if (isFloat()) {
-                return (int) parseFloat();
-            }
-            if (isBoolean()) {
-                return parseBoolean() ? 1 : 0;
-            }
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // it is possible that a literal does not have a value that's valid
-            // for its datatype; not very useful for a consistent ontology but
-            // some W3C reasoner tests use them
-        }
-        return getLiteral().hashCode();
     }
 }

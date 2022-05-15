@@ -12,26 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 /**
- * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Complement_of_Data_Ranges" >
+ * Represents
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Complement_of_Data_Ranges" >
  * DataComplementOf</a> in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataComplementOf extends OWLDataRange {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getDataRange());
-    }
-
-    @Override
-    default int initHashCode() {
-        return OWLObject.hashIteration(hashIndex(), getDataRange().hashCode());
-    }
+public interface OWLDataComplementOf extends OWLDataRange, HasDataRange {
 
     @Override
     default OWLObjectType type() {
@@ -43,6 +33,7 @@ public interface OWLDataComplementOf extends OWLDataRange {
      *
      * @return The complemented data range.
      */
+    @Override
     OWLDataRange getDataRange();
 
     @Override

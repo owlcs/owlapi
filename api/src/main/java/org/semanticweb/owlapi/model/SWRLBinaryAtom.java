@@ -12,30 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 /**
  * Represents an atom with two ordered arguments.
  *
- * @param <A> type of first argument
- * @param <B> type of second argument
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
+ * @param <A>
+ *        type of first argument
+ * @param <B>
+ *        type of second argument
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group
  * @since 2.0.0
  */
 public interface SWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtom {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getFirstArgument(), getSecondArgument(), getPredicate());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getFirstArgument().hashCode());
-        hash = OWLObject.hashIteration(hash, getSecondArgument().hashCode());
-        return OWLObject.hashIteration(hash, getPredicate().hashCode());
-    }
 
     /**
      * Gets the first argument.

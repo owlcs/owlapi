@@ -12,33 +12,21 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 /**
- * @param <V> the value type
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @param <V>
+ *        the value type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestriction, HasFiller<V> {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getProperty(), getFiller());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getProperty().hashCode());
-        return OWLObject.hashIteration(hash, getFiller().hashCode());
-    }
-
     /**
-     * A convenience method that obtains this restriction as an existential restriction with a
-     * nominal filler.
+     * A convenience method that obtains this restriction as an existential
+     * restriction with a nominal filler.
      *
-     * @return The existential equivalent of this value restriction. simp(HasValue(p a)) = some(p
-     * {a})
+     * @return The existential equivalent of this value restriction.
+     *         simp(HasValue(p a)) = some(p {a})
      */
     OWLClassExpression asSomeValuesFrom();
 }

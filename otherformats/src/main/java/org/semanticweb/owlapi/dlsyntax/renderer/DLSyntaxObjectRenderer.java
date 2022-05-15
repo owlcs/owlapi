@@ -143,7 +143,8 @@ import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 /**
  * Renders objects in unicode DL syntax.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 @Renders(DLSyntaxDocumentFormat.class)
@@ -153,8 +154,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     private final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
     protected ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
     private StringBuilder buffer = new StringBuilder();
-    @Nullable
-    private OWLObject focusedObject;
+    @Nullable private OWLObject focusedObject;
 
     protected static boolean isBracketedIfNested(OWLObject object) {
         checkNotNull(object, OBJECT_CANNOT_BE_NULL);
@@ -162,14 +162,16 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     /**
-     * @param focusedObject focusedObject
+     * @param focusedObject
+     *        focusedObject
      */
     public void setFocusedObject(@Nullable OWLObject focusedObject) {
         this.focusedObject = focusedObject;
     }
 
     /**
-     * @param obj obj
+     * @param obj
+     *        obj
      * @return true if obj is equal to focusedObject
      */
     public boolean isFocusedObject(OWLObject obj) {
@@ -181,14 +183,12 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void setPrefixManager(PrefixManager shortFormProvider) {
-        this.shortFormProvider =
-            checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider =
-            checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     @Override
@@ -627,8 +627,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         roundedAnon(ce.getOperand());
     }
 
-    private <T extends OWLPropertyRange> void writeCardinalityRestriction(
-        OWLCardinalityRestriction<T> restriction, DLSyntax keyword) {
+    private <T extends OWLPropertyRange> void writeCardinalityRestriction(OWLCardinalityRestriction<T> restriction,
+        DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -638,8 +638,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         roundedAnon(restriction.getFiller());
     }
 
-    private <T extends OWLPropertyRange> void writeQuantifiedRestriction(
-        OWLQuantifiedRestriction<T> restriction, DLSyntax keyword) {
+    private <T extends OWLPropertyRange> void writeQuantifiedRestriction(OWLQuantifiedRestriction<T> restriction,
+        DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -753,7 +753,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(OWLDataOneOf node) {
-        iterate(node.values().iterator());
+        iterate(node.operands().iterator());
     }
 
     protected void spacedAndBraced(Iterator<? extends OWLObject> it) {

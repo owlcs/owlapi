@@ -13,15 +13,17 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Object_Subproperties">
- * SubObjectPropertyOf</a> axiom in the OWL 2 Specification where the subproperty is a chain of
- * properties. Note that this axiom type is not explicit in the OWL 2 specification, but it is
- * included in the OWL API as a convenience to the programmer.
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Object_Subproperties">
+ * SubObjectPropertyOf</a> axiom in the OWL 2 Specification where the
+ * subproperty is a chain of properties. Note that this axiom type is not
+ * explicit in the OWL 2 specification, but it is included in the OWL API as a
+ * convenience to the programmer.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
@@ -35,49 +37,29 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
         return OWLObjectType.SUB_PROPERTY_CHAIN;
     }
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getPropertyChain(), getSuperProperty(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getPropertyChain().hashCode());
-        hash = OWLObject.hashIteration(hash, getSuperProperty().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getPropertyChain(), getSuperProperty());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), getPropertyChain(), getSuperProperty());
-    }
-
     /**
-     * Gets the chain of properties that represents the subproperty in this axiom.
+     * Gets the chain of properties that represents the subproperty in this
+     * axiom.
      *
-     * @return A list of object property expressions that represents the chain of properties that
-     * represent the subproperty in this axiom.
+     * @return A list of object property expressions that represents the chain
+     *         of properties that represent the subproperty in this axiom.
      */
     List<OWLObjectPropertyExpression> getPropertyChain();
 
     /**
      * Gets the super property of this axiom.
      *
-     * @return The property expression that represents the superproperty in this expression.
+     * @return The property expression that represents the superproperty in this
+     *         expression.
      */
     OWLObjectPropertyExpression getSuperProperty();
 
     /**
-     * Determines if this axiom is of the form: P o P -&gt; P, which is an encoding of
-     * Transitive(P).
+     * Determines if this axiom is of the form: P o P -&gt; P, which is an
+     * encoding of Transitive(P).
      *
-     * @return {@code true} if this encodes that the super property is transitive, otherwise {@code
+     * @return {@code true} if this encodes that the super property is
+     *         transitive, otherwise {@code
      * false}.
      */
     boolean isEncodingOfTransitiveProperty();

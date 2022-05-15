@@ -12,13 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 /**
- * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Domain" >
+ * Represents an
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Domain" >
  * AnnotationPropertyDomain</a> axiom in the OWL 2 specification.
  *
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public interface OWLAnnotationPropertyDomainAxiom
@@ -27,29 +27,6 @@ public interface OWLAnnotationPropertyDomainAxiom
     @Override
     @SuppressWarnings("unchecked")
     OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getProperty(), getDomain());
-    }
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getProperty(), getDomain(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getProperty().hashCode());
-        hash = OWLObject.hashIteration(hash, getDomain().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), getProperty(), getDomain());
-    }
 
     @Override
     default OWLObjectType type() {

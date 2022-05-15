@@ -15,33 +15,12 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>,
-    OWLSubClassOfAxiomSetShortCut, HasOperands<OWLIndividual> {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getOperandsAsList(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getOperandsAsList().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getOperandsAsList());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), getOperandsAsList());
-    }
+public interface OWLNaryIndividualAxiom
+    extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut, HasOperands<OWLIndividual> {
 
     /**
      * @return the sorted individuals

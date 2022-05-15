@@ -14,10 +14,10 @@ package uk.ac.manchester.cs.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
@@ -25,20 +25,12 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
     private final int literal;
 
     /**
-     * @param literal literal value
+     * @param literal
+     *        literal value
      */
     public OWLLiteralImplInteger(int literal) {
         this.literal = literal;
     }
-
-    @Override
-    public int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
-        hash = OWLObject.hashIteration(hash, OWLLiteralImpl.specificHash(this) * 65536);
-        return OWLObject.hashIteration(hash, getLang().hashCode());
-    }
-
 
     @Override
     public String getLiteral() {

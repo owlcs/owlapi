@@ -18,22 +18,11 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group
  * @since 2.0.0
  */
 public interface SWRLBuiltInAtom extends SWRLAtom {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getArguments(), getPredicate());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getArguments().hashCode());
-        return OWLObject.hashIteration(hash, getPredicate().hashCode());
-    }
 
     @Override
     default OWLObjectType type() {

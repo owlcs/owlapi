@@ -10,45 +10,22 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package uk.ac.manchester.cs.owlapi;
-
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLLiteral;
+package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.0.0
+ * An interface to objects that have a datatype.
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group
+ * @since 6.0.0
  */
-public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
-
-    private final double literal;
+@FunctionalInterface
+public interface HasDatatype {
 
     /**
-     * @param literal
-     *        literal value
+     * Gets the dataype.
+     *
+     * @return The datatype.
      */
-    public OWLLiteralImplDouble(double literal) {
-        this.literal = literal;
-    }
-
-    @Override
-    public String getLiteral() {
-        return Double.toString(literal);
-    }
-
-    @Override
-    public boolean isDouble() {
-        return true;
-    }
-
-    @Override
-    public double parseDouble() {
-        return literal;
-    }
-
-    @Override
-    public OWLDatatype getDatatype() {
-        return InternalizedEntities.XSDDOUBLE;
-    }
+    OWLDatatype getDatatype();
 }

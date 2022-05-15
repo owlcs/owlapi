@@ -12,41 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.stream.Stream;
-
 /**
- * Represents <a href= "http://www.w3.org/TR/owl2-syntax/#Annotation_Assertion" >
+ * Represents
+ * <a href= "http://www.w3.org/TR/owl2-syntax/#Annotation_Assertion" >
  * AnnotationAssertion</a> axioms in the OWL 2 specification.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
-    HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty>, HasAnnotationValue {
-
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getSubject(), getProperty(), getValue());
-    }
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getSubject(), getProperty(), getValue(), annotationsAsList());
-    }
-
-    @Override
-    default int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getSubject().hashCode());
-        hash = OWLObject.hashIteration(hash, getProperty().hashCode());
-        hash = OWLObject.hashIteration(hash, getValue().hashCode());
-        return OWLObject.hashIteration(hash, annotationsAsList().hashCode());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotationsAsList(), getSubject(), getProperty(), getValue());
-    }
+public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom, HasSubject<OWLAnnotationSubject>,
+    HasProperty<OWLAnnotationProperty>, HasAnnotationValue {
 
     @Override
     default OWLObjectType type() {
@@ -54,9 +30,10 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
     }
 
     /**
-     * Gets the annotation value. This is either an {@link org.semanticweb.owlapi.model.IRI}, an
-     * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual} or an {@link OWLLiteral}.
-     * Annotation values can be visited with an
+     * Gets the annotation value. This is either an
+     * {@link org.semanticweb.owlapi.model.IRI}, an
+     * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual} or an
+     * {@link OWLLiteral}. Annotation values can be visited with an
      * {@link org.semanticweb.owlapi.model.OWLAnnotationValueVisitor}.
      *
      * @return The annotation value.
@@ -66,19 +43,20 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
     OWLAnnotationValue getValue();
 
     /**
-     * Gets the combination of the annotation property and the annotation value as an
-     * {@link org.semanticweb.owlapi.model.OWLAnnotation} object.
+     * Gets the combination of the annotation property and the annotation value
+     * as an {@link org.semanticweb.owlapi.model.OWLAnnotation} object.
      *
-     * @return The annotation object that combines the property and value of this annotation.
+     * @return The annotation object that combines the property and value of
+     *         this annotation.
      */
     OWLAnnotation getAnnotation();
 
     /**
-     * Determines if this annotation assertion deprecates the IRI that is the subject of the
-     * annotation.
+     * Determines if this annotation assertion deprecates the IRI that is the
+     * subject of the annotation.
      *
-     * @return {@code true} if this annotation assertion deprecates the subject IRI of the
-     *         assertion, otherwise {@code false}.
+     * @return {@code true} if this annotation assertion deprecates the subject
+     *         IRI of the assertion, otherwise {@code false}.
      * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()
      */
     boolean isDeprecatedIRIAssertion();

@@ -14,20 +14,20 @@ package uk.ac.manchester.cs.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * An OWLLiteral with xsd:string datatype and no language tag.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
- *         26-Oct-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006
  */
 public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
 
     private final String literal;
 
     /**
-     * @param literal the lexical form
+     * @param literal
+     *        the lexical form
      */
     public OWLLiteralImplString(String literal) {
         this.literal = literal;
@@ -42,14 +42,4 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
     public OWLDatatype getDatatype() {
         return InternalizedEntities.XSDSTRING;
     }
-
-    @Override
-    public int initHashCode() {
-        int hash = hashIndex();
-        hash = OWLObject.hashIteration(hash, getDatatype().hashCode());
-        hash = OWLObject.hashIteration(hash, getLiteral().hashCode() * 65536);
-        return OWLObject.hashIteration(hash, getLang().hashCode());
-    }
-
-
 }
