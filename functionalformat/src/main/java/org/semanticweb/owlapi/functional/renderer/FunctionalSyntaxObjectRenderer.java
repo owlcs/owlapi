@@ -12,104 +12,36 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.functional.renderer;
 
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONPROPERTYDOMAIN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ANNOTATIONPROPERTYRANGE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ASYMMETRICOBJECTPROPERTY;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.BODY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.BUILTINATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.CLASS;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.CLASSASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.CLASSATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAALLVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATACOMPLEMENTOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAEXACTCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAHASVALUE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAINTERSECTIONOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAMAXCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAMINCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAONEOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROP;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYDOMAIN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAPROPERTYRANGE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATARANGEATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATASOMEVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATATYPE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATATYPEDEFINITION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATATYPERESTRICTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DATAUNIONOF;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DECLARATION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DIFFERENTINDIVIDUALS;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DIFFERENTINDIVIDUALSATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTCLASSES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTDATAPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTOBJECTPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DISJOINTUNION;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.DLSAFERULE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EQUIVALENTCLASSES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EQUIVALENTDATAPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.EQUIVALENTOBJECTPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.FUNCTIONALDATAPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.FUNCTIONALOBJECTPROPERTY;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.HASKEY;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.HEAD;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.IMPORT;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.INVERSEFUNCTIONALOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.INVERSEOBJECTPROPERTIES;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.IRREFLEXIVEOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NAMEDINDIVIDUAL;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NEGATIVEDATAPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.NEGATIVEOBJECTPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTALLVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTCOMPLEMENTOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTEXACTCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTHASSELF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTHASVALUE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTINTERSECTIONOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTINVERSEOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTMAXCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTMINCARDINALITY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTONEOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROP;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYASSERTION;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYDOMAIN;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTPROPERTYRANGE;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTSOMEVALUESFROM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.OBJECTUNIONOF;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.ONTOLOGY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.REFLEXIVEOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SAMEINDIVIDUAL;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SAMEINDIVIDUALATOM;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBANNOTATIONPROPERTYOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBCLASSOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBDATAPROPERTYOF;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBOBJECTPROPERTYCHAIN;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBOBJECTPROPERTYOF;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SYMMETRICOBJECTPROPERTY;
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.TRANSITIVEOBJECTPROPERTY;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.VARIABLE;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
 
-import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -121,103 +53,41 @@ import org.semanticweb.owlapi.functional.parser.TokenMap;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.HasAnnotations;
-import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasOperands;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataComplementOf;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNaryAxiom;
+import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
+import org.semanticweb.owlapi.model.OWLNaryDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi.model.OWLObjectHasValue;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectType;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
-import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
@@ -242,13 +112,14 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FunctionalSyntaxObjectRenderer.class);
     protected final Optional<OWLOntology> ont;
-    private final Writer writer;
+    private final PrintWriter writer;
     protected Optional<AnnotationValueShortFormProvider> labelMaker = Optional.empty();
     private Optional<PrefixManager> prefixManager = Optional.empty();
     private boolean writeEntitiesAsURIs = true;
     private boolean addMissingDeclarations = true;
     private boolean prettyPrint = false;
     private int tabIndex = 0;
+    static EnumMap<OWLObjectType, BiFunction<OWLOntology, OWLEntity, Stream<? extends OWLAxiom>>> retrieve = retrieve();
 
     /** Empty constructor, for use from ToStringRenderer */
     @Inject
@@ -264,8 +135,20 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
      */
     public FunctionalSyntaxObjectRenderer(@Nullable OWLOntology ontology, Writer writer) {
         ont = Optional.ofNullable(ontology);
-        this.writer = writer;
+        this.writer = new PrintWriter(writer);
         ont.ifPresent(this::initFromOntology);
+    }
+
+    static EnumMap<OWLObjectType, BiFunction<OWLOntology, OWLEntity, Stream<? extends OWLAxiom>>> retrieve() {
+        EnumMap<OWLObjectType, BiFunction<OWLOntology, OWLEntity, Stream<? extends OWLAxiom>>> map = new EnumMap<>(
+            OWLObjectType.class);
+        map.put(OWLObjectType.CLASS, (o, e) -> o.axioms((OWLClass) e, EXCLUDED));
+        map.put(OWLObjectType.OBJECT_PROPERTY, (o, e) -> o.axioms((OWLObjectProperty) e, EXCLUDED));
+        map.put(OWLObjectType.DATA_PROPERTY, (o, e) -> o.axioms((OWLDataProperty) e, EXCLUDED));
+        map.put(OWLObjectType.NAMED_INDIVIDUAL, (o, e) -> o.axioms((OWLNamedIndividual) e, EXCLUDED));
+        map.put(OWLObjectType.DATATYPE, (o, e) -> o.axioms((OWLDatatype) e, EXCLUDED));
+        map.put(OWLObjectType.ANNOTATION_PROPERTY, (o, e) -> o.axioms((OWLAnnotationProperty) e, EXCLUDED));
+        return map;
     }
 
     private void initFromOntology(OWLOntology o) {
@@ -284,16 +167,20 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
                 prefixManager.get().withDefaultPrefix(defaultPrefix);
             }
         }
+        labelMaker = labelMaker(o);
+    }
+
+    protected Optional<AnnotationValueShortFormProvider> labelMaker(OWLOntology o) {
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = o.getOWLOntologyManager();
         OWLDataFactory df = manager.getOWLDataFactory();
-        OWLAnnotationProperty labelProp = df.getOWLAnnotationProperty(RDFS_LABEL.getIRI());
-        labelMaker = Optional.of(new AnnotationValueShortFormProvider(Collections.singletonList(labelProp), prefLangMap,
-            manager, prefixManager.get()));
+        List<OWLAnnotationProperty> labels = Collections.singletonList(df.getRDFSLabel());
+        return Optional.of(new AnnotationValueShortFormProvider(labels, prefLangMap, manager, prefixManager.get()));
     }
 
-    private void accept(OWLObject o) {
+    private FunctionalSyntaxObjectRenderer accept(OWLObject o) {
         o.accept(this);
+        return this;
     }
 
     /**
@@ -322,81 +209,57 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         prefixManager.ifPresent(p -> p.setShortFormProvider(shortFormProvider));
     }
 
-    protected void writePrefix(String prefix, String namespace) {
+    private void writePrefix(String prefix, String namespace) {
         write(String.format("Prefix(%s=<%s>)\n", prefix, namespace));
     }
 
-    protected void writePrefixes() {
+    private void writePrefixes() {
         prefixManager.ifPresent(p -> p.getPrefixName2PrefixMap().forEach(this::writePrefix));
     }
 
-    private void write(int v) {
+    private FunctionalSyntaxObjectRenderer write(int v) {
         if (prettyPrint && tabIndex > 0) {
             space();
         }
-        write(TokenMap.indexToken(v));
+        return write(TokenMap.indexToken(v));
     }
 
-    private void write(String s) {
-        try {
-            writer.write(s);
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+    private FunctionalSyntaxObjectRenderer write(String s) {
+        writer.write(s);
+        return this;
+    }
+
+    private FunctionalSyntaxObjectRenderer writeFiller() {
+        writer.write('\n');
+        for (int i = 0; i < tabIndex * 4; i++) {
+            writer.write(' ');
         }
+        return this;
     }
 
-    private void write(char s) {
-        try {
-            writer.write(s);
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    private void write(char... s) {
-        try {
-            writer.write(s);
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    private void flush() {
-        try {
-            writer.flush();
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    private void write(IRI iri) {
+    private FunctionalSyntaxObjectRenderer write(IRI iri) {
         if (prefixManager.isPresent()) {
             String qname = prefixManager.get().getPrefixIRI(iri);
             if (qname != null) {
                 boolean lastCharIsColon = qname.charAt(qname.length() - 1) == ':';
                 if (!lastCharIsColon) {
                     write(qname);
-                    return;
+                    return this;
                 }
             }
         }
-        writeFullIRI(iri);
+        return writeFullIRI(iri);
     }
 
-    private void writeFullIRI(@Nullable IRI iri) {
+    private FunctionalSyntaxObjectRenderer writeFullIRI(@Nullable IRI iri) {
         if (iri == null) {
-            write("<>");
-            return;
+            return write("<>");
         }
-        write(iri.toQuotedString());
+        return write(iri.toQuotedString());
     }
 
-    protected void writeImport(OWLImportsDeclaration decl) {
-        write(IMPORT);
-        writeOpenBracket();
-        writeFullIRI(decl.getIRI());
-        writeCloseBracket();
-        writeReturn();
+    private void writeImport(OWLImportsDeclaration decl) {
+        write(IMPORT).writeOpenBracket().writeFullIRI(decl.getIRI()).writeCloseBracket().writeReturn();
     }
 
     private void writeSortedEntities(OWLOntology ontology, String bannerComment, String entityTypeName,
@@ -408,24 +271,19 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         }
     }
 
-    private void writeln(String s) {
-        write(s);
-        writeReturn();
-    }
-
     private void writeEntities(OWLOntology ontology, String comment, String entityTypeName,
         List<? extends OWLEntity> entities, Set<OWLAxiom> writtenAxioms) {
         boolean haveWrittenBanner = false;
         for (OWLEntity owlEntity : entities) {
             List<? extends OWLAxiom> axiomsForEntity = asList(
-                getUnsortedAxiomsForEntity(owlEntity).filter(ax -> !writtenAxioms.contains(ax)));
+                retrieve(owlEntity).filter(ax -> !writtenAxioms.contains(ax)));
             List<OWLAnnotationAssertionAxiom> list = asList(
                 ontology.annotationAssertionAxioms(owlEntity.getIRI()).filter(ax -> !writtenAxioms.contains(ax)));
             if (axiomsForEntity.isEmpty() && list.isEmpty()) {
                 continue;
             }
             if (!haveWrittenBanner) {
-                writeln("############################\n#   " + comment + "\n############################\n");
+                write("############################\n#   " + comment + "\n############################\n\n");
                 haveWrittenBanner = true;
             }
             axiomsForEntity.sort(null);
@@ -434,10 +292,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         }
     }
 
-    protected void writeEntity2(OWLEntity entity, String entityTypeName, List<? extends OWLAxiom> axiomsForEntity,
+    private void writeEntity2(OWLEntity entity, String entityTypeName, List<? extends OWLAxiom> axiomsForEntity,
         List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms, Set<OWLAxiom> alreadyWrittenAxioms) {
-        writeln("# " + entityTypeName + ": " + getIRIString(entity) + " (" + getEntityLabel(entity) + ")");
-        writeReturn();
+        write("# " + entityTypeName + ": " + getIRIString(entity) + " (" + getEntityLabel(entity) + ")\n\n");
         annotationAssertionAxioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
         axiomsForEntity.stream().filter(this::shouldWrite).filter(alreadyWrittenAxioms::add)
             .forEach(this::acceptAndReturn);
@@ -452,31 +309,27 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
             || !(((OWLDisjointClassesAxiom) ax).getOperandsAsList().size() > 2);
     }
 
-    private Stream<? extends OWLAxiom> getUnsortedAxiomsForEntity(OWLEntity entity) {
-        if (ont.isPresent()) {
-            return entity.accept(new AxiomRetriever(ont.get()));
-        }
-        return Stream.empty();
+    private Stream<? extends OWLAxiom> retrieve(OWLEntity entity) {
+        return ont.map(o -> retrieve(entity, o)).orElse(Stream.empty());
+    }
+
+    protected Stream<? extends OWLAxiom> retrieve(OWLEntity entity, OWLOntology o) {
+        return retrieve.get(entity.type()).apply(o, entity);
     }
 
     private String getIRIString(OWLEntity entity) {
-        if (prefixManager.isPresent()) {
-            return prefixManager.get().getShortForm(entity);
-        }
-        return entity.getIRI().toQuotedString();
+        return prefixManager.map(p -> p.getShortForm(entity)).orElse(entity.getIRI().toQuotedString());
     }
 
     private String getEntityLabel(OWLEntity entity) {
-        if (labelMaker.isPresent()) {
-            return labelMaker.get().getShortForm(entity).replace("\n", "\n# ");
-        }
-        return entity.getIRI().toQuotedString();
+        return labelMaker.map(l -> l.getShortForm(entity).replace("\n", "\n# "))
+            .orElse(entity.getIRI().toQuotedString());
     }
 
     private void writeAxioms(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
         writeAnnotations(entity, alreadyWrittenAxioms);
         List<OWLAxiom> writtenAxioms = new ArrayList<>();
-        Stream<? extends OWLAxiom> stream = getUnsortedAxiomsForEntity(entity).filter(alreadyWrittenAxioms::contains)
+        Stream<? extends OWLAxiom> stream = retrieve(entity).filter(alreadyWrittenAxioms::contains)
             .filter(ax -> ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS))
             .filter(ax -> ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
                 && ((OWLDisjointClassesAxiom) ax).getOperandsAsList().size() > 2)
@@ -485,23 +338,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         alreadyWrittenAxioms.addAll(writtenAxioms);
     }
 
-    /**
-     * Writes out the declaration axioms for the specified entity.
-     *
-     * @param entity
-     *        The entity
-     * @return The axioms that were written out
-     */
-    protected Set<OWLAxiom> writeDeclarations(OWLEntity entity) {
-        Set<OWLAxiom> axioms = new HashSet<>();
-        ont.ifPresent(o -> o.declarationAxioms(entity).sorted().forEach(ax -> acceptAndAdd(axioms, ax)));
-        return axioms;
-    }
-
-    private void acceptAndAdd(Collection<OWLAxiom> axioms, OWLAxiom axiom) {
+    private FunctionalSyntaxObjectRenderer acceptAndAdd(Collection<OWLAxiom> axioms, OWLAxiom axiom) {
         accept(axiom);
         axioms.add(axiom);
-        writeReturn();
+        return writeReturn();
     }
 
     private void writeDeclarations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms, Collection<IRI> illegals) {
@@ -520,9 +360,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         }
     }
 
-    protected void acceptAndReturn(OWLObject ax) {
-        accept(ax);
-        writeReturn();
+    private FunctionalSyntaxObjectRenderer acceptAndReturn(OWLObject ax) {
+        return accept(ax).writeReturn();
     }
 
     /**
@@ -534,132 +373,74 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
      *        already written axioms, to be updated with the newly written
      *        axioms
      */
-    protected void writeAnnotations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
+    private void writeAnnotations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
         ont.ifPresent(o -> o.annotationAssertionAxioms(entity.getIRI()).sorted().filter(alreadyWrittenAxioms::add)
             .forEach(this::acceptAndReturn));
     }
 
-    private void write(List<? extends OWLObject> objects) {
+    private FunctionalSyntaxObjectRenderer write(List<? extends OWLObject> objects) {
         if (objects.isEmpty()) {
-            return;
+            return this;
         }
         tabIndex++;
         accept(objects.get(0));
         for (int i = 1; i < objects.size(); i++) {
-            space();
-            accept(objects.get(i));
+            space().accept(objects.get(i));
         }
         tabIndex--;
+        return this;
     }
 
-    private void write(List<OWLAnnotation> anns, OWLObject... objects) {
-        writeOpenBracket();
-        writeAnnotations(anns);
+    private FunctionalSyntaxObjectRenderer write(int v, List<? extends OWLObject> objects) {
+        return write(v).writeOpenBracket().write(objects).writeCloseBracket();
+    }
+
+    private FunctionalSyntaxObjectRenderer write(int v, OWLObject... objects) {
+        write(v).writeOpenBracket();
         accept(objects[0]);
         for (int i = 1; i < objects.length; i++) {
-            writeSpace();
-            accept(objects[i]);
+            writeSpace().accept(objects[i]);
         }
-        writeCloseBracket();
+        return writeCloseBracket();
     }
 
-    private void write(int v, List<? extends OWLObject> objects) {
-        write(v);
-        writeOpenBracket();
-        write(objects);
-        writeCloseBracket();
-    }
-
-    private void write(OWLObject... objects) {
-        writeOpenBracket();
-        accept(objects[0]);
-        for (int i = 1; i < objects.length; i++) {
-            writeSpace();
-            accept(objects[i]);
-        }
-        writeCloseBracket();
-    }
-
-    private void write(int v, OWLObject... objects) {
-        write(v);
-        writeOpenBracket();
-        accept(objects[0]);
-        for (int i = 1; i < objects.length; i++) {
-            writeSpace();
-            accept(objects[i]);
-        }
-        writeCloseBracket();
-    }
-
-    protected void space() {
+    private FunctionalSyntaxObjectRenderer space() {
         if (prettyPrint) {
-            write(filler());
-        } else {
-            writeSpace();
+            return writeFiller();
         }
+        return writeSpace();
     }
 
-    protected char[] filler() {
-        char[] c = new char[tabIndex * 4 + 1];
-        Arrays.fill(c, ' ');
-        c[0] = '\n';
-        return c;
+    private FunctionalSyntaxObjectRenderer writeOpenBracket() {
+        writer.write('(');
+        return this;
     }
 
-    protected void writeOpenBracket() {
-        write('(');
+    private FunctionalSyntaxObjectRenderer writeCloseBracket() {
+        writer.write(')');
+        return this;
     }
 
-    protected void writeCloseBracket() {
-        write(')');
+    private FunctionalSyntaxObjectRenderer writeSpace() {
+        writer.write(' ');
+        return this;
     }
 
-    protected void writeSpace() {
-        write(' ');
+    private FunctionalSyntaxObjectRenderer writeReturn() {
+        writer.write('\n');
+        return this;
     }
 
-    protected void writeReturn() {
-        write('\n');
-    }
-
-    protected void writeAnnotations(HasAnnotations ax) {
-        writeAnnotations(ax.annotationsAsList());
-    }
-
-    protected void writeAnnotations(List<OWLAnnotation> l) {
-        if (l.isEmpty()) {
-            return;
+    private FunctionalSyntaxObjectRenderer writeAnnotations(HasAnnotations ax) {
+        if (ax.annotationsAsList().isEmpty()) {
+            return this;
         }
-        write(l);
-        space();
+        return write(ax.annotationsAsList()).space();
     }
 
-    protected void writeAnnotatedElement(int v, HasAnnotations ax, OWLObject... objects) {
-        write(v);
-        write(ax.annotationsAsList(), objects);
-    }
-
-    protected void writeElement(int v, OWLObject... objects) {
-        write(v);
-        write(objects);
-    }
-
-    protected void writeAxiomsWithCollections(int v, OWLAxiom axiom, List<? extends OWLObject> l) {
-        if (l.size() < 2) {
-            LOGGER.warn("{} with less than two elements skipped {}", axiom.getClass().getSimpleName(), axiom);
-            return;
-        }
-        write(v);
-        writeOpenBracket();
-        writeAnnotations(axiom);
-        write(l);
-        writeCloseBracket();
-    }
-
-    private void printConditionally(int v, HasIRI i) {
+    private void printConditionally(OWLEntity i) {
         if (!writeEntitiesAsURIs) {
-            write(v);
-            writeOpenBracket();
+            write(TokenMap.tokenForType(i.type())).writeOpenBracket();
         }
         accept(i.getIRI());
         if (!writeEntitiesAsURIs) {
@@ -667,100 +448,111 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         }
     }
 
-    private <F extends OWLPropertyRange> void writeRestriction(int v, OWLCardinalityRestriction<F> restriction,
-        OWLPropertyExpression p) {
-        write(v);
-        writeOpenBracket();
-        write(Integer.toString(restriction.getCardinality()));
-        writeSpace();
-        accept(p);
+    private <F extends OWLPropertyRange> void writeRestriction(OWLCardinalityRestriction<F> restriction) {
+        write(TokenMap.tokenForType(restriction.type())).writeOpenBracket()
+            .write(Integer.toString(restriction.getCardinality())).writeSpace().accept(restriction.getProperty());
         if (restriction.isQualified()) {
-            writeSpace();
-            accept(restriction.getFiller());
+            writeSpace().accept(restriction.getFiller());
         }
         writeCloseBracket();
     }
 
-    private void writeSingleton(int v, List<? extends OWLObject> l) {
-        if (l.size() == 1) {
-            accept(l.get(0));
+    private FunctionalSyntaxObjectRenderer writeSingleton(OWLObject o) {
+        List<OWLObject> l = ((HasOperands<OWLObject>) o).getOperandsAsList();
+        return l.size() == 1 ? accept(l.get(0))
+            : write(TokenMap.tokenForType(o.type())).writeOpenBracket().write(l).writeCloseBracket();
+    }
+
+    @Override
+    public void doDefault(OWLObject object) {
+        if (object instanceof OWLEntity) {
+            printConditionally((OWLEntity) object);
             return;
         }
-        write(v, l);
+        if (object instanceof OWLCardinalityRestriction) {
+            writeRestriction((OWLCardinalityRestriction<?>) object);
+            return;
+        }
+        if (object instanceof OWLNaryDataRange || object instanceof OWLNaryBooleanClassExpression) {
+            writeSingleton(object);
+            return;
+        }
+        if (object instanceof OWLNaryAxiom && ((OWLNaryAxiom<?>) object).getOperandsAsList().size() < 2) {
+            LOGGER.warn("{} with less than two elements skipped {}", object.getClass().getSimpleName(), object);
+            return;
+        }
+        name(object).writeOpenBracket();
+        if (object instanceof HasAnnotations) {
+            writeAnnotations((HasAnnotations) object);
+        }
+        iterate(object.componentStream()).writeCloseBracket();
+    }
+
+    private FunctionalSyntaxObjectRenderer name(OWLObject object) {
+        return write(TokenMap.tokenForType(object.type()));
+    }
+
+    private FunctionalSyntaxObjectRenderer render(Collection<? extends OWLObject> objects) {
+        Iterator<? extends OWLObject> it = objects.iterator();
+        while (it.hasNext()) {
+            accept(it.next());
+            if (it.hasNext()) {
+                writeSpace();
+            }
+        }
+        return this;
+    }
+
+    private FunctionalSyntaxObjectRenderer iterate(Stream<?> componentStream) {
+        Iterator<?> it = componentStream.iterator();
+        while (it.hasNext()) {
+            Object o = it.next();
+            if (o instanceof Collection) {
+                render((Collection<? extends OWLObject>) o);
+            } else if (o instanceof OWLObject) {
+                accept((OWLObject) o);
+            } else {
+                write(o.toString());
+            }
+            if (it.hasNext()) {
+                writeSpace();
+            }
+        }
+        return this;
     }
 
     @Override
-    public void visit(OWLOntology ontology) {
+    public void visit(OWLOntology o) {
         writePrefixes();
-        writeReturn();
-        writeReturn();
-        write(ONTOLOGY);
-        writeOpenBracket();
-        if (ontology.isNamed()) {
-            writeFullIRI(ontology.getOntologyID().getOntologyIRI().orElse(null));
-            ontology.getOntologyID().getVersionIRI().ifPresent(v -> {
-                writeReturn();
-                writeFullIRI(v);
-            });
+        writeReturn().writeReturn().write(ONTOLOGY).writeOpenBracket();
+        if (o.isNamed()) {
+            writeFullIRI(o.getOntologyID().getOntologyIRI().orElse(null));
+            o.getOntologyID().getVersionIRI().ifPresent(v -> writeReturn().writeFullIRI(v));
             writeReturn();
         }
-        ontology.importsDeclarations().forEach(this::writeImport);
-        ontology.annotations().forEach(this::acceptAndReturn);
+        o.importsDeclarations().forEach(this::writeImport);
+        o.annotations().forEach(this::acceptAndReturn);
         writeReturn();
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
-        Collection<IRI> illegals = ontology.determineIllegalPunnings(addMissingDeclarations);
-        ontology.signature().forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
-        writeSortedEntities(ontology, "Annotation Properties", "Annotation Property",
-            ontology.annotationPropertiesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(ontology, "Object Properties", "Object Property",
-            ontology.objectPropertiesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(ontology, "Data Properties", "Data Property", ontology.dataPropertiesInSignature(EXCLUDED),
+        Collection<IRI> illegals = o.determineIllegalPunnings(addMissingDeclarations);
+        o.signature().forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
+        writeSortedEntities(o, "Annotation Properties", "Annotation Property",
+            o.annotationPropertiesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(o, "Object Properties", "Object Property", o.objectPropertiesInSignature(EXCLUDED),
             writtenAxioms);
-        writeSortedEntities(ontology, "Datatypes", "Datatype", ontology.datatypesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(ontology, "Classes", "Class", ontology.classesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(ontology, "Named Individuals", "Individual", ontology.individualsInSignature(EXCLUDED),
+        writeSortedEntities(o, "Data Properties", "Data Property", o.dataPropertiesInSignature(EXCLUDED),
             writtenAxioms);
-        ontology.signature().forEach(e -> writeAxioms(e, writtenAxioms));
-        ontology.axioms().filter(ax -> !writtenAxioms.contains(ax)).sorted().forEach(this::acceptAndReturn);
-        writeCloseBracket();
-        flush();
-    }
-
-    @Override
-    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        writeAnnotatedElement(ASYMMETRICOBJECTPROPERTY, axiom, axiom.getProperty());
-    }
-
-    @Override
-    public void visit(OWLClassAssertionAxiom axiom) {
-        writeAnnotatedElement(CLASSASSERTION, axiom, axiom.getClassExpression(), axiom.getIndividual());
-    }
-
-    @Override
-    public void visit(OWLDataPropertyAssertionAxiom axiom) {
-        writeAnnotatedElement(DATAPROPERTYASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getObject());
-    }
-
-    @Override
-    public void visit(OWLDataPropertyDomainAxiom axiom) {
-        writeAnnotatedElement(DATAPROPERTYDOMAIN, axiom, axiom.getProperty(), axiom.getDomain());
-    }
-
-    @Override
-    public void visit(OWLDataPropertyRangeAxiom axiom) {
-        writeAnnotatedElement(DATAPROPERTYRANGE, axiom, axiom.getProperty(), axiom.getRange());
-    }
-
-    @Override
-    public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        writeAnnotatedElement(SUBDATAPROPERTYOF, axiom, axiom.getSubProperty(), axiom.getSuperProperty());
+        writeSortedEntities(o, "Datatypes", "Datatype", o.datatypesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(o, "Classes", "Class", o.classesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(o, "Named Individuals", "Individual", o.individualsInSignature(EXCLUDED), writtenAxioms);
+        o.signature().forEach(e -> writeAxioms(e, writtenAxioms));
+        o.axioms().filter(ax -> !writtenAxioms.contains(ax)).sorted().forEach(this::acceptAndReturn);
+        writeCloseBracket().writer.flush();
     }
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
-        write(DECLARATION);
-        writeOpenBracket();
-        writeAnnotations(axiom);
+        write(DECLARATION).writeOpenBracket().writeAnnotations(axiom);
         writeEntitiesAsURIs = false;
         accept(axiom.getEntity());
         writeEntitiesAsURIs = true;
@@ -768,357 +560,35 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     }
 
     @Override
-    public void visit(OWLDifferentIndividualsAxiom axiom) {
-        writeAxiomsWithCollections(DIFFERENTINDIVIDUALS, axiom, axiom.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLDisjointClassesAxiom axiom) {
-        writeAxiomsWithCollections(DISJOINTCLASSES, axiom, axiom.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        writeAxiomsWithCollections(DISJOINTDATAPROPERTIES, axiom, axiom.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        writeAxiomsWithCollections(DISJOINTOBJECTPROPERTIES, axiom, axiom.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLDisjointUnionAxiom axiom) {
-        write(DISJOINTUNION);
-        writeOpenBracket();
-        writeAnnotations(axiom);
-        accept(axiom.getOWLClass());
-        writeSpace();
-        write(axiom.getOperandsAsList());
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLAnnotationAssertionAxiom axiom) {
-        writeAnnotatedElement(ANNOTATIONASSERTION, axiom, axiom.getProperty(), axiom.getSubject(), axiom.getValue());
-    }
-
-    @Override
-    public void visit(OWLEquivalentClassesAxiom axiom) {
-        writeAxiomsWithCollections(EQUIVALENTCLASSES, axiom, axiom.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        writeAxiomsWithCollections(EQUIVALENTDATAPROPERTIES, axiom, axiom.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        writeAxiomsWithCollections(EQUIVALENTOBJECTPROPERTIES, axiom, axiom.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        writeAnnotatedElement(FUNCTIONALDATAPROPERTY, axiom, axiom.getProperty());
-    }
-
-    @Override
-    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        writeAnnotatedElement(FUNCTIONALOBJECTPROPERTY, axiom, axiom.getProperty());
-    }
-
-    @Override
-    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        writeAnnotatedElement(INVERSEFUNCTIONALOBJECTPROPERTY, axiom, axiom.getProperty());
-    }
-
-    @Override
-    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        writeAnnotatedElement(INVERSEOBJECTPROPERTIES, axiom, axiom.getFirstProperty(), axiom.getSecondProperty());
-    }
-
-    @Override
-    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        writeAnnotatedElement(IRREFLEXIVEOBJECTPROPERTY, axiom, axiom.getProperty());
-    }
-
-    @Override
-    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        writeAnnotatedElement(NEGATIVEDATAPROPERTYASSERTION, axiom, axiom.getProperty(), axiom.getSubject(),
-            axiom.getObject());
-    }
-
-    @Override
-    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        writeAnnotatedElement(NEGATIVEOBJECTPROPERTYASSERTION, axiom, axiom.getProperty(), axiom.getSubject(),
-            axiom.getObject());
-    }
-
-    @Override
-    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        writeAnnotatedElement(OBJECTPROPERTYASSERTION, axiom, axiom.getProperty(), axiom.getSubject(),
-            axiom.getObject());
-    }
-
-    @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        write(SUBOBJECTPROPERTYOF);
-        writeOpenBracket();
-        writeAnnotations(axiom);
-        write(SUBOBJECTPROPERTYCHAIN, axiom.getPropertyChain());
-        writeSpace();
-        accept(axiom.getSuperProperty());
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        writeAnnotatedElement(OBJECTPROPERTYDOMAIN, axiom, axiom.getProperty(), axiom.getDomain());
-    }
-
-    @Override
-    public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        writeAnnotatedElement(OBJECTPROPERTYRANGE, axiom, axiom.getProperty(), axiom.getRange());
-    }
-
-    @Override
-    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        writeAnnotatedElement(SUBOBJECTPROPERTYOF, axiom, axiom.getSubProperty(), axiom.getSuperProperty());
-    }
-
-    @Override
-    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        writeAnnotatedElement(REFLEXIVEOBJECTPROPERTY, axiom, axiom.getProperty());
-    }
-
-    @Override
-    public void visit(OWLSameIndividualAxiom axiom) {
-        writeAxiomsWithCollections(SAMEINDIVIDUAL, axiom, axiom.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLSubClassOfAxiom axiom) {
-        writeAnnotatedElement(SUBCLASSOF, axiom, axiom.getSubClass(), axiom.getSuperClass());
-    }
-
-    @Override
-    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        writeAnnotatedElement(SYMMETRICOBJECTPROPERTY, axiom, axiom.getProperty());
-    }
-
-    @Override
-    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        writeAnnotatedElement(TRANSITIVEOBJECTPROPERTY, axiom, axiom.getProperty());
-    }
-
-    @Override
-    public void visit(OWLClass ce) {
-        printConditionally(CLASS, ce);
-    }
-
-    @Override
-    public void visit(OWLDataAllValuesFrom ce) {
-        write(DATAALLVALUESFROM);
-        write(((OWLQuantifiedRestriction<? extends OWLObject>) ce).getProperty(), ce.getFiller());
-    }
-
-    @Override
-    public void visit(OWLDataExactCardinality ce) {
-        writeRestriction(DATAEXACTCARDINALITY, ce, ce.getProperty());
-    }
-
-    @Override
-    public void visit(OWLDataMaxCardinality ce) {
-        writeRestriction(DATAMAXCARDINALITY, ce, ce.getProperty());
-    }
-
-    @Override
-    public void visit(OWLDataMinCardinality ce) {
-        writeRestriction(DATAMINCARDINALITY, ce, ce.getProperty());
-    }
-
-    @Override
-    public void visit(OWLDataSomeValuesFrom ce) {
-        write(DATASOMEVALUESFROM);
-        write(((OWLQuantifiedRestriction<? extends OWLObject>) ce).getProperty(), ce.getFiller());
-    }
-
-    @Override
-    public void visit(OWLDataHasValue ce) {
-        write(DATAHASVALUE);
-        write(ce.getProperty(), ce.getFiller());
-    }
-
-    @Override
-    public void visit(OWLObjectAllValuesFrom ce) {
-        write(OBJECTALLVALUESFROM);
-        write(((OWLQuantifiedRestriction<? extends OWLObject>) ce).getProperty(), ce.getFiller());
-    }
-
-    @Override
-    public void visit(OWLObjectComplementOf ce) {
-        write(OBJECTCOMPLEMENTOF, ce.getOperand());
-    }
-
-    @Override
-    public void visit(OWLObjectExactCardinality ce) {
-        writeRestriction(OBJECTEXACTCARDINALITY, ce, ce.getProperty());
-    }
-
-    @Override
-    public void visit(OWLObjectIntersectionOf ce) {
-        writeSingleton(OBJECTINTERSECTIONOF, ce.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLObjectMaxCardinality ce) {
-        writeRestriction(OBJECTMAXCARDINALITY, ce, ce.getProperty());
-    }
-
-    @Override
-    public void visit(OWLObjectMinCardinality ce) {
-        writeRestriction(OBJECTMINCARDINALITY, ce, ce.getProperty());
-    }
-
-    @Override
-    public void visit(OWLObjectOneOf ce) {
-        write(OBJECTONEOF, ce.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLObjectHasSelf ce) {
-        write(OBJECTHASSELF, ce.getProperty());
-    }
-
-    @Override
-    public void visit(OWLObjectSomeValuesFrom ce) {
-        write(OBJECTSOMEVALUESFROM);
-        write(((OWLQuantifiedRestriction<? extends OWLObject>) ce).getProperty(), ce.getFiller());
-    }
-
-    @Override
-    public void visit(OWLObjectUnionOf ce) {
-        writeSingleton(OBJECTUNIONOF, ce.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLObjectHasValue ce) {
-        write(OBJECTHASVALUE);
-        write(ce.getProperty(), ce.getFiller());
-    }
-
-    @Override
-    public void visit(OWLDataComplementOf node) {
-        write(DATACOMPLEMENTOF, node.getDataRange());
-    }
-
-    @Override
-    public void visit(OWLDataOneOf node) {
-        write(DATAONEOF, node.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLDatatype node) {
-        printConditionally(DATATYPE, node);
-    }
-
-    @Override
-    public void visit(OWLDatatypeRestriction node) {
-        write(DATATYPERESTRICTION);
-        writeOpenBracket();
-        accept(node.getDatatype());
-        writeSpace();
-        write(node.facetRestrictionsAsList());
-        writeCloseBracket();
+        write(SUBOBJECTPROPERTYOF).writeOpenBracket().writeAnnotations(axiom)
+            .write(SUBOBJECTPROPERTYCHAIN, axiom.getPropertyChain()).writeSpace().accept(axiom.getSuperProperty())
+            .writeCloseBracket();
     }
 
     @Override
     public void visit(OWLFacetRestriction node) {
-        write(node.getFacet().getIRI());
-        writeSpace();
-        accept(node.getFacetValue());
+        write(node.getFacet().getIRI()).writeSpace().accept(node.getFacetValue());
     }
 
     @Override
     public void visit(OWLLiteral node) {
-        write('"');
+        writer.write('"');
         write(EscapeUtils.escapeString(node.getLiteral()));
-        write('"');
+        writer.write('"');
         if (node.hasLang()) {
-            write('@');
+            writer.write('@');
             write(node.getLang());
         } else if (!node.isRDFPlainLiteral() && !OWL2Datatype.XSD_STRING.matches(node.getDatatype())) {
-            write("^^");
-            write(node.getDatatype().getIRI());
+            write("^^").write(node.getDatatype().getIRI());
         }
     }
 
     @Override
-    public void visit(OWLDataProperty property) {
-        printConditionally(DATAPROP, property);
-    }
-
-    @Override
-    public void visit(OWLObjectProperty property) {
-        printConditionally(OBJECTPROP, property);
-    }
-
-    @Override
-    public void visit(OWLObjectInverseOf property) {
-        write(OBJECTINVERSEOF, property.getInverse());
-    }
-
-    @Override
-    public void visit(OWLNamedIndividual individual) {
-        printConditionally(NAMEDINDIVIDUAL, individual);
-    }
-
-    @Override
     public void visit(OWLHasKeyAxiom axiom) {
-        write(HASKEY);
-        writeOpenBracket();
-        writeAnnotations(axiom);
-        accept(axiom.getClassExpression());
-        writeSpace();
-        writeOpenBracket();
-        write(axiom.objectPropertyExpressionsAsList());
-        writeCloseBracket();
-        writeSpace();
-        writeOpenBracket();
-        write(axiom.dataPropertyExpressionsAsList());
-        writeCloseBracket();
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        writeAnnotatedElement(ANNOTATIONPROPERTYDOMAIN, axiom, axiom.getProperty(), axiom.getDomain());
-    }
-
-    @Override
-    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        writeAnnotatedElement(ANNOTATIONPROPERTYRANGE, axiom, axiom.getProperty(), axiom.getRange());
-    }
-
-    @Override
-    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        writeAnnotatedElement(SUBANNOTATIONPROPERTYOF, axiom, axiom.getSubProperty(), axiom.getSuperProperty());
-    }
-
-    @Override
-    public void visit(OWLDataIntersectionOf node) {
-        writeSingleton(DATAINTERSECTIONOF, node.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLDataUnionOf node) {
-        writeSingleton(DATAUNIONOF, node.getOperandsAsList());
-    }
-
-    @Override
-    public void visit(OWLAnnotationProperty property) {
-        printConditionally(ANNOTATIONPROPERTY, property);
+        write(HASKEY).writeOpenBracket().writeAnnotations(axiom).accept(axiom.getClassExpression()).writeSpace();
+        writeOpenBracket().write(axiom.objectPropertyExpressionsAsList()).writeCloseBracket().writeSpace();
+        writeOpenBracket().write(axiom.dataPropertyExpressionsAsList()).writeCloseBracket().writeCloseBracket();
     }
 
     @Override
@@ -1132,23 +602,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     }
 
     @Override
-    public void visit(OWLAnnotation node) {
-        writeAnnotatedElement(ANNOTATION, node, node.getProperty(), node.getValue());
-    }
-
-    @Override
-    public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        writeAnnotatedElement(DATATYPEDEFINITION, axiom, axiom.getDatatype(), axiom.getDataRange());
-    }
-
-    @Override
     public void visit(SWRLRule rule) {
-        write(DLSAFERULE);
-        writeOpenBracket();
-        writeAnnotations(rule);
-        write(BODY, rule.bodyList());
-        write(HEAD, rule.headList());
-        writeCloseBracket();
+        write(DLSAFERULE).writeOpenBracket().writeAnnotations(rule).write(BODY, rule.bodyList())
+            .write(HEAD, rule.headList()).writeCloseBracket();
     }
 
     @Override
@@ -1157,39 +613,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     }
 
     @Override
-    public void visit(SWRLClassAtom node) {
-        write(CLASSATOM, node.getPredicate(), node.getArgument());
-    }
-
-    @Override
-    public void visit(SWRLDataRangeAtom node) {
-        write(DATARANGEATOM, node.getPredicate(), node.getArgument());
-    }
-
-    @Override
-    public void visit(SWRLObjectPropertyAtom node) {
-        write(OBJECTPROPERTYATOM, node.getPredicate(), node.getFirstArgument(), node.getSecondArgument());
-    }
-
-    @Override
-    public void visit(SWRLDataPropertyAtom node) {
-        write(DATAPROPERTYATOM, node.getPredicate(), node.getFirstArgument(), node.getSecondArgument());
-    }
-
-    @Override
-    public void visit(SWRLBuiltInAtom node) {
-        write(BUILTINATOM);
-        writeOpenBracket();
-        write(node.getPredicate());
-        writeSpace();
-        write(node.argumentsAsList());
-        writeCloseBracket();
-    }
-
-    @Override
     public void visit(SWRLVariable node) {
-        write(VARIABLE);
-        writeOpenBracket();
+        write(VARIABLE).writeOpenBracket();
         String namespace = node.getIRI().getNamespace();
         if ("urn:swrl:var#".equals(namespace) || "urn:swrl#".equals(namespace)) {
             write("<urn:swrl:var#" + node.getIRI().getFragment() + ">");
@@ -1212,44 +637,5 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     @Override
     public void visit(SWRLSameIndividualAtom node) {
         write(SAMEINDIVIDUALATOM, node.getFirstArgument(), node.getSecondArgument());
-    }
-
-    class AxiomRetriever implements OWLEntityVisitorEx<Stream<? extends OWLAxiom>> {
-
-        OWLOntology o;
-
-        public AxiomRetriever(OWLOntology o) {
-            this.o = o;
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLClass cls) {
-            return o.axioms(cls, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLObjectProperty property) {
-            return o.axioms(property, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLDataProperty property) {
-            return o.axioms(property, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLNamedIndividual individual) {
-            return o.axioms(individual, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLDatatype datatype) {
-            return o.axioms(datatype, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLAnnotationProperty property) {
-            return o.axioms(property, EXCLUDED);
-        }
     }
 }
