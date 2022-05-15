@@ -114,14 +114,14 @@ public class IRIImpl implements IRI {
             IRIImpl other = (IRIImpl) obj;
             return remainder.equals(other.remainder) && other.namespace.equals(namespace);
         }
-        if (obj instanceof IRI) {
-            IRI other = (IRI) obj;
-            return getFragment().equals(other.getFragment()) && other.getNamespace().equals(getNamespace());
-        }
         // Commons RDF IRI equals() contract
         if (obj instanceof org.apache.commons.rdf.api.IRI) {
             org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) obj;
             return ntriplesString().equals(iri.ntriplesString());
+        }
+        if (obj instanceof IRI) {
+            IRI other = (IRI) obj;
+            return getFragment().equals(other.getFragment()) && other.getNamespace().equals(getNamespace());
         }
         return false;
     }

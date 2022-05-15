@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -60,8 +61,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLProperty
      *         this axiom
      */
     default Stream<OWLObjectPropertyExpression> objectPropertyExpressions() {
-        return propertyExpressions().filter(OWLPropertyExpression::isObjectPropertyExpression)
-            .map(OWLPropertyExpression::asObjectPropertyExpression);
+        return objectPropertyExpressionsAsList().stream();
     }
 
     /**
@@ -75,9 +75,32 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom, HasOperands<OWLProperty
      *         this axiom
      */
     default Stream<OWLDataPropertyExpression> dataPropertyExpressions() {
-        return propertyExpressions().filter(OWLPropertyExpression::isDataPropertyExpression)
-            .map(OWLPropertyExpression::asDataPropertyExpression);
+        return dataPropertyExpressionsAsList().stream();
     }
+
+    /**
+     * Gets the set of object property expressions that make up the key. This is
+     * simply a convenience method that filteres out the object property
+     * expressions in the key. All of the properties returned by this method are
+     * included in the return value of the
+     * {@link OWLHasKeyAxiom#propertyExpressions()} method.
+     *
+     * @return The set of object property expressions in the key described by
+     *         this axiom
+     */
+    List<OWLObjectPropertyExpression> objectPropertyExpressionsAsList();
+
+    /**
+     * Gets the set of data property expressions that make up the key. This is
+     * simply a convenience method that filteres out the data property
+     * expressions in the key. All of the properties returned by this method are
+     * included in the return value of the
+     * {@link OWLHasKeyAxiom#propertyExpressions()} method.
+     *
+     * @return The set of object property expressions in the key described by
+     *         this axiom
+     */
+    List<OWLDataPropertyExpression> dataPropertyExpressionsAsList();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

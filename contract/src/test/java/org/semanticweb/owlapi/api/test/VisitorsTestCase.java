@@ -42,17 +42,19 @@ public class VisitorsTestCase extends TestBase {
         Builder b = new Builder();
         Map<OWLObject, String> map = new LinkedHashMap<>();
         map.put(b.rule(),
-            "DLSafeRule( Body(BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>) )) Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) )) )");
+            "DLSafeRule(Body(BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>))) Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>))))");
         map.put(b.bigRule(),
-            "DLSafeRule(Annotation(<urn:test:test#ann> \"test\"^^xsd:string)  Body(BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>) ) ClassAtom(<urn:test:test#c> Variable(<urn:swrl:var#var2>)) DataRangeAtom(<urn:test:test#datatype> Variable(<urn:swrl:var#var1>)) BuiltInAtom(<urn:test:test#iri> Variable(<urn:swrl:var#var1>) ) DifferentFromAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#i>) SameAsAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#iri>)) Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) ) DataPropertyAtom(<urn:test:test#dp> Variable(<urn:swrl:var#var2>) \"false\"^^xsd:boolean) ObjectPropertyAtom(<urn:test:test#op> Variable(<urn:swrl:var#var2>) Variable(<urn:swrl:var#var2>))) )");
+            "DLSafeRule(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Body(BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>)) ClassAtom(<urn:test:test#c> Variable(<urn:swrl:var#var2>)) DataRangeAtom(<urn:test:test#datatype> Variable(<urn:swrl:var#var1>)) BuiltInAtom(<urn:test:test#iri> Variable(<urn:swrl:var#var1>)) DifferentFromAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#i>) SameAsAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#iri>)) Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>)) DataPropertyAtom(<urn:test:test#dp> Variable(<urn:swrl:var#var2>) \"false\"^^xsd:boolean) ObjectPropertyAtom(<urn:test:test#op> Variable(<urn:swrl:var#var2>) Variable(<urn:swrl:var#var2>))))");
         map.put(b.onto(),
             "Ontology(OntologyID(OntologyIRI(<urn:test:test#test>) VersionIRI(<null>)) [Axioms: 0] [Logical axioms: 0])");
         map.put(b.ann(),
             "AnnotationAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> <urn:test:test#iri> \"false\"^^xsd:boolean)");
         map.put(b.asymm(),
             "AsymmetricObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)");
-        map.put(b.annDom(), "AnnotationPropertyDomain(<urn:test:test#ann> <urn:test:test#iri>)");
-        map.put(b.annRange(), "AnnotationPropertyRange(<urn:test:test#ann> <urn:test:test#iri>)");
+        map.put(b.annDom(),
+            "AnnotationPropertyDomain(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> <urn:test:test#iri>)");
+        map.put(b.annRange(),
+            "AnnotationPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> <urn:test:test#iri>)");
         map.put(b.ass(),
             "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#i>)");
         map.put(b.assAnd(),
@@ -60,9 +62,9 @@ public class VisitorsTestCase extends TestBase {
         map.put(b.assOr(),
             "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectUnionOf(<urn:test:test#c> <urn:test:test#iri>) <urn:test:test#i>)");
         map.put(b.dRangeAnd(),
-            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataIntersectionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) ))");
+            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataIntersectionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean)))");
         map.put(b.dRangeOr(),
-            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataUnionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean ) ))");
+            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataUnionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean)))");
         map.put(b.assNot(),
             "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectComplementOf(<urn:test:test#c>) <urn:test:test#i>)");
         map.put(b.assNotAnon(),
@@ -96,11 +98,11 @@ public class VisitorsTestCase extends TestBase {
         map.put(b.assDEq(),
             "ClassAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataExactCardinality(1 <urn:test:test#dp> <urn:test:test#datatype>) <urn:test:test#i>)");
         map.put(b.dOneOf(),
-            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataOneOf(\"false\"^^xsd:boolean ))");
+            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataOneOf(\"false\"^^xsd:boolean))");
         map.put(b.dNot(),
-            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataComplementOf(DataOneOf(\"false\"^^xsd:boolean )))");
+            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataComplementOf(DataOneOf(\"false\"^^xsd:boolean)))");
         map.put(b.dRangeRestrict(),
-            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DataRangeRestriction(xsd:double facetRestriction(minExclusive \"5.0\"^^xsd:double) facetRestriction(maxExclusive \"6.0\"^^xsd:double)))");
+            "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> DatatypeRestriction(xsd:double facetRestriction(minExclusive \"5.0\"^^xsd:double) facetRestriction(maxExclusive \"6.0\"^^xsd:double)))");
         map.put(b.assD(),
             "DataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"false\"^^xsd:boolean)");
         map.put(b.assDPlain(),
@@ -111,8 +113,7 @@ public class VisitorsTestCase extends TestBase {
             "DataPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#datatype>)");
         map.put(b.dDef(),
             "DatatypeDefinition(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#datatype> xsd:double)");
-        map.put(b.decC(),
-            "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Class(<urn:test:test#c>))");
+        map.put(b.decC(), "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Class(<urn:test:test#c>))");
         map.put(b.decOp(),
             "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectProperty(<urn:test:test#op>))");
         map.put(b.decDp(),
@@ -123,20 +124,20 @@ public class VisitorsTestCase extends TestBase {
             "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) AnnotationProperty(<urn:test:test#ann>))");
         map.put(b.decI(),
             "Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) NamedIndividual(<urn:test:test#i>))");
-        map.put(b.assDi(), "DifferentIndividuals(<urn:test:test#i> <urn:test:test#iri> )");
+        map.put(b.assDi(), "DifferentIndividuals(<urn:test:test#i> <urn:test:test#iri>)");
         map.put(b.dc(), "DisjointClasses(<urn:test:test#c> <urn:test:test#iri>)");
         map.put(b.dDp(),
-            "DisjointDataProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#iri> )");
+            "DisjointDataProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#iri>)");
         map.put(b.dOp(),
-            "DisjointObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#iri> <urn:test:test#op> )");
+            "DisjointObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#iri> <urn:test:test#op>)");
         map.put(b.du(),
-            "DisjointUnion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#c> <urn:test:test#iri> )");
+            "DisjointUnion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#c> <urn:test:test#iri>)");
         map.put(b.ec(),
-            "EquivalentClasses(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#iri> )");
+            "EquivalentClasses(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> <urn:test:test#iri>)");
         map.put(b.eDp(),
-            "EquivalentDataProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#iri> )");
+            "EquivalentDataProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#iri>)");
         map.put(b.eOp(),
-            "EquivalentObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#iri> <urn:test:test#op> )");
+            "EquivalentObjectProperties(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#iri> <urn:test:test#op>)");
         map.put(b.fdp(),
             "FunctionalDataProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp>)");
         map.put(b.fop(),
@@ -162,11 +163,11 @@ public class VisitorsTestCase extends TestBase {
         map.put(b.oRange(),
             "ObjectPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#c>)");
         map.put(b.chain(),
-            "SubObjectPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectPropertyChain( <urn:test:test#iri> <urn:test:test#op> ) <urn:test:test#op>)");
+            "SubObjectPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectPropertyChain(<urn:test:test#iri> <urn:test:test#op>) <urn:test:test#op>)");
         map.put(b.ref(),
             "ReflexiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)");
         map.put(b.same(),
-            "SameIndividual(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#i> <urn:test:test#iri> )");
+            "SameIndividual(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#i> <urn:test:test#iri>)");
         map.put(b.subAnn(),
             "SubAnnotationPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> rdfs:label)");
         map.put(b.subClass(),
@@ -179,9 +180,9 @@ public class VisitorsTestCase extends TestBase {
         map.put(b.trans(),
             "TransitiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)");
         map.put(b.hasKey(),
-            "HasKey(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> (<urn:test:test#iri> <urn:test:test#op> ) (<urn:test:test#dp> ))");
+            "HasKey(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> (<urn:test:test#iri> <urn:test:test#op>) (<urn:test:test#dp>))");
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
+        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
     }
 

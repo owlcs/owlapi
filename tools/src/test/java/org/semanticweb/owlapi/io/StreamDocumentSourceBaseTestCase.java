@@ -1,20 +1,14 @@
 package org.semanticweb.owlapi.io;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 
@@ -33,29 +27,7 @@ public class StreamDocumentSourceBaseTestCase {
                 StandardCharsets.UTF_8),
             "urn:test:test", null, null) {};
         StringWriter w = new StringWriter();
-        OWLParser mockParser = new OWLParser() {
-
-            @Override
-            public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
-                try {
-                    char[] buffer = new char[128];
-                    int i = r.read(buffer);
-                    while (i > -1) {
-                        w.write(buffer, 0, i);
-                        i = r.read(buffer);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    fail(e.getMessage());
-                }
-                return null;
-            }
-
-            @Override
-            public OWLDocumentFormatFactory getSupportedFormat() {
-                return new RDFXMLDocumentFormatFactory();
-            }
-        };
+        OWLParser mockParser = new ParserForTest(w);
         source.acceptParser(mockParser, mock(OWLOntology.class), mock(OntologyConfigurator.class));
         assertEquals(input, w.toString());
     }

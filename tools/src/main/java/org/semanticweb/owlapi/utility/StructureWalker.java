@@ -423,8 +423,8 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLHasKeyAxiom axiom) {
         process(axiom);
         axiom.getClassExpression().accept(this);
-        axiom.objectPropertyExpressions().forEach(a -> a.accept(this));
-        axiom.dataPropertyExpressions().forEach(a -> a.accept(this));
+        axiom.objectPropertyExpressionsAsList().forEach(a -> a.accept(this));
+        axiom.dataPropertyExpressionsAsList().forEach(a -> a.accept(this));
     }
 
     @Override

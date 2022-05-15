@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owlapi;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.streamFromSorted;
 
@@ -23,7 +24,9 @@ import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /**
@@ -34,6 +37,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
 
     private final OWLClassExpression expression;
     private final List<OWLPropertyExpression> propertyExpressions;
+    private final List<OWLDataPropertyExpression> dataPropertyExpressions;
+    private final List<OWLObjectPropertyExpression> objectPropertyExpressions;
 
     /**
      * @param expression class expression
@@ -47,6 +52,12 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         this.expression = checkNotNull(expression, "expression cannot be null");
         checkNotNull(propertyExpressions, "propertyExpressions cannot be null");
         this.propertyExpressions = sorted(OWLPropertyExpression.class, propertyExpressions);
+        dataPropertyExpressions = asList(this.propertyExpressions.stream()
+            .filter(OWLPropertyExpression::isDataPropertyExpression)
+            .map(OWLPropertyExpression::asDataPropertyExpression));
+        objectPropertyExpressions = asList(this.propertyExpressions.stream()
+            .filter(OWLPropertyExpression::isObjectPropertyExpression)
+            .map(OWLPropertyExpression::asObjectPropertyExpression));
     }
 
     @Override
@@ -81,5 +92,15 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     @Override
     public List<OWLPropertyExpression> getOperandsAsList() {
         return propertyExpressions;
+    }
+
+    @Override
+    public List<OWLDataPropertyExpression> dataPropertyExpressionsAsList() {
+        return dataPropertyExpressions;
+    }
+
+    @Override
+    public List<OWLObjectPropertyExpression> objectPropertyExpressionsAsList() {
+        return objectPropertyExpressions;
     }
 }

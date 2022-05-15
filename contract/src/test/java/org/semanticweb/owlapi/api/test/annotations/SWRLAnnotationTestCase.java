@@ -97,7 +97,7 @@ public class SWRLAnnotationTestCase extends TestBase {
         OWLOntology ontology = loadOntologyFromString(
             new StringDocumentSource(input, "test", new RDFXMLDocumentFormat(), null));
         assertTrue(ontology.axioms(AxiomType.SWRL_RULE).anyMatch(ax -> ax.toString().contains(
-            "DLSafeRule(Annotation(<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> \"true\"^^xsd:boolean) Annotation(rdfs:comment \":i62, :i61\"^^xsd:string)  Body() Head(ObjectPropertyAtom(<#drives> <#i61> <#i62>)) )")));
+            "DLSafeRule(Annotation(<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> \"true\"^^xsd:boolean) Annotation(rdfs:comment \":i62, :i61\"^^xsd:string) Body() Head(ObjectPropertyAtom(<#drives> <#i61> <#i62>)))")));
     }
 
     @Test
@@ -106,6 +106,6 @@ public class SWRLAnnotationTestCase extends TestBase {
         OWLOntology ontology = loadOntologyFromString(
             new StringDocumentSource(input, "test", new RDFXMLDocumentFormat(), null));
         assertTrue(ontology.axioms(AxiomType.SWRL_RULE).anyMatch(ax -> ax.toString().contains(
-            "DLSafeRule(Annotation(<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> \"true\"^^xsd:boolean) Annotation(rdfs:comment \":i62, :i61\"^^xsd:string)  Body() Head(ObjectPropertyAtom(<#drives> <#i61> <#i62>)) )")));
+            "DLSafeRule(Annotation(<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> \"true\"^^xsd:boolean) Annotation(rdfs:comment \":i62, :i61\"^^xsd:string) Body() Head(ObjectPropertyAtom(<#drives> <#i61> <#i62>)))")));
     }
 }

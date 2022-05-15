@@ -22,38 +22,35 @@ public class OWLXMLTestCase extends TestBase {
     public void shouldFindExpectedAxiomsForBlankNodes() throws OWLOntologyCreationException {
         OWLObjectProperty r = ObjectProperty(
             df.getIRI("http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
-        OWLOntology o =
-            m.loadOntologyFromOntologyDocument(new File(RESOURCES, "owlxml_anonloop.owx"));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new File(RESOURCES, "owlxml_anonloop.owx"));
         o.axioms(AxiomType.CLASS_ASSERTION).forEach(ax -> {
-            OWLAxiom expected =
-                df.getOWLObjectPropertyAssertionAxiom(r, ax.getIndividual(), ax.getIndividual());
+            OWLAxiom expected = df.getOWLObjectPropertyAssertionAxiom(r, ax.getIndividual(), ax.getIndividual());
             assertTrue(expected + " not found", o.containsAxiom(expected));
         });
     }
 
     @Test
     public void shouldParseSWRLVariables() throws OWLOntologyStorageException {
-        String in = "<?xml version=\"1.0\"?>\n"
-                        + "<Ontology xmlns=\"http://www.w3.org/2002/07/owl#\"\n"
-                        + "     xml:base=\"http://www.semanticweb.org/z002yycx/ontologies/2016/5/untitled-ontology-9\"\n"
-                        + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
-                        + "     xmlns:xml=\"http://www.w3.org/XML/1998/namespace\"\n"
-                        + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-                        + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-                        + "     ontologyIRI=\"http://www.semanticweb.org/z002yycx/ontologies/2016/5/untitled-ontology-9\">\n"
-                        + "    <Prefix name=\"owl\" IRI=\"http://www.w3.org/2002/07/owl#\"/>\n"
-                        + "    <Prefix name=\"rdf\" IRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"/>\n"
-                        + "    <Prefix name=\"xml\" IRI=\"http://www.w3.org/XML/1998/namespace\"/>\n"
-                        + "    <Prefix name=\"xsd\" IRI=\"http://www.w3.org/2001/XMLSchema#\"/>\n"
-                        + "    <Prefix name=\"rdfs\" IRI=\"http://www.w3.org/2000/01/rdf-schema#\"/>\n"
-            + "    <DLSafeRule>\n" + "        <Body>\n" + "            <SameIndividualAtom>\n"
-            + "                <Variable IRI=\"x\"/>\n" + "                <Variable IRI=\"y\"/>\n"
-            + "            </SameIndividualAtom>\n" + "        </Body>\n" + "        <Head/>\n"
-            + "    </DLSafeRule>\n" + "</Ontology>";
+        String in = "<?xml version=\"1.0\"?>\n" + "<Ontology xmlns=\"http://www.w3.org/2002/07/owl#\"\n"
+            + "     xml:base=\"http://www.semanticweb.org/z002yycx/ontologies/2016/5/untitled-ontology-9\"\n"
+            + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
+            + "     xmlns:xml=\"http://www.w3.org/XML/1998/namespace\"\n"
+            + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+            + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+            + "     ontologyIRI=\"http://www.semanticweb.org/z002yycx/ontologies/2016/5/untitled-ontology-9\">\n"
+            + "    <Prefix name=\"owl\" IRI=\"http://www.w3.org/2002/07/owl#\"/>\n"
+            + "    <Prefix name=\"rdf\" IRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"/>\n"
+            + "    <Prefix name=\"xml\" IRI=\"http://www.w3.org/XML/1998/namespace\"/>\n"
+            + "    <Prefix name=\"xsd\" IRI=\"http://www.w3.org/2001/XMLSchema#\"/>\n"
+            + "    <Prefix name=\"rdfs\" IRI=\"http://www.w3.org/2000/01/rdf-schema#\"/>\n" + "    <DLSafeRule>\n"
+            + "        <Body>\n" + "            <SameIndividualAtom>\n" + "                <Variable IRI=\"x\"/>\n"
+            + "                <Variable IRI=\"y\"/>\n" + "            </SameIndividualAtom>\n" + "        </Body>\n"
+            + "        <Head/>\n" + "    </DLSafeRule>\n" + "</Ontology>";
         OWLOntology o = loadOntologyFromString(in, new OWLXMLDocumentFormat());
-        o.axioms(AxiomType.SWRL_RULE).forEach(r -> assertEquals(
-                        "DLSafeRule( Body(SameAsAtom(Variable(<urn:swrl:var#x>) Variable(<urn:swrl:var#y>))) Head() )",
-                        r.toString()));
+        o.axioms(AxiomType.SWRL_RULE)
+            .forEach(r -> assertEquals(
+                "DLSafeRule(Body(SameAsAtom(Variable(<urn:swrl:var#x>) Variable(<urn:swrl:var#y>))) Head())",
+                r.toString()));
         String out = saveOntology(o, new OWLXMLDocumentFormat()).toString();
         assertTrue(out, out.contains("<Variable IRI=\"urn:swrl:var#x\"/>"));
         assertTrue(out, out.contains("<Variable IRI=\"urn:swrl:var#y\"/>"));

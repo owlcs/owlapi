@@ -66,13 +66,12 @@ public class AxiomSubjectProviderExTestCase {
         map.put(b.subClass(), "<urn:test:test#c>");
         map.put(b.subData(), "<urn:test:test#dp>");
         map.put(b.subObject(), "<urn:test:test#op>");
-        map.put(b.rule(),
-            "BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) )");
+        map.put(b.rule(), "BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>))");
         map.put(b.symm(), "<urn:test:test#op>");
         map.put(b.trans(), "<urn:test:test#op>");
         map.put(b.hasKey(), "<urn:test:test#c>");
         map.put(b.bigRule(),
-            "BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>) )");
+            "BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>))");
         map.put(b.ann(), "urn:test:test#iri");
         map.put(b.asymm(), "<urn:test:test#op>");
         map.put(b.annDom(), "<urn:test:test#ann>");
@@ -115,7 +114,7 @@ public class AxiomSubjectProviderExTestCase {
         map.put(b.assDi(), "<urn:test:test#i>");
         map.put(b.dc(), "<urn:test:test#c>");
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
+        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
     }
 

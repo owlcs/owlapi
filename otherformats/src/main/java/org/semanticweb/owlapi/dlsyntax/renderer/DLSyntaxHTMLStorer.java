@@ -26,7 +26,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
@@ -42,20 +43,22 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     protected String getRendering(@Nullable final OWLEntity subject, OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
+
             @Override
-            protected void writeEntity(OWLEntity entity) {
-                String shortForm =
-                    shortFormProvider.getShortForm(checkNotNull(entity, "entity cannot be null"));
+            protected DLSyntaxObjectRenderer writeEntity(OWLEntity entity) {
+                String shortForm = shortFormProvider.getShortForm(checkNotNull(entity, "entity cannot be null"));
                 if (entity.equals(subject)) {
                     write(shortForm);
                 } else {
                     write("<a href=\"#" + shortForm + "\">" + shortForm + "</a>");
                 }
+                return this;
             }
 
             @Override
-            protected void write(DLSyntax keyword) {
+            protected DLSyntaxObjectRenderer write(DLSyntax keyword) {
                 write(checkNotNull(keyword, "keyword cannot be null").toHTMLString());
+                return this;
             }
         };
         ren.setFocusedObject(subject);

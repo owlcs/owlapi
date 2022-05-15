@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.obolibrary.oboformat.parser;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,6 +21,7 @@ import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
@@ -55,6 +57,74 @@ public class OBOFormatParser {
     private boolean followImport;
     private Object location;
     private ConcurrentHashMap<String, OBODoc> importCache = new ConcurrentHashMap<>();
+    static final BiFunction<Clause, OBOFormatParser, Clause> idref = (cl, _this) -> _this.parseIdRef(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> bool = (cl, _this) -> _this.parseBoolean(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> unquoted = (cl, _this) -> _this.parseUnquotedString(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> person = (cl, _this) -> _this.parsePerson(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> isodate = (cl, _this) -> _this.parseISODate(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> def = (cl, _this) -> _this.parseDef(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> intersect = (cl, _this) -> _this.parseTermIntersect(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> pvalue = (cl, _this) -> _this.parsePropertyValue(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> rel = (cl, _this) -> _this.parseRelationship(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> unquotSpaces = (cl, _this) -> _this.parseUnquotSpaces(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> syn = (cl, _this) -> _this.parseSynonym(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> xref = (cl, _this) -> _this.parseDirectXref(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> pair = (cl, _this) -> _this.parseIdRefPair(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> owldef = (cl, _this) -> _this.parseOwlDef(cl);
+    private EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> termFrameParsing = termFrameParsing();
+
+    protected EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> termFrameParsing() {
+        EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> map = new EnumMap<>(OboFormatTag.class);
+        map.put(OboFormatTag.TAG_ALT_ID, idref);
+        map.put(OboFormatTag.TAG_BUILTIN, bool);
+        map.put(OboFormatTag.TAG_COMMENT, unquoted);
+        map.put(OboFormatTag.TAG_CONSIDER, idref);
+        map.put(OboFormatTag.TAG_DISJOINT_FROM, idref);
+        map.put(OboFormatTag.TAG_EQUIVALENT_TO, idref);
+        map.put(OboFormatTag.TAG_IS_A, idref);
+        map.put(OboFormatTag.TAG_IS_ANONYMOUS, bool);
+        map.put(OboFormatTag.TAG_IS_OBSOLETE, bool);
+        map.put(OboFormatTag.TAG_NAME, unquoted);
+        map.put(OboFormatTag.TAG_NAMESPACE, idref);
+        map.put(OboFormatTag.TAG_REPLACED_BY, idref);
+        map.put(OboFormatTag.TAG_UNION_OF, idref);
+        map.put(OboFormatTag.TAG_CREATED_BY, person);
+        map.put(OboFormatTag.TAG_CREATION_DATE, isodate);
+        map.put(OboFormatTag.TAG_DEF, def);
+        map.put(OboFormatTag.TAG_INTERSECTION_OF, intersect);
+        map.put(OboFormatTag.TAG_PROPERTY_VALUE, pvalue);
+        map.put(OboFormatTag.TAG_RELATIONSHIP, rel);
+        map.put(OboFormatTag.TAG_SUBSET, unquotSpaces);
+        map.put(OboFormatTag.TAG_SYNONYM, syn);
+        map.put(OboFormatTag.TAG_XREF, xref);
+        return map;
+    }
+
+    private EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> typedTermFrameParsing = typedTermFrameParsing();
+
+    protected EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> typedTermFrameParsing() {
+        EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> map = termFrameParsing();
+        map.put(OboFormatTag.TAG_DOMAIN, idref);
+        map.put(OboFormatTag.TAG_RANGE, idref);
+        map.put(OboFormatTag.TAG_IS_ANTI_SYMMETRIC, bool);
+        map.put(OboFormatTag.TAG_IS_CYCLIC, bool);
+        map.put(OboFormatTag.TAG_IS_REFLEXIVE, bool);
+        map.put(OboFormatTag.TAG_IS_SYMMETRIC, bool);
+        map.put(OboFormatTag.TAG_IS_ASYMMETRIC, bool);
+        map.put(OboFormatTag.TAG_IS_TRANSITIVE, bool);
+        map.put(OboFormatTag.TAG_IS_FUNCTIONAL, bool);
+        map.put(OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL, bool);
+        map.put(OboFormatTag.TAG_INVERSE_OF, idref);
+        map.put(OboFormatTag.TAG_TRANSITIVE_OVER, idref);
+        map.put(OboFormatTag.TAG_DISJOINT_OVER, idref);
+        map.put(OboFormatTag.TAG_IS_METADATA_TAG, bool);
+        map.put(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG, bool);
+        map.put(OboFormatTag.TAG_HOLDS_OVER_CHAIN, pair);
+        map.put(OboFormatTag.TAG_EQUIVALENT_TO_CHAIN, pair);
+        map.put(OboFormatTag.TAG_EXPAND_ASSERTION_TO, owldef);
+        map.put(OboFormatTag.TAG_EXPAND_EXPRESSION_TO, owldef);
+        return map;
+    }
 
     /**
      *
@@ -304,69 +374,40 @@ public class OBOFormatParser {
     public List<String> checkDanglingReferences(OBODoc doc) {
         List<String> danglingReferences = new ArrayList<>();
         // check term frames
-        for (Frame f : doc.getTermFrames()) {
-            for (String tag : f.getTags()) {
-                OboFormatTag tagconstant = OBOFormatConstants.getTag(tag);
-                Clause c = f.getClause(tag);
-                validate(doc, danglingReferences, f, tag, tagconstant, c);
-            }
-        }
+        doc.getTermFrames().forEach(f -> f.getTags().forEach(tag -> validate2(doc, danglingReferences, f, tag)));
         // check typedef frames
-        for (Frame f : doc.getTypedefFrames()) {
-            for (String tag : f.getTags()) {
-                OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
-                Clause c = f.getClause(tag);
-                validate1(doc, danglingReferences, f, tag, tagConstant, c);
-            }
-        }
-        return danglingReferences;
+        doc.getTypedefFrames().forEach(f -> f.getTags().forEach(tag -> validate3(doc, danglingReferences, f, tag)));
+        return asList(danglingReferences.stream().filter(Objects::nonNull));
     }
 
-    protected void validate1(OBODoc doc, List<String> danglingReferences, Frame f, String tag,
-        @Nullable OboFormatTag tagConstant, @Nullable Clause c) {
-        if (c != null) {
-            if (OboFormatTag.TYPEDEF_FRAMES.contains(tagConstant)) {
-                String error = checkRelation(c.getValue(String.class), tag, f.getId(), doc);
-                if (error != null) {
-                    danglingReferences.add(error);
-                }
-            } else if (tagConstant == OboFormatTag.TAG_HOLDS_OVER_CHAIN
-                || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN
-                || tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
-                String error = checkRelation(c.getValue().toString(), tag, f.getId(), doc);
-                if (error != null) {
-                    danglingReferences.add(error);
-                }
-                error = checkRelation(c.getValue2().toString(), tag, f.getId(), doc);
-                if (error != null) {
-                    danglingReferences.add(error);
-                }
-            } else if (tagConstant == OboFormatTag.TAG_DOMAIN || tagConstant == OboFormatTag.TAG_RANGE) {
-                String error = checkClassReference(c.getValue().toString(), tag, f.getId(), doc);
-                if (error != null) {
-                    danglingReferences.add(error);
-                }
-            }
+    protected void validate3(OBODoc doc, List<String> danglingReferences, Frame f, String tag) {
+        Clause c = f.getClause(tag);
+        if (c == null) {
+            return;
+        }
+        OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
+        if (OboFormatTag.TYPEDEF_FRAMES.contains(tagConstant)) {
+            danglingReferences.add(checkRelation(c.getValue(String.class), tag, f.getId(), doc));
+        } else if (tagConstant == OboFormatTag.TAG_HOLDS_OVER_CHAIN
+            || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN || tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
+            danglingReferences.add(checkRelation(c.getValue(String.class), tag, f.getId(), doc));
+            danglingReferences.add(checkRelation(c.getValue2().toString(), tag, f.getId(), doc));
+        } else if (tagConstant == OboFormatTag.TAG_DOMAIN || tagConstant == OboFormatTag.TAG_RANGE) {
+            danglingReferences.add(checkClassReference(c.getValue(String.class), tag, f.getId(), doc));
         }
     }
 
-    protected void validate(OBODoc doc, List<String> danglingReferences, Frame f, String tag,
-        @Nullable OboFormatTag tagconstant, @Nullable Clause c) {
-        if (c != null && OboFormatTag.TERM_FRAMES.contains(tagconstant)) {
+    protected void validate2(OBODoc doc, List<String> danglingReferences, Frame f, String tag) {
+        Clause c = f.getClause(tag);
+        if (c == null) {
+            return;
+        }
+        if (OboFormatTag.TERM_FRAMES.contains(OBOFormatConstants.getTag(tag))) {
             if (c.getValues().size() > 1) {
-                String error = checkRelation(c.getValue(String.class), tag, f.getId(), doc);
-                if (error != null) {
-                    danglingReferences.add(error);
-                }
-                error = checkClassReference(c.getValue2(String.class), tag, f.getId(), doc);
-                if (error != null) {
-                    danglingReferences.add(error);
-                }
+                danglingReferences.add(checkRelation(c.getValue(String.class), tag, f.getId(), doc));
+                danglingReferences.add(checkClassReference(c.getValue2(String.class), tag, f.getId(), doc));
             } else {
-                String error = checkClassReference(c.getValue(String.class), tag, f.getId(), doc);
-                if (error != null) {
-                    danglingReferences.add(error);
-                }
+                danglingReferences.add(checkClassReference(c.getValue(String.class), tag, f.getId(), doc));
             }
         }
     }
@@ -518,75 +559,6 @@ public class OBOFormatParser {
             parseEOL(cl);
             f.addClause(cl);
         }
-    }
-
-    static final BiFunction<Clause, OBOFormatParser, Clause> idref = (cl, _this) -> _this.parseIdRef(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> bool = (cl, _this) -> _this.parseBoolean(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> unquoted = (cl, _this) -> _this.parseUnquotedString(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> person = (cl, _this) -> _this.parsePerson(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> isodate = (cl, _this) -> _this.parseISODate(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> def = (cl, _this) -> _this.parseDef(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> intersect = (cl, _this) -> _this.parseTermIntersect(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> pvalue = (cl, _this) -> _this.parsePropertyValue(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> rel = (cl, _this) -> _this.parseRelationship(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> unquotSpaces = (cl, _this) -> _this.parseUnquotSpaces(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> syn = (cl, _this) -> _this.parseSynonym(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> xref = (cl, _this) -> _this.parseDirectXref(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> pair = (cl, _this) -> _this.parseIdRefPair(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> owldef = (cl, _this) -> _this.parseOwlDef(cl);
-    private EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> termFrameParsing = termFrameParsing();
-
-    protected EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> termFrameParsing() {
-        EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> map = new EnumMap<>(OboFormatTag.class);
-        map.put(OboFormatTag.TAG_ALT_ID, idref);
-        map.put(OboFormatTag.TAG_BUILTIN, bool);
-        map.put(OboFormatTag.TAG_COMMENT, unquoted);
-        map.put(OboFormatTag.TAG_CONSIDER, idref);
-        map.put(OboFormatTag.TAG_DISJOINT_FROM, idref);
-        map.put(OboFormatTag.TAG_EQUIVALENT_TO, idref);
-        map.put(OboFormatTag.TAG_IS_A, idref);
-        map.put(OboFormatTag.TAG_IS_ANONYMOUS, bool);
-        map.put(OboFormatTag.TAG_IS_OBSOLETE, bool);
-        map.put(OboFormatTag.TAG_NAME, unquoted);
-        map.put(OboFormatTag.TAG_NAMESPACE, idref);
-        map.put(OboFormatTag.TAG_REPLACED_BY, idref);
-        map.put(OboFormatTag.TAG_UNION_OF, idref);
-        map.put(OboFormatTag.TAG_CREATED_BY, person);
-        map.put(OboFormatTag.TAG_CREATION_DATE, isodate);
-        map.put(OboFormatTag.TAG_DEF, def);
-        map.put(OboFormatTag.TAG_INTERSECTION_OF, intersect);
-        map.put(OboFormatTag.TAG_PROPERTY_VALUE, pvalue);
-        map.put(OboFormatTag.TAG_RELATIONSHIP, rel);
-        map.put(OboFormatTag.TAG_SUBSET, unquotSpaces);
-        map.put(OboFormatTag.TAG_SYNONYM, syn);
-        map.put(OboFormatTag.TAG_XREF, xref);
-        return map;
-    }
-
-    private EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> typedTermFrameParsing = typedTermFrameParsing();
-
-    protected EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> typedTermFrameParsing() {
-        EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> map = termFrameParsing();
-        map.put(OboFormatTag.TAG_DOMAIN, idref);
-        map.put(OboFormatTag.TAG_RANGE, idref);
-        map.put(OboFormatTag.TAG_IS_ANTI_SYMMETRIC, bool);
-        map.put(OboFormatTag.TAG_IS_CYCLIC, bool);
-        map.put(OboFormatTag.TAG_IS_REFLEXIVE, bool);
-        map.put(OboFormatTag.TAG_IS_SYMMETRIC, bool);
-        map.put(OboFormatTag.TAG_IS_ASYMMETRIC, bool);
-        map.put(OboFormatTag.TAG_IS_TRANSITIVE, bool);
-        map.put(OboFormatTag.TAG_IS_FUNCTIONAL, bool);
-        map.put(OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL, bool);
-        map.put(OboFormatTag.TAG_INVERSE_OF, idref);
-        map.put(OboFormatTag.TAG_TRANSITIVE_OVER, idref);
-        map.put(OboFormatTag.TAG_DISJOINT_OVER, idref);
-        map.put(OboFormatTag.TAG_IS_METADATA_TAG, bool);
-        map.put(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG, bool);
-        map.put(OboFormatTag.TAG_HOLDS_OVER_CHAIN, pair);
-        map.put(OboFormatTag.TAG_EQUIVALENT_TO_CHAIN, pair);
-        map.put(OboFormatTag.TAG_EXPAND_ASSERTION_TO, owldef);
-        map.put(OboFormatTag.TAG_EXPAND_EXPRESSION_TO, owldef);
-        return map;
     }
 
     // ----------------------------------------
