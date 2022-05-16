@@ -78,6 +78,10 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         }
     }
 
+    protected void copyPrefixesFrom(Map<String, String> map) {
+        ontology.getPrefixManager().copyPrefixesFrom(map);
+    }
+
     public void setPrefixes(PrefixManager nsm) {
         if(prefixMap == null) {
             prefixMap = new HashMap<String, String>();
@@ -101,9 +105,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     }
     Ontology();
     jj_consume_token(0);
-for(String pn : prefixMap.keySet()) {
-            ontology.getPrefixManager().copyPrefixesFrom(prefixMap);
-        }
+copyPrefixesFrom(prefixMap);
         return new FunctionalSyntaxDocumentFormat();
 }
 

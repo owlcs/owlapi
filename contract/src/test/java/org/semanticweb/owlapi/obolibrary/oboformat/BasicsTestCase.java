@@ -35,7 +35,11 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -187,7 +191,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertTrue(comments.containsAll(remarks));
         assertTrue(remarks.containsAll(comments));
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(m1);
-        OBODoc oboRoundTrip = owl2Obo.convert(owlOntology, storerParameters);
+        OBODoc oboRoundTrip = owl2Obo.convert(owlOntology);
         Frame headerFrameRoundTrip = oboRoundTrip.getHeaderFrame();
         assertNotNull(headerFrameRoundTrip);
         Collection<String> remarksRoundTrip = headerFrameRoundTrip.getTagValues(OboFormatTag.TAG_REMARK, String.class);
@@ -225,7 +229,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         aaas = owlOnt.annotationAssertionAxioms(BAR1);
         assertTrue(aaas.count() > 0);
         OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(m1);
-        OBODoc d2 = revbridge.convert(owlOnt, storerParameters);
+        OBODoc d2 = revbridge.convert(owlOnt);
         Frame partOf = d2.getTypedefFrame("part_of");
         assert partOf != null;
         Collection<Clause> xrcs = partOf.getClauses(OboFormatTag.TAG_XREF);
@@ -340,7 +344,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void testDanglingRoundTripConvertXPs() throws Exception {
         OWLOntology owlOnt = convertOBOFile("dangling_roundtrip_test.obo");
         OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(m1);
-        OBODoc d2 = revbridge.convert(owlOnt, storerParameters);
+        OBODoc d2 = revbridge.convert(owlOnt);
         Frame f = d2.getTermFrame("UBERON:0000020");
         assert f != null;
         Clause rc = f.getClause(OboFormatTag.TAG_NAME);
@@ -383,7 +387,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
                 return super.handleDuplicateClause(frame, clause);
             }
         };
-        OBODoc convert = owl2Obo.convert(owl, storerParameters);
+        OBODoc convert = owl2Obo.convert(owl);
         assertEquals(1, duplicates.size());
         // test that no exception is thrown during write.
         renderOboToString(convert);
@@ -405,7 +409,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertEquals(2, ontology.axioms(EQUIVALENT_CLASSES).count());
         // CONVERT BACK TO OBO
         OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(m1);
-        OBODoc obodoc = owl2obo.convert(ontology, storerParameters);
+        OBODoc obodoc = owl2obo.convert(ontology);
         checkOBODoc(obodoc);
         // ROUNDTRIP AND TEST AGAIN
         OBOFormatWriter w = new OBOFormatWriter();
@@ -823,7 +827,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(m1);
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(m1);
         OWLOntology ontology = obo2owl.convert(doc);
-        owl2Obo.convert(ontology, storerParameters);
+        owl2Obo.convert(ontology);
         // Obo 2 OWL
         IRI iri = obo2owl.oboIdToIRI("GO:001");
         assertEquals("http://purl.obolibrary.org/obo/GO_001", iri.toString());
@@ -1000,7 +1004,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertEquals(1, counter);
         // convert back to OBO
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(m1);
-        OBODoc convertedOboDoc = owl2Obo.convert(owlOntology, storerParameters);
+        OBODoc convertedOboDoc = owl2Obo.convert(owlOntology);
         Frame convertedFrame = convertedOboDoc.getTermFrame("CARO:0000049");
         assert convertedFrame != null;
         String convertedDef = convertedFrame.getTagValue(OboFormatTag.TAG_DEF, String.class);
@@ -1040,7 +1044,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void testConvertUnmappableExpressions() throws Exception {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(m1);
         bridge.setMuteUntranslatableAxioms(true);
-        OBODoc doc = bridge.convert(parseOWLFile("nesting.owl"), storerParameters);
+        OBODoc doc = bridge.convert(parseOWLFile("nesting.owl"));
         assertEquals("untranslatable axiom count", 1, bridge.getUntranslatableAxioms().size());
         OBODoc obodoc = doc;
         // checkOBODoc(obodoc);
@@ -1147,9 +1151,17 @@ public class BasicsTestCase extends OboFormatTestBasics {
         untranslatableAxiomsInHeader(parseOWLFile("untranslatable_axioms2.owl"));
     }
 
+    @Test
+    public void testNoDeadlock() throws OWLOntologyStorageException, OWLOntologyCreationException {
+        OWLOntology o = OWLManager.createConcurrentOWLOntologyManager().createOntology(df.getIRI("urn:test:ontology"));
+        o.add(df.getOWLSubClassOfAxiom(df.getOWLNothing(), df.getOWLThing()));
+        OWLOntologyDocumentTarget target = new StringDocumentTarget();
+        o.saveOntology(new OBODocumentFormat(), target);
+    }
+
     public void untranslatableAxiomsInHeader(OWLOntology original) throws IOException, OWLOntologyCreationException {
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(m1);
-        OBODoc obo = owl2Obo.convert(original, storerParameters);
+        OBODoc obo = owl2Obo.convert(original);
         renderOboToString(obo);
         Frame headerFrame = obo.getHeaderFrame();
         assertNotNull(headerFrame);

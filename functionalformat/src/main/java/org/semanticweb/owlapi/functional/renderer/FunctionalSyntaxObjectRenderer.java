@@ -26,6 +26,7 @@ import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParser
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.VARIABLE;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -42,6 +43,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -265,23 +267,24 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         write(IMPORT).writeOpenBracket().writeFullIRI(decl.getIRI()).writeCloseBracket().writeReturn();
     }
 
-    private void writeSortedEntities(OWLOntology ontology, String bannerComment, String entityTypeName,
-        Stream<? extends OWLEntity> entities, Set<OWLAxiom> writtenAxioms) {
+    private void writeSortedEntities(Function<IRI, Stream<OWLAnnotationAssertionAxiom>> annotations,
+        String bannerComment, String entityTypeName, Stream<? extends OWLEntity> entities,
+        Set<OWLAxiom> writtenAxioms) {
         List<? extends OWLEntity> sortOptionally = asList(entities.sorted());
         if (!sortOptionally.isEmpty()) {
-            writeEntities(ontology, bannerComment, entityTypeName, sortOptionally, writtenAxioms);
+            writeEntities(annotations, bannerComment, entityTypeName, sortOptionally, writtenAxioms);
             writeReturn();
         }
     }
 
-    private void writeEntities(OWLOntology ontology, String comment, String entityTypeName,
-        List<? extends OWLEntity> entities, Set<OWLAxiom> writtenAxioms) {
+    private void writeEntities(Function<IRI, Stream<OWLAnnotationAssertionAxiom>> annotations, String comment,
+        String entityTypeName, List<? extends OWLEntity> entities, Set<OWLAxiom> writtenAxioms) {
         boolean haveWrittenBanner = false;
         for (OWLEntity owlEntity : entities) {
             List<? extends OWLAxiom> axiomsForEntity = asList(
                 retrieve(owlEntity).filter(ax -> !writtenAxioms.contains(ax)));
             List<OWLAnnotationAssertionAxiom> list = asList(
-                ontology.annotationAssertionAxioms(owlEntity.getIRI()).filter(ax -> !writtenAxioms.contains(ax)));
+                annotations.apply(owlEntity.getIRI()).filter(ax -> !writtenAxioms.contains(ax)));
             if (axiomsForEntity.isEmpty() && list.isEmpty()) {
                 continue;
             }
@@ -539,18 +542,60 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         Collection<IRI> illegals = o.determineIllegalPunnings(addMissingDeclarations);
         o.signature().forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
-        writeSortedEntities(o, "Annotation Properties", "Annotation Property",
+        Function<IRI, Stream<OWLAnnotationAssertionAxiom>> annotations = x -> o.annotationAssertionAxioms(x);
+        writeSortedEntities(annotations, "Annotation Properties", "Annotation Property",
             o.annotationPropertiesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(o, "Object Properties", "Object Property", o.objectPropertiesInSignature(EXCLUDED),
+        writeSortedEntities(annotations, "Object Properties", "Object Property",
+            o.objectPropertiesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(annotations, "Data Properties", "Data Property", o.dataPropertiesInSignature(EXCLUDED),
             writtenAxioms);
-        writeSortedEntities(o, "Data Properties", "Data Property", o.dataPropertiesInSignature(EXCLUDED),
+        writeSortedEntities(annotations, "Datatypes", "Datatype", o.datatypesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(annotations, "Classes", "Class", o.classesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities(annotations, "Named Individuals", "Individual", o.individualsInSignature(EXCLUDED),
             writtenAxioms);
-        writeSortedEntities(o, "Datatypes", "Datatype", o.datatypesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(o, "Classes", "Class", o.classesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities(o, "Named Individuals", "Individual", o.individualsInSignature(EXCLUDED), writtenAxioms);
         o.signature().forEach(e -> writeAxioms(e, writtenAxioms));
         o.axioms().filter(ax -> !writtenAxioms.contains(ax)).sorted().forEach(this::acceptAndReturn);
         writeCloseBracket().writer.flush();
+    }
+
+    /**
+     * @param axioms
+     *        axioms to render
+     * @return Stirng containing the axioms, rendered as if they were the only
+     *         content of a fresh ontology
+     */
+    public String renderAxioms(Collection<OWLAxiom> axioms) {
+        writePrefixes();
+        writeReturn().writeReturn().write(ONTOLOGY).writeOpenBracket().writeReturn();
+        Set<OWLAxiom> writtenAxioms = new HashSet<>();
+        Set<OWLEntity> signature = asSet(axioms.stream().flatMap(OWLAxiom::signature));
+        Collection<IRI> illegals = OWLOntology.illegalPunnings(addMissingDeclarations, signature);
+        signature.forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
+        Function<IRI, Stream<OWLAnnotationAssertionAxiom>> o = annotations(axioms);
+        writeSortedEntities(o, "Annotation Properties", "Annotation Property",
+            signature.stream().filter(OWLEntity::isOWLAnnotationProperty), writtenAxioms);
+        writeSortedEntities(o, "Object Properties", "Object Property",
+            signature.stream().filter(OWLEntity::isOWLObjectProperty), writtenAxioms);
+        writeSortedEntities(o, "Data Properties", "Data Property",
+            signature.stream().filter(OWLEntity::isOWLDataProperty), writtenAxioms);
+        writeSortedEntities(o, "Datatypes", "Datatype", signature.stream().filter(OWLEntity::isOWLDatatype),
+            writtenAxioms);
+        writeSortedEntities(o, "Classes", "Class", signature.stream().filter(OWLEntity::isOWLClass), writtenAxioms);
+        writeSortedEntities(o, "Named Individuals", "Individual", signature.stream().filter(OWLEntity::isIndividual),
+            writtenAxioms);
+        signature.forEach(e -> writeAxioms(e, writtenAxioms));
+        axioms.stream().filter(ax -> !writtenAxioms.contains(ax)).sorted().forEach(this::acceptAndReturn);
+        writeCloseBracket().writer.flush();
+        writer.flush();
+        return w.toString();
+    }
+
+    protected Function<IRI, Stream<OWLAnnotationAssertionAxiom>> annotations(Collection<OWLAxiom> axioms) {
+        return x -> axioms.stream().filter(ax -> annotations(ax, x)).map(OWLAnnotationAssertionAxiom.class::cast);
+    }
+
+    boolean annotations(OWLAxiom ax, IRI i) {
+        return ax instanceof OWLAnnotationAssertionAxiom && ((OWLAnnotationAssertionAxiom) ax).getSubject().equals(i);
     }
 
     @Override

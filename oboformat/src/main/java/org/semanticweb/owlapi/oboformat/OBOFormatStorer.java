@@ -48,7 +48,7 @@ public class OBOFormatStorer implements OWLStorer {
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
-            final OBODoc result = translator.convert(ontology, storerParameters);
+            final OBODoc result = translator.convert(ontology);
             boolean hasImports = ontology.imports().iterator().hasNext();
             NameProvider nameProvider;
             if (hasImports) {

@@ -137,7 +137,7 @@ public class OboFormatTestBasics extends TestBase {
     protected OBODoc convert(OWLOntology ontology, boolean strictness) {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(setupManager());
         bridge.setStrictConversion(strictness);
-        return bridge.convert(ontology, storerParameters);
+        return bridge.convert(ontology);
     }
 
     protected String writeOBO(OBODoc obodoc) throws IOException {

@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -289,6 +291,28 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     }
 
     /**
+     * Gets the entities that are in the signature of this ontology. The
+     * signature of an ontology is the set of entities that are used to build
+     * axioms and annotations in the ontology. (See <a href=
+     * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
+     * >The OWL 2 Structural Specification</a>)
+     *
+     * @param imports
+     *        if INCLUDED, the imports closure is included.
+     * @return A set of {@code OWLEntity} objects. The set that is returned is a
+     *         copy - it will not be updated if the ontology changes. It is
+     *         therefore safe to apply changes to this ontology while iterating
+     *         over this set.
+     * @see #classesInSignature()
+     * @see #objectPropertiesInSignature()
+     * @see #dataPropertiesInSignature()
+     * @see #individualsInSignature()
+     */
+    default Stream<OWLEntity> unsortedSignature(Imports imports) {
+        return imports.stream(this).flatMap(OWLOntology::unsortedSignature);
+    }
+
+    /**
      * Determines if this ontology declares an entity i.e. it contains a
      * declaration axiom for the specified entity.
      *
@@ -334,12 +358,27 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
         if (!add) {
             return Collections.emptySet();
         }
+        return illegalPunnings(add, asList(this.unsortedSignature(Imports.INCLUDED)));
+    }
+
+    /**
+     * @param add
+     *        true if missing declarations should be added. If false, no
+     *        declarations will be added.
+     * @param signature
+     *        signature to explore.
+     * @return collection of IRIS used in illegal punnings
+     */
+    static Collection<IRI> illegalPunnings(boolean add, Collection<OWLEntity> signature) {
+        if (!add) {
+            return Collections.emptySet();
+        }
         // determine what entities are illegally punned
         Map<IRI, List<EntityType<?>>> punnings = new HashMap<>();
         // disregard individuals as they do not give raise to illegal
         // punnings; only keep track of punned entities, ignore the rest
-        Collection<IRI> punnedEntities = getPunnedIRIs(Imports.INCLUDED);
-        signature(Imports.INCLUDED).filter(e -> !e.isOWLNamedIndividual() && punnedEntities.contains(e.getIRI()))
+        Collection<IRI> punnedEntities = getPunnedIRIs(signature.stream().distinct());
+        signature.stream().distinct().filter(e -> !e.isOWLNamedIndividual() && punnedEntities.contains(e.getIRI()))
             .forEach(e -> punnings.computeIfAbsent(e.getIRI(), x -> new ArrayList<>()).add(e.getEntityType()));
         return computeIllegals(punnings);
     }
@@ -349,7 +388,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *        input punnings
      * @return illegal punnings
      */
-    default Collection<IRI> computeIllegals(Map<IRI, List<EntityType<?>>> punnings) {
+    static Collection<IRI> computeIllegals(Map<IRI, List<EntityType<?>>> punnings) {
         Collection<IRI> illegals = new HashSet<>();
         punnings.forEach((i, puns) -> computeIllegal(illegals, i, puns));
         return illegals;
@@ -371,6 +410,24 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
             || puns.contains(EntityType.DATATYPE) && puns.contains(EntityType.CLASS)) {
             illegals.add(i);
         }
+    }
+
+    /**
+     * Calculates the set of IRIs that are used for more than one entity type.
+     *
+     * @param signature
+     *        signature to explore.
+     * @return punned IRIs.
+     */
+    static Set<IRI> getPunnedIRIs(Stream<OWLEntity> signature) {
+        Set<IRI> punned = new HashSet<>();
+        Set<IRI> test = new HashSet<>();
+        Predicate<IRI> tested = e -> !test.add(e);
+        signature.map(OWLEntity::getIRI).filter(tested).forEach(punned::add);
+        if (punned.isEmpty()) {
+            return Collections.emptySet();
+        }
+        return punned;
     }
 
     /**

@@ -26,7 +26,6 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -715,15 +714,13 @@ public class OWLAPIOwl2Obo {
      *
      * @param ont
      *        the ont
-     * @param storerParameters
-     *        storer parameters
      * @return the oBO doc
      */
-    public OBODoc convert(OWLOntology ont, OWLStorerParameters storerParameters) {
+    public OBODoc convert(OWLOntology ont) {
         owlOntology = ont;
         ontologyId = getOntologyId(ont);
         init();
-        return tr(storerParameters);
+        return tr();
     }
 
     protected OWLOntology getOWLOntology() {
@@ -742,11 +739,9 @@ public class OWLAPIOwl2Obo {
     /**
      * Tr.
      * 
-     * @param storerParameters
-     *        storer parameters
      * @return the oBO doc
      */
-    protected OBODoc tr(OWLStorerParameters storerParameters) {
+    protected OBODoc tr() {
         setObodoc(new OBODoc());
         preProcess();
         tr(getOWLOntology());
@@ -756,7 +751,7 @@ public class OWLAPIOwl2Obo {
         accept(getOWLOntology().axioms(AxiomType.DECLARATION).sorted());
         AxiomType.skipDeclarations().forEach(t -> accept(getOWLOntology().axioms(t)));
         if (!untranslatableAxioms.isEmpty() && !discardUntranslatable) {
-            String axiomString = OwlStringTools.translate(untranslatableAxioms, manager, storerParameters);
+            String axiomString = OwlStringTools.translate(untranslatableAxioms);
             if (!axiomString.isEmpty()) {
                 Frame headerFrame = getObodoc().getHeaderFrame();
                 if (headerFrame == null) {
