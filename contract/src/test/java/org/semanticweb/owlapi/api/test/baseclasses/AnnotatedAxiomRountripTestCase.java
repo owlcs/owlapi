@@ -24,11 +24,13 @@ import static org.semanticweb.owlapi.api.test.TestEntities.J;
 import static org.semanticweb.owlapi.api.test.TestEntities.P;
 import static org.semanticweb.owlapi.api.test.TestEntities.Q;
 import static org.semanticweb.owlapi.api.test.TestEntities.R;
+import static org.semanticweb.owlapi.api.test.TestEntities.i;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ClassAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyDomain;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyRange;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DifferentIndividuals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointClasses;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointDataProperties;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointObjectProperties;
@@ -91,6 +93,8 @@ public class AnnotatedAxiomRountripTestCase extends AnnotatedAxiomRoundTrippingT
             a -> ObjectPropertyDomain(P, A, a), a -> ObjectPropertyRange(P, A, a), a -> ReflexiveObjectProperty(P, a),
             a -> df.getOWLSubClassOfAxiom(A, B, a), a -> SubDataPropertyOf(DP, DQ, a),
             a -> SubObjectPropertyOf(P, Q, a), a -> SymmetricObjectProperty(P, a), a -> TransitiveObjectProperty(P, a),
-            a -> SubPropertyChainOf(Arrays.asList(P, Q), R, a));
+            a -> SubPropertyChainOf(Arrays.asList(P, Q), R, a), a -> DifferentIndividuals(Arrays.asList(i, I, J), a),
+            a -> DifferentIndividuals(Arrays.asList(I, J), a), a -> DifferentIndividuals(Arrays.asList(i, I, J), a),
+            a -> DifferentIndividuals(Arrays.asList(I, J), a));
     }
 }

@@ -47,6 +47,7 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.REFLEXIVE;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.RULE;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_AS;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_INDIVIDUAL;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUBCLASS_OF;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_CHAIN;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_OF;
@@ -294,10 +295,23 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             .forEach(ax -> writeMoreThanTwo(ax, ax.getOperandsAsList(), EQUIVALENT_PROPERTIES));
         // Nary different individuals
         o.axioms(AxiomType.DIFFERENT_INDIVIDUALS).sorted(ooc)
-            .forEach(ax -> writeMoreThanTwo(ax, ax.getOperandsAsList(), DIFFERENT_INDIVIDUALS));
+            .forEach(ax -> writeMoreThanTwo(ax, ax.getOperandsAsList(), DIFFERENT_INDIVIDUALS, true));
+        // Nary same individuals
+        o.axioms(AxiomType.SAME_INDIVIDUAL).sorted(ooc)
+            .forEach(ax -> writeMoreThanTwo(ax, ax.getOperandsAsList(), SAME_INDIVIDUAL, true));
         o.axioms(AxiomType.SWRL_RULE).sorted(ooc)
             .forEach(rule -> writeSection(RULE, Collections.singleton(rule).iterator(), ", ", false));
         flush();
+    }
+
+    protected <T> void writeMoreThanTwo(OWLAxiom ax, List<T> individuals, ManchesterOWLSyntax section,
+        boolean writeTwoIfAnnotated) {
+        if (individuals.size() > 2
+            || writeTwoIfAnnotated && individuals.size() == 2 && !ax.annotationsAsList().isEmpty()) {
+            SectionMap<Object, OWLAxiom> map = new SectionMap<>();
+            map.put(individuals, ax);
+            writeSection(section, map, ",", false);
+        }
     }
 
     protected <T> void writeMoreThanTwo(OWLAxiom ax, List<T> individuals, ManchesterOWLSyntax section) {
@@ -764,8 +778,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.SAME_INDIVIDUAL)) {
             Collection<OWLIndividual> inds = sortedCollection();
             filtersort(o.sameIndividualAxioms(individual)).forEach(ax -> {
-                add(inds, ax.individuals());
-                axioms.add(ax);
+                if (ax.getOperandsAsList().size() == 2 && ax.annotationsAsList().isEmpty()) {
+                    add(inds, ax.individuals());
+                    axioms.add(ax);
+                }
             });
             inds.remove(individual);
             writeSection(SAME_AS, inds.iterator(), ",", true);
@@ -774,7 +790,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             Collection<OWLIndividual> inds = sortedCollection();
             Collection<OWLDifferentIndividualsAxiom> nary = sortedCollection();
             filtersort(o.differentIndividualAxioms(individual)).forEach(ax -> {
-                if (ax.getOperandsAsList().size() == 2) {
+                if (ax.getOperandsAsList().size() == 2 && ax.annotationsAsList().isEmpty()) {
                     add(inds, ax.individuals());
                     axioms.add(ax);
                 } else {
