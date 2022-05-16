@@ -18,6 +18,12 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Supplier;
 
+import org.semanticweb.owlapi.CompressionEnabled;
+import org.semanticweb.owlapi.OWLDataFactoryImpl;
+import org.semanticweb.owlapi.concurrent.ConcurrentOWLOntologyBuilder;
+import org.semanticweb.owlapi.concurrent.NoOpReadWriteLock;
+import org.semanticweb.owlapi.concurrent.NonConcurrentDelegate;
+import org.semanticweb.owlapi.concurrent.NonConcurrentOWLOntologyBuilder;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
@@ -25,13 +31,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.utilities.Injector;
-
-import uk.ac.manchester.cs.owlapi.CompressionEnabled;
-import uk.ac.manchester.cs.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owlapi.concurrent.ConcurrentOWLOntologyBuilder;
-import uk.ac.manchester.cs.owlapi.concurrent.NoOpReadWriteLock;
-import uk.ac.manchester.cs.owlapi.concurrent.NonConcurrentDelegate;
-import uk.ac.manchester.cs.owlapi.concurrent.NonConcurrentOWLOntologyBuilder;
 
 /**
  * Provides a point of convenience for creating an {@code OWLOntologyManager} with commonly required

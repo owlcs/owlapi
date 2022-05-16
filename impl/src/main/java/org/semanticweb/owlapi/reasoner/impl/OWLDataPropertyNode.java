@@ -16,9 +16,8 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import org.semanticweb.owlapi.InternalizedEntities;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-
-import uk.ac.manchester.cs.owlapi.InternalizedEntities;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group

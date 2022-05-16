@@ -8,12 +8,11 @@ import java.lang.reflect.Field;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.OWLOntologyManagerImpl;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.concurrent.ConcurrentOWLOntologyImpl;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import uk.ac.manchester.cs.owlapi.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owlapi.concurrent.ConcurrentOWLOntologyImpl;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15

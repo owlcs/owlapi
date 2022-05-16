@@ -27,6 +27,10 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.semanticweb.owlapi.OWLDataFactoryImpl;
+import org.semanticweb.owlapi.OWLOntologyFactoryImpl;
+import org.semanticweb.owlapi.OWLOntologyImpl;
+import org.semanticweb.owlapi.OWLOntologyManagerImpl;
 import org.semanticweb.owlapi.builders.Builder;
 import org.semanticweb.owlapi.builders.BuilderAnnotation;
 import org.semanticweb.owlapi.builders.BuilderAnnotationAssertion;
@@ -209,11 +213,6 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
-
-import uk.ac.manchester.cs.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owlapi.OWLOntologyFactoryImpl;
-import uk.ac.manchester.cs.owlapi.OWLOntologyImpl;
-import uk.ac.manchester.cs.owlapi.OWLOntologyManagerImpl;
 
 @RunWith(Parameterized.class)
 public class BuildersTestCase<Q> {

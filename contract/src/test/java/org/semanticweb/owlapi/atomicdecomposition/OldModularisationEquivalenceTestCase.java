@@ -25,11 +25,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import uk.ac.manchester.cs.owlapi.atomicdecomposition.AtomicDecomposition;
-import uk.ac.manchester.cs.owlapi.atomicdecomposition.AtomicDecompositionImpl;
-import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
-import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
+import org.semanticweb.owlapi.modularity.ModuleType;
+import org.semanticweb.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
 @RunWith(Parameterized.class)
 public class OldModularisationEquivalenceTestCase extends TestBase {

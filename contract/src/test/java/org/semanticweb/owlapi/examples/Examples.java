@@ -100,6 +100,8 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.modularity.ModuleType;
+import org.semanticweb.owlapi.modularity.SyntacticLocalityModuleExtractor;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.Node;
@@ -122,9 +124,6 @@ import org.semanticweb.owlapi.utility.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.utility.SimpleIRIMapper;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
-
-import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
-import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

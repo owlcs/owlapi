@@ -9,8 +9,7 @@ import java.util.List;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-
-import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
+import org.semanticweb.owlapi.modularity.ModuleType;
 
 /**
  * class to create modules of an ontology wrt module type
