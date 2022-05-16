@@ -244,7 +244,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
 
     private FunctionalSyntaxObjectRenderer write(IRI iri) {
         if (prefixManager.isPresent()) {
-            String qname = prefixManager.get().getPrefixIRI(iri);
+            String qname = prefixManager.get().getPrefixIRIIgnoreQName(iri);
             if (qname != null) {
                 boolean lastCharIsColon = qname.charAt(qname.length() - 1) == ':';
                 if (!lastCharIsColon) {

@@ -395,7 +395,11 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void doDefault(OWLObject object) {
         if (object instanceof OWLEntity) {
-            write(getShortFormProvider().getShortForm((OWLEntity) object));
+            String iri = getPrefixManager().getPrefixIRIIgnoreQName(((OWLEntity) object).getIRI());
+            if (iri == null || iri.isEmpty()) {
+                iri = getPrefixManager().getShortForm((OWLEntity) object);
+            }
+            write(iri);
             return;
         }
         OWLObjectVisitor.super.doDefault(object);

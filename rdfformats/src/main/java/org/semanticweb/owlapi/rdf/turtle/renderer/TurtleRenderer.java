@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public class TurtleRenderer extends RDFRendererBase {
@@ -69,16 +70,17 @@ public class TurtleRenderer extends RDFRendererBase {
     int level = 0;
 
     /**
-     * @param ontology ontology
-     * @param writer writer
+     * @param ontology
+     *        ontology
+     * @param writer
+     *        writer
      */
     public TurtleRenderer(OWLOntology ontology, Writer writer) {
         super(ontology, ontology.getOWLOntologyManager().getOntologyConfigurator());
         this.writer = new PrintWriter(writer);
         pm = ontology.getPrefixManager();
         if (ontology.isNamed()) {
-            String ontologyIRIString =
-                ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
+            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
             String defaultPrefix = ontologyIRIString;
             if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
                 defaultPrefix = ontologyIRIString + '#';
@@ -142,7 +144,7 @@ public class TurtleRenderer extends RDFRendererBase {
         } else if (iri.equals(ontology.getOntologyID().getOntologyIRI().orElse(null))) {
             writeAsURI(iri.toString());
         } else {
-            String name = pm.getPrefixIRI(iri);
+            String name = pm.getPrefixIRIIgnoreQName(iri);
             if (name == null) {
                 // No QName!
                 // As this is not an XML output, qnames are not necessary; other
@@ -168,8 +170,7 @@ public class TurtleRenderer extends RDFRendererBase {
     // TODO move to PrefixManager
     @Nullable
     private String forceSplitIfPrefixExists(IRI iri) {
-        List<Map.Entry<String, String>> prefixName2PrefixMap =
-            new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
+        List<Map.Entry<String, String>> prefixName2PrefixMap = new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
         // sort the entries in reverse lexicographic order by value (longest
         // prefix first)
         Collections.sort(prefixName2PrefixMap, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
@@ -183,8 +184,8 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     private static boolean noSplits(String s) {
-        char[] reservedChars = new char[] {'~', '.', '-', '!', '$', '&', '(', ')', '*', '+', ',',
-            ';', '=', '/', '?', '#', '@', '%', '_'};
+        char[] reservedChars = new char[] { '~', '.', '-', '!', '$', '&', '(', ')', '*', '+', ',', ';', '=', '/', '?',
+            '#', '@', '%', '_' };
         for (char c : reservedChars) {
             if (s.indexOf(c) >= 0) {
                 return false;
@@ -372,7 +373,6 @@ public class TurtleRenderer extends RDFRendererBase {
         } else {
             triples = getRDFGraph().getTriplesForSubject(node);
         }
-
         level++;
         pending.add(node);
         RDFResource lastSubject = null;

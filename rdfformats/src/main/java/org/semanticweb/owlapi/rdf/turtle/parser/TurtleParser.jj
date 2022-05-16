@@ -178,7 +178,7 @@ TOKEN: { <LETTER: ["a"-"z"] | ["A"-"Z"]> }
 //
 // IRIs
 TOKEN: { <FULLIRI: "<"(~[">", " "])*">"> }
-TOKEN: { <PNAME_NS: (<PN_PREFIX>)? ":"> }
+TOKEN: { <PNAME_NS: (<PN_PREFIX> (":" <PN_PREFIX>)* )? ":"> }
 TOKEN: { <PN_LOCAL: ( <PN_CHARS_U> | ["0"-"9"] ) ((<PN_CHARS>|".")* <PN_CHARS>)?> }
 TOKEN: { <PNAME_LN: <PNAME_NS> <PN_LOCAL>> }
 TOKEN: { <PN_PREFIX: <PN_CHARS_BASE>((<PN_CHARS>|".")* <PN_CHARS>)?> }
