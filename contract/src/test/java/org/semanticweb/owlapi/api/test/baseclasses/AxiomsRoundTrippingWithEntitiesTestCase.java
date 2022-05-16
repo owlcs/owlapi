@@ -12,34 +12,30 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
+import static org.semanticweb.owlapi.api.test.TestEntities.A;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
 import java.util.Arrays;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public class AxiomsRoundTrippingWithEntitiesTestCase extends AxiomsRoundTrippingBase {
 
-    private static final IRI iriA = iri("A");
-    private static final OWLClass clsA = Class(iriA);
     private static final OWLAnnotationProperty apropA = AnnotationProperty(iri("apropA"));
     private static final OWLAnnotationProperty apropB = AnnotationProperty(iri("apropB"));
 
     public AxiomsRoundTrippingWithEntitiesTestCase() {
-        super(() -> Arrays.asList(Declaration(clsA),
-                        AnnotationAssertion(apropA, clsA.getIRI(), Literal("value1")),
-                        AnnotationAssertion(apropB, clsA.getIRI(), Literal("value2"))));
+        super(() -> Arrays.asList(Declaration(A), AnnotationAssertion(apropA, A.getIRI(), Literal("value1")),
+            AnnotationAssertion(apropB, A.getIRI(), Literal("value2"))));
     }
 
     @Override

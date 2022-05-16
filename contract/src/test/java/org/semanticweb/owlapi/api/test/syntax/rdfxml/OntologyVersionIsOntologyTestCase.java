@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -22,14 +23,9 @@ public class OntologyVersionIsOntologyTestCase extends TestBase {
 
     @Test
     public void testLoad() throws Exception {
-        String in =
-            "<https://mobi.com/ontologies/12/2018/VersionIsItself> a <http://www.w3.org/2002/07/owl#Ontology>;\n"
-                + "  <http://www.w3.org/2002/07/owl#versionIRI> <https://mobi.com/ontologies/12/2018/VersionIsItself> ;\n"
-                + "  <http://purl.org/dc/terms/title> \"versionIsItself\" .";
-        OWLOntology o = loadOntologyFromString(in, new RioTurtleDocumentFormat());
+        OWLOntology o = loadOntologyFromString(TestFiles.ontologyVersionParse, new RioTurtleDocumentFormat());
         StringDocumentTarget saveOntology = saveOntology(o, new RioTurtleDocumentFormat());
-        OWLOntology o1 =
-            loadOntologyFromString(saveOntology.toString(), new RioTurtleDocumentFormat());
+        OWLOntology o1 = loadOntologyFromString(saveOntology.toString(), new RioTurtleDocumentFormat());
         equal(o, o1);
     }
 }

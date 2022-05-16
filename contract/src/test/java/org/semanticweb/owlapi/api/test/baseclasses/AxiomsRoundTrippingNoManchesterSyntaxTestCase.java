@@ -12,13 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
+import static org.semanticweb.owlapi.api.test.TestEntities.A;
+import static org.semanticweb.owlapi.api.test.TestEntities.P;
+import static org.semanticweb.owlapi.api.test.TestEntities.Q;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseFunctionalObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IrreflexiveObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyDomain;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyRange;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ReflexiveObjectProperty;
@@ -32,11 +33,11 @@ import java.util.List;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 @RunWith(Parameterized.class)
@@ -53,31 +54,30 @@ public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends AxiomsRoundTr
 
     @Parameters
     public static List<AxiomBuilder> getData() {
-        OWLObjectPropertyExpression p = ObjectProperty(iri("p")).getInverseProperty();
-        OWLObjectPropertyExpression q = ObjectProperty(iri("q")).getInverseProperty();
-        OWLClass clsA = Class(iri("A"));
+        OWLObjectPropertyExpression p = P.getInverseProperty();
+        OWLObjectPropertyExpression q = Q.getInverseProperty();
         return Arrays.asList(
-                        // AsymmetricObjectPropertyInverse
+            // AsymmetricObjectPropertyInverse
             () -> Arrays.asList(AsymmetricObjectProperty(p)),
-                        // EquivalentObjectPropertiesWithInverses
+            // EquivalentObjectPropertiesWithInverses
             () -> Arrays.asList(EquivalentObjectProperties(p, q)),
-                        // FunctionalObjectPropertyInverse
+            // FunctionalObjectPropertyInverse
             () -> Arrays.asList(FunctionalObjectProperty(p)),
-                        // InverseFunctionalObjectPropertyInverse
+            // InverseFunctionalObjectPropertyInverse
             () -> Arrays.asList(InverseFunctionalObjectProperty(p)),
-                        // IrreflexiveObjectPropertyInverse
+            // IrreflexiveObjectPropertyInverse
             () -> Arrays.asList(IrreflexiveObjectProperty(p)),
-                        // ObjectPropertyDomainInverse
-            () -> Arrays.asList(ObjectPropertyDomain(p, clsA)),
-                        // ObjectPropertyRangeInverse
-            () -> Arrays.asList(ObjectPropertyRange(p, clsA)),
-                        // ReflexiveObjectPropertyInverse
+            // ObjectPropertyDomainInverse
+            () -> Arrays.asList(ObjectPropertyDomain(p, A)),
+            // ObjectPropertyRangeInverse
+            () -> Arrays.asList(ObjectPropertyRange(p, A)),
+            // ReflexiveObjectPropertyInverse
             () -> Arrays.asList(ReflexiveObjectProperty(p)),
-                        // SubObjectPropertyOfInverse
+            // SubObjectPropertyOfInverse
             () -> Arrays.asList(SubObjectPropertyOf(p, q)),
-                        // SymmetricObjectPropertyInverse
+            // SymmetricObjectPropertyInverse
             () -> Arrays.asList(SymmetricObjectProperty(p)),
-                        // TransitiveObjectPropertyInverse
+            // TransitiveObjectPropertyInverse
             () -> Arrays.asList(TransitiveObjectProperty(p)));
     }
 }

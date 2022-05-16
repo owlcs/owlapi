@@ -1,0 +1,3 @@
+<https://mobi.com/ontologies/12/2018/VersionIsItself> a <http://www.w3.org/2002/07/owl#Ontology>;
+  <http://www.w3.org/2002/07/owl#versionIRI> <https://mobi.com/ontologies/12/2018/VersionIsItself> ;
+  <http://purl.org/dc/terms/title> "versionIsItself" .

@@ -22,6 +22,7 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -30,29 +31,11 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class MoveOntologyTestCase extends TestBase {
-
-    private final static String s = "<?xml version=\"1.0\"?>\n"
-                    + "<rdf:RDF xmlns=\"urn:test#test\"\n" + "     xml:base=\"urn:test#test\"\n"
-                    + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-                    + "     xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
-                    + "     xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n"
-                    + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-                    + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-                    + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-                    + "    <owl:Ontology rdf:about=\"urn:testcopy\"><owl:imports rdf:resource=\"urn:test#test\"/></owl:Ontology>\n"
-        + "    <rdfs:Datatype rdf:about=\"urn:mydatatype\">\n" + "        <owl:equivalentClass>\n"
-                    + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
-        + "        </owl:equivalentClass>\n" + "    </rdfs:Datatype>\n" + "    <owl:Axiom>\n"
-                    + "        <rdfs:label >datatype definition</rdfs:label>\n"
-                    + "        <owl:annotatedProperty rdf:resource=\"http://www.w3.org/2002/07/owl#equivalentClass\"/>\n"
-                    + "        <owl:annotatedSource rdf:resource=\"urn:mydatatype\"/>\n"
-                    + "        <owl:annotatedTarget>\n"
-                    + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
-                    + "        </owl:annotatedTarget>\n" + "    </owl:Axiom></rdf:RDF>";
 
     @Before
     public void setUp() throws OWLOntologyCreationException {
@@ -61,8 +44,8 @@ public class MoveOntologyTestCase extends TestBase {
 
     @Test
     public void testMove() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(s, new RDFXMLDocumentFormat()));
+        OWLOntology o = m
+            .loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.MOVE);
         assertSame(o, copy);
         assertEquals(m1, copy.getOWLOntologyManager());
@@ -74,8 +57,8 @@ public class MoveOntologyTestCase extends TestBase {
 
     @Test
     public void testShallow() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(s, new RDFXMLDocumentFormat()));
+        OWLOntology o = m
+            .loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.SHALLOW);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
@@ -87,8 +70,8 @@ public class MoveOntologyTestCase extends TestBase {
 
     @Test
     public void testDeep() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(s, new RDFXMLDocumentFormat()));
+        OWLOntology o = m
+            .loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.DEEP);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));

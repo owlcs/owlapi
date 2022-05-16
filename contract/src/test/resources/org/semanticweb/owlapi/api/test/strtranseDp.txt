@@ -1,0 +1,1 @@
+[EquivalentDataProperties(<urn:test:test#dp> <urn:test:test#iri>)]

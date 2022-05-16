@@ -33,27 +33,31 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyManagerImplTestCase extends TestBase {
 
-
     @Test
     public void testContains() throws OWLOntologyCreationException {
-        OWLOntology ont = m.createOntology(df.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ont = m.createOntology(nextOntology());
         assertTrue(m.contains(ont.getOntologyID()));
-        assertNotNull("ontology should not be null", m.getOntology(ont.getOntologyID()));
+        assertNotNull(m.getOntology(ont.getOntologyID()));
         assertTrue(contains(m.ontologies(), ont));
-        assertNotNull("IRI should not be null", m.getOntologyDocumentIRI(ont));
+        assertNotNull(m.getOntologyDocumentIRI(ont));
         m.removeOntology(ont);
         assertFalse(m.contains(ont.getOntologyID()));
     }
 
+    protected IRI nextOntology() {
+        return df.getNextDocumentIRI("urn:testontology");
+    }
+
     @Test
     public void testImports() throws OWLOntologyCreationException {
-        OWLOntology ontA = m.createOntology(df.getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontB = m.createOntology(df.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontA = m.createOntology(nextOntology());
+        OWLOntology ontB = m.createOntology(nextOntology());
         OWLImportsDeclaration decl = m.getOWLDataFactory()
             .getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
         ontA.applyChange(new AddImport(ontA, decl));
@@ -65,9 +69,9 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
     @Test
     public void testImportsClosure() throws OWLException {
         // OntA -> OntB -> OntC (-> means imports)
-        OWLOntology ontA = m.createOntology(df.getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontB = m.createOntology(df.getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontC = m.createOntology(df.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontA = m.createOntology(nextOntology());
+        OWLOntology ontB = m.createOntology(nextOntology());
+        OWLOntology ontC = m.createOntology(nextOntology());
         OWLImportsDeclaration declA = m.getOWLDataFactory()
             .getOWLImportsDeclaration(get(ontB.getOntologyID().getOntologyIRI()));
         OWLImportsDeclaration declB = m.getOWLDataFactory()

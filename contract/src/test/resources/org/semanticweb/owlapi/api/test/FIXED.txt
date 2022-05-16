@@ -1,0 +1,18 @@
+Prefix(:=<http://namespace.owl#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://namespace.owl>
+
+Declaration(Class(:C))
+SubClassOf(:C ObjectHasValue(:p _:genid2))
+Declaration(Class(:D))
+Declaration(ObjectProperty(:p))
+Declaration(DataProperty(:q))
+ClassAssertion(:D _:genid2)
+DataPropertyAssertion(:q _:genid2 "hello"^^xsd:string)
+)

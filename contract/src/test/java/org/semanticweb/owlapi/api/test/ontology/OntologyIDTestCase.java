@@ -27,16 +27,16 @@ public class OntologyIDTestCase extends TestBase {
 
     @Test
     public void shouldFindSameHashCode() {
-        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
-        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
+        IRI iri1 = iri();
+        IRI iri2 = iri();
         assertEquals(iri1.hashCode(), iri2.hashCode());
         assertEquals(iri1, iri2);
     }
 
     @Test
     public void shouldFindSameHashCodeForIDs() {
-        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
-        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
+        IRI iri1 = iri();
+        IRI iri2 = iri();
         assertEquals(iri1.hashCode(), iri2.hashCode());
         OWLOntologyID id1 = df.getOWLOntologyID(iri1);
         OWLOntologyID id2 = df.getOWLOntologyID(iri2);
@@ -45,8 +45,8 @@ public class OntologyIDTestCase extends TestBase {
 
     @Test
     public void shouldFindSameHashCodeForIDs2() {
-        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
-        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
+        IRI iri1 = iri();
+        IRI iri2 = iri();
         assertEquals(iri1.hashCode(), iri2.hashCode());
         OWLOntologyID id1 = df.getOWLOntologyID(iri1);
         OWLOntologyID id2 = df.getOWLOntologyID(iri2);
@@ -66,29 +66,30 @@ public class OntologyIDTestCase extends TestBase {
     // ontology together in a multimap or something
     @Test
     public void testVersionedIDComparisons() {
-        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
-        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
+        IRI iri1 = iri();
+        IRI iri2 = iri();
         assertEquals(iri1.hashCode(), iri2.hashCode());
         assertEquals(iri1, iri2);
         OWLOntologyID unversionedID = df.getOWLOntologyID(iri1);
         IRI version1IRI = IRI(TEST_ONTOLOGY_IRI_STRING + "/", "version1");
         OWLOntologyID version1ID = df.getOWLOntologyID(iri2, version1IRI);
-        assertEquals("null vs v1 base IRIs", unversionedID.getOntologyIRI(),
-            version1ID.getOntologyIRI());
+        assertEquals(unversionedID.getOntologyIRI(), version1ID.getOntologyIRI());
         assertNotEquals(unversionedID.getVersionIRI(), version1ID.getVersionIRI());
-        assertNotEquals("null version vs version1", unversionedID.hashCode(),
-            version1ID.hashCode());
-        assertNotEquals("null version vs version1", unversionedID, version1ID);
-        OWLOntologyID duplicateVersion1ID =
-            df.getOWLOntologyID(IRI(TEST_ONTOLOGY_IRI_STRING, ""), version1IRI);
-        assertEquals(" two version1 ids", version1ID, duplicateVersion1ID);
-        OWLOntologyID differentBasedVersion1ID =
-            df.getOWLOntologyID(IRI(TEST_ONTOLOGY_IRI_STRING + "-of-doom", ""), version1IRI);
+        assertNotEquals(unversionedID.hashCode(), version1ID.hashCode());
+        assertNotEquals(unversionedID, version1ID);
+        OWLOntologyID duplicateVersion1ID = df.getOWLOntologyID(iri(), version1IRI);
+        assertEquals(version1ID, duplicateVersion1ID);
+        OWLOntologyID differentBasedVersion1ID = df.getOWLOntologyID(IRI(TEST_ONTOLOGY_IRI_STRING + "-of-doom", ""),
+            version1IRI);
         assertNotEquals("version1 of two base IRIs", version1ID, differentBasedVersion1ID);
         IRI version2IRI = IRI(TEST_ONTOLOGY_IRI_STRING + "/", "version2");
-        IRI iri3 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
+        IRI iri3 = iri();
         OWLOntologyID version2ID = df.getOWLOntologyID(iri3, version2IRI);
         assertNotEquals("version1 vs version2", version1ID.hashCode(), version2ID.hashCode());
         assertNotEquals("version1 vs version2", version1ID, version2ID);
+    }
+
+    protected IRI iri() {
+        return IRI(TEST_ONTOLOGY_IRI_STRING, "");
     }
 }

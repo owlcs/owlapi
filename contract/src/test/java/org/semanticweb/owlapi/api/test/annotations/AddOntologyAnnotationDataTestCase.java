@@ -13,11 +13,12 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
 import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
@@ -27,7 +28,8 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group
  * @since 3.2.0
  */
 public class AddOntologyAnnotationDataTestCase extends TestBase {
@@ -77,18 +79,12 @@ public class AddOntologyAnnotationDataTestCase extends TestBase {
 
     @Test
     public void testTurtleTriplesOrder() {
-        String ontFirst = "<http://example.org/ont> a <http://www.w3.org/2002/07/owl#Ontology> ;"
-                        + " <http://www.w3.org/2000/01/rdf-schema#label> \"An ontology\" . ";
-        String labelFirst =
-                        "<http://example.org/ont> <http://www.w3.org/2000/01/rdf-schema#label> \"An ontology\" ;"
-                                        + " a <http://www.w3.org/2002/07/owl#Ontology> . ";
-        OWLOntology ontology1 = loadOntologyFromString(ontFirst, new TurtleDocumentFormat());
-        OWLOntology ontology2 = loadOntologyFromString(labelFirst, new TurtleDocumentFormat());
-        assertEquals("Should both have a label annotation", asSet(ontology1.annotations()),
-                        asSet(ontology2.annotations()));
-        OWLOntology ontology3 = loadOntologyFromString(ontFirst, new RioTurtleDocumentFormat());
-        OWLOntology ontology4 = loadOntologyFromString(labelFirst, new RioTurtleDocumentFormat());
-        assertEquals("Should both have a label annotation", asSet(ontology3.annotations()),
-                        asSet(ontology4.annotations()));
+        OWLOntology ontology1 = loadOntologyFromString(TestFiles.ontFirst, new TurtleDocumentFormat());
+        OWLOntology ontology2 = loadOntologyFromString(TestFiles.labelFirst, new TurtleDocumentFormat());
+        assertFalse(ontology1.annotationsAsList().isEmpty());
+        assertEquals(ontology1.annotationsAsList(), ontology2.annotationsAsList());
+        OWLOntology ontology3 = loadOntologyFromString(TestFiles.ontFirst, new RioTurtleDocumentFormat());
+        OWLOntology ontology4 = loadOntologyFromString(TestFiles.labelFirst, new RioTurtleDocumentFormat());
+        assertEquals(ontology3.annotationsAsList(), ontology4.annotationsAsList());
     }
 }

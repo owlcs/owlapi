@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 
@@ -21,13 +22,12 @@ public class ProfileQLDLOnlyTestCase extends ProfileBase {
 
     @Parameters
     public static List<String> getData() {
-        return Arrays.asList(
-            "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:first=\"urn:test#\" xml:base=\"urn:test\"><owl:Ontology/><owl:Thing rdf:about=\"urn:test#Ghent\"><first:path><owl:Thing rdf:about=\"urn:test#Antwerp\"/></first:path></owl:Thing><owl:SymmetricProperty rdf:about=\"urn:test#path\"/></rdf:RDF>");
+        return Arrays.asList(TestFiles.profileQLDLTestCases);
     }
 
     @Test
     public void testQLDLOnly() {
-        test(premise.startsWith("<rdf:RDF") ? new RDFXMLDocumentFormat()
-            : new FunctionalSyntaxDocumentFormat(), premise, false, true, false, true);
+        test(premise.startsWith("<rdf:RDF") ? new RDFXMLDocumentFormat() : new FunctionalSyntaxDocumentFormat(),
+            premise, false, true, false, true);
     }
 }

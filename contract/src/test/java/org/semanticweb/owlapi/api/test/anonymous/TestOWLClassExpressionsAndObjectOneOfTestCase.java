@@ -15,18 +15,14 @@ package org.semanticweb.owlapi.api.test.anonymous;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
 
 public class TestOWLClassExpressionsAndObjectOneOfTestCase extends TestBase {
 
     @Test
     public void testAnonymous() {
-        String text = "Prefix(:=<http://example.org/#>)\n " + "Ontology(<http://example.org/>\n "
-                        + "SubClassOf(\n:man\n ObjectSomeValuesFrom(\n :like\n "
-                        + "ObjectOneOf(\n_:c\n)\n)\n)\n\n ClassAssertion(\n:car\n_:c\n)\n)";
-        OWLOntology o = loadOntologyFromString(text, new FunctionalSyntaxDocumentFormat());
-        assertNotNull(o);
+        assertNotNull(loadOntologyFromString(TestFiles.anonOneOf, new FunctionalSyntaxDocumentFormat()));
     }
 }

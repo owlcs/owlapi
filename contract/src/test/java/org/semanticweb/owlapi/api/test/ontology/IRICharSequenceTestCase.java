@@ -24,12 +24,13 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class IRICharSequenceTestCase {
 
+    private static final String abcString = "http://owlapi.sourceforge.net#ABC";
+    private static final IRI abc = IRI("http://owlapi.sourceforge.net#", "ABC");
+
     @Test
     public void testCharAt() {
-        String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
-        for (int i = 0; i < str.length(); i++) {
-            assertEquals(str.charAt(i), iri.charAt(i));
+        for (int i = 0; i < abcString.length(); i++) {
+            assertEquals(abcString.charAt(i), abc.charAt(i));
         }
     }
 
@@ -53,30 +54,25 @@ public class IRICharSequenceTestCase {
 
     @Test
     public void testSubSequence() {
-        String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
-        for (int i = 0; i < str.length(); i++) {
-            for (int j = i; j < str.length(); j++) {
-                assertEquals(str.subSequence(i, j), iri.subSequence(i, j));
+        for (int i = 0; i < abcString.length(); i++) {
+            for (int j = i; j < abcString.length(); j++) {
+                assertEquals(abcString.subSequence(i, j), abc.subSequence(i, j));
             }
         }
     }
 
     @Test
     public void testLength() {
-        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
-        assertEquals(33, iri.length());
+        assertEquals(33, abc.length());
     }
 
     @Test
     public void testLengthNoRemainder() {
-        IRI iri = IRI("http://owlapi.sourceforge.net", "");
-        assertEquals(29, iri.length());
+        assertEquals(29, IRI("http://owlapi.sourceforge.net", "").length());
     }
 
     @Test
     public void testLengthNoPrefix() {
-        IRI iri = IRI("#", "ABC");
-        assertEquals(4, iri.length());
+        assertEquals(4, IRI("#", "ABC").length());
     }
 }

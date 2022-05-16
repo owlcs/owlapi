@@ -12,21 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
+import static org.semanticweb.owlapi.api.test.TestEntities.AP;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annotation;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
@@ -34,12 +33,10 @@ public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology();
-        OWLAnnotationProperty prop = AnnotationProperty(
-            IRI("http://www.semanticweb.org/ontologies/test/annotationont#", "prop"));
         OWLLiteral value = Literal(33);
-        OWLAnnotation annotation = Annotation(prop, value);
+        OWLAnnotation annotation = Annotation(AP, value);
         ont.applyChange(new AddOntologyAnnotation(ont, annotation));
-        ont.addAxiom(Declaration(prop));
+        ont.addAxiom(Declaration(AP));
         return ont;
     }
 

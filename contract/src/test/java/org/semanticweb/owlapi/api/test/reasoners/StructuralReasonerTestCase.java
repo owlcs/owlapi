@@ -14,7 +14,10 @@ package org.semanticweb.owlapi.api.test.reasoners;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.api.test.TestEntities.A;
+import static org.semanticweb.owlapi.api.test.TestEntities.B;
+import static org.semanticweb.owlapi.api.test.TestEntities.C;
+import static org.semanticweb.owlapi.api.test.TestEntities.D;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLNothing;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
@@ -31,60 +34,51 @@ import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.1.0
  */
 public class StructuralReasonerTestCase extends TestBase {
 
     @Test
     public void testClassHierarchy() {
-        OWLClass clsX = Class(iri("X"));
-        OWLClass clsA = Class(iri("A"));
-        OWLClass clsAp = Class(iri("Ap"));
-        OWLClass clsB = Class(iri("B"));
         OWLOntology ont = getOWLOntology();
-        ont.addAxiom(EquivalentClasses(OWLThing(), clsX));
-        ont.addAxiom(SubClassOf(clsB, clsA));
-        ont.addAxiom(EquivalentClasses(clsA, clsAp));
-        StructuralReasoner reasoner =
-            new StructuralReasoner(ont, new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
+        ont.addAxiom(EquivalentClasses(OWLThing(), C));
+        ont.addAxiom(SubClassOf(B, A));
+        ont.addAxiom(EquivalentClasses(A, D));
+        StructuralReasoner reasoner = new StructuralReasoner(ont, new SimpleConfiguration(),
+            BufferingMode.NON_BUFFERING);
         testClassHierarchy(reasoner);
-        ont.add(SubClassOf(clsA, OWLThing()));
+        ont.add(SubClassOf(A, OWLThing()));
         testClassHierarchy(reasoner);
-        ont.remove(SubClassOf(clsA, OWLThing()));
+        ont.remove(SubClassOf(A, OWLThing()));
         testClassHierarchy(reasoner);
     }
 
     private static void testClassHierarchy(StructuralReasoner reasoner) {
-        OWLClass clsX = Class(iri("X"));
-        OWLClass clsA = Class(iri("A"));
-        OWLClass clsAp = Class(iri("Ap"));
-        OWLClass clsB = Class(iri("B"));
-        NodeSet<OWLClass> subsOfA = reasoner.getSubClasses(clsA, true);
+        NodeSet<OWLClass> subsOfA = reasoner.getSubClasses(A, true);
         assertEquals(1, subsOfA.nodes().count());
-        assertTrue(subsOfA.containsEntity(clsB));
-        NodeSet<OWLClass> subsOfAp = reasoner.getSubClasses(clsAp, true);
+        assertTrue(subsOfA.containsEntity(B));
+        NodeSet<OWLClass> subsOfAp = reasoner.getSubClasses(D, true);
         assertEquals(1, subsOfAp.nodes().count());
-        assertTrue(subsOfAp.containsEntity(clsB));
+        assertTrue(subsOfAp.containsEntity(B));
         Node<OWLClass> topNode = reasoner.getTopClassNode();
-        NodeSet<OWLClass> subsOfTop =
-            reasoner.getSubClasses(topNode.getRepresentativeElement(), true);
+        NodeSet<OWLClass> subsOfTop = reasoner.getSubClasses(topNode.getRepresentativeElement(), true);
         assertEquals(1, subsOfTop.nodes().count());
-        assertTrue(subsOfTop.containsEntity(clsA));
-        NodeSet<OWLClass> descOfTop =
-            reasoner.getSubClasses(topNode.getRepresentativeElement(), false);
+        assertTrue(subsOfTop.containsEntity(A));
+        NodeSet<OWLClass> descOfTop = reasoner.getSubClasses(topNode.getRepresentativeElement(), false);
         assertEquals(3, descOfTop.nodes().count());
-        assertTrue(descOfTop.containsEntity(clsA));
-        assertTrue(descOfTop.containsEntity(clsB));
+        assertTrue(descOfTop.containsEntity(A));
+        assertTrue(descOfTop.containsEntity(B));
         assertTrue(descOfTop.containsEntity(OWLNothing()));
         NodeSet<OWLClass> supersOfTop = reasoner.getSuperClasses(OWLThing(), false);
         assertTrue(supersOfTop.isEmpty());
-        NodeSet<OWLClass> supersOfA = reasoner.getSuperClasses(clsA, false);
+        NodeSet<OWLClass> supersOfA = reasoner.getSuperClasses(A, false);
         assertTrue(supersOfA.isTopSingleton());
         assertEquals(1, supersOfA.nodes().count());
         assertTrue(supersOfA.containsEntity(OWLThing()));
         Node<OWLClass> equivsOfTop = reasoner.getEquivalentClasses(OWLThing());
         assertEquals(2, equivsOfTop.entities().count());
-        assertTrue(equivsOfTop.entities().anyMatch(x -> x.equals(clsX)));
+        assertTrue(equivsOfTop.entities().anyMatch(x -> x.equals(C)));
     }
 }

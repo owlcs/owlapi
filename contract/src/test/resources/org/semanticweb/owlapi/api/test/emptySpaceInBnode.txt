@@ -1,0 +1,6 @@
+<http://taxonomy.wolterskluwer.de/practicearea/10112>
+ a <http://schema.wolterskluwer.de/TaxonomyTerm> , <http://www.w3.org/2004/02/skos/core#Concept> ;
+      <http://www.w3.org/2004/02/skos/core#broader>
+ [] ;
+      <http://www.w3.org/2004/02/skos/core#broader>
+ [] .

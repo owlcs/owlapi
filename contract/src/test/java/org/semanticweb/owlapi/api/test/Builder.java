@@ -67,34 +67,36 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 public class Builder {
 
+    private static final String SWRL = "urn:swrl:var#";
+    private static final String NS = "urn:test:test#";
     private static OWLDataFactory df = OWLManager.getOWLDataFactory();
-    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:test:test#", "ann");
-    private final OWLObjectProperty op = df.getOWLObjectProperty("urn:test:test#", "op");
-    private final OWLDataProperty dp = df.getOWLDataProperty("urn:test:test#", "dp");
+    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(NS, "ann");
+    private final OWLObjectProperty op = df.getOWLObjectProperty(NS, "op");
+    private final OWLDataProperty dp = df.getOWLDataProperty(NS, "dp");
     private final OWLLiteral lit = df.getOWLLiteral(false);
     private final OWLLiteral plainlit = df.getOWLLiteral("string", "en");
-    private final IRI iri = df.getIRI("urn:test:test#", "iri");
+    private final IRI iri = df.getIRI(NS, "iri");
     private final List<OWLAnnotation> as =
         Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
-    private final OWLClass ce = df.getOWLClass("urn:test:test#", "c");
-    private final OWLNamedIndividual i = df.getOWLNamedIndividual("urn:test:test#", "i");
-    private final OWLNamedIndividual j = df.getOWLNamedIndividual("urn:test:test#", "j");
-    private final OWLDatatype d = df.getOWLDatatype("urn:test:test#", "datatype");
+    private final OWLClass ce = df.getOWLClass(NS, "c");
+    private final OWLNamedIndividual i = df.getOWLNamedIndividual(NS, "i");
+    private final OWLNamedIndividual j = df.getOWLNamedIndividual(NS, "j");
+    private final OWLDatatype d = df.getOWLDatatype(NS, "datatype");
     private final List<OWLDataProperty> dps = Arrays.asList(df.getOWLDataProperty(iri), dp);
     private final List<OWLObjectProperty> ops = Arrays.asList(df.getOWLObjectProperty(iri), op);
     private final List<OWLClass> classes = Arrays.asList(df.getOWLClass(iri), ce);
     private final List<OWLNamedIndividual> inds = Arrays.asList(i, df.getOWLNamedIndividual(iri));
-    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(df.getIRI("urn:swrl:var#", "v1"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:swrl:var#", "var3"),
-            df.getSWRLVariable("urn:swrl:var#", "var4")));
-    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(df.getIRI("urn:swrl:var#", "v2"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:swrl:var#", "var5"),
-            df.getSWRLVariable("urn:swrl:var#", "var6")));
+    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(df.getIRI(SWRL, "v1"),
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable(SWRL, "var3"),
+            df.getSWRLVariable(SWRL, "var4")));
+    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(df.getIRI(SWRL, "v2"),
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable(SWRL, "var5"),
+            df.getSWRLVariable(SWRL, "var6")));
     private final List<SWRLAtom> body = Arrays.asList(v1);
     private final List<SWRLAtom> head = Arrays.asList(v2);
-    private final SWRLDArgument var1 = df.getSWRLVariable("urn:swrl:var#", "var1");
+    private final SWRLDArgument var1 = df.getSWRLVariable(SWRL, "var1");
     private final List<SWRLDArgument> var1list = Arrays.asList(var1);
-    private final SWRLIArgument var2 = df.getSWRLVariable("urn:swrl:var#", "var2");
+    private final SWRLIArgument var2 = df.getSWRLVariable(SWRL, "var2");
     private final List<SWRLAtom> body2 = Arrays.asList(v1, df.getSWRLClassAtom(ce, var2),
         df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list),
         df.getSWRLDifferentIndividualsAtom(var2, df.getSWRLIndividualArgument(i)),
@@ -414,7 +416,7 @@ public class Builder {
 
     public OWLOntology onto() {
         try {
-            return m.createOntology(df.getIRI("urn:test:test#", "test"));
+            return m.createOntology(df.getIRI(NS, "test"));
         } catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
         }

@@ -1,0 +1,4 @@
+<urn:test#Settlement> rdf:type owl:Class.
+ <urn:test#fm2.owl> rdf:type owl:Ontology.
+ <urn:test#numberOfPads> rdf:type owl:ObjectProperty ;
+ rdfs:domain <urn:test#Settlement> .

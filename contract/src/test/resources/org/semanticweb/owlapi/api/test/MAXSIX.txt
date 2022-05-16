@@ -1,0 +1,1 @@
+facetRestriction(maxExclusive "6.0"^^xsd:double)

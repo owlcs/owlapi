@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://example.com#"
+     xml:base="http://example.com"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#">
+    <owl:Ontology rdf:about="http://example.com"/>
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#source"/>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/UBERON_0000033">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">head</rdfs:label>
+        <oboInOwl:hasDbXref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">UMLS:C0018670</oboInOwl:hasDbXref>
+    </owl:Class>
+    <owl:Axiom>
+        <oboInOwl:source rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NIFSTD:birnlex_1230</oboInOwl:source>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">UMLS:C0018670</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/UBERON_0000033"/>
+        <owl:annotatedProperty rdf:resource="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">UMLS:C0018670</owl:annotatedTarget>
+        <oboInOwl:source rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ncithesaurus:Head</oboInOwl:source>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/UBERON_0000033"/>
+        <owl:annotatedProperty rdf:resource="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
+    </owl:Axiom>
+</rdf:RDF>

@@ -27,29 +27,31 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group
  * @since 2.2.0
  */
 public class OntologyURITestCase extends TestBase {
+
+    private static final IRI version = IRI("http://www.another.com/ont/", "version");
+    private static final IRI onto = IRI("http://www.another.com/", "ont");
 
     @Test
     public void testNamedOntologyToString() throws OWLOntologyCreationException {
         IRI ontIRI = IRI("http://owlapi.sourceforge.net/", "ont");
         OWLOntology ont = m.createOntology(ontIRI);
         String s = ont.toString();
-        String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: " + ont.getAxiomCount()
-            + " Logical Axioms: " + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
+        String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: " + ont.getAxiomCount() + " Logical Axioms: "
+            + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
         assertEquals(expected, s);
     }
 
     @Test
     public void testOntologyID() {
-        IRI iriA = IRI("http://www.another.com/", "ont");
-        IRI iriB = IRI("http://www.another.com/ont/", "version");
-        OWLOntologyID ontIDBoth = df.getOWLOntologyID(iriA, iriB);
-        OWLOntologyID ontIDBoth2 = df.getOWLOntologyID(iriA, iriB);
+        OWLOntologyID ontIDBoth = df.getOWLOntologyID(onto, version);
+        OWLOntologyID ontIDBoth2 = df.getOWLOntologyID(onto, version);
         assertEquals(ontIDBoth, ontIDBoth2);
-        OWLOntologyID ontIDURIOnly = df.getOWLOntologyID(iriA);
+        OWLOntologyID ontIDURIOnly = df.getOWLOntologyID(onto);
         assertFalse(ontIDBoth.equals(ontIDURIOnly));
         OWLOntologyID ontIDNoneA = df.getOWLOntologyID();
         OWLOntologyID ontIDNoneB = df.getOWLOntologyID();
@@ -58,18 +60,17 @@ public class OntologyURITestCase extends TestBase {
 
     @Test
     public void testOntologyURI() {
-        IRI iri = IRI("http://www.another.com/", "ont");
-        OWLOntology ont = getOWLOntology(iri);
-        assertEquals(ont.getOntologyID().getOntologyIRI().get(), iri);
-        assertTrue(m.contains(iri));
+        OWLOntology ont = getOWLOntology(onto);
+        assertEquals(ont.getOntologyID().getOntologyIRI().get(), onto);
+        assertTrue(m.contains(onto));
         assertTrue(contains(m.ontologies(), ont));
-        OWLOntologyID ontID = df.getOWLOntologyID(iri);
+        OWLOntologyID ontID = df.getOWLOntologyID(onto);
         assertEquals(ont.getOntologyID(), ontID);
     }
 
     @Test
     public void testSetOntologyURI() {
-        IRI iri = df.getNextDocumentIRI("http://www.another.com/ont");
+        IRI iri = nextOnt();
         OWLOntology ont = getOWLOntology(iri);
         IRI newIRI = df.getNextDocumentIRI("http://www.another.com/newont");
         SetOntologyID sou = new SetOntologyID(ont, df.getOWLOntologyID(newIRI));
@@ -81,16 +82,20 @@ public class OntologyURITestCase extends TestBase {
 
     @Test
     public void testVersionURI() {
-        IRI ontIRI = df.getNextDocumentIRI("http://www.another.com/ont");
+        IRI ontIRI = nextOnt();
         IRI verIRI = df.getNextDocumentIRI("http://www.another.com/ont/versions/1.0.0");
         OWLOntology ont = getOWLOntology(df.getOWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
         assertEquals(ont.getOntologyID().getVersionIRI().get(), verIRI);
     }
 
+    protected IRI nextOnt() {
+        return df.getNextDocumentIRI("http://www.another.com/ont");
+    }
+
     @Test
     public void testNullVersionURI() {
-        IRI ontIRI = df.getNextDocumentIRI("http://www.another.com/ont");
+        IRI ontIRI = nextOnt();
         IRI verIRI = null;
         OWLOntology ont = getOWLOntology(df.getOWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);

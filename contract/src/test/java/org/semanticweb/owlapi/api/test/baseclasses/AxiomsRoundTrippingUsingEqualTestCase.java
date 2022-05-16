@@ -12,17 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
+import static org.semanticweb.owlapi.api.test.TestEntities.A;
+import static org.semanticweb.owlapi.api.test.TestEntities.P;
+import static org.semanticweb.owlapi.api.test.TestEntities.Q;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ClassAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DifferentIndividuals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSLabel;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SameIndividual;
@@ -41,15 +42,13 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 @RunWith(Parameterized.class)
@@ -70,116 +69,74 @@ public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBa
     @Parameters
     public static List<AxiomBuilder> getData() {
         return Arrays.asList(
-                        // AnonymousIndividualRoundtrip
-                        () -> {
+            // AnonymousIndividualRoundtrip
+            () -> {
                 List<OWLAxiom> axioms = new ArrayList<>();
-                            OWLAnonymousIndividual ind = AnonymousIndividual();
-                            OWLClass cls = Class(iri("A"));
-                            OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
-                OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, cls.getIRI(), ind);
-                            axioms.add(ax);
-                            axioms.add(Declaration(cls));
-                            OWLObjectProperty p = ObjectProperty(iri("p"));
-                            axioms.add(Declaration(p));
-                            OWLAnonymousIndividual anon1 = AnonymousIndividual();
-                            OWLAnonymousIndividual anon2 = AnonymousIndividual();
-                            OWLNamedIndividual ind1 = NamedIndividual(iri("j"));
-                            OWLNamedIndividual ind2 = NamedIndividual(iri("i"));
-                            axioms.add(df.getOWLObjectPropertyAssertionAxiom(p, ind1, ind2));
-                            axioms.add(df.getOWLObjectPropertyAssertionAxiom(p, anon1, anon1));
-                            axioms.add(df.getOWLObjectPropertyAssertionAxiom(p, anon2, ind2));
-                            axioms.add(df.getOWLObjectPropertyAssertionAxiom(p, ind2, anon2));
-                            return axioms;
-                        },
-                        // AnonymousIndividuals2
-                        () -> {
-                            // Originally submitted by Timothy Redmond
-                            String ns = "http://another.com/ont";
-                            OWLClass a = Class(IRI(ns + "#", "A"));
-                            OWLAnnotationProperty p = AnnotationProperty(IRI(ns + "#", "p"));
-                            OWLObjectProperty q = ObjectProperty(IRI(ns + "#", "q"));
-                            OWLAnonymousIndividual h = AnonymousIndividual();
-                            OWLAnonymousIndividual i = AnonymousIndividual();
+                OWLAnonymousIndividual ind = AnonymousIndividual();
+                OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
+                OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, A.getIRI(), ind);
+                axioms.add(ax);
+                axioms.add(Declaration(A));
+                axioms.add(Declaration(P));
+                OWLAnonymousIndividual anon1 = AnonymousIndividual();
+                OWLAnonymousIndividual anon2 = AnonymousIndividual();
+                OWLNamedIndividual ind1 = NamedIndividual(iri("j"));
+                OWLNamedIndividual ind2 = NamedIndividual(iri("i"));
+                axioms.add(df.getOWLObjectPropertyAssertionAxiom(P, ind1, ind2));
+                axioms.add(df.getOWLObjectPropertyAssertionAxiom(P, anon1, anon1));
+                axioms.add(df.getOWLObjectPropertyAssertionAxiom(P, anon2, ind2));
+                axioms.add(df.getOWLObjectPropertyAssertionAxiom(P, ind2, anon2));
+                return axioms;
+            },
+            // AnonymousIndividuals2
+            () -> {
+                // Originally submitted by Timothy Redmond
+                String ns = "http://another.com/ont";
+                OWLAnnotationProperty p = AnnotationProperty(IRI(ns + "#", "p"));
+                OWLAnonymousIndividual h = AnonymousIndividual();
+                OWLAnonymousIndividual i = AnonymousIndividual();
                 List<OWLAxiom> axioms = new ArrayList<>();
-                            axioms.add(AnnotationAssertion(p, a.getIRI(), h));
-                            axioms.add(ClassAssertion(a, h));
-                            axioms.add(ObjectPropertyAssertion(q, h, i));
+                axioms.add(AnnotationAssertion(p, A.getIRI(), h));
+                axioms.add(ClassAssertion(A, h));
+                axioms.add(ObjectPropertyAssertion(Q, h, i));
                 axioms.add(AnnotationAssertion(RDFSLabel(), h, Literal("Second", "en")));
-                            return axioms;
-                        },
-                        // AnonymousIndividuals
-                        () -> {
+                return axioms;
+            },
+            // AnonymousIndividuals
+            () -> {
                 List<OWLAxiom> axioms = new ArrayList<>();
-                            OWLAnonymousIndividual ind = AnonymousIndividual();
-                            axioms.add(ObjectPropertyAssertion(ObjectProperty(iri("p")),
-                                            NamedIndividual(iri("i1")), ind));
-                            axioms.add(ObjectPropertyAssertion(ObjectProperty(iri("p")), ind,
-                                            NamedIndividual(iri("i2"))));
-                            return axioms;
-                        },
-                        // ChainedAnonymousIndividuals
-                        () -> {
+                OWLAnonymousIndividual ind = AnonymousIndividual();
+                axioms.add(ObjectPropertyAssertion(P, NamedIndividual(iri("i1")), ind));
+                axioms.add(ObjectPropertyAssertion(P, ind, NamedIndividual(iri("i2"))));
+                return axioms;
+            },
+            // ChainedAnonymousIndividuals
+            () -> {
                 List<OWLAxiom> axioms = new ArrayList<>();
                 IRI annoPropIRI = IRI("http://owlapi.sourceforge.net/ontology#", "annoProp");
-                            OWLAnnotationProperty property = AnnotationProperty(annoPropIRI);
-                            IRI subject = IRI("http://owlapi.sourceforge.net/ontology#", "subject");
-                            axioms.add(Declaration(NamedIndividual(subject)));
-                            OWLAnonymousIndividual individual1 = AnonymousIndividual();
-                            OWLAnonymousIndividual individual2 = AnonymousIndividual();
-                            OWLAnonymousIndividual individual3 = AnonymousIndividual();
-                            OWLAnnotationAssertionAxiom annoAssertion1 =
-                                            AnnotationAssertion(property, subject, individual1);
-                            OWLAnnotationAssertionAxiom annoAssertion2 =
-                                            AnnotationAssertion(property, individual1, individual2);
-                            OWLAnnotationAssertionAxiom annoAssertion3 =
-                                            AnnotationAssertion(property, individual2, individual3);
-                            axioms.add(annoAssertion1);
-                            axioms.add(annoAssertion2);
-                            axioms.add(annoAssertion3);
-                            return axioms;
-                        },
-                        // ClassAssertionWithAnonymousIndividual
-                        () -> {
-                List<OWLAxiom> axioms = new ArrayList<>();
-                            OWLIndividual ind = AnonymousIndividual("a");
-                            OWLClass cls = Class(iri("A"));
-                            axioms.add(ClassAssertion(cls, ind));
-                            axioms.add(Declaration(cls));
-                            return axioms;
-                        },
-                        // DifferentIndividualsAnonymous
-                        () -> {
-                List<OWLAxiom> axioms = new ArrayList<>();
-                axioms.add(DifferentIndividuals(AnonymousIndividual(), AnonymousIndividual(),
-                    AnonymousIndividual()));
-                            return axioms;
-                        },
-                        // DifferentIndividualsPairwiseAnonymous
-                        () -> {
-                List<OWLAxiom> axioms = new ArrayList<>();
-                axioms.add(DifferentIndividuals(AnonymousIndividual(), AnonymousIndividual()));
-                            return axioms;
-                        },
-                        // ObjectPropertyAssertionWithAnonymousIndividuals
-                        () -> {
-                            OWLIndividual subject = AnonymousIndividual();
-                            OWLIndividual object = AnonymousIndividual();
-                            OWLObjectProperty prop = ObjectProperty(iri("prop"));
-                List<OWLAxiom> axioms = new ArrayList<>();
-                            axioms.add(ObjectPropertyAssertion(prop, subject, object));
-                            axioms.add(Declaration(prop));
-                            return axioms;
-                        },
-                        // SameIndividualsAnonymous
-                        () -> {
-                List<OWLAxiom> axioms = new ArrayList<>();
-                            // Can't round trip more than two in RDF! Also, same
-                            // individuals
-                            // axiom
-                            // with anon individuals is not allowed
-                            // in OWL 2, but it should at least round trip
-                axioms.add(SameIndividual(AnonymousIndividual(), AnonymousIndividual()));
-                            return axioms;
-                        });
+                OWLAnnotationProperty property = AnnotationProperty(annoPropIRI);
+                IRI subject = IRI("http://owlapi.sourceforge.net/ontology#", "subject");
+                axioms.add(Declaration(NamedIndividual(subject)));
+                axioms.add(AnnotationAssertion(property, subject, AnonymousIndividual()));
+                axioms.add(AnnotationAssertion(property, AnonymousIndividual(), AnonymousIndividual()));
+                axioms.add(AnnotationAssertion(property, AnonymousIndividual(), AnonymousIndividual()));
+                return axioms;
+            },
+            // ClassAssertionWithAnonymousIndividual
+            () -> Arrays.asList(ClassAssertion(A, AnonymousIndividual("a")), Declaration(A)),
+            // DifferentIndividualsAnonymous
+            () -> Arrays
+                .asList(DifferentIndividuals(AnonymousIndividual(), AnonymousIndividual(), AnonymousIndividual())),
+            // DifferentIndividualsPairwiseAnonymous
+            () -> Arrays.asList(DifferentIndividuals(AnonymousIndividual(), AnonymousIndividual())),
+            // ObjectPropertyAssertionWithAnonymousIndividuals
+            () -> Arrays.asList(ObjectPropertyAssertion(P, AnonymousIndividual(), AnonymousIndividual()),
+                Declaration(P)),
+            // SameIndividualsAnonymous
+            // Can't round trip more than two in RDF! Also, same individuals
+            // axiom
+            // with anon individuals is not allowed in OWL 2, but it should at
+            // least round trip
+            () -> Arrays.asList(SameIndividual(AnonymousIndividual(), AnonymousIndividual())));
     }
 }

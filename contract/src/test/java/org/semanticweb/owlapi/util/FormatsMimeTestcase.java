@@ -32,41 +32,63 @@ import org.semanticweb.owlapi.io.OWLParserFactory;
  */
 @RunWith(Parameterized.class)
 public class FormatsMimeTestcase {
+
+    private static final String X_TRIG = "application/x-trig";
+    private static final String HTML = "text/html";
+    private static final String RDF_N3 = "text/rdf+n3";
+    private static final String APP_JSON = "application/ld+json";
+    private static final String APP_X_BINARY_RDF = "application/x-binary-rdf";
+    private static final String FS = "text/owl-functional";
+    private static final String MANCH = "text/owl-manchester";
+    private static final String APP_TRIG = "application/trig";
+    private static final String PLAIN = "text/plain";
+    private static final String NQUADS = "text/nquads";
+    private static final String X_NQUADS = "text/x-nquads";
+    private static final String APP_HTML = "application/html";
+    private static final String APP_XHTML = "application/xhtml+xml";
+    private static final String APP_NT = "application/n-triples";
+    private static final String APP_OWL_XML = "application/owl+xml";
+    private static final String N3 = "text/n3";
+    private static final String APP_RDF_JSON = "application/rdf+json";
+    private static final String APP_TRIX = "application/trix";
+    private static final String APP_X_TURTLE = "application/x-turtle";
+    private static final String XML = "text/xml";
+    private static final String APP_XML = "application/xml";
+    private static final String TURTLE = "text/turtle";
+    private static final String APP_N_QUADS = "application/n-quads";
+    private static final String APP_RDF_XML = "application/rdf+xml";
+
     @Parameters(name = "{1}")
     public static List<Object[]> params() {
         return Arrays.asList(
         //@formatter:off
-            new Object[] { new org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParserFactory(),                           "OBO Format",             null,                       Collections.emptyList()},
-            new Object[] { new org.semanticweb.owlapi.krss2.parser.KRSS2OWLParserFactory(),                               "KRSS2 Syntax",           null,                       Collections.emptyList()},
-            new Object[] { new org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxOWLParserFactory(),                         "DL Syntax Format",       null,                       Collections.emptyList()},
-            new Object[] { new org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory(),                            "RDF/XML Syntax",         "application/rdf+xml",      Arrays.asList("application/rdf+xml",    "application/xml",  "text/xml")},
-            new Object[] { new org.semanticweb.owlapi.rio.RioRDFXMLParserFactory(),                                       "RDF/XML",                "application/rdf+xml",      Arrays.asList("application/rdf+xml",    "application/xml",  "text/xml")},
-            new Object[] { new org.semanticweb.owlapi.rio.RioNQuadsParserFactory(),                                       "N-Quads",                "application/n-quads",      Arrays.asList("application/n-quads",    "text/x-nquads",    "text/nquads")},
-            new Object[] { new org.semanticweb.owlapi.rio.RioRDFaParserFactory(),                                         "RDFa",                   "application/xhtml+xml",    Arrays.asList("application/xhtml+xml",  "application/html", "text/html")},
-            new Object[] { new org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory(),                    "Turtle Syntax",          "text/turtle",              Arrays.asList("text/turtle",            "application/x-turtle")},
-            new Object[] { new org.semanticweb.owlapi.rio.RioTurtleParserFactory(),                                       "Turtle",                 "text/turtle",              Arrays.asList("text/turtle",            "application/x-turtle")},
-            new Object[] { new org.semanticweb.owlapi.rio.RioN3ParserFactory(),                                           "N3",                     "text/n3",                  Arrays.asList("text/n3",                "text/rdf+n3")},
-            new Object[] { new org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory(),                                "OWL/XML Syntax",         "application/owl+xml",      Arrays.asList("application/owl+xml",    "text/xml")},
-            new Object[] { new org.semanticweb.owlapi.rio.RioNTriplesParserFactory(),                                     "N-Triples",              "application/n-triples",    Arrays.asList("application/n-triples",  "text/plain")},
-            new Object[] { new org.semanticweb.owlapi.rio.RioTrigParserFactory(),                                         "TriG",                   "application/trig",         Arrays.asList("application/trig",       "application/x-trig")},
-            new Object[] { new org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParserFactory(), "Manchester OWL Syntax",  "text/owl-manchester",      Arrays.asList("text/owl-manchester")},
-            new Object[] { new org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParserFactory(),            "OWL Functional Syntax",  "text/owl-functional",      Arrays.asList("text/owl-functional")},
-            new Object[] { new org.semanticweb.owlapi.rio.RioBinaryRdfParserFactory(),                                    "BinaryRDF",              "application/x-binary-rdf", Arrays.asList("application/x-binary-rdf")},
-            new Object[] { new org.semanticweb.owlapi.rio.RioJsonLDParserFactory(),                                       "JSON-LD",                "application/ld+json",      Arrays.asList("application/ld+json")},
-            new Object[] { new org.semanticweb.owlapi.rio.RioJsonParserFactory(),                                         "RDF/JSON",               "application/rdf+json",     Arrays.asList("application/rdf+json")},
-            new Object[] { new org.semanticweb.owlapi.rio.RioTrixParserFactory(),                                         "TriX",                   "application/trix",         Arrays.asList("application/trix")}
+            new Object[] { new org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParserFactory(),                           "OBO Format",            null,             Collections.emptyList()},
+            new Object[] { new org.semanticweb.owlapi.krss2.parser.KRSS2OWLParserFactory(),                               "KRSS2 Syntax",          null,             Collections.emptyList()},
+            new Object[] { new org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxOWLParserFactory(),                         "DL Syntax Format",      null,             Collections.emptyList()},
+            new Object[] { new org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory(),                            "RDF/XML Syntax",        APP_RDF_XML,      Arrays.asList(APP_RDF_XML, APP_XML,  XML)},
+            new Object[] { new org.semanticweb.owlapi.rio.RioRDFXMLParserFactory(),                                       "RDF/XML",               APP_RDF_XML,      Arrays.asList(APP_RDF_XML, APP_XML,  XML)},
+            new Object[] { new org.semanticweb.owlapi.rio.RioNQuadsParserFactory(),                                       "N-Quads",               APP_N_QUADS,      Arrays.asList(APP_N_QUADS, X_NQUADS, NQUADS)},
+            new Object[] { new org.semanticweb.owlapi.rio.RioRDFaParserFactory(),                                         "RDFa",                  APP_XHTML,        Arrays.asList(APP_XHTML,   APP_HTML, HTML)},
+            new Object[] { new org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory(),                    "Turtle Syntax",         TURTLE,           Arrays.asList(TURTLE,      APP_X_TURTLE)},
+            new Object[] { new org.semanticweb.owlapi.rio.RioTurtleParserFactory(),                                       "Turtle",                TURTLE,           Arrays.asList(TURTLE,      APP_X_TURTLE)},
+            new Object[] { new org.semanticweb.owlapi.rio.RioN3ParserFactory(),                                           "N3",                    N3,               Arrays.asList(N3,          RDF_N3)},
+            new Object[] { new org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory(),                                "OWL/XML Syntax",        APP_OWL_XML,      Arrays.asList(APP_OWL_XML, XML)},
+            new Object[] { new org.semanticweb.owlapi.rio.RioNTriplesParserFactory(),                                     "N-Triples",             APP_NT,           Arrays.asList(APP_NT,      PLAIN)},
+            new Object[] { new org.semanticweb.owlapi.rio.RioTrigParserFactory(),                                         "TriG",                  APP_TRIG,         Arrays.asList(APP_TRIG,    X_TRIG)},
+            new Object[] { new org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParserFactory(), "Manchester OWL Syntax", MANCH,            Arrays.asList(MANCH)},
+            new Object[] { new org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParserFactory(),            "OWL Functional Syntax", FS,               Arrays.asList(FS)},
+            new Object[] { new org.semanticweb.owlapi.rio.RioBinaryRdfParserFactory(),                                    "BinaryRDF",             APP_X_BINARY_RDF, Arrays.asList(APP_X_BINARY_RDF)},
+            new Object[] { new org.semanticweb.owlapi.rio.RioJsonLDParserFactory(),                                       "JSON-LD",               APP_JSON,         Arrays.asList(APP_JSON)},
+            new Object[] { new org.semanticweb.owlapi.rio.RioJsonParserFactory(),                                         "RDF/JSON",              APP_RDF_JSON,     Arrays.asList(APP_RDF_JSON)},
+            new Object[] { new org.semanticweb.owlapi.rio.RioTrixParserFactory(),                                         "TriX",                  APP_TRIX,         Arrays.asList(APP_TRIX)}
             //@formatter:on
         );
     }
 
-    @Parameter(0)
-    public OWLParserFactory f;
-    @Parameter(1)
-    public String key;
-    @Parameter(2)
-    public String defaultmime;
-    @Parameter(3)
-    public List<String> mimes;
+    @Parameter(0) public OWLParserFactory f;
+    @Parameter(1) public String key;
+    @Parameter(2) public String defaultmime;
+    @Parameter(3) public List<String> mimes;
 
     @Test
     public void shouldMatchExpectedValues() {
@@ -74,23 +96,31 @@ public class FormatsMimeTestcase {
         assertEquals(mimes, f.getMIMETypes());
         assertEquals(defaultmime, f.getDefaultMIMEType());
     }
-
-    // OWLDocumentFormatFactory f = new KRSS2DocumentFormatFactory(); // assertEquals("KRSS2
+    // OWLDocumentFormatFactory f = new KRSS2DocumentFormatFactory(); //
+    // assertEquals("KRSS2
     // Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new KRSSDocumentFormatFactory(); // assertEquals("KRSS Syntax",
+    // OWLDocumentFormatFactory f = new KRSSDocumentFormatFactory(); //
+    // assertEquals("KRSS Syntax",
     // f.getKey());
-    // OWLDocumentFormatFactory f = new LabelFunctionalDocumentFormatFactory(); //
+    // OWLDocumentFormatFactory f = new LabelFunctionalDocumentFormatFactory();
+    // //
     // assertEquals("Label functional Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new LatexAxiomsListDocumentFormatFactory(); //
+    // OWLDocumentFormatFactory f = new LatexAxiomsListDocumentFormatFactory();
+    // //
     // assertEquals("Latex Axiom List", f.getKey());
-    // OWLDocumentFormatFactory f = new LatexDocumentFormatFactory(); // assertEquals("LaTeX
+    // OWLDocumentFormatFactory f = new LatexDocumentFormatFactory(); //
+    // assertEquals("LaTeX
     // Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new FunctionalSyntaxDocumentFormatFactory(); //
+    // OWLDocumentFormatFactory f = new FunctionalSyntaxDocumentFormatFactory();
+    // //
     // assertEquals("OWL Functional Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new OWLXMLDocumentFormatFactory(); // assertEquals("OWL/XML
+    // OWLDocumentFormatFactory f = new OWLXMLDocumentFormatFactory(); //
+    // assertEquals("OWL/XML
     // Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new RDFXMLDocumentFormatFactory(); // assertEquals("RDF/XML
+    // OWLDocumentFormatFactory f = new RDFXMLDocumentFormatFactory(); //
+    // assertEquals("RDF/XML
     // Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new TurtleDocumentFormatFactory(); // assertEquals("Turtle
+    // OWLDocumentFormatFactory f = new TurtleDocumentFormatFactory(); //
+    // assertEquals("Turtle
     // Syntax", f.getKey());
 }

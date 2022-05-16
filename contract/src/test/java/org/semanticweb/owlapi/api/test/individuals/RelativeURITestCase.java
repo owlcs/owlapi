@@ -19,6 +19,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.util.Collections;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.AxiomsRoundTrippingBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -27,14 +28,14 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFXMLParserException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public class RelativeURITestCase extends AxiomsRoundTrippingBase {
 
     public RelativeURITestCase() {
-        super(() -> Collections.singletonList(
-            Declaration(Class(IRI(df.getNextDocumentIRI(uriBase) + "/", "Office")))));
+        super(() -> Collections.singletonList(Declaration(Class(IRI(df.getNextDocumentIRI(uriBase) + "/", "Office")))));
     }
 
     @Test
@@ -44,20 +45,11 @@ public class RelativeURITestCase extends AxiomsRoundTrippingBase {
         // expectedException
         // .expectMessage(" reason is: Illegal character in fragment at index
         // 21: http://example.com/#1#2");
-        String rdfContent = "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
-            + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
-            + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\""
-            + "    xmlns=\"http://example.org/rdfxmlparserbug#\""
-            + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">"
-            + "  <owl:Ontology rdf:about=\"http://example.org/rdfxmlparserbug\"/>"
-            + "  <owl:Thing rdf:about=\"http://example.com/#1#2\">"
-            + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#NamedIndividual\"/>"
-            + "  </owl:Thing>" + "</rdf:RDF>";
         OWLOntology ontology = getOWLOntology();
         assertThrowsWithMessage(
             "[line=1:column=375] IRI 'http://example.com/#1#2' cannot be resolved against current base IRI ",
             OWLRDFXMLParserException.class,
-            () -> new StringDocumentSource(rdfContent, new RDFXMLDocumentFormat())
+            () -> new StringDocumentSource(TestFiles.rdfContentForException, new RDFXMLDocumentFormat())
                 .acceptParser(new RDFXMLParser(), ontology, config));
     }
 }

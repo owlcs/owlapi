@@ -1,0 +1,3 @@
+Prefix: : <http://purl.obolibrary.org/obo/>
+Ontology: <http://example.org/>
+Class: :FOO_0000001

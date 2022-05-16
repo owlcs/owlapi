@@ -1,0 +1,16 @@
+\documentclass{article}
+\parskip 0pt
+\parindent 0pt
+\oddsidemargin 0cm
+\textwidth 19cm
+\begin{document}
+
+\section*{Object properties}\subsubsection*{buzz\_of}
+
+buzz\_of~\ensuremath{\equiv}~fizzle\_of\ensuremath{^-}
+
+\subsubsection*{fizzle\_of}
+
+buzz\_of~\ensuremath{\equiv}~fizzle\_of\ensuremath{^-}
+
+\section*{Data properties}\section*{Individuals}\section*{Datatypes}\end{document}

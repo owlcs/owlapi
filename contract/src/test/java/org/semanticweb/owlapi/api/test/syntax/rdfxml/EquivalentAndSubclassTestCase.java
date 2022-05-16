@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -29,44 +30,30 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 
 /**
- * Tests the loading of a single ontology multiple times, using the same ontologyIRI in the
- * {@link OWLOntologyID} as that used in the actual ontology that is being imported.
+ * Tests the loading of a single ontology multiple times, using the same
+ * ontologyIRI in the {@link OWLOntologyID} as that used in the actual ontology
+ * that is being imported.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
 public class EquivalentAndSubclassTestCase extends TestBase {
 
-    String input = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
-        + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-        + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
-        + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
-        + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
-        + "Ontology: <http://purl.obolibrary.org/obo/go.owl>\n"
-        + "ObjectProperty: <http://purl.obolibrary.org/obo/BFO_0000050>\n"
-        + "Class: <http://purl.obolibrary.org/obo/GO_0044464>\n" + "    EquivalentTo: \n"
-        + "        <http://purl.obolibrary.org/obo/GO_0005575>\n"
-        + "         and (<http://purl.obolibrary.org/obo/BFO_0000050> some <http://purl.obolibrary.org/obo/GO_0005623>)\n"
-        + "Class: <http://purl.obolibrary.org/obo/GO_0005623>\n"
-        + "Class: <http://purl.obolibrary.org/obo/GO_0005575>";
-
     @Test
     public void testRoundtrip() throws Exception {
         // given
-        OWLOntology o = loadOntologyFromString(input, new ManchesterSyntaxDocumentFormat());
+        OWLOntology o = loadOntologyFromString(TestFiles.equivalentAndSubclasses, new ManchesterSyntaxDocumentFormat());
         relax(o);
         OWLOntology o2 = roundTrip(o, new RDFXMLDocumentFormat());
         equal(o, o2);
     }
 
     public static void relax(OWLOntology ontology) {
-
         Set<OWLAxiom> newAxioms = new HashSet<>();
-
         ontology.axioms(AxiomType.EQUIVALENT_CLASSES).forEach(ax -> {
             ax.operands().forEach(x -> {
-
                 // we only relax in cases where the equivalence is between one
                 // named and one anon expression
                 if (!x.isAnonymous()) {
@@ -88,7 +75,6 @@ public class EquivalentAndSubclassTestCase extends TestBase {
                 }
             });
         });
-
         // remove redundant axiom
         ontology.addAxioms(newAxioms);
     }
@@ -99,7 +85,6 @@ public class EquivalentAndSubclassTestCase extends TestBase {
         if (x instanceof OWLObjectSomeValuesFrom) {
             OWLObjectSomeValuesFrom svf = (OWLObjectSomeValuesFrom) x;
             svfs.add(svf);
-
         } else if (x instanceof OWLObjectCardinalityRestriction) {
             OWLObjectCardinalityRestriction ocr = (OWLObjectCardinalityRestriction) x;
             OWLClassExpression filler = ocr.getFiller();
@@ -108,12 +93,10 @@ public class EquivalentAndSubclassTestCase extends TestBase {
                 OWLObjectSomeValuesFrom svf = dataFactory.getOWLObjectSomeValuesFrom(p, filler);
                 svfs.add(svf);
             }
-
         } else if (x instanceof OWLObjectIntersectionOf) {
             ((OWLObjectIntersectionOf) x).operands()
                 .forEach(op -> svfs.addAll(getSomeValuesFromAncestor(op, dataFactory)));
         }
-
         return svfs;
     }
 
@@ -122,10 +105,8 @@ public class EquivalentAndSubclassTestCase extends TestBase {
         if (!x.isAnonymous()) {
             cs.add(x.asOWLClass());
         } else if (x instanceof OWLObjectIntersectionOf) {
-            ((OWLObjectIntersectionOf) x).operands()
-                .forEach(op -> cs.addAll(getNamedAncestors(op)));
+            ((OWLObjectIntersectionOf) x).operands().forEach(op -> cs.addAll(getNamedAncestors(op)));
         }
         return cs;
     }
-
 }

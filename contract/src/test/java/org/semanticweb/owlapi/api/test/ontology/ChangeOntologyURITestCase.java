@@ -28,7 +28,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.utility.OWLOntologyIRIChanger;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class ChangeOntologyURITestCase extends TestBase {
@@ -38,10 +39,9 @@ public class ChangeOntologyURITestCase extends TestBase {
         IRI oldIRI = IRI("http://www.semanticweb.org/ontologies/", "ontA");
         IRI newIRI = IRI("http://www.semanticweb.org/ontologies/", "ontB");
         OWLOntology ont = m.createOntology(oldIRI);
-        OWLOntology importingOnt =
-            m.createOntology(IRI("http://www.semanticweb.org/ontologies/", "ontC"));
-        importingOnt.applyChange(new AddImport(importingOnt,
-            df.getOWLImportsDeclaration(get(ont.getOntologyID().getOntologyIRI()))));
+        OWLOntology importingOnt = m.createOntology(IRI("http://www.semanticweb.org/ontologies/", "ontC"));
+        importingOnt.applyChange(
+            new AddImport(importingOnt, df.getOWLImportsDeclaration(get(ont.getOntologyID().getOntologyIRI()))));
         assertTrue(m.contains(oldIRI));
         OWLOntologyIRIChanger changer = new OWLOntologyIRIChanger(m);
         ont.applyChanges(changer.getChanges(ont, newIRI));
@@ -50,14 +50,14 @@ public class ChangeOntologyURITestCase extends TestBase {
         assertTrue(m.ontologies().anyMatch(o -> o.equals(ont)));
         assertTrue(m.directImports(importingOnt).anyMatch(o -> o.equals(ont)));
         OWLOntology ontology = m.getOntology(newIRI);
-        assertNotNull("ontology should not be null", ontology);
+        assertNotNull(ontology);
         assertEquals(ontology, ont);
         assertEquals(ontology.getOntologyID().getOntologyIRI().get(), newIRI);
         assertTrue(m.importsClosure(importingOnt).anyMatch(o -> o.equals(ont)));
-        assertNotNull("ontology should not be null", m.getOntologyDocumentIRI(ont));
+        assertNotNull(m.getOntologyDocumentIRI(ont));
         // Document IRI will still be the same (in this case the old ont URI)
         assertEquals(m.getOntologyDocumentIRI(ont), oldIRI);
-        assertNotNull("ontology format should not be null", ont.getFormat());
+        assertNotNull(ont.getFormat());
     }
 
     @Test

@@ -33,15 +33,15 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 public class NamespacesTestCase extends TestBase {
 
+    private static final String NS = "http://test.owl/test#";
+
     @Test
     public void shouldFindInNamespace() {
-        EnumSet<Namespaces> reserved =
-            EnumSet.of(Namespaces.OWL, Namespaces.RDF, Namespaces.RDFS, Namespaces.XSD);
+        EnumSet<Namespaces> reserved = EnumSet.of(Namespaces.OWL, Namespaces.RDF, Namespaces.RDFS, Namespaces.XSD);
         for (Namespaces n : Namespaces.values()) {
             IRI iri = df.getIRI(n.getPrefixIRI(), "test");
             boolean reservedVocabulary = iri.isReservedVocabulary();
-            assertTrue(iri + " reserved? Should be " + reserved.contains(n) + " but is "
-                + reservedVocabulary, reservedVocabulary == reserved.contains(n));
+            assertEquals(reserved.contains(n), reservedVocabulary);
         }
     }
 
@@ -68,18 +68,18 @@ public class NamespacesTestCase extends TestBase {
 
     @Test
     public void shouldSetPrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLClass item = df.getOWLClass("http://test.owl/test#", "item");
+        OWLClass item = df.getOWLClass(NS, "item");
         OWLDeclarationAxiom declaration = df.getOWLDeclarationAxiom(item);
         OWLOntology o1 = m.createOntology();
         FunctionalSyntaxDocumentFormat pm1 = new FunctionalSyntaxDocumentFormat();
-        o1.getPrefixManager().withPrefix(":", "http://test.owl/test#");
+        o1.getPrefixManager().withPrefix(":", NS);
         m.setOntologyFormat(o1, pm1);
         o1.addAxiom(declaration);
         StringDocumentTarget t1 = new StringDocumentTarget();
         o1.saveOntology(t1);
         OWLOntology o2 = m1.createOntology();
         FunctionalSyntaxDocumentFormat pm2 = new FunctionalSyntaxDocumentFormat();
-        o2.getPrefixManager().withPrefix(":", "http://test.owl/test#");
+        o2.getPrefixManager().withPrefix(":", NS);
         o2.addAxiom(declaration);
         StringDocumentTarget t2 = new StringDocumentTarget();
         o1.saveOntology(pm2, t2);

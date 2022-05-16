@@ -87,12 +87,13 @@ import org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
  */
 public class BasicsTestCase extends OboFormatTestBasics {
 
+    private static final String OBO = "http://purl.obolibrary.org/obo/";
     private static final IRI SHORTHAND = df.getIRI("http://www.geneontology.org/formats/oboInOwl#", "shorthand");
     private static final IRI ID = df.getIRI("http://www.geneontology.org/formats/oboInOwl#", "id");
-    private static final IRI BFO50 = df.getIRI("http://purl.obolibrary.org/obo/", "BFO_0000050");
-    private static final IRI RO2111 = df.getIRI("http://purl.obolibrary.org/obo/", "RO_0002111");
-    private static final IRI BAR1 = df.getIRI("http://purl.obolibrary.org/obo/", "BAR_0000001");
-    private static final IRI BFO51 = df.getIRI("http://purl.obolibrary.org/obo/", "BFO_0000051");
+    private static final IRI BFO50 = df.getIRI(OBO, "BFO_0000050");
+    private static final IRI RO2111 = df.getIRI(OBO, "RO_0002111");
+    private static final IRI BAR1 = df.getIRI(OBO, "BAR_0000001");
+    private static final IRI BFO51 = df.getIRI(OBO, "BFO_0000051");
 
     private static void assertAnnotationPropertyCountEquals(OWLOntology owlOnt, IRI subjectIRI,
         OWLAnnotationProperty property, int expected) {
@@ -480,14 +481,14 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OWLOntology gciOntology = mev.createGCIOntology();
         int axiomCount = gciOntology.getAxiomCount();
         assertTrue(axiomCount > 0);
-        OWLClass cls = df.getOWLClass("http://purl.obolibrary.org/obo/", "TEST_2");
+        OWLClass cls = df.getOWLClass(OBO, "TEST_2");
         assertEquals(1, gciOntology.disjointClassesAxioms(cls).count());
         gciOntology.axioms(EQUIVALENT_CLASSES).forEach(eca -> {
             Set<OWLClassExpression> ces = asUnorderedSet(eca.classExpressions());
-            OWLClass clst4 = df.getOWLClass("http://purl.obolibrary.org/obo/", "TEST_4");
-            OWLObjectPropertyExpression p = df.getOWLObjectProperty("http://purl.obolibrary.org/obo/", "RO_0002104");
+            OWLClass clst4 = df.getOWLClass(OBO, "TEST_4");
+            OWLObjectPropertyExpression p = df.getOWLObjectProperty(OBO, "RO_0002104");
             OWLClassExpression cet4 = df.getOWLObjectSomeValuesFrom(p, clst4);
-            OWLClass clst5 = df.getOWLClass("http://purl.obolibrary.org/obo/", "TEST_5");
+            OWLClass clst5 = df.getOWLClass(OBO, "TEST_5");
             OWLClassExpression cet5 = df.getOWLObjectSomeValuesFrom(p, clst5);
             if (ces.contains(cet4)) {
                 ces.remove(cet4);
@@ -512,16 +513,16 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OWLOntology ontology = convert(parseOBOFile("no_overlap.obo"));
         MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology);
         OWLOntology outputOntology = mev.expandAll();
-        OWLClass cls = df.getOWLClass("http://purl.obolibrary.org/obo/", "TEST_2");
+        OWLClass cls = df.getOWLClass(OBO, "TEST_2");
         assertEquals(1, outputOntology.disjointClassesAxioms(cls).count());
-        cls = df.getOWLClass("http://purl.obolibrary.org/obo/", "TEST_3");
+        cls = df.getOWLClass(OBO, "TEST_3");
         assertEquals(1, outputOntology.subClassAxiomsForSubClass(cls).count());
         assertEquals(
             "SubClassOf(<http://purl.obolibrary.org/obo/TEST_3> ObjectSomeValuesFrom(" + BFO51.toQuotedString()
                 + " ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom("
                 + BFO51.toQuotedString() + " <http://purl.obolibrary.org/obo/TEST_4>))))",
             outputOntology.subClassAxiomsForSubClass(cls).iterator().next().toString());
-        cls = df.getOWLClass("http://purl.obolibrary.org/obo/", "TEST_4");
+        cls = df.getOWLClass(OBO, "TEST_4");
         AtomicBoolean ok = new AtomicBoolean(false);
         outputOntology.equivalentClassesAxioms(cls).flatMap(OWLEquivalentClassesAxiom::classExpressions)
             .filter(ce -> ce instanceof OWLObjectIntersectionOf).flatMap(x -> ((OWLObjectIntersectionOf) x).operands())
@@ -587,7 +588,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     @Test
     public void testHeaderLostBug() throws OWLOntologyStorageException {
         OWLOntology ontology = roundTrip(convert(parseOBOFile("header_lost_bug.obo")), new RDFXMLDocumentFormat());
-        IRI ontologyIRI = df.getIRI("http://purl.obolibrary.org/obo/", "test.owl");
+        IRI ontologyIRI = df.getIRI(OBO, "test.owl");
         // two tags in the header of the obo file are translated as annotation
         // assertions, so the axioms
         // should have two axioms in count.
@@ -639,7 +640,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void testConvertLogicalDefinitionPropertyView() {
         // PARSE TEST FILE
         OWLOntology owlOntology = convert(parseOBOFile("logical-definition-view-relation-test.obo"));
-        OWLObjectProperty op = df.getOWLObjectProperty("http://purl.obolibrary.org/obo/", "BFO_0000050");
+        OWLObjectProperty op = df.getOWLObjectProperty(OBO, "BFO_0000050");
         boolean ok = owlOntology.axioms(EQUIVALENT_CLASSES).anyMatch(eca -> eca.classExpressions()
             .anyMatch(x -> x instanceof OWLObjectSomeValuesFrom && x.containsEntityInSignature(op)));
         assertTrue(ok);
@@ -881,7 +882,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("obsolete_term_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
-        OWLAnnotationSubject subj = df.getIRI("http://purl.obolibrary.org/obo/", "XX_0000034");
+        OWLAnnotationSubject subj = df.getIRI(OBO, "XX_0000034");
         boolean okDeprecated = Searcher
             .annotationObjects(ontology.annotationAssertionAxioms(subj),
                 df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_DEPRECATED))
@@ -1012,7 +1013,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void testConvertSubset() {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("subset_test.obo"));
-        OWLAnnotationSubject subj = df.getIRI("http://purl.obolibrary.org/obo/", "GO_0000003");
+        OWLAnnotationSubject subj = df.getIRI(OBO, "GO_0000003");
         OWLAnnotationProperty p = df.getOWLAnnotationProperty("http://www.geneontology.org/formats/oboInOwl#",
             "inSubset");
         boolean ok = ontology.annotationAssertionAxioms(subj).anyMatch(a -> a.getProperty().equals(p));
@@ -1029,7 +1030,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     public void testUnionOf() {
         OWLOntology owlOnt = convertOBOFile("taxon_union_terms.obo");
         assertNotNull(owlOnt);
-        OWLClass cls = df.getOWLClass("http://purl.obolibrary.org/obo/", "NCBITaxon_Union_0000000");
+        OWLClass cls = df.getOWLClass(OBO, "NCBITaxon_Union_0000000");
         boolean ok = owlOnt.equivalentClassesAxioms(cls).flatMap(ax -> ax.classExpressions())
             .anyMatch(ce -> ce instanceof OWLObjectUnionOf);
         assertTrue(ok);

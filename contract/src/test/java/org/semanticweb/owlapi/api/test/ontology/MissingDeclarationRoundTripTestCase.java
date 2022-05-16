@@ -15,10 +15,9 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.TestEntities.A;
+import static org.semanticweb.owlapi.api.test.TestEntities.AP;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
 import org.junit.Test;
@@ -26,29 +25,25 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 public class MissingDeclarationRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldFindOneAxiom() throws Exception {
-        OWLAnnotationProperty p =
-            AnnotationProperty(IRI("http://test.org/MissingDeclaration.owl#", "p"));
-        OWLOntology ontology = createOntology(p);
-        assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
+        OWLOntology ontology = createOntology(AP);
+        assertTrue(ontology.containsAnnotationPropertyInSignature(AP.getIRI()));
         assertEquals(1, ontology.getAxiomCount());
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         ontology.getOWLOntologyManager().getOntologyConfigurator().withAddMissingTypes(false);
         ontology = loadOntologyStrict(saveOntology(ontology, format), format);
-        assertFalse(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
+        assertFalse(ontology.containsAnnotationPropertyInSignature(AP.getIRI()));
         assertEquals(0, ontology.getAxiomCount());
     }
 
     private OWLOntology createOntology(OWLAnnotationProperty p) {
-        OWLClass a = Class(IRI("http://test.org/MissingDeclaration.owl#", "A"));
         OWLOntology ontology = getOWLOntology();
-        OWLAxiom axiom = AnnotationAssertion(p, a.getIRI(), Literal("Hello"));
+        OWLAxiom axiom = AnnotationAssertion(p, A.getIRI(), Literal("Hello"));
         ontology.add(axiom);
         return ontology;
     }

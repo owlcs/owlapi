@@ -12,10 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
+import static org.semanticweb.owlapi.api.test.TestEntities.A;
+import static org.semanticweb.owlapi.api.test.TestEntities.B;
+import static org.semanticweb.owlapi.api.test.TestEntities.C;
+import static org.semanticweb.owlapi.api.test.TestEntities.D;
+import static org.semanticweb.owlapi.api.test.TestEntities.DP;
+import static org.semanticweb.owlapi.api.test.TestEntities.DQ;
+import static org.semanticweb.owlapi.api.test.TestEntities.DR;
+import static org.semanticweb.owlapi.api.test.TestEntities.I;
+import static org.semanticweb.owlapi.api.test.TestEntities.J;
+import static org.semanticweb.owlapi.api.test.TestEntities.P;
+import static org.semanticweb.owlapi.api.test.TestEntities.Q;
+import static org.semanticweb.owlapi.api.test.TestEntities.R;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ClassAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyDomain;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataPropertyRange;
@@ -30,10 +40,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Funct
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseFunctionalObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IrreflexiveObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NegativeDataPropertyAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NegativeObjectPropertyAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyDomain;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyRange;
@@ -56,7 +64,8 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 @RunWith(Parameterized.class)
@@ -68,44 +77,20 @@ public class AnnotatedAxiomRountripTestCase extends AnnotatedAxiomRoundTrippingT
 
     @Parameters
     public static List<Function<List<OWLAnnotation>, OWLAxiom>> getData() {
-        return Arrays.asList(a -> AsymmetricObjectProperty(ObjectProperty(iri("p")), a),
-                        a -> ClassAssertion(Class(iri("A")), NamedIndividual(iri("i")), a),
-            a -> DataPropertyAssertion(DataProperty(iri("p")), NamedIndividual(iri("i")),
-                Literal("xyz"), a),
-                        a -> DataPropertyDomain(DataProperty(iri("p")), Class(iri("A")), a),
-                        a -> DataPropertyRange(DataProperty(iri("p")), TopDatatype(), a),
-                        a -> DisjointClasses(a, Class(iri("A")), Class(iri("B"))),
-                        a -> DisjointClasses(a, Class(iri("A")), Class(iri("B")), Class(iri("C")),
-                                        Class(iri("D"))),
-            a -> DisjointDataProperties(a, DataProperty(iri("p")), DataProperty(iri("q"))),
-            a -> DisjointDataProperties(a, DataProperty(iri("p")), DataProperty(iri("q")),
-                DataProperty(iri("r"))),
-            a -> DisjointObjectProperties(a, ObjectProperty(iri("p")), ObjectProperty(iri("q"))),
-            a -> DisjointObjectProperties(a, ObjectProperty(iri("p")), ObjectProperty(iri("q")),
-                ObjectProperty(iri("r"))),
-                        a -> EquivalentClasses(a, Class(iri("A")), Class(iri("B"))),
-            a -> EquivalentDataProperties(a, DataProperty(iri("p")), DataProperty(iri("q"))),
-            a -> EquivalentObjectProperties(a, ObjectProperty(iri("p")), ObjectProperty(iri("q"))),
-                        a -> FunctionalDataProperty(DataProperty(iri("p")), a),
-                        a -> FunctionalObjectProperty(ObjectProperty(iri("p")), a),
-                        a -> InverseFunctionalObjectProperty(ObjectProperty(iri("p")), a),
-                        a -> IrreflexiveObjectProperty(ObjectProperty(iri("p")), a),
-            a -> NegativeDataPropertyAssertion(DataProperty(iri("p")), NamedIndividual(iri("i")),
-                Literal("xyz"), a),
-                        a -> NegativeObjectPropertyAssertion(ObjectProperty(iri("p")),
-                                        NamedIndividual(iri("i")), NamedIndividual(iri("j")), a),
-            a -> ObjectPropertyAssertion(ObjectProperty(iri("p")), NamedIndividual(iri("i")),
-                NamedIndividual(iri("j")), a),
-                        a -> ObjectPropertyDomain(ObjectProperty(iri("p")), Class(iri("A")), a),
-                        a -> ObjectPropertyRange(ObjectProperty(iri("p")), Class(iri("A")), a),
-                        a -> ReflexiveObjectProperty(ObjectProperty(iri("p")), a),
-                        a -> df.getOWLSubClassOfAxiom(Class(iri("A")), Class(iri("B")), a),
-                        a -> SubDataPropertyOf(DataProperty(iri("p")), DataProperty(iri("q")), a),
-            a -> SubObjectPropertyOf(ObjectProperty(iri("p")), ObjectProperty(iri("q")), a),
-                        a -> SymmetricObjectProperty(ObjectProperty(iri("p")), a),
-                        a -> TransitiveObjectProperty(ObjectProperty(iri("p")), a),
-                        a -> SubPropertyChainOf(
-                Arrays.asList(ObjectProperty(iri("p")), ObjectProperty(iri("q"))),
-                                        ObjectProperty(iri("r")), a));
+        return Arrays.asList(a -> AsymmetricObjectProperty(P, a), a -> ClassAssertion(A, I, a),
+            a -> DataPropertyAssertion(DP, I, Literal("xyz"), a), a -> DataPropertyDomain(DP, A, a),
+            a -> DataPropertyRange(DP, TopDatatype(), a), a -> DisjointClasses(a, A, B),
+            a -> DisjointClasses(a, A, B, C, D), a -> DisjointDataProperties(a, DP, DQ),
+            a -> DisjointDataProperties(a, DP, DQ, DR), a -> DisjointObjectProperties(a, P, Q),
+            a -> DisjointObjectProperties(a, P, Q, R), a -> EquivalentClasses(a, A, B),
+            a -> EquivalentDataProperties(a, DP, DQ), a -> EquivalentObjectProperties(a, P, Q),
+            a -> FunctionalDataProperty(DP, a), a -> FunctionalObjectProperty(P, a),
+            a -> InverseFunctionalObjectProperty(P, a), a -> IrreflexiveObjectProperty(P, a),
+            a -> NegativeDataPropertyAssertion(DP, I, Literal("xyz"), a),
+            a -> NegativeObjectPropertyAssertion(P, I, J, a), a -> ObjectPropertyAssertion(P, I, J, a),
+            a -> ObjectPropertyDomain(P, A, a), a -> ObjectPropertyRange(P, A, a), a -> ReflexiveObjectProperty(P, a),
+            a -> df.getOWLSubClassOfAxiom(A, B, a), a -> SubDataPropertyOf(DP, DQ, a),
+            a -> SubObjectPropertyOf(P, Q, a), a -> SymmetricObjectProperty(P, a), a -> TransitiveObjectProperty(P, a),
+            a -> SubPropertyChainOf(Arrays.asList(P, Q), R, a));
     }
 }

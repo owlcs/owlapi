@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.utility.StructuralTransformation;
 @RunWith(Parameterized.class)
 public class StructuralTransformationTestCase {
 
+    public static final String strtranssame = "[]";
     private final OWLAxiom object;
     private final String expected;
 
@@ -44,107 +45,55 @@ public class StructuralTransformationTestCase {
     public static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLAxiom, String> map = new LinkedHashMap<>();
-        map.put(b.dRange(), "[SubClassOf(owl:Thing DataAllValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>))]");
-        map.put(b.dDef(),
-            "[DatatypeDefinition(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#datatype> xsd:double)]");
-        map.put(b.decC(),
-            "[Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Class(<urn:test:test#c>))]");
-        map.put(b.decOp(),
-            "[Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectProperty(<urn:test:test#op>))]");
-        map.put(b.decDp(),
-            "[Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) DataProperty(<urn:test:test#dp>))]");
-        map.put(b.decDt(),
-            "[Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Datatype(<urn:test:test#datatype>))]");
-        map.put(b.decAp(),
-            "[Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) AnnotationProperty(<urn:test:test#ann>))]");
-        map.put(b.decI(),
-            "[Declaration(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) NamedIndividual(<urn:test:test#i>))]");
-        map.put(b.dDp(), "[DisjointDataProperties(<urn:test:test#dp> <urn:test:test#iri>)]");
-        map.put(b.dOp(), "[DisjointObjectProperties(<urn:test:test#iri> <urn:test:test#op>)]");
-        map.put(b.eDp(), "[EquivalentDataProperties(<urn:test:test#dp> <urn:test:test#iri>)]");
-        map.put(b.eOp(), "[EquivalentObjectProperties(<urn:test:test#iri> <urn:test:test#op>)]");
-        map.put(b.fdp(), "[SubClassOf(owl:Thing DataMaxCardinality(1 <urn:test:test#dp> rdfs:Literal))]");
-        map.put(b.fop(), "[SubClassOf(owl:Thing ObjectMaxCardinality(1 <urn:test:test#op> owl:Thing))]");
-        map.put(b.ifp(),
-            "[SubClassOf(owl:Thing ObjectMaxCardinality(1 ObjectInverseOf(<urn:test:test#op>) owl:Thing))]");
-        map.put(b.iop(), "[SubObjectPropertyOf(<urn:test:test#op> ObjectInverseOf(<urn:test:test#op>))]");
-        map.put(b.irr(),
-            "[IrreflexiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)]");
-        map.put(b.opa(),
-            "[ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> <urn:test:test#i> <urn:test:test#i>)]");
-        map.put(b.opaInv(),
-            "[ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test:test#op>) <urn:test:test#i> <urn:test:test#i>)]");
-        map.put(b.opaInvj(),
-            "[ObjectPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test:test#op>) <urn:test:test#i> <urn:test:test#j>)]");
-        map.put(b.oDom(), "[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test:test#c>), "
-            + "SubClassOf(<http://www.semanticweb.org/ontology#X1> ObjectAllValuesFrom(<urn:test:test#op> owl:Nothing)), "
-            + "SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))]");
-        map.put(b.oRange(), "[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test:test#c>), "
-            + "SubClassOf(owl:Thing ObjectAllValuesFrom(<urn:test:test#op> <http://www.semanticweb.org/ontology#X0>))]");
-        map.put(b.chain(),
-            "[SubObjectPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) ObjectPropertyChain(<urn:test:test#iri> <urn:test:test#op>) <urn:test:test#op>)]");
-        map.put(b.ref(),
-            "[ReflexiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)]");
-        map.put(b.same(), "[]");
-        map.put(b.subAnn(),
-            "[SubAnnotationPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> rdfs:label)]");
-        map.put(b.subClass(), "[SubClassOf(<http://www.semanticweb.org/ontology#X0> owl:Thing), "
-            + "SubClassOf(<http://www.semanticweb.org/ontology#X1> ObjectComplementOf(<urn:test:test#c>)), "
-            + "SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))]");
-        map.put(b.subData(), "[SubDataPropertyOf(<urn:test:test#dp> owl:topDataProperty)]");
-        map.put(b.subObject(),
-            "[SubObjectPropertyOf(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op> owl:topObjectProperty)]");
-        map.put(b.rule(),
-            "[DLSafeRule(Body(BuiltInAtom(<urn:swrl:var#v1> Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>))) "
-                + "Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>))))]");
-        map.put(b.symm(),
-            "[SymmetricObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)]");
-        map.put(b.trans(),
-            "[TransitiveObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)]");
-        map.put(b.hasKey(),
-            "[HasKey(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#c> (<urn:test:test#iri> <urn:test:test#op>) (<urn:test:test#dp>))]");
-        map.put(b.bigRule(),
-            "[DLSafeRule(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) Body(BuiltInAtom(<urn:swrl:var#v1> "
-                + "Variable(<urn:swrl:var#var3>) Variable(<urn:swrl:var#var4>)) ClassAtom(<urn:test:test#c> Variable(<urn:swrl:var#var2>)) "
-                + "DataRangeAtom(<urn:test:test#datatype> Variable(<urn:swrl:var#var1>)) BuiltInAtom(<urn:test:test#iri> Variable(<urn:swrl:var#var1>)) "
-                + "DifferentFromAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#i>) SameAsAtom(Variable(<urn:swrl:var#var2>) <urn:test:test#iri>)) "
-                + "Head(BuiltInAtom(<urn:swrl:var#v2> Variable(<urn:swrl:var#var5>) Variable(<urn:swrl:var#var6>)) DataPropertyAtom(<urn:test:test#dp> "
-                + "Variable(<urn:swrl:var#var2>) \"false\"^^xsd:boolean) ObjectPropertyAtom(<urn:test:test#op> Variable(<urn:swrl:var#var2>) "
-                + "Variable(<urn:swrl:var#var2>))))]");
-        map.put(b.ann(),
-            "[AnnotationAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> <urn:test:test#iri> \"false\"^^xsd:boolean)]");
-        map.put(b.asymm(),
-            "[AsymmetricObjectProperty(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#op>)]");
-        map.put(b.annDom(),
-            "[AnnotationPropertyDomain(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> <urn:test:test#iri>)]");
-        map.put(b.annRange(),
-            "[AnnotationPropertyRange(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#ann> <urn:test:test#iri>)]");
-        map.put(b.dRangeAnd(),
-            "[SubClassOf(owl:Thing DataAllValuesFrom(<urn:test:test#dp> DataIntersectionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean))))]");
-        map.put(b.dRangeOr(),
-            "[SubClassOf(owl:Thing DataAllValuesFrom(<urn:test:test#dp> DataUnionOf(<urn:test:test#datatype> DataOneOf(\"false\"^^xsd:boolean))))]");
-        map.put(b.dOneOf(),
-            "[SubClassOf(owl:Thing DataAllValuesFrom(<urn:test:test#dp> DataOneOf(\"false\"^^xsd:boolean)))]");
-        map.put(b.dNot(),
-            "[SubClassOf(owl:Thing DataAllValuesFrom(<urn:test:test#dp> DataComplementOf(DataOneOf(\"false\"^^xsd:boolean))))]");
-        map.put(b.dRangeRestrict(),
-            "[SubClassOf(owl:Thing DataAllValuesFrom(<urn:test:test#dp> DatatypeRestriction(xsd:double "
-                + "facetRestriction(minExclusive \"5.0\"^^xsd:double) facetRestriction(maxExclusive \"6.0\"^^xsd:double))))]");
-        map.put(b.assD(),
-            "[DataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"false\"^^xsd:boolean)]");
-        map.put(b.assDPlain(),
-            "[DataPropertyAssertion(Annotation(<urn:test:test#ann> \"test\"^^xsd:string) <urn:test:test#dp> <urn:test:test#i> \"string\"@en)]");
-        map.put(b.dDom(), "[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test:test#c>), "
-            + "SubClassOf(<http://www.semanticweb.org/ontology#X1> DataAllValuesFrom(<urn:test:test#dp> DataComplementOf(rdfs:Literal))), "
-            + "SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))]");
-        map.put(b.dc(),
-            "[SubClassOf(owl:Thing ObjectComplementOf(<urn:test:test#c>)), SubClassOf(owl:Thing ObjectComplementOf(<urn:test:test#iri>))]");
-        map.put(b.du(), "[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test:test#c>), "
-            + "SubClassOf(<http://www.semanticweb.org/ontology#X1> <urn:test:test#iri>), "
-            + "SubClassOf(owl:Thing <urn:test:test#c>), "
-            + "SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>)), "
-            + "SubClassOf(owl:Thing ObjectComplementOf(<urn:test:test#c>)), SubClassOf(owl:Thing ObjectComplementOf(<urn:test:test#iri>))]");
-        map.put(b.ec(), "[SubClassOf(owl:Thing <urn:test:test#c>), SubClassOf(owl:Thing <urn:test:test#iri>)]");
+        map.put(b.dRange(), TestFiles.strtransdRange);
+        map.put(b.dDef(), TestFiles.strtransdDef);
+        map.put(b.decC(), TestFiles.strtransdecC);
+        map.put(b.decOp(), TestFiles.strtransdecOp);
+        map.put(b.decDp(), TestFiles.strtransdecDp);
+        map.put(b.decDt(), TestFiles.strtransdecDt);
+        map.put(b.decAp(), TestFiles.strtransdecAp);
+        map.put(b.decI(), TestFiles.strtransdecI);
+        map.put(b.dDp(), TestFiles.strtransdDp);
+        map.put(b.dOp(), TestFiles.strtransdOp);
+        map.put(b.eDp(), TestFiles.strtranseDp);
+        map.put(b.eOp(), TestFiles.strtranseOp);
+        map.put(b.fdp(), TestFiles.strtransfdp);
+        map.put(b.fop(), TestFiles.strtransfop);
+        map.put(b.ifp(), TestFiles.strtransifp);
+        map.put(b.iop(), TestFiles.strtransiop);
+        map.put(b.irr(), TestFiles.strtransirr);
+        map.put(b.opa(), TestFiles.strtransopa);
+        map.put(b.opaInv(), TestFiles.strtransopaInv);
+        map.put(b.opaInvj(), TestFiles.strtransopaInvj);
+        map.put(b.oDom(), TestFiles.strtransoDom);
+        map.put(b.oRange(), TestFiles.strtransoRange);
+        map.put(b.chain(), TestFiles.strtranschain);
+        map.put(b.ref(), TestFiles.strtransref);
+        map.put(b.same(), strtranssame);
+        map.put(b.subAnn(), TestFiles.strtranssubAnn);
+        map.put(b.subClass(), TestFiles.strtranssubClass);
+        map.put(b.subData(), TestFiles.strtranssubData);
+        map.put(b.subObject(), TestFiles.strtranssubObject);
+        map.put(b.rule(), TestFiles.strtransrule);
+        map.put(b.symm(), TestFiles.strtranssymm);
+        map.put(b.trans(), TestFiles.strtranstrans);
+        map.put(b.hasKey(), TestFiles.strtranshasKey);
+        map.put(b.bigRule(), TestFiles.strtransbigRule);
+        map.put(b.ann(), TestFiles.strtransann);
+        map.put(b.asymm(), TestFiles.strtransasymm);
+        map.put(b.annDom(), TestFiles.strtransannDom);
+        map.put(b.annRange(), TestFiles.strtransannRange);
+        map.put(b.dRangeAnd(), TestFiles.strtransdRangeAnd);
+        map.put(b.dRangeOr(), TestFiles.strtransdRangeOr);
+        map.put(b.dOneOf(), TestFiles.strtransdOneOf);
+        map.put(b.dNot(), TestFiles.strtransdNot);
+        map.put(b.dRangeRestrict(), TestFiles.strtransdRangeRestrict);
+        map.put(b.assD(), TestFiles.strtransassD);
+        map.put(b.assDPlain(), TestFiles.strtransassDPlain);
+        map.put(b.dDom(), TestFiles.strtransdDom);
+        map.put(b.dc(), TestFiles.strtransdc);
+        map.put(b.du(), TestFiles.strtransdu);
+        map.put(b.ec(), TestFiles.strtransec);
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;

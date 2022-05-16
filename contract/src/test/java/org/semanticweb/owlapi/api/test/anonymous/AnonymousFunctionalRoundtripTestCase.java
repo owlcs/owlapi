@@ -24,6 +24,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Objec
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -36,34 +37,15 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
     private static final String NS = "http://namespace.owl";
-    private static final String BROKEN = "<?xml version=\"1.0\"?>\n"
-        + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n" + "     xml:base=\"http://namespace.owl\"\n"
-        + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-        + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-        + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-        + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-        + "    <owl:Ontology rdf:about=\"http://namespace.owl\"/>\n"
-        + "    <owl:Class rdf:about=\"http://namespace.owl#A\"/>\n" + "<A/></rdf:RDF>";
-    private static final String FIXED =
-        "Prefix(:=<http://namespace.owl#>)\n" + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
-            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
-            + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
-            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + '\n' + '\n'
-            + "Ontology(<http://namespace.owl>\n" + '\n' + "Declaration(Class(:C))\n"
-            + "SubClassOf(:C ObjectHasValue(:p _:genid2))\n" + "Declaration(Class(:D))\n"
-            + "Declaration(ObjectProperty(:p))\n" + "Declaration(DataProperty(:q))\n"
-            + "ClassAssertion(:D _:genid2)\n"
-            + "DataPropertyAssertion(:q _:genid2 \"hello\"^^xsd:string)\n" + ')';
 
     @Test
     public void shouldRoundTripFixed() {
-        loadOntologyFromString(FIXED, new FunctionalSyntaxDocumentFormat());
+        loadOntologyFromString(TestFiles.FIXED, new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
     public void shouldRoundTripBroken() throws Exception {
-        OWLOntology o = loadOntologyFromString(BROKEN, new RDFXMLDocumentFormat());
+        OWLOntology o = loadOntologyFromString(TestFiles.BROKEN, new RDFXMLDocumentFormat());
         FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         o.getPrefixManager().withDefaultPrefix(NS + '#');
         OWLOntology o1 = roundTrip(o, format);

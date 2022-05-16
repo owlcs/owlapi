@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -22,19 +23,7 @@ public class OWLOntologyManagerRemoveAxiomsTestCase extends TestBase {
 
     @Test
     public void testRemove() {
-        String premise = "Prefix(:=<http://example.org/>)\n"
-                        + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n" + "Ontology(\n"
-                        + "  Declaration(NamedIndividual(:a))\n"
-                        + "  Declaration(DataProperty(:dp1))\n"
-                        + "  Declaration(DataProperty(:dp2))\n" + "  Declaration(Class(:A))\n"
-                        + "  DisjointDataProperties(:dp1 :dp2) \n"
-                        + "  DataPropertyAssertion(:dp1 :a \"10\"^^xsd:integer)\n"
-                        + "  SubClassOf(:A DataSomeValuesFrom(:dp2 \n"
-                        + "    DatatypeRestriction(xsd:integer \n"
-                        + "      xsd:minInclusive \"18\"^^xsd:integer \n"
-                        + "      xsd:maxInclusive \"18\"^^xsd:integer)\n" + "    )\n" + "  )\n"
-                        + "  ClassAssertion(:A :a)\n" + ')';
-        OWLOntology o = loadOntologyFromString(premise, new FunctionalSyntaxDocumentFormat());
+        OWLOntology o = loadOntologyFromString(TestFiles.premiseOntology, new FunctionalSyntaxDocumentFormat());
         o.remove(o.axioms(AxiomType.DECLARATION));
     }
 }

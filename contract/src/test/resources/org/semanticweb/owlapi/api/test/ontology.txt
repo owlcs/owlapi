@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+<!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+<rdf:RDF xmlns="http://xmlns.com/foaf/0.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl="http://www.w3.org/2002/07/owl#">
+<owl:Ontology rdf:about="http://ex.com"/>
+<rdf:Property rdf:about="http://ex.com#p1"> <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/> </rdf:Property>
+<rdf:Property rdf:about="http://ex.com#p2"> <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/> <rdfs:subPropertyOf rdf:resource="http://ex.com#p1"/> </rdf:Property>
+</rdf:RDF>

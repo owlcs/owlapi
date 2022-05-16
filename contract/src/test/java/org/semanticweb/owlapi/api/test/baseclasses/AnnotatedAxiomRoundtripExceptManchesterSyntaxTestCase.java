@@ -12,13 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Datatype;
+import static org.semanticweb.owlapi.api.test.TestEntities.A;
+import static org.semanticweb.owlapi.api.test.TestEntities.AP;
+import static org.semanticweb.owlapi.api.test.TestEntities.DT;
+import static org.semanticweb.owlapi.api.test.TestEntities.P;
+import static org.semanticweb.owlapi.api.test.TestEntities.PD;
+import static org.semanticweb.owlapi.api.test.TestEntities.i;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,26 +32,21 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.1.0
  */
 @RunWith(Parameterized.class)
-public class AnnotatedAxiomRoundtripExceptManchesterSyntaxTestCase
-                extends AnnotatedAxiomRoundTrippingTestCase {
+public class AnnotatedAxiomRoundtripExceptManchesterSyntaxTestCase extends AnnotatedAxiomRoundTrippingTestCase {
 
-    public AnnotatedAxiomRoundtripExceptManchesterSyntaxTestCase(
-        Function<List<OWLAnnotation>, OWLAxiom> f) {
+    public AnnotatedAxiomRoundtripExceptManchesterSyntaxTestCase(Function<List<OWLAnnotation>, OWLAxiom> f) {
         super(f);
     }
 
     @Parameters
     public static List<Function<List<OWLAnnotation>, OWLAxiom>> getData() {
-        return Arrays.asList(a -> Declaration(ObjectProperty(iri("propP")), a),
-                        a -> Declaration(Datatype(iri("DT")), a),
-                        a -> Declaration(NamedIndividual(iri("I")), a),
-                        a -> Declaration(DataProperty(iri("propD")), a),
-                        a -> Declaration(AnnotationProperty(iri("propA")), a),
-                        a -> Declaration(Class(iri("A")), a));
+        return Arrays.asList(a -> Declaration(P, a), a -> Declaration(DT, a), a -> Declaration(i, a),
+            a -> Declaration(PD, a), a -> Declaration(AP, a), a -> Declaration(A, a));
     }
 
     @Override

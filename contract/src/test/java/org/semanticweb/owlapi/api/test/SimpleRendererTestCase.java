@@ -5,17 +5,22 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.utility.SimpleRenderer;
 
 public class SimpleRendererTestCase extends TestBase {
 
+    private static final String RESULT = "test:t";
+    private static final String TEST = "test";
+    private static final String NS = "urn:test#";
+    private static final OWLClass T = df.getOWLClass(NS, "t");
     private final SimpleRenderer testSubject = new SimpleRenderer();
 
     @Test
     public void shouldSetPrefixes() {
-        testSubject.setPrefix("test", "urn:test#");
-        assertEquals("test:t", testSubject.render(df.getOWLClass("urn:test#", "t")));
+        testSubject.setPrefix(TEST, NS);
+        assertEquals(RESULT, testSubject.render(T));
     }
 
     @Test
@@ -23,8 +28,8 @@ public class SimpleRendererTestCase extends TestBase {
         RDFXMLDocumentFormat f = new RDFXMLDocumentFormat();
         OWLOntology o = getOWLOntology();
         o.getOWLOntologyManager().setOntologyFormat(o, f);
-        o.getPrefixManager().withPrefix("test", "urn:test#");
+        o.getPrefixManager().withPrefix(TEST, NS);
         testSubject.setPrefixesFromOntologyFormat(o, true);
-        assertEquals("test:t", testSubject.render(df.getOWLClass("urn:test#", "t")));
+        assertEquals(RESULT, testSubject.render(T));
     }
 }

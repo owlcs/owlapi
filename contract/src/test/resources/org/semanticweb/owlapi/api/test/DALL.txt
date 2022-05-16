@@ -1,0 +1,1 @@
+DataAllValuesFrom(<urn:test:test#dp> <urn:test:test#datatype>)

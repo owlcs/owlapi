@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.api.test.swrl;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.semanticweb.owlapi.api.test.TestEntities.A;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +17,6 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
@@ -36,11 +36,10 @@ public class SWRLAtomOrderingTestCase extends TestBase {
 
     @Before
     public void setUp() {
-        OWLClass predicate = df.getOWLClass(iri("a"));
-        atomA = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("i"))));
-        atomB = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("j"))));
-        atomC = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("k"))));
-        atomD = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("l"))));
+        atomA = df.getSWRLClassAtom(A, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("i"))));
+        atomB = df.getSWRLClassAtom(A, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("j"))));
+        atomC = df.getSWRLClassAtom(A, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("k"))));
+        atomD = df.getSWRLClassAtom(A, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("l"))));
         body.add(atomC);
         body.add(atomB);
         body.add(atomA);

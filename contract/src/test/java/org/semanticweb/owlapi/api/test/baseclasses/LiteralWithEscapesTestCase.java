@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
+import static org.semanticweb.owlapi.api.test.TestEntities.A;
+import static org.semanticweb.owlapi.api.test.TestEntities.AP;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
 import java.util.Arrays;
@@ -26,13 +25,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.3.0
  */
 @RunWith(Parameterized.class)
@@ -47,33 +45,30 @@ public class LiteralWithEscapesTestCase extends AbstractRoundTrippingTestCase {
     @Parameters
     public static List<String> getData() {
         return Arrays.asList(
-                        // LiteralWithBackslash
-                        "\\",
-                        // LiteralWithDoubleQuote
-                        "\"",
-                        // LiteralWithLeftAngle
-                        "<",
-                        // LiteralWithNewLine
-                        "\n",
-                        // LiteralWithSingleQuote
-                        "\'");
+            // LiteralWithBackslash
+            "\\",
+            // LiteralWithDoubleQuote
+            "\"",
+            // LiteralWithLeftAngle
+            "<",
+            // LiteralWithNewLine
+            "\n",
+            // LiteralWithSingleQuote
+            "\'");
     }
 
     @Override
     protected OWLOntology createOntology() {
-        OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#", "A"));
-        OWLAnnotationProperty prop =
-                        AnnotationProperty(IRI("http://owlapi.sourceforge.net/ontology#", "prop"));
         OWLLiteral lit1 = Literal(escape);
         OWLLiteral lit2 = Literal("Start" + escape);
         OWLLiteral lit3 = Literal(escape + "End");
         OWLLiteral lit4 = Literal("Start" + escape + "End");
-        OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop, cls.getIRI(), lit1);
-        OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop, cls.getIRI(), lit2);
-        OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop, cls.getIRI(), lit3);
-        OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop, cls.getIRI(), lit4);
+        OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(AP, A.getIRI(), lit1);
+        OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(AP, A.getIRI(), lit2);
+        OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(AP, A.getIRI(), lit3);
+        OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(AP, A.getIRI(), lit4);
         OWLOntology o = getOWLOntology();
-        o.add(ax1, ax2, ax3, ax4, Declaration(cls));
+        o.add(ax1, ax2, ax3, ax4, Declaration(A));
         return o;
     }
 }

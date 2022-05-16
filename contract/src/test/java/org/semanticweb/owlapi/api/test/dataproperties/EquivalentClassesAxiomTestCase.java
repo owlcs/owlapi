@@ -15,11 +15,13 @@ package org.semanticweb.owlapi.api.test.dataproperties;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.api.test.TestEntities.A;
+import static org.semanticweb.owlapi.api.test.TestEntities.B;
+import static org.semanticweb.owlapi.api.test.TestEntities.C;
+import static org.semanticweb.owlapi.api.test.TestEntities.P;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLNothing;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
@@ -32,23 +34,20 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group
  * @since 2.2.0
  */
 public class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     public void testContainsNamedClass() {
-        OWLClass clsA = Class(iri("A"));
-        OWLClass clsB = Class(iri("B"));
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
-        OWLClassExpression desc2 = ObjectSomeValuesFrom(propP, clsA);
-        OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, desc);
+        OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
+        OWLClassExpression desc2 = ObjectSomeValuesFrom(P, A);
+        OWLEquivalentClassesAxiom ax = EquivalentClasses(A, desc);
         assertTrue(ax.containsNamedEquivalentClass());
         OWLEquivalentClassesAxiom ax2 = EquivalentClasses(desc, desc2);
         assertFalse(ax2.containsNamedEquivalentClass());
@@ -56,21 +55,16 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     public void testGetNamedClasses() {
-        OWLClass clsA = Class(iri("A"));
-        OWLClass clsB = Class(iri("B"));
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
-        OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, desc);
+        OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
+        OWLEquivalentClassesAxiom ax = EquivalentClasses(A, desc);
         Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
         assertEquals(1, clses.size());
-        assertTrue(clses.contains(clsA));
+        assertTrue(clses.contains(A));
     }
 
     @Test
     public void testGetNamedClassesWithNothing() {
-        OWLClass clsB = Class(iri("B"));
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
+        OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(OWLNothing(), desc);
         Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
         assertTrue(clses.isEmpty());
@@ -80,9 +74,7 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     public void testGetNamedClassesWithThing() {
-        OWLClass clsB = Class(iri("B"));
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
+        OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(OWLThing(), desc);
         Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
         assertTrue(clses.isEmpty());
@@ -92,17 +84,14 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     public void testSplit() {
-        OWLClass clsA = Class(iri("A"));
-        OWLClass clsB = Class(iri("B"));
-        OWLClass clsC = Class(iri("C"));
-        OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, clsB, clsC);
+        OWLEquivalentClassesAxiom ax = EquivalentClasses(A, B, C);
         Collection<OWLSubClassOfAxiom> scas = ax.asOWLSubClassOfAxioms();
         assertEquals(6, scas.size());
-        assertTrue(scas.contains(SubClassOf(clsA, clsB)));
-        assertTrue(scas.contains(SubClassOf(clsB, clsA)));
-        assertTrue(scas.contains(SubClassOf(clsA, clsC)));
-        assertTrue(scas.contains(SubClassOf(clsC, clsA)));
-        assertTrue(scas.contains(SubClassOf(clsB, clsC)));
-        assertTrue(scas.contains(SubClassOf(clsC, clsB)));
+        assertTrue(scas.contains(SubClassOf(A, B)));
+        assertTrue(scas.contains(SubClassOf(B, A)));
+        assertTrue(scas.contains(SubClassOf(A, C)));
+        assertTrue(scas.contains(SubClassOf(C, A)));
+        assertTrue(scas.contains(SubClassOf(B, C)));
+        assertTrue(scas.contains(SubClassOf(C, B)));
     }
 }

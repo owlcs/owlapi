@@ -42,6 +42,7 @@ import org.semanticweb.owlapi.obolibrary.oboformat.parser.OBOFormatParser;
 import org.semanticweb.owlapi.obolibrary.oboformat.writer.OBOFormatWriter;
 
 public class OboFormatTestBasics extends TestBase {
+
     protected OWLStorerParameters storerParameters = new OWLStorerParameters();
 
     protected static String renderOboToString(OBODoc oboDoc) throws IOException {
@@ -64,7 +65,7 @@ public class OboFormatTestBasics extends TestBase {
         try (InputStream inputStream = getInputStream(fn)) {
             OBOFormatParser p = new OBOFormatParser(cache);
             OBODoc obodoc = p.parse(new BufferedReader(new InputStreamReader(inputStream)));
-            assertNotNull("The obodoc should not be null", obodoc);
+            assertNotNull(obodoc);
             if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
                 fail("Term frames should not be empty.");
             }
@@ -77,7 +78,7 @@ public class OboFormatTestBasics extends TestBase {
     protected OBODoc parseOBOFile(Reader fn, boolean allowEmptyFrames, Map<String, OBODoc> cache) {
         OBOFormatParser p = new OBOFormatParser(cache);
         OBODoc obodoc = p.parse(new BufferedReader(fn));
-        assertNotNull("The obodoc should not be null", obodoc);
+        assertNotNull(obodoc);
         if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
             fail("Term frames should not be empty.");
         }
@@ -163,11 +164,10 @@ public class OboFormatTestBasics extends TestBase {
     }
 
     protected @Nullable IRI getIriByLabel(OWLOntology ontology, String label) {
-        Optional<OWLAnnotationAssertionAxiom> anyMatch =
-            ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
-                .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral
-                    && label.equals(((OWLLiteral) aa.getValue()).getLiteral()))
-                .filter(aa -> aa.getSubject().isIRI()).findAny();
+        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
+            .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral
+                && label.equals(((OWLLiteral) aa.getValue()).getLiteral()))
+            .filter(aa -> aa.getSubject().isIRI()).findAny();
         if (anyMatch.isPresent()) {
             return (IRI) anyMatch.get().getSubject();
         }

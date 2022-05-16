@@ -20,6 +20,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
@@ -37,22 +38,26 @@ import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 
 public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
 
+    private static final String ex = "example";
+    private static final String NSroma = "http://www.dis.uniroma1.it/example/";
+    private static final String NS = "http://example.org/";
+
     @Test
     public void testmain() throws Exception {
         OWLOntology ontology = getOWLOntology();
         OWLObjectProperty p = df.getOWLObjectProperty("http://example.org/A_#", "part_of");
-        OWLClass a = Class(IRI("http://example.org/", "A_A"));
-        OWLClass b = Class(IRI("http://example.org/", "A_B"));
+        OWLClass a = Class(IRI(NS, "A_A"));
+        OWLClass b = Class(IRI(NS, "A_B"));
         ontology.add(Declaration(p), Declaration(a), Declaration(b),
             SubClassOf(b, df.getOWLObjectSomeValuesFrom(p, a)));
         OWLOntology loadOntology = roundTrip(ontology, new RDFXMLDocumentFormat());
         FunctionalSyntaxDocumentFormat functionalFormat = new FunctionalSyntaxDocumentFormat();
-        ontology.getPrefixManager().withPrefix("example", "http://example.org/");
+        ontology.getPrefixManager().withPrefix(ex, NS);
         OWLOntology loadOntology2 = roundTrip(ontology, functionalFormat);
         // won't reach here if functional syntax fails - comment it out and
         // uncomment this to test Manchester
         ManchesterSyntaxDocumentFormat manchesterFormat = new ManchesterSyntaxDocumentFormat();
-        ontology.getPrefixManager().withPrefix("example", "http://example.org/");
+        ontology.getPrefixManager().withPrefix(ex, NS);
         OWLOntology loadOntology3 = roundTrip(ontology, manchesterFormat);
         assertEquals(ontology, loadOntology);
         assertEquals(ontology, loadOntology2);
@@ -63,11 +68,9 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRespectDefaultPrefix()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology ontology = m.createOntology(df.getIRI("http://www.dis.uniroma1.it/example/"));
-        PrefixManager pm =
-            new PrefixManagerImpl().withPrefix("example", "http://www.dis.uniroma1.it/example/");
+    public void shouldRespectDefaultPrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ontology = m.createOntology(df.getIRI(NSroma));
+        PrefixManager pm = new PrefixManagerImpl().withPrefix(ex, NSroma);
         OWLClass pizza = df.getOWLClass("example:pizza", pm);
         OWLDeclarationAxiom declarationAxiom = df.getOWLDeclarationAxiom(pizza);
         ontology.addAxiom(declarationAxiom);
@@ -81,18 +84,14 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
 
     @Test
     public void shouldConvertToFunctionalCorrectly() throws OWLOntologyStorageException {
-        String in = "Prefix: : <http://purl.obolibrary.org/obo/>\n"
-            + "Ontology: <http://example.org/>\n" + "Class: :FOO_0000001";
-        OWLOntology o = loadOntologyFromString(in, new ManchesterSyntaxDocumentFormat());
-        OWLOntology o1 =
-            loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()),
-                new FunctionalSyntaxDocumentFormat());
+        OWLOntology o = loadOntologyFromString(TestFiles.convertToFunctional, new ManchesterSyntaxDocumentFormat());
+        OWLOntology o1 = loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()),
+            new FunctionalSyntaxDocumentFormat());
         equal(o, o1);
     }
 
     @Test
-    public void shouldPreservePrefix()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldPreservePrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
         String prefix = "http://www.dis.uniroma1.it/pizza";
         OWLOntology ontology = m.createOntology(df.getIRI(prefix));
         PrefixManager pm = new PrefixManagerImpl().withPrefix("pizza", prefix);
@@ -110,12 +109,7 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
 
     @Test
     public void shouldRoundtripIRIsWithQueryString() throws OWLOntologyStorageException {
-        String input = "<?xml version=\"1.0\"?>\n"
-            + "<rdf:RDF xmlns=\"http://purl.obolibrary.org/obo/TEMP#\" xml:base=\"http://purl.obolibrary.org/obo/TEMP\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:oboInOwl=\"http://www.geneontology.org/formats/oboInOwl#\" xmlns:obo1=\"http://purl.obolibrary.org/obo/\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
-            + "    <owl:Ontology rdf:about=\"http://purl.obolibrary.org/obo/TEMP\"/>\n"
-            + "    <owl:Class rdf:about=\"obo1:X\"><rdfs:seeAlso rdf:resource=\"http://purl.obolibrary.org/obo/?func=detail&amp;\"/></owl:Class>\n"
-            + "</rdf:RDF>";
-        OWLOntology o = loadOntologyFromString(input, new RDFXMLDocumentFormat());
+        OWLOntology o = loadOntologyFromString(TestFiles.roundtripRIWithQuery, new RDFXMLDocumentFormat());
         StringDocumentTarget saveOntology = saveOntology(o, new FunctionalSyntaxDocumentFormat());
         OWLOntology o1 = loadOntologyFromString(saveOntology, new FunctionalSyntaxDocumentFormat());
         equal(o, o1);

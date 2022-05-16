@@ -14,7 +14,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.api.test.TestEntities.A;
+import static org.semanticweb.owlapi.api.test.TestEntities.B;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
 import java.util.HashSet;
@@ -23,13 +24,13 @@ import java.util.Set;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.1.0
  */
 public class OntologyChangeListenerTestCase extends TestBase {
@@ -37,9 +38,7 @@ public class OntologyChangeListenerTestCase extends TestBase {
     @Test
     public void testOntologyChangeListener() {
         OWLOntology ont = getOWLOntology();
-        OWLClass clsA = Class(iri("ClsA"));
-        OWLClass clsB = Class(iri("ClsB"));
-        OWLSubClassOfAxiom ax = SubClassOf(clsA, clsB);
+        OWLSubClassOfAxiom ax = SubClassOf(A, B);
         final Set<OWLAxiom> impendingAdditions = new HashSet<>();
         final Set<OWLAxiom> impendingRemovals = new HashSet<>();
         final Set<OWLAxiom> additions = new HashSet<>();
