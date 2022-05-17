@@ -17,16 +17,16 @@ import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.NQuadsDocumentFormat;
-import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFJsonDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.TrigDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.rioformats.NQuadsDocumentFormat;
+import org.semanticweb.owlapi.rioformats.NTriplesDocumentFormat;
+import org.semanticweb.owlapi.rioformats.RDFJsonDocumentFormat;
+import org.semanticweb.owlapi.rioformats.RDFJsonLDDocumentFormat;
+import org.semanticweb.owlapi.rioformats.TrigDocumentFormat;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

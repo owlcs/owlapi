@@ -51,10 +51,10 @@ import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.vocabulary.XMLSchema;
-import org.semanticweb.owlapi.io.RDFLiteral;
-import org.semanticweb.owlapi.io.RDFNode;
-import org.semanticweb.owlapi.io.RDFResourceIRI;
-import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.documents.RDFLiteral;
+import org.semanticweb.owlapi.documents.RDFNode;
+import org.semanticweb.owlapi.documents.RDFResourceIRI;
+import org.semanticweb.owlapi.documents.RDFTriple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,7 +77,7 @@ public final class RioUtils {
      * @return An OpenRDF {@link Statement} representing the given RDFTriple.
      */
     @Nullable
-    public static Statement tripleAsStatement(final RDFTriple triple) {
+    public static Statement tripleAsStatement(RDFTriple triple) {
         return tripleAsStatements(triple).stream().findFirst().orElse(null);
     }
 
@@ -87,10 +87,9 @@ public final class RioUtils {
      * @param triple The OWLAPI {@link RDFTriple} to convert.
      * @param contexts If context is not null, it is used to create a context statement
      * @return A collection of OpenRDF {@link Statement}s representing the given RDFTriple in each
-     * of the given contexts.
+     *         of the given contexts.
      */
-    public static Collection<Statement> tripleAsStatements(final RDFTriple triple,
-        final Resource... contexts) {
+    public static Collection<Statement> tripleAsStatements(RDFTriple triple, Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
         final ValueFactory vf = SimpleValueFactory.getInstance();
         Resource subject;
@@ -129,11 +128,11 @@ public final class RioUtils {
             // this
             object = node(triple.getObject(), vf);
         }
-        if (contexts == null || contexts.length == 0) {
+        if (contexts.length == 0) {
             return Collections.singletonList(vf.createStatement(subject, predicate, object));
         } else {
-            return asList(Stream.of(contexts)
-                .map(x -> vf.createStatement(subject, predicate, object, x)));
+            return asList(
+                Stream.of(contexts).map(x -> vf.createStatement(subject, predicate, object, x)));
         }
     }
 
@@ -142,7 +141,7 @@ public final class RioUtils {
      * @param literalObject literal
      * @return value
      */
-    protected static Value literal(final ValueFactory vf, final RDFLiteral literalObject) {
+    protected static Value literal(ValueFactory vf, RDFLiteral literalObject) {
         Value object;
         if (literalObject.hasLang()) {
             object = vf.createLiteral(literalObject.getLexicalValue(), literalObject.getLang());
@@ -160,7 +159,7 @@ public final class RioUtils {
      * @param vf value factory
      * @return blank node
      */
-    protected static BNode node(final RDFNode node, final ValueFactory vf) {
+    protected static BNode node(RDFNode node, ValueFactory vf) {
         if (node.getIRI().getNamespace().startsWith("_:")) {
             return vf.createBNode(node.getIRI().toString().substring(2));
         }

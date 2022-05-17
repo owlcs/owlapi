@@ -36,9 +36,9 @@
 package org.semanticweb.owlapi.functional.parser;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
+import org.semanticweb.owlapi.documents.OWLParserFactoryImpl;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

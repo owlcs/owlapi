@@ -24,9 +24,9 @@ import java.util.stream.Stream;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
@@ -40,8 +40,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * test for 3294629 - currently disabled. Not clear whether structure sharing is
- * allowed or disallowed. Data is equivalent, ontology annotations are not
+ * test for 3294629 - currently disabled. Not clear whether structure sharing is allowed or
+ * disallowed. Data is equivalent, ontology annotations are not
  */
 public class SharedBlankNodeTestCase extends TestBase {
 
@@ -50,7 +50,8 @@ public class SharedBlankNodeTestCase extends TestBase {
     OWLNamedIndividual ind = NamedIndividual(IRI(NS + "#", "test"));
 
     public static void testAnnotation(OWLOntology o) {
-        o.individualsInSignature().forEach(i -> assertEquals(2L, o.objectPropertyAssertionAxioms(i).count()));
+        o.individualsInSignature()
+            .forEach(i -> assertEquals(2L, o.objectPropertyAssertionAxioms(i).count()));
         o.annotations().map(a -> (OWLIndividual) a.getValue())
             .forEach(i -> assertEquals(1L, o.dataPropertyAssertionAxioms(i).count()));
     }
@@ -59,14 +60,16 @@ public class SharedBlankNodeTestCase extends TestBase {
     public void shouldSaveOneIndividual() throws Exception {
         OWLOntology ontology = createOntology();
         StringDocumentTarget s = saveOntology(ontology, new RDFXMLDocumentFormat());
-        StringDocumentTarget functionalSyntax = saveOntology(ontology, new FunctionalSyntaxDocumentFormat());
-        testAnnotation(loadOntologyFromString(functionalSyntax, new FunctionalSyntaxDocumentFormat()));
+        StringDocumentTarget functionalSyntax =
+            saveOntology(ontology, new FunctionalSyntaxDocumentFormat());
+        testAnnotation(
+            loadOntologyFromString(functionalSyntax, new FunctionalSyntaxDocumentFormat()));
         OWLOntology o1 = loadOntologyFromString(s, new RDFXMLDocumentFormat());
         testAnnotation(o1);
     }
 
     @Test
-    public void shouldParseOneIndividual() throws OWLOntologyStorageException {
+    public void shouldParseOneIndividual() {
         testAnnotation(loadOntologyFromString(TestFiles.oneIndividual, new RDFXMLDocumentFormat()));
     }
 
@@ -97,9 +100,11 @@ public class SharedBlankNodeTestCase extends TestBase {
 
     @Test
     public void shouldRoundtripBlankNodeAnnotations() throws OWLOntologyStorageException {
-        OWLOntology o = loadOntologyFromString(TestFiles.oneAnonIndividuall, new RDFXMLDocumentFormat());
-        OWLOntology o1 = loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()),
-            new FunctionalSyntaxDocumentFormat());
+        OWLOntology o =
+            loadOntologyFromString(TestFiles.oneAnonIndividuall, new RDFXMLDocumentFormat());
+        OWLOntology o1 =
+            loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()),
+                new FunctionalSyntaxDocumentFormat());
         OWLOntology o2 = loadOntologyFromString(saveOntology(o1, new RDFXMLDocumentFormat()),
             new RDFXMLDocumentFormat());
         assertEquals(1L, o2.annotationAssertionAxioms(IRI("http://E", "")).count());
@@ -110,8 +115,10 @@ public class SharedBlankNodeTestCase extends TestBase {
 
     @Test
     public void shouldRemapUponReading() {
-        OWLOntology o1 = loadOntologyFromString(TestFiles.remapOnReading, new FunctionalSyntaxDocumentFormat());
-        OWLOntology o2 = loadOntologyFromString(TestFiles.remapOnReading, new FunctionalSyntaxDocumentFormat());
+        OWLOntology o1 =
+            loadOntologyFromString(TestFiles.remapOnReading, new FunctionalSyntaxDocumentFormat());
+        OWLOntology o2 =
+            loadOntologyFromString(TestFiles.remapOnReading, new FunctionalSyntaxDocumentFormat());
         Set<OWLAnnotationValue> values1 = asUnorderedSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION)
             .map(a -> a.getValue()).filter(a -> a instanceof OWLAnonymousIndividual));
         Set<OWLAnnotationValue> values2 = asUnorderedSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION)
@@ -123,8 +130,10 @@ public class SharedBlankNodeTestCase extends TestBase {
 
     @Test
     public void shouldHaveOnlyOneAnonIndividual() {
-        OWLOntology o1 = loadOntologyFromString(TestFiles.oneAnonIndividuall, new RDFXMLDocumentFormat());
-        OWLOntology o2 = loadOntologyFromString(TestFiles.oneAnonIndividuall, new RDFXMLDocumentFormat());
+        OWLOntology o1 =
+            loadOntologyFromString(TestFiles.oneAnonIndividuall, new RDFXMLDocumentFormat());
+        OWLOntology o2 =
+            loadOntologyFromString(TestFiles.oneAnonIndividuall, new RDFXMLDocumentFormat());
         Set<OWLAnnotationValue> values1 = asUnorderedSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION)
             .map(a -> a.getValue()).filter(a -> a instanceof OWLAnonymousIndividual));
         Set<OWLAnnotationValue> values2 = asUnorderedSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION)
@@ -139,7 +148,8 @@ public class SharedBlankNodeTestCase extends TestBase {
         m.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(false);
         Set<OWLAnnotationValue> values1 = new HashSet<>();
         values1.add(m.getOWLDataFactory().getOWLAnonymousIndividual("_:genid-nodeid-1058025095"));
-        OWLOntology o1 = loadOntologyFromString(TestFiles.noRemapOnRead, new RDFXMLDocumentFormat());
+        OWLOntology o1 =
+            loadOntologyFromString(TestFiles.noRemapOnRead, new RDFXMLDocumentFormat());
         add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue())
             .filter(a -> a instanceof OWLAnonymousIndividual));
         o1 = loadOntologyFromString(TestFiles.noRemapOnRead, new RDFXMLDocumentFormat());
@@ -151,14 +161,16 @@ public class SharedBlankNodeTestCase extends TestBase {
 
     @Test
     public void shouldNotOutputNodeIdWhenNotNeeded() throws OWLOntologyStorageException {
-        OWLOntology o1 = loadOntologyFromString(TestFiles.noRemapOnRead, new RDFXMLDocumentFormat());
+        OWLOntology o1 =
+            loadOntologyFromString(TestFiles.noRemapOnRead, new RDFXMLDocumentFormat());
         StringDocumentTarget result = saveOntology(o1, new RDFXMLDocumentFormat());
         assertFalse(result.toString().contains("rdf:nodeID"));
     }
 
     @Test
     public void shouldOutputNodeIdEvenIfNotNeeded() throws OWLOntologyStorageException {
-        OWLOntology o1 = loadOntologyFromString(TestFiles.unconditionalId, new RDFXMLDocumentFormat());
+        OWLOntology o1 =
+            loadOntologyFromString(TestFiles.unconditionalId, new RDFXMLDocumentFormat());
         masterConfigurator.withSaveIdsForAllAnonymousIndividuals(true);
         try {
             StringDocumentTarget result = saveOntology(o1, new RDFXMLDocumentFormat());
@@ -174,7 +186,8 @@ public class SharedBlankNodeTestCase extends TestBase {
 
     @Test
     public void shouldOutputNodeIdWhenNeeded() throws OWLOntologyStorageException {
-        OWLOntology o1 = loadOntologyFromString(TestFiles.conditionalId, new RDFXMLDocumentFormat());
+        OWLOntology o1 =
+            loadOntologyFromString(TestFiles.conditionalId, new RDFXMLDocumentFormat());
         StringDocumentTarget result = saveOntology(o1, new RDFXMLDocumentFormat());
         assertTrue(result.toString().contains("rdf:nodeID"));
     }

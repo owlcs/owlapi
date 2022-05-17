@@ -16,8 +16,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.io.RDFResourceIRI;
-import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.documents.RDFResourceIRI;
+import org.semanticweb.owlapi.documents.RDFTriple;
 
 public class RdfGraphComparatorTestCase extends TestBase {
 

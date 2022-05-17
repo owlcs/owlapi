@@ -108,7 +108,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.utility.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
@@ -116,7 +115,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * A utility class whose methods may be statically imported so that OWL API objects can be
  * constructed by writing code that looks like the OWL 2 Functional Syntax. <br>
  * Note that this class is primarily intended for developers who need to write test cases. Normal
- * client code should probably use an {@link org.semanticweb.owlapi.model.OWLDataFactory} for
+ * client code should probably use an {@link org.semanticweb.owlapi.impl.model.OWLDataFactory} for
  * creating objects.
  *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -407,7 +406,7 @@ public final class OWLFunctionalSyntaxFactory {
 
     public static OWLDisjointUnionAxiom DisjointUnion(OWLClass cls,
         OWLClassExpression... classExpressions) {
-        return DF.getOWLDisjointUnionAxiom(cls, CollectionFactory.createSet(classExpressions));
+        return DF.getOWLDisjointUnionAxiom(cls, Arrays.asList(classExpressions));
     }
 
     public static OWLDisjointClassesAxiom DisjointClasses(Collection<OWLAnnotation> a,
@@ -807,7 +806,7 @@ public final class OWLFunctionalSyntaxFactory {
 
     public static OWLOntology Ontology(OWLOntologyManager man, OWLAxiom... axioms) {
         try {
-            return man.createOntology(CollectionFactory.createSet(axioms));
+            return man.createOntology(Arrays.asList(axioms));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }

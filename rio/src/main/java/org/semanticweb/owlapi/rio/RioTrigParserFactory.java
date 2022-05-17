@@ -36,7 +36,7 @@
 package org.semanticweb.owlapi.rio;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.TrigDocumentFormatFactory;
+import org.semanticweb.owlapi.rioformats.TrigDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

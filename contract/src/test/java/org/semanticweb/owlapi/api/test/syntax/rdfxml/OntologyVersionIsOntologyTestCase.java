@@ -15,9 +15,9 @@ package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.rioformats.RioTurtleDocumentFormat;
 
 public class OntologyVersionIsOntologyTestCase extends TestBase {
 

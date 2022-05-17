@@ -30,12 +30,10 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 
 /**
- * Tests the loading of a single ontology multiple times, using the same
- * ontologyIRI in the {@link OWLOntologyID} as that used in the actual ontology
- * that is being imported.
+ * Tests the loading of a single ontology multiple times, using the same ontologyIRI in the
+ * {@link OWLOntologyID} as that used in the actual ontology that is being imported.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -44,7 +42,8 @@ public class EquivalentAndSubclassTestCase extends TestBase {
     @Test
     public void testRoundtrip() throws Exception {
         // given
-        OWLOntology o = loadOntologyFromString(TestFiles.equivalentAndSubclasses, new ManchesterSyntaxDocumentFormat());
+        OWLOntology o = loadOntologyFromString(TestFiles.equivalentAndSubclasses,
+            new ManchesterSyntaxDocumentFormat());
         relax(o);
         OWLOntology o2 = roundTrip(o, new RDFXMLDocumentFormat());
         equal(o, o2);
@@ -105,7 +104,8 @@ public class EquivalentAndSubclassTestCase extends TestBase {
         if (!x.isAnonymous()) {
             cs.add(x.asOWLClass());
         } else if (x instanceof OWLObjectIntersectionOf) {
-            ((OWLObjectIntersectionOf) x).operands().forEach(op -> cs.addAll(getNamedAncestors(op)));
+            ((OWLObjectIntersectionOf) x).operands()
+                .forEach(op -> cs.addAll(getNamedAncestors(op)));
         }
         return cs;
     }

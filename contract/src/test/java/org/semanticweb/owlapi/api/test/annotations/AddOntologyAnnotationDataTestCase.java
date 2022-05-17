@@ -21,11 +21,11 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
-import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.rioformats.RioTurtleDocumentFormat;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics

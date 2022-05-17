@@ -18,12 +18,12 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Supplier;
 
-import org.semanticweb.owlapi.CompressionEnabled;
-import org.semanticweb.owlapi.OWLDataFactoryImpl;
-import org.semanticweb.owlapi.concurrent.ConcurrentOWLOntologyBuilder;
-import org.semanticweb.owlapi.concurrent.NoOpReadWriteLock;
-import org.semanticweb.owlapi.concurrent.NonConcurrentDelegate;
-import org.semanticweb.owlapi.concurrent.NonConcurrentOWLOntologyBuilder;
+import org.semanticweb.owlapi.impl.CompressionEnabled;
+import org.semanticweb.owlapi.impl.OWLDataFactoryImpl;
+import org.semanticweb.owlapi.impl.concurrent.ConcurrentOWLOntologyBuilder;
+import org.semanticweb.owlapi.impl.concurrent.NoOpReadWriteLock;
+import org.semanticweb.owlapi.impl.concurrent.NonConcurrentDelegate;
+import org.semanticweb.owlapi.impl.concurrent.NonConcurrentOWLOntologyBuilder;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;

@@ -35,11 +35,12 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.documents.StreamDocumentTarget;
+import org.semanticweb.owlapi.documents.StringDocumentSource;
+import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.StreamDocumentTarget;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.impl.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
@@ -93,9 +94,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.ReasonerProgressMonitor;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
-import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
-import org.semanticweb.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologyFormat;
-import org.semanticweb.owlapi.tutorialowled2011.TutorialSyntaxStorerFactory;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi.utilities.PriorityCollection;
 import org.semanticweb.owlapi.utility.AutoIRIMapper;
@@ -607,21 +605,20 @@ public class TutorialSnippetsTestCase {
         // Create the walker
         OWLOntologyWalker walker = new OWLOntologyWalker(Collections.singleton(o));
         // Now ask our walker to walk over the ontology
-        OWLOntologyWalkerVisitorEx<Object> visitor =
-            new OWLOntologyWalkerVisitorEx<Object>(walker) {
+        OWLOntologyWalkerVisitorEx<Object> visitor = new OWLOntologyWalkerVisitorEx<>(walker) {
 
-                @Override
-                public Object visit(OWLObjectSomeValuesFrom ce) {
-                    assertNotNull(ce);
-                    // Print out the restriction
-                    // System.out.println(desc);
-                    // Print out the axiom where the restriction is used
-                    // System.out.println(" " + getCurrentAxiom());
-                    // System.out.println();
-                    // We don't need to return anything here.
-                    return "";
-                }
-            };
+            @Override
+            public Object visit(OWLObjectSomeValuesFrom ce) {
+                assertNotNull(ce);
+                // Print out the restriction
+                // System.out.println(desc);
+                // Print out the axiom where the restriction is used
+                // System.out.println(" " + getCurrentAxiom());
+                // System.out.println();
+                // We don't need to return anything here.
+                return "";
+            }
+        };
         // Now ask the walker to walk over the ontology structure using our
         // visitor instance.
         walker.walkStructure(visitor);

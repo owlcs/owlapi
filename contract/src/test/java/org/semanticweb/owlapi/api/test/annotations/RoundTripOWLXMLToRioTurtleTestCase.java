@@ -5,15 +5,15 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
+import org.semanticweb.owlapi.documents.StringDocumentSource;
+import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.rioformats.RioTurtleDocumentFormat;
 
 public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTestCase {
 

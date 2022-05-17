@@ -8,9 +8,9 @@ import java.lang.reflect.Field;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.OWLOntologyManagerImpl;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.concurrent.ConcurrentOWLOntologyImpl;
+import org.semanticweb.owlapi.impl.OWLOntologyManagerImpl;
+import org.semanticweb.owlapi.impl.concurrent.ConcurrentOWLOntologyImpl;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 

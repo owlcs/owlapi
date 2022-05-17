@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 
 // NOTE: Always fully qualified IRI  to avoid confusion between
 //import org.apache.commons.rdf.api.IRI;
-//import org.semanticweb.owlapi.model.IRI;
+//import org.semanticweb.owlapi.impl.model.IRI;
 import org.apache.commons.rdf.api.AbstractRDFTest;
 import org.apache.commons.rdf.api.BlankNode;
 import org.apache.commons.rdf.api.BlankNodeOrIRI;
@@ -24,6 +24,12 @@ import org.junit.Assume;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.documents.RDFLiteral;
+import org.semanticweb.owlapi.documents.RDFNode;
+import org.semanticweb.owlapi.documents.RDFResource;
+import org.semanticweb.owlapi.documents.RDFResourceBlankNode;
+import org.semanticweb.owlapi.documents.RDFResourceIRI;
+import org.semanticweb.owlapi.documents.RDFTriple;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -154,7 +160,7 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
                     // those.
                     iriLike = createIRI(ntriples.substring(1, ntriples.length() - 1));
                 } else if (ntriples.startsWith("_:")) {
-                    // org.semanticweb.owlapi.model.IRI supports these directly
+                    // org.semanticweb.owlapi.impl.model.IRI supports these directly
                     // even though they are not relly IRIs
                     iriLike = createIRI(ntriples);
                 } else {

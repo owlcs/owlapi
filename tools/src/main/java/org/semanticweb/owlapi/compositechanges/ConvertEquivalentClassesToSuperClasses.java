@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOntologyChange {
 
     private static final OWLClassExpressionVisitorEx<List<? extends OWLClassExpression>> INTERSECTION_SPLITTER =
-        new OWLClassExpressionVisitorEx<List<? extends OWLClassExpression>>() {
+        new OWLClassExpressionVisitorEx<>() {
 
             @Override
             public List<? extends OWLClassExpression> visit(OWLObjectIntersectionOf ce) {

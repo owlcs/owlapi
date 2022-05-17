@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -94,8 +93,7 @@ public final class SimpleHierarchyExample {
         }
     }
 
-    public static void main(String[] args) throws OWLException, InstantiationException,
-        IllegalAccessException, ClassNotFoundException {
+    public static void main(String[] args) throws Exception {
         String reasonerFactoryClassName = null;
         // We first need to obtain a copy of an
         // OWLOntologyManager, which, as the name
@@ -115,8 +113,9 @@ public final class SimpleHierarchyExample {
         System.out.println("Ontology : " + ontology.getOntologyID());
         System.out.println("Format      : " + ontology.getFormat());
         // / Create a new SimpleHierarchy object with the given reasoner.
-        SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample(
-            (OWLReasonerFactory) Class.forName(reasonerFactoryClassName).newInstance(), ontology);
+        SimpleHierarchyExample simpleHierarchy =
+            new SimpleHierarchyExample((OWLReasonerFactory) Class.forName(reasonerFactoryClassName)
+                .getConstructor().newInstance(), ontology);
         // Get Thing
         OWLClass clazz = manager.getOWLDataFactory().getOWLThing();
         System.out.println("Class       : " + clazz);

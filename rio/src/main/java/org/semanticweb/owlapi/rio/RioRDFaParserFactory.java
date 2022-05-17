@@ -35,7 +35,7 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.semanticweb.owlapi.formats.RDFaDocumentFormatFactory;
+import org.semanticweb.owlapi.rioformats.RDFaDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

@@ -8,13 +8,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.documents.StreamDocumentSource;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory;
-import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
+import org.semanticweb.owlapi.rioformats.RioRDFXMLDocumentFormat;
+import org.semanticweb.owlapi.rioformats.RioRDFXMLDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
@@ -36,8 +36,8 @@ public class RioParserTestCase extends TestBase {
 
     /*
      * Test method for {@link
-     * org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.
-     * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
+     * org.semanticweb.owlapi.impl.rio.RioParserImpl#parse(org.semanticweb.owlapi.impl.documents.
+     * OWLOntologyDocumentSource, org.semanticweb.owlapi.impl.model.OWLOntology)}
      */
     @Test
     public void testParse() throws Exception {
@@ -61,8 +61,8 @@ public class RioParserTestCase extends TestBase {
 
     /*
      * Test method for {@link
-     * org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.
-     * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
+     * org.semanticweb.owlapi.impl.rio.RioParserImpl#parse(org.semanticweb.owlapi.impl.documents.
+     * OWLOntologyDocumentSource, org.semanticweb.owlapi.impl.model.OWLOntology)}
      */
     @Test
     public void testParsePrimer() throws Exception {
@@ -93,8 +93,8 @@ public class RioParserTestCase extends TestBase {
 
     /*
      * Test method for {@link
-     * org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.
-     * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
+     * org.semanticweb.owlapi.impl.rio.RioParserImpl#parse(org.semanticweb.owlapi.impl.documents.
+     * OWLOntologyDocumentSource, org.semanticweb.owlapi.impl.model.OWLOntology)}
      */
     @Test
     public void testParsePrimerSubset() throws Exception {
@@ -102,7 +102,7 @@ public class RioParserTestCase extends TestBase {
         // output:
         // Rio:
         // DatatypeDefinition(<http://example.com/owl/families/majorAge>
-        // DataIntersectionOf(<http://org.semanticweb.owlapi/error#Error1>
+        // DataIntersectionOf(<http://org.semanticweb.owlapi.impl/error#Error1>
         // DataComplementOf(<http://example.com/owl/families/minorAge>) ))
         // OWLAPI:
         // DatatypeDefinition(<http://example.com/owl/families/majorAge>

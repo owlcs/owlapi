@@ -35,8 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.semanticweb.owlapi.formats.RDFJsonDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
+import org.semanticweb.owlapi.rioformats.RDFJsonDocumentFormatFactory;
+import org.semanticweb.owlapi.rioformats.RioRDFStorerFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

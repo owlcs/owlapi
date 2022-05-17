@@ -3,7 +3,7 @@ options {
     LOOKAHEAD=1;
     UNICODE_INPUT=true;
     JAVA_TEMPLATE_TYPE = "modern";
-    EXCEPTIONS_SUPER_CLASS = "org.semanticweb.owlapi.io.OWLParserException";
+    EXCEPTIONS_SUPER_CLASS = "org.semanticweb.owlapi.documents.OWLParserException";
     SUPPORT_CLASS_VISIBILITY_PUBLIC=false;
     USER_TOKEN_MANAGER=true;
 }
@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.utilities.*;
 import org.semanticweb.owlapi.utility.*;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import java.io.IOException;
-import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.documents.OWLParserException;
 
 @SuppressWarnings("all")
 class OWLFunctionalSyntaxParser {

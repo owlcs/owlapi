@@ -107,7 +107,7 @@ public class Filters {
      * SWRL rules.
      */
     public static final OWLAxiomSearchFilter axiomsFromTBoxAndRBox =
-        new AxiomFilter<OWLAxiom>(TBoxAndRBoxAxiomTypes, a -> a) {
+        new AxiomFilter<>(TBoxAndRBoxAxiomTypes, a -> a) {
 
             @Override
             public boolean pass(OWLAxiom axiom, Object key) {
@@ -120,7 +120,7 @@ public class Filters {
      * and SWRL rules.
      */
     public static final OWLAxiomSearchFilter axiomsNotInTBoxOrRBox =
-        new AxiomFilter<OWLAxiom>(AXIOM_TYPES, a -> a) {
+        new AxiomFilter<>(AXIOM_TYPES, a -> a) {
 
             @Override
             public boolean pass(@Nonnull OWLAxiom axiom, Object key) {

@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.IRIDocumentSource;
+import org.semanticweb.owlapi.documents.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -140,7 +140,7 @@ public class OWLAPIObo2Owl {
      * ConcurrentHashMap implementation causes livelocks for this particular
      * situation.
      */
-    private final Map<String, IRI> idToIRICache = new LinkedHashMap<String, IRI>() {
+    private final Map<String, IRI> idToIRICache = new LinkedHashMap<>() {
 
         @Override
         protected boolean removeEldestEntry(@Nullable java.util.Map.Entry<String, IRI> eldest) {

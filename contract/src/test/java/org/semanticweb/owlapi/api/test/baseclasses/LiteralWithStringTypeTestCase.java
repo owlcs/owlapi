@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.documents.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;

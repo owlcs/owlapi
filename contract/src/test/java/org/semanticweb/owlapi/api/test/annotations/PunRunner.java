@@ -7,6 +7,8 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.pairs;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,12 +23,12 @@ import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.documents.StringDocumentSource;
+import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -74,9 +76,9 @@ public class PunRunner extends org.junit.runner.Runner {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLDataFactory df = m.getOWLDataFactory();
         IRI iri = df.getIRI("http://localhost#", "a");
-        List<? extends OWLEntity> entities = Arrays.asList(df.getOWLClass(iri), df.getOWLDatatype(iri),
-            df.getOWLAnnotationProperty(iri), df.getOWLDataProperty(iri), df.getOWLObjectProperty(iri),
-            df.getOWLNamedIndividual(iri));
+        List<? extends OWLEntity> entities = Arrays.asList(df.getOWLClass(iri),
+            df.getOWLDatatype(iri), df.getOWLAnnotationProperty(iri), df.getOWLDataProperty(iri),
+            df.getOWLObjectProperty(iri), df.getOWLNamedIndividual(iri));
         List<Class<? extends OWLDocumentFormat>> formats = new ArrayList<>();
         formats.add(RDFXMLDocumentFormat.class);
         formats.add(TurtleDocumentFormat.class);
@@ -89,7 +91,8 @@ public class PunRunner extends org.junit.runner.Runner {
                 if (i1 > -1) {
                     formatClassName = formatClassName.substring(i1 + 1);
                 }
-                String name = String.format("%sVs%sFor%s", v.i.getEntityType(), v.j.getEntityType(), formatClassName);
+                String name = String.format("%sVs%sFor%s", v.i.getEntityType(), v.j.getEntityType(),
+                    formatClassName);
                 Description testDescription = Description.createTestDescription(testClass, name);
                 testSettings.put(testDescription, new TestSetting(formatClass, m, v.i, v.j));
                 suiteDescription.addChild(testDescription);
@@ -97,9 +100,10 @@ public class PunRunner extends org.junit.runner.Runner {
             String name = "multiPun for " + formatClass.getName();
             Description testDescription = Description.createTestDescription(testClass, name);
             suiteDescription.addChild(testDescription);
-            TestSetting setting = new TestSetting(formatClass, m, df.getOWLClass(iri), df.getOWLDatatype(iri),
-                df.getOWLAnnotationProperty(iri), df.getOWLDataProperty(iri), df.getOWLObjectProperty(iri),
-                df.getOWLNamedIndividual(iri));
+            TestSetting setting =
+                new TestSetting(formatClass, m, df.getOWLClass(iri), df.getOWLDatatype(iri),
+                    df.getOWLAnnotationProperty(iri), df.getOWLDataProperty(iri),
+                    df.getOWLObjectProperty(iri), df.getOWLNamedIndividual(iri));
             testSettings.put(testDescription, setting);
         }
     }
@@ -107,9 +111,8 @@ public class PunRunner extends org.junit.runner.Runner {
     /**
      * Run the tests for this runner.
      *
-     * @param notifier
-     *        will be notified of events while tests are being run--tests being
-     *        started, finishing, and failing
+     * @param notifier will be notified of events while tests are being run--tests being started,
+     *        finishing, and failing
      */
     @Override
     public void run(@Nullable RunNotifier notifier) {
@@ -120,7 +123,8 @@ public class PunRunner extends org.junit.runner.Runner {
             notifier.fireTestStarted(description);
             try {
                 TestSetting setting = entry.getValue();
-                runTestForAnnotationsOnPunnedEntitiesForFormat(setting.formatClass, setting.manager, setting.entities);
+                runTestForAnnotationsOnPunnedEntitiesForFormat(setting.formatClass, setting.manager,
+                    setting.entities);
             } catch (Throwable t) {
                 notifier.fireTestFailure(new Failure(description, t));
             } finally {
@@ -129,9 +133,10 @@ public class PunRunner extends org.junit.runner.Runner {
         }
     }
 
-    public void runTestForAnnotationsOnPunnedEntitiesForFormat(Class<? extends OWLDocumentFormat> formatClass,
-        OWLOntologyManager m, OWLEntity... entities) throws OWLOntologyCreationException, OWLOntologyStorageException,
-        IllegalAccessException, InstantiationException {
+    public void runTestForAnnotationsOnPunnedEntitiesForFormat(
+        Class<? extends OWLDocumentFormat> formatClass, OWLOntologyManager m, OWLEntity... entities)
+        throws OWLOntologyCreationException, OWLOntologyStorageException, IllegalAccessException,
+        InstantiationException {
         OWLOntologyManager ontologyManager;
         OWLDataFactory df;
         synchronized (OWLManager.class) {
@@ -139,18 +144,26 @@ public class PunRunner extends org.junit.runner.Runner {
             ontologyManager.clearOntologies();
             df = ontologyManager.getOWLDataFactory();
         }
-        OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty("http://localhost#", ":ap");
-        OWLOntology o = makeOwlOntologyWithDeclarationsAndAnnotationAssertions(annotationProperty, ontologyManager,
-            entities);
+        OWLAnnotationProperty annotationProperty =
+            df.getOWLAnnotationProperty("http://localhost#", ":ap");
+        OWLOntology o = makeOwlOntologyWithDeclarationsAndAnnotationAssertions(annotationProperty,
+            ontologyManager, entities);
         o.getPrefixManager().withDefaultPrefix("http://localhost#");
         for (int i = 0; i < 10; i++) {
-            OWLDocumentFormat format = formatClass.newInstance();
-            StringDocumentTarget in = saveForRereading(o, format);
-            ontologyManager.removeOntology(o);
-            o = ontologyManager.loadOntologyFromOntologyDocument(new StringDocumentSource(in.toString(),
-                o.getOntologyID().getOntologyIRI().get().toString(), formatClass.newInstance(), null));
+            try {
+                Constructor<? extends OWLDocumentFormat> constructor = formatClass.getConstructor();
+                StringDocumentTarget in = saveForRereading(o, constructor.newInstance());
+                ontologyManager.removeOntology(o);
+                o = ontologyManager.loadOntologyFromOntologyDocument(new StringDocumentSource(
+                    in.toString(), o.getOntologyID().getOntologyIRI().get().toString(),
+                    constructor.newInstance(), null));
+            } catch (IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                | SecurityException e) {
+                throw new RuntimeException(e);
+            }
         }
-        assertEquals("annotationCount", entities.length, o.axioms(AxiomType.ANNOTATION_ASSERTION).count());
+        assertEquals("annotationCount", entities.length,
+            o.axioms(AxiomType.ANNOTATION_ASSERTION).count());
     }
 
     public static OWLOntology makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
@@ -160,8 +173,8 @@ public class PunRunner extends org.junit.runner.Runner {
         OWLDataFactory dataFactory = manager.getOWLDataFactory();
         axioms.add(dataFactory.getOWLDeclarationAxiom(annotationProperty));
         for (OWLEntity entity : entities) {
-            axioms.add(dataFactory.getOWLAnnotationAssertionAxiom(annotationProperty, entity.getIRI(),
-                dataFactory.getOWLAnonymousIndividual()));
+            axioms.add(dataFactory.getOWLAnnotationAssertionAxiom(annotationProperty,
+                entity.getIRI(), dataFactory.getOWLAnonymousIndividual()));
             axioms.add(dataFactory.getOWLDeclarationAxiom(entity));
         }
         return manager.createOntology(axioms);

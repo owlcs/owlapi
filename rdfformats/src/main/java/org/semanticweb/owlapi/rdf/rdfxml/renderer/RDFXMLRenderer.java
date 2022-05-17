@@ -29,11 +29,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owlapi.io.RDFLiteral;
-import org.semanticweb.owlapi.io.RDFNode;
-import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceBlankNode;
-import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.documents.RDFLiteral;
+import org.semanticweb.owlapi.documents.RDFNode;
+import org.semanticweb.owlapi.documents.RDFResource;
+import org.semanticweb.owlapi.documents.RDFResourceBlankNode;
+import org.semanticweb.owlapi.documents.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;

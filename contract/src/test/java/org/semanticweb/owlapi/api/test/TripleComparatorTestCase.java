@@ -27,10 +27,10 @@ import java.util.List;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.io.RDFNode;
-import org.semanticweb.owlapi.io.RDFResourceBlankNode;
-import org.semanticweb.owlapi.io.RDFResourceIRI;
-import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.documents.RDFNode;
+import org.semanticweb.owlapi.documents.RDFResourceBlankNode;
+import org.semanticweb.owlapi.documents.RDFResourceIRI;
+import org.semanticweb.owlapi.documents.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLEntity;

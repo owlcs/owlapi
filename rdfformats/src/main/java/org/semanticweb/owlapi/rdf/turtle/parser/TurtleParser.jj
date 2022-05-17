@@ -3,7 +3,7 @@ options {
     JAVA_UNICODE_ESCAPE=true;
     STATIC=false;
     JAVA_TEMPLATE_TYPE = "modern";
-    EXCEPTIONS_SUPER_CLASS = "org.semanticweb.owlapi.io.OWLParserException"; 
+    EXCEPTIONS_SUPER_CLASS = "org.semanticweb.owlapi.documents.OWLParserException"; 
     SUPPORT_CLASS_VISIBILITY_PUBLIC=false;
     //DEBUG_PARSER=true;
 }

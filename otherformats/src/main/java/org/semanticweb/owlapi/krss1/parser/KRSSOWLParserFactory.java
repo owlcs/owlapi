@@ -35,9 +35,9 @@
  */
 package org.semanticweb.owlapi.krss1.parser;
 
+import org.semanticweb.owlapi.documents.OWLParserFactoryImpl;
 import org.semanticweb.owlapi.formats.KRSSDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

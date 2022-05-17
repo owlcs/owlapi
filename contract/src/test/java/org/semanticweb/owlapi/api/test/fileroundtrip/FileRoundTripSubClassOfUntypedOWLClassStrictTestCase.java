@@ -19,8 +19,8 @@ import java.util.stream.Stream;
 
 import org.apache.commons.rdf.api.Triple;
 import org.junit.Test;
+import org.semanticweb.owlapi.documents.StreamDocumentSource;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;

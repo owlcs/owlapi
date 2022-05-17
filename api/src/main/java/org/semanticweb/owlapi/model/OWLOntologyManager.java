@@ -783,7 +783,6 @@ public interface OWLOntologyManager
      * @param strategy The strategy to be used for broadcasting changes. This strategy will override
      *        any previously set broadcast strategy.
      * @see org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy
-     * @see org.semanticweb.owlapi.model.EDTChangeBroadcastStrategy
      */
     void setDefaultChangeBroadcastStrategy(OWLOntologyChangeBroadcastStrategy strategy);
 

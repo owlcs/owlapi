@@ -35,8 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.semanticweb.owlapi.formats.NQuadsDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
+import org.semanticweb.owlapi.rioformats.NQuadsDocumentFormatFactory;
+import org.semanticweb.owlapi.rioformats.RioRDFStorerFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

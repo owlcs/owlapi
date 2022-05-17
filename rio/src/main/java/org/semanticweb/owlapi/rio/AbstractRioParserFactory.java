@@ -35,9 +35,9 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
+import org.semanticweb.owlapi.documents.OWLParserFactoryImpl;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
+import org.semanticweb.owlapi.rioformats.RioRDFDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

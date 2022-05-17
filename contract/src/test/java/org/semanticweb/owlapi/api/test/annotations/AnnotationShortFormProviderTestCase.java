@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.utility.StringAnnotationVisitor;
  */
 public class AnnotationShortFormProviderTestCase extends TestBase {
 
-    protected PrefixManager pm = new PrefixManagerImpl().withDefaultPrefix("http://org.semanticweb.owlapi/ont#");
+    protected PrefixManager pm = new PrefixManagerImpl().withDefaultPrefix("http://org.semanticweb.owlapi.impl/ont#");
     protected OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
     protected List<OWLAnnotationProperty> props = Collections.singletonList(prop);
     protected Map<OWLAnnotationProperty, List<String>> langMap = new HashMap<>();
@@ -78,7 +78,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
     @Test
     public void testIRIValue() {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
-        Ontology(m, AnnotationAssertion(prop, root.getIRI(), IRI("http://org.semanticweb.owlapi/ont#", "myIRI")));
+        Ontology(m, AnnotationAssertion(prop, root.getIRI(), IRI("http://org.semanticweb.owlapi.impl/ont#", "myIRI")));
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(props, langMap, m);
         assertEquals("myIRI", sfp.getShortForm(root));
     }

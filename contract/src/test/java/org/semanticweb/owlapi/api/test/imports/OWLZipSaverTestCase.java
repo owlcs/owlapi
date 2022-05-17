@@ -12,7 +12,7 @@ import java.util.zip.ZipInputStream;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.documents.StringDocumentSource;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;

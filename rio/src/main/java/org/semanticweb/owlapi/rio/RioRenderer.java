@@ -44,8 +44,8 @@ import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.eclipse.rdf4j.rio.RDFHandlerException;
-import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.documents.RDFResource;
+import org.semanticweb.owlapi.documents.RDFTriple;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -77,13 +77,11 @@ public class RioRenderer extends RDFRendererBase {
      * @param writer writer
      * @param contexts contexts
      */
-    public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
-        final Resource... contexts) {
+    public RioRenderer(OWLOntology ontology, RDFHandler writer, Resource... contexts) {
         super(ontology, ontology.getOWLOntologyManager().getOntologyConfigurator());
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;
         this.writer = writer;
-        // XXX maybe use the ontology prefix manager
         pm = ontology.getPrefixManager();
         if (ontology.isNamed()) {
             String ontologyIRIString =
@@ -136,7 +134,7 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeClassComment(final OWLClass cls) {
+    protected void writeClassComment(OWLClass cls) {
         writeComment(cls.getIRI().toString());
     }
 
@@ -156,12 +154,12 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeObjectPropertyComment(final OWLObjectProperty prop) {
+    protected void writeObjectPropertyComment(OWLObjectProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
     @Override
-    protected void writeBanner(final String name) {
+    protected void writeBanner(String name) {
         writeComment("");
         writeComment("");
         writeComment("#################################################################");
@@ -173,7 +171,7 @@ public class RioRenderer extends RDFRendererBase {
         writeComment("");
     }
 
-    private void writeComment(final String comment) {
+    private void writeComment(String comment) {
         try {
             writer.handleComment(comment);
         } catch (RDFHandlerException e) {
@@ -185,7 +183,7 @@ public class RioRenderer extends RDFRendererBase {
         // Send the prefixes from the prefixmanager to the RDFHandler
         // NOTE: These may be derived from a PrefixOWLDocumentFormat
         for (String prefixName : pm.getPrefixName2PrefixMap().keySet()) {
-            final String prefix = pm.getPrefix(prefixName);
+            String prefix = pm.getPrefix(prefixName);
             // OWLAPI generally stores prefixes with a colon at the end, while
             // Sesame Rio expects
             // prefixes without the colon
@@ -201,7 +199,7 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    public void render(final RDFResource node, boolean root) {
+    public void render(RDFResource node, boolean root) {
         if (pending.contains(node)) {
             return;
         }
@@ -213,7 +211,7 @@ public class RioRenderer extends RDFRendererBase {
                 LOGGER.trace("triples={}", triples);
             }
         }
-        for (final RDFTriple triple : triples) {
+        for (RDFTriple triple : triples) {
             RDFTriple tripleToRender = remapNodesIfNecessary(node, triple);
             try {
                 if (!renderedStatements.contains(tripleToRender)) {
