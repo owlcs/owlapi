@@ -18,7 +18,8 @@ import org.slf4j.LoggerFactory;
 /**
  * This enum handles default values and config file or system property overrides. The config file
  * name is {@code owlapi.properties}; to enable, make sure the file is in the classpath. The
- * property names are {@code "org.semanticweb.owlapi.model.parameters.ConfigurationOptions."+name()}.
+ * property names are {@code "org.semanticweb.owlapi.model.parameters.ConfigurationOptions."+name()}
+ * (unchanged from previous OWLAPI versions).
  * , both in the properties file and in the system properties.
  */
 public enum ConfigurationOptions {
@@ -118,7 +119,9 @@ public enum ConfigurationOptions {
      * automatically be loaded, 
      * false otherwise. By default 
      * imports are always loaded. */
-    DISABLE_IMPORTS_LOADING             (Boolean.FALSE);
+    DISABLE_IMPORTS_LOADING             (Boolean.FALSE),
+    /**Max number of elements for caches.*/
+    CACHE_SIZE                        (Integer.valueOf(2048));
     //@formatter:on
     private static final String PREFIX =
         "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";

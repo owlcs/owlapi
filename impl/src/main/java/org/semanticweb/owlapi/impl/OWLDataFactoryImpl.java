@@ -52,6 +52,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
 
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
@@ -180,7 +181,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLDataFactoryImpl.class);
 //@formatter:off
     private static final LoadingCache<String, String>                        iriNamespaces        = builder(x -> x);
-    private static final Cache<String, IRI>                                  iris                 = Caffeine.newBuilder().maximumSize(2048).build();
+    private static final Cache<String, IRI>                                  iris                 = Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue()).build();
     private static final LoadingCache<OWLAnnotation, OWLAnnotation>          annotations          = builder(x -> x);
     private static final LoadingCache<IRI,           OWLClass>               classes              = builder(OWLClassImpl::new);
     private static final LoadingCache<IRI,           OWLObjectProperty>      objectProperties     = builder(OWLObjectPropertyImpl::new);
@@ -1196,7 +1197,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     private static <F, T> LoadingCache<F, T> builder(CacheLoader<F, T> f) {
-        return Caffeine.newBuilder().maximumSize(2048).build(f);
+        return Caffeine.newBuilder()
+            .maximumSize(ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue()).build(f);
     }
 
     protected OWLLiteral parseSpecialCases(String lexicalValue, OWLDatatype datatype) {

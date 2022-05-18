@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -57,7 +58,8 @@ public final class ToStringRenderer {
     private ToStringRenderer() {}
 
     static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
-        return Caffeine.newBuilder().weakKeys().softValues().build(c);
+        return Caffeine.newBuilder()
+            .maximumSize(ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue()).build(c);
     }
 
     static Supplier<OWLObjectRenderer> renderer(Class<OWLObjectRenderer> className) {
