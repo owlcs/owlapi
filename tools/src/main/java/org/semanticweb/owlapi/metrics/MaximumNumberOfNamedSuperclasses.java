@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static org.semanticweb.owlapi.search.Searcher.equivalent;
+import static org.semanticweb.owlapi.search.Searcher.sup;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -27,7 +27,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.1.0
  */
 public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
@@ -35,7 +36,8 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     /**
      * Instantiates a new maximum number of named superclasses.
      *
-     * @param o ontology to use
+     * @param o
+     *        ontology to use
      */
     public MaximumNumberOfNamedSuperclasses(OWLOntology o) {
         super(o);
@@ -49,10 +51,9 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     @Override
     public Integer recomputeMetric() {
         Set<OWLClass> processedClasses = new HashSet<>();
-        OptionalLong max = getOntologies()
-            .flatMapToLong(o -> o.classesInSignature().filter(processedClasses::add).mapToLong(
-                cls -> equivalent(o.equivalentClassesAxioms(cls), OWLClassExpression.class)
-                    .filter(IsAnonymous::isNamed).count()))
+        OptionalLong max = getOntologies().flatMapToLong(o -> o.classesInSignature().filter(processedClasses::add)
+            .mapToLong(cls -> sup(o.subClassAxiomsForSubClass(cls), OWLClassExpression.class)
+                .filter(IsAnonymous::isNamed).count()))
             .max();
         return Integer.valueOf((int) max.orElse(0L));
     }
