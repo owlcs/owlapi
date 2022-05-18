@@ -28,7 +28,6 @@ import java.util.function.BiFunction;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.documents.IRIDocumentSource;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
@@ -850,9 +849,15 @@ public class OBOFormatParser {
         }
         // check if there is a third value to parse
         parseZeroOrMoreWs();
-        String s = getParseUntil(" !{");
-        if (!s.isEmpty()) {
-            cl.addValue(s);
+        if (stream.peekCharIs('\"')) {
+            stream.consume("\"");
+            String desc = getParseUntilAdv("\"");
+            cl.addValue(desc);
+        } else {
+            String s = getParseUntil(" !{");
+            if (!s.isEmpty()) {
+                cl.addValue(s);
+            }
         }
         return cl;
     }
