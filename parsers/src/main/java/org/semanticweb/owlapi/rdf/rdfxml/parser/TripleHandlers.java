@@ -2389,8 +2389,10 @@ public class TripleHandlers {
                 }
                 if (!annotations.isEmpty()) {
                     OWLAxiom ax = consumer.getLastAddedAxiom();
-                    consumer.removeAxiom(verifyNotNull(ax, "no axiom added yet by the consumer")
-                        .getAxiomWithoutAnnotations());
+                    // Only remove unannotated axiom if it received annotations
+                    if (!verifyNotNull(ax, "no axiom added yet by the consumer").getAnnotations().isEmpty()) {
+                        consumer.removeAxiom(ax.getAxiomWithoutAnnotations());
+                    }
                 }
                 consume(s, p, o);
             }
