@@ -115,11 +115,12 @@ public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
     @Test
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
-        OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(jb);
+        IRI iri = df.getIRI("http://test.example.org/ontology/0139");
+        OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(iri);
         OWLOntology initialOntology = m.createOntology(initialUniqueOWLOntologyID);
         OWLParser parser = new RDFXMLParser();
         documentSource.acceptParser(parser, initialOntology, config);
-        assertEquals(jb, initialOntology.getOntologyID().getOntologyIRI().get());
+        assertEquals(iri, initialOntology.getOntologyID().getOntologyIRI().get());
         assertEquals(v1, initialOntology.getOntologyID().getVersionIRI().get());
         OWLOntologyDocumentSource secondDocumentSource = getDocument();
         OWLOntologyID secondUniqueOWLOntologyID = df.getOWLOntologyID(jb, v2);
