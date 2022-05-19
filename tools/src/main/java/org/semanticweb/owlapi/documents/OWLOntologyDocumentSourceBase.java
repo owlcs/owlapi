@@ -72,51 +72,45 @@ import okhttp3.ResponseBody;
  */
 public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocumentSource {
 
-    protected static final Logger LOGGER =
-        LoggerFactory.getLogger(OWLOntologyDocumentSourceBase.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyDocumentSourceBase.class);
     protected static final AtomicInteger IRICounter = new AtomicInteger(1);
-    private static final Pattern CONTENT_DISPOSITION_FILE =
-        Pattern.compile(".*filename=\"([^\\s;]*)\".*");
+    private static final Pattern CONTENT_DISPOSITION_FILE = Pattern.compile(".*filename=\"([^\\s;]*)\".*");
     private static final String TEXTPLAIN_REQUEST_TYPE = ", text/plain; q=0.1";
     private static final String LAST_REQUEST_TYPE = ", */*; q=0.09";
-    private static final String DEFAULT_REQUEST =
-        "application/rdf+xml, application/xml; q=0.7, text/xml; q=0.6" + TEXTPLAIN_REQUEST_TYPE
-            + LAST_REQUEST_TYPE;
-    private static final LoadingCache<Integer, OkHttpClient> CACHE =
-        Caffeine.newBuilder().maximumSize(16)
-            .build(timeout -> new OkHttpClient.Builder()
-                .connectTimeout(timeout.longValue(), TimeUnit.MILLISECONDS)
-                .readTimeout(timeout.longValue(), TimeUnit.MILLISECONDS).followRedirects(true)
-                .followSslRedirects(true).build());
+    private static final String DEFAULT_REQUEST = "application/rdf+xml, application/xml; q=0.7, text/xml; q=0.6"
+        + TEXTPLAIN_REQUEST_TYPE + LAST_REQUEST_TYPE;
+    private static final LoadingCache<Integer, OkHttpClient> CACHE = Caffeine.newBuilder().maximumSize(16)
+        .build(timeout -> new OkHttpClient.Builder().connectTimeout(timeout.longValue(), TimeUnit.MILLISECONDS)
+            .readTimeout(timeout.longValue(), TimeUnit.MILLISECONDS).followRedirects(true).followSslRedirects(true)
+            .build());
     protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
     protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
     private final String documentIRI;
-    @Nullable
-    private final OWLDocumentFormat format;
-    @Nullable
-    private final String mimeType;
+    @Nullable private final OWLDocumentFormat format;
+    @Nullable private final String mimeType;
     protected Charset encoding = StandardCharsets.UTF_8;
-    private final StreamerWrapper<Reader, InputStream> defaultReader =
-        i -> new InputStreamReader(new BOMInputStream(new BufferedInputStream(i), UTF_8, UTF_16BE,
-            UTF_16LE, UTF_32BE, UTF_32LE), encoding);
+    private final StreamerWrapper<Reader, InputStream> defaultReader = i -> new InputStreamReader(
+        new BOMInputStream(new BufferedInputStream(i), UTF_8, UTF_16BE, UTF_16LE, UTF_32BE, UTF_32LE), encoding);
     private Streamer<InputStream> inputStream;
     private Streamer<Reader> reader = () -> defaultReader.get(inputStream.get());
     protected String stringContent = "";
-    @Nullable
-    protected OWLParserParameters parametersAtLoading;
-    @Nullable
-    private String acceptHeaders = null;
+    @Nullable protected OWLParserParameters parametersAtLoading;
+    @Nullable private String acceptHeaders = null;
 
     /**
      * Constructs an ontology input source using the specified file.
      *
-     * @param iri document IRI
-     * @param in input stream
-     * @param format ontology format. If null, it is considered unspecified
-     * @param mime mime type. If null or empty, it is considered unspecified.
+     * @param iri
+     *        document IRI
+     * @param in
+     *        input stream
+     * @param format
+     *        ontology format. If null, it is considered unspecified
+     * @param mime
+     *        mime type. If null or empty, it is considered unspecified.
      */
-    protected OWLOntologyDocumentSourceBase(String iri, Streamer<InputStream> in,
-        @Nullable OWLDocumentFormat format, @Nullable String mime) {
+    protected OWLOntologyDocumentSourceBase(String iri, Streamer<InputStream> in, @Nullable OWLDocumentFormat format,
+        @Nullable String mime) {
         this.format = format;
         mimeType = mime;
         documentIRI = checkNotNull(iri, "document iri cannot be null");
@@ -136,12 +130,11 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     @Override
     @SuppressWarnings("null")
     public Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData() {
-        return Optional.ofNullable(
-            parametersAtLoading == null ? null : parametersAtLoading.getLoaderMetaData());
+        return Optional.ofNullable(parametersAtLoading == null ? null : parametersAtLoading.getLoaderMetaData());
     }
 
-    private static OWLDocumentFormat getInputStreamFromContentEncoding(String iri,
-        Response response, Function<InputStream, OWLDocumentFormat> c) throws IOException {
+    private static OWLDocumentFormat getInputStreamFromContentEncoding(String iri, Response response,
+        Function<InputStream, OWLDocumentFormat> c) throws IOException {
         String encoding = response.header("Content-Encoding");
         try (ResponseBody body = response.body()) {
             if (body == null) {
@@ -160,8 +153,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
                             break;
                     }
                 }
-                String fileName =
-                    getFileNameFromContentDisposition(response.header("Content-Disposition"));
+                String fileName = getFileNameFromContentDisposition(response.header("Content-Disposition"));
                 if (fileName == null) {
                     fileName = iri;
                 }
@@ -178,8 +170,8 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
         }
     }
 
-    private static Response getResponse(String documentIRI, OntologyConfigurator config,
-        String acceptHeaders) throws IOException, OWLOntologyInputSourceException {
+    private static Response getResponse(String documentIRI, OntologyConfigurator config, String acceptHeaders)
+        throws IOException, OWLOntologyInputSourceException {
         String actualAcceptHeaders = acceptHeaders;
         if (!acceptHeaders.contains("text/plain")) {
             actualAcceptHeaders += TEXTPLAIN_REQUEST_TYPE;
@@ -192,24 +184,27 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
             try {
                 count++;
                 int timeout = count * config.getConnectionTimeout();
-                return getResponse(documentIRI, timeout, actualAcceptHeaders,
-                    config.getAuthorizationHeader());
+                return getResponse(documentIRI, timeout, actualAcceptHeaders, config.getAuthorizationHeader());
             } catch (SocketTimeoutException e) {
                 LOGGER.warn("Connection to " + documentIRI + " failed, attempt " + count + " of "
                     + config.getRetriesToAttempt(), e);
             }
         }
-        throw new OWLOntologyInputSourceException(
-            "cannot connect to " + documentIRI + "; retry limit exhausted");
+        throw new OWLOntologyInputSourceException("cannot connect to " + documentIRI + "; retry limit exhausted");
     }
 
     /**
-     * @param documentIRI iri to connect to
-     * @param timeout connection timeout
-     * @param acceptHeaders accept headers for the connection
-     * @param authorizationHeader authorization header, if needed
+     * @param documentIRI
+     *        iri to connect to
+     * @param timeout
+     *        connection timeout
+     * @param acceptHeaders
+     *        accept headers for the connection
+     * @param authorizationHeader
+     *        authorization header, if needed
      * @return Response for connection
-     * @throws IOException if the connection fails
+     * @throws IOException
+     *         if the connection fails
      */
     private static Response getResponse(String documentIRI, int timeout, String acceptHeaders,
         @Nullable String authorizationHeader) throws IOException {
@@ -235,11 +230,9 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     }
 
     @Override
-    public OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o,
-        OntologyConfigurator config) {
+    public OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o, OntologyConfigurator config) {
         boolean textual = parser.getSupportedFormat().isTextual();
-        OWLParserParameters parameters =
-            new OWLParserParameters(o, config, documentIRI).withEncoding(encoding);
+        OWLParserParameters parameters = new OWLParserParameters(o, config, documentIRI).withEncoding(encoding);
         parametersAtLoading = parameters;
         // For document sources that are string based, this is a performance
         // shortcut: no streams, no buffers, no IOExceptions
@@ -279,20 +272,37 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
                 }
             }
             if (documentIRI.startsWith("jar:")) {
-                try (InputStream jarSource = streamFromJar().getInputStream();
-                    InputStream in = new BufferedInputStream(jarSource)) {
-                    if (textual) {
-                        return parser.parse(defaultReader.get(in), parameters);
-                    } else {
-                        return parser.parse(in, parameters);
+                if (documentIRI.startsWith("jar:!")) {
+                    String name = documentIRI.substring(5);
+                    if (!name.startsWith("/")) {
+                        name = "/" + name;
                     }
-                } catch (IOException e) {
-                    failedOnIRI.set(true);
-                    throw new OWLParserException(e);
+                    try (InputStream classpathSource = getClass().getResourceAsStream(name);
+                        InputStream in = new BufferedInputStream(classpathSource)) {
+                        if (textual) {
+                            return parser.parse(defaultReader.get(in), parameters);
+                        } else {
+                            return parser.parse(in, parameters);
+                        }
+                    } catch (IOException e) {
+                        failedOnIRI.set(true);
+                        throw new OWLParserException(e);
+                    }
+                } else {
+                    try (InputStream jarSource = streamFromJar().getInputStream();
+                        InputStream in = new BufferedInputStream(jarSource)) {
+                        if (textual) {
+                            return parser.parse(defaultReader.get(in), parameters);
+                        } else {
+                            return parser.parse(in, parameters);
+                        }
+                    } catch (IOException e) {
+                        failedOnIRI.set(true);
+                        throw new OWLParserException(e);
+                    }
                 }
             }
-            try (Response response =
-                getResponse(documentIRI, config, getAcceptHeaders().orElse(DEFAULT_REQUEST))) {
+            try (Response response = getResponse(documentIRI, config, getAcceptHeaders().orElse(DEFAULT_REQUEST))) {
                 return getInputStreamFromContentEncoding(documentIRI, response, is -> {
                     InputStream in = new BufferedInputStream(is);
                     if (textual) {
@@ -331,8 +341,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     }
 
     @Override
-    public PriorityCollection<OWLParserFactory> filter(
-        PriorityCollection<OWLParserFactory> parsers) {
+    public PriorityCollection<OWLParserFactory> filter(PriorityCollection<OWLParserFactory> parsers) {
         if (parsers.isEmpty()) {
             return parsers;
         }
