@@ -254,8 +254,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         df = dataFactory;
         anonProvider = new RemappingIndividualProvider(configurationProvider, df);
         pm = new PrefixManagerImpl().withPrefix("rdf:", Namespaces.RDF.toString())
-            .withPrefix("rdfs:", Namespaces.RDFS.toString()).withPrefix("owl:", Namespaces.OWL.toString())
-            .withPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
+            .withPrefix("rdfs:", Namespaces.RDFS.toString()).withPrefix("owl:", Namespaces.OWL.toString());
         NamespaceUtil u = new NamespaceUtil();
         initialiseClassFrameSections();
         initialiseObjectPropertyFrameSections();
@@ -2246,6 +2245,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             if (colonIndex == -1) {
                 name = ":" + name;
             }
+            if (name.startsWith("dc:") && !pm.containsPrefixMapping("dc:")) {
+                pm.withPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
+            }
             uri = pm.getIRI(name, df);
         }
         nameIRIMap.put(name, uri);
@@ -2547,34 +2549,41 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     class AddNames implements OWLEntityVisitor {
 
+        private String shortForm(HasIRI i) {
+            if (DublinCoreVocabulary.NAME_SPACE.equals(i.getIRI().getNamespace())) {
+                pm.withPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
+            }
+            return pm.getShortForm(i.getIRI());
+        }
+
         @Override
         public void visit(OWLAnnotationProperty property) {
-            annotationPropertyNames.add(pm.getShortForm(property.getIRI()));
+            annotationPropertyNames.add(shortForm(property));
         }
 
         @Override
         public void visit(OWLDatatype datatype) {
-            dataTypeNames.add(pm.getShortForm(datatype.getIRI()));
+            dataTypeNames.add(shortForm(datatype));
         }
 
         @Override
         public void visit(OWLNamedIndividual individual) {
-            individualNames.add(pm.getShortForm(individual.getIRI()));
+            individualNames.add(shortForm(individual));
         }
 
         @Override
         public void visit(OWLDataProperty property) {
-            dataPropertyNames.add(pm.getShortForm(property.getIRI()));
+            dataPropertyNames.add(shortForm(property));
         }
 
         @Override
         public void visit(OWLObjectProperty property) {
-            objectPropertyNames.add(pm.getShortForm(property.getIRI()));
+            objectPropertyNames.add(shortForm(property));
         }
 
         @Override
         public void visit(OWLClass cls) {
-            classNames.add(pm.getShortForm(cls.getIRI()));
+            classNames.add(shortForm(cls));
         }
     }
 

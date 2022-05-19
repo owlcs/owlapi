@@ -103,6 +103,22 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     @Test
+    public void shouldNotAddDCToPrefixes() {
+        OWLOntology o = loadOntologyFromString(TestFiles.noDC, new ManchesterSyntaxDocumentFormat());
+        assertFalse(o.getPrefixManager().containsPrefixMapping("dc:"));
+    }
+
+    @Test
+    public void shouldAddDCToPrefixesWithoutDeclaration() {
+        // DC was added by default to the prefixes whether it was used or not.
+        // The behaviour was removed, but this would stop ontologies from
+        // loading if they relied on the prefix appearing by default
+        // Fix is to add it lazily if necessary
+        OWLOntology o = loadOntologyFromString(TestFiles.lazyDC, new ManchesterSyntaxDocumentFormat());
+        assertTrue(o.getPrefixManager().containsPrefixMapping("dc:"));
+    }
+
+    @Test
     public void shouldRoundtripDisjointUnion() throws Exception {
         OWLOntology o = getOWLOntology();
         OWLDisjointUnionAxiom axiom = DisjointUnion(A, B, C, D);
