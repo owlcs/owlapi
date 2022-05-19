@@ -19,5 +19,5 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataPropertyAxiom extends OWLLogicalAxiom {
+public interface OWLDataPropertyAxiom extends OWLPropertyAxiom {
 }
