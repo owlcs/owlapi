@@ -33,6 +33,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPAI
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPORT_STACK_TRACES;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SAVE_IDS;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SKIP_MODULE_ANNOTATIONS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TREAT_DUBLINCORE_AS_BUILTIN;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TRIM_TO_SIZE;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.USE_NAMESPACE_ENTITIES;
@@ -45,8 +46,9 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 
 /**
- * A configuration builder that specifies all available options in the OWL API. Can be used to build
- * OWLOntologyLoaderConfiguration and OWLOntologyWriterConfiguration objects
+ * A configuration builder that specifies all available options in the OWL API.
+ * Can be used to build OWLOntologyLoaderConfiguration and
+ * OWLOntologyWriterConfiguration objects
  *
  * @author Ignazio
  * @since 5.0.0
@@ -56,11 +58,23 @@ public class OntologyConfigurator implements Serializable {
     /** Set of imports to ignore. */
     private final Set<IRI> ignoredImports = new HashSet<>();
     /** Local override map. */
-    private EnumMap<ConfigurationOptions, Object> overrides =
-        new EnumMap<>(ConfigurationOptions.class);
+    private EnumMap<ConfigurationOptions, Object> overrides = new EnumMap<>(ConfigurationOptions.class);
+
+    /** Instance with no overrides */
+    public OntologyConfigurator() {}
 
     /**
-     * @param expansion entity expansion limit.
+     * @param c
+     *        configurator to copy
+     */
+    public OntologyConfigurator(OntologyConfigurator c) {
+        ignoredImports.addAll(c.ignoredImports);
+        overrides.putAll(c.overrides);
+    }
+
+    /**
+     * @param expansion
+     *        entity expansion limit.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
     public OntologyConfigurator withEntityExpansionLimit(String expansion) {
@@ -76,8 +90,9 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param ban list of parser factory class names that should be skipped when attempting ontology
-     *        parsing. The list is space separated.
+     * @param ban
+     *        list of parser factory class names that should be skipped when
+     *        attempting ontology parsing. The list is space separated.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
     public OntologyConfigurator withBannedParsers(String ban) {
@@ -86,8 +101,8 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @return list of parser factory class names that should be skipped when attempting ontology
-     *         parsing. The list is space separated.
+     * @return list of parser factory class names that should be skipped when
+     *         attempting ontology parsing. The list is space separated.
      */
     public String getBannedParsers() {
         return BANNED_PARSERS.getValue(String.class, overrides);
@@ -108,7 +123,8 @@ public class OntologyConfigurator implements Serializable {
     /**
      * Set the priorty collection sorting option.
      *
-     * @param sorting the sorting option to be used.
+     * @param sorting
+     *        the sorting option to be used.
      * @return An {@code OntologyConfigurator} with the new sorting option set.
      */
     public OntologyConfigurator setPriorityCollectionSorting(PriorityCollectionSorting sorting) {
@@ -117,7 +133,8 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param iri import to check.
+     * @param iri
+     *        import to check.
      * @return true if the import is ignored.
      */
     public boolean isImportIgnored(IRI iri) {
@@ -125,12 +142,14 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * Adds an ontology document IRI to the list of ontology imports that will be ignored during
-     * ontology loading.
+     * Adds an ontology document IRI to the list of ontology imports that will
+     * be ignored during ontology loading.
      *
-     * @param ontologyDocumentIRI The ontology document IRI that will be ignored if it is
+     * @param ontologyDocumentIRI
+     *        The ontology document IRI that will be ignored if it is
      *        encountered as an imported ontology during loading.
-     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI set.
+     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
+     *         ontology document IRI set.
      */
     public OntologyConfigurator addIgnoredImport(IRI ontologyDocumentIRI) {
         ignoredImports.add(ontologyDocumentIRI);
@@ -138,10 +157,11 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * Clears all ontology document IRIs from the list of ignored ontology document IRIs.
+     * Clears all ontology document IRIs from the list of ignored ontology
+     * document IRIs.
      *
-     * @return An {@code OWLOntologyLoaderConfiguration} with the list of ignored ontology document
-     *         IRIs set to be empty.
+     * @return An {@code OWLOntologyLoaderConfiguration} with the list of
+     *         ignored ontology document IRIs set to be empty.
      */
     public OntologyConfigurator clearIgnoredImports() {
         ignoredImports.clear();
@@ -149,13 +169,14 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * Removes an ontology document IRI from the list of ontology imports that will be ignored
-     * during ontology loading.
+     * Removes an ontology document IRI from the list of ontology imports that
+     * will be ignored during ontology loading.
      *
-     * @param ontologyDocumentIRI The ontology document IRI that would be ignored if it is
+     * @param ontologyDocumentIRI
+     *        The ontology document IRI that would be ignored if it is
      *        encountered as an imported ontology during loading.
-     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI
-     *         removed.
+     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
+     *         ontology document IRI removed.
      */
     public OntologyConfigurator removeIgnoredImport(IRI ontologyDocumentIRI) {
         ignoredImports.remove(ontologyDocumentIRI);
@@ -168,9 +189,11 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param l new timeout Note: the timeout is an int and represents milliseconds.
-     * @return A {@code OWLOntologyLoaderConfiguration} with the connection timeout set to the new
-     *         value.
+     * @param l
+     *        new timeout Note: the timeout is an int and represents
+     *        milliseconds.
+     * @return A {@code OWLOntologyLoaderConfiguration} with the connection
+     *         timeout set to the new value.
      */
     public OntologyConfigurator setConnectionTimeout(int l) {
         overrides.put(CONNECTION_TIMEOUT, Integer.valueOf(l));
@@ -178,13 +201,17 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * Specifies whether or not annotation axioms (instances of {@code OWLAnnotationAxiom}) should
-     * be loaded or whether they should be discarded on loading. By default, the loading of
-     * annotation axioms is enabled.
+     * Specifies whether or not annotation axioms (instances of
+     * {@code OWLAnnotationAxiom}) should be loaded or whether they should be
+     * discarded on loading. By default, the loading of annotation axioms is
+     * enabled.
      *
-     * @param b {@code true} if annotation axioms should be loaded, or {@code false} if annotation
-     *        axioms should not be loaded and should be discarded on loading.
-     * @return An {@code OWLOntologyLoaderConfiguration} object with the option set.
+     * @param b
+     *        {@code true} if annotation axioms should be loaded, or
+     *        {@code false} if annotation axioms should not be loaded and should
+     *        be discarded on loading.
+     * @return An {@code OWLOntologyLoaderConfiguration} object with the option
+     *         set.
      */
     public OntologyConfigurator setLoadAnnotationAxioms(boolean b) {
         overrides.put(LOAD_ANNOTATIONS, Boolean.valueOf(b));
@@ -198,46 +225,49 @@ public class OntologyConfigurator implements Serializable {
 
     /** @return missing import handling strategy */
     public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
-        return MISSING_IMPORT_HANDLING_STRATEGY.getValue(MissingImportHandlingStrategy.class,
-            overrides);
+        return MISSING_IMPORT_HANDLING_STRATEGY.getValue(MissingImportHandlingStrategy.class, overrides);
     }
 
     /**
      * Sets the strategy that is used for missing imports handling. See
-     * {@link MissingImportHandlingStrategy} for the strategies and their descriptions.
+     * {@link MissingImportHandlingStrategy} for the strategies and their
+     * descriptions.
      *
-     * @param strategy The strategy to be used.
-     * @return An {@code OWLOntologyLoaderConfiguration} object with the strategy set.
+     * @param strategy
+     *        The strategy to be used.
+     * @return An {@code OWLOntologyLoaderConfiguration} object with the
+     *         strategy set.
      * @since 3.3
      */
-    public OntologyConfigurator setMissingImportHandlingStrategy(
-        MissingImportHandlingStrategy strategy) {
+    public OntologyConfigurator setMissingImportHandlingStrategy(MissingImportHandlingStrategy strategy) {
         overrides.put(MISSING_IMPORT_HANDLING_STRATEGY, strategy);
         return this;
     }
 
     /** @return missing ontology header strategy */
     public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
-        return MISSING_ONTOLOGY_HEADER_STRATEGY.getValue(MissingOntologyHeaderStrategy.class,
-            overrides);
+        return MISSING_ONTOLOGY_HEADER_STRATEGY.getValue(MissingOntologyHeaderStrategy.class, overrides);
     }
 
     /**
-     * @param strategy new value
+     * @param strategy
+     *        new value
      * @return a copy of this configuration object with a different strategy
      */
-    public OntologyConfigurator setMissingOntologyHeaderStrategy(
-        MissingOntologyHeaderStrategy strategy) {
+    public OntologyConfigurator setMissingOntologyHeaderStrategy(MissingOntologyHeaderStrategy strategy) {
         overrides.put(MISSING_ONTOLOGY_HEADER_STRATEGY, strategy);
         return this;
     }
 
     /**
-     * Set the value for the report stack traces flag. If true, parsing exceptions will have the
-     * full stack trace for the source exceptions. Default is false.
+     * Set the value for the report stack traces flag. If true, parsing
+     * exceptions will have the full stack trace for the source exceptions.
+     * Default is false.
      *
-     * @param b the new value for the flag
-     * @return A {@code OWLOntologyLoaderConfiguration} with the report flag set to the new value.
+     * @param b
+     *        the new value for the flag
+     * @return A {@code OWLOntologyLoaderConfiguration} with the report flag set
+     *         to the new value.
      */
     public OntologyConfigurator setReportStackTraces(boolean b) {
         overrides.put(REPORT_STACK_TRACES, Boolean.valueOf(b));
@@ -255,7 +285,8 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param retries new value of retries to attempt
+     * @param retries
+     *        new value of retries to attempt
      * @return copy of this configuration with modified retries attempts.
      */
     public OntologyConfigurator setRetriesToAttempt(int retries) {
@@ -264,7 +295,8 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param strict new value for strict
+     * @param strict
+     *        new value for strict
      * @return copy of the configuration with new strict value
      */
     public OntologyConfigurator setStrict(boolean strict) {
@@ -278,8 +310,10 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param value true if Dublin Core vocabulary should be treated as built in.
-     * @return a copy of the current object with treatDublinCoreAsBuiltIn set to the new value.
+     * @param value
+     *        true if Dublin Core vocabulary should be treated as built in.
+     * @return a copy of the current object with treatDublinCoreAsBuiltIn set to
+     *         the new value.
      */
     public OntologyConfigurator setTreatDublinCoreAsBuiltIn(boolean value) {
         overrides.put(TREAT_DUBLINCORE_AS_BUILTIN, Boolean.valueOf(value));
@@ -292,8 +326,9 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param b True if ids for blank nodes should always be written (axioms and anonymous
-     *        individuals only).
+     * @param b
+     *        True if ids for blank nodes should always be written (axioms and
+     *        anonymous individuals only).
      * @return new config object
      */
     public OntologyConfigurator withSaveIdsForAllAnonymousIndividuals(boolean b) {
@@ -309,7 +344,9 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param b True if all anonymous individuals should have their ids remapped after parsing.
+     * @param b
+     *        True if all anonymous individuals should have their ids remapped
+     *        after parsing.
      * @return new config object
      */
     public OntologyConfigurator withRemapAllAnonymousIndividualsIds(boolean b) {
@@ -325,7 +362,8 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param useEntities True if entities should be used for namespace abbreviations.
+     * @param useEntities
+     *        True if entities should be used for namespace abbreviations.
      * @return new config object
      */
     public OntologyConfigurator withUseNamespaceEntities(boolean useEntities) {
@@ -341,7 +379,8 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param indent True if indenting should be used when writing out a file.
+     * @param indent
+     *        True if indenting should be used when writing out a file.
      * @return new config object
      */
     public OntologyConfigurator withIndenting(boolean indent) {
@@ -357,7 +396,9 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param indent Size of indentation between levels. Only used if indenting is set to true.
+     * @param indent
+     *        Size of indentation between levels. Only used if indenting is set
+     *        to true.
      * @return new config object
      */
     public OntologyConfigurator withIndentSize(int indent) {
@@ -373,7 +414,8 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param label True if {@code rdfs:labels} should be used for banner comments.
+     * @param label
+     *        True if {@code rdfs:labels} should be used for banner comments.
      * @return new config object
      */
     public OntologyConfigurator withLabelsAsBanner(boolean label) {
@@ -389,7 +431,8 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param label True if banner comments should be enabled.
+     * @param label
+     *        True if banner comments should be enabled.
      * @return new config object
      */
     public OntologyConfigurator withBannersEnabled(boolean label) {
@@ -405,21 +448,22 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * Determines if untyped entities should automatically be typed (declared) during rendering.
-     * (This is a hint to an RDF renderer - the reference implementation will respect this).
+     * Determines if untyped entities should automatically be typed (declared)
+     * during rendering. (This is a hint to an RDF renderer - the reference
+     * implementation will respect this).
      *
-     * @return {@code true} if untyped entities should automatically be typed during rendering,
-     *         otherwise {@code false}.
+     * @return {@code true} if untyped entities should automatically be typed
+     *         during rendering, otherwise {@code false}.
      */
     public boolean shouldAddMissingTypes() {
         return ADD_MISSING_TYPES.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
-     * @param addMissing true if untyped entities should automatically be typed (declared) during
-     *        rendering. (This is a hint to an RDF renderer - the reference implementation will
-     *        respect this).
-     *
+     * @param addMissing
+     *        true if untyped entities should automatically be typed (declared)
+     *        during rendering. (This is a hint to an RDF renderer - the
+     *        reference implementation will respect this).
      * @return new config object
      */
     public OntologyConfigurator withAddMissingTypes(boolean addMissing) {
@@ -435,8 +479,10 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param b if illegal punnings should be repaired
-     * @return A {@code OWLOntologyLoaderConfiguration} with the repair flag set to the new value.
+     * @param b
+     *        if illegal punnings should be repaired
+     * @return A {@code OWLOntologyLoaderConfiguration} with the repair flag set
+     *         to the new value.
      */
     public OntologyConfigurator withRepairIllegalPunnings(boolean b) {
         overrides.put(REPAIR_ILLEGAL_PUNNINGS, Boolean.valueOf(b));
@@ -451,9 +497,10 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param b if functional syntax output should be pretty printed
-     * @return A {@code OWLOntologyLoaderConfiguration} with the pretty print functional syntax flag
-     *         set to the new value.
+     * @param b
+     *        if functional syntax output should be pretty printed
+     * @return A {@code OWLOntologyLoaderConfiguration} with the pretty print
+     *         functional syntax flag set to the new value.
      */
     public OntologyConfigurator withPrettyPrintFunctionalSyntax(boolean b) {
         overrides.put(PRETTY_PRINT_FUNCTIONAL_SYNTAX, Boolean.valueOf(b));
@@ -468,9 +515,10 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param b if ontologies should be trimmed to size
-     * @return A {@code OWLOntologyLoaderConfiguration} with the trim to size flag set to the new
-     *         value.
+     * @param b
+     *        if ontologies should be trimmed to size
+     * @return A {@code OWLOntologyLoaderConfiguration} with the trim to size
+     *         flag set to the new value.
      */
     public OntologyConfigurator withTrimToSize(boolean b) {
         overrides.put(TRIM_TO_SIZE, Boolean.valueOf(b));
@@ -478,20 +526,40 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @return True if imports should not automatically be loaded, false otherwise. By default
-     *         imports are always loaded.
+     * @return True if imports should not automatically be loaded, false
+     *         otherwise. By default imports are always loaded.
      */
     public boolean shouldDisableImportsLoading() {
         return DISABLE_IMPORTS_LOADING.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
-     * @param b if imports should not automatically be loaded
-     * @return A {@code OWLOntologyLoaderConfiguration} with the disable imports loading flag set to
-     *         the new value.
+     * @param b
+     *        if imports should not automatically be loaded
+     * @return A {@code OWLOntologyLoaderConfiguration} with the disable imports
+     *         loading flag set to the new value.
      */
     public OntologyConfigurator withDisableImportsLoading(boolean b) {
         overrides.put(DISABLE_IMPORTS_LOADING, Boolean.valueOf(b));
+        return this;
+    }
+
+    /**
+     * @return true if module extraction should not add annotation axioms to the
+     *         module.
+     */
+    public boolean shouldSkipModuleAnnotations() {
+        return SKIP_MODULE_ANNOTATIONS.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @param value
+     *        true if annotation axioms should not be added to modules
+     * @return A {@code OWLOntologyLoaderConfiguration} with the annotation
+     *         axioms flag set to the new value.
+     */
+    public OntologyConfigurator withSkipModuleAnnotations(boolean value) {
+        overrides.put(SKIP_MODULE_ANNOTATIONS, Boolean.valueOf(value));
         return this;
     }
 }
