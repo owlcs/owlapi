@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParser;
-import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
+import org.semanticweb.owlapi.manchestersyntax.parser.ParserException;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -31,14 +31,14 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 public class ManchesterParseErrorTestCase extends TestBase {
 
-    @Test(expected = ParserException.class)
+    @Test(expected = OWLParserException.class)
     public void shouldNotParse() {
         parse("p some rdfs:Literal");
         String text1 = "p some Litera";
         parse(text1);
     }
 
-    @Test(expected = ParserException.class)
+    @Test(expected = OWLParserException.class)
     public void shouldNotParseToo() {
         parse("p some rdfs:Literal");
         String text1 = "p some Literal";

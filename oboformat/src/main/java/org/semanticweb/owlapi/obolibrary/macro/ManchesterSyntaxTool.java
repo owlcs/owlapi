@@ -14,7 +14,6 @@ import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
-import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -99,8 +98,6 @@ public class ManchesterSyntaxTool {
      * @param expression
      *        expression
      * @return set of {@link OntologyAxiomPair}
-     * @throws ParserException
-     *         parser exception
      */
     public Set<OntologyAxiomPair> parseManchesterExpressionFrames(String expression) {
         ManchesterOWLSyntaxParser parser = createParser(expression);
@@ -113,8 +110,6 @@ public class ManchesterSyntaxTool {
      * @param expression
      *        expression
      * @return {@link OWLClassExpression}
-     * @throws ParserException
-     *         parser exception
      */
     public OWLClassExpression parseManchesterExpression(String expression) {
         ManchesterOWLSyntaxParser parser = createParser(expression);
