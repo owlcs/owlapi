@@ -15,13 +15,15 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Datatypes">Datatype</a> (named data
- * range) in the OWL 2 Specification.
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Datatypes">Datatype</a> (named
+ * data range) in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObject {
+public interface OWLDatatype extends OWLDataRange, OWLEntity, OWLNamedObject {
 
     @Override
     default OWLObjectType type() {
@@ -39,18 +41,21 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObj
     }
 
     /**
-     * Gets the built in datatype information if this datatype is a built in datatype. This method
-     * should only be called if the isBuiltIn() method returns {@code true}
+     * Gets the built in datatype information if this datatype is a built in
+     * datatype. This method should only be called if the isBuiltIn() method
+     * returns {@code true}
      *
      * @return The OWLDatatypeVocabulary that describes this built in datatype
-     * @throws OWLRuntimeException if this datatype is not a built in datatype.
+     * @throws OWLRuntimeException
+     *         if this datatype is not a built in datatype.
      */
     OWL2Datatype getBuiltInDatatype();
 
     /**
      * Determines if this datatype has the IRI {@code xsd:string}.
      *
-     * @return {@code true} if this datatype has the IRI {@code xsd:string}, otherwise {@code
+     * @return {@code true} if this datatype has the IRI {@code xsd:string},
+     *         otherwise {@code
      * false}.
      */
     boolean isString();
@@ -58,7 +63,8 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObj
     /**
      * Determines if this datatype has the IRI {@code xsd:integer}.
      *
-     * @return {@code true} if this datatype has the IRI {@code xsd:integer}, otherwise {@code
+     * @return {@code true} if this datatype has the IRI {@code xsd:integer},
+     *         otherwise {@code
      * false}.
      */
     boolean isInteger();
@@ -66,14 +72,16 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObj
     /**
      * Determines if this datatype has the IRI {@code xsd:float}.
      *
-     * @return {@code true} if this datatype has the IRI {@code xsd:float}, otherwise {@code false}.
+     * @return {@code true} if this datatype has the IRI {@code xsd:float},
+     *         otherwise {@code false}.
      */
     boolean isFloat();
 
     /**
      * Determines if this datatype has the IRI {@code xsd:double}.
      *
-     * @return {@code true} if this datatype has the IRI {@code xsd:double}, otherwise {@code
+     * @return {@code true} if this datatype has the IRI {@code xsd:double},
+     *         otherwise {@code
      * false}.
      */
     boolean isDouble();
@@ -81,7 +89,8 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObj
     /**
      * Determines if this datatype has the IRI {@code xsd:boolean}.
      *
-     * @return {@code true} if this datatype has the IRI {@code xsd:boolean}, otherwise {@code
+     * @return {@code true} if this datatype has the IRI {@code xsd:boolean},
+     *         otherwise {@code
      * false}.
      */
     boolean isBoolean();
@@ -89,7 +98,8 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObj
     /**
      * Determines if this datatype has the IRI {@code rdf:PlainLiteral}.
      *
-     * @return {@code true} if this datatype has the IRI {@code rdf:PlainLiteral} otherwise {@code
+     * @return {@code true} if this datatype has the IRI
+     *         {@code rdf:PlainLiteral} otherwise {@code
      * false}
      */
     boolean isRDFPlainLiteral();

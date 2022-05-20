@@ -13,13 +13,15 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Named_Individuals">Named Individual</a>
- * in the OWL 2 Specification.
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Named_Individuals">Named
+ * Individual</a> in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
-public interface OWLNamedIndividual extends OWLIndividual, OWLLogicalEntity {
+public interface OWLNamedIndividual extends OWLIndividual, OWLEntity {
 
     @Override
     default OWLObjectType type() {
