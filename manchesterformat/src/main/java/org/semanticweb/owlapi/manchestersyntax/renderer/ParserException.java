@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.manchestersyntax.renderer;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +19,6 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.utility.CollectionFactory;
 
 /**
  * The Class ParserException.
@@ -46,6 +44,7 @@ public class ParserException extends OWLParserException {
     private final boolean ontologyNameExpected;
 
     /**
+     * @param message the message
      * @param tokenSequence the token sequence
      * @param startPos the start pos
      * @param lineNumber the line number
@@ -60,12 +59,13 @@ public class ParserException extends OWLParserException {
      * @param integerExpected the integer expected
      * @param expectedKeywords the expected keywords
      */
-    public ParserException(List<String> tokenSequence, int startPos, int lineNumber,
+    public ParserException(String message, List<String> tokenSequence, int startPos, int lineNumber,
         int columnNumber, boolean ontologyNameExpected, boolean classNameExpected,
         boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
         boolean individualNameExpected, boolean datatypeNameExpected,
         boolean annotationPropertyExpected, boolean integerExpected,
         @Nullable Set<String> expectedKeywords) {
+        super(message);
         currentToken = tokenSequence.iterator().next();
         this.tokenSequence = tokenSequence;
         this.lineNumber = lineNumber;
@@ -82,90 +82,6 @@ public class ParserException extends OWLParserException {
         this.startPos = startPos;
         this.ontologyNameExpected = ontologyNameExpected;
         this.integerExpected = integerExpected;
-    }
-
-    /**
-     * @param tokenSequence the token sequence
-     * @param startPos the start pos
-     * @param lineNumber the line number
-     * @param columnNumber the column number
-     * @param classNameExpected the class name expected
-     * @param objectPropertyNameExpected the object property name expected
-     * @param dataPropertyNameExpected the data property name expected
-     * @param individualNameExpected the individual name expected
-     * @param datatypeNameExpected the datatype name expected
-     * @param annotationPropertyExpected the annotation property expected
-     * @param expectedKeywords the expected keywords
-     */
-    public ParserException(List<String> tokenSequence, int startPos, int lineNumber,
-        int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected,
-        boolean dataPropertyNameExpected, boolean individualNameExpected,
-        boolean datatypeNameExpected, boolean annotationPropertyExpected,
-        @Nullable Set<String> expectedKeywords) {
-        this(tokenSequence, startPos, lineNumber, columnNumber, classNameExpected,
-            objectPropertyNameExpected, dataPropertyNameExpected, individualNameExpected,
-            datatypeNameExpected, annotationPropertyExpected, false, false, expectedKeywords);
-    }
-
-    /**
-     * @param tokenSeqence the token seqence
-     * @param startPos the start pos
-     * @param lineNumber the line number
-     * @param columnNumber the column number
-     * @param classNameExpected the class name expected
-     * @param objectPropertyNameExpected the object property name expected
-     * @param dataPropertyNameExpected the data property name expected
-     * @param individualNameExpected the individual name expected
-     * @param datatypeNameExpected the datatype name expected
-     * @param annotationPropertyExpected the annotation property expected
-     * @param keywords the keywords
-     */
-    public ParserException(List<String> tokenSeqence, int startPos, int lineNumber,
-        int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected,
-        boolean dataPropertyNameExpected, boolean individualNameExpected,
-        boolean datatypeNameExpected, boolean annotationPropertyExpected, String... keywords) {
-        this(tokenSeqence, startPos, lineNumber, columnNumber, classNameExpected,
-            objectPropertyNameExpected, dataPropertyNameExpected, individualNameExpected,
-            datatypeNameExpected, annotationPropertyExpected,
-            CollectionFactory.createSet(keywords));
-    }
-
-    /**
-     * @param tokenSequence the token sequence
-     * @param lineNumber the line number
-     * @param columnNumber the column number
-     * @param integerExpected the integer expected
-     * @param startPos the start pos
-     */
-    public ParserException(List<String> tokenSequence, int lineNumber, int columnNumber,
-        boolean integerExpected, int startPos) {
-        this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false,
-            false, false, integerExpected, new HashSet<String>());
-    }
-
-    /**
-     * @param tokenSequence the token sequence
-     * @param startPos the start pos
-     * @param lineNumber the line number
-     * @param columnNumber the column number
-     * @param keywords the keywords
-     */
-    public ParserException(List<String> tokenSequence, int startPos, int lineNumber,
-        int columnNumber, String... keywords) {
-        this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false,
-            false, keywords);
-    }
-
-    /**
-     * @param delegate delegate
-     */
-    public ParserException(ParserException delegate) {
-        this(delegate.tokenSequence, delegate.startPos, delegate.lineNumber, delegate.columnNumber,
-            delegate.ontologyNameExpected, delegate.classNameExpected,
-            delegate.objectPropertyNameExpected, delegate.dataPropertyNameExpected,
-            delegate.individualNameExpected, delegate.datatypeNameExpected,
-            delegate.annotationPropertyExpected, delegate.integerExpected,
-            delegate.expectedKeywords);
     }
 
     /**
