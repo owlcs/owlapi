@@ -55,7 +55,8 @@ public class OBOFormatStorer implements OWLStorer {
                 // if the ontology has imports
                 // use it as secondary lookup for labels
                 final NameProvider primary = new OBODocNameProvider(result);
-                final NameProvider secondary = new OWLOntologyNameProvider(ontology, primary.getDefaultOboNamespace());
+                final NameProvider secondary = new OWLOntologyNameProvider(ontology, primary.getDefaultOboNamespace(),
+                    result);
                 // combine primary and secondary name provider
                 nameProvider = new NameProvider() {
 
