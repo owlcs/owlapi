@@ -6,10 +6,10 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annot
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.RDFSLabel;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
@@ -26,24 +26,34 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 public class AnnotatetAnnotationsTestCase extends TestBase {
 
+    private String ns = "urn:n:a#";
+    private OWLObjectProperty r = df.getOWLObjectProperty(ns, "r");
+
     @Test
     public void shouldRoundtripMultipleNestedAnnotationsdebug() {
-        String ns = "urn:n:a#";
-        Set<OWLAxiom> axioms = new HashSet<>(Arrays.asList(df.getOWLObjectPropertyAssertionAxiom(
-            df.getOWLObjectProperty(ns, "r"), df.getOWLNamedIndividual(ns, "a"), df.getOWLNamedIndividual(ns, "b"),
-            Arrays.asList(
-                df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(1),
-                    df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(3))),
-                df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(2),
-                    df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(4)))))));
+        OWLNamedIndividual a = df.getOWLNamedIndividual(ns, "a");
+        OWLNamedIndividual b = df.getOWLNamedIndividual(ns, "b");
+        OWLLiteral _1 = df.getOWLLiteral(1);
+        OWLLiteral _3 = df.getOWLLiteral(3);
+        OWLLiteral _2 = df.getOWLLiteral(2);
+        OWLLiteral _4 = df.getOWLLiteral(4);
+        OWLAnnotation c3 = df.getRDFSComment(_3);
+        OWLAnnotation c4 = df.getRDFSComment(_4);
+        OWLAnnotation c1 = df.getOWLAnnotation(df.getRDFSLabel(), _1, c3);
+        OWLAnnotation c2 = df.getOWLAnnotation(df.getRDFSLabel(), _2, c4);
+        OWLObjectPropertyAssertionAxiom ax = df.getOWLObjectPropertyAssertionAxiom(r, a, b, Arrays.asList(c1, c2));
+        List<OWLAxiom> axioms = Arrays.asList(ax);
         OWLOntology ont = loadOntologyFromString(TestFiles.nestedAnnotations, new RDFXMLDocumentFormat());
-        assertEquals(axioms, asUnorderedSet(ont.logicalAxioms()));
+        assertEquals(axioms, asList(ont.logicalAxioms()));
     }
 
     @Test

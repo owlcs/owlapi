@@ -882,7 +882,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         anonWithAnnotations.consumeAnnotatedSource(n, x -> anns.put(x, pendingAnns(x)));
         List<OWLAnnotation> nodeAnns = new ArrayList<>();
         anns.allValues(x -> x.getProperty().getIRI()).forEach(p -> mapAnnotation(n, anns, nodeAnns, p));
-        tripleIndex.getPredicatesBySubject(n).filter(iris::isAP).forEach(p -> mapAnnotation(n, anns, nodeAnns, p));
+        tripleIndex.getPredicatesBySubject(n).filter(iris::isApLax).forEach(p -> mapAnnotation(n, anns, nodeAnns, p));
         return nodeAnns;
     }
 
@@ -1198,7 +1198,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             } else if (iris.isDataPropertyStrict(s) && iris.isDataRangeStrict(o)) {
                 add(df.getOWLDataPropertyRangeAxiom(dp(s), translateDataRange(o), pendingAnns()));
                 return true;
-            } else if (iris.isApLax(s) && !anon.isAnonymousNode(o)) {
+            } else if (iris.isAP(s) && !anon.isAnonymousNode(o)) {
                 add(df.getOWLAnnotationPropertyRangeAxiom(ap(s), o, pendingAnns()));
                 return true;
             }
@@ -1229,7 +1229,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleAnnotationResourceStreaming(IRI s, IRI p, IRI o) {
-        return isStrict() ? false : !anon.isAnonymousNode(s) && !anon.isAnonymousNode(o) && iris.isApLax(p);
+        return isStrict() ? false : !anon.isAnonymousNode(s) && !anon.isAnonymousNode(o) && iris.isAP(p);
     }
 
     protected boolean canHandleAnnotationResource(IRI s, IRI p) {
@@ -1256,11 +1256,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             return iris.isDataPropertyStrict(p);
         }
         // Handle annotation assertions as annotation assertions only!
-        return iris.isDPLax(p) && !iris.isApLax(p);
+        return iris.isDPLax(p) && !iris.isAP(p);
     }
 
     protected boolean canHandleLiteralStreaming(IRI p) {
-        return isStrict() ? false : iris.isApLax(p);
+        return isStrict() ? false : iris.isAP(p);
     }
 
     protected boolean canHandleObjectAssertion(IRI p) {
@@ -1289,7 +1289,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean canHandleAnnotationLiteralStreaming(IRI s, IRI p) {
-        return !anon.isAnonymousNode(s) && !iris.isAnnotation(s) && iris.isApLax(p);
+        return !anon.isAnonymousNode(s) && !iris.isAnnotation(s) && iris.isAP(p);
     }
 
     protected boolean canHandleAnnotationLiteral(IRI s, IRI p) {
@@ -1299,7 +1299,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         if (isAxiom(s) || iris.isAnnotation(s)) {
             return false;
         }
-        if (iris.isApLax(p) || anon.isAnonymousNode(s)) {
+        if (iris.isAP(p) || anon.isAnonymousNode(s)) {
             return true;
         }
         return isCeLax(s) || iris.isDrLax(s) || iris.isOpLax(s) || iris.isDPLax(s);
@@ -1482,7 +1482,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         } else if (iris.isDataPropertyStrict(s) && iris.isClassExpression(o)) {
             add(df.getOWLDataPropertyDomainAxiom(dp(s), ce(o), pendingAnns()));
             return tripleIndex.consumeTriple(s, p, o);
-        } else if (iris.isApLax(s) && iris.isClassExpression(o) && !anon.isAnonymousNode(o)) {
+        } else if (iris.isAP(s) && iris.isClassExpression(o) && !anon.isAnonymousNode(o)) {
             add(df.getOWLAnnotationPropertyDomainAxiom(ap(s), o, pendingAnns()));
             // TODO: Handle anonymous domain - error?
             return tripleIndex.consumeTriple(s, p, o);
