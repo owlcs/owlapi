@@ -1,0 +1,28 @@
+@prefix  obo: <http://purl.obolibrary.org/obo/> .
+@prefix  owl: <http://www.w3.org/2002/07/owl#> .
+
+## Rio does not like this as base is not declared
+obo:foo a <label> .
+
+## owlapi parser does not like backslash
+obo:bar owl:versionIRI obo:foo\/bar1 .
+obo:bar owl:seeAlso obo:foo\~bar2 .
+obo:bar owl:seeAlso obo:foo\.bar3 .
+obo:bar owl:seeAlso obo:foo\-bar4 .
+obo:bar owl:seeAlso obo:foo\!bar5 .
+obo:bar owl:seeAlso obo:foo\$bar6 .
+obo:bar owl:seeAlso obo:foo\&bar7 .
+obo:bar owl:seeAlso obo:foo\'bar8 .
+obo:bar owl:seeAlso obo:foo\(bar9 .
+obo:bar owl:seeAlso obo:foo\)bar10 .
+obo:bar owl:seeAlso obo:foo\*bar11 .
+obo:bar owl:seeAlso obo:foo\+bar12 .
+obo:bar owl:seeAlso obo:foo\,bar13 .
+obo:bar owl:seeAlso obo:foo\;bar14 .
+obo:bar owl:seeAlso obo:foo\=bar15 .
+obo:bar owl:seeAlso obo:foo\/bar16 .
+obo:bar owl:seeAlso obo:foo\?bar17 .
+obo:bar owl:seeAlso obo:foo\#bar18 .
+obo:bar owl:seeAlso obo:foo\@bar19 .
+obo:bar owl:seeAlso obo:foo\%bar20 .
+obo:bar owl:seeAlso obo:foo\_bar21 .

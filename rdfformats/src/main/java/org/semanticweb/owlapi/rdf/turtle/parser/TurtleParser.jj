@@ -3,7 +3,7 @@ options {
     JAVA_UNICODE_ESCAPE=true;
     STATIC=false;
     JAVA_TEMPLATE_TYPE = "modern";
-    EXCEPTIONS_SUPER_CLASS = "org.semanticweb.owlapi.documents.OWLParserException"; 
+    EXCEPTIONS_SUPER_CLASS = "org.semanticweb.owlapi.io.OWLParserException"; 
     SUPPORT_CLASS_VISIBILITY_PUBLIC=false;
     //DEBUG_PARSER=true;
 }
@@ -177,29 +177,22 @@ TOKEN: { <LETTER: ["a"-"z"] | ["A"-"Z"]> }
 ////////////////////////////////////////////////////////////////////////////////////////////
 //
 // IRIs
-TOKEN: { <FULLIRI: "<"(~[">", " "])*">"> }
-TOKEN: { <PNAME_NS: (<PN_PREFIX> (":" <PN_PREFIX>)* )? ":"> }
-TOKEN: { <PN_LOCAL: ( <PN_CHARS_U> | ["0"-"9"] ) ((<PN_CHARS>|".")* <PN_CHARS>)?> }
-TOKEN: { <PNAME_LN: <PNAME_NS> <PN_LOCAL>> }
-TOKEN: { <PN_PREFIX: <PN_CHARS_BASE>((<PN_CHARS>|".")* <PN_CHARS>)?> }
-
-TOKEN: { <PN_CHARS_BASE:   ["A"-"Z"]|["a"-"z"]|["\u00C0"-"\u00D6"]
-|["\u00D8"-"\u00F6"]|["\u00F8"-"\u02FF"]|["\u0370"-"\u037D"]|["\u037F"-"\u1FFF"]|["\u200C"-"\u200D"]
-|["\u2070"-"\u218F"]|["\u2C00"-"\u2FEF"]|["\u3001"-"\uD7FF"]|["\uF900"-"\uFDCF"]|["\uFDF0"-"\uFFFD"]> }
-TOKEN: { <PN_CHARS:<PN_CHARS_U>|"-"|["0"-"9"]|"\u00B7"|["\u0300"-"\u036F"]|["\u203F"-"\u2040"]> }
-TOKEN: { <PN_CHARS_U: <PN_CHARS_BASE> | "_"> }
-TOKEN: { <NODEID: "_:"<PN_LOCAL>> }
+TOKEN: { <FULLIRI:       "<"(~[">", " "])*">"> }
+TOKEN: { <PNAME_NS:      (<PN_PREFIX> (":" <PN_PREFIX>)* )? ":"> }
+TOKEN: { <PN_LOCAL:      (<PN_CHARS_U> | <DIGIT> ) ((<PN_CHARS>|"."|"\\/"|"\\~"|"\\."|"\\-"|"\\!"|"\\$"|"\\&"|"\\'"|"\\("|"\\)"|"\\*"|"\\+"|"\\,"|"\\;"|"\\="|"\\?"|"\\#"|"\\@"|"\\%"|"\\_")* <PN_CHARS>)?> }
+TOKEN: { <PNAME_LN:      <PNAME_NS> <PN_LOCAL>> }
+TOKEN: { <PN_PREFIX:     <PN_CHARS_BASE>((<PN_CHARS>|".")* <PN_CHARS>)?> }
+TOKEN: { <PN_CHARS_BASE: <LETTER> | ["\u00C0"-"\u00D6"] | ["\u00D8"-"\u00F6"] | ["\u00F8"-"\u02FF"] | ["\u0370"-"\u037D"] | ["\u037F"-"\u1FFF"] | ["\u200C"-"\u200D"] | ["\u2070"-"\u218F"] | ["\u2C00"-"\u2FEF"] | ["\u3001"-"\uD7FF"] | ["\uF900"-"\uFDCF"] | ["\uFDF0"-"\uFFFD"]> }
+TOKEN: { <PN_CHARS:      <PN_CHARS_U> | "-" | <DIGIT> | "\u00B7" | ["\u0300"-"\u036F"]|["\u203F"-"\u2040"]> }
+TOKEN: { <PN_CHARS_U:    <PN_CHARS_BASE> | "_"> }
+TOKEN: { <NODEID:        <NODE_ID_START><PN_LOCAL>> }
 TOKEN: { <ERROR: ~[]> }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-void parseDocument() :
-{ }
-{ (parseDirective()<DOT> | parseStatement()<DOT>)+<EOF> {handler.endModel();} }
+void parseDocument() : {} { (parseDirective()<DOT> | parseStatement()<DOT>)+<EOF> {handler.endModel();} }
 
-void parseDirective() :
-{ }
-{ parsePrefixDirective() | parseBaseDirective() }
+void parseDirective() : {} { parsePrefixDirective() | parseBaseDirective() }
 
 void parsePrefixDirective() :
 {
@@ -216,73 +209,41 @@ void parseBaseDirective() :
 { Token t; }
 { <BASE> t=<FULLIRI> {base = df.getIRI(t.image.substring(1, t.image.length() - 1));} { /* This should be handled properly as a prefix handler.handleBaseDirective(base);*/ } }
 
-void parseStatement() :
-{ }
-{ parseTriples() }
+void parseStatement() : {} { parseTriples() }
 
-void parseTriples() :
-{ IRI subject; }
-{
-    subject = parseSubject() (parsePredicateObjectList(subject))?
-}
+void parseTriples() : { IRI subject; } { subject = parseSubject() (parsePredicateObjectList(subject))? }
 
-IRI parseSubject() :
-{ IRI iri; }
-{ (iri=parseResource() | iri=parseBlankNode()) { return iri; } }
+IRI parseSubject() : { IRI iri; } { (iri=parseResource() | iri=parseBlankNode()) { return iri; } }
 
-IRI parseLoneNS() :
-{ Token t; }
-{ t=<PNAME_NS> { return getIRIFromQName(t.image); } }
+IRI parseLoneNS() : { Token t; } { t=<PNAME_NS> { return getIRIFromQName(t.image); } }
 
-IRI parseAbbreviatedIRI() :
-{ Token t; }
-{ t=<PNAME_LN> { return getIRIFromQName(t.image); } }
+IRI parseAbbreviatedIRI() : { Token t; } { t=<PNAME_LN> { return getIRIFromQName(t.image); } }
 
-IRI parseIRI() :
-{ Token t; }
-{ t=<FULLIRI> {return getIRI(t.image);} }
+IRI parseIRI() : { Token t; } { t=<FULLIRI> {return getIRI(t.image);} }
 
-IRI parseBlankNode() :
-{ IRI iri = null; }
+IRI parseBlankNode() : { IRI iri = null; }
 {
     (iri=parseNodeID()
     | <EMPTY_BLANK_NODE>{if(iri==null){iri = getNextBlankNode(null);}}
     | <OPEN_SQUARE_BRACKET> ({if(iri==null){iri = getNextBlankNode(null);}} parsePredicateObjectList(iri) (<DOT>)?)? <CLOSE_SQUARE_BRACKET> {if (iri == null) {iri = getNextBlankNode(null); }}    
-    | iri = parseCollection())
-    { return iri; }
+    | iri = parseCollection()) { return iri; }
 }
 
-IRI parseNodeID() :
-{ Token t; }
-{ t=<NODEID> { return getNextBlankNode(t.image); } }
+IRI parseNodeID() : { Token t; } { t=<NODEID> { return getNextBlankNode(t.image); } }
 
-void parsePredicateObjectList(IRI subject) :
-{ IRI predicate; }
-{ (predicate=parseVerb() parseObjectList(subject, predicate) (LOOKAHEAD(2)<SEMICOLON> predicate=parseVerb() parseObjectList(subject, predicate) )*) (<SEMICOLON>)? }
+void parsePredicateObjectList(IRI subject) : { IRI predicate; } { (predicate=parseVerb() parseObjectList(subject, predicate) (LOOKAHEAD(2)<SEMICOLON> predicate=parseVerb() parseObjectList(subject, predicate) )*) (<SEMICOLON>)? }
 
-IRI parseVerb() :
-{ IRI iri; }
-{ (<A>{iri = OWLRDFVocabulary.RDF_TYPE.getIRI();} | iri=parsePredicate()) { return iri; } }
+IRI parseVerb() : { IRI iri; } { (<A>{iri = OWLRDFVocabulary.RDF_TYPE.getIRI();} | iri=parsePredicate()) { return iri; } }
 
-IRI parsePredicate() :
-{ IRI iri; }
-{ iri=parseResource() { return iri; } }
+IRI parsePredicate() : { IRI iri; } { iri=parseResource() { return iri; } }
 
-IRI parseResource() :
-{ IRI iri; }
-{ (iri=parseIRI() | LOOKAHEAD(2)iri=parseAbbreviatedIRI()| LOOKAHEAD(2)iri=parseLoneNS()) { return iri; } }
+IRI parseResource() : { IRI iri; } { (iri=parseIRI() | LOOKAHEAD(2)iri=parseAbbreviatedIRI()| LOOKAHEAD(2)iri=parseLoneNS()) { return iri; } }
 
-void parseObjectList(IRI subject, IRI predicate) :
-{  }
-{ parseObject(subject, predicate) ( <COMMA> parseObject(subject, predicate) )* }
+void parseObjectList(IRI subject, IRI predicate) : {} { parseObject(subject, predicate) ( <COMMA> parseObject(subject, predicate) )* }
 
-void parseObject(IRI subject, IRI predicate) :
-{ IRI resObject; }
-{ (parseLiteral(subject, predicate) | ((resObject=parseResource() | resObject=parseBlankNode())) { handler.statementWithResourceValue(subject, predicate, resObject); }) }
+void parseObject(IRI subject, IRI predicate) : { IRI resObject; } { (parseLiteral(subject, predicate) | ((resObject=parseResource() | resObject=parseBlankNode())) { handler.statementWithResourceValue(subject, predicate, resObject); }) }
 
-IRI parseCollection() :
-{ IRI iri; }
-{ <OPENPAR> iri=parseItemList() <CLOSEPAR> { return iri; } }
+IRI parseCollection() : { IRI iri; } { <OPENPAR> iri=parseItemList() <CLOSEPAR> { return iri; } }
 
 IRI parseItemList() :
 {
@@ -329,32 +290,21 @@ void parseLiteral(IRI subject, IRI predicate) :
         }
     )
     | (literal=parseInteger(){handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.INTEGER.getIRI());})
-    | (literal=parseDouble() {handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.DOUBLE.getIRI());})
+    | (literal=parseDouble(){handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.DOUBLE.getIRI());})
     | (literal=parseDecimal(){handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.DECIMAL.getIRI());})
     | (literal=parseBoolean(){handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.BOOLEAN.getIRI());})
 }
 
 
-String parseInteger() :
-{ Token t; }
-{ ( t=<INTEGER>|t=<DIGIT>) { return t.image; } }
+String parseInteger() : { Token t; } { ( t=<INTEGER>|t=<DIGIT>) { return t.image; } }
 
-String parseDouble() :
-{ Token t; }
-{ t=<DOUBLE> { return t.image; } }
+String parseDouble() : { Token t; } { t=<DOUBLE> { return t.image; } }
 
-String parseDecimal() :
-{ Token t; }
-{ t=<DECIMAL> { return t.image; } }
+String parseDecimal() : { Token t; } { t=<DECIMAL> { return t.image; } }
 
-String parseBoolean() :
-{ Token t; }
-{ (t=<TRUE> | t=<FALSE>) { return t.image; } }
+String parseBoolean() : { Token t; } { (t=<TRUE> | t=<FALSE>) { return t.image; } }
 
-String parseQuotedString() :
-{ String s; }
-{ s=parseString() { return s; } }
-
+String parseQuotedString() : { String s; } { s=parseString() { return s; } }
 
 String parseString() :
 {
