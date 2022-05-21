@@ -121,7 +121,8 @@ public interface OWLObject
      *         well as data ranges.
      */
     default boolean isAnonymousExpression() {
-        return !isAxiom() && !isIndividual() && !isOntology() && isAnonymous();
+        return !isAxiom() && !isIndividual() && !isOntology() && !isIRI() && !(this instanceof OWLLiteral)
+            && isAnonymous();
     }
 
     /**
