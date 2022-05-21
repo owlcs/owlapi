@@ -42,13 +42,13 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class RDFGraph implements Serializable {
 
-    private static final List<IRI> skippedPredicates =
-        Arrays.asList(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
+    private static final List<IRI> skippedPredicates = Arrays.asList(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
     private final Set<RDFTriple> triples = createLinkedSet();
@@ -56,25 +56,29 @@ public class RDFGraph implements Serializable {
     private OWLDataFactory df;
 
     /**
-     * @param df data factory
+     * @param df
+     *        data factory
      */
     public RDFGraph(OWLDataFactory df) {
         this.df = df;
     }
 
     /**
-     * @param predicate predicate to check for inclusion
-     * @return true if the predicate IRI is not in the set of predicates that should be skipped from
-     *         blank node reuse analysis.
+     * @param predicate
+     *        predicate to check for inclusion
+     * @return true if the predicate IRI is not in the set of predicates that
+     *         should be skipped from blank node reuse analysis.
      */
     private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
         return !skippedPredicates.contains(predicate.getIRI());
     }
 
     /**
-     * Determines if this graph is empty (i.e. whether or not it contains any triples).
+     * Determines if this graph is empty (i.e. whether or not it contains any
+     * triples).
      *
-     * @return {@code true} if the graph contains triples, otherwise {@code false}
+     * @return {@code true} if the graph contains triples, otherwise
+     *         {@code false}
      * @since 3.5
      */
     public boolean isEmpty() {
@@ -82,7 +86,8 @@ public class RDFGraph implements Serializable {
     }
 
     /**
-     * @param triple triple to add
+     * @param triple
+     *        triple to add
      */
     public void addTriple(RDFTriple triple) {
         checkNotNull(triple, "triple cannot be null");
@@ -98,7 +103,8 @@ public class RDFGraph implements Serializable {
     }
 
     /**
-     * @param subject subject
+     * @param subject
+     *        subject
      * @return sorted triples
      */
     public Collection<RDFTriple> getTriplesForSubject(RDFNode subject) {
@@ -116,15 +122,15 @@ public class RDFGraph implements Serializable {
     }
 
     /**
-     * @return for each triple with a blank node object that is shared with other triples, compute a
-     *         remapping of the node.
+     * @return for each triple with a blank node object that is shared with
+     *         other triples, compute a remapping of the node.
      */
     public Map<RDFTriple, RDFResourceBlankNode> computeRemappingForSharedNodes() {
         Map<RDFTriple, RDFResourceBlankNode> toReturn = createMap();
         Map<RDFNode, List<RDFTriple>> sharers = createMap();
         for (RDFTriple t : triples) {
-            if (t.getObject().isAnonymous() && !t.getObject().isIndividual()
-                && !t.getObject().isAxiom() && notInSkippedPredicates(t.getPredicate())) {
+            if (t.getObject().isAnonymous() && !t.getObject().isIndividual() && !t.getObject().isAxiom()
+                && notInSkippedPredicates(t.getPredicate())) {
                 List<RDFTriple> list = sharers.get(t.getObject());
                 if (list == null) {
                     list = new ArrayList<>(2);
@@ -137,15 +143,44 @@ public class RDFGraph implements Serializable {
             if (e.getValue().size() > 1) {
                 // found reused blank nodes
                 for (RDFTriple t : e.getValue()) {
-                    RDFResourceBlankNode bnode =
-                        new RDFResourceBlankNode(df.getIRI(NodeID.nextAnonymousIRI()),
-                            e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
+                    RDFResourceBlankNode bnode = new RDFResourceBlankNode(df.getIRI(NodeID.nextAnonymousIRI()),
+                        e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
                     remappedNodes.put(bnode, e.getKey());
                     toReturn.put(t, bnode);
                 }
             }
         }
+        forceIdOutputForIndividualsInMultipleTriples();
         return toReturn;
+    }
+
+    protected void forceIdOutputForIndividualsInMultipleTriples() {
+        // Some individuals might need to appear in mutliple triples although
+        // they do not appear in
+        // multiple positions in the axioms.
+        // An example of such a situation is an anonymous individual as object
+        // of an annotated
+        // annotation - in the RDF graph, this individual will appear in two
+        // places because of
+        // reification.
+        Map<RDFResourceBlankNode, List<RDFResourceBlankNode>> anonIndividualsInMultipleTriples = createMap();
+        for (RDFTriple t : triples) {
+            if (t.getObject().isAnonymous() && t.getObject().isIndividual()) {
+                List<RDFResourceBlankNode> list = anonIndividualsInMultipleTriples.get(t.getObject());
+                if (list == null) {
+                    list = new ArrayList<>(2);
+                    anonIndividualsInMultipleTriples.put((RDFResourceBlankNode) t.getObject(), list);
+                }
+                list.add((RDFResourceBlankNode) t.getObject());
+            }
+        }
+        for (Map.Entry<RDFResourceBlankNode, List<RDFResourceBlankNode>> e : anonIndividualsInMultipleTriples
+            .entrySet()) {
+            if (e.getValue().size() > 1) {
+                // individuals that need their id outputted
+                e.getValue().forEach(o -> o.setIdRequiredForIndividual(true));
+            }
+        }
     }
 
     /**
@@ -173,8 +208,10 @@ public class RDFGraph implements Serializable {
     }
 
     /**
-     * @param w writer to write to
-     * @throws IOException if exceptions happen
+     * @param w
+     *        writer to write to
+     * @throws IOException
+     *         if exceptions happen
      */
     public void dumpTriples(Writer w) throws IOException {
         checkNotNull(w, "w cannot be null");
@@ -198,16 +235,17 @@ public class RDFGraph implements Serializable {
     public String toString() {
         return triples.stream().map(Object::toString)
             .collect(Collectors.joining(",\n                     ", "triples            : ", "\n"))
-            + triplesBySubject.entrySet().stream().map(Object::toString).collect(
-                Collectors.joining(",\n                     ", "triplesBySubject   : ", "\n"))
-            + rootAnonymousNodes.stream().map(Object::toString).collect(
-                Collectors.joining(",\n                     ", "rootAnonymousNodes : ", "\n"))
-            + remappedNodes.entrySet().stream().map(Object::toString).collect(
-                Collectors.joining(",\n                     ", "remappedNodes      : ", ""));
+            + triplesBySubject.entrySet().stream().map(Object::toString)
+                .collect(Collectors.joining(",\n                     ", "triplesBySubject   : ", "\n"))
+            + rootAnonymousNodes.stream().map(Object::toString)
+                .collect(Collectors.joining(",\n                     ", "rootAnonymousNodes : ", "\n"))
+            + remappedNodes.entrySet().stream().map(Object::toString)
+                .collect(Collectors.joining(",\n                     ", "remappedNodes      : ", ""));
     }
 
     /**
-     * @param node object to search for
+     * @param node
+     *        object to search for
      * @return all subjects referring to the input object
      */
     public List<RDFResource> getSubjectsForObject(RDFResource node) {
@@ -220,8 +258,8 @@ public class RDFGraph implements Serializable {
             change = false;
             for (RDFResource n : current) {
                 if (visited.add(n)) {
-                    List<RDFResource> l = asList(triples.stream()
-                        .filter(p -> p.getObject().equals(n)).map(RDFTriple::getSubject));
+                    List<RDFResource> l = asList(
+                        triples.stream().filter(p -> p.getObject().equals(n)).map(RDFTriple::getSubject));
                     if (l.size() > 0) {
                         change = true;
                         next.addAll(l);
