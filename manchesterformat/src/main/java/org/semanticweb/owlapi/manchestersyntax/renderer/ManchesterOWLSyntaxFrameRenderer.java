@@ -363,6 +363,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         prefixMap.entrySet().stream().sorted((o1, o2) -> o1.getKey().compareTo(o2.getKey()))
             .forEach(value -> write(PREFIX.toString()).write(": ").write(value.getKey()).write(" ").write("<")
                 .write(value.getValue()).write(">").writeNewLine());
+        if (!prefixMap.containsKey(":")) {
+            write(PREFIX.toString());
+            write(": : ");
+            write(o.getOntologyID().getOntologyIRI().map(IRI::toQuotedString).orElse(o.getOntologyID()
+                .getDefaultDocumentIRI().map(IRI::toQuotedString).orElse("<urn:absoluteiri:defaultvalue#>")));
+            writeNewLine();
+        }
         if (!prefixMap.isEmpty()) {
             writeNewLine().writeNewLine();
         }

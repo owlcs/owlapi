@@ -76,6 +76,7 @@ import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -133,17 +134,19 @@ public abstract class RDFRendererBase {
     @Nullable protected Map<RDFTriple, RDFResourceBlankNode> triplesWithRemappedNodes;
     private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
     private final Map<Object, Integer> blankNodeMap = new IdentityHashMap<>();
+    private final OWLDocumentFormat format;
 
     /**
      * @param ontology
      *        ontology
      */
-    public RDFRendererBase(OWLOntology ontology) {
-        this(ontology, ontology.getOWLOntologyManager().getOntologyConfigurator());
+    public RDFRendererBase(OWLOntology ontology, @Nullable OWLDocumentFormat format) {
+        this(ontology, format, ontology.getOWLOntologyManager().getOntologyConfigurator());
     }
 
-    protected RDFRendererBase(OWLOntology ontology, OntologyConfigurator config) {
+    protected RDFRendererBase(OWLOntology ontology, @Nullable OWLDocumentFormat format, OntologyConfigurator config) {
         this.ontology = ontology;
+        this.format = format;
         this.config = config;
         OWLOntologyManager m = this.ontology.getOWLOntologyManager();
         df = m.getOWLDataFactory();
@@ -333,9 +336,13 @@ public abstract class RDFRendererBase {
     private void renderEntity(OWLEntity entity) {
         beginObject();
         writeEntityComment(entity);
-        render(new RDFResourceIRI(entity.getIRI()), true);
+        render(new RDFResourceIRI(verifyAbsolute(entity.getIRI())), true);
         renderAnonRoots();
         endObject();
+    }
+
+    protected IRI verifyAbsolute(IRI iri) {
+        return AbsoluteIRIHelper.verifyAbsolute(iri, format, ontology);
     }
 
     /**
@@ -380,7 +387,7 @@ public abstract class RDFRendererBase {
     protected void renderIRI(IRI iri) {
         beginObject();
         createGraph(ontology.annotationAssertionAxioms(iri));
-        render(new RDFResourceIRI(iri), true);
+        render(new RDFResourceIRI(verifyAbsolute(iri)), true);
         renderAnonRoots();
         endObject();
     }
@@ -413,7 +420,8 @@ public abstract class RDFRendererBase {
             writeBanner(RULES_BANNER_TEXT);
             SWRLVariableExtractor variableExtractor = new SWRLVariableExtractor();
             ruleAxioms.forEach(rule -> rule.accept(variableExtractor));
-            variableExtractor.getVariables().forEach(var -> render(new RDFResourceIRI(var.getIRI()), true));
+            variableExtractor.getVariables()
+                .forEach(var -> render(new RDFResourceIRI(verifyAbsolute(var.getIRI())), true));
             renderAnonRoots();
         }
     }
@@ -463,7 +471,7 @@ public abstract class RDFRendererBase {
     }
 
     protected void renderOntologyHeader() {
-        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
+        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology, format,
             shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId, blankNodeMap);
         graph = translator.getGraph();
         ontology.accept(translator);
@@ -500,7 +508,7 @@ public abstract class RDFRendererBase {
     }
 
     protected void createGraph(Stream<? extends OWLObject> objects) {
-        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
+        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology, format,
             shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId, blankNodeMap);
         objects.sorted().forEach(obj -> deshare(obj).accept(translator));
         graph = translator.getGraph();
@@ -508,7 +516,7 @@ public abstract class RDFRendererBase {
     }
 
     protected void createGraph(OWLObject o) {
-        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
+        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology, format,
             shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId, blankNodeMap);
         deshare(o).accept(translator);
         graph = translator.getGraph();

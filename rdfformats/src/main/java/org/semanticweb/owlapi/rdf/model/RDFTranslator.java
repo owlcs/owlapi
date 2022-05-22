@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.documents.RDFLiteral;
 import org.semanticweb.owlapi.documents.RDFNode;
@@ -29,36 +30,47 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.rdf.AbsoluteIRIHelper;
 import org.semanticweb.owlapi.utility.AxiomAppearance;
 import org.semanticweb.owlapi.utility.IndividualAppearance;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public class RDFTranslator
-    extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
+public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
     protected final AxiomAppearance axiomOccurrences;
     private final AtomicInteger nextBlankNodeId;
     private final Map<Object, Integer> blankNodeMap;
 
     /**
-     * @param manager the manager
-     * @param ontology the ontology
-     * @param useStrongTyping true if strong typing is required
-     * @param occurrences will tell whether anonymous individuals need an id or not
-     * @param axiomOccurrences axiom occurrences
-     * @param counter counter for blank nodes
-     * @param blankNodeMap map for blank node renaming
+     * @param manager
+     *        the manager
+     * @param ontology
+     *        the ontology
+     * @param format
+     *        target format
+     * @param useStrongTyping
+     *        true if strong typing is required
+     * @param occurrences
+     *        will tell whether anonymous individuals need an id or not
+     * @param axiomOccurrences
+     *        axiom occurrences
+     * @param counter
+     *        counter for blank nodes
+     * @param blankNodeMap
+     *        map for blank node renaming
      */
-    public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
-        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger counter,
-        Map<Object, Integer> blankNodeMap) {
-        super(manager, ontology, useStrongTyping, occurrences);
+    public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, @Nullable OWLDocumentFormat format,
+        boolean useStrongTyping, IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,
+        AtomicInteger counter, Map<Object, Integer> blankNodeMap) {
+        super(manager, ontology, format, useStrongTyping, occurrences);
         this.axiomOccurrences = axiomOccurrences;
         nextBlankNodeId = counter;
         this.blankNodeMap = blankNodeMap;
@@ -78,8 +90,7 @@ public class RDFTranslator
         if (isIndividual) {
             OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
             needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
-            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, isAxiom,
-                needId);
+            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, isAxiom, needId);
         } else if (key instanceof OWLAxiom) {
             isIndividual = false;
             isAxiom = true;
@@ -88,15 +99,14 @@ public class RDFTranslator
         return getBlankNodeFor(key, isIndividual, isAxiom, needId);
     }
 
-    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual,
-        boolean isAxiom, boolean needId) {
+    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean isAxiom, boolean needId) {
         Integer id = blankNodeMap.get(key);
         if (id == null) {
             id = Integer.valueOf(nextBlankNodeId.getAndIncrement());
             blankNodeMap.put(key, id);
         }
-        return new RDFResourceBlankNode(NodeID.nodeId(id.intValue(), manager.getOWLDataFactory()),
-            isIndividual, needId, isAxiom);
+        return new RDFResourceBlankNode(NodeID.nodeId(id.intValue(), manager.getOWLDataFactory()), isIndividual, needId,
+            isAxiom);
     }
 
     @Override
@@ -106,11 +116,11 @@ public class RDFTranslator
 
     @Override
     protected RDFResourceIRI getPredicateNode(@Nonnull IRI iri) {
-        return new RDFResourceIRI(iri);
+        return new RDFResourceIRI(AbsoluteIRIHelper.verifyAbsolute(iri, format, ont));
     }
 
     @Override
     protected RDFResourceIRI getResourceNode(@Nonnull IRI iri) {
-        return new RDFResourceIRI(iri);
+        return new RDFResourceIRI(AbsoluteIRIHelper.verifyAbsolute(iri, format, ont));
     }
 }

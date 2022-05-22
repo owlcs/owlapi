@@ -154,6 +154,7 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
@@ -244,7 +245,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     protected final IndividualAppearance multipleOccurrences;
     protected final OWLOntologyManager manager;
-    private final OWLOntology ont;
+    protected final OWLOntology ont;
+    protected final OWLDocumentFormat format;
     private final boolean useStrongTyping;
     private final Set<OWLIndividual> currentIndividuals = createLinkedSet();
     /**
@@ -259,14 +261,17 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      *        the manager
      * @param ontology
      *        the ontology
+     * @param format
+     *        target format
      * @param useStrongTyping
      *        true if strong typing should be used
      * @param multiple
      *        will tell whether anonymous individuals need an id or not
      */
-    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
-        IndividualAppearance multiple) {
+    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology, @Nullable OWLDocumentFormat format,
+        boolean useStrongTyping, IndividualAppearance multiple) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
+        this.format = format;
         this.manager = checkNotNull(manager, "manager cannot be null");
         graph = new RDFGraph(manager.getOWLDataFactory());
         this.useStrongTyping = useStrongTyping;

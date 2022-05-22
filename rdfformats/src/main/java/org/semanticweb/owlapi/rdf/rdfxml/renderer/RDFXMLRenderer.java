@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.utility.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class RDFXMLRenderer extends RDFRendererBase {
@@ -64,23 +65,31 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private final ShortFormProvider labelMaker;
 
     /**
-     * @param ontology ontology
-     * @param w writer
-     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
+     * @param ontology
+     *        ontology
+     * @param w
+     *        writer
+     * @param encoding
+     *        encoding for the writer, to use for the encoding attribute on the
+     *        prologue
      */
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, Charset encoding) {
         this(ontology, w, verifyNotNull(ontology.getFormat()), encoding);
     }
 
     /**
-     * @param ontology ontology
-     * @param w writer
-     * @param format format
-     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
+     * @param ontology
+     *        ontology
+     * @param w
+     *        writer
+     * @param format
+     *        format
+     * @param encoding
+     *        encoding for the writer, to use for the encoding attribute on the
+     *        prologue
      */
-    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format,
-        Charset encoding) {
-        super(checkNotNull(ontology, "ontology cannot be null"),
+    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format, Charset encoding) {
+        super(checkNotNull(ontology, "ontology cannot be null"), format,
             ontology.getOWLOntologyManager().getOntologyConfigurator());
         checkNotNull(w, "w cannot be null");
         checkNotNull(format, "format cannot be null");
@@ -93,8 +102,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLAnnotationProperty labelProp = manager.getOWLDataFactory().getRDFSLabel();
-        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp),
-            prefLangMap, manager);
+        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp), prefLangMap, manager);
     }
 
     private static String base(String defaultNamespace) {
@@ -208,8 +216,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
             writer.writeNodeIDAttribute(node);
         }
         for (RDFTriple triple : triples) {
-            if (candidatePrettyPrintTypeTriple != null
-                && candidatePrettyPrintTypeTriple.equals(triple)) {
+            if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;
             }
             writer.writeStartElement(triple.getPredicate().getIRI());
@@ -230,8 +237,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
                                 if (n.isLiteral()) {
                                     RDFLiteral litNode = (RDFLiteral) n;
                                     writer.writeStartElement(RDFS_LITERAL.getIRI());
-                                    if (!litNode.isPlainLiteral() && !OWL2Datatype.XSD_STRING
-                                        .getIRI().equals(litNode.getDatatype())) {
+                                    if (!litNode.isPlainLiteral()
+                                        && !OWL2Datatype.XSD_STRING.getIRI().equals(litNode.getDatatype())) {
                                         writer.writeDatatypeAttribute(litNode.getDatatype());
                                     } else if (litNode.hasLang()) {
                                         writer.writeLangAttribute(litNode.getLang());

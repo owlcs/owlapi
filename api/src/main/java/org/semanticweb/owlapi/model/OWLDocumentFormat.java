@@ -42,4 +42,17 @@ public interface OWLDocumentFormat extends Serializable {
     default boolean hasPrefixes() {
         return true;
     }
+
+    /**
+     * Some formats support relative IRIs in output (all parsers must create axioms with absolute
+     * IRIs, but some formats allow relative IRIs, with the understanding that in parsing the base
+     * IRI will be used to convert them to absolute IRIs). If a format does not support relative
+     * IRIs, the renderer needs to know to output absolute IRIs. This defaults to true as this keeps
+     * the existing behaviour.
+     * 
+     * @return true if relative IRIs are supported.
+     */
+    default boolean supportsRelativeIRIs() {
+        return true;
+    }
 }

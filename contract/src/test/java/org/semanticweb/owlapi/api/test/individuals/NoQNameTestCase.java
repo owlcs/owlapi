@@ -21,6 +21,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Objec
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.rdf4j.rio.RDFHandlerException;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AxiomsRoundTrippingBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -30,7 +31,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public class NoQNameTestCase extends AxiomsRoundTrippingBase {
@@ -65,5 +67,22 @@ public class NoQNameTestCase extends AxiomsRoundTrippingBase {
     public void roundTripRDFXMLAndFunctionalShouldBeSame() {
         // Test meaningless in this case, as the RDF/XML serialization does not
         // exist
+    }
+
+    @Override
+    @Test
+    public void testRioRDFXML() throws Exception {
+        try {
+            super.testRioRDFXML();
+            fail("Expected an exception specifying that a QName could not be generated");
+        } catch (OWLOntologyStorageException e) {
+            Throwable ex = e.getCause();
+            while (ex != null && !(ex instanceof RDFHandlerException)) {
+                ex = ex.getCause();
+            }
+            if (ex == null || !ex.getMessage().contains("http://example.com/place/123")) {
+                throw e;
+            }
+        }
     }
 }

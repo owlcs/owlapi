@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.rioformats.RioRDFXMLDocumentFormat;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
@@ -45,6 +46,7 @@ public class RioRendererTestCase extends TestBase {
     private RDFWriter testTurtleRioWriter;
     private StringWriter testNTriplesStringWriter;
     private RDFWriter testNTriplesRioWriter;
+    private RioRDFXMLDocumentFormat format = new RioRDFXMLDocumentFormat();
 
     @Before
     public void setUp() throws Exception {
@@ -67,7 +69,7 @@ public class RioRendererTestCase extends TestBase {
 
     @Test
     public void testRenderEmptyStatementCollector() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testHandlerStatementCollector);
+        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, format, testHandlerStatementCollector);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(1, testHandlerStatementCollector.getStatements().size());
@@ -79,7 +81,7 @@ public class RioRendererTestCase extends TestBase {
 
     @Test
     public void testRenderEmptyRdfXmlWriter() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testRdfXmlRioWriter);
+        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, format, testRdfXmlRioWriter);
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
         String result = testRdfXmlStringWriter.toString();
@@ -89,7 +91,7 @@ public class RioRendererTestCase extends TestBase {
 
     @Test
     public void testRenderEmptyTurtleWriter() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testTurtleRioWriter);
+        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, format, testTurtleRioWriter);
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
         String result = testTurtleStringWriter.toString();
@@ -99,7 +101,7 @@ public class RioRendererTestCase extends TestBase {
 
     @Test
     public void testRenderEmptyNTriplesWriter() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testNTriplesRioWriter);
+        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, format, testNTriplesRioWriter);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();
@@ -109,7 +111,7 @@ public class RioRendererTestCase extends TestBase {
 
     @Test
     public void testRenderKoalaStatementCollector() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testHandlerStatementCollector);
+        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, format, testHandlerStatementCollector);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
@@ -120,7 +122,7 @@ public class RioRendererTestCase extends TestBase {
 
     @Test
     public void testRenderKoalaRdfXmlWriter() throws Exception {
-        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testRdfXmlRioWriter);
+        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, format, testRdfXmlRioWriter);
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
         String result = testRdfXmlStringWriter.toString();
@@ -145,7 +147,7 @@ public class RioRendererTestCase extends TestBase {
 
     @Test
     public void testRenderKoalaTurtleWriter() throws Exception {
-        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testTurtleRioWriter);
+        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, format, testTurtleRioWriter);
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
         String result = testTurtleStringWriter.toString();
@@ -166,7 +168,7 @@ public class RioRendererTestCase extends TestBase {
 
     @Test
     public void testRenderKoalaNTriplesWriter() throws Exception {
-        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testNTriplesRioWriter);
+        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, format, testNTriplesRioWriter);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();

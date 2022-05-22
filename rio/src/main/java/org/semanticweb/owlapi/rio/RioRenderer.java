@@ -39,6 +39,8 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
@@ -50,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -73,19 +76,24 @@ public class RioRenderer extends RDFRendererBase {
     private final Resource[] contexts;
 
     /**
-     * @param ontology ontology
-     * @param writer writer
-     * @param contexts contexts
+     * @param ontology
+     *        ontology
+     * @param format
+     *        target format
+     * @param writer
+     *        writer
+     * @param contexts
+     *        contexts
      */
-    public RioRenderer(OWLOntology ontology, RDFHandler writer, Resource... contexts) {
-        super(ontology, ontology.getOWLOntologyManager().getOntologyConfigurator());
+    public RioRenderer(OWLOntology ontology, @Nullable OWLDocumentFormat format, RDFHandler writer,
+        Resource... contexts) {
+        super(ontology, format, ontology.getOWLOntologyManager().getOntologyConfigurator());
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;
         this.writer = writer;
         pm = ontology.getPrefixManager();
         if (ontology.isNamed()) {
-            String ontologyIRIString =
-                ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
+            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
             String defaultPrefix = ontologyIRIString;
             if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
                 defaultPrefix = ontologyIRIString + '#';
@@ -218,16 +226,14 @@ public class RioRenderer extends RDFRendererBase {
                     renderedStatements.add(tripleToRender);
                     // then we go back and get context-sensitive statements and
                     // actually pass those to the RDFHandler
-                    for (Statement statement : RioUtils.tripleAsStatements(tripleToRender,
-                        contexts)) {
+                    for (Statement statement : RioUtils.tripleAsStatements(tripleToRender, contexts)) {
                         writer.handleStatement(statement);
                         if (tripleToRender.getObject() instanceof RDFResource) {
                             render((RDFResource) tripleToRender.getObject(), false);
                         }
                     }
                 } else if (LOGGER.isTraceEnabled()) {
-                    LOGGER.trace("not printing duplicate statement, or recursing on its object: {}",
-                        tripleToRender);
+                    LOGGER.trace("not printing duplicate statement, or recursing on its object: {}", tripleToRender);
                 }
             } catch (RDFHandlerException e) {
                 throw new OWLRuntimeException(e);

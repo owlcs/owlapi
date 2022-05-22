@@ -49,4 +49,9 @@ public class RioTurtleDocumentFormat extends RioRDFDocumentFormatImpl {
     public RioTurtleDocumentFormat() {
         super(RDFFormat.TURTLE);
     }
+
+    @Override
+    public boolean supportsRelativeIRIs() {
+        return false;
+    }
 }
