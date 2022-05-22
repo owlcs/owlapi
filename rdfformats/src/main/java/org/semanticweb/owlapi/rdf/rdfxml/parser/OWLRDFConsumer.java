@@ -905,7 +905,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         consume(() -> tripleIndex.resource(n, p, true), r -> {
             dest.add(df.getOWLAnnotation(ap, getAnnotationValue(r),
                 anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, r))));
-            tripleIndex.consumeIfPresent(n, p, r);
+            if (!tripleIndex.consumeIfPresent(n, p, r)) {
+                LOGGER.trace("consuming triple failed");
+            }
         });
     }
 
