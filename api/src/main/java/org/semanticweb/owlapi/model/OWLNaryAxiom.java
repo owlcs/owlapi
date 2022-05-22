@@ -42,9 +42,11 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
     Stream<C> operands();
 
     /**
-     * Gets this axiom as a set of pairwise axioms. Note that annotations on
-     * this axiom will not be copied to each axiom returned in the set of
-     * pairwise axioms.<br>
+     * Gets this axiom as a set of pairwise axioms; if the axiom contains only
+     * two operands, the axiom itself is returned unchanged, including its
+     * annotations. Note that, aside from this exception, annotations on this
+     * axiom will not be copied to each axiom returned in the set of pairwise
+     * axioms.<br>
      * Note: This will contain all pairs, i.e., for the set "a, b, c" the pairs
      * "a, b", "a, c", "b, c" will be returned. For some applications, only "a,
      * b", "b, c" are required.
