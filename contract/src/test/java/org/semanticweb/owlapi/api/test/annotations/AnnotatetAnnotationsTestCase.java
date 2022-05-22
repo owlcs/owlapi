@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Stream;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.TestFiles;
@@ -86,11 +85,11 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
         IRI create = df.getIRI("urn:test:onto");
         OWLOntology o = m.createOntology(create);
         OWLAnnotation a2 = df.getOWLAnnotation(AnnotationProperty(iri("p2")), Literal("value2"),
-            Stream.of(df.getRDFSLabel("nested ontology annotation")));
+            df.getRDFSLabel("nested ontology annotation"));
         OWLAnnotation a1 = df.getOWLAnnotation(AnnotationProperty(iri("p1")), Literal("value1"), a2);
         o.applyChange(new AddOntologyAnnotation(o, a1));
         OWLAnnotation a3 = df.getOWLAnnotation(AnnotationProperty(iri("p2")), Literal("value3"),
-            Stream.of(df.getRDFSLabel("nested ontology annotation 1")));
+            df.getRDFSLabel("nested ontology annotation 1"));
         OWLAnnotation a4 = df.getOWLAnnotation(AnnotationProperty(iri("p1")), iri("p5"), a3);
         o.applyChange(new AddOntologyAnnotation(o, a4));
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());

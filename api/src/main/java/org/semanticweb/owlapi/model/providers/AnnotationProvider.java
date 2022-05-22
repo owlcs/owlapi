@@ -25,12 +25,13 @@ import org.semanticweb.owlapi.model.OWLAnnotationValue;
 public interface AnnotationProvider {
 
     // Annotations
-
     /**
      * Gets an annotation
      *
-     * @param property the annotation property.
-     * @param value The annotation value.
+     * @param property
+     *        the annotation property.
+     * @param value
+     *        The annotation value.
      * @return The annotation on the specified property with the specified value
      */
     OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value);
@@ -38,22 +39,31 @@ public interface AnnotationProvider {
     /**
      * Gets an annotation
      *
-     * @param property the annotation property.
-     * @param value The annotation value.
-     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @param property
+     *        the annotation property.
+     * @param value
+     *        The annotation value.
+     * @param annotations
+     *        A set of annotations. Cannot be null or contain nulls.
      * @return The annotation on the specified property with the specified value
      */
     default OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
         Collection<OWLAnnotation> annotations) {
+        if (annotations.isEmpty()) {
+            getOWLAnnotation(property, value);
+        }
         return getOWLAnnotation(property, value, annotations.stream());
     }
 
     /**
      * Gets an annotation
      *
-     * @param property the annotation property.
-     * @param value The annotation value.
-     * @param annotation Annotation on this annotation. Cannot be null or contain nulls.
+     * @param property
+     *        the annotation property.
+     * @param value
+     *        The annotation value.
+     * @param annotation
+     *        Annotation on this annotation. Cannot be null or contain nulls.
      * @return The annotation on the specified property with the specified value
      */
     default OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
@@ -64,9 +74,12 @@ public interface AnnotationProvider {
     /**
      * Gets an annotation
      *
-     * @param property the annotation property.
-     * @param value The annotation value.
-     * @param annotations A stream of annotations. Cannot be null or contain nulls.
+     * @param property
+     *        the annotation property.
+     * @param value
+     *        The annotation value.
+     * @param annotations
+     *        A stream of annotations. Cannot be null or contain nulls.
      * @return The annotation on the specified property with the specified value
      */
     public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
