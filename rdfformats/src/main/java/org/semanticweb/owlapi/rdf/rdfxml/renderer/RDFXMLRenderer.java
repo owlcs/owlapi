@@ -212,7 +212,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
-        } else if (node.idRequiredForIndividualOrAxiom()) {
+        } else if (node.idRequired()) {
             writer.writeNodeIDAttribute(node);
         }
         for (RDFTriple triple : triples) {
@@ -230,51 +230,67 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         writer.writeParseTypeAttribute();
                         List<RDFNode> list = new ArrayList<>();
                         toJavaList(objectRes, list);
-                        for (RDFNode n : list) {
-                            if (n.isAnonymous()) {
-                                render((RDFResourceBlankNode) n, false);
-                            } else {
-                                if (n.isLiteral()) {
-                                    RDFLiteral litNode = (RDFLiteral) n;
-                                    writer.writeStartElement(RDFS_LITERAL.getIRI());
-                                    if (!litNode.isPlainLiteral()
-                                        && !OWL2Datatype.XSD_STRING.getIRI().equals(litNode.getDatatype())) {
-                                        writer.writeDatatypeAttribute(litNode.getDatatype());
-                                    } else if (litNode.hasLang()) {
-                                        writer.writeLangAttribute(litNode.getLang());
-                                    }
-                                    writer.writeTextContent(litNode.getLexicalValue());
-                                    writer.writeEndElement();
-                                } else {
-                                    writer.writeStartElement(RDF_DESCRIPTION.getIRI());
-                                    writer.writeAboutAttribute(n.getIRI());
-                                    writer.writeEndElement();
-                                }
-                            }
-                        }
+                        list.forEach(this::renderList);
                     } else if (objectRes.equals(node)) {
                         // special case for triples with same object and subject
                         writer.writeNodeIDAttribute(objectRes);
                     } else {
-                        render(objectRes, false);
+                        renderObject(objectRes);
                     }
                 } else {
                     writer.writeResourceAttribute(objectRes.getIRI());
                 }
             } else {
-                RDFLiteral rdfLiteralNode = (RDFLiteral) objectNode;
-                if (rdfLiteralNode.hasLang()) {
-                    writer.writeLangAttribute(rdfLiteralNode.getLang());
-                } else if (!rdfLiteralNode.isPlainLiteral()
-                    && !OWL2Datatype.XSD_STRING.getIRI().equals(rdfLiteralNode.getDatatype())) {
-                    writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
-                }
-                writer.writeTextContent(rdfLiteralNode.getLexicalValue());
+                writew((RDFLiteral) objectNode);
             }
             writer.writeEndElement();
         }
         writer.writeEndElement();
+        if (root) {
+            deferredRendering();
+        }
         pending.remove(node);
+    }
+
+    protected void renderList(RDFNode n) {
+        if (n.isAnonymous()) {
+            render((RDFResourceBlankNode) n, false);
+        } else {
+            if (n.isLiteral()) {
+                write((RDFLiteral) n);
+            } else {
+                writer.writeStartElement(RDF_DESCRIPTION.getIRI());
+                writer.writeAboutAttribute(n.getIRI());
+                writer.writeEndElement();
+            }
+        }
+    }
+
+    protected void renderObject(RDFResource object) {
+        if (object.idRequired()) {
+            if (!pending.contains(object)) {
+                defer(object);
+            }
+            writer.writeNodeIDAttribute(object);
+        } else {
+            render(object, false);
+        }
+    }
+
+    protected void write(RDFLiteral litNode) {
+        writer.writeStartElement(RDFS_LITERAL.getIRI());
+        writew(litNode);
+        writer.writeEndElement();
+    }
+
+    protected void writew(RDFLiteral rdfLiteralNode) {
+        if (rdfLiteralNode.hasLang()) {
+            writer.writeLangAttribute(rdfLiteralNode.getLang());
+        } else if (!rdfLiteralNode.isPlainLiteral()
+            && !OWL2Datatype.XSD_STRING.getIRI().equals(rdfLiteralNode.getDatatype())) {
+            writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
+        }
+        writer.writeTextContent(rdfLiteralNode.getLexicalValue());
     }
 
     /**

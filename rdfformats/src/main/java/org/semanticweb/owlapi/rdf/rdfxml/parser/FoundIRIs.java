@@ -391,7 +391,6 @@ class FoundIRIs {
             // entities do not need declarations; so, not having this condition
             // here causes misidentification).
             || !strict && !isOP(iri) && !isDP(iri) && !iri.isReservedVocabulary();
-        System.out.println("FoundIRIs.isApLax() " + b + "\t" + iri);
         return b;
     }
 

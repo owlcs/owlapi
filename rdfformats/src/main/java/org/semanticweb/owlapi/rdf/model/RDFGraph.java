@@ -31,13 +31,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.documents.RDFNode;
 import org.semanticweb.owlapi.documents.RDFResource;
 import org.semanticweb.owlapi.documents.RDFResourceBlankNode;
 import org.semanticweb.owlapi.documents.RDFResourceIRI;
 import org.semanticweb.owlapi.documents.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -54,6 +55,7 @@ public class RDFGraph implements Serializable {
     private final Set<RDFTriple> triples = createLinkedSet();
     private final Map<RDFNode, RDFNode> remappedNodes = createMap();
     private OWLDataFactory df;
+    @Nullable private RDFResource ontology;
 
     /**
      * @param df
@@ -122,39 +124,10 @@ public class RDFGraph implements Serializable {
     }
 
     /**
-     * @return for each triple with a blank node object that is shared with
-     *         other triples, compute a remapping of the node.
+     * Ensure ids are outputted for reused individuals and annotated
+     * expressions.
      */
-    public Map<RDFTriple, RDFResourceBlankNode> computeRemappingForSharedNodes() {
-        Map<RDFTriple, RDFResourceBlankNode> toReturn = createMap();
-        Map<RDFNode, List<RDFTriple>> sharers = createMap();
-        for (RDFTriple t : triples) {
-            if (t.getObject().isAnonymous() && !t.getObject().isIndividual() && !t.getObject().isAxiom()
-                && notInSkippedPredicates(t.getPredicate())) {
-                List<RDFTriple> list = sharers.get(t.getObject());
-                if (list == null) {
-                    list = new ArrayList<>(2);
-                    sharers.put(t.getObject(), list);
-                }
-                list.add(t);
-            }
-        }
-        for (Map.Entry<RDFNode, List<RDFTriple>> e : sharers.entrySet()) {
-            if (e.getValue().size() > 1) {
-                // found reused blank nodes
-                for (RDFTriple t : e.getValue()) {
-                    RDFResourceBlankNode bnode = new RDFResourceBlankNode(df.getIRI(NodeID.nextAnonymousIRI()),
-                        e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
-                    remappedNodes.put(bnode, e.getKey());
-                    toReturn.put(t, bnode);
-                }
-            }
-        }
-        forceIdOutputForIndividualsInMultipleTriples();
-        return toReturn;
-    }
-
-    protected void forceIdOutputForIndividualsInMultipleTriples() {
+    public void forceIdOutput() {
         // Some individuals might need to appear in mutliple triples although
         // they do not appear in
         // multiple positions in the axioms.
@@ -173,12 +146,15 @@ public class RDFGraph implements Serializable {
                 }
                 list.add((RDFResourceBlankNode) t.getObject());
             }
+            if (skippedPredicates.contains(t.getPredicate().getIRI()) && t.getObject().isAnonymous()) {
+                ((RDFResourceBlankNode) t.getObject()).setIdRequired(true);
+            }
         }
         for (Map.Entry<RDFResourceBlankNode, List<RDFResourceBlankNode>> e : anonIndividualsInMultipleTriples
             .entrySet()) {
             if (e.getValue().size() > 1) {
                 // individuals that need their id outputted
-                e.getValue().forEach(o -> o.setIdRequiredForIndividual(true));
+                e.getValue().forEach(o -> o.setIdRequired(true));
             }
         }
     }
@@ -272,5 +248,19 @@ public class RDFGraph implements Serializable {
             next = new ArrayList<>();
         }
         return current;
+    }
+
+    /**
+     * @param mappedNode
+     *        ontology node
+     */
+    public void setOntology(@Nullable RDFResource mappedNode) {
+        ontology = mappedNode;
+    }
+
+    /** @return ontology node */
+    @Nullable
+    public RDFResource getOntology() {
+        return ontology;
     }
 }

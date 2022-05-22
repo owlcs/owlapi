@@ -70,7 +70,7 @@ public interface RDFNode
      * @return true if an id is required for this node - only if this is an individual or an axiom
      *         and id is required
      */
-    default boolean idRequiredForIndividualOrAxiom() {
+    default boolean idRequired() {
         return isAnonymous() && (isIndividual() || isAxiom()) && shouldOutputId();
     }
 }
