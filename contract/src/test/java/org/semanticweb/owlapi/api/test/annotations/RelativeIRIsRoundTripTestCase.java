@@ -51,7 +51,6 @@ public class RelativeIRIsRoundTripTestCase extends AbstractRoundTrippingTestCase
     @Override
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (!ont2.containsDataPropertyInSignature(d.getIRI())) {
-            System.out.println("RelativeIRIsRoundTripTestCase.equal() " + ont2.getFormat().getClass().getName());
             OWLEntityRenamer renamer = new OWLEntityRenamer(ont2.getOWLOntologyManager(), Arrays.asList(ont2));
             ont2.applyChanges(renamer.changeIRI(relativise(d), d.getIRI()));
             ont2.applyChanges(renamer.changeIRI(relativise(o), o.getIRI()));

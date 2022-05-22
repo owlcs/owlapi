@@ -43,7 +43,6 @@ public class IRIShorteningTestCase extends TestBase {
         OWLDocumentFormat turtle = f.createFormat();
         o.getPrefixManager().withPrefix("s", "urn:test:individual#");
         StringDocumentTarget saveOntology = saveOntology(o, turtle);
-        System.out.println("IRIShorteningTestCase.assertionOnShortening() " + saveOntology);
         OWLOntology loadOntologyFromString = loadOntologyFromString(saveOntology, f.createFormat());
         assertEquals(asSet(o.axioms()), asSet(loadOntologyFromString.axioms()));
         roundTrip(o, turtle);

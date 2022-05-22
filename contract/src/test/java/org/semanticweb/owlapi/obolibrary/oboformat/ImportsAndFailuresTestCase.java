@@ -60,7 +60,6 @@ public class ImportsAndFailuresTestCase extends TestBase {
         OWLOntology o1 = m.loadOntologyFromOntologyDocument(
             new StringDocumentSource(input, new OBODocumentFormat()));
         equal(o, o1);
-        o.saveOntology(new FunctionalSyntaxDocumentFormat(), new SystemOutDocumentTarget());
     }
 
     @Test
@@ -73,6 +72,5 @@ public class ImportsAndFailuresTestCase extends TestBase {
         OWLOntology o = m1.loadOntologyFromOntologyDocument(
             new StringDocumentSource(input, new OBODocumentFormat()));
         roundTrip(o, new OBODocumentFormat());
-        o.saveOntology(new FunctionalSyntaxDocumentFormat(), new SystemOutDocumentTarget());
     }
 }
