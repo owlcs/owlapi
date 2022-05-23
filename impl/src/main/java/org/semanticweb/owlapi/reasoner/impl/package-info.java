@@ -14,4 +14,4 @@
  * OWLReasoner implementation package.
  */
 @javax.annotation.ParametersAreNonnullByDefault
-package org.semanticweb.owlapi.impl.reasoner.impl;
+package org.semanticweb.owlapi.reasoner.impl;

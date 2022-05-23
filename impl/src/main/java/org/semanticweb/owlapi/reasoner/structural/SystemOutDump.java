@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.impl.reasoner.structural;
+package org.semanticweb.owlapi.reasoner.structural;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;

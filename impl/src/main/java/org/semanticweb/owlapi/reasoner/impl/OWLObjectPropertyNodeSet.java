@@ -10,70 +10,63 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.impl.reasoner.impl;
+package org.semanticweb.owlapi.reasoner.impl;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.impl.InternalizedEntities;
-import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.reasoner.Node;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLClassNode extends DefaultNode<OWLClass> {
-
-    /**
-     * @param entity the class to be contained
-     */
-    public OWLClassNode(OWLClass entity) {
-        super(entity);
-    }
-
-    /**
-     * @param entities the classes to be contained
-     */
-    public OWLClassNode(Collection<OWLClass> entities) {
-        super(entities);
-    }
-
-    /**
-     * @param entities the classes to be contained
-     */
-    public OWLClassNode(Stream<OWLClass> entities) {
-        super(entities);
-    }
+public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyExpression> {
 
     /**
      * Default constructor.
      */
-    public OWLClassNode() {
+    public OWLObjectPropertyNodeSet() {
         super();
     }
 
     /**
-     * @return singleton top node
+     * @param entity property to include
      */
-    public static OWLClassNode getTopNode() {
-        return TOP_NODE;
+    public OWLObjectPropertyNodeSet(OWLObjectPropertyExpression entity) {
+        super(entity);
     }
 
     /**
-     * @return singleton bottom node
+     * @param owlObjectPropertyNode property node to include
      */
-    public static OWLClassNode getBottomNode() {
-        return BOTTOM_NODE;
+    public OWLObjectPropertyNodeSet(Node<OWLObjectPropertyExpression> owlObjectPropertyNode) {
+        super(owlObjectPropertyNode);
+    }
+
+    /**
+     * @param nodes nodes to include
+     */
+    public OWLObjectPropertyNodeSet(Set<Node<OWLObjectPropertyExpression>> nodes) {
+        super(nodes);
+    }
+
+    /**
+     * @param nodes nodes to include
+     */
+    public OWLObjectPropertyNodeSet(Stream<Node<OWLObjectPropertyExpression>> nodes) {
+        super(nodes);
     }
 
     @Override
-    protected Optional<OWLClass> getTopEntity() {
-        return Optional.of(InternalizedEntities.OWL_THING);
+    protected DefaultNode<OWLObjectPropertyExpression> getNode(OWLObjectPropertyExpression entity) {
+        return NodeFactory.getOWLObjectPropertyNode(entity);
     }
 
     @Override
-    protected Optional<OWLClass> getBottomEntity() {
-        return Optional.of(InternalizedEntities.OWL_NOTHING);
+    protected DefaultNode<OWLObjectPropertyExpression> getNode(
+        Set<OWLObjectPropertyExpression> entities) {
+        return NodeFactory.getOWLObjectPropertyNode(entities);
     }
 }

@@ -10,7 +10,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.impl.reasoner.structural;
+package org.semanticweb.owlapi.reasoner.structural;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.sub;
@@ -33,17 +33,6 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.impl.reasoner.impl.DefaultNode;
-import org.semanticweb.owlapi.impl.reasoner.impl.DefaultNodeSet;
-import org.semanticweb.owlapi.impl.reasoner.impl.OWLClassNode;
-import org.semanticweb.owlapi.impl.reasoner.impl.OWLClassNodeSet;
-import org.semanticweb.owlapi.impl.reasoner.impl.OWLDataPropertyNode;
-import org.semanticweb.owlapi.impl.reasoner.impl.OWLDataPropertyNodeSet;
-import org.semanticweb.owlapi.impl.reasoner.impl.OWLNamedIndividualNode;
-import org.semanticweb.owlapi.impl.reasoner.impl.OWLNamedIndividualNodeSet;
-import org.semanticweb.owlapi.impl.reasoner.impl.OWLObjectPropertyNode;
-import org.semanticweb.owlapi.impl.reasoner.impl.OWLObjectPropertyNodeSet;
-import org.semanticweb.owlapi.impl.reasoner.impl.OWLReasonerBase;
 import org.semanticweb.owlapi.model.AsOWLNamedIndividual;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IsAnonymous;
@@ -83,6 +72,17 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.ReasonerInterruptedException;
 import org.semanticweb.owlapi.reasoner.ReasonerProgressMonitor;
 import org.semanticweb.owlapi.reasoner.TimeOutException;
+import org.semanticweb.owlapi.reasoner.impl.DefaultNode;
+import org.semanticweb.owlapi.reasoner.impl.DefaultNodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLClassNode;
+import org.semanticweb.owlapi.reasoner.impl.OWLClassNodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLDataPropertyNode;
+import org.semanticweb.owlapi.reasoner.impl.OWLDataPropertyNodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNode;
+import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNode;
+import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.utilities.Version;
 import org.semanticweb.owlapi.utility.CollectionFactory;
@@ -334,7 +334,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     @Override
     public Node<OWLObjectPropertyExpression> getInverseObjectProperties(OWLObjectPropertyExpression pe) {
         ensurePrepared();
-        OWLObjectPropertyExpression inv = pe.getInverseProperty().getSimplified();
+        OWLObjectPropertyExpression inv = pe.getInverseProperty();
         return getEquivalentObjectProperties(inv);
     }
 
@@ -488,7 +488,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         OWLNamedIndividualNodeSet result = new OWLNamedIndividualNodeSet();
         Node<OWLObjectPropertyExpression> inverses = getInverseObjectProperties(pe);
         getRootOntology().importsClosure().flatMap(o -> o.objectPropertyAssertionAxioms(ind)).forEach(axiom -> {
-            if (axiom.getObject().isNamed() && axiom.getProperty().getSimplified().equals(pe.getSimplified())) {
+            if (axiom.getObject().isNamed() && axiom.getProperty().equals(pe)) {
                 if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
                     result.addNode(getSameIndividuals(axiom.getObject().asOWLNamedIndividual()));
                 } else {
@@ -497,7 +497,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             }
             // Inverse of pe
             if (axiom.getObject().equals(ind) && axiom.getSubject().isNamed()) {
-                OWLObjectPropertyExpression invPe = axiom.getProperty().getInverseProperty().getSimplified();
+                OWLObjectPropertyExpression invPe = axiom.getProperty().getInverseProperty();
                 if (invPe.isNamed() && inverses.contains(invPe.asOWLObjectProperty())) {
                     if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
                         result.addNode(getSameIndividuals(axiom.getObject().asOWLNamedIndividual()));

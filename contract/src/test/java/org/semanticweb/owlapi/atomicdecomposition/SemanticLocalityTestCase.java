@@ -18,7 +18,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.impl.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -33,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 
 @Ignore
 public class SemanticLocalityTestCase {
@@ -102,7 +102,8 @@ public class SemanticLocalityTestCase {
 
     /** @return disjoint union of superclass and classes */
     private OWLDisjointUnionAxiom disjointUnion(OWLClass superclass, OWLClass... classes) {
-        return df.getOWLDisjointUnionAxiom(superclass, new HashSet<OWLClassExpression>(Arrays.asList(classes)));
+        return df.getOWLDisjointUnionAxiom(superclass,
+            new HashSet<OWLClassExpression>(Arrays.asList(classes)));
     }
 
     @Test
@@ -454,7 +455,8 @@ public class SemanticLocalityTestCase {
 
     @Test
     public void shouldBeLocalowlDatatypeDefinitionAxiom() {
-        axiom = df.getOWLDatatypeDefinitionAxiom(i, df.getOWLDatatypeMinMaxExclusiveRestriction(1, 3));
+        axiom =
+            df.getOWLDatatypeDefinitionAxiom(i, df.getOWLDatatypeMinMaxExclusiveRestriction(1, 3));
         // signature intersects
         // test(axiom, true, i);
         // signature does not intersect
@@ -463,8 +465,10 @@ public class SemanticLocalityTestCase {
 
     @Test
     public void shouldBeLocalswrlRule() {
-        Set<SWRLAtom> head = new HashSet<>(Arrays.asList(df.getSWRLClassAtom(A, df.getSWRLIndividualArgument(x))));
-        Set<SWRLAtom> body = new HashSet<>(Arrays.asList(df.getSWRLClassAtom(B, df.getSWRLIndividualArgument(y))));
+        Set<SWRLAtom> head =
+            new HashSet<>(Arrays.asList(df.getSWRLClassAtom(A, df.getSWRLIndividualArgument(x))));
+        Set<SWRLAtom> body =
+            new HashSet<>(Arrays.asList(df.getSWRLClassAtom(B, df.getSWRLIndividualArgument(y))));
         axiom = df.getSWRLRule(head, body);
         // signature intersects
         test(axiom, true, A);

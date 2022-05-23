@@ -10,10 +10,10 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.impl.reasoner.impl;
+package org.semanticweb.owlapi.reasoner.impl;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -78,7 +78,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * Adds an entity to this {@code NodeSet} by wrapping it in a {@code Node}.
      *
      * @param entity The entity to be added. The entity will be wrapped in the {@code Node} and the
-     * {@code Node} added to this set. Must not be {@code null}.
+     *        {@code Node} added to this set. Must not be {@code null}.
      * @throws NullPointerException if {@code entity} is {@code null}.
      */
     public void addEntity(E entity) {
@@ -99,7 +99,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * Adds a collection of {@code Node}s to this set.
      *
      * @param nodeset The {@code Node}s to be added. Note that if the collection is not a set then
-     * duplicate {@code Node}s will be filtered out.
+     *        duplicate {@code Node}s will be filtered out.
      */
     public void addAllNodes(Collection<Node<E>> nodeset) {
         nodeset.forEach(this::addNode);
@@ -109,7 +109,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * Adds a collection of {@code Node}s to this set.
      *
      * @param nodeset The {@code Node}s to be added. Note that if the collection is not a set then
-     * duplicate {@code Node}s will be filtered out.
+     *        duplicate {@code Node}s will be filtered out.
      */
     public void addAllNodes(Stream<Node<E>> nodeset) {
         nodeset.forEach(this::addNode);
@@ -129,7 +129,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * Adds the specified entities as {@code Node}s to this set.
      *
      * @param entities The entities to be added. Each entity will be wrapped in a {@code Node} which
-     * will then be added to this {@code NodeSet}.
+     *        will then be added to this {@code NodeSet}.
      */
     public void addDifferentEntities(Set<E> entities) {
         entities.forEach(e -> addNode(getNode(e)));

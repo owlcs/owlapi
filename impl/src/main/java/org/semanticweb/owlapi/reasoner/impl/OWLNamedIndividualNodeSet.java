@@ -10,70 +10,62 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.impl.reasoner.impl;
+package org.semanticweb.owlapi.reasoner.impl;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.impl.InternalizedEntities;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.reasoner.Node;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
+public class OWLNamedIndividualNodeSet extends DefaultNodeSet<OWLNamedIndividual> {
 
     /**
      * Default constructor.
      */
-    public OWLObjectPropertyNode() {
+    public OWLNamedIndividualNodeSet() {
         super();
     }
 
     /**
-     * @param entity property to include
+     * @param entity individual to include
      */
-    public OWLObjectPropertyNode(OWLObjectPropertyExpression entity) {
+    public OWLNamedIndividualNodeSet(OWLNamedIndividual entity) {
         super(entity);
     }
 
     /**
-     * @param entities properties to include
+     * @param owlNamedIndividualNode node to include
      */
-    public OWLObjectPropertyNode(Collection<OWLObjectPropertyExpression> entities) {
-        super(entities);
+    public OWLNamedIndividualNodeSet(Node<OWLNamedIndividual> owlNamedIndividualNode) {
+        super(owlNamedIndividualNode);
     }
 
     /**
-     * @param entities properties to include
+     * @param nodes nodes to include
      */
-    public OWLObjectPropertyNode(Stream<OWLObjectPropertyExpression> entities) {
-        super(entities);
+    public OWLNamedIndividualNodeSet(Set<Node<OWLNamedIndividual>> nodes) {
+        super(nodes);
     }
 
     /**
-     * @return top node
+     * @param nodes nodes to include
      */
-    public static OWLObjectPropertyNode getTopNode() {
-        return TOP_OBJECT_NODE;
-    }
-
-    /**
-     * @return bottom node
-     */
-    public static OWLObjectPropertyNode getBottomNode() {
-        return BOTTOM_OBJECT_NODE;
+    public OWLNamedIndividualNodeSet(Stream<Node<OWLNamedIndividual>> nodes) {
+        super(nodes);
     }
 
     @Override
-    protected Optional<OWLObjectPropertyExpression> getTopEntity() {
-        return Optional.of(InternalizedEntities.OWL_TOP_OBJECT_PROPERTY);
+    protected DefaultNode<OWLNamedIndividual> getNode(OWLNamedIndividual entity) {
+        return NodeFactory.getOWLNamedIndividualNode(entity);
     }
 
     @Override
-    protected Optional<OWLObjectPropertyExpression> getBottomEntity() {
-        return Optional.of(InternalizedEntities.OWL_BOTTOM_OBJECT_PROPERTY);
+    protected DefaultNode<OWLNamedIndividual> getNode(Set<OWLNamedIndividual> entities) {
+        return NodeFactory.getOWLNamedIndividualNode(entities);
     }
 }

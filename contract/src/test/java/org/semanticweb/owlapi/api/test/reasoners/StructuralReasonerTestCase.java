@@ -25,17 +25,16 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubCl
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.impl.reasoner.structural.StructuralReasoner;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
+import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public class StructuralReasonerTestCase extends TestBase {
@@ -46,8 +45,8 @@ public class StructuralReasonerTestCase extends TestBase {
         ont.addAxiom(EquivalentClasses(OWLThing(), C));
         ont.addAxiom(SubClassOf(B, A));
         ont.addAxiom(EquivalentClasses(A, D));
-        StructuralReasoner reasoner = new StructuralReasoner(ont, new SimpleConfiguration(),
-            BufferingMode.NON_BUFFERING);
+        StructuralReasoner reasoner =
+            new StructuralReasoner(ont, new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
         testClassHierarchy(reasoner);
         ont.add(SubClassOf(A, OWLThing()));
         testClassHierarchy(reasoner);
@@ -63,10 +62,12 @@ public class StructuralReasonerTestCase extends TestBase {
         assertEquals(1, subsOfAp.nodes().count());
         assertTrue(subsOfAp.containsEntity(B));
         Node<OWLClass> topNode = reasoner.getTopClassNode();
-        NodeSet<OWLClass> subsOfTop = reasoner.getSubClasses(topNode.getRepresentativeElement(), true);
+        NodeSet<OWLClass> subsOfTop =
+            reasoner.getSubClasses(topNode.getRepresentativeElement(), true);
         assertEquals(1, subsOfTop.nodes().count());
         assertTrue(subsOfTop.containsEntity(A));
-        NodeSet<OWLClass> descOfTop = reasoner.getSubClasses(topNode.getRepresentativeElement(), false);
+        NodeSet<OWLClass> descOfTop =
+            reasoner.getSubClasses(topNode.getRepresentativeElement(), false);
         assertEquals(3, descOfTop.nodes().count());
         assertTrue(descOfTop.containsEntity(A));
         assertTrue(descOfTop.containsEntity(B));

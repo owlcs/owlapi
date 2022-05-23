@@ -10,62 +10,62 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.impl.reasoner.impl;
+package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLNamedIndividualNodeSet extends DefaultNodeSet<OWLNamedIndividual> {
+public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
 
     /**
      * Default constructor.
      */
-    public OWLNamedIndividualNodeSet() {
+    public OWLDataPropertyNodeSet() {
         super();
     }
 
     /**
-     * @param entity individual to include
+     * @param entity the entity to be contained
      */
-    public OWLNamedIndividualNodeSet(OWLNamedIndividual entity) {
+    public OWLDataPropertyNodeSet(OWLDataProperty entity) {
         super(entity);
     }
 
     /**
-     * @param owlNamedIndividualNode node to include
+     * @param owlDataPropertyNode the node to be contained
      */
-    public OWLNamedIndividualNodeSet(Node<OWLNamedIndividual> owlNamedIndividualNode) {
-        super(owlNamedIndividualNode);
+    public OWLDataPropertyNodeSet(Node<OWLDataProperty> owlDataPropertyNode) {
+        super(owlDataPropertyNode);
     }
 
     /**
-     * @param nodes nodes to include
+     * @param nodes the nodes to be contained
      */
-    public OWLNamedIndividualNodeSet(Set<Node<OWLNamedIndividual>> nodes) {
+    public OWLDataPropertyNodeSet(Set<Node<OWLDataProperty>> nodes) {
         super(nodes);
     }
 
     /**
-     * @param nodes nodes to include
+     * @param nodes the nodes to be contained
      */
-    public OWLNamedIndividualNodeSet(Stream<Node<OWLNamedIndividual>> nodes) {
+    public OWLDataPropertyNodeSet(Stream<Node<OWLDataProperty>> nodes) {
         super(nodes);
     }
 
     @Override
-    protected DefaultNode<OWLNamedIndividual> getNode(OWLNamedIndividual entity) {
-        return NodeFactory.getOWLNamedIndividualNode(entity);
+    protected DefaultNode<OWLDataProperty> getNode(OWLDataProperty entity) {
+        return NodeFactory.getOWLDataPropertyNode(entity);
     }
 
     @Override
-    protected DefaultNode<OWLNamedIndividual> getNode(Set<OWLNamedIndividual> entities) {
-        return NodeFactory.getOWLNamedIndividualNode(entities);
+    protected DefaultNode<OWLDataProperty> getNode(Set<OWLDataProperty> entities) {
+        return NodeFactory.getOWLDataPropertyNode(entities);
     }
 }

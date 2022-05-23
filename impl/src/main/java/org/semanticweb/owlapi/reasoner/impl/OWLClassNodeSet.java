@@ -10,62 +10,64 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.impl.reasoner.impl;
+package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /**
+ * A node set of OWL classes.
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
+public class OWLClassNodeSet extends DefaultNodeSet<OWLClass> {
 
     /**
      * Default constructor.
      */
-    public OWLDataPropertyNodeSet() {
+    public OWLClassNodeSet() {
         super();
     }
 
     /**
      * @param entity the entity to be contained
      */
-    public OWLDataPropertyNodeSet(OWLDataProperty entity) {
+    public OWLClassNodeSet(OWLClass entity) {
         super(entity);
     }
 
     /**
-     * @param owlDataPropertyNode the node to be contained
+     * @param owlClassNode the node to be contained
      */
-    public OWLDataPropertyNodeSet(Node<OWLDataProperty> owlDataPropertyNode) {
-        super(owlDataPropertyNode);
+    public OWLClassNodeSet(Node<OWLClass> owlClassNode) {
+        super(owlClassNode);
     }
 
     /**
-     * @param nodes the nodes to be contained
+     * @param nodes the set of nodes to be contained
      */
-    public OWLDataPropertyNodeSet(Set<Node<OWLDataProperty>> nodes) {
-        super(nodes);
+    public OWLClassNodeSet(Set<Node<OWLClass>> nodes) {
+        this(nodes.stream());
     }
 
     /**
-     * @param nodes the nodes to be contained
+     * @param nodes the set of nodes to be contained
      */
-    public OWLDataPropertyNodeSet(Stream<Node<OWLDataProperty>> nodes) {
+    public OWLClassNodeSet(Stream<Node<OWLClass>> nodes) {
         super(nodes);
     }
 
     @Override
-    protected DefaultNode<OWLDataProperty> getNode(OWLDataProperty entity) {
-        return NodeFactory.getOWLDataPropertyNode(entity);
+    protected DefaultNode<OWLClass> getNode(OWLClass entity) {
+        return NodeFactory.getOWLClassNode(entity);
     }
 
     @Override
-    protected DefaultNode<OWLDataProperty> getNode(Set<OWLDataProperty> entities) {
-        return NodeFactory.getOWLDataPropertyNode(entities);
+    protected DefaultNode<OWLClass> getNode(Set<OWLClass> entities) {
+        return NodeFactory.getOWLClassNode(entities);
     }
 }

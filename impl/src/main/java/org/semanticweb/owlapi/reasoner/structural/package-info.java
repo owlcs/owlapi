@@ -10,62 +10,8 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.impl.reasoner.impl;
-
-import java.util.Set;
-import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.reasoner.Node;
-
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
- * @since 3.0.0
+ * Structural reasoner implementation package.
  */
-public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
-
-    /**
-     * Default constructor.
-     */
-    public OWLDatatypeNodeSet() {
-        super();
-    }
-
-    /**
-     * @param entity datatype to include
-     */
-    public OWLDatatypeNodeSet(OWLDatatype entity) {
-        super(entity);
-    }
-
-    /**
-     * @param owlDatatypeNode node to include
-     */
-    public OWLDatatypeNodeSet(Node<OWLDatatype> owlDatatypeNode) {
-        super(owlDatatypeNode);
-    }
-
-    /**
-     * @param nodes nodes to include
-     */
-    public OWLDatatypeNodeSet(Set<Node<OWLDatatype>> nodes) {
-        super(nodes);
-    }
-
-    /**
-     * @param nodes nodes to include
-     */
-    public OWLDatatypeNodeSet(Stream<Node<OWLDatatype>> nodes) {
-        super(nodes);
-    }
-
-    @Override
-    protected DefaultNode<OWLDatatype> getNode(OWLDatatype entity) {
-        return new OWLDatatypeNode(entity);
-    }
-
-    @Override
-    protected DefaultNode<OWLDatatype> getNode(Set<OWLDatatype> entities) {
-        return new OWLDatatypeNode(entities);
-    }
-}
+@javax.annotation.ParametersAreNonnullByDefault
+package org.semanticweb.owlapi.reasoner.structural;

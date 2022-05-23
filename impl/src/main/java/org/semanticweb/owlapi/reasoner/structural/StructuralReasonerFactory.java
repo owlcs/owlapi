@@ -10,8 +10,44 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
+package org.semanticweb.owlapi.reasoner.structural;
+
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.reasoner.BufferingMode;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
+
 /**
- * Structural reasoner implementation package.
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @since 3.0.0
  */
-@javax.annotation.ParametersAreNonnullByDefault
-package org.semanticweb.owlapi.impl.reasoner.structural;
+public class StructuralReasonerFactory implements OWLReasonerFactory {
+
+    @Override
+    public String getReasonerName() {
+        return "Structural Reasoner";
+    }
+
+    @Override
+    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology) {
+        return createNonBufferingReasoner(ontology, new SimpleConfiguration());
+    }
+
+    @Override
+    public OWLReasoner createReasoner(OWLOntology ontology) {
+        return createReasoner(ontology, new SimpleConfiguration());
+    }
+
+    @Override
+    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
+        OWLReasonerConfiguration config) {
+        return new StructuralReasoner(ontology, config, BufferingMode.NON_BUFFERING);
+    }
+
+    @Override
+    public OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) {
+        return new StructuralReasoner(ontology, config, BufferingMode.BUFFERING);
+    }
+}

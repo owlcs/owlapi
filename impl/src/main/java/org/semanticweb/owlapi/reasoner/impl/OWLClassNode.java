@@ -10,56 +10,70 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.impl.reasoner.impl;
+package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.impl.InternalizedEntities;
-import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLClass;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
+public class OWLClassNode extends DefaultNode<OWLClass> {
 
     /**
-     * Default constructor.
+     * @param entity the class to be contained
      */
-    public OWLDatatypeNode() {
-        super();
-    }
-
-    /**
-     * @param entity datatype to include
-     */
-    public OWLDatatypeNode(OWLDatatype entity) {
+    public OWLClassNode(OWLClass entity) {
         super(entity);
     }
 
     /**
-     * @param entities set of datatypes to include
+     * @param entities the classes to be contained
      */
-    public OWLDatatypeNode(Collection<OWLDatatype> entities) {
+    public OWLClassNode(Collection<OWLClass> entities) {
         super(entities);
     }
 
     /**
-     * @param entities set of datatypes to include
+     * @param entities the classes to be contained
      */
-    public OWLDatatypeNode(Stream<OWLDatatype> entities) {
+    public OWLClassNode(Stream<OWLClass> entities) {
         super(entities);
     }
 
-    @Override
-    protected Optional<OWLDatatype> getTopEntity() {
-        return Optional.of(InternalizedEntities.RDFSLITERAL);
+    /**
+     * Default constructor.
+     */
+    public OWLClassNode() {
+        super();
+    }
+
+    /**
+     * @return singleton top node
+     */
+    public static OWLClassNode getTopNode() {
+        return TOP_NODE;
+    }
+
+    /**
+     * @return singleton bottom node
+     */
+    public static OWLClassNode getBottomNode() {
+        return BOTTOM_NODE;
     }
 
     @Override
-    protected Optional<OWLDatatype> getBottomEntity() {
-        return Optional.empty();
+    protected Optional<OWLClass> getTopEntity() {
+        return Optional.of(InternalizedEntities.OWL_THING);
+    }
+
+    @Override
+    protected Optional<OWLClass> getBottomEntity() {
+        return Optional.of(InternalizedEntities.OWL_NOTHING);
     }
 }

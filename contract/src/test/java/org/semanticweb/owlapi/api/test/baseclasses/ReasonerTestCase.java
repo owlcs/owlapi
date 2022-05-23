@@ -39,7 +39,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubOb
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.impl.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -48,15 +47,14 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 
 /**
- * This test case creates a small ontology and tests the getters in the reasoner
- * interface. The test ontology isn't designed to test the correctness of
- * reasoning results, rather it is designed to test the reasoner returns the
- * results in the form required by the OWL API reasoner interface.
+ * This test case creates a small ontology and tests the getters in the reasoner interface. The test
+ * ontology isn't designed to test the correctness of reasoning results, rather it is designed to
+ * test the reasoner returns the results in the form required by the OWL API reasoner interface.
  * 
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public class ReasonerTestCase extends TestBase {
@@ -66,9 +64,10 @@ public class ReasonerTestCase extends TestBase {
 
     private OWLOntology createOntology() {
         OWLOntology o = getOWLOntology();
-        o.add(SubClassOf(G, OWLThing()), SubClassOf(OWLThing(), G), EquivalentClasses(A, B), SubClassOf(C, B),
-            SubClassOf(D, A), SubClassOf(D, F), SubClassOf(F, D), SubClassOf(E, C), SubClassOf(K, D),
-            EquivalentClasses(K, OWLNothing()), EquivalentObjectProperties(P, Q), SubObjectPropertyOf(P, R),
+        o.add(SubClassOf(G, OWLThing()), SubClassOf(OWLThing(), G), EquivalentClasses(A, B),
+            SubClassOf(C, B), SubClassOf(D, A), SubClassOf(D, F), SubClassOf(F, D),
+            SubClassOf(E, C), SubClassOf(K, D), EquivalentClasses(K, OWLNothing()),
+            EquivalentObjectProperties(P, Q), SubObjectPropertyOf(P, R),
             InverseObjectProperties(R, S));
         return o;
     }
@@ -464,8 +463,8 @@ public class ReasonerTestCase extends TestBase {
 
     @Test
     public void testGetSubObjectPropertiesDirect() {
-        NodeSet<OWLObjectPropertyExpression> nsSubTop = reasoner.getSubObjectProperties(df.getOWLTopObjectProperty(),
-            true);
+        NodeSet<OWLObjectPropertyExpression> nsSubTop =
+            reasoner.getSubObjectProperties(df.getOWLTopObjectProperty(), true);
         assertNotNull(nsSubTop);
         assertEquals(2, nsSubTop.nodes().count());
         assertTrue(nsSubTop.containsEntity(R));
@@ -477,14 +476,14 @@ public class ReasonerTestCase extends TestBase {
         assertEquals(1, nsSubR.nodes().count());
         assertTrue(nsSubR.containsEntity(P));
         assertTrue(nsSubR.containsEntity(Q));
-        NodeSet<OWLObjectPropertyExpression> nsSubRMinus = reasoner.getSubObjectProperties(R.getInverseProperty(),
-            true);
+        NodeSet<OWLObjectPropertyExpression> nsSubRMinus =
+            reasoner.getSubObjectProperties(R.getInverseProperty(), true);
         assertNotNull(nsSubRMinus);
         assertEquals(1, nsSubRMinus.nodes().count());
         assertTrue(nsSubRMinus.containsEntity(P.getInverseProperty()));
         assertTrue(nsSubRMinus.containsEntity(Q.getInverseProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubSMinus = reasoner.getSubObjectProperties(S.getInverseProperty(),
-            true);
+        NodeSet<OWLObjectPropertyExpression> nsSubSMinus =
+            reasoner.getSubObjectProperties(S.getInverseProperty(), true);
         assertNotNull(nsSubSMinus);
         assertEquals(1, nsSubSMinus.nodes().count());
         assertTrue(nsSubSMinus.containsEntity(P));
@@ -502,13 +501,13 @@ public class ReasonerTestCase extends TestBase {
         assertNotNull(nsSubQ);
         assertEquals(1, nsSubQ.nodes().count());
         assertTrue(nsSubQ.containsEntity(df.getOWLBottomObjectProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubPMinus = reasoner.getSubObjectProperties(P.getInverseProperty(),
-            true);
+        NodeSet<OWLObjectPropertyExpression> nsSubPMinus =
+            reasoner.getSubObjectProperties(P.getInverseProperty(), true);
         assertNotNull(nsSubPMinus);
         assertEquals(1, nsSubPMinus.nodes().count());
         assertTrue(nsSubPMinus.containsEntity(df.getOWLBottomObjectProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubQMinus = reasoner.getSubObjectProperties(Q.getInverseProperty(),
-            true);
+        NodeSet<OWLObjectPropertyExpression> nsSubQMinus =
+            reasoner.getSubObjectProperties(Q.getInverseProperty(), true);
         assertNotNull(nsSubQMinus);
         assertEquals(1, nsSubQMinus.nodes().count());
         assertTrue(nsSubQMinus.containsEntity(df.getOWLBottomObjectProperty()));
@@ -516,8 +515,8 @@ public class ReasonerTestCase extends TestBase {
 
     @Test
     public void testGetSubObjectProperties() {
-        NodeSet<OWLObjectPropertyExpression> nsSubTop = reasoner.getSubObjectProperties(df.getOWLTopObjectProperty(),
-            false);
+        NodeSet<OWLObjectPropertyExpression> nsSubTop =
+            reasoner.getSubObjectProperties(df.getOWLTopObjectProperty(), false);
         assertNotNull(nsSubTop);
         assertEquals(5, nsSubTop.nodes().count());
         assertTrue(nsSubTop.containsEntity(R));
@@ -535,15 +534,15 @@ public class ReasonerTestCase extends TestBase {
         assertTrue(nsSubR.containsEntity(P));
         assertTrue(nsSubR.containsEntity(Q));
         assertTrue(nsSubR.containsEntity(df.getOWLBottomObjectProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubRMinus = reasoner.getSubObjectProperties(R.getInverseProperty(),
-            false);
+        NodeSet<OWLObjectPropertyExpression> nsSubRMinus =
+            reasoner.getSubObjectProperties(R.getInverseProperty(), false);
         assertNotNull(nsSubRMinus);
         assertEquals(2, nsSubRMinus.nodes().count());
         assertTrue(nsSubRMinus.containsEntity(P.getInverseProperty()));
         assertTrue(nsSubRMinus.containsEntity(Q.getInverseProperty()));
         assertTrue(nsSubRMinus.containsEntity(df.getOWLBottomObjectProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubSMinus = reasoner.getSubObjectProperties(S.getInverseProperty(),
-            false);
+        NodeSet<OWLObjectPropertyExpression> nsSubSMinus =
+            reasoner.getSubObjectProperties(S.getInverseProperty(), false);
         assertNotNull(nsSubSMinus);
         assertEquals(2, nsSubSMinus.nodes().count());
         assertTrue(nsSubRMinus.containsEntity(P.getInverseProperty()));
@@ -563,13 +562,13 @@ public class ReasonerTestCase extends TestBase {
         assertNotNull(nsSubQ);
         assertEquals(1, nsSubQ.nodes().count());
         assertTrue(nsSubQ.containsEntity(df.getOWLBottomObjectProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubPMinus = reasoner.getSubObjectProperties(P.getInverseProperty(),
-            false);
+        NodeSet<OWLObjectPropertyExpression> nsSubPMinus =
+            reasoner.getSubObjectProperties(P.getInverseProperty(), false);
         assertNotNull(nsSubPMinus);
         assertEquals(1, nsSubPMinus.nodes().count());
         assertTrue(nsSubPMinus.containsEntity(df.getOWLBottomObjectProperty()));
-        NodeSet<OWLObjectPropertyExpression> nsSubQMinus = reasoner.getSubObjectProperties(Q.getInverseProperty(),
-            false);
+        NodeSet<OWLObjectPropertyExpression> nsSubQMinus =
+            reasoner.getSubObjectProperties(Q.getInverseProperty(), false);
         assertNotNull(nsSubQMinus);
         assertEquals(1, nsSubQMinus.nodes().count());
         assertTrue(nsSubQMinus.containsEntity(df.getOWLBottomObjectProperty()));

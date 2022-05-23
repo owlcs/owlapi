@@ -39,24 +39,10 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 public class ObjectPropertyTestCase extends TestBase {
 
     @Test
-    public void testNamedSimplification() {
-        OWLObjectPropertyExpression exp = P.getSimplified();
-        assertEquals(P, exp);
-    }
-
-    @Test
-    public void testInverseSimplification() {
-        OWLObjectPropertyExpression inv = P.getInverseProperty();
-        OWLObjectPropertyExpression exp = inv.getSimplified();
-        assertEquals(inv, exp);
-    }
-
-    @Test
     public void testInverseInverseSimplification() {
         OWLObjectPropertyExpression inv = P.getInverseProperty();
         OWLObjectPropertyExpression inv2 = inv.getInverseProperty();
-        OWLObjectPropertyExpression exp = inv2.getSimplified();
-        assertEquals(P, exp);
+        assertEquals(P, inv2);
     }
 
     @Test
@@ -64,8 +50,7 @@ public class ObjectPropertyTestCase extends TestBase {
         OWLObjectPropertyExpression inv = P.getInverseProperty();
         OWLObjectPropertyExpression inv2 = inv.getInverseProperty();
         OWLObjectPropertyExpression inv3 = inv2.getInverseProperty();
-        OWLObjectPropertyExpression exp = inv3.getSimplified();
-        assertEquals(inv, exp);
+        assertEquals(inv, inv3);
     }
 
     @Test

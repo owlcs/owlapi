@@ -24,15 +24,18 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
-    OWLObjectPropertyCharacteristicAxiomImpl implements OWLInverseFunctionalObjectPropertyAxiom {
+public class OWLInverseFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
+    implements OWLInverseFunctionalObjectPropertyAxiom {
 
     /**
-     * @param property property
-     * @param annotations annotations
+     * @param property
+     *        property
+     * @param annotations
+     *        annotations
      */
     public OWLInverseFunctionalObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
         Collection<OWLAnnotation> annotations) {
@@ -42,8 +45,7 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
     @Override
     @SuppressWarnings("unchecked")
     public OWLInverseFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations() {
-        return !isAnnotated() ? this
-            : new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectMaxCardinalityImpl(
-            getProperty().getInverseProperty().getSimplified(), 1, OWL_THING), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(OWL_THING,
+            new OWLObjectMaxCardinalityImpl(getProperty().getInverseProperty(), 1, OWL_THING), NO_ANNOTATIONS);
     }
 }
