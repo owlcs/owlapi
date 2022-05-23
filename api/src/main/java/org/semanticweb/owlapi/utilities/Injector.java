@@ -44,9 +44,10 @@ import org.slf4j.LoggerFactory;
  */
 public class Injector {
     private static final Logger LOGGER = LoggerFactory.getLogger(Injector.class);
-    private Map<Object, List<Supplier<?>>> supplierOverrides = new ConcurrentHashMap<>();
-    private Map<Object, Class<?>> typesOverrides = new ConcurrentHashMap<>();
-    private Map<Object, List<Class<?>>> typesCache = new ConcurrentHashMap<>();
+    private Map<Object, List<Supplier<?>>> supplierOverrides =
+        new ConcurrentHashMap<>(16, 0.75F, 1);
+    private Map<Object, Class<?>> typesOverrides = new ConcurrentHashMap<>(16, 0.75F, 1);
+    private Map<Object, List<Class<?>>> typesCache = new ConcurrentHashMap<>(16, 0.75F, 1);
     private Map<URI, AtomicStampedReference<List<String>>> filesCache = new ConcurrentHashMap<>();
 
     /**
@@ -90,9 +91,7 @@ public class Injector {
     /**
      * Default constructor
      */
-    public Injector() {
-        super();
-    }
+    public Injector() {}
 
     /**
      * @param i injector to copy
@@ -189,7 +188,7 @@ public class Injector {
      * @return input object with all methods annotated with @Inject having been set with instances.
      */
     public <T> T inject(T t) {
-        LOGGER.info("Injecting object {}", t);
+        LOGGER.debug("Injecting object {}", t);
         List<Method> methodsToInject = new ArrayList<>();
         Class<?> c = t.getClass();
         while (c != null) {
@@ -206,19 +205,18 @@ public class Injector {
             Object[] args = new Object[parameterTypes.length];
             for (int i = 0; i < parameterTypes.length; i++) {
                 Parameter arg = parameterTypes[i];
+                Annotation[] qualifiers = qualifiers(arg.getAnnotations());
                 if (Collection.class.isAssignableFrom(arg.getType())) {
                     Class<?> type = (Class<?>) ((ParameterizedType) arg.getParameterizedType())
                         .getActualTypeArguments()[0];
-                    args[i] =
-                        load(type, qualifiers(arg.getAnnotations())).collect(Collectors.toSet());
+                    args[i] = load(type, qualifiers).collect(Collectors.toSet());
                 } else {
-                    args[i] = load(arg.getType(), qualifiers(arg.getAnnotations())).findAny()
-                        .orElse(null);
+                    args[i] = load(arg.getType(), qualifiers).findAny().orElse(null);
                 }
             }
             try {
-                if (LOGGER.isInfoEnabled()) {
-                    LOGGER.info("Injecting values {} on method {}.", Arrays.toString(args), m);
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("Injecting values {} on method {}.", Arrays.toString(args), m);
                 }
                 m.invoke(t, args);
             } catch (IllegalAccessException | IllegalArgumentException
@@ -286,18 +284,15 @@ public class Injector {
         return i.getImplementation(c, qualifiers);
     }
 
-    protected ClassLoader classLoader() {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        if (loader == null) {
+    protected List<ClassLoader> classLoaders() {
             // in OSGi, the context class loader is likely null.
             // This would trigger the use of the system class loader, which would
             // not see the OWLAPI jar, nor any other jar containing implementations.
             // In that case, use this class classloader to load, at a minimum, the
             // services provided by the OWLAPI jar itself.
-            loader = getClass().getClassLoader();
+        return Arrays.asList(Thread.currentThread().getContextClassLoader(),
+            ClassLoader.getSystemClassLoader(), getClass().getClassLoader());
         }
-        return loader;
-    }
 
     /**
      * @param type type to load
@@ -322,10 +317,10 @@ public class Injector {
             return cached.stream().map(s -> instantiate(s, key)).map(type::cast);
         }
         String name = "META-INF/services/" + type.getName();
-        LOGGER.info("Loading file {}", name);
+        LOGGER.debug("Loading file {}", name);
         // J2EE compatible search
-        return urls(name).flatMap(this::entries).distinct()
-            .map(s -> (Class<T>) prepareClass(s, key)).map(s -> instantiate(s, key));
+        return prepareClass(urls(name).flatMap(this::entries).distinct(), key, type)
+            .map(s -> instantiate(s, key));
     }
 
     @SuppressWarnings("unchecked")
@@ -342,9 +337,8 @@ public class Injector {
             }
             return (Constructor<T>) findAny.orElse(null);
         } catch (SecurityException e) {
-            LOGGER.error(
-                "No injectable constructor found for " + c + " because of security restrictions",
-                e);
+            LOGGER.error("No injectable constructor found for {} because of security restrictions", c);
+            LOGGER.error("Security restriction accessing constructor list", e);
             return null;
         }
     }
@@ -363,11 +357,21 @@ public class Injector {
     }
 
     @SuppressWarnings("unchecked")
-    private <T> Class<T> prepareClass(String s, Object key) {
+    private <T> Stream<Class<T>> prepareClass(Stream<String> types, Object key,
+        @SuppressWarnings("unused") Class<T> witness) {
+        List<Class<?>> l = typesCache.get(key);
+        if (l != null) {
+            return l.stream().map(x -> (Class<T>) x);
+        }
+        List<Class<T>> list = new ArrayList<>();
         try {
-            Class<?> forName = Class.forName(s);
-            typesCache.computeIfAbsent(key, x -> new ArrayList<>()).add(forName);
-            return (Class<T>) forName;
+            Iterator<String> iterator = types.iterator();
+            while (iterator.hasNext()) {
+                list.add((Class<T>) Class.forName(iterator.next()));
+            }
+            List<Class<?>> listToCache = new ArrayList<>(list);
+            typesCache.computeIfAbsent(key, x -> listToCache);
+            return list.stream();
         } catch (ClassNotFoundException | IllegalArgumentException | SecurityException e) {
             LOGGER.error("Instantiation failed", e);
             return null;
@@ -399,12 +403,14 @@ public class Injector {
     private Stream<URI> urls(String name) {
         List<URI> l = new ArrayList<>();
         try {
-            Enumeration<URL> resources = classLoader().getResources(name);
-            while (resources.hasMoreElements()) {
-                l.add(resources.nextElement().toURI());
+            for (ClassLoader cl : classLoaders()) {
+                Enumeration<URL> resources = cl.getResources(name);
+                while (resources.hasMoreElements()) {
+                    l.add(resources.nextElement().toURI());
+                }
             }
             if (l.isEmpty()) {
-                LOGGER.warn("No files found for {}", name);
+                LOGGER.debug("No files found for {}", name);
             }
         } catch (IOException | URISyntaxException e) {
             LOGGER.error("Error accessing services files", e);
