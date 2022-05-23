@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.impl;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
@@ -406,14 +405,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     @Override
     public Set<IRI> getPunnedIRIs(Imports includeImportsClosure) {
         return OWLOntology.getPunnedIRIs(includeImportsClosure.stream(this).flatMap(HasSignature::unsortedSignature));
-    }
-
-    @Override
-    public boolean containsReference(OWLEntity entity, Imports includeImportsClosure) {
-        if (includeImportsClosure == EXCLUDED) {
-            return ints.containsReference(entity);
-        }
-        return importsClosure().anyMatch(o -> o.containsReference(entity, EXCLUDED));
     }
 
     @Override
@@ -875,11 +866,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     @Override
     public boolean containsIndividualInSignature(IRI iri) {
         return ints.containsIndividualInSignature(iri);
-    }
-
-    @Override
-    public boolean containsReference(OWLEntity entity) {
-        return ints.containsReference(entity);
     }
 
     @Override
