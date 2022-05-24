@@ -44,7 +44,7 @@ public class Utf8TestCase extends TestBase {
         saveOntology(loadOntologyFromString(TestFiles.roundtripUTF8String, new FunctionalSyntaxDocumentFormat()));
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void testInvalidUTF8roundTripOWLXML() {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should fail parsing but is read
@@ -52,13 +52,7 @@ public class Utf8TestCase extends TestBase {
         ByteArrayInputStream in = new ByteArrayInputStream(
             TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
-        try {
-            new StreamDocumentSource(in).acceptParser(parser, getOWLOntology(), config);
-            fail("parsing should have failed, invalid input");
-        } catch (@SuppressWarnings("unused") Exception ex) {
-            // expected to fail, but actual exception depends on the parsers in
-            // the classpath
-        }
+        new StreamDocumentSource(in).acceptParser(parser, getOWLOntology(), config);
     }
 
     @Test

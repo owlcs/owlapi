@@ -83,7 +83,7 @@ import org.semanticweb.owlapi.search.Filters;
  * {@code KRSS2ObjectRenderer} is an extension of {@link KRSSObjectRenderer KRSSObjectRenderer}
  * which uses the extended vocabulary. <br>
  * <b>Abbreviations</b>
- * <table summary="Abbreviations">
+ * <table><caption>Abbreviations</caption>
  * <tr>
  * <td>CN</td>
  * <td>concept name</td>
@@ -103,7 +103,7 @@ import org.semanticweb.owlapi.search.Filters;
  * </table>
  * <br>
  * <b>KRSS concept language</b>
- * <table summary="KRSS concept language">
+ * <table><caption>KRSS concept language</caption>
  * <tr>
  * <td>KRSS</td>
  * <td>OWLClassExpression</td>
@@ -143,7 +143,7 @@ import org.semanticweb.owlapi.search.Filters;
  * </table>
  * <br>
  * <b>KRSS role language</b>
- * <table summary="KRSS role language">
+ * <table><caption>KRSS role language</caption>
  * <tr>
  * <td>KRSS</td>
  * <td>OWLObjectPropertyExpression</td>
@@ -157,7 +157,7 @@ import org.semanticweb.owlapi.search.Filters;
  * Each referenced class, object property as well as individual is defined using
  * <i>define-concept</i> resp. <i>define-primitive-concept</i>, <i>define-role</i> and
  * <i>define-individual</i>. In addition, axioms are translated as follows. <br>
- * <table summary="remarks">
+ * <table><caption>remarks</caption>
  * <tr>
  * <td>KRSS2</td>
  * <td>OWLAxiom</td>

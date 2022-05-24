@@ -114,6 +114,8 @@ public class RioOWLRDFParser extends AbstractRDFParser {
     /**
      * @param source
      *        the ontology source to parse
+     * @param format
+     *        format
      */
     void render(OWLOntologyDocumentSource source, @Nullable OWLDocumentFormat format) {
         if (ontologyManagerFactories.isEmpty()) {

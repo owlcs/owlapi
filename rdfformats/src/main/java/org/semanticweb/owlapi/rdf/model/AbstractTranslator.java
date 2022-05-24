@@ -284,7 +284,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.format = format;
         this.manager = checkNotNull(manager, "manager cannot be null");
-        graph = new RDFGraph(manager.getOWLDataFactory());
+        graph = new RDFGraph();
         this.useStrongTyping = useStrongTyping;
         multipleOccurrences = multiple;
         this.desharer = new OWLObjectDesharer(manager.getOWLDataFactory());
@@ -1306,6 +1306,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * Clear the graph.
      */
     public void reset() {
-        graph = new RDFGraph(manager.getOWLDataFactory());
+        graph = new RDFGraph();
     }
 }

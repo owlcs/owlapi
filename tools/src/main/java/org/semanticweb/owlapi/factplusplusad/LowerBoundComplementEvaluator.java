@@ -24,8 +24,8 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
 /**
- * Determine how many instances can an expression have. All methods return maximal n such that
- * expr\in CC^{>= n}, n >= 1
+ * Determine how many instances can an expression have. All methods return
+ * maximal n such that {@code expr\in CC^{>= n}, n >= 1}
  */
 class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
 

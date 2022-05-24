@@ -219,8 +219,7 @@ public class RioRenderer extends RDFRendererBase {
                 LOGGER.trace("triples={}", triples);
             }
         }
-        for (RDFTriple triple : triples) {
-            RDFTriple tripleToRender = remapNodesIfNecessary(node, triple);
+        for (RDFTriple tripleToRender : triples) {
             try {
                 if (!renderedStatements.contains(tripleToRender)) {
                     renderedStatements.add(tripleToRender);

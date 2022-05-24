@@ -256,7 +256,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         return write(" ");
     }
 
-    public OWLTutorialSyntaxObjectRenderer writeAnnotations(@SuppressWarnings("unused") OWLAxiom ax) {
+    public OWLTutorialSyntaxObjectRenderer writeAnnotations(OWLAxiom ax) {
         return this;
     }
 
@@ -300,7 +300,6 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         return write("</li>\n");
     }
 
-    @SuppressWarnings("unused")
     public OWLTutorialSyntaxObjectRenderer writePropertyCharacteristic(String str, OWLAxiom ax,
         OWLPropertyExpression prop) {
         write(keyword(str));
