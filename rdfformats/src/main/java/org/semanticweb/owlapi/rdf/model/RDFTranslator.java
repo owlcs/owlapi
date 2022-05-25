@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.documents.RDFLiteral;
@@ -80,7 +79,7 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     }
 
     @Override
-    protected void addTriple(RDFResource subject, RDFResourceIRI pred, @Nonnull RDFNode object) {
+    protected void addTriple(RDFResource subject, RDFResourceIRI pred, RDFNode object) {
         graph.addTriple(new RDFTriple(subject, pred, object));
     }
 
@@ -113,17 +112,17 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     }
 
     @Override
-    protected RDFLiteral getLiteralNode(@Nonnull OWLLiteral literal) {
+    protected RDFLiteral getLiteralNode(OWLLiteral literal) {
         return new RDFLiteral(literal);
     }
 
     @Override
-    protected RDFResourceIRI getPredicateNode(@Nonnull IRI iri) {
+    protected RDFResourceIRI getPredicateNode(IRI iri) {
         return new RDFResourceIRI(AbsoluteIRIHelper.verifyAbsolute(iri, format, ont));
     }
 
     @Override
-    protected RDFResourceIRI getResourceNode(@Nonnull IRI iri) {
+    protected RDFResourceIRI getResourceNode(IRI iri) {
         return new RDFResourceIRI(AbsoluteIRIHelper.verifyAbsolute(iri, format, ont));
     }
 }

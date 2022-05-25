@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.utilities;
 import java.util.Collection;
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 
 /**
@@ -125,7 +124,7 @@ public final class OWLAPIPreconditions {
      * @param object value to check
      * @throws IllegalArgumentException if object is negative
      */
-    public static void checkNotNegative(@Nonnegative long object) {
+    public static void checkNotNegative(long object) {
         checkNotNegative(object, () -> "this variable cannot be negative: " + object);
     }
 
@@ -136,7 +135,7 @@ public final class OWLAPIPreconditions {
      * @param message message for the illegal argument exception
      * @throws IllegalArgumentException if object is negative
      */
-    public static void checkNotNegative(@Nonnegative long object, String message) {
+    public static void checkNotNegative(long object, String message) {
         checkNotNegative(object, () -> message);
     }
 
@@ -147,7 +146,7 @@ public final class OWLAPIPreconditions {
      * @param message message for the illegal argument exception
      * @throws IllegalArgumentException if object is negative
      */
-    public static void checkNotNegative(@Nonnegative long object, Supplier<String> message) {
+    public static void checkNotNegative(long object, Supplier<String> message) {
         if (object < 0) {
             throw new IllegalArgumentException(message.get());
         }

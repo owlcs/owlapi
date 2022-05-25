@@ -439,7 +439,7 @@ Features:
 *    Added targeted parsing to allow one and only one parser to be tried on a document input source. Takes into account MIME type as well.
 *    Use MultiMap from Guava throughout V4.0.0 #153
 *    OBO parser updated and replaced with oboformat 5.5 release
-*    @Nonnull annotations and warnings
+*    annotations and warnings
 *    Centralised and uniformed sax parser factories
 *    OWLOntologyID to use Optional #160
 *    Refactored property hierarchy to remove generics.

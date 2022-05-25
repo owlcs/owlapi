@@ -63,7 +63,7 @@ public abstract class OWLOntologyChangeData implements HasSignature, Serializabl
     /**
      * @return a name for the object class
      */
-    protected String getName() {
+    public String getName() {
         return getClass().getSimpleName();
     }
 

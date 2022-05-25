@@ -3,7 +3,7 @@ plugins {
     id 'idea'
     id 'com.github.johnrengelman.shadow'   version '4.0.3'
     id 'me.champeau.gradle.jmh'   version '0.3.1'
-    id 'com.github.ben-manes.versions' version '0.17.0'
+    id 'com.github.ben-manes.versions' version '0.27.0'
 }
 dependencies {
     jmh 'org.openjdk.jmh:jmh-core:[1,2)'

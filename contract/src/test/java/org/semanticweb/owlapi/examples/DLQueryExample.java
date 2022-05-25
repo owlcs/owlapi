@@ -24,8 +24,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.semanticweb.owlapi.api.test.TestFiles;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.documents.StringDocumentSource;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;

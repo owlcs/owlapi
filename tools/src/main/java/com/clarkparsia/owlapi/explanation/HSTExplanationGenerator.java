@@ -23,7 +23,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -60,8 +59,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @param singleExplanationGenerator explanation generator to use
      */
     public HSTExplanationGenerator(TransactionAwareSingleExpGen singleExplanationGenerator) {
-        this.singleExplanationGenerator = checkNotNull(singleExplanationGenerator,
-            "singleExplanationGenerator cannot be null");
+        this.singleExplanationGenerator =
+            checkNotNull(singleExplanationGenerator, "singleExplanationGenerator cannot be null");
     }
 
     /**
@@ -191,8 +190,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     }
 
     @Override
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass,
-        @Nonnegative int maxExplanations) {
+    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass, int maxExplanations) {
         OWLAPIPreconditions.checkNotNegative(maxExplanations,
             "max explanations cannot be negative");
         Object max = maxExplanations == 0 ? "all" : Integer.valueOf(maxExplanations);
@@ -227,18 +225,19 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *
      * @param unsatClass the unsat class
      * @param mups The current justification for the current class. This corresponds to a node in
-     * the hitting set tree.
+     *        the hitting set tree.
      * @param allMups All of the MUPS that have been found - this set gets populated over the course
-     * of the tree building process. Initially this should just contain the first justification
+     *        of the tree building process. Initially this should just contain the first
+     *        justification
      * @param satPaths Paths that have been completed.
      * @param currentPathContents The contents of the current path. Initially this should be an
-     * empty set.
+     *        empty set.
      * @param maxExplanations the max explanations
      * @throws OWLException the oWL exception
      */
     private void constructHittingSetTree(OWLClassExpression unsatClass, Set<OWLAxiom> mups,
-        Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
-        Set<OWLAxiom> currentPathContents, int maxExplanations) throws OWLException {
+        Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents,
+        int maxExplanations) throws OWLException {
         LOGGER.info("MUPS {}: {}", Integer.valueOf(allMups.size()), mups);
         if (progressMonitor.isCancelled()) {
             return;
@@ -287,9 +286,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @throws OWLException the oWL exception
      */
     private List<OWLAxiom> recurse(OWLClassExpression unsatClass, Set<Set<OWLAxiom>> allMups,
-        Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents,
-        int maxExplanations, List<OWLAxiom> orderedMups, OWLAxiom axiom)
-        throws OWLException {
+        Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations,
+        List<OWLAxiom> orderedMups, OWLAxiom axiom) throws OWLException {
         Set<OWLAxiom> newMUPS = getNewMUPS(unsatClass, allMups, currentPathContents);
         // Generate a new node - i.e. a new justification set
         if (newMUPS.contains(axiom)) {
@@ -365,8 +363,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         List<OWLDeclarationAxiom> temporaryDeclarations) {
         // Remove the current axiom from all the ontologies it is included
         // in
-        Set<OWLOntology> ontologies = OntologyUtils.removeAxiom(axiom,
-            getReasoner().getRootOntology().importsClosure());
+        Set<OWLOntology> ontologies =
+            OntologyUtils.removeAxiom(axiom, getReasoner().getRootOntology().importsClosure());
         collectTemporaryDeclarations(axiom, temporaryDeclarations);
         for (OWLDeclarationAxiom decl : temporaryDeclarations) {
             OntologyUtils.addAxiom(decl, getReasoner().getRootOntology().importsClosure());

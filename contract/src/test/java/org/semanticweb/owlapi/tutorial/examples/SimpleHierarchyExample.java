@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 
 import java.io.PrintStream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -101,7 +99,6 @@ public final class SimpleHierarchyExample {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // We load an ontology from the URI specified
         // on the command line
-        @Nonnull
         String x = args[0];
         System.out.println(x);
         IRI documentIRI = manager.getOWLDataFactory().getIRI(x);

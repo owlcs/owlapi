@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -51,7 +50,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     }
 
     @Override
-    public void render(OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations) {
+    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) {
         checkNotNull(axiom, "axiom cannot be null");
         try {
             getWriter().write("Axiom: " + renderer.render(axiom) + "\n");

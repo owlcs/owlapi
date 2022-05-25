@@ -13,13 +13,13 @@
 package org.semanticweb.owlapi.tutorial.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologyFormat;
-import org.semanticweb.owlapi.tutorialowled2011.TutorialSyntaxStorerFactory;
 
 /**
  * Simple Rendering Example. Reads an ontology and then renders it.
@@ -50,7 +50,7 @@ public class RenderingExample {
         System.out.println("Logical IRI : " + ontology.getOntologyID());
         System.out.println("Format      : " + ontology.getFormat());
         /* Register the ontology storer with the manager */
-        manager.getOntologyStorers().add(new TutorialSyntaxStorerFactory());
+        manager.getOntologyStorers().add(new FunctionalSyntaxStorerFactory());
         /* Save using a different format */
         System.out.println("Storing     : " + outputDocumentIRI);
         ontology.saveOntology(new OWLTutorialSyntaxOntologyFormat(), outputDocumentIRI);
