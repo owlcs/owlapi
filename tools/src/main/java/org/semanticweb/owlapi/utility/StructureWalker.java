@@ -28,8 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /**
  * Structure walker for object walkers.
  *
- * @param <O>
- *        type to visit
+ * @param <O> type to visit
  */
 public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
 
@@ -38,20 +37,18 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     protected final AnnotationWalkingControl annotationWalkFlag;
 
     /**
-     * @param owlObjectWalker
-     *        callback object walker
+     * @param owlObjectWalker callback object walker
      */
     public StructureWalker(OWLObjectWalker<O> owlObjectWalker) {
         this(owlObjectWalker, AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY);
     }
 
     /**
-     * @param owlObjectWalker
-     *        callback object walker
-     * @param annotationWalkFlag
-     *        control flag for annotation walking
+     * @param owlObjectWalker callback object walker
+     * @param annotationWalkFlag control flag for annotation walking
      */
-    public StructureWalker(OWLObjectWalker<O> owlObjectWalker, AnnotationWalkingControl annotationWalkFlag) {
+    public StructureWalker(OWLObjectWalker<O> owlObjectWalker,
+        AnnotationWalkingControl annotationWalkFlag) {
         this.walkerCallback = owlObjectWalker;
         this.annotationWalkFlag = annotationWalkFlag;
     }
@@ -108,6 +105,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
         object.componentStream().forEach(this::accept);
     }
 
+    @SuppressWarnings("unchecked")
     private void accept(Object o) {
         if (o instanceof Collection) {
             ((Collection<OWLObject>) o).forEach(this::accept);

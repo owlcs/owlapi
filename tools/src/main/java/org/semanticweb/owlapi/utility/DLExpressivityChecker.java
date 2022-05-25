@@ -56,49 +56,46 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class DLExpressivityChecker implements OWLObjectVisitor {
 
     /**
-     * @return Collection of Languages that include all constructs used in the
-     *         ontology. Each language returned allows for all constructs found
-     *         and has no sublanguages that also allow for all constructs found.
-     *         E.g., if FL is returned, FL0 and FLMNUS cannot be returned.
+     * @return Collection of Languages that include all constructs used in the ontology. Each
+     *         language returned allows for all constructs found and has no sublanguages that also
+     *         allow for all constructs found. E.g., if FL is returned, FL0 and FLMNUS cannot be
+     *         returned.
      */
     public Collection<Languages> expressibleInLanguages() {
         return Arrays.stream(Languages.values()).filter(this::minimal).collect(Collectors.toList());
     }
 
     /**
-     * @param l
-     *        language to check
-     * @return true if l is minimal, i.e., all sublanguages of l cannot
-     *         represent all the constructs found, but l can.
+     * @param l language to check
+     * @return true if l is minimal, i.e., all sublanguages of l cannot represent all the constructs
+     *         found, but l can.
      */
     public boolean minimal(Languages l) {
         if (!l.components.containsAll(getOrderedConstructs())) {
             // not minimal because it does not cover the constructs found
             return false;
         }
-        return Arrays.stream(Languages.values()).filter(p -> p.isSubLanguageOf(l)).noneMatch(this::minimal);
+        return Arrays.stream(Languages.values()).filter(p -> p.isSubLanguageOf(l))
+            .noneMatch(this::minimal);
     }
 
     /**
-     * @param l
-     *        language to check
-     * @return true if l is sufficient to express the ontology, i.e., if all
-     *         constructs found in the ontology are included in the language
+     * @param l language to check
+     * @return true if l is sufficient to express the ontology, i.e., if all constructs found in the
+     *         ontology are included in the language
      */
     public boolean isWithin(Languages l) {
         return l.components.containsAll(getOrderedConstructs());
     }
 
     /**
-     * @param c
-     *        construct to check
+     * @param c construct to check
      * @return true if the matched constructs contain c.
      */
     public boolean has(Construct c) {
@@ -109,16 +106,14 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     private final List<OWLOntology> ontologies;
 
     /**
-     * @param ontologies
-     *        ontologies
+     * @param ontologies ontologies
      */
     public DLExpressivityChecker(Collection<OWLOntology> ontologies) {
         this.ontologies = new ArrayList<>(ontologies);
     }
 
     /**
-     * @param ontologies
-     *        ontologies
+     * @param ontologies ontologies
      */
     public DLExpressivityChecker(Stream<OWLOntology> ontologies) {
         this.ontologies = asList(ontologies);
@@ -175,10 +170,12 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         if (classExpression.isAnonymous()) {
             return false;
         }
-        return ontologies.stream().noneMatch(ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
+        return ontologies.stream()
+            .noneMatch(ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
     }
 
-    private void checkCardinality(OWLCardinalityRestriction<? extends OWLPropertyRange> restriction) {
+    private void checkCardinality(
+        OWLCardinalityRestriction<? extends OWLPropertyRange> restriction) {
         if (restriction.isQualified()) {
             addConstruct(Q);
         } else {
@@ -218,7 +215,8 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         map.put(OWLObjectType.DATA_DOMAIN, l(ROLE_DOMAIN_RANGE, D));
         map.put(OWLObjectType.OBJECT_DOMAIN, l(ROLE_DOMAIN_RANGE));
         map.put(OWLObjectType.EQUIVALENT_OBJECT, l(ROLE_HIERARCHY));
-        map.put(OWLObjectType.DIFFERENT_INDIVIDUALS, l(CONCEPT_UNION, NOMINALS, CONCEPT_COMPLEX_NEGATION));
+        map.put(OWLObjectType.DIFFERENT_INDIVIDUALS,
+            l(CONCEPT_UNION, NOMINALS, CONCEPT_COMPLEX_NEGATION));
         map.put(OWLObjectType.DISJOINT_DATA, l(D));
         map.put(OWLObjectType.DISJOINT_OBJECT, l(ROLE_COMPLEX));
         map.put(OWLObjectType.OBJECT_RANGE, l(ROLE_DOMAIN_RANGE));
@@ -240,16 +238,19 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         return map;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void doDefault(OWLObject object) {
         if (object instanceof OWLCardinalityRestriction) {
             checkCardinality((OWLCardinalityRestriction<? extends OWLPropertyRange>) object);
             return;
         }
-        constructMap.getOrDefault(object.type(), Collections.emptyList()).forEach(this::addConstruct);
+        constructMap.getOrDefault(object.type(), Collections.emptyList())
+            .forEach(this::addConstruct);
         object.componentStream().forEach(this::iterate);
     }
 
+    @SuppressWarnings("unchecked")
     protected void iterate(Object o) {
         if (o instanceof Collection) {
             ((Collection<? extends OWLObject>) o).forEach(this::accept);
