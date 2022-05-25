@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnonymousIndivid
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
      * @param m The manager providing data factory and config to be used for the duplication.
      */
     public AnonymousIndividualsNormaliser(OWLOntologyManager m) {
-        super(m);
+        super(Collections.emptyMap(), Collections.emptyMap(), m);
     }
 
     public Set<OWLAxiom> getNormalisedAxioms(Collection<OWLAxiom> axioms) {
@@ -56,6 +57,6 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     @Override
     public OWLAnonymousIndividual visit(OWLAnonymousIndividual individual) {
         return renamingMap.computeIfAbsent(individual,
-                        x -> AnonymousIndividual("anon-ind-" + counter.incrementAndGet()));
+            x -> AnonymousIndividual("anon-ind-" + counter.incrementAndGet()));
     }
 }
