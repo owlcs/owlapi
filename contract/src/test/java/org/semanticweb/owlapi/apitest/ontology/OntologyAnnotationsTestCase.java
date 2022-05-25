@@ -19,13 +19,10 @@ import static org.semanticweb.owlapi.apitest.TestEntities.AP;
 
 import org.semanticweb.owlapi.apitest.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
@@ -33,9 +30,9 @@ public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology();
-        OWLLiteral value = Literal(33);
-        OWLAnnotation annotation = Annotation(AP, value);
-        ont.applyChange(new AddOntologyAnnotation(ont, annotation));
+        ont.applyChange(new AddOntologyAnnotation(ont, Annotation(AP, Literal(33))));
+        ont.applyChange(
+            new AddOntologyAnnotation(ont, Annotation(df.getOWLVersionInfo(), Literal("test"))));
         ont.addAxiom(Declaration(AP));
         return ont;
     }
